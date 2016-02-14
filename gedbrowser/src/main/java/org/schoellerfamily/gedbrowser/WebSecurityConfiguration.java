@@ -1,8 +1,10 @@
 package org.schoellerfamily.gedbrowser;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -65,7 +67,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private Set<User> readUserFile() {
         final String userFile = "/var/lib/gedbrowser/userFile.csv";
         final Set<User> set = new HashSet<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(userFile))) {
+        try (
+                final FileInputStream fis = new FileInputStream(userFile);
+                final Reader reader = new InputStreamReader(fis, "UTF-8");
+                final BufferedReader br = new BufferedReader(reader);
+                ) {
             String line;
             while ((line = br.readLine()) != null) {
                 final String[] userFields = line.split(",");
