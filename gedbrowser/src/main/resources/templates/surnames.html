@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Surnames</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="menubar">
+        <span class="left">
+            <span><a th:href="${index.homeUrl}">Home</a></span>
+            <span><a href="">Index</a></span>
+        </span>
+        <div  th:if="${#httpServletRequest.remoteUser} != null" class="right">
+            <form th:action="@{/logout}" method="post">
+                <input class="menubar" type="submit" th:value="'Logout ' + ${#httpServletRequest.remoteUser}"/>
+            </form>
+        </div>
+        <span th:if="${#httpServletRequest.remoteUser} == null" class="right" th:inline="text"><a th:href="@{/login}">Login</a></span>
+    </div>
+    <h2>Index</h2>
+    <h3>Pick an initial letter</h3>
+    <span th:each="letter : ${index.letters}" th:utext="${letter} + ' &nbsp; '">[ A ]</span>
+    <h3 th:utext="'Index of names beginning with ' + ${index.base}">Index of names beginning with ${index.base}</h3>
+    <ul>
+        <li th:each="surname : ${index.surnames}"><a th:name="${surname}"></a><span th:utext="${surname}" class="label">surname</span>
+            <ul>
+                <li th:each="name : ${index.getIndexNameHtmls(surname)}" th:utext="${name}">name</li>
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>

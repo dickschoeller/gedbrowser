@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Login to GedBrowser</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="menubar">
+        <span><a href="http://www.schoellerfamily.org/">Home</a></span>
+    </div>
+    <div class="login" align="center">
+        <h2 class="login">Welcome to GED Browser</h2>
+        <div th:if="${param.error}">Invalid username and password.</div>
+        <div th:if="${param.logout}">You have been logged out.</div>
+        <form th:action="@{/login}" method="post">
+            <table class="wrapper">
+                <tr>
+                    <td align="center">
+                        <table class="login">
+                            <tr><td class="form">Username:</td><td><input type="text" name="username"/></td></tr>
+                            <tr><td class="form">Password:</td><td><input type="password" name="password"/></td></tr>
+                            <tr><td class="form" colspan="2" align="center"><input type="submit" value="Login"/></td></tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

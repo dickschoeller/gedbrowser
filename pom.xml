@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://maven.apache.org/POM/4.0.0
+            http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.schoellerfamily.gedbrowser</groupId>
+  <artifactId>gedbrowser-top</artifactId>
+  <version>0.9.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <organization>
+     <name>Schoeller Family Software</name>
+     <url>http://www.schoellerfamily.org</url>
+  </organization>
+
+  <developers>
+    <developer>
+      <name>Dick Schoeller</name>
+      <email>schoeller@comcast.net</email>
+      <roles>
+        <role>Chief Cook</role>
+        <role>Bottle Washer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <spring-boot.version>1.1.6.RELEASE</spring-boot.version>
+    <thymeleaf.version>2.1.3.RELEASE</thymeleaf.version>
+    <spring.version>4.0.9.RELEASE</spring.version>
+    <junit.version>4.12</junit.version>
+    <selenium.version>2.48.2</selenium.version>
+    <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
+    <cglib.version>3.1</cglib.version>
+    <spring-data-mongodb.version>1.7.0.RELEASE</spring-data-mongodb.version>
+    <slf4j.version>1.7.12</slf4j.version>
+  </properties>
+
+  <name>gedbrowser POM</name>
+  <description>GED Browser Top Level</description>
+  
+  <modules>
+    <module>gedbrowser-datamodel</module>
+    <module>gedbrowser-analytics</module>
+    <module>gedbrowser-reader</module>
+    <module>gedbrowser-renderer</module>
+    <module>gedbrowser-mongo-dao</module>
+    <module>gedbrowser</module>
+    <module>gedbrowser-selenium</module>
+  </modules>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>3.0.3</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.17</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.6</version>
+        <configuration>
+          <linkXRef>true</linkXRef>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <targetJdk>1.7</targetJdk>
+          <rulesets>
+            <ruleset>/rulesets/basic.xml</ruleset>
+            <ruleset>/rulesets/unusedcode.xml</ruleset>
+            <ruleset>/rulesets/imports.xml</ruleset>
+            <ruleset>/rulesets/coupling.xml</ruleset>
+            <ruleset>/rulesets/unusedcode.xml</ruleset>
+            <ruleset>/rulesets/design.xml</ruleset>
+            <ruleset>/rulesets/codesize.xml</ruleset>
+            <ruleset>/rulesets/comments.xml</ruleset>
+            <ruleset>/rulesets/junit.xml</ruleset>
+            <ruleset>/rulesets/optimization.xml</ruleset>
+            <ruleset>/rulesets/sunsecure.xml</ruleset>
+          </rulesets>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>findbugs-maven-plugin</artifactId>
+          <version>3.0.3</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>2.19</version>
+        </plugin>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.7.5.201505241946</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.3</version>
+          <configuration>
+            <source>1.7</source>
+            <target>1.7</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>2.6</version>
+        </plugin>
+         <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>1.2.3.RELEASE</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>2.17</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <distributionManagement>
+    <repository>
+      <id>schoellerfamily-releases</id>
+      <name>Internal Releases</name>
+      <url>http://minitokyo.schoellerfamily.org:8081/nexus/content/repositories/releases</url>
+    </repository>
+
+  <snapshotRepository>
+    <id>schoellerfamily-snapshots</id>
+    <url>http://minitokyo.schoellerfamily.org:8081/nexus/content/repositories/snapshots</url>
+  </snapshotRepository>
+
+
+  </distributionManagement>
+
+  <repositories>
+    <repository>
+      <id>schoellerfamily</id>
+      <name>Local Nexus</name>
+      <url>http://minitokyo.schoellerfamily.org:8081/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+
+</project>

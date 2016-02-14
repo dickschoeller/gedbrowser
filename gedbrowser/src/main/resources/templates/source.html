@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="'Source: ' + ${source.idString} + ' - ' + ${source.titleString}">GedBrowser Source</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="menubar">
+        <span class="left">
+            <span><a th:href="${source.homeUrl}">Home</a></span>
+            <span><a th:href="${source.indexHref}">Index</a></span>
+        </span>
+        <div  th:if="${#httpServletRequest.remoteUser} != null" class="right">
+            <form th:action="@{/logout}" method="post">
+                <input class="menubar" type="submit" th:value="'Logout ' + ${#httpServletRequest.remoteUser}"/>
+            </form>
+        </div>
+        <span th:if="${#httpServletRequest.remoteUser} == null" class="right" th:inline="text"><a th:href="@{/login}">Login</a></span>
+    </div>
+    <div th:if="${not source.getAttributes().isEmpty()}">
+        <hr class="attributes"/>
+        <h3 class="attributes" th:text="'Source: ' + ${source.idString} + ' - ' + ${source.titleString}"></h3>
+        <ul>
+            <!-- FIXME utext is necessary because many listItemContents variants contain HTML formatting -->
+            <li th:each="attribute : ${source.getAttributes()}" th:utext="${attribute.listItemContents}"></li>
+        </ul>
+    </div>
+
+    <hr class="final"/>
+    <table class="buttonrow">
+        <tr class="buttonrow">
+            <td class="brleft">
+                <!-- TODO should use a getter for my email -->
+                <p class="maintainer">Maintained by <a th:href="'mailto:' + ${appInfo.maintainerEmail}" th:text="${appInfo.maintainerName}"></a>.<br/>
+                Created with <a th:href="${appInfo.applicationURL}" th:text="${appInfo.name}"></a>, version <span th:text="${appInfo.version}">2.0</span> on <span th:text="${#dates.format(#dates.createToday(),'MMMMM dd, yyyy')}"></span></p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
