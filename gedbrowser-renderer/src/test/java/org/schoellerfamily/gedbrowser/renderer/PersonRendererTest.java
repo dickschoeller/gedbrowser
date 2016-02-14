@@ -15,6 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
  * @author Dick Schoeller
  */
 public final class PersonRendererTest {
+	/** */
     private transient RenderingContext adminContext;
 
     /**
