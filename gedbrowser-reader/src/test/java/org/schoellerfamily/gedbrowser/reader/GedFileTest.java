@@ -2,11 +2,7 @@ package org.schoellerfamily.gedbrowser.reader;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.List;
 
 import org.junit.Test;
@@ -17,12 +13,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
  * @author Dick Schoeller
  */
 public class GedFileTest {
-    /**
-     * Directory containing test data files.
-     */
-    private static final String DATA_DIR =
-            "/org/schoellerfamily/gedbrowser/reader/data/";
-
     /**
      * Test GedLine with an array input.
      *
