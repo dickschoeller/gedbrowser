@@ -7,3 +7,6 @@ you to browse around the data from GEDCOM files found in /var/lib/gedbrowser.
 
 A running example can be accessed at
 http://www.schoellerfamily.org/gedbrowser/person?db=schoeller&id=I3459
+
+Task board for this project's issues:
+https://overv.io/workspace/dickschoeller/comfortable-seahorse/board/
