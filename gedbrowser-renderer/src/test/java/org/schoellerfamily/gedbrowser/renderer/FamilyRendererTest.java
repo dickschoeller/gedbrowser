@@ -221,8 +221,10 @@ public final class FamilyRendererTest {
      */
     @Test
     public void testRenderVivianSpouses() throws IOException {
+        final User user = new User();
+        user.setUsername("dick");
         final RenderingContext adminContext =
-                new RenderingContext("dick", true, true);
+                new RenderingContext(user, true, true);
         final GedObject root = TestDataReader.getInstance().readBigTestSource();
         final Person vivian = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(vivian,

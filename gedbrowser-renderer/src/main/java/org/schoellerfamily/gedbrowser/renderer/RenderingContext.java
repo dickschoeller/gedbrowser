@@ -6,14 +6,14 @@ package org.schoellerfamily.gedbrowser.renderer;
  * @author Dick Schoeller
  */
 public final class RenderingContext {
-    /** Name of the current user. */
-    private final String name;
-
     /** Whether this is an identified user. */
-    private final boolean user;
+    private final boolean isUser;
 
     /** Whether this user is an administrator. */
-    private final boolean admin;
+    private final boolean isAdmin;
+
+    /** User detail object for use in rendering. */
+    private final User user;
 
     /**
      * Special case anonymous context.
@@ -21,7 +21,11 @@ public final class RenderingContext {
      * @return the created context
      */
     public static RenderingContext anonymous() {
-        return new RenderingContext("Anonymous", false, false);
+        final User user2 = new User();
+        user2.setUsername("Anonymous");
+        user2.setFirstname("Al");
+        user2.setLastname("Anonymous");
+        return new RenderingContext(user2, false, false);
     }
 
     /**
@@ -30,41 +34,51 @@ public final class RenderingContext {
      * @return the created context
      */
     public static RenderingContext user() {
-        return new RenderingContext("User", true, false);
+        final User user2 = new User();
+        user2.setUsername("User");
+        user2.setFirstname("Ursula");
+        user2.setLastname("User");
+        return new RenderingContext(user2, true, false);
     }
 
     /**
      * Constructor with authorities.
-     *
-     * @param name the name of this user
-     * @param user whether it is an identified user
-     * @param admin whether this user is an administrator
+     * @param user the user detail object
+     * @param isUser whether it is an identified user
+     * @param isAdmin whether this user is an administrator
      */
-    public RenderingContext(final String name, final boolean user,
-            final boolean admin) {
-        this.name = name;
+    public RenderingContext(final User user, final boolean isUser,
+            final boolean isAdmin) {
+        this.isUser = isUser;
+        this.isAdmin = isAdmin;
         this.user = user;
-        this.admin = admin;
     }
 
     /**
      * @return the user's name
      */
     public String getName() {
-        return name;
+        return user.getUsername();
     }
 
     /**
      * @return true if it is an identified user
      */
     public boolean isUser() {
-        return user;
+        return isUser;
     }
 
     /**
      * @return true if the user is an administrator
      */
     public boolean isAdmin() {
-        return admin;
+        return isAdmin;
+    }
+
+    /**
+     * @return user's first name
+     */
+    public String getFirstname() {
+        return user.getFirstname();
     }
 }

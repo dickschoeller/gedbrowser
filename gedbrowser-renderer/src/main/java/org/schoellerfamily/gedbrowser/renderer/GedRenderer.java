@@ -508,4 +508,11 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
     protected final RenderingContext getRenderingContext() {
         return renderingContext;
     }
+
+    /**
+     * @return user's first name
+     */
+    public final String getUserFirstname() {
+        return renderingContext.getFirstname();
+    }
 }
