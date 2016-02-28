@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.controller;
 
 import java.util.logging.Logger;
 
+import org.schoellerfamily.gedbrowser.Users;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -10,6 +11,7 @@ import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NameRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,6 +30,10 @@ public class PersonController {
     /** */
     @Autowired
     private transient GedFileLoader loader;
+
+    /** */
+    @Autowired
+    private transient Users users;
 
     /**
      * Connects HTML template file with data for the person page.
@@ -49,8 +55,9 @@ public class PersonController {
         Logger.getGlobal().entering("PersonController", "person");
         final Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
+        final User user = users.get(authentication.getName());
         final RenderingContext renderingContext =
-                new RenderingContextBuilder(authentication).build();
+                new RenderingContextBuilder(authentication, user).build();
 
         String nameString;
 

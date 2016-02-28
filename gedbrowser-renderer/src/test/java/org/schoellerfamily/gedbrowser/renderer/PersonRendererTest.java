@@ -483,7 +483,9 @@ public final class PersonRendererTest {
     @Before
     public void init() {
         userContext = RenderingContext.user();
-        adminContext = new RenderingContext("dick", true, true);
+        final User user = new User();
+        user.setUsername("dick");
+        adminContext = new RenderingContext(user, true, true);
     }
 
     /**

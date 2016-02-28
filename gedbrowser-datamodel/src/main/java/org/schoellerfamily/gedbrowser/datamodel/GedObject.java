@@ -12,7 +12,7 @@ public class GedObject {
     /** */
     protected static final String DEFAULT_IDX_NAME = "";
     /** */
-    public static final String VERSION = "1.99.99";
+    public static final String VERSION = "1.0.0-SNAPSHOT";
     /** */
     protected static final String DEFAULT_SURNAME = "";
     /** */

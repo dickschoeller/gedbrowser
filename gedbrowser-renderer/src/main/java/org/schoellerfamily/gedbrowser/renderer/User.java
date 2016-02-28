@@ -1,8 +1,7 @@
-package org.schoellerfamily.gedbrowser;
+package org.schoellerfamily.gedbrowser.renderer;
 
 import java.util.HashSet;
 import java.util.Set;
-
 
 /**
  * A basic user record.
