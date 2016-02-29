@@ -8,5 +8,5 @@ you to browse around the data from GEDCOM files found in /var/lib/gedbrowser.
 A running example can be accessed at
 http://www.schoellerfamily.org/gedbrowser/surnames?db=schoeller&letter=A
 
-* [Overv]{https://overv.io/workspace/dickschoeller/comfortable-seahorse/board/} task board
-* [ReviewNinja]{https://app.review.ninja/dickschoeller/gedbrowser} code reviews
+* [Overv](https://overv.io/workspace/dickschoeller/comfortable-seahorse/board/) task board
+* [ReviewNinja](https://app.review.ninja/dickschoeller/gedbrowser) code reviews
