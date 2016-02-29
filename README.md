@@ -15,7 +15,7 @@ http://www.schoellerfamily.org/gedbrowser/surnames?db=schoeller&letter=A
 
 ## Tooling
 
-* ![](https://lh3.googleusercontent.com/-VR1bngpD6Mk/AAAAAAAAAAI/AAAAAAAAAUU/pbSWNJjHMys/s46-c-k-no/photo.jpg =25x25) [Overv.io](https://overv.io/workspace/dickschoeller/comfortable-seahorse/board/) task board
+* ![](overvio.png) [Overv.io](https://overv.io/workspace/dickschoeller/comfortable-seahorse/board/) task board
 * [ReviewNinja](https://app.review.ninja/dickschoeller/gedbrowser) code reviews
 
 ## Technology
