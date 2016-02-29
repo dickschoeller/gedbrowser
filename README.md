@@ -20,6 +20,6 @@ http://www.schoellerfamily.org/gedbrowser/surnames?db=schoeller&letter=A
 
 ## Technology
 
-* Spring
-* MongoDB
-* Thymeleaf
+* ![](spring-25.png) [Spring](https://spring.io/)
+* ![](mongodb-25.png) [MongoDB](https://www.mongodb.org/)
+* ![](thymeleaf-25.png) [Thymeleaf](http://www.thymeleaf.org/)
