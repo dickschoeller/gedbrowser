@@ -148,7 +148,6 @@ public class GedFileLoader {
             headDocumentRepository.deleteAll();
             submittorDocumentRepository.deleteAll();
             trailerDocumentRepository.deleteAll();
-            needsReset = false;
         }
     }
 
