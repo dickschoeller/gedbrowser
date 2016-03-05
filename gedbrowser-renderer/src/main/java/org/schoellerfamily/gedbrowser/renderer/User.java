@@ -98,20 +98,30 @@ public final class User {
      * @return the set of roles for this user
      */
     public String[] getRoles() {
-        return this.roles.toArray(new String[0]);
+        return roles.toArray(new String[0]);
     }
 
     /**
      * @param role the role to add to the role set
      */
     public void addRole(final String role) {
-        this.roles.add(role);
+        roles.add(role);
     }
 
     /**
      * Clear the role set.
      */
     public void clearRoles() {
-        this.roles.clear();
+        roles.clear();
+    }
+
+    /**
+     * Check if the user has a particular role.
+     *
+     * @param role role that we are looking for
+     * @return true if the user has the role
+     */
+    public boolean hasRole(final String role) {
+        return roles.contains(role);
     }
 }

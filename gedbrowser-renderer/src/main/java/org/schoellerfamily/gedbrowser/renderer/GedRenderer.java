@@ -515,4 +515,14 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
     public final String getUserFirstname() {
         return renderingContext.getFirstname();
     }
+
+    /**
+     * Check if the user in the rendering context has a particular role.
+     *
+     * @param role role that we are looking for
+     * @return true if the user has the role
+     */
+    public final boolean hasRole(final String role) {
+        return renderingContext.hasRole(role);
+    }
 }
