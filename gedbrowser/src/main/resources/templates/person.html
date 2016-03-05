@@ -10,7 +10,7 @@
         <span class="left">
             <span><a th:href="${person.homeUrl}">Home</a></span>
             <span><a th:href="${person.indexHref}">Index</a></span>
-            <span><a th:if="${person.hasRole('ADMIN')}">Living</a></span>
+            <span><a th:if="${person.hasRole('ADMIN')}" th:href="${person.livingHref}">Living</a></span>
             <!-- span><a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Living</a></span -->
         </span>
         <div  th:if="${#httpServletRequest.remoteUser} != null" class="right">
