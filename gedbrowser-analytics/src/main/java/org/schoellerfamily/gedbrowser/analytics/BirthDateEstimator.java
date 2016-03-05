@@ -80,7 +80,7 @@ public class BirthDateEstimator {
         if (localDate != null) {
             return localDate;
         }
-        localDate = estimateFromSpouse();
+        localDate = estimateFromSpouse(true);
         if (localDate != null) {
             return localDate;
         }
@@ -104,52 +104,12 @@ public class BirthDateEstimator {
         if (localDate != null) {
             return localDate;
         }
-        localDate = estimateFromSpousesSpouses();
+        localDate = estimateFromSpouse(false);
         if (localDate != null) {
             return localDate;
         }
 
         return localDate;
-    }
-
-    /**
-     * This one works on the situation where an additional spouse
-     * name is given in some source, but only the dates for others.
-     *
-     * @return the estimate from other spouses
-     */
-    private LocalDate estimateFromSpousesSpouses() {
-        LocalDate date = null;
-        int delta = 0;
-        final List<Family> families = person
-                .getFamilies(new ArrayList<Family>());
-        for (final Family family : families) {
-            final Person mother = family.getMother();
-            final Person father = family.getFather();
-            Person spouse;
-            if (person.equals(mother)) {
-                if (father == null) {
-                    continue;
-                }
-                spouse = father;
-                delta = TYPICAL_GAP_BETWEEN_SPOUSES;
-            } else {
-                if (mother == null) {
-                    continue;
-                }
-                spouse = mother;
-                delta = -TYPICAL_GAP_BETWEEN_SPOUSES;
-            }
-            final BirthDateEstimator bde = createEstimator(spouse);
-            date = bde.estimateFromSpouse();
-            if (date != null) {
-                break;
-            }
-        }
-        if (date != null) {
-            date = date.plusYears(delta).withDayOfMonth(1);
-        }
-        return date;
     }
 
     /**
@@ -165,7 +125,7 @@ public class BirthDateEstimator {
                     continue;
                 }
                 final BirthDateEstimator bde = createEstimator(sibling);
-                date = bde.estimateFromSpouse();
+                date = bde.estimateFromSpouse(true);
                 if (date != null) {
                     break;
                 }
@@ -256,7 +216,7 @@ public class BirthDateEstimator {
                 .getFamiliesC(new ArrayList<Family>());
         LocalDate date = null;
         for (final Family family : families) {
-            Person father = family.getFather();
+            final Person father = family.getFather();
             if (father != null) {
                 final BirthDateEstimator bde = createEstimator(father);
                 date = bde.estimateFromOtherEvents();
@@ -611,7 +571,7 @@ public class BirthDateEstimator {
                     if (date != null) {
                         break;
                     }
-                    date = bde.estimateFromSpouse();
+                    date = bde.estimateFromSpouse(true);
                     if (date != null) {
                         break;
                     }
@@ -637,9 +597,10 @@ public class BirthDateEstimator {
     }
 
     /**
+     * @param shortEstimate whether to do a short estimate or a deep estimate
      * @return the estimate from own marriages
      */
-    private LocalDate estimateFromSpouse() {
+    private LocalDate estimateFromSpouse(final boolean shortEstimate) {
         LocalDate date = null;
         int delta = 0;
         final List<Family> families = person
@@ -662,7 +623,12 @@ public class BirthDateEstimator {
                 delta = -TYPICAL_GAP_BETWEEN_SPOUSES;
             }
             final BirthDateEstimator bde = createEstimator(spouse);
-            date = bde.shortEstimate();
+            // TODO can we do a template method or similar pattern here?
+            if (shortEstimate) {
+                date = bde.shortEstimate();
+            } else {
+                date = bde.estimateFromSpouse(true);
+            }
             if (date != null) {
                 break;
             }
