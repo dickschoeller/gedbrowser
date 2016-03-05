@@ -140,7 +140,7 @@ public class GedFileLoader {
      * Reset the data.
      */
     public final void reset() {
-        if (needsReset) {
+        if (checkNeedsReset()) {
             rootDocumentRepository.deleteAll();
             personDocumentRepository.deleteAll();
             familyDocumentRepository.deleteAll();
@@ -150,5 +150,18 @@ public class GedFileLoader {
             trailerDocumentRepository.deleteAll();
             needsReset = false;
         }
+    }
+
+    /**
+     * Check whether to reset and then clear the flag.
+     *
+     * @return if needs reset
+     */
+    public static final boolean checkNeedsReset() {
+        final boolean retVal = needsReset;
+        if (retVal) {
+            needsReset = false;
+        }
+        return retVal;
     }
 }
