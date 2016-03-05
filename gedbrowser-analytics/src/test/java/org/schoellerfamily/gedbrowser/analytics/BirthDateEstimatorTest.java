@@ -826,7 +826,7 @@ public class BirthDateEstimatorTest {
      * @throws IOException because reader might throw.
      */
     private AbstractGedLine readFileTestSource() throws IOException {
-		return ReaderHelper.readFileTestSource(this,
-				"/var/lib/gedbrowser/schoeller.ged");
+        return ReaderHelper.readFileTestSource(this,
+                "/var/lib/gedbrowser/schoeller.ged");
     }
 }

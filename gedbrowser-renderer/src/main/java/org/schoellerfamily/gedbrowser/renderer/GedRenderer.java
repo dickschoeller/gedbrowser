@@ -525,4 +525,11 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
     public final boolean hasRole(final String role) {
         return renderingContext.hasRole(role);
     }
+
+    /**
+     * @return the href string to the living estimator.
+     */
+    public final String getLivingHref() {
+        return "living?db=" + getGedObject().getDbName();
+    }
 }
