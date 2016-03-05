@@ -81,4 +81,17 @@ public final class RenderingContext {
     public String getFirstname() {
         return user.getFirstname();
     }
+
+    /**
+     * Check if the user has a particular role.
+     *
+     * @param role role that we are looking for
+     * @return true if the user has the role
+     */
+    public boolean hasRole(final String role) {
+        if (user == null) {
+            return false;
+        }
+        return user.hasRole(role);
+    }
 }
