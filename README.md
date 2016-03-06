@@ -26,3 +26,4 @@ of data loading is planned for the future.
 * ![](spring-25.png) [Spring](https://spring.io/)
 * ![](mongodb-25.png) [MongoDB](https://www.mongodb.org/)
 * ![](thymeleaf-25.png) [Thymeleaf](http://www.thymeleaf.org/)
+* ![](genealogy-net-25.png) [GEDCOM](http://wiki-en.genealogy.net/GEDCOM)
