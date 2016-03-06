@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.analytics;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -103,7 +104,11 @@ public final class LivingEstimator {
     /**
      * @author Dick Schoeller
      */
-    private static class BucketComparator implements Comparator<Person> {
+    private static class BucketComparator implements Comparator<Person>,
+            Serializable {
+        /** */
+        private static final long serialVersionUID = 1L;
+
         /**
          * Implements comparison by sorting by index name (and ID if names are
          * the same.
