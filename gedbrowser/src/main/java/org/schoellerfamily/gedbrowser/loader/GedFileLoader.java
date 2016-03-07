@@ -29,6 +29,7 @@ import org.schoellerfamily.gedbrowser.persistence.repository.
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * @author Dick Schoeller
@@ -70,6 +71,10 @@ public class GedFileLoader {
     @Autowired
     private transient FinderStrategy finder;
 
+    /** */
+    @Value("${gedbrowser.home}")
+    private transient String gedbrowserHome;
+
     /**
      * Constructor.
      */
@@ -101,7 +106,7 @@ public class GedFileLoader {
      * @return the derived filename
      */
     private String buildFileName(final String dbName) {
-        return "/var/lib/gedbrowser/" + dbName + ".ged";
+        return gedbrowserHome + "/" + dbName + ".ged";
     }
 
     /**

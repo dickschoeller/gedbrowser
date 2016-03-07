@@ -11,6 +11,7 @@ import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,11 @@ public class SourceController {
     /** */
     @Autowired
     private transient Users users;
+
+
+    /** */
+    @Value("${gedbrowser.home}")
+    private transient String gedbrowserHome;
 
     /**
      * Connects HTML template file with data for the source page.
@@ -56,7 +62,7 @@ public class SourceController {
                 new RenderingContextBuilder(authentication, user).build();
         String sourceString;
 
-        final String filename = "/var/lib/gedbrowser" + dbName + ".ged";
+        final String filename = gedbrowserHome + "/" + dbName + ".ged";
 
         loader.reset();
 
