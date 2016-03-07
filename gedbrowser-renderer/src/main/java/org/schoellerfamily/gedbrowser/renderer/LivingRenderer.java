@@ -35,16 +35,18 @@ public final class LivingRenderer extends GedRenderer<Root> {
      * @return the buckets by 10 year bands
      */
     public List<Bucket> getBuckets() {
-        final Root root = getGedObject();
-        final List<Person> living = new ArrayList<>();
-        final Map<Integer, Set<Person>> buckets = new HashMap<>();
-        final List<Person> dead = new ArrayList<>();
-        LivingEstimator.fillBuckets(root, living, dead, buckets);
         final List<Bucket> bucketList = new ArrayList<>();
-        // FIXME this involves too much knowledge of bucket structure
-        for (int lower = 0; lower < ANCIENT; lower += AGE_BUCKET_SIZE) {
-            final Bucket bucket = createBucket(buckets, lower);
-            bucketList.add(bucket);
+        if (getRenderingContext().hasRole("ADMIN")) {
+            final Root root = getGedObject();
+            final List<Person> living = new ArrayList<>();
+            final Map<Integer, Set<Person>> buckets = new HashMap<>();
+            final List<Person> dead = new ArrayList<>();
+            LivingEstimator.fillBuckets(root, living, dead, buckets);
+            // FIXME this involves too much knowledge of bucket structure
+            for (int lower = 0; lower < ANCIENT; lower += AGE_BUCKET_SIZE) {
+                final Bucket bucket = createBucket(buckets, lower);
+                bucketList.add(bucket);
+            }
         }
         return bucketList;
     }
@@ -70,8 +72,11 @@ public final class LivingRenderer extends GedRenderer<Root> {
     private List<PersonRenderer> createPersonRenderers(
             final Map<Integer, Set<Person>> buckets, final int lower) {
         final List<PersonRenderer> persons = new ArrayList<>();
-        for (final Person person : buckets.get(lower)) {
-            persons.add((PersonRenderer) createGedRenderer(person));
+        final Set<Person> bucket = buckets.get(lower);
+        if (bucket != null) {
+            for (final Person person : bucket) {
+                persons.add((PersonRenderer) createGedRenderer(person));
+            }
         }
         return persons;
     }
