@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 import org.schoellerfamily.gedbrowser.renderer.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,6 +16,9 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class UsersConfiguration {
+    /** */
+    @Value("${gedbrowser.home}")
+    private transient String gedbrowserHome;
 
     /**
      * This is the bean to get the definitions of users that we need
@@ -34,7 +38,7 @@ public class UsersConfiguration {
      * @return the set of users from the user file
      */
     private Users readUserFile() {
-        final String userFile = "/var/lib/gedbrowser/userFile.csv";
+        final String userFile = gedbrowserHome + "/userFile.csv";
         final Users users = new Users();
         try (
                 final FileInputStream fis = new FileInputStream(userFile);

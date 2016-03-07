@@ -11,6 +11,7 @@ import org.schoellerfamily.gedbrowser.renderer.LivingRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,10 @@ public class LivingController {
     /** */
     @Autowired
     private transient Users users;
+
+    /** */
+    @Value("${gedbrowser.home}")
+    private transient String gedbrowserHome;
 
     /**
      * Connects the HTML template file with the data for displaying
@@ -51,7 +56,7 @@ public class LivingController {
         final RenderingContext renderingContext =
                 new RenderingContextBuilder(authentication, user).build();
 
-        final String filename = "/var/lib/gedbrowser/" + dbName + ".ged";
+        final String filename = gedbrowserHome + "/" + dbName + ".ged";
 
         loader.reset();
 

@@ -818,7 +818,6 @@ public class BirthDateEstimatorTest {
         return "Don't match! expected: " + expected + ", actual: " + actual;
     }
 
-
     /**
      * Read data for tests available to prepare data for tests.
      *
