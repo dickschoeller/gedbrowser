@@ -11,11 +11,8 @@ import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NameRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
-import org.schoellerfamily.gedbrowser.renderer.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Dick Schoeller
  */
 @Controller
-public class PersonController {
+public class PersonController extends AbstractController {
     /** */
     @Autowired
     private transient GedFileLoader loader;
@@ -58,15 +55,10 @@ public class PersonController {
                 defaultValue = "schoeller") final String dbName,
             final Model model) {
         Logger.getGlobal().entering("PersonController", "person");
-        final Authentication authentication = SecurityContextHolder.getContext()
-                .getAuthentication();
-        final User user = users.get(authentication.getName());
-        final RenderingContext renderingContext =
-                new RenderingContextBuilder(authentication, user).build();
+
+        final RenderingContext renderingContext = createRenderingContext(users);
 
         String nameString;
-
-        final String filename = gedbrowserHome + "/" + dbName + ".ged";
 
         loader.reset();
 
@@ -101,6 +93,7 @@ public class PersonController {
             }
         }
 
+        final String filename = gedbrowserHome + "/" + dbName + ".ged";
         model.addAttribute("filename", filename);
         model.addAttribute("name", nameString);
         model.addAttribute("person", gedRenderer);
