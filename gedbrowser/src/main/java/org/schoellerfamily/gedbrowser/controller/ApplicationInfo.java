@@ -31,13 +31,13 @@ public final class ApplicationInfo {
      * @return the maintainer's name.
      */
     public String getMaintainerName() {
-        return "Dick Schoeller";
+        return "Richard Schoeller";
     }
 
     /**
      * @return the URL to learn more about the application.
      */
     public String getApplicationURL() {
-        return "http://www.schoellerfamily.org/software/gedbrowser.html";
+        return "https://github.com/dickschoeller/gedbrowser";
     }
 }

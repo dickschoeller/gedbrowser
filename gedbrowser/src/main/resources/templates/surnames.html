@@ -31,5 +31,22 @@
             </ul>
         </li>
     </ul>
+
+    <hr class="final"/>
+    <table class="buttonrow">
+        <tr class="buttonrow">
+            <td class="brleft">
+                <p class="maintainer">Maintained by <a id="maintainerMail" th:href="'mailto:' + ${appInfo.maintainerEmail}" th:text="${appInfo.maintainerName}"></a>.<br/>
+                Created with <a th:href="${appInfo.applicationURL}" th:text="${appInfo.name}"></a>, version <span th:text="${appInfo.version}">2.0</span> on <span th:text="${#dates.format(#dates.createToday(),'MMMMM dd, yyyy')}"></span>.<br/>
+                Get the sources on <a th:href="${appInfo.applicationURL}">GitHub</a> <a th:href="${appInfo.applicationURL}"><img src="images/github-25.png" style="vertical-align:top"/></a></p>
+            </td>
+        </tr>
+    </table>
+
+<!-- anywhere in your document: -->
+<form th:action="@{/logout}" id="logoutForm">
+  <!-- csrf hidden input included automagically -->
+</form>
+
 </body>
 </html>
