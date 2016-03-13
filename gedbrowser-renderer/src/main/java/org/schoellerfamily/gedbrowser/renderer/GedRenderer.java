@@ -467,7 +467,7 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
      */
     protected static final String escapeString(final String input) {
         return input.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;");
+                .replaceAll(">", "&gt;").replaceAll("\n", "<br/>\n");
     }
 
     /**

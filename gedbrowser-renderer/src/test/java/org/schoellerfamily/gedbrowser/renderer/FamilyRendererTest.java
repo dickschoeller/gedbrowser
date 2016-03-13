@@ -389,9 +389,9 @@ public final class FamilyRendererTest {
         final String expected = "<span class=\"label\">Marriage:</span>"
                 + " 27 MAY 1984, Temple Emanu-el, Providence, Providence"
                 + " County, Rhode Island, USA, The ceremony performed by"
-                + " Rabbi Wayne Franklin and Cantor Ivan\n"
+                + " Rabbi Wayne Franklin and Cantor Ivan<br/>\n"
                 + "Perlman.  The best man and matron of honor were Dale"
-                + " Matcovitch\n"
+                + " Matcovitch<br/>\n"
                 + "and Carol Robinson Sacerdote.,"
                 + "  [<a href=\"source?db=null&amp;id=S4\">S4</a>]";
         assertEquals(expected, attributes.get(0).getListItemContents());
