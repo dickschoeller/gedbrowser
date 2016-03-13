@@ -607,14 +607,10 @@ public abstract class AbstractGedObjectFactory {
      * Factory method creates the appropriate GedObject from the provided
      * strings.
      *
-     * @param parent
-     *            the parent GedObject
-     * @param xref
-     *            an optional ID string
-     * @param tag
-     *            the GEDCOM tag
-     * @param tail
-     *            the rest of the line
+     * @param parent the parent GedObject
+     * @param xref an optional ID string
+     * @param tag the GEDCOM tag
+     * @param tail the rest of the line
      * @return the GedObject
      */
     public final GedObject create(final GedObject parent, final String xref,
@@ -627,14 +623,10 @@ public abstract class AbstractGedObjectFactory {
      * Factory method creates the appropriate GedObject from the provided
      * strings.
      *
-     * @param parent
-     *            the parent GedObject
-     * @param objectId
-     *            an objectId
-     * @param tag
-     *            the GEDCOM tag
-     * @param tail
-     *            the rest of the line
+     * @param parent the parent GedObject
+     * @param objectId an objectId
+     * @param tag the GEDCOM tag
+     * @param tail the rest of the line
      * @return the GedObject
      */
     public abstract GedObject create(final GedObject parent,
@@ -643,8 +635,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Get the factory for this GEDCOM tag.
      *
-     * @param tag
-     *            the tag.
+     * @param tag the tag.
      * @return the factory.
      */
     private AbstractGedObjectFactory getFactory(final String tag) {
@@ -654,8 +645,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Find the token processor for this tag. Defaults to attribute.
      *
-     * @param tag
-     *            the tag.
+     * @param tag the tag.
      * @return the token processor.
      */
     private GedToken getToken(final String tag) {
