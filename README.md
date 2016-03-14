@@ -23,6 +23,7 @@ the file application.yml.
 
 * ![](overvio.png) [Overv.io](https://overv.io/workspace/dickschoeller/comfortable-seahorse/board/) task board
 * ![](reviewninja-25.png) [ReviewNinja](https://app.review.ninja/dickschoeller/gedbrowser) code reviews
+* ![](jenkins-25.png) [Jenkins](http://www.schoellerfamily.org/jenkins/) builds
 
 ## Technology
 
