@@ -2,8 +2,7 @@
 
 Web application to display the genealogy data from a GEDCOM file.
 
-A running example can be accessed at
-http://www.schoellerfamily.org/gedbrowser/surnames?db=schoeller&letter=A
+Check it out by perusing [my genealogy database](http://www.schoellerfamily.org/gedbrowser/surnames?db=schoeller). You will need a login with the appropriate role to see living people.
 
 ## Getting started
 
