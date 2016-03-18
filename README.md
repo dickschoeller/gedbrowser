@@ -7,11 +7,11 @@ Check it out by perusing [my genealogy database](http://www.schoellerfamily.org/
 ## Getting started
 
 * Prerequisistes are a JDK, Maven, Git, and MongoDB
-* clone this repository
-* from the top 'mvn clean install'
-* place GEDCOM files in /var/lib/gedbrowser
-* create /var/lib/gedbrowser/userFile.csv rows are: username,firstname,lastname,email,password,role,role...
-* deploy WAR file to application server
+* Clone this repository
+* From the top 'mvn clean install'
+* Place GEDCOM files in /var/lib/gedbrowser
+* Create /var/lib/gedbrowser/userFile.csv rows are: username,firstname,lastname,email,password,role,role...
+* Deploy WAR file to application server
 
 As each GEDCOM file is referred to, it will be loaded into your instance of MongoDB. More explicit management
 of data loading is planned for the future.
