@@ -7,6 +7,7 @@ http://www.schoellerfamily.org/gedbrowser/surnames?db=schoeller&letter=A
 
 ## Getting started
 
+* Prerequisistes are a JDK, Maven, Git, and MongoDB
 * clone this repository
 * from the top 'mvn clean install'
 * place GEDCOM files in /var/lib/gedbrowser
