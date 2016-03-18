@@ -31,4 +31,4 @@ the file application.yml.
 * ![](mongodb-25.png) [MongoDB](https://www.mongodb.org/)
 * ![](thymeleaf-25.png) [Thymeleaf](http://www.thymeleaf.org/)
 * ![](genealogy-net-25.png) [GEDCOM](http://wiki-en.genealogy.net/GEDCOM)
-* [Selenium WebDriver](http://www.seleniumhq.org/projects/webdriver/)
+* ![](selenium-25.png) [Selenium WebDriver](http://www.seleniumhq.org/projects/webdriver/)
