@@ -1,6 +1,6 @@
 # gedbrowser
 
-Web application to display the genealogy data from a GEDCOM file.
+Web application to display the genealogy data from a [GEDCOM](http://wiki-en.genealogy.net/GEDCOM) file. Once loaded, the data is managed in a [MongoDB](https://www.mongodb.org/) database.
 
 Check it out by perusing [my genealogy database](http://www.schoellerfamily.org/gedbrowser/surnames?db=schoeller). You can browse the database anonymously, but you will need a login with the appropriate role to see living people.
 
@@ -32,3 +32,7 @@ the file application.yml.
 * ![](thymeleaf-25.png) [Thymeleaf](http://www.thymeleaf.org/)
 * ![](genealogy-net-25.png) [GEDCOM](http://wiki-en.genealogy.net/GEDCOM)
 * ![](selenium-25.png) [Selenium WebDriver](http://www.seleniumhq.org/projects/webdriver/)
+
+## Architecture
+
+TBD
