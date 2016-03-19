@@ -20,6 +20,7 @@ import org.schoellerfamily.gedbrowser.persistence.repository.
     SubmittorDocumentRepository;
 import org.schoellerfamily.gedbrowser.persistence.repository.
     TrailerDocumentRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -50,6 +51,14 @@ import com.mongodb.MongoClient;
                 },
                 type = FilterType.ASSIGNABLE_TYPE))
 public class MongoConfiguration {
+    /** */
+    @Value("${spring.data.mongodb.host:localhost}")
+    private transient String host;
+
+    /** */
+    @Value("${spring.data.mongodb.port:27017}")
+    private transient int port;
+
     /**
      * Get a MongoDbFactory for accessing the gedbrowser database.
      *
@@ -61,7 +70,8 @@ public class MongoConfiguration {
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
         // CHECKSTYLE:ON
-        return new SimpleMongoDbFactory(new MongoClient(), "gedbrowser");
+        return new SimpleMongoDbFactory(new MongoClient(host, port),
+                "gedbrowser");
     }
 
     /**

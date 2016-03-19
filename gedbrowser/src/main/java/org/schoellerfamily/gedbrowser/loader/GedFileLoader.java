@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.logging.Logger;
 
 import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -131,6 +132,7 @@ public class GedFileLoader {
             root.setFilename(filename);
             root.setDbName(dbName);
         } catch (IOException e) {
+            Logger.getGlobal().severe("Could not read file: " + filename);
             root = null;
         }
 

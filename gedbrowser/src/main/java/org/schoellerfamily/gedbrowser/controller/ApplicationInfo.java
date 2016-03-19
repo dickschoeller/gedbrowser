@@ -10,7 +10,7 @@ public final class ApplicationInfo {
      * @return the application name.
      */
     public String getName() {
-        return "GEDbrowser";
+        return "gedbrowser";
     }
 
     /**
