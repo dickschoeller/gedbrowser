@@ -34,9 +34,8 @@ public class IndexController extends AbstractController {
     private transient String gedbrowserHome;
 
     /**
-     * Connects HTML template file with data for the surnames
-     * index page. The page displays the surnames that begin
-     * with the provided letter.
+     * Connects HTML template file with data for the surnames index page. The
+     * page displays the surnames that begin with the provided letter.
      *
      * @param letter the letter that we're displaying
      * @param dbName name of database for the lookup.

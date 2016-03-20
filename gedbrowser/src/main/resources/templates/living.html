@@ -13,11 +13,11 @@
             <span><a href="">Living</a></span>
         </span>
         <div  th:if="${#httpServletRequest.remoteUser} != null" class="right">
-            <form th:action="@{/logout}" method="post">
+            <form th:action="@{logout}" method="post">
                 <input class="menubar" type="submit" th:value="'Logout ' + ${living.userFirstname}"/>
             </form>
         </div>
-        <span th:if="${#httpServletRequest.remoteUser} == null" class="right" th:inline="text"><a th:href="@{/login}">Login</a></span>
+        <span th:if="${#httpServletRequest.remoteUser} == null" class="right" th:inline="text"><a th:href="@{login}">Login</a></span>
     </div>
     <h2 th:if="${living.hasRole('ADMIN')}">Living</h2>
     <h2 th:if="!${living.hasRole('ADMIN')}">Administrators Only!</h2>
@@ -42,7 +42,7 @@
     </table>
 
 <!-- anywhere in your document: -->
-<form th:action="@{/logout}" id="logoutForm">
+<form th:action="@{logout}" id="logoutForm">
   <!-- csrf hidden input included automagically -->
 </form>
 

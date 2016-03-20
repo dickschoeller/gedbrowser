@@ -25,6 +25,13 @@
         <role>Bottle Washer</role>
       </roles>
     </developer>
+    <developer>
+      <name>Jonathan Schoeller</name>
+      <email>vitamort@gmail.com</email>
+      <roles>
+        <role>Minion</role>
+      </roles>
+    </developer>
   </developers>
 
   <properties>
@@ -44,7 +51,7 @@
 
   <name>gedbrowser POM</name>
   <description>GED Browser Top Level</description>
-  
+
   <modules>
     <module>gedbrowser-datamodel</module>
     <module>gedbrowser-analytics</module>
@@ -54,6 +61,7 @@
     <module>gedbrowser</module>
     <module>gedbrowser-selenium</module>
   </modules>
+
   <reporting>
     <plugins>
       <plugin>
@@ -171,13 +179,10 @@
       <name>Internal Releases</name>
       <url>http://minitokyo.schoellerfamily.org:8081/nexus/content/repositories/releases</url>
     </repository>
-
-  <snapshotRepository>
-    <id>schoellerfamily-snapshots</id>
-    <url>http://minitokyo.schoellerfamily.org:8081/nexus/content/repositories/snapshots</url>
-  </snapshotRepository>
-
-
+    <snapshotRepository>
+      <id>schoellerfamily-snapshots</id>
+      <url>http://minitokyo.schoellerfamily.org:8081/nexus/content/repositories/snapshots</url>
+    </snapshotRepository>
   </distributionManagement>
 
   <repositories>
@@ -190,6 +195,4 @@
       </snapshots>
     </repository>
   </repositories>
-
-
 </project>

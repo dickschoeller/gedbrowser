@@ -2,16 +2,17 @@ package org.schoellerfamily.gedbrowser;
 
 import org.schoellerfamily.gedbrowser.renderer.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders
-.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication
-.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
+    .builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication
+    .configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration
-.WebSecurityConfigurerAdapter;
+    .WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration
-.EnableWebMvcSecurity;
+    .EnableWebMvcSecurity;
 
 /**
  * @author Dick Schoeller
@@ -23,6 +24,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private Users users;
 
+    /** Base path in URL. */
+    @Value("${server.servlet-path}")
+    private transient String servletPath;
+
     /**
      * {@inheritDoc}
      */
@@ -33,15 +38,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/surnames?db=schoeller&letter=A")
+                .loginPage(servletPath + "/login")
+                .defaultSuccessUrl(
+                        servletPath + "/person?db=schoeller&id=I1")
                 .permitAll()
                 .and()
             .logout()
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
+                .logoutUrl(servletPath + "/logout")
+                .logoutSuccessUrl(servletPath + "/login")
                 .permitAll();
     }
 
