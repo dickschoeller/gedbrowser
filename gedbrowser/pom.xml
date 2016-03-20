@@ -11,7 +11,7 @@
   </parent>
 
   <artifactId>gedbrowser</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
 
   <name>gedbrowser</name>
   <url>http://www.schoellerfamily.org</url>
@@ -19,18 +19,30 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <start-class>org.schoellerfamily.gedbrowser.Application</start-class>
+    <docker.image.prefix>schoellerfamily</docker.image.prefix>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <!-- Import dependency management from Spring Boot -->
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>org.thymeleaf</groupId>
       <artifactId>thymeleaf-spring4</artifactId>
-      <version>${thymeleaf.version}</version>
     </dependency>
     <dependency>
       <groupId>org.thymeleaf.extras</groupId>
@@ -40,17 +52,14 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
-      <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
-      <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
 	  <groupId>org.springframework</groupId>
 	  <artifactId>spring-expression</artifactId>
-	  <version>${spring.version}</version>
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
@@ -83,12 +92,10 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
-      <version>${junit.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>${spring.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -129,6 +136,13 @@
        <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -136,6 +150,21 @@
         <configuration>
           <enableRulesSummary>false</enableRulesSummary>
           <configLocation>${project.parent.basedir}/config/checkstyle.xml</configLocation>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <configuration>
+          <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+          <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+          <resources>
+            <resource>
+              <targetPath>/</targetPath>
+              <directory>${project.build.directory}</directory>
+              <include>${project.build.finalName}.jar</include>
+            </resource>
+          </resources>
         </configuration>
       </plugin>
     </plugins>
