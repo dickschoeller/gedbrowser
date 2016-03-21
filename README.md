@@ -7,13 +7,14 @@ Check it out by perusing [my genealogy database](http://www.schoellerfamily.org/
 ## Getting started
 
 * Prerequisistes are a JDK, Maven, Git, and MongoDB
+  * Optional Docker, which can be used to get MongoDB
 * Clone this repository
 * From the top 'mvn clean install'
 * Place GEDCOM files in /var/lib/gedbrowser
 * Create /var/lib/gedbrowser/userFile.csv rows are: username,firstname,lastname,email,password,role,role...
 * java -jar gedbrowser/target/gedbrowser-1.0.0-SNAPSHOT.jar
 
-Running with Docker requires running the MongoDB with Docker. The following command allows you to do this without conflicting ports with mongod service.
+Running with Docker requires running the MongoDB with Docker. The following command allows you to do this without conflicting ports with a native mongod service.
 
 * docker run --rm -v /home/dick/data:/data/db --name mongo -p 28001:27017 -d mongo
 * docker run --link mongo:mongo -v /var/lib/gedbrowser:/var/lib/gedbrowser -p 8080:8080 --name gedbrowser -d schoellerfamily/gedbrowser
@@ -32,9 +33,10 @@ the file application.yml.
 
 ## Technology
 
-* ![](spring-25.png) [Spring](https://spring.io/)
-* ![](mongodb-25.png) [MongoDB](https://www.mongodb.org/)
+* ![](spring-boot-25.png) [Spring Boot](http://projects.spring.io/spring-boot/)
 * ![](thymeleaf-25.png) [Thymeleaf](http://www.thymeleaf.org/)
+* ![](mongodb-25.png) [MongoDB](https://www.mongodb.org/)
+* ![](docker-25.png) [Docker](https://www.docker.com/)
 * ![](genealogy-net-25.png) [GEDCOM](http://wiki-en.genealogy.net/GEDCOM)
 * ![](selenium-25.png) [Selenium WebDriver](http://www.seleniumhq.org/projects/webdriver/)
 
