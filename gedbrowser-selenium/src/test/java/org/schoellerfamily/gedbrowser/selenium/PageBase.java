@@ -19,7 +19,7 @@ public class PageBase {
      * Base URL string.
      */
     public static final String BASE_URL =
-            "http://minitokyo.schoellerfamily.org:8080/gedbrowser/";
+            "http://minitokyo.schoellerfamily.org:8082/gedbrowser/";
 
     /** Associated Selenium driver. */
     private final WebDriver driver;
