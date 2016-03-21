@@ -11,10 +11,10 @@
         <span><a href="http://www.schoellerfamily.org/">Home</a></span>
     </div>
     <div class="login" align="center">
-        <h2 class="login">Welcome to GEDbrowser</h2>
+        <h2 class="login">Welcome to gedbrowser</h2>
         <div th:if="${param.error}">Invalid username and password.</div>
         <div th:if="${param.logout}">You have been logged out.</div>
-        <form th:action="@{/login}" method="post">
+        <form th:action="@{login}" method="post">
             <table class="wrapper">
                 <tr>
                     <td align="center">

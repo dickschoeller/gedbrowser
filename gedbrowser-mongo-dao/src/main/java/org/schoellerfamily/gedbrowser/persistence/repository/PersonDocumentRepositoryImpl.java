@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocumentFactory;
@@ -20,6 +21,10 @@ import org.springframework.data.mongodb.core.query.Query;
  */
 public final class PersonDocumentRepositoryImpl implements
         FindableByNameDocument<Person, PersonDocument> {
+    /** Logger. */
+    private static final Logger LOGGER = Logger
+            .getLogger(PersonDocumentRepositoryImpl.class.getName());
+
     /** */
     @Autowired
     private transient MongoTemplate mongoTemplate;
@@ -140,6 +145,8 @@ public final class PersonDocumentRepositoryImpl implements
     @Override
     public Collection<PersonDocument> findByRootAndSurnameBeginsWith(
             final RootDocument rootDocument, final String beginsWith) {
+        LOGGER.entering("PersonDocumentRepositoryImpl",
+                "findByRootAndSurnameBeginsWith");
         if (rootDocument == null) {
             return Collections.emptyList();
         }
@@ -150,6 +157,8 @@ public final class PersonDocumentRepositoryImpl implements
             final Person person = personDocument.getGedObject();
             person.setParent(rootDocument.getGedObject());
         }
+        LOGGER.exiting("PersonDocumentRepositoryImpl",
+                "findByRootAndSurnameBeginsWith");
         return personDocuments;
     }
 
@@ -158,12 +167,14 @@ public final class PersonDocumentRepositoryImpl implements
      */
     @Override
     public Collection<PersonDocument> findByFile(final String filename) {
+        LOGGER.entering("PersonDocumentRepositoryImpl", "findByFile");
         final Query searchQuery = new Query(Criteria.where("filename").is(
                 filename));
         final List<PersonDocument> personDocuments =
                 mongoTemplate.find(searchQuery, PersonDocument.class);
         createGedObjects(personDocuments);
         Collections.sort(personDocuments, new PersonDocumentComparator());
+        LOGGER.exiting("PersonDocumentRepositoryImpl", "findByFile");
         return personDocuments;
     }
 
@@ -173,6 +184,7 @@ public final class PersonDocumentRepositoryImpl implements
     @Override
     public Collection<PersonDocument> findByRoot(
             final RootDocument rootDocument) {
+        LOGGER.entering("PersonDocumentRepositoryImpl", "findByRoot");
         if (rootDocument == null) {
             return Collections.emptyList();
         }
@@ -182,6 +194,7 @@ public final class PersonDocumentRepositoryImpl implements
             final Person person = personDocument.getGedObject();
             person.setParent(rootDocument.getGedObject());
         }
+        LOGGER.exiting("PersonDocumentRepositoryImpl", "findByRoot");
         return personDocuments;
     }
 

@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class IndexController extends AbstractController {
+    /** Logger. */
+    private static final Logger LOGGER = Logger
+            .getLogger(IndexController.class.getName());
+
     /** */
     @Autowired
     private transient GedFileLoader loader;
@@ -34,9 +38,8 @@ public class IndexController extends AbstractController {
     private transient String gedbrowserHome;
 
     /**
-     * Connects HTML template file with data for the surnames
-     * index page. The page displays the surnames that begin
-     * with the provided letter.
+     * Connects HTML template file with data for the surnames index page. The
+     * page displays the surnames that begin with the provided letter.
      *
      * @param letter the letter that we're displaying
      * @param dbName name of database for the lookup.
@@ -52,7 +55,7 @@ public class IndexController extends AbstractController {
                 required = false,
                 defaultValue = "schoeller") final String dbName,
             final Model model) {
-        Logger.getGlobal().entering("IndexController", "surnames");
+        LOGGER.entering("IndexController", "surnames");
 
         final RenderingContext renderingContext = createRenderingContext(users);
 
@@ -73,7 +76,7 @@ public class IndexController extends AbstractController {
         model.addAttribute("index", gedRenderer);
         model.addAttribute("appInfo", new ApplicationInfo());
 
-        Logger.getGlobal().exiting("IndexController", "surnames");
+        LOGGER.exiting("IndexController", "surnames");
         return "surnames";
     }
 }
