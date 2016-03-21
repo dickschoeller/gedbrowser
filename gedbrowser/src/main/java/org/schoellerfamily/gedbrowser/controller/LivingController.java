@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class LivingController extends AbstractController {
+    /** Logger. */
+    private static final Logger LOGGER = Logger
+            .getLogger(LivingController.class.getName());
+
     /** */
     @Autowired
     private transient GedFileLoader loader;
@@ -46,7 +50,7 @@ public class LivingController extends AbstractController {
                 required = false,
                 defaultValue = "schoeller") final String dbName,
             final Model model) {
-        Logger.getGlobal().entering("LivingController", "living");
+        LOGGER.entering("LivingController", "living");
 
         final RenderingContext renderingContext = createRenderingContext(users);
 
@@ -67,7 +71,7 @@ public class LivingController extends AbstractController {
         model.addAttribute("living", gedRenderer);
         model.addAttribute("appInfo", new ApplicationInfo());
 
-        Logger.getGlobal().exiting("LivingController", "living");
+        LOGGER.exiting("LivingController", "living");
         return "living";
     }
 }

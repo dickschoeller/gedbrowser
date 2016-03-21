@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Logger;
 
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
@@ -16,6 +17,10 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
  * @author Dick Schoeller
  */
 public final class LivingEstimator {
+    /** Logger. */
+    private static final Logger LOGGER = Logger.getLogger(LivingEstimator.class
+            .getName());
+
     /** Divide output into buckets of 10 years. */
     private static final int AGE_BUCKET_SIZE = 10;
     /** Limit of age we will guess is living. */
@@ -66,6 +71,7 @@ public final class LivingEstimator {
     public static void fillBuckets(final GedObject root,
             final List<Person> living, final List<Person> dead,
             final Map<Integer, Set<Person>> buckets) {
+        LOGGER.entering("LivingEstimator", "fillBuckets");
         for (final String letter : root.findSurnameInitialLetters()) {
             for (final String surname : root.findBySurnamesBeginWith(letter)) {
                 for (final Person person : root.findBySurname(surname)) {
@@ -79,6 +85,7 @@ public final class LivingEstimator {
                 }
             }
         }
+        LOGGER.exiting("LivingEstimator", "fillBuckets");
     }
 
     /**

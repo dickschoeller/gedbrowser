@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -15,6 +16,10 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
  * @author Dick Schoeller
  */
 public final class LivingRenderer extends GedRenderer<Root> {
+    /** Logger. */
+    private static final Logger LOGGER = Logger.getLogger(LivingRenderer.class
+            .getName());
+
     /** The size of a bucket. */
     private static final int AGE_BUCKET_SIZE = 10;
     /** If a person is older than this, guess that they are dead. */
@@ -35,6 +40,7 @@ public final class LivingRenderer extends GedRenderer<Root> {
      * @return the buckets by 10 year bands
      */
     public List<Bucket> getBuckets() {
+        LOGGER.entering("LivingRenderer", "getBuckets");
         final List<Bucket> bucketList = new ArrayList<>();
         if (getRenderingContext().hasRole("ADMIN")) {
             final Root root = getGedObject();
@@ -48,6 +54,7 @@ public final class LivingRenderer extends GedRenderer<Root> {
                 bucketList.add(bucket);
             }
         }
+        LOGGER.exiting("LivingRenderer", "getBuckets");
         return bucketList;
     }
 

@@ -47,6 +47,7 @@
     <dependency>
       <groupId>org.thymeleaf.extras</groupId>
       <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+      <version>2.1.2.RELEASE</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -59,6 +60,12 @@
     <dependency>
 	  <groupId>org.springframework</groupId>
 	  <artifactId>spring-expression</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-mongodb</artifactId>
+      <!-- DON'T CHANGE THIS OLD VERSION WITHOUT VERIFYING BEHAVIOR OF ALL PAGES -->
+      <version>${spring-data-mongodb.version}</version>
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
@@ -157,6 +164,7 @@
         <configuration>
           <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
           <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+          <skipDockerBuild>false</skipDockerBuild>
           <resources>
             <resource>
               <targetPath>/</targetPath>

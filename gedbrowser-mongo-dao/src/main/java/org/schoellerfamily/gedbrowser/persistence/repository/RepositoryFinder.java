@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Logger;
 
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
@@ -30,6 +31,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Dick Schoeller
  */
 public final class RepositoryFinder implements FinderStrategy {
+    /** Logger. */
+    private static final Logger LOGGER = Logger.getLogger(RepositoryFinder.class
+            .getName());
+
     /** */
     @Autowired
     private transient PersonDocumentRepository personDocumentRepository;
@@ -175,6 +180,7 @@ public final class RepositoryFinder implements FinderStrategy {
      */
     @Override
     public void insert(final GedObject owner, final GedObject gob) {
+        LOGGER.entering("RepositoryFinder", "insert");
         final GedDocument<?> gedDoc = GedDocumentFactory.getInstance().
                 createGedDocument(gob);
         if (gedDoc instanceof PersonDocument) {
@@ -190,6 +196,7 @@ public final class RepositoryFinder implements FinderStrategy {
         } else if (gedDoc instanceof TrailerDocument) {
             trailerDocumentRepository.save((TrailerDocument) gedDoc);
         }
+        LOGGER.exiting("RepositoryFinder", "insert");
     }
 
     /**
@@ -198,6 +205,7 @@ public final class RepositoryFinder implements FinderStrategy {
     @Override
     public Collection<Person> findBySurname(final GedObject owner,
             final String surname) {
+        LOGGER.entering("RepositoryFinder", "findBySurname");
         final List<Person> persons = new ArrayList<>();
         if (owner instanceof Root) {
             final Root root = (Root) owner;
@@ -210,6 +218,7 @@ public final class RepositoryFinder implements FinderStrategy {
                 persons.add(personDocument.getGedObject());
             }
         }
+        LOGGER.exiting("RepositoryFinder", "findBySurname");
         return persons;
     }
 
@@ -219,6 +228,7 @@ public final class RepositoryFinder implements FinderStrategy {
     @Override
     public Collection<String> findBySurnamesBeginWith(final GedObject owner,
             final String beginsWith) {
+        LOGGER.entering("RepositoryFinder", "findBySurnamesBeginWith");
         final Set<String> surnames = new TreeSet<>();
         if (owner instanceof Root) {
             final Root root = (Root) owner;
@@ -231,6 +241,7 @@ public final class RepositoryFinder implements FinderStrategy {
                 surnames.add(personDocument.getSurname());
             }
         }
+        LOGGER.exiting("RepositoryFinder", "findBySurnamesBeginWith");
         return surnames;
     }
 
@@ -239,6 +250,7 @@ public final class RepositoryFinder implements FinderStrategy {
      */
     @Override
     public Collection<String> findSurnameInitialLetters(final GedObject owner) {
+        LOGGER.entering("RepositoryFinder", "findSurnameInitialLetters");
         final Set<String> matches = new TreeSet<>();
         if (owner instanceof Root) {
             final Root root = (Root) owner;
@@ -252,6 +264,7 @@ public final class RepositoryFinder implements FinderStrategy {
                 matches.add(firstLetter);
             }
         }
+        LOGGER.exiting("RepositoryFinder", "findSurnameInitialLetters");
         return matches;
     }
 }
