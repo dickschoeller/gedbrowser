@@ -1,8 +1,7 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import java.util.Enumeration;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class LoginController {
+    /** Key to find the login referer in the session attributes. */
+    private static final String SESSION_REFERER_KEY = "SESSION_REFERER";
+
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -32,37 +34,12 @@ public class LoginController {
     public final String login(final Model model,
             final HttpServletRequest request) {
         logger.debug("Entering login");
-        final String referer = request.getHeader("referer");
-        if (useReferer(referer)) {
-            model.addAttribute("referer", referer);
-        } else {
-            // TODO haven't figured out how to retain referer after login error.
-            logRequest(request);
-            model.addAttribute("referer",
-                    servletPath + "/person?db=schoeller&id=I1");
-        }
+        final String referer = loginDestinationUrl(request);
+        model.addAttribute("referer", referer);
+        request.getSession().setAttribute(SESSION_REFERER_KEY, referer);
         model.addAttribute("appInfo", new ApplicationInfo());
         logger.debug("Exiting login");
         return "login";
-    }
-
-    /**
-     * @param request the request to log
-     */
-    private void logRequest(final HttpServletRequest request) {
-        if (!logger.isDebugEnabled()) {
-            return;
-        }
-        logger.debug("headers");
-        final Enumeration<String> headers = request.getHeaderNames();
-        while (headers.hasMoreElements()) {
-            final String name = headers.nextElement();
-            logger.debug("    " + name + " = " + request.getHeader(name));
-        }
-        logger.debug("parameters");
-        for (final String key : request.getParameterMap().keySet()) {
-            logger.debug("    " + key + " = " + request.getParameter(key));
-        }
     }
 
     /**
@@ -74,17 +51,33 @@ public class LoginController {
     public final String logout(final Model model,
             final HttpServletRequest request) {
         logger.debug("Entering logout");
-        final String referer = request.getHeader("referer");
-        if (useReferer(referer)) {
-            model.addAttribute("referer", referer);
-        } else {
-            logRequest(request);
-            model.addAttribute("referer",
-                    servletPath + "/person?db=schoeller&id=I1");
-        }
+        final String referer = loginDestinationUrl(request);
+        model.addAttribute("referer", referer);
+        request.getSession().setAttribute(SESSION_REFERER_KEY, referer);
         model.addAttribute("appInfo", new ApplicationInfo());
         logger.debug("Exiting logout");
         return "login";
+    }
+
+    /**
+     * Try to figure out where to go after login. We have to do a
+     * few tricks in order to carry that around.
+     *
+     * @param request the request object
+     * @return the URL
+     */
+    private String loginDestinationUrl(final HttpServletRequest request) {
+        final HttpSession session = request.getSession();
+        final String requestReferer = request.getHeader("referer");
+        final String sessionReferer = (String) session
+                .getAttribute(SESSION_REFERER_KEY);
+        if (useReferer(requestReferer)) {
+            return requestReferer;
+        } else if (useReferer(sessionReferer)) {
+            return sessionReferer;
+        } else {
+            return servletPath + "/person?db=schoeller&id=I1";
+        }
     }
 
     /**
