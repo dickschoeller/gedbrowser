@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import java.util.logging.Logger;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.Users;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
@@ -22,8 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class SourceController extends AbstractController {
     /** Logger. */
-    private static final Logger LOGGER = Logger
-            .getLogger(SourceController.class.getName());
+    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -55,7 +54,7 @@ public class SourceController extends AbstractController {
                 required = false,
                 defaultValue = "schoeller") final String dbName,
             final Model model) {
-        LOGGER.entering("SourceController", "source");
+        logger.debug("Entering source");
 
         final RenderingContext renderingContext = createRenderingContext(users);
 
@@ -90,7 +89,7 @@ public class SourceController extends AbstractController {
         model.addAttribute("sourceString", sourceString);
         model.addAttribute("source", gedRenderer);
         model.addAttribute("appInfo", new ApplicationInfo());
-        LOGGER.exiting("SourceController", "source");
+        logger.debug("Exiting source");
         return "source";
     }
 }
