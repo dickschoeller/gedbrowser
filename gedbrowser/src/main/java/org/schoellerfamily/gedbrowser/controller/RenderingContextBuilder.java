@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.controller;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.User;
 import org.springframework.security.core.Authentication;
@@ -9,6 +11,9 @@ import org.springframework.security.core.GrantedAuthority;
  * @author Dick Schoeller
  */
 public final class RenderingContextBuilder {
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
+
     /** The authentication object that allows us to build the context. */
     private final Authentication authentication;
 
@@ -33,6 +38,7 @@ public final class RenderingContextBuilder {
      * @return the rendering context
      */
     public RenderingContext build() {
+        logger.debug("Entering build");
         final String name = authentication.getName();
         boolean isUser = false;
         boolean isAdmin = false;
@@ -50,6 +56,9 @@ public final class RenderingContextBuilder {
                 break;
             }
         }
-        return new RenderingContext(user, isUser, isAdmin);
+        final RenderingContext context =
+                new RenderingContext(user, isUser, isAdmin);
+        logger.debug("Exiting build");
+        return context;
     }
 }

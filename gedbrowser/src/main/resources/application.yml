@@ -2,8 +2,7 @@ gedbrowser:
     home: /var/lib/gedbrowser
 server:
     servlet-path: /gedbrowser
-java:
-    util:
-        logging:
-            ConsoleHandler:
-                level: FINE
+logging:
+    level:
+        org:
+            schoellerfamily: INFO
