@@ -31,18 +31,18 @@ the file application.yml.
 
 ## Tooling
 
-* ![](overvio.png) [Overv.io](https://overv.io/workspace/dickschoeller/comfortable-seahorse/board/) task board
-* ![](reviewninja-25.png) [ReviewNinja](https://app.review.ninja/dickschoeller/gedbrowser) code reviews
-* ![](jenkins-25.png) [Jenkins](http://www.schoellerfamily.org/jenkins/) builds
+* ![](images/overvio.png) [Overv.io](https://overv.io/workspace/dickschoeller/comfortable-seahorse/board/) task board
+* ![](images/reviewninja-25.png) [ReviewNinja](https://app.review.ninja/dickschoeller/gedbrowser) code reviews
+* ![](images/jenkins-25.png) [Jenkins](http://www.schoellerfamily.org/jenkins/) builds
 
 ## Technology
 
-* ![](spring-boot-25.png) [Spring Boot](http://projects.spring.io/spring-boot/)
-* ![](thymeleaf-25.png) [Thymeleaf](http://www.thymeleaf.org/)
-* ![](mongodb-25.png) [MongoDB](https://www.mongodb.org/)
-* ![](docker-25.png) [Docker](https://www.docker.com/)
-* ![](genealogy-net-25.png) [GEDCOM](http://wiki-en.genealogy.net/GEDCOM)
-* ![](selenium-25.png) [Selenium WebDriver](http://www.seleniumhq.org/projects/webdriver/)
+* ![](images/spring-boot-25.png) [Spring Boot](http://projects.spring.io/spring-boot/)
+* ![](images/thymeleaf-25.png) [Thymeleaf](http://www.thymeleaf.org/)
+* ![](images/mongodb-25.png) [MongoDB](https://www.mongodb.org/)
+* ![](images/docker-25.png) [Docker](https://www.docker.com/)
+* ![](images/genealogy-net-25.png) [GEDCOM](http://wiki-en.genealogy.net/GEDCOM)
+* ![](images/selenium-25.png) [Selenium WebDriver](http://www.seleniumhq.org/projects/webdriver/)
 
 ## Architecture
 
