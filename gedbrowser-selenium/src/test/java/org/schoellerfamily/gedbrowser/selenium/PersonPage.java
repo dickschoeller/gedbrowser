@@ -23,9 +23,9 @@ public final class PersonPage extends PageBase {
                     "Person: I11 - Karl Frederick Schoeller"
                             + " (17 FEB 1907-08 APR 1985)",
                     "I32",
-                    "Friedrich Schöller (I32)",
+                    "Friedrich Schöller (I32) (10 DEC 1870-01 FEB 1958)",
                     "I33",
-                    "Clara Savilla Achenbach (I33)",
+                    "Clara Savilla Achenbach (I33) (27 JUN 1870-09 DEC 1955)",
                     "I12",
                     null));
         EXPECTATIONS_MAP.put("I32",
@@ -33,9 +33,9 @@ public final class PersonPage extends PageBase {
                     "Person: I32 - Friedrich Schöller"
                             + " (10 DEC 1870-01 FEB 1958)",
                     "I99",
-                    "Johannes Schöller (I99)",
+                    "Johannes Schöller (I99) (22 OCT 1847-)",
                     "I104",
-                    "Maria Barbara Krimmel (I104)",
+                    "Maria Barbara Krimmel (I104) (09 NOV 1853-19 JUL 1888)",
                     "I11",
                     null));
         EXPECTATIONS_MAP.put("I99",
@@ -43,9 +43,9 @@ public final class PersonPage extends PageBase {
                     "Person: I99 - Johannes Schöller"
                             + " (22 OCT 1847-)",
                     "I180",
-                    "Matthias Schöller (I180)",
+                    "Matthias Schöller (I180) (15 NOV 1818-)",
                     "I181",
-                    "Anna Maria Müller (I181)",
+                    "Anna Maria Müller (I181) (26 JUN 1819-)",
                     "I32",
                     null));
         EXPECTATIONS_MAP.put("I180",
@@ -53,9 +53,9 @@ public final class PersonPage extends PageBase {
                     "Person: I180 - Matthias Schöller"
                         + " (15 NOV 1818-)",
                     "I3104",
-                    "Johannes Schöller (I3104)",
+                    "Johannes Schöller (I3104) (16 JAN 1785-)",
                     "I3105",
-                    "Veronika Conzelmann (I3105)",
+                    "Veronika Conzelmann (I3105) (12 JUL 1793-28 FEB 1855)",
                     "I3554",
                     null));
         EXPECTATIONS_MAP.put("I33",
@@ -63,9 +63,9 @@ public final class PersonPage extends PageBase {
                         "Person: I33 - Clara Savilla Achenbach"
                         + " (27 JUN 1870-09 DEC 1955)",
                         "I105",
-                        "Israel Achenbach (I105)",
+                        "Israel Achenbach (I105) (24 FEB 1849-19 JAN 1916)",
                         "I117",
-                        "Sara Alice Zimmerman (I117)",
+                        "Sara Alice Zimmerman (I117) (15 DEC 1853-25 JUL 1929)",
                         "I11",
                         null));
         EXPECTATIONS_MAP.put("I117",
@@ -73,63 +73,63 @@ public final class PersonPage extends PageBase {
                         "Person: I117 - Sara Alice Zimmerman"
                         + " (15 DEC 1853-25 JUL 1929)",
                         "I204",
-                        "William Zimmerman (I204)",
+                        "William Zimmerman (I204) (04 JUL 1829-28 AUG 1903)",
                         "I207",
-                        "Susan Derr (I207)",
+                        "Susan Derr (I207) (28 OCT 1836-04 APR 1913)",
                         "I33",
                         null));
         EXPECTATIONS_MAP.put("I3554",
                 new Expectations(
                     "Person: I3554 - Johann Martin Schöller (07 OCT 1842-)",
                     "I180",
-                    "Matthias Schöller (I180)",
+                    "Matthias Schöller (I180) (15 NOV 1818-)",
                     "I181",
-                    "Anna Maria Müller (I181)",
+                    "Anna Maria Müller (I181) (26 JUN 1819-)",
                     "I3881",
                     null));
         EXPECTATIONS_MAP.put("I3881",
                 new Expectations(
                     "Person: I3881 - Anna Maria Schöller (28 JUL 1873-)",
                     "I3554",
-                    "Johann Martin Schöller (I3554)",
+                    "Johann Martin Schöller (I3554) (07 OCT 1842-)",
                     "I3555",
-                    "Christina Scheirer (I3555)",
+                    "Christina Scheirer (I3555) (-)",
                     "I3891",
                     null));
         EXPECTATIONS_MAP.put("I3891",
                 new Expectations(
                     "Person: I3891 - Maria Berta Faigle (1908-)",
                     "I3882",
-                    "Christian Faigle (I3882)",
+                    "Christian Faigle (I3882) (05 OCT 1870-)",
                     "I3881",
-                    "Anna Maria Schöller (I3881)",
+                    "Anna Maria Schöller (I3881) (28 JUL 1873-)",
                     null,
                     null));
         EXPECTATIONS_MAP.put("I1",
             new Expectations(
                     "Person: I1 - Melissa Robinson Schoeller (-)",
                     "I2",
-                    "Richard John Schoeller (I2)",
+                    "Richard John Schoeller (I2) (14 DEC 1958-)",
                     "I3",
-                    "Lisa Hope Robinson (I3)",
+                    "Lisa Hope Robinson (I3) (09 MAY 1960-)",
                     null,
                     null));
         EXPECTATIONS_MAP.put("I2",
             new Expectations(
                     "Person: I2 - Richard John Schoeller (14 DEC 1958-)",
                     "I4",
-                    "John Vincent Schoeller (I4)",
+                    "John Vincent Schoeller (I4) (23 JUN 1934-14 SEP 2005)",
                     "I6",
-                    "Patricia Ruth Hayes (I6)",
+                    "Patricia Ruth Hayes (I6) (31 JUL 1937-)",
                     "I1",
                     null));
         EXPECTATIONS_MAP.put("I3",
             new Expectations(
                     "Person: I3 - Lisa Hope Robinson (09 MAY 1960-)",
                     "I7",
-                    "Arnold Robinson (I7)",
+                    "Arnold Robinson (I7) (12 AUG 1917-02 OCT 1969)",
                     "I10",
-                    "Estelle Liberman (I10)",
+                    "Estelle Liberman (I10) (26 JUN 1925-)",
                     "I1",
                     null));
         EXPECTATIONS_MAP.put("I4",
@@ -137,9 +137,9 @@ public final class PersonPage extends PageBase {
                     "Person: I4 - John Vincent Schoeller"
                             + " (23 JUN 1934-14 SEP 2005)",
                     "I11",
-                    "Karl Frederick Schoeller (I11)",
+                    "Karl Frederick Schoeller (I11) (17 FEB 1907-08 APR 1985)",
                     "I14",
-                    "Mary Beer Moyer (I14)",
+                    "Mary Beer Moyer (I14) (13 FEB 1909-21 NOV 2003)",
                     "I2",
                     new GreatGreatGrandparentIds("I180", "I181",
                             "I182", "I185", "I186", "I203", "I204",
@@ -149,9 +149,9 @@ public final class PersonPage extends PageBase {
             new Expectations(
                     "Person: I10 - Estelle Liberman (26 JUN 1925-)",
                     "I30",
-                    "Abraham Liberman (I30)",
+                    "Abraham Liberman (I30) (22 FEB 1894-14 OCT 1962)",
                     "I31",
-                    "Minnie Rubin (I31)",
+                    "Minnie Rubin (I31) (02 JAN 1894-12 JUN 1983)",
                     "I8",
                     new GreatGreatGrandparentIds(null, null, null, null,
                             null, null, null, null, null, null,
@@ -644,7 +644,7 @@ public final class PersonPage extends PageBase {
      * @return the web element for the a tag inside the mother element
      */
     private WebElement getChild(final int familyIndex, final int childIndex) {
-        WebElement childId = getWebElement(
+        final WebElement childId = getWebElement(
                 By.id("family-" + familyIndex + "-child-" + childIndex));
         return childId;
     }

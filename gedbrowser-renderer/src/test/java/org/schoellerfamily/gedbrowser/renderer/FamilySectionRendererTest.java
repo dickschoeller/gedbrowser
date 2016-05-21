@@ -66,7 +66,8 @@ public class FamilySectionRendererTest {
                 + "    <span class=\"spouse label\">Spouse:</span> "
                 + "<a href=\"person?db=null&amp;id=I3\" "
                 + "class=\"name\">Lisa Hope "
-                + "<span class=\"surname\">Robinson</span> (I3)</a>\n"
+                + "<span class=\"surname\">Robinson</span> (I3)"
+                + " (09 MAY 1960-)</a>\n"
                 + "  </p>\n"
                 + "\n"
                 + "  <ul>\n"
@@ -85,7 +86,7 @@ public class FamilySectionRendererTest {
                 + "  <ol class=\"children\">\n"
                 + "    <li><a href=\"person?db=null&amp;id=I1\" class=\"name\">"
                 + "Melissa Robinson <span class=\"surname\">Schoeller</span> "
-                + "(I1)</a></li>\n"
+                + "(I1) (-)</a></li>\n"
                 + "  </ol>\n"
                 + "</div>\n", builder.toString());
     }
@@ -155,7 +156,7 @@ public class FamilySectionRendererTest {
                         + "<a href=\"person?db=null&amp;id=I4248\" "
                         + "class=\"name\">Sabino "
                         + "<span class=\"surname\">Figliuolo</span> "
-                        + "(I4248)</a>\n"
+                        + "(I4248) (-)</a>\n"
                         + "  </p>\n"
                         + "\n"
                         + "  <ul>\n"
@@ -167,11 +168,11 @@ public class FamilySectionRendererTest {
                         + "    <li><a href=\"person?db=null&amp;id=I752\" "
                         + "class=\"name\">"
                         + "Ciara Jean <span class=\"surname\">Figliuolo"
-                        + "</span> (I752)</a></li>\n"
+                        + "</span> (I752) (-)</a></li>\n"
                         + "    <li><a href=\"person?db=null&amp;id=I5266\" "
                         + "class=\"name\">"
                         + "Cecilia Caterina <span class=\"surname\">"
-                        + "Figliuolo</span> (I5266)</a></li>\n"
+                        + "Figliuolo</span> (I5266) (-)</a></li>\n"
                         + "  </ol>\n" + "</div>\n", "" };
         int index = 0;
         final StringBuilder builder = new StringBuilder();
