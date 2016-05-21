@@ -37,9 +37,17 @@ public class PersonNameHtmlRenderer implements NameHtmlRenderer {
                 personRenderer.createGedRenderer(person.getName());
         final String nameHtml =
                 renderer.getNameHtml();
+
+        String spacer;
+        if (personRenderer.getLifeSpanString().isEmpty()) {
+            spacer = "";
+        } else {
+            spacer = " ";
+        }
+
         return "<a href=\"person?db=" + person.getDbName() + "&amp;id="
-        + person.getString() + "\" class=\"name\">"
-        + nameHtml
-        + " (" + person.getString() + ")</a>";
+                + person.getString() + "\" class=\"name\">" + nameHtml + " ("
+                + person.getString() + ")" + spacer
+                + personRenderer.getLifeSpanString() + "</a>";
     }
 }

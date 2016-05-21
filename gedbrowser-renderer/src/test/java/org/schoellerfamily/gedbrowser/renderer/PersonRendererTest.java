@@ -169,6 +169,7 @@ public final class PersonRendererTest {
             "<table class=\"bbox\"><tr><td class=\"tree bbox\">"
             + "<a href=\"person?db=null&amp;id=I9\" class=\"name\">"
             + "George Steven <span class=\"surname\">Sacerdote</span> (I9)"
+            + " (-)"
             + "</a></td></tr></table>",
             INVISIBLE_STRING, INVISIBLE_STRING,
             INVISIBLE_STRING, INVISIBLE_STRING, INVISIBLE_STRING,
@@ -294,6 +295,7 @@ public final class PersonRendererTest {
             "<table class=\"bbox\"><tr><td class=\"tree bbox\">"
             + "<a href=\"person?db=null&amp;id=I4\" class=\"name\">"
             + "John Vincent <span class=\"surname\">Schoeller</span> (I4)"
+            + " (23 JUN 1934-)"
             + "</a></td></tr></table>",
             INVISIBLE_STRING,
             INVISIBLE_STRING, INVISIBLE_STRING, INVISIBLE_STRING,
@@ -320,6 +322,7 @@ public final class PersonRendererTest {
             "<table class=\"bbox\"><tr><td class=\"tree bbox\">"
             + "<a href=\"person?db=null&amp;id=I2\" class=\"name\">"
             + "Richard John <span class=\"surname\">Schoeller</span> (I2)"
+            + " (14 DEC 1958-)"
             + "</a></td></tr></table>",
             INVISIBLE_STRING, INVISIBLE_STRING, INVISIBLE_STRING,
             INVISIBLE_STRING, INVISIBLE_STRING, INVISIBLE_STRING,
@@ -347,6 +350,7 @@ public final class PersonRendererTest {
             "<table class=\"bbox\"><tr><td class=\"tree bbox\">"
             + "<a href=\"person?db=null&amp;id=I6\" class=\"name\">"
             + "Patricia Ruth <span class=\"surname\">Hayes</span> (I6)"
+            + " (31 JUL 1937-)"
             + "</a></td></tr></table>",
             INVISIBLE_STRING,
             INVISIBLE_STRING, INVISIBLE_STRING, INVISIBLE_STRING,
@@ -372,6 +376,7 @@ public final class PersonRendererTest {
             "<table class=\"bbox\"><tr><td class=\"tree bbox\">"
             + "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
             + "Melissa Robinson <span class=\"surname\">Schoeller</span> (I1)"
+            + " (-)"
             + "</a></td></tr></table>",
             INVISIBLE_STRING, INVISIBLE_STRING,
             INVISIBLE_STRING, INVISIBLE_STRING, INVISIBLE_STRING,
@@ -400,6 +405,7 @@ public final class PersonRendererTest {
             "<table class=\"bbox\"><tr><td class=\"tree bbox\">"
             + "<a href=\"person?db=null&amp;id=I7\" class=\"name\">"
             + "Arnold <span class=\"surname\">Robinson</span> (I7)"
+            + " (12 AUG 1917-02 OCT 1969)"
             + "</a></td></tr></table>",
             INVISIBLE_STRING,
             INVISIBLE_STRING, INVISIBLE_STRING, INVISIBLE_STRING,
@@ -426,6 +432,7 @@ public final class PersonRendererTest {
             "<table class=\"bbox\"><tr><td class=\"tree bbox\">"
             + "<a href=\"person?db=null&amp;id=I3\" class=\"name\">"
             + "Lisa Hope <span class=\"surname\">Robinson</span> (I3)"
+            + " (09 MAY 1960-)"
             + "</a></td></tr></table>",
             INVISIBLE_STRING, INVISIBLE_STRING, INVISIBLE_STRING,
             INVISIBLE_STRING, INVISIBLE_STRING, INVISIBLE_STRING,
@@ -453,6 +460,7 @@ public final class PersonRendererTest {
             "<table class=\"bbox\"><tr><td class=\"tree bbox\">"
             + "<a href=\"person?db=null&amp;id=I10\" class=\"name\">"
             + "Estelle <span class=\"surname\">Liberman</span> (I10)"
+            + " (26 JUN 1925-)"
             + "</a></td></tr></table>",
             INVISIBLE_STRING,
             INVISIBLE_STRING, INVISIBLE_STRING, INVISIBLE_STRING,
@@ -671,7 +679,8 @@ public final class PersonRendererTest {
                 + "   <span class=\"parent label\">Father:</span> "
                 + "<a href=\"person?db=null&amp;id=I2\" "
                 + "class=\"name\">Richard John "
-                + "<span class=\"surname\">Schoeller</span> (I2)</a>\n"
+                + "<span class=\"surname\">Schoeller</span> (I2)"
+                + " (14 DEC 1958-)</a>\n"
                 + END_PARAG;
         assertEquals(ts1, builder.toString());
     }
@@ -750,7 +759,8 @@ public final class PersonRendererTest {
                 + "   <span class=\"parent label\">Mother:</span> "
                 + "<a href=\"person?db=null&amp;id=I3\" "
                 + "class=\"name\">Lisa Hope "
-                + "<span class=\"surname\">Robinson</span> (I3)</a>\n"
+                + "<span class=\"surname\">Robinson</span> (I3)"
+                + " (09 MAY 1960-)</a>\n"
                 + END_PARAG;
         assertEquals(ts1, builder.toString());
     }
@@ -860,7 +870,8 @@ public final class PersonRendererTest {
         assertEquals(
                 "<a href=\"person?db=null&amp;id=I2\" class=\"name\">"
                 + "Richard John"
-                + " <span class=\"surname\">Schoeller</span> (I2)</a>",
+                + " <span class=\"surname\">Schoeller</span>"
+                + " (I2) (14 DEC 1958-)</a>",
                 personRenderer.getFatherNameHtml());
     }
 
@@ -877,7 +888,7 @@ public final class PersonRendererTest {
         assertEquals(
                 "<a href=\"person?db=null&amp;id=I4248\" class=\"name\">"
                 + "Sabino"
-                + " <span class=\"surname\">Figliuolo</span> (I4248)</a>",
+                + " <span class=\"surname\">Figliuolo</span> (I4248) (-)</a>",
                 personRenderer.getFatherNameHtml());
     }
 
@@ -906,7 +917,8 @@ public final class PersonRendererTest {
         assertEquals(
                 "<a href=\"person?db=null&amp;id=I4\" class=\"name\">"
                 + "John Vincent"
-                + " <span class=\"surname\">Schoeller</span> (I4)</a>",
+                + " <span class=\"surname\">Schoeller</span>"
+                + " (I4) (23 JUN 1934-)</a>",
                 personRenderer.getFatherNameHtml());
     }
 
@@ -931,9 +943,7 @@ public final class PersonRendererTest {
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext);
-        assertEquals(
-                "",
-                personRenderer.getFatherNameHtml());
+        assertEquals("", personRenderer.getFatherNameHtml());
     }
 
     /**
@@ -948,7 +958,8 @@ public final class PersonRendererTest {
         assertEquals(
                 "<a href=\"person?db=null&amp;id=I3\" class=\"name\">"
                 + "Lisa Hope"
-                + " <span class=\"surname\">Robinson</span> (I3)</a>",
+                + " <span class=\"surname\">Robinson</span>"
+                + " (I3) (09 MAY 1960-)</a>",
                 personRenderer.getMotherNameHtml());
     }
 
@@ -965,7 +976,8 @@ public final class PersonRendererTest {
         assertEquals(
                 "<a href=\"person?db=null&amp;id=I5\" class=\"name\">"
                 + "Vivian Grace"
-                + " <span class=\"surname\">Schoeller</span> (I5)</a>",
+                + " <span class=\"surname\">Schoeller</span>"
+                + " (I5) (16 APR 1960-)</a>",
                 personRenderer.getMotherNameHtml());
     }
 
@@ -994,7 +1006,8 @@ public final class PersonRendererTest {
         assertEquals(
                 "<a href=\"person?db=null&amp;id=I6\" class=\"name\">"
                 + "Patricia Ruth"
-                + " <span class=\"surname\">Hayes</span> (I6)</a>",
+                + " <span class=\"surname\">Hayes</span>"
+                + " (I6) (31 JUL 1937-)</a>",
                 personRenderer.getMotherNameHtml());
     }
 
@@ -1019,9 +1032,7 @@ public final class PersonRendererTest {
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext);
-        assertEquals(
-                "",
-                personRenderer.getMotherNameHtml());
+        assertEquals("", personRenderer.getMotherNameHtml());
     }
 
     /**
@@ -1037,7 +1048,7 @@ public final class PersonRendererTest {
                 "\n<p class=\"parent\">\n <span class=\"parent label\">Father:"
                 + "</span> <a href=\"person?db=null&amp;id=I2\" class=\"name\">"
                 + "Richard John <span class=\"surname\">Schoeller</span>"
-                + " (I2)</a>\n</p>",
+                + " (I2) (14 DEC 1958-)</a>\n</p>",
                 personRenderer.getFatherRendition());
     }
 
@@ -1069,7 +1080,7 @@ public final class PersonRendererTest {
                 "\n<p class=\"parent\">\n <span class=\"parent label\">Mother:"
                 + "</span> <a href=\"person?db=null&amp;id=I3\" class=\"name\">"
                 + "Lisa Hope <span class=\"surname\">Robinson</span>"
-                + " (I3)</a>\n</p>",
+                + " (I3) (09 MAY 1960-)</a>\n</p>",
                 personRenderer.getMotherRendition());
     }
 
@@ -1125,7 +1136,7 @@ public final class PersonRendererTest {
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext);
-        List<FamilyRenderer> families = personRenderer.getFamilies();
+        final List<FamilyRenderer> families = personRenderer.getFamilies();
         assertEquals("F1", families.get(0).getString());
     }
 

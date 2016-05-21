@@ -155,7 +155,8 @@ public final class FamilyRendererTest {
                 + "    <span class=\"spouse label\">Spouse:</span> "
                 + "<a href=\"person?db=null&amp;id=I3\" "
                 + "class=\"name\">Lisa Hope "
-                + "<span class=\"surname\">Robinson</span> (I3)</a>\n"
+                + "<span class=\"surname\">Robinson</span> (I3)"
+                + " (09 MAY 1960-)</a>\n"
                 + END_PARAG, builder.toString());
     }
 
@@ -195,7 +196,8 @@ public final class FamilyRendererTest {
         final FamilyRenderer familyRenderer = createFamilyRenderer(family,
                 userContext);
         assertEquals("<a href=\"person?db=null&amp;id=I3\" class=\"name\">"
-                + "Lisa Hope <span class=\"surname\">Robinson</span> (I3)</a>",
+                + "Lisa Hope <span class=\"surname\">Robinson</span> (I3)"
+                + " (09 MAY 1960-)</a>",
                 familyRenderer.getSpouse(personRenderer).getNameHtml());
     }
 
@@ -238,7 +240,7 @@ public final class FamilyRendererTest {
                         + "<a href=\"person?db=null&amp;id=I4248\" "
                         + "class=\"name\">Sabino "
                         + "<span class=\"surname\">Figliuolo</span> "
-                        + "(I4248)</a>\n"
+                        + "(I4248) (-)</a>\n"
                         + END_PARAG,
                 ""
         };
@@ -346,7 +348,7 @@ public final class FamilyRendererTest {
                 + START_PARAG
                 + "    <span class=\"spouse label\">Spouse:</span> "
                 + "<a href=\"person?db=null&amp;id=I1\" class=\"name\"> "
-                + "<span class=\"surname\">?</span> (I1)</a>\n"
+                + "<span class=\"surname\">?</span> (I1) (-)</a>\n"
                 + END_PARAG, builder.toString());
     }
 
@@ -409,7 +411,7 @@ public final class FamilyRendererTest {
         final List<PersonRenderer> children = familyRenderer.getChildren();
         final String expected = "<a href=\"person?db=null&amp;id=I1\""
                 + " class=\"name\">Melissa Robinson <span class=\"surname\">"
-                + "Schoeller</span> (I1)</a>";
+                + "Schoeller</span> (I1) (-)</a>";
         assertEquals(expected, children.get(0).getNameHtml());
     }
 

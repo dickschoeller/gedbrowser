@@ -11,6 +11,7 @@ Checkstyle configuration that checks the sun coding conventions.
 Allow field shadowing with constructor and setter arguments
 -->
 <module name="Checker">
+  <property name="fileExtensions" value="java, xml, properties, html, yml, txt, css"/>
   <property name="severity" value="warning"/>
   <module name="SuppressionCommentFilter"/>
   <module name="TreeWalker">
