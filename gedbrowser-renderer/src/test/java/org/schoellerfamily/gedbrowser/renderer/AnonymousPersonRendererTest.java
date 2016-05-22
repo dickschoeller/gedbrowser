@@ -166,8 +166,8 @@ public final class AnonymousPersonRendererTest {
 
             "<table class=\"bbox\"><tr><td class=\"tree bbox\">"
             + "<a href=\"person?db=null&amp;id=I7\" class=\"name\">"
-            + "Arnold <span class=\"surname\">Robinson</span> (I7)"
-            + " (12 AUG 1917-02 OCT 1969)</a></td></tr></table>",
+            + "Arnold <span class=\"surname\">Robinson</span>"
+            + " (1917-1969) [I7]</a></td></tr></table>",
             INVISIBLE_STRING, INVISIBLE_STRING,
             INVISIBLE_STRING, INVISIBLE_STRING, INVISIBLE_STRING,
             INVISIBLE_STRING, INVISIBLE_STRING, INVISIBLE_STRING,
