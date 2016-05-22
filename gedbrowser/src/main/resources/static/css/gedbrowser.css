@@ -367,7 +367,9 @@ div.middle {
 }
 
 div.inner {
-    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
     width: 1000px;
     background: #f8f8f8;
     border-left-color: #046ac4;
