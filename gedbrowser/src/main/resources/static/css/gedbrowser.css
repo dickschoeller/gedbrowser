@@ -286,6 +286,7 @@ div.menubar {
   text-decoration: none;
   background: #046ac4;
   color: #e49234;
+  z-index: 100;
 }
 
 div.menubar a,logout {
@@ -356,14 +357,15 @@ table.wrapper {
 div.outer {
     display: table;
     position: absolute;
-    top: 1.1em;
     height: 100%;
     width: 100%;
+    z-index: -1;
 }
 
 div.middle {
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: top;
+    horizontal-align: middle;
 }
 
 div.inner {
@@ -378,4 +380,7 @@ div.inner {
     border-right-color: #046ac4;
     border-right-style: solid;
     border-right-width: 2px;
+    border-bottom-color: #046ac4;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
 }
