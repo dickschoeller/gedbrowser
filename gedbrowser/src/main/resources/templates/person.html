@@ -20,6 +20,9 @@
         </div>
         <span th:if="${#httpServletRequest.remoteUser} == null" class="right" th:inline="text"><a th:href="@{login}">Login</a></span>
     </div>
+    <div class="outer">
+    <div class="middle">
+    <div class="inner">
     <!-- FIXME utext is necessary because titleName contains HTML formatting -->
     <h2 class="name"
         th:utext="${person.idString} + ': ' + ${person.wholeName} + ' ' + ${person.lifeSpanString}">I0:
@@ -98,6 +101,9 @@
             </td>
         </tr>
     </table>
+    </div>
+    </div>
+    </div>
 
 <!-- anywhere in your document: -->
 <form th:action="@{logout}" id="logoutForm">
