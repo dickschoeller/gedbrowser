@@ -19,6 +19,10 @@
         </div>
         <span th:if="${#httpServletRequest.remoteUser} == null" class="right" th:inline="text"><a th:href="@{login}">Login</a></span>
     </div>
+    <div class="outer">
+    <div class="middle">
+    <div class="inner">
+
     <h2 th:if="${living.hasRole('ADMIN')}">Living</h2>
     <h2 th:if="!${living.hasRole('ADMIN')}">Administrators Only!</h2>
     <h3 th:if="${living.hasRole('ADMIN')}">A tabulation of people estimated to be living</h3>
@@ -40,6 +44,9 @@
             </td>
         </tr>
     </table>
+    </div>
+    </div>
+    </div>
 
 <!-- anywhere in your document: -->
 <form th:action="@{logout}" id="logoutForm">
