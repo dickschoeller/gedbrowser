@@ -20,6 +20,10 @@
         </div>
         <span th:if="${#httpServletRequest.remoteUser} == null" class="right" th:inline="text"><a th:href="@{login}">Login</a></span>
     </div>
+    <div class="outer">
+    <div class="middle">
+    <div class="inner">
+
     <div th:if="${not source.getAttributes().isEmpty()}">
         <hr class="attributes"/>
         <h3 class="attributes" th:text="'Source: ' + ${source.idString} + ' - ' + ${source.titleString}"></h3>
@@ -39,6 +43,9 @@
             </td>
         </tr>
     </table>
+    </div>
+    </div>
+    </div>
 
 <!-- anywhere in your document: -->
 <form th:action="@{logout}" id="logoutForm">

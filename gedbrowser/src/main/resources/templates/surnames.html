@@ -20,6 +20,10 @@
         </div>
         <span th:if="${#httpServletRequest.remoteUser} == null" class="right" th:inline="text"><a th:href="@{login}">Login</a></span>
     </div>
+    <div class="outer">
+    <div class="middle">
+    <div class="inner">
+
     <h2>Index</h2>
     <h3>Pick an initial letter</h3>
     <span th:each="letter : ${index.letters}" th:utext="${letter} + ' &nbsp; '">[ A ]</span>
@@ -42,6 +46,9 @@
             </td>
         </tr>
     </table>
+    </div>
+    </div>
+    </div>
 
 <!-- anywhere in your document: -->
 <form th:action="@{logout}" id="logoutForm">
