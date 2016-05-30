@@ -31,9 +31,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-	  <groupId>org.seleniumhq.selenium</groupId>
-	  <artifactId>selenium-firefox-driver</artifactId>
-	  <version>${selenium.version}</version>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-firefox-driver</artifactId>
+      <version>${selenium.version}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -44,6 +44,10 @@
     
   <build>
     <plugins>
+      <plugin> 
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
@@ -60,7 +64,14 @@
           </execution>
         </executions>
       </plugin>
-
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
@@ -68,9 +79,6 @@
           <enableRulesSummary>false</enableRulesSummary>
           <configLocation>${project.parent.basedir}/config/checkstyle.xml</configLocation>
         </configuration>
-      </plugin>
-      <plugin> 
-        <artifactId>maven-compiler-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
