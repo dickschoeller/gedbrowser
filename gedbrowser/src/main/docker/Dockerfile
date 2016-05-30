@@ -1,6 +1,6 @@
 FROM java:7
 VOLUME /tmp
-ADD gedbrowser-1.0.0-SNAPSHOT.jar gedbrowser.jar
+ADD gedbrowser-1.0.0.jar gedbrowser.jar
 EXPOSE 8080
 ENV spring.data.mongodb.host=mongo
 RUN bash -c 'touch /gedbrowser.jar'

@@ -16,7 +16,7 @@ Check it out by perusing [my genealogy database](http://www.schoellerfamily.org/
 * From the top 'mvn clean install'
 * Place GEDCOM files in /var/lib/gedbrowser
 * Create /var/lib/gedbrowser/userFile.csv rows are: username,firstname,lastname,email,password,role,role...
-* java -jar gedbrowser/target/gedbrowser-1.0.0-SNAPSHOT.jar
+* java -jar gedbrowser/target/gedbrowser-1.0.0.jar
 
 Running with Docker requires running the MongoDB with Docker. The following command allows you to do this without conflicting ports with a native mongod service.
 
