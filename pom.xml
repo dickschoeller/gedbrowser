@@ -105,9 +105,12 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>findbugs-maven-plugin</artifactId>
-          <version>3.0.3</version>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.5.1</version>
+          <configuration>
+            <source>1.7</source>
+            <target>1.7</target>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -115,17 +118,75 @@
           <version>2.19.1</version>
         </plugin>
         <plugin>
-          <groupId>org.jacoco</groupId>
-          <artifactId>jacoco-maven-plugin</artifactId>
-	  <version>0.7.6.201602180812</version>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.19.1</version>
         </plugin>
         <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.5.1</version>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>3.6</version>
           <configuration>
-            <source>1.7</source>
-            <target>1.7</target>
+            <linkXRef>true</linkXRef>
+            <sourceEncoding>utf-8</sourceEncoding>
+            <targetJdk>1.7</targetJdk>
+            <rulesets>
+              <ruleset>/rulesets/java/basic.xml</ruleset>
+              <ruleset>/rulesets/java/unusedcode.xml</ruleset>
+              <ruleset>/rulesets/java/imports.xml</ruleset>
+              <ruleset>/rulesets/java/coupling.xml</ruleset>
+              <ruleset>/rulesets/java/unusedcode.xml</ruleset>
+              <ruleset>/rulesets/java/design.xml</ruleset>
+              <ruleset>/rulesets/java/codesize.xml</ruleset>
+              <ruleset>/rulesets/java/comments.xml</ruleset>
+              <ruleset>/rulesets/java/junit.xml</ruleset>
+              <ruleset>/rulesets/java/optimizations.xml</ruleset>
+              <ruleset>/rulesets/java/sunsecure.xml</ruleset>
+            </rulesets>
           </configuration>
+          <executions>
+            <execution>
+              <id>pmd</id>
+              <phase>test</phase>
+              <goals>
+                <goal>pmd</goal>
+                <goal>cpd</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>findbugs-maven-plugin</artifactId>
+          <version>3.0.3</version>
+          <executions>
+            <execution>
+              <id>findbugs</id>
+              <phase>test</phase>
+              <goals>
+                <goal>findbugs</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>2.17</version>
+          <executions>
+            <execution>
+              <id>checkstyle</id>
+              <phase>test</phase>
+              <goals>
+                <goal>checkstyle</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.7.6.201602180812</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -136,11 +197,6 @@
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
           <version>1.2.3.RELEASE</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>2.17</version>
         </plugin>
         <plugin>
           <groupId>com.spotify</groupId>
@@ -173,11 +229,11 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
-	  <version>3.0.0</version>
+          <version>3.0.0</version>
           <executions>
             <execution>
               <id>attach-sources</id>
-	      <phase>package</phase>
+              <phase>package</phase>
               <goals>
                 <goal>jar</goal>
               </goals>
@@ -187,11 +243,11 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-	  <version>2.10.3</version>
+          <version>2.10.3</version>
           <executions>
             <execution>
               <id>attach-javadoc</id>
-	      <phase>package</phase>
+              <phase>package</phase>
               <goals>
                 <goal>jar</goal>
               </goals>
