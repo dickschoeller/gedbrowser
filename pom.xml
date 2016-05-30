@@ -47,7 +47,6 @@
     <cglib.version>3.1</cglib.version>
     <!-- DON'T CHANGE THIS OLD VERSION WITHOUT VERIFYING BEHAVIOR OF ALL PAGES -->
     <spring-data-mongodb.version>1.5.4.RELEASE</spring-data-mongodb.version>
-    <slf4j.version>1.7.12</slf4j.version>
   </properties>
 
   <name>gedbrowser POM</name>
