@@ -32,7 +32,7 @@ public class RootPlacesTest {
         Places rootPlaces = new RootPlaces(root);
         Collection<Place> places = rootPlaces.getPlaces();
         final int expectedSize = 18;
-        Assert.assertEquals(expectedSize , places.size());
+        Assert.assertEquals(expectedSize, places.size());
         dump(places);
     }
 

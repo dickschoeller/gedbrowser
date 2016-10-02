@@ -18,36 +18,44 @@ import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
  */
 public class PersonPlacesTest {
     /**
-     * Test against the known data for Fred Schoeller.
+     * Test against the known data for Arnold Robinson.
      * TODO Replace this with something from sanitized data.
      *
      * @throws IOException if can't read the GEDCOM file
      */
     @Test
-    public final void testFred() throws IOException {
+    public final void testArnold() throws IOException {
         final AbstractGedLine top =
                 ReaderHelper.readFileTestSource(this,
-                        "/var/lib/gedbrowser/schoeller.ged");
+                        "mini-schoeller.ged");
         final Root root = (Root) top.createGedObject((AbstractGedLine) null);
-        final Person person = (Person) root.find("I32");
+        final Person person = (Person) root.find("I7");
         final PersonPlaces personPlaces = new PersonPlaces(person);
         Collection<Place> places = personPlaces.getPlaces();
-        final int expectedSize = 6;
+        final int expectedSize = 3;
         Assert.assertEquals(expectedSize, places.size());
+        // This is known to be in the data twice
         Assert.assertTrue(places.contains(
                 new Place(null,
-                        "New York, New York, USA")));
+                        "Providence,"
+                        + " Providence County,"
+                        + " Rhode Island,"
+                        + " USA")));
         Assert.assertTrue(places.contains(
                 new Place(null,
-                        "Ebingen, Württemberg")));
+                        "Lincoln Park Cemetery,"
+                        + " Warwick,"
+                        + " Kent County,"
+                        + " Rhode Island,"
+                        + " USA")));
         // Verifies picking up marriage location
         Assert.assertTrue(places.contains(
                 new Place(null,
-                        "Saint John's Lutheran Church,"
-                         + " Pine Grove,"
-                         + " Schuylkill County,"
-                         + " Pennsylvania,"
-                         + " USA")));
+                        "Beacon House,"
+                        + " Boston,"
+                        + " Suffolk County,"
+                        + " Massachusetts,"
+                        + " USA")));
         dump(places);
     }
 
