@@ -38,7 +38,7 @@ public class PlaceListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         final PlaceListItemRenderer liRenderer =
                 (PlaceListItemRenderer) dRenderer.getListItemRenderer();
-        liRenderer.renderAsListItem(builder , false, 0);
+        liRenderer.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
         assertEquals("Fayetteville, NC", string);
     }

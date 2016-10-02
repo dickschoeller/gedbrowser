@@ -55,6 +55,7 @@
   <modules>
     <module>gedbrowser-datamodel</module>
     <module>gedbrowser-analytics</module>
+    <module>gedbrowser-geographics</module>
     <module>gedbrowser-reader</module>
     <module>gedbrowser-renderer</module>
     <module>gedbrowser-mongo-dao</module>

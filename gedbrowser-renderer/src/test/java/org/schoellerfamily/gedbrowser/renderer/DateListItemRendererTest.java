@@ -37,7 +37,7 @@ public class DateListItemRendererTest {
         final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
-        dlir.renderAsListItem(builder , false, 0);
+        dlir.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
         assertEquals("14 December 1958", string);
     }
