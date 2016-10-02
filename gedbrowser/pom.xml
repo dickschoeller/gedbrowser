@@ -20,6 +20,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <start-class>org.schoellerfamily.gedbrowser.Application</start-class>
     <docker.image.prefix>schoellerfamily</docker.image.prefix>
+    <config-dir>${project.parent.basedir}/config</config-dir>
   </properties>
 
   <dependencyManagement>

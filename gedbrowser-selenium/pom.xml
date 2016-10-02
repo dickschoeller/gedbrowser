@@ -16,6 +16,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <skipTests>true</skipTests>
+    <config-dir>${project.parent.basedir}/config</config-dir>
   </properties>
 
   <dependencies>

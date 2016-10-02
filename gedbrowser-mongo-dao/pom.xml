@@ -11,6 +11,10 @@
   <artifactId>gedbrowser-mongo-dao</artifactId>
   <name>gedbrowser-mongo-dao</name>
 
+  <properties>
+    <config-dir>${project.parent.basedir}/config</config-dir>
+  </properties>
+
   <reporting>
     <plugins>
       <plugin>

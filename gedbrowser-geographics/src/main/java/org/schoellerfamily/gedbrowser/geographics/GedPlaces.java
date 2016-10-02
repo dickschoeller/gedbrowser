@@ -11,7 +11,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 /**
  * @author Dick Schoeller
  */
-public abstract class GedPlaces {
+public abstract class GedPlaces implements Places {
     /**
      * Recurse through this object and its children to find places to report.
      *
@@ -19,14 +19,14 @@ public abstract class GedPlaces {
      * @return the collection of places found
      */
     protected final Collection<Place> getPlaces(final GedObject gedobject) {
-        Set<Place> places = new TreeSet<>();
+        final Set<Place> places = new TreeSet<>();
         if (gedobject instanceof Place) {
             places.add(clonePlace((Place) gedobject));
         } else if (gedobject != null) {
             // TODO the null check should be unnecessary.
             // Something putting nulls in some lists.
-            List<GedObject> attributes = gedobject.getAttributes();
-            for (GedObject attribute : attributes) {
+            final List<GedObject> attributes = gedobject.getAttributes();
+            for (final GedObject attribute : attributes) {
                 places.addAll(getPlaces(attribute));
             }
         }
@@ -42,7 +42,6 @@ public abstract class GedPlaces {
      * @return the copy
      */
     protected final Place clonePlace(final Place place) {
-        Place newPlace = new Place(null, place.getString());
-        return newPlace;
+        return new Place(null, place.getString());
     }
 }

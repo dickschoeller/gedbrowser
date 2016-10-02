@@ -73,7 +73,7 @@ public class PersonPlacesTest {
         final Root root = (Root) top.createGedObject((AbstractGedLine) null);
         final Person person = (Person) root.find("I2");
         final Places personPlaces = new PersonPlaces(person);
-        Collection<Place> places = personPlaces.getPlaces();
+        final Collection<Place> places = personPlaces.getPlaces();
         final int expectedSize = 3;
         Assert.assertEquals(expectedSize, places.size());
         Assert.assertTrue(places.contains(
@@ -102,7 +102,7 @@ public class PersonPlacesTest {
      */
     protected final void dump(final Collection<Place> places) {
         System.out.println("A total of " + places.size() + " distinct places");
-        for (Place place : places) {
+        for (final Place place : places) {
             System.out.println("    " + place.getString());
         }
     }

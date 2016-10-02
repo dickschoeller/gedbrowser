@@ -35,12 +35,12 @@ public class PersonPlaces extends GedPlaces implements Places {
      */
     @Override
     public final Collection<Place> getPlaces() {
-        Set<Place> places = new TreeSet<>();
-        for (GedObject attribute : person.getAttributes()) {
+        final Set<Place> places = new TreeSet<>();
+        for (final GedObject attribute : person.getAttributes()) {
             places.addAll(getPlaces(attribute));
         }
-        for (Family family : person.getFamilies(new ArrayList<Family>())) {
-            for (GedObject attribute : family.getAttributes()) {
+        for (final Family family : person.getFamilies(new ArrayList<Family>())) {
+            for (final GedObject attribute : family.getAttributes()) {
                 places.addAll(getPlaces(attribute));
             }
         }
