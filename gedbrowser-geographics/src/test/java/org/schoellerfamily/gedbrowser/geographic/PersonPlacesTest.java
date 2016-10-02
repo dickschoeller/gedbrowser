@@ -43,7 +43,7 @@ public class PersonPlacesTest {
         // Verifies picking up marriage location
         Assert.assertTrue(places.contains(
                 new Place(null,
-                        "St. John's Lutheran Church,"
+                        "Saint John's Lutheran Church,"
                          + " Pine Grove,"
                          + " Schuylkill County,"
                          + " Pennsylvania,"
