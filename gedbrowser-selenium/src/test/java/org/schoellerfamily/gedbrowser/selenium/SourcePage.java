@@ -28,7 +28,7 @@ public class SourcePage extends PageBase {
                 "Source: S4 - Robinson, Lisa Hope and Schoeller,"
                         + " Richard John, certificate of marriage");
         TITLE_MAP.put("S21",
-                "Source: S21 - St. John's Lutheran Church, Pine Grove, PA,"
+                "Source: S21 - Saint John's Lutheran Church, Pine Grove, PA,"
                         + " church record transcription");
     };
 
