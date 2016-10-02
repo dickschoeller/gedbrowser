@@ -13,21 +13,20 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
  */
 public abstract class GedPlaces {
     /**
-     * Recurse through this object and its children to find places to
-     * report.
+     * Recurse through this object and its children to find places to report.
      *
      * @param gedobject the object whose places we are going to find
      * @return the collection of places found
      */
     protected final Collection<Place> getPlaces(final GedObject gedobject) {
         Set<Place> places = new TreeSet<>();
-        List<GedObject> attributes = gedobject.getAttributes();
-        for (GedObject attribute : attributes) {
-            if (attribute instanceof Place) {
-                places.add(clonePlace((Place) attribute));
-            } else if (attribute != null) {
-                // TODO the null check should be unnecessary.
-                // Something putting nulls in list.
+        if (gedobject instanceof Place) {
+            places.add(clonePlace((Place) gedobject));
+        } else if (gedobject != null) {
+            // TODO the null check should be unnecessary.
+            // Something putting nulls in some lists.
+            List<GedObject> attributes = gedobject.getAttributes();
+            for (GedObject attribute : attributes) {
                 places.addAll(getPlaces(attribute));
             }
         }
@@ -38,7 +37,8 @@ public abstract class GedPlaces {
      * Create a copy of a place without the parent information. This allows us
      * to use equals as defined for GedObjects.
      *
-     * @param place the place to copy
+     * @param place
+     *            the place to copy
      * @return the copy
      */
     protected final Place clonePlace(final Place place) {

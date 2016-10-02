@@ -37,19 +37,11 @@ public class PersonPlaces extends GedPlaces implements Places {
     public final Collection<Place> getPlaces() {
         Set<Place> places = new TreeSet<>();
         for (GedObject attribute : person.getAttributes()) {
-            if (attribute instanceof Place) {
-                places.add(clonePlace((Place) attribute));
-            } else if (attribute != null) {
-                places.addAll(getPlaces(attribute));
-            }
+            places.addAll(getPlaces(attribute));
         }
         for (Family family : person.getFamilies(new ArrayList<Family>())) {
             for (GedObject attribute : family.getAttributes()) {
-                if (attribute instanceof Place) {
-                    places.add(clonePlace((Place) attribute));
-                } else {
-                    places.addAll(getPlaces(attribute));
-                }
+                places.addAll(getPlaces(attribute));
             }
         }
         return places;

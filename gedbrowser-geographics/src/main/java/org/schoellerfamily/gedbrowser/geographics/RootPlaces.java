@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.geographic;
+package org.schoellerfamily.gedbrowser.geographics;
 
 import java.util.Collection;
 import java.util.TreeSet;
@@ -6,9 +6,6 @@ import java.util.TreeSet;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.geographics.GedPlaces;
-import org.schoellerfamily.gedbrowser.geographics.PersonPlaces;
-import org.schoellerfamily.gedbrowser.geographics.Places;
 
 /**
  * Report the places for a data set.

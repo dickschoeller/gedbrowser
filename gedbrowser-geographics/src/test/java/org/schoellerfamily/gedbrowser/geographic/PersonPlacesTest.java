@@ -61,7 +61,7 @@ public class PersonPlacesTest {
     public final void testDick() throws IOException {
         final AbstractGedLine top =
                 ReaderHelper.readFileTestSource(this,
-                        "/var/lib/gedbrowser/schoeller.ged");
+                        "mini-schoeller.ged");
         final Root root = (Root) top.createGedObject((AbstractGedLine) null);
         final Person person = (Person) root.find("I2");
         final Places personPlaces = new PersonPlaces(person);
