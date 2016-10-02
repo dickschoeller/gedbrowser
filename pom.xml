@@ -8,7 +8,7 @@
 
   <groupId>org.schoellerfamily.gedbrowser</groupId>
   <artifactId>gedbrowser-top</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <organization>
@@ -47,6 +47,7 @@
     <cglib.version>3.1</cglib.version>
     <!-- DON'T CHANGE THIS OLD VERSION WITHOUT VERIFYING BEHAVIOR OF ALL PAGES -->
     <spring-data-mongodb.version>1.5.4.RELEASE</spring-data-mongodb.version>
+    <config-dir>${project.basedir}/config</config-dir>
   </properties>
 
   <name>gedbrowser POM</name>
@@ -55,6 +56,7 @@
   <modules>
     <module>gedbrowser-datamodel</module>
     <module>gedbrowser-analytics</module>
+    <module>gedbrowser-geographics</module>
     <module>gedbrowser-reader</module>
     <module>gedbrowser-renderer</module>
     <module>gedbrowser-mongo-dao</module>
@@ -81,19 +83,19 @@
         <configuration>
           <linkXRef>true</linkXRef>
           <sourceEncoding>utf-8</sourceEncoding>
-          <targetJdk>1.7</targetJdk>
+          <targetJdk>1.8</targetJdk>
           <rulesets>
-            <ruleset>/rulesets/basic.xml</ruleset>
-            <ruleset>/rulesets/unusedcode.xml</ruleset>
-            <ruleset>/rulesets/imports.xml</ruleset>
-            <ruleset>/rulesets/coupling.xml</ruleset>
-            <ruleset>/rulesets/unusedcode.xml</ruleset>
-            <ruleset>/rulesets/design.xml</ruleset>
-            <ruleset>/rulesets/codesize.xml</ruleset>
-            <ruleset>/rulesets/comments.xml</ruleset>
-            <ruleset>/rulesets/junit.xml</ruleset>
-            <ruleset>/rulesets/optimization.xml</ruleset>
-            <ruleset>/rulesets/sunsecure.xml</ruleset>
+            <ruleset>${config-dir}/rulesets/java/basic.xml</ruleset>
+            <ruleset>${config-dir}/rulesets/java/unusedcode.xml</ruleset>
+            <ruleset>${config-dir}/rulesets/java/imports.xml</ruleset>
+            <ruleset>${config-dir}/rulesets/java/coupling.xml</ruleset>
+            <ruleset>${config-dir}/rulesets/java/unusedcode.xml</ruleset>
+            <ruleset>${config-dir}/rulesets/java/design.xml</ruleset>
+            <ruleset>${config-dir}/rulesets/java/codesize.xml</ruleset>
+            <ruleset>${config-dir}/rulesets/java/comments.xml</ruleset>
+            <ruleset>${config-dir}/rulesets/java/junit.xml</ruleset>
+            <ruleset>${config-dir}/rulesets/java/optimization.xml</ruleset>
+            <ruleset>${config-dir}/rulesets/java/sunsecure.xml</ruleset>
           </rulesets>
         </configuration>
       </plugin>
@@ -107,8 +109,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.5.1</version>
           <configuration>
-            <source>1.7</source>
-            <target>1.7</target>
+            <source>1.8</source>
+            <target>1.8</target>
           </configuration>
         </plugin>
         <plugin>
@@ -128,19 +130,19 @@
           <configuration>
             <linkXRef>true</linkXRef>
             <sourceEncoding>utf-8</sourceEncoding>
-            <targetJdk>1.7</targetJdk>
+            <targetJdk>1.8</targetJdk>
             <rulesets>
-              <ruleset>/rulesets/java/basic.xml</ruleset>
-              <ruleset>/rulesets/java/unusedcode.xml</ruleset>
-              <ruleset>/rulesets/java/imports.xml</ruleset>
-              <ruleset>/rulesets/java/coupling.xml</ruleset>
-              <ruleset>/rulesets/java/unusedcode.xml</ruleset>
-              <ruleset>/rulesets/java/design.xml</ruleset>
-              <ruleset>/rulesets/java/codesize.xml</ruleset>
-              <ruleset>/rulesets/java/comments.xml</ruleset>
-              <ruleset>/rulesets/java/junit.xml</ruleset>
-              <ruleset>/rulesets/java/optimizations.xml</ruleset>
-              <ruleset>/rulesets/java/sunsecure.xml</ruleset>
+              <ruleset>${config-dir}/rulesets/java/basic.xml</ruleset>
+              <ruleset>${config-dir}/rulesets/java/unusedcode.xml</ruleset>
+              <ruleset>${config-dir}/rulesets/java/imports.xml</ruleset>
+              <ruleset>${config-dir}/rulesets/java/coupling.xml</ruleset>
+              <ruleset>${config-dir}/rulesets/java/unusedcode.xml</ruleset>
+              <ruleset>${config-dir}/rulesets/java/design.xml</ruleset>
+              <ruleset>${config-dir}/rulesets/java/codesize.xml</ruleset>
+              <ruleset>${config-dir}/rulesets/java/comments.xml</ruleset>
+              <ruleset>${config-dir}/rulesets/java/junit.xml</ruleset>
+              <ruleset>${config-dir}/rulesets/java/optimizations.xml</ruleset>
+              <ruleset>${config-dir}/rulesets/java/sunsecure.xml</ruleset>
             </rulesets>
           </configuration>
           <executions>
@@ -157,7 +159,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>findbugs-maven-plugin</artifactId>
-          <version>3.0.3</version>
+          <version>3.0.4</version>
           <executions>
             <execution>
               <id>findbugs</id>
@@ -185,22 +187,22 @@
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.7.6.201602180812</version>
+          <version>0.7.7.201606060606</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-war-plugin</artifactId>
-          <version>2.6</version>
+          <version>3.0.0</version>
         </plugin>
          <plugin>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
-          <version>1.2.3.RELEASE</version>
+          <version>1.4.1.RELEASE</version>
         </plugin>
         <plugin>
           <groupId>com.spotify</groupId>
           <artifactId>docker-maven-plugin</artifactId>
-          <version>0.4.10</version>
+          <version>0.4.13</version>
           <executions>
             <!-- execution>
               <id>build-image</id>
@@ -228,7 +230,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
-          <version>3.0.0</version>
+          <version>3.0.1</version>
           <executions>
             <execution>
               <id>attach-sources</id>
@@ -242,7 +244,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>2.10.3</version>
+          <version>2.10.4</version>
           <executions>
             <execution>
               <id>attach-javadoc</id>

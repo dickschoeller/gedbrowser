@@ -5,7 +5,7 @@
 
   <parent>
     <artifactId>gedbrowser-top</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0-SNAPSHOT</version>
     <groupId>org.schoellerfamily.gedbrowser</groupId>
     <relativePath>..</relativePath>
   </parent>
@@ -20,6 +20,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <start-class>org.schoellerfamily.gedbrowser.Application</start-class>
     <docker.image.prefix>schoellerfamily</docker.image.prefix>
+    <config-dir>${project.parent.basedir}/config</config-dir>
   </properties>
 
   <dependencyManagement>
@@ -70,27 +71,32 @@
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-datamodel</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-reader</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-renderer</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-mongo-dao</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-analytics</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.schoellerfamily.gedbrowser</groupId>
+      <artifactId>gedbrowser-geographics</artifactId>
+      <version>1.1.0-SNAPSHOT</version>
     </dependency>
 
     <!-- Testing dependencies -->

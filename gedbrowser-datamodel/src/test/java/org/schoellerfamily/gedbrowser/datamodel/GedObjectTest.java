@@ -28,7 +28,7 @@ public final class GedObjectTest { // NOPMD
          * @param parent
          *            parent object of this object
          */
-        public GedObjectWrapper(final GedObject parent) {
+        GedObjectWrapper(final GedObject parent) {
             super(parent);
         }
 
@@ -38,7 +38,7 @@ public final class GedObjectTest { // NOPMD
          * @param string
          *            long version of type string
          */
-        public GedObjectWrapper(final GedObject parent, final String string) {
+        GedObjectWrapper(final GedObject parent, final String string) {
             super(parent, string);
         }
     }
