@@ -11,22 +11,16 @@ import java.util.logging.Logger;
 import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.persistence.domain.GedDocumentFactory;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
-import org.schoellerfamily.gedbrowser.persistence.repository.
-    FamilyDocumentRepository;
-import org.schoellerfamily.gedbrowser.persistence.repository.
-    HeadDocumentRepository;
-import org.schoellerfamily.gedbrowser.persistence.repository.
-    PersonDocumentRepository;
-import org.schoellerfamily.gedbrowser.persistence.repository.
-    RootDocumentRepository;
-import org.schoellerfamily.gedbrowser.persistence.repository.
-    SourceDocumentRepository;
-import org.schoellerfamily.gedbrowser.persistence.repository.
-    SubmittorDocumentRepository;
-import org.schoellerfamily.gedbrowser.persistence.repository.
-    TrailerDocumentRepository;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmittorDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,32 +35,32 @@ public class GedFileLoader {
 
     /** */
     @Autowired
-    private transient RootDocumentRepository rootDocumentRepository;
+    private transient RootDocumentRepositoryMongo rootDocumentRepository;
 
     /** */
     @Autowired
-    private transient PersonDocumentRepository personDocumentRepository;
+    private transient PersonDocumentRepositoryMongo personDocumentRepository;
 
     /** */
     @Autowired
-    private transient FamilyDocumentRepository familyDocumentRepository;
+    private transient FamilyDocumentRepositoryMongo familyDocumentRepository;
 
     /** */
     @Autowired
-    private transient HeadDocumentRepository headDocumentRepository;
+    private transient HeadDocumentRepositoryMongo headDocumentRepository;
 
     /** */
     @Autowired
-    private transient SourceDocumentRepository sourceDocumentRepository;
+    private transient SourceDocumentRepositoryMongo sourceDocumentRepository;
 
     /** */
     @Autowired
-    private transient SubmittorDocumentRepository
+    private transient SubmittorDocumentRepositoryMongo
         submittorDocumentRepository; // NOPMD
 
     /** */
     @Autowired
-    private transient TrailerDocumentRepository trailerDocumentRepository;
+    private transient TrailerDocumentRepositoryMongo trailerDocumentRepository;
 
     /** */
     @Autowired
@@ -136,8 +130,8 @@ public class GedFileLoader {
             root = null;
         }
 
-        final RootDocument rootdoc = (RootDocument) GedDocumentFactory.
-                getInstance().createGedDocument(root);
+        final RootDocumentMongo rootdoc = (RootDocumentMongo) GedDocumentMongoFactory
+                .getInstance().createGedDocument(root);
         rootDocumentRepository.save(rootdoc);
 
         return root;

@@ -1,9 +1,9 @@
-package org.schoellerfamily.gedbrowser;
+package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
 import java.net.UnknownHostException;
 
 import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
-import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
@@ -12,7 +12,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentR
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmittorDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -42,15 +41,7 @@ import com.mongodb.MongoClient;
                         TrailerDocumentRepositoryMongo.class
                 },
                 type = FilterType.ASSIGNABLE_TYPE))
-public class MongoConfiguration {
-    /** */
-    @Value("${spring.data.mongodb.host:localhost}")
-    private transient String host;
-
-    /** */
-    @Value("${spring.data.mongodb.port:27017}")
-    private transient int port;
-
+public class MongoTestConfiguration {
     /**
      * Get a MongoDbFactory for accessing the gedbrowser database.
      *
@@ -62,8 +53,7 @@ public class MongoConfiguration {
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
         // CHECKSTYLE:ON
-        return new SimpleMongoDbFactory(new MongoClient(host, port),
-                "gedbrowser");
+        return new SimpleMongoDbFactory(new MongoClient(), "gedbrowserTest");
     }
 
     /**
@@ -77,7 +67,24 @@ public class MongoConfiguration {
     @Bean
     public MongoTemplate mongoTemplate() throws UnknownHostException {
         // CHECKSTYLE:ON
-        return new MongoTemplate(mongoDbFactory());
+        final MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory());
+
+        return mongoTemplate;
+
+    }
+
+    /**
+     * Provide access to a test fixture that loads up database fresh for
+     * testing.
+     *
+     * @return the fixture
+     */
+    // We turn off checkstyle because bean methods must not be final
+    // CHECKSTYLE:OFF
+    @Bean
+    public RepositoryFixture repositoryFixture() {
+        // CHECKSTYLE:ON
+        return new RepositoryFixture();
     }
 
     /**
@@ -89,16 +96,5 @@ public class MongoConfiguration {
     public FinderStrategy finder() {
         // CHECKSTYLE:ON
         return new RepositoryFinderMongo();
-    }
-
-    /**
-     * @return the loader
-     */
-    // We turn off checkstyle because bean methods must not be final
-    // CHECKSTYLE:OFF
-    @Bean
-    public GedFileLoader loader() {
-        // CHECKSTYLE:ON
-        return new GedFileLoader();
     }
 }
