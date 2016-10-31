@@ -174,22 +174,25 @@ public class RootRepositoryTest {
                 final PersonDocument perdoc = personDocumentRepository
                         .findByFileAndString(root.getFilename(),
                                 ged.getString());
-                final Person person = (Person) GedDocumentMongoFactory.getInstance()
-                        .createGedObject(root, perdoc);
+                final Person person =
+                        (Person) GedDocumentMongoFactory.getInstance()
+                                .createGedObject(root, perdoc);
                 assertEquals(person, ged);
             } else if (ged instanceof Source) {
                 final SourceDocument soudoc = sourceDocumentRepository
                         .findByFileAndString(root.getFilename(),
                                 ged.getString());
-                final Source source = (Source) GedDocumentMongoFactory.getInstance()
-                        .createGedObject(root, soudoc);
+                final Source source =
+                        (Source) GedDocumentMongoFactory.getInstance()
+                                .createGedObject(root, soudoc);
                 assertEquals(source, ged);
             } else if (ged instanceof Family) {
                 final FamilyDocument famdoc = familyDocumentRepository
                         .findByFileAndString(root.getFilename(),
                                 ged.getString());
-                final Family family = (Family) GedDocumentMongoFactory.getInstance()
-                        .createGedObject(root, famdoc);
+                final Family family =
+                        (Family) GedDocumentMongoFactory.getInstance()
+                                .createGedObject(root, famdoc);
                 assertEquals(family, ged);
             } else if (ged instanceof Head) {
                 final HeadDocument headoc = headDocumentRepository

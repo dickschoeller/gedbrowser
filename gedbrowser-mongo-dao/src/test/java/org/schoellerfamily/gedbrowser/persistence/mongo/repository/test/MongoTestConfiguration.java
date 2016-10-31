@@ -29,7 +29,8 @@ import com.mongodb.MongoClient;
  */
 @Configuration
 @EnableMongoRepositories(
-        basePackages = "org.schoellerfamily.gedbrowser.persistence.mongo.repository",
+        basePackages =
+            "org.schoellerfamily.gedbrowser.persistence.mongo.repository",
         includeFilters = @ComponentScan.Filter(
                 value = {
                         FamilyDocumentRepositoryMongo.class,

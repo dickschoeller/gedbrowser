@@ -78,8 +78,9 @@ public final class RepositoryFixture {
         root.setFilename("bigtest.ged");
         root.setDbName("bigtest");
 
-        final RootDocumentMongo rootdoc = (RootDocumentMongo) GedDocumentMongoFactory.
-                getInstance().createGedDocument(root);
+        final RootDocumentMongo rootdoc =
+                (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
+                        .createGedDocument(root);
         rootDocumentRepository.save(rootdoc);
 
         // TODO we aren't saving root.
@@ -97,7 +98,8 @@ public final class RepositoryFixture {
             } else if (gedDoc instanceof HeadDocumentMongo) {
                 headDocumentRepository.save((HeadDocumentMongo) gedDoc);
             } else if (gedDoc instanceof SubmittorDocumentMongo) {
-                submittorDocumentRepository.save((SubmittorDocumentMongo) gedDoc);
+                submittorDocumentRepository
+                        .save((SubmittorDocumentMongo) gedDoc);
             } else if (gedDoc instanceof TrailerDocumentMongo) {
                 trailerDocumentRepository.save((TrailerDocumentMongo) gedDoc);
             }
