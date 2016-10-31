@@ -23,14 +23,22 @@ import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmittorDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.TrailerDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamilyDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
+    FamilyDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
+    GedDocumentMongoFactory;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
+    HeadDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
+    PersonDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
+    RootDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
+    SourceDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
+    SubmittorDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
+    TrailerDocumentMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -38,8 +46,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public final class RepositoryFinderMongo implements FinderStrategy {
     /** Logger. */
-    private static final Logger LOGGER = Logger.getLogger(RepositoryFinderMongo.class
-            .getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(RepositoryFinderMongo.class.getName());
 
     /** */
     @Autowired
@@ -105,8 +113,9 @@ public final class RepositoryFinderMongo implements FinderStrategy {
             throw new IllegalArgumentException("Owner must be root");
         }
         final Root root = (Root) owner;
-        final RootDocumentMongo rootDocument = (RootDocumentMongo) GedDocumentMongoFactory
-                .getInstance().createGedDocument(root);
+        final RootDocumentMongo rootDocument =
+                (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
+                        .createGedDocument(root);
         if (clazz.equals(Family.class)) {
             final FamilyDocument document = familyDocumentRepository.
                     findByRootAndString(
@@ -215,8 +224,9 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         final List<Person> persons = new ArrayList<>();
         if (owner instanceof Root) {
             final Root root = (Root) owner;
-            final RootDocumentMongo rootDocument = (RootDocumentMongo) GedDocumentMongoFactory
-                    .getInstance().createGedDocument(root);
+            final RootDocumentMongo rootDocument =
+                    (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
+                            .createGedDocument(root);
             final Collection<PersonDocument> personDocuments =
                     personDocumentRepository
                     .findByRootAndSurname(rootDocument, surname);
@@ -238,8 +248,9 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         final Set<String> surnames = new TreeSet<>();
         if (owner instanceof Root) {
             final Root root = (Root) owner;
-            final RootDocumentMongo rootDocument = (RootDocumentMongo) GedDocumentMongoFactory
-                    .getInstance().createGedDocument(root);
+            final RootDocumentMongo rootDocument =
+                    (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
+                            .createGedDocument(root);
             final Collection<PersonDocument> personDocuments =
                     personDocumentRepository
                     .findByRootAndSurnameBeginsWith(rootDocument, beginsWith);
@@ -260,8 +271,9 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         final Set<String> matches = new TreeSet<>();
         if (owner instanceof Root) {
             final Root root = (Root) owner;
-            final RootDocumentMongo rootDocument = (RootDocumentMongo) GedDocumentMongoFactory
-                    .getInstance().createGedDocument(root);
+            final RootDocumentMongo rootDocument =
+                    (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
+                            .createGedDocument(root);
             final Iterable<PersonDocument> personDocuments =
                     personDocumentRepository.findByRoot(rootDocument);
             for (final PersonDocument personDocument : personDocuments) {

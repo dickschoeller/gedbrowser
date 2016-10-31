@@ -215,7 +215,8 @@ public final class GedDocumentMongoFactory { // NOPMD
         } else if (document == null) {
             throw new PersistenceException("whoops: null document");
         } else {
-            throw new PersistenceException("whoops: " + document.getClass().getSimpleName());
+            throw new PersistenceException(
+                    "whoops: " + document.getClass().getSimpleName());
         }
         for (final GedDocument<?> subDocument : document.getAttributes()) {
             final GedObject subGed = GedDocumentMongoFactory.getInstance()

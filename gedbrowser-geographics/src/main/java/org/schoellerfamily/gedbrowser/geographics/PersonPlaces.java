@@ -39,7 +39,8 @@ public class PersonPlaces extends GedPlaces implements Places {
         for (final GedObject attribute : person.getAttributes()) {
             places.addAll(getPlaces(attribute));
         }
-        for (final Family family : person.getFamilies(new ArrayList<Family>())) {
+        final ArrayList<Family> families = new ArrayList<Family>();
+        for (final Family family : person.getFamilies(families)) {
             for (final GedObject attribute : family.getAttributes()) {
                 places.addAll(getPlaces(attribute));
             }

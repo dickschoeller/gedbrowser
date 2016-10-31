@@ -12,15 +12,24 @@ import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmittorDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
+    GedDocumentMongoFactory;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
+    RootDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
+    FamilyDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
+    HeadDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
+    PersonDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
+    RootDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
+    SourceDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
+    SubmittorDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
+    TrailerDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,8 +139,9 @@ public class GedFileLoader {
             root = null;
         }
 
-        final RootDocumentMongo rootdoc = (RootDocumentMongo) GedDocumentMongoFactory
-                .getInstance().createGedDocument(root);
+        final RootDocumentMongo rootdoc =
+                (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
+                        .createGedDocument(root);
         rootDocumentRepository.save(rootdoc);
 
         return root;

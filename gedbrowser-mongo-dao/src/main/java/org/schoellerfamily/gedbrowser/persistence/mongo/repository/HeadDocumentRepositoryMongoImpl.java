@@ -3,8 +3,10 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
+    GedDocumentMongoFactory;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
+    HeadDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;

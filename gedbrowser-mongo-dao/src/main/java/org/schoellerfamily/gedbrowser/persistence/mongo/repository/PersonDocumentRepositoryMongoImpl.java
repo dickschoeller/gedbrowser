@@ -11,9 +11,12 @@ import java.util.logging.Logger;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.repository.FindableByNameDocument;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
+    GedDocumentMongoFactory;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
+    PersonDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.repository.
+    FindableByNameDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -205,7 +208,8 @@ public final class PersonDocumentRepositoryMongoImpl implements
      * @param personDocuments
      *            the list of person documents to create and associate.
      */
-    private void createGedObjects(final List<PersonDocumentMongo> personDocuments) {
+    private void createGedObjects(
+            final List<PersonDocumentMongo> personDocuments) {
         for (final PersonDocumentMongo personDocument : personDocuments) {
             final Person person = (Person) GedDocumentMongoFactory.getInstance()
                     .createGedObject(null, personDocument);
@@ -219,7 +223,8 @@ public final class PersonDocumentRepositoryMongoImpl implements
      * @param in input collection
      * @return output collection
      */
-    private Collection<PersonDocument> copy(Collection<PersonDocumentMongo> in) {
+    private Collection<PersonDocument> copy(
+            final Collection<PersonDocumentMongo> in) {
         List<PersonDocument> out = new ArrayList<>(in.size());
         for (PersonDocumentMongo pdm : in) {
             out.add(pdm);

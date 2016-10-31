@@ -3,8 +3,10 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmittorDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
+    GedDocumentMongoFactory;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
+    SubmittorDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -26,7 +28,8 @@ public class SubmittorDocumentRepositoryMongoImpl implements
         final Query searchQuery = new Query(Criteria.where("string").is(string)
                 .and("filename").is(filename));
         final SubmittorDocument submittorDocument =
-                mongoTemplate.findOne(searchQuery, SubmittorDocumentMongo.class);
+                mongoTemplate.findOne(searchQuery,
+                        SubmittorDocumentMongo.class);
         if (submittorDocument == null) {
             return null;
         }

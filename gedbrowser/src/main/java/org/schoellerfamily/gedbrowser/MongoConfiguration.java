@@ -4,14 +4,22 @@ import java.net.UnknownHostException;
 
 import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryFinderMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmittorDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
+    FamilyDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
+    HeadDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
+    PersonDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
+    RepositoryFinderMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
+    RootDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
+    SourceDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
+    SubmittorDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
+    TrailerDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -30,7 +38,8 @@ import com.mongodb.MongoClient;
  */
 @Configuration
 @EnableMongoRepositories(
-        basePackages = "org.schoellerfamily.gedbrowser.persistence.mongo.repository",
+        basePackages =
+            "org.schoellerfamily.gedbrowser.persistence.mongo.repository",
         includeFilters = @ComponentScan.Filter(
                 value = {
                         FamilyDocumentRepositoryMongo.class,

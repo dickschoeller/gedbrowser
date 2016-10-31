@@ -6,6 +6,8 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
  * @author Dick Schoeller
+ *
+ * @param <G> the GedObject type that this is for
  */
 public interface GedDocument<G extends GedObject> {
     /**
