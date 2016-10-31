@@ -8,9 +8,6 @@ Check it out by perusing [my genealogy database](http://www.schoellerfamily.org/
 | :--- | :--- |
 | [![Build Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser)](http://www.schoellerfamily.org/jenkins/job/gedbrowser/) | [![Selenium Test Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser-selenium)](http://www.schoellerfamily.org/jenkins/job/gedbrowser-selenium) |
 
-Not sure when the above stopped working. The Jenkins plugin uses SVG and it seems GitHub doesn't like SVG
-files in the README.md.
-
 ## Getting started
 
 * Prerequisistes are a JDK, Maven, Git, and MongoDB
