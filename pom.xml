@@ -47,6 +47,7 @@
     <cglib.version>3.1</cglib.version>
     <!-- DON'T CHANGE THIS OLD VERSION WITHOUT VERIFYING BEHAVIOR OF ALL PAGES -->
     <spring-data-mongodb.version>1.5.4.RELEASE</spring-data-mongodb.version>
+    <spring-data-commons.version>1.8.4.RELEASE</spring-data-commons.version>
     <config-dir>${project.basedir}/config</config-dir>
   </properties>
 
@@ -59,6 +60,7 @@
     <module>gedbrowser-geographics</module>
     <module>gedbrowser-reader</module>
     <module>gedbrowser-renderer</module>
+    <module>gedbrowser-dao</module>
     <module>gedbrowser-mongo-dao</module>
     <module>gedbrowser</module>
     <module>gedbrowser-selenium</module>
