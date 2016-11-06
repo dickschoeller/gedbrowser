@@ -61,14 +61,15 @@ public final class FamilyRenderer extends GedRenderer<Family> {
     }
 
     /**
-     * @param builder
-     *            Buffer for holding the rendition
-     * @param pageRenderer
-     *            The page renderer that is invoking this
-     * @param sectionNumber
-     *            Which family section is being rendered
+     * This method is public for testing purposes only. Do
+     * not try to call it outside of the context of the rendering
+     * engine.
+     *
+     * @param builder Buffer for holding the rendition
+     * @param pageRenderer The page renderer that is invoking this
+     * @param sectionNumber Which family section is being rendered
      */
-    void renderSpouses(final StringBuilder builder,
+    public void renderSpouses(final StringBuilder builder,
             final GedRenderer<?> pageRenderer, final int sectionNumber) {
         final Family family = getGedObject();
         final GedObject gedObject = pageRenderer.getGedObject();

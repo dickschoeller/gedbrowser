@@ -136,11 +136,15 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
     /**
      * Get the HTML header for a page.
      *
+     * This method is public for testing purposes only. Do
+     * not try to call it outside of the context of the rendering
+     * engine.
+     *
      * @param title the title string.
      * @param keywords any keywords.
      * @return a string containing the HTML header.
      */
-    protected final String getHeaderHtml(final String title,
+    public final String getHeaderHtml(final String title,
             final String keywords) {
         final StringBuilder builder = new StringBuilder(585);
         builder.append("Content-type: text/html\n\n"); // NOPMD
@@ -171,18 +175,25 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
     }
 
     /**
+     * This method is public for testing purposes only. Do
+     * not try to call it outside of the context of the rendering
+     * engine.
+     *
      * @return trailer HTML with no omissions.
      */
-    protected final String getTrailerHtml() {
+    public final String getTrailerHtml() {
         return getTrailerHtml("");
     }
 
     /**
-     * @param omit
-     *            title of section to leave out.
+     * This method is public for testing purposes only. Do
+     * not try to call it outside of the context of the rendering
+     * engine.
+     *
+     * @param omit title of section to leave out.
      * @return trailer HTML
      */
-    protected final String getTrailerHtml(final String omit) {
+    public final String getTrailerHtml(final String omit) {
         final java.util.Date javaDate = new java.util.Date();
         final String timeString = DateFormat.getDateInstance(DateFormat.LONG,
                 Locale.getDefault()).format(javaDate);
@@ -362,9 +373,13 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
     }
 
     /**
+     * This method is public for testing purposes only. Do
+     * not try to call it outside of the context of the rendering
+     * engine.
+     *
      * @return the renderer.
      */
-    protected final NameHtmlRenderer getNameHtmlRenderer() {
+    public final NameHtmlRenderer getNameHtmlRenderer() {
         return this.nameHtmlRenderer;
     }
 
@@ -380,9 +395,13 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
     }
 
     /**
+     * This method is public for testing purposes only. Do
+     * not try to call it outside of the context of the rendering
+     * engine.
+     *
      * @return the renderer.
      */
-    protected final ListItemRenderer getListItemRenderer() {
+    public final ListItemRenderer getListItemRenderer() {
         return this.listItemRenderer;
     }
 
@@ -398,9 +417,13 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
     }
 
     /**
+     * This method is public for testing purposes only. Do
+     * not try to call it outside of the context of the rendering
+     * engine.
+     *
      * @return the renderer.
      */
-    protected final SectionRenderer getSectionRenderer() {
+    public final SectionRenderer getSectionRenderer() {
         return this.sectionRenderer;
     }
 
@@ -416,9 +439,13 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
     }
 
     /**
+     * This method is public for testing purposes only. Do
+     * not try to call it outside of the context of the rendering
+     * engine.
+     *
      * @return the renderer.
      */
-    protected final PhraseRenderer getPhraseRenderer() {
+    public final PhraseRenderer getPhraseRenderer() {
         return this.phraseRenderer;
     }
 
@@ -435,9 +462,13 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
     }
 
     /**
+     * This method is public for testing purposes only. Do
+     * not try to call it outside of the context of the rendering
+     * engine.
+     *
      * @return the renderer.
      */
-    protected final AttributeListOpenRenderer getAttributeListOpenRenderer() {
+    public final AttributeListOpenRenderer getAttributeListOpenRenderer() {
         return this.attributeListOpenRenderer;
     }
 
@@ -453,9 +484,13 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
     }
 
     /**
+     * This method is public for testing purposes only. Do
+     * not try to call it outside of the context of the rendering
+     * engine.
+     *
      * @return the renderer.
      */
-    protected final NameIndexRenderer getNameIndexRenderer() {
+    public final NameIndexRenderer getNameIndexRenderer() {
         return this.nameIndexRenderer;
     }
 

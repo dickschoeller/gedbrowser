@@ -185,7 +185,7 @@ public abstract class AbstractGedLine {
      * @param inLine the line of GEDCOM data
      * @return the GedLine
      */
-    protected static AbstractGedLine createGedLine(
+    public static AbstractGedLine createGedLine(
             final AbstractGedLine parent, final String inLine) {
         String line = inLine;
         if (line == null) {

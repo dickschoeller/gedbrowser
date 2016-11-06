@@ -43,21 +43,29 @@ public final class PersonRenderer extends GedRenderer<Person> {
     }
 
     /**
+     * This method is public for testing purposes only. Do
+     * not try to call it outside of the context of the rendering
+     * engine.
+     *
      * @param builder Buffer for holding the rendition
      * @param pad Minimum number spaces for padding each line of the output
      * @param father Father
      */
-    protected void renderFather(final StringBuilder builder,
+    public void renderFather(final StringBuilder builder,
             final int pad, final Person father) {
         renderParent(builder, pad, father, "Father");
     }
 
     /**
+     * This method is public for testing purposes only. Do
+     * not try to call it outside of the context of the rendering
+     * engine.
+     *
      * @param builder Buffer for holding the rendition
      * @param pad Minimum number spaces for padding each line of the output
      * @param mother Mother
      */
-    protected void renderMother(final StringBuilder builder,
+    public void renderMother(final StringBuilder builder,
             final int pad, final Person mother) {
         renderParent(builder, pad, mother, "Mother");
     }

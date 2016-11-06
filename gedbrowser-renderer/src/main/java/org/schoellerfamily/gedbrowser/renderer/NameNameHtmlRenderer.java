@@ -16,9 +16,13 @@ public class NameNameHtmlRenderer implements NameHtmlRenderer {
     /**
      * Constructor.
      *
+     * This constructor is public for testing purposes only. Do
+     * not try to call it outside of the context of the rendering
+     * engine.
+     *
      * @param nameRenderer the renderer that this is associated with.
      */
-    protected NameNameHtmlRenderer(final NameRenderer nameRenderer) {
+    public NameNameHtmlRenderer(final NameRenderer nameRenderer) {
         this.nameRenderer = nameRenderer;
     }
 
