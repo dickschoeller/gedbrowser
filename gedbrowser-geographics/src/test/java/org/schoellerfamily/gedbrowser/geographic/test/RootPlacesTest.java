@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.geographic;
+package org.schoellerfamily.gedbrowser.geographic.test;
 
 import java.io.IOException;
 import java.util.Collection;

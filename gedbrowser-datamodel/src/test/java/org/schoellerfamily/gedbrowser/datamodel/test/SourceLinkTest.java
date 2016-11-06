@@ -1,10 +1,15 @@
-package org.schoellerfamily.gedbrowser.datamodel;
+package org.schoellerfamily.gedbrowser.datamodel.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
+import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.Source;
+import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
 
 /**
  * @author Dick Schoeller

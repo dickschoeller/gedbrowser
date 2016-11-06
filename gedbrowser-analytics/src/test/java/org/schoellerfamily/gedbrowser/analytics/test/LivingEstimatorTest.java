@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.analytics;
+package org.schoellerfamily.gedbrowser.analytics.test;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;

@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.datamodel;
+package org.schoellerfamily.gedbrowser.datamodel.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -6,11 +6,18 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.datamodel.FamS;
+import org.schoellerfamily.gedbrowser.datamodel.Family;
+import org.schoellerfamily.gedbrowser.datamodel.Husband;
+import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
+import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 /**
  * @author Dick Schoeller
  */
-public final class HusbandTest {
+public final class WifeTest {
     /** */
     private static final String WIFE_TAG = "WIFE";
     /** */
@@ -41,10 +48,10 @@ public final class HusbandTest {
     private final transient Wife wife1 = new Wife(family1, WIFE_TAG,
             new ObjectId("@I2@"));
     /** */
-    private final transient Husband husband2a = new Husband(family2, HUSB_TAG,
-            new ObjectId("@I1@"));
+    private final transient Wife wife2a = new Wife(family2, "WIFE",
+            new ObjectId("@I2@"));
     /** */
-    private final transient Husband husband2b = new Husband(family2, HUSB_TAG,
+    private final transient Wife wife2b = new Wife(family2, "WIFE",
             new ObjectId("@I3@"));
 
     /** */
@@ -57,75 +64,73 @@ public final class HusbandTest {
         root.insert("F2", family2);
         person1.insert(new FamS(person1, "F1"));
         person2.insert(new FamS(person2, "F1"));
-        person1.insert(new FamS(person1, "F2"));
+        person1.insert(new FamS(person2, "F2"));
         person3.insert(new FamS(person3, "F2"));
-        family1.insert(husband1);
         family1.insert(wife1);
-        family2.insert(husband2a);
-        family2.insert(husband2b);
+        family1.insert(husband1);
+        family2.insert(wife2a);
+        family2.insert(wife2b);
     }
 
     /** */
     @Test
-    public void testGetFather() {
-        assertEquals(person1, husband1.getFather());
-        assertEquals(person1, husband2a.getFather());
-        assertEquals(person3, husband2b.getFather());
+    public void testGetMother() {
+        assertEquals(person2, wife1.getMother());
+        assertEquals(person2, wife2a.getMother());
+        assertEquals(person3, wife2b.getMother());
     }
 
     /** */
     @Test
     public void testGetSpouse() {
-        assertTrue(husband1.getSpouse().isSet());
-        assertTrue(husband2a.getSpouse().isSet());
-        assertTrue(husband2b.getSpouse().isSet());
-        assertEquals(person1, husband1.getSpouse());
-        assertEquals(person1, husband2a.getSpouse());
-        assertEquals(person3, husband2b.getSpouse());
+        assertTrue(wife1.getSpouse().isSet());
+        assertTrue(wife2a.getSpouse().isSet());
+        assertTrue(wife2b.getSpouse().isSet());
+        assertEquals(person2, wife1.getSpouse());
+        assertEquals(person2, wife2a.getSpouse());
+        assertEquals(person3, wife2b.getSpouse());
         // TODO should these be null?
-        assertEquals(person1, husband1.getSpouse());
-        assertEquals(person1, husband2a.getSpouse());
-        assertEquals(person3, husband2b.getSpouse());
+        assertEquals(person2, wife1.getSpouse());
+        assertEquals(person2, wife2a.getSpouse());
+        assertEquals(person3, wife2b.getSpouse());
     }
 
     /** */
     @Test
-    public void testHusbandGedObject() {
+    public void testWifeGedObject() {
         final Root localRoot = new Root(null, ROOT_TAG);
         final Family family = new Family(localRoot, new ObjectId("F1"));
         localRoot.insert("F1", family);
-        final Husband husband = new Husband(family);
-        assertTrue("Husband string should be empty", husband.getString()
-                .isEmpty());
-        assertEquals("", husband.getToString());
-        assertEquals("F1", husband.getFromString());
-        assertFalse(husband.getFather().isSet());
+        final Wife wife = new Wife(family);
+        assertTrue("Wife string should be empty", wife.getString().isEmpty());
+        assertEquals("", wife.getToString());
+        assertEquals("F1", wife.getFromString());
+        assertFalse(wife.getMother().isSet());
     }
 
     /** */
     @Test
-    public void testHusbandGedObjectString() {
+    public void testWifeGedObjectString() {
         final Root localRoot = new Root(null, ROOT_TAG);
         final Family family = new Family(localRoot, new ObjectId("F1"));
         localRoot.insert("F1", family);
-        final Husband husband = new Husband(family, HUSB_TAG);
-        assertEquals(HUSB_TAG, husband.getString());
-        assertEquals("", husband.getToString());
-        assertEquals("F1", husband.getFromString());
-        assertFalse(husband.getFather().isSet());
+        final Wife wife = new Wife(family, WIFE_TAG);
+        assertEquals(WIFE_TAG, wife.getString());
+        assertEquals("", wife.getToString());
+        assertEquals("F1", wife.getFromString());
+        assertFalse(wife.getMother().isSet());
     }
 
     /** */
     @Test
-    public void testHusbandGedObjectStringString() {
+    public void testWifeGedObjectStringString() {
         final Root localRoot = new Root(null, ROOT_TAG);
         final Family family = new Family(localRoot, new ObjectId("F1"));
         localRoot.insert("F1", family);
-        final Husband husband =
-                new Husband(family, HUSB_TAG, new ObjectId("@I3@"));
-        assertEquals(HUSB_TAG, husband.getString());
-        assertEquals("I3", husband.getToString());
-        assertEquals("F1", husband.getFromString());
-        assertFalse(husband.getFather().isSet());
+        final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
+        assertEquals(WIFE_TAG, wife.getString());
+        assertEquals("I3", wife.getToString());
+        assertEquals("F1", wife.getFromString());
+        assertFalse(wife.getMother().isSet());
     }
 }

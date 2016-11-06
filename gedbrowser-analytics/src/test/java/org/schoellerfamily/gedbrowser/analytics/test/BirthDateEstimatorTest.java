@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.analytics;
+package org.schoellerfamily.gedbrowser.analytics.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.joda.time.LocalDate;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.BirthDateEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;

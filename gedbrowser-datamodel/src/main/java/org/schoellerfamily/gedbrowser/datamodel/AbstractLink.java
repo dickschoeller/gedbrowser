@@ -59,7 +59,7 @@ public abstract class AbstractLink extends GedObject {
      *            the reference ID of the object this link points to. May
      *            contain bracketing '@' characters.
      */
-    protected final void initLink(final ObjectId xref) {
+    public final void initLink(final ObjectId xref) {
         if (getParent() == null) {
             setFromString("");
         } else {
