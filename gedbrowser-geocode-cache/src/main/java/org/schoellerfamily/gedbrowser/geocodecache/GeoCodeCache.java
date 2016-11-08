@@ -193,17 +193,17 @@ public final class GeoCodeCache {
      * @return the geo-coding result
      */
     private GeocodingResult[] geocode(final String placeName) {
-        return new GeocodingResult[0];
-//        logger.debug("Querying Google APIs for place: " + placeName);
-//        GeoApiContext context = new GeoApiContext().setApiKey(key);
-//        GeocodingResult[] results;
-//        try {
-//            results = GeocodingApi.geocode(context, placeName).await();
-//        } catch (Exception e) {
-//            logger.error("Problem querying the place: " + placeName, e);
-//            return null;
-//        }
-//        return results;
+//        return new GeocodingResult[0];
+        logger.debug("Querying Google APIs for place: " + placeName);
+        GeoApiContext context = new GeoApiContext().setApiKey(key);
+        GeocodingResult[] results;
+        try {
+            results = GeocodingApi.geocode(context, placeName).await();
+        } catch (Exception e) {
+            logger.error("Problem querying the place: " + placeName, e);
+            return null;
+        }
+        return results;
     }
 
     /**
@@ -300,7 +300,11 @@ public final class GeoCodeCache {
         ) {
             while ((line = br.readLine()) != null) {
                 String[] splitLine = line.split("[|]");
-                find(splitLine[0], splitLine[1]);
+                if (splitLine.length > 2) {
+                    find(splitLine[0], splitLine[1]);
+                } else {
+                    find(splitLine[0]);
+                }
             }
         } catch (IOException e) {
             logger.error("Problem reading places file", e);
@@ -318,5 +322,15 @@ public final class GeoCodeCache {
         for (String[] line : strings) {
             find(line[0], line[1]);
         }
+    }
+    
+    /**
+     * @param args
+     */
+    public static void main(final String[] args) {
+        GeoCodeCache gcc = GeoCodeCache.instance();
+        gcc.clear();
+        gcc.load();
+        gcc.dump();
     }
 }
