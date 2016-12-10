@@ -32,20 +32,26 @@ public final class GeoCodeCache {
     /**
      * Path to the standard location for the places file to initialize from.
      */
-    private static final String STANDARD_PLACES_PATH = "/var/lib/gedbrowser/places.txt";
+    private static final String STANDARD_PLACES_PATH =
+            "/var/lib/gedbrowser/places.txt";
 
     /**
-     * Path to the standard location for a test file, shorter than standard places.
+     * Path to the standard location for a test file, shorter than standard
+     * places.
      */
     private static final String TEST_FILE_PATH = "/var/lib/gedbrowser/test.txt";
 
     /**
      * Path to the standard location for the google key.
      */
-    private static final String GOOGLE_GEOCODING_KEY = "/var/lib/gedbrowser/google-geocoding-key";
+    private static final String GOOGLE_GEOCODING_KEY =
+            "/var/lib/gedbrowser/google-geocoding-key";
 
     /** The singleton instance. */
-    private static final GeoCodeCache INSTANCE = new GeoCodeCache();
+    private static final GeoCodeCache INSTANCE;
+    static {
+        INSTANCE = new GeoCodeCache();
+    }
 
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
@@ -86,8 +92,10 @@ public final class GeoCodeCache {
      * @throws IOException if we can't read the file
      */
     private String readKeyFile(final String fileName) throws IOException {
-        try (final FileReader fileReader = new FileReader(fileName);
-                final BufferedReader br = new BufferedReader(fileReader);) {
+        try (final FileInputStream fileStream = new FileInputStream(fileName);
+                final InputStreamReader iStreamReader = new InputStreamReader(
+                        fileStream, "UTF-8");
+                final BufferedReader br = new BufferedReader(iStreamReader);) {
             final StringBuilder sb = new StringBuilder();
             final String line = br.readLine();
             if (line != null) {
