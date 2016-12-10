@@ -22,7 +22,7 @@ import com.google.maps.model.GeocodingResult;
 /**
  * This class implements the cache that allows applications to work with the
  * Google geocoding APIs, without running the queries per day limitations.
- * 
+ *
  * TODO rework singleton management to make this be Spring loadable.
  *
  * @author Dick Schoeller
@@ -145,7 +145,11 @@ public final class GeoCodeCache {
      */
     public GeoCodeCacheEntry find(final String placeName,
             final String modernPlaceName) {
-        logger.debug("find(\"" + placeName + "\", \"" + modernPlaceName + "\")");
+        if (modernPlaceName == null || modernPlaceName.isEmpty()) {
+            return find(placeName);
+        }
+        logger.debug(
+                "find(\"" + placeName + "\", \"" + modernPlaceName + "\")");
         GeoCodeCacheEntry gcce = map.get(placeName);
         if (gcce != null) {
             // Entry found in cache.
@@ -193,15 +197,14 @@ public final class GeoCodeCache {
      * @return the geo-coding result
      */
     private GeocodingResult[] geocode(final String placeName) {
-//        return new GeocodingResult[0];
         logger.debug("Querying Google APIs for place: " + placeName);
-        GeoApiContext context = new GeoApiContext().setApiKey(key);
+        final GeoApiContext context = new GeoApiContext().setApiKey(key);
         GeocodingResult[] results;
         try {
             results = GeocodingApi.geocode(context, placeName).await();
         } catch (Exception e) {
             logger.error("Problem querying the place: " + placeName, e);
-            return null;
+            results = new GeocodingResult[0];
         }
         return results;
     }
@@ -209,7 +212,7 @@ public final class GeoCodeCache {
     /**
      * Dump the place list in a form that is valuable for manual analysis.
      */
-    public final void dump() {
+    public void dump() {
         System.out.println(toString());
     }
 
@@ -217,16 +220,18 @@ public final class GeoCodeCache {
      * Dump the cache as a string, one location per line. The format is:
      * <br>
      * place name|modern place name|lat, lng|formatted address
-     * <br> 
+     * <br>
      * Only the place name is required to be present. All of the separators
      * will be present.
+     *
+     * @return the cache contents in string format
      */
-    public final String toString() {
-        StringBuilder builder = new StringBuilder();
-        SortedSet<String> keys = new TreeSet<>();
-        keys.addAll(map.keySet());
-        for (String key : keys) {
-            GeoCodeCacheEntry gcce = map.get(key);
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        final SortedSet<String> mapKeys = new TreeSet<>();
+        mapKeys.addAll(map.keySet());
+        for (final String mapKey : mapKeys) {
+            final GeoCodeCacheEntry gcce = map.get(mapKey);
             builder.append(gcce.getPlaceName());
             builder.append("|");
             if (!gcce.getPlaceName().equals(gcce.getModernPlaceName())) {
@@ -254,10 +259,10 @@ public final class GeoCodeCache {
         int count = 0;
         // Do this in sort order so that logging will be
         // in a rational order.
-        SortedSet<String> keys = new TreeSet<>();
-        keys.addAll(map.keySet());
-        for (String key : keys) {
-            GeoCodeCacheEntry gcce = map.get(key);
+        final SortedSet<String> mapKeys = new TreeSet<>();
+        mapKeys.addAll(map.keySet());
+        for (final String mapKey : mapKeys) {
+            final GeoCodeCacheEntry gcce = map.get(mapKey);
             if (gcce.getGeocodingResult() == null) {
                 logger.debug(gcce.getPlaceName());
                 count++;
@@ -294,12 +299,13 @@ public final class GeoCodeCache {
         logger.debug("Loading the cache from places file: " + filename);
         String line;
         try (
-            InputStream fis = new FileInputStream(filename);
-            InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"));
-            BufferedReader br = new BufferedReader(isr);
+            final InputStream fis = new FileInputStream(filename);
+            final InputStreamReader isr =
+                    new InputStreamReader(fis, Charset.forName("UTF-8"));
+            final BufferedReader br = new BufferedReader(isr);
         ) {
             while ((line = br.readLine()) != null) {
-                String[] splitLine = line.split("[|]");
+                final String[] splitLine = line.split("[|]", 4);
                 if (splitLine.length > 2) {
                     find(splitLine[0], splitLine[1]);
                 } else {
@@ -319,18 +325,49 @@ public final class GeoCodeCache {
      * @param strings the array of strings
      */
     public void load(final String[][] strings) {
-        for (String[] line : strings) {
-            find(line[0], line[1]);
+        for (final String[] line : strings) {
+            if (line.length < 2 || line[1] == null || line[1].isEmpty()) {
+                find(line[0]);
+            } else {
+                find(line[0], line[1]);
+            }
         }
     }
-    
+
     /**
-     * @param args
+     * Load and dump an input file, one line at a time. Allows dumping
+     * all known data without blowing up on memory.
+     *
+     * @param filename input filename
+     */
+    private void oneAtATime(final String filename) {
+        String line;
+        try (
+            final InputStream fis = new FileInputStream(filename);
+            final InputStreamReader isr =
+                    new InputStreamReader(fis, Charset.forName("UTF-8"));
+            final BufferedReader br = new BufferedReader(isr);
+        ) {
+            while ((line = br.readLine()) != null) {
+                clear();
+                final String[] splitLine = line.split("[|]", 4);
+                if (splitLine.length > 2) {
+                    find(splitLine[0], splitLine[1]);
+                } else {
+                    find(splitLine[0]);
+                }
+                dump();
+            }
+        } catch (IOException e) {
+            logger.error("Problem reading places file", e);
+        }
+    }
+
+    /**
+     * @param args standard main arguments are ignored
      */
     public static void main(final String[] args) {
-        GeoCodeCache gcc = GeoCodeCache.instance();
-        gcc.clear();
-        gcc.load();
-        gcc.dump();
+        final GeoCodeCache gcc = GeoCodeCache.instance();
+        gcc.oneAtATime("/var/lib/gedbrowser/test.txt");
     }
 }

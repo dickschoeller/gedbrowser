@@ -42,7 +42,7 @@ public class GeoCodeCacheEntry {
     /**
      * @param placeName a place name to use for both historical and modern name
      */
-    public GeoCodeCacheEntry(String placeName) {
+    public GeoCodeCacheEntry(final String placeName) {
         this.placeName = placeName;
         this.modernPlaceName = placeName;
         this.geocodingResult = null;
@@ -52,7 +52,8 @@ public class GeoCodeCacheEntry {
      * @param placeName the historical place name
      * @param modernPlaceName the modern place name to use for geo-coding
      */
-    public GeoCodeCacheEntry(String placeName, String modernPlaceName) {
+    public GeoCodeCacheEntry(final String placeName,
+            final String modernPlaceName) {
         this.placeName = placeName;
         this.modernPlaceName = modernPlaceName;
         this.geocodingResult = null;
