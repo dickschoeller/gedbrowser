@@ -14,6 +14,7 @@ import com.google.maps.model.LatLng;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods" })
 public final class GeoCodeCacheTest {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
@@ -260,7 +261,7 @@ public final class GeoCodeCacheTest {
      * Force debug logging during tests.
      */
     @BeforeClass
-    public static void setup() {
+    public static void setUp() {
         System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug");
     }
 
@@ -269,9 +270,9 @@ public final class GeoCodeCacheTest {
     @Test
     public void testStupidNotFound() {
         logger.info("Entering testStupidNotFound");
-        GeoCodeCache gcc = GeoCodeCache.instance();
+        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
-        GeoCodeCacheEntry entry = gcc.find("XYZZY");
+        final GeoCodeCacheEntry entry = gcc.find("XYZZY");
         Assert.assertNull(entry.getGeocodingResult());
     }
 
@@ -280,9 +281,9 @@ public final class GeoCodeCacheTest {
     @Test
     public void testOldHomeFound() {
         logger.info("Entering testOldHomeFound");
-        GeoCodeCache gcc = GeoCodeCache.instance();
+        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
-        GeoCodeCacheEntry entry = gcc
+        final GeoCodeCacheEntry entry = gcc
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
         Assert.assertNotNull("geocoding result should not be null",
                 entry.getGeocodingResult());
@@ -293,10 +294,10 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheStupid() {
         logger.info("Entering testCacheStupid");
-        GeoCodeCache gcc = GeoCodeCache.instance();
+        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
-        GeoCodeCacheEntry entry1 = gcc.find("XYZZY");
-        GeoCodeCacheEntry entry2 = gcc.find("XYZZY");
+        final GeoCodeCacheEntry entry1 = gcc.find("XYZZY");
+        final GeoCodeCacheEntry entry2 = gcc.find("XYZZY");
         Assert.assertSame(entry1, entry2);
     }
 
@@ -305,11 +306,11 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheOldHome() {
         logger.info("Entering testCacheOldHome");
-        GeoCodeCache gcc = GeoCodeCache.instance();
+        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
-        GeoCodeCacheEntry entry1 = gcc
+        final GeoCodeCacheEntry entry1 = gcc
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
-        GeoCodeCacheEntry entry2 = gcc
+        final GeoCodeCacheEntry entry2 = gcc
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
         Assert.assertSame(entry1, entry2);
     }
@@ -319,11 +320,11 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheOldHomeModern() {
         logger.info("Entering testCacheOldHomeModern");
-        GeoCodeCache gcc = GeoCodeCache.instance();
+        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
-        GeoCodeCacheEntry entry1 = gcc.find("Old Home",
+        final GeoCodeCacheEntry entry1 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
-        GeoCodeCacheEntry entry2 = gcc.find("Old Home");
+        final GeoCodeCacheEntry entry2 = gcc.find("Old Home");
         Assert.assertSame(entry1, entry2);
     }
 
@@ -332,11 +333,11 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheOldHomeModernBoth() {
         logger.info("Entering testCacheOldHomeModernBoth");
-        GeoCodeCache gcc = GeoCodeCache.instance();
+        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
-        GeoCodeCacheEntry entry1 = gcc.find("Old Home",
+        final GeoCodeCacheEntry entry1 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
-        GeoCodeCacheEntry entry2 = gcc.find("Old Home",
+        final GeoCodeCacheEntry entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         Assert.assertSame(entry1, entry2);
     }
@@ -346,10 +347,10 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheOldHomeModernChange() {
         logger.info("Entering testCacheOldHomeModernChange");
-        GeoCodeCache gcc = GeoCodeCache.instance();
+        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
-        GeoCodeCacheEntry entry1 = gcc.find("Old Home");
-        GeoCodeCacheEntry entry2 = gcc.find("Old Home",
+        final GeoCodeCacheEntry entry1 = gcc.find("Old Home");
+        final GeoCodeCacheEntry entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         Assert.assertNotSame(entry1, entry2);
     }
@@ -359,13 +360,13 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheOldHomeModernSet() {
         logger.info("Entering testCacheOldHomeModernSet");
-        GeoCodeCache gcc = GeoCodeCache.instance();
+        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
-        GeoCodeCacheEntry entry1 = gcc.find("Old Home");
-        GeoCodeCacheEntry entry2 = gcc.find("Old Home",
+        final GeoCodeCacheEntry entry1 = gcc.find("Old Home");
+        final GeoCodeCacheEntry entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         Assert.assertNotSame(entry1, entry2);
-        GeoCodeCacheEntry entry3 = gcc.find("Old Home");
+        final GeoCodeCacheEntry entry3 = gcc.find("Old Home");
         Assert.assertSame(entry2, entry3);
     }
 
@@ -374,9 +375,9 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheOldHomeLocation() {
         logger.info("Entering testCacheOldHomeLocation");
-        GeoCodeCache gcc = GeoCodeCache.instance();
+        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
-        GeoCodeCacheEntry entry = gcc.find("Old Home",
+        final GeoCodeCacheEntry entry = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         final LatLng expected = new LatLng(40.65800200, -75.40644300);
         final GeocodingResult geocodingResult = entry.getGeocodingResult();
@@ -391,7 +392,7 @@ public final class GeoCodeCacheTest {
     @Test
     public void testNotFounds() {
         logger.info("Entering testNotFounds");
-        GeoCodeCache gcc = GeoCodeCache.instance();
+        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.load(addressTable);
         final int expected = 17;
@@ -403,7 +404,7 @@ public final class GeoCodeCacheTest {
     @Test
     public void testSize() {
         logger.info("Entering testSize");
-        GeoCodeCache gcc = GeoCodeCache.instance();
+        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.load(addressTable);
         final int expected = 56;
@@ -415,21 +416,9 @@ public final class GeoCodeCacheTest {
     @Test
     public void testDump() {
         logger.info("Entering testDump");
-        GeoCodeCache gcc = GeoCodeCache.instance();
+        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.load(addressTable);
         gcc.dump();
     }
-
-//    /**
-//     */
-//    @Test
-//    public void testLoadDump() {
-//        logger.info("Entering testLoadDump");
-//        GeoCodeCache gcc = GeoCodeCache.instance();
-//        gcc.clear();
-//        gcc.load();
-//        Assert.assertEquals(962, gcc.size());
-//        gcc.dump();
-//    }
 }

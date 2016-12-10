@@ -27,7 +27,23 @@ import com.google.maps.model.GeocodingResult;
  *
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods" })
 public final class GeoCodeCache {
+    /**
+     * Path to the standard location for the places file to initialize from.
+     */
+    private static final String STANDARD_PLACES_PATH = "/var/lib/gedbrowser/places.txt";
+
+    /**
+     * Path to the standard location for a test file, shorter than standard places.
+     */
+    private static final String TEST_FILE_PATH = "/var/lib/gedbrowser/test.txt";
+
+    /**
+     * Path to the standard location for the google key.
+     */
+    private static final String GOOGLE_GEOCODING_KEY = "/var/lib/gedbrowser/google-geocoding-key";
+
     /** The singleton instance. */
     private static final GeoCodeCache INSTANCE = new GeoCodeCache();
 
@@ -49,7 +65,7 @@ public final class GeoCodeCache {
             throw new IllegalStateException("Already instantiated");
         }
         try {
-            key = readKeyFile("/var/lib/gedbrowser/google-geocoding-key");
+            key = readKeyFile(GOOGLE_GEOCODING_KEY);
         } catch (IOException e) {
             throw new GeoCodeCacheRuntimeException("Couldn't open key file", e);
         }
@@ -70,10 +86,10 @@ public final class GeoCodeCache {
      * @throws IOException if we can't read the file
      */
     private String readKeyFile(final String fileName) throws IOException {
-        try (FileReader fileReader = new FileReader(fileName);
-                BufferedReader br = new BufferedReader(fileReader);) {
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
+        try (final FileReader fileReader = new FileReader(fileName);
+                final BufferedReader br = new BufferedReader(fileReader);) {
+            final StringBuilder sb = new StringBuilder();
+            final String line = br.readLine();
             if (line != null) {
                 sb.append(line);
             }
@@ -286,7 +302,7 @@ public final class GeoCodeCache {
      * names.
      */
     public void load() {
-        load("/var/lib/gedbrowser/places.txt");
+        load(STANDARD_PLACES_PATH);
     }
 
     /**
@@ -324,6 +340,7 @@ public final class GeoCodeCache {
      *
      * @param strings the array of strings
      */
+    @SuppressWarnings("PMD.UseVarargs")
     public void load(final String[][] strings) {
         for (final String[] line : strings) {
             if (line.length < 2 || line[1] == null || line[1].isEmpty()) {
@@ -368,6 +385,6 @@ public final class GeoCodeCache {
      */
     public static void main(final String[] args) {
         final GeoCodeCache gcc = GeoCodeCache.instance();
-        gcc.oneAtATime("/var/lib/gedbrowser/test.txt");
+        gcc.oneAtATime(TEST_FILE_PATH);
     }
 }
