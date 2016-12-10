@@ -394,7 +394,7 @@ public final class GeoCodeCacheTest {
         GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.load(addressTable);
-        final int expected = 19;
+        final int expected = 17;
         Assert.assertEquals(expected, gcc.countNotFound());
     }
 

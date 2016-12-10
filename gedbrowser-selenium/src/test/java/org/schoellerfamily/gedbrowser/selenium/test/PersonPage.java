@@ -141,10 +141,30 @@ public final class PersonPage extends PageBase {
                     "I14",
                     "Mary Beer Moyer (1909-2003) [I14]",
                     "I2",
-                    new GreatGreatGrandparentIds("I180", "I181",
-                            "I182", "I185", "I186", "I203", "I204",
-                            "I207", null, null, null, null, "I208",
-                            "I225", "I226", "I238")));
+                    new GreatGreatGrandparentIds(
+                            new GreatGrandParentIds(
+                                    new GrandParentIds(
+                                            new ParentIds("I180", "I181"),
+                                            new ParentIds("I182", "I185")
+                                            ),
+                                    new GrandParentIds(
+                                            new ParentIds("I186", "I203"),
+                                            new ParentIds("I204", "I207")
+                                            )
+                                    ),
+                            new GreatGrandParentIds(
+                                    new GrandParentIds(
+                                            new ParentIds(null, null),
+                                            new ParentIds(null, null)
+                                            ),
+                                    new GrandParentIds(
+                                            new ParentIds("I208", "I225"),
+                                            new ParentIds("I226", "I238")
+                                            )
+                                    )
+                            )
+                    )
+            );
         EXPECTATIONS_MAP.put("I10",
             new Expectations(
                     "Person: I10 - Estelle Liberman (26 JUN 1925-)",
@@ -153,9 +173,30 @@ public final class PersonPage extends PageBase {
                     "I31",
                     "Minnie Rubin (1894-1983) [I31]",
                     "I8",
-                    new GreatGreatGrandparentIds(null, null, null, null,
-                            null, null, null, null, null, null,
-                            null, null, null, null, null, null)));
+                    new GreatGreatGrandparentIds(
+                            new GreatGrandParentIds(
+                                    new GrandParentIds(
+                                            new ParentIds(null, null),
+                                            new ParentIds(null, null)
+                                            ),
+                                    new GrandParentIds(
+                                            new ParentIds(null, null),
+                                            new ParentIds(null, null)
+                                            )
+                                    ),
+                            new GreatGrandParentIds(
+                                    new GrandParentIds(
+                                            new ParentIds(null, null),
+                                            new ParentIds(null, null)
+                                            ),
+                                    new GrandParentIds(
+                                            new ParentIds(null, null),
+                                            new ParentIds(null, null)
+                                            )
+                                    )
+                            )
+                    )
+            );
     }
 
     /** Database ID associated with this page. */
@@ -169,192 +210,305 @@ public final class PersonPage extends PageBase {
      *
      * @author Dick Schoeller
      */
-    private static class GreatGreatGrandparentIds {
+    private static class ParentIds {
         /** */
-        private final String ffff;
+        private final String f;
         /** */
-        private final String fffm;
-        /** */
-        private final String ffmf;
-        /** */
-        private final String ffmm;
-        /** */
-        private final String fmff;
-        /** */
-        private final String fmfm;
-        /** */
-        private final String fmmf;
-        /** */
-        private final String fmmm;
-        /** */
-        private final String mfff;
-        /** */
-        private final String mffm;
-        /** */
-        private final String mfmf;
-        /** */
-        private final String mfmm;
-        /** */
-        private final String mmff;
-        /** */
-        private final String mmfm;
-        /** */
-        private final String mmmf;
-        /** */
-        private final String mmmm;
+        private final String m;
 
         /**
-         * @param ffff father's father's father's father
-         * @param fffm father's father's father's mother
-         * @param ffmf father's father's mother's father
-         * @param ffmm father's father's father's mother
-         * @param fmff father's mother's father's father
-         * @param fmfm father's mother's father's mother
-         * @param fmmf father's mother's mother's father
-         * @param fmmm father's mother's father's mother
-         * @param mfff mother's father's father's father
-         * @param mffm mother's father's father's mother
-         * @param mfmf mother's father's mother's father
-         * @param mfmm mother's father's father's mother
-         * @param mmff mother's mother's father's father
-         * @param mmfm mother's mother's father's mother
-         * @param mmmf mother's mother's mother's father
-         * @param mmmm mother's mother's father's mother
+         * Constructor.
+         *
+         * @param f father's id
+         * @param m mother's id
          */
-        GreatGreatGrandparentIds(final String ffff, final String fffm,
-                final String ffmf, final String ffmm, final String fmff,
-                final String fmfm, final String fmmf, final String fmmm,
-                final String mfff, final String mffm, final String mfmf,
-                final String mfmm, final String mmff, final String mmfm,
-                final String mmmf, final String mmmm) {
-            this.ffff = ffff;
-            this.fffm = fffm;
-            this.ffmf = ffmf;
-            this.ffmm = ffmm;
-            this.fmff = fmff;
-            this.fmfm = fmfm;
-            this.fmmf = fmmf;
-            this.fmmm = fmmm;
-            this.mfff = mfff;
-            this.mffm = mffm;
-            this.mfmf = mfmf;
-            this.mfmm = mfmm;
-            this.mmff = mmff;
-            this.mmfm = mmfm;
-            this.mmmf = mmmf;
-            this.mmmm = mmmm;
+        ParentIds(final String f, final String m) {
+            this.f = f;
+            this.m = m;
+        }
+
+        /**
+         * @return the father's id
+         */
+        public String getF() {
+            return f;
+        }
+
+        /**
+         * @return the mother's id
+         */
+        public String getM() {
+            return m;
+        }
+    }
+
+    /**
+     * Class represents the leaves in the tree with their person ID
+     * strings.
+     *
+     * @author Dick Schoeller
+     */
+    private static class GrandParentIds {
+        /** */
+        private final ParentIds fathers;
+        /** */
+        private final ParentIds mothers;
+
+        /**
+         * Constructor.
+         *
+         * @param fathers father's parents
+         * @param mothers mother's parents
+         */
+        GrandParentIds(final ParentIds fathers, final ParentIds mothers) {
+            this.fathers = fathers;
+            this.mothers = mothers;
+        }
+
+
+        /**
+         * @return the father's id
+         */
+        public String getFf() {
+            return fathers.getF();
+        }
+
+        /**
+         * @return the mother's id
+         */
+        public String getFm() {
+            return fathers.getM();
+        }
+
+        /**
+         * @return the father's id
+         */
+        public String getMf() {
+            return mothers.getF();
+        }
+
+        /**
+         * @return the mother's id
+         */
+        public String getMm() {
+            return mothers.getM();
+        }
+    }
+
+
+    /**
+     * Class represents the leaves in the tree with their person ID
+     * strings.
+     *
+     * @author Dick Schoeller
+     */
+    private static class GreatGrandParentIds {
+        /** */
+        private final GrandParentIds fathers;
+        /** */
+        private final GrandParentIds mothers;
+
+        /**
+         * Constructor.
+         *
+         * @param fathers father's parents
+         * @param mothers mother's parents
+         */
+        GreatGrandParentIds(final GrandParentIds fathers,
+                final GrandParentIds mothers) {
+            this.fathers = fathers;
+            this.mothers = mothers;
+        }
+
+        /**
+         * @return the father's id
+         */
+        public String getFff() {
+            return fathers.getFf();
+        }
+
+        /**
+         * @return the mother's id
+         */
+        public String getFfm() {
+            return fathers.getFm();
+        }
+
+        /**
+         * @return the father's id
+         */
+        public String getFmf() {
+            return fathers.getMf();
+        }
+
+        /**
+         * @return the mother's id
+         */
+        public String getFmm() {
+            return fathers.getMm();
+        }
+
+        /**
+         * @return the father's id
+         */
+        public String getMff() {
+            return mothers.getFf();
+        }
+
+        /**
+         * @return the mother's id
+         */
+        public String getMfm() {
+            return mothers.getFm();
+        }
+
+        /**
+         * @return the father's id
+         */
+        public String getMmf() {
+            return mothers.getMf();
+        }
+
+        /**
+         * @return the mother's id
+         */
+        public String getMmm() {
+            return mothers.getMm();
+        }
+    }
+
+    /**
+     * Class represents the leaves in the tree with their person ID
+     * strings.
+     *
+     * @author Dick Schoeller
+     */
+    private static class GreatGreatGrandparentIds {
+        /** */
+        private final GreatGrandParentIds fathers;
+        /** */
+        private final GreatGrandParentIds mothers;
+
+        /**
+         * @param fathers father's great grand parents
+         * @param mothers mother's great grand parents
+         */
+        GreatGreatGrandparentIds(final GreatGrandParentIds fathers,
+                final GreatGrandParentIds mothers) {
+            this.fathers = fathers;
+            this.mothers = mothers;
         }
 
         /**
          * @return the ffff
          */
         public String getFfff() {
-            return ffff;
+            return fathers.getFff();
         }
 
         /**
          * @return the fffm
          */
         public String getFffm() {
-            return fffm;
+            return fathers.getFfm();
         }
 
         /**
          * @return the ffmf
          */
         public String getFfmf() {
-            return ffmf;
+            return fathers.getFmf();
         }
 
         /**
          * @return the ffmm
          */
         public String getFfmm() {
-            return ffmm;
+            return fathers.getFmm();
         }
 
         /**
          * @return the fmff
          */
         public String getFmff() {
-            return fmff;
+            return fathers.getMff();
         }
 
         /**
          * @return the fmfm
          */
         public String getFmfm() {
-            return fmfm;
+            return fathers.getMfm();
         }
 
         /**
          * @return the fmmf
          */
         public String getFmmf() {
-            return fmmf;
+            return fathers.getMmf();
         }
 
         /**
          * @return the fmmm
          */
         public String getFmmm() {
-            return fmmm;
+            return fathers.getMmm();
         }
 
         /**
          * @return the mfff
          */
         public String getMfff() {
-            return mfff;
+            return mothers.getFff();
         }
 
         /**
          * @return the mffm
          */
         public String getMffm() {
-            return mffm;
+            return mothers.getFfm();
         }
 
         /**
          * @return the mfmf
          */
         public String getMfmf() {
-            return mfmf;
+            return mothers.getFmf();
         }
 
         /**
          * @return the mfmm
          */
         public String getMfmm() {
-            return mfmm;
+            return mothers.getFmm();
         }
 
         /**
          * @return the mmff
          */
         public String getMmff() {
-            return mmff;
+            return mothers.getMff();
         }
 
         /**
          * @return the mmfm
          */
         public String getMmfm() {
-            return mmfm;
+            return mothers.getMfm();
         }
 
         /**
          * @return the mmmf
          */
         public String getMmmf() {
-            return mmmf;
+            return mothers.getMmf();
         }
 
         /**
          * @return the mmmm
          */
         public String getMmmm() {
-            return mmmm;
+            return mothers.getMmm();
         }
     }
 
