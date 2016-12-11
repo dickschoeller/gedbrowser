@@ -5,6 +5,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Head;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.LawOfDemeter")
 public class HeadSectionRenderer implements SectionRenderer {
     /**
      * Holder for the HeadRenderer that is using this helper.
@@ -20,6 +21,9 @@ public class HeadSectionRenderer implements SectionRenderer {
         this.headRenderer = headRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final StringBuilder renderAsSection(final StringBuilder builder,
             final GedRenderer<?> pageRenderer, final boolean newLine,
@@ -40,5 +44,4 @@ public class HeadSectionRenderer implements SectionRenderer {
 
         return builder;
     }
-
 }

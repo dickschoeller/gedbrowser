@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.LawOfDemeter")
 public final class IndexRenderer extends GedRenderer<Root> {
     /** */
     private final String base;

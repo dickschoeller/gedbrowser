@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.renderer;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.LawOfDemeter")
 public final class AttributePhraseRenderer implements PhraseRenderer {
     /**
      * Holder for the AttributeRenderer that is using this helper.
@@ -19,6 +20,9 @@ public final class AttributePhraseRenderer implements PhraseRenderer {
         this.attributeRenderer = attributeRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String renderAsPhrase() {
         return GedRenderer.escapeString(attributeRenderer.getGedObject()

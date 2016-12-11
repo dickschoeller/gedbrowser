@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.LawOfDemeter")
 public class SourcePage extends PageBase {
     // FIXME reimplement this to go to the database for information
 

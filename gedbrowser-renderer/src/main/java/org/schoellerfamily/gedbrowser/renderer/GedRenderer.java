@@ -9,10 +9,13 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
  * Base class for rendering GedObjects.
  *
  * @author Dick Schoeller
- * @param <G>
- *            the GedObject type to render.
+ * @param <G> the GedObject type to render.
  */
-public abstract class GedRenderer<G extends GedObject> { // NOPMD
+@SuppressWarnings({ "PMD.AbstractClassWithoutAbstractMethod",
+        "PMD.CommentSize",
+        "PMD.GodClass",
+        "PMD.TooManyMethods" })
+public abstract class GedRenderer<G extends GedObject> {
     /** */
     private static final String DICK_EMAIL = "schoeller@comcast.net";
 
@@ -195,6 +198,7 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
      */
     public final String getTrailerHtml(final String omit) {
         final java.util.Date javaDate = new java.util.Date();
+        @SuppressWarnings("PMD.LawOfDemeter")
         final String timeString = DateFormat.getDateInstance(DateFormat.LONG,
                 Locale.getDefault()).format(javaDate);
 
@@ -291,7 +295,7 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
         for (final GedObject attribute : subObject.getAttributes()) {
             final GedRenderer<? extends GedObject> renderer =
                     createGedRenderer(attribute);
-            b = renderer.renderAsListItem(b, true, pad + 2);
+            b = renderAsListItem(renderer, b, pad);
         }
 
         renderAttributeListClose(builder, pad, subObject);
@@ -300,10 +304,25 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
     }
 
     /**
+     * Render as a list item.
+     *
+     * @param renderer the renderer to use
+     * @param builder the string builder to fill
+     * @param pad the amount of padding to make the html look nice
+     * @return the string builder that was passed in
+     */
+    private StringBuilder renderAsListItem(
+            final GedRenderer<? extends GedObject> renderer,
+            final StringBuilder builder, final int pad) {
+        return renderer.renderAsListItem(builder, true, pad + 2);
+    }
+
+    /**
      * @param attribute
      *            The sub-object to render.
      * @return The renderer.
      */
+    @SuppressWarnings("PMD.LawOfDemeter")
     protected final GedRenderer<? extends GedObject> createGedRenderer(
             final GedObject attribute) {
         return getRendererFactory().create(attribute,
@@ -328,7 +347,7 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
      */
     protected final void renderAttributeListClose(final StringBuilder builder,
             final int pad, final GedObject subObject) {
-        if (!subObject.getAttributes().isEmpty()) {
+        if (subObject.hasAttributes()) {
             renderPad(builder, pad, false);
             builder.append("</ul>");
         }
@@ -500,6 +519,7 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
      * @param input unescaped string.
      * @return the escaped string.
      */
+    @SuppressWarnings("PMD.LawOfDemeter")
     protected static final String escapeString(final String input) {
         return input.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
                 .replaceAll(">", "&gt;").replaceAll("\n", "<br/>\n");
@@ -565,6 +585,16 @@ public abstract class GedRenderer<G extends GedObject> { // NOPMD
      * @return the href string to the living estimator.
      */
     public final String getLivingHref() {
-        return "living?db=" + getGedObject().getDbName();
+        return "living?db=" + getDbName(getGedObject());
+    }
+
+    /**
+     * Get the database name from the passed DB object.
+     *
+     * @param gedObject the GED object
+     * @return the database name
+     */
+    private String getDbName(final G gedObject) {
+        return gedObject.getDbName();
     }
 }

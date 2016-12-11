@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.LawOfDemeter")
 public final class ChromePageWaiter implements PageWaiter {
     /** */
     private final WebDriver driver;
@@ -24,6 +25,9 @@ public final class ChromePageWaiter implements PageWaiter {
         this.driver = driver;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void waitForPageLoaded() {
         final long timeout = 30;

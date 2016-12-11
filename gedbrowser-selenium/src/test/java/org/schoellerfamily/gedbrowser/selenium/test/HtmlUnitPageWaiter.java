@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
  */
 public class HtmlUnitPageWaiter implements PageWaiter {
     /** */
-    @SuppressWarnings("unused")
     private final WebDriver driver;
 
     /**
@@ -19,7 +18,18 @@ public class HtmlUnitPageWaiter implements PageWaiter {
         this.driver = driver;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void waitForPageLoaded() {
+        // Intentionally empty.
+    }
+
+    /**
+     * @return the driver
+     */
+    public final WebDriver getDriver() {
+        return driver;
     }
 }

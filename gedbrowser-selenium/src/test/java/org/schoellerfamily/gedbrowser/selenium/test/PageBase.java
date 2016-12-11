@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
  *
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.LawOfDemeter")
 public class PageBase {
 
     // FIXME externalize base URL

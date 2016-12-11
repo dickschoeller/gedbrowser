@@ -7,10 +7,13 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
  */
 public class SimpleAttributeListOpenRenderer implements
         AttributeListOpenRenderer {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void renderAttributeListOpen(final StringBuilder builder,
             final int pad, final GedObject subObject) {
-        if (!subObject.getAttributes().isEmpty()) {
+        if (subObject.hasAttributes()) {
             GedRenderer.renderPad(builder, pad, true);
             builder.append("<ul>\n");
         }

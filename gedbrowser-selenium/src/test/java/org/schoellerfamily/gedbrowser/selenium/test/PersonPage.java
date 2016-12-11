@@ -11,7 +11,9 @@ import org.openqa.selenium.WebElement;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.GodClass", "PMD.LawOfDemeter" })
+@SuppressWarnings({ "PMD.LawOfDemeter",
+    "PMD.TooManyMethods",
+    "PMD.CommentSize" })
 public final class PersonPage extends PageBase {
     // FIXME reimplement this to go to the database for information
 
@@ -142,7 +144,7 @@ public final class PersonPage extends PageBase {
                     "I14",
                     "Mary Beer Moyer (1909-2003) [I14]",
                     "I2",
-                    new GreatGreatGrandparentIds(
+                    new GreatGreatGrandParentIds(
                             new GreatGrandParentIds(
                                     new GrandParentIds(
                                             new ParentIds("I180", "I181"),
@@ -174,7 +176,7 @@ public final class PersonPage extends PageBase {
                     "I31",
                     "Minnie Rubin (1894-1983) [I31]",
                     "I8",
-                    new GreatGreatGrandparentIds(
+                    new GreatGreatGrandParentIds(
                             new GreatGrandParentIds(
                                     new GrandParentIds(
                                             new ParentIds(null, null),
@@ -206,314 +208,6 @@ public final class PersonPage extends PageBase {
     private final PersonPage previous;
 
     /**
-     * Class represents the leaves in the tree with their person ID
-     * strings.
-     *
-     * @author Dick Schoeller
-     */
-    private static class ParentIds {
-        /** */
-        private final String f;
-        /** */
-        private final String m;
-
-        /**
-         * Constructor.
-         *
-         * @param f father's id
-         * @param m mother's id
-         */
-        ParentIds(final String f, final String m) {
-            this.f = f;
-            this.m = m;
-        }
-
-        /**
-         * @return the father's id
-         */
-        public String getF() {
-            return f;
-        }
-
-        /**
-         * @return the mother's id
-         */
-        public String getM() {
-            return m;
-        }
-    }
-
-    /**
-     * Class represents the leaves in the tree with their person ID
-     * strings.
-     *
-     * @author Dick Schoeller
-     */
-    private static class GrandParentIds {
-        /** */
-        private final ParentIds fathers;
-        /** */
-        private final ParentIds mothers;
-
-        /**
-         * Constructor.
-         *
-         * @param fathers father's parents
-         * @param mothers mother's parents
-         */
-        GrandParentIds(final ParentIds fathers, final ParentIds mothers) {
-            this.fathers = fathers;
-            this.mothers = mothers;
-        }
-
-
-        /**
-         * @return the father's id
-         */
-        public String getFf() {
-            return fathers.getF();
-        }
-
-        /**
-         * @return the mother's id
-         */
-        public String getFm() {
-            return fathers.getM();
-        }
-
-        /**
-         * @return the father's id
-         */
-        public String getMf() {
-            return mothers.getF();
-        }
-
-        /**
-         * @return the mother's id
-         */
-        public String getMm() {
-            return mothers.getM();
-        }
-    }
-
-
-    /**
-     * Class represents the leaves in the tree with their person ID
-     * strings.
-     *
-     * @author Dick Schoeller
-     */
-    private static class GreatGrandParentIds {
-        /** */
-        private final GrandParentIds fathers;
-        /** */
-        private final GrandParentIds mothers;
-
-        /**
-         * Constructor.
-         *
-         * @param fathers father's parents
-         * @param mothers mother's parents
-         */
-        GreatGrandParentIds(final GrandParentIds fathers,
-                final GrandParentIds mothers) {
-            this.fathers = fathers;
-            this.mothers = mothers;
-        }
-
-        /**
-         * @return the father's id
-         */
-        public String getFff() {
-            return fathers.getFf();
-        }
-
-        /**
-         * @return the mother's id
-         */
-        public String getFfm() {
-            return fathers.getFm();
-        }
-
-        /**
-         * @return the father's id
-         */
-        public String getFmf() {
-            return fathers.getMf();
-        }
-
-        /**
-         * @return the mother's id
-         */
-        public String getFmm() {
-            return fathers.getMm();
-        }
-
-        /**
-         * @return the father's id
-         */
-        public String getMff() {
-            return mothers.getFf();
-        }
-
-        /**
-         * @return the mother's id
-         */
-        public String getMfm() {
-            return mothers.getFm();
-        }
-
-        /**
-         * @return the father's id
-         */
-        public String getMmf() {
-            return mothers.getMf();
-        }
-
-        /**
-         * @return the mother's id
-         */
-        public String getMmm() {
-            return mothers.getMm();
-        }
-    }
-
-    /**
-     * Class represents the leaves in the tree with their person ID
-     * strings.
-     *
-     * @author Dick Schoeller
-     */
-    private static class GreatGreatGrandparentIds {
-        /** */
-        private final GreatGrandParentIds fathers;
-        /** */
-        private final GreatGrandParentIds mothers;
-
-        /**
-         * @param fathers father's great grand parents
-         * @param mothers mother's great grand parents
-         */
-        GreatGreatGrandparentIds(final GreatGrandParentIds fathers,
-                final GreatGrandParentIds mothers) {
-            this.fathers = fathers;
-            this.mothers = mothers;
-        }
-
-        /**
-         * @return the ffff
-         */
-        public String getFfff() {
-            return fathers.getFff();
-        }
-
-        /**
-         * @return the fffm
-         */
-        public String getFffm() {
-            return fathers.getFfm();
-        }
-
-        /**
-         * @return the ffmf
-         */
-        public String getFfmf() {
-            return fathers.getFmf();
-        }
-
-        /**
-         * @return the ffmm
-         */
-        public String getFfmm() {
-            return fathers.getFmm();
-        }
-
-        /**
-         * @return the fmff
-         */
-        public String getFmff() {
-            return fathers.getMff();
-        }
-
-        /**
-         * @return the fmfm
-         */
-        public String getFmfm() {
-            return fathers.getMfm();
-        }
-
-        /**
-         * @return the fmmf
-         */
-        public String getFmmf() {
-            return fathers.getMmf();
-        }
-
-        /**
-         * @return the fmmm
-         */
-        public String getFmmm() {
-            return fathers.getMmm();
-        }
-
-        /**
-         * @return the mfff
-         */
-        public String getMfff() {
-            return mothers.getFff();
-        }
-
-        /**
-         * @return the mffm
-         */
-        public String getMffm() {
-            return mothers.getFfm();
-        }
-
-        /**
-         * @return the mfmf
-         */
-        public String getMfmf() {
-            return mothers.getFmf();
-        }
-
-        /**
-         * @return the mfmm
-         */
-        public String getMfmm() {
-            return mothers.getFmm();
-        }
-
-        /**
-         * @return the mmff
-         */
-        public String getMmff() {
-            return mothers.getMff();
-        }
-
-        /**
-         * @return the mmfm
-         */
-        public String getMmfm() {
-            return mothers.getMfm();
-        }
-
-        /**
-         * @return the mmmf
-         */
-        public String getMmmf() {
-            return mothers.getMmf();
-        }
-
-        /**
-         * @return the mmmm
-         */
-        public String getMmmm() {
-            return mothers.getMmm();
-        }
-    }
-
-    /**
      * This class holds the expected values for a number of different
      * aspects of a person page.
      *
@@ -533,7 +227,7 @@ public final class PersonPage extends PageBase {
         /** */
         private final String childOneId;
         /** */
-        private final GreatGreatGrandparentIds leaves;
+        private final GreatGreatGrandParentIds leaves;
 
         /**
          * @param title expected title string
@@ -547,7 +241,7 @@ public final class PersonPage extends PageBase {
         Expectations(final String title, final String fatherId,
                 final String fatherString, final String motherId,
                 final String motherString, final String childOneId,
-                final GreatGreatGrandparentIds leaves) {
+                final GreatGreatGrandParentIds leaves) {
             this.title = title;
             this.fatherId = fatherId;
             this.fatherString = fatherString;
@@ -602,7 +296,7 @@ public final class PersonPage extends PageBase {
         /**
          * @return the leaves
          */
-        private GreatGreatGrandparentIds getLeaves() {
+        private GreatGreatGrandParentIds getLeaves() {
             return leaves;
         }
 
@@ -853,6 +547,7 @@ public final class PersonPage extends PageBase {
      *
      * @return empty string if person is OK, list of failures otherwise
      */
+    @SuppressWarnings("PMD.NPathComplexity")
     public String check() {
         final StringBuilder status = new StringBuilder();
         if (!titleCheck()) {
@@ -889,6 +584,9 @@ public final class PersonPage extends PageBase {
      *
      * @return true if all of the leaves align with expectations.
      */
+    @SuppressWarnings({ "PMD.CyclomaticComplexity",
+            "PMD.ModifiedCyclomaticComplexity", "PMD.NPathComplexity",
+            "PMD.StdCyclomaticComplexity" })
     private boolean leavesCheck() {
         if (EXPECTATIONS_MAP.get(id).leaves == null) {
             return true;

@@ -291,6 +291,13 @@ public class GedObject {
     }
 
     /**
+     * @return whether the list of attributes has some content
+     */
+    public final boolean hasAttributes() {
+        return !attributes.isEmpty();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

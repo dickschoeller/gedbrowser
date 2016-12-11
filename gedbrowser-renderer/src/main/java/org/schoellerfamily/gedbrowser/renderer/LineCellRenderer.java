@@ -20,11 +20,17 @@ public final class LineCellRenderer implements CellRenderer {
         this.classString = classString;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getNameHtml() {
         return "&nbsp;&nbsp;&nbsp;";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getCellClass() {
         return classString;

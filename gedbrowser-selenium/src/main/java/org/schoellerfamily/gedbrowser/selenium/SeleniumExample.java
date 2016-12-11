@@ -12,6 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.LawOfDemeter")
 public final class SeleniumExample {
 
     /** Default timeout, 3 seconds. */
