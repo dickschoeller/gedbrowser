@@ -2,7 +2,6 @@ package org.schoellerfamily.gedbrowser.geocodecache;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -27,31 +26,11 @@ import com.google.maps.model.GeocodingResult;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods" })
+@SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.GodClass",
+        "PMD.CommentSize" })
 public final class GeoCodeCache {
-    /**
-     * Path to the standard location for the places file to initialize from.
-     */
-    private static final String STANDARD_PLACES_PATH =
-            "/var/lib/gedbrowser/places.txt";
-
-    /**
-     * Path to the standard location for a test file, shorter than standard
-     * places.
-     */
-    private static final String TEST_FILE_PATH = "/var/lib/gedbrowser/test.txt";
-
-    /**
-     * Path to the standard location for the google key.
-     */
-    private static final String GOOGLE_GEOCODING_KEY =
-            "/var/lib/gedbrowser/google-geocoding-key";
-
     /** The singleton instance. */
-    private static final GeoCodeCache INSTANCE;
-    static {
-        INSTANCE = new GeoCodeCache();
-    }
+    private static GeoCodeCache instance;
 
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
@@ -67,11 +46,11 @@ public final class GeoCodeCache {
      */
     private GeoCodeCache() {
         logger.debug("Initializing GeoCodeCache");
-        if (INSTANCE != null) {
+        if (instance != null) {
             throw new IllegalStateException("Already instantiated");
         }
         try {
-            key = readKeyFile(GOOGLE_GEOCODING_KEY);
+            key = readKeyFile(getGoogleGeoCodingKeyPath());
         } catch (IOException e) {
             throw new GeoCodeCacheRuntimeException("Couldn't open key file", e);
         }
@@ -81,7 +60,12 @@ public final class GeoCodeCache {
      * @return the singleton
      */
     public static GeoCodeCache instance() {
-        return INSTANCE;
+        synchronized (GeoCodeCache.class) {
+            if (instance == null) {
+                instance = new GeoCodeCache();
+            }
+        }
+        return instance;
     }
 
     /**
@@ -310,7 +294,7 @@ public final class GeoCodeCache {
      * names.
      */
     public void load() {
-        load(STANDARD_PLACES_PATH);
+        load(getStandardPlacesPath());
     }
 
     /**
@@ -393,6 +377,29 @@ public final class GeoCodeCache {
      */
     public static void main(final String[] args) {
         final GeoCodeCache gcc = GeoCodeCache.instance();
-        gcc.oneAtATime(TEST_FILE_PATH);
+        gcc.oneAtATime(gcc.getTestFilePath());
     }
+
+    /**
+     * Path to the standard location for the places file to initialize from.
+     */
+    private final String getStandardPlacesPath() {
+        return "/var/lib/gedbrowser/places.txt";
+    }
+
+    /**
+     * Path to the standard location for a test file, shorter than standard
+     * places.
+     */
+    private final String getTestFilePath() {
+        return "/var/lib/gedbrowser/test.txt";
+    }
+
+    /**
+     * Path to the standard location for the google key.
+     */
+    private final String getGoogleGeoCodingKeyPath() {
+        return "/var/lib/gedbrowser/google-geocoding-key";
+    }
+
 }

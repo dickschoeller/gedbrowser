@@ -13,6 +13,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.LawOfDemeter", "PMD.GodClass" })
 public class BirthDateEstimator {
     /** Typical age at death. */
     private static final int TYPICAL_AGE_AT_DEATH = 75;

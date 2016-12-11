@@ -26,6 +26,8 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods",
+        "PMD.ExcessivePublicCount" })
 public final class AnonymousPersonRendererTest {
 
     /**

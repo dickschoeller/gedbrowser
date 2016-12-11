@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.geocodecache;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.CommentSize")
 public class GeoCodeCacheRuntimeException extends RuntimeException {
     /** */
     private static final long serialVersionUID = 1L;
@@ -13,6 +14,7 @@ public class GeoCodeCacheRuntimeException extends RuntimeException {
      * initialized by a call to {@link #initCause}.
      */
     public GeoCodeCacheRuntimeException() {
+        // Intended to be empty
     }
 
     /**

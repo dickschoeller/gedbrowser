@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Dick Schoeller
  */
 @Controller
+@SuppressWarnings("PMD.CommentSize")
 public class IndexController extends AbstractController {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());

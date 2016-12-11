@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.GodClass", "PMD.LawOfDemeter" })
 public final class PersonPage extends PageBase {
     // FIXME reimplement this to go to the database for information
 
