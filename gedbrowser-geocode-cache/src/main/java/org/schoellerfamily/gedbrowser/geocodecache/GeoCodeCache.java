@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -264,20 +265,27 @@ public final class GeoCodeCache {
      */
     public int countNotFound() {
         logger.debug("Count the places that couldn't be found");
-        int count = 0;
-        // Do this in sort order so that logging will be
-        // in a rational order.
-        final SortedSet<String> mapKeys = new TreeSet<>();
-        mapKeys.addAll(map.keySet());
-        for (final String mapKey : mapKeys) {
-            final GeoCodeCacheEntry gcce = map.get(mapKey);
-            if (gcce.getGeocodingResult() == null) {
-                logger.debug(gcce.getPlaceName());
-                count++;
-            }
-        }
+        final Set<String> notFound = notFoundKeys();
+        final int count = notFound.size();
         logger.debug(count + " places not found");
         return count;
+    }
+
+    /**
+     * @return the set of place names not found
+     */
+    public Set<String> notFoundKeys() {
+        logger.debug("Captures the places that couldn't be found");
+    	final Set<String> notFoundSet = new TreeSet<>();
+    	for (final Map.Entry<String, GeoCodeCacheEntry> entry : map.entrySet()) {
+    		final String mapKey = entry.getKey();
+            final GeoCodeCacheEntry gcce = entry.getValue();
+            if (gcce.getGeocodingResult() == null) {
+            	notFoundSet.add(mapKey);
+                logger.debug(gcce.getPlaceName());
+            }
+        }
+    	return notFoundSet;
     }
 
     /**
