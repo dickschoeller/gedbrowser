@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -276,16 +277,16 @@ public final class GeoCodeCache {
      */
     public Set<String> notFoundKeys() {
         logger.debug("Captures the places that couldn't be found");
-    	final Set<String> notFoundSet = new TreeSet<>();
-    	for (final Map.Entry<String, GeoCodeCacheEntry> entry : map.entrySet()) {
-    		final String mapKey = entry.getKey();
+        final Set<String> notFoundSet = new TreeSet<>();
+        for (final Entry<String, GeoCodeCacheEntry> entry : map.entrySet()) {
+            final String mapKey = entry.getKey();
             final GeoCodeCacheEntry gcce = entry.getValue();
             if (gcce.getGeocodingResult() == null) {
-            	notFoundSet.add(mapKey);
+                notFoundSet.add(mapKey);
                 logger.debug(gcce.getPlaceName());
             }
         }
-    	return notFoundSet;
+        return notFoundSet;
     }
 
     /**
