@@ -75,8 +75,8 @@ public final class LivingEstimator {
         for (final String letter : root.findSurnameInitialLetters()) {
             for (final String surname : root.findBySurnamesBeginWith(letter)) {
                 for (final Person person : root.findBySurname(surname)) {
-                    final LivingEstimator le = new LivingEstimator(person);
-                    if (le.estimate()) {
+                    final LivingEstimator le = createLivingEstimator(person);
+                    if (estimate(le)) {
                         living.add(person);
                         addToBucket(buckets, person);
                     } else {
@@ -86,6 +86,26 @@ public final class LivingEstimator {
             }
         }
         LOGGER.exiting("LivingEstimator", "fillBuckets");
+    }
+
+    /**
+     * Get an estimate from another estimator.
+     *
+     * @param le an estimator to get the estimate from
+     * @return the estimate
+     */
+    private static boolean estimate(final LivingEstimator le) {
+        return le.estimate();
+    }
+
+    /**
+     * Create a new estimator.
+     *
+     * @param person the person we're estimating
+     * @return the estimator
+     */
+    private static LivingEstimator createLivingEstimator(final Person person) {
+        return new LivingEstimator(person);
     }
 
     /**
@@ -117,15 +137,29 @@ public final class LivingEstimator {
         private static final long serialVersionUID = 1L;
 
         /**
+         * <p>
          * Implements comparison by sorting by index name (and ID if names are
-         * the same.
-         *
-         * @param arg0 the first person
-         * @param arg1 the second person
+         * the same).
+         * </p>
+         * {@inheritDoc}
          */
         @Override
         public int compare(final Person arg0, final Person arg1) {
-            return dumpableName(arg0).compareTo(dumpableName(arg1));
+            final String dumpableName0 = dumpableName(arg0);
+            final String dumpableName1 = dumpableName(arg1);
+            return compare(dumpableName0, dumpableName1);
+        }
+
+        /**
+         * Compare 2 strings. Only added this method to avoid Demeter.
+         *
+         * @param name0 the first name
+         * @param name1 the second name
+         * @return a negative integer, zero, or a positive integer as the first
+         *         argument is less than, equal to, or greater than the second.
+         */
+        private int compare(final String name0, final String name1) {
+            return name0.compareTo(name1);
         }
     }
 

@@ -591,10 +591,10 @@ public abstract class GedRenderer<G extends GedObject> {
     /**
      * Get the database name from the passed DB object.
      *
-     * @param gedObject the GED object
+     * @param gedObj the GED object
      * @return the database name
      */
-    private String getDbName(final G gedObject) {
-        return gedObject.getDbName();
+    private String getDbName(final G gedObj) {
+        return gedObj.getDbName();
     }
 }

@@ -211,7 +211,7 @@ public final class GeoCodeCacheTest {
         {
             "At Home, 502 Canal Street, Lebanon, Lebanon County, Pennsylvani"
             + "a, USA",
-            ""
+            "502 Canal Street, Lebanon, Lebanon County, Pennsylvania, USA"
         },
         {
             "At Sea",
@@ -224,7 +224,7 @@ public final class GeoCodeCacheTest {
         },
         {
             "At home, 21 N. Beaver St., York, York County, Pennsylvania, USA",
-            ""
+            "21 N. Beaver St., York, York County, Pennsylvania, USA"
         },
         {
             "At home, Cornwall Road, Lebanon, Lebanon County, Pennsylvania, "
@@ -395,7 +395,7 @@ public final class GeoCodeCacheTest {
         final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.load(addressTable);
-        final int expected = 19;
+        final int expected = 17;
         Assert.assertEquals(expected, gcc.countNotFound());
     }
 

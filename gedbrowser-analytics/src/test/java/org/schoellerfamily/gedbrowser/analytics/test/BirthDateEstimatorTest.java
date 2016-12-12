@@ -30,6 +30,7 @@ import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.TooManyMethods")
 public class BirthDateEstimatorTest {
     /** */
     @Test
@@ -50,7 +51,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 11;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimator.estimateBirthDate();
+        final LocalDate actual = estimateBirthDate(estimator);
         assertMatch(expected, actual);
     }
 
@@ -64,8 +65,8 @@ public class BirthDateEstimatorTest {
         person.insert(new Name(person, "J. Random/Schoeller/"));
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
-        final LocalDate actual = estimator.estimateBirthDate();
-        assertNull(actual);
+        final LocalDate actual = estimateBirthDate(estimator);
+        assertNull("Expected a null date", actual);
     }
 
     /** */
@@ -102,7 +103,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimator.estimateBirthDate();
+        final LocalDate actual = estimateBirthDate(estimator);
         assertMatch(expected, actual);
     }
 
@@ -149,7 +150,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimator.estimateBirthDate();
+        final LocalDate actual = estimateBirthDate(estimator);
         assertMatch(expected, actual);
     }
 
@@ -188,8 +189,8 @@ public class BirthDateEstimatorTest {
         person3.insert(famC3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
-        final LocalDate actual = estimator.estimateBirthDate();
-        assertNull(actual);
+        final LocalDate actual = estimateBirthDate(estimator);
+        assertNull("Expected a null date", actual);
     }
 
     /** */
@@ -227,7 +228,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimator.estimateBirthDate();
+        final LocalDate actual = estimateBirthDate(estimator);
         assertMatch(expected, actual);
     }
 
@@ -274,7 +275,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimator.estimateBirthDate();
+        final LocalDate actual = estimateBirthDate(estimator);
         assertMatch(expected, actual);
     }
 
@@ -313,8 +314,8 @@ public class BirthDateEstimatorTest {
         person3.insert(famC3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
-        final LocalDate actual = estimator.estimateBirthDate();
-        assertNull(actual);
+        final LocalDate actual = estimateBirthDate(estimator);
+        assertNull("Expected a null date", actual);
     }
 
     /** */
@@ -352,11 +353,11 @@ public class BirthDateEstimatorTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
         final int birthYear = 1959;
-        final int birthMonth = 5;
+        final int birthMonth = 1;
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimator.estimateBirthDate();
+        final LocalDate actual = estimateBirthDate(estimator);
         assertMatch(expected, actual);
     }
 
@@ -389,8 +390,8 @@ public class BirthDateEstimatorTest {
         person2.insert(famS2);
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
-        final LocalDate actual = estimator.estimateBirthDate();
-        assertNull(actual);
+        final LocalDate actual = estimateBirthDate(estimator);
+        assertNull("Expected a null date", actual);
     }
 
     /** */
@@ -451,11 +452,11 @@ public class BirthDateEstimatorTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person1);
         final int birthYear = 1955;
-        final int birthMonth = 6;
+        final int birthMonth = 1;
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimator.estimateBirthDate();
+        final LocalDate actual = estimateBirthDate(estimator);
         assertMatch(expected, actual);
     }
 
@@ -507,7 +508,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimator.estimateBirthDate();
+        final LocalDate actual = estimateBirthDate(estimator);
         assertMatch(expected, actual);
     }
 
@@ -567,7 +568,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimator.estimateBirthDate();
+        final LocalDate actual = estimateBirthDate(estimator);
         assertMatch(expected, actual);
     }
 
@@ -617,7 +618,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimator.estimateBirthDate();
+        final LocalDate actual = estimateBirthDate(estimator);
         assertMatch(expected, actual);
     }
 
@@ -659,7 +660,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimator.estimateBirthDate();
+        final LocalDate actual = estimateBirthDate(estimator);
         assertMatch(expected, actual);
     }
 
@@ -701,7 +702,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimator.estimateBirthDate();
+        final LocalDate actual = estimateBirthDate(estimator);
         assertMatch(expected, actual);
     }
 
@@ -743,7 +744,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimator.estimateBirthDate();
+        final LocalDate actual = estimateBirthDate(estimator);
         assertMatch(expected, actual);
     }
 
@@ -756,6 +757,7 @@ public class BirthDateEstimatorTest {
      * @throws IOException if the file can't be read
      */
     @Test
+    @SuppressWarnings("PMD.LawOfDemeter")
     public final void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = readFileTestSource();
         final GedObject root = top.createGedObject((AbstractGedLine) null);
@@ -765,7 +767,7 @@ public class BirthDateEstimatorTest {
                 for (final Person person : root.findBySurname(surname)) {
                     final BirthDateEstimator estimator =
                             createBirthEstimator(person);
-                    final LocalDate localDate = estimator.estimateBirthDate();
+                    final LocalDate localDate = estimateBirthDate(estimator);
                     if (localDate == null) {
                         unhandled.add(person);
                     }
@@ -828,5 +830,13 @@ public class BirthDateEstimatorTest {
     private AbstractGedLine readFileTestSource() throws IOException {
         return ReaderHelper.readFileTestSource(this,
                 "/var/lib/gedbrowser/schoeller.ged");
+    }
+
+    /**
+     * @param estimator the estimator to use
+     * @return a birth date estimate
+     */
+    private LocalDate estimateBirthDate(final BirthDateEstimator estimator) {
+        return estimator.estimateBirthDate();
     }
 }
