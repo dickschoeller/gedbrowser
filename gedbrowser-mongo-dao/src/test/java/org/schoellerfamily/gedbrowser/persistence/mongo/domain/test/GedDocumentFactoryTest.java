@@ -54,7 +54,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo
  */
 @SuppressWarnings({ "PMD.CouplingBetweenObjects",
     "PMD.ExcessiveImports",
-    "PMD.LawOfDemeter",
     "PMD.TooManyMethods" })
 public final class GedDocumentFactoryTest {
     /** */

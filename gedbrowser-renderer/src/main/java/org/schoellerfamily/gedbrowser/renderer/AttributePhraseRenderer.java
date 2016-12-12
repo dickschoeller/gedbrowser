@@ -3,7 +3,6 @@ package org.schoellerfamily.gedbrowser.renderer;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.LawOfDemeter")
 public final class AttributePhraseRenderer implements PhraseRenderer {
     /**
      * Holder for the AttributeRenderer that is using this helper.

@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.CommentSize", "PMD.TooManyMethods" })
 public final class Date extends AbstractAttribute {
     /** */
     private enum Approximation {
@@ -27,11 +28,18 @@ public final class Date extends AbstractAttribute {
     };
 
     /** */
-    private Calendar sortDate = null;
+    private Calendar sortDate;
     /** */
-    private Calendar estimateDate = null;
+    private Calendar estimateDate;
     /** */
-    private Approximation approximation = null;
+    private Approximation approximation;
+
+    /** */
+    private static final String ABT = "ABT ";
+    /** */
+    private static final String BEF = "BEF ";
+    /** */
+    private static final String AFT = "AFT ";
 
     /**
      * @param parent parent object of this date
@@ -130,9 +138,9 @@ public final class Date extends AbstractAttribute {
     private Calendar estimateDay(final String dateString) {
         final Calendar c = parseCalendar(dateString);
         if (approximation == Approximation.BEFORE) {
-            c.add(Calendar.DAY_OF_MONTH, -1);
+            add(c, Calendar.DAY_OF_MONTH, -1);
         } else if (approximation == Approximation.AFTER) {
-            c.add(Calendar.DAY_OF_MONTH, 1);
+            add(c, Calendar.DAY_OF_MONTH, 1);
         }
         return c;
     }
@@ -144,13 +152,11 @@ public final class Date extends AbstractAttribute {
     private Calendar estimateMonth(final String dateString) {
         final Calendar c = parseCalendar(dateString);
         if (approximation == Approximation.BEFORE) {
-            c.add(Calendar.MONTH, -1);
-            c.set(Calendar.DAY_OF_MONTH,
-                    c.getActualMaximum(Calendar.DAY_OF_MONTH));
+            add(c, Calendar.MONTH, -1);
+            endOfMonth(c);
         } else if (approximation == Approximation.AFTER) {
-            c.add(Calendar.MONTH, 1);
-            c.set(Calendar.DAY_OF_MONTH,
-                    c.getActualMinimum(Calendar.DAY_OF_MONTH));
+            add(c, Calendar.MONTH, 1);
+            beginOfMonth(c);
         }
         return c;
     }
@@ -162,17 +168,67 @@ public final class Date extends AbstractAttribute {
     private Calendar estimateYear(final String dateString) {
         final Calendar c = parseCalendar(dateString);
         if (approximation == Approximation.BEFORE) {
-            c.add(Calendar.YEAR, -1);
-            c.set(Calendar.MONTH, c.getMaximum(Calendar.MONTH));
-            c.set(Calendar.DAY_OF_MONTH,
-                    c.getActualMaximum(Calendar.DAY_OF_MONTH));
+            add(c, Calendar.YEAR, -1);
+            lastMonth(c);
+            endOfMonth(c);
         } else if (approximation == Approximation.AFTER) {
-            c.add(Calendar.YEAR, 1);
-            c.set(Calendar.MONTH, c.getMinimum(Calendar.MONTH));
-            c.set(Calendar.DAY_OF_MONTH,
-                    c.getActualMinimum(Calendar.DAY_OF_MONTH));
+            add(c, Calendar.YEAR, 1);
+            firstMonth(c);
+            beginOfMonth(c);
         }
         return c;
+    }
+
+    /**
+     * Adds or subtracts the specified amount of time to the given calendar
+     * field, based on the calendar's rules. For example, to subtract 5 days
+     * from the current time of the calendar, you can achieve it by calling:
+     * add(c, Calendar.DAY_OF_MONTH, -5).
+     *
+     * @param c the calendar
+     * @param field the calendar field
+     * @param amount the amount of date or time to be added to the field.
+     */
+    private void add(final Calendar c, final int field, final int amount) {
+        c.add(field, amount);
+    }
+
+    /**
+     * Adjust calendar to the beginning of the current month.
+     *
+     * @param c the calendar
+     */
+    private void beginOfMonth(final Calendar c) {
+        c.set(Calendar.DAY_OF_MONTH,
+                c.getActualMinimum(Calendar.DAY_OF_MONTH));
+    }
+
+    /**
+     * Adjust calendar to the end of the current month.
+     *
+     * @param c the calendar
+     */
+    private void endOfMonth(final Calendar c) {
+        c.set(Calendar.DAY_OF_MONTH,
+                c.getActualMaximum(Calendar.DAY_OF_MONTH));
+    }
+
+    /**
+     * Adjust calendar to the first month of the year.
+     *
+     * @param c the calendar
+     */
+    private void firstMonth(final Calendar c) {
+        c.set(Calendar.MONTH, c.getMinimum(Calendar.MONTH));
+    }
+
+    /**
+     * Adjust calendar to the last month of the year.
+     *
+     * @param c the calendar
+     */
+    private void lastMonth(final Calendar c) {
+        c.set(Calendar.MONTH, c.getMaximum(Calendar.MONTH));
     }
 
     /**
@@ -181,34 +237,79 @@ public final class Date extends AbstractAttribute {
      */
     private String stripApproximationKeywords(final String dateString) {
         approximation = Approximation.EXACT;
-        if (dateString.startsWith("ABT ")) {
+        if (dateString.startsWith(ABT)) {
             approximation = Approximation.ABOUT;
-            return dateString.replace("ABT ", "").trim();
+            return stripPrefix(dateString, ABT);
         }
-        if (dateString.startsWith("BEF ")) {
+        if (dateString.startsWith(BEF)) {
             approximation = Approximation.BEFORE;
-            return dateString.replace("BEF ", "").trim();
+            return stripPrefix(dateString, BEF);
         }
-        if (dateString.startsWith("AFT ")) {
+        if (dateString.startsWith(AFT)) {
             approximation = Approximation.AFTER;
-            return dateString.replace("AFT ", "").trim();
+            return stripPrefix(dateString, AFT);
         }
         if (dateString.startsWith("BETWEEN ")) {
             approximation = Approximation.BETWEEN;
-            String outString = dateString.replace("BETWEEN ", "");
-            final int i = outString.indexOf(" AND ");
-            if (i != -1) {
-                outString = outString.substring(0, i);
-            }
-            return outString.trim();
+            final String outString = handleBetween(dateString);
+            return trim(outString);
         } else {
             final StringTokenizer st = new StringTokenizer(dateString, " ");
             final int allTokens = 3;
             if (st.countTokens() < allTokens) {
                 approximation = Approximation.ABOUT;
             }
-            return dateString.trim();
+            return trim(dateString);
         }
+    }
+
+    /**
+     * Strip the searchString with and trim the result.
+     *
+     * @param input the source string
+     * @param searchString the string to look for in the source
+     * @return the stripped string
+     */
+    private String stripPrefix(final String input, final String searchString) {
+        final String stripped = input.replace(searchString, "");
+        return trim(stripped);
+    }
+
+    /**
+     * Trim the string.
+     *
+     * @param input the source string
+     * @return trimmed string
+     */
+    private String trim(final String input) {
+        return input.trim();
+    }
+
+    /**
+     * Process between syntax. Just leave the beginning date.
+     *
+     * @param input the source string
+     * @return the stripped result
+     */
+    private String handleBetween(final String input) {
+        final String outString = input.replace("BETWEEN ", "");
+        return truncateAt(outString, " AND ");
+    }
+
+    /**
+     * Truncate the input string after the first occurrence of the
+     * searchString.
+     *
+     * @param input the source string
+     * @param searchString the string to look for in the source
+     * @return the truncated string
+     */
+    private String truncateAt(final String input, final String searchString) {
+        final int i = input.indexOf(searchString);
+        if (i != -1) {
+            return input.substring(0, i);
+        }
+        return input;
     }
 
     /**

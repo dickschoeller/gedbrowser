@@ -19,7 +19,7 @@ import com.google.maps.model.LatLng;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods" })
+@SuppressWarnings({ "PMD.TooManyMethods" })
 public final class GeoCodeCacheTest {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());

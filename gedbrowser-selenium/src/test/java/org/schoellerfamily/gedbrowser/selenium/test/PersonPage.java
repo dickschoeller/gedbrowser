@@ -11,8 +11,7 @@ import org.openqa.selenium.WebElement;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.LawOfDemeter",
-    "PMD.TooManyMethods",
+@SuppressWarnings({ "PMD.TooManyMethods",
     "PMD.CommentSize" })
 public final class PersonPage extends PageBase {
     // FIXME reimplement this to go to the database for information

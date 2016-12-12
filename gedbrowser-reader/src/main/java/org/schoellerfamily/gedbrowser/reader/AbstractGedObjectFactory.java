@@ -32,7 +32,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.CommentSize", "PMD.LawOfDemeter" })
+@SuppressWarnings({ "PMD.CommentSize" })
 public abstract class AbstractGedObjectFactory {
     /** */
     private static final AttributeFactory ATTR_FACTORY = new AttributeFactory();

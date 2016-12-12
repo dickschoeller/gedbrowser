@@ -270,7 +270,6 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
      * @param date the ancestor's marriage date
      * @return the adjusted date
      */
-    @SuppressWarnings("PMD.LawOfDemeter")
     private LocalDate ancestorAdjustment(final LocalDate date) {
         return date.plusYears(typicals.ageAtMarriage()
                 + typicals.gapBetweenChildren())
@@ -283,7 +282,6 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
      * @param date the input date
      * @return the adjusted date
      */
-    @SuppressWarnings("PMD.LawOfDemeter")
     private LocalDate childAdjustment(final LocalDate date) {
         if (date == null) {
             return date;

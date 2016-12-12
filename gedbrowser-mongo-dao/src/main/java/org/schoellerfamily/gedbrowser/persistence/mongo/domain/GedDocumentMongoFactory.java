@@ -31,7 +31,7 @@ import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 /**
  * @author Dick Schoeller
  */
-public final class GedDocumentMongoFactory { // NOPMD
+public final class GedDocumentMongoFactory {
     /** */
     private static final GedDocumentMongoFactory INSTANCE =
             new GedDocumentMongoFactory();
@@ -119,7 +119,7 @@ public final class GedDocumentMongoFactory { // NOPMD
      * @param document the document to transform
      * @return the transformation result
      */
-    public GedObject createGedObject(final GedObject parent, // NOPMD
+    public GedObject createGedObject(final GedObject parent,
             final GedDocument<?> document) {
         GedObject retval = null;
         if (document instanceof AttributeDocumentMongo) {

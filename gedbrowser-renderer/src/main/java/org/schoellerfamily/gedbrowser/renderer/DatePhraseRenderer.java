@@ -5,7 +5,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Date;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.LawOfDemeter")
 public class DatePhraseRenderer implements PhraseRenderer {
     /**
      * Holder for the DateRenderer that is using this helper.

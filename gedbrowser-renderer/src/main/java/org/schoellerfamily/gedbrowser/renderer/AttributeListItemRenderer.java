@@ -6,7 +6,6 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.LawOfDemeter")
 public class AttributeListItemRenderer implements ListItemRenderer {
     /**
      * Holder for the AttributeRenderer that is using this helper.

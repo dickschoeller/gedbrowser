@@ -5,7 +5,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Head;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.LawOfDemeter")
 public class HeadSectionRenderer implements SectionRenderer {
     /**
      * Holder for the HeadRenderer that is using this helper.

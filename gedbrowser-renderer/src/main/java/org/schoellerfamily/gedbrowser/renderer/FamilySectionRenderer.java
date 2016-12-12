@@ -9,7 +9,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.LawOfDemeter")
 public class FamilySectionRenderer implements SectionRenderer {
     /**
      * Holder for the FamilyRenderer that is using this helper.

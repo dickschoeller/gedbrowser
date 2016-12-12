@@ -757,7 +757,6 @@ public class BirthDateEstimatorTest {
      * @throws IOException if the file can't be read
      */
     @Test
-    @SuppressWarnings("PMD.LawOfDemeter")
     public final void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = readFileTestSource();
         final GedObject root = top.createGedObject((AbstractGedLine) null);

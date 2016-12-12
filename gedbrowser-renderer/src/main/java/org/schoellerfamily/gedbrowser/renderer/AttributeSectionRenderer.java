@@ -6,7 +6,6 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.LawOfDemeter")
 public final class AttributeSectionRenderer implements SectionRenderer {
     /**
      * Holder for the AttributeRenderer that is using this helper.

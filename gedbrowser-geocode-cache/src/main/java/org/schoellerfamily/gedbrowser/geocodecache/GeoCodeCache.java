@@ -28,8 +28,9 @@ import com.google.maps.model.GeocodingResult;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.GodClass",
-        "PMD.CommentSize" })
+@SuppressWarnings({ "PMD.TooManyMethods",
+    "PMD.GodClass",
+    "PMD.CommentSize" })
 public final class GeoCodeCache {
     /** The singleton instance. */
     private static GeoCodeCache instance;

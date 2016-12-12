@@ -15,7 +15,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.LawOfDemeter")
 public final class LivingRenderer extends GedRenderer<Root> {
     /** Logger. */
     private static final Logger LOGGER = Logger.getLogger(LivingRenderer.class

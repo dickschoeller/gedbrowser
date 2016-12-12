@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.LawOfDemeter")
 public final class ChromePageWaiter implements PageWaiter {
     /** */
     private final WebDriver driver;

@@ -19,7 +19,6 @@ import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.LawOfDemeter")
 public class LivingEstimatorTest {
     /** Divide output into buckets of 10 years. */
     private static final int AGE_BUCKET_SIZE = 10;

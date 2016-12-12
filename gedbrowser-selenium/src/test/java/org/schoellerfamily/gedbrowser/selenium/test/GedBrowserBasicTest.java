@@ -14,7 +14,6 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.LawOfDemeter")
 public class GedBrowserBasicTest {
     /** Standard timeout. */
     private static final int SHORT_TIMEOUT = 3;

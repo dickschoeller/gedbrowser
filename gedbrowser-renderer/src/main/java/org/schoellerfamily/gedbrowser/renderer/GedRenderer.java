@@ -198,7 +198,6 @@ public abstract class GedRenderer<G extends GedObject> {
      */
     public final String getTrailerHtml(final String omit) {
         final java.util.Date javaDate = new java.util.Date();
-        @SuppressWarnings("PMD.LawOfDemeter")
         final String timeString = DateFormat.getDateInstance(DateFormat.LONG,
                 Locale.getDefault()).format(javaDate);
 
@@ -322,7 +321,6 @@ public abstract class GedRenderer<G extends GedObject> {
      *            The sub-object to render.
      * @return The renderer.
      */
-    @SuppressWarnings("PMD.LawOfDemeter")
     protected final GedRenderer<? extends GedObject> createGedRenderer(
             final GedObject attribute) {
         return getRendererFactory().create(attribute,
@@ -519,7 +517,6 @@ public abstract class GedRenderer<G extends GedObject> {
      * @param input unescaped string.
      * @return the escaped string.
      */
-    @SuppressWarnings("PMD.LawOfDemeter")
     protected static final String escapeString(final String input) {
         return input.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
                 .replaceAll(">", "&gt;").replaceAll("\n", "<br/>\n");

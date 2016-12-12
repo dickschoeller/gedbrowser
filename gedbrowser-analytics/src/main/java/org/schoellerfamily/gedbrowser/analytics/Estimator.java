@@ -11,7 +11,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
  * Base class for estimators. Primarily contains useful methods to avoid
- * Demeter.
+ * Demeter. Note we have stopped checking Demeter in PMD, but it is still
+ * a good rule.
  *
  * @author Dick Schoeller
  */
