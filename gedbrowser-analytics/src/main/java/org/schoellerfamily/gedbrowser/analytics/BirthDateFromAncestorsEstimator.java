@@ -139,7 +139,7 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
      */
     private LocalDate estimateFromAncestorsBirth(final LocalDate date,
             final Person parent) {
-        if (parent == null || date != null) {
+        if (parent == null) {
             return date;
         }
         final BirthDateEstimator bde = createEstimator(parent);
