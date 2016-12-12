@@ -14,7 +14,7 @@ import org.schoellerfamily.gedbrowser.reader.GedLine;
 /**
  * Test GedLine.
  *
- * @author dick
+ * @author Dick Schoeller
  */
 public final class GedLineTest {
     /**

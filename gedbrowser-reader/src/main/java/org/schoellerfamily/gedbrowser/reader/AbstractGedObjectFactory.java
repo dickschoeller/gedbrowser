@@ -30,7 +30,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  * Factory that creates the right kind of GedObject based on the strings found
  * in GedLines.
  *
- * @author dick
+ * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.CommentSize", "PMD.LawOfDemeter" })
 public abstract class AbstractGedObjectFactory {
@@ -272,7 +272,7 @@ public abstract class AbstractGedObjectFactory {
      * Associates a GEDCOM token with a full string and a factory for GedObject
      * creation.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class GedToken {
         /** */
@@ -311,7 +311,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Attribute.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class AttributeFactory extends AbstractGedObjectFactory {
         /**
@@ -327,7 +327,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Child.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class ChildFactory extends AbstractGedObjectFactory {
         /**
@@ -343,7 +343,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Date.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class DateFactory extends AbstractGedObjectFactory {
         /**
@@ -359,7 +359,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating FamC.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class FamCFactory extends AbstractGedObjectFactory {
         /**
@@ -375,7 +375,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Family.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class FamilyFactory extends AbstractGedObjectFactory {
         /**
@@ -391,7 +391,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating FamS.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class FamSFactory extends AbstractGedObjectFactory {
         /**
@@ -407,7 +407,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Head.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class HeadFactory extends AbstractGedObjectFactory {
         /**
@@ -423,7 +423,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Husband.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class HusbandFactory extends AbstractGedObjectFactory {
         /**
@@ -439,7 +439,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Link.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class LinkFactory extends AbstractGedObjectFactory {
         /**
@@ -455,7 +455,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Multimedia reference object.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class MultimediaFactory extends AbstractGedObjectFactory {
         /**
@@ -471,7 +471,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Name.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class NameFactory extends AbstractGedObjectFactory {
         /**
@@ -487,7 +487,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Person.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class PersonFactory extends AbstractGedObjectFactory {
         /**
@@ -503,7 +503,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Place.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class PlaceFactory extends AbstractGedObjectFactory {
         /**
@@ -519,7 +519,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Root.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class RootFactory extends AbstractGedObjectFactory {
         /**
@@ -535,7 +535,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Source.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class SourceFactory extends AbstractGedObjectFactory {
         /**
@@ -555,7 +555,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating SourceLink.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class SourceLinkFactory extends AbstractGedObjectFactory {
         /**
@@ -571,7 +571,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Submittor.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class SubmittorFactory extends AbstractGedObjectFactory {
         /**
@@ -591,7 +591,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating SubmittorLink.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class SubmittorLinkFactory extends AbstractGedObjectFactory {
         /**
@@ -607,7 +607,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Trailer.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class TrailerFactory extends AbstractGedObjectFactory {
         /**
@@ -623,7 +623,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Wife.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class WifeFactory extends AbstractGedObjectFactory {
         /**
@@ -639,7 +639,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for concatenation lines.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class ConcatenationFactory extends AbstractGedObjectFactory {
         /**
@@ -656,7 +656,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for continuation lines.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class ContinuationFactory extends AbstractGedObjectFactory {
         /**
@@ -696,8 +696,8 @@ public abstract class AbstractGedObjectFactory {
      * @param tail the rest of the line
      * @return the GedObject
      */
-    public abstract GedObject create(final GedObject parent,
-            final ObjectId objectId, final String tag, final String tail);
+    public abstract GedObject create(GedObject parent, ObjectId objectId,
+            String tag, String tail);
 
     /**
      * Get the factory for this GEDCOM tag.
@@ -741,7 +741,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Instantiate this factory to get at the specific factories.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     public static final class GedObjectFactory extends
     AbstractGedObjectFactory {

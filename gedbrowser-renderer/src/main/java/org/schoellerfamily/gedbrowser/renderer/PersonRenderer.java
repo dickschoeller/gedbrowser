@@ -173,6 +173,7 @@ public final class PersonRenderer extends GedRenderer<Person> {
 
         return builder.toString();
     }
+
     /**
      * @return the father string.
      */

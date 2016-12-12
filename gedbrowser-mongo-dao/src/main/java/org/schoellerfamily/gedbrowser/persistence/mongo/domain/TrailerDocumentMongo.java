@@ -24,6 +24,9 @@ public class TrailerDocumentMongo extends GedDocumentMongo<Trailer>
         setType("trailer");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void loadGedObject(final GedObject ged) {
         if (!(ged instanceof Trailer)) {

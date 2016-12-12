@@ -18,6 +18,9 @@ public class NameListItemRenderer implements ListItemRenderer {
         this.nameRenderer = nameRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final StringBuilder renderAsListItem(final StringBuilder builder,
             final boolean newLine, final int pad) {
@@ -39,6 +42,9 @@ public class NameListItemRenderer implements ListItemRenderer {
         builder.append(nameRenderer.renderAsPhrase());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getListItemContents() {
         final StringBuilder builder = new StringBuilder();

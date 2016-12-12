@@ -3,7 +3,7 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 
 /**
- * @author dick
+ * @author Dick Schoeller
  */
 public final class MultimediaListItemRenderer implements ListItemRenderer {
     /**

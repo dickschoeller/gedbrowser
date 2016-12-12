@@ -21,16 +21,15 @@ public interface FindableByNameDocument
      * @param surname the value of surname
      * @return the collection of matching items
      */
-    Collection<D> findByFileAndSurname(final String filename,
-            final String surname);
+    Collection<D> findByFileAndSurname(String filename, String surname);
 
     /**
      * @param rootDocument the root of our data set
      * @param surname the value of surname
      * @return the collection of matching items
      */
-    Collection<D> findByRootAndSurname(
-            final RootDocument rootDocument, final String surname);
+    Collection<D> findByRootAndSurname(RootDocument rootDocument,
+            String surname);
 
 
     /**
@@ -38,26 +37,26 @@ public interface FindableByNameDocument
      * @param beginsWith the initial part of the surname string
      * @return collection of matching items
      */
-    Collection<D> findByFileAndSurnameBeginsWith(
-            final String filename, final String beginsWith);
+    Collection<D> findByFileAndSurnameBeginsWith(String filename,
+            String beginsWith);
 
     /**
      * @param rootDocument the root of our data set
      * @param beginsWith the initial part of the surname string
      * @return collection of matching items
      */
-    Collection<D> findByRootAndSurnameBeginsWith(
-            final RootDocument rootDocument, final String beginsWith);
+    Collection<D> findByRootAndSurnameBeginsWith(RootDocument rootDocument,
+            String beginsWith);
 
     /**
      * @param filename the value of filename
      * @return collection of matching items
      */
-    Collection<D> findByFile(final String filename);
+    Collection<D> findByFile(String filename);
 
     /**
      * @param rootDocument the root of our data set
      * @return collection of matching items
      */
-    Collection<D> findByRoot(final RootDocument rootDocument);
+    Collection<D> findByRoot(RootDocument rootDocument);
 }

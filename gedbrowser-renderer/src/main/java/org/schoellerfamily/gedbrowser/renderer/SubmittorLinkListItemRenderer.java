@@ -21,6 +21,9 @@ public class SubmittorLinkListItemRenderer implements ListItemRenderer {
         this.slRenderer = renderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final StringBuilder renderAsListItem(final StringBuilder builder,
             final boolean newLine, final int pad) {
@@ -42,6 +45,9 @@ public class SubmittorLinkListItemRenderer implements ListItemRenderer {
         builder.append("</a>]");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getListItemContents() {
         final StringBuilder builder = new StringBuilder();

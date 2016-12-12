@@ -22,6 +22,9 @@ public class HeadDocumentRepositoryMongoImpl implements
     @Autowired
     private transient MongoTemplate mongoTemplate;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final HeadDocument findByFileAndString(
             final String filename, final String string) {
@@ -38,6 +41,9 @@ public class HeadDocumentRepositoryMongoImpl implements
         return headDocument;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final HeadDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {

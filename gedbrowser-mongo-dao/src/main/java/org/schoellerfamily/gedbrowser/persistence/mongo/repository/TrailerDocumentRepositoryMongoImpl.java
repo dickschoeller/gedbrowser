@@ -22,6 +22,9 @@ public class TrailerDocumentRepositoryMongoImpl implements
     @Autowired
     private transient MongoTemplate mongoTemplate;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final TrailerDocument findByFileAndString(
             final String filename, final String string) {
@@ -38,6 +41,9 @@ public class TrailerDocumentRepositoryMongoImpl implements
         return trailerDocument;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final TrailerDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {

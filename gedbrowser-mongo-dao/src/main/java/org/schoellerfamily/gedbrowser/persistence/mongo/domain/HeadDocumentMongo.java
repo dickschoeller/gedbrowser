@@ -24,6 +24,9 @@ public class HeadDocumentMongo extends GedDocumentMongo<Head>
         setType("head");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void loadGedObject(final GedObject ged) {
         if (!(ged instanceof Head)) {

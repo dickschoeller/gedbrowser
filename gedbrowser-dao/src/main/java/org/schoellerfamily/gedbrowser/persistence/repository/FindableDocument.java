@@ -17,12 +17,12 @@ public  interface FindableDocument
      * @param string the value of string
      * @return the matching item
      */
-    D findByFileAndString(final String filename, final String string);
+    D findByFileAndString(String filename, String string);
 
     /**
      * @param rootDocument the root of our data set
      * @param string the value of string
      * @return the matching item
      */
-    D findByRootAndString(final RootDocument rootDocument, final String string);
+    D findByRootAndString(RootDocument rootDocument, String string);
 }

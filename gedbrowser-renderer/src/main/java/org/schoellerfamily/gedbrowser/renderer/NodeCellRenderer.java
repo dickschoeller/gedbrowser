@@ -26,6 +26,9 @@ public final class NodeCellRenderer implements CellRenderer {
         return personRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getNameHtml() {
         String nameHtml = personRenderer.getNameHtml();
@@ -36,6 +39,9 @@ public final class NodeCellRenderer implements CellRenderer {
                 + nameHtml + "</td></tr></table>";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getCellClass() {
         return "";

@@ -22,7 +22,9 @@ public final class MultimediaSectionRenderer implements SectionRenderer {
         this.multimediaRenderer = multimediaRenderer;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public StringBuilder renderAsSection(final StringBuilder builder,
             final GedRenderer<?> outerRenderer, final boolean newLine,

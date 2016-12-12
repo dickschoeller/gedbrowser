@@ -12,8 +12,8 @@ public interface ListItemRenderer {
      * @param pad minimum number spaces for padding each line of the output
      * @return the builder
      */
-    StringBuilder renderAsListItem(final StringBuilder builder,
-            boolean newLine, int pad);
+    StringBuilder renderAsListItem(StringBuilder builder, boolean newLine,
+            int pad);
 
     /**
      * @return the inner part of the object as a list item.

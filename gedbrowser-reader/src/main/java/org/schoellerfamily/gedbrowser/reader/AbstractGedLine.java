@@ -270,7 +270,7 @@ public abstract class AbstractGedLine {
      * @param parentGedObj the parent GedObject
      * @return the GedObject
      */
-    protected abstract GedObject createGedObject(final GedObject parentGedObj);
+    protected abstract GedObject createGedObject(GedObject parentGedObj);
 
     /**
      * Create the GedObjects for the child lines.

@@ -7,11 +7,17 @@ package org.schoellerfamily.gedbrowser.renderer;
  * @author Dick Schoeller
  */
 public final class NullCellRenderer implements CellRenderer {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getNameHtml() {
         return "&nbsp;&nbsp;&nbsp;";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getCellClass() {
         return "";

@@ -21,6 +21,9 @@ public class SubmittorSectionRenderer implements SectionRenderer {
         this.submittorRenderer = submittorRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final StringBuilder renderAsSection(final StringBuilder builder,
             final GedRenderer<?> pageRenderer, final boolean newLine,

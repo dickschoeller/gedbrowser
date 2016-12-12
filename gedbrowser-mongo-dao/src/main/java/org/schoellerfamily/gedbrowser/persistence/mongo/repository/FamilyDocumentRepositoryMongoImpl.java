@@ -24,6 +24,9 @@ public class FamilyDocumentRepositoryMongoImpl implements
     @Autowired
     private transient MongoTemplate mongoTemplate;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final FamilyDocument findByFileAndString(final String filename,
             final String string) {
@@ -40,6 +43,9 @@ public class FamilyDocumentRepositoryMongoImpl implements
         return familyDocument;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final FamilyDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {

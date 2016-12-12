@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
 /**
- * @author dick
+ * @author Dick Schoeller
  */
 public final class ObjectId {
     /** */

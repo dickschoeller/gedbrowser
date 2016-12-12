@@ -24,6 +24,9 @@ public class SourceDocumentMongo extends GedDocumentMongo<Source>
         setType("source");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void loadGedObject(final GedObject ged) {
         if (!(ged instanceof Source)) {

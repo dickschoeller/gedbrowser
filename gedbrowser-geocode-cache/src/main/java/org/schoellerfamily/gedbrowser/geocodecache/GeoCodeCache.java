@@ -78,10 +78,10 @@ public final class GeoCodeCache {
      * @throws IOException if we can't read the file
      */
     private String readKeyFile(final String fileName) throws IOException {
-        try (final FileInputStream fileStream = new FileInputStream(fileName);
-                final InputStreamReader iStreamReader = new InputStreamReader(
-                        fileStream, "UTF-8");
-                final BufferedReader br = new BufferedReader(iStreamReader);) {
+        try (FileInputStream fileStream = new FileInputStream(fileName);
+                InputStreamReader iStreamReader =
+                        new InputStreamReader(fileStream, "UTF-8");
+                BufferedReader br = new BufferedReader(iStreamReader);) {
             final StringBuilder sb = new StringBuilder();
             final String line = br.readLine();
             if (line != null) {
@@ -316,10 +316,10 @@ public final class GeoCodeCache {
         logger.debug("Loading the cache from places file: " + filename);
         String line;
         try (
-            final InputStream fis = new FileInputStream(filename);
-            final InputStreamReader isr =
+            InputStream fis = new FileInputStream(filename);
+            InputStreamReader isr =
                     new InputStreamReader(fis, Charset.forName("UTF-8"));
-            final BufferedReader br = new BufferedReader(isr);
+            BufferedReader br = new BufferedReader(isr);
         ) {
             while ((line = br.readLine()) != null) {
                 final String[] splitLine = line.split("[|]", 4);
@@ -361,10 +361,10 @@ public final class GeoCodeCache {
     private void oneAtATime(final String filename) {
         String line;
         try (
-            final InputStream fis = new FileInputStream(filename);
-            final InputStreamReader isr =
+            InputStream fis = new FileInputStream(filename);
+            InputStreamReader isr =
                     new InputStreamReader(fis, Charset.forName("UTF-8"));
-            final BufferedReader br = new BufferedReader(isr);
+            BufferedReader br = new BufferedReader(isr);
         ) {
             while ((line = br.readLine()) != null) {
                 clear();
@@ -411,5 +411,4 @@ public final class GeoCodeCache {
     private String getGoogleGeoCodingKeyPath() {
         return "/var/lib/gedbrowser/google-geocoding-key";
     }
-
 }

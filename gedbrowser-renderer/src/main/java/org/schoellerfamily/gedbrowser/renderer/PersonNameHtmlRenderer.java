@@ -21,6 +21,9 @@ public class PersonNameHtmlRenderer implements NameHtmlRenderer {
         this.personRenderer = personRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getNameHtml() {
         final Person person = personRenderer.getGedObject();

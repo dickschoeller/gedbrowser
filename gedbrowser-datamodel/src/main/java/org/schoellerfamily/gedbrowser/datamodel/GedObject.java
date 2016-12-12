@@ -153,6 +153,9 @@ public class GedObject {
         return attributes.contains(attribute);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final int hashCode() {
         int result = 1;

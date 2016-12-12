@@ -10,7 +10,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 /**
  * The file level object for parsing GEDCOM files into GedBrowser form.
  *
- * @author dick
+ * @author Dick Schoeller
  */
 public final class GedFile extends AbstractGedLine {
     /** */
@@ -39,6 +39,9 @@ public final class GedFile extends AbstractGedLine {
         readToNext();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected GedObject createGedObject(final GedObject parent) {
         Root gob;
@@ -52,6 +55,9 @@ public final class GedFile extends AbstractGedLine {
         return gob;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return childrenString();

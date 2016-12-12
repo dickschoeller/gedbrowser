@@ -9,7 +9,7 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
  * Models one read line from a GEDCOM file.  Connects that up with
  * the GedBrowser data model.
  *
- * @author dick
+ * @author Dick Schoeller
  */
 public final class GedLine extends AbstractGedLine {
     /**
@@ -45,6 +45,9 @@ public final class GedLine extends AbstractGedLine {
                 getTail());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

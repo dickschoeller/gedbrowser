@@ -17,6 +17,9 @@ public class FamSDocumentMongo extends GedDocumentMongo<FamS>
         setType("fams");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void loadGedObject(final GedObject ged) {
         if (!(ged instanceof FamS)) {

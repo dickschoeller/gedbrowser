@@ -12,16 +12,16 @@ import java.util.TreeSet;
  * @author Dick Schoeller
  */
 public final class Index {
+    // TODO It would be nice to organize the last by date, but to do that, we
+    // would need the whole and GedObject in here and a nastier comparator for
+    // the tree set.
+
     /**
      * The storage for the index.
      *
      * Structure: TreeMap<"Surname", TreeMap<"Surname, Given", TreeSet<"ID">>>
      * This allows us to organize by surname and then surname,given and finally
      * the set of IDs that have the same surname,given.
-     *
-     * TODO It would be nice to organize the last by date, but to do that, we
-     * would need the whole and GedObject in here and a nastier comparator for
-     * the tree set.
      */
     private final transient SortedMap<String,
             SortedMap<String, SortedSet<String>>> surnameIndex =

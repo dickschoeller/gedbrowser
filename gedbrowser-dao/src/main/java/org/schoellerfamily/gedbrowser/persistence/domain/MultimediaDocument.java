@@ -14,5 +14,5 @@ public interface MultimediaDocument extends GedDocument<Multimedia> {
     /**
      * @param tail the new tail string
      */
-    void setTail(final String tail);
+    void setTail(String tail);
 }

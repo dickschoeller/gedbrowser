@@ -20,6 +20,9 @@ public class NamePhraseRenderer implements PhraseRenderer {
         this.nameRenderer = nameRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String renderAsPhrase() {
         final Name name = nameRenderer.getGedObject();

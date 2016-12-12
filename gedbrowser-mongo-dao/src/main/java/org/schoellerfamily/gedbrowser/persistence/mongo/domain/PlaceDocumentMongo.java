@@ -17,6 +17,9 @@ public class PlaceDocumentMongo extends GedDocumentMongo<Place>
         setType("place");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void loadGedObject(final GedObject ged) {
         if (!(ged instanceof Place)) {

@@ -24,6 +24,9 @@ public class SubmittorDocumentMongo extends GedDocumentMongo<Submittor>
         setType("submittor");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void loadGedObject(final GedObject ged) {
         if (!(ged instanceof Submittor)) {
