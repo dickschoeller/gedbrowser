@@ -9,7 +9,7 @@ import com.google.maps.model.LatLng;
  *
  * @author Dick Schoeller
  */
-public class GeoCodeCacheEntry {
+public final class GeoCodeCacheEntry {
     /** The historical place name. */
     private final String placeName;
     /** A modern place name to use for geo-coding. */
@@ -239,21 +239,21 @@ public class GeoCodeCacheEntry {
     /**
      * @return the historical place name
      */
-    public final String getPlaceName() {
+    public String getPlaceName() {
         return placeName;
     }
 
     /**
      * @return the modern place name to use for geo-coding
      */
-    public final String getModernPlaceName() {
+    public String getModernPlaceName() {
         return modernPlaceName;
     }
 
     /**
      * @return the geo-coding result
      */
-    public final GeocodingResult getGeocodingResult() {
+    public GeocodingResult getGeocodingResult() {
         return geocodingResult;
     }
 }
