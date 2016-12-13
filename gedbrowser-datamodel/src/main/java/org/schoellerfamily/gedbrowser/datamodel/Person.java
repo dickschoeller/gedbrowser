@@ -288,7 +288,7 @@ public final class Person extends GedObject implements Nameable, FamilyLinkage {
                 continue;
             }
             final FamC famc = (FamC) gob;
-            Family family = famc.findFamily();
+            final Family family = famc.findFamily();
             families.add(family);
         }
         return families;

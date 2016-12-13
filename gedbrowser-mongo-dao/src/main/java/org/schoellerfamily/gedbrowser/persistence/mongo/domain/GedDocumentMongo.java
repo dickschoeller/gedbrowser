@@ -43,6 +43,9 @@ public abstract class GedDocumentMongo<G extends GedObject>
     @Transient
     private G gedObject;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getIdString() {
         return idString;

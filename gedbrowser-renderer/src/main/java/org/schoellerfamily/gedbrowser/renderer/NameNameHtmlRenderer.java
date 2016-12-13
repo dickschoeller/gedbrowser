@@ -7,6 +7,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Name;
  *
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.CommentSize")
 public class NameNameHtmlRenderer implements NameHtmlRenderer {
     /**
      * Holder for the NameRenderer that is using this helper.
@@ -26,6 +27,10 @@ public class NameNameHtmlRenderer implements NameHtmlRenderer {
         this.nameRenderer = nameRenderer;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getNameHtml() {
         final Name name = nameRenderer.getGedObject();

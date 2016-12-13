@@ -50,6 +50,7 @@ import org.schoellerfamily.gedbrowser.renderer.WifeRenderer;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.TooManyMethods" })
 public class GedRendererFactoryTest {
     /** */
     private transient GedRendererFactory grf;

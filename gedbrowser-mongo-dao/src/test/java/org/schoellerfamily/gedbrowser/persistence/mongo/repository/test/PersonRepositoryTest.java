@@ -268,7 +268,7 @@ public final class PersonRepositoryTest { // NOPMD
     /** */
     @Test
     public void testFindByRootWithFileNotFound() {
-        RootDocumentMongo rootDocument1 = new RootDocumentMongo();
+        final RootDocumentMongo rootDocument1 = new RootDocumentMongo();
         rootDocument1.setFilename("XYZZY.ged");
         final Collection<PersonDocument> persons = personDocumentRepository
                 .findByRoot(rootDocument1);

@@ -41,7 +41,7 @@ public class AnonymousPersonNameIndexRendererTest {
                 new GedRendererFactory(), anonymousContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Living", pnhr.getIndexName());
+        assertEquals("Expected Living", "Living", pnhr.getIndexName());
     }
 
     /** */
@@ -53,7 +53,7 @@ public class AnonymousPersonNameIndexRendererTest {
                 new GedRendererFactory(), anonymousContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Living", pnhr.getIndexName());
+        assertEquals("Expected Living", "Living", pnhr.getIndexName());
     }
 
     /** */
@@ -65,7 +65,7 @@ public class AnonymousPersonNameIndexRendererTest {
                 new GedRendererFactory(), anonymousContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Living", pnhr.getIndexName());
+        assertEquals("Expected Living", "Living", pnhr.getIndexName());
     }
 
     /** */
@@ -77,7 +77,7 @@ public class AnonymousPersonNameIndexRendererTest {
                 new GedRendererFactory(), anonymousContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Living", pnhr.getIndexName());
+        assertEquals("Expected Living", "Living", pnhr.getIndexName());
     }
 
     /** */
@@ -89,7 +89,7 @@ public class AnonymousPersonNameIndexRendererTest {
                 new GedRendererFactory(), anonymousContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Living", pnhr.getIndexName());
+        assertEquals("Expected Living", "Living", pnhr.getIndexName());
     }
 
     /** */
@@ -101,7 +101,7 @@ public class AnonymousPersonNameIndexRendererTest {
                 new GedRendererFactory(), anonymousContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Living", pnhr.getIndexName());
+        assertEquals("Expected Living", "Living", pnhr.getIndexName());
     }
 
     /** */
@@ -111,7 +111,7 @@ public class AnonymousPersonNameIndexRendererTest {
                 new GedRendererFactory(), anonymousContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("", pnhr.getIndexName());
+        assertEquals("Expected empty", "", pnhr.getIndexName());
     }
 
 

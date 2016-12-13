@@ -32,7 +32,7 @@ public class RootPlaces extends GedPlaces implements Places {
      */
     @Override
     public final Collection<Place> getPlaces() {
-        Collection<Place> placeset = new TreeSet<>();
+        final Collection<Place> placeset = new TreeSet<>();
         for (final String letter : root.findSurnameInitialLetters()) {
             for (final String surname : root.findBySurnamesBeginWith(letter)) {
                 for (final Person person : root.findBySurname(surname)) {

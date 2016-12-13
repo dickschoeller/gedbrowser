@@ -11,6 +11,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.ExcessivePublicCount", "PMD.TooManyMethods" })
 public final class DateTest {
     /** */
     private final transient Root root = new Root(null, "Root");

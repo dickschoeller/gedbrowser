@@ -315,11 +315,27 @@ public final class GeoCodeCache {
      */
     public void load(final String filename) {
         logger.debug("Loading the cache from places file: " + filename);
-        String line;
         try (
             InputStream fis = new FileInputStream(filename);
+        ) {
+            load(fis);
+        } catch (IOException e) {
+            logger.error("Problem reading places file", e);
+        }
+    }
+
+    /**
+     * Read places from an input stream. The format is | separated. It may contain
+     * just a historical place name or both historical and modern places names.
+     *
+     * @param istream the input stream
+     */
+    public void load(final InputStream istream) {
+        logger.debug("Loading the cache from input stream");
+        String line;
+        try (
             InputStreamReader isr =
-                    new InputStreamReader(fis, Charset.forName("UTF-8"));
+                    new InputStreamReader(istream, Charset.forName("UTF-8"));
             BufferedReader br = new BufferedReader(isr);
         ) {
             while ((line = br.readLine()) != null) {
@@ -331,7 +347,7 @@ public final class GeoCodeCache {
                 }
             }
         } catch (IOException e) {
-            logger.error("Problem reading places file", e);
+            logger.error("Problem reading places stream", e);
         }
     }
 
