@@ -325,8 +325,9 @@ public final class GeoCodeCache {
     }
 
     /**
-     * Read places from an input stream. The format is | separated. It may contain
-     * just a historical place name or both historical and modern places names.
+     * Read places from an input stream. The format is | separated. It may
+     * contain just a historical place name or both historical and modern
+     * places names.
      *
      * @param istream the input stream
      */

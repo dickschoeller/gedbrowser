@@ -22,6 +22,20 @@ import com.google.maps.model.LatLng;
  */
 @SuppressWarnings({ "PMD.TooManyMethods", "PMD.CommentSize" })
 public final class GeoCodeCacheTest {
+    /**
+     * High bound for not founds.
+     * Googles responses are sufficiently inconsistent that we can't
+     * rely on an exact count.
+     */
+    private static final int HIGH_BOUND = 20;
+
+    /**
+     * Low bound for not founds.
+     * Googles responses are sufficiently inconsistent that we can't
+     * rely on an exact count.
+     */
+    private static final int LOW_BOUND = 10;
+
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -342,21 +356,31 @@ public final class GeoCodeCacheTest {
         gcc.clear();
         final GeoCodeCacheEntry entry1 = gcc.find("XYZZY");
         final GeoCodeCacheEntry entry2 = gcc.find("XYZZY");
-        Assert.assertSame("find should have given the same object",
-                entry1, entry2);
+        Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
     /**
      */
     @Test
     public void testModernEmpty() {
-        logger.info("Entering testCacheStupid");
+        logger.info("Entering testModernEmpty");
         final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final GeoCodeCacheEntry entry1 = gcc.find("XYZZY");
         final GeoCodeCacheEntry entry2 = gcc.find("XYZZY", "");
-        Assert.assertSame("find should have given the same object",
-                entry1, entry2);
+        Assert.assertEquals("Should be equal", entry1, entry2);
+    }
+
+    /**
+     */
+    @Test
+    public void testModernNull() {
+        logger.info("Entering testModernNull");
+        final GeoCodeCache gcc = GeoCodeCache.instance();
+        gcc.clear();
+        final GeoCodeCacheEntry entry1 = gcc.find("XYZZY");
+        final GeoCodeCacheEntry entry2 = gcc.find("XYZZY", null);
+        Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
     /**
@@ -370,8 +394,7 @@ public final class GeoCodeCacheTest {
                 .find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
         final GeoCodeCacheEntry entry2 = gcc
                 .find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
-        Assert.assertSame("find 3341 Chaucer twice should be the same object",
-                entry1, entry2);
+        Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
     /**
@@ -382,12 +405,10 @@ public final class GeoCodeCacheTest {
         final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.find("XYZZY");
-        final GeoCodeCacheEntry entry2 =
-                gcc.find("XYZZY",
-                        "3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
+        final GeoCodeCacheEntry entry2 = gcc.find("XYZZY",
+                "3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
         final GeoCodeCacheEntry entry3 = gcc.find("XYZZY");
-        Assert.assertSame("2nd find should have gotten the same object",
-                entry2, entry3);
+        Assert.assertEquals("Should be equal", entry2, entry3);
     }
 
     /**
@@ -401,8 +422,7 @@ public final class GeoCodeCacheTest {
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeoCodeCacheEntry entry2 = gcc
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
-        Assert.assertSame("2nd find of 3341 should have given the same object",
-                entry1, entry2);
+        Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
     /**
@@ -415,7 +435,7 @@ public final class GeoCodeCacheTest {
         final GeoCodeCacheEntry entry1 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeoCodeCacheEntry entry2 = gcc.find("Old Home");
-        Assert.assertSame("Should be the same object", entry1, entry2);
+        Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
     /**
@@ -429,7 +449,7 @@ public final class GeoCodeCacheTest {
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeoCodeCacheEntry entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
-        Assert.assertSame("Should be the same object", entry1, entry2);
+        Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
     /**
@@ -442,7 +462,7 @@ public final class GeoCodeCacheTest {
         final GeoCodeCacheEntry entry1 = gcc.find("Old Home");
         final GeoCodeCacheEntry entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
-        Assert.assertNotSame("Should be the same entry", entry1, entry2);
+        Assert.assertNotEquals("Should NOT be equal", entry1, entry2);
     }
 
     /**
@@ -452,12 +472,11 @@ public final class GeoCodeCacheTest {
         logger.info("Entering testCacheOldHomeModernSet");
         final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
-        final GeoCodeCacheEntry entry1 = gcc.find("Old Home");
+        gcc.find("Old Home");
         final GeoCodeCacheEntry entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
-        Assert.assertNotSame(entry1, entry2);
         final GeoCodeCacheEntry entry3 = gcc.find("Old Home");
-        Assert.assertSame("Should be the same entry", entry2, entry3);
+        Assert.assertEquals("Should be equal", entry2, entry3);
     }
 
     /**
@@ -519,8 +538,8 @@ public final class GeoCodeCacheTest {
         gcc.load(addressTable);
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
-        Assert.assertTrue("Count was way too low at: " + count, count >= 10);
-        Assert.assertTrue("Count was way too high at: " + count, count <= 20);
+        Assert.assertTrue("Count too low at: " + count, count >= LOW_BOUND);
+        Assert.assertTrue("Count too high at: " + count, count <= HIGH_BOUND);
     }
 
     /**
@@ -534,8 +553,8 @@ public final class GeoCodeCacheTest {
         gcc.load(fis);
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
-        Assert.assertTrue("Count was way too low at: " + count, count >= 10);
-        Assert.assertTrue("Count was way too high at: " + count, count <= 20);
+        Assert.assertTrue("Count too low at: " + count, count >= LOW_BOUND);
+        Assert.assertTrue("Count too high at: " + count, count <= HIGH_BOUND);
     }
 
     /**
@@ -612,7 +631,7 @@ public final class GeoCodeCacheTest {
     }
 
     /**
-     * @return
+     * @return test file opened in an input stream
      */
     private InputStream getTestFileAsStream() {
         return getClass().getResourceAsStream("/test.txt");
