@@ -600,8 +600,8 @@ public final class GeoCodeCacheTest {
         gcc.clear();
         final InputStream fis = getTestFileAsStream();
         gcc.load(fis);
-        final int expected = 56;
-        Assert.assertEquals("Should match known file size of 56",
+        final int expected = 55;
+        Assert.assertEquals("Should match known file size of 55",
                 expected, gcc.size());
     }
 

@@ -29,6 +29,48 @@ public final class GeoCodeCacheEntry {
     }
 
     /**
+     * @param placeName a place name to use for both historical and modern name
+     */
+    public GeoCodeCacheEntry(final String placeName) {
+        this.placeName = placeName;
+        this.modernPlaceName = placeName;
+        this.geocodingResult = null;
+    }
+
+    /**
+     * @param placeName the historical place name
+     * @param modernPlaceName the modern place name to use for geo-coding
+     */
+    public GeoCodeCacheEntry(final String placeName,
+            final String modernPlaceName) {
+        this.placeName = placeName;
+        this.modernPlaceName = modernPlaceName;
+        this.geocodingResult = null;
+    }
+
+    /**
+     * @return the historical place name
+     */
+    public String getPlaceName() {
+        return placeName;
+    }
+
+    /**
+     * @return the modern place name to use for geo-coding
+     */
+    public String getModernPlaceName() {
+        return modernPlaceName;
+    }
+
+    /**
+     * @return the geo-coding result
+     */
+    public GeocodingResult getGeocodingResult() {
+        return geocodingResult;
+    }
+
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -214,46 +256,5 @@ public final class GeoCodeCacheEntry {
         this.placeName = placeName;
         this.modernPlaceName = modernPlaceName;
         this.geocodingResult = geocodingResult;
-    }
-
-    /**
-     * @param placeName a place name to use for both historical and modern name
-     */
-    public GeoCodeCacheEntry(final String placeName) {
-        this.placeName = placeName;
-        this.modernPlaceName = placeName;
-        this.geocodingResult = null;
-    }
-
-    /**
-     * @param placeName the historical place name
-     * @param modernPlaceName the modern place name to use for geo-coding
-     */
-    public GeoCodeCacheEntry(final String placeName,
-            final String modernPlaceName) {
-        this.placeName = placeName;
-        this.modernPlaceName = modernPlaceName;
-        this.geocodingResult = null;
-    }
-
-    /**
-     * @return the historical place name
-     */
-    public String getPlaceName() {
-        return placeName;
-    }
-
-    /**
-     * @return the modern place name to use for geo-coding
-     */
-    public String getModernPlaceName() {
-        return modernPlaceName;
-    }
-
-    /**
-     * @return the geo-coding result
-     */
-    public GeocodingResult getGeocodingResult() {
-        return geocodingResult;
     }
 }
