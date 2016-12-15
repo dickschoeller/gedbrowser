@@ -168,11 +168,7 @@ public final class GeoCodeCacheEntry {
             return false;
         }
         final GeoCodeCacheEntry other = (GeoCodeCacheEntry) obj;
-        if (geocodingResult == null) {
-            if (other.geocodingResult != null) {
-                return false;
-            }
-        } else if (!equals(geocodingResult, other.geocodingResult)) {
+        if (!equals(geocodingResult, other.geocodingResult)) {
             return false;
         }
         if (modernPlaceName == null) {
