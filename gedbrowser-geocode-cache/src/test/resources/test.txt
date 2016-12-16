@@ -38,10 +38,10 @@ Anamosa, Jones County, Iowa, USA||
 Antes Fort, Lycoming County, Pennsylvania, USA||
 Argyle, Nova Scotia, Canada||
 Arizona, USA||
-Arnold, Nottinghamshire, England||
-Ash of Normandy, Sussex, England||
-Ashland, Jackson County, Oregon, USA||
-Ashville, Buncombe County, North Carolina, USA||
+Arnold, Nottinghamshire, England|
+Ash of Normandy, Sussex, England|
+Ashland, Jackson County, Oregon, USA|
+Ashville, Buncombe County, North Carolina, USA|
 At Home, 502 Canal Street, Lebanon, Lebanon County, Pennsylvania, USA|502 Canal Street, Lebanon, Lebanon County, Pennsylvania, USA|
 At Sea||
 At home, 1.5 miles northwest of Sutliff, Solon, Cedar County, Iowa, USA||

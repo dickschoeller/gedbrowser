@@ -631,6 +631,18 @@ public final class GeoCodeCacheTest {
     }
 
     /**
+     */
+    @Test
+    public void testOneAtATimeFromFile() {
+        logger.info("Entering testDumpFile");
+        final GeoCodeCache gcc = GeoCodeCache.instance();
+        gcc.clear();
+        final InputStream fis = getTestFileAsStream();
+        gcc.oneAtATime(fis);
+        Assert.assertTrue("Always pass", true);
+    }
+
+    /**
      * @return test file opened in an input stream
      */
     private InputStream getTestFileAsStream() {

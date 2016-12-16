@@ -123,10 +123,13 @@ public final class GeoCodeCache {
                 // Nope, so we live with the current entry from the cache.
                 return gcce;
             } else {
-                // Replace item in cache with new one.
-                gcce = new GeoCodeCacheEntry(gcce.getPlaceName(),
-                        gcce.getModernPlaceName(), results[0]);
-                map.put(placeName,  gcce);
+// TODO given the current behavior of loads, we should never get here.
+// Should consider a load that doesn't geocode, deferring until the
+// location is actually needed.
+//                // Replace item in cache with new one.
+//                gcce = new GeoCodeCacheEntry(gcce.getPlaceName(),
+//                        gcce.getModernPlaceName(), results[0]);
+//                map.put(placeName,  gcce);
                 return gcce;
             }
         }
@@ -376,10 +379,25 @@ public final class GeoCodeCache {
      *
      * @param filename input filename
      */
-    private void oneAtATime(final String filename) {
-        String line;
+    public void oneAtATime(final String filename) {
         try (
             InputStream fis = new FileInputStream(filename);
+        ) {
+            oneAtATime(fis);
+        } catch (IOException e) {
+            logger.error("Problem reading places file", e);
+        }
+    }
+
+    /**
+     * Load and dump an input file, one line at a time. Allows dumping
+     * all known data without blowing up on memory.
+     *
+     * @param fis the input stream
+     */
+    public void oneAtATime(final InputStream fis) {
+        String line;
+        try (
             InputStreamReader isr =
                     new InputStreamReader(fis, Charset.forName("UTF-8"));
             BufferedReader br = new BufferedReader(isr);
