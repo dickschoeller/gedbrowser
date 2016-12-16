@@ -344,7 +344,7 @@ public class GeoCodeCacheEntryTest {
                 gr0);
         final GeoCodeCacheEntry gcce1 = new GeoCodeCacheEntry("tamp", "temp",
                 gr1);
-        Assert.assertEquals(gcce0, gcce1);
+        Assert.assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -360,7 +360,7 @@ public class GeoCodeCacheEntryTest {
                 gr0);
         final GeoCodeCacheEntry gcce1 = new GeoCodeCacheEntry("tamp", "temp",
                 gr1);
-        Assert.assertEquals(gcce0, gcce1);
+        Assert.assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -377,7 +377,7 @@ public class GeoCodeCacheEntryTest {
                 gr0);
         final GeoCodeCacheEntry gcce1 = new GeoCodeCacheEntry("tamp", "temp",
                 gr1);
-        Assert.assertEquals(gcce0, gcce1);
+        Assert.assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -394,7 +394,7 @@ public class GeoCodeCacheEntryTest {
                 gr0);
         final GeoCodeCacheEntry gcce1 = new GeoCodeCacheEntry("tamp", "temp",
                 gr1);
-        Assert.assertEquals(gcce0, gcce1);
+        Assert.assertNotEquals(gcce0, gcce1);
     }
 
     /** */
