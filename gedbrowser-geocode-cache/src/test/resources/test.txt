@@ -16,7 +16,6 @@
 741 West Philadelphia St., York, York County, Pennsylvania, USA||
 757 Kohn Street, Norristown, Montgomery County, Pennsylvania, USA||
 830 South Davis Boulevard, Tampa, Hillsborough County, Florida, USA||
-Abington Hospital, Abington, Montgomery County, Pennsylvania, USA||
 Abington, Montgomery County, Pennsylvania, USA||
 Abtweiler, Pfalz||
 Achenbach, Nassau-Siegen||
@@ -28,7 +27,6 @@ Albrightsville, Carbon County, Pennsylvania, USA||
 Allentown, Lehigh County, Pennsylvania, USA||, ""
 Alsace, France||,
 Altalaha Lutheran Cemetery, Rehrersburg, Berks County, Pennsylvania, USA||
-Altalaha, Rehrersburg, Berks County, Pennsylvania, USA||
 America||
 Amityville, Nassau County, New York, USA||
 Amsterdam, Netherlands||
@@ -52,4 +50,3 @@ At home, Sheridan, Sheridan County, Wyoming, USA||
 At home, Solon, Cedar County, Iowa, USA||
 At home, Souderton, Montgomery County, Pennsylvania, USA||
 At home, Tega Cay, York County, South Carolina, USA||
-At home, Thanheim, Hohenzollern||

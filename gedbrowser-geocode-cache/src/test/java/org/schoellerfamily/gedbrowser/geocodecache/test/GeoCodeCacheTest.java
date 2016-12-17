@@ -122,11 +122,6 @@ public final class GeoCodeCacheTest {
              ""
         },
         {
-            "Abington Hospital, Abington, Montgomery County, Pennsylvania, U"
-            + "SA",
-            ""
-        },
-        {
             "Abington, Montgomery County, Pennsylvania, USA",
             ""
         },
@@ -170,10 +165,6 @@ public final class GeoCodeCacheTest {
         {
             "Altalaha Lutheran Cemetery, Rehrersburg, Berks County, Pennsylv"
             + "ania, USA",
-            ""
-        },
-        {
-            "Altalaha, Rehrersburg, Berks County, Pennsylvania, USA",
             ""
         },
         {
@@ -271,10 +262,6 @@ public final class GeoCodeCacheTest {
             "At home, Tega Cay, York County, South Carolina, USA",
             ""
         },
-        {
-            "At home, Thanheim, Hohenzollern",
-            ""
-        },
     };
 
     /**
@@ -283,13 +270,11 @@ public final class GeoCodeCacheTest {
     private final String[] expectedNotFound = {
         "1st United Methodist Church, Perkasie, Bucks County, Pennsylvania, US"
         + "A",
-        "Abington Hospital, Abington, Montgomery County, Pennsylvania, USA",
         "Achenbach, Nassau-Siegen",
         "Adelo, Illinois, USA",
         "Albright College, Reading, Berks County, Pennsylvania, USA",
         "Altalaha Lutheran Cemetery, Rehrersburg, Berks County, Pennsylvania, "
         + "USA",
-        "Altalaha, Rehrersburg, Berks County, Pennsylvania, USA",
         "Anamosa Hospital, Anamosa, Jones County, Iowa, USA",
         "Ash of Normandy, Sussex, England",
         "At Sea",
@@ -299,7 +284,6 @@ public final class GeoCodeCacheTest {
         "At home, RD 2, Lebanon, Lebanon County, Pennsylvania, USA",
         "At home, Souderton, Montgomery County, Pennsylvania, USA",
         "At home, Tega Cay, York County, South Carolina, USA",
-        "At home, Thanheim, Hohenzollern"
     };
 
     /**
@@ -400,7 +384,7 @@ public final class GeoCodeCacheTest {
     /**
      */
     @Test
-    public void testCacheReplace() {
+    public void testCacheRefind() {
         logger.info("Entering testCacheReplace");
         final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
@@ -463,6 +447,21 @@ public final class GeoCodeCacheTest {
         final GeoCodeCacheEntry entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         Assert.assertNotEquals("Should NOT be equal", entry1, entry2);
+    }
+
+    /**
+     */
+    @Test
+    public void testCacheReplace() {
+        logger.info("Entering testCacheReplace");
+        final GeoCodeCache gcc = GeoCodeCache.instance();
+        gcc.clear();
+        gcc.find("XYZZY");
+        final GeoCodeCacheEntry entry2 = gcc.find("XYZZY", "XYZZY");
+        final GeoCodeCacheEntry entry3 = gcc.find("XYZZY", "XYZZY");
+        Assert.assertEquals("Should be equal", entry2, entry3);
+        Assert.assertNull("Geocoding result should be null",
+                entry2.getGeocodingResult());
     }
 
     /**
@@ -586,8 +585,36 @@ public final class GeoCodeCacheTest {
         final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.load(addressTable);
-        final int expected = 56;
-        Assert.assertEquals("Should match known table size of 56",
+        final int expected = 53;
+        Assert.assertEquals("Should match known table size of 53",
+                expected, gcc.size());
+    }
+
+    /**
+     */
+    @Test
+    public void testSizeFromResource() {
+        logger.info("Entering testSizeFromFile");
+        final GeoCodeCache gcc = GeoCodeCache.instance();
+        gcc.clear();
+        final InputStream fis = getTestFileAsStream();
+        gcc.load(fis);
+        final int expected = 52;
+        Assert.assertEquals("Should match known file size of 52",
+                expected, gcc.size());
+    }
+
+    /**
+     */
+    @Test
+    public void testSizeLoadFileError() {
+        logger.info("Entering testSizeFromFile");
+        final GeoCodeCache gcc = GeoCodeCache.instance();
+        gcc.clear();
+        gcc.load("/foo");
+        final int expected = 0;
+        Assert.assertEquals(
+                "Should be 0 because of file not found, was: " + gcc.size(),
                 expected, gcc.size());
     }
 
@@ -598,10 +625,9 @@ public final class GeoCodeCacheTest {
         logger.info("Entering testSizeFromFile");
         final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
-        final InputStream fis = getTestFileAsStream();
-        gcc.load(fis);
-        final int expected = 55;
-        Assert.assertEquals("Should match known file size of 55",
+        gcc.load(gcc.getTestFilePath());
+        final int expected = 52;
+        Assert.assertEquals("Should match known file size of 52",
                 expected, gcc.size());
     }
 
@@ -614,7 +640,9 @@ public final class GeoCodeCacheTest {
         gcc.clear();
         gcc.load(addressTable);
         gcc.dump();
-        Assert.assertTrue("Always pass", true);
+        final int expected = 53;
+        Assert.assertEquals("Should match known table size of 53",
+                expected, gcc.size());
     }
 
     /**
@@ -627,7 +655,24 @@ public final class GeoCodeCacheTest {
         final InputStream fis = getTestFileAsStream();
         gcc.load(fis);
         gcc.dump();
-        Assert.assertTrue("Always pass", true);
+        final int expected = 52;
+        Assert.assertEquals("Should match known file size of 52",
+                expected, gcc.size());
+    }
+
+    /**
+     */
+    @Test
+    public void testOneAtATimeFromResource() {
+        logger.info("Entering testDumpFile");
+        final GeoCodeCache gcc = GeoCodeCache.instance();
+        gcc.clear();
+        final InputStream fis = getTestFileAsStream();
+        gcc.oneAtATime(fis);
+        final int expected = 1;
+        Assert.assertEquals(
+                "Should be 1 because we have cleared everything along the way",
+                expected, gcc.size());
     }
 
     /**
@@ -637,8 +682,7 @@ public final class GeoCodeCacheTest {
         logger.info("Entering testDumpFile");
         final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
-        final InputStream fis = getTestFileAsStream();
-        gcc.oneAtATime(fis);
+        gcc.oneAtATime(gcc.getTestFilePath());
         Assert.assertTrue("Always pass", true);
     }
 

@@ -429,7 +429,7 @@ public final class GeoCodeCache {
      * @return path to the standard location for the places file to initialize
      *         from.
      */
-    private String getStandardPlacesPath() {
+    public String getStandardPlacesPath() {
         return "/var/lib/gedbrowser/places.txt";
     }
 
@@ -437,14 +437,14 @@ public final class GeoCodeCache {
      * @return path to the standard location for a test file, shorter than
      *         standard places.
      */
-    private String getTestFilePath() {
+    public String getTestFilePath() {
         return "/var/lib/gedbrowser/test.txt";
     }
 
     /**
      * @return path to the standard location for the google key.
      */
-    private String getGoogleGeoCodingKeyPath() {
+    public String getGoogleGeoCodingKeyPath() {
         return "/var/lib/gedbrowser/google-geocoding-key";
     }
 }
