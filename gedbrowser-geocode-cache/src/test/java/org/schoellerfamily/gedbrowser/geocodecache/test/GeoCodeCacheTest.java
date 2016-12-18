@@ -29,8 +29,7 @@ import com.google.maps.model.LatLng;
  */
 @SuppressWarnings({ "PMD.TooManyMethods", "PMD.CommentSize" })
 @RunWith(SpringJUnit4ClassRunner.class)
-//ApplicationContext will be loaded from the static inner ContextConfiguration class
-@ContextConfiguration(loader=AnnotationConfigContextLoader.class)
+@ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 public final class GeoCodeCacheTest {
     /** */
     @Autowired
