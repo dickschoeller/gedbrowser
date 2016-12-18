@@ -48,93 +48,11 @@ public final class GeoCodeCacheTest {
             ""
         },
         {
-            "13 Highland Street, Revere, Suffolk County, Massachusetts, USA",
+            "1st United Methodist Church, Perkasie, Bucks County, Pennsylvania, USA",
             ""
         },
         {
-            "1st United Methodist Church, Perkasie, Bucks County, Pennsylvan"
-            + "ia, USA",
-            ""
-        },
-        {
-            "21 N. Beaver St., York, York County, Pennsylvania, USA",
-            ""
-        },
-        {
-            "26 North Beaver Street, York, York County, Pennsylvania, USA",
-            ""
-        },
-        {
-            "26 Thornton Street, Revere, Suffolk County, Massachusetts, USA",
-            ""
-        },
-        {
-            "354 West Philadelphia Street, York, York County, Pennsylvania, "
-            + "USA",
-            ""
-        },
-        {
-            "376 West Brundage, Sheridan, Sheridan County, Wyoming, USA",
-            ""
-        },
-        {
-            "4 miles northeast of Pine Grove, Pine Grove Township, Schuylkil"
-            + "l County, Pennsylvania, USA",
-            ""
-        },
-        {
-            "417 West King St., York, York County, Pennsylvania, USA",
-            ""
-        },
-        {
-            "460 North 4th St., Lebanon, Lebanon County, Pennsylvania, USA",
-            ""
-        },
-        {
-            "481 Madison Avenue, York, York County, Pennsylvania, USA",
-            ""
-        },
-        {
-            "514 Maple Street, Lebanon, Lebanon County, Pennsylvania, USA",
-            ""
-        },
-        {
-            "7105 Penarth Avenue, Bywood, Upper Darby Township, Delaware Cou"
-            + "nty, Pennsylvania, USA",
-            ""
-        },
-        {
-            "7105 Pennock Avenue, Bywood, Upper Darby Township, Delaware Cou"
-            + "nty, Pennsylvania, USA", ""
-        },
-        {
-            "741 West Philadelphia St., York, York County, Pennsylvania, USA",
-            ""
-        },
-        {
-             "757 Kohn Street, Norristown, Montgomery County, Pennsylvania, "
-             + "USA",
-             ""
-        },
-        {
-             "830 South Davis Boulevard, Tampa, Hillsborough County, Florida"
-             + ", USA",
-             ""
-        },
-        {
-            "Abington, Montgomery County, Pennsylvania, USA",
-            ""
-        },
-        {
-            "Abtweiler, Pfalz",
-            ""
-        },
-        {
-            "Achenbach, Nassau-Siegen",
-            ""
-        },
-        {
-            "Adams County, Pennsylvania, USA",
+            "4 miles northeast of Pine Grove, Pine Grove Township, Schuylkill County, Pennsylvania, USA",
             ""
         },
         {
@@ -154,17 +72,11 @@ public final class GeoCodeCacheTest {
             ""
         },
         {
-            "Allentown, Lehigh County, Pennsylvania, USA", ""
+            "Alsace, France",
+            ""
         },
         {
-            "Alpirsbach, Württemberg", ""
-        },
-        {
-            "Alsace, France", ""
-        },
-        {
-            "Altalaha Lutheran Cemetery, Rehrersburg, Berks County, Pennsylv"
-            + "ania, USA",
+            "Altalaha Lutheran Cemetery, Rehrersburg, Berks County, Pennsylvania, USA",
             ""
         },
         {
@@ -172,31 +84,7 @@ public final class GeoCodeCacheTest {
             ""
         },
         {
-            "Amityville, Nassau County, New York, USA",
-            ""
-        },
-        {
-            "Amsterdam, Netherlands",
-            ""
-        },
-        {
-            "Anaheim, California, USA",
-            ""
-        },
-        {
             "Anamosa Hospital, Anamosa, Jones County, Iowa, USA",
-            ""
-        },
-        {
-            "Anamosa, Jones County, Iowa, USA",
-            ""
-        },
-        {
-            "Antes Fort, Lycoming County, Pennsylvania, USA",
-            ""
-        },
-        {
-            "Argyle, Nova Scotia, Canada",
             ""
         },
         {
@@ -204,54 +92,22 @@ public final class GeoCodeCacheTest {
             ""
         },
         {
-            "Arnold, Nottinghamshire, England",
-            ""
-        },
-        {
             "Ash of Normandy, Sussex, England",
-            ""
-        },
-        {
-            "Ashland, Jackson County, Oregon, USA",
-            ""
-        },
-        {
-            "Ashville, Buncombe County, North Carolina, USA",
-            ""
-        },
-        {
-            "At Home, 502 Canal Street, Lebanon, Lebanon County, Pennsylvani"
-            + "a, USA",
-            "502 Canal Street, Lebanon, Lebanon County, Pennsylvania, USA"
         },
         {
             "At Sea",
             ""
         },
         {
-            "At home, 1.5 miles northwest of Sutliff, Solon, Cedar County, I"
-            + "owa, USA",
+            "At home, 1.5 miles northwest of Sutliff, Solon, Cedar County, Iowa, USA",
             ""
         },
         {
-            "At home, 21 N. Beaver St., York, York County, Pennsylvania, USA",
-            "21 N. Beaver St., York, York County, Pennsylvania, USA"
-        },
-        {
-            "At home, Cornwall Road, Lebanon, Lebanon County, Pennsylvania, "
-            + "USA",
+            "At home, Cornwall Road, Lebanon, Lebanon County, Pennsylvania, USA",
             ""
         },
         {
             "At home, RD 2, Lebanon, Lebanon County, Pennsylvania, USA",
-            ""
-        },
-        {
-            "At home, Sheridan, Sheridan County, Wyoming, USA",
-            ""
-        },
-        {
-            "At home, Solon, Cedar County, Iowa, USA",
             ""
         },
         {
@@ -270,7 +126,6 @@ public final class GeoCodeCacheTest {
     private final String[] expectedNotFound = {
         "1st United Methodist Church, Perkasie, Bucks County, Pennsylvania, US"
         + "A",
-        "Achenbach, Nassau-Siegen",
         "Adelo, Illinois, USA",
         "Albright College, Reading, Berks County, Pennsylvania, USA",
         "Altalaha Lutheran Cemetery, Rehrersburg, Berks County, Pennsylvania, "
@@ -585,8 +440,8 @@ public final class GeoCodeCacheTest {
         final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.load(addressTable);
-        final int expected = 53;
-        Assert.assertEquals("Should match known table size of 53",
+        final int expected = 19;
+        Assert.assertEquals("Should match known table size of 19",
                 expected, gcc.size());
     }
 
@@ -599,8 +454,8 @@ public final class GeoCodeCacheTest {
         gcc.clear();
         final InputStream fis = getTestFileAsStream();
         gcc.load(fis);
-        final int expected = 52;
-        Assert.assertEquals("Should match known file size of 52",
+        final int expected = 19;
+        Assert.assertEquals("Should match known file size of 19",
                 expected, gcc.size());
     }
 
@@ -626,8 +481,8 @@ public final class GeoCodeCacheTest {
         final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.load(gcc.getTestFilePath());
-        final int expected = 52;
-        Assert.assertEquals("Should match known file size of 52",
+        final int expected = 19;
+        Assert.assertEquals("Should match known file size of 19",
                 expected, gcc.size());
     }
 
@@ -640,8 +495,8 @@ public final class GeoCodeCacheTest {
         gcc.clear();
         gcc.load(addressTable);
         gcc.dump();
-        final int expected = 53;
-        Assert.assertEquals("Should match known table size of 53",
+        final int expected = 19;
+        Assert.assertEquals("Should match known table size of 19",
                 expected, gcc.size());
     }
 
@@ -655,8 +510,8 @@ public final class GeoCodeCacheTest {
         final InputStream fis = getTestFileAsStream();
         gcc.load(fis);
         gcc.dump();
-        final int expected = 52;
-        Assert.assertEquals("Should match known file size of 52",
+        final int expected = 19;
+        Assert.assertEquals("Should match known file size of 19",
                 expected, gcc.size());
     }
 
