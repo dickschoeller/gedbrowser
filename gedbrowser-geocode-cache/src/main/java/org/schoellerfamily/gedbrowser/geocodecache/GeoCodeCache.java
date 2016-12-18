@@ -47,11 +47,8 @@ public final class GeoCodeCache {
     /**
      * Private constructor to keep a singleton.
      */
-    private GeoCodeCache() {
+    public GeoCodeCache() {
         logger.debug("Initializing GeoCodeCache");
-        if (instance != null) {
-            throw new IllegalStateException("Already instantiated");
-        }
         try {
             key = readKeyFile(getGoogleGeoCodingKeyPath());
         } catch (IOException e) {
