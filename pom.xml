@@ -64,8 +64,10 @@
     <module>gedbrowser-mongo-dao</module>
     <module>gedbrowser</module>
     <module>gedbrowser-selenium</module>
-    <module>gedbrowser-geocode-cache</module>
     <module>gedbrowser-geoservice</module>
+    <module>gedbrowser-geocode-cache</module>
+    <module>gedbrowser-geocode-dao</module>
+    <module>gedbrowser-geocode-mongo-dao</module>
   </modules>
 
   <reporting>

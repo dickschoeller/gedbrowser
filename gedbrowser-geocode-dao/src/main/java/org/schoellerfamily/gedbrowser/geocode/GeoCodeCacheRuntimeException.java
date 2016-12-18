@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.geocodecache;
+package org.schoellerfamily.gedbrowser.geocode;
 
 /**
  * @author Dick Schoeller

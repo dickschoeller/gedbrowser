@@ -5,8 +5,8 @@ import java.net.URLDecoder;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.geocode.dao.GeoCodeCacheEntry;
 import org.schoellerfamily.gedbrowser.geocodecache.GeoCodeCache;
-import org.schoellerfamily.gedbrowser.geocodecache.GeoCodeCacheEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

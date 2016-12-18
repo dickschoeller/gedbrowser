@@ -1,8 +1,8 @@
-package org.schoellerfamily.gedbrowser.geocodecache.test;
+package org.schoellerfamily.gedbrowser.geocode.dao.test;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.geocodecache.GeoCodeCacheEntry;
+import org.schoellerfamily.gedbrowser.geocode.dao.GeoCodeCacheEntry;
 
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.Geometry;
@@ -13,7 +13,7 @@ import com.google.maps.model.LatLng;
  */
 @SuppressWarnings({ "PMD.TooManyMethods",
     "PMD.ExcessivePublicCount" })
-public class GeoCodeCacheEntryTest {
+public final class GeoCodeCacheEntryTest {
     /** */
     @Test
     public void testEqualsSelf() {

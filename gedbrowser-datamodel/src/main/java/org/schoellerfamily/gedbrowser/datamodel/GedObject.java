@@ -7,6 +7,8 @@ import java.util.List;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.TooManyMethods",
+    "PMD.GodClass" })
 public class GedObject {
 
     /** */
@@ -188,7 +190,10 @@ public class GedObject {
      * {@inheritDoc}
      */
     @Override
-    public final boolean equals(final Object obj) { // NOPMD
+    @SuppressWarnings({ "PMD.CyclomaticComplexity",
+            "PMD.ModifiedCyclomaticComplexity",
+            "PMD.StdCyclomaticComplexity" })
+    public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

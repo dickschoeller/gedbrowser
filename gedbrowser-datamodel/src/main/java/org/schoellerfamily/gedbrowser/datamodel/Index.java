@@ -42,7 +42,7 @@ public final class Index {
     /**
      * Initialize the index from the root's objects.
      */
-    protected void init() {
+    void init() {
         final Map<String, GedObject> objects = mRoot.getObjects();
 
         surnameIndex.clear();

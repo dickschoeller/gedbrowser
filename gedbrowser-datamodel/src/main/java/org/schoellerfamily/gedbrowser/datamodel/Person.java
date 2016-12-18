@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.GodClass")
 public final class Person extends GedObject implements Nameable, FamilyLinkage {
     /**
      * Default constructor.

@@ -15,6 +15,9 @@ import java.util.TreeSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.geocode.GeoCodeCacheRuntimeException;
+import org.schoellerfamily.gedbrowser.geocode.dao.GeoCodeCacheEntry;
+import org.schoellerfamily.gedbrowser.geocode.dao.GeoCodeDao;
 
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
@@ -31,7 +34,7 @@ import com.google.maps.model.GeocodingResult;
 @SuppressWarnings({ "PMD.TooManyMethods",
     "PMD.GodClass",
     "PMD.CommentSize" })
-public final class GeoCodeCache {
+public final class GeoCodeCache implements GeoCodeDao {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -75,21 +78,17 @@ public final class GeoCodeCache {
     }
 
     /**
-     * Clear the cache.
+     * {@inheritDoc}
      */
+    @Override
     public void clear() {
         map.clear();
     }
 
     /**
-     * Search the cache for a particular historical place name. This method is
-     * the most likely to be used from an application, in that applications
-     * typically won't have the associated modern name that helps the Google
-     * API find the right place.
-     *
-     * @param placeName the historical place name to find
-     * @return the cache entry
+     * {@inheritDoc}
      */
+    @Override
     public GeoCodeCacheEntry find(final String placeName) {
         logger.debug("find(\"" + placeName + "\")");
         GeoCodeCacheEntry gcce = map.get(placeName);
@@ -130,15 +129,9 @@ public final class GeoCodeCache {
     }
 
     /**
-     * Search the cache for a particular historical place name. Assistance is
-     * given by providing an accompanying modern name for the place. This
-     * method is the most likely to be used when initializing the cache from
-     * a data file.
-     *
-     * @param placeName the historical place name to find
-     * @param modernPlaceName the modern place name to use for geo-coding
-     * @return the cache entry
+     * {@inheritDoc}
      */
+    @Override
     public GeoCodeCacheEntry find(final String placeName,
             final String modernPlaceName) {
         if (modernPlaceName == null || modernPlaceName.isEmpty()) {
@@ -206,8 +199,9 @@ public final class GeoCodeCache {
     }
 
     /**
-     * Dump the place list in a form that is valuable for manual analysis.
+     * {@inheritDoc}
      */
+    @Override
     public void dump() {
         System.out.println(toString());
     }
@@ -222,6 +216,7 @@ public final class GeoCodeCache {
      *
      * @return the cache contents in string format
      */
+    @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         final SortedSet<String> mapKeys = new TreeSet<>();
@@ -248,8 +243,9 @@ public final class GeoCodeCache {
     }
 
     /**
-     * @return the number of not found places
+     * {@inheritDoc}
      */
+    @Override
     public int countNotFound() {
         logger.debug("Count the places that couldn't be found");
         final Set<String> notFound = notFoundKeys();
@@ -259,8 +255,9 @@ public final class GeoCodeCache {
     }
 
     /**
-     * @return the set of place names not found
+     * {@inheritDoc}
      */
+    @Override
     public Set<String> notFoundKeys() {
         logger.debug("Captures the places that couldn't be found");
         final Set<String> notFoundSet = new TreeSet<>();
@@ -276,8 +273,9 @@ public final class GeoCodeCache {
     }
 
     /**
-     * @return the size of the cache
+     * {@inheritDoc}
      */
+    @Override
     public int size() {
         logger.debug("Geocode cache contains " + map.size() + " entries");
         return map.size();

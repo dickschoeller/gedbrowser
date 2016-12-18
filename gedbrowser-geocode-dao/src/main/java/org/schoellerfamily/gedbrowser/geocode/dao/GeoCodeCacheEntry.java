@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.geocodecache;
+package org.schoellerfamily.gedbrowser.geocode.dao;
 
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.Geometry;
