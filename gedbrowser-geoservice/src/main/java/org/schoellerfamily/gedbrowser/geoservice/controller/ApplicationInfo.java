@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.geoservice.controllers;
+package org.schoellerfamily.gedbrowser.geoservice.controller;
 
 /**
  * @author Dick Schoeller

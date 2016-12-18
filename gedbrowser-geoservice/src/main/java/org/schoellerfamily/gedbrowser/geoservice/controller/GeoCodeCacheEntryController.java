@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.geoservice.controllers;
+package org.schoellerfamily.gedbrowser.geoservice.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -9,7 +9,7 @@ import org.schoellerfamily.gedbrowser.geocodecache.GeoCodeCache;
 
 import org.schoellerfamily.gedbrowser.geocodecache.GeoCodeCacheEntry;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,17 +32,17 @@ public class GeoCodeCacheEntryController {
     @Autowired
     private transient GeoCodeCache gcc;
 
-    /** */
-    @Value("${gedbrowser.home}")
-    private transient String gedbrowserHome;
+//    /** */
+//    @Value("${gedbrowser.home}")
+//    private transient String gedbrowserHome;
 
     /**
      * @param name the old name of the place
      * @return a search result
      */
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody
-    final GeoCodeCacheEntry find(
+    public final @ResponseBody
+    GeoCodeCacheEntry find(
             @RequestParam(value = "name", required = true) final String name) {
         logger.debug("Find location: " + name);
         String findName;

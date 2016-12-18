@@ -1,5 +1,5 @@
 /**
  * Copyright 2016 Richard Schoeller
- * Analysis tools for GEDbrowser 2.
+ * Tests for analysis tools for gedbrowser.
  */
 package org.schoellerfamily.gedbrowser.analytics.test;

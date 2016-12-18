@@ -13,7 +13,7 @@
   <artifactId>gedbrowser-geoservice</artifactId>
   <packaging>jar</packaging>
 
-  <name>gedbrowser</name>
+  <name>gedbrowser-geoservice</name>
   <url>http://www.schoellerfamily.org</url>
 
   <properties>
