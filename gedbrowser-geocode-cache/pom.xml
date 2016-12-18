@@ -20,6 +20,19 @@
     <config-dir>${project.parent.basedir}/config</config-dir>
   </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <!-- Import dependency management from Spring Boot -->
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
@@ -34,13 +47,11 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
-      <version>1.7.7</version>
     </dependency>
 <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <version>1.7.21</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -49,10 +60,20 @@
       <version>1.1.0-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
+    <!-- Testing dependencies -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

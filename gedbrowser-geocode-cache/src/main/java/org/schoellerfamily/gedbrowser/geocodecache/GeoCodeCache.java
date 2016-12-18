@@ -32,9 +32,6 @@ import com.google.maps.model.GeocodingResult;
     "PMD.GodClass",
     "PMD.CommentSize" })
 public final class GeoCodeCache {
-    /** The singleton instance. */
-    private static GeoCodeCache instance;
-
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -45,7 +42,7 @@ public final class GeoCodeCache {
     private final Map<String, GeoCodeCacheEntry> map = new HashMap<>();
 
     /**
-     * Private constructor to keep a singleton.
+     * Public constructor. Using Spring to manage as a singleton.
      */
     public GeoCodeCache() {
         logger.debug("Initializing GeoCodeCache");
@@ -54,18 +51,6 @@ public final class GeoCodeCache {
         } catch (IOException e) {
             throw new GeoCodeCacheRuntimeException("Couldn't open key file", e);
         }
-    }
-
-    /**
-     * @return the singleton
-     */
-    public static GeoCodeCache instance() {
-        synchronized (GeoCodeCache.class) {
-            if (instance == null) {
-                instance = new GeoCodeCache();
-            }
-        }
-        return instance;
     }
 
     /**
@@ -418,7 +403,7 @@ public final class GeoCodeCache {
      * @param args standard main arguments are ignored
      */
     public static void main(final String[] args) {
-        final GeoCodeCache gcc = GeoCodeCache.instance();
+        final GeoCodeCache gcc = new GeoCodeCache();
         gcc.oneAtATime(gcc.getTestFilePath());
     }
 

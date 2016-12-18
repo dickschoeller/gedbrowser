@@ -11,8 +11,15 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.geocodecache.GeoCodeCache;
 import org.schoellerfamily.gedbrowser.geocodecache.GeoCodeCacheEntry;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
@@ -21,7 +28,14 @@ import com.google.maps.model.LatLng;
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyMethods", "PMD.CommentSize" })
+@RunWith(SpringJUnit4ClassRunner.class)
+//ApplicationContext will be loaded from the static inner ContextConfiguration class
+@ContextConfiguration(loader=AnnotationConfigContextLoader.class)
 public final class GeoCodeCacheTest {
+    /** */
+    @Autowired
+    private GeoCodeCache gcc;
+
     /**
      * High bound for not founds.
      * Googles responses are sufficiently inconsistent that we can't
@@ -48,11 +62,13 @@ public final class GeoCodeCacheTest {
             ""
         },
         {
-            "1st United Methodist Church, Perkasie, Bucks County, Pennsylvania, USA",
+            "1st United Methodist Church, Perkasie, Bucks County, Pennsylvania"
+            + ", USA",
             ""
         },
         {
-            "4 miles northeast of Pine Grove, Pine Grove Township, Schuylkill County, Pennsylvania, USA",
+            "4 miles northeast of Pine Grove, Pine Grove Township, Schuylkill "
+            + "County, Pennsylvania, USA",
             ""
         },
         {
@@ -76,7 +92,8 @@ public final class GeoCodeCacheTest {
             ""
         },
         {
-            "Altalaha Lutheran Cemetery, Rehrersburg, Berks County, Pennsylvania, USA",
+            "Altalaha Lutheran Cemetery, Rehrersburg, Berks County, Pennsylvan"
+            + "ia, USA",
             ""
         },
         {
@@ -99,11 +116,13 @@ public final class GeoCodeCacheTest {
             ""
         },
         {
-            "At home, 1.5 miles northwest of Sutliff, Solon, Cedar County, Iowa, USA",
+            "At home, 1.5 miles northwest of Sutliff, Solon, Cedar County, Iow"
+            + "a, USA",
             ""
         },
         {
-            "At home, Cornwall Road, Lebanon, Lebanon County, Pennsylvania, USA",
+            "At home, Cornwall Road, Lebanon, Lebanon County, Pennsylvania, U"
+            + "SA",
             ""
         },
         {
@@ -154,7 +173,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testStupidNotFound() {
         logger.info("Entering testStupidNotFound");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final GeoCodeCacheEntry entry = gcc.find("XYZZY");
         Assert.assertNull("Should not have found XYZZY",
@@ -166,7 +184,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testModernStupidNotFound() {
         logger.info("Entering testModernStupidNotFound");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final GeoCodeCacheEntry entry = gcc.find("PLUGH", "XYZZY");
         Assert.assertNull("Should not have found modern XYZZY",
@@ -178,7 +195,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testOldHomeFound() {
         logger.info("Entering testOldHomeFound");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final GeoCodeCacheEntry entry = gcc
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -191,7 +207,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheStupid() {
         logger.info("Entering testCacheStupid");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final GeoCodeCacheEntry entry1 = gcc.find("XYZZY");
         final GeoCodeCacheEntry entry2 = gcc.find("XYZZY");
@@ -203,7 +218,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testModernEmpty() {
         logger.info("Entering testModernEmpty");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final GeoCodeCacheEntry entry1 = gcc.find("XYZZY");
         final GeoCodeCacheEntry entry2 = gcc.find("XYZZY", "");
@@ -215,7 +229,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testModernNull() {
         logger.info("Entering testModernNull");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final GeoCodeCacheEntry entry1 = gcc.find("XYZZY");
         final GeoCodeCacheEntry entry2 = gcc.find("XYZZY", null);
@@ -227,7 +240,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheFound() {
         logger.info("Entering testCacheFound");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final GeoCodeCacheEntry entry1 = gcc
                 .find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
@@ -241,7 +253,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheRefind() {
         logger.info("Entering testCacheReplace");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.find("XYZZY");
         final GeoCodeCacheEntry entry2 = gcc.find("XYZZY",
@@ -255,7 +266,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheOldHome() {
         logger.info("Entering testCacheOldHome");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final GeoCodeCacheEntry entry1 = gcc
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -269,7 +279,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheOldHomeModern() {
         logger.info("Entering testCacheOldHomeModern");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final GeoCodeCacheEntry entry1 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -282,7 +291,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheOldHomeModernBoth() {
         logger.info("Entering testCacheOldHomeModernBoth");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final GeoCodeCacheEntry entry1 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -296,7 +304,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheOldHomeModernChange() {
         logger.info("Entering testCacheOldHomeModernChange");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final GeoCodeCacheEntry entry1 = gcc.find("Old Home");
         final GeoCodeCacheEntry entry2 = gcc.find("Old Home",
@@ -309,7 +316,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheReplace() {
         logger.info("Entering testCacheReplace");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.find("XYZZY");
         final GeoCodeCacheEntry entry2 = gcc.find("XYZZY", "XYZZY");
@@ -324,7 +330,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheOldHomeModernSet() {
         logger.info("Entering testCacheOldHomeModernSet");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.find("Old Home");
         final GeoCodeCacheEntry entry2 = gcc.find("Old Home",
@@ -338,7 +343,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCacheOldHomeLocation() {
         logger.info("Entering testCacheOldHomeLocation");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final GeoCodeCacheEntry entry = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -356,7 +360,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testNotFounds() {
         logger.info("Entering testNotFounds");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.load(addressTable);
         final List<String> expectList = Arrays.asList(this.expectedNotFound);
@@ -371,7 +374,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testNotFoundsFromFile() {
         logger.info("Entering testNotFounds");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final InputStream fis = getTestFileAsStream();
         gcc.load(fis);
@@ -387,7 +389,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCountNotFounds() {
         logger.info("Entering testCountNotFounds");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.load(addressTable);
         final int count = gcc.countNotFound();
@@ -401,7 +402,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testCountNotFoundsFromFile() {
         logger.info("Entering testCountNotFounds");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final InputStream fis = getTestFileAsStream();
         gcc.load(fis);
@@ -437,7 +437,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testSize() {
         logger.info("Entering testSize");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.load(addressTable);
         final int expected = 19;
@@ -450,7 +449,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testSizeFromResource() {
         logger.info("Entering testSizeFromFile");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final InputStream fis = getTestFileAsStream();
         gcc.load(fis);
@@ -464,7 +462,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testSizeLoadFileError() {
         logger.info("Entering testSizeFromFile");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.load("/foo");
         final int expected = 0;
@@ -478,7 +475,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testSizeFromFile() {
         logger.info("Entering testSizeFromFile");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.load(gcc.getTestFilePath());
         final int expected = 19;
@@ -491,7 +487,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testDump() {
         logger.info("Entering testDump");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.load(addressTable);
         gcc.dump();
@@ -505,7 +500,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testDumpFromFile() {
         logger.info("Entering testDumpFile");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final InputStream fis = getTestFileAsStream();
         gcc.load(fis);
@@ -520,7 +514,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testOneAtATimeFromResource() {
         logger.info("Entering testDumpFile");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         final InputStream fis = getTestFileAsStream();
         gcc.oneAtATime(fis);
@@ -535,7 +528,6 @@ public final class GeoCodeCacheTest {
     @Test
     public void testOneAtATimeFromFile() {
         logger.info("Entering testDumpFile");
-        final GeoCodeCache gcc = GeoCodeCache.instance();
         gcc.clear();
         gcc.oneAtATime(gcc.getTestFilePath());
         Assert.assertTrue("Always pass", true);
@@ -546,5 +538,23 @@ public final class GeoCodeCacheTest {
      */
     private InputStream getTestFileAsStream() {
         return getClass().getResourceAsStream("/test.txt");
+    }
+
+    /**
+     * Manage the configuration for testing the cache.
+     *
+     * @author Dick Schoeller
+     */
+    @Configuration
+    static class ContextConfiguration {
+        /**
+         * @return the geocode cache
+         */
+        @Bean
+        public GeoCodeCache geoCodeCache() {
+            final GeoCodeCache gcc = new GeoCodeCache();
+            // set properties, etc.
+            return gcc;
+        }
     }
 }

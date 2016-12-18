@@ -6,43 +6,37 @@ import java.net.URLDecoder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.geocodecache.GeoCodeCache;
-
 import org.schoellerfamily.gedbrowser.geocodecache.GeoCodeCacheEntry;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * Controller for RESTful web service to request geocoding for a historical
+ * place name. The response will contain an equivalent modern place name, which
+ * may or may not be the same as the historical place name. If found, the
+ * response will also contain a geocoding result from Google's geocoding APIs.
+ *
  * @author Dick Schoeller
  */
-@Controller
-@RequestMapping("/geocode")
+@RestController
 public class GeoCodeCacheEntryController {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
-//    private final AtomicLong counter = new AtomicLong();
     /**
      * The geocode cache that underlies this service.
      */
     @Autowired
     private transient GeoCodeCache gcc;
 
-//    /** */
-//    @Value("${gedbrowser.home}")
-//    private transient String gedbrowserHome;
-
     /**
-     * @param name the old name of the place
+     * @param name the historical name of the place
      * @return a search result
      */
-    @RequestMapping(method = RequestMethod.GET)
-    public final @ResponseBody
-    GeoCodeCacheEntry find(
+    @RequestMapping("/geocode")
+    public final GeoCodeCacheEntry find(
             @RequestParam(value = "name", required = true) final String name) {
         logger.debug("Find location: " + name);
         String findName;
