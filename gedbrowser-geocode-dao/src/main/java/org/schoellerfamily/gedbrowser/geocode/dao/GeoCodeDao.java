@@ -5,11 +5,12 @@ import java.util.Set;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.CommentSize")
 public interface GeoCodeDao {
     /**
      * Clear the cache.
      */
-    public void clear();
+    void clear();
 
     /**
      * Search the cache for a particular historical place name. This method is
@@ -20,7 +21,8 @@ public interface GeoCodeDao {
      * @param placeName the historical place name to find
      * @return the cache entry
      */
-    public GeoCodeCacheEntry find(final String placeName);
+    GeoCodeItem find(final String placeName);
+
     /**
      * Search the cache for a particular historical place name. Assistance is
      * given by providing an accompanying modern name for the place. This
@@ -31,25 +33,25 @@ public interface GeoCodeDao {
      * @param modernPlaceName the modern place name to use for geo-coding
      * @return the cache entry
      */
-    public GeoCodeCacheEntry find(String placeName, String modernPlaceName);
+    GeoCodeItem find(String placeName, String modernPlaceName);
 
     /**
      * Dump the place list in a form that is valuable for manual analysis.
      */
-    public void dump();
+    void dump();
 
     /**
      * @return the number of not found places
      */
-    public int countNotFound();
+    int countNotFound();
 
     /**
      * @return the set of place names not found
      */
-    public Set<String> notFoundKeys();
+    Set<String> notFoundKeys();
 
     /**
      * @return the size of the cache
      */
-    public int size();
+    int size();
 }

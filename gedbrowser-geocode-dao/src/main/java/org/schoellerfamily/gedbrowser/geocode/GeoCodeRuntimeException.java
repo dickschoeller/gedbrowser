@@ -4,7 +4,7 @@ package org.schoellerfamily.gedbrowser.geocode;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.CommentSize")
-public class GeoCodeCacheRuntimeException extends RuntimeException {
+public class GeoCodeRuntimeException extends RuntimeException {
     /** */
     private static final long serialVersionUID = 1L;
 
@@ -13,7 +13,7 @@ public class GeoCodeCacheRuntimeException extends RuntimeException {
      * detail message.  The cause is not initialized, and may subsequently be
      * initialized by a call to {@link #initCause}.
      */
-    public GeoCodeCacheRuntimeException() {
+    public GeoCodeRuntimeException() {
         // Intended to be empty
     }
 
@@ -25,7 +25,7 @@ public class GeoCodeCacheRuntimeException extends RuntimeException {
      * @param   message   the detail message. The detail message is saved for
      *          later retrieval by the {@link #getMessage()} method.
      */
-    public GeoCodeCacheRuntimeException(final String message) {
+    public GeoCodeRuntimeException(final String message) {
         super(message);
     }
 
@@ -41,7 +41,7 @@ public class GeoCodeCacheRuntimeException extends RuntimeException {
      *         permitted, and indicates that the cause is nonexistent or
      *         unknown.)
      */
-    public GeoCodeCacheRuntimeException(final Throwable cause) {
+    public GeoCodeRuntimeException(final Throwable cause) {
         super(cause);
     }
 
@@ -58,7 +58,7 @@ public class GeoCodeCacheRuntimeException extends RuntimeException {
      *         permitted, and indicates that the cause is nonexistent or
      *         unknown.)
      */
-    public GeoCodeCacheRuntimeException(final String message,
+    public GeoCodeRuntimeException(final String message,
             final Throwable cause) {
         super(message, cause);
     }
@@ -78,7 +78,7 @@ public class GeoCodeCacheRuntimeException extends RuntimeException {
      *
      * @since 1.7
      */
-    public GeoCodeCacheRuntimeException(final String message,
+    public GeoCodeRuntimeException(final String message,
             final Throwable cause, final boolean enableSuppression,
             final boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);

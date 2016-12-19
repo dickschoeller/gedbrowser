@@ -9,7 +9,7 @@ import com.google.maps.model.LatLng;
  *
  * @author Dick Schoeller
  */
-public final class GeoCodeCacheEntry {
+public final class GeoCodeItem {
     /** The historical place name. */
     private final String placeName;
     /** A modern place name to use for geo-coding. */
@@ -21,7 +21,7 @@ public final class GeoCodeCacheEntry {
      * @param placeName a place name to use for both historical and modern name
      * @param geocodingResult a geo-coding result
      */
-    public GeoCodeCacheEntry(final String placeName,
+    public GeoCodeItem(final String placeName,
             final GeocodingResult geocodingResult) {
         this.placeName = placeName;
         this.modernPlaceName = placeName;
@@ -31,7 +31,7 @@ public final class GeoCodeCacheEntry {
     /**
      * @param placeName a place name to use for both historical and modern name
      */
-    public GeoCodeCacheEntry(final String placeName) {
+    public GeoCodeItem(final String placeName) {
         this.placeName = placeName;
         this.modernPlaceName = placeName;
         this.geocodingResult = null;
@@ -41,7 +41,7 @@ public final class GeoCodeCacheEntry {
      * @param placeName the historical place name
      * @param modernPlaceName the modern place name to use for geo-coding
      */
-    public GeoCodeCacheEntry(final String placeName,
+    public GeoCodeItem(final String placeName,
             final String modernPlaceName) {
         this.placeName = placeName;
         this.modernPlaceName = modernPlaceName;
@@ -167,7 +167,7 @@ public final class GeoCodeCacheEntry {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final GeoCodeCacheEntry other = (GeoCodeCacheEntry) obj;
+        final GeoCodeItem other = (GeoCodeItem) obj;
         if (!equals(geocodingResult, other.geocodingResult)) {
             return false;
         }
@@ -246,7 +246,7 @@ public final class GeoCodeCacheEntry {
      * @param modernPlaceName the modern place name to use for geo-coding
      * @param geocodingResult the geo-coding result
      */
-    public GeoCodeCacheEntry(final String placeName,
+    public GeoCodeItem(final String placeName,
             final String modernPlaceName,
             final GeocodingResult geocodingResult) {
         this.placeName = placeName;

@@ -5,8 +5,8 @@ import java.net.URLDecoder;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.geocode.dao.GeoCodeCacheEntry;
-import org.schoellerfamily.gedbrowser.geocodecache.GeoCodeCache;
+import org.schoellerfamily.gedbrowser.geocode.dao.GeoCodeDao;
+import org.schoellerfamily.gedbrowser.geocode.dao.GeoCodeItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,14 +29,14 @@ public class GeoCodeCacheEntryController {
      * The geocode cache that underlies this service.
      */
     @Autowired
-    private transient GeoCodeCache gcc;
+    private transient GeoCodeDao gcc;
 
     /**
      * @param name the historical name of the place
      * @return a search result
      */
     @RequestMapping("/geocode")
-    public final GeoCodeCacheEntry find(
+    public final GeoCodeItem find(
             @RequestParam(value = "name", required = true) final String name) {
         logger.debug("Find location: " + name);
         String findName;

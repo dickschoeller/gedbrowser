@@ -12,7 +12,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.geocode.dao.GeoCodeCacheEntry;
+import org.schoellerfamily.gedbrowser.geocode.dao.GeoCodeItem;
 import org.schoellerfamily.gedbrowser.geocodecache.GeoCodeCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -173,7 +173,7 @@ public final class GeoCodeCacheTest {
     public void testStupidNotFound() {
         logger.info("Entering testStupidNotFound");
         gcc.clear();
-        final GeoCodeCacheEntry entry = gcc.find("XYZZY");
+        final GeoCodeItem entry = gcc.find("XYZZY");
         Assert.assertNull("Should not have found XYZZY",
                 entry.getGeocodingResult());
     }
@@ -184,7 +184,7 @@ public final class GeoCodeCacheTest {
     public void testModernStupidNotFound() {
         logger.info("Entering testModernStupidNotFound");
         gcc.clear();
-        final GeoCodeCacheEntry entry = gcc.find("PLUGH", "XYZZY");
+        final GeoCodeItem entry = gcc.find("PLUGH", "XYZZY");
         Assert.assertNull("Should not have found modern XYZZY",
                 entry.getGeocodingResult());
     }
@@ -195,7 +195,7 @@ public final class GeoCodeCacheTest {
     public void testOldHomeFound() {
         logger.info("Entering testOldHomeFound");
         gcc.clear();
-        final GeoCodeCacheEntry entry = gcc
+        final GeoCodeItem entry = gcc
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
         Assert.assertNotNull("Should have found 3341 Chaucer Lane",
                 entry.getGeocodingResult());
@@ -207,8 +207,8 @@ public final class GeoCodeCacheTest {
     public void testCacheStupid() {
         logger.info("Entering testCacheStupid");
         gcc.clear();
-        final GeoCodeCacheEntry entry1 = gcc.find("XYZZY");
-        final GeoCodeCacheEntry entry2 = gcc.find("XYZZY");
+        final GeoCodeItem entry1 = gcc.find("XYZZY");
+        final GeoCodeItem entry2 = gcc.find("XYZZY");
         Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
@@ -218,8 +218,8 @@ public final class GeoCodeCacheTest {
     public void testModernEmpty() {
         logger.info("Entering testModernEmpty");
         gcc.clear();
-        final GeoCodeCacheEntry entry1 = gcc.find("XYZZY");
-        final GeoCodeCacheEntry entry2 = gcc.find("XYZZY", "");
+        final GeoCodeItem entry1 = gcc.find("XYZZY");
+        final GeoCodeItem entry2 = gcc.find("XYZZY", "");
         Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
@@ -229,8 +229,8 @@ public final class GeoCodeCacheTest {
     public void testModernNull() {
         logger.info("Entering testModernNull");
         gcc.clear();
-        final GeoCodeCacheEntry entry1 = gcc.find("XYZZY");
-        final GeoCodeCacheEntry entry2 = gcc.find("XYZZY", null);
+        final GeoCodeItem entry1 = gcc.find("XYZZY");
+        final GeoCodeItem entry2 = gcc.find("XYZZY", null);
         Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
@@ -240,9 +240,9 @@ public final class GeoCodeCacheTest {
     public void testCacheFound() {
         logger.info("Entering testCacheFound");
         gcc.clear();
-        final GeoCodeCacheEntry entry1 = gcc
+        final GeoCodeItem entry1 = gcc
                 .find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
-        final GeoCodeCacheEntry entry2 = gcc
+        final GeoCodeItem entry2 = gcc
                 .find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
         Assert.assertEquals("Should be equal", entry1, entry2);
     }
@@ -254,9 +254,9 @@ public final class GeoCodeCacheTest {
         logger.info("Entering testCacheReplace");
         gcc.clear();
         gcc.find("XYZZY");
-        final GeoCodeCacheEntry entry2 = gcc.find("XYZZY",
+        final GeoCodeItem entry2 = gcc.find("XYZZY",
                 "3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
-        final GeoCodeCacheEntry entry3 = gcc.find("XYZZY");
+        final GeoCodeItem entry3 = gcc.find("XYZZY");
         Assert.assertEquals("Should be equal", entry2, entry3);
     }
 
@@ -266,9 +266,9 @@ public final class GeoCodeCacheTest {
     public void testCacheOldHome() {
         logger.info("Entering testCacheOldHome");
         gcc.clear();
-        final GeoCodeCacheEntry entry1 = gcc
+        final GeoCodeItem entry1 = gcc
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
-        final GeoCodeCacheEntry entry2 = gcc
+        final GeoCodeItem entry2 = gcc
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
         Assert.assertEquals("Should be equal", entry1, entry2);
     }
@@ -279,9 +279,9 @@ public final class GeoCodeCacheTest {
     public void testCacheOldHomeModern() {
         logger.info("Entering testCacheOldHomeModern");
         gcc.clear();
-        final GeoCodeCacheEntry entry1 = gcc.find("Old Home",
+        final GeoCodeItem entry1 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
-        final GeoCodeCacheEntry entry2 = gcc.find("Old Home");
+        final GeoCodeItem entry2 = gcc.find("Old Home");
         Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
@@ -291,9 +291,9 @@ public final class GeoCodeCacheTest {
     public void testCacheOldHomeModernBoth() {
         logger.info("Entering testCacheOldHomeModernBoth");
         gcc.clear();
-        final GeoCodeCacheEntry entry1 = gcc.find("Old Home",
+        final GeoCodeItem entry1 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
-        final GeoCodeCacheEntry entry2 = gcc.find("Old Home",
+        final GeoCodeItem entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         Assert.assertEquals("Should be equal", entry1, entry2);
     }
@@ -304,8 +304,8 @@ public final class GeoCodeCacheTest {
     public void testCacheOldHomeModernChange() {
         logger.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
-        final GeoCodeCacheEntry entry1 = gcc.find("Old Home");
-        final GeoCodeCacheEntry entry2 = gcc.find("Old Home",
+        final GeoCodeItem entry1 = gcc.find("Old Home");
+        final GeoCodeItem entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         Assert.assertNotEquals("Should NOT be equal", entry1, entry2);
     }
@@ -317,8 +317,8 @@ public final class GeoCodeCacheTest {
         logger.info("Entering testCacheReplace");
         gcc.clear();
         gcc.find("XYZZY");
-        final GeoCodeCacheEntry entry2 = gcc.find("XYZZY", "XYZZY");
-        final GeoCodeCacheEntry entry3 = gcc.find("XYZZY", "XYZZY");
+        final GeoCodeItem entry2 = gcc.find("XYZZY", "XYZZY");
+        final GeoCodeItem entry3 = gcc.find("XYZZY", "XYZZY");
         Assert.assertEquals("Should be equal", entry2, entry3);
         Assert.assertNull("Geocoding result should be null",
                 entry2.getGeocodingResult());
@@ -331,9 +331,9 @@ public final class GeoCodeCacheTest {
         logger.info("Entering testCacheOldHomeModernSet");
         gcc.clear();
         gcc.find("Old Home");
-        final GeoCodeCacheEntry entry2 = gcc.find("Old Home",
+        final GeoCodeItem entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
-        final GeoCodeCacheEntry entry3 = gcc.find("Old Home");
+        final GeoCodeItem entry3 = gcc.find("Old Home");
         Assert.assertEquals("Should be equal", entry2, entry3);
     }
 
@@ -343,7 +343,7 @@ public final class GeoCodeCacheTest {
     public void testCacheOldHomeLocation() {
         logger.info("Entering testCacheOldHomeLocation");
         gcc.clear();
-        final GeoCodeCacheEntry entry = gcc.find("Old Home",
+        final GeoCodeItem entry = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         final LatLng expected = new LatLng(40.65800200, -75.40644300);
         final GeocodingResult geocodingResult = entry.getGeocodingResult();
@@ -360,7 +360,7 @@ public final class GeoCodeCacheTest {
     public void testNotFounds() {
         logger.info("Entering testNotFounds");
         gcc.clear();
-        gcc.load(addressTable);
+        load(addressTable);
         final List<String> expectList = Arrays.asList(this.expectedNotFound);
         final Set<String> expected = new HashSet<>(expectList);
         final Set<String> actual = gcc.notFoundKeys();
@@ -389,7 +389,7 @@ public final class GeoCodeCacheTest {
     public void testCountNotFounds() {
         logger.info("Entering testCountNotFounds");
         gcc.clear();
-        gcc.load(addressTable);
+        load(addressTable);
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
         Assert.assertTrue("Count too low at: " + count, count >= LOW_BOUND);
@@ -437,7 +437,7 @@ public final class GeoCodeCacheTest {
     public void testSize() {
         logger.info("Entering testSize");
         gcc.clear();
-        gcc.load(addressTable);
+        load(addressTable);
         final int expected = 19;
         Assert.assertEquals("Should match known table size of 19",
                 expected, gcc.size());
@@ -487,7 +487,7 @@ public final class GeoCodeCacheTest {
     public void testDump() {
         logger.info("Entering testDump");
         gcc.clear();
-        gcc.load(addressTable);
+        load(addressTable);
         gcc.dump();
         final int expected = 19;
         Assert.assertEquals("Should match known table size of 19",
@@ -556,4 +556,24 @@ public final class GeoCodeCacheTest {
             return gcc;
         }
     }
+
+
+    /**
+     * Load the cache from an array of strings. Particularly valuable for
+     * testing. Each string has planeName|modernPlaceName. The second part can
+     * be empty.
+     *
+     * @param strings the array of strings
+     */
+    @SuppressWarnings("PMD.UseVarargs")
+    private void load(final String[][] strings) {
+        for (final String[] line : strings) {
+            if (line.length < 2 || line[1] == null || line[1].isEmpty()) {
+                gcc.find(line[0]);
+            } else {
+                gcc.find(line[0], line[1]);
+            }
+        }
+    }
+
 }

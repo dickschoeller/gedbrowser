@@ -15,8 +15,8 @@ import java.util.TreeSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.geocode.GeoCodeCacheRuntimeException;
-import org.schoellerfamily.gedbrowser.geocode.dao.GeoCodeCacheEntry;
+import org.schoellerfamily.gedbrowser.geocode.GeoCodeRuntimeException;
+import org.schoellerfamily.gedbrowser.geocode.dao.GeoCodeItem;
 import org.schoellerfamily.gedbrowser.geocode.dao.GeoCodeDao;
 
 import com.google.maps.GeoApiContext;
@@ -42,7 +42,7 @@ public final class GeoCodeCache implements GeoCodeDao {
     private final String key;
 
     /** The in-memory version of the cache. */
-    private final Map<String, GeoCodeCacheEntry> map = new HashMap<>();
+    private final Map<String, GeoCodeItem> map = new HashMap<>();
 
     /**
      * Public constructor. Using Spring to manage as a singleton.
@@ -52,7 +52,7 @@ public final class GeoCodeCache implements GeoCodeDao {
         try {
             key = readKeyFile(getGoogleGeoCodingKeyPath());
         } catch (IOException e) {
-            throw new GeoCodeCacheRuntimeException("Couldn't open key file", e);
+            throw new GeoCodeRuntimeException("Couldn't open key file", e);
         }
     }
 
@@ -89,9 +89,9 @@ public final class GeoCodeCache implements GeoCodeDao {
      * {@inheritDoc}
      */
     @Override
-    public GeoCodeCacheEntry find(final String placeName) {
+    public GeoCodeItem find(final String placeName) {
         logger.debug("find(\"" + placeName + "\")");
-        GeoCodeCacheEntry gcce = map.get(placeName);
+        GeoCodeItem gcce = map.get(placeName);
         if (gcce != null) {
             // If we already have a result, then we're done.
             if (gcce.getGeocodingResult() != null) {
@@ -118,11 +118,11 @@ public final class GeoCodeCache implements GeoCodeDao {
         final GeocodingResult[] results = geocode(placeName);
         if (results.length > 0) {
             /* Work with the first result. */
-            gcce = new GeoCodeCacheEntry(placeName, results[0]);
+            gcce = new GeoCodeItem(placeName, results[0]);
             map.put(placeName,  gcce);
         } else {
             // Not found, create empty.
-            gcce = new GeoCodeCacheEntry(placeName);
+            gcce = new GeoCodeItem(placeName);
             map.put(placeName, gcce);
         }
         return gcce;
@@ -132,19 +132,19 @@ public final class GeoCodeCache implements GeoCodeDao {
      * {@inheritDoc}
      */
     @Override
-    public GeoCodeCacheEntry find(final String placeName,
+    public GeoCodeItem find(final String placeName,
             final String modernPlaceName) {
         if (modernPlaceName == null || modernPlaceName.isEmpty()) {
             return find(placeName);
         }
         logger.debug(
                 "find(\"" + placeName + "\", \"" + modernPlaceName + "\")");
-        GeoCodeCacheEntry gcce = map.get(placeName);
+        GeoCodeItem gcce = map.get(placeName);
         if (gcce != null) {
             // Entry found in cache.
             if (!modernPlaceName.equals(gcce.getModernPlaceName())) {
                 // We're changing the associated modern place name.
-                gcce = new GeoCodeCacheEntry(placeName, modernPlaceName);
+                gcce = new GeoCodeItem(placeName, modernPlaceName);
                 map.put(placeName, gcce);
             }
             // If we already have a result, then we're done.
@@ -158,7 +158,7 @@ public final class GeoCodeCache implements GeoCodeDao {
                 return gcce;
             } else {
                 // Replace item in cache with new one.
-                gcce = new GeoCodeCacheEntry(gcce.getPlaceName(),
+                gcce = new GeoCodeItem(gcce.getPlaceName(),
                         modernPlaceName, results[0]);
                 map.put(placeName,  gcce);
                 return gcce;
@@ -168,13 +168,13 @@ public final class GeoCodeCache implements GeoCodeDao {
         final GeocodingResult[] results = geocode(modernPlaceName);
         if (results.length > 0) {
             /* Work with the first result. */
-            gcce = new GeoCodeCacheEntry(placeName, modernPlaceName,
+            gcce = new GeoCodeItem(placeName, modernPlaceName,
                     results[0]);
             map.put(placeName,  gcce);
             return gcce;
         }
         // Not found, create empty.
-        gcce = new GeoCodeCacheEntry(placeName, modernPlaceName);
+        gcce = new GeoCodeItem(placeName, modernPlaceName);
         map.put(placeName, gcce);
         return gcce;
     }
@@ -222,7 +222,7 @@ public final class GeoCodeCache implements GeoCodeDao {
         final SortedSet<String> mapKeys = new TreeSet<>();
         mapKeys.addAll(map.keySet());
         for (final String mapKey : mapKeys) {
-            final GeoCodeCacheEntry gcce = map.get(mapKey);
+            final GeoCodeItem gcce = map.get(mapKey);
             builder.append(gcce.getPlaceName());
             builder.append("|");
             if (!gcce.getPlaceName().equals(gcce.getModernPlaceName())) {
@@ -261,9 +261,9 @@ public final class GeoCodeCache implements GeoCodeDao {
     public Set<String> notFoundKeys() {
         logger.debug("Captures the places that couldn't be found");
         final Set<String> notFoundSet = new TreeSet<>();
-        for (final Entry<String, GeoCodeCacheEntry> entry : map.entrySet()) {
+        for (final Entry<String, GeoCodeItem> entry : map.entrySet()) {
             final String mapKey = entry.getKey();
-            final GeoCodeCacheEntry gcce = entry.getValue();
+            final GeoCodeItem gcce = entry.getValue();
             if (gcce.getGeocodingResult() == null) {
                 notFoundSet.add(mapKey);
                 logger.debug(gcce.getPlaceName());
@@ -332,24 +332,6 @@ public final class GeoCodeCache implements GeoCodeDao {
             }
         } catch (IOException e) {
             logger.error("Problem reading places stream", e);
-        }
-    }
-
-    /**
-     * Load the cache from an array of strings. Particularly valuable for
-     * testing. Each string has planeName|modernPlaceName. The second part can
-     * be empty.
-     *
-     * @param strings the array of strings
-     */
-    @SuppressWarnings("PMD.UseVarargs")
-    public void load(final String[][] strings) {
-        for (final String[] line : strings) {
-            if (line.length < 2 || line[1] == null || line[1].isEmpty()) {
-                find(line[0]);
-            } else {
-                find(line[0], line[1]);
-            }
         }
     }
 
