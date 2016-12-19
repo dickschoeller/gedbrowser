@@ -1,6 +1,8 @@
 package org.schoellerfamily.gedbrowser.geocode.dao;
 
+import java.util.Collection;
 import java.util.Set;
+import java.util.PrimitiveIterator.OfDouble;
 
 /**
  * @author Dick Schoeller
@@ -36,6 +38,13 @@ public interface GeoCodeDao {
     GeoCodeItem find(String placeName, String modernPlaceName);
 
     /**
+     * Get the complete set of the data.
+     *
+     * @return a collection of the place names
+     */
+    Collection<String> allKeys();
+
+    /**
      * Dump the place list in a form that is valuable for manual analysis.
      */
     void dump();
@@ -54,4 +63,18 @@ public interface GeoCodeDao {
      * @return the size of the cache
      */
     int size();
+
+    /**
+     * Add this item to the data set.
+     *
+     * @param item the item
+     */
+    void add(GeoCodeItem item);
+
+    /**
+     * Delete this item from the data set.
+     *
+     * @param item the item
+     */
+    void delete(GeoCodeItem item);
 }

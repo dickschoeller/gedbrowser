@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -16,8 +17,8 @@ import java.util.TreeSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.geocode.GeoCodeRuntimeException;
-import org.schoellerfamily.gedbrowser.geocode.dao.GeoCodeItem;
 import org.schoellerfamily.gedbrowser.geocode.dao.GeoCodeDao;
+import org.schoellerfamily.gedbrowser.geocode.dao.GeoCodeItem;
 
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
@@ -258,6 +259,18 @@ public final class GeoCodeCache implements GeoCodeDao {
      * {@inheritDoc}
      */
     @Override
+    public Collection<String> allKeys() {
+        final Set<String> set = new TreeSet<>();
+        for (final String placeName : map.keySet()) {
+            set.add(placeName);
+        }
+        return set;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Set<String> notFoundKeys() {
         logger.debug("Captures the places that couldn't be found");
         final Set<String> notFoundSet = new TreeSet<>();
@@ -408,5 +421,26 @@ public final class GeoCodeCache implements GeoCodeDao {
      */
     public String getGoogleGeoCodingKeyPath() {
         return "/var/lib/gedbrowser/google-geocoding-key";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void add(final GeoCodeItem item) {
+        map.put(item.getPlaceName(), item);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void delete(final GeoCodeItem item) {
+        if (map.remove(item.getPlaceName(), item)) {
+            logger.debug("Removed: " + item.getPlaceName());
+        } else {
+            logger.debug("Didn't find for removal: " + item.getPlaceName());
+        }
+
     }
 }
