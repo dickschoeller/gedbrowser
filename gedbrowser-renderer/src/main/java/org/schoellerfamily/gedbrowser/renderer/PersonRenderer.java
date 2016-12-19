@@ -15,6 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
  *
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.CommentSize", "PMD.GodClass" })
 public final class PersonRenderer extends GedRenderer<Person> {
     /**
      * Number of generations, including the root when rendering the tree.
@@ -173,6 +174,7 @@ public final class PersonRenderer extends GedRenderer<Person> {
 
         return builder.toString();
     }
+
     /**
      * @return the father string.
      */

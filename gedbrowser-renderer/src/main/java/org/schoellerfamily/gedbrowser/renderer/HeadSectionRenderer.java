@@ -20,6 +20,9 @@ public class HeadSectionRenderer implements SectionRenderer {
         this.headRenderer = headRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final StringBuilder renderAsSection(final StringBuilder builder,
             final GedRenderer<?> pageRenderer, final boolean newLine,
@@ -40,5 +43,4 @@ public class HeadSectionRenderer implements SectionRenderer {
 
         return builder;
     }
-
 }

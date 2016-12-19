@@ -20,6 +20,9 @@ public class PlacePhraseRenderer implements PhraseRenderer {
         this.placeRenderer = placeRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String renderAsPhrase() {
         final Place place = placeRenderer.getGedObject();

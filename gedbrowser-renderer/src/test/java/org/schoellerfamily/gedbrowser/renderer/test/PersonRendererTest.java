@@ -27,6 +27,9 @@ import org.schoellerfamily.gedbrowser.renderer.User;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.ExcessivePublicCount",
+    "PMD.ExcessiveClassLength",
+    "PMD.TooManyMethods" })
 public final class PersonRendererTest {
     /** */
     private transient RenderingContext adminContext;

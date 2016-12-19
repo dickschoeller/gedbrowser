@@ -3,8 +3,7 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 
 /**
- * @author dick
- *
+ * @author Dick Schoeller
  */
 public final class MultimediaListItemRenderer implements ListItemRenderer {
     /**
@@ -22,6 +21,9 @@ public final class MultimediaListItemRenderer implements ListItemRenderer {
         this.multimediaRenderer = multimediaRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public StringBuilder renderAsListItem(final StringBuilder builder,
             final boolean newLine, final int pad) {
@@ -35,6 +37,9 @@ public final class MultimediaListItemRenderer implements ListItemRenderer {
         return builder;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getListItemContents() {
         final StringBuilder builder = new StringBuilder();
@@ -48,27 +53,57 @@ public final class MultimediaListItemRenderer implements ListItemRenderer {
      *
      * @param builder the string builder that we will be appending to.
      */
-    protected void renderListItemContents(final StringBuilder builder) {
+    private void renderListItemContents(final StringBuilder builder) {
         final Multimedia multimedia = multimediaRenderer.getGedObject();
         builder.append("<span class=\"label\">");
         builder.append(GedRenderer.escapeString(multimedia));
         builder.append(":</span> ");
 
-        if (multimedia.isImage()) {
-            builder.append(multimedia.getFileTitle());
+        if (isImage(multimedia)) {
+            builder.append(getFileTitle(multimedia));
             builder.append("<br/>\n<a href=\"");
-            builder.append(multimedia.getFilePath());
+            builder.append(getFilePath(multimedia));
             builder.append("\"><img height=\"300px\" src=\"");
-            builder.append(multimedia.getFilePath());
+            builder.append(getFilePath(multimedia));
             builder.append("\" title=\"");
-            builder.append(multimedia.getFileTitle());
+            builder.append(getFileTitle(multimedia));
             builder.append("\"/></a>");
         } else {
             builder.append("<a href=\"");
-            builder.append(multimedia.getFilePath());
+            builder.append(getFilePath(multimedia));
             builder.append("\">");
-            builder.append(multimedia.getFileTitle());
+            builder.append(getFileTitle(multimedia));
             builder.append("</a>");
         }
+    }
+
+    /**
+     * Check if a multimedia item is an image.
+     *
+     * @param multimedia the multimedia object
+     * @return true if this is an image
+     */
+    private boolean isImage(final Multimedia multimedia) {
+        return multimedia.isImage();
+    }
+
+    /**
+     * Get the file path to the multimedia object.
+     *
+     * @param multimedia the multimedia object
+     * @return the path
+     */
+    private String getFilePath(final Multimedia multimedia) {
+        return multimedia.getFilePath();
+    }
+
+    /**
+     * Get the file title of the multimedia object.
+     *
+     * @param multimedia the multimedia object
+     * @return the title
+     */
+    private String getFileTitle(final Multimedia multimedia) {
+        return multimedia.getFileTitle();
     }
 }

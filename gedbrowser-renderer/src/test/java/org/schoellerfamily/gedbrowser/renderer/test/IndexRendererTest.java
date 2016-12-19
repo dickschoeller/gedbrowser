@@ -13,6 +13,7 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.CommentSize")
 public final class IndexRendererTest {
 
     /**

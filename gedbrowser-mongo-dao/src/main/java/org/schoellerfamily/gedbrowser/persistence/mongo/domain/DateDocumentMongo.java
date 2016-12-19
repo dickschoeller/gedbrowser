@@ -17,6 +17,9 @@ public class DateDocumentMongo extends GedDocumentMongo<Date>
         setType("date");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void loadGedObject(final GedObject ged) {
         if (!(ged instanceof Date)) {

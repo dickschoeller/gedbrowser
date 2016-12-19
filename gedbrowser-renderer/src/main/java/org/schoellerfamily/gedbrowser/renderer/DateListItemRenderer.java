@@ -18,6 +18,9 @@ public final class DateListItemRenderer implements ListItemRenderer {
         this.dateRenderer = dateRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public StringBuilder renderAsListItem(final StringBuilder builder,
             final boolean newLine, final int pad) {
@@ -26,6 +29,9 @@ public final class DateListItemRenderer implements ListItemRenderer {
         return builder;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getListItemContents() {
         return dateRenderer.renderAsPhrase();

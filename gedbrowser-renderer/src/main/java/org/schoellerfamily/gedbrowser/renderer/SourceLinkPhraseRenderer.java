@@ -15,6 +15,9 @@ public final class SourceLinkPhraseRenderer implements PhraseRenderer {
         this.slRenderer = renderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String renderAsPhrase() {
         final StringBuilder builder = new StringBuilder(50);

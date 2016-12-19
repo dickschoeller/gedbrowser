@@ -11,6 +11,7 @@ import org.schoellerfamily.gedbrowser.renderer.User;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.TooManyMethods")
 public final class UserTest {
     /** */
     @Test

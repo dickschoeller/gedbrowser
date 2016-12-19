@@ -17,6 +17,9 @@ public class SourceLinkDocumentMongo extends GedDocumentMongo<SourceLink>
         setType("sourcelink");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void loadGedObject(final GedObject ged) {
         if (!(ged instanceof SourceLink)) {

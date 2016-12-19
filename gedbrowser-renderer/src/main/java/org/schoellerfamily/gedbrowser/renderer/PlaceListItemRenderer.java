@@ -18,6 +18,9 @@ public class PlaceListItemRenderer implements ListItemRenderer {
         this.placeRenderer = placeRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final StringBuilder renderAsListItem(final StringBuilder builder,
             final boolean newLine, final int pad) {
@@ -26,6 +29,9 @@ public class PlaceListItemRenderer implements ListItemRenderer {
         return builder;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getListItemContents() {
         return placeRenderer.renderAsPhrase();

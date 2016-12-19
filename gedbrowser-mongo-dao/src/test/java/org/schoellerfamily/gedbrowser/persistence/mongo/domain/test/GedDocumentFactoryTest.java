@@ -52,239 +52,260 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo
 /**
  * @author Dick Schoeller
  */
-public class GedDocumentFactoryTest { // NOPMD
+@SuppressWarnings({ "PMD.CouplingBetweenObjects",
+    "PMD.ExcessiveImports",
+    "PMD.TooManyMethods" })
+public final class GedDocumentFactoryTest {
     /** */
     @Test
-    public final void testCreateAttributeDocument() {
+    public void testCreateAttributeDocument() {
         final GedObject ged = new Attribute(null);
         final String typeString = "attribute";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<AttributeDocumentMongo> expectedClass =
                 AttributeDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreateChildDocument() {
+    public void testCreateChildDocument() {
         final GedObject ged = new Child(null);
         final String typeString = "child";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<ChildDocumentMongo> expectedClass =
                 ChildDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreateDateDocument() {
+    public void testCreateDateDocument() {
         final GedObject ged = new Date(null);
         final String typeString = "date";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<DateDocumentMongo> expectedClass =
                 DateDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreateMultimediaDocument() {
+    public void testCreateMultimediaDocument() {
         final GedObject ged = new Multimedia(null);
         final String typeString = "multimedia";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<MultimediaDocumentMongo> expectedClass =
                 MultimediaDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreateNameDocument() {
+    public void testCreateNameDocument() {
         final GedObject ged = new Name(null);
         final String typeString = "name";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<NameDocumentMongo> expectedClass =
                 NameDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreateFamilyDocument() {
+    public void testCreateFamilyDocument() {
         final GedObject ged = new Family(null);
         final String typeString = "family";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<FamilyDocumentMongo> expectedClass =
                 FamilyDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreateFamCDocument() {
+    public void testCreateFamCDocument() {
         final GedObject ged = new FamC(null);
         final String typeString = "famc";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<FamCDocumentMongo> expectedClass =
                 FamCDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreateFamSDocument() {
+    public void testCreateFamSDocument() {
         final GedObject ged = new FamS(null);
         final String typeString = "fams";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<FamSDocumentMongo> expectedClass =
                 FamSDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreateHeadDocument() {
+    public void testCreateHeadDocument() {
         final GedObject ged = new Head(null);
         final String typeString = "head";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<HeadDocumentMongo> expectedClass =
                 HeadDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreateHusbandDocument() {
+    public void testCreateHusbandDocument() {
         final GedObject ged = new Husband(null);
         final String typeString = "husband";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<HusbandDocumentMongo> expectedClass =
                 HusbandDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreatePersonDocument() {
+    public void testCreatePersonDocument() {
         final GedObject ged = new Person(null);
         final String typeString = "person";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<PersonDocumentMongo> expectedClass =
                 PersonDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreatePlaceDocument() {
+    public void testCreatePlaceDocument() {
         final GedObject ged = new Place(null);
         final String typeString = "place";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<PlaceDocumentMongo> expectedClass =
                 PlaceDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreateSourceDocument() {
+    public void testCreateSourceDocument() {
         final GedObject ged = new Source(null);
         final String typeString = "source";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<SourceDocumentMongo> expectedClass =
                 SourceDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreateSourceLinkDocument() {
+    public void testCreateSourceLinkDocument() {
         final GedObject ged = new SourceLink(null);
         final String typeString = "sourcelink";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<SourceLinkDocumentMongo> expectedClass =
                 SourceLinkDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreateSubmittorDocument() {
+    public void testCreateSubmittorDocument() {
         final GedObject ged = new Submittor(null);
         final String typeString = "submittor";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<SubmittorDocumentMongo> expectedClass =
                 SubmittorDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreateSubmittorLinkDocument() {
+    public void testCreateSubmittorLinkDocument() {
         final GedObject ged = new SubmittorLink(null);
         final String typeString = "submittorlink";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<SubmittorLinkDocumentMongo> expectedClass =
                 SubmittorLinkDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreateTrailerDocument() {
+    public void testCreateTrailerDocument() {
         final GedObject ged = new Trailer(null);
         final String typeString = "trailer";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<TrailerDocumentMongo> expectedClass =
                 TrailerDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testCreateWifeDocument() {
+    public void testCreateWifeDocument() {
         final GedObject ged = new Wife(null);
         final String typeString = "wife";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);
         final Class<WifeDocumentMongo> expectedClass =
                 WifeDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass));
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public final void testNullCreateDocument() {
+    public void testNullCreateDocument() {
         GedDocument<?> gmd = null;
         try {
             gmd = GedDocumentMongoFactory.getInstance().
                     createGedDocument(null);
             fail("Should not get here");
         } catch (PersistenceException e) {
-            assertNull(gmd); // Expected
+            assertNull("Should be null", gmd); // Expected
         }
     }
 
     /** */
     @Test
-    public final void testUnexpectedCreateDocument() {
+    public void testUnexpectedCreateDocument() {
         final GedObject ged = new GedObject(null) {
         };
         GedDocument<?> gmd = null;
@@ -293,7 +314,7 @@ public class GedDocumentFactoryTest { // NOPMD
                     createGedDocument(ged);
             fail("Should not get here");
         } catch (PersistenceException e) {
-            assertNull(gmd); // Expected
+            assertNull("Should be null", gmd); // Expected
         }
     }
 
@@ -307,201 +328,207 @@ public class GedDocumentFactoryTest { // NOPMD
     private boolean checkGedDocument(final GedObject ged,
             final GedDocument<?> gedDocument, final String expectedTypeString,
             final Class<? extends GedDocumentMongo<?>> expectedClass) {
-        assertEquals(gedDocument.getClass(), expectedClass);
-        assertEquals(ged.getString(), gedDocument.getString());
-        assertEquals(expectedTypeString, gedDocument.getType());
+        assertEquals("Wrong class", gedDocument.getClass(), expectedClass);
+        assertEquals("Content mismatch", ged.getString(),
+                gedDocument.getString());
+        assertEquals("Wrong type", expectedTypeString, gedDocument.getType());
         return true;
     }
 
     /** */
     @Test
-    public final void testCreateAttribute() {
+    public void testCreateAttribute() {
         final AttributeDocumentMongo gmd = new AttributeDocumentMongo();
         gmd.setString("Attribute");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(Attribute.class, ged.getClass());
+        assertEquals("Wrong class", Attribute.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreateChild() {
+    public void testCreateChild() {
         final ChildDocumentMongo gmd = new ChildDocumentMongo();
         gmd.setString("Child");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(Child.class, ged.getClass());
+        assertEquals("Wrong class", Child.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreateDate() {
+    public void testCreateDate() {
         final DateDocumentMongo gmd = new DateDocumentMongo();
         gmd.setString("Date");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(Date.class, ged.getClass());
+        assertEquals("Wrong class", Date.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreateFamily() {
+    public void testCreateFamily() {
         final FamilyDocumentMongo gmd = new FamilyDocumentMongo();
         gmd.setString("Family");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(Family.class, ged.getClass());
+        assertEquals("Wrong class", Family.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreateFamC() {
+    public void testCreateFamC() {
         final FamCDocumentMongo gmd = new FamCDocumentMongo();
         gmd.setString("FamC");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(FamC.class, ged.getClass());
+        assertEquals("Wrong class", FamC.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreateFamS() {
+    public void testCreateFamS() {
         final FamSDocumentMongo gmd = new FamSDocumentMongo();
         gmd.setString("FamS");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(FamS.class, ged.getClass());
+        assertEquals("Wrong class", FamS.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreateHead() {
+    public void testCreateHead() {
         final HeadDocumentMongo gmd = new HeadDocumentMongo();
         gmd.setString("Head");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(Head.class, ged.getClass());
+        assertEquals("Wrong class", Head.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreateHusband() {
+    public void testCreateHusband() {
         final HusbandDocumentMongo gmd = new HusbandDocumentMongo();
         gmd.setString("Husband");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(Husband.class, ged.getClass());
+        assertEquals("Wrong class", Husband.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreatePerson() {
+    public void testCreatePerson() {
         final PersonDocumentMongo gmd = new PersonDocumentMongo();
         gmd.setString("Person");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(Person.class, ged.getClass());
+        assertEquals("Wrong class", Person.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreatePlace() {
+    public void testCreatePlace() {
         final PlaceDocumentMongo gmd = new PlaceDocumentMongo();
         gmd.setString("Place");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(Place.class, ged.getClass());
+        assertEquals("Wrong class", Place.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreateSource() {
+    public void testCreateSource() {
         final SourceDocumentMongo gmd = new SourceDocumentMongo();
         gmd.setString("Source");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(Source.class, ged.getClass());
+        assertEquals("Wrong class", Source.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreateSourceLink() {
+    public void testCreateSourceLink() {
         final SourceLinkDocumentMongo gmd = new SourceLinkDocumentMongo();
         gmd.setString("SourceLink");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(SourceLink.class, ged.getClass());
+        assertEquals("Wrong class", SourceLink.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreateSubmittor() {
+    public void testCreateSubmittor() {
         final SubmittorDocumentMongo gmd = new SubmittorDocumentMongo();
         gmd.setString("Submittor");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(Submittor.class, ged.getClass());
+        assertEquals("Wrong class", Submittor.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreateSubmittorLink() {
+    public void testCreateSubmittorLink() {
         final SubmittorLinkDocumentMongo gmd = new SubmittorLinkDocumentMongo();
         gmd.setString("SubmittorLink");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(SubmittorLink.class, ged.getClass());
+        assertEquals("Wrong class", SubmittorLink.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreateTrailer() {
+    public void testCreateTrailer() {
         final TrailerDocumentMongo gmd = new TrailerDocumentMongo();
         gmd.setString("Trailer");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(Trailer.class, ged.getClass());
+        assertEquals("Wrong class", Trailer.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreateWife() {
+    public void testCreateWife() {
         final WifeDocumentMongo gmd = new WifeDocumentMongo();
         gmd.setString("Wife");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(Wife.class, ged.getClass());
+        assertEquals("Wrong class", Wife.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreateMultimedia() {
+    public void testCreateMultimedia() {
         final MultimediaDocumentMongo gmd = new MultimediaDocumentMongo();
         gmd.setString("Multimedia");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(Multimedia.class, ged.getClass());
+        assertEquals("Wrong class", Multimedia.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreateName() {
+    public void testCreateName() {
         final NameDocumentMongo gmd = new NameDocumentMongo();
         gmd.setString("Name");
         final GedObject ged = GedDocumentMongoFactory.getInstance().
                 createGedObject(new Root(null), gmd);
-        assertEquals(Name.class, ged.getClass());
+        assertEquals("Wrong class", Name.class, ged.getClass());
     }
 
     /** */
     @Test
-    public final void testCreateGed() {
+    public void testCreateGed() {
+        @SuppressWarnings("PMD.NonStaticInitializer")
         final GedDocument<?> gmd = new GedDocumentMongo<GedObject>() {
-            { // NOPMD
+            {
                 setType("foo");
             }
+            /**
+             * {@inheritDoc}
+             */
             @Override
             public void loadGedObject(final GedObject ged) {
+                // Intentionally empty
             }
         };
         gmd.setString("Foo");
@@ -511,7 +538,7 @@ public class GedDocumentFactoryTest { // NOPMD
                     createGedObject(new Root(null), gmd);
             fail("Should not get here");
         } catch (PersistenceException e) {
-            assertNull(ged);
+            assertNull("Result should be null", ged);
         }
     }
 }

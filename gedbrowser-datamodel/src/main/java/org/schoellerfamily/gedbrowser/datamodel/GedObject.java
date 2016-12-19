@@ -7,6 +7,8 @@ import java.util.List;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.TooManyMethods",
+    "PMD.GodClass" })
 public class GedObject {
 
     /** */
@@ -153,6 +155,9 @@ public class GedObject {
         return attributes.contains(attribute);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final int hashCode() {
         int result = 1;
@@ -185,7 +190,10 @@ public class GedObject {
      * {@inheritDoc}
      */
     @Override
-    public final boolean equals(final Object obj) { // NOPMD
+    @SuppressWarnings({ "PMD.CyclomaticComplexity",
+            "PMD.ModifiedCyclomaticComplexity",
+            "PMD.StdCyclomaticComplexity" })
+    public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -288,6 +296,13 @@ public class GedObject {
      */
     public final List<GedObject> getAttributes() {
         return attributes;
+    }
+
+    /**
+     * @return whether the list of attributes has some content
+     */
+    public final boolean hasAttributes() {
+        return !attributes.isEmpty();
     }
 
     /**

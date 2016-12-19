@@ -26,6 +26,10 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.ExcessivePublicCount",
+    "PMD.GodClass",
+    "PMD.TooManyFields",
+    "PMD.TooManyMethods" })
 public final class PersonTest {
     /** */
     private static final String UNEXPECTED_STRING =

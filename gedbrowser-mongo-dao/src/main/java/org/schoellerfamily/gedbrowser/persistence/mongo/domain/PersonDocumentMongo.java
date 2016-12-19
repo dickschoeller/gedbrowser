@@ -29,6 +29,9 @@ public class PersonDocumentMongo extends GedDocumentMongo<Person>
         setType("person");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void loadGedObject(final GedObject ged) {
         if (!(ged instanceof Person)) {
@@ -44,11 +47,17 @@ public class PersonDocumentMongo extends GedDocumentMongo<Person>
         // TODO may want to put in birth date handling for duplicate names
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getSurname() {
         return surname;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getIndexName() {
         return indexName;

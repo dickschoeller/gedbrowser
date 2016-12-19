@@ -20,6 +20,9 @@ public class SourceSectionRenderer implements SectionRenderer {
         this.sourceRenderer = sourceRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final StringBuilder renderAsSection(final StringBuilder builder,
             final GedRenderer<?> pageRenderer, final boolean newLine,

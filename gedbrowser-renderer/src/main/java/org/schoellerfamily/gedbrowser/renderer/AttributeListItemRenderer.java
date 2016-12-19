@@ -22,6 +22,9 @@ public class AttributeListItemRenderer implements ListItemRenderer {
         this.attributeRenderer = attributeRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final StringBuilder renderAsListItem(final StringBuilder builder,
             final boolean newLine, final int pad) {
@@ -35,6 +38,9 @@ public class AttributeListItemRenderer implements ListItemRenderer {
         return builder;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getListItemContents() {
         final StringBuilder builder = new StringBuilder();

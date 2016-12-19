@@ -123,10 +123,9 @@ public class GedFileLoader {
         final String filename = buildFileName(dbName);
 
         final File file = new File(filename);
-        try (final FileInputStream fis = new FileInputStream(file);
-                final Reader reader = new InputStreamReader(fis, "UTF-8");
-                final BufferedReader bufferedReader =
-                        new BufferedReader(reader);) {
+        try (FileInputStream fis = new FileInputStream(file);
+                Reader reader = new InputStreamReader(fis, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(reader);) {
             final GedFile gedFile =
                     new GedFile(filename, dbName, finder, bufferedReader);
             gedFile.readToNext();

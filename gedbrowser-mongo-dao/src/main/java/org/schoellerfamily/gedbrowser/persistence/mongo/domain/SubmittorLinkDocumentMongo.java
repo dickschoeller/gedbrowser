@@ -17,6 +17,9 @@ public class SubmittorLinkDocumentMongo extends GedDocumentMongo<SubmittorLink>
         setType("submittorlink");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void loadGedObject(final GedObject ged) {
         if (!(ged instanceof SubmittorLink)) {

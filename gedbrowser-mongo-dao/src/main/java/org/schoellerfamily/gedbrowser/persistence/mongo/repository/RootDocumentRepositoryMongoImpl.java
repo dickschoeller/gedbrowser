@@ -26,6 +26,9 @@ public class RootDocumentRepositoryMongoImpl implements
     @Autowired
     private transient FinderStrategy finder;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final RootDocument findByFileAndString(
             final String filename, final String string) {
@@ -42,6 +45,9 @@ public class RootDocumentRepositoryMongoImpl implements
         return rootDocument;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final RootDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {

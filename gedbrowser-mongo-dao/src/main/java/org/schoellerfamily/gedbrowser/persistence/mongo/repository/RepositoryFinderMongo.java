@@ -74,6 +74,9 @@ public final class RepositoryFinderMongo implements FinderStrategy {
     @Autowired
     private transient TrailerDocumentRepositoryMongo trailerDocumentRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GedObject find(final GedObject owner, final String str) {
         GedObject ged = find(owner, str, Person.class);

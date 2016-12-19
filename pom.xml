@@ -38,7 +38,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <spring-boot.version>1.1.6.RELEASE</spring-boot.version>
+    <spring-boot.version>1.4.2.RELEASE</spring-boot.version>
     <thymeleaf.version>2.1.3.RELEASE</thymeleaf.version>
     <spring.version>4.0.9.RELEASE</spring.version>
     <junit.version>4.12</junit.version>
@@ -64,6 +64,10 @@
     <module>gedbrowser-mongo-dao</module>
     <module>gedbrowser</module>
     <module>gedbrowser-selenium</module>
+    <module>gedbrowser-geoservice</module>
+    <module>gedbrowser-geocode-cache</module>
+    <module>gedbrowser-geocode-dao</module>
+    <module>gedbrowser-geocode-mongo-dao</module>
   </modules>
 
   <reporting>
@@ -96,7 +100,7 @@
             <ruleset>${config-dir}/rulesets/java/codesize.xml</ruleset>
             <ruleset>${config-dir}/rulesets/java/comments.xml</ruleset>
             <ruleset>${config-dir}/rulesets/java/junit.xml</ruleset>
-            <ruleset>${config-dir}/rulesets/java/optimization.xml</ruleset>
+            <ruleset>${config-dir}/rulesets/java/optimizations.xml</ruleset>
             <ruleset>${config-dir}/rulesets/java/sunsecure.xml</ruleset>
           </rulesets>
         </configuration>

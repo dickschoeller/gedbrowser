@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
+
 /**
  * @author Dick Schoeller
  */
@@ -19,13 +21,36 @@ public final class MultimediaPhraseRenderer implements PhraseRenderer {
         this.multimediaRenderer = multimediaRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String renderAsPhrase() {
         final StringBuilder builder = new StringBuilder("<a href=\"");
-        builder.append(multimediaRenderer.getGedObject().getFilePath());
+        builder.append(getFilePath(multimediaRenderer.getGedObject()));
         builder.append("\">");
-        builder.append(multimediaRenderer.getGedObject().getFileTitle());
+        builder.append(getFileTitle(multimediaRenderer.getGedObject()));
         builder.append("</a>");
         return builder.toString();
+    }
+
+    /**
+     * Get the file path to the multimedia object.
+     *
+     * @param multimedia the multimedia object
+     * @return the path
+     */
+    private String getFilePath(final Multimedia multimedia) {
+        return multimedia.getFilePath();
+    }
+
+    /**
+     * Get the file title of the multimedia object.
+     *
+     * @param multimedia the multimedia object
+     * @return the title
+     */
+    private String getFileTitle(final Multimedia multimedia) {
+        return multimedia.getFileTitle();
     }
 }

@@ -30,8 +30,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  * Factory that creates the right kind of GedObject based on the strings found
  * in GedLines.
  *
- * @author dick
+ * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.CommentSize" })
 public abstract class AbstractGedObjectFactory {
     /** */
     private static final AttributeFactory ATTR_FACTORY = new AttributeFactory();
@@ -271,7 +272,7 @@ public abstract class AbstractGedObjectFactory {
      * Associates a GEDCOM token with a full string and a factory for GedObject
      * creation.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class GedToken {
         /** */
@@ -310,9 +311,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Attribute.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class AttributeFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -323,9 +327,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Child.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class ChildFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -336,9 +343,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Date.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class DateFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -349,9 +359,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating FamC.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class FamCFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -362,9 +375,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Family.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class FamilyFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -375,9 +391,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating FamS.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class FamSFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -388,9 +407,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Head.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class HeadFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -401,9 +423,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Husband.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class HusbandFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -414,9 +439,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Link.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class LinkFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -427,9 +455,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Multimedia reference object.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class MultimediaFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -440,9 +471,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Name.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class NameFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -453,9 +487,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Person.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class PersonFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -466,9 +503,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Place.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class PlaceFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -479,9 +519,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Root.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class RootFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -492,9 +535,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Source.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class SourceFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -509,9 +555,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating SourceLink.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class SourceLinkFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -522,9 +571,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Submittor.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class SubmittorFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -539,9 +591,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating SubmittorLink.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class SubmittorLinkFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -552,9 +607,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Trailer.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class TrailerFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -565,9 +623,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for creating Wife.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class WifeFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -578,9 +639,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for concatenation lines.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class ConcatenationFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -592,9 +656,12 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Factory for continuation lines.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     private static class ContinuationFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
@@ -629,8 +696,8 @@ public abstract class AbstractGedObjectFactory {
      * @param tail the rest of the line
      * @return the GedObject
      */
-    public abstract GedObject create(final GedObject parent,
-            final ObjectId objectId, final String tag, final String tail);
+    public abstract GedObject create(GedObject parent, ObjectId objectId,
+            String tag, String tail);
 
     /**
      * Get the factory for this GEDCOM tag.
@@ -674,10 +741,13 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Instantiate this factory to get at the specific factories.
      *
-     * @author dick
+     * @author Dick Schoeller
      */
     public static final class GedObjectFactory extends
     AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref,
                 final String tag, final String tail) {

@@ -19,6 +19,9 @@ public class RootDocumentMongo extends GedDocumentMongo<Root>
         setType("root");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void loadGedObject(final GedObject ged) {
         if (!(ged instanceof Root)) {

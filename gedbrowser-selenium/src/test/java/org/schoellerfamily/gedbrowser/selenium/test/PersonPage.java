@@ -11,6 +11,8 @@ import org.openqa.selenium.WebElement;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.TooManyMethods",
+    "PMD.CommentSize" })
 public final class PersonPage extends PageBase {
     // FIXME reimplement this to go to the database for information
 
@@ -141,10 +143,30 @@ public final class PersonPage extends PageBase {
                     "I14",
                     "Mary Beer Moyer (1909-2003) [I14]",
                     "I2",
-                    new GreatGreatGrandparentIds("I180", "I181",
-                            "I182", "I185", "I186", "I203", "I204",
-                            "I207", null, null, null, null, "I208",
-                            "I225", "I226", "I238")));
+                    new GreatGreatGrandParentIds(
+                            new GreatGrandParentIds(
+                                    new GrandParentIds(
+                                            new ParentIds("I180", "I181"),
+                                            new ParentIds("I182", "I185")
+                                            ),
+                                    new GrandParentIds(
+                                            new ParentIds("I186", "I203"),
+                                            new ParentIds("I204", "I207")
+                                            )
+                                    ),
+                            new GreatGrandParentIds(
+                                    new GrandParentIds(
+                                            new ParentIds(null, null),
+                                            new ParentIds(null, null)
+                                            ),
+                                    new GrandParentIds(
+                                            new ParentIds("I208", "I225"),
+                                            new ParentIds("I226", "I238")
+                                            )
+                                    )
+                            )
+                    )
+            );
         EXPECTATIONS_MAP.put("I10",
             new Expectations(
                     "Person: I10 - Estelle Liberman (26 JUN 1925-)",
@@ -153,210 +175,36 @@ public final class PersonPage extends PageBase {
                     "I31",
                     "Minnie Rubin (1894-1983) [I31]",
                     "I8",
-                    new GreatGreatGrandparentIds(null, null, null, null,
-                            null, null, null, null, null, null,
-                            null, null, null, null, null, null)));
+                    new GreatGreatGrandParentIds(
+                            new GreatGrandParentIds(
+                                    new GrandParentIds(
+                                            new ParentIds(null, null),
+                                            new ParentIds(null, null)
+                                            ),
+                                    new GrandParentIds(
+                                            new ParentIds(null, null),
+                                            new ParentIds(null, null)
+                                            )
+                                    ),
+                            new GreatGrandParentIds(
+                                    new GrandParentIds(
+                                            new ParentIds(null, null),
+                                            new ParentIds(null, null)
+                                            ),
+                                    new GrandParentIds(
+                                            new ParentIds(null, null),
+                                            new ParentIds(null, null)
+                                            )
+                                    )
+                            )
+                    )
+            );
     }
 
     /** Database ID associated with this page. */
     private final String id;
     /** Previous page. */
     private final PersonPage previous;
-
-    /**
-     * Class represents the leaves in the tree with their person ID
-     * strings.
-     *
-     * @author Dick Schoeller
-     */
-    private static class GreatGreatGrandparentIds {
-        /** */
-        private final String ffff;
-        /** */
-        private final String fffm;
-        /** */
-        private final String ffmf;
-        /** */
-        private final String ffmm;
-        /** */
-        private final String fmff;
-        /** */
-        private final String fmfm;
-        /** */
-        private final String fmmf;
-        /** */
-        private final String fmmm;
-        /** */
-        private final String mfff;
-        /** */
-        private final String mffm;
-        /** */
-        private final String mfmf;
-        /** */
-        private final String mfmm;
-        /** */
-        private final String mmff;
-        /** */
-        private final String mmfm;
-        /** */
-        private final String mmmf;
-        /** */
-        private final String mmmm;
-
-        /**
-         * @param ffff father's father's father's father
-         * @param fffm father's father's father's mother
-         * @param ffmf father's father's mother's father
-         * @param ffmm father's father's father's mother
-         * @param fmff father's mother's father's father
-         * @param fmfm father's mother's father's mother
-         * @param fmmf father's mother's mother's father
-         * @param fmmm father's mother's father's mother
-         * @param mfff mother's father's father's father
-         * @param mffm mother's father's father's mother
-         * @param mfmf mother's father's mother's father
-         * @param mfmm mother's father's father's mother
-         * @param mmff mother's mother's father's father
-         * @param mmfm mother's mother's father's mother
-         * @param mmmf mother's mother's mother's father
-         * @param mmmm mother's mother's father's mother
-         */
-        GreatGreatGrandparentIds(final String ffff, final String fffm,
-                final String ffmf, final String ffmm, final String fmff,
-                final String fmfm, final String fmmf, final String fmmm,
-                final String mfff, final String mffm, final String mfmf,
-                final String mfmm, final String mmff, final String mmfm,
-                final String mmmf, final String mmmm) {
-            this.ffff = ffff;
-            this.fffm = fffm;
-            this.ffmf = ffmf;
-            this.ffmm = ffmm;
-            this.fmff = fmff;
-            this.fmfm = fmfm;
-            this.fmmf = fmmf;
-            this.fmmm = fmmm;
-            this.mfff = mfff;
-            this.mffm = mffm;
-            this.mfmf = mfmf;
-            this.mfmm = mfmm;
-            this.mmff = mmff;
-            this.mmfm = mmfm;
-            this.mmmf = mmmf;
-            this.mmmm = mmmm;
-        }
-
-        /**
-         * @return the ffff
-         */
-        public String getFfff() {
-            return ffff;
-        }
-
-        /**
-         * @return the fffm
-         */
-        public String getFffm() {
-            return fffm;
-        }
-
-        /**
-         * @return the ffmf
-         */
-        public String getFfmf() {
-            return ffmf;
-        }
-
-        /**
-         * @return the ffmm
-         */
-        public String getFfmm() {
-            return ffmm;
-        }
-
-        /**
-         * @return the fmff
-         */
-        public String getFmff() {
-            return fmff;
-        }
-
-        /**
-         * @return the fmfm
-         */
-        public String getFmfm() {
-            return fmfm;
-        }
-
-        /**
-         * @return the fmmf
-         */
-        public String getFmmf() {
-            return fmmf;
-        }
-
-        /**
-         * @return the fmmm
-         */
-        public String getFmmm() {
-            return fmmm;
-        }
-
-        /**
-         * @return the mfff
-         */
-        public String getMfff() {
-            return mfff;
-        }
-
-        /**
-         * @return the mffm
-         */
-        public String getMffm() {
-            return mffm;
-        }
-
-        /**
-         * @return the mfmf
-         */
-        public String getMfmf() {
-            return mfmf;
-        }
-
-        /**
-         * @return the mfmm
-         */
-        public String getMfmm() {
-            return mfmm;
-        }
-
-        /**
-         * @return the mmff
-         */
-        public String getMmff() {
-            return mmff;
-        }
-
-        /**
-         * @return the mmfm
-         */
-        public String getMmfm() {
-            return mmfm;
-        }
-
-        /**
-         * @return the mmmf
-         */
-        public String getMmmf() {
-            return mmmf;
-        }
-
-        /**
-         * @return the mmmm
-         */
-        public String getMmmm() {
-            return mmmm;
-        }
-    }
 
     /**
      * This class holds the expected values for a number of different
@@ -378,7 +226,7 @@ public final class PersonPage extends PageBase {
         /** */
         private final String childOneId;
         /** */
-        private final GreatGreatGrandparentIds leaves;
+        private final GreatGreatGrandParentIds leaves;
 
         /**
          * @param title expected title string
@@ -392,7 +240,7 @@ public final class PersonPage extends PageBase {
         Expectations(final String title, final String fatherId,
                 final String fatherString, final String motherId,
                 final String motherString, final String childOneId,
-                final GreatGreatGrandparentIds leaves) {
+                final GreatGreatGrandParentIds leaves) {
             this.title = title;
             this.fatherId = fatherId;
             this.fatherString = fatherString;
@@ -447,7 +295,7 @@ public final class PersonPage extends PageBase {
         /**
          * @return the leaves
          */
-        private GreatGreatGrandparentIds getLeaves() {
+        private GreatGreatGrandParentIds getLeaves() {
             return leaves;
         }
 
@@ -698,6 +546,7 @@ public final class PersonPage extends PageBase {
      *
      * @return empty string if person is OK, list of failures otherwise
      */
+    @SuppressWarnings("PMD.NPathComplexity")
     public String check() {
         final StringBuilder status = new StringBuilder();
         if (!titleCheck()) {
@@ -734,6 +583,9 @@ public final class PersonPage extends PageBase {
      *
      * @return true if all of the leaves align with expectations.
      */
+    @SuppressWarnings({ "PMD.CyclomaticComplexity",
+            "PMD.ModifiedCyclomaticComplexity", "PMD.NPathComplexity",
+            "PMD.StdCyclomaticComplexity" })
     private boolean leavesCheck() {
         if (EXPECTATIONS_MAP.get(id).leaves == null) {
             return true;

@@ -12,7 +12,7 @@
   <artifactId>gedbrowser-geographics</artifactId>
   <packaging>jar</packaging>
 
-  <name>gedbrowser-analytics</name>
+  <name>gedbrowser-geographics</name>
   <url>http://maven.apache.org</url>
 
   <properties>

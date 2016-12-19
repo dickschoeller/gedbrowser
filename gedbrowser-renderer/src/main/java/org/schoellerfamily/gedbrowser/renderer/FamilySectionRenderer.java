@@ -24,6 +24,9 @@ public class FamilySectionRenderer implements SectionRenderer {
         this.familyRenderer = familyRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final StringBuilder renderAsSection(final StringBuilder builder,
             final GedRenderer<?> pageRenderer, final boolean newLine,

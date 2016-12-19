@@ -25,6 +25,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.TooManyFields")
 public final class IndexTest {
     /**
      * Message if we didn't throw when we should.

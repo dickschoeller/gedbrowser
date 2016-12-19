@@ -22,6 +22,9 @@ public final class AttributeSectionRenderer implements SectionRenderer {
         this.attributeRenderer = attributeRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public StringBuilder renderAsSection(final StringBuilder builder,
             final GedRenderer<?> outerRenderer, final boolean newLine,

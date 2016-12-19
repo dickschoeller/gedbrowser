@@ -20,6 +20,9 @@ public class AttributeDocumentMongo extends GedDocumentMongo<Attribute>
         this.setType("attribute");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void loadGedObject(final GedObject ged) {
         if (!(ged instanceof Attribute)) {
@@ -33,11 +36,17 @@ public class AttributeDocumentMongo extends GedDocumentMongo<Attribute>
         this.loadAttributes(gedObject.getAttributes());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getTail() {
         return this.tail;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void setTail(final String tail) {
         this.tail = tail;

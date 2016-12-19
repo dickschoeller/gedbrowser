@@ -17,6 +17,9 @@ public class ChildDocumentMongo extends GedDocumentMongo<Child>
         setType("child");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void loadGedObject(final GedObject ged) {
         if (!(ged instanceof Child)) {

@@ -26,6 +26,8 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.TooManyMethods",
+        "PMD.ExcessivePublicCount" })
 public final class AnonymousPersonRendererTest {
 
     /**
@@ -821,7 +823,7 @@ public final class AnonymousPersonRendererTest {
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext);
-        List<FamilyRenderer> families = personRenderer.getFamilies();
+        final List<FamilyRenderer> families = personRenderer.getFamilies();
         assertEquals(0, families.size());
     }
 

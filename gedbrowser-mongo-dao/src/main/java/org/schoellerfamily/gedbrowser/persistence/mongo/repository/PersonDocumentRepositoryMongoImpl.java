@@ -225,8 +225,8 @@ public final class PersonDocumentRepositoryMongoImpl implements
      */
     private Collection<PersonDocument> copy(
             final Collection<PersonDocumentMongo> in) {
-        List<PersonDocument> out = new ArrayList<>(in.size());
-        for (PersonDocumentMongo pdm : in) {
+        final List<PersonDocument> out = new ArrayList<>(in.size());
+        for (final PersonDocumentMongo pdm : in) {
             out.add(pdm);
         }
         return out;

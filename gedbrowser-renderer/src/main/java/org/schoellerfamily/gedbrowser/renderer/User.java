@@ -98,7 +98,7 @@ public final class User {
      * @return the set of roles for this user
      */
     public String[] getRoles() {
-        return roles.toArray(new String[0]);
+        return roles.toArray(new String[roles.size()]);
     }
 
     /**

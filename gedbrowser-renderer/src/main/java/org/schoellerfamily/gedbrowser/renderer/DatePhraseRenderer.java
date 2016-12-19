@@ -20,6 +20,9 @@ public class DatePhraseRenderer implements PhraseRenderer {
         this.dateRenderer = dateRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String renderAsPhrase() {
         final Date date = dateRenderer.getGedObject();

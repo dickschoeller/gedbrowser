@@ -19,6 +19,9 @@ public final class AttributePhraseRenderer implements PhraseRenderer {
         this.attributeRenderer = attributeRenderer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String renderAsPhrase() {
         return GedRenderer.escapeString(attributeRenderer.getGedObject()

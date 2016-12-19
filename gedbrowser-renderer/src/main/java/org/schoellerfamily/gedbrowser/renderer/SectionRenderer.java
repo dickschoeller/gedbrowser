@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.renderer;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.CommentSize")
 public interface SectionRenderer {
     /**
      * Render the GedObject as a section of a page.

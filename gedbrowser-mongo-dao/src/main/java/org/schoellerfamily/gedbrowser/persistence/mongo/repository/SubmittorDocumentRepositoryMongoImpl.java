@@ -22,6 +22,9 @@ public class SubmittorDocumentRepositoryMongoImpl implements
     @Autowired
     private transient MongoTemplate mongoTemplate;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final SubmittorDocument findByFileAndString(
             final String filename, final String string) {
@@ -40,6 +43,9 @@ public class SubmittorDocumentRepositoryMongoImpl implements
         return submittorDocument;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final SubmittorDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {

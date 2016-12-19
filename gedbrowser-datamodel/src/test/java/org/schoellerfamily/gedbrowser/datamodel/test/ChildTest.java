@@ -23,6 +23,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.TooManyMethods")
 public final class ChildTest {
     /** */
     private static final String CHILD_TAG = "CHIL";

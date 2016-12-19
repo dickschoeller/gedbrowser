@@ -9,5 +9,5 @@ public interface AppenderStrategy {
      *
      * @param appendage text to append to the string
      */
-    void appendString(final String appendage);
+    void appendString(String appendage);
 }

@@ -54,7 +54,8 @@ public class GedBrowserBasicTest {
         final PageWaiter waiter = new ChromePageWaiter(driver);
 
         System.out.println("Chrome child test");
-        childNavigationExercise(driver, LONG_TIMEOUT, waiter);
+        assertTrue("Navigation failed",
+                childNavigationExercise(driver, LONG_TIMEOUT, waiter));
         System.out.println();
     }
 
@@ -71,7 +72,8 @@ public class GedBrowserBasicTest {
         final PageWaiter waiter = new HtmlUnitPageWaiter(driver);
 
         System.out.println("HtmlUnit child test");
-        childNavigationExercise(driver, SHORT_TIMEOUT, waiter);
+        assertTrue("Navigation failed",
+                childNavigationExercise(driver, SHORT_TIMEOUT, waiter));
         System.out.println();
     }
 
@@ -106,7 +108,8 @@ public class GedBrowserBasicTest {
         final PageWaiter waiter = new ChromePageWaiter(driver);
 
         System.out.println("Chrome father test");
-        fathersNavigationExercise(driver, LONG_TIMEOUT, waiter);
+        assertTrue("Navigation failed",
+                fathersNavigationExercise(driver, LONG_TIMEOUT, waiter));
         System.out.println();
     }
 
@@ -123,7 +126,8 @@ public class GedBrowserBasicTest {
         final PageWaiter waiter = new HtmlUnitPageWaiter(driver);
 
         System.out.println("HtmlUnit father test");
-        fathersNavigationExercise(driver, SHORT_TIMEOUT, waiter);
+        assertTrue("Navigation failed",
+                fathersNavigationExercise(driver, SHORT_TIMEOUT, waiter));
         System.out.println();
     }
 
@@ -158,7 +162,8 @@ public class GedBrowserBasicTest {
         final PageWaiter waiter = new ChromePageWaiter(driver);
 
         System.out.println("Chrome mother test");
-        mothersNavigationExercise(driver, LONG_TIMEOUT, waiter);
+        assertTrue("Navigation failed",
+                mothersNavigationExercise(driver, LONG_TIMEOUT, waiter));
         System.out.println();
     }
 
@@ -175,7 +180,8 @@ public class GedBrowserBasicTest {
         final PageWaiter waiter = new HtmlUnitPageWaiter(driver);
 
         System.out.println("HtmlUnit mother test");
-        mothersNavigationExercise(driver, SHORT_TIMEOUT, waiter);
+        assertTrue("Navigation failed",
+                mothersNavigationExercise(driver, SHORT_TIMEOUT, waiter));
         System.out.println();
     }
 
@@ -183,8 +189,10 @@ public class GedBrowserBasicTest {
      * @param driver the web driver to use for the test
      * @param wait the implicit wait value for this run
      * @param waiter handles driver specific waits
+     *
+     * @return always returns true
      */
-    private void childNavigationExercise(final WebDriver driver,
+    private boolean childNavigationExercise(final WebDriver driver,
             final long wait, final PageWaiter waiter) {
         try {
             driver.manage().timeouts().implicitlyWait(wait, TimeUnit.SECONDS);
@@ -193,35 +201,38 @@ public class GedBrowserBasicTest {
             PersonPage currentPerson = new PersonPage(driver, "I180", null,
                     waiter);
             currentPerson.open();
-            assertEquals("I180", currentPerson.getId());
-            assertEquals("", currentPerson.check());
+            assertEquals("Person ID mismatch", "I180", currentPerson.getId());
+            assertEquals("Person failed check", "", currentPerson.check());
 
             // Johann Martin
             currentPerson = currentPerson.navigateChild(1, 1);
-            assertEquals("I3554", currentPerson.getId());
-            assertEquals("", currentPerson.check());
+            assertEquals("Person ID mismatch", "I3554", currentPerson.getId());
+            assertEquals("Person failed check", "", currentPerson.check());
 
             // Anna Maria
             currentPerson = currentPerson.navigateChild(1, 1);
-            assertEquals("I3881", currentPerson.getId());
-            assertEquals("", currentPerson.check());
+            assertEquals("Person ID mismatch", "I3881", currentPerson.getId());
+            assertEquals("Person failed check", "", currentPerson.check());
 
             // Go to Maria Berta Faigle
             currentPerson = currentPerson.navigateChild(1, 1);
-            assertEquals("I3891", currentPerson.getId());
-            assertEquals("", currentPerson.check());
+            assertEquals("Person ID mismatch", "I3891", currentPerson.getId());
+            assertEquals("Person failed check", "", currentPerson.check());
         } finally {
             // Close the browser
             driver.quit();
         }
+        return true;
     }
 
     /**
      * @param driver the web driver to use for the test
      * @param wait the implicit wait value for this run
      * @param waiter handles driver specific waits
+     *
+     * @return always returns true
      */
-    private void fathersNavigationExercise(final WebDriver driver,
+    private boolean fathersNavigationExercise(final WebDriver driver,
             final long wait, final PageWaiter waiter) {
         try {
             driver.manage().timeouts().implicitlyWait(wait, TimeUnit.SECONDS);
@@ -230,42 +241,45 @@ public class GedBrowserBasicTest {
             PersonPage currentPerson = new PersonPage(driver, "I11", null,
                     waiter);
             currentPerson.open();
-            assertEquals("I11", currentPerson.getId());
-            assertEquals("", currentPerson.check());
+            assertEquals("Person ID mismatch", "I11", currentPerson.getId());
+            assertEquals("Person failed check", "", currentPerson.check());
 
             // Fred
             currentPerson = currentPerson.navigateFather();
-            assertEquals("I32", currentPerson.getId());
-            assertEquals("", currentPerson.check());
+            assertEquals("Person ID mismatch", "I32", currentPerson.getId());
+            assertEquals("Person failed check", "", currentPerson.check());
 
-            SourcePage currentSource =
+            final SourcePage currentSource =
                     new SourcePage(driver, "S21", currentPerson, waiter);
-            assertTrue(currentSource.titleCheck());
+            assertTrue("Title mismatch", currentSource.titleCheck());
 
             currentPerson = currentSource.back();
-            assertEquals("I32", currentPerson.getId());
+            assertEquals("Person ID mismatch", "I32", currentPerson.getId());
 
             // Johannes
             currentPerson = currentPerson.navigateFather();
-            assertEquals("I99", currentPerson.getId());
-            assertEquals("", currentPerson.check());
+            assertEquals("Person ID mismatch", "I99", currentPerson.getId());
+            assertEquals("Person failed check", "", currentPerson.check());
 
             // Matthias
             currentPerson = currentPerson.navigateFather();
-            assertEquals("I180", currentPerson.getId());
-            assertEquals("", currentPerson.check());
+            assertEquals("Person ID mismatch", "I180", currentPerson.getId());
+            assertEquals("Person failed check", "", currentPerson.check());
         } finally {
             // Close the browser
             driver.quit();
         }
+        return true;
     }
 
     /**
      * @param driver the web driver to use for the test
      * @param wait the implicit wait value for this run
      * @param waiter handles driver specific waits
+     *
+     * @return always returns true
      */
-    private void mothersNavigationExercise(final WebDriver driver,
+    private boolean mothersNavigationExercise(final WebDriver driver,
             final long wait, final PageWaiter waiter) {
         try {
             driver.manage().timeouts().implicitlyWait(wait, TimeUnit.SECONDS);
@@ -274,21 +288,22 @@ public class GedBrowserBasicTest {
             PersonPage currentPerson = new PersonPage(driver, "I11", null,
                     waiter);
             currentPerson.open();
-            assertEquals("I11", currentPerson.getId());
-            assertEquals("", currentPerson.check());
+            assertEquals("Person ID mismatch", "I11", currentPerson.getId());
+            assertEquals("Person failed check", "", currentPerson.check());
 
             // Lisa
             currentPerson = currentPerson.navigateMother();
-            assertEquals("I33", currentPerson.getId());
-            assertEquals("", currentPerson.check());
+            assertEquals("Person ID mismatch", "I33", currentPerson.getId());
+            assertEquals("Person failed check", "", currentPerson.check());
 
             // Estelle
             currentPerson = currentPerson.navigateMother();
-            assertEquals("I117", currentPerson.getId());
-            assertEquals("", currentPerson.check());
+            assertEquals("Person ID mismatch", "I117", currentPerson.getId());
+            assertEquals("Person failed check", "", currentPerson.check());
         } finally {
             // Close the browser
             driver.quit();
         }
+        return true;
     }
 }

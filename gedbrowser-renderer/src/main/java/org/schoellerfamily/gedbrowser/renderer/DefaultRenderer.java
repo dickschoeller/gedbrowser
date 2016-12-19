@@ -5,6 +5,7 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.CommentSize")
 public final class DefaultRenderer extends GedRenderer<GedObject> {
     /**
      * This constructor is public for testing purposes only. Do

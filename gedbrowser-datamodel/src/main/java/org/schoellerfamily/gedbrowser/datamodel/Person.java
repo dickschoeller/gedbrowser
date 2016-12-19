@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.GodClass")
 public final class Person extends GedObject implements Nameable, FamilyLinkage {
     /**
      * Default constructor.
@@ -288,7 +289,7 @@ public final class Person extends GedObject implements Nameable, FamilyLinkage {
                 continue;
             }
             final FamC famc = (FamC) gob;
-            Family family = famc.findFamily();
+            final Family family = famc.findFamily();
             families.add(family);
         }
         return families;

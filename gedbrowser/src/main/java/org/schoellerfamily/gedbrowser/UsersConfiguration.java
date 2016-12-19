@@ -40,11 +40,9 @@ public class UsersConfiguration {
     private Users readUserFile() {
         final String userFile = gedbrowserHome + "/userFile.csv";
         final Users users = new Users();
-        try (
-                final FileInputStream fis = new FileInputStream(userFile);
-                final Reader reader = new InputStreamReader(fis, "UTF-8");
-                final BufferedReader br = new BufferedReader(reader);
-                ) {
+        try (FileInputStream fis = new FileInputStream(userFile);
+                Reader reader = new InputStreamReader(fis, "UTF-8");
+                BufferedReader br = new BufferedReader(reader);) {
             String line;
             while ((line = br.readLine()) != null) {
                 final String[] userFields = line.split(",");

@@ -17,6 +17,9 @@ public class FamCDocumentMongo extends GedDocumentMongo<FamC>
         setType("famc");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void loadGedObject(final GedObject ged) {
         if (!(ged instanceof FamC)) {

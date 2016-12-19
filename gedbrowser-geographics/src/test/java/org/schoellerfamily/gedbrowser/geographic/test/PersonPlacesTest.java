@@ -31,7 +31,7 @@ public class PersonPlacesTest {
         final Root root = (Root) top.createGedObject((AbstractGedLine) null);
         final Person person = (Person) root.find("I7");
         final PersonPlaces personPlaces = new PersonPlaces(person);
-        Collection<Place> places = personPlaces.getPlaces();
+        final Collection<Place> places = personPlaces.getPlaces();
         final int expectedSize = 3;
         Assert.assertEquals(expectedSize, places.size());
         // This is known to be in the data twice

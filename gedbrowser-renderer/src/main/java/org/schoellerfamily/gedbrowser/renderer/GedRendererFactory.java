@@ -28,14 +28,14 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  *
  * @author Dick Schoeller
  */
-public final class GedRendererFactory { // NOPMD
+public final class GedRendererFactory {
     /**
      * Creates the appropriate renderer for the GedObject provided.
      *
      * @param gedObject the GedObject to be rendered
      * @return the renderer
      */
-    public GedRenderer<? extends GedObject> create(//NOPMD
+    public GedRenderer<? extends GedObject> create(
             final GedObject gedObject) {
         return create(gedObject, RenderingContext.anonymous());
     }
