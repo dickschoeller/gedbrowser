@@ -443,4 +443,12 @@ public final class GeoCodeCache implements GeoCodeDao {
         }
 
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GeoCodeItem get(final String placeName) {
+        return map.get(placeName);
+    }
 }

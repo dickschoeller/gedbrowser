@@ -18,6 +18,15 @@ public final class GeoCodeItem {
     private final GeocodingResult geocodingResult;
 
     /**
+     * Default constructor.
+     */
+    public GeoCodeItem() {
+        this.placeName = null;
+        this.modernPlaceName = null;
+        this.geocodingResult = null;
+    }
+
+    /**
      * @param placeName a place name to use for both historical and modern name
      * @param geocodingResult a geo-coding result
      */

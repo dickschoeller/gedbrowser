@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Dick Schoeller
  */
 @RestController
-public class GeoCodeCacheEntryController {
+public class GeoCodeEntryController {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 

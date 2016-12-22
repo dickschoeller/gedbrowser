@@ -2,7 +2,6 @@ package org.schoellerfamily.gedbrowser.geocode.dao;
 
 import java.util.Collection;
 import java.util.Set;
-import java.util.PrimitiveIterator.OfDouble;
 
 /**
  * @author Dick Schoeller
@@ -77,4 +76,12 @@ public interface GeoCodeDao {
      * @param item the item
      */
     void delete(GeoCodeItem item);
+
+    /**
+     * Get the item without hitting Google.
+     *
+     * @param placeName the placeName
+     * @return the item
+     */
+    GeoCodeItem get(String placeName);
 }
