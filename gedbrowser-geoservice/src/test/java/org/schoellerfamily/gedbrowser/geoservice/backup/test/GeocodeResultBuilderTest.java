@@ -57,7 +57,7 @@ public final class GeocodeResultBuilderTest {
     public void testToBackupGeoCodeItemNullResult() {
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", null);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertNull("Expected null result", bgci.getResult());
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -143,6 +143,152 @@ public final class GeocodeResultBuilderTest {
 
     /** */
     @Test
+    public void testToBackupGeoCodeItemResultEmptyGeometry() {
+        final GeocodingResult gr = new GeocodingResult();
+        gr.geometry = new Geometry();
+        final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
+        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToBackupGeoCodeItemResultGeometryLocation() {
+        final GeocodingResult gr = new GeocodingResult();
+        gr.geometry = new Geometry();
+        final double lat = 10.00;
+        final double lng = 20.00;
+        gr.geometry.location = new LatLng(lat, lng);
+        final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
+        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToBackupGeoCodeItemResultGeometryEmptyBounds() {
+        final GeocodingResult gr = new GeocodingResult();
+        gr.geometry = new Geometry();
+        gr.geometry.bounds = new Bounds();
+        final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
+        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToBackupGeoCodeItemResultGeometryBoundsWithNE() {
+        final GeocodingResult gr = new GeocodingResult();
+        gr.geometry = new Geometry();
+        gr.geometry.bounds = new Bounds();
+        final double lat = 10.00;
+        final double lng = 20.00;
+        gr.geometry.bounds.northeast = new LatLng(lat, lng);
+        final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
+        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToBackupGeoCodeItemResultGeometryBoundsWithSW() {
+        final GeocodingResult gr = new GeocodingResult();
+        gr.geometry = new Geometry();
+        gr.geometry.bounds = new Bounds();
+        final double lat = 10.00;
+        final double lng = 20.00;
+        gr.geometry.bounds.southwest = new LatLng(lat, lng);
+        final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
+        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToBackupGeoCodeItemResultGeometryBoundsWithBoth() {
+        final GeocodingResult gr = new GeocodingResult();
+        gr.geometry = new Geometry();
+        gr.geometry.bounds = new Bounds();
+        final double neLat = 10.00;
+        final double neLng = 20.00;
+        gr.geometry.bounds.northeast = new LatLng(neLat, neLng);
+        final double swLat = 5.00;
+        final double swLng = 25.00;
+        gr.geometry.bounds.southwest = new LatLng(swLat, swLng);
+        final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
+        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToBackupGeoCodeItemResultGeometryLocationType() {
+        final GeocodingResult gr = new GeocodingResult();
+        gr.geometry = new Geometry();
+        gr.geometry.locationType = LocationType.APPROXIMATE;
+        final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
+        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToBackupGeoCodeItemResultGeometryEmptyViewport() {
+        final GeocodingResult gr = new GeocodingResult();
+        gr.geometry = new Geometry();
+        gr.geometry.viewport = new Bounds();
+        final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
+        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToBackupGeoCodeItemResultGeometryViewportNE() {
+        final GeocodingResult gr = new GeocodingResult();
+        gr.geometry = new Geometry();
+        gr.geometry.viewport = new Bounds();
+        final double lat = 10.00;
+        final double lng = 20.00;
+        gr.geometry.viewport.northeast = new LatLng(lat, lng);
+        final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
+        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToBackupGeoCodeItemResultGeometryViewportSW() {
+        final GeocodingResult gr = new GeocodingResult();
+        gr.geometry = new Geometry();
+        gr.geometry.viewport = new Bounds();
+        final double lat = 5.00;
+        final double lng = 25.00;
+        gr.geometry.viewport.southwest = new LatLng(lat, lng);
+        final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
+        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToBackupGeoCodeItemResultGeometryViewportBoth() {
+        final GeocodingResult gr = new GeocodingResult();
+        gr.geometry = new Geometry();
+        gr.geometry.viewport = new Bounds();
+        final double neLat = 10.00;
+        final double neLng = 20.00;
+        gr.geometry.viewport.northeast = new LatLng(neLat, neLng);
+        final double swLat = 5.00;
+        final double swLng = 25.00;
+        gr.geometry.viewport.southwest = new LatLng(swLat, swLng);
+        final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
+        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
     public void testToGeoCodeItemNull() {
         Assert.assertNull("Null gets null", builder.toGeoCodeItem(null));
     }
@@ -173,6 +319,278 @@ public final class GeocodeResultBuilderTest {
                 null);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
         Assert.assertNull("Expected null result", gci.getGeocodingResult());
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemEmptyResult() {
+        final BackupGeoCodeItem bgci = new BackupGeoCodeItem("XYZZY", "PLUGH",
+                new BackupGeocodingResult());
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultAddressComponent() {
+        final BackupAddressComponent[] addressComponents =
+                new BackupAddressComponent[1];
+        final AddressComponentType[] addressComponentTypes =
+                new AddressComponentType[1];
+        addressComponentTypes[0] =
+                AddressComponentType.ADMINISTRATIVE_AREA_LEVEL_1;
+        addressComponents[0] =
+                new BackupAddressComponent("Foo Bar", "Foo",
+                        addressComponentTypes);
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(
+                addressComponents, null, null, null, null, false, null);
+        final BackupGeoCodeItem bgci = new BackupGeoCodeItem("XYZZY", "PLUGH",
+                bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultEmptyAddressComponent() {
+        final BackupAddressComponent[] addressComponents =
+                new BackupAddressComponent[1];
+        final AddressComponentType[] addressComponentTypes =
+                new AddressComponentType[0];
+        addressComponents[0] =
+                new BackupAddressComponent("Foo Bar", "Foo",
+                        addressComponentTypes);
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(
+                addressComponents, null, null, null, null, false, null);
+        final BackupGeoCodeItem bgci =
+                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultAddress() {
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(null,
+                "formatted address", null, null, null, false, null);
+        final BackupGeoCodeItem bgci =
+                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultPlaceId() {
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
+                null, null, null, false, "ladkjsfdlaskjfdlfj");
+        final BackupGeoCodeItem bgci =
+                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultPostcodeLocality() {
+        final String[] postcodeLocalities = new String[1];
+        postcodeLocalities[0] = "foobar";
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
+                postcodeLocalities, null, null, false, null);
+        final BackupGeoCodeItem bgci =
+                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultAddressType() {
+        final AddressType[] types = new AddressType[1];
+        types[0] = AddressType.ADMINISTRATIVE_AREA_LEVEL_1;
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
+                null, null, types, false, null);
+        final BackupGeoCodeItem bgci = new BackupGeoCodeItem("XYZZY", "PLUGH",
+                bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultEmptyGeometry() {
+        final BackupGeometry geometry = new BackupGeometry();
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
+                null, geometry, null, false, null);
+        final BackupGeoCodeItem bgci =
+                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultGeometryLocation() {
+        final double lat = 10.00;
+        final double lng = 20.00;
+        final BackupLatLng location = new BackupLatLng(lat, lng);
+        final BackupGeometry geometry =
+                new BackupGeometry(null, location, null, null);
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
+                null, geometry, null, false, null);
+        final BackupGeoCodeItem bgci =
+                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultGeometryEmptyBounds() {
+        final BackupBounds bounds = new BackupBounds();
+        final BackupGeometry geometry =
+                new BackupGeometry(bounds, null, null, null);
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
+                null, geometry, null, false, null);
+        final BackupGeoCodeItem bgci =
+                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultGeometryBoundsWithNE() {
+        final double lat = 10.00;
+        final double lng = 20.00;
+        final BackupLatLng northeast = new BackupLatLng(lat, lng);
+        final BackupBounds bounds = new BackupBounds(northeast, null);
+        final BackupGeometry geometry =
+                new BackupGeometry(bounds, null, null, null);
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
+                null, geometry, null, false, null);
+        final BackupGeoCodeItem bgci =
+                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultGeometryBoundsWithSW() {
+        final double lat = 10.00;
+        final double lng = 20.00;
+        final BackupLatLng southwest = new BackupLatLng(lat, lng);
+        final BackupBounds bounds = new BackupBounds(null, southwest);
+        final BackupGeometry geometry =
+                new BackupGeometry(bounds, null, null, null);
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
+                null, geometry, null, false, null);
+        final BackupGeoCodeItem bgci =
+                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultGeometryBoundsWithBoth() {
+        final double neLat = 10.00;
+        final double neLng = 20.00;
+        final BackupLatLng northeast = new BackupLatLng(neLat, neLng);
+        final double swLat = 5.00;
+        final double swLng = 25.00;
+        final BackupLatLng southwest = new BackupLatLng(swLat, swLng);
+        final BackupBounds bounds = new BackupBounds(northeast, southwest);
+        final BackupGeometry geometry =
+                new BackupGeometry(bounds, null, null, null);
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
+                null, geometry, null, false, null);
+        final BackupGeoCodeItem bgci =
+                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultGeometryLocationType() {
+        final BackupGeometry geometry =
+                new BackupGeometry(null, null, LocationType.APPROXIMATE, null);
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
+                null, geometry, null, false, null);
+        final BackupGeoCodeItem bgci =
+                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultGeometryEmptyViewport() {
+        final BackupBounds viewport = new BackupBounds();
+        final BackupGeometry geometry =
+                new BackupGeometry(null, null, null, viewport);
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
+                null, geometry, null, false, null);
+        final BackupGeoCodeItem bgci =
+                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultGeometryViewportNE() {
+        final double lat = 10.00;
+        final double lng = 20.00;
+        final BackupLatLng northeast = new BackupLatLng(lat, lng);
+        final BackupBounds viewport = new BackupBounds(northeast, null);
+        final BackupGeometry geometry =
+                new BackupGeometry(null, null, null, viewport);
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
+                null, geometry, null, false, null);
+        final BackupGeoCodeItem bgci =
+                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultGeometryViewportSW() {
+        final double lat = 5.00;
+        final double lng = 25.00;
+        final BackupLatLng southwest = new BackupLatLng(lat, lng);
+        final BackupBounds viewport = new BackupBounds(null, southwest);
+        final BackupGeometry geometry =
+                new BackupGeometry(null, null, null, viewport);
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
+                null, geometry, null, false, null);
+        final BackupGeoCodeItem bgci =
+                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+    }
+
+    /** */
+    @Test
+    public void testToGeoCodeItemResultGeometryViewportBoth() {
+        final double neLat = 10.00;
+        final double neLng = 20.00;
+        final BackupLatLng northeast = new BackupLatLng(neLat, neLng);
+        final double swLat = 5.00;
+        final double swLng = 25.00;
+        final BackupLatLng southwest = new BackupLatLng(swLat, swLng);
+        final BackupBounds viewport = new BackupBounds(northeast, southwest);
+        final BackupGeometry geometry =
+                new BackupGeometry(null, null, null, viewport);
+        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
+                null, geometry, null, false, null);
+        final BackupGeoCodeItem bgci =
+                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
+        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /**
