@@ -11,9 +11,9 @@ import org.springframework.security.config.annotation.authentication
 import org.springframework.security.config.annotation.web.builders
     .HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration
+    .EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration
     .WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.servlet.configuration
-    .EnableWebMvcSecurity;
 import org.springframework.security.web.authentication
     .SavedRequestAwareAuthenticationSuccessHandler;
 
@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication
  * @author Dick Schoeller
  */
 @Configuration
-@EnableWebMvcSecurity
+@EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     /** The user details that we know about. */
     @Autowired
