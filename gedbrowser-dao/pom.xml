@@ -11,6 +11,9 @@
   <artifactId>gedbrowser-dao</artifactId>
   <name>gedbrowser-dao</name>
 
+  <packaging>jar</packaging>
+  <url>http://www.schoellerfamily.org</url>
+
   <properties>
     <config-dir>${project.parent.basedir}/config</config-dir>
   </properties>

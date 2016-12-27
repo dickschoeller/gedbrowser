@@ -10,10 +10,10 @@
   </parent>
   
   <artifactId>gedbrowser-datamodel</artifactId>
-  <packaging>jar</packaging>
-
   <name>gedbrowser-datamodel</name>
-  <url>http://maven.apache.org</url>
+
+  <packaging>jar</packaging>
+  <url>http://www.schoellerfamily.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

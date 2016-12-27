@@ -11,6 +11,8 @@
 
   <artifactId>gedbrowser-selenium</artifactId>
   <name>gedbrowser-selenium</name>
+
+  <packaging>jar</packaging>
   <url>http://www.schoellerfamily.org</url>
 
   <properties>

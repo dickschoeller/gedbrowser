@@ -10,10 +10,10 @@
   </parent>
 
   <artifactId>gedbrowser-analytics</artifactId>
-  <packaging>jar</packaging>
-
   <name>gedbrowser-analytics</name>
-  <url>http://maven.apache.org</url>
+
+  <packaging>jar</packaging>
+  <url>http://www.schoellerfamily.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

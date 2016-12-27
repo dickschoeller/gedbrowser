@@ -10,9 +10,9 @@
   </parent>
 
   <artifactId>gedbrowser-geographics</artifactId>
-  <packaging>jar</packaging>
-
   <name>gedbrowser-geographics</name>
+
+  <packaging>jar</packaging>
   <url>http://maven.apache.org</url>
 
   <properties>

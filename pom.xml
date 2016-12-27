@@ -63,10 +63,11 @@
     <module>gedbrowser-mongo-dao</module>
     <module>gedbrowser</module>
     <module>gedbrowser-selenium</module>
-    <module>gedbrowser-geoservice</module>
-    <module>gedbrowser-geocode-cache</module>
-    <module>gedbrowser-geocode-dao</module>
-    <module>gedbrowser-geocode-mongo-dao</module>
+    <module>geoservice</module>
+    <module>geoservice-common</module>
+    <module>geoservice-persistence</module>
+    <module>geoservice-persistence-embedded</module>
+    <module>geoservice-persistence-mongo</module>
   </modules>
 
   <reporting>

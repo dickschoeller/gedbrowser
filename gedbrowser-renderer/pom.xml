@@ -11,9 +11,9 @@
 
   <artifactId>gedbrowser-renderer</artifactId>
   <name>gedbrowser-renderer</name>
-  <url>http://www.schoellerfamily.org</url>
 
   <packaging>jar</packaging>
+  <url>http://www.schoellerfamily.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

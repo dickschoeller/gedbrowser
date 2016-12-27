@@ -11,9 +11,9 @@
   </parent>
 
   <artifactId>gedbrowser</artifactId>
-  <packaging>jar</packaging>
-
   <name>gedbrowser</name>
+
+  <packaging>jar</packaging>
   <url>http://www.schoellerfamily.org</url>
 
   <properties>

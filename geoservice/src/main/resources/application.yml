@@ -1,0 +1,12 @@
+gedbrowser:
+    home: /var/lib/gedbrowser
+logging:
+    level:
+        org:
+            schoellerfamily: DEBUG
+spring:
+    jackson:
+        serialization:
+            INDENT_OUTPUT: true
+geoservice:
+    keyfile: /var/lib/gedbrowser/google-geocoding-key
