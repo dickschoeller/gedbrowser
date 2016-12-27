@@ -38,16 +38,15 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <spring-boot.version>1.4.2.RELEASE</spring-boot.version>
-    <thymeleaf.version>2.1.3.RELEASE</thymeleaf.version>
-    <spring.version>4.0.9.RELEASE</spring.version>
+    <spring-boot.version>1.4.3.RELEASE</spring-boot.version>
+    <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
+    <spring.version>4.2.9.RELEASE</spring.version>
     <junit.version>4.12</junit.version>
     <selenium.version>2.48.2</selenium.version>
     <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
     <cglib.version>3.1</cglib.version>
-    <!-- DON'T CHANGE THIS OLD VERSION WITHOUT VERIFYING BEHAVIOR OF ALL PAGES -->
-    <spring-data-mongodb.version>1.5.4.RELEASE</spring-data-mongodb.version>
-    <spring-data-commons.version>1.8.4.RELEASE</spring-data-commons.version>
+    <spring-data-mongodb.version>1.9.6.RELEASE</spring-data-mongodb.version>
+    <spring-data-commons.version>1.12.6.RELEASE</spring-data-commons.version>
     <config-dir>${project.basedir}/config</config-dir>
   </properties>
 
