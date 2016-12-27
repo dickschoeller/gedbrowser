@@ -17,6 +17,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.TooManyMethods")
 public final class WifeTest {
     /** */
     private static final String WIFE_TAG = "WIFE";
@@ -74,63 +75,183 @@ public final class WifeTest {
 
     /** */
     @Test
-    public void testGetMother() {
-        assertEquals(person2, wife1.getMother());
-        assertEquals(person2, wife2a.getMother());
-        assertEquals(person3, wife2b.getMother());
+    public void testGetMother1() {
+        assertEquals("Person's mother doesn't match", person2,
+                wife1.getMother());
     }
 
     /** */
     @Test
-    public void testGetSpouse() {
-        assertTrue(wife1.getSpouse().isSet());
-        assertTrue(wife2a.getSpouse().isSet());
-        assertTrue(wife2b.getSpouse().isSet());
-        assertEquals(person2, wife1.getSpouse());
-        assertEquals(person2, wife2a.getSpouse());
-        assertEquals(person3, wife2b.getSpouse());
-        // TODO should these be null?
-        assertEquals(person2, wife1.getSpouse());
-        assertEquals(person2, wife2a.getSpouse());
-        assertEquals(person3, wife2b.getSpouse());
+    public void testGetMother2a() {
+        assertEquals("Person's mother doesn't match", person2,
+                wife2a.getMother());
     }
 
     /** */
     @Test
-    public void testWifeGedObject() {
+    public void testGetMother2b() {
+        assertEquals("Person's mother doesn't match", person3,
+                wife2b.getMother());
+    }
+
+    /** */
+    @Test
+    public void testGetSpouse1Set() {
+        assertTrue("Person's spouse isn't set", wife1.getSpouse().isSet());
+    }
+
+    /** */
+    @Test
+    public void testGetSpouse2aSet() {
+        assertTrue("Person's spouse isn't set", wife2a.getSpouse().isSet());
+    }
+
+    /** */
+    @Test
+    public void testGetSpouse2bSet() {
+        assertTrue("Person's spouse isn't set", wife2b.getSpouse().isSet());
+    }
+
+    /** */
+    @Test
+    public void testGetSpouse1() {
+        assertEquals("Person's spouse doesn't match", person2,
+                wife1.getSpouse());
+    }
+
+    /** */
+    @Test
+    public void testGetSpouse2a() {
+        assertEquals("Person's spouse doesn't match", person2,
+                wife2a.getSpouse());
+    }
+
+    /** */
+    @Test
+    public void testGetSpouse2b() {
+        assertEquals("Person's spouse doesn't match", person3,
+                wife2b.getSpouse());
+    }
+
+    /** */
+    @Test
+    public void testWifeGedObjectEmptyString() {
         final Root localRoot = new Root(null, ROOT_TAG);
         final Family family = new Family(localRoot, new ObjectId("F1"));
         localRoot.insert("F1", family);
         final Wife wife = new Wife(family);
         assertTrue("Wife string should be empty", wife.getString().isEmpty());
-        assertEquals("", wife.getToString());
-        assertEquals("F1", wife.getFromString());
-        assertFalse(wife.getMother().isSet());
     }
 
     /** */
     @Test
-    public void testWifeGedObjectString() {
+    public void testWifeGedObjectEmptyToString() {
+        final Root localRoot = new Root(null, ROOT_TAG);
+        final Family family = new Family(localRoot, new ObjectId("F1"));
+        localRoot.insert("F1", family);
+        final Wife wife = new Wife(family);
+        assertTrue("Wife getToString should be empty",
+                wife.getToString().isEmpty());
+    }
+
+    /** */
+    @Test
+    public void testWifeGedObjectFromString() {
+        final Root localRoot = new Root(null, ROOT_TAG);
+        final Family family = new Family(localRoot, new ObjectId("F1"));
+        localRoot.insert("F1", family);
+        final Wife wife = new Wife(family);
+        assertEquals("Wife fromString doesn't match",
+                "F1", wife.getFromString());
+    }
+
+    /** */
+    @Test
+    public void testWifeGedObjectMotherNotSet() {
+        final Root localRoot = new Root(null, ROOT_TAG);
+        final Family family = new Family(localRoot, new ObjectId("F1"));
+        localRoot.insert("F1", family);
+        final Wife wife = new Wife(family);
+        assertFalse("Mother should not be set", wife.getMother().isSet());
+    }
+
+    /** */
+    @Test
+    public void testWifeGedObjectStringTag() {
         final Root localRoot = new Root(null, ROOT_TAG);
         final Family family = new Family(localRoot, new ObjectId("F1"));
         localRoot.insert("F1", family);
         final Wife wife = new Wife(family, WIFE_TAG);
-        assertEquals(WIFE_TAG, wife.getString());
-        assertEquals("", wife.getToString());
-        assertEquals("F1", wife.getFromString());
-        assertFalse(wife.getMother().isSet());
+        assertEquals("Tag doesn't match", WIFE_TAG, wife.getString());
     }
 
     /** */
     @Test
-    public void testWifeGedObjectStringString() {
+    public void testWifeGedObjectStringEmptyTo() {
+        final Root localRoot = new Root(null, ROOT_TAG);
+        final Family family = new Family(localRoot, new ObjectId("F1"));
+        localRoot.insert("F1", family);
+        final Wife wife = new Wife(family, WIFE_TAG);
+        assertTrue("To string should be empty", wife.getToString().isEmpty());
+    }
+
+    /** */
+    @Test
+    public void testWifeGedObjectStringFrom() {
+        final Root localRoot = new Root(null, ROOT_TAG);
+        final Family family = new Family(localRoot, new ObjectId("F1"));
+        localRoot.insert("F1", family);
+        final Wife wife = new Wife(family, WIFE_TAG);
+        assertEquals("From string doesn't match", "F1", wife.getFromString());
+    }
+
+    /** */
+    @Test
+    public void testWifeGedObjectStringMotherNotSet() {
+        final Root localRoot = new Root(null, ROOT_TAG);
+        final Family family = new Family(localRoot, new ObjectId("F1"));
+        localRoot.insert("F1", family);
+        final Wife wife = new Wife(family, WIFE_TAG);
+        assertFalse("Mother should not be set", wife.getMother().isSet());
+    }
+
+    /** */
+    @Test
+    public void testWifeGedObjectStringStringTag() {
         final Root localRoot = new Root(null, ROOT_TAG);
         final Family family = new Family(localRoot, new ObjectId("F1"));
         localRoot.insert("F1", family);
         final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
-        assertEquals(WIFE_TAG, wife.getString());
-        assertEquals("I3", wife.getToString());
-        assertEquals("F1", wife.getFromString());
-        assertFalse(wife.getMother().isSet());
+        assertEquals("Tag doesn't match", WIFE_TAG, wife.getString());
+    }
+
+    /** */
+    @Test
+    public void testWifeGedObjectStringStringTo() {
+        final Root localRoot = new Root(null, ROOT_TAG);
+        final Family family = new Family(localRoot, new ObjectId("F1"));
+        localRoot.insert("F1", family);
+        final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
+        assertEquals("To string doesn't match", "I3", wife.getToString());
+    }
+
+    /** */
+    @Test
+    public void testWifeGedObjectStringStringFrom() {
+        final Root localRoot = new Root(null, ROOT_TAG);
+        final Family family = new Family(localRoot, new ObjectId("F1"));
+        localRoot.insert("F1", family);
+        final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
+        assertEquals("From string doesn't match", "F1", wife.getFromString());
+    }
+
+    /** */
+    @Test
+    public void testWifeGedObjectStringStringMother() {
+        final Root localRoot = new Root(null, ROOT_TAG);
+        final Family family = new Family(localRoot, new ObjectId("F1"));
+        localRoot.insert("F1", family);
+        final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
+        assertFalse("Mother should not be set", wife.getMother().isSet());
     }
 }
