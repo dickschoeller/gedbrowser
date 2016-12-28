@@ -6,12 +6,14 @@ import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedservice.persistence.stub.GeoCodeCache;
 import org.schoellerfamily.geoservice.backup.GeoCodeBackup;
+import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.keys.KeyManager;
 import org.schoellerfamily.geoservice.persistence.GeoCodeDao;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
+import org.schoellerfamily.geoservice.persistence.stub.GeoCodeCache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
@@ -41,6 +43,10 @@ public final class GeoCodeBackupTest {
      */
     @Configuration
     static class ContextConfiguration {
+        /** */
+        @Value("${geoservice.keyfile:/var/lib/gedbrowser/google-geocoding-key}")
+        private transient String keyfile;
+
         /**
          * @return the persistence manager
          */
@@ -49,9 +55,7 @@ public final class GeoCodeBackupTest {
         @Bean
         public GeoCodeDao persistenceManager() {
             // CHECKSTYLE:ON
-            final KeyManager km = new KeyManager();
-            final String key = km.readKeyFile(km.getGoogleGeoCodingKeyPath());
-            return new GeoCodeCache(key);
+            return new GeoCodeCache();
         }
 
         /**
@@ -63,6 +67,18 @@ public final class GeoCodeBackupTest {
         public GeoCodeBackup backupManager() {
             // CHECKSTYLE:ON
             return new GeoCodeBackup();
+        }
+
+        /**
+         * @return the geocoder
+         */
+        // We turn off checkstyle because bean methods must not be final
+        // CHECKSTYLE:OFF
+        @Bean
+        public GeoCoder geoCoder() {
+            final KeyManager km = new KeyManager();
+            final String key = km.readKeyFile(keyfile);
+            return new GeoCoder(key);
         }
     }
 

@@ -1,12 +1,13 @@
 package org.schoellerfamily.geoservice.persistence;
 
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.Set;
 
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.CommentSize")
+@SuppressWarnings({ "PMD.CommentSize", "PMD.TooManyMethods" })
 public interface GeoCodeDao {
     /**
      * Clear the cache.
@@ -61,7 +62,7 @@ public interface GeoCodeDao {
     /**
      * @return the size of the cache
      */
-    int size();
+    long size();
 
     /**
      * Add this item to the data set.
@@ -84,4 +85,21 @@ public interface GeoCodeDao {
      * @return the item
      */
     GeoCodeItem get(String placeName);
+
+    /**
+     * Read places from a data file. The file is | separated. It may contain
+     * just a historical place name or both historical and modern places names.
+     *
+     * @param filename the name of the file to load
+     */
+    void load(String filename);
+
+    /**
+     * Read places from an input stream. The format is | separated. It may
+     * contain just a historical place name or both historical and modern
+     * places names.
+     *
+     * @param istream the input stream
+     */
+    void load(InputStream istream);
 }

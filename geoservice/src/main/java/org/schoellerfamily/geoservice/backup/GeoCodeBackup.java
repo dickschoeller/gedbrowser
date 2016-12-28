@@ -47,7 +47,7 @@ public final class GeoCodeBackup {
     public void backup(final File resultFile)
             throws JsonGenerationException, JsonMappingException, IOException {
         final GeocodeResultBuilder builder = new GeocodeResultBuilder();
-        final List<BackupGeoCodeItem> list = new ArrayList<>(gcd.size());
+        final List<BackupGeoCodeItem> list = new ArrayList<>();
         for (final String key : gcd.allKeys()) {
             final GeoCodeItem gci = gcd.find(key);
             list.add(builder.toBackupGeoCodeItem(gci));

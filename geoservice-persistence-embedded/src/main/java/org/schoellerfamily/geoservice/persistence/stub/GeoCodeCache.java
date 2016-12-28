@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedservice.persistence.stub;
+package org.schoellerfamily.geoservice.persistence.stub;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -16,11 +16,11 @@ import java.util.TreeSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.persistence.GeoCodeDao;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
 import com.google.maps.model.GeocodingResult;
 
 /**
@@ -39,19 +39,17 @@ public final class GeoCodeCache implements GeoCodeDao {
     private final transient Log logger = LogFactory.getLog(getClass());
 
     /** The key string to use for talking to Google's map APIs. */
-    private final String key;
+    @Autowired
+    private transient GeoCoder geoCoder;
 
     /** The in-memory version of the cache. */
     private final Map<String, GeoCodeItem> map = new HashMap<>();
 
     /**
      * Public constructor. Using Spring to manage as a singleton.
-     *
-     * @param key the Google Geocoding Service key string
      */
-    public GeoCodeCache(final String key) {
+    public GeoCodeCache() {
         logger.debug("Initializing GeoCodeCache");
-        this.key = key;
     }
 
     /**
@@ -75,7 +73,7 @@ public final class GeoCodeCache implements GeoCodeDao {
                 return gcce;
             }
             // It doesn't have a coding result, see if there is one.
-            final GeocodingResult[] results = geocode(
+            final GeocodingResult[] results = geoCoder.geocode(
                     gcce.getModernPlaceName());
             if (results.length == 0) {
                 // Nope, so we live with the current entry from the cache.
@@ -92,7 +90,7 @@ public final class GeoCodeCache implements GeoCodeDao {
             }
         }
         // Not found in cache. Let's see what we can find.
-        final GeocodingResult[] results = geocode(placeName);
+        final GeocodingResult[] results = geoCoder.geocode(placeName);
         if (results.length > 0) {
             /* Work with the first result. */
             gcce = new GeoCodeItem(placeName, results[0]);
@@ -129,7 +127,7 @@ public final class GeoCodeCache implements GeoCodeDao {
                 return gcce;
             }
             // It doesn't have a coding result, see if there is one.
-            final GeocodingResult[] results = geocode(modernPlaceName);
+            final GeocodingResult[] results = geoCoder.geocode(modernPlaceName);
             if (results.length == 0) {
                 // Nope, so we live with the current entry from the cache.
                 return gcce;
@@ -142,7 +140,7 @@ public final class GeoCodeCache implements GeoCodeDao {
             }
         }
         // Not found in cache. Let's see what we can find.
-        final GeocodingResult[] results = geocode(modernPlaceName);
+        final GeocodingResult[] results = geoCoder.geocode(modernPlaceName);
         if (results.length > 0) {
             /* Work with the first result. */
             gcce = new GeoCodeItem(placeName, modernPlaceName,
@@ -154,25 +152,6 @@ public final class GeoCodeCache implements GeoCodeDao {
         gcce = new GeoCodeItem(placeName, modernPlaceName);
         map.put(placeName, gcce);
         return gcce;
-    }
-
-    /**
-     * Request the geocode from Google.
-     *
-     * @param placeName the place name to find
-     * @return the geo-coding result
-     */
-    private GeocodingResult[] geocode(final String placeName) {
-        logger.debug("Querying Google APIs for place: " + placeName);
-        final GeoApiContext context = new GeoApiContext().setApiKey(key);
-        GeocodingResult[] results;
-        try {
-            results = GeocodingApi.geocode(context, placeName).await();
-        } catch (Exception e) {
-            logger.error("Problem querying the place: " + placeName, e);
-            results = new GeocodingResult[0];
-        }
-        return results;
     }
 
     /**
@@ -265,7 +244,7 @@ public final class GeoCodeCache implements GeoCodeDao {
      * {@inheritDoc}
      */
     @Override
-    public int size() {
+    public long size() {
         logger.debug("Geocode cache contains " + map.size() + " entries");
         return map.size();
     }

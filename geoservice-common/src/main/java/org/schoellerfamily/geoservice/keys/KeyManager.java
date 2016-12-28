@@ -36,15 +36,8 @@ public final class KeyManager {
             }
             return sb.toString();
         } catch (IOException e) {
-            throw new GeoCodeRuntimeException("Couldn't open key file", e);
+            throw new GeoCodeRuntimeException(
+                    "Couldn't open key file: " + fileName, e);
         }
-    }
-
-    /**
-     * @return path to the standard location for the google key.
-     */
-    public String getGoogleGeoCodingKeyPath() {
-        // TODO change to a value from the resources.
-        return "/var/lib/gedbrowser/google-geocoding-key";
     }
 }

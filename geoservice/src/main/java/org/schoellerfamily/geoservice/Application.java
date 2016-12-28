@@ -1,10 +1,11 @@
 package org.schoellerfamily.geoservice;
 
-import org.schoellerfamily.gedservice.persistence.stub.GeoCodeCache;
 import org.schoellerfamily.geoservice.backup.GeoCodeBackup;
 import org.schoellerfamily.geoservice.controller.ApplicationInfo;
+import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.keys.KeyManager;
 import org.schoellerfamily.geoservice.persistence.GeoCodeDao;
+import org.schoellerfamily.geoservice.persistence.mongo.GeoCodeMongo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,9 +38,7 @@ public class Application {
     @Bean
     public GeoCodeDao persistenceManager() {
         // CHECKSTYLE:ON
-        final KeyManager km = new KeyManager();
-        final String key = km.readKeyFile(keyfile);
-        return new GeoCodeCache(key);
+        return new GeoCodeMongo();
     }
 
     /**
@@ -62,5 +61,17 @@ public class Application {
     public ApplicationInfo appInfo() {
         // CHECKSTYLE:ON
         return new ApplicationInfo();
+    }
+
+    /**
+     * @return the geocoder
+     */
+    // We turn off checkstyle because bean methods must not be final
+    // CHECKSTYLE:OFF
+    @Bean
+    public GeoCoder geoCoder() {
+        final KeyManager km = new KeyManager();
+        final String key = km.readKeyFile(keyfile);
+        return new GeoCoder(key);
     }
 }
