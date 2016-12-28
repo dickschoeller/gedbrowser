@@ -5,7 +5,7 @@ import java.net.URLDecoder;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.geoservice.persistence.GeoCodeDao;
+import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +29,7 @@ public class GeoCodeEntryController {
      * The geocode cache that underlies this service.
      */
     @Autowired
-    private transient GeoCodeDao gcc;
+    private transient GeoCode gcc;
 
     /**
      * @param name the historical name of the place

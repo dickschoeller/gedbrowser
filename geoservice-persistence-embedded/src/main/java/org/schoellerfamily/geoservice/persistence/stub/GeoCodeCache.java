@@ -6,22 +6,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.geoservice.geocoder.GeoCoder;
-import org.schoellerfamily.geoservice.persistence.GeoCodeDao;
+import org.schoellerfamily.geoservice.persistence.GeoCodeBasic;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.google.maps.model.GeocodingResult;
+import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
+import org.schoellerfamily.geoservice.persistence.stub.domain.GeoDocumentStub;
 
 /**
  * This class implements the cache that allows applications to work with the
@@ -31,19 +28,12 @@ import com.google.maps.model.GeocodingResult;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.TooManyMethods",
-    "PMD.GodClass",
-    "PMD.CommentSize" })
-public final class GeoCodeCache implements GeoCodeDao {
+public final class GeoCodeCache extends GeoCodeBasic {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
-    /** The key string to use for talking to Google's map APIs. */
-    @Autowired
-    private transient GeoCoder geoCoder;
-
     /** The in-memory version of the cache. */
-    private final Map<String, GeoCodeItem> map = new HashMap<>();
+    private final Map<String, GeoDocumentStub> map = new HashMap<>();
 
     /**
      * Public constructor. Using Spring to manage as a singleton.
@@ -58,186 +48,6 @@ public final class GeoCodeCache implements GeoCodeDao {
     @Override
     public void clear() {
         map.clear();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public GeoCodeItem find(final String placeName) {
-        logger.debug("find(\"" + placeName + "\")");
-        GeoCodeItem gcce = map.get(placeName);
-        if (gcce != null) {
-            // If we already have a result, then we're done.
-            if (gcce.getGeocodingResult() != null) {
-                return gcce;
-            }
-            // It doesn't have a coding result, see if there is one.
-            final GeocodingResult[] results = geoCoder.geocode(
-                    gcce.getModernPlaceName());
-            if (results.length == 0) {
-                // Nope, so we live with the current entry from the cache.
-                return gcce;
-            } else {
-// TODO given the current behavior of loads, we should never get here.
-// Should consider a load that doesn't geocode, deferring until the
-// location is actually needed.
-//                // Replace item in cache with new one.
-//                gcce = new GeoCodeCacheEntry(gcce.getPlaceName(),
-//                        gcce.getModernPlaceName(), results[0]);
-//                map.put(placeName,  gcce);
-                return gcce;
-            }
-        }
-        // Not found in cache. Let's see what we can find.
-        final GeocodingResult[] results = geoCoder.geocode(placeName);
-        if (results.length > 0) {
-            /* Work with the first result. */
-            gcce = new GeoCodeItem(placeName, results[0]);
-            map.put(placeName,  gcce);
-        } else {
-            // Not found, create empty.
-            gcce = new GeoCodeItem(placeName);
-            map.put(placeName, gcce);
-        }
-        return gcce;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public GeoCodeItem find(final String placeName,
-            final String modernPlaceName) {
-        if (modernPlaceName == null || modernPlaceName.isEmpty()) {
-            return find(placeName);
-        }
-        logger.debug(
-                "find(\"" + placeName + "\", \"" + modernPlaceName + "\")");
-        GeoCodeItem gcce = map.get(placeName);
-        if (gcce != null) {
-            // Entry found in cache.
-            if (!modernPlaceName.equals(gcce.getModernPlaceName())) {
-                // We're changing the associated modern place name.
-                gcce = new GeoCodeItem(placeName, modernPlaceName);
-                map.put(placeName, gcce);
-            }
-            // If we already have a result, then we're done.
-            if (gcce.getGeocodingResult() != null) {
-                return gcce;
-            }
-            // It doesn't have a coding result, see if there is one.
-            final GeocodingResult[] results = geoCoder.geocode(modernPlaceName);
-            if (results.length == 0) {
-                // Nope, so we live with the current entry from the cache.
-                return gcce;
-            } else {
-                // Replace item in cache with new one.
-                gcce = new GeoCodeItem(gcce.getPlaceName(),
-                        modernPlaceName, results[0]);
-                map.put(placeName,  gcce);
-                return gcce;
-            }
-        }
-        // Not found in cache. Let's see what we can find.
-        final GeocodingResult[] results = geoCoder.geocode(modernPlaceName);
-        if (results.length > 0) {
-            /* Work with the first result. */
-            gcce = new GeoCodeItem(placeName, modernPlaceName,
-                    results[0]);
-            map.put(placeName,  gcce);
-            return gcce;
-        }
-        // Not found, create empty.
-        gcce = new GeoCodeItem(placeName, modernPlaceName);
-        map.put(placeName, gcce);
-        return gcce;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void dump() {
-        System.out.println(toString());
-    }
-
-    /**
-     * Dump the cache as a string, one location per line. The format is:
-     * <br>
-     * place name|modern place name|lat, lng|formatted address
-     * <br>
-     * Only the place name is required to be present. All of the separators
-     * will be present.
-     *
-     * @return the cache contents in string format
-     */
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        final SortedSet<String> mapKeys = new TreeSet<>();
-        mapKeys.addAll(map.keySet());
-        for (final String mapKey : mapKeys) {
-            final GeoCodeItem gcce = map.get(mapKey);
-            builder.append(gcce.getPlaceName());
-            builder.append("|");
-            if (!gcce.getPlaceName().equals(gcce.getModernPlaceName())) {
-                builder.append(gcce.getModernPlaceName());
-            }
-            builder.append("|");
-            if (gcce.getGeocodingResult() == null) {
-                builder.append("NOT FOUND");
-                builder.append("|");
-            } else {
-                builder.append(gcce.getGeocodingResult().geometry.location);
-                builder.append("|");
-                builder.append(gcce.getGeocodingResult().formattedAddress);
-            }
-            builder.append("\n");
-        }
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int countNotFound() {
-        logger.debug("Count the places that couldn't be found");
-        final Set<String> notFound = notFoundKeys();
-        final int count = notFound.size();
-        logger.debug(count + " places not found");
-        return count;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Collection<String> allKeys() {
-        final Set<String> set = new TreeSet<>();
-        for (final String placeName : map.keySet()) {
-            set.add(placeName);
-        }
-        return set;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Set<String> notFoundKeys() {
-        logger.debug("Captures the places that couldn't be found");
-        final Set<String> notFoundSet = new TreeSet<>();
-        for (final Entry<String, GeoCodeItem> entry : map.entrySet()) {
-            final String mapKey = entry.getKey();
-            final GeoCodeItem gcce = entry.getValue();
-            if (gcce.getGeocodingResult() == null) {
-                notFoundSet.add(mapKey);
-                logger.debug(gcce.getPlaceName());
-            }
-        }
-        return notFoundSet;
     }
 
     /**
@@ -304,50 +114,6 @@ public final class GeoCodeCache implements GeoCodeDao {
     }
 
     /**
-     * Load and dump an input file, one line at a time. Allows dumping
-     * all known data without blowing up on memory.
-     *
-     * @param filename input filename
-     */
-    public void oneAtATime(final String filename) {
-        try (
-            InputStream fis = new FileInputStream(filename);
-        ) {
-            oneAtATime(fis);
-        } catch (IOException e) {
-            logger.error("Problem reading places file", e);
-        }
-    }
-
-    /**
-     * Load and dump an input file, one line at a time. Allows dumping
-     * all known data without blowing up on memory.
-     *
-     * @param fis the input stream
-     */
-    public void oneAtATime(final InputStream fis) {
-        String line;
-        try (
-            InputStreamReader isr =
-                    new InputStreamReader(fis, Charset.forName("UTF-8"));
-            BufferedReader br = new BufferedReader(isr);
-        ) {
-            while ((line = br.readLine()) != null) {
-                clear();
-                final String[] splitLine = line.split("[|]", 4);
-                if (splitLine.length > 2) {
-                    find(splitLine[0], splitLine[1]);
-                } else {
-                    find(splitLine[0]);
-                }
-                dump();
-            }
-        } catch (IOException e) {
-            logger.error("Problem reading places file", e);
-        }
-    }
-
-    /**
      * @return path to the standard location for the places file to initialize
      *         from.
      */
@@ -367,28 +133,46 @@ public final class GeoCodeCache implements GeoCodeDao {
      * {@inheritDoc}
      */
     @Override
-    public void add(final GeoCodeItem item) {
-        map.put(item.getPlaceName(), item);
+    public GeoDocument create(final GeoCodeItem item) {
+        return new GeoDocumentStub(item);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void delete(final GeoCodeItem item) {
-        if (map.remove(item.getPlaceName(), item)) {
-            logger.debug("Removed: " + item.getPlaceName());
-        } else {
-            logger.debug("Didn't find for removal: " + item.getPlaceName());
+    public Iterable<? extends GeoDocument> findAllDocuments() {
+        final SortedSet<String> names = new TreeSet<>();
+        names.addAll(map.keySet());
+        final List<GeoDocument> list = new ArrayList<>();
+        for (final String name : names) {
+            list.add(getDocument(name));
         }
-
+        return list;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public GeoCodeItem get(final String placeName) {
+    public GeoDocument addDocument(final GeoDocument document) {
+        map.put(document.getName(), (GeoDocumentStub) document);
+        return document;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GeoDocument getDocument(final String placeName) {
         return map.get(placeName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GeoDocument deleteDocument(final String placeName) {
+        return map.remove(placeName);
     }
 }

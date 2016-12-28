@@ -2,9 +2,9 @@ package org.schoellerfamily.geoservice.persistence.mongo.test;
 
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -12,7 +12,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.geoservice.persistence.GeoCodeDao;
+import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -30,7 +30,7 @@ import com.google.maps.model.LatLng;
 public final class GeoCodeMongoTest {
     /** */
     @Autowired
-    private GeoCodeDao gcc;
+    private GeoCode gcc;
 
     /** */
     @Autowired
@@ -364,8 +364,8 @@ public final class GeoCodeMongoTest {
         fixture.clearRepository();
         load(addressTable);
         final List<String> expectList = Arrays.asList(this.expectedNotFound);
-        final Set<String> expected = new HashSet<>(expectList);
-        final Set<String> actual = gcc.notFoundKeys();
+        final Collection<String> expected = new HashSet<>(expectList);
+        final Collection<String> actual = gcc.notFoundKeys();
         Assert.assertTrue("Some differences in not found sets",
                 compareNotFound(expected, actual));
     }
@@ -379,8 +379,8 @@ public final class GeoCodeMongoTest {
         final InputStream fis = getTestFileAsStream();
         gcc.load(fis);
         final List<String> expectList = Arrays.asList(this.expectedNotFound);
-        final Set<String> expected = new HashSet<>(expectList);
-        final Set<String> actual = gcc.notFoundKeys();
+        final Collection<String> expected = new HashSet<>(expectList);
+        final Collection<String> actual = gcc.notFoundKeys();
         Assert.assertTrue("Some differences in not found sets",
                 compareNotFound(expected, actual));
     }
@@ -421,8 +421,8 @@ public final class GeoCodeMongoTest {
      * @param actual keys that Google didn't find
      * @return true if all keys in expected are present in actual
      */
-    private boolean compareNotFound(final Set<String> expected,
-            final Set<String> actual) {
+    private boolean compareNotFound(final Collection<String> expected,
+            final Collection<String> actual) {
         boolean retval = true;
         for (final String check : expected) {
             if (!actual.contains(check)) {

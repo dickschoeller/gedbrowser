@@ -2,13 +2,14 @@ package org.schoellerfamily.geoservice.persistence;
 
 import java.io.InputStream;
 import java.util.Collection;
-import java.util.Set;
+
+import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
 
 /**
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.CommentSize", "PMD.TooManyMethods" })
-public interface GeoCodeDao {
+public interface GeoCode {
     /**
      * Clear the cache.
      */
@@ -57,7 +58,7 @@ public interface GeoCodeDao {
     /**
      * @return the set of place names not found
      */
-    Set<String> notFoundKeys();
+    Collection<String> notFoundKeys();
 
     /**
      * @return the size of the cache
@@ -68,15 +69,17 @@ public interface GeoCodeDao {
      * Add this item to the data set.
      *
      * @param item the item
+     * @return the item
      */
-    void add(GeoCodeItem item);
+    GeoCodeItem add(GeoCodeItem item);
 
     /**
      * Delete this item from the data set.
      *
      * @param item the item
+     * @return the item
      */
-    void delete(GeoCodeItem item);
+    GeoCodeItem delete(GeoCodeItem item);
 
     /**
      * Get the item without hitting Google.
@@ -102,4 +105,43 @@ public interface GeoCodeDao {
      * @param istream the input stream
      */
     void load(InputStream istream);
+
+    /**
+     * Create a GeoDocument from a GeoCodeItem.
+     *
+     * @param item the item
+     * @return the document
+     */
+    GeoDocument create(GeoCodeItem item);
+
+    /**
+     * Get the collection of all documents from the persistence layer.
+     *
+     * @return the collection
+     */
+    Iterable<? extends GeoDocument> findAllDocuments();
+
+    /**
+     * Save a document into the persistence layer.
+     *
+     * @param document the document
+     * @return the document
+     */
+    GeoDocument addDocument(GeoDocument document);
+
+    /**
+     * Get a document from the persistence layer.
+     *
+     * @param placeName the place name is the key
+     * @return the document
+     */
+    GeoDocument getDocument(String placeName);
+
+    /**
+     * Delete the document identified by place name from the persistence layer.
+     *
+     * @param placeName the name of the document to delete
+     * @return the document
+     */
+    GeoDocument deleteDocument(String placeName);
 }

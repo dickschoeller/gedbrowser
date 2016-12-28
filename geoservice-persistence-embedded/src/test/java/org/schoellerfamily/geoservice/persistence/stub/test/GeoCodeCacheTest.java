@@ -2,9 +2,9 @@ package org.schoellerfamily.geoservice.persistence.stub.test;
 
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -365,8 +365,8 @@ public final class GeoCodeCacheTest {
         gcc.clear();
         load(addressTable);
         final List<String> expectList = Arrays.asList(this.expectedNotFound);
-        final Set<String> expected = new HashSet<>(expectList);
-        final Set<String> actual = gcc.notFoundKeys();
+        final Collection<String> expected = new HashSet<>(expectList);
+        final Collection<String> actual = gcc.notFoundKeys();
         Assert.assertTrue("Some differences in not found sets",
                 compareNotFound(expected, actual));
     }
@@ -380,8 +380,8 @@ public final class GeoCodeCacheTest {
         final InputStream fis = getTestFileAsStream();
         gcc.load(fis);
         final List<String> expectList = Arrays.asList(this.expectedNotFound);
-        final Set<String> expected = new HashSet<>(expectList);
-        final Set<String> actual = gcc.notFoundKeys();
+        final Collection<String> expected = new HashSet<>(expectList);
+        final Collection<String> actual = gcc.notFoundKeys();
         Assert.assertTrue("Some differences in not found sets",
                 compareNotFound(expected, actual));
     }
@@ -422,8 +422,8 @@ public final class GeoCodeCacheTest {
      * @param actual keys that Google didn't find
      * @return true if all keys in expected are present in actual
      */
-    private boolean compareNotFound(final Set<String> expected,
-            final Set<String> actual) {
+    private boolean compareNotFound(final Collection<String> expected,
+            final Collection<String> actual) {
         boolean retval = true;
         for (final String check : expected) {
             if (!actual.contains(check)) {
@@ -509,30 +509,6 @@ public final class GeoCodeCacheTest {
         final int expected = 19;
         Assert.assertEquals("Should match known file size of 19",
                 expected, gcc.size());
-    }
-
-    /**
-     */
-    @Test
-    public void testOneAtATimeFromResource() {
-        logger.info("Entering testDumpFile");
-        gcc.clear();
-        final InputStream fis = getTestFileAsStream();
-        gcc.oneAtATime(fis);
-        final int expected = 1;
-        Assert.assertEquals(
-                "Should be 1 because we have cleared everything along the way",
-                expected, gcc.size());
-    }
-
-    /**
-     */
-    @Test
-    public void testOneAtATimeFromFile() {
-        logger.info("Entering testDumpFile");
-        gcc.clear();
-        gcc.oneAtATime(gcc.getTestFilePath());
-        Assert.assertTrue("Always pass", true);
     }
 
     /**

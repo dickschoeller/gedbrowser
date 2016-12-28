@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 import org.schoellerfamily.geoservice.backup.GeoCodeBackup;
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.keys.KeyManager;
-import org.schoellerfamily.geoservice.persistence.GeoCodeDao;
+import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.stub.GeoCodeCache;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 public final class GeoCodeBackupTest {
     /** */
     @Autowired
-    private transient GeoCodeDao gcd;
+    private transient GeoCode gcd;
 
     /** */
     @Autowired
@@ -53,7 +53,7 @@ public final class GeoCodeBackupTest {
         // We turn off checkstyle because bean methods must not be final
         // CHECKSTYLE:OFF
         @Bean
-        public GeoCodeDao persistenceManager() {
+        public GeoCode persistenceManager() {
             // CHECKSTYLE:ON
             return new GeoCodeCache();
         }

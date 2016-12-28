@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.geoservice.backup.model.BackupGeoCodeItem;
-import org.schoellerfamily.geoservice.persistence.GeoCodeDao;
+import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public final class GeoCodeBackup {
     /** */
     @Autowired
-    private transient GeoCodeDao gcd;
+    private transient GeoCode gcd;
 
     /** */
     private final ObjectMapper mapper = new ObjectMapper();

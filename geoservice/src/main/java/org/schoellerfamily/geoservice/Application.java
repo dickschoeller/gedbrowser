@@ -4,7 +4,7 @@ import org.schoellerfamily.geoservice.backup.GeoCodeBackup;
 import org.schoellerfamily.geoservice.controller.ApplicationInfo;
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.keys.KeyManager;
-import org.schoellerfamily.geoservice.persistence.GeoCodeDao;
+import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.mongo.GeoCodeMongo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -36,7 +36,7 @@ public class Application {
     // We turn off checkstyle because bean methods must not be final
     // CHECKSTYLE:OFF
     @Bean
-    public GeoCodeDao persistenceManager() {
+    public GeoCode persistenceManager() {
         // CHECKSTYLE:ON
         return new GeoCodeMongo();
     }
