@@ -8,10 +8,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.geoservice.backup.GeoCodeBackup;
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
+import org.schoellerfamily.geoservice.geocoder.GoogleGeoCoder;
 import org.schoellerfamily.geoservice.keys.KeyManager;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
-import org.schoellerfamily.geoservice.persistence.stub.GeoCodeCache;
+import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeStub;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -55,7 +56,7 @@ public final class GeoCodeBackupTest {
         @Bean
         public GeoCode persistenceManager() {
             // CHECKSTYLE:ON
-            return new GeoCodeCache();
+            return new GeoCodeStub();
         }
 
         /**
@@ -78,7 +79,7 @@ public final class GeoCodeBackupTest {
         public GeoCoder geoCoder() {
             final KeyManager km = new KeyManager();
             final String key = km.readKeyFile(keyfile);
-            return new GeoCoder(key);
+            return new GoogleGeoCoder(key);
         }
     }
 

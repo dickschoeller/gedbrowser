@@ -2,13 +2,14 @@ package org.schoellerfamily.geoservice.persistence.mongo.test;
 
 import java.io.IOException;
 
+import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeTestFixture;
 import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Dick Schoeller
  */
-public final class GeoRepositoryFixture {
+public final class GeoRepositoryFixture extends GeoCodeTestFixture {
     /** */
     @Autowired
     private transient GeoDocumentRepositoryMongo geoDocumentRepository;

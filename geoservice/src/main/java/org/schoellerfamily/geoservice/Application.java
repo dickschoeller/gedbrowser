@@ -2,6 +2,7 @@ package org.schoellerfamily.geoservice;
 
 import org.schoellerfamily.geoservice.backup.GeoCodeBackup;
 import org.schoellerfamily.geoservice.controller.ApplicationInfo;
+import org.schoellerfamily.geoservice.geocoder.GoogleGeoCoder;
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.keys.KeyManager;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
@@ -72,6 +73,6 @@ public class Application {
     public GeoCoder geoCoder() {
         final KeyManager km = new KeyManager();
         final String key = km.readKeyFile(keyfile);
-        return new GeoCoder(key);
+        return new GoogleGeoCoder(key);
     }
 }

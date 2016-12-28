@@ -1,12 +1,5 @@
 package org.schoellerfamily.geoservice.persistence.mongo;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.geoservice.persistence.GeoCodeBasic;
@@ -48,45 +41,6 @@ public final class GeoCodeMongo extends GeoCodeBasic {
     @Override
     public void clear() {
         geoDocumentRepository.deleteAll();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void load(final String filename) {
-        logger.debug("Loading the cache from places file: " + filename);
-        try (
-            InputStream fis = new FileInputStream(filename);
-        ) {
-            load(fis);
-        } catch (IOException e) {
-            logger.error("Problem reading places file", e);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void load(final InputStream istream) {
-        logger.debug("Loading the cache from input stream");
-        String line;
-        try (
-            InputStreamReader isr =
-                    new InputStreamReader(istream, Charset.forName("UTF-8"));
-            BufferedReader br = new BufferedReader(isr);
-        ) {
-            while ((line = br.readLine()) != null) {
-                final String[] splitLine = line.split("[|]", 4);
-                if (splitLine.length > 2) {
-                    find(splitLine[0], splitLine[1]);
-                } else {
-                    find(splitLine[0]);
-                }
-            }
-        } catch (IOException e) {
-            logger.error("Problem reading places stream", e);
-        }
     }
 
     /**

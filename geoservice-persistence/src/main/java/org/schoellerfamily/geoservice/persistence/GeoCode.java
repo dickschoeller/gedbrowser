@@ -1,6 +1,5 @@
 package org.schoellerfamily.geoservice.persistence;
 
-import java.io.InputStream;
 import java.util.Collection;
 
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
@@ -88,23 +87,6 @@ public interface GeoCode {
      * @return the item
      */
     GeoCodeItem get(String placeName);
-
-    /**
-     * Read places from a data file. The file is | separated. It may contain
-     * just a historical place name or both historical and modern places names.
-     *
-     * @param filename the name of the file to load
-     */
-    void load(String filename);
-
-    /**
-     * Read places from an input stream. The format is | separated. It may
-     * contain just a historical place name or both historical and modern
-     * places names.
-     *
-     * @param istream the input stream
-     */
-    void load(InputStream istream);
 
     /**
      * Create a GeoDocument from a GeoCodeItem.

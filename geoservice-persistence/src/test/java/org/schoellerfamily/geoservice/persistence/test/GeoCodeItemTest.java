@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.geocode.dao.test;
+package org.schoellerfamily.geoservice.persistence.test;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package org.schoellerfamily.geoservice.persistence.stub.test;
+package org.schoellerfamily.geoservice.persistence.test;
 
 import java.io.InputStream;
 import java.util.Arrays;
@@ -13,11 +13,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
-import org.schoellerfamily.geoservice.keys.KeyManager;
+import org.schoellerfamily.geoservice.geocoder.StubGeoCoder;
+import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
-import org.schoellerfamily.geoservice.persistence.stub.GeoCodeCache;
+import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
+import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeStub;
+import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeTestFixture;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
@@ -30,137 +32,70 @@ import com.google.maps.model.LatLng;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.TooManyMethods", "PMD.CommentSize" })
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-public final class GeoCodeCacheTest {
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.CommentSize" })
+public class GeoCodeTest {
     /** */
     @Autowired
-    private GeoCodeCache gcc;
+    private GeoCode gcc;
 
-    /**
-     * High bound for not founds.
-     * Googles responses are sufficiently inconsistent that we can't
-     * rely on an exact count.
-     */
-    private static final int HIGH_BOUND = 20;
+    /** */
+    @Autowired
+    private GeoCodeTestFixture testFixture;
 
-    /**
-     * Low bound for not founds.
-     * Googles responses are sufficiently inconsistent that we can't
-     * rely on an exact count.
-     */
-    private static final int LOW_BOUND = 10;
+    /** */
+    @Autowired
+    private GeoCodeLoader loader;
 
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
-     * Table of old and modern addresses for some bigger tests.
+     * Manage the configuration for testing the cache.
+     *
+     * @author Dick Schoeller
      */
-    private final String[][] addressTable = {
-        {
-            "1 Glendale Street, Randolph, Norfolk County, Massachusetts, USA",
-            ""
-        },
-        {
-            "1st United Methodist Church, Perkasie, Bucks County, Pennsylvania"
-            + ", USA",
-            ""
-        },
-        {
-            "4 miles northeast of Pine Grove, Pine Grove Township, Schuylkill "
-            + "County, Pennsylvania, USA",
-            ""
-        },
-        {
-            "Adelo, Illinois, USA",
-            ""
-        },
-        {
-            "Aistaig, Württemberg",
-            ""
-        },
-        {
-            "Albright College, Reading, Berks County, Pennsylvania, USA",
-            ""
-        },
-        {
-            "Albrightsville, Carbon County, Pennsylvania, USA",
-            ""
-        },
-        {
-            "Alsace, France",
-            ""
-        },
-        {
-            "Altalaha Lutheran Cemetery, Rehrersburg, Berks County, Pennsylvan"
-            + "ia, USA",
-            ""
-        },
-        {
-            "America",
-            ""
-        },
-        {
-            "Anamosa Hospital, Anamosa, Jones County, Iowa, USA",
-            ""
-        },
-        {
-            "Arizona, USA",
-            ""
-        },
-        {
-            "Ash of Normandy, Sussex, England",
-        },
-        {
-            "At Sea",
-            ""
-        },
-        {
-            "At home, 1.5 miles northwest of Sutliff, Solon, Cedar County, Iow"
-            + "a, USA",
-            ""
-        },
-        {
-            "At home, Cornwall Road, Lebanon, Lebanon County, Pennsylvania, U"
-            + "SA",
-            ""
-        },
-        {
-            "At home, RD 2, Lebanon, Lebanon County, Pennsylvania, USA",
-            ""
-        },
-        {
-            "At home, Souderton, Montgomery County, Pennsylvania, USA",
-            ""
-        },
-        {
-            "At home, Tega Cay, York County, South Carolina, USA",
-            ""
-        },
-    };
+    @Configuration
+    static class ContextConfiguration {
+        /**
+         * Get the fixture that helps setup tests.
+         *
+         * @return the fixture
+         */
+        @Bean
+        public GeoCodeTestFixture testFixture() {
+            return new GeoCodeTestFixture();
+        }
 
-    /**
-     * Table of values we know should be not found.
-     */
-    private final String[] expectedNotFound = {
-        "1st United Methodist Church, Perkasie, Bucks County, Pennsylvania, US"
-        + "A",
-        "Adelo, Illinois, USA",
-        "Albright College, Reading, Berks County, Pennsylvania, USA",
-        "Altalaha Lutheran Cemetery, Rehrersburg, Berks County, Pennsylvania, "
-        + "USA",
-        "Anamosa Hospital, Anamosa, Jones County, Iowa, USA",
-        "Ash of Normandy, Sussex, England",
-        "At Sea",
-        "At home, 1.5 miles northwest of Sutliff, Solon, Cedar County, Iowa, U"
-        + "SA",
-        "At home, Cornwall Road, Lebanon, Lebanon County, Pennsylvania, USA",
-        "At home, RD 2, Lebanon, Lebanon County, Pennsylvania, USA",
-        "At home, Souderton, Montgomery County, Pennsylvania, USA",
-        "At home, Tega Cay, York County, South Carolina, USA",
-    };
+        /**
+         * @return the geocode cache
+         */
+        @Bean
+        public GeoCode geoCode() {
+            return new GeoCodeStub();
+        }
+
+        /**
+         * @return the geocoder
+         */
+        // We turn off checkstyle because bean methods must not be final
+        // CHECKSTYLE:OFF
+        @Bean
+        public GeoCoder geoCoder() {
+            return new StubGeoCoder(testFixture().expectedNotFound());
+        }
+
+        /**
+         * @return the geocodeloader
+         */
+        // We turn off checkstyle because bean methods must not be final
+        // CHECKSTYLE:OFF
+        @Bean
+        public GeoCodeLoader loader() {
+            return new GeoCodeLoader();
+        }
+    }
 
     /**
      * Force debug logging during tests.
@@ -170,8 +105,7 @@ public final class GeoCodeCacheTest {
         System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug");
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testStupidNotFound() {
         logger.info("Entering testStupidNotFound");
@@ -181,8 +115,7 @@ public final class GeoCodeCacheTest {
                 entry.getGeocodingResult());
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testModernStupidNotFound() {
         logger.info("Entering testModernStupidNotFound");
@@ -192,8 +125,7 @@ public final class GeoCodeCacheTest {
                 entry.getGeocodingResult());
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testOldHomeFound() {
         logger.info("Entering testOldHomeFound");
@@ -204,8 +136,7 @@ public final class GeoCodeCacheTest {
                 entry.getGeocodingResult());
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testCacheStupid() {
         logger.info("Entering testCacheStupid");
@@ -215,8 +146,7 @@ public final class GeoCodeCacheTest {
         Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testModernEmpty() {
         logger.info("Entering testModernEmpty");
@@ -226,8 +156,7 @@ public final class GeoCodeCacheTest {
         Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testModernNull() {
         logger.info("Entering testModernNull");
@@ -237,8 +166,7 @@ public final class GeoCodeCacheTest {
         Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testCacheFound() {
         logger.info("Entering testCacheFound");
@@ -250,8 +178,7 @@ public final class GeoCodeCacheTest {
         Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testCacheRefind() {
         logger.info("Entering testCacheReplace");
@@ -263,8 +190,7 @@ public final class GeoCodeCacheTest {
         Assert.assertEquals("Should be equal", entry2, entry3);
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testCacheOldHome() {
         logger.info("Entering testCacheOldHome");
@@ -276,8 +202,7 @@ public final class GeoCodeCacheTest {
         Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testCacheOldHomeModern() {
         logger.info("Entering testCacheOldHomeModern");
@@ -288,8 +213,7 @@ public final class GeoCodeCacheTest {
         Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testCacheOldHomeModernBoth() {
         logger.info("Entering testCacheOldHomeModernBoth");
@@ -301,8 +225,7 @@ public final class GeoCodeCacheTest {
         Assert.assertEquals("Should be equal", entry1, entry2);
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testCacheOldHomeModernChange() {
         logger.info("Entering testCacheOldHomeModernChange");
@@ -313,8 +236,7 @@ public final class GeoCodeCacheTest {
         Assert.assertNotEquals("Should NOT be equal", entry1, entry2);
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testCacheReplace() {
         logger.info("Entering testCacheReplace");
@@ -327,8 +249,7 @@ public final class GeoCodeCacheTest {
                 entry2.getGeocodingResult());
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testCacheOldHomeModernSet() {
         logger.info("Entering testCacheOldHomeModernSet");
@@ -340,8 +261,7 @@ public final class GeoCodeCacheTest {
         Assert.assertEquals("Should be equal", entry2, entry3);
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testCacheOldHomeLocation() {
         logger.info("Entering testCacheOldHomeLocation");
@@ -357,60 +277,133 @@ public final class GeoCodeCacheTest {
                 expected.toString(), actual.toString());
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testNotFounds() {
         logger.info("Entering testNotFounds");
         gcc.clear();
-        load(addressTable);
-        final List<String> expectList = Arrays.asList(this.expectedNotFound);
+        testFixture.loadTestAddresses();
+        final List<String> expectList = Arrays
+                .asList(testFixture.expectedNotFound());
         final Collection<String> expected = new HashSet<>(expectList);
         final Collection<String> actual = gcc.notFoundKeys();
         Assert.assertTrue("Some differences in not found sets",
                 compareNotFound(expected, actual));
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testNotFoundsFromFile() {
         logger.info("Entering testNotFounds");
         gcc.clear();
         final InputStream fis = getTestFileAsStream();
-        gcc.load(fis);
-        final List<String> expectList = Arrays.asList(this.expectedNotFound);
+        loader.load(fis);
+        final List<String> expectList = Arrays
+                .asList(testFixture.expectedNotFound());
         final Collection<String> expected = new HashSet<>(expectList);
         final Collection<String> actual = gcc.notFoundKeys();
         Assert.assertTrue("Some differences in not found sets",
                 compareNotFound(expected, actual));
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testCountNotFounds() {
         logger.info("Entering testCountNotFounds");
         gcc.clear();
-        load(addressTable);
+        testFixture.loadTestAddresses();
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
-        Assert.assertTrue("Count too low at: " + count, count >= LOW_BOUND);
-        Assert.assertTrue("Count too high at: " + count, count <= HIGH_BOUND);
+        Assert.assertTrue("Count too low at: " + count,
+                count >= testFixture.expectedLowBound());
+        Assert.assertTrue("Count too high at: " + count,
+                count <= testFixture.expectedHighBound());
     }
 
-    /**
-     */
+    /** */
     @Test
     public void testCountNotFoundsFromFile() {
         logger.info("Entering testCountNotFounds");
         gcc.clear();
         final InputStream fis = getTestFileAsStream();
-        gcc.load(fis);
+        loader.load(fis);
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
-        Assert.assertTrue("Count too low at: " + count, count >= LOW_BOUND);
-        Assert.assertTrue("Count too high at: " + count, count <= HIGH_BOUND);
+        Assert.assertTrue("Count too low at: " + count,
+                count >= testFixture.expectedLowBound());
+        Assert.assertTrue("Count too high at: " + count,
+                count <= testFixture.expectedHighBound());
+    }
+
+    /** */
+    @Test
+    public void testSize() {
+        logger.info("Entering testSize");
+        gcc.clear();
+        testFixture.loadTestAddresses();
+        final int expected = 19;
+        Assert.assertEquals("Should match known table size of 19",
+                expected, gcc.size());
+    }
+
+    /** */
+    @Test
+    public void testSizeFromResource() {
+        logger.info("Entering testSizeFromFile");
+        gcc.clear();
+        final InputStream fis = getTestFileAsStream();
+        loader.load(fis);
+        final int expected = 19;
+        Assert.assertEquals("Should match known file size of 19",
+                expected, gcc.size());
+    }
+
+    /** */
+    @Test
+    public void testSizeLoadFileError() {
+        logger.info("Entering testSizeFromFile");
+        gcc.clear();
+        loader.load("/foo");
+        final int expected = 0;
+        Assert.assertEquals(
+                "Should be 0 because of file not found, was: " + gcc.size(),
+                expected, gcc.size());
+    }
+
+    /** */
+    @Test
+    public void testSizeFromFile() {
+        logger.info("Entering testSizeFromFile");
+        gcc.clear();
+        loader.load("/var/lib/gedbrowser/test.txt");
+        final int expected = 19;
+        Assert.assertEquals("Should match known file size of 19",
+                expected, gcc.size());
+    }
+
+    /** */
+    @Test
+    public void testDump() {
+        logger.info("Entering testDump");
+        gcc.clear();
+        testFixture.loadTestAddresses();
+        gcc.dump();
+        final int expected = 19;
+        Assert.assertEquals("Should match known table size of 19",
+                expected, gcc.size());
+    }
+
+    /** */
+    @Test
+    public void testDumpFromFile() {
+        logger.info("Entering testDumpFile");
+        gcc.clear();
+        final InputStream fis = getTestFileAsStream();
+        loader.load(fis);
+        gcc.dump();
+        final int expected = 19;
+        Assert.assertEquals("Should match known file size of 19",
+                expected, gcc.size());
     }
 
     /**
@@ -435,137 +428,9 @@ public final class GeoCodeCacheTest {
     }
 
     /**
-     */
-    @Test
-    public void testSize() {
-        logger.info("Entering testSize");
-        gcc.clear();
-        load(addressTable);
-        final int expected = 19;
-        Assert.assertEquals("Should match known table size of 19",
-                expected, gcc.size());
-    }
-
-    /**
-     */
-    @Test
-    public void testSizeFromResource() {
-        logger.info("Entering testSizeFromFile");
-        gcc.clear();
-        final InputStream fis = getTestFileAsStream();
-        gcc.load(fis);
-        final int expected = 19;
-        Assert.assertEquals("Should match known file size of 19",
-                expected, gcc.size());
-    }
-
-    /**
-     */
-    @Test
-    public void testSizeLoadFileError() {
-        logger.info("Entering testSizeFromFile");
-        gcc.clear();
-        gcc.load("/foo");
-        final int expected = 0;
-        Assert.assertEquals(
-                "Should be 0 because of file not found, was: " + gcc.size(),
-                expected, gcc.size());
-    }
-
-    /**
-     */
-    @Test
-    public void testSizeFromFile() {
-        logger.info("Entering testSizeFromFile");
-        gcc.clear();
-        gcc.load(gcc.getTestFilePath());
-        final int expected = 19;
-        Assert.assertEquals("Should match known file size of 19",
-                expected, gcc.size());
-    }
-
-    /**
-     */
-    @Test
-    public void testDump() {
-        logger.info("Entering testDump");
-        gcc.clear();
-        load(addressTable);
-        gcc.dump();
-        final int expected = 19;
-        Assert.assertEquals("Should match known table size of 19",
-                expected, gcc.size());
-    }
-
-    /**
-     */
-    @Test
-    public void testDumpFromFile() {
-        logger.info("Entering testDumpFile");
-        gcc.clear();
-        final InputStream fis = getTestFileAsStream();
-        gcc.load(fis);
-        gcc.dump();
-        final int expected = 19;
-        Assert.assertEquals("Should match known file size of 19",
-                expected, gcc.size());
-    }
-
-    /**
      * @return test file opened in an input stream
      */
     private InputStream getTestFileAsStream() {
         return getClass().getResourceAsStream("/test.txt");
     }
-
-    /**
-     * Manage the configuration for testing the cache.
-     *
-     * @author Dick Schoeller
-     */
-    @Configuration
-    static class ContextConfiguration {
-        /** */
-        @Value("${geoservice.keyfile:/var/lib/gedbrowser/google-geocoding-key}")
-        private transient String keyfile;
-
-        /**
-         * @return the geocode cache
-         */
-        @Bean
-        public GeoCodeCache geoCodeCache() {
-            return new GeoCodeCache();
-        }
-
-        /**
-         * @return the geocoder
-         */
-        // We turn off checkstyle because bean methods must not be final
-        // CHECKSTYLE:OFF
-        @Bean
-        public GeoCoder geoCoder() {
-            final KeyManager km = new KeyManager();
-            final String key = km.readKeyFile(keyfile);
-            return new GeoCoder(key);
-        }
-    }
-
-    /**
-     * Load the cache from an array of strings. Particularly valuable for
-     * testing. Each string has planeName|modernPlaceName. The second part can
-     * be empty.
-     *
-     * @param strings the array of strings
-     */
-    @SuppressWarnings("PMD.UseVarargs")
-    private void load(final String[][] strings) {
-        for (final String[] line : strings) {
-            if (line.length < 2 || line[1] == null || line[1].isEmpty()) {
-                gcc.find(line[0]);
-            } else {
-                gcc.find(line[0], line[1]);
-            }
-        }
-    }
-
 }

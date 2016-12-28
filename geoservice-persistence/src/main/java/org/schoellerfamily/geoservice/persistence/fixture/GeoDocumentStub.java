@@ -1,4 +1,4 @@
-package org.schoellerfamily.geoservice.persistence.stub.domain;
+package org.schoellerfamily.geoservice.persistence.fixture;
 
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;

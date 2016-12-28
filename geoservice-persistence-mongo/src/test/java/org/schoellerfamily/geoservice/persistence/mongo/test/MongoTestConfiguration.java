@@ -3,8 +3,10 @@ package org.schoellerfamily.geoservice.persistence.mongo.test;
 import java.net.UnknownHostException;
 
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
-import org.schoellerfamily.geoservice.keys.KeyManager;
+import org.schoellerfamily.geoservice.geocoder.StubGeoCoder;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
+import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
+import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeTestFixture;
 import org.schoellerfamily.geoservice.persistence.mongo.GeoCodeMongo;
 import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRepositoryMongo;
 import org.springframework.context.annotation.Bean;
@@ -30,10 +32,6 @@ import com.mongodb.MongoClient;
                 value = { GeoDocumentRepositoryMongo.class },
                 type = FilterType.ASSIGNABLE_TYPE))
 public class MongoTestConfiguration {
-    /** */
-    private static final String KEYFILE =
-            "/var/lib/gedbrowser/google-geocoding-key";
-
     /**
      * @return the persistence manager
      */
@@ -52,9 +50,8 @@ public class MongoTestConfiguration {
     // CHECKSTYLE:OFF
     @Bean
     public GeoCoder geoCoder() {
-        final KeyManager km = new KeyManager();
-        final String key = km.readKeyFile(KEYFILE);
-        return new GeoCoder(key);
+        final GeoCodeTestFixture tempFixture = new GeoCodeTestFixture();
+        return new StubGeoCoder(tempFixture.expectedNotFound());
     }
 
     /**
@@ -100,5 +97,15 @@ public class MongoTestConfiguration {
     public GeoRepositoryFixture repositoryFixture() {
         // CHECKSTYLE:ON
         return new GeoRepositoryFixture();
+    }
+
+    /**
+     * @return the geocodeloader
+     */
+    // We turn off checkstyle because bean methods must not be final
+    // CHECKSTYLE:OFF
+    @Bean
+    public GeoCodeLoader loader() {
+        return new GeoCodeLoader();
     }
 }
