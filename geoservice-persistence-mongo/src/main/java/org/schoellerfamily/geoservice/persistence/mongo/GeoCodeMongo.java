@@ -66,8 +66,7 @@ public final class GeoCodeMongo implements GeoCodeDao {
     @Override
     public GeoCodeItem find(final String placeName) {
         logger.debug("find(\"" + placeName + "\")");
-        GeoDocumentMongo geoDocument = (GeoDocumentMongo) geoDocumentRepository
-                .find(placeName);
+        final GeoDocument geoDocument = getDocument(placeName);
         GeoCodeItem gcce;
         if (geoDocument != null) {
             gcce = geoDocument.getGeoItem();
@@ -85,8 +84,7 @@ public final class GeoCodeMongo implements GeoCodeDao {
                 // Replace item in cache with new one.
                 gcce = new GeoCodeItem(gcce.getPlaceName(),
                         gcce.getModernPlaceName(), results[0]);
-                geoDocument.loadGeoCodeItem(gcce);
-                geoDocumentRepository.save(geoDocument);
+                add(gcce);
                 return gcce;
             }
         }
@@ -99,9 +97,7 @@ public final class GeoCodeMongo implements GeoCodeDao {
             // Not found, create empty.
             gcce = new GeoCodeItem(placeName);
         }
-        geoDocument = (GeoDocumentMongo) GeoDocumentMongoFactory
-                .getInstance().createGeoDocument(gcce);
-        geoDocumentRepository.save(geoDocument);
+        add(gcce);
         return gcce;
     }
 
@@ -116,7 +112,7 @@ public final class GeoCodeMongo implements GeoCodeDao {
         }
         logger.debug(
                 "find(\"" + placeName + "\", \"" + modernPlaceName + "\")");
-        GeoDocument geoDocument = geoDocumentRepository.find(placeName);
+        final GeoDocument geoDocument = getDocument(placeName);
         GeoCodeItem gcce;
         if (geoDocument != null) {
             // We found one.
@@ -134,8 +130,7 @@ public final class GeoCodeMongo implements GeoCodeDao {
                     // Replace item in cache with new one.
                     gcce = new GeoCodeItem(placeName, modernPlaceName,
                             results[0]);
-                    geoDocument.loadGeoCodeItem(gcce);
-                    geoDocumentRepository.save((GeoDocumentMongo) geoDocument);
+                    add(gcce);
                     return gcce;
                 } else {
                     // Fully formed return it.
@@ -148,16 +143,12 @@ public final class GeoCodeMongo implements GeoCodeDao {
                         modernPlaceName);
                 if (results.length == 0) {
                     gcce = new GeoCodeItem(placeName, modernPlaceName);
-                    geoDocument = (GeoDocumentMongo) GeoDocumentMongoFactory
-                            .getInstance().createGeoDocument(gcce);
-                    geoDocumentRepository.save((GeoDocumentMongo) geoDocument);
+                    add(gcce);
                     return gcce;
                 } else {
                     gcce = new GeoCodeItem(placeName, modernPlaceName,
                             results[0]);
-                    geoDocument = (GeoDocumentMongo) GeoDocumentMongoFactory
-                            .getInstance().createGeoDocument(gcce);
-                    geoDocumentRepository.save((GeoDocumentMongo) geoDocument);
+                    add(gcce);
                     return gcce;
                 }
             }
@@ -172,9 +163,7 @@ public final class GeoCodeMongo implements GeoCodeDao {
             // Not found, create empty.
             gcce = new GeoCodeItem(placeName, modernPlaceName);
         }
-        geoDocument = (GeoDocumentMongo) GeoDocumentMongoFactory
-                .getInstance().createGeoDocument(gcce);
-        geoDocumentRepository.save((GeoDocumentMongo) geoDocument);
+        add(gcce);
         return gcce;
     }
 
@@ -200,13 +189,13 @@ public final class GeoCodeMongo implements GeoCodeDao {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         final SortedSet<String> names = new TreeSet<>();
-        for (final GeoDocumentMongo gdm : geoDocumentRepository.findAll()) {
+        for (final GeoDocument gdm : geoDocumentRepository.findAll()) {
             final String name = gdm.getName();
             names.add(name);
         }
 
         for (final String name : names) {
-            final GeoDocument geoDocument = geoDocumentRepository.find(name);
+            final GeoDocument geoDocument = getDocument(name);
             builder.append(geoDocument.getName());
             builder.append("|");
             if (!geoDocument.getName().equals(geoDocument.getModernName())) {
@@ -244,7 +233,7 @@ public final class GeoCodeMongo implements GeoCodeDao {
     @Override
     public Collection<String> allKeys() {
         final SortedSet<String> names = new TreeSet<>();
-        for (final GeoDocumentMongo gdm : geoDocumentRepository.findAll()) {
+        for (final GeoDocument gdm : geoDocumentRepository.findAll()) {
             names.add(gdm.getName());
         }
         return names;
@@ -258,7 +247,7 @@ public final class GeoCodeMongo implements GeoCodeDao {
         logger.debug("Captures the places that couldn't be found");
         final Iterable<GeoDocumentMongo> all = geoDocumentRepository.findAll();
         final Set<String> notFoundSet = new TreeSet<>();
-        for (final GeoDocumentMongo gdm : all) {
+        for (final GeoDocument gdm : all) {
             final String name = gdm.getName();
             if (gdm.getResult() == null) {
                 notFoundSet.add(name);
@@ -348,7 +337,28 @@ public final class GeoCodeMongo implements GeoCodeDao {
      */
     @Override
     public GeoCodeItem get(final String placeName) {
-        final GeoDocument geoDocument = geoDocumentRepository.find(placeName);
+        final GeoDocument geoDocument = getDocument(placeName);
+        if (geoDocument == null) {
+            return null;
+        }
         return geoDocument.getGeoItem();
+    }
+
+    /**
+     * @param document a document
+     */
+    public void addDocument(final GeoDocument document) {
+        if (document == null || document.getName() == null) {
+            return;
+        }
+        geoDocumentRepository.save((GeoDocumentMongo) document);
+    }
+
+    /**
+     * @param placeName the key
+     * @return the document
+     */
+    public GeoDocument getDocument(final String placeName) {
+        return geoDocumentRepository.find(placeName);
     }
 }
