@@ -23,12 +23,19 @@ import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 
 /**
+ * Tests of the geocoder using MongoDB persistence for the cache.
+ *
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyMethods", "PMD.CommentSize" })
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = MongoTestConfiguration.class)
 public final class GeoCodeMongoTest {
+    // TODO reduce this to tests of only the local methods.
+    // This is too much of an integration test.
+    // Instead leave testing of the base class geocode methods to the tests
+    // of that class.
+
     /** */
     @Autowired
     private GeoCode gcc;

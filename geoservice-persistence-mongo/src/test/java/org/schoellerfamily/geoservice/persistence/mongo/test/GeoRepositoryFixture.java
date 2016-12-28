@@ -7,6 +7,8 @@ import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRe
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
+ * Test fixture for the MongoDB tests. Extends the standard fixture a little.
+ *
  * @author Dick Schoeller
  */
 public final class GeoRepositoryFixture extends GeoCodeTestFixture {

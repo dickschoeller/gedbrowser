@@ -12,6 +12,10 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
+ * Provides the means to pre-load the cache with some expected places. This is
+ * the primary means by which we provide different modern place names for
+ * places in the cache.
+ *
  * @author Dick Schoeller
  */
 public class GeoCodeLoader {
@@ -66,5 +70,4 @@ public class GeoCodeLoader {
             logger.error("Problem reading places stream", e);
         }
     }
-
 }

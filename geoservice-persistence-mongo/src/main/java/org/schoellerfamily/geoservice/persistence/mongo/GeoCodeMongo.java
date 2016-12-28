@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * This class implements the cache that allows applications to work with the
  * Google geocoding APIs, without running the queries per day limitations.
  *
- * TODO rework singleton management to make this be Spring loadable.
- *
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.CommentSize", "PMD.TooManyMethods" })

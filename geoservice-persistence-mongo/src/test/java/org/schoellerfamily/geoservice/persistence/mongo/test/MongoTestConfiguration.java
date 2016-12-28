@@ -22,6 +22,8 @@ import org.springframework.data.mongodb.repository.config.
 import com.mongodb.MongoClient;
 
 /**
+ * Standard Spring configuration for tests of the MongoDB persistence layer.
+ *
  * @author Dick Schoeller
  */
 @Configuration
@@ -106,6 +108,7 @@ public class MongoTestConfiguration {
     // CHECKSTYLE:OFF
     @Bean
     public GeoCodeLoader loader() {
+        // CHECKSTYLE:ON
         return new GeoCodeLoader();
     }
 }

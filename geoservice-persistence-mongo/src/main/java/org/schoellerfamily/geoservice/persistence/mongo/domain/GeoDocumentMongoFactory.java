@@ -1,10 +1,12 @@
 package org.schoellerfamily.geoservice.persistence.mongo.domain;
 
-import org.schoellerfamily.geoservice.exception.GeoCodeRuntimeException;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
 
 /**
+ * This factory is used to create GeoCodeItem objects from GeoDocumentMongo
+ * objects and vice versa.
+ *
  * @author Dick Schoeller
  */
 public final class GeoDocumentMongoFactory {
@@ -31,20 +33,11 @@ public final class GeoDocumentMongoFactory {
      * @return the output geo document for persistence
      */
     public GeoDocument createGeoDocument(final GeoCodeItem gci) {
-        final Class<GeoDocumentMongo> mongoClass =
-                GeoDocumentMongo.class;
-//        if (mongoClass == null) {
-//            throw new GeoCodeRuntimeException("Class not found");
-//        }
-        try {
-            final GeoDocument retval = mongoClass.newInstance();
-            if (gci != null) {
-                retval.loadGeoCodeItem(gci);
-            }
-            return retval;
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new GeoCodeRuntimeException("Could not instanciate class", e);
+        final GeoDocument retval = new GeoDocumentMongo();
+        if (gci != null) {
+            retval.loadGeoCodeItem(gci);
         }
+        return retval;
     }
 
     /**

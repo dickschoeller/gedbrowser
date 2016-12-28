@@ -11,6 +11,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 /**
+ * This does the work of reading getting geocode items from MongoDB.
+ *
  * @author Dick Schoeller
  */
 public class GeoDocumentRepositoryMongoImpl

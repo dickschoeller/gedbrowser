@@ -8,6 +8,9 @@ import org.schoellerfamily.geoservice.persistence.mongo.domain.GeoDocumentMongo;
 import org.schoellerfamily.geoservice.persistence.mongo.domain.GeoDocumentMongoFactory;
 
 /**
+ * Test of the factory that creates GeoDocumentMongo objects from GeoCodeItem
+ * objects, and vice versa.
+ *
  * @author Dick Schoeller
  */
 public final class GeoDocumentMongoFactoryTest {
@@ -77,6 +80,8 @@ public final class GeoDocumentMongoFactoryTest {
      * @return true if their fields match
      */
     private boolean compare(final GeoCodeItem item, final GeoDocument doc) {
+        // TODO move this method into a utility class somewhere
+        // where it can be more broadly used
         if (!compare(item.getPlaceName(), doc.getName())) {
             return false;
         }
@@ -100,6 +105,8 @@ public final class GeoDocumentMongoFactoryTest {
      * @return true if they match
      */
     private boolean compare(final String arg0, final String arg1) {
+        // TODO move this method into a utility class somewhere
+        // where it can be more broadly used
         if (arg0 == null && arg1 == null) {
             return true;
         }
