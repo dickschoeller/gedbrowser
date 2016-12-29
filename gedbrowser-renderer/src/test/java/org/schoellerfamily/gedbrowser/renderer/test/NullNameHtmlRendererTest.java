@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.renderer.NameHtmlRenderer;
@@ -23,7 +22,7 @@ public class NullNameHtmlRendererTest {
     /** */
     @Test
     public final void testGetNameHtml() {
-        assertEquals("expected empty string", "",
+        Assert.assertEquals("expected empty string", "",
                 nameHtmlRenderer.getNameHtml());
     }
 }

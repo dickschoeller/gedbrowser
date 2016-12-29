@@ -1,10 +1,8 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
@@ -32,7 +30,8 @@ public class SourceRendererTest {
         final SourceRenderer renderer = new SourceRenderer(new Source(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getAttributeListOpenRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
     }
 
@@ -45,7 +44,8 @@ public class SourceRendererTest {
         final SourceRenderer renderer = new SourceRenderer(new Source(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getListItemRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
     }
 
@@ -58,7 +58,8 @@ public class SourceRendererTest {
         final SourceRenderer renderer = new SourceRenderer(new Source(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getNameHtmlRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
     }
 
@@ -71,7 +72,8 @@ public class SourceRendererTest {
         final SourceRenderer renderer = new SourceRenderer(new Source(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getNameIndexRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
     }
 
@@ -84,7 +86,8 @@ public class SourceRendererTest {
         final SourceRenderer renderer = new SourceRenderer(new Source(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getPhraseRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
     }
 
@@ -97,7 +100,8 @@ public class SourceRendererTest {
         final SourceRenderer renderer = new SourceRenderer(new Source(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getSectionRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getSectionRenderer()
                 instanceof SourceSectionRenderer);
     }
 
@@ -112,7 +116,8 @@ public class SourceRendererTest {
         final SourceRenderer renderer = new SourceRenderer(source,
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertEquals("Schoeller, Richard John, birth certificate",
+        Assert.assertEquals("Mismatched title string",
+                "Schoeller, Richard John, birth certificate",
                 renderer.getTitleString());
     }
 
@@ -127,7 +132,8 @@ public class SourceRendererTest {
         final SourceRenderer renderer = new SourceRenderer(source,
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertEquals("S3",
+        Assert.assertEquals("Mismatched source ID",
+                "S3",
                 renderer.getIdString());
     }
 
@@ -150,7 +156,8 @@ public class SourceRendererTest {
                 RenderingContext.anonymous());
         int i = 0;
         for (final GedRenderer<?> attribute : renderer.getAttributes()) {
-            assertEquals(expects[i++], attribute.getListItemContents());
+            Assert.assertEquals("Rendered html doesn't match expectation",
+                    expects[i++], attribute.getListItemContents());
         }
     }
 }

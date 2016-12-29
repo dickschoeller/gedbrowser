@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
@@ -48,7 +47,7 @@ public class SubmittorLinkListItemRendererTest {
                 (SubmittorLinkListItemRenderer) slr.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, false, 0);
-        assertEquals("wrong string",
+        Assert.assertEquals("Rendered html doesn't match expectation",
                 "[<a href=\"source?db=null&amp;id=S1\">S1</a>]",
                 builder.toString());
     }
@@ -63,7 +62,7 @@ public class SubmittorLinkListItemRendererTest {
                 (SubmittorLinkListItemRenderer) slr.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, true, 0);
-        assertEquals("wrong string",
+        Assert.assertEquals("Rendered html doesn't match expectation",
                 "[<a href=\"source?db=null&amp;id=S1\">S1</a>]",
                 builder.toString());
     }
@@ -78,7 +77,7 @@ public class SubmittorLinkListItemRendererTest {
                 (SubmittorLinkListItemRenderer) slr.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, false, 2);
-        assertEquals("wrong string",
+        Assert.assertEquals("Rendered html doesn't match expectation",
                 "[<a href=\"source?db=null&amp;id=S1\">S1</a>]",
                 builder.toString());
     }

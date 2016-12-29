@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -38,7 +37,7 @@ public class SimpleAttributeListOpenRendererTest {
         final StringBuilder builder = new StringBuilder();
         npr.renderAttributeListOpen(builder, 0, gob);
         final String string = builder.toString();
-        assertEquals("", string);
+        Assert.assertEquals("Expdected empty string", "", string);
     }
 
 }

@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertTrue;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.renderer.FamSRenderer;
@@ -27,7 +26,8 @@ public class FamSRendererTest {
         final FamSRenderer renderer = new FamSRenderer(new FamS(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getAttributeListOpenRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
     }
 
@@ -40,7 +40,8 @@ public class FamSRendererTest {
         final FamSRenderer renderer = new FamSRenderer(new FamS(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getListItemRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
     }
 
@@ -53,7 +54,8 @@ public class FamSRendererTest {
         final FamSRenderer renderer = new FamSRenderer(new FamS(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getNameHtmlRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
     }
 
@@ -66,7 +68,8 @@ public class FamSRendererTest {
         final FamSRenderer renderer = new FamSRenderer(new FamS(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getNameIndexRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
     }
 
@@ -79,7 +82,8 @@ public class FamSRendererTest {
         final FamSRenderer renderer = new FamSRenderer(new FamS(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getPhraseRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
     }
 
@@ -92,7 +96,8 @@ public class FamSRendererTest {
         final FamSRenderer renderer = new FamSRenderer(new FamS(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getSectionRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getSectionRenderer()
                 instanceof NullSectionRenderer);
     }
 }

@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
@@ -56,7 +55,8 @@ public class SubmittorLinkSectionRendererTest {
         slsRenderer.renderAsSection(builder,
                 new RootRenderer(root, new GedRendererFactory(),
                         RenderingContext.anonymous()), false, 0, 0);
-        assertEquals("<p>\n" + "Submitted by: <a class=\"name\""
+        Assert.assertEquals("Rendered html doesn't match expectation",
+                "<p>\n" + "Submitted by: <a class=\"name\""
                 + " href=\"source?db=null&amp;id=S1\">S1</a></p>\n",
                 builder.toString());
     }
@@ -74,7 +74,8 @@ public class SubmittorLinkSectionRendererTest {
         slsRenderer.renderAsSection(builder,
                 new RootRenderer(root, new GedRendererFactory(),
                         RenderingContext.anonymous()), true, 0, 0);
-        assertEquals("<p>\n" + "Submitted by: <a class=\"name\""
+        Assert.assertEquals("Rendered html doesn't match expectation",
+                "<p>\n" + "Submitted by: <a class=\"name\""
                 + " href=\"source?db=null&amp;id=S1\">S1</a></p>\n",
                 builder.toString());
     }
@@ -91,7 +92,8 @@ public class SubmittorLinkSectionRendererTest {
         slsRenderer.renderAsSection(builder,
                 new RootRenderer(root, new GedRendererFactory(),
                         RenderingContext.anonymous()), false, 2, 0);
-        assertEquals("<p>\n" + "Submitted by: <a class=\"name\""
+        Assert.assertEquals("Rendered html doesn't match expectation",
+                "<p>\n" + "Submitted by: <a class=\"name\""
                 + " href=\"source?db=null&amp;id=S1\">S1</a></p>\n",
                 builder.toString());
     }

@@ -35,7 +35,7 @@ public class NullSectionRendererTest {
         StringBuilder builder = new StringBuilder();
         builder = nsr.renderAsSection(builder, null, false, 0, 1);
         final String string = builder.toString();
-        assertEquals("Expected a null string", "", string);
+        assertEquals("Expected empty string", "", string);
     }
 
     /** */
@@ -44,7 +44,7 @@ public class NullSectionRendererTest {
         StringBuilder builder = new StringBuilder();
         builder = nsr.renderAsSection(builder, null, true, 0, 1);
         final String string = builder.toString();
-        assertEquals("Expected a null string", "", string);
+        assertEquals("Expected empty string", "", string);
     }
 
     /** */
@@ -56,7 +56,7 @@ public class NullSectionRendererTest {
                 RenderingContext.anonymous()) {
         }, false, 2, 1);
         final String string = builder.toString();
-        assertEquals("Expected a null string", "", string);
+        assertEquals("Expected empty string", "", string);
     }
 
     /** */
@@ -68,6 +68,6 @@ public class NullSectionRendererTest {
                 RenderingContext.anonymous()) {
         }, true, 0, 2);
         final String string = builder.toString();
-        assertEquals("Expected a null string", "", string);
+        assertEquals("Expected empty string", "", string);
     }
 }

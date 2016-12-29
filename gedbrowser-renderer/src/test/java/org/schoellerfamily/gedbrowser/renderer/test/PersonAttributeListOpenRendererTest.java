@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
@@ -17,11 +16,6 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
  * @author Dick Schoeller
  */
 public class PersonAttributeListOpenRendererTest {
-    /**
-     * Message for assert.
-     */
-    private static final String INCORRECT_HEADER = "Incorrect header";
-
     /**
      * Boiler plate for a horizontal line.
      */
@@ -62,7 +56,8 @@ public class PersonAttributeListOpenRendererTest {
         final StringBuilder builder = new StringBuilder();
         pnhr.renderAttributeListOpen(builder, 0, person);
         final String string = builder.toString();
-        assertEquals(INCORRECT_HEADER, "\n" + HORIZONTAL + HEAD_3,
+        Assert.assertEquals("Rendered html doesn't match expectation",
+                "\n" + HORIZONTAL + HEAD_3,
                 string);
     }
 
@@ -79,7 +74,8 @@ public class PersonAttributeListOpenRendererTest {
         final StringBuilder builder = new StringBuilder();
         pnhr.renderAttributeListOpen(builder, 0, person);
         final String string = builder.toString();
-        assertEquals(INCORRECT_HEADER, "\n" + HORIZONTAL + HEAD_3,
+        Assert.assertEquals("Rendered html doesn't match expectation",
+                "\n" + HORIZONTAL + HEAD_3,
                 string);
     }
 
@@ -96,7 +92,8 @@ public class PersonAttributeListOpenRendererTest {
         final StringBuilder builder = new StringBuilder();
         pnhr.renderAttributeListOpen(builder, 0, person);
         final String string = builder.toString();
-        assertEquals(INCORRECT_HEADER, "\n" + HORIZONTAL + HEAD_3,
+        Assert.assertEquals("Rendered html doesn't match expectation",
+                "\n" + HORIZONTAL + HEAD_3,
                 string);
     }
 
@@ -113,7 +110,8 @@ public class PersonAttributeListOpenRendererTest {
         final StringBuilder builder = new StringBuilder();
         pnhr.renderAttributeListOpen(builder, 0, person);
         final String string = builder.toString();
-        assertEquals(INCORRECT_HEADER, "\n" + HORIZONTAL + HEAD_3,
+        Assert.assertEquals("Rendered html doesn't match expectation",
+                "\n" + HORIZONTAL + HEAD_3,
                 string);
     }
 
@@ -130,7 +128,8 @@ public class PersonAttributeListOpenRendererTest {
         final StringBuilder builder = new StringBuilder();
         pnhr.renderAttributeListOpen(builder, 0, person);
         final String string = builder.toString();
-        assertEquals(INCORRECT_HEADER, "\n" + HORIZONTAL + HEAD_3,
+        Assert.assertEquals("Rendered html doesn't match expectation",
+                "\n" + HORIZONTAL + HEAD_3,
                 string);
     }
 
@@ -147,7 +146,8 @@ public class PersonAttributeListOpenRendererTest {
         final StringBuilder builder = new StringBuilder();
         pnhr.renderAttributeListOpen(builder, 0, person);
         final String string = builder.toString();
-        assertEquals(INCORRECT_HEADER, "\n" + HORIZONTAL + HEAD_3,
+        Assert.assertEquals("Rendered html doesn't match expectation",
+                "\n" + HORIZONTAL + HEAD_3,
                 string);
     }
 
@@ -162,6 +162,6 @@ public class PersonAttributeListOpenRendererTest {
         final StringBuilder builder = new StringBuilder();
         pnhr.renderAttributeListOpen(builder, 0, person);
         final String string = builder.toString();
-        assertEquals("Not empty", "", string);
+        Assert.assertEquals("Expected empty string", "", string);
     }
 }

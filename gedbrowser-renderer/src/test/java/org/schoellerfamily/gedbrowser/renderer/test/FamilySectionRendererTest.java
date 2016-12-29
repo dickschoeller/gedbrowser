@@ -1,11 +1,11 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.FamS;
@@ -64,7 +64,8 @@ public class FamilySectionRendererTest {
                 .getSectionRenderer();
         final StringBuilder builder = new StringBuilder();
         fsr.renderAsSection(builder, pRenderer, false, 0, 1);
-        assertEquals("\n"
+        Assert.assertEquals("Rendered html doesn't match expectation",
+                "\n"
                 + "<div class=\"family\">\n"
                 + "  <hr class=\"family\"/>\n"
                 + "  <h3 class=\"family\">Family 1</h3>\n"
@@ -139,7 +140,8 @@ public class FamilySectionRendererTest {
                 + "  <ol class=\"children\">\n" + "    <li>Living</li>\n"
                 + "  </ol>\n" + "</div>\n";
 
-        assertEquals(expected, builder.toString());
+        Assert.assertEquals("Rendered html doesn't match expectation",
+                expected, builder.toString());
     }
 
     /**
@@ -192,7 +194,8 @@ public class FamilySectionRendererTest {
                     (FamilySectionRenderer) famRenderer.getSectionRenderer();
             builder.setLength(0);
             fsRenderer.renderAsSection(builder, pRenderer, false, 0, 1);
-            assertEquals(outstrings[index++], builder.toString());
+            Assert.assertEquals("Rendered html doesn't match expectation",
+                    outstrings[index++], builder.toString());
         }
     }
 
@@ -236,7 +239,8 @@ public class FamilySectionRendererTest {
                     (FamilySectionRenderer) famRenderer.getSectionRenderer();
             builder.setLength(0);
             fsRenderer.renderAsSection(builder, pRenderer, false, 0, 1);
-            assertEquals(outstrings[index++], builder.toString());
+            Assert.assertEquals("Rendered html doesn't match expectation",
+                    outstrings[index++], builder.toString());
         }
     }
 
@@ -261,7 +265,8 @@ public class FamilySectionRendererTest {
                 .getSectionRenderer();
         final StringBuilder builder = new StringBuilder();
         fsr.renderAsSection(builder, pRenderer, false, 0, 1);
-        assertEquals("\n"
+        Assert.assertEquals("Rendered html doesn't match expectation",
+                "\n"
                 + "<div class=\"family\">\n"
                 + "  <hr class=\"family\"/>\n"
                 + "  <h3 class=\"family\">Family 1</h3>\n"
@@ -297,7 +302,8 @@ public class FamilySectionRendererTest {
                 .getSectionRenderer();
         final StringBuilder builder = new StringBuilder();
         fsr.renderAsSection(builder, pRenderer, false, 0, 1);
-        assertEquals("\n"
+        Assert.assertEquals("Rendered html doesn't match expectation",
+                "\n"
                 + "<div class=\"family\">\n"
                 + "  <hr class=\"family\"/>\n"
                 + "  <h3 class=\"family\">Family 1</h3>\n"

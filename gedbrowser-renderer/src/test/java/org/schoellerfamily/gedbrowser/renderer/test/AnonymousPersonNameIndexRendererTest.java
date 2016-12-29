@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
@@ -41,7 +40,8 @@ public class AnonymousPersonNameIndexRendererTest {
                 new GedRendererFactory(), anonymousContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Expected Living", "Living", pnhr.getIndexName());
+        Assert.assertEquals("Rendered string doesn't match expectation",
+                "Living", pnhr.getIndexName());
     }
 
     /** */
@@ -53,7 +53,8 @@ public class AnonymousPersonNameIndexRendererTest {
                 new GedRendererFactory(), anonymousContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Expected Living", "Living", pnhr.getIndexName());
+        Assert.assertEquals("Rendered string doesn't match expectation",
+                "Living", pnhr.getIndexName());
     }
 
     /** */
@@ -65,7 +66,8 @@ public class AnonymousPersonNameIndexRendererTest {
                 new GedRendererFactory(), anonymousContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Expected Living", "Living", pnhr.getIndexName());
+        Assert.assertEquals("Rendered string doesn't match expectation",
+                "Living", pnhr.getIndexName());
     }
 
     /** */
@@ -77,7 +79,8 @@ public class AnonymousPersonNameIndexRendererTest {
                 new GedRendererFactory(), anonymousContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Expected Living", "Living", pnhr.getIndexName());
+        Assert.assertEquals("Rendered string doesn't match expectation",
+                "Living", pnhr.getIndexName());
     }
 
     /** */
@@ -89,7 +92,8 @@ public class AnonymousPersonNameIndexRendererTest {
                 new GedRendererFactory(), anonymousContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Expected Living", "Living", pnhr.getIndexName());
+        Assert.assertEquals("Rendered string doesn't match expectation",
+                "Living", pnhr.getIndexName());
     }
 
     /** */
@@ -101,7 +105,8 @@ public class AnonymousPersonNameIndexRendererTest {
                 new GedRendererFactory(), anonymousContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Expected Living", "Living", pnhr.getIndexName());
+        Assert.assertEquals("Rendered string doesn't match expectation",
+                "Living", pnhr.getIndexName());
     }
 
     /** */
@@ -111,7 +116,7 @@ public class AnonymousPersonNameIndexRendererTest {
                 new GedRendererFactory(), anonymousContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Expected empty", "", pnhr.getIndexName());
+        Assert.assertEquals("Expected empty string", "", pnhr.getIndexName());
     }
 
 
