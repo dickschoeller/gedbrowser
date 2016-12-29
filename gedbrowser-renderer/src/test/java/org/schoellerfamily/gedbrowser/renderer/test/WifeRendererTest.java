@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertTrue;
+import org.junit.Assert;
 
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
@@ -27,7 +27,8 @@ public class WifeRendererTest {
         final WifeRenderer renderer = new WifeRenderer(new Wife(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getAttributeListOpenRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
     }
 
@@ -40,7 +41,8 @@ public class WifeRendererTest {
         final WifeRenderer renderer = new WifeRenderer(new Wife(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getListItemRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
     }
 
@@ -53,7 +55,8 @@ public class WifeRendererTest {
         final WifeRenderer renderer = new WifeRenderer(new Wife(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getNameHtmlRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
     }
 
@@ -66,7 +69,8 @@ public class WifeRendererTest {
         final WifeRenderer renderer = new WifeRenderer(new Wife(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getNameIndexRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
     }
 
@@ -79,8 +83,8 @@ public class WifeRendererTest {
         final WifeRenderer renderer = new WifeRenderer(new Wife(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getPhraseRenderer()
-                instanceof NullPhraseRenderer);
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getPhraseRenderer() instanceof NullPhraseRenderer);
     }
 
     /**
@@ -92,7 +96,7 @@ public class WifeRendererTest {
         final WifeRenderer renderer = new WifeRenderer(new Wife(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getSectionRenderer()
-                instanceof NullSectionRenderer);
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getSectionRenderer() instanceof NullSectionRenderer);
     }
 }

@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -30,6 +29,6 @@ public class NullPhraseRendererTest {
     /** */
     @Test
     public final void testRenderAsPhrase() {
-        assertEquals("Expected empty phrase", "", npr.renderAsPhrase());
+        Assert.assertEquals("Expected empty string", "", npr.renderAsPhrase());
     }
 }

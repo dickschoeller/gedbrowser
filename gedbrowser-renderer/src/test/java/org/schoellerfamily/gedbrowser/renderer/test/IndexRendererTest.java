@@ -1,10 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
 import java.util.Collection;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.renderer.IndexRenderer;
@@ -47,7 +46,7 @@ public final class IndexRendererTest {
         final Collection<String> letters = ir.getLetters();
         int i = 0;
         for (final String letter : letters) {
-            assertEquals(expects[i++], letter);
+            Assert.assertEquals("Mismatch index letter", expects[i++], letter);
         }
     }
 
@@ -67,7 +66,7 @@ public final class IndexRendererTest {
         final Collection<String> surnames = ir.getSurnames();
         int i = 0;
         for (final String surname : surnames) {
-            assertEquals(expects[i++], surname);
+            Assert.assertEquals("Mismatch surname", expects[i++], surname);
         }
     }
 
@@ -111,7 +110,8 @@ public final class IndexRendererTest {
         final Collection<String> indexNames = ir.getIndexNameHtmls("Schoeller");
         int i = 0;
         for (final String indexName : indexNames) {
-            assertEquals(expects[i++], indexName);
+            Assert.assertEquals("Mismatch index name",
+                    expects[i++], indexName);
         }
     }
 
@@ -124,6 +124,6 @@ public final class IndexRendererTest {
                 .readBigTestSource();
         final IndexRenderer ir = new IndexRenderer(root, "S",
                 RenderingContext.anonymous());
-        assertEquals("S", ir.getBase());
+        Assert.assertEquals("Mismatch index letter", "S", ir.getBase());
     }
 }

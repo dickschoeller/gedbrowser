@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -41,7 +40,8 @@ public class DatePhraseRendererTest {
         final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer
                 .getPhraseRenderer();
         final String string = dpRenderer.renderAsPhrase();
-        assertEquals("14 December 1958", string);
+        Assert.assertEquals("Rendered date string doesn't match expectation",
+                "14 December 1958", string);
     }
 
     /** */
@@ -54,7 +54,7 @@ public class DatePhraseRendererTest {
         final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer
                 .getPhraseRenderer();
         final String string = dpRenderer.renderAsPhrase();
-        assertEquals("", string);
+        Assert.assertEquals("Expected empty string", "", string);
     }
 
     /** */
@@ -67,6 +67,6 @@ public class DatePhraseRendererTest {
         final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer
                 .getPhraseRenderer();
         final String string = dpRenderer.renderAsPhrase();
-        assertEquals("", string);
+        Assert.assertEquals("Expected empty string", "", string);
     }
 }

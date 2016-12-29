@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertTrue;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -27,7 +26,8 @@ public class NameRendererTest {
         final NameRenderer renderer = new NameRenderer(new Name(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getAttributeListOpenRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
     }
 
@@ -40,7 +40,8 @@ public class NameRendererTest {
         final NameRenderer renderer = new NameRenderer(new Name(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getListItemRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getListItemRenderer()
                 instanceof NameListItemRenderer);
     }
 
@@ -53,7 +54,8 @@ public class NameRendererTest {
         final NameRenderer renderer = new NameRenderer(new Name(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getNameHtmlRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getNameHtmlRenderer()
                 instanceof NameNameHtmlRenderer);
     }
 
@@ -66,7 +68,8 @@ public class NameRendererTest {
         final NameRenderer renderer = new NameRenderer(new Name(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getNameIndexRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getNameIndexRenderer()
                 instanceof NameNameIndexRenderer);
     }
 
@@ -79,7 +82,8 @@ public class NameRendererTest {
         final NameRenderer renderer = new NameRenderer(new Name(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getPhraseRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getPhraseRenderer()
                 instanceof NamePhraseRenderer);
     }
 
@@ -92,7 +96,8 @@ public class NameRendererTest {
         final NameRenderer renderer = new NameRenderer(new Name(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertTrue(renderer.getSectionRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getSectionRenderer()
                 instanceof NullSectionRenderer);
     }
 }

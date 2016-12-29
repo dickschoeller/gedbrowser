@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertTrue;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.renderer.DefaultRenderer;
@@ -28,7 +27,8 @@ public class DefaultRendererTest {
                 new DefaultRenderer(new GedObject(null) { },
                         new GedRendererFactory(),
                         RenderingContext.anonymous());
-        assertTrue(renderer.getAttributeListOpenRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
     }
 
@@ -42,7 +42,8 @@ public class DefaultRendererTest {
                 new DefaultRenderer(new GedObject(null) { },
                         new GedRendererFactory(),
                         RenderingContext.anonymous());
-        assertTrue(renderer.getListItemRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
     }
 
@@ -56,7 +57,8 @@ public class DefaultRendererTest {
                 new DefaultRenderer(new GedObject(null) { },
                         new GedRendererFactory(),
                         RenderingContext.anonymous());
-        assertTrue(renderer.getNameHtmlRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
     }
 
@@ -70,7 +72,8 @@ public class DefaultRendererTest {
                 new DefaultRenderer(new GedObject(null) { },
                         new GedRendererFactory(),
                         RenderingContext.anonymous());
-        assertTrue(renderer.getNameIndexRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
     }
 
@@ -84,7 +87,8 @@ public class DefaultRendererTest {
                 new DefaultRenderer(new GedObject(null) { },
                         new GedRendererFactory(),
                         RenderingContext.anonymous());
-        assertTrue(renderer.getPhraseRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
     }
 
@@ -98,7 +102,8 @@ public class DefaultRendererTest {
                 new DefaultRenderer(new GedObject(null) { },
                         new GedRendererFactory(),
                         RenderingContext.anonymous());
-        assertTrue(renderer.getSectionRenderer()
+        Assert.assertTrue("Wrong renderer type",
+                renderer.getSectionRenderer()
                 instanceof NullSectionRenderer);
     }
 }

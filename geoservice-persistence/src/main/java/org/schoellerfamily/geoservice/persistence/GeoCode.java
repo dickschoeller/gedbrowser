@@ -23,7 +23,7 @@ public interface GeoCode {
      * @param placeName the historical place name to find
      * @return the cache entry
      */
-    GeoCodeItem find(final String placeName);
+    GeoCodeItem find(String placeName);
 
     /**
      * Search the cache for a particular historical place name. Assistance is

@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -59,7 +58,8 @@ public class AttributeSectionRendererTest {
         final StringBuilder builder = new StringBuilder();
         asRenderer.renderAsSection(builder, new PersonRenderer(person,
                 new GedRendererFactory(), renderingContext), false, 0, 1);
-        assertEquals("<p><span class=\"label\">String:</span> </p>\n"
+        Assert.assertEquals("Rendered html doesn't match expectation",
+                "<p><span class=\"label\">String:</span> </p>\n"
                 + "<ul>\n</ul>\n", builder.toString());
     }
 
@@ -74,7 +74,8 @@ public class AttributeSectionRendererTest {
         final StringBuilder builder = new StringBuilder();
         asRenderer.renderAsSection(builder, new PersonRenderer(person,
                 new GedRendererFactory(), renderingContext), false, 0, 1);
-        assertEquals("<p><span class=\"label\">String:</span> Strung</p>\n"
+        Assert.assertEquals("Rendered html doesn't match expectation",
+                "<p><span class=\"label\">String:</span> Strung</p>\n"
                 + "<ul>\n</ul>\n", builder.toString());
     }
 
@@ -89,7 +90,8 @@ public class AttributeSectionRendererTest {
         final StringBuilder builder = new StringBuilder();
         asRenderer.renderAsSection(builder, new PersonRenderer(person,
                 new GedRendererFactory(), renderingContext), false, 0, 1);
-        assertEquals("<p><span class=\"label\">Sproing:</span> Spring</p>\n"
+        Assert.assertEquals("Rendered html doesn't match expectation",
+                "<p><span class=\"label\">Sproing:</span> Spring</p>\n"
                 + "<ul>\n"
                 + "<li><span class=\"label\">Stinky:</span> Stanky</li>\n"
                 + "</ul>\n", builder.toString());

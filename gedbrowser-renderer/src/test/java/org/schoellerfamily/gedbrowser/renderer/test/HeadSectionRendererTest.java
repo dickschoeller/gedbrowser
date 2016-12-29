@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -50,7 +49,7 @@ public class HeadSectionRendererTest {
         hsr.renderAsSection(builder,
                 new RootRenderer(root, new GedRendererFactory(),
                         RenderingContext.anonymous()), false, 0, 0);
-        assertEquals(
+        Assert.assertEquals("Rendered html doesn't match expectation",
                 "Content-type: text/html\n"
                         + "\n"
                         + "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD"

@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -44,7 +43,8 @@ public class PlaceListItemRendererTest {
                 (PlaceListItemRenderer) dRenderer.getListItemRenderer();
         liRenderer.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
-        assertEquals("Fayetteville, NC", string);
+        Assert.assertEquals("Rendered string doesn't match expectation",
+                "Fayetteville, NC", string);
     }
 
     /** */
@@ -59,7 +59,7 @@ public class PlaceListItemRendererTest {
                 (PlaceListItemRenderer) dRenderer.getListItemRenderer();
         liRenderer.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
-        assertEquals("", string);
+        Assert.assertEquals("Expected empty string", "", string);
     }
 
     /** */
@@ -74,6 +74,6 @@ public class PlaceListItemRendererTest {
                 (PlaceListItemRenderer) dRenderer.getListItemRenderer();
         liRenderer.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
-        assertEquals("", string);
+        Assert.assertEquals("Expected empty string", "", string);
     }
 }

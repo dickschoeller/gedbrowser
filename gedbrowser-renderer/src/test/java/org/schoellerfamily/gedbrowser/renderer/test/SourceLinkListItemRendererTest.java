@@ -45,7 +45,7 @@ public class SourceLinkListItemRendererTest {
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, false, 0);
-        assertEquals("Wrong html string",
+        assertEquals("Rendered html doesn't match expectation",
                 " [<a href=\"source?db=null&amp;id=S1\">S1</a>]",
                 builder.toString());
     }
