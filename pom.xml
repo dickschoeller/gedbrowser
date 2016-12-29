@@ -40,11 +40,11 @@
 
     <spring-boot.version>1.4.3.RELEASE</spring-boot.version>
     <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
-    <spring.version>4.2.9.RELEASE</spring.version>
+    <spring.version>4.3.5.RELEASE</spring.version>
     <junit.version>4.12</junit.version>
-    <selenium.version>2.48.2</selenium.version>
+    <selenium.version>3.0.1</selenium.version>
     <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
-    <cglib.version>3.1</cglib.version>
+    <cglib.version>3.2.4</cglib.version>
     <spring-data-mongodb.version>1.9.6.RELEASE</spring-data-mongodb.version>
     <spring-data-commons.version>1.12.6.RELEASE</spring-data-commons.version>
     <config-dir>${project.basedir}/config</config-dir>
@@ -77,7 +77,7 @@
         <version>3.0.4</version>
       </plugin>
       <plugin>
-	<!-- New vendor of checkstyle plugin out there. -->
+        <!-- New vendor of checkstyle plugin out there. -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>2.17</version>
@@ -328,6 +328,11 @@
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-firefox-driver</artifactId>
         <version>${selenium.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>htmlunit-driver</artifactId>
+        <version>2.23.1</version>
       </dependency>
       <dependency>
         <groupId>org.gedcom4j</groupId>
