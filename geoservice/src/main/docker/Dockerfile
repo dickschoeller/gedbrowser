@@ -1,6 +1,6 @@
 FROM java:8
 VOLUME /tmp
-ADD geoservice-1.1.0-SNAPSHOT.jar gedbrowser.jar
+ADD geoservice-1.1.0-SNAPSHOT.jar geoservice.jar
 EXPOSE 8080
 ENV spring.data.mongodb.host=mongo
 RUN bash -c 'touch /gedbrowser.jar'
