@@ -1,5 +1,7 @@
 package org.schoellerfamily.geoservice.test;
 
+import static org.assertj.core.api.BDDAssertions.then;
+
 import java.util.Map;
 
 import org.junit.Test;
@@ -13,19 +15,17 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.assertj.core.api.BDDAssertions.then;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-public class ApplicationTests {
+public class ApplicationTest {
     // The assert check is suppressed because using BDD assertions, which don't
     // match the PMD check.
 

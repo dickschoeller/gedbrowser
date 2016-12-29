@@ -8,13 +8,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.geoservice.backup.GeoCodeBackup;
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
-import org.schoellerfamily.geoservice.geocoder.GoogleGeoCoder;
-import org.schoellerfamily.geoservice.keys.KeyManager;
+import org.schoellerfamily.geoservice.geocoder.StubGeoCoder;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeStub;
+import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeTestFixture;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
@@ -44,10 +43,6 @@ public final class GeoCodeBackupTest {
      */
     @Configuration
     static class ContextConfiguration {
-        /** */
-        @Value("${geoservice.keyfile:/var/lib/gedbrowser/google-geocoding-key}")
-        private transient String keyfile;
-
         /**
          * @return the persistence manager
          */
@@ -77,9 +72,8 @@ public final class GeoCodeBackupTest {
         // CHECKSTYLE:OFF
         @Bean
         public GeoCoder geoCoder() {
-            final KeyManager km = new KeyManager();
-            final String key = km.readKeyFile(keyfile);
-            return new GoogleGeoCoder(key);
+            final GeoCodeTestFixture fixture = new GeoCodeTestFixture();
+            return new StubGeoCoder(fixture.expectedNotFound());
         }
     }
 

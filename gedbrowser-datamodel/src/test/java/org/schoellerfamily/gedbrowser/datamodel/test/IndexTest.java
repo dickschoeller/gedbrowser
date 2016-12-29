@@ -191,7 +191,8 @@ public final class IndexTest {
     public void testGetNamesPerSurname1() {
         final Set<String> schoellerIndex = root.getIndex().getNamesPerSurname(
                 SCHOELLER_SURNAME);
-        assertEquals(SCHOELLERS_COUNT, schoellerIndex.size());
+        assertEquals("Schoeller count mismatch", SCHOELLERS_COUNT,
+                schoellerIndex.size());
     }
 
     /** */
@@ -199,7 +200,8 @@ public final class IndexTest {
     public void testGetNamesPerSurname2() {
         final Set<String> robinsonIndex = root.getIndex().getNamesPerSurname(
                 ROBINSON_SURNAME);
-        assertEquals(ROBINSONS_COUNT, robinsonIndex.size());
+        assertEquals("Robinson count mismatch", ROBINSONS_COUNT,
+                robinsonIndex.size());
     }
 
     /** */
@@ -229,21 +231,21 @@ public final class IndexTest {
     /** */
     @Test
     public void testGetNamesPerSurname6() {
-        Set<String> schoellerIndex = root.getIndex().getNamesPerSurname(
+        final Set<String> schoellerIndex = root.getIndex().getNamesPerSurname(
                 SCHOELLER_SURNAME);
         try {
             schoellerIndex.add(FOO);
             fail(SHOULD_THROW);
         } catch (UnsupportedOperationException e) {
-            schoellerIndex = Collections.emptySet(); // NOPMD
+            assertTrue("Expected to get here", true); // NOPMD
         }
     }
 
     /** */
     @Test
     public void testGetSurnames() {
-        Set<String> set = root.getIndex().getSurnames();
-        assertEquals(SURNAME_COUNT, set.size());
+        final Set<String> set = root.getIndex().getSurnames();
+        assertEquals("Surname count mismatch", SURNAME_COUNT, set.size());
         int arrayIndex = 0;
         for (final String surname : set) {
             assertEquals("Surname anomaly", CHECK_SURNAMES[arrayIndex++],
@@ -253,7 +255,7 @@ public final class IndexTest {
             set.add(FOO);
             fail(SHOULD_THROW);
         } catch (UnsupportedOperationException e) {
-            set = Collections.emptySet(); // NOPMD
+            assertTrue("Expected to get here", true); // NOPMD
         }
     }
 
@@ -317,6 +319,7 @@ public final class IndexTest {
     /** */
     @Test
     public void testSize() {
-        assertEquals(SURNAME_COUNT, root.getIndex().surnameCount());
+        assertEquals("Surname count mismatch", SURNAME_COUNT,
+                root.getIndex().surnameCount());
     }
 }
