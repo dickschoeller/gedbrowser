@@ -5,5 +5,5 @@ install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -DskipDocker -B 
 jdk:
   - oraclejdk8
 
-#script: mvn install jacoco:report coveralls:report -DskipDocker
-script: mvn install -DskipTests=true -DskipDocker
+script: mvn install jacoco:report coveralls:report -DskipDocker
+#script: mvn install -DskipTests=true -DskipDocker

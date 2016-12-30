@@ -371,18 +371,6 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testSizeFromFile() {
-        logger.info("Entering testSizeFromFile");
-        testFixture.clearRepository();
-        loader.load(getTestFilePath());
-        final int expected = 19;
-        Assert.assertEquals("Should match known file size of 19",
-                expected, gcc.size());
-    }
-
-    /**
-     */
-    @Test
     public void testDump() {
         logger.info("Entering testDump");
         testFixture.clearRepository();
@@ -506,13 +494,5 @@ public final class GeoCodeMongoTest {
      */
     private InputStream getTestFileAsStream() {
         return getClass().getResourceAsStream("/test.txt");
-    }
-
-    /**
-     * @return path to the standard location for a test file, shorter than
-     *         standard places.
-     */
-    private String getTestFilePath() {
-        return "/var/lib/gedbrowser/test.txt";
     }
 }

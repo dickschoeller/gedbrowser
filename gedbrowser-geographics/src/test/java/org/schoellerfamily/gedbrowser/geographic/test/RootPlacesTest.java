@@ -26,8 +26,7 @@ public class RootPlacesTest {
     @Test
     public final void testRootPlacesMini() throws IOException {
         final AbstractGedLine top =
-                ReaderHelper.readFileTestSource(this,
-                        "mini-schoeller.ged");
+                ReaderHelper.readFileTestSource(this, "mini-schoeller.ged");
         final Root root = (Root) top.createGedObject((AbstractGedLine) null);
         final Places rootPlaces = new RootPlaces(root);
         final Collection<Place> places = rootPlaces.getPlaces();
@@ -45,8 +44,7 @@ public class RootPlacesTest {
     @Test
     public final void testRootPlacesFull() throws IOException {
         final AbstractGedLine top =
-                ReaderHelper.readFileTestSource(this,
-                        "/var/lib/gedbrowser/schoeller.ged");
+                ReaderHelper.readFileTestSource(this, "gl120368.ged");
         final Root root = (Root) top.createGedObject((AbstractGedLine) null);
         final Places rootPlaces = new RootPlaces(root);
         final Collection<Place> places = rootPlaces.getPlaces();

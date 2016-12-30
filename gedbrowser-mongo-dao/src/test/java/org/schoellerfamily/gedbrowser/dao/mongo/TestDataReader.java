@@ -388,14 +388,14 @@ public final class TestDataReader {
     }
 
     /**
-     * Read /var/lib/gedbrowser/schoeller.ged which is a pretty big file.
+     * Read gl120368.ged which is a pretty big file.
      *
      * @return the GedLine hierarchy from parsing this file.
      * @throws IOException because the file reader might throw.
      */
     public GedObject readFileTestSource() throws IOException {
-        final AbstractGedLine agl = ReaderHelper.readFileTestSource(this,
-                "/var/lib/gedbrowser/schoeller.ged");
+        final AbstractGedLine agl =
+                ReaderHelper.readFileTestSource(this, "gl120368.ged");
         agl.readToNext();
         return agl.createGedObject(null);
     }

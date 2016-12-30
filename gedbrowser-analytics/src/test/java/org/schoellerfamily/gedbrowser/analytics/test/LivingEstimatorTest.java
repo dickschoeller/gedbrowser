@@ -32,8 +32,8 @@ public class LivingEstimatorTest {
      */
     @Test
     public final void testFactoryGedFile() throws IOException {
-        final AbstractGedLine top = ReaderHelper.readFileTestSource(this,
-                "/var/lib/gedbrowser/schoeller.ged");
+        final AbstractGedLine top =
+                ReaderHelper.readFileTestSource(this, "gl120368.ged");
         final GedObject root = top.createGedObject((AbstractGedLine) null);
         final List<Person> living = new ArrayList<>();
         final Map<Integer, Set<Person>> buckets = new HashMap<>();

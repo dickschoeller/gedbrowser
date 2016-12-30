@@ -372,17 +372,6 @@ public class GeoCodeTest {
 
     /** */
     @Test
-    public void testSizeFromFile() {
-        logger.info("Entering testSizeFromFile");
-        gcc.clear();
-        loader.load("/var/lib/gedbrowser/test.txt");
-        final int expected = 19;
-        Assert.assertEquals("Should match known file size of 19",
-                expected, gcc.size());
-    }
-
-    /** */
-    @Test
     public void testDump() {
         logger.info("Entering testDump");
         gcc.clear();

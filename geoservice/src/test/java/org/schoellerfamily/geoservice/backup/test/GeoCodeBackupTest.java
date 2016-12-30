@@ -84,13 +84,14 @@ public final class GeoCodeBackupTest {
     public void testBackupRestoreBasic() throws IOException {
         gcd.clear();
         gcd.find("3341 Chaucer Lane, Bethlehem, PA");
-        backupManager.backup(new File("/var/lib/gedbrowser/test.json"));
+        backupManager.backup(new File("test.json"));
         gcd.clear();
-        backupManager.recover(new File("/var/lib/gedbrowser/test.json"));
+        final File test = new File("test.json");
+        backupManager.recover(test);
         Assert.assertTrue("Should contain expected entry",
                 gcd.allKeys().contains("3341 Chaucer Lane, Bethlehem, PA"));
+        Assert.assertTrue("Should have deleted test.json", test.delete());
     }
-
 
     /**
      * @throws IOException if backup file can't be written or read
@@ -99,9 +100,11 @@ public final class GeoCodeBackupTest {
     public void testBackupRestore() throws IOException {
         gcd.clear();
         final GeoCodeItem gci = gcd.find("3341 Chaucer Lane, Bethlehem, PA");
-        backupManager.backup(new File("/var/lib/gedbrowser/test.json"));
+        backupManager.backup(new File("test.json"));
         gcd.clear();
-        backupManager.recover(new File("/var/lib/gedbrowser/test.json"));
+        final File test = new File("test.json");
+        backupManager.recover(test);
         Assert.assertEquals(gci, gcd.get("3341 Chaucer Lane, Bethlehem, PA"));
+        Assert.assertTrue("Should have deleted test.json", test.delete());
     }
 }
