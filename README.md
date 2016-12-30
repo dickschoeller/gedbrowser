@@ -36,7 +36,7 @@ the file application.yml.
 * ![](images/reviewninja-25.png) [ReviewNinja](https://app.review.ninja/dickschoeller/gedbrowser) code reviews
 * ![](images/jenkins-25.png) [Jenkins](http://www.schoellerfamily.org/jenkins/) builds
 * ![](images/coveralls-25.png) [Coveralls](https://coveralls.io/github/dickschoeller/gedbrowser) coverage analysis
-* ![](images/versioneye-25.png) [VersionEye](https://www.versioneye.com/user/projects/5865adedc890d4004a99bf9d) dependency analysis
+* ![](images/versioneye-25.png) [VersionEye](https://www.versioneye.com/user/projects/5865adedc890d4004a99bf9d?child=summary#tab-dependencies) dependency analysis
 
 ## Technology
 
