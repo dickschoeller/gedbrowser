@@ -42,16 +42,17 @@
     <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
     <spring.version>4.3.5.RELEASE</spring.version>
     <junit.version>4.12</junit.version>
-    <selenium.version>3.0.1</selenium.version>
-    <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
     <cglib.version>3.2.4</cglib.version>
     <spring-data-mongodb.version>1.9.6.RELEASE</spring-data-mongodb.version>
     <spring-data-commons.version>1.12.6.RELEASE</spring-data-commons.version>
-    <selenium-htmlunit-driver.version>2.52.0</selenium-htmlunit-driver.version>
     <google-maps-services.version>0.1.17</google-maps-services.version>
     <jackson-databind.version>2.8.5</jackson-databind.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.9.7</joda-time.version>
+
+    <selenium.version>3.0.1</selenium.version>
+    <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
+    <htmlunit-driver.version>2.23.2</htmlunit-driver.version>
 
     <config-dir>${project.basedir}/config</config-dir>
   </properties>
@@ -324,10 +325,15 @@
         <artifactId>selenium-java</artifactId>
         <version>${selenium.version}</version>
       </dependency>
-      <dependency>
+      <!-- dependency>
         <groupId>org.seleniumhq.selenium.client-drivers</groupId>
         <artifactId>selenium-java-client-driver</artifactId>
         <version>${selenium-client-driver.version}</version>
+      </dependency -->
+      <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-chrome-driver</artifactId>
+        <version>${selenium.version}</version>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
@@ -336,8 +342,14 @@
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
-        <artifactId>selenium-htmlunit-driver</artifactId>
-        <version>${selenium-htmlunit-driver.version}</version>
+        <!-- htmlunit-driver works, selenium-htmlunit-driver does not -->
+        <artifactId>htmlunit-driver</artifactId>
+        <version>${htmlunit-driver.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-remote-driver</artifactId>
+        <version>${selenium.version}</version>
       </dependency>
       <dependency>
         <groupId>com.google.maps</groupId>
