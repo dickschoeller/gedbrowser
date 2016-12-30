@@ -111,6 +111,10 @@
         <groupId>org.eluder.coveralls</groupId>
         <artifactId>coveralls-maven-plugin</artifactId>
       </plugin>
+      <plugin>
+        <groupId>com.versioneye</groupId>
+        <artifactId>versioneye-maven-plugin</artifactId>
+      </plugin>
     </plugins>
   </build>
   <dependencies>
