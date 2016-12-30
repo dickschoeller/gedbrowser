@@ -1,13 +1,16 @@
 language: java
 
 before-install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y mongodb-org
+  - uname -r
+  - sudo apt-get update
+  - sudo apt-get install -y apt-transport-https ca-certificates
+  - sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+  - cat /etc/apt/sources.list
 
 install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -DskipDocker -B -V
 
 jdk:
   - oraclejdk8
 
-script: mvn install jacoco:report coveralls:report -DskipDocker
-#script: mvn install -DskipTests=true -DskipDocker
+#script: mvn install jacoco:report coveralls:report -DskipDocker
+script: mvn install -DskipTests=true -DskipDocker
