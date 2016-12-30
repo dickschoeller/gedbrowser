@@ -16,7 +16,7 @@ jdk:
 #script: mvn install jacoco:report coveralls:report
 script:
   - docker ps --all
-  - mvn install -DskipTests=true
+  - mvn install
   - docker run --link mongo:mongo -v /home/travis/gedbrowser:/var/lib/gedbrowser -p 8086:8080 --name geoservice -d schoellerfamily/geoservice
   - docker run --link mongo:mongo -v /home/travis/gedbrowser:/var/lib/gedbrowser -p 8080:8080 --name gedbrowser -d schoellerfamily/gedbrowser
   - sleep 1m
