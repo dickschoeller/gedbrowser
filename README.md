@@ -4,9 +4,9 @@ Spring Boot application to display the genealogy data from a [GEDCOM](http://wik
 
 Check it out by perusing [my genealogy database](http://www.schoellerfamily.org/gedbrowser/surnames?db=schoeller). You can browse the database anonymously, but you will need a login with the appropriate role to see living people.
 
-| Build | Coverage | Dependencies | Selenium |
-| :--- | :--- | :--- | :--- |
-| [![Build Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser)](http://www.schoellerfamily.org/jenkins/job/gedbrowser/) | [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=master)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=master) | [![Dependency Status](https://www.versioneye.com/user/projects/5865adedc890d4004a99bf9d/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5865adedc890d4004a99bf9d?child=summary#tab-dependencies) | [![Selenium Test Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser-selenium)](http://www.schoellerfamily.org/jenkins/job/gedbrowser-selenium) |
+| Jenkins Build | Travis Build | Coverage | Dependencies | Selenium |
+| :--- | :--- | :--- | :--- | :--- |
+| [![Build Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser)](http://www.schoellerfamily.org/jenkins/job/gedbrowser/) | [![Build Status](https://api.travis-ci.org/dickschoeller/gedbrowser.svg?branch=master)](https://travis-ci.org/dickschoeller/gedbrowser.svg?branch=master) | [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=master)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=master) | [![Dependency Status](https://www.versioneye.com/user/projects/5865adedc890d4004a99bf9d/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5865adedc890d4004a99bf9d?child=summary#tab-dependencies) | [![Selenium Test Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser-selenium)](http://www.schoellerfamily.org/jenkins/job/gedbrowser-selenium) |
 
 ## Getting started
 
@@ -35,6 +35,7 @@ the file application.yml.
 * ![](images/overvio.png) [Overv.io](https://overv.io/dickschoeller/gedbrowser/) task board
 * ![](images/reviewninja-25.png) [ReviewNinja](https://app.review.ninja/dickschoeller/gedbrowser) code reviews
 * ![](images/jenkins-25.png) [Jenkins](http://www.schoellerfamily.org/jenkins/) builds
+* ![](images/travis-ci-25.png) [Travis CI](https://travis-ci.org/dickschoeller/gedbrowser) builds
 * ![](images/coveralls-25.png) [Coveralls](https://coveralls.io/github/dickschoeller/gedbrowser) coverage analysis
 * ![](images/versioneye-25.png) [VersionEye](https://www.versioneye.com/user/projects/5865adedc890d4004a99bf9d?child=summary#tab-dependencies) dependency analysis
 
