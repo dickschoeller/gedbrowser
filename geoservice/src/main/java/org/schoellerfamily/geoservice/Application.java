@@ -2,8 +2,9 @@ package org.schoellerfamily.geoservice;
 
 import org.schoellerfamily.geoservice.backup.GeoCodeBackup;
 import org.schoellerfamily.geoservice.controller.ApplicationInfo;
-import org.schoellerfamily.geoservice.geocoder.GoogleGeoCoder;
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
+import org.schoellerfamily.geoservice.geocoder.GoogleGeoCoder;
+import org.schoellerfamily.geoservice.geocoder.StubGeoCoder;
 import org.schoellerfamily.geoservice.keys.KeyManager;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.mongo.GeoCodeMongo;
@@ -71,6 +72,9 @@ public class Application {
     // CHECKSTYLE:OFF
     @Bean
     public GeoCoder geoCoder() {
+        if ("stub".equals(keyfile)) {
+            return new StubGeoCoder(new String[0]);
+        }
         final KeyManager km = new KeyManager();
         final String key = km.readKeyFile(keyfile);
         return new GoogleGeoCoder(key);
