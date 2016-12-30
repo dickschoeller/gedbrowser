@@ -1,5 +1,9 @@
 language: java
 
+before-install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y mongodb-org
+
 install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -DskipDocker -B -V
 
 jdk:
