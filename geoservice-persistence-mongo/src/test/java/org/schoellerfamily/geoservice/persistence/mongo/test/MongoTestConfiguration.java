@@ -9,6 +9,7 @@ import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
 import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeTestFixture;
 import org.schoellerfamily.geoservice.persistence.mongo.GeoCodeMongo;
 import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRepositoryMongo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +35,14 @@ import com.mongodb.MongoClient;
                 value = { GeoDocumentRepositoryMongo.class },
                 type = FilterType.ASSIGNABLE_TYPE))
 public class MongoTestConfiguration {
+    /** */
+    @Value("${spring.data.mongodb.host:localhost}")
+    private transient String host;
+
+    /** */
+    @Value("${spring.data.mongodb.port:27017}")
+    private transient int port;
+
     /**
      * @return the persistence manager
      */
@@ -67,7 +76,8 @@ public class MongoTestConfiguration {
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
         // CHECKSTYLE:ON
-        return new SimpleMongoDbFactory(new MongoClient(), "gedbrowserTest");
+        return new SimpleMongoDbFactory(
+                new MongoClient(host, port), "geoserviceTest");
     }
 
     /**
