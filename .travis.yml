@@ -16,3 +16,4 @@ jdk:
 script:
   - docker ps --all
   - mvn install -DskipTests=true
+  - docker ps --all
