@@ -3,7 +3,7 @@ language: java
 services:
   - docker
 
-before-install:
+before_install:
   - mkdir /home/travis/data
   - docker run -v /home/travis/data:/data/db --name mongo -p 28001:27017 -d mongo
 
