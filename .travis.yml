@@ -13,4 +13,6 @@ jdk:
   - oraclejdk8
 
 #script: mvn install jacoco:report coveralls:report
-script: mvn install
+script:
+  - docker ps --all
+  - mvn install -DskipTests=true
