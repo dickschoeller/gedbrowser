@@ -6,7 +6,7 @@ Check it out by perusing [my genealogy database](http://www.schoellerfamily.org/
 
 | Build | Coverage | Dependencies | Selenium |
 | :--- | :--- | :--- | :--- |
-| [![Build Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser)](http://www.schoellerfamily.org/jenkins/job/gedbrowser/) | [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=master)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=master) | [![Dependency Status](https://www.versioneye.com/user/projects/5865adedc890d4004a99bf9d/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5865adedc890d4004a99bf9d) | [![Selenium Test Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser-selenium)](http://www.schoellerfamily.org/jenkins/job/gedbrowser-selenium) |
+| [![Build Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser)](http://www.schoellerfamily.org/jenkins/job/gedbrowser/) | [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=master)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=master) | [![Dependency Status](https://www.versioneye.com/user/projects/5865adedc890d4004a99bf9d/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5865adedc890d4004a99bf9d?child=summary#tab-dependencies) | [![Selenium Test Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser-selenium)](http://www.schoellerfamily.org/jenkins/job/gedbrowser-selenium) |
 
 ## Getting started
 
