@@ -21,8 +21,8 @@ Check it out by perusing [my genealogy database](http://www.schoellerfamily.org/
 Running with Docker requires running the MongoDB with Docker. The following command allows you to do this without conflicting ports with a native mongod service.
 
 * docker run --rm -v /home/dick/data:/data/db --name mongo -p 28001:27017 -d mongo
-* docker run --link mongo:mongo -v /var/lib/gedbrowser:/var/lib/gedbrowser -p 8086:8080 --name geoservice -d schoellerfamily/geoservice
-* docker run --link mongo:mongo -v /var/lib/gedbrowser:/var/lib/gedbrowser -p 8080:8080 --name gedbrowser -d schoellerfamily/gedbrowser
+* docker run --link mongo:mongo -v /var/lib/gedbrowser:/var/lib/gedbrowser -p 8086:8080 -p 8087:8081 --name geoservice -d schoellerfamily/geoservice
+* docker run --link mongo:mongo -v /var/lib/gedbrowser:/var/lib/gedbrowser -p 8080:8080 -p 8081:8081 --name gedbrowser -d schoellerfamily/gedbrowser
 
 As each GEDCOM file is referred to, it will be loaded into your instance of MongoDB. More explicit management
 of data loading is planned for the future.

@@ -174,7 +174,12 @@ public abstract class GeoCodeBasic implements GeoCode {
             final String name = gdm.getName();
             if (gdm.getResult() == null) {
                 notFoundSet.add(name);
-                logger.debug(name);
+                final String mName = gdm.getModernName();
+                if (name.equals(mName)) {
+                    logger.debug(name);
+                } else {
+                    logger.debug(name + "|" + mName);
+                }
             }
         }
         return notFoundSet;

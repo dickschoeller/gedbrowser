@@ -7,6 +7,7 @@ import org.schoellerfamily.geoservice.geocoder.GoogleGeoCoder;
 import org.schoellerfamily.geoservice.geocoder.StubGeoCoder;
 import org.schoellerfamily.geoservice.keys.KeyManager;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
+import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
 import org.schoellerfamily.geoservice.persistence.mongo.GeoCodeMongo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -63,6 +64,17 @@ public class Application {
     public ApplicationInfo appInfo() {
         // CHECKSTYLE:ON
         return new ApplicationInfo();
+    }
+
+    /**
+     * @return the geocodeloader
+     */
+    // We turn off checkstyle because bean methods must not be final
+    // CHECKSTYLE:OFF
+    @Bean
+    public GeoCodeLoader loader() {
+        // CHECKSTYLE:ON
+        return new GeoCodeLoader();
     }
 
     /**

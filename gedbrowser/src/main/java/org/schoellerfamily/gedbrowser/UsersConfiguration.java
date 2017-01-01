@@ -63,6 +63,7 @@ public class UsersConfiguration {
      * @param userFields string array from the reader
      * @return built user
      */
+    @SuppressWarnings("PMD.UseVarargs")
     private User buildUser(final String[] userFields) {
         final User user = new User();
         int i = 0;
@@ -76,5 +77,4 @@ public class UsersConfiguration {
         }
         return user;
     }
-
 }

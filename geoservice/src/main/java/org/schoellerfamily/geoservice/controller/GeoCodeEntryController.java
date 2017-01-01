@@ -33,18 +33,38 @@ public class GeoCodeEntryController {
 
     /**
      * @param name the historical name of the place
+     * @param modernName the modern searchable name of the place
      * @return a search result
      */
     @RequestMapping("/geocode")
     public final GeoCodeItem find(
-            @RequestParam(value = "name", required = true) final String name) {
-        logger.debug("Find location: " + name);
+            @RequestParam(value = "name", required = true)
+                final String name,
+            @RequestParam(value = "modernName", required = false)
+                final String modernName) {
+        if (modernName == null || modernName.isEmpty()) {
+            logger.debug("Find location: \"" + name + "\"");
+        } else {
+            logger.debug(
+                    "Find location: \"" + name + "\", \"" + modernName + "\"");
+        }
         String findName;
         try {
             findName = URLDecoder.decode(name, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             findName = name;
         }
-        return gcc.find(findName);
+        String findModernName;
+        if (modernName == null || modernName.isEmpty()) {
+            findModernName = findName;
+        } else {
+            try {
+                findModernName = URLDecoder.decode(modernName, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                findModernName = modernName;
+            }
+        }
+
+        return gcc.find(findName, findModernName);
     }
 }
