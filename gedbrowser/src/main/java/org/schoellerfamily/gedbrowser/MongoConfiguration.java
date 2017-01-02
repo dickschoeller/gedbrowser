@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser;
 
 import java.net.UnknownHostException;
 
+import org.schoellerfamily.gedbrowser.controller.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
@@ -109,5 +110,16 @@ public class MongoConfiguration {
     public GedFileLoader loader() {
         // CHECKSTYLE:ON
         return new GedFileLoader();
+    }
+
+    /**
+     * @return the application info provider
+     */
+    // We turn off checkstyle because bean methods must not be final
+    // CHECKSTYLE:OFF
+    @Bean
+    public ApplicationInfo appInfo() {
+        // CHECKSTYLE:ON
+        return new ApplicationInfo();
     }
 }
