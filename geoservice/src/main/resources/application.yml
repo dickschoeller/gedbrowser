@@ -5,10 +5,12 @@ logging:
     level:
         org:
             schoellerfamily: DEBUG
+
 spring:
     jackson:
         serialization:
             INDENT_OUTPUT: true
+
 geoservice:
     keyfile: /var/lib/gedbrowser/google-geocoding-key
     backupfile: /var/lib/gedbrowser/geoservice-backup.json

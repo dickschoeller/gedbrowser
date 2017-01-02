@@ -9,5 +9,10 @@ logging:
         org:
             schoellerfamily: INFO
 
+spring:
+    jackson:
+        serialization:
+            INDENT_OUTPUT: true
+
 management:
     port: 8081
