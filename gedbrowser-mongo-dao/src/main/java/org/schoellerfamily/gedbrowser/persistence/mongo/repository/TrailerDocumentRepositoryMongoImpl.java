@@ -1,5 +1,8 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.TrailerDocument;
@@ -55,5 +58,63 @@ public class TrailerDocumentRepositoryMongoImpl implements
         final Trailer trailer = trailerDocument.getGedObject();
         trailer.setParent(rootDocument.getGedObject());
         return trailerDocument;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterable<TrailerDocument> findAll(final String filename) {
+        final Query searchQuery =
+                new Query(Criteria.where("filename").is(filename));
+        final List<TrailerDocumentMongo> trailerDocumentsMongo =
+                mongoTemplate.find(searchQuery, TrailerDocumentMongo.class);
+        if (trailerDocumentsMongo == null) {
+            return null;
+        }
+        final List<TrailerDocument> trailerDocuments = new ArrayList<>();
+        for (final TrailerDocument trailerDocument : trailerDocumentsMongo) {
+            final Trailer trailer =
+                    (Trailer) GedDocumentMongoFactory.getInstance()
+                        .createGedObject(null, trailerDocument);
+            trailerDocument.setGedObject(trailer);
+            trailerDocuments.add(trailerDocument);
+        }
+        return trailerDocuments;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterable<TrailerDocument> findAll(final RootDocument rootDocument) {
+        final Iterable<TrailerDocument> trailerDocuments =
+                findAll(rootDocument.getFilename());
+        if (trailerDocuments == null) {
+            return null;
+        }
+        for (final TrailerDocument trailerDocument : trailerDocuments) {
+            final Trailer trailer = trailerDocument.getGedObject();
+            trailer.setParent(rootDocument.getGedObject());
+        }
+        return trailerDocuments;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long count(final String filename) {
+        final Query searchQuery =
+                new Query(Criteria.where("filename").is(filename));
+        return mongoTemplate.count(searchQuery, TrailerDocumentMongo.class);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long count(final RootDocument rootDocument) {
+        return count(rootDocument.getFilename());
     }
 }

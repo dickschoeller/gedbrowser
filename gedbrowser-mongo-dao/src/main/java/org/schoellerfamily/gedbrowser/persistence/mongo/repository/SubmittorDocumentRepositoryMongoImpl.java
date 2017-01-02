@@ -1,5 +1,8 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmittorDocument;
@@ -57,5 +60,65 @@ public class SubmittorDocumentRepositoryMongoImpl implements
         final Submittor submittor = submittorDocument.getGedObject();
         submittor.setParent(rootDocument.getGedObject());
         return submittorDocument;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterable<SubmittorDocument> findAll(final String filename) {
+        final Query searchQuery =
+                new Query(Criteria.where("filename").is(filename));
+        final List<SubmittorDocumentMongo> submittorDocumentsMongo =
+                mongoTemplate.find(searchQuery, SubmittorDocumentMongo.class);
+        if (submittorDocumentsMongo == null) {
+            return null;
+        }
+        final List<SubmittorDocument> submittorDocuments = new ArrayList<>();
+        for (final SubmittorDocument submittorDocument
+                : submittorDocumentsMongo) {
+            final Submittor submittor =
+                    (Submittor) GedDocumentMongoFactory.getInstance()
+                        .createGedObject(null, submittorDocument);
+            submittorDocument.setGedObject(submittor);
+            submittorDocuments.add(submittorDocument);
+        }
+        return submittorDocuments;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterable<SubmittorDocument> findAll(
+            final RootDocument rootDocument) {
+        final Iterable<SubmittorDocument> submittorDocuments =
+                findAll(rootDocument.getFilename());
+        if (submittorDocuments == null) {
+            return null;
+        }
+        for (final SubmittorDocument submittorDocument : submittorDocuments) {
+            final Submittor submittor = submittorDocument.getGedObject();
+            submittor.setParent(rootDocument.getGedObject());
+        }
+        return submittorDocuments;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long count(final String filename) {
+        final Query searchQuery =
+                new Query(Criteria.where("filename").is(filename));
+        return mongoTemplate.count(searchQuery, SubmittorDocumentMongo.class);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long count(final RootDocument rootDocument) {
+        return count(rootDocument.getFilename());
     }
 }

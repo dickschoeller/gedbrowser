@@ -1,5 +1,8 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
@@ -53,5 +56,63 @@ public class RootDocumentRepositoryMongoImpl implements
             final RootDocument rootDocument, final String string) {
         throw new IllegalArgumentException(
                 "Not implementable for this document type");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterable<RootDocument> findAll(final String filename) {
+        final Query searchQuery =
+                new Query(Criteria.where("filename").is(filename));
+        final List<RootDocumentMongo> rootDocumentsMongo =
+                mongoTemplate.find(searchQuery, RootDocumentMongo.class);
+        if (rootDocumentsMongo == null) {
+            return null;
+        }
+        final List<RootDocument> rootDocuments = new ArrayList<>();
+        for (final RootDocument rootDocument : rootDocumentsMongo) {
+            final Root root =
+                    (Root) GedDocumentMongoFactory.getInstance()
+                        .createGedObject(null, rootDocument);
+            rootDocument.setGedObject(root);
+            rootDocuments.add(rootDocument);
+        }
+        return rootDocuments;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterable<RootDocument> findAll(final RootDocument rootDocument) {
+        final Iterable<RootDocument> rootDocuments =
+                findAll(rootDocument.getFilename());
+        if (rootDocuments == null) {
+            return null;
+        }
+        for (final RootDocument rootDocumentOut : rootDocuments) {
+            final Root root = rootDocumentOut.getGedObject();
+            root.setParent(rootDocumentOut.getGedObject());
+        }
+        return rootDocuments;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long count(final String filename) {
+        final Query searchQuery =
+                new Query(Criteria.where("filename").is(filename));
+        return mongoTemplate.count(searchQuery, RootDocumentMongo.class);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long count(final RootDocument rootDocument) {
+        return count(rootDocument.getFilename());
     }
 }

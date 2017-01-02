@@ -25,6 +25,7 @@ import org.springframework.data.mongodb.core.query.Query;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.TooManyMethods")
 public final class PersonDocumentRepositoryMongoImpl implements
         FindableByNameDocument<Person, PersonDocument> {
     /** Logger. */
@@ -267,5 +268,63 @@ public final class PersonDocumentRepositoryMongoImpl implements
             // If the dates are the same, use the I number.
             return p0.getString().compareTo(p1.getString());
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterable<PersonDocument> findAll(final String filename) {
+        final Query searchQuery =
+                new Query(Criteria.where("filename").is(filename));
+        final List<PersonDocumentMongo> personDocumentsMongo =
+                mongoTemplate.find(searchQuery, PersonDocumentMongo.class);
+        if (personDocumentsMongo == null) {
+            return null;
+        }
+        final List<PersonDocument> personDocuments = new ArrayList<>();
+        for (final PersonDocument personDocument : personDocumentsMongo) {
+            final Person person =
+                    (Person) GedDocumentMongoFactory.getInstance()
+                        .createGedObject(null, personDocument);
+            personDocument.setGedObject(person);
+            personDocuments.add(personDocument);
+        }
+        return personDocuments;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterable<PersonDocument> findAll(final RootDocument rootDocument) {
+        final Iterable<PersonDocument> personDocuments =
+                findAll(rootDocument.getFilename());
+        if (personDocuments == null) {
+            return null;
+        }
+        for (final PersonDocument personDocument : personDocuments) {
+            final Person person = personDocument.getGedObject();
+            person.setParent(rootDocument.getGedObject());
+        }
+        return personDocuments;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long count(final String filename) {
+        final Query searchQuery =
+                new Query(Criteria.where("filename").is(filename));
+        return mongoTemplate.count(searchQuery, PersonDocumentMongo.class);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long count(final RootDocument rootDocument) {
+        return count(rootDocument.getFilename());
     }
 }

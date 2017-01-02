@@ -1,5 +1,8 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
@@ -55,5 +58,63 @@ public class SourceDocumentRepositoryMongoImpl implements
         final Source source = sourceDocument.getGedObject();
         source.setParent(rootDocument.getGedObject());
         return sourceDocument;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterable<SourceDocument> findAll(final String filename) {
+        final Query searchQuery =
+                new Query(Criteria.where("filename").is(filename));
+        final List<SourceDocumentMongo> sourceDocumentsMongo =
+                mongoTemplate.find(searchQuery, SourceDocumentMongo.class);
+        if (sourceDocumentsMongo == null) {
+            return null;
+        }
+        final List<SourceDocument> sourceDocuments = new ArrayList<>();
+        for (final SourceDocument sourceDocument : sourceDocumentsMongo) {
+            final Source source =
+                    (Source) GedDocumentMongoFactory.getInstance()
+                        .createGedObject(null, sourceDocument);
+            sourceDocument.setGedObject(source);
+            sourceDocuments.add(sourceDocument);
+        }
+        return sourceDocuments;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterable<SourceDocument> findAll(final RootDocument rootDocument) {
+        final Iterable<SourceDocument> sourceDocuments =
+                findAll(rootDocument.getFilename());
+        if (sourceDocuments == null) {
+            return null;
+        }
+        for (final SourceDocument sourceDocument : sourceDocuments) {
+            final Source source = sourceDocument.getGedObject();
+            source.setParent(rootDocument.getGedObject());
+        }
+        return sourceDocuments;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long count(final String filename) {
+        final Query searchQuery =
+                new Query(Criteria.where("filename").is(filename));
+        return mongoTemplate.count(searchQuery, SourceDocumentMongo.class);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long count(final RootDocument rootDocument) {
+        return count(rootDocument.getFilename());
     }
 }

@@ -59,8 +59,6 @@ public class IndexController extends AbstractController {
 
         final RenderingContext renderingContext = createRenderingContext(users);
 
-        loader.reset();
-
         final Root root = (Root) loader.load(dbName);
         GedRenderer<?> gedRenderer;
         if (root == null) {

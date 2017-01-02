@@ -25,4 +25,28 @@ public  interface FindableDocument
      * @return the matching item
      */
     D findByRootAndString(RootDocument rootDocument, String string);
+
+    /**
+     * @param filename the value of filename
+     * @return the list of all documents of this type in that filename
+     */
+    Iterable<D> findAll(String filename);
+
+    /**
+     * @param rootDocument the root of our data set
+     * @return the list of all document of this type in that root
+     */
+    Iterable<D> findAll(RootDocument rootDocument);
+
+    /**
+     * @param filename the value of filename
+     * @return the list of all documents of this type in that filename
+     */
+    long count(String filename);
+
+    /**
+     * @param rootDocument the root of our data set
+     * @return the list of all document of this type in that root
+     */
+    long count(RootDocument rootDocument);
 }

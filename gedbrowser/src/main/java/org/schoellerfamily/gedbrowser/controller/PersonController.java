@@ -63,8 +63,6 @@ public class PersonController extends AbstractController {
 
         String nameString;
 
-        loader.reset();
-
         final Root root = (Root) loader.load(dbName);
         GedRenderer<?> gedRenderer;
         if (root == null) {

@@ -45,7 +45,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -57,7 +58,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -69,7 +71,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -81,7 +84,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -93,7 +97,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -105,7 +110,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -117,7 +123,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -129,7 +136,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -141,7 +149,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -153,7 +162,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -165,7 +175,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -177,7 +188,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -189,7 +201,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(attr);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -201,7 +214,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -213,7 +227,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -225,7 +240,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -237,7 +253,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -249,7 +266,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 
@@ -261,7 +279,8 @@ public final class BadLoadTest { // NOPMD
             ad.loadGedObject(root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage());
+            assertEquals("Expected a wrong type exception",
+                    "Wrong type", e.getMessage());
         }
     }
 }

@@ -62,8 +62,6 @@ public class SourceController extends AbstractController {
 
         final String filename = gedbrowserHome + "/" + dbName + ".ged";
 
-        loader.reset();
-
         final Root root = (Root) loader.load(dbName);
         GedRenderer<?> gedRenderer;
         if (root == null) {

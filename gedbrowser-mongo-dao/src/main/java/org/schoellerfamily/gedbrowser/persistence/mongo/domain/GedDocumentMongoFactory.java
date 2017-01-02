@@ -119,6 +119,9 @@ public final class GedDocumentMongoFactory {
      * @param document the document to transform
      * @return the transformation result
      */
+    @SuppressWarnings({ "PMD.CyclomaticComplexity",
+            "PMD.ModifiedCyclomaticComplexity", "PMD.StdCyclomaticComplexity",
+            "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     public GedObject createGedObject(final GedObject parent,
             final GedDocument<?> document) {
         GedObject retval = null;

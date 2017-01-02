@@ -44,6 +44,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.ExcessiveImports")
 public final class RepositoryFinderMongo implements FinderStrategy {
     /** Logger. */
     private static final Logger LOGGER = Logger
@@ -110,6 +111,8 @@ public final class RepositoryFinderMongo implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings({ "PMD.CyclomaticComplexity",
+            "PMD.ModifiedCyclomaticComplexity", "PMD.StdCyclomaticComplexity" })
     public <T extends GedObject> T find(final GedObject owner,
             final String str, final Class<T> clazz) {
         if (!(owner instanceof Root)) {

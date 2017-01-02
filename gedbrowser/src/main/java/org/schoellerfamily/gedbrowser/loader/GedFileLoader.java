@@ -6,6 +6,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
@@ -39,9 +43,6 @@ import org.springframework.beans.factory.annotation.Value;
  * @author Dick Schoeller
  */
 public class GedFileLoader {
-    /** */
-    private static boolean needsReset = true;
-
     /** */
     @Autowired
     private transient RootDocumentRepositoryMongo rootDocumentRepository;
@@ -150,27 +151,53 @@ public class GedFileLoader {
      * Reset the data.
      */
     public final void reset() {
-        if (checkNeedsReset()) {
-            rootDocumentRepository.deleteAll();
-            personDocumentRepository.deleteAll();
-            familyDocumentRepository.deleteAll();
-            sourceDocumentRepository.deleteAll();
-            headDocumentRepository.deleteAll();
-            submittorDocumentRepository.deleteAll();
-            trailerDocumentRepository.deleteAll();
+        rootDocumentRepository.deleteAll();
+        personDocumentRepository.deleteAll();
+        familyDocumentRepository.deleteAll();
+        sourceDocumentRepository.deleteAll();
+        headDocumentRepository.deleteAll();
+        submittorDocumentRepository.deleteAll();
+        trailerDocumentRepository.deleteAll();
+    }
+
+    /**
+     * Reload all of the data sets.
+     */
+    public final void reloadAll() {
+        final List<String> list = new ArrayList<>();
+        for (final RootDocument mongo : rootDocumentRepository.findAll()) {
+            list.add(mongo.getDbName());
+        }
+        reset();
+        for (final String dbname : list) {
+            load(dbname);
         }
     }
 
     /**
-     * Check whether to reset and then clear the flag.
-     *
-     * @return if needs reset
+     * @return list of name value pairs for the data sets currently loaded
      */
-    public static final boolean checkNeedsReset() {
-        final boolean retVal = needsReset;
-        if (retVal) {
-            needsReset = false;
+    public List<Map<String, Object>> details() {
+        final List<Map<String, Object>> list = new ArrayList<>();
+        for (final RootDocument mongo : rootDocumentRepository.findAll()) {
+            list.add(details(mongo.getDbName()));
         }
-        return retVal;
+        return list;
+    }
+
+    /**
+     * @param dbname name of a dataset
+     * @return the name value pairs describing this dataset
+     */
+    public Map<String, Object> details(final String dbname) {
+        final Map<String, Object> map = new HashMap<>();
+        final RootDocument doc = rootDocumentRepository
+                .findByFileAndString(buildFileName(dbname), "Root");
+        map.put("dbname", doc.getDbName());
+        map.put("filename", doc.getFilename());
+        map.put("persons", personDocumentRepository.count(doc));
+        map.put("families", familyDocumentRepository.count(doc));
+        map.put("sources", sourceDocumentRepository.count(doc));
+        return map;
     }
 }
