@@ -14,5 +14,12 @@ spring:
         serialization:
             INDENT_OUTPUT: true
 
+endpoints:
+    health:
+        sensitive: false
+        enabled: true
+
 management:
     port: 8081
+    security:
+        enabled: false

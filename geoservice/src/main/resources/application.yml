@@ -17,3 +17,5 @@ geoservice:
 
 management:
     port: 8081
+    security:
+        enabled: false
