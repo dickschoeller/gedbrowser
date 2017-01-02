@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.geoservice.backup.GeoCodeBackup;
+import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.endpoint.Endpoint;
@@ -20,6 +21,10 @@ import org.springframework.stereotype.Component;
 public class BackupEndpoint implements Endpoint<List<String>> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
+
+    /** */
+    @Autowired
+    private GeoCode gcc;
 
     /** */
     @Autowired
@@ -53,6 +58,10 @@ public class BackupEndpoint implements Endpoint<List<String>> {
             messages.add("Exception: " + e.getMessage());
             logger.error("Backup failed", e);
         }
+        messages.add(gcc.size() + " locations in the cache");
+        messages.add(
+                gcc.size() - gcc.countNotFound()
+                + " geocoded locations in cache");
         return messages;
     }
 
