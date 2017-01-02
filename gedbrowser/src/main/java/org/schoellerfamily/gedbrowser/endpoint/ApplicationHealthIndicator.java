@@ -1,5 +1,8 @@
 package org.schoellerfamily.gedbrowser.endpoint;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.controller.ApplicationInfo;
@@ -33,10 +36,13 @@ public class ApplicationHealthIndicator implements HealthIndicator {
      */
     @Override
     public Health health() {
-        logger.info("Add to health report");
+        logger.debug("Health");
         final Builder builder = Health.up();
+        logger.debug("    " + appInfo.getVersion());
         builder.withDetail("version", appInfo.getVersion());
-        builder.withDetail("datasets", loader.details());
+        final List<Map<String, Object>> details = loader.details();
+        logger.debug("    " + details.size() + " datasets");
+        builder.withDetail("datasets", details);
         builder.up();
         return builder.build();
     }
