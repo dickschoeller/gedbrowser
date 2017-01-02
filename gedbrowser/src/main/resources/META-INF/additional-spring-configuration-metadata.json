@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "gedbrowser.home",
+  "type": "java.lang.String",
+  "description": "A description for 'gedbrowser.home'"
+}]}

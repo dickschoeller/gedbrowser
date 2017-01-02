@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "gedbrowser.home",
+    "type": "java.lang.String",
+    "description": "A description for 'gedbrowser.home'"
+  },
+  {
+    "name": "geoservice.keyfile",
+    "type": "java.lang.String",
+    "description": "A description for 'geoservice.keyfile'"
+  },
+  {
+    "name": "geoservice.backupfile",
+    "type": "java.lang.String",
+    "description": "A description for 'geoservice.backupfile'"
+  }
+]}

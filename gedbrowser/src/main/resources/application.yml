@@ -1,8 +1,13 @@
 gedbrowser:
     home: /var/lib/gedbrowser
+
 server:
     servlet-path: /gedbrowser
+
 logging:
     level:
         org:
             schoellerfamily: INFO
+
+management:
+    port: 8081

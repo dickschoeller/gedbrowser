@@ -1,5 +1,6 @@
 gedbrowser:
     home: /var/lib/gedbrowser
+
 logging:
     level:
         org:
@@ -11,3 +12,6 @@ spring:
 geoservice:
     keyfile: /var/lib/gedbrowser/google-geocoding-key
     backupfile: /var/lib/gedbrowser/geoservice-backup.json
+
+management:
+    port: 8081
