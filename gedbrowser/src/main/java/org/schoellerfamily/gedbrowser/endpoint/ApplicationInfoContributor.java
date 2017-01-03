@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * @author Dick Schoeller
  */
 @Component
-public class ApplicationInfoContributor implements InfoContributor {
+public final class ApplicationInfoContributor implements InfoContributor {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 

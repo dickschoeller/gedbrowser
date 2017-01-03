@@ -39,7 +39,7 @@ public class BackupEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public String getId() {
+    public final String getId() {
         return "backup";
     }
 
@@ -47,7 +47,7 @@ public class BackupEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public List<String> invoke() {
+    public final List<String> invoke() {
         logger.info("Invoke backup to " + backupFile);
         final List<String> messages = new ArrayList<>();
         try {
@@ -69,7 +69,7 @@ public class BackupEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public boolean isEnabled() {
+    public final boolean isEnabled() {
         return true;
     }
 
@@ -77,7 +77,7 @@ public class BackupEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public boolean isSensitive() {
-        return false;
+    public final boolean isSensitive() {
+        return true;
     }
 }

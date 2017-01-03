@@ -30,7 +30,7 @@ public class ApplicationHealthIndicator implements HealthIndicator {
      * {@inheritDoc}
      */
     @Override
-    public Health health() {
+    public final Health health() {
         final Builder upBuilder = Health.up();
         final Map<String, Object> cacheMap = new HashMap<>();
         upBuilder.withDetail("version", appInfo.getVersion());

@@ -27,7 +27,7 @@ public class RestoreEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public String getId() {
+    public final String getId() {
         return "restore";
     }
 
@@ -35,7 +35,7 @@ public class RestoreEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public List<String> invoke() {
+    public final List<String> invoke() {
         final List<String> messages = new ArrayList<>();
         logger.info("Invoke restore");
         loader.reloadAll();
@@ -47,7 +47,7 @@ public class RestoreEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public boolean isEnabled() {
+    public final boolean isEnabled() {
         return true;
     }
 
@@ -55,7 +55,7 @@ public class RestoreEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public boolean isSensitive() {
+    public final boolean isSensitive() {
         return true;
     }
 }

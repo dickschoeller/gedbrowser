@@ -177,7 +177,7 @@ public class GedFileLoader {
     /**
      * @return list of name value pairs for the data sets currently loaded
      */
-    public List<Map<String, Object>> details() {
+    public final List<Map<String, Object>> details() {
         final List<Map<String, Object>> list = new ArrayList<>();
         for (final RootDocument mongo : rootDocumentRepository.findAll()) {
             list.add(details(mongo.getDbName()));
@@ -189,7 +189,7 @@ public class GedFileLoader {
      * @param dbname name of a dataset
      * @return the name value pairs describing this dataset
      */
-    public Map<String, Object> details(final String dbname) {
+    public final Map<String, Object> details(final String dbname) {
         final Map<String, Object> map = new HashMap<>();
         final RootDocument doc = rootDocumentRepository
                 .findByFileAndString(buildFileName(dbname), "Root");

@@ -64,7 +64,7 @@ public class TrailerDocumentRepositoryMongoImpl implements
      * {@inheritDoc}
      */
     @Override
-    public Iterable<TrailerDocument> findAll(final String filename) {
+    public final Iterable<TrailerDocument> findAll(final String filename) {
         final Query searchQuery =
                 new Query(Criteria.where("filename").is(filename));
         final List<TrailerDocumentMongo> trailerDocumentsMongo =
@@ -87,7 +87,8 @@ public class TrailerDocumentRepositoryMongoImpl implements
      * {@inheritDoc}
      */
     @Override
-    public Iterable<TrailerDocument> findAll(final RootDocument rootDocument) {
+    public final Iterable<TrailerDocument> findAll(
+            final RootDocument rootDocument) {
         final Iterable<TrailerDocument> trailerDocuments =
                 findAll(rootDocument.getFilename());
         if (trailerDocuments == null) {
@@ -104,7 +105,7 @@ public class TrailerDocumentRepositoryMongoImpl implements
      * {@inheritDoc}
      */
     @Override
-    public long count(final String filename) {
+    public final long count(final String filename) {
         final Query searchQuery =
                 new Query(Criteria.where("filename").is(filename));
         return mongoTemplate.count(searchQuery, TrailerDocumentMongo.class);
@@ -114,7 +115,7 @@ public class TrailerDocumentRepositoryMongoImpl implements
      * {@inheritDoc}
      */
     @Override
-    public long count(final RootDocument rootDocument) {
+    public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
 }

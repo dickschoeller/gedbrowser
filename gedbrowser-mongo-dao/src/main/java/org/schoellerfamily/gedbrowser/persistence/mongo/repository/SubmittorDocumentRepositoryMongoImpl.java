@@ -66,7 +66,7 @@ public class SubmittorDocumentRepositoryMongoImpl implements
      * {@inheritDoc}
      */
     @Override
-    public Iterable<SubmittorDocument> findAll(final String filename) {
+    public final Iterable<SubmittorDocument> findAll(final String filename) {
         final Query searchQuery =
                 new Query(Criteria.where("filename").is(filename));
         final List<SubmittorDocumentMongo> submittorDocumentsMongo =
@@ -90,7 +90,7 @@ public class SubmittorDocumentRepositoryMongoImpl implements
      * {@inheritDoc}
      */
     @Override
-    public Iterable<SubmittorDocument> findAll(
+    public final Iterable<SubmittorDocument> findAll(
             final RootDocument rootDocument) {
         final Iterable<SubmittorDocument> submittorDocuments =
                 findAll(rootDocument.getFilename());
@@ -108,7 +108,7 @@ public class SubmittorDocumentRepositoryMongoImpl implements
      * {@inheritDoc}
      */
     @Override
-    public long count(final String filename) {
+    public final long count(final String filename) {
         final Query searchQuery =
                 new Query(Criteria.where("filename").is(filename));
         return mongoTemplate.count(searchQuery, SubmittorDocumentMongo.class);
@@ -118,7 +118,7 @@ public class SubmittorDocumentRepositoryMongoImpl implements
      * {@inheritDoc}
      */
     @Override
-    public long count(final RootDocument rootDocument) {
+    public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
 }

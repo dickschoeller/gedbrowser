@@ -35,7 +35,7 @@ public class ApplicationHealthIndicator implements HealthIndicator {
      * {@inheritDoc}
      */
     @Override
-    public Health health() {
+    public final Health health() {
         logger.debug("Health");
         final Builder builder = Health.up();
         logger.debug("    " + appInfo.getVersion());

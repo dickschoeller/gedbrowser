@@ -20,6 +20,7 @@ import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
 import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeStub;
 import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeTestFixture;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
@@ -36,6 +37,13 @@ import com.google.maps.model.LatLng;
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 @SuppressWarnings({ "PMD.TooManyMethods", "PMD.CommentSize" })
 public class GeoCodeTest {
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
+
+    /** */
+    @Value("${geoservice.dummyfile:/foo}")
+    private transient String dummyFileName;
+
     /** */
     @Autowired
     private GeoCode gcc;
@@ -47,9 +55,6 @@ public class GeoCodeTest {
     /** */
     @Autowired
     private GeoCodeLoader loader;
-
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * Manage the configuration for testing the cache.
@@ -363,7 +368,7 @@ public class GeoCodeTest {
     public void testSizeLoadFileError() {
         logger.info("Entering testSizeFromFile");
         gcc.clear();
-        loader.load("/foo");
+        loader.load(dummyFileName);
         final int expected = 0;
         Assert.assertEquals(
                 "Should be 0 because of file not found, was: " + gcc.size(),

@@ -62,7 +62,7 @@ public class RootDocumentRepositoryMongoImpl implements
      * {@inheritDoc}
      */
     @Override
-    public Iterable<RootDocument> findAll(final String filename) {
+    public final Iterable<RootDocument> findAll(final String filename) {
         final Query searchQuery =
                 new Query(Criteria.where("filename").is(filename));
         final List<RootDocumentMongo> rootDocumentsMongo =
@@ -85,7 +85,8 @@ public class RootDocumentRepositoryMongoImpl implements
      * {@inheritDoc}
      */
     @Override
-    public Iterable<RootDocument> findAll(final RootDocument rootDocument) {
+    public final Iterable<RootDocument> findAll(
+            final RootDocument rootDocument) {
         final Iterable<RootDocument> rootDocuments =
                 findAll(rootDocument.getFilename());
         if (rootDocuments == null) {
@@ -102,7 +103,7 @@ public class RootDocumentRepositoryMongoImpl implements
      * {@inheritDoc}
      */
     @Override
-    public long count(final String filename) {
+    public final long count(final String filename) {
         final Query searchQuery =
                 new Query(Criteria.where("filename").is(filename));
         return mongoTemplate.count(searchQuery, RootDocumentMongo.class);
@@ -112,7 +113,7 @@ public class RootDocumentRepositoryMongoImpl implements
      * {@inheritDoc}
      */
     @Override
-    public long count(final RootDocument rootDocument) {
+    public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
 }

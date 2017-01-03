@@ -38,7 +38,7 @@ public class LoadAndFindEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public String getId() {
+    public final String getId() {
         return "loadAndFind";
     }
 
@@ -46,7 +46,7 @@ public class LoadAndFindEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public List<String> invoke() {
+    public final List<String> invoke() {
         logger.info("Invoke load from: " + loadFile);
         final List<String> messages = new ArrayList<>();
         loader.loadAndFind(loadFile);
@@ -62,7 +62,7 @@ public class LoadAndFindEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public boolean isEnabled() {
+    public final boolean isEnabled() {
         return true;
     }
 
@@ -70,7 +70,7 @@ public class LoadAndFindEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public boolean isSensitive() {
+    public final boolean isSensitive() {
         return true;
     }
 }

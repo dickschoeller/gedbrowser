@@ -16,6 +16,7 @@ import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -36,6 +37,13 @@ public final class GeoCodeMongoTest {
     // Instead leave testing of the base class geocode methods to the tests
     // of that class.
 
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
+
+    /** */
+    @Value("${geoservice.dummyfile:/foo}")
+    private transient String dummyFileName;
+
     /** */
     @Autowired
     private GeoCode gcc;
@@ -47,9 +55,6 @@ public final class GeoCodeMongoTest {
     /** */
     @Autowired
     private GeoCodeLoader loader;
-
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * Force debug logging during tests.
@@ -361,7 +366,7 @@ public final class GeoCodeMongoTest {
     public void testSizeLoadFileError() {
         logger.info("Entering testSizeFromFile");
         testFixture.clearRepository();
-        loader.load("/foo");
+        loader.load(dummyFileName);
         final int expected = 0;
         Assert.assertEquals(
                 "Should be 0 because of file not found, was: " + gcc.size(),

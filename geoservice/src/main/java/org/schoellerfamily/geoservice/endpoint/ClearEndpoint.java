@@ -26,7 +26,7 @@ public class ClearEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public String getId() {
+    public final String getId() {
         return "clear";
     }
 
@@ -34,7 +34,7 @@ public class ClearEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public List<String> invoke() {
+    public final List<String> invoke() {
         logger.info("Invoke clear");
         final List<String> messages = new ArrayList<>();
         gcc.clear();
@@ -50,7 +50,7 @@ public class ClearEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public boolean isEnabled() {
+    public final boolean isEnabled() {
         return true;
     }
 
@@ -58,7 +58,7 @@ public class ClearEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public boolean isSensitive() {
+    public final boolean isSensitive() {
         return true;
     }
 }
