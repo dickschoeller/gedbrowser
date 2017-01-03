@@ -131,37 +131,6 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void shouldReturn200WhenSendingRequestToBackupEndpoint() {
-        final OkHttpClientHttpRequestFactory rf =
-                (OkHttpClientHttpRequestFactory) testRestTemplate
-                        .getRestTemplate().getRequestFactory();
-        rf.setConnectTimeout(TWO_SECONDS);
-        rf.setReadTimeout(THIRTY_SECONDS);
-        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
-                "http://localhost:" + mgt + "/backup",
-                String.class);
-
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-    }
-
-    /** */
-    @Test
-    public final void shouldReturn200WhenSendingRequestToRestoreEndpoint() {
-        final ClientHttpRequestFactory requestFactory = testRestTemplate
-                .getRestTemplate().getRequestFactory();
-        final OkHttpClientHttpRequestFactory rf =
-                (OkHttpClientHttpRequestFactory) requestFactory;
-        rf.setConnectTimeout(TWO_SECONDS);
-        rf.setReadTimeout(THIRTY_SECONDS);
-        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
-                "http://localhost:" + this.mgt + "/restore", String.class);
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("Restore succeed from")
-        .contains("locations in the cache");
-    }
-
-    /** */
-    @Test
     public final void shouldReturn200WhenSendingRequestToLoadEndpoint() {
         final ClientHttpRequestFactory requestFactory = testRestTemplate
                 .getRestTemplate().getRequestFactory();
@@ -171,6 +140,7 @@ public class ApplicationTest {
         rf.setReadTimeout(THIRTY_SECONDS);
         final ResponseEntity<String> entity = testRestTemplate.getForEntity(
                 "http://localhost:" + this.mgt + "/load", String.class);
+
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("Load complete")
                 .contains("locations in the cache");

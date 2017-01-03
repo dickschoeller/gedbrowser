@@ -6,7 +6,6 @@ services:
 before_install:
   - mkdir /home/travis/data
   - mkdir /home/travis/gedbrowser
-  - touch /home/travis/gedbrowser/geoservice-test-backup.json
   - docker run -v /home/travis/data:/data/db --name mongo -p 28001:27017 -d mongo
 
 install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -DskipDocker -Dskip.findbugs=true -Dpmd.skip=true -Dcheckstyle.skip=true -B -V > /dev/null 2>&1
