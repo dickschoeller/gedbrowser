@@ -78,6 +78,6 @@ public class BackupEndpoint implements Endpoint<List<String>> {
      */
     @Override
     public boolean isSensitive() {
-        return true;
+        return false;
     }
 }

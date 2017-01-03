@@ -14,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.OkHttpClientHttpRequestFactory;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -28,6 +30,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class ApplicationTest {
     // The assert check is suppressed because using BDD assertions, which don't
     // match the PMD check.
+
+    /** */
+    private static final int THIRTY_SECONDS = 30 * 1000;
+
+    /** */
+    private static final int TWO_SECONDS = 2 * 1000;
 
     /**
      * Server port.
@@ -51,10 +59,9 @@ public class ApplicationTest {
     @Test
     public final void shouldReturnStatus200WhenSendingRequestToController() {
         @SuppressWarnings("rawtypes")
-        final ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
-                "http://localhost:"
-                + this.port
-                + "/geocode?name=Bethlehem,%20PA", Map.class);
+        final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port + "/geocode?name=Bethlehem,%20PA",
+                Map.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
@@ -63,10 +70,9 @@ public class ApplicationTest {
     @Test
     public final void shouldReturnPlaceNameSendingRequestToController() {
         @SuppressWarnings("rawtypes")
-        final ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
-                "http://localhost:"
-                + this.port
-                + "/geocode?name=Bethlehem,%20PA", Map.class);
+        final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port + "/geocode?name=Bethlehem,%20PA",
+                Map.class);
         then(entity.getBody().get("placeName")).isEqualTo("Bethlehem, PA");
     }
 
@@ -74,10 +80,9 @@ public class ApplicationTest {
     @Test
     public final void shouldReturnModernPlaceNameSendingRequestToController() {
         @SuppressWarnings("rawtypes")
-        final ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
-                "http://localhost:"
-                + this.port
-                + "/geocode?name=Bethlehem,%20PA", Map.class);
+        final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port + "/geocode?name=Bethlehem,%20PA",
+                Map.class);
         then(entity.getBody().get("modernPlaceName"))
                 .isEqualTo("Bethlehem, PA");
     }
@@ -86,10 +91,9 @@ public class ApplicationTest {
     @Test
     public final void shouldReturnGeocodeWhenSendingRequestToController() {
         @SuppressWarnings("rawtypes")
-        final ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
-                "http://localhost:"
-                + this.port
-                + "/geocode?name=Bethlehem,%20PA", Map.class);
+        final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port + "/geocode?name=Bethlehem,%20PA",
+                Map.class);
 
         then(entity.getBody().get("geocodingResult")).isNotNull();
     }
@@ -99,21 +103,76 @@ public class ApplicationTest {
     public final void shouldReturnNullGeocodeWhenSendingRequestToController() {
         @SuppressWarnings("rawtypes")
         final ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
-                "http://localhost:"
-                + this.port
-                + "/geocode?name=XYZZY", Map.class);
+                "http://localhost:" + this.port + "/geocode?name=XYZZY",
+                Map.class);
 
         then(entity.getBody().get("geocodingResult")).isNull();
     }
 
     /** */
     @Test
-    public final void shouldReturn200WhenSendingRequestToManagementEndpoint() {
+    public final void shouldReturn200WhenSendingRequestToInfoEndpoint() {
         @SuppressWarnings("rawtypes")
-        final ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
-                "http://localhost:"
-                + this.mgt + "/info", Map.class);
+        final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + mgt + "/info", Map.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    /** */
+    @Test
+    public final void shouldReturn200WhenSendingRequestToHealthEndpoint() {
+        @SuppressWarnings("rawtypes")
+        final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + mgt + "/health", Map.class);
+
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    /** */
+    @Test
+    public final void shouldReturn200WhenSendingRequestToBackupEndpoint() {
+        final OkHttpClientHttpRequestFactory rf =
+                (OkHttpClientHttpRequestFactory) testRestTemplate
+                        .getRestTemplate().getRequestFactory();
+        rf.setConnectTimeout(TWO_SECONDS);
+        rf.setReadTimeout(THIRTY_SECONDS);
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + mgt + "/backup",
+                String.class);
+
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    /** */
+    @Test
+    public final void shouldReturn200WhenSendingRequestToRestoreEndpoint() {
+        final ClientHttpRequestFactory requestFactory = testRestTemplate
+                .getRestTemplate().getRequestFactory();
+        final OkHttpClientHttpRequestFactory rf =
+                (OkHttpClientHttpRequestFactory) requestFactory;
+        rf.setConnectTimeout(TWO_SECONDS);
+        rf.setReadTimeout(THIRTY_SECONDS);
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + this.mgt + "/restore", String.class);
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(entity.getBody()).contains("Restore succeed from")
+        .contains("locations in the cache");
+    }
+
+    /** */
+    @Test
+    public final void shouldReturn200WhenSendingRequestToLoadEndpoint() {
+        final ClientHttpRequestFactory requestFactory = testRestTemplate
+                .getRestTemplate().getRequestFactory();
+        final OkHttpClientHttpRequestFactory rf =
+                (OkHttpClientHttpRequestFactory) requestFactory;
+        rf.setConnectTimeout(TWO_SECONDS);
+        rf.setReadTimeout(THIRTY_SECONDS);
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + this.mgt + "/load", String.class);
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(entity.getBody()).contains("Load complete")
+                .contains("locations in the cache");
     }
 }

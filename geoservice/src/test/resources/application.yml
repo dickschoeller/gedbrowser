@@ -1,0 +1,21 @@
+gedbrowser:
+    home: /var/lib/gedbrowser
+
+logging:
+    level:
+        org:
+            schoellerfamily: DEBUG
+
+spring:
+    jackson:
+        serialization:
+            INDENT_OUTPUT: true
+
+geoservice:
+    keyfile: stub
+    backupfile: /var/lib/gedbrowser/geoservice-test-backup.json
+
+management:
+    port: 8081
+    security:
+        enabled: false
