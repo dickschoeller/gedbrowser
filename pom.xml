@@ -16,6 +16,17 @@
      <url>http://www.schoellerfamily.org</url>
   </organization>
 
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+
+  <scm>
+    <url>https://github.com/dickschoeller/gedbrowser</url>
+  </scm>
+
   <developers>
     <developer>
       <name>Dick Schoeller</name>
