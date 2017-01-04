@@ -463,4 +463,45 @@ public final class PersonTest {
     public void testIsNotConfidential() {
         assertFalse("Should not be confidential", person2.isConfidential());
     }
+
+    /** */
+    @Test
+    public void testHasNotDeathAttribute() {
+        assertFalse("Should not have death attribute",
+                person2.hasDeathAttribute());
+    }
+
+    /** */
+    @Test
+    public void testEmptyDeathYear() {
+        assertTrue("Should not have death year",
+                person2.getDeathYear().isEmpty());
+    }
+
+    /** */
+    @Test
+    public void testEmptyDeathDate() {
+        assertTrue("Should not have death date",
+                person2.getDeathDate().isEmpty());
+    }
+
+    /** */
+    @Test
+    public void testEmptyBirthDate() {
+        assertTrue("Should not have birth date",
+                person2.getBirthDate().isEmpty());
+    }
+
+    /** */
+    @Test
+    public void testEmptySortDate() {
+        assertTrue("Should not have sort date",
+                person2.getSortDate().isEmpty());
+    }
+
+    /** */
+    @Test
+    public void testHasDeathAttribute() {
+        assertTrue("Should have death attribute", person4.hasDeathAttribute());
+    }
 }
