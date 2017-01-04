@@ -2,13 +2,13 @@ package org.schoellerfamily.gedbrowser.analytics.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.LocalDate;
+import org.junit.Assert;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.BirthDateEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -51,7 +51,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 11;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertMatch(expected, actual);
     }
 
@@ -65,7 +65,7 @@ public class BirthDateEstimatorTest {
         person.insert(new Name(person, "J. Random/Schoeller/"));
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertNull("Expected a null date", actual);
     }
 
@@ -103,7 +103,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertMatch(expected, actual);
     }
 
@@ -150,7 +150,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertMatch(expected, actual);
     }
 
@@ -189,7 +189,7 @@ public class BirthDateEstimatorTest {
         person3.insert(famC3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertNull("Expected a null date", actual);
     }
 
@@ -228,7 +228,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertMatch(expected, actual);
     }
 
@@ -275,7 +275,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertMatch(expected, actual);
     }
 
@@ -314,7 +314,7 @@ public class BirthDateEstimatorTest {
         person3.insert(famC3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertNull("Expected a null date", actual);
     }
 
@@ -357,7 +357,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertMatch(expected, actual);
     }
 
@@ -390,7 +390,7 @@ public class BirthDateEstimatorTest {
         person2.insert(famS2);
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertNull("Expected a null date", actual);
     }
 
@@ -456,7 +456,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertMatch(expected, actual);
     }
 
@@ -508,7 +508,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertMatch(expected, actual);
     }
 
@@ -568,7 +568,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertMatch(expected, actual);
     }
 
@@ -618,7 +618,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertMatch(expected, actual);
     }
 
@@ -660,7 +660,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertMatch(expected, actual);
     }
 
@@ -702,7 +702,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertMatch(expected, actual);
     }
 
@@ -744,7 +744,7 @@ public class BirthDateEstimatorTest {
         final int birthDay = 1;
         final LocalDate expected =
                 new LocalDate(birthYear, birthMonth, birthDay);
-        final LocalDate actual = estimateBirthDate(estimator);
+        final LocalDate actual = estimator.estimateBirthDate();
         assertMatch(expected, actual);
     }
 
@@ -766,7 +766,7 @@ public class BirthDateEstimatorTest {
                 for (final Person person : root.findBySurname(surname)) {
                     final BirthDateEstimator estimator =
                             createBirthEstimator(person);
-                    final LocalDate localDate = estimateBirthDate(estimator);
+                    final LocalDate localDate = estimator.estimateBirthDate();
                     if (localDate == null) {
                         unhandled.add(person);
                     }
@@ -790,12 +790,294 @@ public class BirthDateEstimatorTest {
         assertEquals("Shouldn't have found any unhandled dates", 0, max);
     }
 
+    /** */
+    @Test
+    public final void testFromBaptism() {
+        final Root root = new Root(null);
+        final Person person = new Person(root);
+        final Attribute event = new Attribute(person, "Baptism");
+        final Date eventDate = new Date(event, "11 JUL 1960");
+
+        root.insert("I0", person);
+        person.insert(new Name(person, "J. Random/Schoeller/"));
+        person.insert(event);
+        event.insert(eventDate);
+
+        final BirthDateEstimator estimator = createBirthEstimator(person);
+        final int birthYear = 1960;
+        final int birthMonth = 7;
+        final int birthDay = 1;
+        final LocalDate expected =
+                new LocalDate(birthYear, birthMonth, birthDay);
+        final LocalDate actual = estimator.estimateBirthDate();
+        assertMatch(expected, actual);
+    }
+
+    /** */
+    @Test
+    public final void testChristening() {
+        final Root root = new Root(null);
+        final Person person = new Person(root);
+        final Attribute event = new Attribute(person, "Christening");
+        final Date eventDate = new Date(event, "11 JUL 1960");
+
+        root.insert("I0", person);
+        person.insert(new Name(person, "J. Random/Schoeller/"));
+        person.insert(event);
+        event.insert(eventDate);
+
+        final BirthDateEstimator estimator = createBirthEstimator(person);
+        final int birthYear = 1960;
+        final int birthMonth = 7;
+        final int birthDay = 1;
+        final LocalDate expected =
+                new LocalDate(birthYear, birthMonth, birthDay);
+        final LocalDate actual = estimator.estimateBirthDate();
+        assertMatch(expected, actual);
+    }
+
+    /** */
+    @Test
+    public final void testBarMitzah() {
+        final Root root = new Root(null);
+        final Person person = new Person(root);
+        final Attribute event = new Attribute(person, "Bar Mitzvah");
+        final Date eventDate = new Date(event, "11 JUL 1960");
+
+        root.insert("I0", person);
+        person.insert(new Name(person, "J. Random/Schoeller/"));
+        person.insert(event);
+        event.insert(eventDate);
+
+        final BirthDateEstimator estimator = createBirthEstimator(person);
+        final int birthYear = 1947;
+        final int birthMonth = 7;
+        final int birthDay = 1;
+        final LocalDate expected =
+                new LocalDate(birthYear, birthMonth, birthDay);
+        final LocalDate actual = estimator.estimateBirthDate();
+        assertMatch(expected, actual);
+    }
+
+    /** */
+    @Test
+    public final void testBatMitzvah() {
+        final Root root = new Root(null);
+        final Person person = new Person(root);
+        final Attribute event = new Attribute(person, "Bat Mitzvah");
+        final Date eventDate = new Date(event, "11 JUL 1960");
+
+        root.insert("I0", person);
+        person.insert(new Name(person, "J. Random/Schoeller/"));
+        person.insert(event);
+        event.insert(eventDate);
+
+        final BirthDateEstimator estimator = createBirthEstimator(person);
+        final int birthYear = 1947;
+        final int birthMonth = 7;
+        final int birthDay = 1;
+        final LocalDate expected =
+                new LocalDate(birthYear, birthMonth, birthDay);
+        final LocalDate actual = estimator.estimateBirthDate();
+        assertMatch(expected, actual);
+    }
+
+    /** */
+    @Test
+    public final void testDeath() {
+        final Root root = new Root(null);
+        final Person person = new Person(root);
+        final Attribute event = new Attribute(person, "Death");
+        final Date eventDate = new Date(event, "11 JUL 1960");
+
+        root.insert("I0", person);
+        person.insert(new Name(person, "J. Random/Schoeller/"));
+        person.insert(event);
+        event.insert(eventDate);
+
+        final BirthDateEstimator estimator = createBirthEstimator(person);
+        final int birthYear = 1885;
+        final int birthMonth = 1;
+        final int birthDay = 1;
+        final LocalDate expected =
+                new LocalDate(birthYear, birthMonth, birthDay);
+        final LocalDate actual = estimator.estimateBirthDate();
+        assertMatch(expected, actual);
+    }
+
+    /** */
+    @Test
+    public final void testBurial() {
+        final Root root = new Root(null);
+        final Person person = new Person(root);
+        final Attribute event = new Attribute(person, "Burial");
+        final Date eventDate = new Date(event, "11 JUL 1960");
+
+        root.insert("I0", person);
+        person.insert(new Name(person, "J. Random/Schoeller/"));
+        person.insert(event);
+        event.insert(eventDate);
+
+        final BirthDateEstimator estimator = createBirthEstimator(person);
+        final int birthYear = 1885;
+        final int birthMonth = 1;
+        final int birthDay = 1;
+        final LocalDate expected =
+                new LocalDate(birthYear, birthMonth, birthDay);
+        final LocalDate actual = estimator.estimateBirthDate();
+        assertMatch(expected, actual);
+    }
+
+    /** */
+    @Test
+    public final void testChanged() {
+        final Root root = new Root(null);
+        final Person person = new Person(root);
+        final Attribute event = new Attribute(person, "Changed");
+        final Date eventDate = new Date(event, "11 JUL 1960");
+
+        root.insert("I0", person);
+        person.insert(new Name(person, "J. Random/Schoeller/"));
+        person.insert(event);
+        event.insert(eventDate);
+
+        final BirthDateEstimator estimator = createBirthEstimator(person);
+        final LocalDate actual = estimator.estimateBirthDate();
+        Assert.assertNull("Changed event should return null", actual);
+    }
+
+    /** */
+    @Test
+    public final void testOtherEvent() {
+        final Root root = new Root(null);
+        final Person person = new Person(root);
+        final Attribute event = new Attribute(person, "Occupation");
+        final Date eventDate = new Date(event, "11 JUL 1960");
+
+        root.insert("I0", person);
+        person.insert(new Name(person, "J. Random/Schoeller/"));
+        person.insert(event);
+        event.insert(eventDate);
+
+        final BirthDateEstimator estimator = createBirthEstimator(person);
+        final int birthYear = 1935;
+        final int birthMonth = 1;
+        final int birthDay = 1;
+        final LocalDate expected =
+                new LocalDate(birthYear, birthMonth, birthDay);
+        final LocalDate actual = estimator.estimateBirthDate();
+        assertMatch(expected, actual);
+    }
+
+    /** */
+    @Test
+    public final void testNoDate() {
+        final Root root = new Root(null);
+        final Person person = new Person(root);
+        final Attribute event = new Attribute(person, "Death");
+
+        root.insert("I0", person);
+        person.insert(new Name(person, "J. Random/Schoeller/"));
+        person.insert(event);
+
+        final BirthDateEstimator estimator = createBirthEstimator(person);
+        final LocalDate actual = estimator.estimateBirthDate();
+        Assert.assertNull("No date event should return null", actual);
+    }
+
+    /** */
+    @Test
+    public final void testBadDate() {
+        final Root root = new Root(null);
+        final Person person = new Person(root);
+        final Attribute event = new Attribute(person, "Death");
+        final Date eventDate = new Date(event, "");
+        event.insert(eventDate);
+
+        root.insert("I0", person);
+        person.insert(new Name(person, "J. Random/Schoeller/"));
+        person.insert(event);
+
+        final BirthDateEstimator estimator = createBirthEstimator(person);
+        final LocalDate actual = estimator.estimateBirthDate();
+        Assert.assertNull("Bad date event should return null", actual);
+    }
+
+    /** */
+    @Test
+    public final void testEstimateBirthDate() {
+        final Root root = new Root(null);
+        final Person person = new Person(root);
+        final Attribute event = new Attribute(person, "Birth");
+        final Date eventDate = new Date(event, "11 JUL 1960");
+        event.insert(eventDate);
+
+        root.insert("I0", person);
+        person.insert(new Name(person, "J. Random/Schoeller/"));
+        person.insert(event);
+
+        final BirthDateEstimator estimator = createBirthEstimator(person);
+        final int birthYear = 1960;
+        final int birthMonth = 7;
+        final int birthDay = 11;
+        final LocalDate expected =
+                new LocalDate(birthYear, birthMonth, birthDay);
+        final LocalDate actual = estimator.estimate();
+        assertMatch(expected, actual);
+    }
+
+    /** */
+    @Test
+    public final void testEstimateMarriageDate() {
+        final Root root = new Root(null);
+        final Person person = new Person(root);
+        final Attribute event = new Attribute(person, "Marriage");
+        final Date eventDate = new Date(event, "11 JUL 1960");
+        event.insert(eventDate);
+
+        root.insert("I0", person);
+        person.insert(new Name(person, "J. Random/Schoeller/"));
+        person.insert(event);
+
+        final BirthDateEstimator estimator = createBirthEstimator(person);
+        final int birthYear = 1935;
+        final int birthMonth = 1;
+        final int birthDay = 1;
+        final LocalDate expected =
+                new LocalDate(birthYear, birthMonth, birthDay);
+        final LocalDate actual = estimator.estimate();
+        assertMatch(expected, actual);
+    }
+
+    /** */
+    @Test
+    public final void testEstimateOtherDate() {
+        final Root root = new Root(null);
+        final Person person = new Person(root);
+        final Attribute event = new Attribute(person, "Occupation");
+        final Date eventDate = new Date(event, "11 JUL 1960");
+        event.insert(eventDate);
+
+        root.insert("I0", person);
+        person.insert(new Name(person, "J. Random/Schoeller/"));
+        person.insert(event);
+
+        final BirthDateEstimator estimator = createBirthEstimator(person);
+        final int birthYear = 1935;
+        final int birthMonth = 1;
+        final int birthDay = 1;
+        final LocalDate expected =
+                new LocalDate(birthYear, birthMonth, birthDay);
+        final LocalDate actual = estimator.estimate();
+        assertMatch(expected, actual);
+    }
+
     /**
      * Wrap calls to the constructor, so that we avoid the creation in
      * loops warning.
      *
      * @param person the person to estimate
-     * @return the new estimattor
+     * @return the new estimator
      */
     private BirthDateEstimator createBirthEstimator(final Person person) {
         return new BirthDateEstimator(
@@ -807,7 +1089,8 @@ public class BirthDateEstimatorTest {
      * @param actual actual date
      */
     private void assertMatch(final LocalDate expected, final LocalDate actual) {
-        assertTrue(mismatchString(expected, actual), expected.isEqual(actual));
+        Assert.assertTrue(mismatchString(expected, actual),
+                expected.isEqual(actual));
     }
 
     /**
@@ -828,13 +1111,5 @@ public class BirthDateEstimatorTest {
      */
     private AbstractGedLine readFileTestSource() throws IOException {
         return ReaderHelper.readFileTestSource(this, "gl120368.ged");
-    }
-
-    /**
-     * @param estimator the estimator to use
-     * @return a birth date estimate
-     */
-    private LocalDate estimateBirthDate(final BirthDateEstimator estimator) {
-        return estimator.estimateBirthDate();
     }
 }
