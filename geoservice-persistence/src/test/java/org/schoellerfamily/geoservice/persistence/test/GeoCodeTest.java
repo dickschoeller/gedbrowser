@@ -377,6 +377,18 @@ public class GeoCodeTest {
 
     /** */
     @Test
+    public void testSizeLoadAndFindFileError() {
+        logger.info("Entering testSizeFromFile");
+        gcc.clear();
+        loader.loadAndFind(dummyFileName);
+        final int expected = 0;
+        Assert.assertEquals(
+                "Should be 0 because of file not found, was: " + gcc.size(),
+                expected, gcc.size());
+    }
+
+    /** */
+    @Test
     public void testDump() {
         logger.info("Entering testDump");
         gcc.clear();
@@ -394,6 +406,19 @@ public class GeoCodeTest {
         gcc.clear();
         final InputStream fis = getTestFileAsStream();
         loader.load(fis);
+        gcc.dump();
+        final int expected = 19;
+        Assert.assertEquals("Should match known file size of 19",
+                expected, gcc.size());
+    }
+
+    /** */
+    @Test
+    public void testDumpFromFileAfterFind() {
+        logger.info("Entering testDumpFile");
+        gcc.clear();
+        final InputStream fis = getTestFileAsStream();
+        loader.loadAndFind(fis);
         gcc.dump();
         final int expected = 19;
         Assert.assertEquals("Should match known file size of 19",
