@@ -1,11 +1,9 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import java.io.IOException;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public class TrailerRepositoryTest {
+public final class TrailerRepositoryTest {
     /** */
     private static final String TRAILER_STRING = "Trailer";
 
@@ -47,7 +45,7 @@ public class TrailerRepositoryTest {
      * @throws IOException because the reader does
      */
     @Before
-    public final void setUp() throws IOException {
+    public void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
         rootDocument = new RootDocumentMongo();
         rootDocument.setFilename(root.getFilename());
@@ -57,45 +55,86 @@ public class TrailerRepositoryTest {
 
     /** */
     @After
-    public final void tearDown() {
+    public void tearDown() {
         repositoryFixture.clearRepository();
     }
 
     /** */
     @Test
-    public final void testTrailer() {
+    public void testTrailer() {
         final TrailerDocument document = trailerDocumentRepository.
                 findByFileAndString(root.getFilename(), TRAILER_STRING);
         final Trailer trailer = (Trailer) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, document);
-        assertEquals(TRAILER_STRING, trailer.getString());
+        Assert.assertEquals("Expected trailer string",
+                TRAILER_STRING, trailer.getString());
     }
 
     /** */
     @Test
-    public final void testTrailerRoot() {
+    public void testTrailerRoot() {
         final TrailerDocument document = trailerDocumentRepository.
                 findByRootAndString(rootDocument, TRAILER_STRING);
         final Trailer trailer = (Trailer) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, document);
-        assertEquals(TRAILER_STRING, trailer.getString());
+        Assert.assertEquals("Expected trailer string",
+                TRAILER_STRING, trailer.getString());
     }
 
     /** */
     @Test
-    public final void testBogus() {
+    public void testBogus() {
         final TrailerDocument perdoc = trailerDocumentRepository.
                 findByFileAndString(root.getFilename(), "Mumble");
-        assertNull(perdoc);
+        Assert.assertNull("Bogus request should return null", perdoc);
     }
 
     /** */
     @Test
-    public final void testBogusRoot() {
+    public void testBogusRoot() {
         final TrailerDocument perdoc = trailerDocumentRepository.
                 findByRootAndString(rootDocument, "Mumble");
-        assertNull(perdoc);
+        Assert.assertNull("Bogus request should return null", perdoc);
     }
 
+    /** */
+    @Test
+    public void testCountRoot() {
+        Assert.assertEquals("Should only be one trailer",
+                1, trailerDocumentRepository.count(rootDocument));
+    }
 
+    /** */
+    @Test
+    public void testCountFilename() {
+        Assert.assertEquals("Should only be one trailer",
+                1,
+                trailerDocumentRepository.count(rootDocument.getFilename()));
+    }
+
+    /** */
+    @Test
+    public void testFindAllRoot() {
+        final Iterable<TrailerDocument> list =
+                trailerDocumentRepository.findAll(rootDocument);
+        int count = 0;
+        for (final TrailerDocument trailer : list) {
+            trailer.getType();
+            count++;
+        }
+        Assert.assertEquals("Should only be one trailer", 1, count);
+    }
+
+    /** */
+    @Test
+    public void testFindAllFilename() {
+        final Iterable<TrailerDocument> list =
+                trailerDocumentRepository.findAll(rootDocument.getFilename());
+        int count = 0;
+        for (final TrailerDocument trailer : list) {
+            trailer.getType();
+            count++;
+        }
+        Assert.assertEquals("Should only be one trailer", 1, count);
+    }
 }

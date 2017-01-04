@@ -1,13 +1,12 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.Map;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -108,7 +107,8 @@ public class RootRepositoryTest {
     @Test
     public final void testPersons() {
         final long expectedPersonCount = 16L;
-        assertEquals(expectedPersonCount, personDocumentRepository.count());
+        Assert.assertEquals("Count mismatch",
+                expectedPersonCount, personDocumentRepository.count());
     }
 
     /** */
@@ -118,15 +118,16 @@ public class RootRepositoryTest {
                 findByFileAndString(root.getFilename(), "I1");
         final Person person = (Person) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, perdoc);
-        assertEquals("Melissa Robinson/Schoeller/",
-                person.getName().getString());
+        Assert.assertEquals("Name mismatch",
+                "Melissa Robinson/Schoeller/", person.getName().getString());
     }
 
     /** */
     @Test
     public final void testFamilies() {
         final long expectedFamilyCount = 6L;
-        assertEquals(expectedFamilyCount, familyDocumentRepository.count());
+        Assert.assertEquals("Count mismatch",
+                expectedFamilyCount, familyDocumentRepository.count());
     }
 
     /** */
@@ -137,14 +138,16 @@ public class RootRepositoryTest {
                 findByFileAndString(filename, "F1");
         final Family family = (Family) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, famdoc);
-        assertEquals("I2", family.findHusband().getToString());
+        Assert.assertEquals("ID mismatch",
+                "I2", family.findHusband().getToString());
     }
 
     /** */
     @Test
     public final void testSources() {
         final long expectedSourceCount = 9L;
-        assertEquals(expectedSourceCount, sourceDocumentRepository.count());
+        Assert.assertEquals("Count mismatch",
+                expectedSourceCount, sourceDocumentRepository.count());
     }
 
     /** */
@@ -154,19 +157,19 @@ public class RootRepositoryTest {
                 findByFileAndString(root.getFilename(), "S2");
         final Source source = (Source) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, soudoc);
-        assertEquals("S2", source.getString());
+        Assert.assertEquals("ID mismatch", "S2", source.getString());
     }
 
     /** */
     @Test
-    public final void testWhole() { // NOPMD
+    public final void testWhole() {
         final RootDocument rootdoc =
                 rootDocumentRepository.findByFileAndString(
                         root.getFilename(), root.getString());
         final Root newRoot =
                 (Root) GedDocumentMongoFactory.getInstance().createGedObject(
                         null, rootdoc);
-        assertEquals(newRoot, root);
+        Assert.assertEquals("Should return same root", newRoot, root);
 
         final Map<String, GedObject> map = root.getObjects();
         for (final Map.Entry<String, GedObject> entry : map.entrySet()) {
@@ -178,7 +181,7 @@ public class RootRepositoryTest {
                 final Person person =
                         (Person) GedDocumentMongoFactory.getInstance()
                                 .createGedObject(root, perdoc);
-                assertEquals(person, ged);
+                Assert.assertEquals("wrong type", person, ged);
             } else if (ged instanceof Source) {
                 final SourceDocument soudoc = sourceDocumentRepository
                         .findByFileAndString(root.getFilename(),
@@ -186,7 +189,7 @@ public class RootRepositoryTest {
                 final Source source =
                         (Source) GedDocumentMongoFactory.getInstance()
                                 .createGedObject(root, soudoc);
-                assertEquals(source, ged);
+                Assert.assertEquals("wrong type", source, ged);
             } else if (ged instanceof Family) {
                 final FamilyDocument famdoc = familyDocumentRepository
                         .findByFileAndString(root.getFilename(),
@@ -194,28 +197,28 @@ public class RootRepositoryTest {
                 final Family family =
                         (Family) GedDocumentMongoFactory.getInstance()
                                 .createGedObject(root, famdoc);
-                assertEquals(family, ged);
+                Assert.assertEquals("wrong type", family, ged);
             } else if (ged instanceof Head) {
                 final HeadDocument headoc = headDocumentRepository
                         .findByFileAndString(root.getFilename(),
                                 ged.getString());
                 final Head head = (Head) GedDocumentMongoFactory.getInstance()
                         .createGedObject(root, headoc);
-                assertEquals(head, ged);
+                Assert.assertEquals("wrong type", head, ged);
             } else if (ged instanceof Trailer) {
                 final TrailerDocument tradoc = trailerDocumentRepository
                         .findByFileAndString(root.getFilename(),
                                 ged.getString());
                 final Trailer person = (Trailer) GedDocumentMongoFactory.
                         getInstance().createGedObject(root, tradoc);
-                assertEquals(person, ged);
+                Assert.assertEquals("wrong type", person, ged);
             } else if (ged instanceof Submittor) {
                 final SubmittorDocument subdoc = submittorDocumentRepository
                         .findByFileAndString(root.getFilename(),
                                 ged.getString());
                 final Submittor person = (Submittor) GedDocumentMongoFactory.
                         getInstance().createGedObject(root, subdoc);
-                assertEquals(person, ged);
+                Assert.assertEquals("wrong type", person, ged);
             }
         }
     }
@@ -226,7 +229,7 @@ public class RootRepositoryTest {
         final RootDocument rootdoc =
                 rootDocumentRepository.findByFileAndString(
                         root.getFilename(), "Mumbles");
-        assertNull(rootdoc);
+        Assert.assertNull("Bogus request should return null", rootdoc);
     }
 
     /** */
@@ -235,7 +238,7 @@ public class RootRepositoryTest {
         final RootDocument rootdoc =
                 rootDocumentRepository.findByFileAndString(
                         "Mumbles", root.getString());
-        assertNull(rootdoc);
+        Assert.assertNull("Bogus request should return null", rootdoc);
     }
 
     /** */
@@ -244,5 +247,46 @@ public class RootRepositoryTest {
         rootDocumentRepository.findByRootAndString(
                 rootDocument, root.getString());
         fail("should not get here");
+    }
+
+    /** */
+    @Test
+    public void testCountRoot() {
+        Assert.assertEquals("Should only be one root",
+                1, rootDocumentRepository.count(rootDocument));
+    }
+
+    /** */
+    @Test
+    public void testCountFilename() {
+        Assert.assertEquals("Should only be one root",
+                1,
+                rootDocumentRepository.count(rootDocument.getFilename()));
+    }
+
+    /** */
+    @Test
+    public void testFindAllRoot() {
+        final Iterable<RootDocument> list =
+                rootDocumentRepository.findAll(rootDocument);
+        int count = 0;
+        for (final RootDocument trailer : list) {
+            trailer.getType();
+            count++;
+        }
+        Assert.assertEquals("Should only be one root", 1, count);
+    }
+
+    /** */
+    @Test
+    public void testFindAllFilename() {
+        final Iterable<RootDocument> list =
+                rootDocumentRepository.findAll(rootDocument.getFilename());
+        int count = 0;
+        for (final RootDocument trailer : list) {
+            trailer.getType();
+            count++;
+        }
+        Assert.assertEquals("Should only be one root", 1, count);
     }
 }

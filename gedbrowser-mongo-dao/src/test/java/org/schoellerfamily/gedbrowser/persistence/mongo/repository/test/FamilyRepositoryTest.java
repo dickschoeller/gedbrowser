@@ -1,11 +1,9 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import java.io.IOException;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,7 +63,7 @@ public final class FamilyRepositoryTest {
                 findByFileAndString(root.getFilename(), "F1");
         final Family family = (Family) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, famdoc);
-        assertEquals("F1", family.getString());
+        Assert.assertEquals("Id mismatch", "F1", family.getString());
         // TODO test following husband, wife, children
     }
 
@@ -76,7 +74,7 @@ public final class FamilyRepositoryTest {
                 findByRootAndString(rootDocument, "F1");
         final Family family = (Family) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, famdoc);
-        assertEquals("F1", family.getString());
+        Assert.assertEquals("Id mismatch", "F1", family.getString());
         // TODO test following husband, wife, children
     }
 
@@ -85,7 +83,7 @@ public final class FamilyRepositoryTest {
     public void testBogus() {
         final FamilyDocument famdoc = familyDocumentRepository.
                 findByFileAndString(root.getFilename(), "F999999");
-        assertNull(famdoc);
+        Assert.assertNull("Bogus request should return null", famdoc);
     }
 
     /** */
@@ -93,6 +91,50 @@ public final class FamilyRepositoryTest {
     public void testBogusRoot() {
         final FamilyDocument famdoc = familyDocumentRepository.
                 findByRootAndString(rootDocument, "F999999");
-        assertNull(famdoc);
+        Assert.assertNull("Bogus request should return null", famdoc);
+    }
+
+    /** */
+    @Test
+    public void testCountRoot() {
+        final long expected = 6;
+        Assert.assertEquals("Should be 6 families", expected,
+                familyDocumentRepository.count(rootDocument));
+    }
+
+    /** */
+    @Test
+    public void testCountFilename() {
+        final long expected = 6;
+        Assert.assertEquals("Should be 6 families", expected,
+                familyDocumentRepository.count(rootDocument.getFilename()));
+    }
+
+    /** */
+    @Test
+    public void testFindAllRoot() {
+        final Iterable<FamilyDocument> list =
+                familyDocumentRepository.findAll(rootDocument);
+        int count = 0;
+        for (final FamilyDocument trailer : list) {
+            trailer.getType();
+            count++;
+        }
+        final long expected = 6;
+        Assert.assertEquals("Should be 6 families", expected, count);
+    }
+
+    /** */
+    @Test
+    public void testFindAllFilename() {
+        final Iterable<FamilyDocument> list =
+                familyDocumentRepository.findAll(rootDocument.getFilename());
+        int count = 0;
+        for (final FamilyDocument trailer : list) {
+            trailer.getType();
+            count++;
+        }
+        final long expected = 6;
+        Assert.assertEquals("Should be 6 families", expected, count);
     }
 }
