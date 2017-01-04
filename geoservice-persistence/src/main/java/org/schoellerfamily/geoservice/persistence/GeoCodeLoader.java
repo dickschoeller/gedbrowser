@@ -19,8 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Dick Schoeller
  */
 public class GeoCodeLoader {
-    // TODO try to refactor the loader methods with lambdas.
-
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -53,40 +51,15 @@ public class GeoCodeLoader {
      * @param istream the input stream
      */
     public final void load(final InputStream istream) {
-        logger.debug("Loading the cache from input stream");
-        String line;
-        try (
-            InputStreamReader isr =
-                    new InputStreamReader(istream, Charset.forName("UTF-8"));
-            BufferedReader br = new BufferedReader(isr);
-        ) {
-            while ((line = br.readLine()) != null) {
-                final String[] splitLine = line.split("[|]", 4);
-                if (splitLine.length > 2 && !splitLine[1].isEmpty()) {
-                    replaceIfModernDifferent(splitLine[0], splitLine[1]);
-                } else if (splitLine[0] != null && !splitLine[0].isEmpty()) {
-                    replaceIfModernDifferent(splitLine[0], splitLine[0]);
-                }
+        load(istream, (name, modernName) -> {
+            final GeoCodeItem gci = gcc.get(name);
+            if (gci == null || !gci.getModernPlaceName().equals(modernName)) {
+                GeoCodeItem item = new GeoCodeItem(name, modernName);
+                gcc.add(item);
+                return item;
             }
-        } catch (IOException e) {
-            logger.error("Problem reading places stream", e);
-        }
-    }
-
-    /**
-     * Check the cache. If not present or if the request has a different modern
-     * name, replace it. That will force reexecuting the geocoding request on
-     * the next reference to this object.
-     *
-     * @param placeName the historical place name
-     * @param modernPlaceName the modern equivalent.
-     */
-    private void replaceIfModernDifferent(final String placeName,
-            final String modernPlaceName) {
-        final GeoCodeItem gci = gcc.get(placeName);
-        if (gci == null || !gci.getModernPlaceName().equals(modernPlaceName)) {
-            gcc.add(new GeoCodeItem(placeName, modernPlaceName));
-        }
+            return gci;
+        });
     }
 
     /**
@@ -114,6 +87,32 @@ public class GeoCodeLoader {
      * @param istream the input stream
      */
     public final void loadAndFind(final InputStream istream) {
+        load(istream, (s1, s2) -> gcc.find(s1, s2));
+    }
+
+    /**
+     * @author Dick Schoeller
+     */
+    private interface Loader {
+        /**
+         * Do whatever the load load operation requires.
+         *
+         * @param placeName the place name
+         * @param modernPlaceName the modern place name for geocoding
+         * @return a geocodeitem
+         */
+        GeoCodeItem load(String placeName, String modernPlaceName);
+    }
+
+    /**
+     * Read places from an input stream. The format is | separated. It may
+     * contain just a historical place name or both historical and modern
+     * places names.
+     *
+     * @param istream the input stream
+     * @param loader what to do with each line
+     */
+    private void load(final InputStream istream, final Loader loader) {
         logger.debug("Loading the cache from input stream");
         String line;
         try (
@@ -124,9 +123,9 @@ public class GeoCodeLoader {
             while ((line = br.readLine()) != null) {
                 final String[] splitLine = line.split("[|]", 4);
                 if (splitLine.length > 2 && !splitLine[1].isEmpty()) {
-                    gcc.find(splitLine[0], splitLine[1]);
+                    loader.load(splitLine[0], splitLine[1]);
                 } else if (splitLine[0] != null && !splitLine[0].isEmpty()) {
-                    gcc.find(splitLine[0]);
+                    loader.load(splitLine[0], splitLine[0]);
                 }
             }
         } catch (IOException e) {
