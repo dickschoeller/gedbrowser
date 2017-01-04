@@ -243,6 +243,68 @@ public class GeoCodeTest {
 
     /** */
     @Test
+    public void testCacheOldHomeModernToBroken() {
+        logger.info("Entering testCacheOldHomeModernChange");
+        gcc.clear();
+        final GeoCodeItem entry1 = gcc.find("Old Home");
+        final GeoCodeItem entry2 = gcc.find("Old Home", "At Sea");
+        Assert.assertNotEquals("Should NOT be equal", entry1, entry2);
+    }
+
+    /** */
+    @Test
+    public void testCacheOldHomeBroken() {
+        logger.info("Entering testCacheOldHomeModernChange");
+        gcc.clear();
+        final GeoCodeItem entry1 = gcc.add(new GeoCodeItem("Old Home", "At Sea"));
+        final GeoCodeItem entry2 = gcc.find("Old Home", "At Sea");
+        Assert.assertEquals("Should be equal", entry1, entry2);
+    }
+
+    /** */
+    @Test
+    public void testCacheOldHomeAddThenFind() {
+        logger.info("Entering testCacheOldHomeModernChange");
+        gcc.clear();
+        final GeoCodeItem entry1 = gcc.add(new GeoCodeItem("Old Home", "3341 Chaucer Lane, Bethlehem, PA"));
+        final GeoCodeItem entry2 = gcc.find("Old Home", "3341 Chaucer Lane, Bethlehem, PA");
+        Assert.assertNotEquals("Should NOT be equal", entry1, entry2);
+    }
+
+    /** */
+    @Test
+    public void testCacheAddThenFind() {
+        logger.info("Entering testCacheOldHomeModernChange");
+        gcc.clear();
+        final GeoCodeItem entry1 = gcc.add(new GeoCodeItem("3341 Chaucer Lane, Bethlehem, PA"));
+        final GeoCodeItem entry2 = gcc.find("3341 Chaucer Lane, Bethlehem, PA");
+        Assert.assertNotEquals("Should NOT be equal", entry1, entry2);
+    }
+
+    /** */
+    @Test
+    public void testCacheAllKeysSize() {
+        logger.info("Entering testCacheOldHomeModernChange");
+        gcc.clear();
+        gcc.add(new GeoCodeItem("Old Home"));
+        gcc.add(new GeoCodeItem("At Sea"));
+        Assert.assertEquals("Should be 2 items", 2, gcc.allKeys().size());
+    }
+
+    /** */
+    @Test
+    public void testCacheAllKeysContains() {
+        logger.info("Entering testCacheOldHomeModernChange");
+        gcc.clear();
+        gcc.add(new GeoCodeItem("Old Home"));
+        gcc.add(new GeoCodeItem("At Sea"));
+        Collection<String> keys = gcc.allKeys();
+        Assert.assertTrue("Should contain both items",
+                keys.contains("Old Home") && keys.contains("At Sea"));
+    }
+
+    /** */
+    @Test
     public void testCacheReplace() {
         logger.info("Entering testCacheReplace");
         gcc.clear();
