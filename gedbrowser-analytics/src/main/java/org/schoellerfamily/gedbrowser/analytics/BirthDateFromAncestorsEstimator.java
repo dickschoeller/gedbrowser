@@ -33,7 +33,7 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
      * @param localDate if not null we already have a better estimate
      * @return estimate from own ancestors
      */
-    LocalDate estimate(final LocalDate localDate) {
+    public LocalDate estimate(final LocalDate localDate) {
         if (localDate != null) {
             return localDate;
         }
@@ -48,7 +48,7 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
      * @param localDate if not null we already have a better estimate
      * @return estimate based on other ancestor events
      */
-    LocalDate estimateFromOtherEvents(final LocalDate localDate) {
+    public LocalDate estimateFromOtherEvents(final LocalDate localDate) {
         if (localDate != null) {
             return localDate;
         }
@@ -58,30 +58,17 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
         for (final Family family : families) {
             final Person father = getFather(family);
             final Person mother = getMother(family);
-            if (father != null) {
-                final BirthDateEstimator bde = createEstimator(father);
-                date = estimateFromOtherEvents(date, bde);
-            }
-            if (mother != null) {
-                final BirthDateEstimator bde = createEstimator(mother);
-                date = estimateFromOtherEvents(date, bde);
-            }
-            if (father != null) {
-                final BirthDateEstimator bde = createEstimator(father);
-                date = estimateFromAncestorsOtherEvents(date, bde);
-            }
-            if (mother != null) {
-                final BirthDateEstimator bde = createEstimator(mother);
-                date = estimateFromAncestorsOtherEvents(date, bde);
-            }
+            date = estimateFromOtherEvents(date, createEstimator(father));
+            date = estimateFromOtherEvents(date, createEstimator(mother));
+            date = estimateFromAncestorsOtherEvents(date,
+                    createEstimator(father));
+            date = estimateFromAncestorsOtherEvents(date,
+                    createEstimator(mother));
             if (date != null) {
                 break;
             }
         }
-        if (date != null) {
-            date = ancestorAdjustment(date);
-        }
-        return date;
+        return ancestorAdjustment(date);
     }
 
     /**
@@ -108,7 +95,7 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
      * @param localDate if not null we already have a better estimate
      * @return estimate from some ancestor's birth date
      */
-    LocalDate estimateFromBirth(final LocalDate localDate) {
+    public LocalDate estimateFromBirth(final LocalDate localDate) {
         if (localDate != null) {
             return localDate;
         }
@@ -126,10 +113,7 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
                 break;
             }
         }
-        if (date != null) {
-            date = ancestorAdjustment(date);
-        }
-        return date;
+        return ancestorAdjustment(date);
     }
 
     /**
@@ -139,9 +123,6 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
      */
     private LocalDate estimateFromAncestorsBirth(final LocalDate date,
             final Person parent) {
-        if (parent == null) {
-            return date;
-        }
         final BirthDateEstimator bde = createEstimator(parent);
         return estimateFromAncestorsBirth(date, bde);
     }
@@ -156,11 +137,8 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
         if (date != null) {
             return date;
         }
-        if (parent != null) {
-            final String dateString = getBirthDate(parent);
-            return createLocalDate(dateString);
-        }
-        return null;
+        final String dateString = getBirthDate(parent);
+        return createLocalDate(dateString);
     }
 
     /**
@@ -179,7 +157,7 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
      * @param localDate if not null we already have a better estimate
      * @return an estimate based on some ancestor's marriage date
      */
-    LocalDate estimateFromMarriage(final LocalDate localDate) {
+    public LocalDate estimateFromMarriage(final LocalDate localDate) {
         if (localDate != null) {
             return localDate;
         }
@@ -209,10 +187,7 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
             return localDate;
         }
         final Person husband = family.getFather();
-        if (husband != null) {
-            return estimateFromParentMarriage(husband);
-        }
-        return null;
+        return estimateFromParentMarriage(husband);
     }
 
     /**
@@ -226,10 +201,7 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
             return localDate;
         }
         final Person wife = family.getMother();
-        if (wife != null) {
-            return estimateFromParentMarriage(wife);
-        }
-        return null;
+        return estimateFromParentMarriage(wife);
     }
 
     /**
@@ -250,17 +222,7 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
      * @return the date estimate
      */
     private LocalDate estimateFromParentMarriage(final BirthDateEstimator bde) {
-        LocalDate date;
-        date = bde.estimateFromOwnMarriage(null);
-        if (date == null) {
-            date = bde.estimateFromAncestorsMarriage(null);
-            if (date != null) {
-                date = ancestorAdjustment(date);
-            }
-        } else {
-            date = ancestorAdjustment(date);
-        }
-        return date;
+        return ancestorAdjustment(bde.estimateFromAncestorsMarriage(null));
     }
 
     /**
@@ -271,6 +233,9 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
      * @return the adjusted date
      */
     private LocalDate ancestorAdjustment(final LocalDate date) {
+        if (date == null) {
+            return null;
+        }
         return date.plusYears(typicals.ageAtMarriage()
                 + typicals.gapBetweenChildren())
                 .withMonthOfYear(1).withDayOfMonth(1);

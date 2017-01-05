@@ -504,4 +504,20 @@ public final class PersonTest {
     public void testHasDeathAttribute() {
         assertTrue("Should have death attribute", person4.hasDeathAttribute());
     }
+
+    /** */
+    @Test
+    public void testGetFamiliesCWith() {
+        final List<Family> families = new ArrayList<>();
+        assertFalse("Should have a FAMC",
+                person3.getFamiliesC(families).isEmpty());
+    }
+
+    /** */
+    @Test
+    public void testGetFamiliesCWithout() {
+        final List<Family> families = new ArrayList<>();
+        assertTrue("Should not have a FAMC",
+                person1.getFamiliesC(families).isEmpty());
+    }
 }

@@ -33,7 +33,7 @@ public final class BirthDateFromSpousesEstimator extends Estimator {
      * @param shortEstimate whether to do a short estimate or a deep estimate
      * @return the estimate from own marriages
      */
-    LocalDate estimate(final LocalDate localDate,
+    public LocalDate estimate(final LocalDate localDate,
             final boolean shortEstimate) {
         if (localDate != null) {
             return localDate;
@@ -80,7 +80,7 @@ public final class BirthDateFromSpousesEstimator extends Estimator {
      * @param localDate if not null we already have a better estimate
      * @return estimate from spouses' ancestors
      */
-    LocalDate estimateFromAncestors(final LocalDate localDate) {
+    public LocalDate estimateFromAncestors(final LocalDate localDate) {
         if (localDate != null) {
             return localDate;
         }

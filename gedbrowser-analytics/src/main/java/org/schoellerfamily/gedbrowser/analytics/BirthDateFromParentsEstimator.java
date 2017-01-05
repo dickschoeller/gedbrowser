@@ -32,7 +32,7 @@ public final class BirthDateFromParentsEstimator extends Estimator {
      * @param localDate if not null we already have a better estimate
      * @return estimate from parents birth date
      */
-    LocalDate estimateFromBirth(final LocalDate localDate) {
+    public LocalDate estimateFromBirth(final LocalDate localDate) {
         if (localDate != null) {
             return localDate;
         }
@@ -81,7 +81,7 @@ public final class BirthDateFromParentsEstimator extends Estimator {
      * @param localDate if not null we already have a better estimate
      * @return estimate from the date of parents marriage.
      */
-    LocalDate estimateFromMarriage(final LocalDate localDate) {
+    public LocalDate estimateFromMarriage(final LocalDate localDate) {
         if (localDate != null) {
             return localDate;
         }
