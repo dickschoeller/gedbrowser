@@ -4,9 +4,9 @@ Spring Boot application to display the genealogy data from a [GEDCOM](http://wik
 
 Check it out by perusing [my genealogy database](http://www.schoellerfamily.org/gedbrowser/surnames?db=schoeller). You can browse the database anonymously, but you will need a login with the appropriate role to see living people.
 
-| Jenkins Build | Travis Build | Coverage | Dependencies | Selenium |
-| :--- | :--- | :--- | :--- | :--- |
-| [![Build Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser)](http://www.schoellerfamily.org/jenkins/job/gedbrowser/) | [![Build Status](https://api.travis-ci.org/dickschoeller/gedbrowser.svg?branch=master)](https://travis-ci.org/dickschoeller/gedbrowser) | [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=master)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=master) | [![Dependency Status](https://www.versioneye.com/user/projects/586bf6913ab148003228ac5d/badge.svg)](https://www.versioneye.com/user/projects/586bf6913ab148003228ac5d?child=summary#tab-dependencies) | [![Selenium Test Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser-selenium)](http://www.schoellerfamily.org/jenkins/job/gedbrowser-selenium) |
+| Jenkins Build | Jenkins Pull Build | Travis Build | Coverage | Dependencies | Selenium |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| [![Build Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser)](http://www.schoellerfamily.org/jenkins/job/gedbrowser/) | [![Build Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser-pull)](http://www.schoellerfamily.org/jenkins/job/gedbrowser-pull/) | [![Build Status](https://api.travis-ci.org/dickschoeller/gedbrowser.svg?branch=master)](https://travis-ci.org/dickschoeller/gedbrowser) | [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=master)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=master) | [![Dependency Status](https://www.versioneye.com/user/projects/586bf6913ab148003228ac5d/badge.svg)](https://www.versioneye.com/user/projects/586bf6913ab148003228ac5d?child=summary#tab-dependencies) | [![Selenium Test Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser-selenium)](http://www.schoellerfamily.org/jenkins/job/gedbrowser-selenium) |
 
 ## Getting started
 
