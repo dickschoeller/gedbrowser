@@ -7,7 +7,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Name;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.CommentSize")
 public class NameNameHtmlRenderer implements NameHtmlRenderer {
     /**
      * Holder for the NameRenderer that is using this helper.
@@ -17,9 +16,8 @@ public class NameNameHtmlRenderer implements NameHtmlRenderer {
     /**
      * Constructor.
      *
-     * This constructor is public for testing purposes only. Do
-     * not try to call it outside of the context of the rendering
-     * engine.
+     * This constructor is public for testing purposes only. Do not try to call
+     * it outside of the context of the rendering engine.
      *
      * @param nameRenderer the renderer that this is associated with.
      */

@@ -12,7 +12,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.CommentSize" })
 public final class FamilyRenderer extends GedRenderer<Family> {
     /** */
     private static final int INDENT_INCREMENT = 2;
@@ -62,9 +61,8 @@ public final class FamilyRenderer extends GedRenderer<Family> {
     }
 
     /**
-     * This method is public for testing purposes only. Do
-     * not try to call it outside of the context of the rendering
-     * engine.
+     * This method is public for testing purposes only. Do not try to call it
+     * outside of the context of the rendering engine.
      *
      * @param builder Buffer for holding the rendition
      * @param pageRenderer The page renderer that is invoking this
