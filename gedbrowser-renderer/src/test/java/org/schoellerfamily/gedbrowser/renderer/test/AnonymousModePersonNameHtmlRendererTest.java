@@ -14,13 +14,12 @@ import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 
 /**
- * All of these tests should return Living. The reason
- * is that the user created is one who shows up living
- * in the test. Therefore, the renderer will punt, no
+ * All of these tests should return Living. The reason is that the user created
+ * is one who shows up living in the test. Therefore, the renderer will punt, no
  * matter what the input string.
  *
- * There is a separate set of tests with a logged in
- * user. Those should get real rendering.
+ * There is a separate set of tests with a logged in user. Those should get real
+ * rendering.
  *
  * @author Dick Schoeller
  */

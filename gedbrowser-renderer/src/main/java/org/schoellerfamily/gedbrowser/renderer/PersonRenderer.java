@@ -15,7 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.CommentSize", "PMD.GodClass" })
+@SuppressWarnings({ "PMD.GodClass" })
 public final class PersonRenderer extends GedRenderer<Person> {
     /**
      * Number of generations, including the root when rendering the tree.
@@ -44,9 +44,8 @@ public final class PersonRenderer extends GedRenderer<Person> {
     }
 
     /**
-     * This method is public for testing purposes only. Do
-     * not try to call it outside of the context of the rendering
-     * engine.
+     * This method is public for testing purposes only. Do not try to call it
+     * outside of the context of the rendering engine.
      *
      * @param builder Buffer for holding the rendition
      * @param pad Minimum number spaces for padding each line of the output
@@ -58,9 +57,8 @@ public final class PersonRenderer extends GedRenderer<Person> {
     }
 
     /**
-     * This method is public for testing purposes only. Do
-     * not try to call it outside of the context of the rendering
-     * engine.
+     * This method is public for testing purposes only. Do not try to call it
+     * outside of the context of the rendering engine.
      *
      * @param builder Buffer for holding the rendition
      * @param pad Minimum number spaces for padding each line of the output

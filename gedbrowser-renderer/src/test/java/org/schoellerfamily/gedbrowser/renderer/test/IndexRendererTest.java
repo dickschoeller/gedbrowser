@@ -12,7 +12,6 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.CommentSize")
 public final class IndexRendererTest {
 
     /**
@@ -72,7 +71,6 @@ public final class IndexRendererTest {
 
     /**
      * Prepare the expect string for index html test.
-     *
      * @param id person's ID
      * @param surname person's surname
      * @param prefix person's given name
