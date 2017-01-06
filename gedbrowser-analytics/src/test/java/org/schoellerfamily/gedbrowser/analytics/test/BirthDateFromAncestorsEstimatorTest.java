@@ -20,6 +20,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.TooManyMethods")
 public class BirthDateFromAncestorsEstimatorTest {
     /** */
     @Test

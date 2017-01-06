@@ -43,19 +43,16 @@ public final class BirthDateFromChildrenEstimator extends Estimator {
         for (final Family family : families) {
             for (final Person child : getChildren(family)) {
                 final String birthDateString = getBirthDate(child);
-                if (!validDateString(birthDateString)) {
-                    final BirthDateEstimator bde = createEstimator(child);
-                    date = estimateFromChild(bde, date);
-                    if (date != null) {
-                        break;
-                    }
-                    count++;
-                    continue;
+                if (validDateString(birthDateString)) {
+                    date = createLocalDate(birthDateString);
+                    break;
                 }
-                date = createLocalDate(birthDateString);
+                final BirthDateEstimator bde = createEstimator(child);
+                date = estimateFromChild(bde);
                 if (date != null) {
                     break;
                 }
+                count++;
             }
             if (date != null) {
                 break;
@@ -109,18 +106,14 @@ public final class BirthDateFromChildrenEstimator extends Estimator {
 
     /**
      * @param bde the estimator for this child
-     * @param localDate the input date estimate
      * @return the new estimate
      */
-    private LocalDate estimateFromChild(final BirthDateEstimator bde,
-            final LocalDate localDate) {
-        if (localDate != null) {
-            return localDate;
-        }
+    private LocalDate estimateFromChild(final BirthDateEstimator bde) {
         LocalDate date = null;
         date = bde.estimateFromChildren(date);
         date = bde.estimateFromOwnMarriage(date);
         date = bde.estimateFromSpouses(date, true);
+        date = bde.estimateFromOtherEvents(date);
         return date;
     }
 }

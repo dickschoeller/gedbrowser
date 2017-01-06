@@ -1,8 +1,5 @@
 package org.schoellerfamily.gedbrowser.analytics.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +27,7 @@ import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.TooManyMethods")
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.ExcessiveClassLength" })
 public class BirthDateEstimatorTest {
     /** */
     @Test
@@ -66,7 +63,7 @@ public class BirthDateEstimatorTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertNull("Expected a null date", actual);
+        Assert.assertNull("Expected a null date", actual);
     }
 
     /** */
@@ -190,7 +187,7 @@ public class BirthDateEstimatorTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertNull("Expected a null date", actual);
+        Assert.assertNull("Expected a null date", actual);
     }
 
     /** */
@@ -315,7 +312,7 @@ public class BirthDateEstimatorTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertNull("Expected a null date", actual);
+        Assert.assertNull("Expected a null date", actual);
     }
 
     /** */
@@ -391,7 +388,7 @@ public class BirthDateEstimatorTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertNull("Expected a null date", actual);
+        Assert.assertNull("Expected a null date", actual);
     }
 
     /** */
@@ -787,7 +784,7 @@ public class BirthDateEstimatorTest {
                 break;
             }
         }
-        assertEquals("Shouldn't have found any unhandled dates", 0, max);
+        Assert.assertEquals("Shouldn't have found any unhandled dates", 0, max);
     }
 
     /** */
