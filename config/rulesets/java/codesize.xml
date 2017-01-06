@@ -481,6 +481,10 @@ have more fine grained objects.
                                                 starts-with(@Image,'set')
                                                 or
                                                 starts-with(@Image,'is')
+                                                or
+                                                starts-with(@Image,'create')
+                                                or
+                                                starts-with(@Image,'test')
                                             )
                                             and (
                                                     (
@@ -502,6 +506,10 @@ have more fine grained objects.
                 starts-with(@Image,'set')
                 or
                 starts-with(@Image,'is')
+                or
+                starts-with(@Image,'create')
+                or
+                starts-with(@Image,'test')
             )
       ]) > $maxmethods
    ]

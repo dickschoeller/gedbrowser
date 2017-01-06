@@ -17,7 +17,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.TooManyMethods")
 public final class AgeEstimatorTest {
     /** The comparison calendar. */
     private final Calendar referenceCalendar = Calendar.getInstance(Locale.US);
