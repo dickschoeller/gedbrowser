@@ -37,7 +37,7 @@ the file application.yml.
 * ![](images/jenkins-25.png) [Jenkins](http://www.schoellerfamily.org/jenkins/) builds
 * ![](images/travis-ci-25.png) [Travis CI](https://travis-ci.org/dickschoeller/gedbrowser) builds
 * ![](images/coveralls-25.png) [Coveralls](https://coveralls.io/github/dickschoeller/gedbrowser) coverage analysis
-* ![](images/versioneye-25.png) [VersionEye](https://www.versioneye.com/user/projects/5865adedc890d4004a99bf9d?child=summary#tab-dependencies) dependency analysis
+* ![](images/versioneye-25.png) [VersionEye](https://www.versioneye.com/user/projects/586bf6913ab148003228ac5d?child=summary#tab-dependencies) dependency analysis
 
 ## Technology
 
