@@ -27,7 +27,7 @@ Running with Docker requires running the MongoDB with Docker. The following comm
 As each GEDCOM file is referred to, it will be loaded into your instance of MongoDB. More explicit management
 of data loading is planned for the future.
 
-Note that the location of gedbrowser.home defaults to /var/lib/gedbrowser. However that can be adjusted in
+The location of gedbrowser.home defaults to /var/lib/gedbrowser. However that can be adjusted in
 the file application.yml.
 
 ## Tooling
