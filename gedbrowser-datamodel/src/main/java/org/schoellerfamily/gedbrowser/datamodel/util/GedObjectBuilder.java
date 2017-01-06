@@ -90,6 +90,9 @@ public class GedObjectBuilder {
      * @return the person
      */
     public Person createPerson(final String idString, final String name) {
+        if (idString == null || name == null) {
+            return new Person();
+        }
         final Person person = new Person(root, new ObjectId(idString));
         person.insert(new Name(person, name));
         root.insert(person);
@@ -107,6 +110,9 @@ public class GedObjectBuilder {
      */
     public Attribute createPersonEvent(final Person person, final String type,
             final String dateString) {
+        if (person == null || type == null || dateString == null) {
+            return new Attribute();
+        }
         final Attribute event = new Attribute(person, type);
         event.insert(new Date(event, dateString));
         person.insert(event);
@@ -147,6 +153,9 @@ public class GedObjectBuilder {
      * @return the family
      */
     public Family createFamily(final String idString) {
+        if (idString == null) {
+            return new Family();
+        }
         final Family family3 = new Family(root, new ObjectId(idString));
         root.insert(family3);
         return family3;
@@ -163,6 +172,9 @@ public class GedObjectBuilder {
      */
     public Attribute createFamilyEvent(final Family family, final String type,
             final String dateString) {
+        if (family == null || type == null || dateString == null) {
+            return new Attribute();
+        }
         final Attribute event = new Attribute(family, type);
         event.insert(new Date(event, dateString));
         family.insert(event);
@@ -178,6 +190,9 @@ public class GedObjectBuilder {
      */
     public Husband addHusbandToFamily(final Family family,
             final Person person) {
+        if (family == null || person == null) {
+            return new Husband();
+        }
         final FamS famS = new FamS(person, "FAMS",
                 new ObjectId(family.getString()));
         final Husband husband = new Husband(family, "Husband",
@@ -195,6 +210,9 @@ public class GedObjectBuilder {
      * @return the wife object
      */
     public Wife addWifeToFamily(final Family family, final Person person) {
+        if (family == null || person == null) {
+            return new Wife();
+        }
         final FamS famS = new FamS(person, "FAMS",
                 new ObjectId(family.getString()));
         final Wife wife = new Wife(family, "Wife",
@@ -212,6 +230,9 @@ public class GedObjectBuilder {
      * @return the Child object
      */
     public Child addChildToFamily(final Family family, final Person person) {
+        if (family == null || person == null) {
+            return new Child();
+        }
         final FamC famC = new FamC(person, "FAMC",
                 new ObjectId(family.getString()));
         final Child child = new Child(family, "Child",

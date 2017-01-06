@@ -8,6 +8,14 @@ public final class Attribute extends AbstractAttribute {
     private String tail;
 
     /**
+     * Null object constructor.
+     */
+    public Attribute() {
+        super();
+        this.tail = "";
+    }
+
+    /**
      * @param parent
      *            parent object of this attribute
      */

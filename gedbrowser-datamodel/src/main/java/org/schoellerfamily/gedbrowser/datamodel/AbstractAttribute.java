@@ -6,6 +6,13 @@ package org.schoellerfamily.gedbrowser.datamodel;
  */
 public abstract class AbstractAttribute extends GedObject {
     /**
+     * Null object constructor.
+     */
+    public AbstractAttribute() {
+        super();
+    }
+
+    /**
      * @param parent parent object of this attribute
      */
     public AbstractAttribute(final GedObject parent) {
