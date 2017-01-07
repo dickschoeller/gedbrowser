@@ -1,9 +1,12 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -50,7 +53,7 @@ public final class LivingRendererTest {
     public void testRenderUserIndexHref() {
         final LivingRenderer renderer = new LivingRenderer(root,
                 userContext);
-        Assert.assertEquals("The index link should refer to the letter A",
+        assertEquals("The index link should refer to the letter A",
                 "surnames?db=null&letter=A", renderer.getIndexHref());
     }
 
@@ -59,7 +62,7 @@ public final class LivingRendererTest {
     public void testRenderAdminIndexHref() {
         final LivingRenderer renderer = new LivingRenderer(root,
                 adminContext);
-        Assert.assertEquals("The index link should refer to the letter A",
+        assertEquals("The index link should refer to the letter A",
                 "surnames?db=null&letter=A", renderer.getIndexHref());
     }
 
@@ -70,7 +73,7 @@ public final class LivingRendererTest {
     public void testRenderUserBuckets() {
         final LivingRenderer renderer = new LivingRenderer(root,
                 userContext);
-        Assert.assertTrue("In user context, this is always empty",
+        assertTrue("In user context, this is always empty",
                 renderer.getBuckets().isEmpty());
     }
 
@@ -81,7 +84,7 @@ public final class LivingRendererTest {
     public void testRenderAdminBuckets() {
         final LivingRenderer renderer = new LivingRenderer(root,
                 adminContext);
-        Assert.assertFalse("In admin context, there should be some buckets",
+        assertFalse("In admin context, there should be some buckets",
                 renderer.getBuckets().isEmpty());
     }
 
@@ -94,7 +97,7 @@ public final class LivingRendererTest {
         final int thirtyToThirtyNine = 3;
         final List<PersonRenderer> persons =
                 renderer.getBuckets().get(thirtyToThirtyNine).getPersons();
-        Assert.assertFalse(
+        assertFalse(
                 "In admin context, there should be someone in the bucket",
                 persons.isEmpty());
     }
@@ -113,7 +116,7 @@ public final class LivingRendererTest {
         int expUpper = increment - 1;
         int i = 0;
         for (final Bucket bucket : buckets) {
-            Assert.assertTrue("Bucket " + i++ + " is screwed up",
+            assertTrue("Bucket " + i++ + " is screwed up",
                     checkBucketRanges(limit, expLower, expUpper, bucket));
             expLower += increment;
             expUpper += increment;

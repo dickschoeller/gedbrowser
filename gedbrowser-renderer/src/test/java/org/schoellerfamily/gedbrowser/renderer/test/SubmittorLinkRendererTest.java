@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -26,7 +27,7 @@ public class SubmittorLinkRendererTest {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
                 new SubmittorLink(null), new GedRendererFactory(),
                 RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
     }
@@ -40,7 +41,7 @@ public class SubmittorLinkRendererTest {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
                 new SubmittorLink(null), new GedRendererFactory(),
                 RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof SubmittorLinkListItemRenderer);
     }
@@ -54,7 +55,7 @@ public class SubmittorLinkRendererTest {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
                 new SubmittorLink(null), new GedRendererFactory(),
                 RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
     }
@@ -68,7 +69,7 @@ public class SubmittorLinkRendererTest {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
                 new SubmittorLink(null), new GedRendererFactory(),
                 RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
     }
@@ -82,7 +83,7 @@ public class SubmittorLinkRendererTest {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
                 new SubmittorLink(null), new GedRendererFactory(),
                 RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof SubmittorLinkPhraseRenderer);
     }
@@ -96,7 +97,7 @@ public class SubmittorLinkRendererTest {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
                 new SubmittorLink(null), new GedRendererFactory(),
                 RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof SubmittorLinkSectionRenderer);
     }

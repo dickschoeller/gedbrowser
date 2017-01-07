@@ -1,6 +1,8 @@
 package org.schoellerfamily.geoservice.persistence.mongo.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
@@ -22,7 +24,7 @@ public final class GeoDocumentMongoFactoryTest {
         document.loadGeoCodeItem(actual);
         final GeoCodeItem expected = GeoDocumentMongoFactory.getInstance()
                 .createGeoCodeItem(document);
-        Assert.assertEquals("Items should be the same", actual, expected);
+        assertEquals("Items should be the same", actual, expected);
     }
 
     /** */
@@ -33,7 +35,7 @@ public final class GeoDocumentMongoFactoryTest {
         document.loadGeoCodeItem(actual);
         final GeoCodeItem expected = GeoDocumentMongoFactory.getInstance()
                 .createGeoCodeItem(document);
-        Assert.assertEquals("Items should be the same", actual, expected);
+        assertEquals("Items should be the same", actual, expected);
     }
 
     /** */
@@ -44,7 +46,7 @@ public final class GeoDocumentMongoFactoryTest {
         document.loadGeoCodeItem(actual);
         final GeoCodeItem expected = GeoDocumentMongoFactory.getInstance()
                 .createGeoCodeItem(document);
-        Assert.assertEquals("Items should be the same", actual, expected);
+        assertEquals("Items should be the same", actual, expected);
     }
 
     /** */
@@ -53,7 +55,7 @@ public final class GeoDocumentMongoFactoryTest {
         final GeoCodeItem expected = new GeoCodeItem();
         final GeoCodeItem actual = GeoDocumentMongoFactory.getInstance()
                 .createGeoCodeItem(null);
-        Assert.assertEquals("Items should be the same", expected, actual);
+        assertEquals("Items should be the same", expected, actual);
     }
 
     /** */
@@ -62,7 +64,7 @@ public final class GeoDocumentMongoFactoryTest {
         final GeoCodeItem item = new GeoCodeItem("XYZZY", "PLUGH");
         final GeoDocument actual = GeoDocumentMongoFactory.getInstance()
                 .createGeoDocument(item);
-        Assert.assertTrue(compare(item, actual));
+        assertTrue(compare(item, actual));
     }
 
     /** */
@@ -71,7 +73,7 @@ public final class GeoDocumentMongoFactoryTest {
         final GeoCodeItem item = new GeoCodeItem();
         final GeoDocument actual = GeoDocumentMongoFactory.getInstance()
                 .createGeoDocument(null);
-        Assert.assertTrue(compare(item, actual));
+        assertTrue(compare(item, actual));
     }
 
     /**

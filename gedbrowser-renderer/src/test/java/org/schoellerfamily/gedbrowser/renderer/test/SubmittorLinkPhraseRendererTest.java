@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
@@ -47,7 +48,7 @@ public class SubmittorLinkPhraseRendererTest {
                         RenderingContext.anonymous());
         final SubmittorLinkPhraseRenderer slpr =
                 (SubmittorLinkPhraseRenderer) slr.getPhraseRenderer();
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "<a class=\"name\" "
                 + "href=\"source?db=null&amp;id=S1\">S1</a>",
                 slpr.renderAsPhrase());

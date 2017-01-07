@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -49,7 +50,7 @@ public class AttributeListItemRendererTest {
                 (AttributeListItemRenderer) aRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         apr.renderAsListItem(builder, false, 0);
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "<li><span class=\"label\">String:</span> </li>\n",
                 builder.toString());
     }
@@ -65,7 +66,7 @@ public class AttributeListItemRendererTest {
                 (AttributeListItemRenderer) aRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         apr.renderAsListItem(builder, false, 2);
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "<li><span class=\"label\">String:</span> Strung</li>\n",
                 builder.toString());
     }
@@ -81,7 +82,7 @@ public class AttributeListItemRendererTest {
                 (AttributeListItemRenderer) aRenderer .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         apr.renderAsListItem(builder, true, 0);
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "<li><span class=\"label\">"
                 + "Sproing:</span> Spring, Stanky</li>\n", builder.toString());
     }

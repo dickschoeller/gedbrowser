@@ -1,9 +1,11 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import java.io.IOException;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -66,7 +68,7 @@ public final class TrailerRepositoryTest {
                 findByFileAndString(root.getFilename(), TRAILER_STRING);
         final Trailer trailer = (Trailer) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, document);
-        Assert.assertEquals("Expected trailer string",
+        assertEquals("Expected trailer string",
                 TRAILER_STRING, trailer.getString());
     }
 
@@ -77,7 +79,7 @@ public final class TrailerRepositoryTest {
                 findByRootAndString(rootDocument, TRAILER_STRING);
         final Trailer trailer = (Trailer) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, document);
-        Assert.assertEquals("Expected trailer string",
+        assertEquals("Expected trailer string",
                 TRAILER_STRING, trailer.getString());
     }
 
@@ -86,7 +88,7 @@ public final class TrailerRepositoryTest {
     public void testBogus() {
         final TrailerDocument perdoc = trailerDocumentRepository.
                 findByFileAndString(root.getFilename(), "Mumble");
-        Assert.assertNull("Bogus request should return null", perdoc);
+        assertNull("Bogus request should return null", perdoc);
     }
 
     /** */
@@ -94,20 +96,20 @@ public final class TrailerRepositoryTest {
     public void testBogusRoot() {
         final TrailerDocument perdoc = trailerDocumentRepository.
                 findByRootAndString(rootDocument, "Mumble");
-        Assert.assertNull("Bogus request should return null", perdoc);
+        assertNull("Bogus request should return null", perdoc);
     }
 
     /** */
     @Test
     public void testCountRoot() {
-        Assert.assertEquals("Should only be one trailer",
+        assertEquals("Should only be one trailer",
                 1, trailerDocumentRepository.count(rootDocument));
     }
 
     /** */
     @Test
     public void testCountFilename() {
-        Assert.assertEquals("Should only be one trailer",
+        assertEquals("Should only be one trailer",
                 1,
                 trailerDocumentRepository.count(rootDocument.getFilename()));
     }
@@ -122,7 +124,7 @@ public final class TrailerRepositoryTest {
             trailer.getType();
             count++;
         }
-        Assert.assertEquals("Should only be one trailer", 1, count);
+        assertEquals("Should only be one trailer", 1, count);
     }
 
     /** */
@@ -135,6 +137,6 @@ public final class TrailerRepositoryTest {
             trailer.getType();
             count++;
         }
-        Assert.assertEquals("Should only be one trailer", 1, count);
+        assertEquals("Should only be one trailer", 1, count);
     }
 }

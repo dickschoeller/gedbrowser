@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -33,7 +34,7 @@ public class NullListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         nsr.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
-        Assert.assertEquals("Expected empty string", "", string);
+        assertEquals("Expected empty string", "", string);
     }
 
     /** */
@@ -42,7 +43,7 @@ public class NullListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         nsr.renderAsListItem(builder, false, 2);
         final String string = builder.toString();
-        Assert.assertEquals("Expected empty string", "", string);
+        assertEquals("Expected empty string", "", string);
     }
 
     /** */
@@ -51,7 +52,7 @@ public class NullListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         nsr.renderAsListItem(builder, true, 0);
         final String string = builder.toString();
-        Assert.assertEquals("Expected empty string", "", string);
+        assertEquals("Expected empty string", "", string);
     }
 
     /** */
@@ -60,6 +61,6 @@ public class NullListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         nsr.renderAsListItem(builder, true, 2);
         final String string = builder.toString();
-        Assert.assertEquals("Expected empty string", "", string);
+        assertEquals("Expected empty string", "", string);
     }
 }

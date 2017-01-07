@@ -1,9 +1,11 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import java.io.IOException;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -68,7 +70,7 @@ public class SubmittorRepositoryTest {
         final Submittor submittor =
                 (Submittor) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, document);
-        Assert.assertEquals("Expected submittor string",
+        assertEquals("Expected submittor string",
                 SUBMITTOR_STRING, submittor.getString());
     }
 
@@ -80,7 +82,7 @@ public class SubmittorRepositoryTest {
         final Submittor submittor =
                 (Submittor) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, document);
-        Assert.assertEquals("Expected submittor string",
+        assertEquals("Expected submittor string",
                 SUBMITTOR_STRING, submittor.getString());
     }
 
@@ -89,7 +91,7 @@ public class SubmittorRepositoryTest {
     public final void testBogus() {
         final SubmittorDocument perdoc = submittorDocumentRepository.
                 findByFileAndString(root.getFilename(), "Mumble");
-        Assert.assertNull("Bogus request should return null", perdoc);
+        assertNull("Bogus request should return null", perdoc);
     }
 
     /** */
@@ -97,7 +99,7 @@ public class SubmittorRepositoryTest {
     public final void testBogusRoot() {
         final SubmittorDocument perdoc = submittorDocumentRepository.
                 findByRootAndString(rootDocument, "Mumble");
-        Assert.assertNull("Bogus request should return null", perdoc);
+        assertNull("Bogus request should return null", perdoc);
     }
 
     /** */
@@ -105,7 +107,7 @@ public class SubmittorRepositoryTest {
     public void testCountRoot() {
         final long expected = 1;
         final long count = submittorDocumentRepository.count(rootDocument);
-        Assert.assertEquals("Should be 1 submittor", expected, count);
+        assertEquals("Should be 1 submittor", expected, count);
     }
 
     /** */
@@ -114,7 +116,7 @@ public class SubmittorRepositoryTest {
         final long expected = 1;
         final long count =
                 submittorDocumentRepository.count(rootDocument.getFilename());
-        Assert.assertEquals("Should be 1 submittor", expected, count);
+        assertEquals("Should be 1 submittor", expected, count);
     }
 
     /** */
@@ -128,7 +130,7 @@ public class SubmittorRepositoryTest {
             count++;
         }
         final long expected = 1;
-        Assert.assertEquals("Should be 1 submittor", expected, count);
+        assertEquals("Should be 1 submittor", expected, count);
     }
 
     /** */
@@ -142,6 +144,6 @@ public class SubmittorRepositoryTest {
             count++;
         }
         final long expected = 1;
-        Assert.assertEquals("Should be 1 submittor", expected, count);
+        assertEquals("Should be 1 submittor", expected, count);
     }
 }

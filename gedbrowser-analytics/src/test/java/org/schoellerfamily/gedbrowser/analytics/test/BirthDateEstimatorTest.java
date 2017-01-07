@@ -1,11 +1,14 @@
 package org.schoellerfamily.gedbrowser.analytics.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.LocalDate;
-import org.junit.Assert;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.BirthDateEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -64,7 +67,7 @@ public class BirthDateEstimatorTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
-        Assert.assertNull("Expected a null date", actual);
+        assertNull("Expected a null date", actual);
     }
 
     /** */
@@ -167,7 +170,7 @@ public class BirthDateEstimatorTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
         final LocalDate actual = estimator.estimateBirthDate();
-        Assert.assertNull("Expected a null date", actual);
+        assertNull("Expected a null date", actual);
     }
 
     /** */
@@ -233,7 +236,7 @@ public class BirthDateEstimatorTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
         final LocalDate actual = estimator.estimateBirthDate();
-        Assert.assertNull("Expected a null date", actual);
+        assertNull("Expected a null date", actual);
     }
 
     /** */
@@ -272,7 +275,7 @@ public class BirthDateEstimatorTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
         final LocalDate actual = estimator.estimateBirthDate();
-        Assert.assertNull("Expected a null date", actual);
+        assertNull("Expected a null date", actual);
     }
 
     /** */
@@ -631,7 +634,7 @@ public class BirthDateEstimatorTest {
                 break;
             }
         }
-        Assert.assertEquals("Shouldn't have found any unhandled dates", 0, max);
+        assertEquals("Shouldn't have found any unhandled dates", 0, max);
     }
 
     /** */
@@ -787,7 +790,7 @@ public class BirthDateEstimatorTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
-        Assert.assertNull("Changed event should return null", actual);
+        assertNull("Changed event should return null", actual);
     }
 
     /** */
@@ -826,7 +829,7 @@ public class BirthDateEstimatorTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
-        Assert.assertNull("No date event should return null", actual);
+        assertNull("No date event should return null", actual);
     }
 
     /** */
@@ -844,7 +847,7 @@ public class BirthDateEstimatorTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
-        Assert.assertNull("Bad date event should return null", actual);
+        assertNull("Bad date event should return null", actual);
     }
 
     /** */
@@ -933,7 +936,7 @@ public class BirthDateEstimatorTest {
      * @param actual actual date
      */
     private void assertMatch(final LocalDate expected, final LocalDate actual) {
-        Assert.assertTrue(mismatchString(expected, actual),
+        assertTrue(mismatchString(expected, actual),
                 expected.isEqual(actual));
     }
 

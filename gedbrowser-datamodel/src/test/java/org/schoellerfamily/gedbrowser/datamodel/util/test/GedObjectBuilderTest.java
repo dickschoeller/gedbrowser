@@ -1,6 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel.util.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
@@ -25,7 +28,7 @@ public class GedObjectBuilderTest {
     public void testAddChildWithNulls() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Child child = builder.addChildToFamily(null, null);
-        Assert.assertFalse("Should create an empty child", child.isSet());
+        assertFalse("Should create an empty child", child.isSet());
     }
 
     /** */
@@ -34,7 +37,7 @@ public class GedObjectBuilderTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily1();
         final Child child = builder.addChildToFamily(family, null);
-        Assert.assertFalse("Should create an empty child", child.isSet());
+        assertFalse("Should create an empty child", child.isSet());
     }
 
     /** */
@@ -43,7 +46,7 @@ public class GedObjectBuilderTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         final Child child = builder.addChildToFamily(null, person);
-        Assert.assertFalse("Should create an empty child", child.isSet());
+        assertFalse("Should create an empty child", child.isSet());
     }
 
     /** */
@@ -53,7 +56,7 @@ public class GedObjectBuilderTest {
         final Family family = builder.createFamily1();
         final Person person = builder.createPerson1();
         final Child child = builder.addChildToFamily(family, person);
-        Assert.assertTrue("Should create a real child", child.isSet());
+        assertTrue("Should create a real child", child.isSet());
     }
 
     /** */
@@ -61,7 +64,7 @@ public class GedObjectBuilderTest {
     public void testAddHusbandWithNulls() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Husband husband = builder.addHusbandToFamily(null, null);
-        Assert.assertFalse("Should create an empty husband", husband.isSet());
+        assertFalse("Should create an empty husband", husband.isSet());
     }
 
     /** */
@@ -70,7 +73,7 @@ public class GedObjectBuilderTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily1();
         final Husband husband = builder.addHusbandToFamily(family, null);
-        Assert.assertFalse("Should create an empty husband", husband.isSet());
+        assertFalse("Should create an empty husband", husband.isSet());
     }
 
     /** */
@@ -79,7 +82,7 @@ public class GedObjectBuilderTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         final Husband husband = builder.addHusbandToFamily(null, person);
-        Assert.assertFalse("Should create an empty husband", husband.isSet());
+        assertFalse("Should create an empty husband", husband.isSet());
     }
 
     /** */
@@ -89,7 +92,7 @@ public class GedObjectBuilderTest {
         final Family family = builder.createFamily1();
         final Person person = builder.createPerson1();
         final Husband wife = builder.addHusbandToFamily(family, person);
-        Assert.assertTrue("Should create a real wife", wife.isSet());
+        assertTrue("Should create a real wife", wife.isSet());
     }
 
     /** */
@@ -97,7 +100,7 @@ public class GedObjectBuilderTest {
     public void testAddWifeWithNulls() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Wife wife = builder.addWifeToFamily(null, null);
-        Assert.assertFalse("Should create an empty wife", wife.isSet());
+        assertFalse("Should create an empty wife", wife.isSet());
     }
 
     /** */
@@ -106,7 +109,7 @@ public class GedObjectBuilderTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily1();
         final Wife wife = builder.addWifeToFamily(family, null);
-        Assert.assertFalse("Should create an empty wife", wife.isSet());
+        assertFalse("Should create an empty wife", wife.isSet());
     }
 
     /** */
@@ -115,7 +118,7 @@ public class GedObjectBuilderTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         final Wife wife = builder.addWifeToFamily(null, person);
-        Assert.assertFalse("Should create an empty wife", wife.isSet());
+        assertFalse("Should create an empty wife", wife.isSet());
     }
 
     /** */
@@ -125,7 +128,7 @@ public class GedObjectBuilderTest {
         final Family family = builder.createFamily1();
         final Person person = builder.createPerson1();
         final Wife wife = builder.addWifeToFamily(family, person);
-        Assert.assertTrue("Should create a real wife", wife.isSet());
+        assertTrue("Should create a real wife", wife.isSet());
     }
 
     /** */
@@ -133,7 +136,7 @@ public class GedObjectBuilderTest {
     public void testCreateFamilyWithNull() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily(null);
-        Assert.assertFalse("Should create empty family", family.isSet());
+        assertFalse("Should create empty family", family.isSet());
     }
 
     /** */
@@ -141,7 +144,7 @@ public class GedObjectBuilderTest {
     public void testCreateFamily() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily("STRING");
-        Assert.assertEquals("Should have the ID provided",
+        assertEquals("Should have the ID provided",
                 "STRING", family.getString());
     }
 
@@ -150,7 +153,7 @@ public class GedObjectBuilderTest {
     public void testCreateFamily1() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily1();
-        Assert.assertEquals("Should have the ID provided",
+        assertEquals("Should have the ID provided",
                 "F1", family.getString());
     }
 
@@ -159,7 +162,7 @@ public class GedObjectBuilderTest {
     public void testCreateFamily2() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily2();
-        Assert.assertEquals("Should have the ID provided",
+        assertEquals("Should have the ID provided",
                 "F2", family.getString());
     }
 
@@ -168,7 +171,7 @@ public class GedObjectBuilderTest {
     public void testCreateFamily3() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily3();
-        Assert.assertEquals("Should have the ID provided",
+        assertEquals("Should have the ID provided",
                 "F3", family.getString());
     }
 
@@ -177,7 +180,7 @@ public class GedObjectBuilderTest {
     public void testFamilyEventWithNulls() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Attribute event = builder.createFamilyEvent(null, null, null);
-        Assert.assertFalse("Should create empty event", event.isSet());
+        assertFalse("Should create empty event", event.isSet());
     }
 
     /** */
@@ -186,7 +189,7 @@ public class GedObjectBuilderTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Attribute event =
                 builder.createFamilyEvent(null, "Marriage", "21 NOV 2002");
-        Assert.assertFalse("Should create empty event", event.isSet());
+        assertFalse("Should create empty event", event.isSet());
     }
 
     /** */
@@ -196,7 +199,7 @@ public class GedObjectBuilderTest {
         final Family family = builder.createFamily1();
         final Attribute event =
                 builder.createFamilyEvent(family, null, "21 NOV 2002");
-        Assert.assertFalse("Should create empty event", event.isSet());
+        assertFalse("Should create empty event", event.isSet());
     }
 
     /** */
@@ -206,7 +209,7 @@ public class GedObjectBuilderTest {
         final Family family = builder.createFamily1();
         final Attribute event =
                 builder.createFamilyEvent(family, "Marriage", null);
-        Assert.assertFalse("Should create empty event", event.isSet());
+        assertFalse("Should create empty event", event.isSet());
     }
 
     /** */
@@ -216,7 +219,7 @@ public class GedObjectBuilderTest {
         final Family family = builder.createFamily1();
         final Attribute event =
                 builder.createFamilyEvent(family, "Marriage", "HUH?");
-        Assert.assertEquals("Should create event with this date string",
+        assertEquals("Should create event with this date string",
                 "HUH?", event.getDate());
     }
 
@@ -227,7 +230,7 @@ public class GedObjectBuilderTest {
         final Family family = builder.createFamily1();
         final Attribute event =
                 builder.createFamilyEvent(family, "Marriage", "21 NOV 2002");
-        Assert.assertTrue("Should create real event", event.isSet());
+        assertTrue("Should create real event", event.isSet());
     }
 
     /** */
@@ -235,7 +238,7 @@ public class GedObjectBuilderTest {
     public void testWithNulls() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson(null, null);
-        Assert.assertFalse("Should create empty person", person.isSet());
+        assertFalse("Should create empty person", person.isSet());
     }
 
     /** */
@@ -243,7 +246,7 @@ public class GedObjectBuilderTest {
     public void testPersonWithNullId() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson(null, "Name/Me/");
-        Assert.assertFalse("Should create empty person", person.isSet());
+        assertFalse("Should create empty person", person.isSet());
     }
 
     /** */
@@ -251,7 +254,7 @@ public class GedObjectBuilderTest {
     public void testPersonWithNullName() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I1", null);
-        Assert.assertFalse("Should create empty person", person.isSet());
+        assertFalse("Should create empty person", person.isSet());
     }
 
     /** */
@@ -259,7 +262,7 @@ public class GedObjectBuilderTest {
     public void testPerson() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I1", "Name/Me/");
-        Assert.assertTrue("Should create real person", person.isSet());
+        assertTrue("Should create real person", person.isSet());
     }
 
     /** */
@@ -267,7 +270,7 @@ public class GedObjectBuilderTest {
     public void testPerson1() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
-        Assert.assertEquals("Should create real person",
+        assertEquals("Should create real person",
                 "I1", person.getString());
     }
 
@@ -276,7 +279,7 @@ public class GedObjectBuilderTest {
     public void testPerson2() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson2();
-        Assert.assertEquals("Should create real person",
+        assertEquals("Should create real person",
                 "I2", person.getString());
     }
 
@@ -285,7 +288,7 @@ public class GedObjectBuilderTest {
     public void testPerson3() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson3();
-        Assert.assertEquals("Should create real person",
+        assertEquals("Should create real person",
                 "I3", person.getString());
     }
 
@@ -294,7 +297,7 @@ public class GedObjectBuilderTest {
     public void testPerson4() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson4();
-        Assert.assertEquals("Should create real person",
+        assertEquals("Should create real person",
                 "I4", person.getString());
     }
 
@@ -303,7 +306,7 @@ public class GedObjectBuilderTest {
     public void testPerson5() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson5();
-        Assert.assertEquals("Should create real person",
+        assertEquals("Should create real person",
                 "I5", person.getString());
     }
 
@@ -312,7 +315,7 @@ public class GedObjectBuilderTest {
     public void testPerson1Name() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
-        Assert.assertEquals("Should create real person",
+        assertEquals("Should create real person",
                 "J. Random/Schoeller/", person.getName().getString());
     }
 
@@ -321,7 +324,7 @@ public class GedObjectBuilderTest {
     public void testPerson2Name() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson2();
-        Assert.assertEquals("Should create real person",
+        assertEquals("Should create real person",
                 "Anonymous/Schoeller/", person.getName().getString());
     }
 
@@ -330,7 +333,7 @@ public class GedObjectBuilderTest {
     public void testPerson3Name() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson3();
-        Assert.assertEquals("Should create real person",
+        assertEquals("Should create real person",
                 "Anonymous/Jones/", person.getName().getString());
     }
 
@@ -339,7 +342,7 @@ public class GedObjectBuilderTest {
     public void testPerson4Name() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson4();
-        Assert.assertEquals("Should create real person",
+        assertEquals("Should create real person",
                 "Too Tall/Jones/", person.getName().getString());
     }
 
@@ -348,7 +351,7 @@ public class GedObjectBuilderTest {
     public void testPerson5Name() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson5();
-        Assert.assertEquals("Should create real person",
+        assertEquals("Should create real person",
                 "Anonyma/Schoeller/", person.getName().getString());
     }
 
@@ -357,7 +360,7 @@ public class GedObjectBuilderTest {
     public void testPersonEventWithNulls() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Attribute event = builder.createPersonEvent(null, null, null);
-        Assert.assertFalse("Should create empty event", event.isSet());
+        assertFalse("Should create empty event", event.isSet());
     }
 
     /** */
@@ -366,7 +369,7 @@ public class GedObjectBuilderTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Attribute event =
                 builder.createPersonEvent(null, "Birth", "10 NOV 2000");
-        Assert.assertFalse("Should create empty event", event.isSet());
+        assertFalse("Should create empty event", event.isSet());
     }
 
     /** */
@@ -376,7 +379,7 @@ public class GedObjectBuilderTest {
         final Person person = builder.createPerson1();
         final Attribute event =
                 builder.createPersonEvent(person, null, "10 NOV 2000");
-        Assert.assertFalse("Should create empty event", event.isSet());
+        assertFalse("Should create empty event", event.isSet());
     }
 
     /** */
@@ -386,7 +389,7 @@ public class GedObjectBuilderTest {
         final Person person = builder.createPerson1();
         final Attribute event =
                 builder.createPersonEvent(person, "Birth", null);
-        Assert.assertFalse("Should create empty event", event.isSet());
+        assertFalse("Should create empty event", event.isSet());
     }
 
     /** */
@@ -396,7 +399,7 @@ public class GedObjectBuilderTest {
         final Person person = builder.createPerson1();
         final Attribute event =
                 builder.createPersonEvent(person, "Birth",  "HUH?");
-        Assert.assertEquals("Should create event with this date string",
+        assertEquals("Should create event with this date string",
                 "HUH?", event.getDate());
     }
 
@@ -407,6 +410,6 @@ public class GedObjectBuilderTest {
         final Person person = builder.createPerson1();
         final Attribute event =
                 builder.createPersonEvent(person, "Birth",  "10 NOV 2000");
-        Assert.assertTrue("Should create real event", event.isSet());
+        assertTrue("Should create real event", event.isSet());
     }
 }

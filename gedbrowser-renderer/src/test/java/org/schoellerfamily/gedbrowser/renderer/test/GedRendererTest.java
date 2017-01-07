@@ -23,7 +23,6 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.TooManyMethods")
 public class GedRendererTest {
     /**
      * Test that we are using the appropriate sub-renderers.

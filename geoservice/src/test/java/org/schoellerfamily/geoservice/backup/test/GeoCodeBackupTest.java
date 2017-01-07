@@ -1,9 +1,11 @@
 package org.schoellerfamily.geoservice.backup.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.geoservice.backup.GeoCodeBackup;
@@ -88,9 +90,9 @@ public final class GeoCodeBackupTest {
         gcd.clear();
         final File test = new File("test.json");
         backupManager.recover(test);
-        Assert.assertTrue("Should contain expected entry",
+        assertTrue("Should contain expected entry",
                 gcd.allKeys().contains("3341 Chaucer Lane, Bethlehem, PA"));
-        Assert.assertTrue("Should have deleted test.json", test.delete());
+        assertTrue("Should have deleted test.json", test.delete());
     }
 
     /**
@@ -104,7 +106,7 @@ public final class GeoCodeBackupTest {
         gcd.clear();
         final File test = new File("test.json");
         backupManager.recover(test);
-        Assert.assertEquals(gci, gcd.get("3341 Chaucer Lane, Bethlehem, PA"));
-        Assert.assertTrue("Should have deleted test.json", test.delete());
+        assertEquals(gci, gcd.get("3341 Chaucer Lane, Bethlehem, PA"));
+        assertTrue("Should have deleted test.json", test.delete());
     }
 }

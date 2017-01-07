@@ -22,7 +22,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.TooManyMethods")
 public final class MultimediaTest {
     /** */
     private static final String FILE_PATH_STRING =

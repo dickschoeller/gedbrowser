@@ -1,9 +1,11 @@
 package org.schoellerfamily.gedbrowser.geographic.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.util.Collection;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
@@ -33,15 +35,15 @@ public class PersonPlacesTest {
         final PersonPlaces personPlaces = new PersonPlaces(person);
         final Collection<Place> places = personPlaces.getPlaces();
         final int expectedSize = 3;
-        Assert.assertEquals(expectedSize, places.size());
+        assertEquals(expectedSize, places.size());
         // This is known to be in the data twice
-        Assert.assertTrue(places.contains(
+        assertTrue(places.contains(
                 new Place(null,
                         "Providence,"
                         + " Providence County,"
                         + " Rhode Island,"
                         + " USA")));
-        Assert.assertTrue(places.contains(
+        assertTrue(places.contains(
                 new Place(null,
                         "Lincoln Park Cemetery,"
                         + " Warwick,"
@@ -49,7 +51,7 @@ public class PersonPlacesTest {
                         + " Rhode Island,"
                         + " USA")));
         // Verifies picking up marriage location
-        Assert.assertTrue(places.contains(
+        assertTrue(places.contains(
                 new Place(null,
                         "Beacon House,"
                         + " Boston,"
@@ -75,8 +77,8 @@ public class PersonPlacesTest {
         final Places personPlaces = new PersonPlaces(person);
         final Collection<Place> places = personPlaces.getPlaces();
         final int expectedSize = 3;
-        Assert.assertEquals(expectedSize, places.size());
-        Assert.assertTrue(places.contains(
+        assertEquals(expectedSize, places.size());
+        assertTrue(places.contains(
                 new Place(null,
                         "Womack Army Hospital,"
                         + " Fort Bragg,"
@@ -85,7 +87,7 @@ public class PersonPlacesTest {
                         + " North Carolina,"
                         + " USA")));
         // Verifies picking up marriage location
-        Assert.assertTrue(places.contains(
+        assertTrue(places.contains(
                 new Place(null,
                         "Temple Emanu-el,"
                         + " Providence,"

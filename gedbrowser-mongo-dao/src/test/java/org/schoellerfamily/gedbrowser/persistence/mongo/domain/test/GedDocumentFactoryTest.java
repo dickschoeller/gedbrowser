@@ -52,9 +52,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.CouplingBetweenObjects",
-    "PMD.ExcessiveImports",
-    "PMD.TooManyMethods" })
+@SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports" })
 public final class GedDocumentFactoryTest {
     /** */
     @Test

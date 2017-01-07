@@ -1,6 +1,12 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -12,7 +18,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 /**
  * @author Dick Schoeller
  */
-public final class GedObjectTest { // NOPMD
+@SuppressWarnings("PMD.TooManyStaticImports")
+public final class GedObjectTest {
     /** */
     private static final int HASH_CODE_1 = 79247288;
     /** */
@@ -59,8 +66,8 @@ public final class GedObjectTest { // NOPMD
     public void testGedObjectGedObject() {
         gob = new GedObjectWrapper(root);
         root.insert(GOB_TAG, gob);
-        Assert.assertEquals(gob, gob.find(GOB_TAG));
-        Assert.assertEquals("", gob.toString());
+        assertEquals(gob, gob.find(GOB_TAG));
+        assertEquals("", gob.toString());
     }
 
     /** */
@@ -68,58 +75,58 @@ public final class GedObjectTest { // NOPMD
     public void testGedObjectGedObjectString() {
         gob = new GedObjectWrapper(root, GOB_TAG);
         root.insert(null, gob);
-        Assert.assertEquals(gob, gob.find(GOB_TAG));
-        Assert.assertEquals(GOB_TAG, gob.toString());
+        assertEquals(gob, gob.find(GOB_TAG));
+        assertEquals(GOB_TAG, gob.toString());
     }
 
     /** */
     @Test
     public void testGetString() {
         gob = new GedObjectWrapper(root);
-        Assert.assertEquals("", gob.getString());
+        assertEquals("", gob.getString());
 
         gob = new GedObjectWrapper(root, GOB_TAG);
-        Assert.assertEquals(GOB_TAG, gob.getString());
+        assertEquals(GOB_TAG, gob.getString());
     }
 
     /** */
     @Test
     public void testSetString() {
         gob = new GedObjectWrapper(root);
-        Assert.assertEquals("", gob.getString());
+        assertEquals("", gob.getString());
         gob.setString(GOB_TAG);
-        Assert.assertEquals(GOB_TAG, gob.getString());
+        assertEquals(GOB_TAG, gob.getString());
 
         gob = new GedObjectWrapper(root, GOB_TAG);
-        Assert.assertEquals(GOB_TAG, gob.getString());
+        assertEquals(GOB_TAG, gob.getString());
         gob.setString("BOG");
-        Assert.assertEquals("BOG", gob.getString());
+        assertEquals("BOG", gob.getString());
 
         gob = new GedObjectWrapper(root, GOB_TAG);
-        Assert.assertEquals(GOB_TAG, gob.getString());
+        assertEquals(GOB_TAG, gob.getString());
         gob.setString(null);
-        Assert.assertEquals("", gob.getString());
+        assertEquals("", gob.getString());
     }
 
     /** */
     @Test
     public void testAppendString() {
         gob = new GedObjectWrapper(root, GOB_TAG);
-        Assert.assertEquals(GOB_TAG, gob.getString());
+        assertEquals(GOB_TAG, gob.getString());
         gob.appendString("?");
-        Assert.assertEquals("GOB?", gob.getString());
+        assertEquals("GOB?", gob.getString());
     }
 
     /** */
     @Test
     public void testHashCode() {
         gob = createGedObject();
-        Assert.assertEquals(HASH_CODE_1, gob.hashCode());
+        assertEquals(HASH_CODE_1, gob.hashCode());
 
         final Attribute attribute = new Attribute(gob, ATTR_TAG, ATTR_NAME);
         gob.insert(attribute);
 
-        Assert.assertEquals(HASH_CODE_1, gob.hashCode());
+        assertEquals(HASH_CODE_1, gob.hashCode());
     }
 
     /**
@@ -133,31 +140,31 @@ public final class GedObjectTest { // NOPMD
     @Test
     public void testGetParent() {
         gob = new GedObjectWrapper(root, GOB_TAG);
-        Assert.assertEquals(root, gob.getParent());
+        assertEquals(root, gob.getParent());
 
         gob = new GedObjectWrapper(null, GOB_TAG);
-        Assert.assertEquals(null, gob.getParent());
+        assertEquals(null, gob.getParent());
     }
 
     /** */
     @Test
     public void testSetParent() {
         gob = new GedObjectWrapper(null, GOB_TAG);
-        Assert.assertEquals(null, gob.getParent());
+        assertEquals(null, gob.getParent());
         gob.setParent(root);
-        Assert.assertEquals(root, gob.getParent());
+        assertEquals(root, gob.getParent());
     }
 
     /** */
     @Test
     public void testAddAttribute() {
         gob = new GedObjectWrapper(root, GOB_TAG);
-        Assert.assertEquals(0, gob.getAttributes().size());
+        assertEquals(0, gob.getAttributes().size());
 
         final Attribute attribute = new Attribute(gob, ATTR_TAG, ATTR_NAME);
         gob.insert(attribute);
-        Assert.assertEquals(1, gob.getAttributes().size());
-        Assert.assertTrue(gob.getAttributes().contains(attribute));
+        assertEquals(1, gob.getAttributes().size());
+        assertTrue(gob.getAttributes().contains(attribute));
     }
 
     /** */
@@ -169,7 +176,7 @@ public final class GedObjectTest { // NOPMD
         gob.insert(attribute);
 
         gob.removeAttribute(attribute);
-        Assert.assertEquals(0, gob.getAttributes().size());
+        assertEquals(0, gob.getAttributes().size());
     }
 
     /** */
@@ -179,69 +186,70 @@ public final class GedObjectTest { // NOPMD
 
         final Attribute attribute = new Attribute(gob, ATTR_TAG, ATTR_NAME);
         gob.insert(attribute);
-        Assert.assertTrue(gob.hasAttribute(attribute));
+        assertTrue(gob.hasAttribute(attribute));
     }
 
     /** */
     @Test
+    @SuppressWarnings("PMD.EqualsNull")
     public void testEqualsObject() {
         gob = new GedObjectWrapper(null, GOB_TAG);
         GedObject gob1 = new GedObjectWrapper(null, GOB_TAG);
-        Assert.assertEquals(gob, gob1);
-        Assert.assertNotNull(gob);
+        assertEquals(gob, gob1);
+        assertNotNull(gob);
         final Attribute attr1 = new Attribute(gob, "A");
         final Attribute attr2 = new Attribute(gob1, "A");
-        Assert.assertEquals(gob, gob1);
+        assertEquals(gob, gob1);
         gob.insert(attr1);
         gob1.insert(attr2);
-        Assert.assertEquals(gob, gob1);
+        assertEquals(gob, gob1);
         final Attribute attr3 = new Attribute(gob1, "B");
         gob1.insert(attr3);
-        Assert.assertTrue(gob.equals(gob1));
+        assertTrue(gob.equals(gob1));
         gob1.removeAttribute(attr3);
-        Assert.assertEquals(gob, gob1);
+        assertEquals(gob, gob1);
         gob1.setParent(root);
-        Assert.assertNotEquals(gob, gob1);
-        Assert.assertFalse(gob.equals(null)); // NOPMD
+        assertNotEquals(gob, gob1);
+        assertFalse(gob.equals(null));
         //
         gob = new GedObjectWrapper(new GedObjectWrapper(null, "bar"), GOB_TAG);
         gob1 = new GedObjectWrapper(new GedObjectWrapper(null, "foo"), GOB_TAG);
-        Assert.assertNotEquals(gob, gob1);
+        assertNotEquals(gob, gob1);
         //
         gob = new GedObjectWrapper(new GedObjectWrapper(null, "bar"), null);
         gob1 = new GedObjectWrapper(new GedObjectWrapper(null, "foo"), GOB_TAG);
-        Assert.assertNotEquals(gob, gob1);
-        Assert.assertNotEquals(gob1, gob);
+        assertNotEquals(gob, gob1);
+        assertNotEquals(gob1, gob);
     }
 
     /** */
     @Test
     public void testFind() {
         gob = new GedObjectWrapper(root);
-        Assert.assertNull(gob.find(GOB_TAG));
+        assertNull(gob.find(GOB_TAG));
         gob.setString(GOB_TAG);
-        Assert.assertNull(gob.find(GOB_TAG));
+        assertNull(gob.find(GOB_TAG));
         final Person person = new Person(root, new ObjectId("I1"));
         root.insert(GOB_TAG, gob);
-        Assert.assertEquals(gob, gob.find(GOB_TAG));
+        assertEquals(gob, gob.find(GOB_TAG));
         root.insert("I1", person);
-        Assert.assertEquals(person, gob.find("I1"));
+        assertEquals(person, gob.find("I1"));
 
         gob = new GedObjectWrapper(null);
-        Assert.assertNull(gob.find(GOB_TAG));
+        assertNull(gob.find(GOB_TAG));
     }
 
     /** */
     @Test
     public void testGetFilename() {
         gob = new GedObjectWrapper(root);
-        Assert.assertNull(gob.getFilename());
+        assertNull(gob.getFilename());
         root.setFilename("filename.ged");
         root.setDbName("filename");
-        Assert.assertEquals("filename.ged", gob.getFilename());
-        Assert.assertEquals("filename", root.getDbName());
+        assertEquals("filename.ged", gob.getFilename());
+        assertEquals("filename", root.getDbName());
         gob = new GedObjectWrapper(null);
-        Assert.assertNull(gob.getFilename());
+        assertNull(gob.getFilename());
     }
 
     /** */
@@ -250,7 +258,7 @@ public final class GedObjectTest { // NOPMD
         gob = new GedObjectWrapper(root, GOB_TAG);
         final Attribute attribute = new Attribute(gob, ATTR_TAG, ATTR_NAME);
         gob.insert(attribute);
-        Assert.assertEquals(1, gob.getAttributes().size());
-        Assert.assertTrue(gob.getAttributes().contains(attribute));
+        assertEquals(1, gob.getAttributes().size());
+        assertTrue(gob.getAttributes().contains(attribute));
     }
 }

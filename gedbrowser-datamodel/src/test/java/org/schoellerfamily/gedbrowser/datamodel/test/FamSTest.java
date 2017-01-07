@@ -1,8 +1,12 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
@@ -18,6 +22,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.TooManyStaticImports")
 public final class FamSTest {
     /** */
     private static final String TEST_STRING_LUNK = "Lunk";
@@ -76,29 +81,29 @@ public final class FamSTest {
     /** */
     @Test
     public void testGetSpouse() {
-        Assert.assertEquals(person3, famS2.getSpouse(person2));
-        Assert.assertEquals(person2, famS2.getSpouse(person3));
-        Assert.assertFalse(famS2.getSpouse(person1).isSet());
-        Assert.assertEquals(person2, famS2.getSpouse(null));
+        assertEquals(person3, famS2.getSpouse(person2));
+        assertEquals(person2, famS2.getSpouse(person3));
+        assertFalse(famS2.getSpouse(person1).isSet());
+        assertEquals(person2, famS2.getSpouse(null));
     }
 
     /** */
     @Test
     public void testGetFamilies() {
         final Family gottenFamily = famS2.getFamily();
-        Assert.assertSame(family, gottenFamily);
+        assertSame(family, gottenFamily);
 
         final FamS fams = new FamS(null, "F73");
-        Assert.assertFalse(fams.getFamily().isSet());
+        assertFalse(fams.getFamily().isSet());
     }
 
     /** */
     @Test
     public void testGetChildren() {
         List<Person> newList = famS2.getChildren();
-        Assert.assertTrue(newList.contains(person1));
+        assertTrue(newList.contains(person1));
         newList = famS3.getChildren();
-        Assert.assertTrue(newList.contains(person1));
+        assertTrue(newList.contains(person1));
     }
 
     /** */
@@ -106,22 +111,22 @@ public final class FamSTest {
     public void testFamSGedObject() {
         FamS fams;
         fams = new FamS(null);
-        Assert.assertNull(fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
+        assertNull(fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("", fams.getFromString());
+        assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(0, fams.getChildren().size());
+        assertFalse(fams.getSpouse(null).isSet());
 
         fams = new FamS(person1);
-        Assert.assertEquals(person1, fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("I1", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(person1).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(person1, fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("I1", fams.getFromString());
+        assertFalse(fams.getSpouse(person1).isSet());
+        assertEquals(0, fams.getChildren().size());
+        assertFalse(fams.getSpouse(null).isSet());
     }
 
     /** */
@@ -129,58 +134,58 @@ public final class FamSTest {
     public void testFamSGedObjectString() {
         FamS fams;
         fams = new FamS(null, null);
-        Assert.assertNull(fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
+        assertNull(fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("", fams.getFromString());
+        assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(0, fams.getChildren().size());
+        assertFalse(fams.getSpouse(null).isSet());
 
         fams = new FamS(person1, null);
-        Assert.assertEquals(person1, fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("I1", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(person1).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(person1, fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("I1", fams.getFromString());
+        assertFalse(fams.getSpouse(person1).isSet());
+        assertEquals(0, fams.getChildren().size());
+        assertFalse(fams.getSpouse(null).isSet());
 
         fams = new FamS(null, "");
-        Assert.assertNull(fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
+        assertNull(fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("", fams.getFromString());
+        assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(0, fams.getChildren().size());
+        assertFalse(fams.getSpouse(null).isSet());
 
         fams = new FamS(person1, "");
-        Assert.assertEquals(person1, fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("I1", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(person1).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(person1, fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("I1", fams.getFromString());
+        assertFalse(fams.getSpouse(person1).isSet());
+        assertEquals(0, fams.getChildren().size());
+        assertFalse(fams.getSpouse(null).isSet());
 
         fams = new FamS(null, FAMS_TAG);
-        Assert.assertNull(fams.getParent());
-        Assert.assertEquals(FAMS_TAG, fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
+        assertNull(fams.getParent());
+        assertEquals(FAMS_TAG, fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("", fams.getFromString());
+        assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(0, fams.getChildren().size());
+        assertFalse(fams.getSpouse(null).isSet());
 
         fams = new FamS(person1, TEST_STRING_LUNK);
-        Assert.assertEquals(person1, fams.getParent());
-        Assert.assertEquals(TEST_STRING_LUNK, fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("I1", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(person1).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(person1, fams.getParent());
+        assertEquals(TEST_STRING_LUNK, fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("I1", fams.getFromString());
+        assertFalse(fams.getSpouse(person1).isSet());
+        assertEquals(0, fams.getChildren().size());
+        assertFalse(fams.getSpouse(null).isSet());
     }
 
     /** */
@@ -188,52 +193,52 @@ public final class FamSTest {
     public void testFamSGedObjectStringNull() {
         FamS fams;
         fams = new FamS(null, null, null);
-        Assert.assertNull(fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertNull(fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("", fams.getFromString());
+        assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(0, fams.getChildren().size());
 
         fams = new FamS(person1, null, null);
-        Assert.assertEquals(person1, fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("I1", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(person1).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertEquals(person1, fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("I1", fams.getFromString());
+        assertFalse(fams.getSpouse(person1).isSet());
+        assertEquals(0, fams.getChildren().size());
 
         fams = new FamS(null, "", null);
-        Assert.assertNull(fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertNull(fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("", fams.getFromString());
+        assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(0, fams.getChildren().size());
 
         fams = new FamS(person1, "", null);
-        Assert.assertEquals(person1, fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("I1", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(person1).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertEquals(person1, fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("I1", fams.getFromString());
+        assertFalse(fams.getSpouse(person1).isSet());
+        assertEquals(0, fams.getChildren().size());
 
         fams = new FamS(null, FAMS_TAG, null);
-        Assert.assertNull(fams.getParent());
-        Assert.assertEquals(FAMS_TAG, fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertNull(fams.getParent());
+        assertEquals(FAMS_TAG, fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("", fams.getFromString());
+        assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(0, fams.getChildren().size());
 
         fams = new FamS(person1, TEST_STRING_LUNK, null);
-        Assert.assertEquals(person1, fams.getParent());
-        Assert.assertEquals(TEST_STRING_LUNK, fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("I1", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(person1).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertEquals(person1, fams.getParent());
+        assertEquals(TEST_STRING_LUNK, fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("I1", fams.getFromString());
+        assertFalse(fams.getSpouse(person1).isSet());
+        assertEquals(0, fams.getChildren().size());
     }
 
     /** */
@@ -241,52 +246,52 @@ public final class FamSTest {
     public void testFamSGedObjectStringBlank() {
         FamS fams;
         fams = new FamS(null, null, new ObjectId(""));
-        Assert.assertNull(fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertNull(fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("", fams.getFromString());
+        assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(0, fams.getChildren().size());
 
         fams = new FamS(person1, null, new ObjectId(""));
-        Assert.assertEquals(person1, fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("I1", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(person1).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertEquals(person1, fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("I1", fams.getFromString());
+        assertFalse(fams.getSpouse(person1).isSet());
+        assertEquals(0, fams.getChildren().size());
 
         fams = new FamS(null, "", new ObjectId(""));
-        Assert.assertNull(fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertNull(fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("", fams.getFromString());
+        assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(0, fams.getChildren().size());
 
         fams = new FamS(person1, "", new ObjectId(""));
-        Assert.assertEquals(person1, fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("I1", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(person1).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertEquals(person1, fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("I1", fams.getFromString());
+        assertFalse(fams.getSpouse(person1).isSet());
+        assertEquals(0, fams.getChildren().size());
 
         fams = new FamS(null, FAMS_TAG, new ObjectId(""));
-        Assert.assertNull(fams.getParent());
-        Assert.assertEquals(FAMS_TAG, fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertNull(fams.getParent());
+        assertEquals(FAMS_TAG, fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("", fams.getFromString());
+        assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(0, fams.getChildren().size());
 
         fams = new FamS(person1, TEST_STRING_LUNK, new ObjectId(""));
-        Assert.assertEquals(person1, fams.getParent());
-        Assert.assertEquals(TEST_STRING_LUNK, fams.getString());
-        Assert.assertEquals("", fams.getToString());
-        Assert.assertEquals("I1", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(person1).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertEquals(person1, fams.getParent());
+        assertEquals(TEST_STRING_LUNK, fams.getString());
+        assertEquals("", fams.getToString());
+        assertEquals("I1", fams.getFromString());
+        assertFalse(fams.getSpouse(person1).isSet());
+        assertEquals(0, fams.getChildren().size());
     }
 
     /** */
@@ -294,52 +299,52 @@ public final class FamSTest {
     public void testFamSGedObjectStringString() {
         FamS fams;
         fams = new FamS(null, null, new ObjectId("F2"));
-        Assert.assertNull(fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("F2", fams.getToString());
-        Assert.assertEquals("", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertNull(fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("F2", fams.getToString());
+        assertEquals("", fams.getFromString());
+        assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(0, fams.getChildren().size());
 
         fams = new FamS(person1, null, new ObjectId("F3"));
-        Assert.assertEquals(person1, fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("F3", fams.getToString());
-        Assert.assertEquals("I1", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(person1).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertEquals(person1, fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("F3", fams.getToString());
+        assertEquals("I1", fams.getFromString());
+        assertFalse(fams.getSpouse(person1).isSet());
+        assertEquals(0, fams.getChildren().size());
 
         fams = new FamS(null, "", new ObjectId("F1"));
-        Assert.assertNull(fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("F1", fams.getToString());
-        Assert.assertEquals("", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertNull(fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("F1", fams.getToString());
+        assertEquals("", fams.getFromString());
+        assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(0, fams.getChildren().size());
 
         fams = new FamS(person1, "", new ObjectId("F2"));
-        Assert.assertEquals(person1, fams.getParent());
-        Assert.assertEquals("", fams.getString());
-        Assert.assertEquals("F2", fams.getToString());
-        Assert.assertEquals("I1", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(person1).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertEquals(person1, fams.getParent());
+        assertEquals("", fams.getString());
+        assertEquals("F2", fams.getToString());
+        assertEquals("I1", fams.getFromString());
+        assertFalse(fams.getSpouse(person1).isSet());
+        assertEquals(0, fams.getChildren().size());
 
         fams = new FamS(null, FAMS_TAG, new ObjectId("F3"));
-        Assert.assertNull(fams.getParent());
-        Assert.assertEquals(FAMS_TAG, fams.getString());
-        Assert.assertEquals("F3", fams.getToString());
-        Assert.assertEquals("", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(null).isSet());
-        Assert.assertEquals(0, fams.getChildren().size());
+        assertNull(fams.getParent());
+        assertEquals(FAMS_TAG, fams.getString());
+        assertEquals("F3", fams.getToString());
+        assertEquals("", fams.getFromString());
+        assertFalse(fams.getSpouse(null).isSet());
+        assertEquals(0, fams.getChildren().size());
 
         fams = new FamS(person1, TEST_STRING_LUNK, new ObjectId("F1"));
-        Assert.assertEquals(person1, fams.getParent());
-        Assert.assertEquals(TEST_STRING_LUNK, fams.getString());
-        Assert.assertEquals("F1", fams.getToString());
-        Assert.assertEquals("I1", fams.getFromString());
-        Assert.assertFalse(fams.getSpouse(person1).isSet());
-        Assert.assertEquals(1, fams.getChildren().size());
+        assertEquals(person1, fams.getParent());
+        assertEquals(TEST_STRING_LUNK, fams.getString());
+        assertEquals("F1", fams.getToString());
+        assertEquals("I1", fams.getFromString());
+        assertFalse(fams.getSpouse(person1).isSet());
+        assertEquals(1, fams.getChildren().size());
     }
 
     // TODO we don't have a test where FamS.getSpouse returns a set person.

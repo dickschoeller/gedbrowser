@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.analytics.test;
 
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import org.joda.time.LocalDate;
-import org.junit.Assert;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.BirthDateFromChildrenEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
@@ -136,7 +138,7 @@ public class BirthDateFromChildrenEstimatorTest {
         final BirthDateFromChildrenEstimator estimator =
                 new BirthDateFromChildrenEstimator(person1);
         final LocalDate actual = estimator.estimateFromSpousesAncestors(null);
-        Assert.assertNull("Expect a null when given this little", actual);
+        assertNull("Expect a null when given this little", actual);
     }
 
     /** */
@@ -161,7 +163,7 @@ public class BirthDateFromChildrenEstimatorTest {
      * @param actual actual date
      */
     private void assertMatch(final LocalDate expected, final LocalDate actual) {
-        Assert.assertTrue(mismatchString(expected, actual),
+        assertTrue(mismatchString(expected, actual),
                 expected.isEqual(actual));
     }
 

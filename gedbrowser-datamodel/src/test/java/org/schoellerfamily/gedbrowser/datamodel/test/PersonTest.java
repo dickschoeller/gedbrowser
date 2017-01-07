@@ -28,8 +28,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  */
 @SuppressWarnings({ "PMD.ExcessivePublicCount",
     "PMD.GodClass",
-    "PMD.TooManyFields",
-    "PMD.TooManyMethods" })
+    "PMD.TooManyFields" })
 public final class PersonTest {
     /** */
     private static final String UNEXPECTED_STRING =

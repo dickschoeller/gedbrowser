@@ -1,10 +1,12 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.FamS;
@@ -30,7 +32,6 @@ import org.schoellerfamily.gedbrowser.renderer.User;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.TooManyMethods")
 public final class FamilyRendererTest {
     /**
      * Boiler plate for a horizontal line before a family.
@@ -76,7 +77,7 @@ public final class FamilyRendererTest {
         final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
     }
@@ -90,7 +91,7 @@ public final class FamilyRendererTest {
         final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
     }
@@ -104,7 +105,7 @@ public final class FamilyRendererTest {
         final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
     }
@@ -118,7 +119,7 @@ public final class FamilyRendererTest {
         final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
     }
@@ -132,7 +133,7 @@ public final class FamilyRendererTest {
         final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
     }
@@ -146,7 +147,7 @@ public final class FamilyRendererTest {
         final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof FamilySectionRenderer);
     }
@@ -165,7 +166,7 @@ public final class FamilyRendererTest {
                 userContext);
         final StringBuilder builder = new StringBuilder();
         familyRenderer.renderSpouses(builder, personRenderer, 1);
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "\n"
                 + HR_CLASS_FAMILY
                 + FAMILY_ONE_HEADER
@@ -192,7 +193,7 @@ public final class FamilyRendererTest {
                 anonymousContext);
         final StringBuilder builder = new StringBuilder();
         familyRenderer.renderSpouses(builder, personRenderer, 1);
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "\n"
                 + HR_CLASS_FAMILY
                 + FAMILY_ONE_HEADER
@@ -214,7 +215,7 @@ public final class FamilyRendererTest {
         final Family family = dick.getFamilies(new ArrayList<Family>()).get(0);
         final FamilyRenderer familyRenderer = createFamilyRenderer(family,
                 userContext);
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "<a href=\"person?db=null&amp;id=I3\" class=\"name\">"
                 + "Lisa Hope <span class=\"surname\">Robinson</span>"
                 + " (1960-) [I3]</a>",
@@ -234,7 +235,7 @@ public final class FamilyRendererTest {
         final Family family = dick.getFamilies(new ArrayList<Family>()).get(0);
         final FamilyRenderer familyRenderer = createFamilyRenderer(family,
                 anonymousContext);
-        Assert.assertEquals("Rendered text doesn't match expdectation",
+        assertEquals("Rendered text doesn't match expdectation",
                 "Living",
                 familyRenderer.getSpouse(personRenderer).getNameHtml());
     }
@@ -273,7 +274,7 @@ public final class FamilyRendererTest {
             final FamilyRenderer familyRenderer = createFamilyRenderer(family,
                     adminContext);
             familyRenderer.renderSpouses(builder, personRenderer, 1);
-            Assert.assertEquals("Rendered html doesn't match expectation",
+            assertEquals("Rendered html doesn't match expectation",
                     outstrings[index++], builder.toString());
         }
     }
@@ -310,7 +311,7 @@ public final class FamilyRendererTest {
                 userContext);
         final StringBuilder builder = new StringBuilder();
         familyRenderer.renderSpouses(builder, personRenderer, 1);
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "\n"
                 + HR_CLASS_FAMILY
                 + FAMILY_ONE_HEADER
@@ -345,7 +346,7 @@ public final class FamilyRendererTest {
                 + "    <span class=\"spouse label\">Spouse:</span> \n"
                 + END_PARAG;
         final String actual = builder.toString();
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 expected, actual);
     }
 
@@ -366,7 +367,7 @@ public final class FamilyRendererTest {
                 userContext);
         final StringBuilder builder = new StringBuilder();
         familyRenderer.renderSpouses(builder, familyRenderer, 1);
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "\n"
                 + HR_CLASS_FAMILY
                 + FAMILY_ONE_HEADER
@@ -394,7 +395,7 @@ public final class FamilyRendererTest {
                 anonymousContext);
         final StringBuilder builder = new StringBuilder();
         familyRenderer.renderSpouses(builder, familyRenderer, 1);
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "\n"
                 + HR_CLASS_FAMILY
                 + FAMILY_ONE_HEADER
@@ -422,7 +423,7 @@ public final class FamilyRendererTest {
                 + " Matcovitch<br/>\n"
                 + "and Carol Robinson Sacerdote.,"
                 + "  [<a href=\"source?db=null&amp;id=S4\">S4</a>]";
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 expected, attributes.get(0).getListItemContents());
     }
 
@@ -439,7 +440,7 @@ public final class FamilyRendererTest {
         final String expected = "<a href=\"person?db=null&amp;id=I1\""
                 + " class=\"name\">Melissa Robinson <span class=\"surname\">"
                 + "Schoeller</span> [I1]</a>";
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 expected, children.get(0).getNameHtml());
     }
 
@@ -454,7 +455,7 @@ public final class FamilyRendererTest {
                 new GedRendererFactory(), anonymousContext);
         final List<PersonRenderer> children = familyRenderer.getChildren();
         final String expected = "Living";
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 expected, children.get(0).getNameHtml());
     }
 

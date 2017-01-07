@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.renderer.AttributeListItemRenderer;
@@ -28,7 +29,7 @@ public class AttributeRendererTest {
                         new Attribute(null),
                         new GedRendererFactory(),
                         RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
     }
@@ -44,7 +45,7 @@ public class AttributeRendererTest {
                         new Attribute(null),
                         new GedRendererFactory(),
                         RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof AttributeListItemRenderer);
     }
@@ -60,7 +61,7 @@ public class AttributeRendererTest {
                         new Attribute(null),
                         new GedRendererFactory(),
                         RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
     }
@@ -76,7 +77,7 @@ public class AttributeRendererTest {
                         new Attribute(null),
                         new GedRendererFactory(),
                         RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
     }
@@ -92,7 +93,7 @@ public class AttributeRendererTest {
                         new Attribute(null),
                         new GedRendererFactory(),
                         RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof AttributePhraseRenderer);
     }
@@ -108,7 +109,7 @@ public class AttributeRendererTest {
                         new Attribute(null),
                         new GedRendererFactory(),
                         RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof AttributeSectionRenderer);
     }

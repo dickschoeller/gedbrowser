@@ -1,6 +1,8 @@
 package org.schoellerfamily.gedbrowser.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.Users;
@@ -26,7 +28,7 @@ public class UsersConfigurationTest {
         final Users users = uc.readUserFile(userFile);
         final int expected = 2;
         final int actual = users.size();
-        Assert.assertEquals("Found file should have two", expected, actual);
+        assertEquals("Found file should have two", expected, actual);
     }
 
     /** */
@@ -37,7 +39,7 @@ public class UsersConfigurationTest {
         final Users users = uc.readUserFile(userFile);
         final int expected = 1;
         final int actual = users.size();
-        Assert.assertEquals("Not found file should have only one",
+        assertEquals("Not found file should have only one",
                 expected, actual);
     }
 
@@ -48,6 +50,6 @@ public class UsersConfigurationTest {
         final UsersConfiguration uc = new UsersConfiguration();
         final Users users = uc.readUserFile(userFile);
         final User guest = users.get("guest");
-        Assert.assertTrue("Should have role USER", guest.hasRole("USER"));
+        assertTrue("Should have role USER", guest.hasRole("USER"));
     }
 }
