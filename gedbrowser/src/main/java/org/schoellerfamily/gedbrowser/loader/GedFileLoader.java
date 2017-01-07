@@ -136,7 +136,7 @@ public class GedFileLoader {
             root.setDbName(dbName);
         } catch (IOException e) {
             Logger.getGlobal().severe("Could not read file: " + filename);
-            root = null;
+            return null;
         }
 
         final RootDocumentMongo rootdoc =
