@@ -54,7 +54,7 @@ public class GeoCodeLoader {
         load(istream, (name, modernName) -> {
             final GeoCodeItem gci = gcc.get(name);
             if (gci == null || !gci.getModernPlaceName().equals(modernName)) {
-                GeoCodeItem item = new GeoCodeItem(name, modernName);
+                final GeoCodeItem item = new GeoCodeItem(name, modernName);
                 gcc.add(item);
                 return item;
             }

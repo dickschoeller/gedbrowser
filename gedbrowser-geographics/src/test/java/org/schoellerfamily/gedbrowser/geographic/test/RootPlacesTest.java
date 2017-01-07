@@ -1,5 +1,8 @@
 package org.schoellerfamily.gedbrowser.geographic.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.util.Collection;
 
@@ -10,8 +13,6 @@ import org.schoellerfamily.gedbrowser.geographics.Places;
 import org.schoellerfamily.gedbrowser.geographics.RootPlaces;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
-
-import org.junit.Assert;
 
 /**
  * @author Dick Schoeller
@@ -31,7 +32,7 @@ public class RootPlacesTest {
         final Places rootPlaces = new RootPlaces(root);
         final Collection<Place> places = rootPlaces.getPlaces();
         final int expectedSize = 18;
-        Assert.assertEquals(expectedSize, places.size());
+        assertEquals("Size mismatch", expectedSize, places.size());
         dump(places);
     }
 
@@ -49,7 +50,14 @@ public class RootPlacesTest {
         final Places rootPlaces = new RootPlaces(root);
         final Collection<Place> places = rootPlaces.getPlaces();
         dump(places);
-        Assert.assertTrue("Always pass", true);
+        assertTrue("Always pass", tRue());
+    }
+
+    /**
+     * @return true
+     */
+    private boolean tRue() {
+        return true;
     }
 
     /**

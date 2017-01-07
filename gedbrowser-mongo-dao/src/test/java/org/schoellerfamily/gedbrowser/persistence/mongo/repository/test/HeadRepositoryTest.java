@@ -1,10 +1,12 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import java.io.IOException;
 import java.util.Map;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -117,7 +119,7 @@ public final class HeadRepositoryTest {
         final Head head = (Head) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, headdoc);
         // TODO fails, should string be "Head" "Header" or blank?
-        Assert.assertEquals("Expected header string",
+        assertEquals("Expected header string",
                 HEADER_STRING, head.getString());
     }
 
@@ -129,7 +131,7 @@ public final class HeadRepositoryTest {
         final Head head = (Head) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, headdoc);
         // TODO fails, should string be "Head" "Header" or blank?
-        Assert.assertEquals("Expected header string",
+        assertEquals("Expected header string",
                 HEADER_STRING, head.getString());
     }
 
@@ -138,7 +140,7 @@ public final class HeadRepositoryTest {
     public void testBogus() {
         final HeadDocument headdoc = headDocumentRepository.
                 findByFileAndString(root.getFilename(), "BOGUS");
-        Assert.assertNull("Bogus request should return null", headdoc);
+        assertNull("Bogus request should return null", headdoc);
     }
 
     /** */
@@ -146,20 +148,20 @@ public final class HeadRepositoryTest {
     public void testBogusRoot() {
         final HeadDocument headdoc = headDocumentRepository.
                 findByRootAndString(rootDocument, "BOGUS");
-        Assert.assertNull("Bogus request should return null", headdoc);
+        assertNull("Bogus request should return null", headdoc);
     }
 
     /** */
     @Test
     public void testCountRoot() {
-        Assert.assertEquals("Should only be one head",
+        assertEquals("Should only be one head",
                 1, headDocumentRepository.count(rootDocument));
     }
 
     /** */
     @Test
     public void testCountFilename() {
-        Assert.assertEquals("Should only be one head",
+        assertEquals("Should only be one head",
                 1,
                 headDocumentRepository.count(rootDocument.getFilename()));
     }
@@ -174,7 +176,7 @@ public final class HeadRepositoryTest {
             trailer.getType();
             count++;
         }
-        Assert.assertEquals("Should only be one head", 1, count);
+        assertEquals("Should only be one head", 1, count);
     }
 
     /** */
@@ -187,6 +189,6 @@ public final class HeadRepositoryTest {
             trailer.getType();
             count++;
         }
-        Assert.assertEquals("Should only be one head", 1, count);
+        assertEquals("Should only be one head", 1, count);
     }
 }

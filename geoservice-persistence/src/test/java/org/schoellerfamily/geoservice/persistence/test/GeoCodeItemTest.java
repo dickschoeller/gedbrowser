@@ -1,5 +1,8 @@
 package org.schoellerfamily.geoservice.persistence.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
@@ -11,21 +14,20 @@ import com.google.maps.model.LatLng;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.TooManyMethods",
-    "PMD.ExcessivePublicCount" })
+@SuppressWarnings({ "PMD.ExcessivePublicCount" })
 public final class GeoCodeItemTest {
     /** */
     @Test
     public void testEqualsSelf() {
         final GeoCodeItem gcce = new GeoCodeItem("temp");
-        Assert.assertEquals(gcce, gcce);
+        assertEquals(gcce, gcce);
     }
 
     /** */
     @Test
     public void testNotEqualsNull() {
         final GeoCodeItem gcce = new GeoCodeItem("temp");
-        Assert.assertNotEquals(gcce, null);
+        assertNotEquals(gcce, null);
     }
 
     /** */
@@ -33,7 +35,7 @@ public final class GeoCodeItemTest {
     public void testEqualsPlaceName() {
         final GeoCodeItem gcce0 = new GeoCodeItem("temp");
         final GeoCodeItem gcce1 = new GeoCodeItem("temp");
-        Assert.assertEquals(gcce0, gcce1);
+        assertEquals(gcce0, gcce1);
     }
 
     /** */
@@ -41,7 +43,7 @@ public final class GeoCodeItemTest {
     public void testNotEqualsPlaceName() {
         final GeoCodeItem gcce0 = new GeoCodeItem("xyzzy");
         final GeoCodeItem gcce1 = new GeoCodeItem("plugh");
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -51,7 +53,7 @@ public final class GeoCodeItemTest {
                 (String) null);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp",
                 (String) null);
-        Assert.assertEquals(gcce0, gcce1);
+        assertEquals(gcce0, gcce1);
     }
 
     /** */
@@ -60,7 +62,7 @@ public final class GeoCodeItemTest {
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp",
                 (String) null);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "foo");
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -69,7 +71,7 @@ public final class GeoCodeItemTest {
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp", "foo");
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp",
                 (String) null);
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -77,7 +79,7 @@ public final class GeoCodeItemTest {
     public void testEqualsPlaceAndModern() {
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp", "temp");
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp");
-        Assert.assertEquals(gcce0, gcce1);
+        assertEquals(gcce0, gcce1);
     }
 
     /** */
@@ -85,7 +87,7 @@ public final class GeoCodeItemTest {
     public void testNotEqualsPlaceNotModern() {
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp", "xyzzy");
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "plugh");
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -93,7 +95,7 @@ public final class GeoCodeItemTest {
     public void testNotEqualsNotPlaceYesModern() {
         final GeoCodeItem gcce0 = new GeoCodeItem("xyzzy", "temp");
         final GeoCodeItem gcce1 = new GeoCodeItem("plugh", "temp");
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -101,7 +103,7 @@ public final class GeoCodeItemTest {
     public void testNotEqualsNotPlaceNotModern() {
         final GeoCodeItem gcce0 = new GeoCodeItem("xyzzy", "foo");
         final GeoCodeItem gcce1 = new GeoCodeItem("plugh", "bar");
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -111,7 +113,7 @@ public final class GeoCodeItemTest {
                 null);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp",
                 null);
-        Assert.assertEquals(gcce0, gcce1);
+        assertEquals(gcce0, gcce1);
     }
 
     /** */
@@ -126,7 +128,7 @@ public final class GeoCodeItemTest {
     public void testNotEqualsNullPlaceName0() {
         final GeoCodeItem gcce0 = new GeoCodeItem(null);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp");
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -134,7 +136,7 @@ public final class GeoCodeItemTest {
     public void testNotEqualsNullPlaceName1() {
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp");
         final GeoCodeItem gcce1 = new GeoCodeItem(null);
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -143,7 +145,7 @@ public final class GeoCodeItemTest {
         final GeoCodeItem gcce0 = new GeoCodeItem(null,
                 (String) null);
         final GeoCodeItem gcce1 = new GeoCodeItem(null, "tamp");
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -152,7 +154,7 @@ public final class GeoCodeItemTest {
         final GeoCodeItem gcce0 = new GeoCodeItem(null, "tamp");
         final GeoCodeItem gcce1 = new GeoCodeItem(null,
                 (String) null);
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -160,7 +162,7 @@ public final class GeoCodeItemTest {
     public void testEqualsBothNullPlaceName() {
         final GeoCodeItem gcce0 = new GeoCodeItem(null);
         final GeoCodeItem gcce1 = new GeoCodeItem(null);
-        Assert.assertEquals(gcce0, gcce1);
+        assertEquals(gcce0, gcce1);
     }
 
     /** */
@@ -170,7 +172,7 @@ public final class GeoCodeItemTest {
                 (String) null);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp",
                 (String) null);
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -180,7 +182,7 @@ public final class GeoCodeItemTest {
                 (String) null);
         final GeoCodeItem gcce1 = new GeoCodeItem(null,
                 (String) null);
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -194,7 +196,7 @@ public final class GeoCodeItemTest {
                 gr0);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp",
                 gr1);
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -208,7 +210,7 @@ public final class GeoCodeItemTest {
                 gr0);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp",
                 gr1);
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -222,7 +224,7 @@ public final class GeoCodeItemTest {
                 gr0);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp",
                 gr1);
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -234,7 +236,7 @@ public final class GeoCodeItemTest {
                 gr0);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp",
                 gr1);
-        Assert.assertEquals(gcce0, gcce1);
+        assertEquals(gcce0, gcce1);
     }
 
     /** */
@@ -246,7 +248,7 @@ public final class GeoCodeItemTest {
                 gr);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp",
                 gr);
-        Assert.assertEquals(gcce0, gcce1);
+        assertEquals(gcce0, gcce1);
     }
 
     /** */
@@ -256,7 +258,7 @@ public final class GeoCodeItemTest {
         gr.formattedAddress = "Tempe";
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp", gr);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", gr);
-        Assert.assertEquals(gcce0, gcce1);
+        assertEquals(gcce0, gcce1);
     }
 
     /** */
@@ -268,7 +270,7 @@ public final class GeoCodeItemTest {
                 null);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp",
                 gr);
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -280,7 +282,7 @@ public final class GeoCodeItemTest {
                 null);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp",
                 gr);
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -294,7 +296,7 @@ public final class GeoCodeItemTest {
                 gr0);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp",
                 gr1);
-        Assert.assertEquals(gcce0, gcce1);
+        assertEquals(gcce0, gcce1);
     }
 
     /** */
@@ -310,7 +312,7 @@ public final class GeoCodeItemTest {
                 gr0);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp",
                 gr1);
-        Assert.assertEquals(gcce0, gcce1);
+        assertEquals(gcce0, gcce1);
     }
 
     /** */
@@ -328,7 +330,7 @@ public final class GeoCodeItemTest {
                 gr0);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp",
                 gr1);
-        Assert.assertEquals(gcce0, gcce1);
+        assertEquals(gcce0, gcce1);
     }
 
     /** */
@@ -344,7 +346,7 @@ public final class GeoCodeItemTest {
                 gr0);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp",
                 gr1);
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -360,7 +362,7 @@ public final class GeoCodeItemTest {
                 gr0);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp",
                 gr1);
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -377,7 +379,7 @@ public final class GeoCodeItemTest {
                 gr0);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp",
                 gr1);
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -394,7 +396,7 @@ public final class GeoCodeItemTest {
                 gr0);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp",
                 gr1);
-        Assert.assertNotEquals(gcce0, gcce1);
+        assertNotEquals(gcce0, gcce1);
     }
 
     /** */
@@ -412,7 +414,7 @@ public final class GeoCodeItemTest {
                 gr0);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp",
                 gr1);
-        Assert.assertEquals(gcce0, gcce1);
+        assertEquals(gcce0, gcce1);
     }
 
     /** */
@@ -422,7 +424,7 @@ public final class GeoCodeItemTest {
         gr0.formattedAddress = "Tempe";
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp", "temp",
                 gr0);
-        Assert.assertEquals("tamp", gcce0.getPlaceName());
+        assertEquals("tamp", gcce0.getPlaceName());
     }
 
     /** */
@@ -432,7 +434,7 @@ public final class GeoCodeItemTest {
         gr0.formattedAddress = "Tempe";
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp", "temp",
                 gr0);
-        Assert.assertEquals("temp", gcce0.getModernPlaceName());
+        assertEquals("temp", gcce0.getModernPlaceName());
     }
 
     /** */
@@ -442,7 +444,7 @@ public final class GeoCodeItemTest {
         gr0.formattedAddress = "Tempe";
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp", "temp",
                 gr0);
-        Assert.assertEquals(gr0, gcce0.getGeocodingResult());
+        assertEquals(gr0, gcce0.getGeocodingResult());
     }
 
     /** */
@@ -450,7 +452,7 @@ public final class GeoCodeItemTest {
     public void testHashCodeNull() {
         final GeoCodeItem gcce = new GeoCodeItem(null);
         final int expected = 29791;
-        Assert.assertEquals(expected, gcce.hashCode());
+        assertEquals(expected, gcce.hashCode());
     }
 
     /** */
@@ -458,7 +460,7 @@ public final class GeoCodeItemTest {
     public void testHashCodeName() {
         final GeoCodeItem gcce = new GeoCodeItem("name");
         final int expected = 107988415;
-        Assert.assertEquals(expected, gcce.hashCode());
+        assertEquals(expected, gcce.hashCode());
     }
 
     /** */
@@ -466,7 +468,7 @@ public final class GeoCodeItemTest {
     public void testHashCodeNameModern() {
         final GeoCodeItem gcce = new GeoCodeItem("name", "modern");
         final int expected = 1230366635;
-        Assert.assertEquals(expected, gcce.hashCode());
+        assertEquals(expected, gcce.hashCode());
     }
 
     /** */
@@ -477,7 +479,7 @@ public final class GeoCodeItemTest {
         final GeoCodeItem gcce = new GeoCodeItem("name", "modern",
                 gr0);
         final int expected = 25917797;
-        Assert.assertEquals(-expected, gcce.hashCode());
+        assertEquals(-expected, gcce.hashCode());
     }
 
     /** */
@@ -489,7 +491,7 @@ public final class GeoCodeItemTest {
         final GeoCodeItem gcce = new GeoCodeItem("name", "modern",
                 gr0);
         final int expected = 25888006;
-        Assert.assertEquals(-expected, gcce.hashCode());
+        assertEquals(-expected, gcce.hashCode());
     }
 
     /** */
@@ -502,6 +504,6 @@ public final class GeoCodeItemTest {
         final GeoCodeItem gcce = new GeoCodeItem("name", "modern",
                 gr0);
         final int expected = 1082540794;
-        Assert.assertEquals(-expected, gcce.hashCode());
+        assertEquals(-expected, gcce.hashCode());
     }
 }

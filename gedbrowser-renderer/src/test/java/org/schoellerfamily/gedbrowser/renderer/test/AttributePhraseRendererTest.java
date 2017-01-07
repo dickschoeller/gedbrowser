@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -48,7 +49,7 @@ public class AttributePhraseRendererTest {
         final AttributePhraseRenderer apRenderer =
                 (AttributePhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
-        Assert.assertEquals("Expected empty string", "", string);
+        assertEquals("Expected empty string", "", string);
     }
 
     /** */
@@ -61,7 +62,7 @@ public class AttributePhraseRendererTest {
         final AttributePhraseRenderer apRenderer =
                 (AttributePhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
-        Assert.assertEquals("Rendered string doesn't match expectation",
+        assertEquals("Rendered string doesn't match expectation",
                 "Strung", string);
     }
 
@@ -75,7 +76,7 @@ public class AttributePhraseRendererTest {
         final AttributePhraseRenderer apRenderer =
                 (AttributePhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
-        Assert.assertEquals("Rendered string doesn't match expectation",
+        assertEquals("Rendered string doesn't match expectation",
                 "Spring", string);
     }
 }

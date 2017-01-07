@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -27,7 +28,7 @@ public class SourceLinkRendererTest {
                 new SourceLinkRenderer(
                         new SourceLink(null), new GedRendererFactory(),
                         RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
     }
@@ -42,7 +43,7 @@ public class SourceLinkRendererTest {
                 new SourceLinkRenderer(
                         new SourceLink(null), new GedRendererFactory(),
                         RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof SourceLinkListItemRenderer);
     }
@@ -57,7 +58,7 @@ public class SourceLinkRendererTest {
                 new SourceLinkRenderer(
                         new SourceLink(null), new GedRendererFactory(),
                         RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
     }
@@ -72,7 +73,7 @@ public class SourceLinkRendererTest {
                 new SourceLinkRenderer(
                         new SourceLink(null), new GedRendererFactory(),
                         RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
     }
@@ -87,7 +88,7 @@ public class SourceLinkRendererTest {
                 new SourceLinkRenderer(
                         new SourceLink(null), new GedRendererFactory(),
                         RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof SourceLinkPhraseRenderer);
     }
@@ -102,7 +103,7 @@ public class SourceLinkRendererTest {
                 new SourceLinkRenderer(
                         new SourceLink(null), new GedRendererFactory(),
                         RenderingContext.anonymous());
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof NullSectionRenderer);
     }

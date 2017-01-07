@@ -17,7 +17,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.TooManyMethods")
 public final class WifeTest {
     /** */
     private static final String WIFE_TAG = "WIFE";

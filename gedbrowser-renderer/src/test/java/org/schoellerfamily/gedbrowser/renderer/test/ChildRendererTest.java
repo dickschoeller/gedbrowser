@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
@@ -37,7 +38,7 @@ public final class ChildRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
     }
@@ -48,7 +49,7 @@ public final class ChildRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
     }
@@ -59,7 +60,7 @@ public final class ChildRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
     }
@@ -70,7 +71,7 @@ public final class ChildRendererTest {
      */
     @Test
     public void testNameIndeRenderer() {
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
     }
@@ -81,7 +82,7 @@ public final class ChildRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
     }
@@ -92,7 +93,7 @@ public final class ChildRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        Assert.assertTrue("Wrong renderer type",
+        assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof NullSectionRenderer);
     }

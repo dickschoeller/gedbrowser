@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
@@ -45,7 +46,7 @@ public class SubmittorSectionRendererTest {
         ssRenderer.renderAsSection(builder, new RootRenderer(root,
                 new GedRendererFactory(),
                 RenderingContext.anonymous()), false, 0, 1);
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "\n"
                 + "<h2 class=\"name\">SubmittorRichard/Schoeller/</h2>\n"
                 + "<ul>\n</ul>", builder.toString());

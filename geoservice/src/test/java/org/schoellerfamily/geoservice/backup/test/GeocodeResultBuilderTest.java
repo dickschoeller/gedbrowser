@@ -1,6 +1,9 @@
 package org.schoellerfamily.geoservice.backup.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.schoellerfamily.geoservice.backup.GeocodeResultBuilder;
 import org.schoellerfamily.geoservice.backup.model.BackupAddressComponent;
@@ -23,8 +26,7 @@ import com.google.maps.model.LocationType;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.UseVarargs",
-        "PMD.TooManyMethods", "PMD.GodClass" })
+@SuppressWarnings({ "PMD.UseVarargs", "PMD.GodClass", "PMD.TooManyMethods" })
 public final class GeocodeResultBuilderTest {
     /** */
     private final GeocodeResultBuilder builder = new GeocodeResultBuilder();
@@ -32,7 +34,7 @@ public final class GeocodeResultBuilderTest {
     /** */
     @Test
     public void testToBackupGeoCodeItemNull() {
-        Assert.assertNull("Null gets null", builder.toBackupGeoCodeItem(null));
+        assertNull("Null gets null", builder.toBackupGeoCodeItem(null));
     }
 
     /** */
@@ -40,7 +42,7 @@ public final class GeocodeResultBuilderTest {
     public void testToBackupGeoCodeItemName() {
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", null);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertEquals("Mismatched name", "XYZZY", bgci.getPlaceName());
+        assertEquals("Mismatched name", "XYZZY", bgci.getPlaceName());
     }
 
     /** */
@@ -48,7 +50,7 @@ public final class GeocodeResultBuilderTest {
     public void testToBackupGeoCodeItemModernName() {
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", null);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertEquals("Mismatched modern name", "PLUGH",
+        assertEquals("Mismatched modern name", "PLUGH",
                 bgci.getModernPlaceName());
     }
 
@@ -57,7 +59,7 @@ public final class GeocodeResultBuilderTest {
     public void testToBackupGeoCodeItemNullResult() {
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", null);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -66,7 +68,7 @@ public final class GeocodeResultBuilderTest {
         final GeocodingResult gr = new GeocodingResult();
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -82,7 +84,7 @@ public final class GeocodeResultBuilderTest {
                 AddressComponentType.ADMINISTRATIVE_AREA_LEVEL_1;
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -96,7 +98,7 @@ public final class GeocodeResultBuilderTest {
         gr.addressComponents[0].types = new AddressComponentType[0];
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -106,7 +108,7 @@ public final class GeocodeResultBuilderTest {
         gr.formattedAddress = "formatted address";
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -116,7 +118,7 @@ public final class GeocodeResultBuilderTest {
         gr.placeId = "kfdhasfokjhkljdasf";
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -127,7 +129,7 @@ public final class GeocodeResultBuilderTest {
         gr.postcodeLocalities[0] = "foobar";
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -138,7 +140,7 @@ public final class GeocodeResultBuilderTest {
         gr.types[0] = AddressType.ADMINISTRATIVE_AREA_LEVEL_1;
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -148,7 +150,7 @@ public final class GeocodeResultBuilderTest {
         gr.geometry = new Geometry();
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -161,7 +163,7 @@ public final class GeocodeResultBuilderTest {
         gr.geometry.location = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -172,7 +174,7 @@ public final class GeocodeResultBuilderTest {
         gr.geometry.bounds = new Bounds();
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -186,7 +188,7 @@ public final class GeocodeResultBuilderTest {
         gr.geometry.bounds.northeast = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -200,7 +202,7 @@ public final class GeocodeResultBuilderTest {
         gr.geometry.bounds.southwest = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -217,7 +219,7 @@ public final class GeocodeResultBuilderTest {
         gr.geometry.bounds.southwest = new LatLng(swLat, swLng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -228,7 +230,7 @@ public final class GeocodeResultBuilderTest {
         gr.geometry.locationType = LocationType.APPROXIMATE;
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -239,7 +241,7 @@ public final class GeocodeResultBuilderTest {
         gr.geometry.viewport = new Bounds();
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -253,7 +255,7 @@ public final class GeocodeResultBuilderTest {
         gr.geometry.viewport.northeast = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -267,7 +269,7 @@ public final class GeocodeResultBuilderTest {
         gr.geometry.viewport.southwest = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -284,13 +286,13 @@ public final class GeocodeResultBuilderTest {
         gr.geometry.viewport.southwest = new LatLng(swLat, swLng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
         final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
     @Test
     public void testToGeoCodeItemNull() {
-        Assert.assertNull("Null gets null", builder.toGeoCodeItem(null));
+        assertNull("Null gets null", builder.toGeoCodeItem(null));
     }
 
     /** */
@@ -299,7 +301,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci = new BackupGeoCodeItem("XYZZY", "PLUGH",
                 null);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertEquals("Mismatched name", "XYZZY", gci.getPlaceName());
+        assertEquals("Mismatched name", "XYZZY", gci.getPlaceName());
     }
 
     /** */
@@ -308,7 +310,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci = new BackupGeoCodeItem("XYZZY", "PLUGH",
                 null);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertEquals("Mismatched modern name", "PLUGH",
+        assertEquals("Mismatched modern name", "PLUGH",
                 gci.getModernPlaceName());
     }
 
@@ -318,7 +320,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci = new BackupGeoCodeItem("XYZZY", "PLUGH",
                 null);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertNull("Expected null result", gci.getGeocodingResult());
+        assertNull("Expected null result", gci.getGeocodingResult());
     }
 
     /** */
@@ -327,7 +329,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci = new BackupGeoCodeItem("XYZZY", "PLUGH",
                 new BackupGeocodingResult());
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -347,7 +349,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci = new BackupGeoCodeItem("XYZZY", "PLUGH",
                 bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -365,7 +367,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci =
                 new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -376,7 +378,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci =
                 new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -387,7 +389,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci =
                 new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -400,7 +402,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci =
                 new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -413,7 +415,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci = new BackupGeoCodeItem("XYZZY", "PLUGH",
                 bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -425,7 +427,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci =
                 new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -441,7 +443,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci =
                 new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -455,7 +457,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci =
                 new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -472,7 +474,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci =
                 new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -489,7 +491,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci =
                 new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -509,7 +511,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci =
                 new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -522,7 +524,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci =
                 new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -536,7 +538,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci =
                 new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -553,7 +555,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci =
                 new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -570,7 +572,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci =
                 new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -590,7 +592,7 @@ public final class GeocodeResultBuilderTest {
         final BackupGeoCodeItem bgci =
                 new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        Assert.assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /**

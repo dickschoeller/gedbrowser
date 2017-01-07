@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
@@ -56,7 +57,7 @@ public class PersonAttributeListOpenRendererTest {
         final StringBuilder builder = new StringBuilder();
         pnhr.renderAttributeListOpen(builder, 0, person);
         final String string = builder.toString();
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "\n" + HORIZONTAL + HEAD_3,
                 string);
     }
@@ -74,7 +75,7 @@ public class PersonAttributeListOpenRendererTest {
         final StringBuilder builder = new StringBuilder();
         pnhr.renderAttributeListOpen(builder, 0, person);
         final String string = builder.toString();
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "\n" + HORIZONTAL + HEAD_3,
                 string);
     }
@@ -92,7 +93,7 @@ public class PersonAttributeListOpenRendererTest {
         final StringBuilder builder = new StringBuilder();
         pnhr.renderAttributeListOpen(builder, 0, person);
         final String string = builder.toString();
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "\n" + HORIZONTAL + HEAD_3,
                 string);
     }
@@ -110,7 +111,7 @@ public class PersonAttributeListOpenRendererTest {
         final StringBuilder builder = new StringBuilder();
         pnhr.renderAttributeListOpen(builder, 0, person);
         final String string = builder.toString();
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "\n" + HORIZONTAL + HEAD_3,
                 string);
     }
@@ -128,7 +129,7 @@ public class PersonAttributeListOpenRendererTest {
         final StringBuilder builder = new StringBuilder();
         pnhr.renderAttributeListOpen(builder, 0, person);
         final String string = builder.toString();
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "\n" + HORIZONTAL + HEAD_3,
                 string);
     }
@@ -146,7 +147,7 @@ public class PersonAttributeListOpenRendererTest {
         final StringBuilder builder = new StringBuilder();
         pnhr.renderAttributeListOpen(builder, 0, person);
         final String string = builder.toString();
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "\n" + HORIZONTAL + HEAD_3,
                 string);
     }
@@ -162,6 +163,6 @@ public class PersonAttributeListOpenRendererTest {
         final StringBuilder builder = new StringBuilder();
         pnhr.renderAttributeListOpen(builder, 0, person);
         final String string = builder.toString();
-        Assert.assertEquals("Expected empty string", "", string);
+        assertEquals("Expected empty string", "", string);
     }
 }

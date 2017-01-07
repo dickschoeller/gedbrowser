@@ -1,5 +1,7 @@
 package org.schoellerfamily.geoservice.test;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.geoservice.controller.ApplicationInfo;
@@ -9,8 +11,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
-
-import org.junit.Assert;
 
 /**
  * @author Dick Schoeller
@@ -45,7 +45,7 @@ public final class ApplicationInfoTest {
     /** */
     @Test
     public void testApplicationInfoURL() {
-        Assert.assertEquals("Application URL mismatch",
+        assertEquals("Application URL mismatch",
                 "https://github.com/dickschoeller/gedbrowser",
                 appInfo.getApplicationURL());
     }
@@ -53,28 +53,28 @@ public final class ApplicationInfoTest {
     /** */
     @Test
     public void testApplicationInfoMaintainerEmail() {
-        Assert.assertEquals("Maintainer email mismatch",
+        assertEquals("Maintainer email mismatch",
                 "schoeller@comcast.net", appInfo.getMaintainerEmail());
     }
 
     /** */
     @Test
     public void testApplicationInfoMaintainerName() {
-        Assert.assertEquals("Maintainer name mismatch",
+        assertEquals("Maintainer name mismatch",
                 "Richard Schoeller", appInfo.getMaintainerName());
     }
 
     /** */
     @Test
     public void testApplicationInfoName() {
-        Assert.assertEquals("Application name mismatch",
+        assertEquals("Application name mismatch",
                 "gedbrowser-geoservice", appInfo.getName());
     }
 
     /** */
     @Test
     public void testApplicationInfoVersion() {
-        Assert.assertEquals("Version mismatch",
+        assertEquals("Version mismatch",
                 "1.1.0-SNAPSHOT", appInfo.getVersion());
     }
 }

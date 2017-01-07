@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -48,7 +49,7 @@ public final class SourceSectionRendererTest {
         final StringBuilder builder = new StringBuilder();
         ssRenderer.renderAsSection(builder, new PersonRenderer(new Person(root),
                 new GedRendererFactory(), renderingContext), false, 0, 1);
-        Assert.assertEquals("Rendered html doesn't match expectation",
+        assertEquals("Rendered html doesn't match expectation",
                 "\n" + "<ul>\n"
                 + "<li><span class=\"label\">ATTR:</span> Attr 1</li>\n"
                 + "<li><span class=\"label\">ATTR:</span> Attr 2</li>\n"

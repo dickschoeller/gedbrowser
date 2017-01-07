@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -41,7 +42,7 @@ public class PlacePhraseRendererTest {
         final PlacePhraseRenderer ppRenderer =
                 (PlacePhraseRenderer) dRenderer.getPhraseRenderer();
         final String string = ppRenderer.renderAsPhrase();
-        Assert.assertEquals("Rendered string doesn't match expectation",
+        assertEquals("Rendered string doesn't match expectation",
                 "Fayetteville, NC", string);
     }
 
@@ -55,7 +56,7 @@ public class PlacePhraseRendererTest {
         final PlacePhraseRenderer ppRenderer =
                 (PlacePhraseRenderer) dRenderer.getPhraseRenderer();
         final String string = ppRenderer.renderAsPhrase();
-        Assert.assertEquals("Expected empty string", "", string);
+        assertEquals("Expected empty string", "", string);
     }
 
     /** */
@@ -68,6 +69,6 @@ public class PlacePhraseRendererTest {
         final PlacePhraseRenderer ppRenderer =
                 (PlacePhraseRenderer) dRenderer.getPhraseRenderer();
         final String string = ppRenderer.renderAsPhrase();
-        Assert.assertEquals("Expected empty string", "", string);
+        assertEquals("Expected empty string", "", string);
     }
 }

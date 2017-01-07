@@ -26,8 +26,7 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.TooManyMethods",
-        "PMD.ExcessivePublicCount" })
+@SuppressWarnings({ "PMD.ExcessivePublicCount" })
 public final class AnonymousPersonRendererTest {
 
     /**

@@ -3,11 +3,11 @@ package org.schoellerfamily.gedbrowser.datamodel.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
@@ -23,7 +23,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.TooManyMethods")
+@SuppressWarnings({ "PMD.TooManyStaticImports" })
 public final class ChildTest {
     /** */
     private static final String CHILD_TAG = "CHIL";
@@ -94,7 +94,7 @@ public final class ChildTest {
         assertEquals(1, list.size());
         assertTrue(list.contains(person3));
 
-        Assert.assertSame(person3, child1.getChild());
+        assertSame(person3, child1.getChild());
     }
 
     /** */

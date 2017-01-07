@@ -1,9 +1,11 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import java.io.IOException;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -63,7 +65,7 @@ public class SourceRepositoryTest {
                 findByFileAndString(root.getFilename(), "S2");
         final Source source = (Source) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, document);
-        Assert.assertEquals("Id mismatch", "S2", source.getString());
+        assertEquals("Id mismatch", "S2", source.getString());
     }
 
     /** */
@@ -73,7 +75,7 @@ public class SourceRepositoryTest {
                 findByRootAndString(rootDocument, "S2");
         final Source source = (Source) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, document);
-        Assert.assertEquals("Id mismatch", "S2", source.getString());
+        assertEquals("Id mismatch", "S2", source.getString());
     }
 
     /** */
@@ -81,7 +83,7 @@ public class SourceRepositoryTest {
     public final void testBogus() {
         final SourceDocument perdoc = sourceDocumentRepository.
                 findByFileAndString(root.getFilename(), "S999999");
-        Assert.assertNull("Bogus request should return null", perdoc);
+        assertNull("Bogus request should return null", perdoc);
     }
 
     /** */
@@ -89,14 +91,14 @@ public class SourceRepositoryTest {
     public final void testBogusRoot() {
         final SourceDocument perdoc = sourceDocumentRepository.
                 findByRootAndString(rootDocument, "S999999");
-        Assert.assertNull("Bogus request should return null", perdoc);
+        assertNull("Bogus request should return null", perdoc);
     }
 
     /** */
     @Test
     public void testCountRoot() {
         final long expected = 9;
-        Assert.assertEquals("Should be 9 sources", expected,
+        assertEquals("Should be 9 sources", expected,
                 sourceDocumentRepository.count(rootDocument));
     }
 
@@ -104,7 +106,7 @@ public class SourceRepositoryTest {
     @Test
     public void testCountFilename() {
         final long expected = 9;
-        Assert.assertEquals("Should be 9 sources", expected,
+        assertEquals("Should be 9 sources", expected,
                 sourceDocumentRepository.count(rootDocument.getFilename()));
     }
 
@@ -119,7 +121,7 @@ public class SourceRepositoryTest {
             count++;
         }
         final long expected = 9;
-        Assert.assertEquals("Should be 9 sources", expected, count);
+        assertEquals("Should be 9 sources", expected, count);
     }
 
     /** */
@@ -133,6 +135,6 @@ public class SourceRepositoryTest {
             count++;
         }
         final long expected = 9;
-        Assert.assertEquals("Should be 9 sources", expected, count);
+        assertEquals("Should be 9 sources", expected, count);
     }
 }
