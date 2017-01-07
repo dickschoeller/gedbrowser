@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
@@ -36,12 +35,6 @@ public class ApplicationTest {
 
     /** */
     private static final int TWO_SECONDS = 2 * 1000;
-
-    /**
-     * Server port.
-     */
-    @LocalServerPort
-    private int port;
 
     /**
      * Management port.

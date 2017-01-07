@@ -3,12 +3,13 @@ package org.schoellerfamily.gedbrowser.controller;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.Users;
+import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
+import org.schoellerfamily.gedbrowser.controller.exception.SourceNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
-import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -56,35 +57,23 @@ public class SourceController extends AbstractController {
             final Model model) {
         logger.debug("Entering source");
 
-        final RenderingContext renderingContext = createRenderingContext(users);
-
-        String sourceString;
-
-        final String filename = gedbrowserHome + "/" + dbName + ".ged";
-
         final Root root = (Root) loader.load(dbName);
-        GedRenderer<?> gedRenderer;
         if (root == null) {
-            sourceString = "Data Set Not Found";
-            gedRenderer =
-                    new GedRendererFactory().create(null, renderingContext);
-        } else {
-            final Source source = (Source) root.find(idString);
-            if (source == null) {
-                sourceString = "Source Not Found";
-                gedRenderer =
-                        new GedRendererFactory().create(
-                                null, renderingContext);
-            } else {
-                sourceString = source.getString();
-                gedRenderer =
-                        new GedRendererFactory().create(
-                                source, renderingContext);
-            }
+            throw new DataSetNotFoundException(
+                    "Data set " + dbName + " not found");
         }
 
-        model.addAttribute("filename", filename);
-        model.addAttribute("sourceString", sourceString);
+        final Source source = (Source) root.find(idString);
+        if (source == null) {
+            throw new SourceNotFoundException(
+                    "Source " + idString + " not found");
+        }
+
+        final GedRenderer<?> gedRenderer = new GedRendererFactory()
+                .create(source, createRenderingContext(users));
+
+        model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
+        model.addAttribute("sourceString", source.getString());
         model.addAttribute("source", gedRenderer);
         model.addAttribute("appInfo", new ApplicationInfo());
         logger.debug("Exiting source");
