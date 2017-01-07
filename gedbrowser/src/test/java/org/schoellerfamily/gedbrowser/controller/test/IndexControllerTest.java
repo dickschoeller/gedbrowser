@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-public class SourceControllerTest {
+public class IndexControllerTest {
 
     /**
      * Not sure what this is good for.
@@ -38,23 +38,26 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testSourceControllerS33750() {
+    public final void testIndexControllerOK() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser/source?db=gl120368&id=S33750";
+                + "/gedbrowser/surnames?db=gl120368&letter=A";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Source: S33750 - ");
+        then(entity.getBody()).contains("<title>Surnames</title>")
+            .contains("<span><a href=\"surnames?db=gl120368&amp;letter=?\" cl"
+                    + "ass=\"name\">[?]</a>   </span>")
+            .contains("<li><a href=\"person?db=gl120368&amp;id=");
     }
 
     /** */
     @Test
-    public final void testSourceControllerBadDataSet() {
+    public final void testIndexControllerBadDataSet() {
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(
                         "http://localhost:" + port
-                                + "/gedbrowser/source?db=XYZZY&id=S33750",
+                                + "/gedbrowser/surnames?db=XYZZY&letter=A",
                         String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
@@ -63,14 +66,18 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testSourceControllerBadSource() {
+    public final void testIndexControllerLetter() {
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(
                         "http://localhost:" + port
-                                + "/gedbrowser/source?db=gl120368&id=XYZZY",
+                                + "/gedbrowser/surnames?db=gl120368&letter=q",
                         String.class);
 
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        then(entity.getBody()).contains("Source not found");
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(entity.getBody())
+            .contains("<title>Surnames</title>")
+            .contains("<span><a href=\"surnames?db=gl120368&amp;letter=?\" cl"
+                    + "ass=\"name\">[?]</a>   </span>")
+            .doesNotContain("<li><a href=\"person?db=gl120368&amp;id=");
     }
 }

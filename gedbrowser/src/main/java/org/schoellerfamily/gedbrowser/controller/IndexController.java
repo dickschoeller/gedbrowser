@@ -3,12 +3,11 @@ package org.schoellerfamily.gedbrowser.controller;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.Users;
+import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
-import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.IndexRenderer;
-import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -57,20 +56,16 @@ public class IndexController extends AbstractController {
             final Model model) {
         logger.debug("Entering surnames");
 
-        final RenderingContext renderingContext = createRenderingContext(users);
-
         final Root root = (Root) loader.load(dbName);
-        GedRenderer<?> gedRenderer;
         if (root == null) {
-            // TODO introduce a null IndexRenderer?
-            gedRenderer =
-                    new GedRendererFactory().create(null, renderingContext);
-        } else {
-            gedRenderer = new IndexRenderer(root, letter, renderingContext);
+            throw new DataSetNotFoundException(
+                    "Data set " + dbName + " not found");
         }
 
-        final String filename = gedbrowserHome + "/" + dbName + ".ged";
-        model.addAttribute("filename", filename);
+        final GedRenderer<?> gedRenderer =
+                new IndexRenderer(root, letter, createRenderingContext(users));
+
+        model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
         model.addAttribute("index", gedRenderer);
         model.addAttribute("appInfo", new ApplicationInfo());
 

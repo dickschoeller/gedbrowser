@@ -38,7 +38,7 @@ public class PersonControllerTest {
 
     /** */
     @Test
-    public final void test4() {
+    public final void testPersonControllerI4() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser/person?db=gl120368&id=I4";
         final ResponseEntity<String> entity =
@@ -50,7 +50,7 @@ public class PersonControllerTest {
 
     /** */
     @Test
-    public final void test9() {
+    public final void testPersonControllerI9() {
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(
                         "http://localhost:" + port
@@ -64,7 +64,7 @@ public class PersonControllerTest {
 
     /** */
     @Test
-    public final void testBadDataSet() {
+    public final void testPersonControllerBadDataSet() {
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(
                         "http://localhost:" + port
@@ -77,7 +77,7 @@ public class PersonControllerTest {
 
     /** */
     @Test
-    public final void testBadPerson() {
+    public final void testPersonControllerBadPerson() {
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(
                         "http://localhost:" + port

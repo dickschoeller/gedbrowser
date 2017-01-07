@@ -31,14 +31,15 @@ public class UsersConfiguration {
     @Bean
     public Users users() {
         // CHECKSTYLE:ON
-        return readUserFile();
+        final String userFile = gedbrowserHome + "/userFile.csv";
+        return readUserFile(userFile);
     }
 
     /**
+     * @param userFile the user file to read
      * @return the set of users from the user file
      */
-    private Users readUserFile() {
-        final String userFile = gedbrowserHome + "/userFile.csv";
+    public Users readUserFile(final String userFile) {
         final Users users = new Users();
         try (FileInputStream fis = new FileInputStream(userFile);
                 Reader reader = new InputStreamReader(fis, "UTF-8");

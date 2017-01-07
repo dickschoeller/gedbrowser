@@ -50,4 +50,11 @@ public final class Users implements Iterable<User> {
     public Iterator<User> iterator() {
         return users.values().iterator();
     }
+
+    /**
+     * @return the iterator for the value collection
+     */
+    public int size() {
+        return users.values().size();
+    }
 }
