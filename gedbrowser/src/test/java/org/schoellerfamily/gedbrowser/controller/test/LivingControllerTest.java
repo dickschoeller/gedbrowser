@@ -38,7 +38,7 @@ public class LivingControllerTest {
 
     /** */
     @Test
-    public final void test1() {
+    public final void testLivingControllerOK() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser/living?db=gl120368";
         final ResponseEntity<String> entity =
@@ -50,7 +50,7 @@ public class LivingControllerTest {
 
     /** */
     @Test
-    public final void testBadDataSet() {
+    public final void testLivingControllerBadDataSet() {
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(
                         "http://localhost:" + port
