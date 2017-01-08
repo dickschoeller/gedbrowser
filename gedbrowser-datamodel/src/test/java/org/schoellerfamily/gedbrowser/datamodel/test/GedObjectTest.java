@@ -205,7 +205,9 @@ public final class GedObjectTest {
         assertEquals(gob, gob1);
         final Attribute attr3 = new Attribute(gob1, "B");
         gob1.insert(attr3);
-        assertTrue(gob.equals(gob1));
+        // Explicitly testing the equals method.
+        final boolean equals = gob.equals(gob1);
+        assertTrue("Expected the objects to be equal", equals);
         gob1.removeAttribute(attr3);
         assertEquals(gob, gob1);
         gob1.setParent(root);
