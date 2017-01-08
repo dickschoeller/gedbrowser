@@ -1,5 +1,8 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -28,7 +31,93 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  *
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.CouplingBetweenObjects")
 public final class GedRendererFactory {
+    /**
+     * Dispatcher for factory.
+     */
+    private static Map<Class<?>, RendererBuilder> builders = new HashMap<>();
+    static {
+        builders.put(Husband.class, (g, f, r) -> {
+            return new HusbandRenderer((Husband) g, f, r);
+        });
+        builders.put(Wife.class, (g, f, r) -> {
+            return new WifeRenderer((Wife) g, f, r);
+        });
+        builders.put(Person.class, (g, f, r) -> {
+            return new PersonRenderer((Person) g, f, r);
+        });
+        builders.put(Place.class, (g, f, r) -> {
+            return new PlaceRenderer((Place) g, f, r);
+        });
+        builders.put(Name.class, (g, f, r) -> {
+            return new NameRenderer((Name) g, f, r);
+        });
+        builders.put(Attribute.class, (g, f, r) -> {
+            return new AttributeRenderer((Attribute) g, f, r);
+        });
+        builders.put(Multimedia.class, (g, f, r) -> {
+            return new MultimediaRenderer((Multimedia) g, f, r);
+        });
+        builders.put(Child.class, (g, f, r) -> {
+            return new ChildRenderer((Child) g, f, r);
+        });
+        builders.put(Date.class, (g, f, r) -> {
+            return new DateRenderer((Date) g, f, r);
+        });
+        builders.put(FamC.class, (g, f, r) -> {
+            return new FamCRenderer((FamC) g, f, r);
+        });
+        builders.put(Family.class, (g, f, r) -> {
+            return new FamilyRenderer((Family) g, f, r);
+        });
+        builders.put(FamS.class, (g, f, r) -> {
+            return new FamSRenderer((FamS) g, f, r);
+        });
+        builders.put(Head.class, (g, f, r) -> {
+            return new HeadRenderer((Head) g, f, r);
+        });
+        builders.put(Root.class, (g, f, r) -> {
+            return new RootRenderer((Root) g, f, r);
+        });
+        builders.put(Source.class, (g, f, r) -> {
+            return new SourceRenderer((Source) g, f, r);
+        });
+        builders.put(SourceLink.class, (g, f, r) -> {
+            return new SourceLinkRenderer((SourceLink) g, f, r);
+        });
+        builders.put(Submittor.class, (g, f, r) -> {
+            return new SubmittorRenderer((Submittor) g, f, r);
+        });
+        builders.put(SubmittorLink.class, (g, f, r) -> {
+            return new SubmittorLinkRenderer((SubmittorLink) g, f, r);
+        });
+        builders.put(Trailer.class, (g, f, r) -> {
+            return new TrailerRenderer((Trailer) g, f, r);
+        });
+        builders.put(Link.class, (g, f, r) -> {
+            return new LinkRenderer((Link) g, f, r);
+        });
+    }
+
+    /**
+     * Interface for builders for the factory.
+     *
+     * @author Dick Schoeller
+     */
+    private interface RendererBuilder {
+        /**
+         * @param gedObject a gedobject to render
+         * @param factory the factory that we're working with
+         * @param renderingContext the current rendering context
+         * @return the appropriate renderer
+         */
+        GedRenderer<? extends GedObject> build(
+                GedObject gedObject,
+                GedRendererFactory factory,
+                RenderingContext renderingContext);
+    }
+
     /**
      * Creates the appropriate renderer for the GedObject provided.
      *
@@ -47,70 +136,13 @@ public final class GedRendererFactory {
      * @param renderingContext the user context we are rendering in
      * @return the renderer
      */
-    public GedRenderer<? extends GedObject> create(// NOPMD
+    public GedRenderer<? extends GedObject> create(
             final GedObject gedObject,
             final RenderingContext renderingContext) {
-        if (gedObject instanceof Husband) {
-            return new HusbandRenderer(
-                    (Husband) gedObject, this, renderingContext);
-        } else if (gedObject instanceof Wife) {
-            return new WifeRenderer(
-                    (Wife) gedObject, this, renderingContext);
-        } else if (gedObject instanceof Person) {
-            return new PersonRenderer(
-                    (Person) gedObject, this, renderingContext);
-        } else if (gedObject instanceof Place) {
-            return new PlaceRenderer(
-                    (Place) gedObject, this, renderingContext);
-        } else if (gedObject instanceof Name) {
-            return new NameRenderer(
-                    (Name) gedObject, this, renderingContext);
-        } else if (gedObject instanceof Attribute) {
-            return new AttributeRenderer(
-                    (Attribute) gedObject, this, renderingContext);
-        } else if (gedObject instanceof Multimedia) {
-            return new MultimediaRenderer(
-                    (Multimedia) gedObject, this, renderingContext);
-        } else if (gedObject instanceof Child) {
-            return new ChildRenderer(
-                    (Child) gedObject, this, renderingContext);
-        } else if (gedObject instanceof Date) {
-            return new DateRenderer(
-                    (Date) gedObject, this, renderingContext);
-        } else if (gedObject instanceof FamC) {
-            return new FamCRenderer(
-                    (FamC) gedObject, this, renderingContext);
-        } else if (gedObject instanceof Family) {
-            return new FamilyRenderer(
-                    (Family) gedObject, this, renderingContext);
-        } else if (gedObject instanceof FamS) {
-            return new FamSRenderer(
-                    (FamS) gedObject, this, renderingContext);
-        } else if (gedObject instanceof Head) {
-            return new HeadRenderer(
-                    (Head) gedObject, this, renderingContext);
-        } else if (gedObject instanceof Root) {
-            return new RootRenderer(
-                    (Root) gedObject, this, renderingContext);
-        } else if (gedObject instanceof Source) {
-            return new SourceRenderer(
-                    (Source) gedObject, this, renderingContext);
-        } else if (gedObject instanceof SourceLink) {
-            return new SourceLinkRenderer(
-                    (SourceLink) gedObject, this, renderingContext);
-        } else if (gedObject instanceof Submittor) {
-            return new SubmittorRenderer(
-                    (Submittor) gedObject, this, renderingContext);
-        } else if (gedObject instanceof SubmittorLink) {
-            return new SubmittorLinkRenderer(
-                    (SubmittorLink) gedObject, this, renderingContext);
-        } else if (gedObject instanceof Trailer) {
-            return new TrailerRenderer(
-                    (Trailer) gedObject, this, renderingContext);
-        } else if (gedObject instanceof Link) {
-            return new LinkRenderer(
-                    (Link) gedObject, this, renderingContext);
+        final RendererBuilder rb = builders.get(gedObject.getClass());
+        if (rb == null) {
+            return new DefaultRenderer(gedObject, this, renderingContext);
         }
-        return new DefaultRenderer(gedObject, this, renderingContext);
+        return rb.build(gedObject, this, renderingContext);
     }
 }
