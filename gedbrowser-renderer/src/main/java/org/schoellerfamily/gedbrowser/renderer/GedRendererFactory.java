@@ -139,10 +139,12 @@ public final class GedRendererFactory {
     public GedRenderer<? extends GedObject> create(
             final GedObject gedObject,
             final RenderingContext renderingContext) {
-        final RendererBuilder rb = builders.get(gedObject.getClass());
-        if (rb == null) {
-            return new DefaultRenderer(gedObject, this, renderingContext);
+        if (gedObject != null) {
+            final RendererBuilder builder = builders.get(gedObject.getClass());
+            if (builder != null) {
+                return builder.build(gedObject, this, renderingContext);
+            }
         }
-        return rb.build(gedObject, this, renderingContext);
+        return new DefaultRenderer(gedObject, this, renderingContext);
     }
 }
