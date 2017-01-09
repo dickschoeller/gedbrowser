@@ -76,8 +76,8 @@ public abstract class AbstractOrderAnalyzer {
     }
 
     /**
-     * String to insert about the date. If date is defined return " on <date> ".
-     * Otherwise, return " (undated)".
+     * String to insert about the date. If date is defined return
+     * " on &lt;date&gt;". Otherwise, return " (undated)".
      *
      * @param newDate the date
      * @return the string
