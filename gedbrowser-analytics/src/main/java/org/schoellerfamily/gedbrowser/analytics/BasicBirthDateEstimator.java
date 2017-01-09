@@ -114,6 +114,7 @@ public class BasicBirthDateEstimator extends Estimator {
         switch (eventTypeString) {
         case "Baptism":
         case "Christening":
+        case "Naming":
             date = firstDayOfMonth(date);
             break;
         case "Bar Mitzvah":

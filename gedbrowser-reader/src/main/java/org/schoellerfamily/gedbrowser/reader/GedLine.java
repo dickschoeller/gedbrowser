@@ -30,6 +30,7 @@ public final class GedLine extends AbstractGedLine {
     /**
      * @param arraySource Array of strings containing lines of GEDCOM.
      */
+    @SuppressWarnings("PMD.UseVarargs")
     public GedLine(final String[] arraySource) {
         super(arraySource);
     }

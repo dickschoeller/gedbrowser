@@ -99,6 +99,7 @@ public abstract class AbstractGedObjectFactory {
         tokens.put("ACTIVE", new GedToken("Active", ATTR_FACTORY));
         tokens.put("ADDR", new GedToken("Address", ATTR_FACTORY));
         tokens.put("ADOP", new GedToken("Adopted", ATTR_FACTORY));
+        tokens.put("ADBAP", new GedToken("Adult Baptism", ATTR_FACTORY));
         tokens.put("AFN", new GedToken("Ancestral File Number", ATTR_FACTORY));
         tokens.put("AFT", new GedToken("After", ATTR_FACTORY));
         tokens.put("AGE", new GedToken("Age", ATTR_FACTORY));
@@ -115,6 +116,7 @@ public abstract class AbstractGedObjectFactory {
         tokens.put("BET", new GedToken("Between", ATTR_FACTORY));
         tokens.put("BIRT", new GedToken("Birth", ATTR_FACTORY));
         tokens.put("BOOK", new GedToken("Book", ATTR_FACTORY));
+        tokens.put("BRIS", new GedToken("Bris Milah", ATTR_FACTORY));
         tokens.put("BURI", new GedToken("Burial", ATTR_FACTORY));
         tokens.put("BUSINESS", new GedToken("Business", ATTR_FACTORY));
         tokens.put("CANCELED", new GedToken("Canceled", ATTR_FACTORY));
@@ -197,6 +199,7 @@ public abstract class AbstractGedObjectFactory {
         tokens.put("MOTH", new GedToken("Mother", ATTR_FACTORY));
         tokens.put("NAME", new GedToken("Name", NAME_FACTORY));
         tokens.put("NAMR", new GedToken("Name (religious)", ATTR_FACTORY));
+        tokens.put("NAMING", new GedToken("Naming", ATTR_FACTORY));
         tokens.put("NAMS", new GedToken("NAMS", ATTR_FACTORY));
         tokens.put("NATU", new GedToken("Naturalized", ATTR_FACTORY));
         tokens.put("NCHI", new GedToken("Number of Children", ATTR_FACTORY));
@@ -258,6 +261,7 @@ public abstract class AbstractGedObjectFactory {
         tokens.put("UNDERSCORE", new GedToken("Underscore", ATTR_FACTORY));
         tokens.put("UNICODE", new GedToken("Unicode", ATTR_FACTORY));
         tokens.put("UNPUBLISHED", new GedToken("Unpublished", ATTR_FACTORY));
+        tokens.put("UNVEIL", new GedToken("Headstone unveiled", ATTR_FACTORY));
         tokens.put("VERS", new GedToken("Version", ATTR_FACTORY));
         tokens.put("VIDEO", new GedToken("Video", ATTR_FACTORY));
         tokens.put("VITAL", new GedToken("Vital", ATTR_FACTORY));

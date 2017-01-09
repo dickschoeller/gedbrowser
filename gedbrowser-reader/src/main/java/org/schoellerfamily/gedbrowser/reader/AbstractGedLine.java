@@ -77,6 +77,7 @@ public abstract class AbstractGedLine {
     /**
      * @param arraySource Array of strings containing lines of GEDCOM.
      */
+    @SuppressWarnings("PMD.UseVarargs")
     protected AbstractGedLine(final String[] arraySource) {
         this.parent = null;
         this.reader = null;

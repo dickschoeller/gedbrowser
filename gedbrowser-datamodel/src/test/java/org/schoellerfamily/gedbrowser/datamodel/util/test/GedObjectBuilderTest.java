@@ -389,7 +389,7 @@ public class GedObjectBuilderTest {
         final Person person = builder.createPerson1();
         final Attribute event =
                 builder.createPersonEvent(person, "Birth", null);
-        assertFalse("Should create empty event", event.isSet());
+        assertTrue("Should create undated event", event.getDate().isEmpty());
     }
 
     /** */

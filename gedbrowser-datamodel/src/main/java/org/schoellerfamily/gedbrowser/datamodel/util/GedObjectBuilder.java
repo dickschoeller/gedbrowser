@@ -110,11 +110,13 @@ public class GedObjectBuilder {
      */
     public Attribute createPersonEvent(final Person person, final String type,
             final String dateString) {
-        if (person == null || type == null || dateString == null) {
+        if (person == null || type == null) {
             return new Attribute();
         }
         final Attribute event = new Attribute(person, type);
-        event.insert(new Date(event, dateString));
+        if (dateString != null) {
+            event.insert(new Date(event, dateString));
+        }
         person.insert(event);
         return event;
     }
