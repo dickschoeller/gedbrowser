@@ -179,7 +179,7 @@ public class GedObjectBuilderTest {
     @Test
     public void testFamilyEventWithNulls() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Attribute event = builder.createFamilyEvent(null, null, null);
+        final Attribute event = builder.createFamilyEvent(null, null);
         assertFalse("Should create empty event", event.isSet());
     }
 
@@ -208,7 +208,7 @@ public class GedObjectBuilderTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily1();
         final Attribute event =
-                builder.createFamilyEvent(family, "Marriage", null);
+                builder.createFamilyEvent(family, "Marriage");
         assertFalse("Should create empty event", event.isSet());
     }
 
@@ -359,7 +359,7 @@ public class GedObjectBuilderTest {
     @Test
     public void testPersonEventWithNulls() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Attribute event = builder.createPersonEvent(null, null, null);
+        final Attribute event = builder.createPersonEvent(null, null);
         assertFalse("Should create empty event", event.isSet());
     }
 
@@ -388,7 +388,7 @@ public class GedObjectBuilderTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         final Attribute event =
-                builder.createPersonEvent(person, "Birth", null);
+                builder.createPersonEvent(person, "Birth");
         assertTrue("Should create undated event", event.getDate().isEmpty());
     }
 

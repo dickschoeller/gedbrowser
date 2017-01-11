@@ -79,7 +79,7 @@ public class OrderAnalyzerChildrenTest {
         builder.addHusbandToFamily(family, person1);
         builder.addWifeToFamily(family, person2);
         final Person person3 = builder.createPerson3();
-        builder.createPersonEvent(person3, "Birth", null);
+        builder.createPersonEvent(person3, "Birth");
         builder.addChildToFamily(family, person3);
         final Person person4 = builder.createPerson4();
         builder.createPersonEvent(person4, "Birth", "9 JAN 2017");
@@ -119,7 +119,7 @@ public class OrderAnalyzerChildrenTest {
         builder.createPersonEvent(person3, "Birth", "9 JAN 2017");
         builder.addChildToFamily(family, person3);
         final Person person4 = builder.createPerson4();
-        builder.createPersonEvent(person4, "Birth", null);
+        builder.createPersonEvent(person4, "Birth");
         builder.addChildToFamily(family, person4);
         final OrderAnalyzerResult result = helper.analyze(person1);
         assertTrue("Expected correct with one family with children 2nd undated",

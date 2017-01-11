@@ -114,9 +114,24 @@ public class GedObjectBuilder {
             return new Attribute();
         }
         final Attribute event = new Attribute(person, type);
-        if (dateString != null) {
-            event.insert(new Date(event, dateString));
+        event.insert(new Date(event, dateString));
+        person.insert(event);
+        return event;
+    }
+
+    /**
+     * Create an undated event that we use as the starting point for the test
+     * estimate.
+     *
+     * @param person the person the event is for
+     * @param type the type of event
+     * @return the created event
+     */
+    public Attribute createPersonEvent(final Person person, final String type) {
+        if (person == null || type == null) {
+            return new Attribute();
         }
+        final Attribute event = new Attribute(person, type);
         person.insert(event);
         return event;
     }
@@ -179,6 +194,24 @@ public class GedObjectBuilder {
         }
         final Attribute event = new Attribute(family, type);
         event.insert(new Date(event, dateString));
+        family.insert(event);
+        return event;
+    }
+
+    /**
+     * Create a dated event that we use as the starting point for the test
+     * estimate.
+     *
+     * @param family the family the event is for
+     * @param type the type of event
+     * @return the created event
+     */
+    public Attribute createFamilyEvent(final Family family,
+            final String type) {
+        if (family == null || type == null) {
+            return new Attribute();
+        }
+        final Attribute event = new Attribute(family, type);
         family.insert(event);
         return event;
     }

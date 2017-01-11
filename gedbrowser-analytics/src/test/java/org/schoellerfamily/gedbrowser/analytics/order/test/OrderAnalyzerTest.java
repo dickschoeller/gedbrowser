@@ -39,7 +39,7 @@ public class OrderAnalyzerTest {
     public void testPersonWithOnlyUndatedEventIsOK() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Occupation", null);
+        builder.createPersonEvent(person, "Occupation");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertTrue("Expected good order when there are only undated events",
                 result.isCorrect());
@@ -123,8 +123,8 @@ public class OrderAnalyzerTest {
     public void testPersonWithBirthBeforeNonBirthMatch() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Birth", null);
-        builder.createPersonEvent(person, "Education", null);
+        builder.createPersonEvent(person, "Birth");
+        builder.createPersonEvent(person, "Education");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertTrue("Expected correct when birth events before others",
                 result.isCorrect());
@@ -135,8 +135,8 @@ public class OrderAnalyzerTest {
     public void testPersonWithBaptismAfterNonBirthMismatch() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Education", null);
-        builder.createPersonEvent(person, "Baptism", null);
+        builder.createPersonEvent(person, "Education");
+        builder.createPersonEvent(person, "Baptism");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertFalse("Expected incorrect with birth events are after others",
                 result.isCorrect());
@@ -147,8 +147,8 @@ public class OrderAnalyzerTest {
     public void testPersonWithChristeningAfterNonBirthMismatch() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Education", null);
-        builder.createPersonEvent(person, "Christening", null);
+        builder.createPersonEvent(person, "Education");
+        builder.createPersonEvent(person, "Christening");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertFalse("Expected incorrect with birth events are after others",
                 result.isCorrect());
@@ -159,8 +159,8 @@ public class OrderAnalyzerTest {
     public void testPersonWithNamingAfterNonBirthMismatch() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Education", null);
-        builder.createPersonEvent(person, "Naming", null);
+        builder.createPersonEvent(person, "Education");
+        builder.createPersonEvent(person, "Naming");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertFalse("Expected incorrect with birth events are after others",
                 result.isCorrect());
@@ -171,8 +171,8 @@ public class OrderAnalyzerTest {
     public void testPersonWithBirthAfterNonBirthMismatch() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Education", null);
-        builder.createPersonEvent(person, "Birth", null);
+        builder.createPersonEvent(person, "Education");
+        builder.createPersonEvent(person, "Birth");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertFalse("Expected incorrect with birth events are after others",
                 result.isCorrect());
@@ -183,8 +183,8 @@ public class OrderAnalyzerTest {
     public void testPersonWithBirthAfterNonBirthMismatchString() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Education", null);
-        builder.createPersonEvent(person, "Birth", null);
+        builder.createPersonEvent(person, "Education");
+        builder.createPersonEvent(person, "Birth");
         final OrderAnalyzerResult result = helper.analyze(person);
         final String expected = "Logical order: Birth (undated) after non "
                 + "birth event, Education";
@@ -198,8 +198,8 @@ public class OrderAnalyzerTest {
     public void testPersonWithBirthAfterBaptismMismatch() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Baptism", null);
-        builder.createPersonEvent(person, "Birth", null);
+        builder.createPersonEvent(person, "Baptism");
+        builder.createPersonEvent(person, "Birth");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertFalse("Expected incorrect with birth events are after others",
                 result.isCorrect());
@@ -210,9 +210,9 @@ public class OrderAnalyzerTest {
     public void testPersonWithBirthBaptismNamingMatch() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Birth", null);
-        builder.createPersonEvent(person, "Baptism", null);
-        builder.createPersonEvent(person, "Naming", null);
+        builder.createPersonEvent(person, "Birth");
+        builder.createPersonEvent(person, "Baptism");
+        builder.createPersonEvent(person, "Naming");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertTrue("Expected correct with birth, baptism, naming",
                 result.isCorrect());
@@ -223,9 +223,9 @@ public class OrderAnalyzerTest {
     public void testPersonWithBirthBirthNamingMatch() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Birth", null);
-        builder.createPersonEvent(person, "Birth", null);
-        builder.createPersonEvent(person, "Naming", null);
+        builder.createPersonEvent(person, "Birth");
+        builder.createPersonEvent(person, "Birth");
+        builder.createPersonEvent(person, "Naming");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertTrue("Expected correct with birth, baptism, naming",
                 result.isCorrect());
@@ -236,9 +236,9 @@ public class OrderAnalyzerTest {
     public void testPersonWithNullNonnullNullDateMatch() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Birth", null);
+        builder.createPersonEvent(person, "Birth");
         builder.createPersonEvent(person, "Birth", "8 JAN 2017");
-        builder.createPersonEvent(person, "Naming", null);
+        builder.createPersonEvent(person, "Naming");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertTrue("Expected correct with birth, birth date, naming",
                 result.isCorrect());
@@ -249,8 +249,8 @@ public class OrderAnalyzerTest {
 //    public void testPersonWithNonDeathAfterDeathMismatchString() {
 //        final GedObjectBuilder builder = new GedObjectBuilder();
 //        final Person person = builder.createPerson1();
-//        builder.createPersonEvent(person, "Education", null);
-//        builder.createPersonEvent(person, "Birth", null);
+//        builder.createPersonEvent(person, "Education");
+//        builder.createPersonEvent(person, "Birth");
 //        final OrderAnalyzer orderAnalyzer = new OrderAnalyzer(person);
 //        final OrderAnalyzerResult result = orderAnalyzer.analyze();
 //        final String actual = result.getMismatches().get(0);
