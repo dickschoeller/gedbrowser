@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.analytics.order;
 
 import org.joda.time.LocalDate;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
+import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -21,7 +22,7 @@ public class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
 
     /**
      * @param person the person analyzed
-     * @param orderAnalyzerResult the result accumlator for this analysis
+     * @param orderAnalyzerResult the result accumulator for this analysis
      */
     public FamilyOrderAnalyzer(final Person person,
             final OrderAnalyzerResult orderAnalyzerResult) {
@@ -66,10 +67,14 @@ public class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
         } else {
             if (familyDate != null) {
                 if (familyDate.isBefore(seenDate)) {
-                    getResult().addMismatch("Family with "
-                            + family.getSpouse(person).getName().getString()
-                            + " should be before family with " + seenFamily
-                                    .getSpouse(person).getName().getString());
+                    final String message = String.format(
+                            "Family order: family with spouse %s (%s) is after "
+                            + "family with spouse %s (%s)",
+                            family.getSpouse(person).getName().getString(),
+                            familyDate.toString(),
+                            seenFamily.getSpouse(person).getName().getString(),
+                            seenDate.toString());
+                    getResult().addMismatch(message);
                 }
                 seenFamily = family;
             }
@@ -89,6 +94,9 @@ public class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
                 continue;
             }
             final Attribute attribute = (Attribute) gob;
+            if (ignoreable(attribute)) {
+                continue;
+            }
             basicOrderCheck(attribute);
             setSeenEvent(attribute);
             final LocalDate date = createLocalDate(attribute);
@@ -107,12 +115,17 @@ public class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
             return earliestDate;
         }
         for (final GedObject gob : family.getAttributes()) {
-            if (!(gob instanceof Attribute)) {
-                continue;
+            if (gob instanceof Attribute) {
+                final Attribute attribute = (Attribute) gob;
+                final LocalDate date = createLocalDate(attribute);
+                earliestDate = minDate(earliestDate, date);
             }
-            final Attribute attribute = (Attribute) gob;
-            final LocalDate date = createLocalDate(attribute);
-            earliestDate = minDate(earliestDate, date);
+            if (gob instanceof Child) {
+                final Child child = (Child) gob;
+                final Person personC = child.getChild();
+                final LocalDate birthDate = getNearBirthEventDate(personC);
+                earliestDate = minDate(earliestDate, birthDate);
+            }
         }
         return earliestDate;
     }

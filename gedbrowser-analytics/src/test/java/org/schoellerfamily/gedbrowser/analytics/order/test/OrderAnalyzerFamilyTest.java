@@ -19,9 +19,11 @@ public class OrderAnalyzerFamilyTest {
             new OrderAnalyzerTestHelper();
 
     /** */
+    private final GedObjectBuilder builder = new GedObjectBuilder();
+
+    /** */
     @Test
     public void testPersonWithOneUndatedFamilyMatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
         final Family family = builder.createFamily1();
@@ -35,7 +37,6 @@ public class OrderAnalyzerFamilyTest {
     /** */
     @Test
     public void testPersonWithTwoUndatedFamiliesMatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
         final Family family1 = builder.createFamily1();
@@ -53,7 +54,6 @@ public class OrderAnalyzerFamilyTest {
     /** */
     @Test
     public void testPersonWithTwoFamiliesFirstDatedMatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
         final Family family1 = builder.createFamily1();
@@ -72,7 +72,6 @@ public class OrderAnalyzerFamilyTest {
     /** */
     @Test
     public void testPersonWithTwoFamiliesSecondDatedMatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
         final Family family1 = builder.createFamily1();
@@ -91,7 +90,6 @@ public class OrderAnalyzerFamilyTest {
     /** */
     @Test
     public void testPersonWithTwoFamiliesDatedInOrderMatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
         final Family family1 = builder.createFamily1();
@@ -111,7 +109,6 @@ public class OrderAnalyzerFamilyTest {
     /** */
     @Test
     public void testPersonWithTwoFamiliesDatedOutOfOrderMismatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
         final Family family1 = builder.createFamily1();
@@ -131,7 +128,6 @@ public class OrderAnalyzerFamilyTest {
     /** */
     @Test
     public void testPersonWithTwoFamiliesDatedInOrderWithUndatedBtwnMatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
         final Family family1 = builder.createFamily1();
@@ -157,7 +153,6 @@ public class OrderAnalyzerFamilyTest {
     /** */
     @Test
     public void testPersonWithTwoFamiliesDatedOutOfOrderUndatedBtwnMismatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
         final Family family1 = builder.createFamily1();
@@ -183,7 +178,6 @@ public class OrderAnalyzerFamilyTest {
     /** */
     @Test
     public void testPersonWithFamilyDatesInOrderMatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
         final Family family1 = builder.createFamily1();
@@ -199,7 +193,6 @@ public class OrderAnalyzerFamilyTest {
     /** */
     @Test
     public void testPersonWithFamilyDatesOutOfOrderMismatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
         final Family family1 = builder.createFamily1();
@@ -215,7 +208,6 @@ public class OrderAnalyzerFamilyTest {
     /** */
     @Test
     public void testPersonWith1stFamilyDatesOutOfOrderMismatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
         final Family family1 = builder.createFamily1();
@@ -238,7 +230,6 @@ public class OrderAnalyzerFamilyTest {
     /** */
     @Test
     public void testPersonWith2ndBefore1stAnd1stFamDatesOutOfOrderMismatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
         final Family family1 = builder.createFamily1();
@@ -252,6 +243,30 @@ public class OrderAnalyzerFamilyTest {
         builder.addHusbandToFamily(family2, person1);
         builder.addWifeToFamily(family2, person3);
         builder.createFamilyEvent(family2, "Marriage", "6 JAN 2016");
+
+        final OrderAnalyzerResult result = helper.analyze(person1);
+        assertEquals("Expected incorrect with 2 events out of order",
+                2, result.getMismatches().size());
+    }
+
+    /** */
+    @Test
+    public void testPersonWithDateFromChildMismatch() {
+        final Person person1 = builder.createPerson1();
+        final Person person2 = builder.createPerson2();
+        final Family family1 = builder.createFamily1();
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.createFamilyEvent(family1, "Marriage", "8 JAN 2016");
+        builder.createFamilyEvent(family1, "Engaged", "7 JAN 2016");
+
+        final Person person3 = builder.createPerson3();
+        final Family family2 = builder.createFamily2();
+        builder.addHusbandToFamily(family2, person1);
+        builder.addWifeToFamily(family2, person3);
+        final Person person4 = builder.createPerson4();
+        builder.createPersonEvent(person4, "Birth", "6 JAN 2016");
+        builder.addChildToFamily(family2, person4);
 
         final OrderAnalyzerResult result = helper.analyze(person1);
         assertEquals("Expected incorrect with 2 events out of order",

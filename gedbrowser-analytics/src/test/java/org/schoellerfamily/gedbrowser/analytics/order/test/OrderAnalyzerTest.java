@@ -5,12 +5,17 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
 import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzer;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzerResult;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
+import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
+import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 
 /**
  * @author Dick Schoeller
@@ -106,11 +111,11 @@ public class OrderAnalyzerTest {
         builder.createPersonEvent(person, "Education", "8 JAN 2017");
         builder.createPersonEvent(person, "Occupation", "7 JAN 2017");
         final OrderAnalyzerResult result = helper.analyze(person);
+        final String expected = "Date order: Occupation dated  on 2017-01-07 "
+                + "occurs after Education dated  on 2017-01-08";
         final String actual = result.getMismatches().get(0);
         assertEquals("Expected mismatch strings when events are out of order",
-                "Occupation on 2017-01-07 before event,"
-                        + " Education on 2017-01-08",
-                actual);
+                expected, actual);
     }
 
     /** */
@@ -181,9 +186,11 @@ public class OrderAnalyzerTest {
         builder.createPersonEvent(person, "Education", null);
         builder.createPersonEvent(person, "Birth", null);
         final OrderAnalyzerResult result = helper.analyze(person);
+        final String expected = "Logical order: Birth (undated) after non "
+                + "birth event, Education";
         final String actual = result.getMismatches().get(0);
         assertEquals("Expected mismatch string with birth events after others",
-                "Birth (undated) after non birth event, Education", actual);
+                expected, actual);
     }
 
     /** */
@@ -299,4 +306,55 @@ public class OrderAnalyzerTest {
     // TODO will need checks of kids born before birth or after death of mother
     // TODO will need checks of kids born too long after death of father
 
+    /**
+     * This test hits a big data set. The main thing that it detects is poorly
+     * parsed dates. Since the data set in question has weird date formats.
+     * Some of that is inevitable.
+     *
+     * @throws IOException if failed to read file
+     */
+    @Test
+    public final void testFactoryGedFile() throws IOException {
+        final AbstractGedLine top =
+                ReaderHelper.readFileTestSource(this, "gl120368.ged");
+        final GedObject root = top.createGedObject((AbstractGedLine) null);
+        for (final String letter : root.findSurnameInitialLetters()) {
+            for (final String surname : root.findBySurnamesBeginWith(letter)) {
+                for (final Person person : root.findBySurname(surname)) {
+                    assertAnalysisSane(person);
+                }
+            }
+        }
+    }
+
+    /**
+     * Run analysis on one person and assess the results.
+     *
+     * @param person the person
+     */
+    private void assertAnalysisSane(final Person person) {
+        final LocalDate today = new LocalDate();
+        final String indexName = person.getIndexName();
+        final OrderAnalyzer orderAnalyzer = createAnalyzer(
+                person);
+        final OrderAnalyzerResult result = orderAnalyzer.analyze();
+        if (!result.isCorrect()) {
+            System.out.println(indexName);
+            for (final String message : result.getMismatches()) {
+                System.out.println("   " + message);
+                assertFalse(
+                        "If has today (" + today.toString()
+                        + ") something is wrong",
+                        message.contains(today.toString()));
+            }
+        }
+    }
+
+    /**
+     * @param person the person
+     * @return the analyzer
+     */
+    private OrderAnalyzer createAnalyzer(final Person person) {
+        return new OrderAnalyzer(person);
+    }
 }
