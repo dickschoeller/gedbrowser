@@ -273,11 +273,6 @@
             <repoToken>bEJQVCrTjNVK81XtyZhYquuJdGpTjtEz0</repoToken>
           </configuration>
         </plugin>
-        <plugin>
-          <groupId>com.versioneye</groupId>
-          <artifactId>versioneye-maven-plugin</artifactId>
-          <version>3.11.0</version>
-        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -287,10 +282,6 @@
         <configuration>
           <skipDockerBuild>true</skipDockerBuild>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>com.versioneye</groupId>
-        <artifactId>versioneye-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
