@@ -7,7 +7,7 @@ import org.joda.time.Period;
 import org.joda.time.PeriodType;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
-import org.schoellerfamily.gedbrowser.datamodel.Date;
+import org.schoellerfamily.gedbrowser.datamodel.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
@@ -47,9 +47,9 @@ public final class AgeEstimator {
      */
     public int estimateInYears() {
         final String birthDateString = person.getBirthDate();
-        final Date birthDate = new Date(null, birthDateString);
         final LocalDate l0 = new LocalDate(relativeTo);
-        final LocalDate l1 = new LocalDate(birthDate.getEstimateCalendar());
+        final DateParser parser = new DateParser(birthDateString);
+        final LocalDate l1 = new LocalDate(parser.getEstimateCalendar());
         final Period p = new Period(l1, l0);
         return p.getYears();
     }
@@ -60,9 +60,10 @@ public final class AgeEstimator {
      */
     public String estimateInYearsMonthsDays() {
         final String birthDateString = person.getBirthDate();
-        final Date birthDate = new Date(null, birthDateString);
         final LocalDate l0 = new LocalDate(relativeTo);
-        final LocalDate l1 = new LocalDate(birthDate.getEstimateCalendar());
+        final DateParser parser = new DateParser(birthDateString);
+        final Calendar estimateCalendar = parser.getEstimateCalendar();
+        final LocalDate l1 = new LocalDate(estimateCalendar);
         final Period p = new Period(l1, l0, PeriodType.yearMonthDay());
         final PeriodFormatter ymd = new PeriodFormatterBuilder()
         .printZeroAlways()
