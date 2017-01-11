@@ -209,7 +209,7 @@ public class GedObjectBuilderTest {
         final Family family = builder.createFamily1();
         final Attribute event =
                 builder.createFamilyEvent(family, "Marriage");
-        assertFalse("Should create empty event", event.isSet());
+        assertTrue("Should create empty event date", event.getDate().isEmpty());
     }
 
     /** */
