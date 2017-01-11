@@ -124,6 +124,10 @@ public class DateParsingUtil {
         approximation = DateParsingUtil.Approximation.BETWEEN;
         String string = stripPrefix(dateString, "(").trim();
         string = stripSuffix(string, ")").trim();
+        if ("BIC".equals(string)) {
+            // TODO WTF is BIC? I see it in the data and it means nothing to me
+            return "";
+        }
         if (startsWithIgnoreCase(string, ABT)) {
             string = stripPrefix(string, ABT).trim();
             approximation = DateParsingUtil.Approximation.ABOUT;
