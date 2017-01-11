@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.analytics.order.test;
 
+import org.schoellerfamily.gedbrowser.analytics.order.AbstractOrderAnalyzer;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzer;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzerResult;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -15,7 +16,7 @@ public class OrderAnalyzerTestHelper {
      * @return the analysis result
      */
     public OrderAnalyzerResult analyze(final Person person) {
-        final OrderAnalyzer orderAnalyzer = new OrderAnalyzer(person);
+        final AbstractOrderAnalyzer orderAnalyzer = new OrderAnalyzer(person);
         final OrderAnalyzerResult result = orderAnalyzer.analyze();
         dump(person, result);
         return result;

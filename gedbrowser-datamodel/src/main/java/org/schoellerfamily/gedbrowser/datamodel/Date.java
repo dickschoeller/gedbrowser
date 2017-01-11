@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.CommentSize", "PMD.TooManyMethods" })
+@SuppressWarnings({ "PMD.CommentSize", "PMD.TooManyMethods", "PMD.GodClass" })
 public final class Date extends AbstractAttribute {
     /** */
     private enum Approximation {
@@ -71,6 +71,9 @@ public final class Date extends AbstractAttribute {
     public String getYear() {
         if (sortDate == null) {
             final String dateString = stripApproximationKeywords(getDate());
+            if (dateString.isEmpty()) {
+                return "";
+            }
             sortDate = parseCalendar(dateString);
         }
         final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy",
@@ -84,6 +87,9 @@ public final class Date extends AbstractAttribute {
     public String getSortDate() {
         if (sortDate == null) {
             final String dateString = stripApproximationKeywords(getDate());
+            if (dateString.isEmpty()) {
+                return "";
+            }
             sortDate = parseCalendar(dateString);
         }
         final SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd",
@@ -98,9 +104,13 @@ public final class Date extends AbstractAttribute {
      * @return string in the form yyyymmdd
      */
     public String getEstimateDate() {
+        final Calendar estimateCalendar = getEstimateCalendar();
+        if (estimateCalendar == null) {
+            return "Unknown";
+        }
         final SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd",
                 Locale.US);
-        return format(formatter, getEstimateCalendar());
+        return format(formatter, estimateCalendar);
     }
 
     /**
@@ -109,6 +119,9 @@ public final class Date extends AbstractAttribute {
     public Calendar getEstimateCalendar() {
         if (estimateDate == null) {
             final String dateString = stripApproximationKeywords(getDate());
+            if (dateString.isEmpty()) {
+                return null;
+            }
             estimateDate = applyEstimationRules(dateString);
         }
         return estimateDate;
@@ -235,21 +248,44 @@ public final class Date extends AbstractAttribute {
      * @param dateString the input date string
      * @return the output date string
      */
+    @SuppressWarnings({ "PMD.CyclomaticComplexity",
+            "PMD.ModifiedCyclomaticComplexity", "PMD.NPathComplexity",
+            "PMD.StdCyclomaticComplexity" })
     private String stripApproximationKeywords(final String dateString) {
         approximation = Approximation.EXACT;
         if (dateString.startsWith(ABT)) {
             approximation = Approximation.ABOUT;
             return stripPrefix(dateString, ABT);
         }
+        if (dateString.startsWith("EST")) {
+            approximation = Approximation.ABOUT;
+            return stripPrefix(dateString, "EST");
+        }
+        if (dateString.startsWith("Abt")) {
+            approximation = Approximation.ABOUT;
+            return stripPrefix(dateString, "Abt");
+        }
         if (dateString.startsWith(BEF)) {
             approximation = Approximation.BEFORE;
             return stripPrefix(dateString, BEF);
+        }
+        if (dateString.startsWith("Bef")) {
+            approximation = Approximation.BEFORE;
+            return stripPrefix(dateString, "Bef");
         }
         if (dateString.startsWith(AFT)) {
             approximation = Approximation.AFTER;
             return stripPrefix(dateString, AFT);
         }
-        if (dateString.startsWith("BETWEEN ")) {
+        if (dateString.startsWith("Aft")) {
+            approximation = Approximation.AFTER;
+            return stripPrefix(dateString, "Aft");
+        }
+        if (dateString.charAt(0) == '(') {
+            approximation = Approximation.ABOUT;
+            return handleFTMBizzareDateFormat(dateString);
+        }
+        if (dateString.startsWith("BET") || dateString.startsWith("FROM")) {
             approximation = Approximation.BETWEEN;
             final String outString = handleBetween(dateString);
             return trim(outString);
@@ -264,6 +300,28 @@ public final class Date extends AbstractAttribute {
     }
 
     /**
+     * Handle some odd dates from family tree maker.
+     *
+     * @param dateString the input string
+     * @return the stripped string
+     */
+    private String handleFTMBizzareDateFormat(final String dateString) {
+        approximation = Approximation.BETWEEN;
+        String string = stripPrefix(dateString, "(");
+        string = stripSuffix(string, ")");
+        string = stripSuffix(string, "Abt");
+        string = stripSuffix(string, "Bef");
+        string = truncateAt(string, "-");
+        if (string.length() <= 2) {
+            // Probably like 10-11 Nov 2017
+            string = stripPrefix(dateString, "(");
+            string = stripSuffix(string, ")");
+            string = removeBeginningAt(string, "-");
+        }
+        return string;
+    }
+
+    /**
      * Strip the searchString with and trim the result.
      *
      * @param input the source string
@@ -271,6 +329,18 @@ public final class Date extends AbstractAttribute {
      * @return the stripped string
      */
     private String stripPrefix(final String input, final String searchString) {
+        final String stripped = input.replace(searchString, "");
+        return trim(stripped);
+    }
+
+    /**
+     * Strip the searchString with and trim the result.
+     *
+     * @param input the source string
+     * @param searchString the string to look for in the source
+     * @return the stripped string
+     */
+    private String stripSuffix(final String input, final String searchString) {
         final String stripped = input.replace(searchString, "");
         return trim(stripped);
     }
@@ -292,8 +362,9 @@ public final class Date extends AbstractAttribute {
      * @return the stripped result
      */
     private String handleBetween(final String input) {
-        final String outString = input.replace("BETWEEN ", "");
-        return truncateAt(outString, " AND ");
+        final String outString = input.replace("BETWEEN ", "")
+                .replace("BET ", "").replace("FROM ", "");
+        return truncateAt(truncateAt(outString, " AND "), " TO ");
     }
 
     /**
@@ -308,6 +379,22 @@ public final class Date extends AbstractAttribute {
         final int i = input.indexOf(searchString);
         if (i != -1) {
             return input.substring(0, i);
+        }
+        return input;
+    }
+
+    /**
+     * Lop off the beginning of the string up through the searchString.
+     *
+     * @param input the source string
+     * @param searchString the string to look for in the source
+     * @return the truncated string
+     */
+    private String removeBeginningAt(final String input,
+            final String searchString) {
+        final int i = input.indexOf(searchString);
+        if (i != -1) {
+            return input.substring(i + 1, input.length());
         }
         return input;
     }

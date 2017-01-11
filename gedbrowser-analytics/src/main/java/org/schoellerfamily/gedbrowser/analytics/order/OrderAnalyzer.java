@@ -15,6 +15,9 @@ public class OrderAnalyzer extends AbstractOrderAnalyzer {
     /** */
     private final FamilyOrderAnalyzer familyOrderAnalyzer;
 
+    /** */
+    private final ChildrenOrderAnalyzer childrenOrderAnalyzer;
+
     /**
      * Constructor. Prepares an analyzer for the provided person.
      *
@@ -25,6 +28,8 @@ public class OrderAnalyzer extends AbstractOrderAnalyzer {
         this.person = person;
         this.familyOrderAnalyzer =
                 new FamilyOrderAnalyzer(person, getResult());
+        this.childrenOrderAnalyzer =
+                new ChildrenOrderAnalyzer(person, getResult());
     }
 
     /**
@@ -39,6 +44,9 @@ public class OrderAnalyzer extends AbstractOrderAnalyzer {
                 continue;
             }
             final Attribute attribute = (Attribute) gob;
+            if (ignoreable(attribute)) {
+                continue;
+            }
             basicOrderCheck(attribute);
             if (isUnorderedEvent(attribute)) {
                 // We DO NOT pay attention to this event when
@@ -50,6 +58,7 @@ public class OrderAnalyzer extends AbstractOrderAnalyzer {
             setSeenEvent(attribute);
         }
         familyOrderAnalyzer.analyze();
+        childrenOrderAnalyzer.analyze();
         return getResult();
     }
 
@@ -61,14 +70,18 @@ public class OrderAnalyzer extends AbstractOrderAnalyzer {
         if (isBirthRelatedEvent(attribute) && getSeenEvent() != null) {
             if (isBirthRelatedEvent(getSeenEvent())) {
                 if (isBirthEvent(attribute) && isNamingEvent(getSeenEvent())) {
-                    getResult().addMismatch(
-                            attribute.getString() + onDateString(newDate)
-                            + " after " + getSeenEvent().getString());
+                    final String message = String.format(
+                            "Logical order: %s%s after %s",
+                            attribute.getString(), onDateString(newDate),
+                            getSeenEvent().getString());
+                    getResult().addMismatch(message);
                 }
             } else {
-                getResult().addMismatch(attribute.getString()
-                        + onDateString(newDate) + " after non birth event, "
-                        + getSeenEvent().getString());
+                final String message = String.format(
+                        "Logical order: %s%s after non birth event, %s",
+                        attribute.getString(), onDateString(newDate),
+                        getSeenEvent().getString());
+                getResult().addMismatch(message);
             }
         }
     }
@@ -82,48 +95,20 @@ public class OrderAnalyzer extends AbstractOrderAnalyzer {
             if (isDeathRelatedEvent(attribute)) {
                 if (isDeathEvent(attribute)
                         && isPostDeathEvent(getSeenEvent())) {
-                    getResult().addMismatch(
-                            attribute.getString() + onDateString(newDate)
-                                    + " after post death event, "
-                                    + getSeenEvent().getString());
+                    final String message = String.format(
+                            "Logical order: %s%s after post death even, %s",
+                            attribute.getString(), onDateString(newDate),
+                            getSeenEvent().getString());
+                    getResult().addMismatch(message);
                 }
             } else {
-                getResult().addMismatch(attribute.getString()
-                        + onDateString(newDate) + " after death related event, "
-                        + getSeenEvent().getString());
+                final String message = String.format(
+                        "Logical order: %s%s after death related event, %s",
+                        attribute.getString(), onDateString(newDate),
+                        getSeenEvent().getString());
+                getResult().addMismatch(message);
             }
         }
-    }
-
-    /**
-     * @param attribute the attribute to check if it's a birth event
-     * @return true if this is a birth related event
-     */
-    private boolean isBirthRelatedEvent(final Attribute attribute) {
-        return isNamingEvent(attribute) || isBirthEvent(attribute);
-    }
-
-    /**
-     * @param attribute the attribute to check if it's a birth event
-     * @return true if this is a naming related event
-     */
-    private boolean isNamingEvent(final Attribute attribute) {
-        final String type = attribute.getString();
-        if ("Baptism".equals(type)) {
-            return true;
-        }
-        if ("Christening".equals(type)) {
-            return true;
-        }
-        return ("Naming".equals(type));
-    }
-
-    /**
-     * @param attribute the attribute to check if it's a birth event
-     * @return true if this is a birth event
-     */
-    private boolean isBirthEvent(final Attribute attribute) {
-        return "Birth".equals(attribute.getString());
     }
 
     /**

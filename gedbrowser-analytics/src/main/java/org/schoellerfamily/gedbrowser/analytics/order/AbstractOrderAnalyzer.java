@@ -1,8 +1,12 @@
 package org.schoellerfamily.gedbrowser.analytics.order;
 
+import java.util.Calendar;
+
 import org.joda.time.LocalDate;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
  * Base class for order analysis.
@@ -36,14 +40,14 @@ public abstract class AbstractOrderAnalyzer {
     /**
      * @return the date of the most recent attribute
      */
-    public LocalDate getCurrentDate() {
+    public final LocalDate getCurrentDate() {
         return currentDate;
     }
 
     /**
      * @param currentDate the date of the most recent attribute
      */
-    public void setCurrentDate(final LocalDate currentDate) {
+    public final void setCurrentDate(final LocalDate currentDate) {
         this.currentDate = currentDate;
     }
 
@@ -67,11 +71,12 @@ public abstract class AbstractOrderAnalyzer {
     protected final void basicOrderCheck(final Attribute attribute) {
         final LocalDate newDate = createLocalDate(attribute);
         if (!newDateAfterCurrent(newDate)) {
-            getResult().addMismatch(attribute.getString()
-                    + onDateString(newDate)
-                    + " before event, "
-                    + getSeenEvent().getString()
-                    + onDateString(getCurrentDate()));
+            final String message = String.format(
+                    "Date order: %s dated %s occurs after %s dated %s",
+                    attribute.getString(), onDateString(newDate),
+                    getSeenEvent().getString(),
+                    onDateString(getCurrentDate()));
+            getResult().addMismatch(message);
         }
     }
 
@@ -111,7 +116,11 @@ public abstract class AbstractOrderAnalyzer {
             return null;
         }
         final Date date = new Date(null, dateString);
-        return new LocalDate(date.getEstimateCalendar());
+        final Calendar estimateCalendar = date.getEstimateCalendar();
+        if (estimateCalendar == null) {
+            return null;
+        }
+        return new LocalDate(estimateCalendar);
     }
 
     /**
@@ -163,5 +172,90 @@ public abstract class AbstractOrderAnalyzer {
         } else {
             return date0;
         }
+    }
+
+
+    /**
+     * @param attribute the attribute to check if it's a birth event
+     * @return true if this is a birth related event
+     */
+    protected final boolean isBirthRelatedEvent(final Attribute attribute) {
+        return isNamingEvent(attribute) || isBirthEvent(attribute);
+    }
+
+    /**
+     * @param attribute the attribute to check if it's a birth event
+     * @return true if this is a naming related event
+     */
+    protected final boolean isNamingEvent(final Attribute attribute) {
+        final String type = attribute.getString();
+        if ("Baptism".equals(type)) {
+            return true;
+        }
+        if ("Christening".equals(type)) {
+            return true;
+        }
+        return ("Naming".equals(type));
+    }
+
+    /**
+     * @param attribute the attribute to check if it's a birth event
+     * @return true if this is a birth event
+     */
+    protected final boolean isBirthEvent(final Attribute attribute) {
+        return "Birth".equals(attribute.getString());
+    }
+
+    /**
+     * @param person0 the person whose events we are looking at
+     * @return the best birth date from near birth events
+     */
+    protected final LocalDate getNearBirthEventDate(final Person person0) {
+        LocalDate birthDate = createLocalDate(person0.getBirthDate());
+        if (birthDate == null) {
+            for (final GedObject gob : person0.getAttributes()) {
+                if (!(gob instanceof Attribute)) {
+                    continue;
+                }
+                final Attribute attribute = (Attribute) gob;
+                if (isNamingEvent(attribute)) {
+                    birthDate = minDate(birthDate, createLocalDate(attribute));
+                }
+            }
+        }
+        return birthDate;
+    }
+
+    /**
+     * Certain events have no time basis on the person.
+     *
+     * @param event the event
+     * @return true if it is non-time event
+     */
+    protected boolean ignoreable(final Attribute event) {
+        // Layed out like this because it is easier to understand
+        // coverage. No performance differences expected compared
+        // to tighter layout.
+        if ("Sex".equals(event.getString())) {
+            return true;
+        }
+        if ("Changed".equals(event.getString())) {
+            return true;
+        }
+        if ("Ancestral File Number".equals(event.getString())) {
+            return true;
+        }
+        if ("Title".equals(event.getString())) {
+            return true;
+        }
+        if ("Attribute".equals(event.getString())) {
+            // Only care about random attributes if they are dated
+            return "".equals(event.getDate());
+        }
+        if ("Note".equals(event.getString())) {
+            // Only care about notes if they are dated
+            return "".equals(event.getDate());
+        }
+        return "Reference Number".equals(event.getString());
     }
 }
