@@ -106,7 +106,7 @@ public final class Date extends AbstractAttribute {
     public String getEstimateDate() {
         final Calendar estimateCalendar = getEstimateCalendar();
         if (estimateCalendar == null) {
-            return "";
+            return "Unknown";
         }
         final SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd",
                 Locale.US);
@@ -253,9 +253,6 @@ public final class Date extends AbstractAttribute {
             "PMD.StdCyclomaticComplexity" })
     private String stripApproximationKeywords(final String dateString) {
         approximation = Approximation.EXACT;
-        if (dateString.contains("UNKNOWN")) {
-            return "";
-        }
         if (dateString.startsWith(ABT)) {
             approximation = Approximation.ABOUT;
             return stripPrefix(dateString, ABT);
