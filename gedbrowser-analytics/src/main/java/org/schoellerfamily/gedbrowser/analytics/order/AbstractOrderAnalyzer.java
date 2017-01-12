@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 import org.joda.time.LocalDate;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
-import org.schoellerfamily.gedbrowser.datamodel.Date;
+import org.schoellerfamily.gedbrowser.datamodel.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
@@ -115,8 +115,8 @@ public abstract class AbstractOrderAnalyzer {
         if (dateString.isEmpty()) {
             return null;
         }
-        final Date date = new Date(null, dateString);
-        final Calendar estimateCalendar = date.getEstimateCalendar();
+        final DateParser parser = new DateParser(dateString);
+        final Calendar estimateCalendar = parser.getEstimateCalendar();
         if (estimateCalendar == null) {
             return null;
         }

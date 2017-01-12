@@ -9,7 +9,8 @@ import java.util.StringTokenizer;
 /**
  * @author Dick Schoeller
  */
-public class DateParsingUtil {
+@SuppressWarnings({ "PMD.GodClass", "PMD.TooManyMethods" })
+public class DateParser {
     /** */
     private static final String ABT = "ABT ";
     /** */
@@ -47,22 +48,42 @@ public class DateParsingUtil {
     /**
      * @param inputString the string that we are going to parse
      */
-    public DateParsingUtil(final String inputString) {
+    public DateParser(final String inputString) {
         this.inputString = inputString;
         approximation = Approximation.EXACT;
     }
 
     /**
-     * @return the approximation level we interpret from the string
+     * Returns a sortable version of this date with estimation rules applied.
+     *
+     * @return the calendar object representing the estimated date
      */
-    public Approximation getApproximation() {
-        return approximation;
+    public Calendar getEstimateCalendar() {
+        final String dateString = stripApproximationKeywords();
+        if (dateString.isEmpty()) {
+            return null;
+        }
+        return applyEstimationRules(dateString);
+    }
+
+    /**
+     * Returns the sort version of the date. Does not have
+     * estimation rules applied.
+     *
+     * @return return the sort string for this date
+     */
+    public Calendar getSortCalendar() {
+        final String dateString = stripApproximationKeywords();
+        if (dateString.isEmpty()) {
+            return null;
+        }
+        return parseCalendar(dateString);
     }
 
     /**
      * @return the output date string
      */
-    public String stripApproximationKeywords() {
+    private String stripApproximationKeywords() {
         final String dateString = inputString;
 
         approximation = Approximation.EXACT;
@@ -121,7 +142,7 @@ public class DateParsingUtil {
      * @return the stripped string
      */
     private String handleFTMBizzareDateFormat(final String dateString) {
-        approximation = DateParsingUtil.Approximation.BETWEEN;
+        approximation = DateParser.Approximation.BETWEEN;
         String string = stripPrefix(dateString, "(").trim();
         string = stripSuffix(string, ")").trim();
         if ("BIC".equals(string)) {
@@ -130,15 +151,15 @@ public class DateParsingUtil {
         }
         if (startsWithIgnoreCase(string, ABT)) {
             string = stripPrefix(string, ABT).trim();
-            approximation = DateParsingUtil.Approximation.ABOUT;
+            approximation = DateParser.Approximation.ABOUT;
         }
         if (startsWithIgnoreCase(string, AFT)) {
             string = stripPrefix(string, AFT).trim();
-            approximation = DateParsingUtil.Approximation.AFTER;
+            approximation = DateParser.Approximation.AFTER;
         }
         if (startsWithIgnoreCase(string, BEF)) {
             string = stripPrefix(string, BEF).trim();
-            approximation = DateParsingUtil.Approximation.BEFORE;
+            approximation = DateParser.Approximation.BEFORE;
         }
         if (startsWithIgnoreCase(string, FROM)) {
             string = stripPrefix(string, FROM).trim();
@@ -223,17 +244,10 @@ public class DateParsingUtil {
     }
 
     /**
-     * @return the output string
-     */
-    public Calendar parseCalendar() {
-        return parseCalendar(inputString);
-    }
-
-    /**
      * @param dateString the string being parsed into a calendar
      * @return the output string
      */
-    public static Calendar parseCalendar(final String dateString) {
+    private Calendar parseCalendar(final String dateString) {
         SimpleDateFormat dateParser = new SimpleDateFormat("dd MMM yyyy",
                 Locale.US);
         final Calendar c = Calendar.getInstance(Locale.US);
@@ -255,5 +269,120 @@ public class DateParsingUtil {
                 }
             }
         }
+    }
+
+    /**
+     * @param dateString input date string
+     * @return the adjusted string
+     */
+    private Calendar applyEstimationRules(final String dateString) {
+        switch (new StringTokenizer(dateString, " ").countTokens()) {
+        case 0:
+            return null;
+        case 1:
+            return estimateYear(dateString);
+        case 2:
+            return estimateMonth(dateString);
+        default:
+            return estimateDay(dateString);
+        }
+    }
+
+    /**
+     * @param dateString input date string
+     * @return adjusted date
+     */
+    private Calendar estimateDay(final String dateString) {
+        final Calendar c = parseCalendar(dateString);
+        if (approximation == DateParser.Approximation.BEFORE) {
+            add(c, Calendar.DAY_OF_MONTH, -1);
+        } else if (approximation == DateParser.Approximation.AFTER) {
+            add(c, Calendar.DAY_OF_MONTH, 1);
+        }
+        return c;
+    }
+
+    /**
+     * @param dateString input date string
+     * @return adjusted date
+     */
+    private Calendar estimateMonth(final String dateString) {
+        final Calendar c = parseCalendar(dateString);
+        if (approximation == DateParser.Approximation.BEFORE) {
+            add(c, Calendar.MONTH, -1);
+            endOfMonth(c);
+        } else if (approximation == DateParser.Approximation.AFTER) {
+            add(c, Calendar.MONTH, 1);
+            beginOfMonth(c);
+        }
+        return c;
+    }
+
+    /**
+     * @param dateString input date string
+     * @return adjusted date
+     */
+    private Calendar estimateYear(final String dateString) {
+        final Calendar c = parseCalendar(dateString);
+        if (approximation == DateParser.Approximation.BEFORE) {
+            add(c, Calendar.YEAR, -1);
+            lastMonth(c);
+            endOfMonth(c);
+        } else if (approximation == DateParser.Approximation.AFTER) {
+            add(c, Calendar.YEAR, 1);
+            firstMonth(c);
+            beginOfMonth(c);
+        }
+        return c;
+    }
+
+    /**
+     * Add or subtract the specified amount of time the given calendar field
+     * based on the calendar's rules. For example, to subtract 5 days from the
+     * current time of the calendar, call: add(c, Calendar.DAY_OF_MONTH, -5).
+     * @param c the calendar
+     * @param field the calendar field
+     * @param amount the amount of date or time to be added to the field
+     */
+    private void add(final Calendar c, final int field, final int amount) {
+        c.add(field, amount);
+    }
+
+    /**
+     * Adjust calendar to the beginning of the current month.
+     *
+     * @param c the calendar
+     */
+    private void beginOfMonth(final Calendar c) {
+        c.set(Calendar.DAY_OF_MONTH,
+                c.getActualMinimum(Calendar.DAY_OF_MONTH));
+    }
+
+    /**
+     * Adjust calendar to the end of the current month.
+     *
+     * @param c the calendar
+     */
+    private void endOfMonth(final Calendar c) {
+        c.set(Calendar.DAY_OF_MONTH,
+                c.getActualMaximum(Calendar.DAY_OF_MONTH));
+    }
+
+    /**
+     * Adjust calendar to the first month of the year.
+     *
+     * @param c the calendar
+     */
+    private void firstMonth(final Calendar c) {
+        c.set(Calendar.MONTH, c.getMinimum(Calendar.MONTH));
+    }
+
+    /**
+     * Adjust calendar to the last month of the year.
+     *
+     * @param c the calendar
+     */
+    private void lastMonth(final Calendar c) {
+        c.set(Calendar.MONTH, c.getMaximum(Calendar.MONTH));
     }
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.joda.time.LocalDate;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
-import org.schoellerfamily.gedbrowser.datamodel.Date;
+import org.schoellerfamily.gedbrowser.datamodel.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -183,8 +183,8 @@ public abstract class Estimator {
         if (dateString == null || dateString.isEmpty()) {
             return null;
         }
-        final Date date = new Date(null, dateString);
-        return new LocalDate(date.getEstimateCalendar());
+        final DateParser parser = new DateParser(dateString);
+        return new LocalDate(parser.getEstimateCalendar());
     }
 
     /**
