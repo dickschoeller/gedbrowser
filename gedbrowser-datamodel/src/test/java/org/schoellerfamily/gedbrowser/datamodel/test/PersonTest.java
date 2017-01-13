@@ -11,17 +11,11 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
-import org.schoellerfamily.gedbrowser.datamodel.Child;
-import org.schoellerfamily.gedbrowser.datamodel.Date;
-import org.schoellerfamily.gedbrowser.datamodel.FamC;
-import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
-import org.schoellerfamily.gedbrowser.datamodel.Husband;
-import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
  * @author Dick Schoeller
@@ -34,103 +28,50 @@ public final class PersonTest {
     private static final String UNEXPECTED_STRING =
             "Unexpected string returned";
     /** */
-    private final transient Root root = new Root(null);
+    private transient Person person1;
     /** */
-    private final transient Person person1 = new Person(null);
+    private transient Person person2;
     /** */
-    private final transient Name name1 = new Name(person1,
-            "Richard John/Schoeller/");
+    private transient Person person3;
     /** */
-    private final transient Person person2 = new Person(root);
+    private transient Person person4;
     /** */
-    private final transient Name name2 = new Name(person2,
-            "Lisa Hope/Robinson/");
+    private transient Person person5;
     /** */
-    private final transient Person person3 = new Person(root);
+    private transient Family family6;
     /** */
-    private final transient Name name3 = new Name(person3,
-            "Karl Frederick/Schoeller/Jr.");
+    private transient Person person6;
     /** */
-    private final transient Person person4 = new Person(root);
-    /** */
-    private final transient Attribute birth4 = new Attribute(person4, "Birth");
-    /** */
-    private final transient Attribute death4 = new Attribute(person4, "Death");
-    /** */
-    private final transient Person person5 = new Person(root);
-    /** */
-    private final transient Name name5 = new Name(person5,
-            "Whosis/Schoeller/Jr./Huh?");
-    /** */
-    private final transient Attribute birth5 = new Attribute(person5, "Birth");
-    /** */
-    private final transient Date birthDate5 =
-            new Date(birth5, "1 JAN 1900");
-    /** */
-    private final transient Attribute death5 = new Attribute(person5, "Death");
-    /** */
-    private final transient Date deathDate5 =
-            new Date(death5, "1 JAN 1950");
-    /** */
-    private final transient Family family6 = new Family(root,
-            new ObjectId("F6"));
-    /** */
-    private final transient FamC famc3 = new FamC(person3, "FamC",
-            new ObjectId("F6"));
-    /** */
-    private final transient Person person6 = new Person(root);
-    /** */
-    private final transient FamS fams6 = new FamS(person6, "FamS",
-            new ObjectId("F6"));
-    /** */
-    private final transient Person person7 = new Person(root);
-    /** */
-    private final transient FamS fams7 = new FamS(person7, "FamS",
-            new ObjectId("F6"));
-    /** */
-    private final transient Husband husband6 = new Husband(family6, "Husband",
-            new ObjectId("I6"));
-    /** */
-    private final transient Wife wife7 = new Wife(family6, "Wife",
-            new ObjectId("I7"));
-    /** */
-    private final transient Child child3 = new Child(family6, "Child",
-            new ObjectId("I3"));
-    /** */
-    private final transient Attribute attr = new Attribute(person1,
-            "Restriction", "confidential");
+    private transient Person person7;
 
     /** */
     @Before
     public void setUp() {
-        root.insert("I1", person1);
-        person1.insert(name1);
+        final Root root = new Root(null);
+        final GedObjectBuilder builder = new GedObjectBuilder(root);
+        person1 = builder.createPerson("I1", "Richard John/Schoeller/");
+        final Attribute attr =
+                new Attribute(person1, "Restriction", "confidential");
         person1.insert(attr);
-        root.insert("I2", person2);
-        person2.insert(name2);
-        root.insert("I3", person3);
-        person3.insert(name3);
-        root.insert("I4", person4);
-        person4.insert(birth4);
-        person4.insert(death4);
-        root.insert("I5", person5);
-        person5.insert(name5);
-        person5.insert(birth5);
-        person5.insert(death5);
-        birth5.insert(birthDate5);
-        death5.insert(deathDate5);
-        // Make people and family findable.
-        root.insert("I6", person6);
-        root.insert("I7", person7);
-        root.insert("F6", family6);
-        // People point to family.
-        person3.insert(famc3);
-        person6.insert(fams6);
-        person7.insert(fams7);
-        // Family points to people.
-        family6.insert(husband6);
-        family6.insert(wife7);
-        family6.insert(child3);
+
+        person2 = builder.createPerson("I2", "Lisa Hope/Robinson/");
+        person3 = builder.createPerson("I3", "Karl Frederick/Schoeller/Jr.");
+        person4 = builder.createPerson("I4");
+        builder.createPersonEvent(person4, "Birth");
+        builder.createPersonEvent(person4, "Death");
+
+        person5 = builder.createPerson("I5", "Whosis/Schoeller/Jr./Huh?");
+        builder.createPersonEvent(person5, "Birth", "1 JAN 1900");
+        builder.createPersonEvent(person5, "Death", "1 JAN 1950");
+
+        family6 = builder.createFamily("F6");
+        builder.addChildToFamily(family6, person3);
+
+        person6 = builder.createPerson("I6");
+        person7 = builder.createPerson("I7");
+
+        builder.addHusbandToFamily(family6, person6);
+        builder.addWifeToFamily(family6, person7);
     }
 
     /** */
@@ -230,158 +171,204 @@ public final class PersonTest {
     /** */
     @Test
     public void testDickGetBirthDate() {
-        // TODO put dates on Dick and then block with confidentiality.
-        assertEquals("", person1.getBirthDate());
+        assertEquals("Expected empty birth date", "", person1.getBirthDate());
     }
 
     /** */
     @Test
     public void testUnknownGetBirthDate() {
-        assertEquals("", person4.getBirthDate());
+        assertEquals("Expected empty birth date", "", person4.getBirthDate());
     }
 
     /** */
     @Test
     public void testWhosisGetBirthDate() {
-        assertEquals("1 JAN 1900", person5.getBirthDate());
+        assertEquals("Birth date mismatch",
+                "1 JAN 1900", person5.getBirthDate());
     }
 
     /** */
     @Test
     public void testDickGetBirthYear() {
-        assertEquals("", person1.getBirthDate());
+        assertEquals("Expected empty birth year", "", person1.getBirthDate());
     }
 
     /** */
     @Test
     public void testGetUnknownBirthYear() {
-        assertEquals("", person4.getBirthDate());
+        assertEquals("Expected empty birth year", "", person4.getBirthDate());
     }
 
     /** */
     @Test
     public void testWhosisGetBirthYear() {
-        assertEquals("1900", person5.getBirthYear());
+        assertEquals("Birth year mismatch", "1900", person5.getBirthYear());
     }
 
     /** */
     @Test
     public void testDickGetSortDate() {
-        assertEquals("", person1.getBirthDate());
+        assertEquals("Expected empty sort date", "", person1.getBirthDate());
     }
 
     /** */
     @Test
     public void testUnknownGetSortDate() {
-        assertEquals("", person4.getBirthDate());
+        assertEquals("Expected empty sort date", "", person4.getBirthDate());
     }
 
     /** */
     @Test
     public void testWhosisGetSortDate() {
-        assertEquals("19000101", person5.getSortDate());
+        assertEquals("Sort date mismatch", "19000101", person5.getSortDate());
     }
 
     /** */
     @Test
     public void testDickGetDeathDate() {
-        assertEquals("", person1.getDeathDate());
+        assertEquals("Expected emtpy death date", "", person1.getDeathDate());
     }
 
     /** */
     @Test
     public void testUnknownGetDeathDate() {
-        assertEquals("", person4.getDeathDate());
+        assertEquals("Expected emtpy death date", "", person4.getDeathDate());
     }
 
     /** */
     @Test
     public void testWhosisGetDeathDate() {
-        assertEquals("1 JAN 1950", person5.getDeathDate());
+        assertEquals("Death date mismatch", "1 JAN 1950",
+                person5.getDeathDate());
     }
 
     /** */
     @Test
     public void testDickGetDeathYear() {
-        assertEquals("", person1.getDeathDate());
+        assertEquals("Expected empty death year", "", person1.getDeathYear());
     }
 
     /** */
     @Test
     public void testUnknownGetDeathYear() {
-        assertEquals("", person4.getDeathDate());
+        assertEquals("Expected empty death year", "", person4.getDeathYear());
     }
 
     /** */
     @Test
     public void testWhosisGetDeathYear() {
-        assertEquals("1950", person5.getDeathYear());
+        assertEquals("Death year mismatch", "1950", person5.getDeathYear());
     }
 
     /** */
     @Test
-    public void testGetFatherMother() {
-        assertEquals(person6, person3.getFather());
-        assertEquals(person7, person3.getMother());
-        assertFalse(person6.getMother().isSet());
-        assertFalse(person6.getFather().isSet());
-        // TODO need tests with person in a FamC with father and no mother and
-        // visa versa.
+    public void testGetFather() {
+        assertEquals("Expected to find father", person6, person3.getFather());
     }
 
     /** */
     @Test
-    public void testGetFamilies() {
-        // This is associated with families in which this person is a spouse.
+    public void testGetMother() {
+        assertEquals("Expected to find mother", person7, person3.getMother());
+    }
+
+    /** */
+    @Test
+    public void testGetFatherUnset() {
+        assertFalse("Expected not to find father", person6.getFather().isSet());
+    }
+
+    /** */
+    @Test
+    public void testGetMotherUnset() {
+        assertFalse("Expected not to find mother", person6.getMother().isSet());
+    }
+
+    /** */
+    @Test
+    public void testGetHusbandsFamily() {
         final List<Family> list6 = person6.getFamilies(new ArrayList<Family>());
-        assertTrue(list6.contains(family6));
+        assertTrue(
+                "Should have found husband's family", list6.contains(family6));
+    }
 
+    /** */
+    @Test
+    public void testGetWifesFamily() {
         final List<Family> list7 = person7.getFamilies(new ArrayList<Family>());
-        assertTrue(list7.contains(family6));
+        assertTrue("Should have found wife's family", list7.contains(family6));
     }
 
     /** */
     @Test
     public void testGetSpousesFailsWithoutPersonStrings() {
+        // Make these persons malformed.
+        person6.setString("");
+        person7.setString("");
         final List<Person> list6 = person6.getSpouses(new ArrayList<Person>(),
                 person6);
-        assertEquals(0, list6.size());
+        assertEquals("Screwing with ID strings should have hidden these",
+                0, list6.size());
     }
 
     /** */
     @Test
     public void testGetSpouses() {
-        person6.setString("I6");
-        person7.setString("I7");
         final List<Person> list6 = person6.getSpouses(new ArrayList<Person>(),
                 person6);
-        assertTrue(list6.contains(person7));
-        person6.setString("");
-        person7.setString("");
+        assertTrue("Should have found spouse", list6.contains(person7));
     }
 
     /** */
     @Test
-    public void testGetChildren() {
-        List<Person> list6 = person6.getChildren();
-        assertTrue(list6.contains(person3));
-        list6 = person6.getChildren();
-        assertTrue(list6.contains(person3));
+    public void testGetFathersChildren() {
+        final List<Person> list6 = person6.getChildren();
+        assertTrue("Expected to find person3", list6.contains(person3));
+    }
+
+    /** */
+    @Test
+    public void testGetMothersChildren() {
         final List<Person> list7 = person7.getChildren();
-        assertTrue(list7.contains(person3));
+        assertTrue("Expected to find person3", list7.contains(person3));
     }
 
     /** */
     @Test
-    public void testPersonGedObject() {
+    public void testPersonGedObjectMissingID() {
         final Root localRoot = new Root(null, "Root");
         final Person person = new Person(localRoot);
         localRoot.insert("I1", person);
         assertTrue("Person string should be empty", person.getString()
                 .isEmpty());
-        assertEquals(person, localRoot.find("I1"));
-        assertFalse(person.getFather().isSet());
-        assertFalse(person.getMother().isSet());
+    }
+
+    /** */
+    @Test
+    public void testPersonGedObjectMissingIDFindable() {
+        final Root localRoot = new Root(null, "Root");
+        final Person person = new Person(localRoot);
+        localRoot.insert("I1", person);
+        assertEquals("Expected to find person anyway",
+                person, localRoot.find("I1"));
+    }
+
+    /** */
+    @Test
+    public void testPersonGedObjectMissingIDNoFather() {
+        final Root localRoot = new Root(null, "Root");
+        final Person person = new Person(localRoot);
+        localRoot.insert("I1", person);
+        assertFalse("Expected no father", person.getFather().isSet());
+    }
+
+    /** */
+    @Test
+    public void testPersonGedObjectMissingIDNoMother() {
+        final Root localRoot = new Root(null, "Root");
+        final Person person = new Person(localRoot);
+        localRoot.insert("I1", person);
+        assertFalse("Expected no mother", person.getMother().isSet());
     }
 
     /** */
@@ -390,8 +377,17 @@ public final class PersonTest {
         final Root localRoot = new Root(null, "Root");
         final Person person = new Person(localRoot, new ObjectId("I1"));
         localRoot.insert("I1", person);
-        assertEquals("I1", person.getString());
-        assertEquals(person, localRoot.find("I1"));
+        assertEquals("Expected ID to match", "I1", person.getString());
+    }
+
+    /** */
+    @Test
+    public void testPersonFindGedObjectString() {
+        final Root localRoot = new Root(null, "Root");
+        final Person person = new Person(localRoot, new ObjectId("I1"));
+        localRoot.insert("I1", person);
+        assertEquals("Expected to find person by ID",
+                person, localRoot.find("I1"));
     }
 
     /** */
@@ -403,7 +399,9 @@ public final class PersonTest {
         final Collection<String> letters = person6.findSurnameInitialLetters();
         int i = 0;
         for (final String letter : letters) {
-            assertEquals(expected[i++], letter);
+            assertEquals(
+                    "Expected to find " + expected[i] + " among letters",
+                    expected[i++], letter);
         }
     }
 
@@ -418,7 +416,9 @@ public final class PersonTest {
         final Collection<Person> persons = person6.findBySurname("Schoeller");
         int i = 0;
         for (final Person person : persons) {
-            assertEquals(expected[i++], person.getIndexName());
+            assertEquals(
+                    "Expected to find " + expected[i] + " among Schoellers",
+                    expected[i++], person.getIndexName());
         }
     }
 
@@ -426,7 +426,8 @@ public final class PersonTest {
     @Test
     public void testBySurnameFinderNotFound() {
         final Collection<Person> persons = person6.findBySurname("Mumble");
-        assertEquals(0, persons.size());
+        assertEquals("Should have found no persons named Mumble",
+                0, persons.size());
     }
 
     /** */
@@ -439,7 +440,9 @@ public final class PersonTest {
                 .findBySurnamesBeginWith("S");
         int i = 0;
         for (final String surname : surnames) {
-            assertEquals(expected[i++], surname);
+            assertEquals(
+                    "Expected to find " + expected[i] + " among S surnames",
+                    expected[i++], surname);
         }
     }
 
@@ -448,7 +451,8 @@ public final class PersonTest {
     public void testBeginsWithNotFound() {
         final Collection<String> surnames = person6
                 .findBySurnamesBeginWith("Q");
-        assertEquals(0, surnames.size());
+        assertTrue("Expected no surnames beginning with Q",
+                surnames.isEmpty());
     }
 
     /** */

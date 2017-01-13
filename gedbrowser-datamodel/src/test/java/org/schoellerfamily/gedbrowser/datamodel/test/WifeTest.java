@@ -6,13 +6,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
-import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
  * @author Dick Schoeller
@@ -21,55 +20,32 @@ public final class WifeTest {
     /** */
     private static final String WIFE_TAG = "WIFE";
     /** */
-    private static final String HUSB_TAG = "HUSB";
-    /** */
     private static final String ROOT_TAG = "Root";
     /** */
-    private final transient Root root = new Root(null, ROOT_TAG);
+    private transient Person person2;
     /** */
-    private final transient Family family1 = new Family(root,
-            new ObjectId("F1"));
+    private transient Person person3;
     /** */
-    private final transient Family family2 = new Family(root,
-            new ObjectId("F2"));
+    private transient Wife wife1;
     /** */
-    private final transient Person person1 = new Person(root,
-            new ObjectId("I1"));
+    private transient Wife wife2a;
     /** */
-    private final transient Person person2 = new Person(root,
-            new ObjectId("I2"));
-    /** */
-    private final transient Person person3 = new Person(root,
-            new ObjectId("I3"));
-    /** */
-    private final transient Husband husband1 = new Husband(family1, HUSB_TAG,
-            new ObjectId("@I1@"));
-    /** */
-    private final transient Wife wife1 = new Wife(family1, WIFE_TAG,
-            new ObjectId("@I2@"));
-    /** */
-    private final transient Wife wife2a = new Wife(family2, "WIFE",
-            new ObjectId("@I2@"));
-    /** */
-    private final transient Wife wife2b = new Wife(family2, "WIFE",
-            new ObjectId("@I3@"));
+    private transient Wife wife2b;
 
     /** */
     @Before
     public void setUp() {
-        root.insert("I1", person1);
-        root.insert("I2", person2);
-        root.insert("I3", person3);
-        root.insert("F1", family1);
-        root.insert("F2", family2);
-        person1.insert(new FamS(person1, "F1"));
-        person2.insert(new FamS(person2, "F1"));
-        person1.insert(new FamS(person2, "F2"));
-        person3.insert(new FamS(person3, "F2"));
-        family1.insert(wife1);
-        family1.insert(husband1);
-        family2.insert(wife2a);
-        family2.insert(wife2b);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person1 = builder.createPerson("I1");
+        person2 = builder.createPerson("I2");
+        person3 = builder.createPerson("I3");
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        wife1 = builder.addWifeToFamily(family1,  person2);
+
+        final Family family2 = builder.createFamily("F2");
+        wife2a = builder.addWifeToFamily(family2, person2);
+        wife2b = builder.addWifeToFamily(family2, person3);
     }
 
     /** */
