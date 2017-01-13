@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
@@ -19,8 +18,6 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 public final class WifeTest {
     /** */
     private static final String WIFE_TAG = "WIFE";
-    /** */
-    private static final String ROOT_TAG = "Root";
     /** */
     private transient Person person2;
     /** */
@@ -111,9 +108,8 @@ public final class WifeTest {
     /** */
     @Test
     public void testWifeGedObjectEmptyString() {
-        final Root localRoot = new Root(null, ROOT_TAG);
-        final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", family);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
         final Wife wife = new Wife(family);
         assertTrue("Wife string should be empty", wife.getString().isEmpty());
     }
@@ -121,9 +117,8 @@ public final class WifeTest {
     /** */
     @Test
     public void testWifeGedObjectEmptyToString() {
-        final Root localRoot = new Root(null, ROOT_TAG);
-        final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", family);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
         final Wife wife = new Wife(family);
         assertTrue("Wife getToString should be empty",
                 wife.getToString().isEmpty());
@@ -132,9 +127,8 @@ public final class WifeTest {
     /** */
     @Test
     public void testWifeGedObjectFromString() {
-        final Root localRoot = new Root(null, ROOT_TAG);
-        final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", family);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
         final Wife wife = new Wife(family);
         assertEquals("Wife fromString doesn't match",
                 "F1", wife.getFromString());
@@ -143,9 +137,8 @@ public final class WifeTest {
     /** */
     @Test
     public void testWifeGedObjectMotherNotSet() {
-        final Root localRoot = new Root(null, ROOT_TAG);
-        final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", family);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
         final Wife wife = new Wife(family);
         assertFalse("Mother should not be set", wife.getMother().isSet());
     }
@@ -153,9 +146,8 @@ public final class WifeTest {
     /** */
     @Test
     public void testWifeGedObjectStringTag() {
-        final Root localRoot = new Root(null, ROOT_TAG);
-        final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", family);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
         final Wife wife = new Wife(family, WIFE_TAG);
         assertEquals("Tag doesn't match", WIFE_TAG, wife.getString());
     }
@@ -163,9 +155,8 @@ public final class WifeTest {
     /** */
     @Test
     public void testWifeGedObjectStringEmptyTo() {
-        final Root localRoot = new Root(null, ROOT_TAG);
-        final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", family);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
         final Wife wife = new Wife(family, WIFE_TAG);
         assertTrue("To string should be empty", wife.getToString().isEmpty());
     }
@@ -173,9 +164,8 @@ public final class WifeTest {
     /** */
     @Test
     public void testWifeGedObjectStringFrom() {
-        final Root localRoot = new Root(null, ROOT_TAG);
-        final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", family);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
         final Wife wife = new Wife(family, WIFE_TAG);
         assertEquals("From string doesn't match", "F1", wife.getFromString());
     }
@@ -183,9 +173,8 @@ public final class WifeTest {
     /** */
     @Test
     public void testWifeGedObjectStringMotherNotSet() {
-        final Root localRoot = new Root(null, ROOT_TAG);
-        final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", family);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
         final Wife wife = new Wife(family, WIFE_TAG);
         assertFalse("Mother should not be set", wife.getMother().isSet());
     }
@@ -193,9 +182,8 @@ public final class WifeTest {
     /** */
     @Test
     public void testWifeGedObjectStringStringTag() {
-        final Root localRoot = new Root(null, ROOT_TAG);
-        final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", family);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
         final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
         assertEquals("Tag doesn't match", WIFE_TAG, wife.getString());
     }
@@ -203,9 +191,8 @@ public final class WifeTest {
     /** */
     @Test
     public void testWifeGedObjectStringStringTo() {
-        final Root localRoot = new Root(null, ROOT_TAG);
-        final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", family);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
         final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
         assertEquals("To string doesn't match", "I3", wife.getToString());
     }
@@ -213,9 +200,8 @@ public final class WifeTest {
     /** */
     @Test
     public void testWifeGedObjectStringStringFrom() {
-        final Root localRoot = new Root(null, ROOT_TAG);
-        final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", family);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
         final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
         assertEquals("From string doesn't match", "F1", wife.getFromString());
     }
@@ -223,9 +209,8 @@ public final class WifeTest {
     /** */
     @Test
     public void testWifeGedObjectStringStringMother() {
-        final Root localRoot = new Root(null, ROOT_TAG);
-        final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", family);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
         final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
         assertFalse("Mother should not be set", wife.getMother().isSet());
     }
