@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
+import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 /**
@@ -324,5 +325,16 @@ public class GedObjectBuilder {
         final Submittor submittor = new Submittor(root, idString);
         root.insert(submittor);
         return submittor;
+    }
+
+    /**
+     * Create a trailer for the data set.
+     *
+     * @return the created trailer
+     */
+    public Trailer createTrailer() {
+        final Trailer trailer = new Trailer(root, "Trailer");
+        root.insert("Trailer", trailer);
+        return trailer;
     }
 }
