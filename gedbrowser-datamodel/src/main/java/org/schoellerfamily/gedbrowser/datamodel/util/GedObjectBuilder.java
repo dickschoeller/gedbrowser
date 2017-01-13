@@ -11,6 +11,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 /**
@@ -80,6 +81,21 @@ public class GedObjectBuilder {
      */
     public Person createPerson5() {
         return createPerson("I5", "Anonyma/Schoeller/");
+    }
+
+    /**
+     * Create a person with the given ID and name.
+     *
+     * @param idString the ID
+     * @return the person
+     */
+    public Person createPerson(final String idString) {
+        if (idString == null) {
+            return new Person();
+        }
+        final Person person = new Person(root, new ObjectId(idString));
+        root.insert(person);
+        return person;
     }
 
     /**
@@ -275,5 +291,38 @@ public class GedObjectBuilder {
         family.insert(child);
         person.insert(famC);
         return child;
+    }
+
+    /**
+     * Create a submittor with the ID and name provided.
+     *
+     * @param idString the ID
+     * @param name the name
+     * @return the submittor
+     */
+    public Submittor createSubmittor(final String idString, final String name) {
+        if (idString == null || name == null) {
+            return new Submittor(root);
+        }
+        final Submittor submittor = new Submittor(root, idString);
+        submittor.insert(new Name(submittor, name));
+        root.insert(submittor);
+        return submittor;
+    }
+
+
+    /**
+     * Create a submittor with the ID provided.
+     *
+     * @param idString the ID
+     * @return the submittor
+     */
+    public Submittor createSubmittor(final String idString) {
+        if (idString == null) {
+            return new Submittor(root);
+        }
+        final Submittor submittor = new Submittor(root, idString);
+        root.insert(submittor);
+        return submittor;
     }
 }

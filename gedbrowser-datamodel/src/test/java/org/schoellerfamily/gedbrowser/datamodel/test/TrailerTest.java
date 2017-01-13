@@ -25,9 +25,30 @@ public final class TrailerTest {
 
         final GedObject gob = root.find(TRAILER_TAG);
         assertEquals("expected trailer", trailer, gob);
+    }
+
+    /** */
+    @Test
+    public void testTrailerEmpty() {
+        final Root root = new Root(null, "Root");
+
+        final Trailer trailer = new Trailer(root);
+        root.insert(TRAILER_TAG, trailer);
 
         assertTrue("Trailer string should be empty", trailer.getString()
                 .isEmpty());
+    }
+
+    /** */
+    @Test
+    public void testTrailerGedFoundObjectString() {
+        final Root root = new Root(null, "Root");
+
+        final Trailer trailer = new Trailer(root, TRAILER_TAG);
+        root.insert(TRAILER_TAG, trailer);
+
+        final GedObject gob = root.find(TRAILER_TAG);
+        assertEquals("expected trailer", trailer, gob);
     }
 
     /** */
@@ -37,10 +58,6 @@ public final class TrailerTest {
 
         final Trailer trailer = new Trailer(root, TRAILER_TAG);
         root.insert(TRAILER_TAG, trailer);
-
-        final GedObject gob = root.find(TRAILER_TAG);
-        assertEquals("expected trailer", trailer, gob);
-
         assertEquals("expected trailer tag", TRAILER_TAG, trailer.getString());
     }
 }
