@@ -11,197 +11,265 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
-import org.schoellerfamily.gedbrowser.datamodel.FamC;
-import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
-import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.TooManyStaticImports" })
+@SuppressWarnings("PMD.TooManyStaticImports")
 public final class ChildTest {
     /** */
-    private static final String CHILD_TAG = "CHIL";
+    private transient Family family1;
     /** */
-    private static final String PERSON_3 = "I3";
+    private transient Person person3;
     /** */
-    private static final ObjectId XREF_PER_3 = new ObjectId(PERSON_3);
-    /** */
-    private static final String PERSON_2 = "I2";
-    /** */
-    private static final ObjectId XREF_PER_2 = new ObjectId(PERSON_2);
-    /** */
-    private static final String PERSON_1 = "I1";
-    /** */
-    private static final ObjectId XREF_PER_1 = new ObjectId(PERSON_1);
-    /** */
-    private static final String FAMILY_1 = "F1";
-    /** */
-    private static final ObjectId XREF_FAM_1 = new ObjectId(FAMILY_1);
-    /** */
-    private static final String ROOT_NAME = "Root";
-
-    /** */
-    private final transient Root root = new Root(null, ROOT_NAME);
-    /** */
-    private final transient Family family1 = new Family(root, XREF_FAM_1);
-    /** */
-    private final transient Person person1 = new Person(root, XREF_PER_1);
-    /** */
-    private final transient Person person2 = new Person(root, XREF_PER_2);
-    /** */
-    private final transient Person person3 = new Person(root, XREF_PER_3);
-    /** */
-    private final transient Husband husband1 = new Husband(family1, "HUSB",
-            new ObjectId("@I1@"));
-    /** */
-    private final transient Wife wife1 = new Wife(family1, "WIFE",
-            new ObjectId("@I2@"));
-    /** */
-    private final transient Child child1 = new Child(family1, "CHILD",
-            new ObjectId("@I3@"));
+    private transient Child child1;
 
     /**
      */
     @Before
     public void setUp() {
-        root.insert(PERSON_1, person1);
-        root.insert(PERSON_2, person2);
-        root.insert(PERSON_3, person3);
-        root.insert(FAMILY_1, family1);
+        final GedObjectBuilder builder = new GedObjectBuilder();
 
-        person1.insert(new FamS(person1, "FAMS", XREF_FAM_1));
-        person2.insert(new FamS(person2, "FAMS", XREF_FAM_1));
-        person3.insert(new FamC(person3, "FAMC", XREF_FAM_1));
-
-        family1.insert(husband1);
-        family1.insert(wife1);
-        family1.insert(child1);
+        final Person person1 = builder.createPerson1();
+        final Person person2 = builder.createPerson2();
+        person3 = builder.createPerson3();
+        family1 = builder.createFamily1();
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        child1 = builder.addChildToFamily(family1, person3);
     }
 
     /** */
     @Test
-    public void testGetChildren() {
-        List<Person> list = family1.getChildren();
-        assertEquals(1, list.size());
-        assertTrue(list.contains(person3));
-        list = family1.getChildren();
-        assertEquals(1, list.size());
-        assertTrue(list.contains(person3));
-
-        assertSame(person3, child1.getChild());
+    public void testGetChildrenSize() {
+        final List<Person> list = family1.getChildren();
+        assertEquals("Expected only 1 person", 1, list.size());
     }
 
     /** */
     @Test
-    public void testGetChildUnset() {
-        assertFalse(new Child(null).getChild().isSet());
-        assertFalse(new Child().getChild().isSet());
+    public void testGetChildrenContains() {
+        final List<Person> list = family1.getChildren();
+        assertTrue("Contents mismatch", list.contains(person3));
     }
 
     /** */
     @Test
-    public void testGetFatherUnset() {
-        assertFalse(new Child(null).getFather().isSet());
-        assertFalse(new Child().getFather().isSet());
+    public void testGetChildMatch() {
+        assertSame("Mismatched person", person3, child1.getChild());
     }
 
     /** */
     @Test
-    public void testGetMotherUnset() {
-        assertFalse(new Child(null).getMother().isSet());
-        assertFalse(new Child().getMother().isSet());
+    public void testGetChildNullParentUnset() {
+        assertFalse("Expected null object", new Child(null).getChild().isSet());
     }
 
     /** */
     @Test
-    public void testChildGedObject() {
-        final Root localRoot = new Root(null, ROOT_NAME);
-        final Family family = new Family(localRoot, XREF_FAM_1);
-        localRoot.insert(FAMILY_1, family);
+    public void testGetChildUnspecifiedParentUnset() {
+        assertFalse("Expected null object", new Child().getChild().isSet());
+    }
+
+    /** */
+    @Test
+    public void testGetFatherNullParentUnset() {
+        assertFalse("Expected null object",
+                new Child(null).getFather().isSet());
+    }
+
+    /** */
+    @Test
+    public void testGetFatherUnspecifiedParentUnset() {
+        assertFalse("Expected null object", new Child().getFather().isSet());
+    }
+
+    /** */
+    @Test
+    public void testGetMotherNullParentUnset() {
+        assertFalse("Expected null object",
+                new Child(null).getMother().isSet());
+    }
+
+    /** */
+    @Test
+    public void testGetMotherUnsetParentUnset() {
+        assertFalse("Expected null object", new Child().getMother().isSet());
+    }
+
+    /** */
+    @Test
+    public void testChildUnspecifiedIdStringShouldReturnEmpty() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
         final Child child = new Child(family);
         assertTrue("Child string should be empty", child.getString().isEmpty());
-        assertEquals("", child.getToString());
-        assertEquals(FAMILY_1, child.getFromString());
-        assertFalse(child.getChild().isSet());
     }
 
     /** */
     @Test
-    public void testChildGedObjectString() {
-        final Root localRoot = new Root(null, ROOT_NAME);
-        final Family family = new Family(localRoot, XREF_FAM_1);
-        localRoot.insert(FAMILY_1, family);
-        final Child child = new Child(family, CHILD_TAG);
-        assertEquals(CHILD_TAG, child.getString());
-        assertEquals("", child.getToString());
-        assertEquals(FAMILY_1, child.getFromString());
-        assertFalse(child.getChild().isSet());
+    public void testChildUnspecifiedIdStringToStringShouldBeEmpty() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
+        final Child child = new Child(family);
+        assertTrue("Expected empty string", child.getToString().isEmpty());
     }
 
     /** */
     @Test
-    public void testChildGedObjectStringString() {
-        final Root localRoot = new Root(null, ROOT_NAME);
-        final Family family = new Family(localRoot, XREF_FAM_1);
-        localRoot.insert(FAMILY_1, family);
-        final Child child = new Child(family, CHILD_TAG, new ObjectId("@I3@"));
+    public void testChildFamilyId() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
+        final Child child = new Child(family);
+        assertEquals("Should match family ID", "F1", child.getFromString());
+    }
 
-        assertEquals(CHILD_TAG, child.getString());
-        assertEquals(PERSON_3, child.getToString());
-        assertEquals(FAMILY_1, child.getFromString());
-        assertFalse(child.getFather().isSet());
-        assertFalse(child.getMother().isSet());
-        assertFalse(child.getChild().isSet());
+    /** */
+    @Test
+    public void testChildUnspecifiedPersonShouldReturnUnset() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
+        final Child child = new Child(family);
+        assertFalse("Expected null object", child.getChild().isSet());
+    }
+
+    /** */
+    @Test
+    public void testChildWithTagShouldBeInToString() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
+        final Child child = new Child(family, "Child");
+        assertEquals("Expected matching tag", "Child", child.getString());
+    }
+
+    /** */
+    @Test
+    public void testChildTag() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
+        final Child child = new Child(family, "Child", new ObjectId("I3"));
+        assertEquals("Expected matching tag", "Child", child.getString());
+    }
+
+    /** */
+    @Test
+    public void testChildPersonId() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
+        final Child child = new Child(family, "Child", new ObjectId("I3"));
+        assertEquals("Expected matching person ID", "I3", child.getToString());
+    }
+
+    /** */
+    @Test
+    public void testChildFamilyIdShouldBeDerivableFromParent() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
+        final Child child = new Child(family, "Child", new ObjectId("I3"));
+        assertEquals("Expected matching family ID",
+                "F1", child.getFromString());
+    }
+
+    /** */
+    @Test
+    public void testChildUnspecifiedFatherShouldBeUnset() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
+        final Child child = new Child(family, "Child", new ObjectId("I3"));
+        assertFalse("Expected null object", child.getFather().isSet());
+    }
+
+    /** */
+    @Test
+    public void testChildUnspecifiedMotherShouldBeUnset() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
+        final Child child = new Child(family, "Child", new ObjectId("I3"));
+        assertFalse("Expected null object", child.getMother().isSet());
+    }
+
+    /** */
+    @Test
+    public void testChildUnspecifiedPersonShouldBeUnset() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
+        final Child child = new Child(family, "Child", new ObjectId("I3"));
+        assertFalse("Expected null object", child.getChild().isSet());
     }
 
     /** */
     @Test
     public void testChildNullParentFind() {
-        Child child;
-        child = new Child(null);
-        assertNull(child.find(PERSON_1));
+        final Child child = new Child(null);
+        assertNull("Expected to not find", child.find("I1"));
     }
 
     /** */
     @Test
     public void testChildNullString() {
-        final Root localRoot = new Root(null, ROOT_NAME);
+        final Root localRoot = new Root(null, "Root");
         final Child child = new Child(localRoot, null);
-        assertEquals("", child.getString());
-        assertEquals("", child.getToString());
-        assertNull(child.find(PERSON_1));
+        assertEmpty(child);
     }
 
     /** */
     @Test
     public void testChildEmptyString() {
-        final Root localRoot = new Root(null, ROOT_NAME);
+        final Root localRoot = new Root(null, "Root");
         final Child child = new Child(localRoot, "");
-        assertEquals("", child.getString());
-        assertEquals("", child.getToString());
-        assertNull(child.find(PERSON_1));
+        assertEmpty(child);
+    }
+
+    /**
+     * Check for nothing set.
+     *
+     * @param child the child to check
+     */
+    private void assertEmpty(final Child child) {
+        assertEquals("Expected empty string", "", child.getString());
+        assertEquals("Expected empty string", "", child.getToString());
+        assertNull("Expected not to find", child.find("I1"));
     }
 
     /** */
     @Test
     public void testChildEmptyTail() {
-        final Root localRoot = new Root(null, ROOT_NAME);
-        final Child child3 =
-                new Child(localRoot, PERSON_1, new ObjectId("@@"));
-        assertEquals(PERSON_1, child3.getString());
-        assertEquals("", child3.getToString());
-        assertNull(child3.find(PERSON_1));
-        final Child child2 = new Child(localRoot, PERSON_1, new ObjectId(""));
-        assertEquals(PERSON_1, child2.getString());
-        assertEquals("", child2.getToString());
-        assertNull(child2.find(PERSON_1));
-        localRoot.insert(PERSON_1, child2);
-        assertEquals(child2, child2.find(PERSON_1));
+        final Root localRoot = new Root(null, "Root");
+        final Child child = new Child(localRoot, "I1", new ObjectId(""));
+        assertPerson1(child, "I1");
+    }
+
+    /** */
+    @Test
+    public void testChildEmptyTailStrip() {
+        final Root localRoot = new Root(null, "Root");
+        final Child child = new Child(localRoot, "I1", new ObjectId("@@"));
+        assertPerson1(child, "I1");
+    }
+
+    /**
+     * Child expected to match the ID but otherwise be empty.
+     *
+     * @param child the child to check
+     * @param idString the expected ID string
+     */
+    private void assertPerson1(final Child child, final String idString) {
+        assertEquals("Mismatched ID", idString, child.getString());
+        assertTrue("Expected empty string", child.getToString().isEmpty());
+        assertNull("Expected to not find", child.find(idString));
+    }
+
+    /** */
+    @Test
+    public void testChildEmptyTailAfterInsert() {
+        final Root localRoot = new Root(null, "Root");
+        final Child child2 = new Child(localRoot, "I1", new ObjectId(""));
+        localRoot.insert("I1", child2);
+        assertEquals("Mismatched child", child2, child2.find("I1"));
     }
 }

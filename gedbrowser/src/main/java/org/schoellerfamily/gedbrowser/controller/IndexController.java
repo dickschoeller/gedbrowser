@@ -59,7 +59,7 @@ public class IndexController extends AbstractController {
         final Root root = (Root) loader.load(dbName);
         if (root == null) {
             throw new DataSetNotFoundException(
-                    "Data set " + dbName + " not found");
+                    "Data set " + dbName + " not found", dbName);
         }
 
         final GedRenderer<?> gedRenderer =
