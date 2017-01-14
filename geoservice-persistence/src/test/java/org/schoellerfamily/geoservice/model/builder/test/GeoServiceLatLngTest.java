@@ -8,7 +8,7 @@ import org.schoellerfamily.geoservice.model.GeoServiceLatLng;
 /**
  * @author Dick Schoeller
  */
-public final class TestBackupLatLng {
+public final class GeoServiceLatLngTest {
     /** */
     @Test
     public void testToString() {
