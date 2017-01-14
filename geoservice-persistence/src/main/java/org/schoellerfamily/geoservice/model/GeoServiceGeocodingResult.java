@@ -1,4 +1,4 @@
-package org.schoellerfamily.geoservice.backup.model;
+package org.schoellerfamily.geoservice.model;
 
 import java.util.Arrays;
 
@@ -11,12 +11,12 @@ import com.google.maps.model.AddressType;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.CommentSize")
-public final class BackupGeocodingResult {
+public final class GeoServiceGeocodingResult {
     /**
      * {@code addressComponents} is an array containing the separate address
      * components.
      */
-    private final BackupAddressComponent[] addressComponents;
+    private final GeoServiceAddressComponent[] addressComponents;
 
     /**
      * {@code formattedAddress} is the human-readable address of this location.
@@ -41,7 +41,7 @@ public final class BackupGeocodingResult {
     /**
      * {@code geometry} contains location information.
      */
-    private final BackupGeometry geometry;
+    private final GeoServiceGeometry geometry;
 
     /**
      * The {@code types} array indicates the type of the returned result. This
@@ -78,11 +78,11 @@ public final class BackupGeocodingResult {
     /**
      * Default constructor used in serialization.
      */
-    public BackupGeocodingResult() {
-        this.addressComponents = new BackupAddressComponent[0];
+    public GeoServiceGeocodingResult() {
+        this.addressComponents = new GeoServiceAddressComponent[0];
         this.formattedAddress = null;
         this.postcodeLocalities = new String[0];
-        this.geometry = new BackupGeometry();
+        this.geometry = new GeoServiceGeometry();
         this.types = new AddressType[0];
         this.partialMatch = false;
         this.placeId = null;
@@ -99,10 +99,10 @@ public final class BackupGeocodingResult {
      * @param partialMatch true if this is a partial match
      * @param placeId unique identifier for the place
      */
-    public BackupGeocodingResult(
-            final BackupAddressComponent[] addressComponents,
+    public GeoServiceGeocodingResult(
+            final GeoServiceAddressComponent[] addressComponents,
             final String formattedAddress, final String[] postcodeLocalities,
-            final BackupGeometry geometry, final AddressType[] types,
+            final GeoServiceGeometry geometry, final AddressType[] types,
             final boolean partialMatch, final String placeId) {
         if (addressComponents == null) {
             this.addressComponents = null;
@@ -130,7 +130,7 @@ public final class BackupGeocodingResult {
     /**
      * @return the addressComponents
      */
-    public BackupAddressComponent[] getAddressComponents() {
+    public GeoServiceAddressComponent[] getAddressComponents() {
         if (addressComponents == null) {
             return null;
         }
@@ -157,7 +157,7 @@ public final class BackupGeocodingResult {
     /**
      * @return the geometry
      */
-    public BackupGeometry getGeometry() {
+    public GeoServiceGeometry getGeometry() {
         return geometry;
     }
 

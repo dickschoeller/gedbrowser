@@ -1,20 +1,20 @@
-package org.schoellerfamily.geoservice.backup.model;
+package org.schoellerfamily.geoservice.model;
 
 /**
  * @author Dick Schoeller
  */
-public final class BackupGeoCodeItem {
+public final class GeoServiceItem {
     /** */
     private final String placeName;
     /** */
     private final String modernPlaceName;
     /** */
-    private final BackupGeocodingResult result;
+    private final GeoServiceGeocodingResult result;
 
     /**
      * Default constructor used for serialization.
      */
-    public BackupGeoCodeItem() {
+    public GeoServiceItem() {
         this.placeName = null;
         this.modernPlaceName = null;
         this.result = null;
@@ -27,8 +27,8 @@ public final class BackupGeoCodeItem {
      * @param modernPlaceName a modern version of the placename
      * @param result the result of geocoding
      */
-    public BackupGeoCodeItem(final String placeName,
-            final String modernPlaceName, final BackupGeocodingResult result) {
+    public GeoServiceItem(final String placeName, final String modernPlaceName,
+            final GeoServiceGeocodingResult result) {
         this.placeName = placeName;
         this.modernPlaceName = modernPlaceName;
         this.result = result;
@@ -51,7 +51,7 @@ public final class BackupGeoCodeItem {
     /**
      * @return the result
      */
-    public BackupGeocodingResult getResult() {
+    public GeoServiceGeocodingResult getResult() {
         return result;
     }
 }

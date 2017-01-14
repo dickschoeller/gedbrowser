@@ -243,7 +243,7 @@ public final class GeoCodeItem {
                 if (other.geometry.location == null) {
                     return false;
                 }
-                result.geometry.location.toString()
+                return result.geometry.location.toString()
                         .equals(other.geometry.location.toString());
             }
         }

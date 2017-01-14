@@ -1,17 +1,17 @@
-package org.schoellerfamily.geoservice.backup.test;
+package org.schoellerfamily.geoservice.model.builder.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.schoellerfamily.geoservice.backup.GeocodeResultBuilder;
-import org.schoellerfamily.geoservice.backup.model.BackupAddressComponent;
-import org.schoellerfamily.geoservice.backup.model.BackupBounds;
-import org.schoellerfamily.geoservice.backup.model.BackupGeoCodeItem;
-import org.schoellerfamily.geoservice.backup.model.BackupGeocodingResult;
-import org.schoellerfamily.geoservice.backup.model.BackupGeometry;
-import org.schoellerfamily.geoservice.backup.model.BackupLatLng;
+import org.schoellerfamily.geoservice.model.GeoServiceAddressComponent;
+import org.schoellerfamily.geoservice.model.GeoServiceBounds;
+import org.schoellerfamily.geoservice.model.GeoServiceItem;
+import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
+import org.schoellerfamily.geoservice.model.GeoServiceGeometry;
+import org.schoellerfamily.geoservice.model.GeoServiceLatLng;
+import org.schoellerfamily.geoservice.model.builder.GeocodeResultBuilder;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 
 import com.google.maps.model.AddressComponent;
@@ -34,14 +34,14 @@ public final class GeocodeResultBuilderTest {
     /** */
     @Test
     public void testToBackupGeoCodeItemNull() {
-        assertNull("Null gets null", builder.toBackupGeoCodeItem(null));
+        assertNull("Null gets null", builder.toGeoServiceItem(null));
     }
 
     /** */
     @Test
     public void testToBackupGeoCodeItemName() {
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", null);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
         assertEquals("Mismatched name", "XYZZY", bgci.getPlaceName());
     }
 
@@ -49,7 +49,7 @@ public final class GeocodeResultBuilderTest {
     @Test
     public void testToBackupGeoCodeItemModernName() {
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", null);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
         assertEquals("Mismatched modern name", "PLUGH",
                 bgci.getModernPlaceName());
     }
@@ -58,8 +58,9 @@ public final class GeocodeResultBuilderTest {
     @Test
     public void testToBackupGeoCodeItemNullResult() {
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", null);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -67,8 +68,9 @@ public final class GeocodeResultBuilderTest {
     public void testToBackupGeoCodeItemEmptyResult() {
         final GeocodingResult gr = new GeocodingResult();
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -83,8 +85,9 @@ public final class GeocodeResultBuilderTest {
         gr.addressComponents[0].types[0] =
                 AddressComponentType.ADMINISTRATIVE_AREA_LEVEL_1;
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -97,8 +100,9 @@ public final class GeocodeResultBuilderTest {
         gr.addressComponents[0].shortName = "Foo";
         gr.addressComponents[0].types = new AddressComponentType[0];
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -107,8 +111,9 @@ public final class GeocodeResultBuilderTest {
         final GeocodingResult gr = new GeocodingResult();
         gr.formattedAddress = "formatted address";
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -117,8 +122,9 @@ public final class GeocodeResultBuilderTest {
         final GeocodingResult gr = new GeocodingResult();
         gr.placeId = "kfdhasfokjhkljdasf";
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -128,8 +134,9 @@ public final class GeocodeResultBuilderTest {
         gr.postcodeLocalities = new String[1];
         gr.postcodeLocalities[0] = "foobar";
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -139,8 +146,9 @@ public final class GeocodeResultBuilderTest {
         gr.types = new AddressType[1];
         gr.types[0] = AddressType.ADMINISTRATIVE_AREA_LEVEL_1;
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -149,8 +157,9 @@ public final class GeocodeResultBuilderTest {
         final GeocodingResult gr = new GeocodingResult();
         gr.geometry = new Geometry();
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -162,8 +171,9 @@ public final class GeocodeResultBuilderTest {
         final double lng = 20.00;
         gr.geometry.location = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -173,8 +183,9 @@ public final class GeocodeResultBuilderTest {
         gr.geometry = new Geometry();
         gr.geometry.bounds = new Bounds();
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -187,8 +198,9 @@ public final class GeocodeResultBuilderTest {
         final double lng = 20.00;
         gr.geometry.bounds.northeast = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -201,8 +213,9 @@ public final class GeocodeResultBuilderTest {
         final double lng = 20.00;
         gr.geometry.bounds.southwest = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -218,8 +231,9 @@ public final class GeocodeResultBuilderTest {
         final double swLng = 25.00;
         gr.geometry.bounds.southwest = new LatLng(swLat, swLng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -229,8 +243,9 @@ public final class GeocodeResultBuilderTest {
         gr.geometry = new Geometry();
         gr.geometry.locationType = LocationType.APPROXIMATE;
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -240,8 +255,9 @@ public final class GeocodeResultBuilderTest {
         gr.geometry = new Geometry();
         gr.geometry.viewport = new Bounds();
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -254,8 +270,9 @@ public final class GeocodeResultBuilderTest {
         final double lng = 20.00;
         gr.geometry.viewport.northeast = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -268,8 +285,9 @@ public final class GeocodeResultBuilderTest {
         final double lng = 25.00;
         gr.geometry.viewport.southwest = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -285,8 +303,9 @@ public final class GeocodeResultBuilderTest {
         final double swLng = 25.00;
         gr.geometry.viewport.southwest = new LatLng(swLat, swLng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final BackupGeoCodeItem bgci = builder.toBackupGeoCodeItem(gci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -298,7 +317,7 @@ public final class GeocodeResultBuilderTest {
     /** */
     @Test
     public void testToGeoCodeItemName() {
-        final BackupGeoCodeItem bgci = new BackupGeoCodeItem("XYZZY", "PLUGH",
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH",
                 null);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
         assertEquals("Mismatched name", "XYZZY", gci.getPlaceName());
@@ -307,7 +326,7 @@ public final class GeocodeResultBuilderTest {
     /** */
     @Test
     public void testToGeoCodeItemModernName() {
-        final BackupGeoCodeItem bgci = new BackupGeoCodeItem("XYZZY", "PLUGH",
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH",
                 null);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
         assertEquals("Mismatched modern name", "PLUGH",
@@ -317,7 +336,7 @@ public final class GeocodeResultBuilderTest {
     /** */
     @Test
     public void testToGeoCodeItemNullResult() {
-        final BackupGeoCodeItem bgci = new BackupGeoCodeItem("XYZZY", "PLUGH",
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH",
                 null);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
         assertNull("Expected null result", gci.getGeocodingResult());
@@ -326,70 +345,71 @@ public final class GeocodeResultBuilderTest {
     /** */
     @Test
     public void testToGeoCodeItemEmptyResult() {
-        final BackupGeoCodeItem bgci = new BackupGeoCodeItem("XYZZY", "PLUGH",
-                new BackupGeocodingResult());
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH",
+                new GeoServiceGeocodingResult());
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
     @Test
     public void testToGeoCodeItemResultAddressComponent() {
-        final BackupAddressComponent[] addressComponents =
-                new BackupAddressComponent[1];
+        final GeoServiceAddressComponent[] addressComponents =
+                new GeoServiceAddressComponent[1];
         final AddressComponentType[] addressComponentTypes =
                 new AddressComponentType[1];
         addressComponentTypes[0] =
                 AddressComponentType.ADMINISTRATIVE_AREA_LEVEL_1;
         addressComponents[0] =
-                new BackupAddressComponent("Foo Bar", "Foo",
+                new GeoServiceAddressComponent("Foo Bar", "Foo",
                         addressComponentTypes);
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
                 addressComponents, null, null, null, null, false, null);
-        final BackupGeoCodeItem bgci = new BackupGeoCodeItem("XYZZY", "PLUGH",
-                bgr);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
     @Test
     public void testToGeoCodeItemResultEmptyAddressComponent() {
-        final BackupAddressComponent[] addressComponents =
-                new BackupAddressComponent[1];
+        final GeoServiceAddressComponent[] addressComponents =
+                new GeoServiceAddressComponent[1];
         final AddressComponentType[] addressComponentTypes =
                 new AddressComponentType[0];
         addressComponents[0] =
-                new BackupAddressComponent("Foo Bar", "Foo",
+                new GeoServiceAddressComponent("Foo Bar", "Foo",
                         addressComponentTypes);
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
                 addressComponents, null, null, null, null, false, null);
-        final BackupGeoCodeItem bgci =
-                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
     @Test
     public void testToGeoCodeItemResultAddress() {
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(null,
-                "formatted address", null, null, null, false, null);
-        final BackupGeoCodeItem bgci =
-                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
+                null, "formatted address", null, null, null, false, null);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
     @Test
     public void testToGeoCodeItemResultPlaceId() {
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
-                null, null, null, false, "ladkjsfdlaskjfdlfj");
-        final BackupGeoCodeItem bgci =
-                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
+                null, null, null, null, null, false, "ladkjsfdlaskjfdlfj");
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -397,12 +417,12 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultPostcodeLocality() {
         final String[] postcodeLocalities = new String[1];
         postcodeLocalities[0] = "foobar";
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
-                postcodeLocalities, null, null, false, null);
-        final BackupGeoCodeItem bgci =
-                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
+                null, null, postcodeLocalities, null, null, false, null);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -410,24 +430,24 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultAddressType() {
         final AddressType[] types = new AddressType[1];
         types[0] = AddressType.ADMINISTRATIVE_AREA_LEVEL_1;
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
-                null, null, types, false, null);
-        final BackupGeoCodeItem bgci = new BackupGeoCodeItem("XYZZY", "PLUGH",
-                bgr);
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
+                null, null, null, null, types, false, null);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
     @Test
     public void testToGeoCodeItemResultEmptyGeometry() {
-        final BackupGeometry geometry = new BackupGeometry();
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
-                null, geometry, null, false, null);
-        final BackupGeoCodeItem bgci =
-                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoServiceGeometry geometry = new GeoServiceGeometry();
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
+                null, null, null, geometry, null, false, null);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -435,29 +455,29 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultGeometryLocation() {
         final double lat = 10.00;
         final double lng = 20.00;
-        final BackupLatLng location = new BackupLatLng(lat, lng);
-        final BackupGeometry geometry =
-                new BackupGeometry(null, location, null, null);
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
-                null, geometry, null, false, null);
-        final BackupGeoCodeItem bgci =
-                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoServiceLatLng location = new GeoServiceLatLng(lat, lng);
+        final GeoServiceGeometry geometry =
+                new GeoServiceGeometry(null, location, null, null);
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
+                null, null, null, geometry, null, false, null);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
     @Test
     public void testToGeoCodeItemResultGeometryEmptyBounds() {
-        final BackupBounds bounds = new BackupBounds();
-        final BackupGeometry geometry =
-                new BackupGeometry(bounds, null, null, null);
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
-                null, geometry, null, false, null);
-        final BackupGeoCodeItem bgci =
-                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoServiceBounds bounds = new GeoServiceBounds();
+        final GeoServiceGeometry geometry =
+                new GeoServiceGeometry(bounds, null, null, null);
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
+                null, null, null, geometry, null, false, null);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -465,16 +485,16 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultGeometryBoundsWithNE() {
         final double lat = 10.00;
         final double lng = 20.00;
-        final BackupLatLng northeast = new BackupLatLng(lat, lng);
-        final BackupBounds bounds = new BackupBounds(northeast, null);
-        final BackupGeometry geometry =
-                new BackupGeometry(bounds, null, null, null);
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
-                null, geometry, null, false, null);
-        final BackupGeoCodeItem bgci =
-                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoServiceLatLng northeast = new GeoServiceLatLng(lat, lng);
+        final GeoServiceBounds bounds = new GeoServiceBounds(northeast, null);
+        final GeoServiceGeometry geometry =
+                new GeoServiceGeometry(bounds, null, null, null);
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
+                null, null, null, geometry, null, false, null);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -482,16 +502,16 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultGeometryBoundsWithSW() {
         final double lat = 10.00;
         final double lng = 20.00;
-        final BackupLatLng southwest = new BackupLatLng(lat, lng);
-        final BackupBounds bounds = new BackupBounds(null, southwest);
-        final BackupGeometry geometry =
-                new BackupGeometry(bounds, null, null, null);
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
-                null, geometry, null, false, null);
-        final BackupGeoCodeItem bgci =
-                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoServiceLatLng southwest = new GeoServiceLatLng(lat, lng);
+        final GeoServiceBounds bounds = new GeoServiceBounds(null, southwest);
+        final GeoServiceGeometry geometry =
+                new GeoServiceGeometry(bounds, null, null, null);
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
+                null, null, null, geometry, null, false, null);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -499,46 +519,47 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultGeometryBoundsWithBoth() {
         final double neLat = 10.00;
         final double neLng = 20.00;
-        final BackupLatLng northeast = new BackupLatLng(neLat, neLng);
+        final GeoServiceLatLng northeast = new GeoServiceLatLng(neLat, neLng);
         final double swLat = 5.00;
         final double swLng = 25.00;
-        final BackupLatLng southwest = new BackupLatLng(swLat, swLng);
-        final BackupBounds bounds = new BackupBounds(northeast, southwest);
-        final BackupGeometry geometry =
-                new BackupGeometry(bounds, null, null, null);
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
-                null, geometry, null, false, null);
-        final BackupGeoCodeItem bgci =
-                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoServiceLatLng southwest = new GeoServiceLatLng(swLat, swLng);
+        final GeoServiceBounds bounds =
+                new GeoServiceBounds(northeast, southwest);
+        final GeoServiceGeometry geometry =
+                new GeoServiceGeometry(bounds, null, null, null);
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
+                null, null, null, geometry, null, false, null);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
     @Test
     public void testToGeoCodeItemResultGeometryLocationType() {
-        final BackupGeometry geometry =
-                new BackupGeometry(null, null, LocationType.APPROXIMATE, null);
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
-                null, geometry, null, false, null);
-        final BackupGeoCodeItem bgci =
-                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoServiceGeometry geometry = new GeoServiceGeometry(
+                null, null, LocationType.APPROXIMATE, null);
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
+                null, null, null, geometry, null, false, null);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
     @Test
     public void testToGeoCodeItemResultGeometryEmptyViewport() {
-        final BackupBounds viewport = new BackupBounds();
-        final BackupGeometry geometry =
-                new BackupGeometry(null, null, null, viewport);
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
-                null, geometry, null, false, null);
-        final BackupGeoCodeItem bgci =
-                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoServiceBounds viewport = new GeoServiceBounds();
+        final GeoServiceGeometry geometry =
+                new GeoServiceGeometry(null, null, null, viewport);
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
+                null, null, null, geometry, null, false, null);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -546,16 +567,16 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultGeometryViewportNE() {
         final double lat = 10.00;
         final double lng = 20.00;
-        final BackupLatLng northeast = new BackupLatLng(lat, lng);
-        final BackupBounds viewport = new BackupBounds(northeast, null);
-        final BackupGeometry geometry =
-                new BackupGeometry(null, null, null, viewport);
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
-                null, geometry, null, false, null);
-        final BackupGeoCodeItem bgci =
-                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoServiceLatLng northeast = new GeoServiceLatLng(lat, lng);
+        final GeoServiceBounds viewport = new GeoServiceBounds(northeast, null);
+        final GeoServiceGeometry geometry =
+                new GeoServiceGeometry(null, null, null, viewport);
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
+                null, null, null, geometry, null, false, null);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -563,16 +584,16 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultGeometryViewportSW() {
         final double lat = 5.00;
         final double lng = 25.00;
-        final BackupLatLng southwest = new BackupLatLng(lat, lng);
-        final BackupBounds viewport = new BackupBounds(null, southwest);
-        final BackupGeometry geometry =
-                new BackupGeometry(null, null, null, viewport);
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
-                null, geometry, null, false, null);
-        final BackupGeoCodeItem bgci =
-                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoServiceLatLng southwest = new GeoServiceLatLng(lat, lng);
+        final GeoServiceBounds viewport = new GeoServiceBounds(null, southwest);
+        final GeoServiceGeometry geometry =
+                new GeoServiceGeometry(null, null, null, viewport);
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
+                null, null, null, geometry, null, false, null);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /** */
@@ -580,19 +601,21 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultGeometryViewportBoth() {
         final double neLat = 10.00;
         final double neLng = 20.00;
-        final BackupLatLng northeast = new BackupLatLng(neLat, neLng);
+        final GeoServiceLatLng northeast = new GeoServiceLatLng(neLat, neLng);
         final double swLat = 5.00;
         final double swLng = 25.00;
-        final BackupLatLng southwest = new BackupLatLng(swLat, swLng);
-        final BackupBounds viewport = new BackupBounds(northeast, southwest);
-        final BackupGeometry geometry =
-                new BackupGeometry(null, null, null, viewport);
-        final BackupGeocodingResult bgr = new BackupGeocodingResult(null, null,
-                null, geometry, null, false, null);
-        final BackupGeoCodeItem bgci =
-                new BackupGeoCodeItem("XYZZY", "PLUGH", bgr);
+        final GeoServiceLatLng southwest = new GeoServiceLatLng(swLat, swLng);
+        final GeoServiceBounds viewport =
+                new GeoServiceBounds(northeast, southwest);
+        final GeoServiceGeometry geometry =
+                new GeoServiceGeometry(null, null, null, viewport);
+        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
+                null, null, null, geometry, null, false, null);
+        final GeoServiceItem bgci =
+                new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue("Failed comparison",
+                checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
     /**
@@ -602,7 +625,7 @@ public final class GeocodeResultBuilderTest {
      */
     @SuppressWarnings({ "PMD.NPathComplexity", "PMD.CyclomaticComplexity" })
     private boolean checker(final GeocodingResult result,
-            final BackupGeocodingResult backupResult) {
+            final GeoServiceGeocodingResult backupResult) {
         if (result == null && backupResult == null) {
             return true;
         }
@@ -639,7 +662,7 @@ public final class GeocodeResultBuilderTest {
      * @return true if all match
      */
     private boolean checker(final AddressComponent[] addressComponents,
-            final BackupAddressComponent[] backupAddressComponents) {
+            final GeoServiceAddressComponent[] backupAddressComponents) {
         if (addressComponents == null && backupAddressComponents == null) {
             return true;
         }
@@ -663,7 +686,7 @@ public final class GeocodeResultBuilderTest {
      * @return true if they match
      */
     private boolean checker(final AddressComponent addressComponent,
-            final BackupAddressComponent backupAddressComponent) {
+            final GeoServiceAddressComponent backupAddressComponent) {
         if (addressComponent == null && backupAddressComponent ==  null) {
             return true;
         }
@@ -743,7 +766,7 @@ public final class GeocodeResultBuilderTest {
      * @return true if they match
      */
     private boolean checker(final Geometry geometry,
-            final BackupGeometry backupGeometry) {
+            final GeoServiceGeometry backupGeometry) {
         if (geometry == null && backupGeometry == null) {
             return true;
         }
@@ -768,7 +791,7 @@ public final class GeocodeResultBuilderTest {
      * @return true if they match
      */
     private boolean checker(final Bounds bounds,
-            final BackupBounds backupBounds) {
+            final GeoServiceBounds backupBounds) {
         if (bounds == null && backupBounds == null) {
             return true;
         }
@@ -787,7 +810,7 @@ public final class GeocodeResultBuilderTest {
      * @return true if they match
      */
     private boolean checker(final LatLng latLng,
-            final BackupLatLng backupLatLng) {
+            final GeoServiceLatLng backupLatLng) {
         if (latLng == null && backupLatLng == null) {
             return true;
         }

@@ -95,7 +95,7 @@ public class ApplicationTest {
                 "http://localhost:" + port + "/geocode?name=Bethlehem,%20PA",
                 Map.class);
 
-        then(entity.getBody().get("geocodingResult")).isNotNull();
+        then(entity.getBody().get("result")).isNotNull();
     }
 
     /** */
@@ -106,7 +106,7 @@ public class ApplicationTest {
                 "http://localhost:" + this.port + "/geocode?name=XYZZY",
                 Map.class);
 
-        then(entity.getBody().get("geocodingResult")).isNull();
+        then(entity.getBody().get("result")).isNull();
     }
 
     /** */

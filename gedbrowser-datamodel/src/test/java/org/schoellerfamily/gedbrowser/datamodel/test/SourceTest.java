@@ -15,24 +15,39 @@ import org.schoellerfamily.gedbrowser.datamodel.Source;
 public final class SourceTest {
     /** */
     @Test
-    public void testSourceGedObject() {
+    public void testSourceGedObjectCompare() {
         final Root root = new Root(null, "Root");
         final Source source = new Source(root);
         root.insert("S1", source);
         final GedObject gob = root.find("S1");
         assertEquals("Found wrong source", source, gob);
+    }
+    /** */
+    @Test
+    public void testSourceGedObjectGetString() {
+        final Root root = new Root(null, "Root");
+        final Source source = new Source(root);
+        root.insert("S1", source);
         assertTrue("Source string should be empty", source.getString()
                 .isEmpty());
     }
 
     /** */
     @Test
-    public void testSourceGedObjectString() {
+    public void testSourceGedObjectStringCompare() {
         final Root root = new Root(null, "Root");
         final Source source = new Source(root, new ObjectId("S1"));
         root.insert("S1", source);
         final GedObject gob = root.find("S1");
         assertEquals("Found wrong source", source, gob);
+    }
+
+    /** */
+    @Test
+    public void testSourceGedObjectStringGetString() {
+        final Root root = new Root(null, "Root");
+        final Source source = new Source(root, new ObjectId("S1"));
+        root.insert("S1", source);
         assertEquals("Expected source 1", "S1", source.getString());
     }
 }

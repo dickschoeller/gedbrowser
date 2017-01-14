@@ -5,6 +5,8 @@ import java.net.URLDecoder;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.geoservice.model.GeoServiceItem;
+import org.schoellerfamily.geoservice.model.builder.GeocodeResultBuilder;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,7 @@ public class GeoCodeEntryController {
      * @return a search result
      */
     @RequestMapping("/geocode")
-    public final GeoCodeItem find(
+    public final GeoServiceItem find(
             @RequestParam(value = "name", required = true)
                 final String name,
             @RequestParam(value = "modernName", required = false)
@@ -65,6 +67,8 @@ public class GeoCodeEntryController {
             }
         }
 
-        return gcc.find(findName, findModernName);
+        final GeoCodeItem find = gcc.find(findName, findModernName);
+        final GeocodeResultBuilder builder = new GeocodeResultBuilder();
+        return builder.toGeoServiceItem(find);
     }
 }

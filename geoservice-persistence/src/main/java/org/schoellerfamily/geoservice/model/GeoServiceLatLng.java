@@ -1,4 +1,4 @@
-package org.schoellerfamily.geoservice.backup.model;
+package org.schoellerfamily.geoservice.model;
 
 import java.util.Locale;
 
@@ -10,7 +10,7 @@ import com.google.maps.internal.StringJoin.UrlValue;
  *
  * @author Dick Schoeller
  */
-public final class BackupLatLng implements UrlValue {
+public final class GeoServiceLatLng implements UrlValue {
 
     /**
      * The latitude of this location.
@@ -25,7 +25,7 @@ public final class BackupLatLng implements UrlValue {
     /**
      * Construct a location with a 0.0, 0.0 value.
      */
-    public BackupLatLng() {
+    public GeoServiceLatLng() {
       this.latitude = 0.0;
       this.longitude = 0.0;
     }
@@ -36,7 +36,7 @@ public final class BackupLatLng implements UrlValue {
      * @param lat the latitude
      * @param lng the longitude
      */
-    public BackupLatLng(final double lat, final double lng) {
+    public GeoServiceLatLng(final double lat, final double lng) {
       this.latitude = lat;
       this.longitude = lng;
     }
