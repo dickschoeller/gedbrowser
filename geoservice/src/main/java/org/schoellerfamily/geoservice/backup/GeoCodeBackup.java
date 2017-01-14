@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.schoellerfamily.geoservice.backup.model.BackupGeoCodeItem;
+import org.schoellerfamily.geoservice.model.GeoServiceItem;
+import org.schoellerfamily.geoservice.model.builder.GeocodeResultBuilder;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +48,10 @@ public final class GeoCodeBackup {
     public void backup(final File resultFile)
             throws JsonGenerationException, JsonMappingException, IOException {
         final GeocodeResultBuilder builder = new GeocodeResultBuilder();
-        final List<BackupGeoCodeItem> list = new ArrayList<>();
+        final List<GeoServiceItem> list = new ArrayList<>();
         for (final String key : gcd.allKeys()) {
             final GeoCodeItem gci = gcd.find(key);
-            list.add(builder.toBackupGeoCodeItem(gci));
+            list.add(builder.toGeoServiceItem(gci));
         }
         mapper.writeValue(resultFile, list);
     }
@@ -63,11 +64,11 @@ public final class GeoCodeBackup {
      */
     public void recover(final File src)
             throws JsonParseException, JsonMappingException, IOException {
-        final List<BackupGeoCodeItem> list = mapper.readValue(src,
-                new TypeReference<List<BackupGeoCodeItem>>() {
+        final List<GeoServiceItem> list = mapper.readValue(src,
+                new TypeReference<List<GeoServiceItem>>() {
                 });
         final GeocodeResultBuilder builder = new GeocodeResultBuilder();
-        for (final BackupGeoCodeItem item : list) {
+        for (final GeoServiceItem item : list) {
             gcd.add(builder.toGeoCodeItem(item));
         }
     }

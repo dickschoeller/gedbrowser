@@ -72,16 +72,17 @@
   <description>Gedrowser Top Level</description>
 
   <modules>
-    <module>gedbrowser-datamodel</module>
+    <module>gedbrowser</module>
     <module>gedbrowser-analytics</module>
+    <module>gedbrowser-datamodel</module>
+    <module>gedbrowser-dao</module>
     <module>gedbrowser-geographics</module>
+    <module>gedbrowser-mongo-dao</module>
     <module>gedbrowser-reader</module>
     <module>gedbrowser-renderer</module>
-    <module>gedbrowser-dao</module>
-    <module>gedbrowser-mongo-dao</module>
-    <module>gedbrowser</module>
     <module>gedbrowser-selenium</module>
     <module>geoservice</module>
+    <module>geoservice-client</module>
     <module>geoservice-common</module>
     <module>geoservice-persistence</module>
     <module>geoservice-persistence-mongo</module>

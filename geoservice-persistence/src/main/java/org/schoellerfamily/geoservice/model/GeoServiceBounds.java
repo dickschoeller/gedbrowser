@@ -1,21 +1,21 @@
-package org.schoellerfamily.geoservice.backup.model;
+package org.schoellerfamily.geoservice.model;
 
 /**
  * @author Dick Schoeller
  */
-public final class BackupBounds {
+public final class GeoServiceBounds {
     /** */
-    private final BackupLatLng northeast;
+    private final GeoServiceLatLng northeast;
 
     /** */
-    private final BackupLatLng southwest;
+    private final GeoServiceLatLng southwest;
 
     /**
      * Default constructor used in serialization.
      */
-    public BackupBounds() {
-        this.northeast = new BackupLatLng();
-        this.southwest = new BackupLatLng();
+    public GeoServiceBounds() {
+        this.northeast = new GeoServiceLatLng();
+        this.southwest = new GeoServiceLatLng();
     }
 
     /**
@@ -24,8 +24,8 @@ public final class BackupBounds {
      * @param northeast the northeast corner of the bounding box
      * @param southwest the southwest corner of the bounding box
      */
-    public BackupBounds(final BackupLatLng northeast,
-            final BackupLatLng southwest) {
+    public GeoServiceBounds(final GeoServiceLatLng northeast,
+            final GeoServiceLatLng southwest) {
         this.northeast = northeast;
         this.southwest = southwest;
     }
@@ -33,14 +33,14 @@ public final class BackupBounds {
     /**
      * @return the northeast corner of the bounding box
      */
-    public BackupLatLng getNortheast() {
+    public GeoServiceLatLng getNortheast() {
         return northeast;
     }
 
     /**
      * @return the southwest corner of the bounding box
      */
-    public BackupLatLng getSouthwest() {
+    public GeoServiceLatLng getSouthwest() {
         return southwest;
     }
 }

@@ -1,4 +1,4 @@
-package org.schoellerfamily.geoservice.backup.model;
+package org.schoellerfamily.geoservice.model;
 
 import java.util.Arrays;
 
@@ -11,7 +11,7 @@ import com.google.maps.model.AddressComponentType;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.UseVarargs")
-public final class BackupAddressComponent {
+public final class GeoServiceAddressComponent {
     /**
      * {@code longName} is the full text description or name of the address
      * component as returned by the Geocoder.
@@ -35,7 +35,7 @@ public final class BackupAddressComponent {
     /**
      * Default constructor used in serialization.
      */
-    public BackupAddressComponent() {
+    public GeoServiceAddressComponent() {
         this.longName = null;
         this.shortName = null;
         this.types = new AddressComponentType[0];
@@ -48,7 +48,7 @@ public final class BackupAddressComponent {
      * @param shortName the short name
      * @param types the type of each part of the address
      */
-    public BackupAddressComponent(final String longName,
+    public GeoServiceAddressComponent(final String longName,
             final String shortName, final AddressComponentType[] types) {
         this.longName = longName;
         this.shortName = shortName;

@@ -1,4 +1,4 @@
-package org.schoellerfamily.geoservice.backup.model;
+package org.schoellerfamily.geoservice.model;
 
 import com.google.maps.model.LocationType;
 
@@ -8,7 +8,7 @@ import com.google.maps.model.LocationType;
  *
  * @author Dick Schoeller
  */
-public final class BackupGeometry {
+public final class GeoServiceGeometry {
     /**
      * {@code bounds} (optionally returned) stores the bounding box which can
      * fully contain the returned result. Note that these bounds may not match
@@ -16,13 +16,13 @@ public final class BackupGeometry {
      * Farallon islands, which are technically part of the city, but probably
      * should not be returned in the viewport.)
      */
-    private final BackupBounds bounds;
+    private final GeoServiceBounds bounds;
 
     /**
      * {@code location} contains the geocoded {@code latitude,longitude} value.
      * For normal address lookups, this field is typically the most important.
      */
-    private final BackupLatLng location;
+    private final GeoServiceLatLng location;
 
     /**
      * The level of certainty of this geocoding result.
@@ -34,16 +34,16 @@ public final class BackupGeometry {
      * returned result. Generally the viewport is used to frame a result when
      * displaying it to a user.
      */
-    private final BackupBounds viewport;
+    private final GeoServiceBounds viewport;
 
     /**
      * Default constructor to use in serialization.
      */
-    public BackupGeometry() {
-        this.bounds = new BackupBounds();
-        this.location = new BackupLatLng();
+    public GeoServiceGeometry() {
+        this.bounds = new GeoServiceBounds();
+        this.location = new GeoServiceLatLng();
         this.locationType = LocationType.UNKNOWN;
-        this.viewport = new BackupBounds();
+        this.viewport = new GeoServiceBounds();
     }
 
     /**
@@ -54,9 +54,9 @@ public final class BackupGeometry {
      * @param locationType the level of certainty of the location
      * @param viewport the bounding box of the recommended view of the region
      */
-    public BackupGeometry(final BackupBounds bounds,
-            final BackupLatLng location, final LocationType locationType,
-            final BackupBounds viewport) {
+    public GeoServiceGeometry(final GeoServiceBounds bounds,
+            final GeoServiceLatLng location, final LocationType locationType,
+            final GeoServiceBounds viewport) {
         super();
         this.bounds = bounds;
         this.location = location;
@@ -67,14 +67,14 @@ public final class BackupGeometry {
     /**
      * @return the actual bounding box of the region
      */
-    public BackupBounds getBounds() {
+    public GeoServiceBounds getBounds() {
         return bounds;
     }
 
     /**
      * @return the location of the center of the region
      */
-    public BackupLatLng getLocation() {
+    public GeoServiceLatLng getLocation() {
         return location;
     }
 
@@ -88,7 +88,7 @@ public final class BackupGeometry {
     /**
      * @return the bounding box of the recommended view of the region
      */
-    public BackupBounds getViewport() {
+    public GeoServiceBounds getViewport() {
         return viewport;
     }
 }

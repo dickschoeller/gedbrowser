@@ -310,15 +310,25 @@ public class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheReplace() {
+    public void testCacheReplaceEquals() {
         logger.info("Entering testCacheReplace");
         gcc.clear();
         gcc.find("XYZZY");
         final GeoCodeItem entry2 = gcc.find("XYZZY", "XYZZY");
         final GeoCodeItem entry3 = gcc.find("XYZZY", "XYZZY");
         assertEquals("Should be equal", entry2, entry3);
-        assertNull("Geocoding result should be null",
-                entry2.getGeocodingResult());
+    }
+
+    /** */
+    @Test
+    public void testCacheReplaceEmptyResult() {
+        logger.info("Entering testCacheReplace");
+        gcc.clear();
+        gcc.find("XYZZY");
+        gcc.find("XYZZY", "XYZZY");
+        final GeoCodeItem entry3 = gcc.find("XYZZY", "XYZZY");
+        assertNull("Geocoding result should still be null",
+                entry3.getGeocodingResult());
     }
 
     /** */
@@ -335,15 +345,24 @@ public class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheOldHomeLocation() {
+    public void testCacheOldHomeLocationResultNotNull() {
+        logger.info("Entering testCacheOldHomeLocation");
+        gcc.clear();
+        final GeoCodeItem entry = gcc.find("Old Home",
+                "3341 Chaucer Lane, Bethlehem, PA, USA");
+        final GeocodingResult geocodingResult = entry.getGeocodingResult();
+        assertNotNull("geocoding result should not be null", geocodingResult);
+    }
+
+    /** */
+    @Test
+    public void testCacheOldHomeLocationResultMatch() {
         logger.info("Entering testCacheOldHomeLocation");
         gcc.clear();
         final GeoCodeItem entry = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         final LatLng expected = new LatLng(40.65800200, -75.40644300);
         final GeocodingResult geocodingResult = entry.getGeocodingResult();
-        assertNotNull("geocoding result should not be null",
-                geocodingResult);
         final LatLng actual = geocodingResult.geometry.location;
         assertEquals("there was a result, but the lat/long was wrong",
                 expected.toString(), actual.toString());
@@ -380,7 +399,7 @@ public class GeoCodeTest {
 
     /** */
     @Test
-    public void testCountNotFounds() {
+    public void testCountNotFoundsLowBound() {
         logger.info("Entering testCountNotFounds");
         gcc.clear();
         testFixture.loadTestAddresses();
@@ -388,13 +407,23 @@ public class GeoCodeTest {
         // Count does not seem to be deterministic with Google's APIs.
         assertTrue("Count too low at: " + count,
                 count >= testFixture.expectedLowBound());
+    }
+
+    /** */
+    @Test
+    public void testCountNotFoundsHighBound() {
+        logger.info("Entering testCountNotFounds");
+        gcc.clear();
+        testFixture.loadTestAddresses();
+        final int count = gcc.countNotFound();
+        // Count does not seem to be deterministic with Google's APIs.
         assertTrue("Count too high at: " + count,
                 count <= testFixture.expectedHighBound());
     }
 
     /** */
     @Test
-    public void testCountNotFoundsFromFile() {
+    public void testCountNotFoundsFromFileLowBound() {
         logger.info("Entering testCountNotFounds");
         gcc.clear();
         final InputStream fis = getTestFileAsStream();
@@ -403,6 +432,17 @@ public class GeoCodeTest {
         // Count does not seem to be deterministic with Google's APIs.
         assertTrue("Count too low at: " + count,
                 count >= testFixture.expectedLowBound());
+    }
+
+    /** */
+    @Test
+    public void testCountNotFoundsFromFileHighBound() {
+        logger.info("Entering testCountNotFounds");
+        gcc.clear();
+        final InputStream fis = getTestFileAsStream();
+        loader.load(fis);
+        final int count = gcc.countNotFound();
+        // Count does not seem to be deterministic with Google's APIs.
         assertTrue("Count too high at: " + count,
                 count <= testFixture.expectedHighBound());
     }

@@ -92,7 +92,9 @@ public final class GeoCodeBackupTest {
         backupManager.recover(test);
         assertTrue("Should contain expected entry",
                 gcd.allKeys().contains("3341 Chaucer Lane, Bethlehem, PA"));
-        assertTrue("Should have deleted test.json", test.delete());
+        if (!test.delete()) {
+            throw new IOException("Couldn't delete file test.json");
+        }
     }
 
     /**
@@ -106,7 +108,10 @@ public final class GeoCodeBackupTest {
         gcd.clear();
         final File test = new File("test.json");
         backupManager.recover(test);
-        assertEquals(gci, gcd.get("3341 Chaucer Lane, Bethlehem, PA"));
-        assertTrue("Should have deleted test.json", test.delete());
+        assertEquals("Should have a good item",
+                gci, gcd.get("3341 Chaucer Lane, Bethlehem, PA"));
+        if (!test.delete()) {
+            throw new IOException("Couldn't delete file test.json");
+        }
     }
 }

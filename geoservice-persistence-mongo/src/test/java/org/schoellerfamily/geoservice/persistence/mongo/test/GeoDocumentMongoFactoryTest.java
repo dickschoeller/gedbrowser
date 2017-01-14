@@ -64,7 +64,8 @@ public final class GeoDocumentMongoFactoryTest {
         final GeoCodeItem item = new GeoCodeItem("XYZZY", "PLUGH");
         final GeoDocument actual = GeoDocumentMongoFactory.getInstance()
                 .createGeoDocument(item);
-        assertTrue(compare(item, actual));
+        assertTrue("GeoDocument and GeoCodeItem should match",
+                compare(item, actual));
     }
 
     /** */
@@ -73,7 +74,8 @@ public final class GeoDocumentMongoFactoryTest {
         final GeoCodeItem item = new GeoCodeItem();
         final GeoDocument actual = GeoDocumentMongoFactory.getInstance()
                 .createGeoDocument(null);
-        assertTrue(compare(item, actual));
+        assertTrue("GeoDocument and GeoCodeItem should match",
+                compare(item, actual));
     }
 
     /**
