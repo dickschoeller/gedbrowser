@@ -217,15 +217,26 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCacheReplace() {
+    public void testCacheReplaceCheckEquals() {
         logger.info("Entering testCacheReplace");
         testFixture.clearRepository();
         gcc.find("XYZZY");
         final GeoCodeItem entry2 = gcc.find("XYZZY", "XYZZY");
         final GeoCodeItem entry3 = gcc.find("XYZZY", "XYZZY");
         assertEquals("Should be equal", entry2, entry3);
+    }
+
+    /**
+     */
+    @Test
+    public void testCacheReplaceCheckNullGeocodingResult() {
+        logger.info("Entering testCacheReplace");
+        testFixture.clearRepository();
+        gcc.find("XYZZY");
+        gcc.find("XYZZY", "XYZZY");
+        final GeoCodeItem entry3 = gcc.find("XYZZY", "XYZZY");
         assertNull("Geocoding result should be null",
-                entry2.getGeocodingResult());
+                entry3.getGeocodingResult());
     }
 
     /**
@@ -244,15 +255,26 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCacheOldHomeLocation() {
+    public void testCacheOldHomeLocationResultNotNull() {
+        logger.info("Entering testCacheOldHomeLocation");
+        testFixture.clearRepository();
+        final GeoCodeItem entry = gcc.find("Old Home",
+                "3341 Chaucer Lane, Bethlehem, PA, USA");
+        final GeocodingResult geocodingResult = entry.getGeocodingResult();
+        assertNotNull("geocoding result should not be null",
+                geocodingResult);
+    }
+
+    /**
+     */
+    @Test
+    public void testCacheOldHomeLocationLatLngMatch() {
         logger.info("Entering testCacheOldHomeLocation");
         testFixture.clearRepository();
         final GeoCodeItem entry = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         final LatLng expected = new LatLng(40.65800200, -75.40644300);
         final GeocodingResult geocodingResult = entry.getGeocodingResult();
-        assertNotNull("geocoding result should not be null",
-                geocodingResult);
         final LatLng actual = geocodingResult.geometry.location;
         assertEquals("there was a result, but the lat/long was wrong",
                 expected.toString(), actual.toString());
@@ -292,7 +314,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCountNotFounds() {
+    public void testCountNotFoundsLowBound() {
         logger.info("Entering testCountNotFounds");
         testFixture.clearRepository();
         testFixture.loadTestAddresses();
@@ -300,6 +322,17 @@ public final class GeoCodeMongoTest {
         // Count does not seem to be deterministic with Google's APIs.
         assertTrue("Count too low at: " + count,
                 count >= testFixture.expectedLowBound());
+    }
+
+    /**
+     */
+    @Test
+    public void testCountNotFoundsHighBound() {
+        logger.info("Entering testCountNotFounds");
+        testFixture.clearRepository();
+        testFixture.loadTestAddresses();
+        final int count = gcc.countNotFound();
+        // Count does not seem to be deterministic with Google's APIs.
         assertTrue("Count too high at: " + count,
                 count <= testFixture.expectedHighBound());
     }
@@ -307,7 +340,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCountNotFoundsFromFile() {
+    public void testCountNotFoundsFromFileLowBound() {
         logger.info("Entering testCountNotFounds");
         testFixture.clearRepository();
         final InputStream fis = getTestFileAsStream();
@@ -316,6 +349,18 @@ public final class GeoCodeMongoTest {
         // Count does not seem to be deterministic with Google's APIs.
         assertTrue("Count too low at: " + count,
                 count >= testFixture.expectedLowBound());
+    }
+
+    /**
+     */
+    @Test
+    public void testCountNotFoundsFromFileHighBound() {
+        logger.info("Entering testCountNotFounds");
+        testFixture.clearRepository();
+        final InputStream fis = getTestFileAsStream();
+        loader.load(fis);
+        final int count = gcc.countNotFound();
+        // Count does not seem to be deterministic with Google's APIs.
         assertTrue("Count too high at: " + count,
                 count <= testFixture.expectedHighBound());
     }
@@ -474,7 +519,7 @@ public final class GeoCodeMongoTest {
 
     /** */
     @Test
-    public void testAddFindChangeModern() {
+    public void testAddFindChangeModernResultsPresent() {
         testFixture.clearRepository();
         final GeoCodeItem input = new GeoCodeItem("XYZZY", "XYZZY");
         gcc.add(input);
@@ -482,13 +527,22 @@ public final class GeoCodeMongoTest {
         assertTrue("Output should have result",
                 input.getGeocodingResult() == null
                         && output.getGeocodingResult() != null);
+    }
+
+    /** */
+    @Test
+    public void testAddFindChangeModernNamesMatch() {
+        testFixture.clearRepository();
+        final GeoCodeItem input = new GeoCodeItem("XYZZY", "XYZZY");
+        gcc.add(input);
+        final GeoCodeItem output = gcc.find("XYZZY", "America");
         assertNotEquals("Items should not match",
                 input.getModernPlaceName(), output.getModernPlaceName());
     }
 
     /** */
     @Test
-    public void testAddFindChangeModernToBogus() {
+    public void testAddFindChangeModernToBogusResultsPresent() {
         testFixture.clearRepository();
         final GeoCodeItem input = new GeoCodeItem("XYZZY", "XYZZY");
         gcc.add(input);
@@ -496,6 +550,15 @@ public final class GeoCodeMongoTest {
         assertTrue("Output should not have result",
                 input.getGeocodingResult() == null
                         && output.getGeocodingResult() == null);
+    }
+
+    /** */
+    @Test
+    public void testAddFindChangeModernToBogusNamesMatch() {
+        testFixture.clearRepository();
+        final GeoCodeItem input = new GeoCodeItem("XYZZY", "XYZZY");
+        gcc.add(input);
+        final GeoCodeItem output = gcc.find("XYZZY", "PLUGH");
         assertNotEquals("Items should not match",
                 input.getModernPlaceName(), output.getModernPlaceName());
     }

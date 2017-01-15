@@ -4,13 +4,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
+import org.geojson.Feature;
+import org.geojson.LngLatAlt;
+import org.geojson.Point;
+import org.geojson.Polygon;
 import org.junit.Test;
 import org.schoellerfamily.geoservice.model.GeoServiceAddressComponent;
 import org.schoellerfamily.geoservice.model.GeoServiceBounds;
-import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceGeometry;
-import org.schoellerfamily.geoservice.model.GeoServiceLatLng;
+import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.schoellerfamily.geoservice.model.builder.GeocodeResultBuilder;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 
@@ -455,7 +460,7 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultGeometryLocation() {
         final double lat = 10.00;
         final double lng = 20.00;
-        final GeoServiceLatLng location = new GeoServiceLatLng(lat, lng);
+        final Point location = new Point(lng, lat);
         final GeoServiceGeometry geometry =
                 new GeoServiceGeometry(null, location, null, null);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
@@ -469,7 +474,7 @@ public final class GeocodeResultBuilderTest {
     /** */
     @Test
     public void testToGeoCodeItemResultGeometryEmptyBounds() {
-        final GeoServiceBounds bounds = new GeoServiceBounds();
+        final Feature bounds = GeoServiceBounds.createBounds("bounds");
         final GeoServiceGeometry geometry =
                 new GeoServiceGeometry(bounds, null, null, null);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
@@ -485,8 +490,9 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultGeometryBoundsWithNE() {
         final double lat = 10.00;
         final double lng = 20.00;
-        final GeoServiceLatLng northeast = new GeoServiceLatLng(lat, lng);
-        final GeoServiceBounds bounds = new GeoServiceBounds(northeast, null);
+        final LngLatAlt northeast = new LngLatAlt(lng, lat);
+        final Feature bounds =
+                GeoServiceBounds.createBounds("bounds", null, northeast);
         final GeoServiceGeometry geometry =
                 new GeoServiceGeometry(bounds, null, null, null);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
@@ -502,8 +508,9 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultGeometryBoundsWithSW() {
         final double lat = 10.00;
         final double lng = 20.00;
-        final GeoServiceLatLng southwest = new GeoServiceLatLng(lat, lng);
-        final GeoServiceBounds bounds = new GeoServiceBounds(null, southwest);
+        final LngLatAlt southwest = new LngLatAlt(lng, lat);
+        final Feature bounds =
+                GeoServiceBounds.createBounds("bounds", southwest, null);
         final GeoServiceGeometry geometry =
                 new GeoServiceGeometry(bounds, null, null, null);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
@@ -519,12 +526,12 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultGeometryBoundsWithBoth() {
         final double neLat = 10.00;
         final double neLng = 20.00;
-        final GeoServiceLatLng northeast = new GeoServiceLatLng(neLat, neLng);
+        final LngLatAlt northeast = new LngLatAlt(neLng, neLat);
         final double swLat = 5.00;
         final double swLng = 25.00;
-        final GeoServiceLatLng southwest = new GeoServiceLatLng(swLat, swLng);
-        final GeoServiceBounds bounds =
-                new GeoServiceBounds(northeast, southwest);
+        final LngLatAlt southwest = new LngLatAlt(swLng, swLat);
+        final Feature bounds =
+                GeoServiceBounds.createBounds("bounds", southwest, northeast);
         final GeoServiceGeometry geometry =
                 new GeoServiceGeometry(bounds, null, null, null);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
@@ -551,7 +558,7 @@ public final class GeocodeResultBuilderTest {
     /** */
     @Test
     public void testToGeoCodeItemResultGeometryEmptyViewport() {
-        final GeoServiceBounds viewport = new GeoServiceBounds();
+        final Feature viewport = GeoServiceBounds.createBounds("viewport");
         final GeoServiceGeometry geometry =
                 new GeoServiceGeometry(null, null, null, viewport);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
@@ -567,8 +574,9 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultGeometryViewportNE() {
         final double lat = 10.00;
         final double lng = 20.00;
-        final GeoServiceLatLng northeast = new GeoServiceLatLng(lat, lng);
-        final GeoServiceBounds viewport = new GeoServiceBounds(northeast, null);
+        final LngLatAlt northeast = new LngLatAlt(lng, lat);
+        final Feature viewport =
+                GeoServiceBounds.createBounds("viewport", null, northeast);
         final GeoServiceGeometry geometry =
                 new GeoServiceGeometry(null, null, null, viewport);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
@@ -584,8 +592,9 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultGeometryViewportSW() {
         final double lat = 5.00;
         final double lng = 25.00;
-        final GeoServiceLatLng southwest = new GeoServiceLatLng(lat, lng);
-        final GeoServiceBounds viewport = new GeoServiceBounds(null, southwest);
+        final LngLatAlt southwest = new LngLatAlt(lng, lat);
+        final Feature viewport =
+                GeoServiceBounds.createBounds("viewport", southwest, null);
         final GeoServiceGeometry geometry =
                 new GeoServiceGeometry(null, null, null, viewport);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
@@ -601,12 +610,12 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultGeometryViewportBoth() {
         final double neLat = 10.00;
         final double neLng = 20.00;
-        final GeoServiceLatLng northeast = new GeoServiceLatLng(neLat, neLng);
+        final LngLatAlt northeast = new LngLatAlt(neLng, neLat);
         final double swLat = 5.00;
         final double swLng = 25.00;
-        final GeoServiceLatLng southwest = new GeoServiceLatLng(swLat, swLng);
-        final GeoServiceBounds viewport =
-                new GeoServiceBounds(northeast, southwest);
+        final LngLatAlt southwest = new LngLatAlt(swLng, swLat);
+        final Feature viewport =
+                GeoServiceBounds.createBounds("viewport", southwest, northeast);
         final GeoServiceGeometry geometry =
                 new GeoServiceGeometry(null, null, null, viewport);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
@@ -773,7 +782,7 @@ public final class GeocodeResultBuilderTest {
         if (geometry == null || backupGeometry == null) {
             return false;
         }
-        if (!checker(geometry.bounds, backupGeometry.getBounds())) {
+        if (!checker("bounds", geometry.bounds, backupGeometry.getBounds())) {
             return false;
         }
         if (!checker(geometry.location, backupGeometry.getLocation())) {
@@ -782,46 +791,93 @@ public final class GeocodeResultBuilderTest {
         if (!checker(geometry.locationType, backupGeometry.getLocationType())) {
             return false;
         }
-        return checker(geometry.viewport, backupGeometry.getViewport());
+        return checker("viewport", geometry.viewport,
+                backupGeometry.getViewport());
     }
 
     /**
+     * @param id id string to look for in the bounds feature
      * @param bounds geocode boundary
      * @param backupBounds backup boundary
      * @return true if they match
      */
-    private boolean checker(final Bounds bounds,
-            final GeoServiceBounds backupBounds) {
+    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.NPathComplexity" })
+    private boolean checker(final String id,
+            final Bounds bounds,
+            final Feature backupBounds) {
         if (bounds == null && backupBounds == null) {
             return true;
         }
         if (bounds == null || backupBounds == null) {
             return false;
         }
-        if (!checker(bounds.northeast, backupBounds.getNortheast())) {
+        if (!id.equals(backupBounds.getId())) {
             return false;
         }
-        return checker(bounds.southwest, backupBounds.getSouthwest());
+        final Polygon polygon =
+                (Polygon) backupBounds.getGeometry();
+        LngLatAlt northeast;
+        LngLatAlt southwest;
+        if (polygon == null || polygon.getCoordinates() == null
+                || polygon.getCoordinates().isEmpty()) {
+            northeast = null;
+            southwest = null;
+        } else {
+            final List<LngLatAlt> list = polygon.getCoordinates().get(0);
+            northeast = list.get(2);
+            southwest = list.get(0);
+        }
+        if (bounds.northeast == null || bounds.southwest == null) {
+            return (northeast == null && southwest == null);
+        }
+        if (!checker(bounds.northeast, northeast)) {
+            return false;
+        }
+        return checker(bounds.southwest, southwest);
     }
 
     /**
      * @param latLng geocoding location
-     * @param backupLatLng backup location
+     * @param point GeoJSON Point version of location
      * @return true if they match
      */
     private boolean checker(final LatLng latLng,
-            final GeoServiceLatLng backupLatLng) {
-        if (latLng == null && backupLatLng == null) {
+            final Point point) {
+        if (latLng == null && point == null) {
             return true;
         }
-        if (latLng == null || backupLatLng == null) {
+        if (latLng == null || point == null) {
             return false;
         }
         final double tolerance = 0.001;
-        if (!almostEqual(latLng.lat, backupLatLng.getLatitude(), tolerance)) {
+        if (!almostEqual(latLng.lat, point.getCoordinates().getLatitude(),
+                tolerance)) {
             return false;
         }
-        return almostEqual(latLng.lng, backupLatLng.getLongitude(), tolerance);
+        return almostEqual(latLng.lng, point.getCoordinates().getLongitude(),
+                tolerance);
+    }
+
+    /**
+     * @param latLng geocoding location
+     * @param lla GeoJSON LngLatAlt version of location
+     * @return true if they match
+     */
+    private boolean checker(final LatLng latLng,
+            final LngLatAlt lla) {
+        if (latLng == null && lla == null) {
+            return true;
+        }
+        if (latLng == null || lla == null) {
+            return false;
+        }
+        final double tolerance = 0.001;
+        if (!almostEqual(latLng.lat, lla.getLatitude(),
+                tolerance)) {
+            return false;
+        }
+        return almostEqual(latLng.lng, lla.getLongitude(),
+                tolerance);
     }
 
     /**

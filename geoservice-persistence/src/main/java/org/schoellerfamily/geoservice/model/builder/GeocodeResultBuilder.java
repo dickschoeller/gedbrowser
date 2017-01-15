@@ -1,11 +1,16 @@
 package org.schoellerfamily.geoservice.model.builder;
 
+import java.util.List;
+
+import org.geojson.Feature;
+import org.geojson.LngLatAlt;
+import org.geojson.Point;
+import org.geojson.Polygon;
 import org.schoellerfamily.geoservice.model.GeoServiceAddressComponent;
 import org.schoellerfamily.geoservice.model.GeoServiceBounds;
-import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceGeometry;
-import org.schoellerfamily.geoservice.model.GeoServiceLatLng;
+import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 
 import com.google.maps.model.AddressComponent;
@@ -112,31 +117,56 @@ public final class GeocodeResultBuilder {
     /**
      * Create a Bounds from a GeoServiceBounds.
      *
-     * @param gsBounds the GeoServiceBounds
+     * @param feature the bounding box feature
      * @return the Bounds
      */
-    public Bounds toBounds(final GeoServiceBounds gsBounds) {
-        if (gsBounds == null) {
+    public Bounds toBounds(final Feature feature) {
+        if (feature == null) {
             return null;
         }
+        final Polygon polygon = (Polygon) feature.getGeometry();
+        final List<List<LngLatAlt>> coordinates = polygon.getCoordinates();
+        if (coordinates == null || coordinates.isEmpty()) {
+            return new Bounds();
+        }
+        final List<LngLatAlt> list = coordinates.get(0);
+        if (list == null || list.isEmpty()) {
+            return new Bounds();
+        }
+        final LngLatAlt northeast = list.get(2);
+        final LngLatAlt southwest = list.get(0);
         final Bounds bounds = new Bounds();
-        bounds.northeast = toLatLng(gsBounds.getNortheast());
-        bounds.southwest = toLatLng(gsBounds.getSouthwest());
+        bounds.northeast = toLatLng(northeast);
+        bounds.southwest = toLatLng(southwest);
         return bounds;
     }
 
     /**
-     * Create a LatLng from a GeoServiceLatLng.
+     * Create a LatLng from a GeoJSON Point.
      *
-     * @param gsLatLng the GeoServiceLatLng
+     * @param point the Point
      * @return the LatLng
      */
-    public LatLng toLatLng(final GeoServiceLatLng gsLatLng) {
-        if (gsLatLng == null) {
+    public LatLng toLatLng(final Point point) {
+        if (point == null) {
             return null;
         }
-        final LatLng latLng = new LatLng(gsLatLng.getLatitude(),
-                gsLatLng.getLongitude());
+        return toLatLng(point.getCoordinates());
+    }
+
+    /**
+     * Create a LatLng from a GeoJSON LngLatAlt.
+     *
+     * @param lla the LngLatAlt
+     * @return the LatLng
+     */
+    public LatLng toLatLng(final LngLatAlt lla) {
+        if (lla == null) {
+            return null;
+        }
+        final LatLng latLng = new LatLng(
+                lla.getLatitude(),
+                lla.getLongitude());
         return latLng;
     }
 
@@ -215,36 +245,52 @@ public final class GeocodeResultBuilder {
             return null;
         }
         return new GeoServiceGeometry(
-                toGeoServiceBounds(geometry.bounds),
-                toGeoServiceLatLng(geometry.location),
+                toBox("bounds", geometry.bounds),
+                toPoint(geometry.location),
                 geometry.locationType,
-                toGeoServiceBounds(geometry.viewport));
+                toBox("viewport", geometry.viewport));
     }
 
     /**
-     * Create a GeoServiceBounds from a Bounds.
+     * Create a Feature containing a single Polygon describing the bounding box
+     * from the provided Bounds.
      *
+     * @param id the ID string
      * @param bounds the Bounds
-     * @return the GeoServiceBounds
+     * @return the Feature
      */
-    public GeoServiceBounds toGeoServiceBounds(final Bounds bounds) {
+    public Feature toBox(final String id, final Bounds bounds) {
         if (bounds == null) {
             return null;
         }
-        return new GeoServiceBounds(toGeoServiceLatLng(bounds.northeast),
-                toGeoServiceLatLng(bounds.southwest));
+        return GeoServiceBounds.createBounds(id,
+                toLngLatAlt(bounds.southwest),
+                toLngLatAlt(bounds.northeast));
     }
 
     /**
-     * Create a GeoServiceLatLng from a LatLng.
+     * Create a GeoJSON Point from a LatLng.
      *
      * @param latLng the LatLng
      * @return the GeoServiceLatLng
      */
-    public GeoServiceLatLng toGeoServiceLatLng(final LatLng latLng) {
+    public Point toPoint(final LatLng latLng) {
         if (latLng == null) {
             return null;
         }
-        return new GeoServiceLatLng(latLng.lat, latLng.lng);
+        return new Point(latLng.lng, latLng.lat);
+    }
+
+    /**
+     * Create a GeoJSON Point from a LatLng.
+     *
+     * @param latLng the LatLng
+     * @return the GeoServiceLatLng
+     */
+    public LngLatAlt toLngLatAlt(final LatLng latLng) {
+        if (latLng == null) {
+            return null;
+        }
+        return new LngLatAlt(latLng.lng, latLng.lat);
     }
 }
