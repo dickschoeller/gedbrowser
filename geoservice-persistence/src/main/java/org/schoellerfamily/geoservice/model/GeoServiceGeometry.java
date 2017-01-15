@@ -1,5 +1,8 @@
 package org.schoellerfamily.geoservice.model;
 
+import org.geojson.Feature;
+import org.geojson.Point;
+
 import com.google.maps.model.LocationType;
 
 /**
@@ -16,13 +19,13 @@ public final class GeoServiceGeometry {
      * Farallon islands, which are technically part of the city, but probably
      * should not be returned in the viewport.)
      */
-    private final GeoServiceBounds bounds;
+    private final Feature bounds;
 
     /**
      * {@code location} contains the geocoded {@code latitude,longitude} value.
      * For normal address lookups, this field is typically the most important.
      */
-    private final GeoServiceLatLng location;
+    private final Point location;
 
     /**
      * The level of certainty of this geocoding result.
@@ -34,16 +37,16 @@ public final class GeoServiceGeometry {
      * returned result. Generally the viewport is used to frame a result when
      * displaying it to a user.
      */
-    private final GeoServiceBounds viewport;
+    private final Feature viewport;
 
     /**
      * Default constructor to use in serialization.
      */
     public GeoServiceGeometry() {
-        this.bounds = new GeoServiceBounds();
-        this.location = new GeoServiceLatLng();
+        this.bounds = null;
+        this.location = null;
         this.locationType = LocationType.UNKNOWN;
-        this.viewport = new GeoServiceBounds();
+        this.viewport = null;
     }
 
     /**
@@ -54,9 +57,9 @@ public final class GeoServiceGeometry {
      * @param locationType the level of certainty of the location
      * @param viewport the bounding box of the recommended view of the region
      */
-    public GeoServiceGeometry(final GeoServiceBounds bounds,
-            final GeoServiceLatLng location, final LocationType locationType,
-            final GeoServiceBounds viewport) {
+    public GeoServiceGeometry(final Feature bounds,
+            final Point location, final LocationType locationType,
+            final Feature viewport) {
         super();
         this.bounds = bounds;
         this.location = location;
@@ -67,14 +70,14 @@ public final class GeoServiceGeometry {
     /**
      * @return the actual bounding box of the region
      */
-    public GeoServiceBounds getBounds() {
+    public Feature getBounds() {
         return bounds;
     }
 
     /**
      * @return the location of the center of the region
      */
-    public GeoServiceLatLng getLocation() {
+    public Point getLocation() {
         return location;
     }
 
@@ -88,7 +91,7 @@ public final class GeoServiceGeometry {
     /**
      * @return the bounding box of the recommended view of the region
      */
-    public GeoServiceBounds getViewport() {
+    public Feature getViewport() {
         return viewport;
     }
 }
