@@ -19,8 +19,11 @@ import com.google.maps.model.AddressType;
 @SuppressWarnings("PMD.CommentSize")
 public final class GeoServiceGeocodingResult {
     /**
-     * {@code addressComponents} is an array containing the separate address
-     * components.
+     * The {@code types} array indicates the type of the returned result. This
+     * array contains a set of zero or more tags identifying the type of feature
+     * returned in the result. For example, a geocode of "Chicago" returns
+     * "locality" which indicates that "Chicago" is a city, and also returns
+     * "political" which indicates it is a political entity.
      */
     private final AddressType[] types;
 
@@ -94,7 +97,10 @@ public final class GeoServiceGeocodingResult {
     }
 
     /**
-     * @return the addressComponents
+     * {@code addressComponents} is an array containing the separate address
+     * components.
+     *
+     * @return the array of components
      */
     @SuppressWarnings("PMD.MethodReturnsInternalArray")
     public AddressComponent[] getAddressComponents() {
@@ -140,6 +146,10 @@ public final class GeoServiceGeocodingResult {
     }
 
     /**
+     * Get the geometry. It has been transformed into a GeoJSON
+     * FeatureCollection. It has the location, bounds and viewport as separate
+     * features.
+     *
      * @return the geometry
      */
     public FeatureCollection getGeometry() {
@@ -202,7 +212,11 @@ public final class GeoServiceGeocodingResult {
     }
 
     /**
-     * @return the location feature, which is carrying a bunch of other dreck
+     * Return the location. It is in the form of a GeoJSON feature.
+     * Much of the descriptive data from Google is in the properties
+     * of that feature.
+     *
+     * @return the location feature
      */
     @Transient
     private Feature getLocation() {
