@@ -1,6 +1,7 @@
 package org.schoellerfamily.geoservice.model;
 
 import org.geojson.Feature;
+import org.geojson.FeatureCollection;
 import org.geojson.Point;
 
 import com.google.maps.model.LocationType;
@@ -13,85 +14,93 @@ import com.google.maps.model.LocationType;
  */
 public final class GeoServiceGeometry {
     /**
-     * {@code bounds} (optionally returned) stores the bounding box which can
-     * fully contain the returned result. Note that these bounds may not match
-     * the recommended viewport. (For example, San Francisco includes the
-     * Farallon islands, which are technically part of the city, but probably
-     * should not be returned in the viewport.)
+     * We are trying the features as a collection.
      */
-    private final Feature bounds;
-
-    /**
-     * {@code location} contains the geocoded {@code latitude,longitude} value.
-     * For normal address lookups, this field is typically the most important.
-     */
-    private final Point location;
-
-    /**
-     * The level of certainty of this geocoding result.
-     */
-    private final LocationType locationType;
-
-    /**
-     * {@code viewport} contains the recommended viewport for displaying the
-     * returned result. Generally the viewport is used to frame a result when
-     * displaying it to a user.
-     */
-    private final Feature viewport;
+    private final FeatureCollection featureCollection;
 
     /**
      * Default constructor to use in serialization.
      */
     public GeoServiceGeometry() {
-        this.bounds = null;
-        this.location = null;
-        this.locationType = LocationType.UNKNOWN;
-        this.viewport = null;
+        this.featureCollection = new FeatureCollection();
     }
 
     /**
-     * Constuctor.
+     * Constructor.
      *
      * @param bounds the actual bounding box of the region
      * @param location the location of the center of the region
      * @param locationType the level of certainty of the location
      * @param viewport the bounding box of the recommended view of the region
      */
-    public GeoServiceGeometry(final Feature bounds,
+    private GeoServiceGeometry(final Feature bounds,
             final Point location, final LocationType locationType,
             final Feature viewport) {
-        super();
-        this.bounds = bounds;
-        this.location = location;
-        this.locationType = locationType;
-        this.viewport = viewport;
+        this(createLocation(location, locationType), bounds, viewport);
     }
 
     /**
-     * @return the actual bounding box of the region
+     * Convert a Point and LocationType into a Feature.
+     *
+     * @param point the Point
+     * @param locationType the LocationType
+     * @return the Feature
      */
-    public Feature getBounds() {
-        return bounds;
-    }
-
-    /**
-     * @return the location of the center of the region
-     */
-    public Point getLocation() {
+    private static Feature createLocation(final Point point,
+            final LocationType locationType) {
+        final Feature location = new Feature();
+        location.setGeometry(point);
+        location.setProperty("locationType", locationType);
+        location.setId("location");
         return location;
     }
 
     /**
-     * @return the level of certainty of the location
+     * Constructor.
+     * @param location the location of the center of the region
+     * @param bounds the actual bounding box of the region
+     * @param viewport the bounding box of the recommended view of the region
      */
-    public LocationType getLocationType() {
-        return locationType;
+    private GeoServiceGeometry(final Feature location, final Feature bounds,
+            final Feature viewport) {
+        this();
+        this.featureCollection.add(location);
+        this.featureCollection.add(bounds);
+        this.featureCollection.add(viewport);
     }
 
     /**
-     * @return the bounding box of the recommended view of the region
+     * @return the collection of features that make up this geometry
      */
-    public Feature getViewport() {
-        return viewport;
+    private FeatureCollection getFeatureCollection() {
+        return featureCollection;
+    }
+
+    /**
+     * @param bounds the actual bounding box of the region
+     * @param location the location of the center of the region
+     * @param locationType the level of certainty of the location
+     * @param viewport the bounding box of the recommended view of the region
+     * @return the feature collection
+     */
+    public static FeatureCollection createFeatureCollection(
+            final Feature bounds, final Point location,
+            final LocationType locationType, final Feature viewport) {
+        final GeoServiceGeometry gsg = new GeoServiceGeometry(
+                bounds, location, locationType, viewport);
+        return gsg.getFeatureCollection();
+    }
+    /**
+     * @param location the location of the center of the region
+     * @param bounds the actual bounding box of the region
+     * @param viewport the bounding box of the recommended view of the region
+     * @return the feature collection
+     */
+    public static FeatureCollection createFeatureCollection(
+            final Feature location, final Feature bounds,
+            final Feature viewport) {
+        final GeoServiceGeometry gsg =
+                new GeoServiceGeometry(location, bounds, viewport);
+        return gsg.getFeatureCollection();
     }
 }

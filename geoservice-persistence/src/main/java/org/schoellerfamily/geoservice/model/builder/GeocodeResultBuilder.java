@@ -1,12 +1,13 @@
 package org.schoellerfamily.geoservice.model.builder;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.geojson.Feature;
+import org.geojson.FeatureCollection;
 import org.geojson.LngLatAlt;
 import org.geojson.Point;
 import org.geojson.Polygon;
-import org.schoellerfamily.geoservice.model.GeoServiceAddressComponent;
 import org.schoellerfamily.geoservice.model.GeoServiceBounds;
 import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceGeometry;
@@ -18,6 +19,7 @@ import com.google.maps.model.Bounds;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.Geometry;
 import com.google.maps.model.LatLng;
+import com.google.maps.model.LocationType;
 
 /**
  * Builder class to convert between our own geocoding results and
@@ -25,7 +27,7 @@ import com.google.maps.model.LatLng;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.TooManyMethods")
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.GodClass" })
 public final class GeocodeResultBuilder {
     /**
      * Create a GeoCodeItem from a GeoServiceItem.
@@ -54,7 +56,7 @@ public final class GeocodeResultBuilder {
             return null;
         }
         final GeocodingResult result = new GeocodingResult();
-        final GeoServiceAddressComponent[] addressComponents =
+        final AddressComponent[] addressComponents =
                 gsResult.getAddressComponents();
         if (addressComponents == null) {
             result.addressComponents = null;
@@ -62,8 +64,7 @@ public final class GeocodeResultBuilder {
             result.addressComponents =
                     new AddressComponent[addressComponents.length];
             for (int i = 0; i < addressComponents.length; i++) {
-                result.addressComponents[i] =
-                        toAddressComponent(addressComponents[i]);
+                result.addressComponents[i] = copy(addressComponents[i]);
             }
         }
         result.formattedAddress = gsResult.getFormattedAddress();
@@ -78,40 +79,64 @@ public final class GeocodeResultBuilder {
     }
 
     /**
-     * Create an AddressComponent from a GeoServiceAddressComponent.
+     * Copy an address component. Since they are NOT immutable, I don't
+     * want to mess with the variability of the damn things.
      *
-     * @param gsComponent the GeoServiceAddressComponent
-     * @return the AddressComponent
+     * @param in the component to copy
+     * @return the copy
      */
-    public AddressComponent toAddressComponent(
-            final GeoServiceAddressComponent gsComponent) {
-        if (gsComponent == null) {
-            return null;
-        }
-        final AddressComponent component = new AddressComponent();
-        component.longName = gsComponent.getLongName();
-        component.shortName = gsComponent.getShortName();
-        // This is safe because gs object returns a copy of its array.
-        component.types = gsComponent.getTypes();
-        return component;
+    private AddressComponent copy(final AddressComponent in) {
+        final AddressComponent out = new AddressComponent();
+        out.longName = in.longName;
+        out.shortName = in.shortName;
+        out.types = Arrays.copyOf(in.types, in.types.length);
+        return out;
     }
 
     /**
      * Create a Geometry from a GeoServiceGeometry.
      *
-     * @param gsGeometry the gsGeometry
+     * @param featureCollection the feature collection representing the geometry
      * @return the Geometry
      */
-    public Geometry toGeometry(final GeoServiceGeometry gsGeometry) {
-        if (gsGeometry == null) {
+    public Geometry toGeometry(final FeatureCollection featureCollection) {
+        if (featureCollection == null) {
             return null;
         }
         final Geometry geometry = new Geometry();
-        geometry.bounds = toBounds(gsGeometry.getBounds());
-        geometry.location = toLatLng(gsGeometry.getLocation());
-        geometry.locationType = gsGeometry.getLocationType();
-        geometry.viewport = toBounds(gsGeometry.getViewport());
+        Feature location;
+        if (featureCollection.getFeatures().isEmpty()) {
+            location = null;
+            geometry.bounds = toBounds(null);
+            geometry.viewport = toBounds(null);
+        } else {
+            location = featureCollection.getFeatures().get(0);
+            geometry.bounds = toBounds(featureCollection.getFeatures().get(1));
+            geometry.viewport =
+                    toBounds(featureCollection.getFeatures().get(2));
+        }
+        if (location == null) {
+            geometry.location = null;
+            geometry.locationType = null;
+        } else {
+            geometry.location = toLatLng((Point) location.getGeometry());
+            geometry.locationType =
+                    toLocationType(location.getProperty("locationType"));
+        }
         return geometry;
+    }
+
+    /**
+     * Convert a property to a Google LocationType.
+     *
+     * @param property we can expect this to be a string
+     * @return the LocationType
+     */
+    private LocationType toLocationType(final Object property) {
+        if (property == null) {
+            return null;
+        }
+        return LocationType.valueOf(property.toString());
     }
 
     /**
@@ -124,21 +149,36 @@ public final class GeocodeResultBuilder {
         if (feature == null) {
             return null;
         }
-        final Polygon polygon = (Polygon) feature.getGeometry();
-        final List<List<LngLatAlt>> coordinates = polygon.getCoordinates();
-        if (coordinates == null || coordinates.isEmpty()) {
-            return new Bounds();
+        if (feature.getGeometry() instanceof Polygon) {
+            final Polygon polygon = (Polygon) feature.getGeometry();
+            final List<List<LngLatAlt>> coordinates = polygon.getCoordinates();
+            if (coordinates == null || coordinates.isEmpty()) {
+                return new Bounds();
+            }
+            final List<LngLatAlt> list = coordinates.get(0);
+            if (list == null || list.isEmpty()) {
+                return new Bounds();
+            }
+            final LngLatAlt northeast = list.get(2);
+            final LngLatAlt southwest = list.get(0);
+            final Bounds bounds = new Bounds();
+            bounds.northeast = toLatLng(northeast);
+            bounds.southwest = toLatLng(southwest);
+            return bounds;
+        } else if (feature.getGeometry() instanceof Point) {
+            final Point polygon = (Point) feature.getGeometry();
+            final LngLatAlt coordinates = polygon.getCoordinates();
+            if (coordinates == null) {
+                return new Bounds();
+            }
+            final LngLatAlt northeast = null;
+            final LngLatAlt southwest = coordinates;
+            final Bounds bounds = new Bounds();
+            bounds.northeast = toLatLng(northeast);
+            bounds.southwest = toLatLng(southwest);
+            return bounds;
         }
-        final List<LngLatAlt> list = coordinates.get(0);
-        if (list == null || list.isEmpty()) {
-            return new Bounds();
-        }
-        final LngLatAlt northeast = list.get(2);
-        final LngLatAlt southwest = list.get(0);
-        final Bounds bounds = new Bounds();
-        bounds.northeast = toLatLng(northeast);
-        bounds.southwest = toLatLng(southwest);
-        return bounds;
+        return null;
     }
 
     /**
@@ -196,20 +236,8 @@ public final class GeocodeResultBuilder {
         if (result == null) {
             return null;
         }
-        GeoServiceAddressComponent[] gsAddressComponents;
-        final AddressComponent[] addressComponents = result.addressComponents;
-        if (addressComponents == null) {
-            gsAddressComponents = null;
-        } else {
-            gsAddressComponents =
-                    new GeoServiceAddressComponent[addressComponents.length];
-            for (int i = 0; i < addressComponents.length; i++) {
-                gsAddressComponents[i] = toGeoServiceAddressComponent(
-                        addressComponents[i]);
-            }
-        }
         return new GeoServiceGeocodingResult(
-                gsAddressComponents,
+                result.addressComponents,
                 result.formattedAddress,
                 result.postcodeLocalities,
                 toGeoServiceGeometry(result.geometry),
@@ -219,35 +247,21 @@ public final class GeocodeResultBuilder {
     }
 
     /**
-     * Create a GeoServiceAddressComponent from an AddressComponent.
-     *
-     * @param addressComponent the AddressComponent
-     * @return the GeoServiceAddressComponent
-     */
-    public GeoServiceAddressComponent toGeoServiceAddressComponent(
-            final AddressComponent addressComponent) {
-        if (addressComponent == null) {
-            return null;
-        }
-        return new GeoServiceAddressComponent(addressComponent.longName,
-        addressComponent.shortName,
-        addressComponent.types);
-    }
-
-    /**
      * Create a GeoServiceGeometry from a Geometry.
      *
      * @param geometry the Geometry
      * @return the GeoServiceGeometry
      */
-    public GeoServiceGeometry toGeoServiceGeometry(final Geometry geometry) {
+    public FeatureCollection toGeoServiceGeometry(final Geometry geometry) {
         if (geometry == null) {
-            return null;
+            return GeoServiceGeometry.createFeatureCollection(
+                    toLocation(new LatLng(Double.NaN, Double.NaN),
+                            LocationType.UNKNOWN),
+                    null, null);
         }
-        return new GeoServiceGeometry(
+        return GeoServiceGeometry.createFeatureCollection(
+                toLocation(geometry.location, geometry.locationType),
                 toBox("bounds", geometry.bounds),
-                toPoint(geometry.location),
-                geometry.locationType,
                 toBox("viewport", geometry.viewport));
     }
 
@@ -262,6 +276,10 @@ public final class GeocodeResultBuilder {
     public Feature toBox(final String id, final Bounds bounds) {
         if (bounds == null) {
             return null;
+        }
+        if (bounds.southwest == null || bounds.northeast == null) {
+            throw new IllegalArgumentException(
+                    "Must have legitimate bounding box");
         }
         return GeoServiceBounds.createBounds(id,
                 toLngLatAlt(bounds.southwest),
@@ -279,6 +297,29 @@ public final class GeocodeResultBuilder {
             return null;
         }
         return new Point(latLng.lng, latLng.lat);
+    }
+
+    /**
+     * Create a GeoJSON Point from a LatLng.
+     *
+     * @param latLng the LatLng
+     * @param locationType the location type
+     * @return the GeoServiceLatLng
+     */
+    public Feature toLocation(final LatLng latLng,
+            final LocationType locationType) {
+        if (latLng == null) {
+            final Feature feature = new Feature();
+            feature.setProperty("locationType", locationType);
+            feature.setId("location");
+            return feature;
+        }
+        final Point point = new Point(latLng.lng, latLng.lat);
+        final Feature feature = new Feature();
+        feature.setGeometry(point);
+        feature.setProperty("locationType", locationType);
+        feature.setId("location");
+        return feature;
     }
 
     /**

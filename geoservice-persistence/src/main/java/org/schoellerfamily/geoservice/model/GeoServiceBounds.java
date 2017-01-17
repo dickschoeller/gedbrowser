@@ -56,10 +56,9 @@ public final class GeoServiceBounds {
             final LngLatAlt northeast) {
         final Feature feature = new Feature();
         feature.setId(id);
-        final Polygon polygon = new Polygon();
-        feature.setGeometry(polygon);
         if (northeast == null || southwest == null) {
-            return feature;
+            throw new IllegalArgumentException(
+                    "Must have a proper bounding box");
         }
         final double[] bbox = {
                 southwest.getLongitude(),
@@ -67,6 +66,8 @@ public final class GeoServiceBounds {
                 northeast.getLongitude(),
                 northeast.getLatitude()
         };
+        final Polygon polygon = new Polygon();
+        feature.setGeometry(polygon);
         polygon.setBbox(bbox);
         final List<LngLatAlt> elements = new ArrayList<>(5);
         elements.add(new LngLatAlt(bbox[SW_LNG], bbox[SW_LAT]));

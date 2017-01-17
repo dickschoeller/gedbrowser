@@ -3,6 +3,7 @@ package org.schoellerfamily.geoservice.client;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +18,9 @@ public class Application {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
+    @Autowired
+    private transient ObjectMapper mapper;
+
     public static void main(String args[]) {
         SpringApplication.run(Application.class);
     }
@@ -29,9 +33,13 @@ public class Application {
     @Bean
     public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
         return args -> {
+
             GeoServiceItem item = restTemplate.getForObject(
                     "http://localhost:8088/geocode?name=Bethlhem,%20PA", GeoServiceItem.class);
-            ObjectMapper mapper = new ObjectMapper();
+//            final GeoServiceAddressComponent[] comps = item.getResult().getAddressComponents();
+//            logger.info("there are " + comps.length + " address components");
+
+//            ObjectMapper mapper = new ObjectMapper();
             logger.info("found item:" + mapper.writerWithDefaultPrettyPrinter()
                     .writeValueAsString(item));
         };

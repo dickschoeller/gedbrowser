@@ -1,7 +1,13 @@
 package org.schoellerfamily.geoservice.model;
 
+import java.beans.Transient;
 import java.util.Arrays;
+import java.util.List;
 
+import org.geojson.Feature;
+import org.geojson.FeatureCollection;
+
+import com.google.maps.model.AddressComponent;
 import com.google.maps.model.AddressType;
 
 /**
@@ -16,7 +22,84 @@ public final class GeoServiceGeocodingResult {
      * {@code addressComponents} is an array containing the separate address
      * components.
      */
-    private final GeoServiceAddressComponent[] addressComponents;
+    private final AddressType[] types;
+
+    /**
+     * {@code addressComponents} is an array containing the separate address
+     * components.
+     */
+    private final AddressComponent[] addressComponents;
+
+    /**
+     * {@code geometry} contains location information.
+     */
+    private final FeatureCollection geometry;
+
+    /**
+     * Default constructor used in serialization.
+     */
+    public GeoServiceGeocodingResult() {
+        this.addressComponents = new AddressComponent[0];
+        this.types = new AddressType[0];
+        this.geometry = new FeatureCollection();
+    }
+
+    /**
+     * @param addressComponents
+     *            an array containing the separate address components
+     * @param formattedAddress human readable address string
+     * @param postcodeLocalities
+     *            an array denoting all of the addresses in the postal code
+     * @param geometry location information
+     * @param types an array describing the applicable location types
+     * @param partialMatch true if this is a partial match
+     * @param placeId unique identifier for the place
+     */
+    public GeoServiceGeocodingResult(
+            final AddressComponent[] addressComponents,
+            final String formattedAddress, final String[] postcodeLocalities,
+            final FeatureCollection geometry,
+            final AddressType[] types,
+            final boolean partialMatch, final String placeId) {
+        this.geometry = geometry;
+        if (geometry != null
+                && geometry.getFeatures() != null
+                && !geometry.getFeatures().isEmpty()) {
+            final Feature fg = geometry.getFeatures().get(0);
+            fg.setProperty("formattedAddress", formattedAddress);
+            fg.setProperty("partialMatch", Boolean.valueOf(partialMatch));
+            fg.setProperty("placeId", placeId);
+            if (postcodeLocalities == null) {
+                fg.setProperty("postcodeLocalities", null);
+            } else {
+                fg.setProperty("postcodeLocalities", Arrays
+                        .copyOf(postcodeLocalities, postcodeLocalities.length));
+            }
+            fg.setProperty("types", types);
+            fg.setProperty("addressComponents", addressComponents);
+        }
+
+        if (types == null) {
+            this.types = null;
+        } else {
+            this.types = Arrays.copyOf(types, types.length);
+        }
+
+        if (addressComponents == null) {
+            this.addressComponents = null;
+        } else {
+            this.addressComponents = Arrays.copyOf(addressComponents,
+                    addressComponents.length);
+        }
+    }
+
+    /**
+     * @return the addressComponents
+     */
+    @SuppressWarnings("PMD.MethodReturnsInternalArray")
+    public AddressComponent[] getAddressComponents() {
+        return addressComponents;
+    }
 
     /**
      * {@code formattedAddress} is the human-readable address of this location.
@@ -28,20 +111,40 @@ public final class GeoServiceGeocodingResult {
      * York, NY" contains separate address components for "111" (the street
      * number, "8th Avenue" (the route), "New York" (the city) and "NY" (the US
      * state). These address components contain additional information.
+     *
+     * @return the formatted address
      */
-    private final String formattedAddress;
+    @Transient
+    public String getFormattedAddress() {
+        final Feature location = getLocation();
+        if (location == null) {
+            return null;
+        }
+        return location.getProperty("formattedAddress");
+    }
 
     /**
      * {@code postcodeLocalities} is an array denoting all the localities
      * contained in a postal code. This is only present when the result is a
      * postal code that contains multiple localities.
+     *
+     * @return the postcode localities
      */
-    private final String[] postcodeLocalities;
+    @Transient
+    public String[] getPostcodeLocalities() {
+        final Feature location = getLocation();
+        if (location == null) {
+            return null;
+        }
+        return location.getProperty("postcodeLocalities");
+    }
 
     /**
-     * {@code geometry} contains location information.
+     * @return the geometry
      */
-    private final GeoServiceGeometry geometry;
+    public FeatureCollection getGeometry() {
+        return geometry;
+    }
 
     /**
      * The {@code types} array indicates the type of the returned result. This
@@ -49,8 +152,13 @@ public final class GeoServiceGeocodingResult {
      * returned in the result. For example, a geocode of "Chicago" returns
      * "locality" which indicates that "Chicago" is a city, and also returns
      * "political" which indicates it is a political entity.
+     *
+     * @return the types
      */
-    private final AddressType[] types;
+    @SuppressWarnings("PMD.MethodReturnsInternalArray")
+    public AddressType[] getTypes() {
+        return types;
+    }
 
     /**
      * {@code partialMatch} indicates that the geocoder did not return an exact
@@ -67,121 +175,44 @@ public final class GeoServiceGeocodingResult {
      * includes a misspelled address component, the geocoding service may
      * suggest an alternate address. Suggestions triggered in this way will not
      * be marked as a partial match.
+     *
+     * @return the partialMatch
      */
-    private final boolean partialMatch;
+    @Transient
+    public boolean isPartialMatch() {
+        final Feature location = getLocation();
+        if (location == null) {
+            return false;
+        }
+        return location.getProperty("partialMatch");
+    }
 
     /**
      * {@code placeId} is a unique identifier for a place.
-     */
-    private final String placeId;
-
-    /**
-     * Default constructor used in serialization.
-     */
-    public GeoServiceGeocodingResult() {
-        this.addressComponents = new GeoServiceAddressComponent[0];
-        this.formattedAddress = null;
-        this.postcodeLocalities = new String[0];
-        this.geometry = new GeoServiceGeometry();
-        this.types = new AddressType[0];
-        this.partialMatch = false;
-        this.placeId = null;
-    }
-
-    /**
-     * @param addressComponents
-     *            an array containing the separate address components
-     * @param formattedAddress human readable address string
-     * @param postcodeLocalities
-     *            an array denoting all of the addresses in the postal code
-     * @param geometry location information
-     * @param types an array describing the applicable location types
-     * @param partialMatch true if this is a partial match
-     * @param placeId unique identifier for the place
-     */
-    public GeoServiceGeocodingResult(
-            final GeoServiceAddressComponent[] addressComponents,
-            final String formattedAddress, final String[] postcodeLocalities,
-            final GeoServiceGeometry geometry, final AddressType[] types,
-            final boolean partialMatch, final String placeId) {
-        if (addressComponents == null) {
-            this.addressComponents = null;
-        } else {
-            this.addressComponents = Arrays.copyOf(addressComponents,
-                    addressComponents.length);
-        }
-        this.formattedAddress = formattedAddress;
-        if (postcodeLocalities == null) {
-            this.postcodeLocalities = null;
-        } else {
-            this.postcodeLocalities = Arrays.copyOf(postcodeLocalities,
-                    postcodeLocalities.length);
-        }
-        this.geometry = geometry;
-        if (types == null) {
-            this.types = null;
-        } else {
-            this.types = Arrays.copyOf(types, types.length);
-        }
-        this.partialMatch = partialMatch;
-        this.placeId = placeId;
-    }
-
-    /**
-     * @return the addressComponents
-     */
-    public GeoServiceAddressComponent[] getAddressComponents() {
-        if (addressComponents == null) {
-            return null;
-        }
-        return Arrays.copyOf(addressComponents, addressComponents.length);
-    }
-
-    /**
-     * @return the formattedAddress
-     */
-    public String getFormattedAddress() {
-        return formattedAddress;
-    }
-
-    /**
-     * @return the postcodeLocalities
-     */
-    public String[] getPostcodeLocalities() {
-        if (postcodeLocalities == null) {
-            return null;
-        }
-        return Arrays.copyOf(postcodeLocalities, postcodeLocalities.length);
-    }
-
-    /**
-     * @return the geometry
-     */
-    public GeoServiceGeometry getGeometry() {
-        return geometry;
-    }
-
-    /**
-     * @return the types
-     */
-    public AddressType[] getTypes() {
-        if (types == null) {
-            return null;
-        }
-        return Arrays.copyOf(types, types.length);
-    }
-
-    /**
-     * @return the partialMatch
-     */
-    public boolean isPartialMatch() {
-        return partialMatch;
-    }
-
-    /**
+     *
      * @return the placeId
      */
+    @Transient
     public String getPlaceId() {
-        return placeId;
+        final Feature location = getLocation();
+        if (location == null) {
+            return null;
+        }
+        return location.getProperty("placeId");
+    }
+
+    /**
+     * @return the location feature, which is carrying a bunch of other dreck
+     */
+    @Transient
+    private Feature getLocation() {
+        if (geometry == null) {
+            return null;
+        }
+        final List<Feature> features = geometry.getFeatures();
+        if (features == null || features.isEmpty()) {
+            return null;
+        }
+        return features.get(0);
     }
 }
