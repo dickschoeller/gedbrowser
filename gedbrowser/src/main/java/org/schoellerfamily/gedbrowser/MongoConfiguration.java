@@ -21,7 +21,10 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     SubmittorDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     TrailerDocumentRepositoryMongo;
+import org.schoellerfamily.geoservice.client.GeoServiceClient;
+import org.schoellerfamily.geoservice.client.GeoServiceClientImpl;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +34,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.repository.config.
     EnableMongoRepositories;
+import org.springframework.web.client.RestTemplate;
 
 import com.mongodb.MongoClient;
 
@@ -121,5 +125,27 @@ public class MongoConfiguration {
     public ApplicationInfo appInfo() {
         // CHECKSTYLE:ON
         return new ApplicationInfo();
+    }
+
+    /**
+     * @param builder the rest template builder that Spring provides
+     * @return the rest template
+     */
+    // CHECKSTYLE:OFF
+    @Bean
+    public RestTemplate restTemplate(final RestTemplateBuilder builder) {
+        // CHECKSTYLE:ON
+        return builder.build();
+    }
+
+    /**
+     * @return the geoservice client
+     */
+    // We turn off checkstyle because bean methods must not be final
+    // CHECKSTYLE:OFF
+    @Bean
+    public GeoServiceClient client() {
+        // CHECKSTYLE:ON
+        return new GeoServiceClientImpl();
     }
 }

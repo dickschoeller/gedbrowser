@@ -13,35 +13,56 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Main program for playing with the GeoService client class.
+ *
+ * @author Dick Schoeller
+ */
 @SpringBootApplication
 public class Application {
     /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
+    private final transient Log logger =
+            LogFactory.getLog(Application.class);
 
+    /** */
     @Autowired
     private transient ObjectMapper mapper;
 
-    public static void main(String args[]) {
-        SpringApplication.run(Application.class);
+    /** */
+    @Autowired
+    private transient GeoServiceClient client;
+
+    /**
+     * @param args standard main program argument handling
+     */
+    public static void main(final String... args) {
+        SpringApplication.run(Application.class, args);
     }
-    
+
+    /**
+     * @param builder the rest template builder that Spring provides
+     * @return the rest template
+     */
     @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+    public RestTemplate restTemplate(final RestTemplateBuilder builder) {
         return builder.build();
     }
 
+    /**
+     * @return the command line runner
+     * @throws Exception because things can blow up
+     */
     @Bean
-    public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
+    public CommandLineRunner run() throws Exception {
         return args -> {
-
-            GeoServiceItem item = restTemplate.getForObject(
-                    "http://localhost:8088/geocode?name=Bethlhem,%20PA", GeoServiceItem.class);
-//            final GeoServiceAddressComponent[] comps = item.getResult().getAddressComponents();
-//            logger.info("there are " + comps.length + " address components");
-
-//            ObjectMapper mapper = new ObjectMapper();
-            logger.info("found item:" + mapper.writerWithDefaultPrettyPrinter()
-                    .writeValueAsString(item));
+            for (final String arg : args) {
+                logger.info("Get geocode for: " + arg);
+                final GeoServiceItem item =
+                        client.get(arg);
+                logger.info(
+                        "found item:" + mapper.writerWithDefaultPrettyPrinter()
+                                .writeValueAsString(item));
+            }
         };
     }
 }
