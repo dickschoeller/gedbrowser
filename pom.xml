@@ -57,7 +57,7 @@
     <spring-data-mongodb.version>1.9.6.RELEASE</spring-data-mongodb.version>
     <spring-data-commons.version>1.12.6.RELEASE</spring-data-commons.version>
     <google-maps-services.version>0.1.17</google-maps-services.version>
-    <jackson-databind.version>2.8.5</jackson-databind.version>
+    <jackson-core.version>2.8.6</jackson-core.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.9.7</joda-time.version>
 
@@ -372,7 +372,17 @@
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
-        <version>${jackson-databind.version}</version>
+        <version>${jackson-core.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>${jackson-core.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>${jackson-core.version}</version>
       </dependency>
       <dependency>
         <groupId>org.gedcom4j</groupId>

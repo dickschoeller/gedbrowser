@@ -3,15 +3,18 @@ package org.schoellerfamily.geoservice.model.builder.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.geojson.Feature;
+import org.geojson.FeatureCollection;
+import org.geojson.GeoJsonObject;
 import org.geojson.LngLatAlt;
 import org.geojson.Point;
 import org.geojson.Polygon;
 import org.junit.Test;
-import org.schoellerfamily.geoservice.model.GeoServiceAddressComponent;
 import org.schoellerfamily.geoservice.model.GeoServiceBounds;
 import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceGeometry;
@@ -31,7 +34,9 @@ import com.google.maps.model.LocationType;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.UseVarargs", "PMD.GodClass", "PMD.TooManyMethods" })
+@SuppressWarnings({ "PMD.ExcessiveClassLength",
+        "PMD.ModifiedCyclomaticComplexity", "PMD.StdCyclomaticComplexity",
+        "PMD.GodClass", "PMD.TooManyMethods", "PMD.ExcessiveImports" })
 public final class GeocodeResultBuilderTest {
     /** */
     private final GeocodeResultBuilder builder = new GeocodeResultBuilder();
@@ -188,9 +193,12 @@ public final class GeocodeResultBuilderTest {
         gr.geometry = new Geometry();
         gr.geometry.bounds = new Bounds();
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        try {
+            final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+            fail("should have thrown an illegal argument exception: " + bgci);
+        } catch (IllegalArgumentException e) {
+            // Expect to throw.
+        }
     }
 
     /** */
@@ -203,9 +211,13 @@ public final class GeocodeResultBuilderTest {
         final double lng = 20.00;
         gr.geometry.bounds.northeast = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        try {
+            final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+            fail("Should have thrown illegal argument exception: " + bgci);
+        } catch (IllegalArgumentException e) {
+            // Should have thrown
+        }
+
     }
 
     /** */
@@ -218,9 +230,12 @@ public final class GeocodeResultBuilderTest {
         final double lng = 20.00;
         gr.geometry.bounds.southwest = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        try {
+            final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+            fail("Should have thrown illegal argument exception: " + bgci);
+        } catch (IllegalArgumentException e) {
+            // Should have thrown
+        }
     }
 
     /** */
@@ -260,9 +275,12 @@ public final class GeocodeResultBuilderTest {
         gr.geometry = new Geometry();
         gr.geometry.viewport = new Bounds();
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        try {
+            final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+            fail("should have thrown an illegal argument exception" + bgci);
+        } catch (IllegalArgumentException e) {
+            // Expect to throw.
+        }
     }
 
     /** */
@@ -275,9 +293,13 @@ public final class GeocodeResultBuilderTest {
         final double lng = 20.00;
         gr.geometry.viewport.northeast = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        try {
+            final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+            fail("should have thrown an illegal argument exception" + bgci);
+        } catch (IllegalArgumentException e) {
+            // Expect to throw.
+        }
+
     }
 
     /** */
@@ -290,9 +312,12 @@ public final class GeocodeResultBuilderTest {
         final double lng = 25.00;
         gr.geometry.viewport.southwest = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        try {
+            final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
+            fail("should have thrown an illegal argument exception" + bgci);
+        } catch (IllegalArgumentException e) {
+            // Expect to throw.
+        }
     }
 
     /** */
@@ -322,8 +347,7 @@ public final class GeocodeResultBuilderTest {
     /** */
     @Test
     public void testToGeoCodeItemName() {
-        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH",
-                null);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", null);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
         assertEquals("Mismatched name", "XYZZY", gci.getPlaceName());
     }
@@ -331,8 +355,7 @@ public final class GeocodeResultBuilderTest {
     /** */
     @Test
     public void testToGeoCodeItemModernName() {
-        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH",
-                null);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", null);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
         assertEquals("Mismatched modern name", "PLUGH",
                 gci.getModernPlaceName());
@@ -341,8 +364,7 @@ public final class GeocodeResultBuilderTest {
     /** */
     @Test
     public void testToGeoCodeItemNullResult() {
-        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH",
-                null);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", null);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
         assertNull("Expected null result", gci.getGeocodingResult());
     }
@@ -360,15 +382,14 @@ public final class GeocodeResultBuilderTest {
     /** */
     @Test
     public void testToGeoCodeItemResultAddressComponent() {
-        final GeoServiceAddressComponent[] addressComponents =
-                new GeoServiceAddressComponent[1];
+        final AddressComponent[] addressComponents =
+                new AddressComponent[1];
         final AddressComponentType[] addressComponentTypes =
                 new AddressComponentType[1];
         addressComponentTypes[0] =
                 AddressComponentType.ADMINISTRATIVE_AREA_LEVEL_1;
-        addressComponents[0] =
-                new GeoServiceAddressComponent("Foo Bar", "Foo",
-                        addressComponentTypes);
+        addressComponents[0] = createAddressComponent("Foo Bar", "Foo",
+                addressComponentTypes);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
                 addressComponents, null, null, null, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
@@ -380,13 +401,12 @@ public final class GeocodeResultBuilderTest {
     /** */
     @Test
     public void testToGeoCodeItemResultEmptyAddressComponent() {
-        final GeoServiceAddressComponent[] addressComponents =
-                new GeoServiceAddressComponent[1];
+        final AddressComponent[] addressComponents =
+                new AddressComponent[1];
         final AddressComponentType[] addressComponentTypes =
-                new AddressComponentType[0];
-        addressComponents[0] =
-                new GeoServiceAddressComponent("Foo Bar", "Foo",
-                        addressComponentTypes);
+                new AddressComponentType[1];
+        addressComponents[0] = createAddressComponent("Foo Bar", "Foo",
+                addressComponentTypes);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
                 addressComponents, null, null, null, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
@@ -395,6 +415,21 @@ public final class GeocodeResultBuilderTest {
                 checker(gci.getGeocodingResult(), bgci.getResult()));
     }
 
+    /**
+     * @param longName long name
+     * @param shortName short name
+     * @param types types
+     * @return the new address component
+     */
+    @SuppressWarnings("PMD.UseVarargs")
+    private AddressComponent createAddressComponent(final String longName,
+            final String shortName, final AddressComponentType[] types) {
+        final AddressComponent component = new AddressComponent();
+        component.longName = longName;
+        component.shortName = shortName;
+        component.types = Arrays.copyOf(types, types.length);
+        return component;
+    }
     /** */
     @Test
     public void testToGeoCodeItemResultAddress() {
@@ -446,7 +481,7 @@ public final class GeocodeResultBuilderTest {
     /** */
     @Test
     public void testToGeoCodeItemResultEmptyGeometry() {
-        final GeoServiceGeometry geometry = new GeoServiceGeometry();
+        final FeatureCollection geometry = new FeatureCollection();
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
                 null, null, null, geometry, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
@@ -460,9 +495,9 @@ public final class GeocodeResultBuilderTest {
     public void testToGeoCodeItemResultGeometryLocation() {
         final double lat = 10.00;
         final double lng = 20.00;
-        final Point location = new Point(lng, lat);
-        final GeoServiceGeometry geometry =
-                new GeoServiceGeometry(null, location, null, null);
+        final Point point = new Point(lng, lat);
+        final FeatureCollection geometry = GeoServiceGeometry
+                .createFeatureCollection(null, point, null, null);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
                 null, null, null, geometry, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
@@ -475,8 +510,8 @@ public final class GeocodeResultBuilderTest {
     @Test
     public void testToGeoCodeItemResultGeometryEmptyBounds() {
         final Feature bounds = GeoServiceBounds.createBounds("bounds");
-        final GeoServiceGeometry geometry =
-                new GeoServiceGeometry(bounds, null, null, null);
+        final FeatureCollection geometry = GeoServiceGeometry
+                .createFeatureCollection(bounds, null, null, null);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
                 null, null, null, geometry, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
@@ -491,16 +526,13 @@ public final class GeocodeResultBuilderTest {
         final double lat = 10.00;
         final double lng = 20.00;
         final LngLatAlt northeast = new LngLatAlt(lng, lat);
-        final Feature bounds =
-                GeoServiceBounds.createBounds("bounds", null, northeast);
-        final GeoServiceGeometry geometry =
-                new GeoServiceGeometry(bounds, null, null, null);
-        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
-                null, null, null, geometry, null, false, null);
-        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
-        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        try {
+            final Feature bounds = GeoServiceBounds.createBounds("bounds", null,
+                northeast);
+            fail("Should have thrown illegal argument exception: " + bounds);
+        } catch (IllegalArgumentException e) {
+            // Should have thrown
+        }
     }
 
     /** */
@@ -509,16 +541,13 @@ public final class GeocodeResultBuilderTest {
         final double lat = 10.00;
         final double lng = 20.00;
         final LngLatAlt southwest = new LngLatAlt(lng, lat);
-        final Feature bounds =
-                GeoServiceBounds.createBounds("bounds", southwest, null);
-        final GeoServiceGeometry geometry =
-                new GeoServiceGeometry(bounds, null, null, null);
-        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
-                null, null, null, geometry, null, false, null);
-        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
-        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        try {
+            final Feature bounds = GeoServiceBounds.createBounds("bounds",
+                    southwest, null);
+            fail("Should have thrown illegal argument exception: " + bounds);
+        } catch (IllegalArgumentException e) {
+            // Should have thrown
+        }
     }
 
     /** */
@@ -530,10 +559,10 @@ public final class GeocodeResultBuilderTest {
         final double swLat = 5.00;
         final double swLng = 25.00;
         final LngLatAlt southwest = new LngLatAlt(swLng, swLat);
-        final Feature bounds =
-                GeoServiceBounds.createBounds("bounds", southwest, northeast);
-        final GeoServiceGeometry geometry =
-                new GeoServiceGeometry(bounds, null, null, null);
+        final Feature bounds = GeoServiceBounds.createBounds("bounds",
+                southwest, northeast);
+        final FeatureCollection geometry = GeoServiceGeometry
+                .createFeatureCollection(bounds, null, null, null);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
                 null, null, null, geometry, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
@@ -545,8 +574,9 @@ public final class GeocodeResultBuilderTest {
     /** */
     @Test
     public void testToGeoCodeItemResultGeometryLocationType() {
-        final GeoServiceGeometry geometry = new GeoServiceGeometry(
-                null, null, LocationType.APPROXIMATE, null);
+        final FeatureCollection geometry = GeoServiceGeometry
+                .createFeatureCollection(null, null, LocationType.APPROXIMATE,
+                        null);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
                 null, null, null, geometry, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
@@ -559,8 +589,8 @@ public final class GeocodeResultBuilderTest {
     @Test
     public void testToGeoCodeItemResultGeometryEmptyViewport() {
         final Feature viewport = GeoServiceBounds.createBounds("viewport");
-        final GeoServiceGeometry geometry =
-                new GeoServiceGeometry(null, null, null, viewport);
+        final FeatureCollection geometry = GeoServiceGeometry
+                .createFeatureCollection(null, null, null, viewport);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
                 null, null, null, geometry, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
@@ -575,16 +605,13 @@ public final class GeocodeResultBuilderTest {
         final double lat = 10.00;
         final double lng = 20.00;
         final LngLatAlt northeast = new LngLatAlt(lng, lat);
-        final Feature viewport =
-                GeoServiceBounds.createBounds("viewport", null, northeast);
-        final GeoServiceGeometry geometry =
-                new GeoServiceGeometry(null, null, null, viewport);
-        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
-                null, null, null, geometry, null, false, null);
-        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
-        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        try {
+            final Feature viewport = GeoServiceBounds.createBounds("viewport",
+                    null, northeast);
+            fail("Should have thrown illegal argument exception: " + viewport);
+        } catch (IllegalArgumentException e) {
+            // Should have thrown
+        }
     }
 
     /** */
@@ -593,16 +620,13 @@ public final class GeocodeResultBuilderTest {
         final double lat = 5.00;
         final double lng = 25.00;
         final LngLatAlt southwest = new LngLatAlt(lng, lat);
-        final Feature viewport =
-                GeoServiceBounds.createBounds("viewport", southwest, null);
-        final GeoServiceGeometry geometry =
-                new GeoServiceGeometry(null, null, null, viewport);
-        final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
-                null, null, null, geometry, null, false, null);
-        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
-        final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        try {
+            final Feature viewport = GeoServiceBounds.createBounds("viewport",
+                    southwest, null);
+            fail("Should have thrown illegal argument exception: " + viewport);
+        } catch (IllegalArgumentException e) {
+            // Should have thrown
+        }
     }
 
     /** */
@@ -614,14 +638,13 @@ public final class GeocodeResultBuilderTest {
         final double swLat = 5.00;
         final double swLng = 25.00;
         final LngLatAlt southwest = new LngLatAlt(swLng, swLat);
-        final Feature viewport =
-                GeoServiceBounds.createBounds("viewport", southwest, northeast);
-        final GeoServiceGeometry geometry =
-                new GeoServiceGeometry(null, null, null, viewport);
+        final Feature viewport = GeoServiceBounds.createBounds("viewport",
+                southwest, northeast);
+        final FeatureCollection geometry = GeoServiceGeometry
+                .createFeatureCollection(null, null, null, viewport);
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(
                 null, null, null, geometry, null, false, null);
-        final GeoServiceItem bgci =
-                new GeoServiceItem("XYZZY", "PLUGH", bgr);
+        final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
         assertTrue("Failed comparison",
                 checker(gci.getGeocodingResult(), bgci.getResult()));
@@ -670,8 +693,9 @@ public final class GeocodeResultBuilderTest {
      * @param backupAddressComponents address components from backup model
      * @return true if all match
      */
+    @SuppressWarnings("PMD.UseVarargs")
     private boolean checker(final AddressComponent[] addressComponents,
-            final GeoServiceAddressComponent[] backupAddressComponents) {
+            final AddressComponent[] backupAddressComponents) {
         if (addressComponents == null && backupAddressComponents == null) {
             return true;
         }
@@ -695,23 +719,23 @@ public final class GeocodeResultBuilderTest {
      * @return true if they match
      */
     private boolean checker(final AddressComponent addressComponent,
-            final GeoServiceAddressComponent backupAddressComponent) {
-        if (addressComponent == null && backupAddressComponent ==  null) {
+            final AddressComponent backupAddressComponent) {
+        if (addressComponent == null && backupAddressComponent == null) {
             return true;
         }
         if (addressComponent == null || backupAddressComponent == null) {
             return false;
         }
         if (!checker(addressComponent.longName,
-                backupAddressComponent.getLongName())) {
+                backupAddressComponent.longName)) {
             return false;
         }
         if (!checker(addressComponent.shortName,
-                backupAddressComponent.getShortName())) {
+                backupAddressComponent.shortName)) {
             return false;
         }
         return checker(addressComponent.types,
-                backupAddressComponent.getTypes());
+                backupAddressComponent.types);
     }
 
     /**
@@ -734,6 +758,7 @@ public final class GeocodeResultBuilderTest {
      * @param backupTypes array of types from backup
      * @return true if they match
      */
+    @SuppressWarnings("PMD.UseVarargs")
     private boolean checker(final AddressComponentType[] types,
             final AddressComponentType[] backupTypes) {
         if (types == null && backupTypes == null) {
@@ -771,28 +796,150 @@ public final class GeocodeResultBuilderTest {
 
     /**
      * @param geometry geocode geometry
-     * @param backupGeometry backup geometry
+     * @param featureCollection the collection that represents the geometry
      * @return true if they match
      */
+    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.NPathComplexity" })
     private boolean checker(final Geometry geometry,
-            final GeoServiceGeometry backupGeometry) {
-        if (geometry == null && backupGeometry == null) {
+            final FeatureCollection featureCollection) {
+        if (isEmpty(geometry) && isEmpty(featureCollection)) {
             return true;
         }
-        if (geometry == null || backupGeometry == null) {
+        if (isEmpty(geometry) || isEmpty(featureCollection)) {
             return false;
         }
-        if (!checker("bounds", geometry.bounds, backupGeometry.getBounds())) {
+        Feature location;
+        if (featureCollection.getFeatures().isEmpty()) {
+            location = null;
+        } else {
+            location = featureCollection.getFeatures().get(0);
+        }
+        if (location == null) {
+            if (!checker(geometry.location, (Point) null)) {
+                return false;
+            }
+            if (!checker(geometry.locationType, (LocationType) null)) {
+                return false;
+            }
+        } else {
+            if (!checker(geometry.location, (Point) location.getGeometry())) {
+                return false;
+            }
+            if (!checker(geometry.locationType,
+                    location.getProperty("locationType"))) {
+                return false;
+            }
+        }
+        if (featureCollection.getFeatures().isEmpty()) {
+            if (!checker("bounds", geometry.bounds, (Feature) null)) {
+                return false;
+            }
+            return checker("viewport", geometry.viewport, null);
+        } else {
+            if (!checker("bounds", geometry.bounds,
+                    featureCollection.getFeatures().get(1))) {
+                return false;
+            }
+            return checker("viewport", geometry.viewport,
+                    featureCollection.getFeatures().get(2));
+        }
+    }
+
+    /**
+     * @param geometry the geometry
+     * @return if there is no data in it
+     */
+    private boolean isEmpty(final Geometry geometry) {
+        if (geometry == null) {
+            return true;
+        }
+        final LatLng point = geometry.location;
+        if (!isEmpty(point)) {
             return false;
         }
-        if (!checker(geometry.location, backupGeometry.getLocation())) {
+        if (!isEmpty(geometry.bounds)) {
             return false;
         }
-        if (!checker(geometry.locationType, backupGeometry.getLocationType())) {
+        return isEmpty(geometry.viewport);
+    }
+
+    /**
+     * @param bounds a bounding box
+     * @return true if null or both points empty
+     */
+    private boolean isEmpty(final Bounds bounds) {
+        if (bounds == null) {
+            return true;
+        }
+        if (!isEmpty(bounds.northeast)) {
             return false;
         }
-        return checker("viewport", geometry.viewport,
-                backupGeometry.getViewport());
+        return isEmpty(bounds.southwest);
+    }
+
+    /**
+     * @param point a point
+     * @return true if null or both axes not a number
+     */
+    private boolean isEmpty(final LatLng point) {
+        if (point == null) {
+            return true;
+        }
+        if (!Double.isNaN(point.lat)) {
+            return false;
+        }
+        return Double.isNaN(point.lng);
+    }
+
+    /**
+     * There are a number of ways that a feature collection can be empty.
+     *
+     * @param featureCollection the feature collection
+     * @return true if considered empty
+     */
+    private boolean isEmpty(final FeatureCollection featureCollection) {
+        if (featureCollection == null) {
+            return true;
+        }
+        final List<Feature> features = featureCollection.getFeatures();
+        if (features == null) {
+            return true;
+        }
+        if (features.isEmpty()) {
+            return true;
+        }
+        for (final Feature feature : features) {
+            if (!isEmpty(feature)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @param feature the feature
+     * @return if it's empty
+     */
+    private boolean isEmpty(final Feature feature) {
+        if (feature == null) {
+            return true;
+        }
+        final GeoJsonObject geometry = feature.getGeometry();
+        if (geometry == null) {
+            return true;
+        }
+        if (geometry instanceof Point) {
+            final Point point = (Point) geometry;
+            return (Double.isNaN(point.getCoordinates().getLatitude())
+                    && Double.isNaN(point.getCoordinates().getLongitude()));
+        } else if (geometry instanceof Polygon) {
+            final Polygon poly = (Polygon) geometry;
+            final List<List<LngLatAlt>> coordinates = poly.getCoordinates();
+            if (coordinates != null && !coordinates.isEmpty()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -801,9 +948,7 @@ public final class GeocodeResultBuilderTest {
      * @param backupBounds backup boundary
      * @return true if they match
      */
-    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.NPathComplexity" })
-    private boolean checker(final String id,
-            final Bounds bounds,
+    private boolean checker(final String id, final Bounds bounds,
             final Feature backupBounds) {
         if (bounds == null && backupBounds == null) {
             return true;
@@ -814,25 +959,16 @@ public final class GeocodeResultBuilderTest {
         if (!id.equals(backupBounds.getId())) {
             return false;
         }
-        final Polygon polygon =
-                (Polygon) backupBounds.getGeometry();
-        LngLatAlt northeast;
-        LngLatAlt southwest;
-        if (polygon == null || polygon.getCoordinates() == null
-                || polygon.getCoordinates().isEmpty()) {
-            northeast = null;
-            southwest = null;
-        } else {
-            final List<LngLatAlt> list = polygon.getCoordinates().get(0);
-            northeast = list.get(2);
-            southwest = list.get(0);
-        }
         if (bounds.northeast == null || bounds.southwest == null) {
-            return (northeast == null && southwest == null);
+            return false;
         }
+        final Polygon polygon = (Polygon) backupBounds.getGeometry();
+        final List<LngLatAlt> list = polygon.getCoordinates().get(0);
+        final LngLatAlt northeast = list.get(2);
         if (!checker(bounds.northeast, northeast)) {
             return false;
         }
+        final LngLatAlt southwest = list.get(0);
         return checker(bounds.southwest, southwest);
     }
 
@@ -841,8 +977,7 @@ public final class GeocodeResultBuilderTest {
      * @param point GeoJSON Point version of location
      * @return true if they match
      */
-    private boolean checker(final LatLng latLng,
-            final Point point) {
+    private boolean checker(final LatLng latLng, final Point point) {
         if (latLng == null && point == null) {
             return true;
         }
@@ -863,8 +998,7 @@ public final class GeocodeResultBuilderTest {
      * @param lla GeoJSON LngLatAlt version of location
      * @return true if they match
      */
-    private boolean checker(final LatLng latLng,
-            final LngLatAlt lla) {
+    private boolean checker(final LatLng latLng, final LngLatAlt lla) {
         if (latLng == null && lla == null) {
             return true;
         }
@@ -872,12 +1006,10 @@ public final class GeocodeResultBuilderTest {
             return false;
         }
         final double tolerance = 0.001;
-        if (!almostEqual(latLng.lat, lla.getLatitude(),
-                tolerance)) {
+        if (!almostEqual(latLng.lat, lla.getLatitude(), tolerance)) {
             return false;
         }
-        return almostEqual(latLng.lng, lla.getLongitude(),
-                tolerance);
+        return almostEqual(latLng.lng, lla.getLongitude(), tolerance);
     }
 
     /**
@@ -914,9 +1046,10 @@ public final class GeocodeResultBuilderTest {
      * @param array1 string array 2
      * @return true if they match
      */
+    @SuppressWarnings("PMD.UseVarargs")
     private boolean checker(final String[] array0, final String[] array1) {
         if (array0 == null && array1 == null) {
-            return  true;
+            return true;
         }
         if (array0 == null || array1 == null) {
             return false;
@@ -937,6 +1070,7 @@ public final class GeocodeResultBuilderTest {
      * @param types1 second array
      * @return true if they match
      */
+    @SuppressWarnings("PMD.UseVarargs")
     private boolean checker(final AddressType[] types0,
             final AddressType[] types1) {
         if (types0 == null && types1 == null) {
