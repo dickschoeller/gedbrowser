@@ -26,6 +26,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 public class SourceRepositoryTest {
+    /**
+     * Expected value in source count tests.
+     */
+    private static final long SOURCE_COUNT = 9L;
+
     /** */
     @Autowired
     private transient SourceDocumentRepositoryMongo sourceDocumentRepository;
@@ -97,16 +102,14 @@ public class SourceRepositoryTest {
     /** */
     @Test
     public void testCountRoot() {
-        final long expected = 9;
-        assertEquals("Should be 9 sources", expected,
+        assertEquals("Should be 9 sources", SOURCE_COUNT,
                 sourceDocumentRepository.count(rootDocument));
     }
 
     /** */
     @Test
     public void testCountFilename() {
-        final long expected = 9;
-        assertEquals("Should be 9 sources", expected,
+        assertEquals("Should be 9 sources", SOURCE_COUNT,
                 sourceDocumentRepository.count(rootDocument.getFilename()));
     }
 
@@ -120,8 +123,7 @@ public class SourceRepositoryTest {
             trailer.getType();
             count++;
         }
-        final long expected = 9;
-        assertEquals("Should be 9 sources", expected, count);
+        assertEquals("Should be 9 sources", SOURCE_COUNT, count);
     }
 
     /** */
@@ -134,7 +136,6 @@ public class SourceRepositoryTest {
             trailer.getType();
             count++;
         }
-        final long expected = 9;
-        assertEquals("Should be 9 sources", expected, count);
+        assertEquals("Should be 9 sources", SOURCE_COUNT, count);
     }
 }

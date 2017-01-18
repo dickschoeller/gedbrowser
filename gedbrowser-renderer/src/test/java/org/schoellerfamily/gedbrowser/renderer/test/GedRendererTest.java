@@ -36,7 +36,8 @@ public class GedRendererTest {
                 new GedRendererFactory(),
                 RenderingContext.anonymous()) {
         };
-        assertTrue(renderer.getAttributeListOpenRenderer()
+        assertTrue("Wrong renderer type",
+                renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
     }
 
@@ -52,7 +53,8 @@ public class GedRendererTest {
                 new GedRendererFactory(),
                 RenderingContext.anonymous()) {
         };
-        assertTrue(renderer.getListItemRenderer()
+        assertTrue("Wrong renderer type",
+                renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
     }
 
@@ -68,7 +70,8 @@ public class GedRendererTest {
                 new GedRendererFactory(),
                 RenderingContext.anonymous()) {
         };
-        assertTrue(renderer.getNameHtmlRenderer()
+        assertTrue("Wrong renderer type",
+                renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
     }
 
@@ -84,7 +87,8 @@ public class GedRendererTest {
                 new GedRendererFactory(),
                 RenderingContext.anonymous()) {
         };
-        assertTrue(renderer.getNameIndexRenderer()
+        assertTrue("Wrong renderer type",
+                renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
     }
 
@@ -100,7 +104,8 @@ public class GedRendererTest {
                 new GedRendererFactory(),
                 RenderingContext.anonymous()) {
         };
-        assertTrue(renderer.getPhraseRenderer()
+        assertTrue("Wrong renderer type",
+                renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
     }
 
@@ -116,7 +121,8 @@ public class GedRendererTest {
                 new GedRendererFactory(),
                 RenderingContext.anonymous()) {
         };
-        assertTrue(renderer.getSectionRenderer()
+        assertTrue("Wrong renderer type",
+                renderer.getSectionRenderer()
                 instanceof NullSectionRenderer);
     }
 
@@ -129,7 +135,8 @@ public class GedRendererTest {
                 new GedRendererFactory(),
                 RenderingContext.anonymous()) {
         };
-        assertEquals("\n"
+        assertEquals("Rendered string does not match expectation",
+                "\n"
                 + "    <hr class=\"final\"/>\n"
                 + "    <p>\n"
                 + "    </p>\n"
@@ -192,7 +199,8 @@ public class GedRendererTest {
                 + "    <title>" + title + "</title>\n"
                 + "  </head>\n"
                 + "  <body>\n";
-        assertEquals(testString, renderer.getHeaderHtml(title, keywords));
+        assertEquals("Rendered string does not match expectation",
+                testString, renderer.getHeaderHtml(title, keywords));
     }
 
     /** */
@@ -202,7 +210,8 @@ public class GedRendererTest {
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertEquals("\n"
+        assertEquals("Rendered string does not match expectation",
+                "\n"
                 + "    <hr class=\"final\"/>\n"
                 + "    <p>\n"
                 + "    </p>\n"
@@ -254,7 +263,8 @@ public class GedRendererTest {
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertEquals("\n"
+        assertEquals("Rendered string does not match expectation",
+                "\n"
                 + "    <hr class=\"final\"/>\n"
                 + "    <p>\n"
                 + "    <a href=\"?null+Header\">Header</a><br>\n"
@@ -295,7 +305,8 @@ public class GedRendererTest {
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertEquals("\n"
+        assertEquals("Rendered string does not match expectation",
+                "\n"
                 + "    <hr class=\"final\"/>\n"
                 + "    <p>\n"
                 + "    <a href=\"?" + root.getFilename()
@@ -337,7 +348,8 @@ public class GedRendererTest {
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 RenderingContext.anonymous());
-        assertEquals("\n"
+        assertEquals("Rendered string does not match expectation",
+                "\n"
                 + "    <hr class=\"final\"/>\n"
                 + "    <p>\n"
                 + "    <a href=\"?" + root.getFilename()
@@ -383,6 +395,7 @@ public class GedRendererTest {
                 new GedRendererFactory(),
                 RenderingContext.anonymous()) {
         };
-        assertEquals("http://www.schoellerfamily.org/", renderer.getHomeUrl());
+        assertEquals("Home URL does not match expectation",
+                "http://www.schoellerfamily.org/", renderer.getHomeUrl());
     }
 }

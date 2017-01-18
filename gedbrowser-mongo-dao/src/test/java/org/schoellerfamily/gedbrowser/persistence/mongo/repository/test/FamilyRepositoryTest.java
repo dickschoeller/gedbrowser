@@ -26,6 +26,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 public final class FamilyRepositoryTest {
+    /**
+     * Standard answer in the family counts tests.
+     */
+    private static final long FAMILY_COUNT = 6L;
+
     /** */
     @Autowired
     private transient FamilyDocumentRepositoryMongo familyDocumentRepository;
@@ -99,16 +104,14 @@ public final class FamilyRepositoryTest {
     /** */
     @Test
     public void testCountRoot() {
-        final long expected = 6;
-        assertEquals("Should be 6 families", expected,
+        assertEquals("Should be 6 families", FAMILY_COUNT,
                 familyDocumentRepository.count(rootDocument));
     }
 
     /** */
     @Test
     public void testCountFilename() {
-        final long expected = 6;
-        assertEquals("Should be 6 families", expected,
+        assertEquals("Should be 6 families", FAMILY_COUNT,
                 familyDocumentRepository.count(rootDocument.getFilename()));
     }
 
@@ -122,8 +125,7 @@ public final class FamilyRepositoryTest {
             trailer.getType();
             count++;
         }
-        final long expected = 6;
-        assertEquals("Should be 6 families", expected, count);
+        assertEquals("Should be 6 families", FAMILY_COUNT, count);
     }
 
     /** */
@@ -136,7 +138,6 @@ public final class FamilyRepositoryTest {
             trailer.getType();
             count++;
         }
-        final long expected = 6;
-        assertEquals("Should be 6 families", expected, count);
+        assertEquals("Should be 6 families", FAMILY_COUNT, count);
     }
 }

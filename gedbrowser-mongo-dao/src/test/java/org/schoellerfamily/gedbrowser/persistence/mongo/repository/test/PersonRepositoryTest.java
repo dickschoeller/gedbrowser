@@ -27,6 +27,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 public final class PersonRepositoryTest {
+    /**
+     * Normal expected value in person counting tests.
+     */
+    private static final long PERSON_COUNT = 16L;
+
     /** */
     @Autowired
     private transient PersonDocumentRepositoryMongo personDocumentRepository;
@@ -346,18 +351,16 @@ public final class PersonRepositoryTest {
     /** */
     @Test
     public void testCountRoot() {
-        final long expected = 16;
         final long count = personDocumentRepository.count(rootDocument);
-        assertEquals("Should be 16 persons", expected, count);
+        assertEquals("Should be 16 persons", PERSON_COUNT, count);
     }
 
     /** */
     @Test
     public void testCountFilename() {
-        final long expected = 16;
         final long count =
                 personDocumentRepository.count(rootDocument.getFilename());
-        assertEquals("Should be 16 persons", expected, count);
+        assertEquals("Should be 16 persons", PERSON_COUNT, count);
     }
 
     /** */
@@ -370,8 +373,7 @@ public final class PersonRepositoryTest {
             trailer.getType();
             count++;
         }
-        final long expected = 16;
-        assertEquals("Should be 16 persons", expected, count);
+        assertEquals("Should be 16 persons", PERSON_COUNT, count);
     }
 
     /** */
@@ -384,7 +386,6 @@ public final class PersonRepositoryTest {
             trailer.getType();
             count++;
         }
-        final long expected = 16;
-        assertEquals("Should be 16 persons", expected, count);
+        assertEquals("Should be 16 persons", PERSON_COUNT, count);
     }
 }
