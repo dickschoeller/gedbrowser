@@ -84,11 +84,38 @@ public final class AttributeTest {
 
     /** */
     @Test
+    public void testString() {
+        final Attribute job = new Attribute(person1, "Job", "Worked at SAP");
+        assertEquals("In should match out", "Worked at SAP", job.getTail());
+    }
+
+    /** */
+    @Test
     public void testAppendString() {
         final Attribute job = new Attribute(person1, "Job", "Worked at SAP");
-        assertEquals("Worked at SAP", job.getTail());
         job.appendString(" for 5 years");
-        assertEquals("Worked at SAP for 5 years", job.getTail());
+        assertEquals("Should have concatenated the segments",
+                "Worked at SAP for 5 years", job.getTail());
+    }
+
+    /** */
+    @Test
+    public void testNoBirthNoDate() {
+        final Attribute dummy = new Attribute(person1, DUMMY);
+        final Date dummyDate = new Date(dummy, POTTER_DAY);
+        dummy.insert(dummyDate);
+        assertEquals("Expected empty string", "", dummy.getBirthDate());
+    }
+
+    /** */
+    @Test
+    public void testGetBirthDateNotInserted() {
+        final Attribute dummy = new Attribute(person1, DUMMY);
+        final Date dummyDate = new Date(dummy, POTTER_DAY);
+        dummy.insert(dummyDate);
+        final Attribute birth = new Attribute(person1, "Birth");
+        new Date(birth, POTTER_DAY);
+        assertEquals("Expected empty string", "", birth.getBirthDate());
     }
 
     /** */
@@ -97,14 +124,30 @@ public final class AttributeTest {
         final Attribute dummy = new Attribute(person1, DUMMY);
         final Date dummyDate = new Date(dummy, POTTER_DAY);
         dummy.insert(dummyDate);
-        assertEquals("", dummy.getBirthDate());
-
         final Attribute birth = new Attribute(person1, "Birth");
         final Date date = new Date(birth, POTTER_DAY);
-        assertEquals("", birth.getBirthDate());
-
         birth.insert(date);
-        assertEquals(POTTER_DAY, birth.getBirthDate());
+        assertEquals("Date's filled in. Should match", POTTER_DAY,
+                birth.getBirthDate());
+    }
+
+    /** */
+    @Test
+    public void testNoDeathNoDate() {
+        final Attribute dummy = new Attribute(person1, DUMMY);
+        final Date dummyDate = new Date(dummy, POTTER_DAY);
+        dummy.insert(dummyDate);
+        assertEquals("Expected empty string", "", dummy.getDeathDate());
+    }
+
+    /** */
+    @Test
+    public void testGetDeathDateNotInserted() {
+        final Attribute dummy = new Attribute(person1, DUMMY);
+        final Date dummyDate = new Date(dummy, POTTER_DAY);
+        dummy.insert(dummyDate);
+        final Attribute death = new Attribute(person1, "Death");
+        assertEquals("Expected empty string", "", death.getDeathDate());
     }
 
     /** */
@@ -113,14 +156,11 @@ public final class AttributeTest {
         final Attribute dummy = new Attribute(person1, DUMMY);
         final Date dummyDate = new Date(dummy, POTTER_DAY);
         dummy.insert(dummyDate);
-        assertEquals("", dummy.getDeathDate());
-
         final Attribute death = new Attribute(person1, "Death");
-        assertEquals("", death.getDeathDate());
-
         final Date date = new Date(death, HUNDRED_DAY);
         death.insert(date);
-        assertEquals(HUNDRED_DAY, death.getDeathDate());
+        assertEquals("Date's filled in. Should match",
+                HUNDRED_DAY, death.getDeathDate());
     }
 
     /** */

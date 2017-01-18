@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.controller;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.Users;
@@ -10,7 +12,10 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
+import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
+import org.schoellerfamily.gedbrowser.renderer.PlaceListRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -37,6 +42,10 @@ public class PersonController extends AbstractController {
     /** */
     @Value("${gedbrowser.home}")
     private transient String gedbrowserHome;
+
+    /** */
+    @Autowired
+    private transient GeoServiceClient client;
 
     /**
      * Connects HTML template file with data for the person page.
@@ -68,6 +77,13 @@ public class PersonController extends AbstractController {
                     "Person " + idString + " not found", idString, dbName);
         }
 
+        // TOD pass this to the UI
+        final PlaceListRenderer pl = new PlaceListRenderer(person, client);
+        final List<PlaceInfo> places = pl.render();
+        for (final PlaceInfo place : places) {
+            this.logger.info(place);
+        }
+
         final RenderingContext renderingContext =
                 createRenderingContext(users);
         final GedRenderer<?> nameRenderer =
@@ -81,6 +97,7 @@ public class PersonController extends AbstractController {
         model.addAttribute("filename", filename);
         model.addAttribute("name", nameRenderer.getNameHtml());
         model.addAttribute("person", gedRenderer);
+        model.addAttribute("places", places);
         model.addAttribute("appInfo", new ApplicationInfo());
 
         logger.debug("Exiting person");
