@@ -66,7 +66,15 @@ public class PlaceInfo {
      */
     @Override
     public String toString() {
+        if (placeName == null) {
+            return String.format(
+                    "{ \"placeName\":null, "
+                    + "\"latitude\":%4.6f, \"longitude\":%4.6f }",
+                    latitude, longitude);
+        }
         return String.format(
-                "%s (%4.6f, %4.6f)", placeName, latitude, longitude);
+                "{ \"placeName\":\"%s\", "
+                + "\"latitude\":%4.6f, \"longitude\":%4.6f }",
+                placeName, latitude, longitude);
     }
 }

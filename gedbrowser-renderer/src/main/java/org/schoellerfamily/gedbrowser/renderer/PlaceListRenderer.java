@@ -1,6 +1,8 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -17,6 +19,8 @@ import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 
 /**
+ * Generates the collection of places for a provided person.
+ *
  * @author Dick Schoeller
  */
 public final class PlaceListRenderer {
@@ -39,7 +43,19 @@ public final class PlaceListRenderer {
      * @return the list of place information
      */
     public List<PlaceInfo> render() {
+        if (person == null || client == null) {
+            return Collections.<PlaceInfo>emptyList();
+        }
+        final Collection<String> places = collectPlaceNames();
+        return geoCodePlaces(places);
+    }
+
+    /**
+     * @return the collection of place names associated with this person
+     */
+    private Collection<String> collectPlaceNames() {
         final Set<String> places = new TreeSet<>();
+        // FIXME Feature envy - GedObjects should be able to tell you place.
         for (final GedObject gob : person.getAttributes()) {
             for (final GedObject subgob : gob.getAttributes()) {
                 if (subgob instanceof Place) {
@@ -50,6 +66,14 @@ public final class PlaceListRenderer {
             }
         }
         // TODO get places from marriages
+        return places;
+    }
+
+    /**
+     * @param places the place to code
+     * @return the list of geocode results
+     */
+    private List<PlaceInfo> geoCodePlaces(final Collection<String> places) {
         final List<PlaceInfo> items = new ArrayList<>(places.size());
         for (final String placeName : places) {
             final GeoServiceItem item = client.get(placeName);

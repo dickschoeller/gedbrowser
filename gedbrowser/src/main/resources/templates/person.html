@@ -4,6 +4,34 @@
     <title th:text="'Person: ' + ${person.idString} + ' - ' + ${person.wholeName} + ' ' + ${person.lifeSpanString}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
+
+    <script type="text/javascript"
+     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTkcNhk6eDCKARYFCciIO9H1vEjGpJx54&amp;callback=loadMap"
+     async="async" defer="defer"></script>
+
+    <script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    function loadMap() {
+        var myOptions = {
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_container"),myOptions);
+        var places1 = [[${places}]];
+        var bounds = new google.maps.LatLngBounds();
+        for (i = 0; i < places1.length; i++) {
+            var latlng = new google.maps.LatLng(places1[i].latitude, places1[i].longitude);
+            var marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                title: places1[i].placeName
+              });
+            bounds.extend(marker.getPosition());
+        }
+
+        map.fitBounds(bounds);
+  }
+  /*]]>*/
+</script>
 </head>
 <body>
     <div class="menubar">
@@ -28,6 +56,8 @@
     <h2 class="name"
         th:utext="${person.idString} + ': ' + ${person.wholeName} + ' ' + ${person.lifeSpanString}">I0:
         John <span class="surname">Doe</span> (1000-1070)</h2>
+
+    <div id="map_container"></div>
 
     <p class="parent" th:if="${not person.fatherNameHtml.isEmpty()}">
         <span class="parent label">Father:</span>
