@@ -36,7 +36,7 @@ hr {
  border-style: none;
  border-color: #046ac5;
  border-width: 0;
- clear: both;
+ clear: left;
 }
 
 body {
@@ -98,6 +98,7 @@ table.tree {
 
   padding: 2px;
   margin: 0;
+  clear: both;
 }
 
 tr.tree {
@@ -383,4 +384,14 @@ div.inner {
     border-bottom-color: #046ac4;
     border-bottom-style: solid;
     border-bottom-width: 2px;
+}
+
+div#map_container {
+    width:640px;
+    height:480px;
+    float: right;
+    margin: 0px 10px 10px 10px;
+    border-color: #046ac4;
+    border-style: solid;
+    border-width: 2px;
 }
