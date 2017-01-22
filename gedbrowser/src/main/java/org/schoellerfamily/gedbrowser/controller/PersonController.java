@@ -49,8 +49,8 @@ public class PersonController extends AbstractController {
     private transient GeoServiceClient client;
 
     /** */
-    @Value("${geoservice.keyfile:/var/lib/gedbrowser/google-geocoding-key}")
-    private transient String keyfile;
+    @Autowired
+    private transient KeyManager keyManager;
 
     /**
      * Connects HTML template file with data for the person page.
@@ -88,8 +88,7 @@ public class PersonController extends AbstractController {
         for (final PlaceInfo place : places) {
             this.logger.info(place);
         }
-        final KeyManager km = new KeyManager(keyfile);
-        final String key = km.getMapsKey();
+        final String key = keyManager.getMapsKey();
 
         final RenderingContext renderingContext =
                 createRenderingContext(users);

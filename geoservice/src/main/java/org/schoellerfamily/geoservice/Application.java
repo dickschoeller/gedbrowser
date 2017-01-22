@@ -6,6 +6,8 @@ import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.geocoder.GoogleGeoCoder;
 import org.schoellerfamily.geoservice.geocoder.StubGeoCoder;
 import org.schoellerfamily.geoservice.keys.KeyManager;
+import org.schoellerfamily.geoservice.keys.KeyManagerImpl;
+import org.schoellerfamily.geoservice.keys.KeyManagerStub;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
 import org.schoellerfamily.geoservice.persistence.mongo.GeoCodeMongo;
@@ -36,59 +38,55 @@ public class Application {
     /**
      * @return the persistence manager
      */
-    // We turn off checkstyle because bean methods must not be final
-    // CHECKSTYLE:OFF
     @Bean
     public GeoCode persistenceManager() {
-        // CHECKSTYLE:ON
         return new GeoCodeMongo();
     }
 
     /**
      * @return the backup manager
      */
-    // We turn off checkstyle because bean methods must not be final
-    // CHECKSTYLE:OFF
     @Bean
     public GeoCodeBackup backupManager() {
-        // CHECKSTYLE:ON
         return new GeoCodeBackup();
     }
 
     /**
      * @return the backup manager
      */
-    // We turn off checkstyle because bean methods must not be final
-    // CHECKSTYLE:OFF
     @Bean
     public ApplicationInfo appInfo() {
-        // CHECKSTYLE:ON
         return new ApplicationInfo();
     }
 
     /**
      * @return the geocodeloader
      */
-    // We turn off checkstyle because bean methods must not be final
-    // CHECKSTYLE:OFF
     @Bean
     public GeoCodeLoader loader() {
-        // CHECKSTYLE:ON
         return new GeoCodeLoader();
+    }
+
+    /**
+     * @return the manager of google keys
+     */
+    @Bean
+    public KeyManager keyManager() {
+        if ("stub".equals(keyfile)) {
+            return new KeyManagerStub();
+        }
+        return new KeyManagerImpl(keyfile);
     }
 
     /**
      * @return the geocoder
      */
-    // We turn off checkstyle because bean methods must not be final
-    // CHECKSTYLE:OFF
     @Bean
     public GeoCoder geoCoder() {
         if ("stub".equals(keyfile)) {
             return new StubGeoCoder(new String[0]);
         }
-        final KeyManager km = new KeyManager(keyfile);
-        final String key = km.getGeocodingKey();
+        final String key = keyManager().getGeocodingKey();
         return new GoogleGeoCoder(key);
     }
 }
