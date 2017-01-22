@@ -92,6 +92,7 @@ public class PersonController extends AbstractController {
             this.logger.info(place);
         }
         final String key = keyManager.getMapsKey();
+        final Boolean showMap = !places.isEmpty();
 
         final GedRenderer<?> nameRenderer =
                 new GedRendererFactory().create(
@@ -106,6 +107,7 @@ public class PersonController extends AbstractController {
         model.addAttribute("person", gedRenderer);
         model.addAttribute("places", places);
         model.addAttribute("key", key);
+        model.addAttribute("showMap", showMap);
         model.addAttribute("appInfo", new ApplicationInfo());
 
         logger.debug("Exiting person");
