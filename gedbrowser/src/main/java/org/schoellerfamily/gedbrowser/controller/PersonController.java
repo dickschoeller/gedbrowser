@@ -82,16 +82,17 @@ public class PersonController extends AbstractController {
                     "Person " + idString + " not found", idString, dbName);
         }
 
-        // TOD pass this to the UI
-        final PlaceListRenderer pl = new PlaceListRenderer(person, client);
+        final RenderingContext renderingContext =
+                createRenderingContext(users);
+
+        final PlaceListRenderer pl = new PlaceListRenderer(person, client,
+                renderingContext);
         final List<PlaceInfo> places = pl.render();
         for (final PlaceInfo place : places) {
             this.logger.info(place);
         }
         final String key = keyManager.getMapsKey();
 
-        final RenderingContext renderingContext =
-                createRenderingContext(users);
         final GedRenderer<?> nameRenderer =
                 new GedRendererFactory().create(
                         person.getName(), renderingContext);
