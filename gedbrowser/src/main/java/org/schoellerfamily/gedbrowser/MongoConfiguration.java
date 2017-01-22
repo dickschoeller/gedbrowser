@@ -23,6 +23,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     TrailerDocumentRepositoryMongo;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.schoellerfamily.geoservice.client.GeoServiceClientImpl;
+import org.schoellerfamily.geoservice.keys.KeyManager;
+import org.schoellerfamily.geoservice.keys.KeyManagerImpl;
+import org.schoellerfamily.geoservice.keys.KeyManagerStub;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -65,17 +68,18 @@ public class MongoConfiguration {
     @Value("${spring.data.mongodb.port:27017}")
     private transient int port;
 
+    /** */
+    @Value("${geoservice.keyfile:/var/lib/gedbrowser/google-geocoding-key}")
+    private transient String keyfile;
+
     /**
      * Get a MongoDbFactory for accessing the gedbrowser database.
      *
      * @return the MongoDbFactory
      * @throws UnknownHostException because it must
      */
-    // We turn off checkstyle because bean methods must not be final
-    // CHECKSTYLE:OFF
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
-        // CHECKSTYLE:ON
         return new SimpleMongoDbFactory(new MongoClient(host, port),
                 "gedbrowser");
     }
@@ -86,44 +90,32 @@ public class MongoConfiguration {
      * @return the template
      * @throws UnknownHostException because it must
      */
-    // We turn off checkstyle because bean methods must not be final
-    // CHECKSTYLE:OFF
     @Bean
     public MongoTemplate mongoTemplate() throws UnknownHostException {
-        // CHECKSTYLE:ON
         return new MongoTemplate(mongoDbFactory());
     }
 
     /**
      * @return the finder
      */
-    // We turn off checkstyle because bean methods must not be final
-    // CHECKSTYLE:OFF
     @Bean
     public FinderStrategy finder() {
-        // CHECKSTYLE:ON
         return new RepositoryFinderMongo();
     }
 
     /**
      * @return the loader
      */
-    // We turn off checkstyle because bean methods must not be final
-    // CHECKSTYLE:OFF
     @Bean
     public GedFileLoader loader() {
-        // CHECKSTYLE:ON
         return new GedFileLoader();
     }
 
     /**
      * @return the application info provider
      */
-    // We turn off checkstyle because bean methods must not be final
-    // CHECKSTYLE:OFF
     @Bean
     public ApplicationInfo appInfo() {
-        // CHECKSTYLE:ON
         return new ApplicationInfo();
     }
 
@@ -131,21 +123,27 @@ public class MongoConfiguration {
      * @param builder the rest template builder that Spring provides
      * @return the rest template
      */
-    // CHECKSTYLE:OFF
     @Bean
     public RestTemplate restTemplate(final RestTemplateBuilder builder) {
-        // CHECKSTYLE:ON
         return builder.build();
     }
 
     /**
      * @return the geoservice client
      */
-    // We turn off checkstyle because bean methods must not be final
-    // CHECKSTYLE:OFF
     @Bean
     public GeoServiceClient client() {
-        // CHECKSTYLE:ON
         return new GeoServiceClientImpl();
+    }
+
+    /**
+     * @return the manager of google keys
+     */
+    @Bean
+    public KeyManager keyManager() {
+        if ("stub".equals(keyfile)) {
+            return new KeyManagerStub();
+        }
+        return new KeyManagerImpl(keyfile);
     }
 }

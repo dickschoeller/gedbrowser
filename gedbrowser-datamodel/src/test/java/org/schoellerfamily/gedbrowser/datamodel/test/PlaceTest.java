@@ -1,52 +1,88 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
-import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(Parameterized.class)
 public final class PlaceTest {
     /** */
-    private final transient Root root = new Root(null, "Root");
-
+    private final GedObject parent;
     /** */
-    @Test
-    public void testPlaceGedObject() {
-        final Place place1 = new Place(null);
-        assertNull(place1.getParent());
-        assertEquals("", place1.getString());
-        final Place place2 = new Place(root);
-        assertEquals(root, place2.getParent());
-        assertEquals("", place2.getString());
+    private final String string;
+    /** */
+    private final GedObject expectedParent;
+    /** */
+    private final String expectedString;
+
+    /**
+     * @param parent input parent value for constructor call
+     * @param string input string value for constructor call
+     * @param expectedParent expected output parent from getter
+     * @param expectedString expected output string from getter
+     */
+    public PlaceTest(final GedObject parent, final String string,
+            final GedObject expectedParent, final String expectedString) {
+        this.parent = parent;
+        this.string = string;
+        this.expectedParent = expectedParent;
+        this.expectedString = expectedString;
+    }
+    /**
+     * @return collection of parameter arrays
+     */
+    @Parameters
+    public static Collection<Object[]> params() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person1 = builder.createPerson1();
+
+        return Arrays.asList(new Object[][] {
+            {null, null, null, ""},
+            {person1, null, person1, ""},
+            {null, "", null, ""},
+            {person1, "", person1, ""},
+            {null, "string", null, "string"},
+            {person1, "string", person1, "string"},
+            {null, "string", null, "string"},
+            {person1, "string", person1, "string"},
+        });
     }
 
     /** */
     @Test
-    public void testPlaceGedObjectString() {
-        final Place place1 = new Place(null, null);
-        assertNull(place1.getParent());
-        assertEquals("", place1.getString());
-        final Place place2 = new Place(root, null);
-        assertEquals(root, place2.getParent());
-        assertEquals("", place2.getString());
+    public void testOneArgumentConstructor() {
+        final Place place1 = new Place(parent);
+        assertMatch(place1, expectedParent, "");
+    }
 
-        final Place place3 = new Place(null, "");
-        assertNull(place3.getParent());
-        assertEquals("", place3.getString());
-        final Place place4 = new Place(root, "");
-        assertEquals(root, place4.getParent());
-        assertEquals("", place4.getString());
+    /** */
+    @Test
+    public void testTwoArgumentConstructor() {
+        final Place place1 = new Place(parent, string);
+        assertMatch(place1, expectedParent, expectedString);
+    }
 
-        final Place place5 = new Place(null, "Here");
-        assertNull(place5.getParent());
-        assertEquals("Here", place5.getString());
-        final Place place6 = new Place(root, "There");
-        assertEquals(root, place6.getParent());
-        assertEquals("There", place6.getString());
+    /**
+     * @param place1 the place to test
+     * @param expParent the expected parent from the getter
+     * @param expString the expected string from the getter
+     */
+    private void assertMatch(final Place place1, final GedObject expParent,
+            final String expString) {
+        assertEquals("Parent mismatch", expParent, place1.getParent());
+        assertEquals("String mismatch", expString, place1.getString());
     }
 }

@@ -16,6 +16,7 @@ import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
 import org.schoellerfamily.gedbrowser.renderer.PlaceListRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
+import org.schoellerfamily.geoservice.keys.KeyManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -46,6 +47,10 @@ public class PersonController extends AbstractController {
     /** */
     @Autowired
     private transient GeoServiceClient client;
+
+    /** */
+    @Autowired
+    private transient KeyManager keyManager;
 
     /**
      * Connects HTML template file with data for the person page.
@@ -83,6 +88,7 @@ public class PersonController extends AbstractController {
         for (final PlaceInfo place : places) {
             this.logger.info(place);
         }
+        final String key = keyManager.getMapsKey();
 
         final RenderingContext renderingContext =
                 createRenderingContext(users);
@@ -98,6 +104,7 @@ public class PersonController extends AbstractController {
         model.addAttribute("name", nameRenderer.getNameHtml());
         model.addAttribute("person", gedRenderer);
         model.addAttribute("places", places);
+        model.addAttribute("key", key);
         model.addAttribute("appInfo", new ApplicationInfo());
 
         logger.debug("Exiting person");
