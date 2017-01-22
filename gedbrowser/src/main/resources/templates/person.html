@@ -6,7 +6,7 @@
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
 
     <script type="text/javascript"
-     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTkcNhk6eDCKARYFCciIO9H1vEjGpJx54&amp;callback=loadMap"
+     th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${key} + '&amp;callback=loadMap'"
      async="async" defer="defer"></script>
 
     <script type="text/javascript" th:inline="javascript">

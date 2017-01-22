@@ -5,16 +5,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
-import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
-import org.schoellerfamily.gedbrowser.datamodel.FamC;
-import org.schoellerfamily.gedbrowser.datamodel.FamS;
-import org.schoellerfamily.gedbrowser.datamodel.Family;
-import org.schoellerfamily.gedbrowser.datamodel.Husband;
-import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
  * @author Dick Schoeller
@@ -23,63 +17,17 @@ public final class AttributeTest {
     /** */
     private static final String DUMMY = "Dummy";
     /** */
-    private static final String TEST_STRUNG = "strung";
-    /** */
-    private static final String TEST_STRING = "string";
-    /** */
     private static final String HUNDRED_DAY = "31 July 2090";
     /** */
     private static final String POTTER_DAY = "31 July 1990";
     /** */
-    private static final String SHOULD_BE_EMPTY = "Should be empty";
-    /** */
-    private final transient Root root = new Root(null, "Root");
-    /** */
-    private final transient Person person1 = new Person(root,
-            new ObjectId("I1"));
-    /** */
-    private final transient Person person2 = new Person(root,
-            new ObjectId("I2"));
-    /** */
-    private final transient Person person3 = new Person(root,
-            new ObjectId("I3"));
-    /** */
-    private final transient Family family = new Family(root,
-            new ObjectId("F1"));
-    /** */
-    private final transient FamC famC = new FamC(person1, "FAMC",
-            new ObjectId("F1"));
-    /** */
-    private final transient FamS famS2 = new FamS(person2, "FAMS",
-            new ObjectId("F1"));
-    /** */
-    private final transient FamS famS3 = new FamS(person3, "FAMS",
-            new ObjectId("F1"));
-    /** */
-    private final transient Child child = new Child(family, "Child",
-            new ObjectId("I1"));
-    /** */
-    private final transient Husband husband = new Husband(family, "Husband",
-            new ObjectId("I2"));
-    /** */
-    private final transient Wife wife = new Wife(family, "Wife",
-            new ObjectId("I3"));
+    private transient Person person1;
 
     /** */
     @Before
     public void setUp() {
-        root.insert(person1);
-        root.insert(person2);
-        root.insert(person3);
-        root.insert(family);
-
-        family.insert(child);
-        family.insert(husband);
-        family.insert(wife);
-
-        person1.insert(famC);
-        person2.insert(famS2);
-        person3.insert(famS3);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        person1 = builder.createPerson1();
     }
 
     /** */
@@ -172,168 +120,23 @@ public final class AttributeTest {
         // children of an attribute.
         dummy.insert(new Person());
         dummy.insert(dummyDate);
-        assertEquals(POTTER_DAY, dummy.getDate());
+        assertEquals("Date mismatch", POTTER_DAY, dummy.getDate());
+    }
 
+    /** */
+    @Test
+    public void testGetDateNullDateString() {
         final Attribute dummy1 = new Attribute(person1, DUMMY);
-        final Date dummyDate1 = new Date(dummy, null);
+        final Date dummyDate1 = new Date(dummy1, null);
         dummy1.insert(dummyDate1);
-        assertEquals("", dummy1.getDate());
+        assertEquals("Expected empty date string", "", dummy1.getDate());
+    }
 
+    /** */
+    @Test
+    public void testGetDeathDateNoDateString() {
         final Attribute death = new Attribute(person1, "Death");
-        assertEquals("", death.getDate());
-
-        final Date date = new Date(death, HUNDRED_DAY);
-        death.insert(date);
-        assertEquals(HUNDRED_DAY, death.getDate());
-    }
-
-    /** */
-    @Test
-    public void testAttributeGedObject() {
-        Attribute attribute;
-        attribute = new Attribute(null);
-        assertEquals(null, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        attribute = new Attribute(person1);
-        assertEquals(person1, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-    }
-
-    /** */
-    @Test
-    public void testAttributeGedObjectString() {
-        Attribute attribute;
-        attribute = new Attribute(null, null);
-        assertEquals(null, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        attribute = new Attribute(person1, null);
-        assertEquals(person1, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        attribute = new Attribute(null, "");
-        assertEquals(null, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        attribute = new Attribute(person1, "");
-        assertEquals(person1, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals("", attribute.getTail());
-
-        attribute = new Attribute(null, TEST_STRING);
-        assertEquals(null, attribute.getParent());
-        assertEquals(TEST_STRING, attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        attribute = new Attribute(person1, TEST_STRING);
-        assertEquals(person1, attribute.getParent());
-        assertEquals(TEST_STRING, attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-    }
-
-    /** */
-    @Test
-    public void testAttributeGedObjectStringString() {
-        Attribute attribute;
-        attribute = new Attribute(null, null, null);
-        assertEquals(null, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        attribute = new Attribute(person1, null, null);
-        assertEquals(person1, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        attribute = new Attribute(null, "", null);
-        assertEquals(null, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        attribute = new Attribute(person1, "", null);
-        assertEquals(person1, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        attribute = new Attribute(null, TEST_STRING, null);
-        assertEquals(null, attribute.getParent());
-        assertEquals(TEST_STRING, attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        attribute = new Attribute(person1, TEST_STRING, null);
-        assertEquals(person1, attribute.getParent());
-        assertEquals(TEST_STRING, attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        // ///////////////////
-
-        attribute = new Attribute(null, null, "");
-        assertEquals(null, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        attribute = new Attribute(person1, null, "");
-        assertEquals(person1, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        attribute = new Attribute(null, "", "");
-        assertEquals(null, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        attribute = new Attribute(person1, "", "");
-        assertEquals(person1, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        attribute = new Attribute(null, TEST_STRING, "");
-        assertEquals(null, attribute.getParent());
-        assertEquals(TEST_STRING, attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        attribute = new Attribute(person1, TEST_STRING, "");
-        assertEquals(person1, attribute.getParent());
-        assertEquals(TEST_STRING, attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
-        // ///////////////////////
-
-        attribute = new Attribute(null, null, TEST_STRUNG);
-        assertEquals(null, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(TEST_STRUNG, attribute.getTail());
-
-        attribute = new Attribute(person1, null, TEST_STRUNG);
-        assertEquals(person1, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(TEST_STRUNG, attribute.getTail());
-
-        attribute = new Attribute(null, "", TEST_STRUNG);
-        assertEquals(null, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(TEST_STRUNG, attribute.getTail());
-
-        attribute = new Attribute(person1, "", TEST_STRUNG);
-        assertEquals(person1, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(TEST_STRUNG, attribute.getTail());
-
-        attribute = new Attribute(null, TEST_STRING, TEST_STRUNG);
-        assertEquals(null, attribute.getParent());
-        assertEquals(TEST_STRING, attribute.getString());
-        assertEquals(TEST_STRUNG, attribute.getTail());
-
-        attribute = new Attribute(person1, TEST_STRING, TEST_STRUNG);
-        assertEquals(person1, attribute.getParent());
-        assertEquals(TEST_STRING, attribute.getString());
-        assertEquals(TEST_STRUNG, attribute.getTail());
+        assertEquals("Expected empty date string", "", death.getDate());
     }
 
     /** */
@@ -341,28 +144,53 @@ public final class AttributeTest {
     public void testSetGetTail() {
         Attribute attribute;
         attribute = new Attribute(null, null, null);
-        assertEquals(null, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
         attribute.setTail("test 1");
-        assertEquals(null, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals("test 1", attribute.getTail());
+        assertMatch(attribute, null, "", "test 1");
+    }
 
-        attribute.setTail(null);
-        assertEquals(null, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
-
+    /** */
+    @Test
+    public void testResetGetTail() {
+        Attribute attribute;
+        attribute = new Attribute(null, null, null);
+        attribute.setTail("test 1");
         attribute.setTail("test 2");
-        assertEquals(null, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals("test 2", attribute.getTail());
+        assertMatch(attribute, null, "", "test 2");
+    }
 
+    /** */
+    @Test
+    public void testResetToNullGetTail() {
+        Attribute attribute;
+        attribute = new Attribute(null, null, null);
+        attribute.setTail("test 1");
+        attribute.setTail(null);
+        assertMatch(attribute, null, "", "");
+    }
+
+    /** */
+    @Test
+    public void testResetToEmptyGetTail() {
+        Attribute attribute;
+        attribute = new Attribute(null, null, null);
+        attribute.setTail("test 1");
         attribute.setTail("");
-        assertEquals(null, attribute.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", attribute.getTail());
+        assertMatch(attribute, null, "", "");
+    }
+
+    /**
+     * Fails an assertion if one of the values doesn't match.
+     *
+     * @param attribute the attribute to test
+     * @param expParent expected parent value
+     * @param expString expected string value
+     * @param expTail expected tail value
+     */
+    private void assertMatch(final Attribute attribute,
+            final GedObject expParent, final String expString,
+            final String expTail) {
+        assertEquals("Parent mismatch", expParent, attribute.getParent());
+        assertEquals("String mismatch", expString, attribute.getString());
+        assertEquals("Tail mismatch", expTail, attribute.getTail());
     }
 }

@@ -87,8 +87,8 @@ public class Application {
         if ("stub".equals(keyfile)) {
             return new StubGeoCoder(new String[0]);
         }
-        final KeyManager km = new KeyManager();
-        final String key = km.readKeyFile(keyfile);
+        final KeyManager km = new KeyManager(keyfile);
+        final String key = km.getGeocodingKey();
         return new GoogleGeoCoder(key);
     }
 }

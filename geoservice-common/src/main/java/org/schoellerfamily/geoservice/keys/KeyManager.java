@@ -11,20 +11,24 @@ import org.schoellerfamily.geoservice.exception.GeoCodeRuntimeException;
  * @author Dick Schoeller
  */
 public final class KeyManager {
+    /** */
+    private final String fileName;
+
     /**
      * Constructor.
+     *
+     * @param fileName the name of the file to read.
      */
-    public KeyManager() {
-        // Empty constructor.
+    public KeyManager(final String fileName) {
+        this.fileName = fileName;
     }
 
     /**
-     * Read the key string.
+     * Read the Google Geocoding key string.
      *
-     * @param fileName the name of the file to read.
      * @return the key string
      */
-    public String readKeyFile(final String fileName) {
+    public String getGeocodingKey() {
         try (FileInputStream fileStream = new FileInputStream(fileName);
                 InputStreamReader iStreamReader =
                         new InputStreamReader(fileStream, "UTF-8");
@@ -32,12 +36,36 @@ public final class KeyManager {
             final StringBuilder sb = new StringBuilder();
             final String line = br.readLine();
             if (line != null) {
-                sb.append(line);
+                sb.append(line.replace("\n", ""));
             }
             return sb.toString();
         } catch (IOException e) {
             throw new GeoCodeRuntimeException(
                     "Couldn't open key file: " + fileName, e);
+        }
+    }
+
+    /**
+     * Read the Google Maps key string.
+     *
+     * @return the key string
+     */
+    public String getMapsKey() {
+        try (FileInputStream fileStream = new FileInputStream(fileName);
+                InputStreamReader iStreamReader =
+                        new InputStreamReader(fileStream, "UTF-8");
+                BufferedReader br = new BufferedReader(iStreamReader);) {
+            final StringBuilder sb = new StringBuilder();
+            // Ignore first line, that's the geocoding key
+            br.readLine();
+            final String line = br.readLine();
+            if (line != null) {
+                sb.append(line.replace("\n", ""));
+            }
+            return sb.toString();
+        } catch (IOException e) {
+            throw new GeoCodeRuntimeException(
+                    "Couldn't read key file: " + fileName, e);
         }
     }
 }
