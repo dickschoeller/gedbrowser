@@ -11,6 +11,7 @@ import org.geojson.Feature;
 import org.geojson.FeatureCollection;
 import org.geojson.LngLatAlt;
 import org.geojson.Point;
+import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
@@ -28,15 +29,23 @@ public final class PlaceListRenderer {
     private final Person person;
     /** */
     private final GeoServiceClient client;
+    /** */
+    private final RenderingContext renderingContext;
+    /** */
+    private final LivingEstimator le;
 
     /**
      * @param person the person
      * @param client the geoservice client
+     * @param renderingContext the current rendering context
      */
     public PlaceListRenderer(final Person person,
-            final GeoServiceClient client) {
+            final GeoServiceClient client,
+            final RenderingContext renderingContext) {
         this.person = person;
         this.client = client;
+        this.renderingContext = renderingContext;
+        this.le = new LivingEstimator(person);
     }
 
     /**
@@ -44,6 +53,9 @@ public final class PlaceListRenderer {
      */
     public List<PlaceInfo> render() {
         if (person == null || client == null) {
+            return Collections.<PlaceInfo>emptyList();
+        }
+        if (isHiddenConfidential() || isHiddenLiving()) {
             return Collections.<PlaceInfo>emptyList();
         }
         final Collection<String> places = collectPlaceNames();
@@ -97,5 +109,25 @@ public final class PlaceListRenderer {
         final LngLatAlt coordinates = geometry.getCoordinates();
         return new PlaceInfo(item.getPlaceName(), coordinates.getLatitude(),
                 coordinates.getLongitude());
+    }
+
+    /**
+     * @return whether the current person is hidden because living.
+     */
+    private boolean isHiddenLiving() {
+        if (renderingContext.isUser()) {
+            return false;
+        }
+        return le.estimate();
+    }
+
+    /**
+     * @return whether the current person is hidden because confidential.
+     */
+    private boolean isHiddenConfidential() {
+        if (renderingContext.isAdmin()) {
+            return false;
+        }
+        return person.isConfidential();
     }
 }
