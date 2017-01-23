@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import org.geojson.LngLatAlt;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
 
@@ -23,7 +24,7 @@ public class PlaceInfoTest {
     public void testNormalLatitude() {
         final PlaceInfo pi = new PlaceInfo("name", 1.0, 2.0);
         assertEquals("input should match output", Double.valueOf(1.0),
-                pi.getLatitude());
+                Double.valueOf(pi.getLocation().getLatitude()));
     }
 
     /** */
@@ -31,7 +32,7 @@ public class PlaceInfoTest {
     public void testNormalLongitude() {
         final PlaceInfo pi = new PlaceInfo("name", 1.0, 2.0);
         assertEquals("input should match output", Double.valueOf(2.0),
-                pi.getLongitude());
+                Double.valueOf(pi.getLocation().getLongitude()));
     }
 
     /** */
@@ -40,9 +41,108 @@ public class PlaceInfoTest {
         final PlaceInfo pi = new PlaceInfo("name", 1.0, 2.0);
         assertEquals("input should match output",
                 "{ \"placeName\":\"name\","
-                + " \"latitude\":1.000000,"
-                + " \"longitude\":2.000000 }",
+                + " \"latitude\":1.000000, \"longitude\":2.000000,"
+                + " \"southwest\": {"
+                + " \"latitude\":0.990000, \"longitude\":1.990000 },"
+                + " \"northeast\": {"
+                + " \"latitude\":1.010000, \"longitude\":2.010000 } }",
                 pi.toString());
+    }
+
+    /** */
+    @Test
+    public void testNormalNortheastLatitude() {
+        final PlaceInfo pi = new PlaceInfo("name", 1.0, 2.0);
+        final double confidence = .01;
+        assertEquals("mismatch", Double.valueOf(1.0 + confidence),
+                Double.valueOf(pi.getNortheast().getLatitude()));
+    }
+
+    /** */
+    @Test
+    public void testNormalNortheastLongitude() {
+        final PlaceInfo pi = new PlaceInfo("name", 1.0, 2.0);
+        final double confidence = .01;
+        assertEquals("mismatch", Double.valueOf(2.0 + confidence),
+                Double.valueOf(pi.getNortheast().getLongitude()));
+    }
+
+    /** */
+    @Test
+    public void testNormalSouthwestLatitude() {
+        final PlaceInfo pi = new PlaceInfo("name", 1.0, 2.0);
+        final double confidence = .01;
+        assertEquals("mismatch", Double.valueOf(1.0 - confidence),
+                Double.valueOf(pi.getSouthwest().getLatitude()));
+    }
+
+    /** */
+    @Test
+    public void testNormalSouthwestLongitude() {
+        final PlaceInfo pi = new PlaceInfo("name", 1.0, 2.0);
+        final double confidence = .01;
+        assertEquals("mismatch", Double.valueOf(2.0 - confidence),
+                Double.valueOf(pi.getSouthwest().getLongitude()));
+    }
+
+    /** */
+    @Test
+    public void testFullConstructorNortheastLatitude() {
+        final double confidence = .02;
+        final LngLatAlt location = new LngLatAlt(2.0, 1.0);
+        final LngLatAlt northeast = new LngLatAlt(2.0 + confidence,
+                1.0 + confidence);
+        final LngLatAlt southwest = new LngLatAlt(2.0 - confidence,
+                1.0 - confidence);
+        final PlaceInfo pi = new PlaceInfo("name", location, southwest,
+                northeast);
+        assertEquals("mismatch", Double.valueOf(1.0 + confidence),
+                Double.valueOf(pi.getNortheast().getLatitude()));
+    }
+
+    /** */
+    @Test
+    public void testFullConstructorNortheastLongitude() {
+        final double confidence = .02;
+        final LngLatAlt location = new LngLatAlt(2.0, 1.0);
+        final LngLatAlt northeast = new LngLatAlt(2.0 + confidence,
+                1.0 + confidence);
+        final LngLatAlt southwest = new LngLatAlt(2.0 - confidence,
+                1.0 - confidence);
+        final PlaceInfo pi = new PlaceInfo("name", location, southwest,
+                northeast);
+        assertEquals("mismatch", Double.valueOf(2.0 + confidence),
+                Double.valueOf(pi.getNortheast().getLongitude()));
+    }
+
+    /** */
+    @Test
+    public void testFullConstructorSouthwestLatitude() {
+        final double confidence = .02;
+        final LngLatAlt location = new LngLatAlt(2.0, 1.0);
+        final LngLatAlt northeast = new LngLatAlt(2.0 + confidence,
+                1.0 + confidence);
+        final LngLatAlt southwest = new LngLatAlt(2.0 - confidence,
+                1.0 - confidence);
+        final PlaceInfo pi = new PlaceInfo("name", location, southwest,
+                northeast);
+        assertEquals("mismatch", Double.valueOf(1.0 - confidence),
+                Double.valueOf(pi.getSouthwest().getLatitude()));
+    }
+
+    /** */
+    @Test
+    public void testFullConstructorSouthwestLongitude() {
+        final double confidence = .02;
+        final LngLatAlt location = new LngLatAlt(2.0, 1.0);
+        final LngLatAlt northeast = new LngLatAlt(2.0 + confidence,
+                1.0 + confidence);
+        final LngLatAlt southwest = new LngLatAlt(2.0 - confidence,
+                1.0 - confidence);
+        final PlaceInfo pi = new PlaceInfo("name", location, southwest,
+                northeast);
+        assertEquals("mismatch", Double.valueOf(2.0 - confidence),
+                Double.valueOf(pi.getSouthwest().getLongitude()));
     }
 
     /** */
@@ -57,7 +157,7 @@ public class PlaceInfoTest {
     public void testAbnormalLatitude() {
         final PlaceInfo pi = new PlaceInfo(null, null, null);
         assertTrue("null input ends up with not a number",
-                pi.getLatitude().isNaN());
+                Double.isNaN(pi.getLocation().getLatitude()));
     }
 
     /** */
@@ -65,7 +165,7 @@ public class PlaceInfoTest {
     public void testAbnormalLongitude() {
         final PlaceInfo pi = new PlaceInfo(null, null, null);
         assertTrue("null input ends up with not a number",
-                pi.getLongitude().isNaN());
+                Double.isNaN(pi.getLocation().getLongitude()));
     }
 
     /** */

@@ -27,8 +27,11 @@
                 title: places1[i].placeName
               });
             bounds.extend(marker.getPosition());
+            var sw = new google.maps.LatLng(places1[i].southwest.latitude, places1[i].southwest.longitude);
+            bounds.extend(sw);
+            var ne = new google.maps.LatLng(places1[i].northeast.latitude, places1[i].northeast.longitude);
+            bounds.extend(ne);
         }
-
         map.fitBounds(bounds);
   }
   /*]]>*/

@@ -11,6 +11,7 @@ import org.geojson.Feature;
 import org.geojson.FeatureCollection;
 import org.geojson.LngLatAlt;
 import org.geojson.Point;
+import org.geojson.Polygon;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -104,11 +105,23 @@ public final class PlaceListRenderer {
         final GeoServiceGeocodingResult result = item.getResult();
         final FeatureCollection featureCollection = result.getGeometry();
         final List<Feature> features = featureCollection.getFeatures();
-        final Feature feature = features.get(0);
-        final Point geometry = (Point) feature.getGeometry();
-        final LngLatAlt coordinates = geometry.getCoordinates();
-        return new PlaceInfo(item.getPlaceName(), coordinates.getLatitude(),
-                coordinates.getLongitude());
+        final Feature locationFeature = features.get(0);
+        final Point locationPoint = (Point) locationFeature.getGeometry();
+        final LngLatAlt location = locationPoint.getCoordinates();
+        if (features.size() > 2) {
+            final Feature viewportFeature = features.get(2);
+            final Polygon viewportPolygon = (Polygon) viewportFeature
+                    .getGeometry();
+            final List<List<LngLatAlt>> viewportRings = viewportPolygon
+                    .getCoordinates();
+            final List<LngLatAlt> viewportOutline = viewportRings.get(0);
+            final LngLatAlt southwest = viewportOutline.get(0);
+            final LngLatAlt northeast = viewportOutline.get(2);
+            return new PlaceInfo(item.getPlaceName(), location, southwest,
+                    northeast);
+        }
+        return new PlaceInfo(item.getPlaceName(), location.getLatitude(),
+                location.getLongitude());
     }
 
     /**

@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import org.geojson.LngLatAlt;
+
 /**
  * @author Dick Schoeller
  */
@@ -11,14 +13,19 @@ public class PlaceInfo {
     private final String placeName;
 
     /**
-     * The latitude to put the pin.
+     * The location to put the pin.
      */
-    private final Double latitude;
+    private final LngLatAlt location;
 
     /**
-     * The longitude to put the pin.
+     * Southwest corner of the bounding box.
      */
-    private final Double longitude;
+    private final LngLatAlt southwest;
+
+    /**
+     * Northeast corner of the bounding box.
+     */
+    private final LngLatAlt northeast;
 
     /**
      * @param placeName the place name to put on the map
@@ -28,16 +35,43 @@ public class PlaceInfo {
     public PlaceInfo(final String placeName, final Double latitude,
             final Double longitude) {
         this.placeName = placeName;
+        Double lat;
+        Double lng;
         if (latitude == null) {
-            this.latitude = Double.NaN;
+            lat = Double.NaN;
         } else {
-            this.latitude = latitude;
+            lat = latitude;
         }
         if (longitude == null) {
-            this.longitude = Double.NaN;
+            lng = Double.NaN;
         } else {
-            this.longitude = longitude;
+            lng = longitude;
         }
+        location = new LngLatAlt(lng, lat);
+        if (latitude == null || longitude == null) {
+            southwest = new LngLatAlt(Double.NaN, Double.NaN);
+            northeast = new LngLatAlt(Double.NaN, Double.NaN);
+        } else {
+            final double confidence = .01;
+            southwest = new LngLatAlt(longitude - confidence,
+                    latitude - confidence);
+            northeast = new LngLatAlt(longitude + confidence,
+                    latitude + confidence);
+        }
+    }
+
+    /**
+     * @param placeName the name of the place
+     * @param location the location of the pin
+     * @param southwest viewport southwest
+     * @param northeast viewport northeast
+     */
+    public PlaceInfo(final String placeName, final LngLatAlt location,
+            final LngLatAlt southwest, final LngLatAlt northeast) {
+        this.placeName = placeName;
+        this.location = location;
+        this.southwest = southwest;
+        this.northeast = northeast;
     }
 
     /**
@@ -48,17 +82,24 @@ public class PlaceInfo {
     }
 
     /**
-     * @return the latitude
+     * @return the location
      */
-    public Double getLatitude() {
-        return latitude;
+    public LngLatAlt getLocation() {
+        return location;
     }
 
     /**
-     * @return the longitude
+     * @return the southwest corner of the viewport
      */
-    public Double getLongitude() {
-        return longitude;
+    public LngLatAlt getSouthwest() {
+        return southwest;
+    }
+
+    /**
+     * @return the northeast corner of the viewport
+     */
+    public LngLatAlt getNortheast() {
+        return northeast;
     }
 
     /**
@@ -70,11 +111,18 @@ public class PlaceInfo {
             return String.format(
                     "{ \"placeName\":null, "
                     + "\"latitude\":%4.6f, \"longitude\":%4.6f }",
-                    latitude, longitude);
+                    location.getLatitude(), location.getLongitude());
         }
         return String.format(
                 "{ \"placeName\":\"%s\", "
-                + "\"latitude\":%4.6f, \"longitude\":%4.6f }",
-                placeName, latitude, longitude);
+                + "\"latitude\":%4.6f, \"longitude\":%4.6f, "
+                + "\"southwest\": { \"latitude\":%4.6f,"
+                + " \"longitude\":%4.6f }, "
+                + "\"northeast\": { \"latitude\":%4.6f,"
+                + " \"longitude\":%4.6f } }",
+                placeName,
+                location.getLatitude(), location.getLongitude(),
+                southwest.getLatitude(), southwest.getLongitude(),
+                northeast.getLatitude(), northeast.getLongitude());
     }
 }

@@ -150,7 +150,7 @@ public class PlaceListRendererTest {
         final PlaceListRenderer plr = createAdminRenderer(person);
         final List<PlaceInfo> list = plr.render();
         final Double expected = Double.valueOf(42.2809285);
-        final Double actual = list.get(0).getLatitude();
+        final Double actual = list.get(0).getLocation().getLatitude();
         assertEquals("Should contain Needham's latitude", expected, actual);
     }
 
@@ -163,7 +163,7 @@ public class PlaceListRendererTest {
         final PlaceListRenderer plr = createAdminRenderer(person);
         final List<PlaceInfo> list = plr.render();
         final Double expected = Double.valueOf(-71.2377548);
-        final Double actual = list.get(0).getLongitude();
+        final Double actual = list.get(0).getLocation().getLongitude();
         assertEquals("Should contain Needham's longitude", expected, actual);
     }
 
@@ -267,6 +267,20 @@ public class PlaceListRendererTest {
                 RenderingContext.anonymous());
         final List<PlaceInfo> list = plr.render();
         assertEquals("Should have one result", 1, list.size());
+    }
+
+    /** */
+    @Test
+    public final void testAnonCanSeeDeadAltConstruction() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson1();
+        createBirth(builder, person, "Needham, Massachusetts, USA");
+        createDeath(builder, person, "Needham, MA, USA");
+
+        final PlaceListRenderer plr = new PlaceListRenderer(person, client,
+                RenderingContext.anonymous());
+        final List<PlaceInfo> list = plr.render();
+        assertEquals("Should have one result", 2, list.size());
     }
 
     /**
