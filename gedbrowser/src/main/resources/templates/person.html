@@ -20,7 +20,7 @@
         var places1 = [[${places}]];
         var bounds = new google.maps.LatLngBounds();
         for (i = 0; i < places1.length; i++) {
-            var latlng = new google.maps.LatLng(places1[i].latitude, places1[i].longitude);
+            var latlng = new google.maps.LatLng(places1[i].location.latitude, places1[i].location.longitude);
             var marker = new google.maps.Marker({
                 position: latlng,
                 map: map,
