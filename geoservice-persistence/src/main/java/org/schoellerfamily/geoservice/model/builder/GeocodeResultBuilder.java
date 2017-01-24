@@ -149,36 +149,18 @@ public final class GeocodeResultBuilder {
         if (feature == null) {
             return null;
         }
-        if (feature.getGeometry() instanceof Polygon) {
-            final Polygon polygon = (Polygon) feature.getGeometry();
-            final List<List<LngLatAlt>> coordinates = polygon.getCoordinates();
-            if (coordinates == null || coordinates.isEmpty()) {
-                return new Bounds();
-            }
-            final List<LngLatAlt> list = coordinates.get(0);
-            if (list == null || list.isEmpty()) {
-                return new Bounds();
-            }
-            final LngLatAlt northeast = list.get(2);
-            final LngLatAlt southwest = list.get(0);
-            final Bounds bounds = new Bounds();
-            bounds.northeast = toLatLng(northeast);
-            bounds.southwest = toLatLng(southwest);
-            return bounds;
-        } else if (feature.getGeometry() instanceof Point) {
-            final Point polygon = (Point) feature.getGeometry();
-            final LngLatAlt coordinates = polygon.getCoordinates();
-            if (coordinates == null) {
-                return new Bounds();
-            }
-            final LngLatAlt northeast = null;
-            final LngLatAlt southwest = coordinates;
-            final Bounds bounds = new Bounds();
-            bounds.northeast = toLatLng(northeast);
-            bounds.southwest = toLatLng(southwest);
-            return bounds;
+        final Polygon polygon = (Polygon) feature.getGeometry();
+        final List<List<LngLatAlt>> coordinates = polygon.getCoordinates();
+        if (coordinates == null || coordinates.isEmpty()) {
+            return new Bounds();
         }
-        return null;
+        final List<LngLatAlt> list = coordinates.get(0);
+        final LngLatAlt northeast = list.get(2);
+        final LngLatAlt southwest = list.get(0);
+        final Bounds bounds = new Bounds();
+        bounds.northeast = toLatLng(northeast);
+        bounds.southwest = toLatLng(southwest);
+        return bounds;
     }
 
     /**
