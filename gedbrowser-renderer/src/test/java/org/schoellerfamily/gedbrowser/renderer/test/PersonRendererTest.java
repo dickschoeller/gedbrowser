@@ -1173,7 +1173,8 @@ public final class PersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext);
         final List<FamilyRenderer> families = personRenderer.getFamilies();
-        assertEquals("F1", families.get(0).getString());
+        assertEquals("Expected family string F1",
+                "F1", families.get(0).getString());
     }
 
     /**
@@ -1185,7 +1186,8 @@ public final class PersonRendererTest {
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext);
-        assertEquals(0, personRenderer.getFamilies().size());
+        assertEquals("Person should have 0 families",
+                0, personRenderer.getFamilies().size());
     }
 
 
@@ -1199,7 +1201,8 @@ public final class PersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext);
         final int expect = 8;
-        assertEquals(expect, personRenderer.getAttributes().size());
+        assertEquals("Expected 8 attributes",
+                expect, personRenderer.getAttributes().size());
     }
 
     /**
@@ -1212,7 +1215,8 @@ public final class PersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext);
         final int expect = 4;
-        assertEquals(expect, personRenderer.getAttributes().size());
+        assertEquals("Expected 4 attributes",
+                expect, personRenderer.getAttributes().size());
     }
 
     /**
@@ -1224,7 +1228,8 @@ public final class PersonRendererTest {
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext);
-        assertEquals("I2", personRenderer.getIdString());
+        assertEquals("Expected person ID string I2",
+                "I2", personRenderer.getIdString());
     }
 
     /**
@@ -1236,7 +1241,8 @@ public final class PersonRendererTest {
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext);
-        assertEquals("I1", personRenderer.getIdString());
+        assertEquals("Expected person ID string I1",
+                "I1", personRenderer.getIdString());
     }
 
     /**

@@ -8,8 +8,8 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
+import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
 import org.schoellerfamily.gedbrowser.renderer.PlaceListRenderer;
@@ -300,8 +300,7 @@ public class PlaceListRendererTest {
             final Person person, final String placeName) {
         final Attribute birth =
                 builder.createPersonEvent(person, "Birth", "20 JAN 2017");
-        final Place place = new Place(birth, placeName);
-        birth.insert(place);
+        builder.addPlaceToEvent(birth, placeName);
     }
 
     /**
@@ -311,10 +310,9 @@ public class PlaceListRendererTest {
      */
     private void createDeath(final GedObjectBuilder builder,
             final Person person, final String placeName) {
-        final Attribute birth =
+        final Attribute death =
                 builder.createPersonEvent(person, "Death", "20 JAN 2017");
-        final Place place = new Place(birth, placeName);
-        birth.insert(place);
+        builder.addPlaceToEvent(death, placeName);
     }
 
     /**
@@ -324,5 +322,25 @@ public class PlaceListRendererTest {
         final User user = new User();
         user.setUsername("dick");
         return new RenderingContext(user, true, true);
+    }
+
+    /** */
+    @Test
+    public final void testAnonCanSeeDeadMarriage() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson1();
+        builder.createPersonEvent(person, "Death", "20 JAN 2017");
+        final Person person2 = builder.createPerson2();
+        final Family family = builder.createFamily1();
+        builder.addHusbandToFamily(family, person);
+        builder.addWifeToFamily(family, person2);
+        final Attribute marriage =
+                builder.createFamilyEvent(family, "Marriage", "21 DEC 2016");
+        builder.addPlaceToEvent(marriage, "Needham, Massachusetts, USA");
+
+        final PlaceListRenderer plr = new PlaceListRenderer(person, client,
+                RenderingContext.anonymous());
+        final List<PlaceInfo> list = plr.render();
+        assertEquals("Should have one result", 1, list.size());
     }
 }

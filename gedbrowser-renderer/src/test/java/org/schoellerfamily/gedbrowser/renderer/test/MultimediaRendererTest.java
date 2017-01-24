@@ -27,7 +27,8 @@ public class MultimediaRendererTest {
                 new MultimediaRenderer(
                         new Multimedia(null), new GedRendererFactory(),
                         RenderingContext.anonymous());
-        assertTrue(renderer.getListItemRenderer()
+        assertTrue("Wrong renderer type",
+                renderer.getListItemRenderer()
                 instanceof MultimediaListItemRenderer);
     }
 
@@ -41,7 +42,8 @@ public class MultimediaRendererTest {
                 new MultimediaRenderer(
                         new Multimedia(null), new GedRendererFactory(),
                         RenderingContext.anonymous());
-        assertTrue(renderer.getNameHtmlRenderer()
+        assertTrue("Wrong renderer type",
+                renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
     }
 
@@ -55,7 +57,8 @@ public class MultimediaRendererTest {
                 new MultimediaRenderer(
                         new Multimedia(null), new GedRendererFactory(),
                         RenderingContext.anonymous());
-        assertTrue(renderer.getNameIndexRenderer()
+        assertTrue("Wrong renderer type",
+                renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
     }
 
@@ -69,7 +72,8 @@ public class MultimediaRendererTest {
                 new MultimediaRenderer(
                         new Multimedia(null), new GedRendererFactory(),
                         RenderingContext.anonymous());
-        assertTrue(renderer.getPhraseRenderer()
+        assertTrue("Wrong renderer type",
+                renderer.getPhraseRenderer()
                 instanceof MultimediaPhraseRenderer);
     }
 
@@ -83,7 +87,8 @@ public class MultimediaRendererTest {
                 new MultimediaRenderer(
                         new Multimedia(null), new GedRendererFactory(),
                         RenderingContext.anonymous());
-        assertTrue(renderer.getSectionRenderer()
+        assertTrue("Wrong renderer type",
+                renderer.getSectionRenderer()
                 instanceof MultimediaSectionRenderer);
     }
     // TODO test render as page and renderAsListItem
