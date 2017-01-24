@@ -34,9 +34,10 @@ import com.google.maps.model.LocationType;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.ExcessiveClassLength",
-        "PMD.ModifiedCyclomaticComplexity", "PMD.StdCyclomaticComplexity",
-        "PMD.GodClass", "PMD.TooManyMethods", "PMD.ExcessiveImports" })
+@SuppressWarnings({
+    "PMD.ExcessiveClassLength", "PMD.ExcessiveImports",
+    "PMD.ExcessivePublicCount", "PMD.GodClass",
+    "PMD.TooManyMethods" })
 public final class GeocodeResultBuilderTest {
     /** */
     private final GeocodeResultBuilder builder = new GeocodeResultBuilder();
@@ -655,7 +656,7 @@ public final class GeocodeResultBuilderTest {
      * @param backupResult a backup geocoding result
      * @return true if they match
      */
-    @SuppressWarnings({ "PMD.NPathComplexity", "PMD.CyclomaticComplexity" })
+    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.NPathComplexity" })
     private boolean checker(final GeocodingResult result,
             final GeoServiceGeocodingResult backupResult) {
         if (result == null && backupResult == null) {
@@ -799,7 +800,10 @@ public final class GeocodeResultBuilderTest {
      * @param featureCollection the collection that represents the geometry
      * @return true if they match
      */
-    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.NPathComplexity" })
+    @SuppressWarnings({ "PMD.CyclomaticComplexity",
+        "PMD.ModifiedCyclomaticComplexity",
+        "PMD.NPathComplexity",
+        "PMD.StdCyclomaticComplexity" })
     private boolean checker(final Geometry geometry,
             final FeatureCollection featureCollection) {
         if (isEmpty(geometry) && isEmpty(featureCollection)) {
@@ -1088,5 +1092,61 @@ public final class GeocodeResultBuilderTest {
             }
         }
         return true;
+    }
+
+    /** */
+    @Test
+    public void testPointToLatLng() {
+        final Point point = new Point(1.0, 2.0);
+        final LatLng latLng = builder.toLatLng(point);
+        assertTrue("coordinates should match", checker(latLng, point));
+    }
+
+    /** */
+    @Test
+    public void testPointToLatLngNull() {
+        assertNull("Expected null", builder.toLatLng((Point) null));
+    }
+
+    /** */
+    @Test
+    public void testLngLatAltToLatLng() {
+        final LngLatAlt lngLatAlt = new LngLatAlt(1.0, 2.0);
+        final LatLng latLng = builder.toLatLng(lngLatAlt);
+        assertTrue("coordinates should match", checker(latLng, lngLatAlt));
+    }
+
+    /** */
+    @Test
+    public void testLngLatAltToLatLngNull() {
+        assertNull("Expected null", builder.toLatLng((LngLatAlt) null));
+    }
+
+    /** */
+    @Test
+    public void testLatLngToPoint() {
+        final LatLng latLng = new LatLng(1.0, 2.0);
+        final Point point = builder.toPoint(latLng);
+        assertTrue("coordinates should match", checker(latLng, point));
+    }
+
+    /** */
+    @Test
+    public void testLatLngToPointNull() {
+        assertNull("Expected null", builder.toPoint((LatLng) null));
+    }
+
+    /** */
+    @Test
+    public void testLatLngToLngLatAlt() {
+        final LatLng latLng = new LatLng(1.0, 2.0);
+        final LngLatAlt lngLatAlt = builder.toLngLatAlt(latLng);
+        assertTrue("coordinates should match", checker(latLng, lngLatAlt));
+    }
+
+    /** */
+    @Test
+    public void testLatLngToLngLatAltNull() {
+        assertNull("Expected null", builder.toLngLatAlt((LatLng) null));
     }
 }
