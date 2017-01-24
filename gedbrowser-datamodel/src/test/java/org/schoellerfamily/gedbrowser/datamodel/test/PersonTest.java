@@ -72,6 +72,15 @@ public final class PersonTest {
 
         builder.addHusbandToFamily(family6, person6);
         builder.addWifeToFamily(family6, person7);
+
+        final Person person8 = builder.createPerson("I8", "Same/Name/");
+        builder.createPersonEvent(person8, "Birth", "1 JAN 1950");
+        final Person person9 = builder.createPerson("I9", "Same/Name/");
+        builder.createPersonEvent(person9, "Birth", "1 JAN 1940");
+        final Person person10 = builder.createPerson("I10", "Same/Name/");
+        builder.createPersonEvent(person10, "Birth", "1 JAN 1950");
+        final Person person11 = builder.createPerson("I11", "Different/Name/");
+        builder.createPersonEvent(person11, "Birth", "1 JAN 1930");
     }
 
     /** */
@@ -394,7 +403,7 @@ public final class PersonTest {
     @Test
     public void testLetterFinder() {
         final String[] expected = {
-                "?", "R", "S"
+                "?", "N", "R", "S"
         };
         final Collection<String> letters = person6.findSurnameInitialLetters();
         int i = 0;
@@ -443,6 +452,18 @@ public final class PersonTest {
             assertEquals(
                     "Expected to find " + expected[i] + " among S surnames",
                     expected[i++], surname);
+        }
+    }
+
+    /** */
+    @Test
+    public void testOrder() {
+        // Note I10 sorts ahead of I8.
+        final String[] expected = {"I11", "I9", "I10", "I8"};
+        final Collection<Person> persons = person6.findBySurname("Name");
+        int i = 0;
+        for (final Person person : persons) {
+            assertEquals("ID out of order", expected[i++], person.getString());
         }
     }
 

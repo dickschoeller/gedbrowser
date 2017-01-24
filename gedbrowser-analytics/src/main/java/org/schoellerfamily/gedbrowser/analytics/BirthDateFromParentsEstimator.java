@@ -69,9 +69,6 @@ public final class BirthDateFromParentsEstimator extends Estimator {
      * @return the adjusted date
      */
     private LocalDate parentDateIncrement(final LocalDate date) {
-        if (date == null) {
-            return null;
-        }
         final int years = typicals.ageAtMarriage()
                 + typicals.gapBetweenChildren();
         return plusYearsAdjustToBegin(date, years);

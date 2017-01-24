@@ -26,9 +26,6 @@ public final class RootFinder implements FinderStrategy {
      */
     @Override
     public GedObject find(final GedObject owner, final String str) {
-        if (!(owner instanceof Root)) {
-            return null;
-        }
         final Root root = (Root) owner;
         return root.getObjects().get(str);
     }
@@ -38,9 +35,6 @@ public final class RootFinder implements FinderStrategy {
      */
     @Override
     public void insert(final GedObject owner, final GedObject gob) {
-        if (!(owner instanceof Root)) {
-            return;
-        }
         final Root root = (Root) owner;
         root.insert(gob.getString(), gob);
     }
@@ -59,9 +53,6 @@ public final class RootFinder implements FinderStrategy {
      */
     @Override
     public String getFilename(final GedObject owner) {
-        if (!(owner instanceof Root)) {
-            return null;
-        }
         final Root root = (Root) owner;
         return root.getTheFilename();
     }
@@ -71,9 +62,6 @@ public final class RootFinder implements FinderStrategy {
      */
     @Override
     public String getDbName(final GedObject owner) {
-        if (!(owner instanceof Root)) {
-            return null;
-        }
         final Root root = (Root) owner;
         return root.getTheDbName();
     }
@@ -84,9 +72,6 @@ public final class RootFinder implements FinderStrategy {
     @Override
     public Collection<Person> findBySurname(final GedObject owner,
             final String surname) {
-        if (!(owner instanceof Root)) {
-            return null;
-        }
         final Root root = (Root) owner;
         final Map<String, GedObject> objectMap = root.getObjects();
         final Collection<GedObject> objects = objectMap.values();
@@ -143,9 +128,6 @@ public final class RootFinder implements FinderStrategy {
     @Override
     public Collection<String> findBySurnamesBeginWith(final GedObject owner,
             final String beginsWith) {
-        if (!(owner instanceof Root)) {
-            return null;
-        }
         final Root root = (Root) owner;
         final Map<String, GedObject> objectMap = root.getObjects();
         final Collection<GedObject> objects = objectMap.values();
@@ -167,9 +149,6 @@ public final class RootFinder implements FinderStrategy {
      */
     @Override
     public Collection<String> findSurnameInitialLetters(final GedObject owner) {
-        if (!(owner instanceof Root)) {
-            return null;
-        }
         final Root root = (Root) owner;
         final Map<String, GedObject> objectMap = root.getObjects();
         final Collection<GedObject> objects = objectMap.values();
