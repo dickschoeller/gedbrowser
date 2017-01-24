@@ -58,17 +58,19 @@ public class GeoCodeEntryController {
         }
         String findModernName;
         if (modernName == null || modernName.isEmpty()) {
-            findModernName = findName;
+            final GeoCodeItem find = gcc.find(findName);
+            final GeocodeResultBuilder builder = new GeocodeResultBuilder();
+            return builder.toGeoServiceItem(find);
         } else {
             try {
                 findModernName = URLDecoder.decode(modernName, "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 findModernName = modernName;
             }
+            final GeoCodeItem find = gcc.find(findName, findModernName);
+            final GeocodeResultBuilder builder = new GeocodeResultBuilder();
+            return builder.toGeoServiceItem(find);
         }
 
-        final GeoCodeItem find = gcc.find(findName, findModernName);
-        final GeocodeResultBuilder builder = new GeocodeResultBuilder();
-        return builder.toGeoServiceItem(find);
     }
 }
