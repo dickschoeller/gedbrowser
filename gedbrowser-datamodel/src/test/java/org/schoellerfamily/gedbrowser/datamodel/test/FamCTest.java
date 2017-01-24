@@ -2,281 +2,82 @@ package org.schoellerfamily.gedbrowser.datamodel.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.FamC;
-import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
-import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
  * @author Dick Schoeller
  */
 public final class FamCTest {
     /** */
-    private static final String SHOULD_BE_FAMC = "Should be a FAMC";
+    private transient Person person2;
     /** */
-    private static final String SHOULD_BE_I1 = "Should be ID of person";
+    private transient Person person3;
     /** */
-    private static final String SHOULD_BE_EMPTY = "Should be empty";
-    /** */
-    private static final ObjectId XREF_NULL = new ObjectId("");
-    /** */
-    private static final ObjectId XREF_FAM_1 = new ObjectId("F1");
-    /** */
-    private static final String TEST_LUNK = "Lunk";
-    /** */
-    private static final String FAMC_TAG = "FamC";
-    /** */
-    private final transient Root root = new Root(null, "Root");
-    /** */
-    private final transient Person person1 = new Person(root,
-            new ObjectId("I1"));
-    /** */
-    private final transient Person person2 = new Person(root,
-            new ObjectId("I2"));
-    /** */
-    private final transient Person person3 = new Person(root,
-            new ObjectId("I3"));
-    /** */
-    private final transient Family family = new Family(root, XREF_FAM_1);
-    /** */
-    private final transient FamC famC = new FamC(person1, "FAMC", XREF_FAM_1);
-    /** */
-    private final transient FamS famS2 = new FamS(person2, "FAMS", XREF_FAM_1);
-    /** */
-    private final transient FamS famS3 = new FamS(person3, "FAMS", XREF_FAM_1);
-    /** */
-    private final transient Child child = new Child(family, "Child",
-            new ObjectId("I1"));
-    /** */
-    private final transient Husband husband = new Husband(family, "Husband",
-            new ObjectId("I2"));
-    /** */
-    private final transient Wife wife = new Wife(family, "Wife",
-            new ObjectId("I3"));
+    private transient FamC famC;
 
     /** */
     @Before
     public void setUp() {
-        root.insert(null, person1);
-        root.insert(null, person2);
-        root.insert(null, person3);
-        root.insert(null, family);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person1 = builder.createPerson1();
+        person2 = builder.createPerson2();
+        person3 = builder.createPerson3();
+        final Family family = builder.createFamily1();
+        buildChild(family, person1);
+        builder.addHusbandToFamily(family, person2);
+        builder.addWifeToFamily(family, person3);
+    }
 
+    /**
+     * @param family the family to put the child in
+     * @param person1 the person to be the child
+     * @return the child object
+     */
+    private Child buildChild(final Family family, final Person person1) {
+        if (family == null || person1 == null) {
+            return new Child();
+        }
+        // TODO inlined because we want to capture and look at the FamC object
+        famC = new FamC(person1, "FAMC",
+                new ObjectId(family.getString()));
+        final Child child = new Child(family, "Child",
+                new ObjectId(person1.getString()));
         family.insert(child);
-        family.insert(husband);
-        family.insert(wife);
-
         person1.insert(famC);
-        person2.insert(famS2);
-        person3.insert(famS3);
+        return child;
+    }
+
+    /** */
+    @Test
+    public void testGetFatherNotSet() {
+        final FamC dummy = new FamC(null);
+        assertFalse("Father should be unset", dummy.getFather().isSet());
     }
 
     /** */
     @Test
     public void testGetFather() {
+        assertEquals("Person mismatch", person2, famC.getFather());
+    }
+
+    /** */
+    @Test
+    public void testGetMotherNotSet() {
         final FamC dummy = new FamC(null);
-        assertFalse(dummy.getFather().isSet());
-        assertEquals(person2, famC.getFather());
+        assertFalse("Mother should be unset", dummy.getMother().isSet());
     }
 
     /** */
     @Test
     public void testGetMother() {
-        final FamC dummy = new FamC(null);
-        assertFalse(dummy.getMother().isSet());
-        assertEquals(person3, famC.getMother());
-    }
-
-    /** */
-    @Test
-    public void testFamCGedObject() {
-        FamC famc;
-        famc = new FamC(null);
-        assertNull(famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getFromString());
-
-        famc = new FamC(person1);
-        assertEquals(person1, famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_I1, "I1", famc.getFromString());
-    }
-
-    /** */
-    @Test
-    public void testFamCGedObjectString() {
-        FamC famc;
-        famc = new FamC(null, null);
-        assertNull(famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getFromString());
-
-        famc = new FamC(person1, null);
-        assertEquals(person1, famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_I1, "I1", famc.getFromString());
-
-        famc = new FamC(null, "");
-        assertNull(famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getFromString());
-
-        famc = new FamC(person1, "");
-        assertEquals(person1, famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_I1, "I1", famc.getFromString());
-
-        famc = new FamC(null, FAMC_TAG);
-        assertNull(famc.getParent());
-        assertEquals(SHOULD_BE_FAMC, FAMC_TAG, famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getFromString());
-
-        famc = new FamC(person1, TEST_LUNK);
-        assertEquals(person1, famc.getParent());
-        assertEquals(TEST_LUNK, famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_I1, "I1", famc.getFromString());
-    }
-
-    /** */
-    @Test
-    public void testFamCGedObjectStringNull() {
-        FamC famc;
-
-        famc = new FamC(null, null, null);
-        assertNull(famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getFromString());
-
-        famc = new FamC(person1, null, null);
-        assertEquals(person1, famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_I1, "I1", famc.getFromString());
-
-        famc = new FamC(null, "", null);
-        assertNull(famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getFromString());
-
-        famc = new FamC(person1, "", null);
-        assertEquals(person1, famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_I1, "I1", famc.getFromString());
-
-        famc = new FamC(null, FAMC_TAG, null);
-        assertNull(famc.getParent());
-        assertEquals(SHOULD_BE_FAMC, FAMC_TAG, famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getFromString());
-
-        famc = new FamC(person1, TEST_LUNK, null);
-        assertEquals(person1, famc.getParent());
-        assertEquals(TEST_LUNK, famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_I1, "I1", famc.getFromString());
-    }
-
-    /** */
-    @Test
-    public void testFamCGedObjectStringBlank() {
-        FamC famc;
-
-        famc = new FamC(null, null, XREF_NULL);
-        assertNull(famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getFromString());
-
-        famc = new FamC(person1, null, XREF_NULL);
-        assertEquals(person1, famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_I1, "I1", famc.getFromString());
-
-        famc = new FamC(null, "", XREF_NULL);
-        assertNull(famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getFromString());
-
-        famc = new FamC(person1, "", XREF_NULL);
-        assertEquals(person1, famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_I1, "I1", famc.getFromString());
-
-        famc = new FamC(null, FAMC_TAG, XREF_NULL);
-        assertNull(famc.getParent());
-        assertEquals(SHOULD_BE_FAMC, FAMC_TAG, famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getFromString());
-
-        famc = new FamC(person1, TEST_LUNK, XREF_NULL);
-        assertEquals(person1, famc.getParent());
-        assertEquals(TEST_LUNK, famc.getString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getToString());
-        assertEquals(SHOULD_BE_I1, "I1", famc.getFromString());
-    }
-
-    /** */
-    @Test
-    public void testFamCGedObjectStringString() {
-        FamC famc;
-
-        famc = new FamC(null, null, new ObjectId("I2"));
-        assertNull(famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals("I2", famc.getToString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getFromString());
-
-        famc = new FamC(person1, null, new ObjectId("I3"));
-        assertEquals(person1, famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals("I3", famc.getToString());
-        assertEquals(SHOULD_BE_I1, "I1", famc.getFromString());
-
-        famc = new FamC(null, "", XREF_FAM_1);
-        assertNull(famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals("F1", famc.getToString());
-        assertEquals("", famc.getFromString());
-
-        famc = new FamC(person1, "", new ObjectId("I2"));
-        assertEquals(person1, famc.getParent());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getString());
-        assertEquals("I2", famc.getToString());
-        assertEquals(SHOULD_BE_I1, "I1", famc.getFromString());
-
-        famc = new FamC(null, FAMC_TAG, new ObjectId("I3"));
-        assertNull(famc.getParent());
-        assertEquals(SHOULD_BE_FAMC, FAMC_TAG, famc.getString());
-        assertEquals("I3", famc.getToString());
-        assertEquals(SHOULD_BE_EMPTY, "", famc.getFromString());
-
-        famc = new FamC(person1, TEST_LUNK, XREF_FAM_1);
-        assertEquals(person1, famc.getParent());
-        assertEquals(TEST_LUNK, famc.getString());
-        assertEquals("F1", famc.getToString());
-        assertEquals(SHOULD_BE_I1, "I1", famc.getFromString());
+        assertEquals("Person mismatch", person3, famC.getMother());
     }
 }

@@ -13,6 +13,7 @@ import org.geojson.LngLatAlt;
 import org.geojson.Point;
 import org.geojson.Polygon;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
+import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
@@ -60,6 +61,7 @@ public final class PlaceListRenderer {
             return Collections.<PlaceInfo>emptyList();
         }
         final Collection<String> places = collectPlaceNames();
+        places.addAll(collectFamilyPlaceNames());
         return geoCodePlaces(places);
     }
 
@@ -78,7 +80,26 @@ public final class PlaceListRenderer {
                 }
             }
         }
-        // TODO get places from marriages
+        return places;
+    }
+
+    /**
+     * @return the collection of places associated with this person's families
+     */
+    private Collection<String> collectFamilyPlaceNames() {
+        final Set<String> places = new TreeSet<>();
+        final List<Family> families = new ArrayList<>();
+        for (final Family family : person.getFamilies(families)) {
+            for (final GedObject gob : family.getAttributes()) {
+                for (final GedObject subgob : gob.getAttributes()) {
+                    if (subgob instanceof Place) {
+                        final Place place = (Place) subgob;
+                        final String placeName = place.getString();
+                        places.add(placeName);
+                    }
+                }
+            }
+        }
         return places;
     }
 

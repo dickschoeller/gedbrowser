@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
@@ -336,5 +337,19 @@ public class GedObjectBuilder {
         final Trailer trailer = new Trailer(root, "Trailer");
         root.insert("Trailer", trailer);
         return trailer;
+    }
+
+    /**
+     * Create a place with the given name and add it to the given event.
+     *
+     * @param event the event
+     * @param placeName the place name
+     * @return the place
+     */
+    public Place addPlaceToEvent(final Attribute event,
+            final String placeName) {
+        final Place place = new Place(event, placeName);
+        event.insert(place);
+        return place;
     }
 }
