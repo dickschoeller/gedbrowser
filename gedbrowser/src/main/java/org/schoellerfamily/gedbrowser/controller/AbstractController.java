@@ -7,6 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.Users;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
+import org.schoellerfamily.gedbrowser.controller.exception.SourceNotFoundException;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,15 +59,24 @@ public abstract class AbstractController {
             final HttpServletRequest request,
             final PersonNotFoundException exception) {
         logger.info("Handling exception: " + exception.getMessage());
-        final ModelAndView mav = new ModelAndView();
-        mav.addObject("exception", exception);
-        mav.addObject("url", request.getRequestURL());
-        mav.addObject("renderingContext", renderingContext);
-        mav.addObject("appInfo", applicationInfo);
-        // TODO hard coded in several places need to refactor
-        mav.addObject("homeUrl", "http://www.schoellerfamily.org");
-        mav.setViewName("personNotFound");
-        mav.setStatus(HttpStatus.NOT_FOUND);
+        final ModelAndView mav = createModelAndViewForException(
+                request, exception, "personNotFound", HttpStatus.NOT_FOUND);
+        return mav;
+    }
+
+    /**
+     * @param request the request we're processing
+     * @param exception the exception caught
+     * @return the model and view
+     */
+    @ExceptionHandler({ SourceNotFoundException.class })
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public final ModelAndView sourceNotFoundError(
+            final HttpServletRequest request,
+            final SourceNotFoundException exception) {
+        logger.info("Handling exception: " + exception.getMessage());
+        final ModelAndView mav = createModelAndViewForException(
+                request, exception, "sourceNotFound", HttpStatus.NOT_FOUND);
         return mav;
     }
 
@@ -81,16 +91,8 @@ public abstract class AbstractController {
             final HttpServletRequest request,
             final DataSetNotFoundException exception) {
         logger.info("Handling exception: " + exception.getMessage());
-        final ModelAndView mav = new ModelAndView();
-        mav.addObject("exception", exception);
-        mav.addObject("url", request.getRequestURL());
-        mav.addObject("renderingContext", renderingContext);
-        mav.addObject("appInfo", applicationInfo);
-        // TODO hard coded in several places need to refactor
-        mav.addObject("homeUrl", "http://www.schoellerfamily.org");
-        mav.setViewName("error");
-        mav.setViewName("dataSetNotFound");
-        mav.setStatus(HttpStatus.NOT_FOUND);
+        final ModelAndView mav = createModelAndViewForException(
+                request, exception, "dataSetNotFound", HttpStatus.NOT_FOUND);
         return mav;
     }
 
@@ -102,8 +104,23 @@ public abstract class AbstractController {
     @ExceptionHandler({ Throwable.class })
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ModelAndView error(final HttpServletRequest request,
-            final DataSetNotFoundException exception) {
+            final Exception exception) {
         logger.info("Handling exception: " + exception.getMessage());
+        final ModelAndView mav = createModelAndViewForException(
+                request, exception, "error", HttpStatus.INTERNAL_SERVER_ERROR);
+        return mav;
+    }
+
+    /**
+     * @param request the http request being served
+     * @param exception the exception that occurred
+     * @param viewName the view we will put up in response
+     * @param status the status we are reporting
+     * @return the model and view for displaying the page
+     */
+    private ModelAndView createModelAndViewForException(
+            final HttpServletRequest request, final Exception exception,
+            final String viewName, final HttpStatus status) {
         final ModelAndView mav = new ModelAndView();
         mav.addObject("exception", exception);
         mav.addObject("url", request.getRequestURL());
@@ -111,8 +128,8 @@ public abstract class AbstractController {
         mav.addObject("appInfo", applicationInfo);
         // TODO hard coded in several places need to refactor
         mav.addObject("homeUrl", "http://www.schoellerfamily.org");
-        mav.setViewName("error");
-        mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        mav.setViewName(viewName);
+        mav.setStatus(status);
         return mav;
     }
 }
