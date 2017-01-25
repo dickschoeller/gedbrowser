@@ -10,8 +10,11 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
+import org.schoellerfamily.gedbrowser.datamodel.Family;
+import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
+import org.schoellerfamily.gedbrowser.datamodel.ParentFinder;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 
@@ -33,6 +36,9 @@ public final class GedObjectTest {
     private transient Root root;
     /** */
     private transient GedObject gob;
+
+    /** */
+    private transient FinderStrategy finder = new ParentFinder();
 
     /** */
     private static class GedObjectWrapper extends GedObject {
@@ -59,6 +65,7 @@ public final class GedObjectTest {
     @Before
     public void setUp() {
         root = new Root(null, "Root");
+        root.setDbName("DBNAME");
     }
 
     /** */
@@ -129,6 +136,15 @@ public final class GedObjectTest {
         assertEquals(HASH_CODE_1, gob.hashCode());
     }
 
+    /** */
+    @Test
+    public void testInsertFamily() {
+        final Family family = new Family(root);
+        family.setString("F777");
+        root.insert(family);
+        assertEquals(family, finder.find(family, "F777", Family.class));
+    }
+
     /**
      * @return the new GedObject
      */
@@ -187,6 +203,44 @@ public final class GedObjectTest {
         final Attribute attribute = new Attribute(gob, ATTR_TAG, ATTR_NAME);
         gob.insert(attribute);
         assertTrue(gob.hasAttribute(attribute));
+    }
+
+    /** */
+    @Test
+    public void testHasAttributes() {
+        gob = new GedObjectWrapper(root, GOB_TAG);
+
+        final Attribute attribute = new Attribute(gob, ATTR_TAG, ATTR_NAME);
+        gob.insert(attribute);
+        assertTrue(gob.hasAttributes());
+    }
+
+    /** */
+    @Test
+    public void testHasNoAttributes() {
+        gob = new GedObjectWrapper(root, GOB_TAG);
+        assertFalse(gob.hasAttributes());
+    }
+
+    /** */
+    @Test
+    public void testGetParentDbName() {
+        gob = new GedObjectWrapper(root, GOB_TAG);
+        assertEquals("DBNAME", finder.getDbName(gob));
+    }
+
+    /** */
+    @Test
+    public void testFindInParentBySurnameNullParent() {
+        gob = new GedObjectWrapper(null, GOB_TAG);
+        gob.findInParentBySurname("FOO");
+    }
+
+    /** */
+    @Test
+    public void testGetNullParentDbName() {
+        gob = new GedObjectWrapper(null, GOB_TAG);
+        assertNull(finder.getDbName(gob));
     }
 
     /** */

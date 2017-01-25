@@ -170,9 +170,6 @@ public class GedObject {
      * @return return the string's hashCode
      */
     private int stringHashCode() {
-        if (string == null) {
-            return 0;
-        }
         return string.hashCode();
     }
 
@@ -211,14 +208,7 @@ public class GedObject {
         } else if (!parent.equals(other.parent)) {
             return false;
         }
-        if (string == null) {
-            if (other.string != null) {
-                return false;
-            }
-        } else if (!string.equals(other.string)) {
-            return false;
-        }
-        return true;
+        return string.equals(other.string);
     }
 
     /**
