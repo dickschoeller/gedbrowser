@@ -95,7 +95,7 @@ public class ApplicationTest {
         final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
                 "http://localhost:" + port
                 + "/geocode?name=Bethlehem,%20PA"
-                + "&modernName=Bethlehem,%20Pennsylvania",
+                + "&modernName=Bethlehem,%20PA",
                 Map.class);
         then(entity.getBody().get("placeName")).isEqualTo("Bethlehem, PA");
     }

@@ -38,7 +38,7 @@ public final class GedObjectTest {
     private transient GedObject gob;
 
     /** */
-    private transient FinderStrategy finder = new ParentFinder();
+    private final FinderStrategy finder = new ParentFinder();
 
     /** */
     private static class GedObjectWrapper extends GedObject {
