@@ -7,6 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.Users;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
+import org.schoellerfamily.gedbrowser.controller.exception.SourceNotFoundException;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,22 @@ public abstract class AbstractController {
         logger.info("Handling exception: " + exception.getMessage());
         final ModelAndView mav = createModelAndViewForException(
                 request, exception, "personNotFound", HttpStatus.NOT_FOUND);
+        return mav;
+    }
+
+    /**
+     * @param request the request we're processing
+     * @param exception the exception caught
+     * @return the model and view
+     */
+    @ExceptionHandler({ SourceNotFoundException.class })
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public final ModelAndView sourceNotFoundError(
+            final HttpServletRequest request,
+            final SourceNotFoundException exception) {
+        logger.info("Handling exception: " + exception.getMessage());
+        final ModelAndView mav = createModelAndViewForException(
+                request, exception, "sourceNotFound", HttpStatus.NOT_FOUND);
         return mav;
     }
 

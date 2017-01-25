@@ -66,7 +66,7 @@ public class SourceController extends AbstractController {
         final Source source = (Source) root.find(idString);
         if (source == null) {
             throw new SourceNotFoundException(
-                    "Source " + idString + " not found");
+                    "Source " + idString + " not found", idString, dbName);
         }
 
         final GedRenderer<?> gedRenderer = new GedRendererFactory()
