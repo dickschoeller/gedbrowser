@@ -57,7 +57,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void shouldReturnStatus200WhenSendingRequestToController() {
+    public final void testReturnStatus200WhenSendingRequestToController() {
         @SuppressWarnings("rawtypes")
         final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
                 "http://localhost:" + port + "/geocode?name=Bethlehem,%20PA",
@@ -68,7 +68,19 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void shouldReturnPlaceNameSendingRequestToController() {
+    public final void testReturnStatus200WhenSendingRequestWithModern() {
+        @SuppressWarnings("rawtypes")
+        final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port
+                + "/geocode?name=Bethlehem,%20PA&modernName=Bethlehem,%20PA",
+                Map.class);
+
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    /** */
+    @Test
+    public final void testReturnPlaceNameSendingRequestToController() {
         @SuppressWarnings("rawtypes")
         final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
                 "http://localhost:" + port + "/geocode?name=Bethlehem,%20PA",
@@ -78,10 +90,35 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void shouldReturnModernPlaceNameSendingRequestToController() {
+    public final void testReturnPlaceNameSendingRequestWithModern() {
         @SuppressWarnings("rawtypes")
         final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
-                "http://localhost:" + port + "/geocode?name=Bethlehem,%20PA",
+                "http://localhost:" + port
+                + "/geocode?name=Bethlehem,%20PA"
+                + "&modernName=Bethlehem,%20Pennsylvania",
+                Map.class);
+        then(entity.getBody().get("placeName")).isEqualTo("Bethlehem, PA");
+    }
+
+    /** */
+    @Test
+    public final void testReturnModernPlaceNameSendingRequestToController() {
+        @SuppressWarnings("rawtypes")
+        final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port + "/geocode?name=Allentown,%20PA",
+                Map.class);
+        then(entity.getBody().get("modernPlaceName"))
+                .isEqualTo("Allentown, PA");
+    }
+
+    /** */
+    @Test
+    public final void testReturnModernNameSendingRequestWithModernName() {
+        @SuppressWarnings("rawtypes")
+        final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port
+                + "/geocode?name=Bethlehem,%20Pennsylvania"
+                + "&modernName=Bethlehem,%20PA",
                 Map.class);
         then(entity.getBody().get("modernPlaceName"))
                 .isEqualTo("Bethlehem, PA");
@@ -89,7 +126,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void shouldReturnGeocodeWhenSendingRequestToController() {
+    public final void testReturnGeocodeWhenSendingRequestToController() {
         @SuppressWarnings("rawtypes")
         final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
                 "http://localhost:" + port + "/geocode?name=Bethlehem,%20PA",
@@ -100,7 +137,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void shouldReturnNullGeocodeWhenSendingRequestToController() {
+    public final void testReturnNullGeocodeWhenSendingRequestToController() {
         @SuppressWarnings("rawtypes")
         final ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
                 "http://localhost:" + this.port + "/geocode?name=XYZZY",
@@ -111,7 +148,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void shouldReturn200WhenSendingRequestToInfoEndpoint() {
+    public final void testReturn200WhenSendingRequestToInfoEndpoint() {
         @SuppressWarnings("rawtypes")
         final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
                 "http://localhost:" + mgt + "/info", Map.class);
@@ -121,7 +158,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void shouldReturn200WhenSendingRequestToHealthEndpoint() {
+    public final void testReturn200WhenSendingRequestToHealthEndpoint() {
         @SuppressWarnings("rawtypes")
         final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
                 "http://localhost:" + mgt + "/health", Map.class);
@@ -131,7 +168,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void shouldReturn200WhenSendingRequestToLoadEndpoint() {
+    public final void testReturn200WhenSendingRequestToLoadEndpoint() {
         final ClientHttpRequestFactory requestFactory = testRestTemplate
                 .getRestTemplate().getRequestFactory();
         final OkHttpClientHttpRequestFactory rf =
