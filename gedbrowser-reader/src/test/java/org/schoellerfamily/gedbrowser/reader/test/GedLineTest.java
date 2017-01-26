@@ -329,22 +329,22 @@ public final class GedLineTest {
     /**
      * Test GedLine with an array input.
      *
-     * @throws IOException
-     *             never.
+     * @throws IOException never.
      */
     @Test
     public void testFactoryGedLineArray() throws IOException {
         final AbstractGedLine top = readArrayTestSource();
-        System.out.println(top); // NOPMD
-        System.out.println("--------"); // NOPMD
+        System.out.println(top);
+        System.out.println("--------");
         final GedObject root = top.createGedObject((AbstractGedLine) null);
         final String out = root.toString();
-        System.out.println(out); // NOPMD
+        System.out.println(out);
 
         final Person melissa = (Person) root.find("I1");
         final Person dick = melissa.getFather();
         final List<Person> spouses = dick.getSpouses(null, dick);
-        System.out.println(spouses.get(0)); // NOPMD
+        System.out.println(spouses.get(0));
+        assertEquals("Dick only has one spouse", 1, spouses.size());
     }
 
     /**
@@ -357,47 +357,5 @@ public final class GedLineTest {
         final AbstractGedLine top = new GedLine(ARRAY_SOURCE);
         top.readToNext();
         return top;
-    }
-
-    /**
-     * Test factory methods with string input.
-     */
-    @Test
-    public void testFactoryGedLineString() {
-        final AbstractGedLine headLine = GedLine.createGedLine(null, "0 HEAD");
-        assertEquals(0, headLine.getLevel());
-        assertEquals("HEAD", headLine.getTag());
-        assertEquals("", headLine.getTail());
-        assertEquals("", headLine.getXref());
-        final AbstractGedLine sourLine =
-                GedLine.createGedLine(null, "1 SOUR TMG");
-        assertEquals(1, sourLine.getLevel());
-        assertEquals("SOUR", sourLine.getTag());
-        assertEquals("TMG", sourLine.getTail());
-        assertEquals("", sourLine.getXref());
-        final AbstractGedLine submLinkLine = GedLine.createGedLine(null,
-                "1 SUBM @SUB1@");
-        assertEquals(1, submLinkLine.getLevel());
-        assertEquals("SUBM", submLinkLine.getTag());
-        assertEquals("@SUB1@", submLinkLine.getTail());
-        assertEquals("", submLinkLine.getXref());
-        final AbstractGedLine submLine =
-                GedLine.createGedLine(null, "0 @SUB1@ SUBM");
-        assertEquals(0, submLine.getLevel());
-        assertEquals("SUBM", submLine.getTag());
-        assertEquals("", submLine.getTail());
-        assertEquals("SUB1", submLine.getXref());
-        final AbstractGedLine submNameLine = GedLine.createGedLine(null,
-                "1 NAME Richard Schoeller");
-        assertEquals(1, submNameLine.getLevel());
-        assertEquals("NAME", submNameLine.getTag());
-        assertEquals("Richard Schoeller", submNameLine.getTail());
-        assertEquals("", submNameLine.getXref());
-        final AbstractGedLine submAddrLine = GedLine.createGedLine(null,
-                "1 ADDR 242 Marked Tree Road");
-        assertEquals(1, submAddrLine.getLevel());
-        assertEquals("ADDR", submAddrLine.getTag());
-        assertEquals("242 Marked Tree Road", submAddrLine.getTail());
-        assertEquals("", submAddrLine.getXref());
     }
 }
