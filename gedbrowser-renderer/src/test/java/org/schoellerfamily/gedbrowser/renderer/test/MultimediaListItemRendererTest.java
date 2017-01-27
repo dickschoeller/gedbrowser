@@ -68,7 +68,7 @@ public class MultimediaListItemRendererTest {
                 (MultimediaListItemRenderer) aRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         apr.renderAsListItem(builder, false, 0);
-        assertEquals(
+        assertEquals("Rendered string mismatch",
                 "<li><span class=\"label\">Multimedia:</span> Title 1<br/>\n"
                 + "<a href=\"file1.jpg\">"
                 + "<img height=\"300px\" src=\"file1.jpg\" title=\"Title 1\"/>"
@@ -86,7 +86,7 @@ public class MultimediaListItemRendererTest {
                 (MultimediaListItemRenderer) aRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         apr.renderAsListItem(builder, false, 2);
-        assertEquals(
+        assertEquals("Rendered string mismatch",
                 "<li><span class=\"label\">Multimedia:</span> "
                 + "<a href=\"file2.html\">Title 2</a></li>\n",
                 builder.toString());
@@ -102,10 +102,9 @@ public class MultimediaListItemRendererTest {
                 (MultimediaListItemRenderer) aRenderer .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         apr.renderAsListItem(builder, true, 0);
-        assertEquals(
+        assertEquals("Rendered string mismatch",
                 "<li><span class=\"label\">Multimedia:</span>"
                 + " <a href=\"file3.html\">Title 3</a></li>\n",
                 builder.toString());
     }
-
 }

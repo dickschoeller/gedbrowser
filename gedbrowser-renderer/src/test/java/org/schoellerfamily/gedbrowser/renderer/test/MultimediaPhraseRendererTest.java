@@ -67,7 +67,8 @@ public class MultimediaPhraseRendererTest {
         final MultimediaPhraseRenderer apRenderer =
                 (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
-        assertEquals("<a href=\"file1.jpg\">Title 1</a>", string);
+        assertEquals("Rendered string mismatch",
+                "<a href=\"file1.jpg\">Title 1</a>", string);
     }
 
     /** */
@@ -79,7 +80,8 @@ public class MultimediaPhraseRendererTest {
         final MultimediaPhraseRenderer apRenderer =
                 (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
-        assertEquals("<a href=\"file2.html\">Title 2</a>", string);
+        assertEquals("Rendered string mismatch",
+                "<a href=\"file2.html\">Title 2</a>", string);
     }
 
     /** */
@@ -91,7 +93,8 @@ public class MultimediaPhraseRendererTest {
         final MultimediaPhraseRenderer apRenderer =
                 (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
-        assertEquals("<a href=\"file3.html\">Title 3</a>", string);
+        assertEquals("Rendered string mismatch",
+                "<a href=\"file3.html\">Title 3</a>", string);
     }
 
 }

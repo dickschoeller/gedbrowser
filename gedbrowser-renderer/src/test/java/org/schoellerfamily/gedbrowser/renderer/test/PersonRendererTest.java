@@ -600,12 +600,9 @@ public final class PersonRendererTest {
         for (final CellRow cellRow : cellRows) {
             final CellRenderer[] cellRenderers = cellRow.getCells();
             for (final CellRenderer cellRenderer : cellRenderers) {
-                final String cc = cellRenderer.getCellClass();
-                final String nameHtml = cellRenderer.getNameHtml();
-                assertEquals("Rendered html doesn't match expectation",
-                        TREE_CELL_CLASSES[i], cc);
-                assertEquals("Rendered html doesn't match expectation",
-                        MELISSA_TREE_CELLS[i], nameHtml);
+                assertCellMatch(TREE_CELL_CLASSES[i], MELISSA_TREE_CELLS[i],
+                        cellRenderer.getCellClass(),
+                        cellRenderer.getNameHtml());
                 i++;
             }
         }
@@ -625,15 +622,25 @@ public final class PersonRendererTest {
         for (final CellRow cellRow : cellRows) {
             final CellRenderer[] cellRenderers = cellRow.getCells();
             for (final CellRenderer cellRenderer : cellRenderers) {
-                final String cc = cellRenderer.getCellClass();
-                final String nameHtml = cellRenderer.getNameHtml();
-                assertEquals("Rendered html doesn't match expectation",
-                        TREE_CELL_CLASSES[i], cc);
-                assertEquals("Rendered html doesn't match expectation",
-                        GEORGE_TREE_CELLS[i], nameHtml);
+                assertCellMatch(TREE_CELL_CLASSES[i], GEORGE_TREE_CELLS[i],
+                        cellRenderer.getCellClass(),
+                        cellRenderer.getNameHtml());
                 i++;
             }
         }
+    }
+
+    /**
+     * @param expectedCellClass expected class
+     * @param expectedCellContent expected content
+     * @param cellClass actual class
+     * @param cellContent actual content
+     */
+    private void assertCellMatch(final String expectedCellClass,
+            final String expectedCellContent,
+            final String cellClass, final String cellContent) {
+        assertEquals("Class doesn't match", expectedCellClass, cellClass);
+        assertEquals("Content doesn't match", expectedCellContent, cellContent);
     }
 
     /**
@@ -1254,7 +1261,8 @@ public final class PersonRendererTest {
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext);
-        assertEquals("surnames?db=null&letter=S#Schoeller",
+        assertEquals("Rendered string mismatch",
+                "surnames?db=null&letter=S#Schoeller",
                 personRenderer.getIndexHref());
     }
 
@@ -1267,7 +1275,8 @@ public final class PersonRendererTest {
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(), userContext);
-        assertEquals("?", personRenderer.getSurnameLetter());
+        assertEquals("Rendered string mismatch",
+                "?", personRenderer.getSurnameLetter());
     }
 
     /**
@@ -1280,7 +1289,8 @@ public final class PersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(),
                 adminContext);
-        assertEquals("S", personRenderer.getSurnameLetter());
+        assertEquals("Rendered string mismatch",
+                "S", personRenderer.getSurnameLetter());
     }
 
     /**
@@ -1292,7 +1302,8 @@ public final class PersonRendererTest {
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(), userContext);
-        assertEquals("?", personRenderer.getSurname());
+        assertEquals("Rendered string mismatch",
+                "?", personRenderer.getSurname());
     }
 
     /**
@@ -1305,7 +1316,8 @@ public final class PersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(),
                 adminContext);
-        assertEquals("Schoeller", personRenderer.getSurname());
+        assertEquals("Rendered string mismatch",
+                "Schoeller", personRenderer.getSurname());
     }
 
     /**
@@ -1317,7 +1329,8 @@ public final class PersonRendererTest {
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(), userContext);
-        assertEquals("", personRenderer.getLifeSpanString());
+        assertEquals("Expected empty string",
+                "", personRenderer.getLifeSpanString());
     }
 
     /**
@@ -1343,7 +1356,8 @@ public final class PersonRendererTest {
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(), userContext);
-        assertEquals(0, personRenderer.getFamilies().size());
+        assertEquals("Expected empty family list",
+                0, personRenderer.getFamilies().size());
     }
 
     /**
@@ -1356,7 +1370,8 @@ public final class PersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(),
                 adminContext);
-        assertEquals(1, personRenderer.getFamilies().size());
+        assertEquals("Expected 1 family in family list",
+                1, personRenderer.getFamilies().size());
     }
 
     /**
@@ -1368,7 +1383,8 @@ public final class PersonRendererTest {
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(), userContext);
-        assertEquals(0, personRenderer.getAttributes().size());
+        assertEquals("Expected 0 attributes",
+                0, personRenderer.getAttributes().size());
     }
 
     /**
@@ -1382,7 +1398,7 @@ public final class PersonRendererTest {
                 new GedRendererFactory(),
                 adminContext);
         final int expectedLength = 8;
-        assertEquals(
+        assertEquals("Attribute list size mismatch",
                 expectedLength, personRenderer.getAttributes().size());
     }
     // TODO test tree rendering for Vivian both Admin and Anon
