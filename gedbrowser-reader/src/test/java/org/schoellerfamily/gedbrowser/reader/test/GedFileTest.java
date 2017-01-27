@@ -24,17 +24,17 @@ public class GedFileTest {
     @Test
     public final void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = readFileTestSource();
-        System.out.println(top); // NOPMD
-        System.out.println("--------"); // NOPMD
+        System.out.println(top);
+        System.out.println("--------");
         final GedObject root = top.createGedObject((AbstractGedLine) null);
         final String out = root.toString();
-        System.out.println(out); // NOPMD
+        System.out.println(out);
 
         final Person melissa = (Person) root.find("I1");
         final Person dick = melissa.getFather();
         final List<Person> spouses = dick.getSpouses(null, dick);
         assertEquals("Dick only has one spouse", 1, spouses.size());
-        System.out.println(spouses.get(0)); // NOPMD
+        System.out.println(spouses.get(0));
     }
 
     /**
@@ -47,81 +47,67 @@ public class GedFileTest {
         return ReaderHelper.readFileTestSource(this, "mini-schoeller.ged");
     }
 
-    /**
-     * Test factory methods with string input.
-     */
+    /** */
     @Test
     public final void testFactoryGedLineHeadString() {
-        final AbstractGedLine headLine = GedLine.createGedLine(null, "0 HEAD");
-        assertEquals(0, headLine.getLevel());
-        assertEquals("HEAD", headLine.getTag());
-        assertEquals("", headLine.getTail());
-        assertEquals("", headLine.getXref());
+        final AbstractGedLine line = GedLine.createGedLine(
+                null, "0 HEAD");
+        assertMatch(line, 0, "HEAD", "", "");
     }
 
-    /**
-     * Test factory methods with string input.
-     */
+    /** */
     @Test
     public final void testFactoryGedLineSourString() {
-        final AbstractGedLine sourLine = GedLine.createGedLine(null,
-                "1 SOUR TMG");
-        assertEquals(1, sourLine.getLevel());
-        assertEquals("SOUR", sourLine.getTag());
-        assertEquals("TMG", sourLine.getTail());
-        assertEquals("", sourLine.getXref());
+        final AbstractGedLine line = GedLine.createGedLine(
+                null, "1 SOUR TMG");
+        assertMatch(line, 1, "SOUR", "TMG", "");
     }
 
-    /**
-     * Test factory methods with string input.
-     */
+    /** */
     @Test
     public final void testFactoryGedLineOneSubmString() {
-        final AbstractGedLine submLinkLine = GedLine.createGedLine(null,
-                "1 SUBM @SUB1@");
-        assertEquals(1, submLinkLine.getLevel());
-        assertEquals("SUBM", submLinkLine.getTag());
-        assertEquals("@SUB1@", submLinkLine.getTail());
-        assertEquals("", submLinkLine.getXref());
+        final AbstractGedLine line = GedLine.createGedLine(
+                null, "1 SUBM @SUB1@");
+        assertMatch(line, 1, "SUBM", "@SUB1@", "");
     }
 
-    /**
-     * Test factory methods with string input.
-     */
+    /** */
     @Test
     public final void testFactoryGedLineZeroSubmString() {
-        final AbstractGedLine submLine = GedLine.createGedLine(null,
-                "0 @SUB1@ SUBM");
-        assertEquals(0, submLine.getLevel());
-        assertEquals("SUBM", submLine.getTag());
-        assertEquals("", submLine.getTail());
-        assertEquals("SUB1", submLine.getXref());
+        final AbstractGedLine line = GedLine.createGedLine(
+                null, "0 @SUB1@ SUBM");
+        assertMatch(line, 0, "SUBM", "", "SUB1");
     }
 
-    /**
-     * Test factory methods with string input.
-     */
+    /** */
     @Test
     public final void testFactoryGedLineNameString() {
-        final AbstractGedLine submNameLine = GedLine.createGedLine(null,
-                "1 NAME Richard Schoeller");
-        assertEquals(1, submNameLine.getLevel());
-        assertEquals("NAME", submNameLine.getTag());
-        assertEquals("Richard Schoeller", submNameLine.getTail());
-        assertEquals("", submNameLine.getXref());
+        final AbstractGedLine line = GedLine.createGedLine(
+                null, "1 NAME Richard Schoeller");
+        assertMatch(line, 1, "NAME", "Richard Schoeller", "");
+    }
+
+    /** */
+    @Test
+    public final void testFactoryGedLineAddrString() {
+        final AbstractGedLine line = GedLine.createGedLine(
+                null, "1 ADDR 242 Marked Tree Road");
+        assertMatch(line, 1, "ADDR", "242 Marked Tree Road", "");
     }
 
     /**
-     * Test factory methods with string input.
+     * @param line the line that is being checked
+     * @param expectedLevel the expected level value
+     * @param expectedTag the expected tag string
+     * @param expectedTail the expected tail string
+     * @param expectedXref the expected reference string
      */
-    @Test
-    public final void testFactoryGedLineAddrString() {
-        final AbstractGedLine submAddrLine = GedLine.createGedLine(null,
-                "1 ADDR 242 Marked Tree Road");
-        assertEquals(1, submAddrLine.getLevel());
-        assertEquals("ADDR", submAddrLine.getTag());
-        assertEquals("242 Marked Tree Road", submAddrLine.getTail());
-        assertEquals("", submAddrLine.getXref());
+    public void assertMatch(final AbstractGedLine line,
+            final int expectedLevel, final String expectedTag,
+            final String expectedTail, final String expectedXref) {
+        assertEquals("Level mismatch", expectedLevel, line.getLevel());
+        assertEquals("Tag mismatch", expectedTag, line.getTag());
+        assertEquals("Tail mismatch", expectedTail, line.getTail());
+        assertEquals("Xref mismatch", expectedXref, line.getXref());
     }
-
 }
