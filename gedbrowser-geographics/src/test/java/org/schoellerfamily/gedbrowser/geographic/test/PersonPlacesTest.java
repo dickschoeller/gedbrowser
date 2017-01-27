@@ -34,16 +34,27 @@ public class PersonPlacesTest {
         final Person person = (Person) root.find("I7");
         final PersonPlaces personPlaces = new PersonPlaces(person);
         final Collection<Place> places = personPlaces.getPlaces();
+        assertArnoldMatches(places);
+        dump(places);
+    }
+
+    /**
+     * @param places Arnold's places
+     */
+    private void assertArnoldMatches(final Collection<Place> places) {
         final int expectedSize = 3;
-        assertEquals(expectedSize, places.size());
+        assertEquals("Place list size mismatch",
+                expectedSize, places.size());
         // This is known to be in the data twice
-        assertTrue(places.contains(
+        assertTrue("Expected to find place",
+                places.contains(
                 new Place(null,
                         "Providence,"
                         + " Providence County,"
                         + " Rhode Island,"
                         + " USA")));
-        assertTrue(places.contains(
+        assertTrue("Expected to find place",
+                places.contains(
                 new Place(null,
                         "Lincoln Park Cemetery,"
                         + " Warwick,"
@@ -51,14 +62,14 @@ public class PersonPlacesTest {
                         + " Rhode Island,"
                         + " USA")));
         // Verifies picking up marriage location
-        assertTrue(places.contains(
+        assertTrue("Expected to find place",
+                places.contains(
                 new Place(null,
                         "Beacon House,"
                         + " Boston,"
                         + " Suffolk County,"
                         + " Massachusetts,"
                         + " USA")));
-        dump(places);
     }
 
     /**
@@ -76,9 +87,19 @@ public class PersonPlacesTest {
         final Person person = (Person) root.find("I2");
         final Places personPlaces = new PersonPlaces(person);
         final Collection<Place> places = personPlaces.getPlaces();
+        assertDickMatches(places);
+        dump(places);
+    }
+
+    /**
+     * @param places Dick's places
+     */
+    private void assertDickMatches(final Collection<Place> places) {
         final int expectedSize = 3;
-        assertEquals(expectedSize, places.size());
-        assertTrue(places.contains(
+        assertEquals("Place list size mismatch",
+                expectedSize, places.size());
+        assertTrue("Expected to find place",
+                places.contains(
                 new Place(null,
                         "Womack Army Hospital,"
                         + " Fort Bragg,"
@@ -87,14 +108,14 @@ public class PersonPlacesTest {
                         + " North Carolina,"
                         + " USA")));
         // Verifies picking up marriage location
-        assertTrue(places.contains(
+        assertTrue("Expected to find place",
+                places.contains(
                 new Place(null,
                         "Temple Emanu-el,"
                         + " Providence,"
                         + " Providence County,"
                         + " Rhode Island,"
                         + " USA")));
-        dump(places);
     }
 
     /**

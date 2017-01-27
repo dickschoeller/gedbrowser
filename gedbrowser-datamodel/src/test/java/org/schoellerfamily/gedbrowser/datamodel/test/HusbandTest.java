@@ -75,24 +75,24 @@ public final class HusbandTest {
     /** */
     @Test
     public void testGetFather() {
-        assertEquals(person1, husband1.getFather());
-        assertEquals(person1, husband2a.getFather());
-        assertEquals(person3, husband2b.getFather());
+        assertEquals("Person mismatch", person1, husband1.getFather());
+        assertEquals("Person mismatch", person1, husband2a.getFather());
+        assertEquals("Person mismatch", person3, husband2b.getFather());
     }
 
     /** */
     @Test
     public void testGetSpouse() {
-        assertTrue(husband1.getSpouse().isSet());
-        assertTrue(husband2a.getSpouse().isSet());
-        assertTrue(husband2b.getSpouse().isSet());
-        assertEquals(person1, husband1.getSpouse());
-        assertEquals(person1, husband2a.getSpouse());
-        assertEquals(person3, husband2b.getSpouse());
+        assertTrue("Husband should be set", husband1.getSpouse().isSet());
+        assertTrue("Husband should be set", husband2a.getSpouse().isSet());
+        assertTrue("Husband should be set", husband2b.getSpouse().isSet());
+        assertEquals("Person mismatch", person1, husband1.getSpouse());
+        assertEquals("Person mismatch", person1, husband2a.getSpouse());
+        assertEquals("Person mismatch", person3, husband2b.getSpouse());
         // TODO should these be null?
-        assertEquals(person1, husband1.getSpouse());
-        assertEquals(person1, husband2a.getSpouse());
-        assertEquals(person3, husband2b.getSpouse());
+        assertEquals("Person mismatch", person1, husband1.getSpouse());
+        assertEquals("Person mismatch", person1, husband2a.getSpouse());
+        assertEquals("Person mismatch", person3, husband2b.getSpouse());
     }
 
     /** */
@@ -116,10 +116,10 @@ public final class HusbandTest {
         final Family family = new Family(localRoot, new ObjectId("F1"));
         localRoot.insert("F1", family);
         final Husband husband = new Husband(family, HUSB_TAG);
-        assertEquals(HUSB_TAG, husband.getString());
-        assertEquals("", husband.getToString());
-        assertEquals("F1", husband.getFromString());
-        assertFalse(husband.getFather().isSet());
+        assertEquals("Tag mismatch", HUSB_TAG, husband.getString());
+        assertEquals("To string mismatch", "", husband.getToString());
+        assertEquals("From string mismatch", "F1", husband.getFromString());
+        assertFalse("Person should not be set", husband.getFather().isSet());
     }
 
     /** */
@@ -130,9 +130,9 @@ public final class HusbandTest {
         localRoot.insert("F1", family);
         final Husband husband =
                 new Husband(family, HUSB_TAG, new ObjectId("@I3@"));
-        assertEquals(HUSB_TAG, husband.getString());
-        assertEquals("I3", husband.getToString());
-        assertEquals("F1", husband.getFromString());
-        assertFalse(husband.getFather().isSet());
+        assertEquals("Tag mismatch", HUSB_TAG, husband.getString());
+        assertEquals("To string mismatch", "I3", husband.getToString());
+        assertEquals("From string mismatch", "F1", husband.getFromString());
+        assertFalse("Person should not be set", husband.getFather().isSet());
     }
 }

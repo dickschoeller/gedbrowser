@@ -163,7 +163,7 @@ public class RootRepositoryTest {
 
     /** */
     @Test
-    public final void testWhole() {
+    public final void testRoot() {
         final RootDocument rootdoc =
                 rootDocumentRepository.findByFileAndString(
                         root.getFilename(), root.getString());
@@ -171,57 +171,110 @@ public class RootRepositoryTest {
                 (Root) GedDocumentMongoFactory.getInstance().createGedObject(
                         null, rootdoc);
         assertEquals("Should return same root", newRoot, root);
+    }
 
+    /** */
+    @Test
+    public final void testWhole() {
         final Map<String, GedObject> map = root.getObjects();
         for (final Map.Entry<String, GedObject> entry : map.entrySet()) {
             final GedObject ged = entry.getValue();
-            if (ged instanceof Person) {
-                final PersonDocument perdoc = personDocumentRepository
-                        .findByFileAndString(root.getFilename(),
-                                ged.getString());
-                final Person person =
-                        (Person) GedDocumentMongoFactory.getInstance()
-                                .createGedObject(root, perdoc);
-                assertEquals("wrong type", person, ged);
-            } else if (ged instanceof Source) {
-                final SourceDocument soudoc = sourceDocumentRepository
-                        .findByFileAndString(root.getFilename(),
-                                ged.getString());
-                final Source source =
-                        (Source) GedDocumentMongoFactory.getInstance()
-                                .createGedObject(root, soudoc);
-                assertEquals("wrong type", source, ged);
-            } else if (ged instanceof Family) {
-                final FamilyDocument famdoc = familyDocumentRepository
-                        .findByFileAndString(root.getFilename(),
-                                ged.getString());
-                final Family family =
-                        (Family) GedDocumentMongoFactory.getInstance()
-                                .createGedObject(root, famdoc);
-                assertEquals("wrong type", family, ged);
-            } else if (ged instanceof Head) {
-                final HeadDocument headoc = headDocumentRepository
-                        .findByFileAndString(root.getFilename(),
-                                ged.getString());
-                final Head head = (Head) GedDocumentMongoFactory.getInstance()
-                        .createGedObject(root, headoc);
-                assertEquals("wrong type", head, ged);
-            } else if (ged instanceof Trailer) {
-                final TrailerDocument tradoc = trailerDocumentRepository
-                        .findByFileAndString(root.getFilename(),
-                                ged.getString());
-                final Trailer person = (Trailer) GedDocumentMongoFactory.
-                        getInstance().createGedObject(root, tradoc);
-                assertEquals("wrong type", person, ged);
-            } else if (ged instanceof Submittor) {
-                final SubmittorDocument subdoc = submittorDocumentRepository
-                        .findByFileAndString(root.getFilename(),
-                                ged.getString());
-                final Submittor person = (Submittor) GedDocumentMongoFactory.
-                        getInstance().createGedObject(root, subdoc);
-                assertEquals("wrong type", person, ged);
-            }
+            assertGedMatch(ged);
         }
+    }
+
+    /**
+     * @param ged the item to check
+     */
+    private void assertGedMatch(final GedObject ged) {
+        if (ged instanceof Person) {
+            assertPersonMatch(ged);
+        } else if (ged instanceof Source) {
+            assertSourceMatch(ged);
+        } else if (ged instanceof Family) {
+            assertFamilyMatch(ged);
+        } else if (ged instanceof Head) {
+            assertHeadMatch(ged);
+        } else if (ged instanceof Trailer) {
+            assertTrailerMatch(ged);
+        } else if (ged instanceof Submittor) {
+            assertSubmittorMatch(ged);
+        }
+    }
+
+    /**
+     * @param ged the item to check
+     */
+    private void assertPersonMatch(final GedObject ged) {
+        final PersonDocument perdoc = personDocumentRepository
+                .findByFileAndString(root.getFilename(),
+                        ged.getString());
+        final Person person =
+                (Person) GedDocumentMongoFactory.getInstance()
+                        .createGedObject(root, perdoc);
+        assertEquals("wrong type", person, ged);
+    }
+
+    /**
+     * @param ged the item to check
+     */
+    private void assertSourceMatch(final GedObject ged) {
+        final SourceDocument soudoc = sourceDocumentRepository
+                .findByFileAndString(root.getFilename(),
+                        ged.getString());
+        final Source source =
+                (Source) GedDocumentMongoFactory.getInstance()
+                        .createGedObject(root, soudoc);
+        assertEquals("wrong type", source, ged);
+    }
+
+    /**
+     * @param ged the item to check
+     */
+    private void assertFamilyMatch(final GedObject ged) {
+        final FamilyDocument famdoc = familyDocumentRepository
+                .findByFileAndString(root.getFilename(),
+                        ged.getString());
+        final Family family =
+                (Family) GedDocumentMongoFactory.getInstance()
+                        .createGedObject(root, famdoc);
+        assertEquals("wrong type", family, ged);
+    }
+
+    /**
+     * @param ged the item to check
+     */
+    private void assertHeadMatch(final GedObject ged) {
+        final HeadDocument headoc = headDocumentRepository
+                .findByFileAndString(root.getFilename(),
+                        ged.getString());
+        final Head head = (Head) GedDocumentMongoFactory.getInstance()
+                .createGedObject(root, headoc);
+        assertEquals("wrong type", head, ged);
+    }
+
+    /**
+     * @param ged the item to check
+     */
+    private void assertTrailerMatch(final GedObject ged) {
+        final TrailerDocument tradoc = trailerDocumentRepository
+                .findByFileAndString(root.getFilename(),
+                        ged.getString());
+        final Trailer person = (Trailer) GedDocumentMongoFactory.
+                getInstance().createGedObject(root, tradoc);
+        assertEquals("wrong type", person, ged);
+    }
+
+    /**
+     * @param ged the item to check
+     */
+    private void assertSubmittorMatch(final GedObject ged) {
+        final SubmittorDocument subdoc = submittorDocumentRepository
+                .findByFileAndString(root.getFilename(),
+                        ged.getString());
+        final Submittor person = (Submittor) GedDocumentMongoFactory.
+                getInstance().createGedObject(root, subdoc);
+        assertEquals("wrong type", person, ged);
     }
 
     /** */
