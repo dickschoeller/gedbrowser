@@ -68,14 +68,20 @@ public final class HeadTest {
         final Attribute charset = new Attribute(head, "CHAR", "ANSI");
         head.insert(charset);
 
-        assertEquals(ATTRIBUTE_COUNT, head.getAttributes().size());
-        assertTrue(head.getAttributes().contains(sourceLink));
-        assertTrue(head.getAttributes().contains(version));
-        assertTrue(head.getAttributes().contains(submittorLink));
-        assertTrue(head.getAttributes().contains(gedc));
-        assertTrue(head.getAttributes().contains(dest));
-        assertTrue(head.getAttributes().contains(date));
-        assertTrue(head.getAttributes().contains(charset));
+        assertEquals("Mismatch attribute count", ATTRIBUTE_COUNT,
+                head.getAttributes().size());
+        assertTrue("Should contain sourceLink",
+                head.getAttributes().contains(sourceLink));
+        assertTrue("Should contain version",
+                head.getAttributes().contains(version));
+        assertTrue("Should contain submittorLink",
+                head.getAttributes().contains(submittorLink));
+        assertTrue("Should contain gedc item",
+                head.getAttributes().contains(gedc));
+        assertTrue("Should contain dest", head.getAttributes().contains(dest));
+        assertTrue("Should contain date", head.getAttributes().contains(date));
+        assertTrue("Should contain charset",
+                head.getAttributes().contains(charset));
     }
 
     /** */
@@ -87,7 +93,7 @@ public final class HeadTest {
         root.insert(HEAD_TAG, head);
 
         final GedObject gob = root.find(HEAD_TAG);
-        assertEquals(head, gob);
+        assertEquals("Should have found the head", head, gob);
 
         assertTrue("Head string should be empty", head.getString().isEmpty());
     }
@@ -101,9 +107,9 @@ public final class HeadTest {
         root.insert(HEAD_TAG, head);
 
         final GedObject gob = root.find(HEAD_TAG);
-        assertEquals(head, gob);
+        assertEquals("Should have found the head", head, gob);
 
-        assertEquals(HEAD_TAG, head.getString());
+        assertEquals("Tag mismatch", HEAD_TAG, head.getString());
     }
 
     /** */
@@ -115,11 +121,12 @@ public final class HeadTest {
         root.insert(HEAD_TAG, head);
 
         final GedObject gob = root.find(HEAD_TAG);
-        assertEquals(head, gob);
+        assertEquals("Should have found the head", head, gob);
 
-        assertEquals(HEAD_TAG, head.getString());
+        assertEquals("Head tag mismatch", HEAD_TAG, head.getString());
 
         final Head head2 = new Head(root, HEAD_TAG, "foo");
-        assertEquals(HEAD_TAG + " foo", head2.getString());
+        assertEquals("Combined string mismatch",
+                HEAD_TAG + " foo", head2.getString());
     }
 }
