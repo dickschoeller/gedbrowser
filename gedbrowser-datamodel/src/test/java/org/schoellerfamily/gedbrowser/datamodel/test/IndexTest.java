@@ -263,40 +263,40 @@ public final class IndexTest {
     @Test
     public void testGetIdsPerName() {
         Set<String> emptySet = root.getIndex().getIdsPerName(null, null);
-        assertEquals(0, emptySet.size());
+        assertEquals("Expected empty result set", 0, emptySet.size());
 
         emptySet = root.getIndex().getIdsPerName(SCHOELLER_SURNAME, null);
-        assertEquals(0, emptySet.size());
+        assertEquals("Expected empty result set", 0, emptySet.size());
         try {
             emptySet.add(FOO);
             fail(SHOULD_THROW);
         } catch (UnsupportedOperationException e) {
-            emptySet = Collections.emptySet(); // NOPMD
+            emptySet = Collections.emptySet();
         }
         emptySet = root.getIndex().getIdsPerName(null, "Bob");
-        assertEquals(0, emptySet.size());
+        assertEquals("Expected empty result set", 0, emptySet.size());
 
         Set<String> set = root.getIndex().getIdsPerName(SCHOELLER_SURNAME,
                 "Schoeller, Richard John");
         assertEquals("There is only 1 me", 1, set.size());
-        assertTrue(set.contains("I1"));
+        assertTrue("contents of set doesm't match", set.contains("I1"));
         try {
             set.add(FOO);
             fail(SHOULD_THROW);
         } catch (UnsupportedOperationException e) {
-            set = Collections.emptySet(); // NOPMD
+            set = Collections.emptySet();
         }
 
         final Set<String> set2 =
                 root.getIndex().getIdsPerName(SCHOELLER_SURNAME,
                 "Schoeller, Bob");
-        assertEquals(0, set2.size());
+        assertEquals("Expected empty result set", 0, set2.size());
 
         set = root.getIndex().getIdsPerName(SCHOELLER_SURNAME,
                 "Schoeller, John");
-        assertEquals(2, set.size());
-        assertTrue(set.contains("I8"));
-        assertTrue(set.contains("I9"));
+        assertEquals("Expected 2 results", 2, set.size());
+        assertTrue("Expected ID (I8) is missing", set.contains("I8"));
+        assertTrue("Expected ID (I9) is missing", set.contains("I9"));
 
         int arrayIndex = 0;
         for (final String surname : root.getIndex().getSurnames()) {
@@ -312,8 +312,8 @@ public final class IndexTest {
             }
         }
 
-        assertEquals(0, root.getIndex().getIdsPerName("Mumble", "Mumble, Bob")
-                .size());
+        assertEquals("Expected empty result set", 0,
+                root.getIndex().getIdsPerName("Mumble", "Mumble, Bob").size());
     }
 
     /** */
