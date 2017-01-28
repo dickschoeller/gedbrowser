@@ -18,7 +18,7 @@ jdk:
 #script: mvn install jacoco:report coveralls:report
 script:
   - docker ps --all
-  - mvn install -Dspring.data.mongodb.port=28001 -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -Dgedbrowser.home=/home/travis/gedbrowser
+  - mvn install jacoco:report coveralls:report -Dspring.data.mongodb.port=28001 -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -Dgedbrowser.home=/home/travis/gedbrowser
   - docker run --link mongo:mongo -v /home/travis/gedbrowser:/var/lib/gedbrowser -p 8086:8080 -p 8087:8080 --name geoservice -d schoellerfamily/geoservice
   - docker run --link mongo:mongo -v /home/travis/gedbrowser:/var/lib/gedbrowser -p 8080:8080 -p 8081:8081 --name gedbrowser -d schoellerfamily/gedbrowser
   - sleep 1m

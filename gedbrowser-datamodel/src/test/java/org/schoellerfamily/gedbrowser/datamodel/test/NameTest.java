@@ -43,51 +43,72 @@ public final class NameTest {
     /** */
     @Test
     public void testGetName() {
-        assertEquals(name1, name1.getName());
-        assertEquals(name2, name2.getName());
-        assertEquals(name3, name3.getName());
-        assertEquals(name1, person.getName());
+        assertEquals("Name string mismatch", name1, name1.getName());
+        assertEquals("Name string mismatch", name2, name2.getName());
+        assertEquals("Name string mismatch", name3, name3.getName());
+        assertEquals("Name string mismatch", name1, person.getName());
     }
 
     /** */
     @Test
     public void testGetIndexName() {
-        assertEquals("Schoeller, Karl, Jr.", name1.getIndexName());
-        assertEquals("Schoeller, Karl", name2.getIndexName());
-        assertEquals("?, Wingnut", name3.getIndexName());
-        assertEquals("Noodle, ?", name4.getIndexName());
-        assertEquals("Wang Foo", name5.getIndexName());
+        assertEquals("Index name string mismatch",
+                "Schoeller, Karl, Jr.", name1.getIndexName());
+        assertEquals("Index name string mismatch",
+                "Schoeller, Karl", name2.getIndexName());
+        assertEquals("Index name string mismatch",
+                "?, Wingnut", name3.getIndexName());
+        assertEquals("Index name string mismatch",
+                "Noodle, ?", name4.getIndexName());
+        assertEquals("Index name string mismatch",
+                "Wang Foo", name5.getIndexName());
     }
 
     /** */
     @Test
     public void testGetSurname() {
-        assertEquals("Schoeller", name1.getSurname());
-        assertEquals("Schoeller", name2.getSurname());
-        assertEquals("?", name3.getSurname());
-        assertEquals("Noodle", name4.getSurname());
-        assertEquals("Wang", name5.getSurname());
+        assertEquals("Surname string mismatch",
+                "Schoeller", name1.getSurname());
+        assertEquals("Surname string mismatch",
+                "Schoeller", name2.getSurname());
+        assertEquals("Surname string mismatch",
+                "?", name3.getSurname());
+        assertEquals("Surname string mismatch",
+                "Noodle", name4.getSurname());
+        assertEquals("Surname string mismatch",
+                "Wang", name5.getSurname());
     }
 
     /** */
     @Test
     public void testGetPrefix() {
-        assertEquals("Karl", name1.getPrefix());
-        assertEquals("Karl", name2.getPrefix());
-        assertEquals("Wingnut", name3.getPrefix());
-        assertEquals("", name4.getPrefix());
-        assertEquals("", name5.getPrefix());
+        assertEquals("Prefix string mismatch",
+                "Karl", name1.getPrefix());
+        assertEquals("Prefix string mismatch",
+                "Karl", name2.getPrefix());
+        assertEquals("Prefix string mismatch",
+                "Wingnut", name3.getPrefix());
+        assertEquals("Prefix string mismatch",
+                "", name4.getPrefix());
+        assertEquals("Prefix string mismatch",
+                "", name5.getPrefix());
     }
 
     /** */
     @Test
     public void testGetSuffix() {
-        assertEquals("Jr.", name1.getSuffix());
-        assertEquals("", name2.getSuffix());
-        assertEquals("", name3.getSuffix());
-        assertEquals("", name4.getSuffix());
-        assertEquals("", name4.getSuffix());
-        assertEquals("Foo", name5.getSuffix());
+        assertEquals("Suffix string mismatch",
+                "Jr.", name1.getSuffix());
+        assertEquals("Suffix string mismatch",
+                "", name2.getSuffix());
+        assertEquals("Suffix string mismatch",
+                "", name3.getSuffix());
+        assertEquals("Suffix string mismatch",
+                "", name4.getSuffix());
+        assertEquals("Suffix string mismatch",
+                "", name4.getSuffix());
+        assertEquals("Suffix string mismatch",
+                "Foo", name5.getSuffix());
     }
 
     /** */
@@ -98,8 +119,8 @@ public final class NameTest {
         localRoot.insert("I1", localPerson);
         final Name name = new Name(localPerson);
         localPerson.insert(name);
-        assertEquals(localPerson, name.getParent());
-        assertEquals("", name.getString());
+        assertEquals("Parent mismatch", localPerson, name.getParent());
+        assertEquals("Name string mismatch", "", name.getString());
     }
 
     /** */
@@ -110,10 +131,11 @@ public final class NameTest {
         localRoot.insert("I1", localPerson);
         final Name name = new Name(localPerson, "Karl/Schoeller/Jr.");
         localPerson.insert(name);
-        assertEquals(localPerson, name.getParent());
-        assertEquals("Karl/Schoeller/Jr.", name.getString());
-        assertEquals("Karl", name.getPrefix());
-        assertEquals("Schoeller", name.getSurname());
-        assertEquals("Jr.", name.getSuffix());
+        assertEquals("Parent mismatch", localPerson, name.getParent());
+        assertEquals("Name string mismatch", "Karl/Schoeller/Jr.",
+                name.getString());
+        assertEquals("Prefix mismatch", "Karl", name.getPrefix());
+        assertEquals("Surname mismatch", "Schoeller", name.getSurname());
+        assertEquals("Suffix mismatch", "Jr.", name.getSuffix());
     }
 }
