@@ -219,7 +219,7 @@ public final class NameTest {
         localRoot.insert("I1", localPerson);
         final Name name = new Name(localPerson);
         localPerson.insert(name);
-        assertMatch(localPerson, name, "", "", "", "");
+        assertMatch(localPerson, name, "", "", "?", "");
     }
 
     /** */
