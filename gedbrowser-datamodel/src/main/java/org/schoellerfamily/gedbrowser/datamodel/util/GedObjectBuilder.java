@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
@@ -351,5 +352,14 @@ public class GedObjectBuilder {
         final Place place = new Place(event, placeName);
         event.insert(place);
         return place;
+    }
+
+    /**
+     * @return the new source
+     */
+    public Source createSource1() {
+        final Source source = new Source(root, new ObjectId("S1"));
+        root.insert(source);
+        return source;
     }
 }

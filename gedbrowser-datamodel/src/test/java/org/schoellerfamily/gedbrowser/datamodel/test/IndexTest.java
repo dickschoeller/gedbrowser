@@ -243,28 +243,46 @@ public final class IndexTest {
 
     /** */
     @Test
-    public void testGetSurnames() {
+    public void testGetSurnamesSize() {
         final Set<String> set = root.getIndex().getSurnames();
         assertEquals("Surname count mismatch", SURNAME_COUNT, set.size());
+    }
+
+    /** */
+    @Test
+    public void testGetSurnames() {
+        final Set<String> set = root.getIndex().getSurnames();
         int arrayIndex = 0;
         for (final String surname : set) {
             assertEquals("Surname anomaly", CHECK_SURNAMES[arrayIndex++],
                     surname);
         }
+    }
+
+    /** */
+    @Test
+    public void testGetSurnamesImmutable() {
+        final Set<String> set = root.getIndex().getSurnames();
         try {
             set.add(FOO);
             fail(SHOULD_THROW);
         } catch (UnsupportedOperationException e) {
-            assertTrue("Expected to get here", true); // NOPMD
+            // Expected to get here.
         }
     }
 
     /** */
     @Test
-    public void testGetIdsPerName() {
-        Set<String> emptySet = root.getIndex().getIdsPerName(null, null);
+    public void testGetIdsPerNameNullNull() {
+        Set<String> emptySet;
+        emptySet = root.getIndex().getIdsPerName(null, null);
         assertEquals("Expected empty result set", 0, emptySet.size());
+    }
 
+    /** */
+    @Test
+    public void testGetIdsPerNameSchoellerNull() {
+        Set<String> emptySet;
         emptySet = root.getIndex().getIdsPerName(SCHOELLER_SURNAME, null);
         assertEquals("Expected empty result set", 0, emptySet.size());
         try {
@@ -273,31 +291,48 @@ public final class IndexTest {
         } catch (UnsupportedOperationException e) {
             emptySet = Collections.emptySet();
         }
+    }
+
+    /** */
+    @Test
+    public void testGetIdsPerNameNullBob() {
+        Set<String> emptySet;
         emptySet = root.getIndex().getIdsPerName(null, "Bob");
         assertEquals("Expected empty result set", 0, emptySet.size());
 
-        Set<String> set = root.getIndex().getIdsPerName(SCHOELLER_SURNAME,
-                "Schoeller, Richard John");
-        assertEquals("There is only 1 me", 1, set.size());
-        assertTrue("contents of set doesm't match", set.contains("I1"));
-        try {
-            set.add(FOO);
-            fail(SHOULD_THROW);
-        } catch (UnsupportedOperationException e) {
-            set = Collections.emptySet();
-        }
+    }
 
+    /** */
+    @Test
+    public void testGetIdsPerNameMe() {
+        final Set<String> set = root.getIndex().getIdsPerName(SCHOELLER_SURNAME,
+                "Schoeller, Richard John");
+        assertTrue("There is only 1 me",
+                1 == set.size() && set.contains("I1"));
+    }
+
+    /** */
+    @Test
+    public void testGetIdsPerNameSchoellerBob() {
         final Set<String> set2 =
                 root.getIndex().getIdsPerName(SCHOELLER_SURNAME,
                 "Schoeller, Bob");
         assertEquals("Expected empty result set", 0, set2.size());
+    }
 
-        set = root.getIndex().getIdsPerName(SCHOELLER_SURNAME,
-                "Schoeller, John");
-        assertEquals("Expected 2 results", 2, set.size());
-        assertTrue("Expected ID (I8) is missing", set.contains("I8"));
-        assertTrue("Expected ID (I9) is missing", set.contains("I9"));
+    /** */
+    @Test
+    public void testGetIdsPerNameSchoellerJohn() {
+        final Set<String> set =
+                root.getIndex().getIdsPerName(SCHOELLER_SURNAME,
+                        "Schoeller, John");
+        assertTrue("Results don't match",
+                2 == set.size() && set.contains("I8") && set.contains("I9"));
+    }
 
+    /** */
+    @Test
+    public void testSurnames() {
         int arrayIndex = 0;
         for (final String surname : root.getIndex().getSurnames()) {
             for (final String indexName
@@ -311,9 +346,13 @@ public final class IndexTest {
                 }
             }
         }
+    }
 
-        assertEquals("Expected empty result set", 0,
-                root.getIndex().getIdsPerName("Mumble", "Mumble, Bob").size());
+    /** */
+    @Test
+    public void testJunkSurname() {
+        assertTrue("Expected empty result set", root.getIndex()
+                .getIdsPerName("Mumble", "Mumble, Bob").isEmpty());
     }
 
     /** */

@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
@@ -58,18 +59,28 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testGetBirthDate() {
+    public void testGetDummyBirthDate() {
         final Multimedia dummy = new Multimedia(person1, "Dummy");
         final Date dummyDate = new Date(dummy, "31 July 1990");
         dummy.insert(dummyDate);
         assertEquals("Expected empty birth date string",
                 "", dummy.getBirthDate());
+    }
 
+    /** */
+    @Test
+    public void testGetUninsertedBirthDate() {
         final Multimedia birth = new Multimedia(person1, "Birth");
-        final Date date = new Date(birth, "31 July 1990");
+        new Date(birth, "31 July 1990");
         assertEquals("Expected empty birth date string",
                 "", birth.getBirthDate());
+    }
 
+    /** */
+    @Test
+    public void testGetBirthDate() {
+        final Multimedia birth = new Multimedia(person1, "Birth");
+        final Date date = new Date(birth, "31 July 1990");
         birth.insert(date);
         assertEquals("Expected empty birth date string",
                 "", birth.getBirthDate());
@@ -77,17 +88,26 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testGetDeathDate() {
+    public void testGetDummyDeathDate() {
         final Multimedia dummy = new Multimedia(person1, "Dummy");
         final Date dummyDate = new Date(dummy, "31 July 1990");
         dummy.insert(dummyDate);
         assertEquals("Expected empty death date string",
                 "", dummy.getDeathDate());
+    }
 
+    /** */
+    @Test
+    public void testGetDeathDateWithNoDate() {
         final Multimedia death = new Multimedia(person1, "Death");
         assertEquals("Expected empty death date string",
                 "", death.getDeathDate());
+    }
 
+    /** */
+    @Test
+    public void testGetDeathDate() {
+        final Multimedia death = new Multimedia(person1, "Death");
         final Date date = new Date(death, "31 July 2090");
         death.insert(date);
         assertEquals("Expected empty death date string",
@@ -96,7 +116,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testGetDate() {
+    public void testGetDummyDate() {
         final Multimedia dummy = new Multimedia(person1, "Dummy");
         final Date dummyDate = new Date(dummy, "31 July 1990");
         // TODO this should become unnecessary if I can further restrict the
@@ -104,111 +124,31 @@ public final class MultimediaTest {
         dummy.insert(new Person());
         dummy.insert(dummyDate);
         assertEquals("Expected empty date string", "", dummy.getDate());
+    }
 
+    /** */
+    @Test
+    public void testGetDateWithString() {
         final Multimedia dummy1 = new Multimedia(person1, "Dummy");
-        final Date dummyDate1 = new Date(dummy, null);
+        final Date dummyDate1 = new Date(dummy1, null);
         dummy1.insert(dummyDate1);
         assertEquals("Expected empty date string", "", dummy1.getDate());
+    }
 
+    /** */
+    @Test
+    public void testGetDateWithNoDate() {
         final Multimedia death = new Multimedia(person1, "Death");
         assertEquals("Expected empty date string", "", death.getDate());
+    }
 
+    /** */
+    @Test
+    public void testGetDateWithDate() {
+        final Multimedia death = new Multimedia(person1, "Death");
         final Date date = new Date(death, "31 July 2090");
         death.insert(date);
         assertEquals("Expected empty date string", "", death.getDate());
-    }
-
-    /** */
-    @Test
-    public void testMultimediaGedObject() {
-        Multimedia multimedia;
-        multimedia = new Multimedia(null);
-        assertMatch(multimedia, null, "", "");
-
-        multimedia = new Multimedia(person1);
-        assertMatch(multimedia, person1, "", "");
-    }
-
-    /** */
-    @Test
-    public void testMultimediaGedObjectString() {
-        Multimedia multimedia;
-        multimedia = new Multimedia(null, null);
-        assertMatch(multimedia, null, "", "");
-
-        multimedia = new Multimedia(person1, null);
-        assertMatch(multimedia, person1, "", "");
-
-        multimedia = new Multimedia(null, "");
-        assertMatch(multimedia, null, "", "");
-
-        multimedia = new Multimedia(person1, "");
-        assertMatch(multimedia, person1, "", "");
-
-        multimedia = new Multimedia(null, "string");
-        assertMatch(multimedia, null, "string", "");
-
-        multimedia = new Multimedia(person1, "string");
-        assertMatch(multimedia, person1, "string", "");
-    }
-
-    /** */
-    @Test
-    public void testMultimediaGedObjectStringString() {
-        Multimedia multimedia;
-        multimedia = new Multimedia(null, null, null);
-        assertMatch(multimedia, null, "", "");
-
-        multimedia = new Multimedia(person1, null, null);
-        assertMatch(multimedia, person1, "", "");
-
-        multimedia = new Multimedia(null, "", null);
-        assertMatch(multimedia, null, "", "");
-
-        multimedia = new Multimedia(person1, "", null);
-        assertMatch(multimedia, person1, "", "");
-
-        multimedia = new Multimedia(null, "string", null);
-        assertMatch(multimedia, null, "string", "");
-
-        multimedia = new Multimedia(person1, "string", null);
-        assertMatch(multimedia, person1, "string", "");
-
-        multimedia = new Multimedia(null, null, "");
-        assertMatch(multimedia, null, "", "");
-
-        multimedia = new Multimedia(person1, null, "");
-        assertMatch(multimedia, person1, "", "");
-
-        multimedia = new Multimedia(null, "", "");
-        assertMatch(multimedia, null, "", "");
-
-        multimedia = new Multimedia(person1, "", "");
-        assertMatch(multimedia, person1, "", "");
-
-        multimedia = new Multimedia(null, "string", "");
-        assertMatch(multimedia, null, "string", "");
-
-        multimedia = new Multimedia(person1, "string", "");
-        assertMatch(multimedia, person1, "string", "");
-
-        multimedia = new Multimedia(null, null, "strung");
-        assertMatch(multimedia, null, "", "strung");
-
-        multimedia = new Multimedia(person1, null, "strung");
-        assertMatch(multimedia, person1, "", "strung");
-
-        multimedia = new Multimedia(null, "", "strung");
-        assertMatch(multimedia, null, "", "strung");
-
-        multimedia = new Multimedia(person1, "", "strung");
-        assertMatch(multimedia, person1, "", "strung");
-
-        multimedia = new Multimedia(null, "string", "strung");
-        assertMatch(multimedia, null, "string", "strung");
-
-        multimedia = new Multimedia(person1, "string", "strung");
-        assertMatch(multimedia, person1, "string", "strung");
     }
 
     /**
@@ -218,7 +158,7 @@ public final class MultimediaTest {
      * @param expTail the expected tail
      */
     private void assertMatch(final Multimedia multimedia,
-            final Person expParent, final String expString,
+            final GedObject expParent, final String expString,
             final String expTail) {
         assertEquals("Parent mismatch", expParent, multimedia.getParent());
         assertEquals("String mismatch", expString, multimedia.getString());
@@ -230,29 +170,41 @@ public final class MultimediaTest {
     public void testSetGetTail() {
         Multimedia multimedia;
         multimedia = new Multimedia(null, null, null);
-        assertEquals("Parent mismatch", null, multimedia.getParent());
-        assertEquals("String mismatch", "", multimedia.getString());
-        assertEquals("Tail mismatch", "", multimedia.getTail());
-
         multimedia.setTail("test 1");
-        assertEquals("Parent mismatch", null, multimedia.getParent());
-        assertEquals("String mismatch", "", multimedia.getString());
-        assertEquals("Tail mismatch", "test 1", multimedia.getTail());
+        assertMatch(multimedia, null, "", "test 1");
+    }
 
+    /** */
+    @Test
+    public void testResetToNullGetTail() {
+        Multimedia multimedia;
+        multimedia = new Multimedia(null, null, null);
+        multimedia.setTail("test 1");
         multimedia.setTail(null);
-        assertEquals("Parent mismatch", null, multimedia.getParent());
-        assertEquals("String mismatch", "", multimedia.getString());
-        assertEquals("Tail mismatch", "", multimedia.getTail());
+        assertMatch(multimedia, null, "", "");
+    }
 
+    /** */
+    @Test
+    public void testResetToNullAndToNewValueGetTail() {
+        Multimedia multimedia;
+        multimedia = new Multimedia(null, null, null);
+        multimedia.setTail("test 1");
+        multimedia.setTail(null);
         multimedia.setTail("test 2");
-        assertEquals("Parent mismatch", null, multimedia.getParent());
-        assertEquals("String mismatch", "", multimedia.getString());
-        assertEquals("Tail mismatch", "test 2", multimedia.getTail());
+        assertMatch(multimedia, null, "", "test 2");
+    }
 
+    /** */
+    @Test
+    public void testResetToEmptyGetTail() {
+        Multimedia multimedia;
+        multimedia = new Multimedia(null, null, null);
+        multimedia.setTail("test 1");
+        multimedia.setTail(null);
+        multimedia.setTail("test 2");
         multimedia.setTail("");
-        assertEquals("Parent mismatch", null, multimedia.getParent());
-        assertEquals("String mismatch", "", multimedia.getString());
-        assertEquals("Tail mismatch", "", multimedia.getTail());
+        assertMatch(multimedia, null, "", "");
     }
 
     /** */

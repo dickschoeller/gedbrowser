@@ -18,6 +18,7 @@ import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.CommentSize")
 public final class HeadTest {
     /** */
     private static final int ATTRIBUTE_COUNT = 7;
@@ -68,6 +69,26 @@ public final class HeadTest {
         final Attribute charset = new Attribute(head, "CHAR", "ANSI");
         head.insert(charset);
 
+        assertHeadValid(head, sourceLink, version, submittorLink, gedc, dest,
+                date, charset);
+    }
+
+    /**
+     * @param head the head we're checking
+     * @param sourceLink the expected source link
+     * @param version the expected version
+     * @param submittorLink the expected submittor link
+     * @param gedc the expected gedc descriptor
+     * @param dest the expected destination
+     * @param date the expected date
+     * @param charset the expected charset
+     */
+    // CHECKSTYLE:OFF
+    private void assertHeadValid(final Head head, final SourceLink sourceLink,
+            final Attribute version, final SubmittorLink submittorLink,
+            final Attribute gedc, final Attribute dest, final Date date,
+            final Attribute charset) {
+        // CHECKSTYLE:ON
         assertEquals("Mismatch attribute count", ATTRIBUTE_COUNT,
                 head.getAttributes().size());
         assertTrue("Should contain sourceLink",
@@ -93,9 +114,8 @@ public final class HeadTest {
         root.insert(HEAD_TAG, head);
 
         final GedObject gob = root.find(HEAD_TAG);
-        assertEquals("Should have found the head", head, gob);
-
-        assertTrue("Head string should be empty", head.getString().isEmpty());
+        assertTrue("Should have found head with empty string",
+                head.equals(gob) && head.getString().isEmpty());
     }
 
     /** */
@@ -107,24 +127,27 @@ public final class HeadTest {
         root.insert(HEAD_TAG, head);
 
         final GedObject gob = root.find(HEAD_TAG);
-        assertEquals("Should have found the head", head, gob);
-
-        assertEquals("Tag mismatch", HEAD_TAG, head.getString());
+        assertTrue("Should have found head with head tag string",
+                head.equals(gob) && HEAD_TAG.equals(head.getString()));
     }
 
     /** */
     @Test
-    public void testHeadGedObjectStringString() {
+    public void testHeadGedObjectStringEmptyString() {
         final Root root = new Root(null, ROOT_TAG);
 
         final Head head = new Head(root, HEAD_TAG, "");
         root.insert(HEAD_TAG, head);
 
         final GedObject gob = root.find(HEAD_TAG);
-        assertEquals("Should have found the head", head, gob);
+        assertTrue("Should have found the head with head tag string",
+                head.equals(gob) && HEAD_TAG.equals(head.getString()));
+    }
 
-        assertEquals("Head tag mismatch", HEAD_TAG, head.getString());
-
+    /** */
+    @Test
+    public void testHeadGedObjectStringString() {
+        final Root root = new Root(null, ROOT_TAG);
         final Head head2 = new Head(root, HEAD_TAG, "foo");
         assertEquals("Combined string mismatch",
                 HEAD_TAG + " foo", head2.getString());
