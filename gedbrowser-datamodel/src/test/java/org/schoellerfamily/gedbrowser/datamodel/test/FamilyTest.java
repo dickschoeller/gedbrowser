@@ -21,6 +21,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
  * @author Dick Schoeller
@@ -32,39 +33,25 @@ public final class FamilyTest {
     /** */
     private static final String ROOT_NAME = "Root";
     /** */
-    private final transient Root root = new Root(null, ROOT_NAME);
+    private transient Family family1;
     /** */
-    private final transient Family family1 = new Family(root,
-            new ObjectId("F1"));
+    private transient Person person1;
     /** */
-    private final transient Person person1 = new Person(root,
-            new ObjectId("I1"));
+    private transient Person person2;
     /** */
-    private final transient Person person2 = new Person(root,
-            new ObjectId("I2"));
-    /** */
-    private final transient Husband husband = new Husband(family1, "HUSB",
-            new ObjectId("@I1@"));
-    /** */
-    private final transient Wife wife = new Wife(family1, "WIFE",
-            new ObjectId("@I2@"));
-    /** */
-    private final transient Person person3 = new Person(root,
-            new ObjectId("I3"));
-    /** */
-    private final transient Child child = new Child(family1, "CHIL",
-            new ObjectId("@I3@"));
+    private transient Person person3;
 
     /** */
     @Before
     public void setUp() {
-        root.insert("F1", family1);
-        root.insert("I1", person1);
-        root.insert("I2", person2);
-        family1.insert(husband);
-        family1.insert(wife);
-        root.insert("I3", person3);
-        family1.insert(child);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        family1 = builder.createFamily1();
+        person1 = builder.createPerson1();
+        person2 = builder.createPerson2();
+        person3 = builder.createPerson3();
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
     }
 
     /** */

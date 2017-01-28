@@ -22,13 +22,16 @@ public final class MultimediaTest {
     private static final String FILE_PATH_STRING =
             "http://www.schoellerfamily.org/images/genealogy/"
             + "luckybag1924-john-a-hayes.jpg";
+
+    /** */
+    private transient GedObjectBuilder builder;
     /** */
     private transient Person person1;
 
     /** */
     @Before
     public void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        builder = new GedObjectBuilder();
         person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
         final Person person3 = builder.createPerson3();
@@ -41,98 +44,92 @@ public final class MultimediaTest {
     /** */
     @Test
     public void testBasicConstruct() {
-        final Multimedia job = new Multimedia(person1, "Multimedia",
-                "http://www.schoellerfamily.org");
+        final Multimedia mm = new Multimedia(
+                person1, "Multimedia", "http://www.schoellerfamily.org");
         assertEquals("Mismatched tail",
-                "http://www.schoellerfamily.org", job.getTail());
+                "http://www.schoellerfamily.org", mm.getTail());
     }
 
     /** */
     @Test
     public void testAppendString() {
-        final Multimedia job = new Multimedia(person1, "Multimedia",
-                "http://www.schoellerfamily.org");
-        job.appendString("/genealogy");
+        final Multimedia mm = builder.addMultimediaToPerson(
+                person1, "http://www.schoellerfamily.org");
+        mm.appendString("/genealogy");
         assertEquals("Mismatched tail",
-                "http://www.schoellerfamily.org/genealogy", job.getTail());
+                "http://www.schoellerfamily.org/genealogy", mm.getTail());
     }
 
     /** */
     @Test
     public void testGetDummyBirthDate() {
-        final Multimedia dummy = new Multimedia(person1, "Dummy");
-        final Date dummyDate = new Date(dummy, "31 July 1990");
-        dummy.insert(dummyDate);
+        final Multimedia mm = builder.addMultimediaToPerson(person1, "Dummy");
+        builder.addDateToGedObject(mm, "31 July 1990");
         assertEquals("Expected empty birth date string",
-                "", dummy.getBirthDate());
+                "", mm.getBirthDate());
     }
 
     /** */
     @Test
     public void testGetUninsertedBirthDate() {
-        final Multimedia birth = new Multimedia(person1, "Birth");
-        new Date(birth, "31 July 1990");
+        final Multimedia mm = new Multimedia(person1, "Birth");
+        new Date(mm, "31 July 1990");
         assertEquals("Expected empty birth date string",
-                "", birth.getBirthDate());
+                "", mm.getBirthDate());
     }
 
     /** */
     @Test
     public void testGetBirthDate() {
-        final Multimedia birth = new Multimedia(person1, "Birth");
-        final Date date = new Date(birth, "31 July 1990");
-        birth.insert(date);
+        final Multimedia mm = new Multimedia(person1, "Birth");
+        builder.addDateToGedObject(mm, "31 July 1990");
         assertEquals("Expected empty birth date string",
-                "", birth.getBirthDate());
+                "", mm.getBirthDate());
     }
 
     /** */
     @Test
     public void testGetDummyDeathDate() {
-        final Multimedia dummy = new Multimedia(person1, "Dummy");
-        final Date dummyDate = new Date(dummy, "31 July 1990");
-        dummy.insert(dummyDate);
+        final Multimedia mm = new Multimedia(person1, "Dummy");
+        builder.addDateToGedObject(mm, "31 July 1990");
         assertEquals("Expected empty death date string",
-                "", dummy.getDeathDate());
+                "", mm.getDeathDate());
     }
 
     /** */
     @Test
     public void testGetDeathDateWithNoDate() {
-        final Multimedia death = new Multimedia(person1, "Death");
+        final Multimedia mm = new Multimedia(person1, "Death");
         assertEquals("Expected empty death date string",
-                "", death.getDeathDate());
+                "", mm.getDeathDate());
     }
 
     /** */
     @Test
     public void testGetDeathDate() {
-        final Multimedia death = new Multimedia(person1, "Death");
-        final Date date = new Date(death, "31 July 2090");
-        death.insert(date);
+        final Multimedia mm = new Multimedia(person1, "Death");
+        builder.addDateToGedObject(mm, "31 July 1990");
         assertEquals("Expected empty death date string",
-                "", death.getDeathDate());
+                "", mm.getDeathDate());
     }
 
     /** */
     @Test
     public void testGetDummyDate() {
-        final Multimedia dummy = new Multimedia(person1, "Dummy");
-        final Date dummyDate = new Date(dummy, "31 July 1990");
+        final Multimedia mm = new Multimedia(person1, "Dummy");
         // TODO this should become unnecessary if I can further restrict the
         // children of an attribute.
-        dummy.insert(new Person());
-        dummy.insert(dummyDate);
-        assertEquals("Expected empty date string", "", dummy.getDate());
+        mm.insert(new Person());
+        builder.addDateToGedObject(mm, "31 July 1990");
+        assertEquals("Expected empty date string", "", mm.getDate());
     }
 
     /** */
     @Test
     public void testGetDateWithString() {
-        final Multimedia dummy1 = new Multimedia(person1, "Dummy");
-        final Date dummyDate1 = new Date(dummy1, null);
-        dummy1.insert(dummyDate1);
-        assertEquals("Expected empty date string", "", dummy1.getDate());
+        final Multimedia mm = new Multimedia(person1, "Dummy");
+        builder.addDateToGedObject(mm, "31 July 1990");
+        assertEquals("Expected empty date string", "", mm.getDate());
     }
 
     /** */
@@ -145,10 +142,9 @@ public final class MultimediaTest {
     /** */
     @Test
     public void testGetDateWithDate() {
-        final Multimedia death = new Multimedia(person1, "Death");
-        final Date date = new Date(death, "31 July 2090");
-        death.insert(date);
-        assertEquals("Expected empty date string", "", death.getDate());
+        final Multimedia mm = new Multimedia(person1, "Death");
+        builder.addDateToGedObject(mm, "31 July 1990");
+        assertEquals("Expected empty date string", "", mm.getDate());
     }
 
     /**

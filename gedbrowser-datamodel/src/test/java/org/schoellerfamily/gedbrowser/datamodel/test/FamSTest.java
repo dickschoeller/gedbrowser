@@ -32,7 +32,6 @@ public final class FamSTest {
     private transient Family family;
     /** */
     private transient FamS famS2;
-
     /** */
     private transient FamS famS3;
 

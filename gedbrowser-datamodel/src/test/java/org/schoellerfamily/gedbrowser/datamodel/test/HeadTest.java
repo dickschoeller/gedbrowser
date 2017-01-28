@@ -8,12 +8,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
-import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
  * @author Dick Schoeller
@@ -23,54 +23,30 @@ public final class HeadTest {
     /** */
     private static final int ATTRIBUTE_COUNT = 7;
     /** */
-    private static final String HEAD_TAG = "Head";
-    /** */
-    private static final String ROOT_TAG = "Root";
-
-    /** */
     @Test
     public void testUsualHead() {
-        final Root root = new Root(null, ROOT_TAG);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Head head = builder.createHead();
+        final Source source = builder.createSource("TMG");
+        final SourceLink soLink = builder.createSourceLink(head, source);
 
-        final Head head = new Head(root, "HEAD");
-        root.insert("HEAD", head);
+        final Attribute vers = builder.createAttribute(head, "VERS", "4.0");
 
-        final Source source = new Source(root, new ObjectId("TMG"));
-        root.insert("TMG", source);
+        final Submittor submittor = builder.createSubmittor("SUB1");
+        final SubmittorLink suLink = builder.createSubmittorLink(head,
+                submittor);
 
-        final SourceLink sourceLink = new SourceLink(head, "SOUR",
-                new ObjectId("TMG"));
-        head.insert(sourceLink);
+        final Attribute gedc = builder.createAttribute(head, "GEDC");
+        builder.createAttribute(gedc, "VERS", "5.5");
+        builder.createAttribute(gedc, "FORM", "LINEAGE-LINKED");
 
-        final Attribute version = new Attribute(head, "VERS", "4.0");
-        head.insert(version);
+        final Attribute dest = builder.createAttribute(head, "DEST", "GED55");
 
-        final Submittor submittor = new Submittor(root, "@SUB1@");
-        root.insert("SUB1", submittor);
-        final SubmittorLink submittorLink = new SubmittorLink(head, "SUBM",
-                new ObjectId("@SUB1@"));
-        head.insert(submittorLink);
+        final Date date = builder.addDateToGedObject(head, "16 FEB 2001");
+        builder.createAttribute(date, "TIME", "22:04");
+        final Attribute chars = builder.createAttribute(head, "CHAR", "ANSI");
 
-        final Attribute gedc = new Attribute(head, "GEDC");
-        head.insert(gedc);
-        final Attribute vers = new Attribute(gedc, "VERS", "5.5");
-        gedc.insert(vers);
-        final Attribute form = new Attribute(gedc, "FORM", "LINEAGE-LINKED");
-        gedc.insert(form);
-
-        final Attribute dest = new Attribute(head, "DEST", "GED55");
-        head.insert(dest);
-
-        final Date date = new Date(head, "16 FEB 2001");
-        head.insert(date);
-        final Attribute time = new Attribute(date, "TIME", "22:04");
-        date.insert(time);
-
-        final Attribute charset = new Attribute(head, "CHAR", "ANSI");
-        head.insert(charset);
-
-        assertHeadValid(head, sourceLink, version, submittorLink, gedc, dest,
-                date, charset);
+        assertHeadValid(head, soLink, vers, suLink, gedc, dest, date, chars);
     }
 
     /**
@@ -108,12 +84,12 @@ public final class HeadTest {
     /** */
     @Test
     public void testHeadGedObject() {
-        final Root root = new Root(null, ROOT_TAG);
+        final Root root = new Root(null, "Root");
 
         final Head head = new Head(root);
-        root.insert(HEAD_TAG, head);
+        root.insert("Head", head);
 
-        final GedObject gob = root.find(HEAD_TAG);
+        final GedObject gob = root.find("Head");
         assertTrue("Should have found head with empty string",
                 head.equals(gob) && head.getString().isEmpty());
     }
@@ -121,35 +97,35 @@ public final class HeadTest {
     /** */
     @Test
     public void testHeadGedObjectString() {
-        final Root root = new Root(null, ROOT_TAG);
+        final Root root = new Root(null, "Root");
 
-        final Head head = new Head(root, HEAD_TAG);
-        root.insert(HEAD_TAG, head);
+        final Head head = new Head(root, "Head");
+        root.insert("Head", head);
 
-        final GedObject gob = root.find(HEAD_TAG);
+        final GedObject gob = root.find("Head");
         assertTrue("Should have found head with head tag string",
-                head.equals(gob) && HEAD_TAG.equals(head.getString()));
+                head.equals(gob) && "Head".equals(head.getString()));
     }
 
     /** */
     @Test
     public void testHeadGedObjectStringEmptyString() {
-        final Root root = new Root(null, ROOT_TAG);
+        final Root root = new Root(null, "Root");
 
-        final Head head = new Head(root, HEAD_TAG, "");
-        root.insert(HEAD_TAG, head);
+        final Head head = new Head(root, "Head", "");
+        root.insert("Head", head);
 
-        final GedObject gob = root.find(HEAD_TAG);
+        final GedObject gob = root.find("Head");
         assertTrue("Should have found the head with head tag string",
-                head.equals(gob) && HEAD_TAG.equals(head.getString()));
+                head.equals(gob) && "Head".equals(head.getString()));
     }
 
     /** */
     @Test
     public void testHeadGedObjectStringString() {
-        final Root root = new Root(null, ROOT_TAG);
-        final Head head2 = new Head(root, HEAD_TAG, "foo");
+        final Root root = new Root(null, "Root");
+        final Head head2 = new Head(root, "Head", "foo");
         assertEquals("Combined string mismatch",
-                HEAD_TAG + " foo", head2.getString());
+                "Head" + " foo", head2.getString());
     }
 }
