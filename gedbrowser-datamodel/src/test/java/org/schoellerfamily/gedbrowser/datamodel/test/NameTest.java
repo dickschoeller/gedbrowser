@@ -8,36 +8,35 @@ import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
  * @author Dick Schoeller
  */
 public final class NameTest {
     /** */
-    private final transient Root root = new Root(null, "Root");
+    private transient Person person;
     /** */
-    private final transient Person person = new Person(root,
-            new ObjectId("I1"));
+    private transient Name name1;
     /** */
-    private final transient Name name1 = new Name(person, "Karl/Schoeller/Jr.");
+    private transient Name name2;
     /** */
-    private final transient Name name2 = new Name(person, "Karl/Schoeller/");
+    private transient Name name3;
     /** */
-    private final transient Name name3 = new Name(person, "Wingnut");
+    private transient Name name4;
     /** */
-    private final transient Name name4 = new Name(person, "/Noodle/");
-    /** */
-    private final transient Name name5 = new Name(person, "/Wang/Foo");
+    private transient Name name5;
 
     /** */
     @Before
     public void setUp() {
-        root.insert("I1", person);
-        person.insert(name1);
-        person.insert(name2);
-        person.insert(name3);
-        person.insert(name4);
-        person.insert(name5);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        person = builder.createPerson("I1");
+        name1 = builder.addNameToPerson(person, "Karl/Schoeller/Jr.");
+        name2 = builder.addNameToPerson(person, "Karl/Schoeller/");
+        name3 = builder.addNameToPerson(person, "Wingnut");
+        name4 = builder.addNameToPerson(person, "/Noodle/");
+        name5 = builder.addNameToPerson(person, "/Wang/Foo");
     }
 
     /** */

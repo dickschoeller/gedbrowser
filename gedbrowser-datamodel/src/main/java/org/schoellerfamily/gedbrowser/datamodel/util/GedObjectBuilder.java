@@ -6,21 +6,26 @@ import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.FamC;
 import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
+import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
+import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
+import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.CommentSize" })
+@SuppressWarnings({ "PMD.CommentSize", "PMD.GodClass" })
 public class GedObjectBuilder {
     /** */
     private final Root root;
@@ -341,6 +346,17 @@ public class GedObjectBuilder {
     }
 
     /**
+     * Create a head for the data set.
+     *
+     * @return the created trailer
+     */
+    public Head createHead() {
+        final Head head = new Head(root, "Head");
+        root.insert("Head", head);
+        return head;
+    }
+
+    /**
      * Create a place with the given name and add it to the given event.
      *
      * @param event the event
@@ -361,5 +377,99 @@ public class GedObjectBuilder {
         final Source source = new Source(root, new ObjectId("S1"));
         root.insert(source);
         return source;
+    }
+
+    /**
+     * @param person the person to add the name to
+     * @param string the name string
+     * @return the new name object
+     */
+    public Name addNameToPerson(final Person person, final String string) {
+        final Name name = new Name(person, string);
+        person.insert(name);
+        return name;
+    }
+
+    /**
+     * @param person the person to add the name to
+     * @param string the reference string
+     * @return the new multimedia object
+     */
+    public Multimedia addMultimediaToPerson(final Person person,
+            final String string) {
+        final Multimedia mm = new Multimedia(person, "Multimedia", string);
+        person.insert(mm);
+        return mm;
+    }
+
+    /**
+     * @param gob the GedObject to add the name to
+     * @param string the date string
+     * @return the new date object
+     */
+    public Date addDateToGedObject(final GedObject gob, final String string) {
+        final Date date = new Date(gob, string);
+        gob.insert(date);
+        return date;
+    }
+
+    /**
+     * @param string the source string
+     * @return the source
+     */
+    public Source createSource(final String string) {
+        final Source source = new Source(root, new ObjectId(string));
+        root.insert(string, source);
+        return source;
+    }
+
+    /**
+     * @param ged link from ged object
+     * @param source link to source
+     * @return the new link
+     */
+    public SourceLink createSourceLink(final GedObject ged,
+            final Source source) {
+        final SourceLink sourceLink = new SourceLink(ged, "Source",
+                new ObjectId(source.getString()));
+        ged.insert(sourceLink);
+        return sourceLink;
+    }
+
+    /**
+     * @param ged link from ged object
+     * @param submittor link to submittor
+     * @return the new link
+     */
+    public SubmittorLink createSubmittorLink(final GedObject ged,
+            final Submittor submittor) {
+        final SubmittorLink submittorLink = new SubmittorLink(ged, "Submittor",
+                new ObjectId(submittor.getString()));
+        ged.insert(submittorLink);
+        return submittorLink;
+    }
+
+    /**
+     * @param ged parent
+     * @param string attribute type string
+     * @return the attribute
+     */
+    public Attribute createAttribute(final GedObject ged, final String string) {
+        final Attribute attribute = new Attribute(ged, string);
+        ged.insert(attribute);
+        return attribute;
+    }
+
+    /**
+     * @param ged parent
+     * @param string attribute type string
+     * @param tail attribute details
+     * @return the attribute
+     */
+    public Attribute createAttribute(final GedObject ged, final String string,
+            final String tail) {
+        final Attribute attribute = new Attribute(ged, string, tail);
+        ged.insert(attribute);
+        return attribute;
     }
 }
