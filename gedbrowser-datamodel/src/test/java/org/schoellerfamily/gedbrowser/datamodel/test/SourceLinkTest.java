@@ -1,222 +1,123 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
-import org.junit.Before;
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(Parameterized.class)
 public final class SourceLinkTest {
     /** */
-    private static final String SOURCE_TAG = "Source";
+    private final GedObject parent;
     /** */
-    private static final String EXPECT_EMPTY = "Expected empty string";
+    private final String string;
     /** */
-    private static final String WRONG_PARENT = "Wrong parent";
+    private final ObjectId xref;
     /** */
-    private static final String EXPECT_NULL = "Expected null";
+    private final String expectedString;
     /** */
-    private final transient Root root = new Root(null, "Root");
+    private final String expectedFromString;
     /** */
-    private final transient Person person = new Person(root,
-            new ObjectId("I1"));
-    /** */
-    private final transient Source source = new Source(person,
-            new ObjectId("S1"));
+    private final String expectedToString;
 
-    /** */
-    @Before
-    public void setUp() {
-        root.insert(null, person);
-        root.insert(null, source);
+    /**
+     * @param parent the input parent
+     * @param string the input string
+     * @param xref the input xref
+     * @param expectedString the expected result of getString
+     * @param expectedFromString the expected result of getFromString
+     * @param expectedToString the expected result of getToString
+     */
+    public SourceLinkTest(final GedObject parent, final String string,
+            final ObjectId xref, final String expectedString,
+            final String expectedFromString, final String expectedToString) {
+        this.parent = parent;
+        this.string = string;
+        this.xref = xref;
+        this.expectedString = expectedString;
+        this.expectedFromString = expectedFromString;
+        this.expectedToString = expectedToString;
+    }
+
+    /**
+     * @return collection of parameter arrays
+     */
+    @Parameters
+    public static Collection<Object[]> params() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson1();
+        return Arrays.asList(new Object[][] {
+            {null, null, null, "", "", ""},
+            {person, null, null, "", "I1", ""},
+            {null, "", null, "", "", ""},
+            {person, "", null, "", "I1", ""},
+            {null, "Source", null, "Source", "", ""},
+            {person, "Source", null, "Source", "I1", ""},
+            {null, null, new ObjectId(""), "", "", ""},
+            {person, null, new ObjectId(""), "", "I1", ""},
+            {null, "", new ObjectId(""), "", "", ""},
+            {person, "", new ObjectId(""), "", "I1", ""},
+            {null, "Source", new ObjectId(""), "Source", "", ""},
+            {person, "Source", new ObjectId(""), "Source", "I1", ""},
+            {null, null, new ObjectId("S1"), "", "", "S1"},
+            {person, null, new ObjectId("S1"), "", "I1", "S1"},
+            {null, "", new ObjectId("S1"), "", "", "S1"},
+            {person, "", new ObjectId("S1"), "", "I1", "S1"},
+            {null, "Source", new ObjectId("S1"), "Source", "", "S1"},
+            {person, "Source", new ObjectId("S1"), "Source", "I1", "S1"},
+        });
     }
 
     /** */
     @Test
-    public void testSourceLinkGedObject() {
-        SourceLink sourceLink;
-        sourceLink = new SourceLink(null);
-        assertNull(EXPECT_NULL, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(person);
-        assertEquals(WRONG_PARENT, person, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals("I1", sourceLink.getFromString());
+    public void testOneArgumentConstructor() {
+        final SourceLink sourceLink = new SourceLink(parent);
+        assertMatch(sourceLink, parent, "", expectedFromString, "");
     }
 
     /** */
     @Test
-    public void testSourceLinkGedObjectString() {
-        SourceLink sourceLink;
-        sourceLink = new SourceLink(null, null);
-        assertNull(EXPECT_NULL, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(person, null);
-        assertEquals(WRONG_PARENT, person, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals("I1", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(null, "");
-        assertNull(EXPECT_NULL, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(person, "");
-        assertEquals(WRONG_PARENT, person, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals("I1", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(null, SOURCE_TAG);
-        assertNull(EXPECT_NULL, sourceLink.getParent());
-        assertEquals(SOURCE_TAG, sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(person, SOURCE_TAG);
-        assertEquals(WRONG_PARENT, person, sourceLink.getParent());
-        assertEquals(SOURCE_TAG, sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals("I1", sourceLink.getFromString());
+    public void testTwoArgumentConstructor() {
+        final SourceLink sourceLink = new SourceLink(parent, string);
+        assertMatch(sourceLink, parent, expectedString, expectedFromString, "");
     }
 
     /** */
     @Test
-    public void testSourceLinkGedObjectStringNull() {
-        SourceLink sourceLink;
-        sourceLink = new SourceLink(null, null, null);
-        assertNull(EXPECT_NULL, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(person, null, null);
-        assertEquals(WRONG_PARENT, person, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals("I1", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(null, "", null);
-        assertNull(sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(person, "", null);
-        assertEquals(WRONG_PARENT, person, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals("I1", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(null, SOURCE_TAG, null);
-        assertNull(EXPECT_NULL, sourceLink.getParent());
-        assertEquals(SOURCE_TAG, sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(person, SOURCE_TAG, null);
-        assertEquals(WRONG_PARENT, person, sourceLink.getParent());
-        assertEquals(SOURCE_TAG, sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals("I1", sourceLink.getFromString());
+    public void testThreeArgumentConstructor() {
+        final SourceLink sourceLink = new SourceLink(parent, string, xref);
+        assertMatch(sourceLink, parent, expectedString, expectedFromString,
+                expectedToString);
     }
 
-    /** */
-    @Test
-    public void testSourceLinkGedObjectStringBlank() {
-        SourceLink sourceLink;
-        sourceLink = new SourceLink(null, null, new ObjectId(""));
-        assertNull(EXPECT_NULL, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(person, null, new ObjectId(""));
-        assertEquals(WRONG_PARENT, person, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals("I1", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(null, "", new ObjectId(""));
-        assertNull(EXPECT_NULL, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(person, "", new ObjectId(""));
-        assertEquals(WRONG_PARENT, person, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals("I1", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(null, SOURCE_TAG, new ObjectId(""));
-        assertNull(EXPECT_NULL, sourceLink.getParent());
-        assertEquals(SOURCE_TAG, sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(person, SOURCE_TAG, new ObjectId(""));
-        assertEquals(WRONG_PARENT, person, sourceLink.getParent());
-        assertEquals(SOURCE_TAG, sourceLink.getString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getToString());
-        assertEquals("I1", sourceLink.getFromString());
-    }
-
-    /** */
-    @Test
-    public void testSourceLinkGedObjectStringString() {
-        SourceLink sourceLink;
-        sourceLink = new SourceLink(null, null, new ObjectId("S1"));
-        assertNull(EXPECT_NULL, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals("S1", sourceLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(person, null, new ObjectId("S1"));
-        assertEquals(WRONG_PARENT, person, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals("S1", sourceLink.getToString());
-        assertEquals("I1", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(null, "", new ObjectId("S1"));
-        assertNull(EXPECT_NULL, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals("S1", sourceLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(person, "", new ObjectId("S1"));
-        assertEquals(WRONG_PARENT, person, sourceLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getString());
-        assertEquals("S1", sourceLink.getToString());
-        assertEquals("I1", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(null, SOURCE_TAG, new ObjectId("S1"));
-        assertNull(EXPECT_NULL, sourceLink.getParent());
-        assertEquals(SOURCE_TAG, sourceLink.getString());
-        assertEquals("S1", sourceLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", sourceLink.getFromString());
-
-        sourceLink = new SourceLink(person, SOURCE_TAG, new ObjectId("S1"));
-        assertEquals(WRONG_PARENT, person, sourceLink.getParent());
-        assertEquals(SOURCE_TAG, sourceLink.getString());
-        assertEquals("S1", sourceLink.getToString());
-        assertEquals("I1", sourceLink.getFromString());
+    /**
+     * @param sourceLink the source link to compare
+     * @param expParent expected output from getParent
+     * @param expString expected output from getString
+     * @param expFromString expected output from getFromString
+     * @param expToString expected output from getToString
+     */
+    private void assertMatch(final SourceLink sourceLink,
+            final GedObject expParent, final String expString,
+            final String expFromString, final String expToString) {
+        assertEquals("Parent mismatch", expParent, sourceLink.getParent());
+        assertEquals("String mismatch", expString, sourceLink.getString());
+        assertEquals("To string mismatch", expToString,
+                sourceLink.getToString());
+        assertEquals("From string mismatch", expFromString,
+                sourceLink.getFromString());
     }
 }

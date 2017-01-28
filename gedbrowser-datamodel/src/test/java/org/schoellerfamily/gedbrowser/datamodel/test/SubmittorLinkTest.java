@@ -1,232 +1,124 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
-import org.junit.Before;
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.datamodel.Head;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
-import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(Parameterized.class)
 public final class SubmittorLinkTest {
     /** */
-    private static final String WRONG_PARENT = "Wrong parent";
+    private final GedObject parent;
     /** */
-    private static final String EXPECT_SUBMITTOR = "Expected submittor tag";
+    private final String string;
     /** */
-    private static final String SUBMITTOR_TAG = "Submittor";
+    private final ObjectId xref;
     /** */
-    private static final String HEAD_TAG = "Head";
+    private final String expectedString;
     /** */
-    private static final String EXPECT_EMPTY = "Expected empty string";
+    private final String expectedFromString;
     /** */
-    private static final String EXPECT_NULL = "Expected null parent";
-    /** */
-    private final transient Root root = new Root(null, "Root");
-    /** */
-    private final transient Head head = new Head(root, HEAD_TAG);
+    private final String expectedToString;
 
-    /** */
-    @Before
-    public void setUp() {
-        root.insert(null, head);
+    /**
+     * @param parent the input parent
+     * @param string the input string
+     * @param xref the input xref
+     * @param expectedString the expected result of getString
+     * @param expectedFromString the expected result of getFromString
+     * @param expectedToString the expected result of getToString
+     */
+    public SubmittorLinkTest(final GedObject parent, final String string,
+            final ObjectId xref, final String expectedString,
+            final String expectedFromString, final String expectedToString) {
+        this.parent = parent;
+        this.string = string;
+        this.xref = xref;
+        this.expectedString = expectedString;
+        this.expectedFromString = expectedFromString;
+        this.expectedToString = expectedToString;
+    }
+
+    /**
+     * @return collection of parameter arrays
+     */
+    @Parameters
+    public static Collection<Object[]> params() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson1();
+        return Arrays.asList(new Object[][] {
+            {null, null, null, "", "", ""},
+            {person, null, null, "", "I1", ""},
+            {null, "", null, "", "", ""},
+            {person, "", null, "", "I1", ""},
+            {null, "Source", null, "Source", "", ""},
+            {person, "Source", null, "Source", "I1", ""},
+            {null, null, new ObjectId(""), "", "", ""},
+            {person, null, new ObjectId(""), "", "I1", ""},
+            {null, "", new ObjectId(""), "", "", ""},
+            {person, "", new ObjectId(""), "", "I1", ""},
+            {null, "Source", new ObjectId(""), "Source", "", ""},
+            {person, "Source", new ObjectId(""), "Source", "I1", ""},
+            {null, null, new ObjectId("S1"), "", "", "S1"},
+            {person, null, new ObjectId("S1"), "", "I1", "S1"},
+            {null, "", new ObjectId("S1"), "", "", "S1"},
+            {person, "", new ObjectId("S1"), "", "I1", "S1"},
+            {null, "Source", new ObjectId("S1"), "Source", "", "S1"},
+            {person, "Source", new ObjectId("S1"), "Source", "I1", "S1"},
+        });
     }
 
     /** */
     @Test
-    public void testSubmittorLinkGedObject() {
-        SubmittorLink submittorLink;
-        submittorLink = new SubmittorLink(null);
-        assertNull(EXPECT_NULL, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(head);
-        assertEquals(WRONG_PARENT, head, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(HEAD_TAG, submittorLink.getFromString());
+    public void testOneArgumentConstructor() {
+        final SubmittorLink sourceLink = new SubmittorLink(parent);
+        assertMatch(sourceLink, parent, "", expectedFromString, "");
     }
 
     /** */
     @Test
-    public void testSubmittorLinkGedObjectString() {
-        SubmittorLink submittorLink;
-        submittorLink = new SubmittorLink(null, null);
-        assertNull(EXPECT_NULL, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(head, null);
-        assertEquals(WRONG_PARENT, head, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(HEAD_TAG, submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(null, "");
-        assertNull(EXPECT_NULL, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(head, "");
-        assertEquals(WRONG_PARENT, head, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(HEAD_TAG, submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(null, SUBMITTOR_TAG);
-        assertNull(EXPECT_NULL, submittorLink.getParent());
-        assertEquals(EXPECT_SUBMITTOR, SUBMITTOR_TAG,
-                submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(head, SUBMITTOR_TAG);
-        assertEquals(WRONG_PARENT, head, submittorLink.getParent());
-        assertEquals(EXPECT_SUBMITTOR, SUBMITTOR_TAG,
-                submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(HEAD_TAG, submittorLink.getFromString());
+    public void testTwoArgumentConstructor() {
+        final SubmittorLink sourceLink = new SubmittorLink(parent, string);
+        assertMatch(sourceLink, parent, expectedString, expectedFromString, "");
     }
 
     /** */
     @Test
-    public void testSubmittorLinkGedObjectStringNull() {
-        SubmittorLink submittorLink;
-        submittorLink = new SubmittorLink(null, null, null);
-        assertNull(EXPECT_NULL, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(head, null, null);
-        assertEquals(WRONG_PARENT, head, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(HEAD_TAG, submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(null, "", null);
-        assertNull(EXPECT_NULL, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(head, "", null);
-        assertEquals(WRONG_PARENT, head, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(HEAD_TAG, submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(null, SUBMITTOR_TAG, null);
-        assertNull(EXPECT_NULL, submittorLink.getParent());
-        assertEquals(EXPECT_SUBMITTOR, SUBMITTOR_TAG,
-                submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(head, SUBMITTOR_TAG, null);
-        assertEquals(head, submittorLink.getParent());
-        assertEquals(EXPECT_SUBMITTOR, SUBMITTOR_TAG,
-                submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(HEAD_TAG, submittorLink.getFromString());
+    public void testThreeArgumentConstructor() {
+        final SubmittorLink sourceLink = new SubmittorLink(parent, string,
+                xref);
+        assertMatch(sourceLink, parent, expectedString, expectedFromString,
+                expectedToString);
     }
 
-    /** */
-    @Test
-    public void testSubmittorLinkGedObjectStringBlank() {
-        SubmittorLink submittorLink;
-        submittorLink = new SubmittorLink(null, null, new ObjectId(""));
-        assertNull(EXPECT_NULL, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(head, null, new ObjectId(""));
-        assertEquals(WRONG_PARENT, head, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(HEAD_TAG, submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(null, "", new ObjectId(""));
-        assertNull(EXPECT_NULL, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(head, "", new ObjectId(""));
-        assertEquals(WRONG_PARENT, head, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(HEAD_TAG, submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(null, SUBMITTOR_TAG,
-                new ObjectId(""));
-        assertNull(EXPECT_NULL, submittorLink.getParent());
-        assertEquals(EXPECT_SUBMITTOR, SUBMITTOR_TAG,
-                submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(head, SUBMITTOR_TAG,
-                new ObjectId(""));
-        assertEquals(WRONG_PARENT, head, submittorLink.getParent());
-        assertEquals(EXPECT_SUBMITTOR, SUBMITTOR_TAG,
-                submittorLink.getString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getToString());
-        assertEquals(HEAD_TAG, submittorLink.getFromString());
-    }
-
-    /** */
-    @Test
-    public void testSubmittorLinkGedObjectStringString() {
-        SubmittorLink submittorLink;
-        submittorLink = new SubmittorLink(null, null, new ObjectId("S1"));
-        assertNull(EXPECT_NULL, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals("S1", submittorLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(head, null, new ObjectId("S1"));
-        assertEquals(head, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals("S1", submittorLink.getToString());
-        assertEquals(HEAD_TAG, submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(null, "", new ObjectId("S1"));
-        assertNull(EXPECT_NULL, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals("S1", submittorLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(head, "", new ObjectId("S1"));
-        assertEquals(head, submittorLink.getParent());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getString());
-        assertEquals("S1", submittorLink.getToString());
-        assertEquals(HEAD_TAG, submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(null, SUBMITTOR_TAG,
-                new ObjectId("S1"));
-        assertNull(EXPECT_NULL, submittorLink.getParent());
-        assertEquals(EXPECT_SUBMITTOR, SUBMITTOR_TAG,
-                submittorLink.getString());
-        assertEquals("S1", submittorLink.getToString());
-        assertEquals(EXPECT_EMPTY, "", submittorLink.getFromString());
-
-        submittorLink = new SubmittorLink(head, SUBMITTOR_TAG,
-                new ObjectId("S1"));
-        assertEquals(head, submittorLink.getParent());
-        assertEquals(EXPECT_SUBMITTOR, SUBMITTOR_TAG,
-                submittorLink.getString());
-        assertEquals("S1", submittorLink.getToString());
-        assertEquals(HEAD_TAG, submittorLink.getFromString());
+    /**
+     * @param sourceLink the source link to compare
+     * @param expParent expected output from getParent
+     * @param expString expected output from getString
+     * @param expFromString expected output from getFromString
+     * @param expToString expected output from getToString
+     */
+    private void assertMatch(final SubmittorLink sourceLink,
+            final GedObject expParent, final String expString,
+            final String expFromString, final String expToString) {
+        assertEquals("Parent mismatch", expParent, sourceLink.getParent());
+        assertEquals("String mismatch", expString, sourceLink.getString());
+        assertEquals("To string mismatch", expToString,
+                sourceLink.getToString());
+        assertEquals("From string mismatch", expFromString,
+                sourceLink.getFromString());
     }
 }

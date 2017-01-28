@@ -10,18 +10,14 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.datamodel.Child;
-import org.schoellerfamily.gedbrowser.datamodel.FamC;
-import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
-import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Index;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
  * @author Dick Schoeller
@@ -30,162 +26,191 @@ public final class RootTest {
     /** */
     private static final int OBJECT_COUNT = 6;
     /** */
-    private final transient Root root = new Root(null, "Root");
+    private transient Root root;
     /** */
-    private final transient Person person1 = new Person(root,
-            new ObjectId("I1"));
+    private transient Person person1;
     /** */
-    private final transient Name name1 =
-            new Name(person1, "Richard/Schoeller/");
+    private transient Person person2;
     /** */
-    private final transient Person person2 = new Person(root,
-            new ObjectId("I2"));
+    private transient Person person3;
     /** */
-    private final transient Name name2 = new Name(person2, "John/Schoeller/");
-    /** */
-    private final transient Person person3 = new Person(root,
-            new ObjectId("I3"));
-    /** */
-    private final transient Name name3 = new Name(person3, "Patricia/Hayes/");
-    /** */
-    private final transient Family family = new Family(root,
-            new ObjectId("F1"));
-    /** */
-    private final transient FamC famC = new FamC(person1, "FAMC",
-            new ObjectId("F1"));
-    /** */
-    private final transient FamS famS2 = new FamS(person2, "FAMS",
-            new ObjectId("F1"));
-    /** */
-    private final transient FamS famS3 = new FamS(person3, "FAMS",
-            new ObjectId("F1"));
-    /** */
-    private final transient Child child = new Child(family, "Child",
-            new ObjectId("I1"));
-    /** */
-    private final transient Husband husband = new Husband(family, "Husband",
-            new ObjectId("I2"));
-    /** */
-    private final transient Wife wife = new Wife(family, "Wife",
-            new ObjectId("I3"));
+    private transient Family family;
 
     /** */
     @Before
     public void setUp() {
-        root.insert(null, person1);
-        root.insert("", person2);
-        root.insert(null, person3);
-        root.insert(null, family);
-
-        family.insert(child);
-        family.insert(husband);
-        family.insert(wife);
-
-        person1.insert(famC);
-        person1.insert(name1);
-        person2.insert(famS2);
-        person2.insert(name2);
-        person3.insert(famS3);
-        person3.insert(name3);
+        root = new Root(null, "Root");
+        final GedObjectBuilder builder = new GedObjectBuilder(root);
+        person1 = builder.createPerson("I1", "Richard/Schoeller/");
+        person2 = builder.createPerson("I2", "John/Schoeller/");
+        person3 = builder.createPerson("I3", "Patricia/Hayes/");
+        family = builder.createFamily1();
+        builder.addChildToFamily(family, person1);
+        builder.addHusbandToFamily(family, person2);
+        builder.addWifeToFamily(family, person2);
     }
 
     /** */
     @Test
-    public void testInsertFindGetObjects() {
-        assertEquals(person1, root.find("I1"));
-        assertEquals(person2, root.find("I2"));
-        assertEquals(person3, root.find("I3"));
-        assertEquals(family, root.find("F1"));
-        assertNull(root.find("I4"));
+    public void testOneArgInsertAndFind() {
+        final Root rt = new Root(null, "Root");
+        final Person person = new Person(rt, new ObjectId("I2"));
+        rt.insert(person);
+        final Name name2 = new Name(person, "John/Schoeller/");
+        person.insert(name2);
+        final Person personx = new Person(root, new ObjectId("I3"));
+        personx.insert(new Name(personx, "Patricia/Hayes/"));
+        assertEquals("Person mismatch", person, root.find("I2"));
+    }
+
+    /** */
+    @Test
+    public void testTwoArgInsertBlankAndFind() {
+        final Root rt = new Root(null, "Root");
+        final Person person = new Person(rt, new ObjectId("I2"));
+        rt.insert("", person);
+        final Name name2 = new Name(person, "John/Schoeller/");
+        person.insert(name2);
+        final Person personx = new Person(root, new ObjectId("I3"));
+        personx.insert(new Name(personx, "Patricia/Hayes/"));
+        assertEquals("Person mismatch", person, rt.find("I2"));
+    }
+
+    /** */
+    @Test
+    public void testTwoArgInsertNullAndFind() {
+        final Root rt = new Root(null, "Root");
+        final Person person = new Person(rt, new ObjectId("I2"));
+        rt.insert(null, person);
+        final Name name2 = new Name(person, "John/Schoeller/");
+        person.insert(name2);
+        final Person personx = new Person(root, new ObjectId("I3"));
+        personx.insert(new Name(personx, "Patricia/Hayes/"));
+        assertEquals("Person mismatch", person, rt.find("I2"));
+    }
+
+    /** */
+    @Test
+    public void testTwoArgInsertAndFind() {
+        final Root rt = new Root(null, "Root");
+        final Person person = new Person(rt, new ObjectId("I2"));
+        rt.insert("I4", person);
+        final Name name2 = new Name(person, "John/Schoeller/");
+        person.insert(name2);
+        final Person personx = new Person(root, new ObjectId("I3"));
+        personx.insert(new Name(personx, "Patricia/Hayes/"));
+        assertEquals("Person mismatch", person, rt.find("I4"));
+    }
+
+    /** */
+    @Test
+    public void testTwoArgInsertAndGetObjects() {
+        final Root rt = new Root(null, "Root");
+        final Person person = new Person(rt, new ObjectId("I2"));
+        rt.insert("I4", person);
+        final Name name2 = new Name(person, "John/Schoeller/");
+        person.insert(name2);
+        final Person personx = new Person(root, new ObjectId("I3"));
+        personx.insert(new Name(personx, "Patricia/Hayes/"));
+        assertEquals("Person mismatch", person, rt.getObjects().get("I4"));
+    }
+
+    /** */
+    @Test
+    public void testFindI1() {
+        assertEquals("Person mismatch", person1, root.find("I1"));
+    }
+
+    /** */
+    @Test
+    public void testFindI2() {
+        assertEquals("Person mismatch", person2, root.find("I2"));
+    }
+
+    /** */
+    @Test
+    public void testFindI3() {
+        assertEquals("Person mismatch", person3, root.find("I3"));
+    }
+
+    /** */
+    @Test
+    public void testFindF1() {
+        assertEquals("Family mismatch", family, root.find("F1"));
+    }
+
+    /** */
+    @Test
+    public void testGetObjects() {
         final Person person4 = new Person(root, new ObjectId("I4"));
         root.insert(null, person4);
-        assertEquals(person4, root.find("I4"));
         final Person person5 = new Person(root, new ObjectId("I4"));
         root.insert("SQUIRT", person5);
-        assertEquals(person5, root.find("SQUIRT"));
         final Map<String, GedObject> objects = root.getObjects();
-        assertEquals(OBJECT_COUNT, objects.size());
-        assertTrue(objects.keySet().contains("I1"));
-        assertTrue(objects.keySet().contains("I2"));
-        assertTrue(objects.keySet().contains("I3"));
-        assertTrue(objects.keySet().contains("I4"));
-        assertTrue(objects.keySet().contains("SQUIRT"));
-        assertTrue(objects.keySet().contains("F1"));
+        assertTrue("Content mismatch",
+                OBJECT_COUNT == objects.size()
+                && objects.keySet().contains("I1")
+                && objects.keySet().contains("I2")
+                && objects.keySet().contains("I3")
+                && objects.keySet().contains("I4")
+                && objects.keySet().contains("SQUIRT")
+                && objects.keySet().contains("F1"));
+    }
 
+    /** */
+    @Test
+    public void testGetObjectsNull() {
         root.insert("nullTest", null);
-        assertFalse(objects.keySet().contains("nullTest"));
+        final Map<String, GedObject> objects = root.getObjects();
+        assertFalse("Null object should not be inserted",
+                objects.keySet().contains("nullTest"));
+    }
+
+    /** */
+    @Test
+    public void testGetFilenameInitiallyNull() {
+        assertNull("Filename should initially be null", root.getFilename());
     }
 
     /** */
     @Test
     public void testSetGetFilename() {
-        assertNull(root.getFilename());
         root.setFilename("foo.ged");
-        assertEquals("foo.ged", root.getFilename());
+        assertEquals("Filename should be set", "foo.ged", root.getFilename());
+    }
+
+    /** */
+    @Test
+    public void testGetDbNameInitiallyNull() {
+        assertNull("DB name should initially be null", root.getDbName());
     }
 
     /** */
     @Test
     public void testSetGetDbName() {
-        assertNull(root.getDbName());
         root.setDbName("foo");
-        assertEquals("foo", root.getDbName());
+        assertEquals("DB name should be set", "foo", root.getDbName());
+    }
+
+    /** */
+    @Test
+    public void testIndexInitiallyEmpty() {
+        final Index index = root.getIndex();
+        assertEquals("Index should be empty", 0, index.surnameCount());
     }
 
     /** */
     @Test
     public void testIndex() {
         final Index index = root.getIndex();
-        assertEquals(0, index.surnameCount());
         root.initIndex();
-        assertEquals(2, index.surnameCount());
         final Set<String> npsSchoeller = index.getNamesPerSurname("Schoeller");
-        assertEquals(2, npsSchoeller.size());
         final Set<String> npsHayes = index.getNamesPerSurname("Hayes");
-        assertEquals(1, npsHayes.size());
         final Set<String> nullish = index.getNamesPerSurname("Mumble");
-        assertEquals(0, nullish.size());
-    }
-
-    /** */
-    @Test
-    public void testRootGedObject() {
-        Root localRoot;
-        localRoot = new Root(null);
-        assertNull(localRoot.getParent());
-        assertEquals("", localRoot.getString());
-
-        localRoot = new Root(person1);
-        assertEquals(person1, localRoot.getParent());
-        assertEquals("", localRoot.getString());
-    }
-
-    /** */
-    @Test
-    public void testRootGedObjectString() {
-        Root localRoot;
-        localRoot = new Root(null, (String) null);
-        assertNull(localRoot.getParent());
-        assertEquals("", localRoot.getString());
-
-        localRoot = new Root(person1, (String) null);
-        assertEquals(person1, localRoot.getParent());
-        assertEquals("", localRoot.getString());
-
-        localRoot = new Root(null, "");
-        assertNull(localRoot.getParent());
-        assertEquals("", localRoot.getString());
-
-        localRoot = new Root(person1, "");
-        assertEquals(person1, localRoot.getParent());
-        assertEquals("", localRoot.getString());
-
-        localRoot = new Root(null, "Root");
-        assertNull(localRoot.getParent());
-        assertEquals("Root", localRoot.getString());
-
-        localRoot = new Root(person1, "Lunk");
-        assertEquals(person1, localRoot.getParent());
-        assertEquals("Lunk", localRoot.getString());
+        assertTrue("Counts don't match",
+                2 == index.surnameCount()
+                && 2 == npsSchoeller.size()
+                && 1 == npsHayes.size()
+                && nullish.isEmpty());
     }
 }
