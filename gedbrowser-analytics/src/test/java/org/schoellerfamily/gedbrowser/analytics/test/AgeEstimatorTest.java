@@ -8,11 +8,8 @@ import java.util.Locale;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.AgeEstimator;
-import org.schoellerfamily.gedbrowser.datamodel.Attribute;
-import org.schoellerfamily.gedbrowser.datamodel.Date;
-import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
  * @author Dick Schoeller
@@ -38,16 +35,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testDick() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "Richard John/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "14 DEC 1958");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "14 DEC 1958");
 
         final int ageAtReferenceDate = 57;
         final AgeEstimator estimator =
@@ -61,16 +52,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testLisa() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "Lisa Hope/Robinson/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "09 MAY 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "09 MAY 1960");
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator =
@@ -84,16 +69,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testBeginYear() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "01 JAN 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "01 JAN 1960");
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator =
@@ -107,16 +86,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testEndYear() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "31 DEC 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "31 DEC 1960");
 
         final int ageAtReferenceDate = 54;
         final AgeEstimator estimator =
@@ -130,16 +103,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testBeforeYear() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "BEF 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "BEF 1960");
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator =
@@ -153,16 +120,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testBeforeMonth() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "BEF DEC 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "BEF DEC 1960");
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator =
@@ -176,16 +137,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testBeforeTheDayBeforeTheReference() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "BEF 13 DEC 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "BEF 13 DEC 1960");
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator =
@@ -199,16 +154,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testBeforeTheReference() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "BEF 14 DEC 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "BEF 14 DEC 1960");
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator =
@@ -222,16 +171,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testBeforeTheDayAfterTheReference() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "BEF 15 DEC 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "BEF 15 DEC 1960");
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator =
@@ -245,16 +188,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testBeforeTwoDaysAfterTheReference() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "BEF 16 DEC 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "BEF 16 DEC 1960");
 
         final int ageAtReferenceDate = 54;
         final AgeEstimator estimator =
@@ -268,16 +205,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testAfterYear() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "AFT 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "AFT 1960");
 
         final int ageAtReferenceDate = 54;
         final AgeEstimator estimator =
@@ -291,16 +222,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testAfterReferenceMonth() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "AFT DEC 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "AFT DEC 1960");
 
         final int ageAtReferenceDate = 54;
         final AgeEstimator estimator =
@@ -314,16 +239,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testAfterJanuary() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "AFT JAN 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "AFT JAN 1960");
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator =
@@ -337,16 +256,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testAfterTwoDaysBeforeTheReference() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "AFT 12 DEC 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "AFT 12 DEC 1960");
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator =
@@ -360,16 +273,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testAfterTheDayBeforeTheReference() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "AFT 13 DEC 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "AFT 13 DEC 1960");
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator =
@@ -383,16 +290,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testAfterTheReference() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "AFT 14 DEC 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "AFT 14 DEC 1960");
 
         final int ageAtReferenceDate = 54;
         final AgeEstimator estimator =
@@ -406,16 +307,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testAfterTheDayAfterTheReference() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "AFT 15 DEC 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "AFT 15 DEC 1960");
 
         final int ageAtReferenceDate = 54;
         final AgeEstimator estimator =
@@ -429,16 +324,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testYearsDay() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "13 DEC 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "13 DEC 1960");
 
         final AgeEstimator estimator =
                 new AgeEstimator(person, referenceCalendar);
@@ -451,16 +340,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testYearsMonthsDay() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "13 JAN 1961");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "13 JAN 1961");
 
         final AgeEstimator estimator = new AgeEstimator(person,
                 referenceCalendar);
@@ -474,16 +357,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testYearsMonthsDays() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "16 DEC 1960");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "16 DEC 1960");
 
         final AgeEstimator estimator = new AgeEstimator(person,
                 referenceCalendar);
@@ -497,16 +374,10 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testYearsMonths() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Name name = new Name(person, "J. Random/Schoeller/");
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "14 JAN 1961");
-
-        root.insert("I0", person);
-        person.insert(name);
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "14 JAN 1961");
 
         final AgeEstimator estimator = new AgeEstimator(person,
                 referenceCalendar);
