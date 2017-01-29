@@ -12,18 +12,10 @@ import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.BirthDateEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
-import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
-import org.schoellerfamily.gedbrowser.datamodel.FamC;
-import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
-import org.schoellerfamily.gedbrowser.datamodel.Husband;
-import org.schoellerfamily.gedbrowser.datamodel.Name;
-import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
@@ -36,15 +28,10 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testSimple() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Attribute birth = new Attribute(person, "Birth");
-        final Date birthDate = new Date(birth, "11 JUL 1960");
-
-        root.insert("I0", person);
-        person.insert(new Name(person, "J. Random/Schoeller/"));
-        person.insert(birth);
-        birth.insert(birthDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person =
+                builder.createPerson("I0", "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1960;
@@ -59,11 +46,9 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testEmpty() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-
-        root.insert("I0", person);
-        person.insert(new Name(person, "J. Random/Schoeller/"));
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person =
+                builder.createPerson("I0", "J. Random/Schoeller/");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -73,30 +58,16 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testFromYoungerSibling() {
-        final Root root = new Root(null);
-        final Person person1 = new Person(root, new ObjectId("I1"));
-        final Attribute birth1 = new Attribute(person1, "Birth");
-        person1.insert(new Name(person1, "J. Random/Schoeller/"));
-        person1.insert(birth1);
-        birth1.insert(new Date(birth1, "11 JUL 1960"));
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person1 =
+                builder.createPerson("I1", "J. Random/Schoeller/");
+        builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
+        final Person person2 =
+                builder.createPerson("I2", "Anon/Schoeller/");
+        final Family family = builder.createFamily1();
 
-        final Person person2 = new Person(root, new ObjectId("I2"));
-        person2.insert(new Name(person2, "Anon/Schoeller/"));
-
-        final ObjectId xrefFam1 = new ObjectId("F1");
-        final Family family = new Family(root, xrefFam1);
-        final FamC famC1 = new FamC(person1, "FAMC", xrefFam1);
-        final FamC famC2 = new FamC(person2, "FAMC", xrefFam1);
-        final Child child1 = new Child(family, "Child", new ObjectId("I1"));
-        final Child child2 = new Child(family, "Child", new ObjectId("I2"));
-
-        root.insert(family);
-        root.insert(person1);
-        root.insert(person2);
-        family.insert(child1);
-        family.insert(child2);
-        person1.insert(famC1);
-        person2.insert(famC2);
+        builder.addChildToFamily(family, person1);
+        builder.addChildToFamily(family, person2);
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
         final int birthYear = 1962;
@@ -111,39 +82,18 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testFromYoungerSiblings() {
-        final Root root = new Root(null);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person1 = builder.createPerson("I1",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
 
-        final Person person1 = new Person(root, new ObjectId("I1"));
-        final Attribute birth1 = new Attribute(person1, "Birth");
-        person1.insert(new Name(person1, "J. Random/Schoeller/"));
-        person1.insert(birth1);
-        birth1.insert(new Date(birth1, "11 JUL 1960"));
+        final Person person2 = builder.createPerson("I2", "Anon/Schoeller/");
+        final Person person3 = builder.createPerson("I3", "Anonyma/Schoeller/");
 
-        final Person person2 = new Person(root, new ObjectId("I2"));
-        person2.insert(new Name(person2, "Anonymous/Schoeller/"));
-
-        final Person person3 = new Person(root, new ObjectId("I3"));
-        person3.insert(new Name(person3, "Anonyma/Schoeller/"));
-
-        final ObjectId xrefFam1 = new ObjectId("F1");
-        final Family family = new Family(root, xrefFam1);
-        final FamC famC1 = new FamC(person1, "FAMC", xrefFam1);
-        final FamC famC2 = new FamC(person2, "FAMC", xrefFam1);
-        final FamC famC3 = new FamC(person3, "FAMC", xrefFam1);
-        final Child child1 = new Child(family, "Child", new ObjectId("I1"));
-        final Child child2 = new Child(family, "Child", new ObjectId("I2"));
-        final Child child3 = new Child(family, "Child", new ObjectId("I3"));
-
-        root.insert(family);
-        root.insert(person1);
-        root.insert(person2);
-        root.insert(person3);
-        family.insert(child1);
-        family.insert(child2);
-        family.insert(child3);
-        person1.insert(famC1);
-        person2.insert(famC2);
-        person3.insert(famC3);
+        final Family family = builder.createFamily1();
+        builder.addChildToFamily(family, person1);
+        builder.addChildToFamily(family, person2);
+        builder.addChildToFamily(family, person3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
         final int birthYear = 1964;
@@ -310,44 +260,23 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testFromParentsMarriage() {
-        final Root root = new Root(null);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person1 = builder.createPerson("I1",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
 
-        final Person person1 = new Person(root, new ObjectId("I1"));
-        person1.insert(new Name(person1, "J. Random/Schoeller/"));
+        final Person person2 = builder.createPerson("I2", "Anonymous/Smith/");
+        final Person person3 = builder.createPerson("I3", "Anonymous/Jones/");
 
-        final Person person2 = new Person(root, new ObjectId("I2"));
-        person2.insert(new Name(person2, "Anonymous/Smith/"));
-
-        final Person person3 = new Person(root, new ObjectId("I3"));
-        person3.insert(new Name(person3, "Anonymous/Jones/"));
-
-        final ObjectId xrefFam1 = new ObjectId("F1");
-        final Family family1 = new Family(root, xrefFam1);
-        final FamS famS1 = new FamS(person1, "FAMS", xrefFam1);
-        final FamS famS2 = new FamS(person2, "FAMS", xrefFam1);
-        final FamC famC3 = new FamC(person3, "FAMC", xrefFam1);
-
-        final Husband husband1 = new Husband(family1, "Husband",
-                new ObjectId("I1"));
-        final Wife wife1 = new Wife(family1, "Wife", new ObjectId("I2"));
-        final Child child1 = new Child(family1, "Child", new ObjectId("I3"));
+        final Family family1 = builder.createFamily1();
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
 
         final Attribute marriage1 = new Attribute(family1, "Marriage");
         family1.insert(marriage1);
         final Date marriageDate1 = new Date(marriage1, "27 MAY 1984");
         marriage1.insert(marriageDate1);
-
-        root.insert(family1);
-        root.insert(person1);
-        root.insert(person2);
-        root.insert(person3);
-
-        family1.insert(husband1);
-        family1.insert(wife1);
-        family1.insert(child1);
-        person1.insert(famS1);
-        person2.insert(famS2);
-        person3.insert(famC3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
         final int birthYear = 1986;
@@ -362,52 +291,18 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testFromParentsMarriageWithOlderSiblings() {
-        final Root root = new Root(null);
-
-        final Person person1 = new Person(root, new ObjectId("I1"));
-        person1.insert(new Name(person1, "J. Random/Schoeller/"));
-
-        final Person person2 = new Person(root, new ObjectId("I2"));
-        person2.insert(new Name(person2, "Anonymous/Smith/"));
-
-        final Person person3 = new Person(root, new ObjectId("I3"));
-        person3.insert(new Name(person3, "Anonymous/Jones/"));
-
-        final Person person4 = new Person(root, new ObjectId("I4"));
-        person4.insert(new Name(person4, "No Name/Johnson/"));
-
-        final ObjectId xrefFam1 = new ObjectId("F1");
-        final Family family1 = new Family(root, xrefFam1);
-        final FamS famS1 = new FamS(person1, "FAMS", xrefFam1);
-        final FamS famS2 = new FamS(person2, "FAMS", xrefFam1);
-        final FamC famC3 = new FamC(person3, "FAMC", xrefFam1);
-        final FamC famC4 = new FamC(person4, "FAMC", xrefFam1);
-
-        final Husband husband1 = new Husband(family1, "Husband",
-                new ObjectId("I1"));
-        final Wife wife1 = new Wife(family1, "Wife", new ObjectId("I2"));
-        final Child child1 = new Child(family1, "Child", new ObjectId("I3"));
-        final Child child2 = new Child(family1, "Child", new ObjectId("I4"));
-
-        final Attribute marriage1 = new Attribute(family1, "Marriage");
-        family1.insert(marriage1);
-        final Date marriageDate1 = new Date(marriage1, "27 MAY 1984");
-        marriage1.insert(marriageDate1);
-
-        root.insert(family1);
-        root.insert(person1);
-        root.insert(person2);
-        root.insert(person3);
-        root.insert(person4);
-
-        family1.insert(husband1);
-        family1.insert(wife1);
-        family1.insert(child1);
-        family1.insert(child2);
-        person1.insert(famS1);
-        person2.insert(famS2);
-        person3.insert(famC3);
-        person4.insert(famC4);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person1 = builder.createPerson("I1",
+                "J. Random/Schoeller/");
+        final Person person2 = builder.createPerson("I2", "Anonymous/Smith/");
+        final Person person3 = builder.createPerson("I3", "Anonymous/Jones/");
+        final Person person4 = builder.createPerson("I4", "No Name/Johnson/");
+        final Family family1 = builder.createFamily1();
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
+        builder.addChildToFamily(family1, person4);
+        builder.createFamilyEvent(family1, "Marriage", "27 MAY 1984");
 
         final BirthDateEstimator estimator = createBirthEstimator(person4);
         final int birthYear = 1988;
@@ -422,42 +317,17 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testFromChild() {
-        final Root root = new Root(null);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person1 = builder.createPerson("I1",
+                "J. Random/Schoeller/");
+        final Person person2 = builder.createPerson("I2", "Anonymous/Smith/");
+        final Person person3 = builder.createPerson("I3", "Anonymous/Jones/");
+        builder.createPersonEvent(person3, "Birth", "11 JUL 1960");
 
-        final Person person1 = new Person(root, new ObjectId("I1"));
-        person1.insert(new Name(person1, "J. Random/Schoeller/"));
-
-        final Person person2 = new Person(root, new ObjectId("I2"));
-        person2.insert(new Name(person2, "Anonymous/Smith/"));
-
-        final Person person3 = new Person(root, new ObjectId("I3"));
-        final Attribute birth3 = new Attribute(person3, "Birth");
-        person3.insert(new Name(person3, "Anonymous/Jones/"));
-        person3.insert(birth3);
-        birth3.insert(new Date(birth3, "11 JUL 1960"));
-
-        final ObjectId xrefFam1 = new ObjectId("F1");
-        final Family family1 = new Family(root, xrefFam1);
-        final FamS famS1 = new FamS(person1, "FAMS", xrefFam1);
-        final FamC famC2 = new FamC(person2, "FAMC", xrefFam1);
-        final FamC famC3 = new FamC(person3, "FAMC", xrefFam1);
-
-        final Husband husband1 = new Husband(family1, "Husband",
-                new ObjectId("I1"));
-        final Child child1 = new Child(family1, "Child", new ObjectId("I2"));
-        final Child child2 = new Child(family1, "Child", new ObjectId("I3"));
-
-        root.insert(family1);
-        root.insert(person1);
-        root.insert(person2);
-        root.insert(person3);
-
-        family1.insert(husband1);
-        family1.insert(child1);
-        family1.insert(child2);
-        person1.insert(famS1);
-        person3.insert(famC2);
-        person3.insert(famC3);
+        final Family family1 = builder.createFamily1();
+        builder.addHusbandToFamily(family1, person1);
+        builder.addChildToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person1);
         final int birthYear = 1931;
@@ -472,34 +342,15 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testFromChildren() {
-        final Root root = new Root(null);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person1 = builder.createPerson("I1",
+                "J. Random/Schoeller/");
+        final Person person3 = builder.createPerson("I3", "Anonymous/Jones/");
+        builder.createPersonEvent(person3, "Birth", "11 JUL 1960");
 
-        final Person person1 = new Person(root, new ObjectId("I1"));
-        person1.insert(new Name(person1, "J. Random/Schoeller/"));
-
-        final Person person3 = new Person(root, new ObjectId("I3"));
-        final Attribute birth3 = new Attribute(person3, "Birth");
-        person3.insert(new Name(person3, "Anonymous/Jones/"));
-        person3.insert(birth3);
-        birth3.insert(new Date(birth3, "11 JUL 1960"));
-
-        final ObjectId xrefFam1 = new ObjectId("F1");
-        final Family family1 = new Family(root, xrefFam1);
-        final FamS famS1 = new FamS(person1, "FAMS", xrefFam1);
-        final FamC famC3 = new FamC(person3, "FAMC", xrefFam1);
-
-        final Husband husband1 = new Husband(family1, "Husband",
-                new ObjectId("I1"));
-        final Child child1 = new Child(family1, "Child", new ObjectId("I3"));
-
-        root.insert(family1);
-        root.insert(person1);
-        root.insert(person3);
-
-        family1.insert(husband1);
-        family1.insert(child1);
-        person1.insert(famS1);
-        person3.insert(famC3);
+        final Family family1 = builder.createFamily1();
+        builder.addHusbandToFamily(family1, person1);
+        builder.addChildToFamily(family1, person3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person1);
         final int birthYear = 1933;
@@ -514,34 +365,15 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testFromHusband() {
-        final Root root = new Root(null, "Root");
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person1 = builder.createPerson("I1",
+                "J. Random/Schoeller/");
+        final Person person2 = builder.createPerson("I2", "Anonymous/Smith/");
+        builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
 
-        final Person person1 = new Person(root, new ObjectId("I1"));
-        person1.insert(new Name(person1, "J. Random/Schoeller/"));
-
-        final Person person2 = new Person(root, new ObjectId("I2"));
-        person2.insert(new Name(person2, "Anonymous/Smith/"));
-
-        final ObjectId xrefFam1 = new ObjectId("F1");
-        final Family family = new Family(root, xrefFam1);
-        final FamS famS1 = new FamS(person1, "FAMS", xrefFam1);
-        final FamS famS2 = new FamS(person2, "FAMS", xrefFam1);
-        final Husband husband = new Husband(family, "Husband",
-                new ObjectId("I1"));
-        final Attribute birth1 = new Attribute(person1, "Birth");
-        final Date birthDate1 = new Date(birth1, "11 JUL 1960");
-        final Wife wife = new Wife(family, "Wife", new ObjectId("I2"));
-
-        root.insert(null, person1);
-        person1.insert(birth1);
-        birth1.insert(birthDate1);
-        root.insert(null, person2);
-        root.insert(null, family);
-
-        family.insert(husband);
-        family.insert(wife);
-        person1.insert(famS1);
-        person2.insert(famS2);
+        final Family family1 = builder.createFamily1();
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
         final int birthYear = 1965;
@@ -556,34 +388,15 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testFromWife() {
-        final Root root = new Root(null, "Root");
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person1 = builder.createPerson("I1",
+                "J. Random/Schoeller/");
+        final Person person2 = builder.createPerson("I2", "Anonymous/Smith/");
+        builder.createPersonEvent(person2, "Birth", "11 JUL 1960");
 
-        final Person person1 = new Person(root, new ObjectId("I1"));
-        person1.insert(new Name(person1, "J. Random/Schoeller/"));
-
-        final Person person2 = new Person(root, new ObjectId("I2"));
-        person2.insert(new Name(person2, "Anonymous/Smith/"));
-
-        final ObjectId xrefFam1 = new ObjectId("F1");
-        final Family family = new Family(root, xrefFam1);
-        final FamS famS1 = new FamS(person1, "FAMS", xrefFam1);
-        final FamS famS2 = new FamS(person2, "FAMS", xrefFam1);
-        final Husband husband = new Husband(family, "Husband",
-                new ObjectId("I1"));
-        final Wife wife = new Wife(family, "Wife", new ObjectId("I2"));
-        final Attribute birth2 = new Attribute(person2, "Birth");
-        final Date birthDate2 = new Date(birth2, "11 JUL 1960");
-
-        root.insert(null, person1);
-        person2.insert(birth2);
-        birth2.insert(birthDate2);
-        root.insert(null, person2);
-        root.insert(null, family);
-
-        family.insert(husband);
-        family.insert(wife);
-        person1.insert(famS1);
-        person2.insert(famS2);
+        final Family family1 = builder.createFamily1();
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
 
         final BirthDateEstimator estimator = createBirthEstimator(person1);
         final int birthYear = 1955;
@@ -640,15 +453,10 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testFromBaptism() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Attribute event = new Attribute(person, "Baptism");
-        final Date eventDate = new Date(event, "11 JUL 1960");
-
-        root.insert("I0", person);
-        person.insert(new Name(person, "J. Random/Schoeller/"));
-        person.insert(event);
-        event.insert(eventDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Baptism", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1960;
@@ -663,15 +471,10 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testChristening() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Attribute event = new Attribute(person, "Christening");
-        final Date eventDate = new Date(event, "11 JUL 1960");
-
-        root.insert("I0", person);
-        person.insert(new Name(person, "J. Random/Schoeller/"));
-        person.insert(event);
-        event.insert(eventDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Christening", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1960;
@@ -686,15 +489,10 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testBarMitzah() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Attribute event = new Attribute(person, "Bar Mitzvah");
-        final Date eventDate = new Date(event, "11 JUL 1960");
-
-        root.insert("I0", person);
-        person.insert(new Name(person, "J. Random/Schoeller/"));
-        person.insert(event);
-        event.insert(eventDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Bar Mitzvah", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1947;
@@ -709,15 +507,10 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testBatMitzvah() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Attribute event = new Attribute(person, "Bat Mitzvah");
-        final Date eventDate = new Date(event, "11 JUL 1960");
-
-        root.insert("I0", person);
-        person.insert(new Name(person, "J. Random/Schoeller/"));
-        person.insert(event);
-        event.insert(eventDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Bat Mitzvah", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1947;
@@ -732,15 +525,10 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testDeath() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Attribute event = new Attribute(person, "Death");
-        final Date eventDate = new Date(event, "11 JUL 1960");
-
-        root.insert("I0", person);
-        person.insert(new Name(person, "J. Random/Schoeller/"));
-        person.insert(event);
-        event.insert(eventDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Death", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1885;
@@ -755,15 +543,10 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testBurial() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Attribute event = new Attribute(person, "Burial");
-        final Date eventDate = new Date(event, "11 JUL 1960");
-
-        root.insert("I0", person);
-        person.insert(new Name(person, "J. Random/Schoeller/"));
-        person.insert(event);
-        event.insert(eventDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Burial", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1885;
@@ -778,15 +561,10 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testChanged() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Attribute event = new Attribute(person, "Changed");
-        final Date eventDate = new Date(event, "11 JUL 1960");
-
-        root.insert("I0", person);
-        person.insert(new Name(person, "J. Random/Schoeller/"));
-        person.insert(event);
-        event.insert(eventDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Changed", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -796,15 +574,10 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testOtherEvent() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Attribute event = new Attribute(person, "Occupation");
-        final Date eventDate = new Date(event, "11 JUL 1960");
-
-        root.insert("I0", person);
-        person.insert(new Name(person, "J. Random/Schoeller/"));
-        person.insert(event);
-        event.insert(eventDate);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Occupation", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1935;
@@ -819,13 +592,10 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testNoDate() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Attribute event = new Attribute(person, "Death");
-
-        root.insert("I0", person);
-        person.insert(new Name(person, "J. Random/Schoeller/"));
-        person.insert(event);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Death");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -835,15 +605,10 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testBadDate() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Attribute event = new Attribute(person, "Death");
-        final Date eventDate = new Date(event, "");
-        event.insert(eventDate);
-
-        root.insert("I0", person);
-        person.insert(new Name(person, "J. Random/Schoeller/"));
-        person.insert(event);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Changed", "");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -853,15 +618,10 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testEstimateBirthDate() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Attribute event = new Attribute(person, "Birth");
-        final Date eventDate = new Date(event, "11 JUL 1960");
-        event.insert(eventDate);
-
-        root.insert("I0", person);
-        person.insert(new Name(person, "J. Random/Schoeller/"));
-        person.insert(event);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Birth", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1960;
@@ -876,15 +636,10 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testEstimateMarriageDate() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Attribute event = new Attribute(person, "Marriage");
-        final Date eventDate = new Date(event, "11 JUL 1960");
-        event.insert(eventDate);
-
-        root.insert("I0", person);
-        person.insert(new Name(person, "J. Random/Schoeller/"));
-        person.insert(event);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Marriage", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1935;
@@ -899,15 +654,10 @@ public class BirthDateEstimatorTest {
     /** */
     @Test
     public final void testEstimateOtherDate() {
-        final Root root = new Root(null);
-        final Person person = new Person(root);
-        final Attribute event = new Attribute(person, "Occupation");
-        final Date eventDate = new Date(event, "11 JUL 1960");
-        event.insert(eventDate);
-
-        root.insert("I0", person);
-        person.insert(new Name(person, "J. Random/Schoeller/"));
-        person.insert(event);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I0",
+                "J. Random/Schoeller/");
+        builder.createPersonEvent(person, "Occupation", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1935;
