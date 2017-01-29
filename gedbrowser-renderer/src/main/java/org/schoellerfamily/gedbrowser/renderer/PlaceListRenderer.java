@@ -131,15 +131,17 @@ public final class PlaceListRenderer {
         final LngLatAlt location = locationPoint.getCoordinates();
         if (features.size() > 2) {
             final Feature viewportFeature = features.get(2);
-            final Polygon viewportPolygon = (Polygon) viewportFeature
-                    .getGeometry();
-            final List<List<LngLatAlt>> viewportRings = viewportPolygon
-                    .getCoordinates();
-            final List<LngLatAlt> viewportOutline = viewportRings.get(0);
-            final LngLatAlt southwest = viewportOutline.get(0);
-            final LngLatAlt northeast = viewportOutline.get(2);
-            return new PlaceInfo(item.getPlaceName(), location, southwest,
-                    northeast);
+            if (viewportFeature != null) {
+                final Polygon viewportPolygon = (Polygon) viewportFeature
+                        .getGeometry();
+                final List<List<LngLatAlt>> viewportRings = viewportPolygon
+                        .getCoordinates();
+                final List<LngLatAlt> viewportOutline = viewportRings.get(0);
+                final LngLatAlt southwest = viewportOutline.get(0);
+                final LngLatAlt northeast = viewportOutline.get(2);
+                return new PlaceInfo(item.getPlaceName(), location, southwest,
+                        northeast);
+            }
         }
         return new PlaceInfo(item.getPlaceName(), location.getLatitude(),
                 location.getLongitude());
