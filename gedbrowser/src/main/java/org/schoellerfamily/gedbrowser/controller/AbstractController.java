@@ -122,6 +122,11 @@ public abstract class AbstractController {
             final HttpServletRequest request, final Exception exception,
             final String viewName, final HttpStatus status) {
         final ModelAndView mav = new ModelAndView();
+        if (exception == null) {
+            mav.addObject("message", "null exception");
+        } else {
+            mav.addObject("message", exception.getMessage());
+        }
         mav.addObject("exception", exception);
         mav.addObject("url", request.getRequestURL());
         mav.addObject("renderingContext", renderingContext);

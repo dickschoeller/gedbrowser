@@ -43,7 +43,8 @@ public final class StubGeoCoder implements GeoCoder {
         logger.debug("Stub geocode for: " + placeName);
         if (unknowns.contains(placeName)
                 || "XYZZY".equals(placeName)
-                || "PLUGH".equals(placeName)) {
+                || "PLUGH".equals(placeName)
+                || "Blah Blah".equals(placeName)) {
             return new GeocodingResult[0];
         }
         GeocodingResult[] results = new GeocodingResult[1];

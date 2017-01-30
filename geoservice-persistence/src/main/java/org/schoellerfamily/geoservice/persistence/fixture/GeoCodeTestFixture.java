@@ -92,7 +92,7 @@ public class GeoCodeTestFixture {
             },
             {
                 "At Sea",
-                ""
+                "Atlantic Ocean"
             },
             {
                 "At home, 1.5 miles northwest of Sutliff, Solon, Cedar County,"
@@ -134,7 +134,6 @@ public class GeoCodeTestFixture {
             + "ia, USA",
             "Anamosa Hospital, Anamosa, Jones County, Iowa, USA",
             "Ash of Normandy, Sussex, England",
-            "At Sea",
             "At home, 1.5 miles northwest of Sutliff, Solon, Cedar County, Iow"
             + "a, USA",
             "At home, Cornwall Road, Lebanon, Lebanon County, Pennsylvania, US"

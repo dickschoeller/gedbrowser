@@ -122,9 +122,6 @@ public class GeoCodeLoader {
         ) {
             while ((line = br.readLine()) != null) {
                 final String[] splitLine = line.split("[|]", 4);
-                if (splitLine[0].contains("Hornberg")) {
-                    System.out.println(" ************ hello    *********************");
-                }
                 if (splitLine.length >= 2 && !splitLine[1].isEmpty()) {
                     loader.load(splitLine[0], splitLine[1]);
                 } else if (splitLine[0] != null && !splitLine[0].isEmpty()) {

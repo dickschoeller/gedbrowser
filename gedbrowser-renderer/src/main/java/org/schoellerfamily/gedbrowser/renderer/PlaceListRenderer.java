@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
 import org.geojson.LngLatAlt;
@@ -27,6 +29,8 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
  * @author Dick Schoeller
  */
 public final class PlaceListRenderer {
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
     /** */
     private final Person person;
     /** */
@@ -131,7 +135,10 @@ public final class PlaceListRenderer {
         final LngLatAlt location = locationPoint.getCoordinates();
         if (features.size() > 2) {
             final Feature viewportFeature = features.get(2);
-            if (viewportFeature != null) {
+            if (viewportFeature == null) {
+                logger.info("Features size > 2 but viewport null for: "
+                        + item.getPlaceName());
+            } else {
                 final Polygon viewportPolygon = (Polygon) viewportFeature
                         .getGeometry();
                 final List<List<LngLatAlt>> viewportRings = viewportPolygon

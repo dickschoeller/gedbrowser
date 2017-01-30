@@ -40,7 +40,9 @@ import com.google.maps.model.LatLng;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.TooManyStaticImports" })
+@SuppressWarnings({ "PMD.ExcessiveImports",
+        "PMD.GodClass",
+        "PMD.TooManyStaticImports" })
 public class GeoCodeTest {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
@@ -252,7 +254,7 @@ public class GeoCodeTest {
         logger.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
         final GeoCodeItem entry1 = gcc.find("Old Home");
-        final GeoCodeItem entry2 = gcc.find("Old Home", "At Sea");
+        final GeoCodeItem entry2 = gcc.find("Old Home", "Blah Blah");
         assertNotEquals("Should NOT be equal", entry1, entry2);
     }
 
@@ -261,8 +263,8 @@ public class GeoCodeTest {
     public void testCacheOldHomeBroken() {
         logger.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
-        final GeoCodeItem entry1 = gcc.add(new GeoCodeItem("Old Home", "At Sea"));
-        final GeoCodeItem entry2 = gcc.find("Old Home", "At Sea");
+        final GeoCodeItem entry1 = gcc.add(new GeoCodeItem("Old Home", "Blah Blah"));
+        final GeoCodeItem entry2 = gcc.find("Old Home", "Blah Blah");
         assertEquals("Should be equal", entry1, entry2);
     }
 
@@ -395,6 +397,18 @@ public class GeoCodeTest {
         final Collection<String> actual = gcc.notFoundKeys();
         assertTrue("Some differences in not found sets",
                 compareNotFound(expected, actual));
+    }
+
+    /** */
+    @Test
+    public void testNotParsing() {
+        logger.info("Entering testNotFounds");
+        gcc.clear();
+        final InputStream fis = getTestFileAsStream();
+        loader.load(fis);
+        final GeoCodeItem item = gcc.get("At Sea");
+        assertEquals("Failure indicates a parsing problem",
+                "Atlantic Ocean", item.getModernPlaceName());
     }
 
     /** */
