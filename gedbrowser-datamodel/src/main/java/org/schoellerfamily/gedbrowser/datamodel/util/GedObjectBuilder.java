@@ -118,7 +118,7 @@ public class GedObjectBuilder {
             return new Person();
         }
         final Person person = new Person(root, new ObjectId(idString));
-        person.insert(new Name(person, name));
+        addNameToPerson(person, name);
         root.insert(person);
         return person;
     }
@@ -134,12 +134,8 @@ public class GedObjectBuilder {
      */
     public Attribute createPersonEvent(final Person person, final String type,
             final String dateString) {
-        if (person == null || type == null) {
-            return new Attribute();
-        }
-        final Attribute event = new Attribute(person, type);
+        final Attribute event = createAttribute(person, type);
         event.insert(new Date(event, dateString));
-        person.insert(event);
         return event;
     }
 
@@ -152,12 +148,7 @@ public class GedObjectBuilder {
      * @return the created event
      */
     public Attribute createPersonEvent(final Person person, final String type) {
-        if (person == null || type == null) {
-            return new Attribute();
-        }
-        final Attribute event = new Attribute(person, type);
-        person.insert(event);
-        return event;
+        return createAttribute(person, type);
     }
 
     /**
@@ -216,9 +207,8 @@ public class GedObjectBuilder {
         if (family == null || type == null || dateString == null) {
             return new Attribute();
         }
-        final Attribute event = new Attribute(family, type);
+        final Attribute event = createAttribute(family, type);
         event.insert(new Date(event, dateString));
-        family.insert(event);
         return event;
     }
 
@@ -232,12 +222,7 @@ public class GedObjectBuilder {
      */
     public Attribute createFamilyEvent(final Family family,
             final String type) {
-        if (family == null || type == null) {
-            return new Attribute();
-        }
-        final Attribute event = new Attribute(family, type);
-        family.insert(event);
-        return event;
+        return createAttribute(family, type);
     }
 
     /**
@@ -371,20 +356,14 @@ public class GedObjectBuilder {
     }
 
     /**
-     * @return the new source
-     */
-    public Source createSource1() {
-        final Source source = new Source(root, new ObjectId("S1"));
-        root.insert(source);
-        return source;
-    }
-
-    /**
      * @param person the person to add the name to
      * @param string the name string
      * @return the new name object
      */
     public Name addNameToPerson(final Person person, final String string) {
+        if (person == null || string == null) {
+            return new Name();
+        }
         final Name name = new Name(person, string);
         person.insert(name);
         return name;
@@ -397,6 +376,9 @@ public class GedObjectBuilder {
      */
     public Multimedia addMultimediaToPerson(final Person person,
             final String string) {
+        if (person == null || string == null) {
+            return new Multimedia(null);
+        }
         final Multimedia mm = new Multimedia(person, "Multimedia", string);
         person.insert(mm);
         return mm;
@@ -411,6 +393,13 @@ public class GedObjectBuilder {
         final Date date = new Date(gob, string);
         gob.insert(date);
         return date;
+    }
+
+    /**
+     * @return the new source
+     */
+    public Source createSource1() {
+        return createSource("S1");
     }
 
     /**
@@ -430,6 +419,9 @@ public class GedObjectBuilder {
      */
     public SourceLink createSourceLink(final GedObject ged,
             final Source source) {
+        if (ged == null || source == null) {
+            return new SourceLink(null);
+        }
         final SourceLink sourceLink = new SourceLink(ged, "Source",
                 new ObjectId(source.getString()));
         ged.insert(sourceLink);
@@ -443,6 +435,9 @@ public class GedObjectBuilder {
      */
     public SubmittorLink createSubmittorLink(final GedObject ged,
             final Submittor submittor) {
+        if (ged == null || submittor == null) {
+            return new SubmittorLink(null);
+        }
         final SubmittorLink submittorLink = new SubmittorLink(ged, "Submittor",
                 new ObjectId(submittor.getString()));
         ged.insert(submittorLink);
@@ -455,6 +450,9 @@ public class GedObjectBuilder {
      * @return the attribute
      */
     public Attribute createAttribute(final GedObject ged, final String string) {
+        if (ged == null || string == null) {
+            return new Attribute();
+        }
         final Attribute attribute = new Attribute(ged, string);
         ged.insert(attribute);
         return attribute;
@@ -468,6 +466,9 @@ public class GedObjectBuilder {
      */
     public Attribute createAttribute(final GedObject ged, final String string,
             final String tail) {
+        if (ged == null || string == null || tail == null) {
+            return new Attribute();
+        }
         final Attribute attribute = new Attribute(ged, string, tail);
         ged.insert(attribute);
         return attribute;
