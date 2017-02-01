@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -15,7 +17,7 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 /**
  * @author Dick Schoeller
  */
-public class MultimediaListItemRendererTest {
+public final class MultimediaListItemRendererTest {
     /** */
     private transient Multimedia multimedia1;
 
@@ -26,8 +28,11 @@ public class MultimediaListItemRendererTest {
     private transient Multimedia multimedia3;
 
     /** */
+    private CalendarProvider provider;
+
+    /** */
     @Before
-    public final void init() {
+    public void init() {
         final Person person = new Person();
 
         multimedia1 = new Multimedia(person, "Multimedia", "");
@@ -56,14 +61,16 @@ public class MultimediaListItemRendererTest {
         person.insert(multimedia1);
         person.insert(multimedia2);
         person.insert(multimedia3);
+
+        provider = new CalendarProviderStub();
     }
 
     /** */
     @Test
-    public final void testRenderAsListItemEmpty() {
+    public void testRenderAsListItemEmpty() {
         final MultimediaRenderer aRenderer =
                 new MultimediaRenderer(multimedia1, new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         final MultimediaListItemRenderer apr =
                 (MultimediaListItemRenderer) aRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -78,10 +85,10 @@ public class MultimediaListItemRendererTest {
 
     /** */
     @Test
-    public final void testRenderAsListItemString() {
+    public void testRenderAsListItemString() {
         final MultimediaRenderer aRenderer =
                 new MultimediaRenderer(multimedia2, new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         final MultimediaListItemRenderer apr =
                 (MultimediaListItemRenderer) aRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -94,10 +101,10 @@ public class MultimediaListItemRendererTest {
 
     /** */
     @Test
-    public final void testRenderAsListItem() {
+    public void testRenderAsListItem() {
         final MultimediaRenderer aRenderer =
                 new MultimediaRenderer(multimedia3, new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         final MultimediaListItemRenderer apr =
                 (MultimediaListItemRenderer) aRenderer .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();

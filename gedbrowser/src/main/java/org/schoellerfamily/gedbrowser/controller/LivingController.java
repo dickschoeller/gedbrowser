@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.controller;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.Users;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
@@ -32,6 +33,10 @@ public class LivingController extends AbstractController {
     private transient Users users;
 
     /** */
+    @Autowired
+    private transient CalendarProvider provider;
+
+    /** */
     @Value("${gedbrowser.home}")
     private transient String gedbrowserHome;
 
@@ -56,8 +61,8 @@ public class LivingController extends AbstractController {
                     "Data set " + dbName + " not found", dbName);
         }
 
-        final GedRenderer<?> gedRenderer =
-                new LivingRenderer(root, createRenderingContext(users));
+        final GedRenderer<?> gedRenderer = new LivingRenderer(root,
+                createRenderingContext(users), provider);
 
         model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
         model.addAttribute("living", gedRenderer);

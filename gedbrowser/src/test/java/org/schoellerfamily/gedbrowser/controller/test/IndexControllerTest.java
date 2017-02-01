@@ -41,8 +41,8 @@ public class IndexControllerTest {
     public final void testIndexControllerOK() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser/surnames?db=gl120368&letter=A";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(url,
+                String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("<title>Surnames</title>")
@@ -54,11 +54,10 @@ public class IndexControllerTest {
     /** */
     @Test
     public final void testIndexControllerBadDataSet() {
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(
-                        "http://localhost:" + port
-                                + "/gedbrowser/surnames?db=XYZZY&letter=A",
-                        String.class);
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port
+                        + "/gedbrowser/surnames?db=XYZZY&letter=A",
+                String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         then(entity.getBody()).contains("Data set not found");
@@ -67,11 +66,10 @@ public class IndexControllerTest {
     /** */
     @Test
     public final void testIndexControllerLetter() {
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(
-                        "http://localhost:" + port
-                                + "/gedbrowser/surnames?db=gl120368&letter=q",
-                        String.class);
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port
+                        + "/gedbrowser/surnames?db=gl120368&letter=q",
+                String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody())

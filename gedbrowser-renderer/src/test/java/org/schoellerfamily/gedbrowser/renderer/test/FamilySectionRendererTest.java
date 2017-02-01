@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -25,17 +27,19 @@ import org.schoellerfamily.gedbrowser.renderer.User;
 /**
  * @author Dick Schoeller
  */
-public class FamilySectionRendererTest {
+public final class FamilySectionRendererTest {
     /** */
     private transient RenderingContext anonymousContext;
     /** */
     private transient RenderingContext userContext;
     /** */
     private transient RenderingContext adminContext;
+    /** */
+    private CalendarProvider provider;
 
     /** */
     @Before
-    public final void init() {
+    public void init() {
         final Root root = new Root(null, "root");
         final Family family = new Family(root, new ObjectId("F1"));
         root.insert(family);
@@ -44,22 +48,25 @@ public class FamilySectionRendererTest {
         final User user = new User();
         user.setUsername("dick");
         adminContext = new RenderingContext(user, true, true);
+        provider = new CalendarProviderStub();
     }
 
     /**
      * @throws IOException because reader can.
      */
     @Test
-    public final void testRenderDickAsSection() throws IOException {
+    public void testRenderDickAsSection() throws IOException {
         final GedObject ged = TestDataReader.getInstance().readBigTestSource();
         final Person dick = (Person) ged.find("I2");
         final PersonRenderer pRenderer = new PersonRenderer(dick,
-                new GedRendererFactory(), userContext);
+                new GedRendererFactory(), userContext,
+                provider);
         final Family family1 =
                 dick.getFamilies(new ArrayList<Family>()).get(0);
         final FamilyRenderer familyRenderer = new FamilyRenderer(family1,
                 new GedRendererFactory(),
-                userContext);
+                userContext,
+                provider);
         final FamilySectionRenderer fsr = (FamilySectionRenderer) familyRenderer
                 .getSectionRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -102,16 +109,18 @@ public class FamilySectionRendererTest {
      * @throws IOException because reader can.
      */
     @Test
-    public final void testRenderDickAsSectionAnonymous() throws IOException {
+    public void testRenderDickAsSectionAnonymous() throws IOException {
         final GedObject ged = TestDataReader.getInstance().readBigTestSource();
         final Person dick = (Person) ged.find("I2");
         final PersonRenderer pRenderer = new PersonRenderer(dick,
-                new GedRendererFactory(), anonymousContext);
+                new GedRendererFactory(), anonymousContext,
+                provider);
         final Family family1 =
                 dick.getFamilies(new ArrayList<Family>()).get(0);
         final FamilyRenderer familyRenderer = new FamilyRenderer(family1,
                 new GedRendererFactory(),
-                anonymousContext);
+                anonymousContext,
+                provider);
         final FamilySectionRenderer fsr = (FamilySectionRenderer) familyRenderer
                 .getSectionRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -148,12 +157,13 @@ public class FamilySectionRendererTest {
      * @throws IOException because reader can.
      */
     @Test
-    public final void testRenderVivianAsSection() throws IOException {
+    public void testRenderVivianAsSection() throws IOException {
         final GedObject ged = TestDataReader.getInstance().readBigTestSource();
         final Person vivian = (Person) ged.find("I5");
         final PersonRenderer pRenderer = new PersonRenderer(vivian,
                 new GedRendererFactory(),
-                adminContext);
+                adminContext,
+                provider);
         final String[] outstrings = {
                 "\n"
                         + "<div class=\"family\">\n"
@@ -189,7 +199,8 @@ public class FamilySectionRendererTest {
         for (final Family vFam : families) {
             final FamilyRenderer famRenderer = new FamilyRenderer(vFam, // NOPMD
                     new GedRendererFactory(),
-                    adminContext);
+                    adminContext,
+                    provider);
             final FamilySectionRenderer fsRenderer =
                     (FamilySectionRenderer) famRenderer.getSectionRenderer();
             builder.setLength(0);
@@ -203,11 +214,12 @@ public class FamilySectionRendererTest {
      * @throws IOException because reader can.
      */
     @Test
-    public final void testRenderVivianAsSectionAnonymous() throws IOException {
+    public void testRenderVivianAsSectionAnonymous() throws IOException {
         final GedObject ged = TestDataReader.getInstance().readBigTestSource();
         final Person vivian = (Person) ged.find("I5");
         final PersonRenderer pRenderer = new PersonRenderer(vivian,
-                new GedRendererFactory(), anonymousContext);
+                new GedRendererFactory(), anonymousContext,
+                provider);
         final String[] outstrings = {
                 "\n"
                         + "<div class=\"family\">\n"
@@ -234,7 +246,8 @@ public class FamilySectionRendererTest {
         for (final Family vFam : families) {
             final FamilyRenderer famRenderer = new FamilyRenderer(vFam, // NOPMD
                     new GedRendererFactory(),
-                    anonymousContext);
+                    anonymousContext,
+                    provider);
             final FamilySectionRenderer fsRenderer =
                     (FamilySectionRenderer) famRenderer.getSectionRenderer();
             builder.setLength(0);
@@ -246,7 +259,7 @@ public class FamilySectionRendererTest {
 
     /** */
     @Test
-    public final void testMinimalFamilyAsSectionUser() {
+    public void testMinimalFamilyAsSectionUser() {
         final Root root1 = new Root(null);
         final Family fam = new Family(root1, new ObjectId("F1"));
         root1.insert(fam);
@@ -258,9 +271,11 @@ public class FamilySectionRendererTest {
         fam.insert(husband);
 
         final PersonRenderer pRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext);
+                new GedRendererFactory(), userContext,
+                provider);
         final FamilyRenderer familyRenderer = new FamilyRenderer(fam,
-                new GedRendererFactory(), userContext);
+                new GedRendererFactory(), userContext,
+                provider);
         final FamilySectionRenderer fsr = (FamilySectionRenderer) familyRenderer
                 .getSectionRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -283,7 +298,7 @@ public class FamilySectionRendererTest {
 
     /** */
     @Test
-    public final void testMinimalFamilyAsSectionAnonymous() {
+    public void testMinimalFamilyAsSectionAnonymous() {
         final Root root1 = new Root(null);
         final Family fam = new Family(root1, new ObjectId("F1"));
         root1.insert(fam);
@@ -295,9 +310,11 @@ public class FamilySectionRendererTest {
         fam.insert(husband);
 
         final PersonRenderer pRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), anonymousContext);
+                new GedRendererFactory(), anonymousContext,
+                provider);
         final FamilyRenderer familyRenderer = new FamilyRenderer(fam,
-                new GedRendererFactory(), anonymousContext);
+                new GedRendererFactory(), anonymousContext,
+                provider);
         final FamilySectionRenderer fsr = (FamilySectionRenderer) familyRenderer
                 .getSectionRenderer();
         final StringBuilder builder = new StringBuilder();

@@ -2,6 +2,9 @@ package org.schoellerfamily.gedbrowser;
 
 import java.net.UnknownHostException;
 
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderImpl;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.controller.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
@@ -59,6 +62,7 @@ import com.mongodb.MongoClient;
                         TrailerDocumentRepositoryMongo.class
                 },
                 type = FilterType.ASSIGNABLE_TYPE))
+@SuppressWarnings("PMD.ExcessiveImports")
 public class MongoConfiguration {
     /** */
     @Value("${spring.data.mongodb.host:localhost}")
@@ -136,6 +140,7 @@ public class MongoConfiguration {
         return new GeoServiceClientImpl();
     }
 
+    // TODO change to configure tests with different configuration class
     /**
      * @return the manager of google keys
      */
@@ -145,5 +150,16 @@ public class MongoConfiguration {
             return new KeyManagerStub();
         }
         return new KeyManagerImpl(keyfile);
+    }
+
+    /**
+     * @return a calendar provider of REAL today
+     */
+    @Bean
+    public CalendarProvider calendarProvider() {
+        if ("stub".equals(keyfile)) {
+            return new CalendarProviderStub();
+        }
+        return new CalendarProviderImpl();
     }
 }

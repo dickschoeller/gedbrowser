@@ -2,7 +2,10 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.renderer.DateListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.DatePhraseRenderer;
@@ -17,16 +20,26 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 /**
  * @author Dick Schoeller
  */
-public class DateRendererTest {
+public final class DateRendererTest {
+    /** */
+    private CalendarProvider provider;
+
+    /** */
+    @Before
+    public void init() {
+        provider = new CalendarProviderStub();
+    }
+
     /**
      * Test that we are using the appropriate sub-renderers.
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testAttributeListOpenRenderer() {
+    public void testAttributeListOpenRenderer() {
         final DateRenderer renderer = new DateRenderer(new Date(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -37,10 +50,11 @@ public class DateRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testListItemRenderer() {
+    public void testListItemRenderer() {
         final DateRenderer renderer = new DateRenderer(new Date(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof DateListItemRenderer);
@@ -51,10 +65,11 @@ public class DateRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testNameHtmlRenderer() {
+    public void testNameHtmlRenderer() {
         final DateRenderer renderer = new DateRenderer(new Date(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -65,10 +80,11 @@ public class DateRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testNameIndexRenderer() {
+    public void testNameIndexRenderer() {
         final DateRenderer renderer = new DateRenderer(new Date(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -79,10 +95,11 @@ public class DateRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testPhraseRenderer() {
+    public void testPhraseRenderer() {
         final DateRenderer renderer = new DateRenderer(new Date(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof DatePhraseRenderer);
@@ -93,10 +110,11 @@ public class DateRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testSectionRenderer() {
+    public void testSectionRenderer() {
         final DateRenderer renderer = new DateRenderer(new Date(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof NullSectionRenderer);

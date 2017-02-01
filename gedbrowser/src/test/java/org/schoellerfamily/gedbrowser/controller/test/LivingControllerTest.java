@@ -41,8 +41,8 @@ public class LivingControllerTest {
     public final void testLivingControllerOK() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser/living?db=gl120368";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(url,
+                String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("<title>Living</title>");
@@ -51,11 +51,9 @@ public class LivingControllerTest {
     /** */
     @Test
     public final void testLivingControllerBadDataSet() {
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(
-                        "http://localhost:" + port
-                                + "/gedbrowser/living?db=XYZZY",
-                        String.class);
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port + "/gedbrowser/living?db=XYZZY",
+                String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         then(entity.getBody()).contains("Data set not found");

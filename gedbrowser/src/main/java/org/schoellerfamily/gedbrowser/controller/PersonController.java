@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.Users;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -52,6 +53,10 @@ public class PersonController extends AbstractController {
     @Autowired
     private transient KeyManager keyManager;
 
+    /** */
+    @Autowired
+    private transient CalendarProvider provider;
+
     /**
      * Connects HTML template file with data for the person page.
      *
@@ -86,7 +91,7 @@ public class PersonController extends AbstractController {
                 createRenderingContext(users);
 
         final PlaceListRenderer pl = new PlaceListRenderer(person, client,
-                renderingContext);
+                renderingContext, provider);
         final List<PlaceInfo> places = pl.render();
         for (final PlaceInfo place : places) {
             this.logger.info(place);
@@ -96,10 +101,10 @@ public class PersonController extends AbstractController {
 
         final GedRenderer<?> nameRenderer =
                 new GedRendererFactory().create(
-                        person.getName(), renderingContext);
+                        person.getName(), renderingContext, provider);
         final GedRenderer<?> gedRenderer =
                 new GedRendererFactory().create(
-                        person, renderingContext);
+                        person, renderingContext, provider);
 
         final String filename = gedbrowserHome + "/" + dbName + ".ged";
         model.addAttribute("filename", filename);

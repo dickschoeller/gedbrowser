@@ -2,7 +2,10 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
@@ -17,16 +20,25 @@ import org.schoellerfamily.gedbrowser.renderer.TrailerRenderer;
 /**
  * @author Dick Schoeller
  */
-public class TrailerRendererTest {
+public final class TrailerRendererTest {
+    /** */
+    private CalendarProvider provider;
+
+    /** */
+    @Before
+    public void init() {
+        provider = new CalendarProviderStub();
+    }
+
     /**
      * Test that we are using the appropriate sub-renderers.
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testAttributeListOpenRenderer() {
+    public void testAttributeListOpenRenderer() {
         final TrailerRenderer renderer = new TrailerRenderer(new Trailer(null),
-                new GedRendererFactory(),
-                RenderingContext.anonymous());
+                new GedRendererFactory(), RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -37,13 +49,12 @@ public class TrailerRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testListItemRenderer() {
+    public void testListItemRenderer() {
         final TrailerRenderer renderer = new TrailerRenderer(new Trailer(null),
-                new GedRendererFactory(),
-                RenderingContext.anonymous());
+                new GedRendererFactory(), RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
-                renderer.getListItemRenderer()
-                instanceof NullListItemRenderer);
+                renderer.getListItemRenderer() instanceof NullListItemRenderer);
     }
 
     /**
@@ -51,13 +62,12 @@ public class TrailerRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testNameHtmlRenderer() {
+    public void testNameHtmlRenderer() {
         final TrailerRenderer renderer = new TrailerRenderer(new Trailer(null),
-                new GedRendererFactory(),
-                RenderingContext.anonymous());
+                new GedRendererFactory(), RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
-                renderer.getNameHtmlRenderer()
-                instanceof NullNameHtmlRenderer);
+                renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer);
     }
 
     /**
@@ -65,13 +75,12 @@ public class TrailerRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testNameIndexRenderer() {
+    public void testNameIndexRenderer() {
         final TrailerRenderer renderer = new TrailerRenderer(new Trailer(null),
-                new GedRendererFactory(),
-                RenderingContext.anonymous());
-        assertTrue("Wrong renderer type",
-                renderer.getNameIndexRenderer()
-                instanceof NullNameIndexRenderer);
+                new GedRendererFactory(), RenderingContext.anonymous(),
+                provider);
+        assertTrue("Wrong renderer type", renderer
+                .getNameIndexRenderer() instanceof NullNameIndexRenderer);
     }
 
     /**
@@ -79,13 +88,12 @@ public class TrailerRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testPhraseRenderer() {
+    public void testPhraseRenderer() {
         final TrailerRenderer renderer = new TrailerRenderer(new Trailer(null),
-                new GedRendererFactory(),
-                RenderingContext.anonymous());
+                new GedRendererFactory(), RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
-                renderer.getPhraseRenderer()
-                instanceof NullPhraseRenderer);
+                renderer.getPhraseRenderer() instanceof NullPhraseRenderer);
     }
 
     /**
@@ -93,12 +101,11 @@ public class TrailerRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testSectionRenderer() {
+    public void testSectionRenderer() {
         final TrailerRenderer renderer = new TrailerRenderer(new Trailer(null),
-                new GedRendererFactory(),
-                RenderingContext.anonymous());
+                new GedRendererFactory(), RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
-                renderer.getSectionRenderer()
-                instanceof NullSectionRenderer);
+                renderer.getSectionRenderer() instanceof NullSectionRenderer);
     }
 }

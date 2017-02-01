@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.renderer.DefaultRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -13,24 +15,26 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 /**
  * @author Dick Schoeller
  */
-public class NullListItemRendererTest {
+public final class NullListItemRendererTest {
     /** */
     private transient NullListItemRenderer nsr;
 
+
     /** */
     @Before
-    public final void init() {
+    public void init() {
+        final CalendarProvider provider = new CalendarProviderStub();
         final DefaultRenderer renderer =
                 new DefaultRenderer(new GedObject(null) { },
                         new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         nsr = (NullListItemRenderer) renderer
                 .getListItemRenderer();
     }
 
     /** */
     @Test
-    public final void testRenderAsListItemFalse0() {
+    public void testRenderAsListItemFalse0() {
         final StringBuilder builder = new StringBuilder();
         final String string =
                 nsr.renderAsListItem(builder, false, 0).toString();
@@ -39,7 +43,7 @@ public class NullListItemRendererTest {
 
     /** */
     @Test
-    public final void testRenderAsListItemFalse2() {
+    public void testRenderAsListItemFalse2() {
         final StringBuilder builder = new StringBuilder();
         final String string =
                 nsr.renderAsListItem(builder, false, 2).toString();
@@ -48,7 +52,7 @@ public class NullListItemRendererTest {
 
     /** */
     @Test
-    public final void testRenderAsListItemTrue0() {
+    public void testRenderAsListItemTrue0() {
         final StringBuilder builder = new StringBuilder();
         final String string =
                 nsr.renderAsListItem(builder, true, 0).toString();
@@ -57,7 +61,7 @@ public class NullListItemRendererTest {
 
     /** */
     @Test
-    public final void testRenderAsListItemTrue2() {
+    public void testRenderAsListItemTrue2() {
         final StringBuilder builder = new StringBuilder();
         final String string =
                 nsr.renderAsListItem(builder, true, 2).toString();

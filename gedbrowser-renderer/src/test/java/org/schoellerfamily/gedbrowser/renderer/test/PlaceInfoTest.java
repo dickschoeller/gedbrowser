@@ -11,7 +11,7 @@ import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
 /**
  * @author Dick Schoeller
  */
-public class PlaceInfoTest {
+public final class PlaceInfoTest {
     /** */
     @Test
     public void testNormalName() {

@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.controller;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.Users;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.SourceNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -33,6 +34,9 @@ public class SourceController extends AbstractController {
     @Autowired
     private transient Users users;
 
+    /** */
+    @Autowired
+    private transient CalendarProvider provider;
 
     /** */
     @Value("${gedbrowser.home}")
@@ -70,7 +74,7 @@ public class SourceController extends AbstractController {
         }
 
         final GedRenderer<?> gedRenderer = new GedRendererFactory()
-                .create(source, createRenderingContext(users));
+                .create(source, createRenderingContext(users), provider);
 
         model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
         model.addAttribute("sourceString", source.getString());

@@ -6,7 +6,10 @@ import static org.junit.Assert.assertTrue;
 import java.text.DateFormat;
 import java.util.Locale;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -25,18 +28,14 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
  *
  * @author Dick Schoeller
  */
-public class NullRendererTest {
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
-    @Test
-    public final void testAttributeListOpenRenderer() {
-        final NullRenderer renderer = new NullRenderer(new GedObject(null) {
-        }, new GedRendererFactory(), RenderingContext.anonymous());
-        assertTrue("Wrong renderer type",
-                renderer.getAttributeListOpenRenderer()
-                    instanceof SimpleAttributeListOpenRenderer);
+public final class NullRendererTest {
+    /** */
+    private CalendarProvider provider;
+
+    /** */
+    @Before
+    public void init() {
+        provider = new CalendarProviderStub();
     }
 
     /**
@@ -44,9 +43,22 @@ public class NullRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public final void testListItemRenderer() {
+    public void testAttributeListOpenRenderer() {
         final NullRenderer renderer = new NullRenderer(new GedObject(null) {
-        }, new GedRendererFactory(), RenderingContext.anonymous());
+        }, new GedRendererFactory(), RenderingContext.anonymous(), provider);
+        assertTrue("Wrong renderer type",
+                renderer.getAttributeListOpenRenderer()
+                instanceof SimpleAttributeListOpenRenderer);
+    }
+
+    /**
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
+     */
+    @Test
+    public void testListItemRenderer() {
+        final NullRenderer renderer = new NullRenderer(new GedObject(null) {
+        }, new GedRendererFactory(), RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer() instanceof NullListItemRenderer);
     }
@@ -56,9 +68,9 @@ public class NullRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public final void testNameHtmlRenderer() {
+    public void testNameHtmlRenderer() {
         final NullRenderer renderer = new NullRenderer(new GedObject(null) {
-        }, new GedRendererFactory(), RenderingContext.anonymous());
+        }, new GedRendererFactory(), RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer);
     }
@@ -68,9 +80,9 @@ public class NullRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public final void testNameIndexRenderer() {
+    public void testNameIndexRenderer() {
         final NullRenderer renderer = new NullRenderer(new GedObject(null) {
-        }, new GedRendererFactory(), RenderingContext.anonymous());
+        }, new GedRendererFactory(), RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type", renderer
                 .getNameIndexRenderer() instanceof NullNameIndexRenderer);
     }
@@ -80,9 +92,9 @@ public class NullRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public final void testPhraseRenderer() {
+    public void testPhraseRenderer() {
         final NullRenderer renderer = new NullRenderer(new GedObject(null) {
-        }, new GedRendererFactory(), RenderingContext.anonymous());
+        }, new GedRendererFactory(), RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer() instanceof NullPhraseRenderer);
     }
@@ -92,19 +104,20 @@ public class NullRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public final void testSectionRenderer() {
+    public void testSectionRenderer() {
         final NullRenderer renderer = new NullRenderer(new GedObject(null) {
-        }, new GedRendererFactory(), RenderingContext.anonymous());
+        }, new GedRendererFactory(), RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer() instanceof NullSectionRenderer);
     }
 
     /** */
     @Test
-    public final void testGetTrailerHtmlEmpty() {
+    public void testGetTrailerHtmlEmpty() {
         final Root root = new Root(null);
         final NullRenderer renderer = new NullRenderer(root,
-                new GedRendererFactory(), RenderingContext.anonymous());
+                new GedRendererFactory(), RenderingContext.anonymous(),
+                provider);
         assertEquals("Rendered string does not match expectation",
                 "\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
                 + "    </p>\n" + "    <hr class=\"final\"/>\n"
@@ -131,10 +144,11 @@ public class NullRendererTest {
 
     /** */
     @Test
-    public final void testGetHeaderHtml() {
+    public void testGetHeaderHtml() {
         final Root root = new Root(null);
         final NullRenderer renderer = new NullRenderer(root,
-                new GedRendererFactory(), RenderingContext.anonymous());
+                new GedRendererFactory(), RenderingContext.anonymous(),
+                provider);
 
         final String keywords = "one two three";
         final String title = "title";
@@ -158,10 +172,11 @@ public class NullRendererTest {
 
     /** */
     @Test
-    public final void testGetTrailerHtml() {
+    public void testGetTrailerHtml() {
         final Root root = new Root(null);
         final NullRenderer renderer = new NullRenderer(root,
-                new GedRendererFactory(), RenderingContext.anonymous());
+                new GedRendererFactory(), RenderingContext.anonymous(),
+                provider);
         assertEquals("Rendered string does not match expectation",
                 "\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
                 + "    </p>\n" + "    <hr class=\"final\"/>\n"
@@ -186,25 +201,13 @@ public class NullRendererTest {
                 renderer.getTrailerHtml());
     }
 
-    /**
-     * Get today as a date string. This emulates what happens in the renderers.
-     *
-     * @return the date string.
-     */
-    protected static final String getDateString() {
-        final java.util.Date javaDate = new java.util.Date();
-        final String timeString = DateFormat
-                .getDateInstance(DateFormat.LONG, Locale.getDefault())
-                .format(javaDate);
-        return timeString;
-    }
-
     /** */
     @Test
-    public final void testGetTrailerHtmlHeader() {
+    public void testGetTrailerHtmlHeader() {
         final Root root = new Root(null);
         final NullRenderer renderer = new NullRenderer(root,
-                new GedRendererFactory(), RenderingContext.anonymous());
+                new GedRendererFactory(), RenderingContext.anonymous(),
+                provider);
         assertEquals("Rendered string does not match expectation",
                 "\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
                 + "    <a href=\"?null+Header\">Header</a><br>\n"
@@ -232,10 +235,11 @@ public class NullRendererTest {
 
     /** */
     @Test
-    public final void testGetTrailerHtmlSurnames() {
+    public void testGetTrailerHtmlSurnames() {
         final Root root = new Root(null);
         final NullRenderer renderer = new NullRenderer(root,
-                new GedRendererFactory(), RenderingContext.anonymous());
+                new GedRendererFactory(), RenderingContext.anonymous(),
+                provider);
         assertEquals("Rendered string does not match expectation",
                 "\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
                 + "    <a href=\"?" + root.getFilename()
@@ -264,10 +268,11 @@ public class NullRendererTest {
 
     /** */
     @Test
-    public final void testGetTrailerHtmlIndex() {
+    public void testGetTrailerHtmlIndex() {
         final Root root = new Root(null);
         final NullRenderer renderer = new NullRenderer(root,
-                new GedRendererFactory(), RenderingContext.anonymous());
+                new GedRendererFactory(), RenderingContext.anonymous(),
+                provider);
         assertEquals("Rendered string does not match expectation",
                 "\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
                 + "    <a href=\"?" + root.getFilename()
@@ -298,10 +303,23 @@ public class NullRendererTest {
      * Test the home URL. Always www.schoellerfamily.org at this point.
      */
     @Test
-    public final void testGetHomeUrl() {
+    public void testGetHomeUrl() {
         final NullRenderer renderer = new NullRenderer(new GedObject(null) {
-        }, new GedRendererFactory(), RenderingContext.anonymous());
+        }, new GedRendererFactory(), RenderingContext.anonymous(), provider);
         assertEquals("Home URL does not match expectation",
                 "http://www.schoellerfamily.org/", renderer.getHomeUrl());
+    }
+
+    /**
+     * Get today as a date string. This emulates what happens in the renderers.
+     *
+     * @return the date string.
+     */
+    private static String getDateString() {
+        final java.util.Date javaDate = new java.util.Date();
+        final String timeString = DateFormat
+                .getDateInstance(DateFormat.LONG, Locale.getDefault())
+                .format(javaDate);
+        return timeString;
     }
 }

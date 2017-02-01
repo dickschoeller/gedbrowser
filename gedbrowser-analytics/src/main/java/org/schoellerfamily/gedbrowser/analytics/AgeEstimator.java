@@ -16,18 +16,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 public final class AgeEstimator {
     /** Which person are we estimating. */
     private final Person person;
-    /** Relative to which date. */
-    private final Calendar relativeTo;
-
-    /**
-     * Estimator for the specified person, relative to today.
-     *
-     * @param person the person whose age we are estimating
-     */
-    public AgeEstimator(final Person person) {
-        this.person = person;
-        this.relativeTo = Calendar.getInstance();
-    }
+    /** Provides the "today" for use in comparisons. */
+    private final CalendarProvider provider;
 
     /**
      * Estimator for the specified person, relative to the provided date.
@@ -35,11 +25,11 @@ public final class AgeEstimator {
      * for age at birth of children, etc.
      *
      * @param person the person whose age we are estimating
-     * @param relativeTo the date we are comparing against
+     * @param provider the calendar provider we are using to determine now
      */
-    public AgeEstimator(final Person person, final Calendar relativeTo) {
+    public AgeEstimator(final Person person, final CalendarProvider provider) {
         this.person = person;
-        this.relativeTo = relativeTo;
+        this.provider = provider;
     }
 
     /**
@@ -47,7 +37,7 @@ public final class AgeEstimator {
      */
     public int estimateInYears() {
         final String birthDateString = person.getBirthDate();
-        final LocalDate l0 = new LocalDate(relativeTo);
+        final LocalDate l0 = provider.nowDate();
         final DateParser parser = new DateParser(birthDateString);
         final LocalDate l1 = new LocalDate(parser.getEstimateCalendar());
         final Period p = new Period(l1, l0);
@@ -60,23 +50,23 @@ public final class AgeEstimator {
      */
     public String estimateInYearsMonthsDays() {
         final String birthDateString = person.getBirthDate();
-        final LocalDate l0 = new LocalDate(relativeTo);
+        final LocalDate l0 = provider.nowDate();
         final DateParser parser = new DateParser(birthDateString);
         final Calendar estimateCalendar = parser.getEstimateCalendar();
         final LocalDate l1 = new LocalDate(estimateCalendar);
         final Period p = new Period(l1, l0, PeriodType.yearMonthDay());
         final PeriodFormatter ymd = new PeriodFormatterBuilder()
-        .printZeroAlways()
-        .appendYears()
-        .appendSuffix(" year", " years")
-        .appendSeparator(", ")
-        .printZeroRarelyLast()
-        .appendMonths()
-        .appendSuffix(" month", " months")
-        .appendSeparator(", ")
-        .appendDays()
-        .appendSuffix(" day", " days")
-        .toFormatter();
+                .printZeroAlways()
+                .appendYears()
+                .appendSuffix(" year", " years")
+                .appendSeparator(", ")
+                .printZeroRarelyLast()
+                .appendMonths()
+                .appendSuffix(" month", " months")
+                .appendSeparator(", ")
+                .appendDays()
+                .appendSuffix(" day", " days")
+                .toFormatter();
         return ymd.print(p);
     }
 }

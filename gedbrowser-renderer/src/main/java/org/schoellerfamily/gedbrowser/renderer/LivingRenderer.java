@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -24,16 +25,21 @@ public final class LivingRenderer extends GedRenderer<Root> {
     private static final int AGE_BUCKET_SIZE = 10;
     /** If a person is older than this, guess that they are dead. */
     private static final int ANCIENT = 100;
+    /** Provides the "today" for use in comparisons. */
+    private final CalendarProvider provider;
 
     /**
      * Constructor.
      *
      * @param root root of data set
      * @param renderingContext the context that we are rendering in
+     * @param provider the calendar provider we are using to determine now
      */
     public LivingRenderer(final Root root,
-            final RenderingContext renderingContext) {
-        super(root, new GedRendererFactory(), renderingContext);
+            final RenderingContext renderingContext,
+            final CalendarProvider provider) {
+        super(root, new GedRendererFactory(), renderingContext, provider);
+        this.provider = provider;
     }
 
     /**
@@ -47,7 +53,7 @@ public final class LivingRenderer extends GedRenderer<Root> {
             final List<Person> living = new ArrayList<>();
             final Map<Integer, Set<Person>> buckets = new HashMap<>();
             final List<Person> dead = new ArrayList<>();
-            LivingEstimator.fillBuckets(root, living, dead, buckets);
+            LivingEstimator.fillBuckets(root, living, dead, buckets, provider);
             // FIXME this involves too much knowledge of bucket structure
             for (int lower = 0; lower < ANCIENT; lower += AGE_BUCKET_SIZE) {
                 final Bucket bucket = createBucket(buckets, lower);

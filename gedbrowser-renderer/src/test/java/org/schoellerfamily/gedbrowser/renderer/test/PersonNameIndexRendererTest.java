@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -16,7 +18,7 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 /**
  * @author Dick Schoeller
  */
-public class PersonNameIndexRendererTest {
+public final class PersonNameIndexRendererTest {
     /** */
     private transient Person person;
 
@@ -24,21 +26,25 @@ public class PersonNameIndexRendererTest {
     private transient RenderingContext userContext;
 
     /** */
+    private CalendarProvider provider;
+
+    /** */
     @Before
-    public final void init() {
+    public void init() {
         final Root root = new Root(null, "root");
         person = new Person(root, new ObjectId("I1"));
         root.insert(person);
         userContext = RenderingContext.user();
+        provider = new CalendarProviderStub();
     }
 
     /** */
     @Test
-    public final void testGetNameHtmlNull() {
+    public void testGetNameHtmlNull() {
         final Name name = new Name(person);
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext);
+                new GedRendererFactory(), userContext, provider);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
         assertEquals("Rendered html doesn't match expectation",
@@ -49,11 +55,11 @@ public class PersonNameIndexRendererTest {
 
     /** */
     @Test
-    public final void testGetNameHtmlEmpty() {
+    public void testGetNameHtmlEmpty() {
         final Name name = new Name(person, "");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext);
+                new GedRendererFactory(), userContext, provider);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
         assertEquals("Rendered html doesn't match expectation",
@@ -64,11 +70,11 @@ public class PersonNameIndexRendererTest {
 
     /** */
     @Test
-    public final void testGetNameHtmlSurnameOnly() {
+    public void testGetNameHtmlSurnameOnly() {
         final Name name = new Name(person, "/Schoeller/");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext);
+                new GedRendererFactory(), userContext, provider);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
         assertEquals("Rendered html doesn't match expectation",
@@ -79,11 +85,11 @@ public class PersonNameIndexRendererTest {
 
     /** */
     @Test
-    public final void testGetNameHtmlSurnameLast() {
+    public void testGetNameHtmlSurnameLast() {
         final Name name = new Name(person, "Richard/Schoeller/");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext);
+                new GedRendererFactory(), userContext, provider);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
         assertEquals("Rendered html doesn't match expectation",
@@ -94,11 +100,11 @@ public class PersonNameIndexRendererTest {
 
     /** */
     @Test
-    public final void testGetNameHtmlSurnameFirst() {
+    public void testGetNameHtmlSurnameFirst() {
         final Name name = new Name(person, "/Deng/Shao Ping");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext);
+                new GedRendererFactory(), userContext, provider);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
         assertEquals("Rendered html doesn't match expectation",
@@ -109,11 +115,11 @@ public class PersonNameIndexRendererTest {
 
     /** */
     @Test
-    public final void testGetNameHtmlSurnameMiddle() {
+    public void testGetNameHtmlSurnameMiddle() {
         final Name name = new Name(person, "Karl Frederick/Schoeller/Sr.");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext);
+                new GedRendererFactory(), userContext, provider);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
         assertEquals("Rendered html doesn't match expectation",
@@ -125,9 +131,9 @@ public class PersonNameIndexRendererTest {
 
     /** */
     @Test
-    public final void testGetNameHtmlPersonUnset() {
+    public void testGetNameHtmlPersonUnset() {
         final PersonRenderer personRenderer = new PersonRenderer(new Person(),
-                new GedRendererFactory(), userContext);
+                new GedRendererFactory(), userContext, provider);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
         assertEquals("Expected empty string", "", pnhr.getIndexName());

@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.renderer;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -38,65 +39,65 @@ public final class GedRendererFactory {
      */
     private static Map<Class<?>, RendererBuilder> builders = new HashMap<>();
     static {
-        builders.put(Husband.class, (g, f, r) -> {
-            return new HusbandRenderer((Husband) g, f, r);
+        builders.put(Husband.class, (g, f, r, p) -> {
+            return new HusbandRenderer((Husband) g, f, r, p);
         });
-        builders.put(Wife.class, (g, f, r) -> {
-            return new WifeRenderer((Wife) g, f, r);
+        builders.put(Wife.class, (g, f, r, p) -> {
+            return new WifeRenderer((Wife) g, f, r, p);
         });
-        builders.put(Person.class, (g, f, r) -> {
-            return new PersonRenderer((Person) g, f, r);
+        builders.put(Person.class, (g, f, r, p) -> {
+            return new PersonRenderer((Person) g, f, r, p);
         });
-        builders.put(Place.class, (g, f, r) -> {
-            return new PlaceRenderer((Place) g, f, r);
+        builders.put(Place.class, (g, f, r, p) -> {
+            return new PlaceRenderer((Place) g, f, r, p);
         });
-        builders.put(Name.class, (g, f, r) -> {
-            return new NameRenderer((Name) g, f, r);
+        builders.put(Name.class, (g, f, r, p) -> {
+            return new NameRenderer((Name) g, f, r, p);
         });
-        builders.put(Attribute.class, (g, f, r) -> {
-            return new AttributeRenderer((Attribute) g, f, r);
+        builders.put(Attribute.class, (g, f, r, p) -> {
+            return new AttributeRenderer((Attribute) g, f, r, p);
         });
-        builders.put(Multimedia.class, (g, f, r) -> {
-            return new MultimediaRenderer((Multimedia) g, f, r);
+        builders.put(Multimedia.class, (g, f, r, p) -> {
+            return new MultimediaRenderer((Multimedia) g, f, r, p);
         });
-        builders.put(Child.class, (g, f, r) -> {
-            return new ChildRenderer((Child) g, f, r);
+        builders.put(Child.class, (g, f, r, p) -> {
+            return new ChildRenderer((Child) g, f, r, p);
         });
-        builders.put(Date.class, (g, f, r) -> {
-            return new DateRenderer((Date) g, f, r);
+        builders.put(Date.class, (g, f, r, p) -> {
+            return new DateRenderer((Date) g, f, r, p);
         });
-        builders.put(FamC.class, (g, f, r) -> {
-            return new FamCRenderer((FamC) g, f, r);
+        builders.put(FamC.class, (g, f, r, p) -> {
+            return new FamCRenderer((FamC) g, f, r, p);
         });
-        builders.put(Family.class, (g, f, r) -> {
-            return new FamilyRenderer((Family) g, f, r);
+        builders.put(Family.class, (g, f, r, p) -> {
+            return new FamilyRenderer((Family) g, f, r, p);
         });
-        builders.put(FamS.class, (g, f, r) -> {
-            return new FamSRenderer((FamS) g, f, r);
+        builders.put(FamS.class, (g, f, r, p) -> {
+            return new FamSRenderer((FamS) g, f, r, p);
         });
-        builders.put(Head.class, (g, f, r) -> {
-            return new HeadRenderer((Head) g, f, r);
+        builders.put(Head.class, (g, f, r, p) -> {
+            return new HeadRenderer((Head) g, f, r, p);
         });
-        builders.put(Root.class, (g, f, r) -> {
-            return new RootRenderer((Root) g, f, r);
+        builders.put(Root.class, (g, f, r, p) -> {
+            return new RootRenderer((Root) g, f, r, p);
         });
-        builders.put(Source.class, (g, f, r) -> {
-            return new SourceRenderer((Source) g, f, r);
+        builders.put(Source.class, (g, f, r, p) -> {
+            return new SourceRenderer((Source) g, f, r, p);
         });
-        builders.put(SourceLink.class, (g, f, r) -> {
-            return new SourceLinkRenderer((SourceLink) g, f, r);
+        builders.put(SourceLink.class, (g, f, r, p) -> {
+            return new SourceLinkRenderer((SourceLink) g, f, r, p);
         });
-        builders.put(Submittor.class, (g, f, r) -> {
-            return new SubmittorRenderer((Submittor) g, f, r);
+        builders.put(Submittor.class, (g, f, r, p) -> {
+            return new SubmittorRenderer((Submittor) g, f, r, p);
         });
-        builders.put(SubmittorLink.class, (g, f, r) -> {
-            return new SubmittorLinkRenderer((SubmittorLink) g, f, r);
+        builders.put(SubmittorLink.class, (g, f, r, p) -> {
+            return new SubmittorLinkRenderer((SubmittorLink) g, f, r, p);
         });
-        builders.put(Trailer.class, (g, f, r) -> {
-            return new TrailerRenderer((Trailer) g, f, r);
+        builders.put(Trailer.class, (g, f, r, p) -> {
+            return new TrailerRenderer((Trailer) g, f, r, p);
         });
-        builders.put(Link.class, (g, f, r) -> {
-            return new LinkRenderer((Link) g, f, r);
+        builders.put(Link.class, (g, f, r, p) -> {
+            return new LinkRenderer((Link) g, f, r, p);
         });
     }
 
@@ -110,23 +111,27 @@ public final class GedRendererFactory {
          * @param gedObject a gedobject to render
          * @param factory the factory that we're working with
          * @param renderingContext the current rendering context
+         * @param provider provides information about "today"
          * @return the appropriate renderer
          */
         GedRenderer<? extends GedObject> build(
                 GedObject gedObject,
                 GedRendererFactory factory,
-                RenderingContext renderingContext);
+                RenderingContext renderingContext,
+                CalendarProvider provider);
     }
 
     /**
      * Creates the appropriate renderer for the GedObject provided.
      *
      * @param gedObject the GedObject to be rendered
+     * @param provider provides information about "today"
      * @return the renderer
      */
     public GedRenderer<? extends GedObject> create(
-            final GedObject gedObject) {
-        return create(gedObject, RenderingContext.anonymous());
+            final GedObject gedObject,
+            final CalendarProvider provider) {
+        return create(gedObject, RenderingContext.anonymous(), provider);
     }
 
     /**
@@ -134,17 +139,21 @@ public final class GedRendererFactory {
      *
      * @param gedObject the GedObject to be rendered
      * @param renderingContext the user context we are rendering in
+     * @param provider provides information about "today"
      * @return the renderer
      */
     public GedRenderer<? extends GedObject> create(
             final GedObject gedObject,
-            final RenderingContext renderingContext) {
+            final RenderingContext renderingContext,
+            final CalendarProvider provider) {
         if (gedObject != null) {
             final RendererBuilder builder = builders.get(gedObject.getClass());
             if (builder != null) {
-                return builder.build(gedObject, this, renderingContext);
+                return builder.build(gedObject, this, renderingContext,
+                        provider);
             }
         }
-        return new DefaultRenderer(gedObject, this, renderingContext);
+        return new DefaultRenderer(
+                gedObject, this, renderingContext, provider);
     }
 }

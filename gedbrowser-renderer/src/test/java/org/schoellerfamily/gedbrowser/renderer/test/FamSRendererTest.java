@@ -2,7 +2,10 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.renderer.FamSRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -17,16 +20,25 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 /**
  * @author Dick Schoeller
  */
-public class FamSRendererTest {
+public final class FamSRendererTest {
+    /** */
+    private CalendarProvider provider;
+
+    /** */
+    @Before
+    public void init() {
+        provider = new CalendarProviderStub();
+    }
+
     /**
      * Test that we are using the appropriate sub-renderers.
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testAttributeListOpenRenderer() {
+    public void testAttributeListOpenRenderer() {
         final FamSRenderer renderer = new FamSRenderer(new FamS(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -37,10 +49,10 @@ public class FamSRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testListItemRenderer() {
+    public void testListItemRenderer() {
         final FamSRenderer renderer = new FamSRenderer(new FamS(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
@@ -51,10 +63,10 @@ public class FamSRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testNameHtmlRenderer() {
+    public void testNameHtmlRenderer() {
         final FamSRenderer renderer = new FamSRenderer(new FamS(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -65,10 +77,10 @@ public class FamSRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testNameIndexRenderer() {
+    public void testNameIndexRenderer() {
         final FamSRenderer renderer = new FamSRenderer(new FamS(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -79,10 +91,10 @@ public class FamSRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testPhraseRenderer() {
+    public void testPhraseRenderer() {
         final FamSRenderer renderer = new FamSRenderer(new FamS(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
@@ -93,10 +105,10 @@ public class FamSRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testSectionRenderer() {
+    public void testSectionRenderer() {
         final FamSRenderer renderer = new FamSRenderer(new FamS(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof NullSectionRenderer);

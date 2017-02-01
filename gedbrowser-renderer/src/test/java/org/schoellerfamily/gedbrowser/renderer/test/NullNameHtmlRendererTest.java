@@ -10,19 +10,19 @@ import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
 /**
  * @author Dick Schoeller
  */
-public class NullNameHtmlRendererTest {
+public final class NullNameHtmlRendererTest {
     /** */
     private transient NameHtmlRenderer nameHtmlRenderer;
 
     /** */
     @Before
-    public final void init() {
+    public void init() {
         nameHtmlRenderer = new NullNameHtmlRenderer();
     }
 
     /** */
     @Test
-    public final void testGetNameHtml() {
+    public void testGetNameHtml() {
         assertEquals("expected empty string", "",
                 nameHtmlRenderer.getNameHtml());
     }

@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -62,8 +64,12 @@ public final class FamilyRendererTest {
     private transient RenderingContext userContext;
 
     /** */
+    private CalendarProvider provider;
+
+    /** */
     @Before
     public void init() {
+        provider = new CalendarProviderStub();
         anonymousContext = RenderingContext.anonymous();
         userContext = RenderingContext.user();
     }
@@ -76,7 +82,8 @@ public final class FamilyRendererTest {
     public void testAttributeListOpenRenderer() {
         final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -90,7 +97,8 @@ public final class FamilyRendererTest {
     public void testListItemRenderer() {
         final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
@@ -104,7 +112,8 @@ public final class FamilyRendererTest {
     public void testNameHtmlRenderer() {
         final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -118,7 +127,8 @@ public final class FamilyRendererTest {
     public void testNameIndexRenderer() {
         final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -132,7 +142,8 @@ public final class FamilyRendererTest {
     public void testPhraseRenderer() {
         final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
@@ -146,7 +157,8 @@ public final class FamilyRendererTest {
     public void testSectionRenderer() {
         final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(),
+                provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof FamilySectionRenderer);
@@ -160,7 +172,8 @@ public final class FamilyRendererTest {
         final GedObject root = TestDataReader.getInstance().readBigTestSource();
         final Person dick = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(dick,
-                new GedRendererFactory(), userContext);
+                new GedRendererFactory(), userContext,
+                provider);
         final Family family = dick.getFamilies(new ArrayList<Family>()).get(0);
         final FamilyRenderer familyRenderer = createFamilyRenderer(family,
                 userContext);
@@ -187,7 +200,8 @@ public final class FamilyRendererTest {
         final GedObject root = TestDataReader.getInstance().readBigTestSource();
         final Person dick = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(dick,
-                new GedRendererFactory(), anonymousContext);
+                new GedRendererFactory(), anonymousContext,
+                provider);
         final Family family = dick.getFamilies(new ArrayList<Family>()).get(0);
         final FamilyRenderer familyRenderer = createFamilyRenderer(family,
                 anonymousContext);
@@ -211,7 +225,8 @@ public final class FamilyRendererTest {
         final GedObject root = TestDataReader.getInstance().readBigTestSource();
         final Person dick = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(dick,
-                new GedRendererFactory(), userContext);
+                new GedRendererFactory(), userContext,
+                provider);
         final Family family = dick.getFamilies(new ArrayList<Family>()).get(0);
         final FamilyRenderer familyRenderer = createFamilyRenderer(family,
                 userContext);
@@ -231,7 +246,8 @@ public final class FamilyRendererTest {
         final GedObject root = TestDataReader.getInstance().readBigTestSource();
         final Person dick = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(dick,
-                new GedRendererFactory(), anonymousContext);
+                new GedRendererFactory(), anonymousContext,
+                provider);
         final Family family = dick.getFamilies(new ArrayList<Family>()).get(0);
         final FamilyRenderer familyRenderer = createFamilyRenderer(family,
                 anonymousContext);
@@ -252,7 +268,8 @@ public final class FamilyRendererTest {
         final GedObject root = TestDataReader.getInstance().readBigTestSource();
         final Person vivian = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(vivian,
-                new GedRendererFactory(), adminContext);
+                new GedRendererFactory(), adminContext,
+                provider);
         final String[] outstrings = {
                 "\n"
                         + HR_CLASS_FAMILY
@@ -289,7 +306,8 @@ public final class FamilyRendererTest {
      */
     private FamilyRenderer createFamilyRenderer(final Family family,
             final RenderingContext context) {
-        return new FamilyRenderer(family, new GedRendererFactory(), context);
+        return new FamilyRenderer(family, new GedRendererFactory(), context,
+                provider);
     }
 
     /** */
@@ -306,7 +324,8 @@ public final class FamilyRendererTest {
         fam.insert(husband);
 
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext);
+                new GedRendererFactory(), userContext,
+                provider);
         final FamilyRenderer familyRenderer = createFamilyRenderer(fam,
                 userContext);
         final StringBuilder builder = new StringBuilder();
@@ -334,7 +353,8 @@ public final class FamilyRendererTest {
         fam.insert(husband);
 
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), anonymousContext);
+                new GedRendererFactory(), anonymousContext,
+                provider);
         final FamilyRenderer familyRenderer = createFamilyRenderer(fam,
                 anonymousContext);
         final StringBuilder builder = new StringBuilder();
@@ -413,7 +433,8 @@ public final class FamilyRendererTest {
         final Family fam = (Family) root.find("F1");
         final FamilyRenderer familyRenderer = new FamilyRenderer(fam,
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(),
+                provider);
         final List<GedRenderer<?>> attributes = familyRenderer.getAttributes();
         final String expected = "<span class=\"label\">Marriage:</span>"
                 + " 27 MAY 1984, Temple Emanu-el, Providence, Providence"
@@ -435,7 +456,8 @@ public final class FamilyRendererTest {
         final GedObject root = TestDataReader.getInstance().readBigTestSource();
         final Family fam = (Family) root.find("F1");
         final FamilyRenderer familyRenderer = new FamilyRenderer(fam,
-                new GedRendererFactory(), userContext);
+                new GedRendererFactory(), userContext,
+                provider);
         final List<PersonRenderer> children = familyRenderer.getChildren();
         final String expected = "<a href=\"person?db=null&amp;id=I1\""
                 + " class=\"name\">Melissa Robinson <span class=\"surname\">"
@@ -452,7 +474,8 @@ public final class FamilyRendererTest {
         final GedObject root = TestDataReader.getInstance().readBigTestSource();
         final Family fam = (Family) root.find("F1");
         final FamilyRenderer familyRenderer = new FamilyRenderer(fam,
-                new GedRendererFactory(), anonymousContext);
+                new GedRendererFactory(), anonymousContext,
+                provider);
         final List<PersonRenderer> children = familyRenderer.getChildren();
         final String expected = "Living";
         assertEquals("Rendered html doesn't match expectation",

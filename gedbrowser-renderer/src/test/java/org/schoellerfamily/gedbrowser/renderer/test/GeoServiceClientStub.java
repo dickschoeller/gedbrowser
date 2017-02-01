@@ -12,7 +12,7 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
 /**
  * @author Dick Schoeller
  */
-public class GeoServiceClientStub implements GeoServiceClient {
+public final class GeoServiceClientStub implements GeoServiceClient {
     /**
      * {@inheritDoc}
      */

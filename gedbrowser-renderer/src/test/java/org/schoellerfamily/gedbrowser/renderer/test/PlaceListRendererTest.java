@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -28,10 +30,14 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-public class PlaceListRendererTest {
+public final class PlaceListRendererTest {
     /** */
     @Autowired
     private transient GeoServiceClient client;
+
+    /** */
+    @Autowired
+    private CalendarProvider provider;
 
     /**
      * Setup the configurations for this test class.
@@ -47,51 +53,60 @@ public class PlaceListRendererTest {
         public GeoServiceClient geoServiceClient() {
             return new GeoServiceClientStub();
         }
+
+        /**
+         * @return the calendar provider
+         */
+        @Bean
+        public CalendarProvider getCalendarProvider() {
+            return new CalendarProviderStub();
+        }
     }
 
     /** */
     @Test
-    public final void testNullArgsUser() {
+    public void testNullArgsUser() {
         final PlaceListRenderer plr =
-                new PlaceListRenderer(null, null, RenderingContext.user());
+                new PlaceListRenderer(null, null, RenderingContext.user(),
+                        provider);
         final List<PlaceInfo> list = plr.render();
         assertTrue("Should cleanly provide an empty list", list.isEmpty());
     }
 
     /** */
     @Test
-    public final void testNullArgsAdmin() {
+    public void testNullArgsAdmin() {
         final PlaceListRenderer plr = new PlaceListRenderer(null, null,
-                createAdminContext());
+                createAdminContext(), provider);
         final List<PlaceInfo> list = plr.render();
         assertTrue("Should cleanly provide an empty list", list.isEmpty());
     }
 
     /** */
     @Test
-    public final void testNullClient() {
+    public void testNullClient() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         final PlaceListRenderer plr = new PlaceListRenderer(person, null,
-                RenderingContext.user());
+                RenderingContext.user(), provider);
         final List<PlaceInfo> list = plr.render();
         assertTrue("Should cleanly provide an empty list", list.isEmpty());
     }
 
     /** */
     @Test
-    public final void testNullClientAdmin() {
+    public void testNullClientAdmin() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         final PlaceListRenderer plr = new PlaceListRenderer(person, null,
-                createAdminContext());
+                createAdminContext(), provider);
         final List<PlaceInfo> list = plr.render();
         assertTrue("Should cleanly provide an empty list", list.isEmpty());
     }
 
     /** */
     @Test
-    public final void testNullPerson() {
+    public void testNullPerson() {
         final PlaceListRenderer plr = createAdminRenderer(null);
         final List<PlaceInfo> list = plr.render();
         assertTrue("Should cleanly provide an empty list", list.isEmpty());
@@ -99,7 +114,7 @@ public class PlaceListRendererTest {
 
     /** */
     @Test
-    public final void testNoAttributes() {
+    public void testNoAttributes() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         final PlaceListRenderer plr = createAdminRenderer(person);
@@ -109,7 +124,7 @@ public class PlaceListRendererTest {
 
     /** */
     @Test
-    public final void testNoPlaces() {
+    public void testNoPlaces() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         builder.createPersonEvent(person, "Birth", "20 JAN 2017");
@@ -120,7 +135,7 @@ public class PlaceListRendererTest {
 
     /** */
     @Test
-    public final void testOnePlace() {
+    public void testOnePlace() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         createBirth(builder, person, "Needham, Massachusetts, USA");
@@ -131,7 +146,7 @@ public class PlaceListRendererTest {
 
     /** */
     @Test
-    public final void testOnePlaceIsNeedham() {
+    public void testOnePlaceIsNeedham() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         createBirth(builder, person, "Needham, Massachusetts, USA");
@@ -143,7 +158,7 @@ public class PlaceListRendererTest {
 
     /** */
     @Test
-    public final void testOnePlaceLatitudeIsNeedham() {
+    public void testOnePlaceLatitudeIsNeedham() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         createBirth(builder, person, "Needham, Massachusetts, USA");
@@ -156,7 +171,7 @@ public class PlaceListRendererTest {
 
     /** */
     @Test
-    public final void testOnePlaceLongitudeIsNeedham() {
+    public void testOnePlaceLongitudeIsNeedham() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         createBirth(builder, person, "Needham, Massachusetts, USA");
@@ -169,7 +184,7 @@ public class PlaceListRendererTest {
 
     /** */
     @Test
-    public final void testOnePlaceIsNotFound() {
+    public void testOnePlaceIsNotFound() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         createBirth(builder, person, "PLUGH");
@@ -180,7 +195,7 @@ public class PlaceListRendererTest {
 
     /** */
     @Test
-    public final void testOnePlaceIsNotFoundAnotherIs() {
+    public void testOnePlaceIsNotFoundAnotherIs() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         createBirth(builder, person, "PLUGH");
@@ -193,7 +208,7 @@ public class PlaceListRendererTest {
 
     /** */
     @Test
-    public final void testAdminCanSeeConfidential() {
+    public void testAdminCanSeeConfidential() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         createBirth(builder, person, "PLUGH");
@@ -203,14 +218,14 @@ public class PlaceListRendererTest {
         attr.setTail("confidential");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
-                createAdminContext());
+                createAdminContext(), provider);
         final List<PlaceInfo> list = plr.render();
         assertEquals("Should have one result", 1, list.size());
     }
 
     /** */
     @Test
-    public final void testUserCanNotSeeConfidential() {
+    public void testUserCanNotSeeConfidential() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         createBirth(builder, person, "PLUGH");
@@ -220,14 +235,14 @@ public class PlaceListRendererTest {
         attr.setTail("confidential");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
-                RenderingContext.user());
+                RenderingContext.user(), provider);
         final List<PlaceInfo> list = plr.render();
         assertEquals("Should have one result", 0, list.size());
     }
 
     /** */
     @Test
-    public final void testAnonCanNotSeeConfidential() {
+    public void testAnonCanNotSeeConfidential() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         createBirth(builder, person, "PLUGH");
@@ -237,48 +252,48 @@ public class PlaceListRendererTest {
         attr.setTail("confidential");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
-                RenderingContext.user());
+                RenderingContext.user(), provider);
         final List<PlaceInfo> list = plr.render();
         assertEquals("Should have one result", 0, list.size());
     }
 
     /** */
     @Test
-    public final void testAnonCanNotSeeLiving() {
+    public void testAnonCanNotSeeLiving() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         createBirth(builder, person, "Needham, Massachusetts, USA");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         final List<PlaceInfo> list = plr.render();
         assertEquals("Should have one result", 0, list.size());
     }
 
     /** */
     @Test
-    public final void testAnonCanSeeDead() {
+    public void testAnonCanSeeDead() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         createBirth(builder, person, "Needham, Massachusetts, USA");
         createDeath(builder, person, "Needham, Massachusetts, USA");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         final List<PlaceInfo> list = plr.render();
         assertEquals("Should have one result", 1, list.size());
     }
 
     /** */
     @Test
-    public final void testAnonCanSeeDeadAltConstruction() {
+    public void testAnonCanSeeDeadAltConstruction() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         createBirth(builder, person, "Needham, Massachusetts, USA");
         createDeath(builder, person, "Needham, MA, USA");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         final List<PlaceInfo> list = plr.render();
         assertEquals("Should have one result", 2, list.size());
     }
@@ -288,7 +303,8 @@ public class PlaceListRendererTest {
      * @return the renderer
      */
     private PlaceListRenderer createAdminRenderer(final Person person) {
-        return new PlaceListRenderer(person, client, createAdminContext());
+        return new PlaceListRenderer(person, client, createAdminContext(),
+                provider);
     }
 
     /**
@@ -326,7 +342,7 @@ public class PlaceListRendererTest {
 
     /** */
     @Test
-    public final void testAnonCanSeeDeadMarriage() {
+    public void testAnonCanSeeDeadMarriage() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
         builder.createPersonEvent(person, "Death", "20 JAN 2017");
@@ -339,7 +355,7 @@ public class PlaceListRendererTest {
         builder.addPlaceToEvent(marriage, "Needham, Massachusetts, USA");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         final List<PlaceInfo> list = plr.render();
         assertEquals("Should have one result", 1, list.size());
     }

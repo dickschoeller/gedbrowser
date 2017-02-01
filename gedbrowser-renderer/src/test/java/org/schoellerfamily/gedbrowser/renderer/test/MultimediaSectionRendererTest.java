@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -15,7 +17,7 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 /**
  * @author Dick Schoeller
  */
-public class MultimediaSectionRendererTest {
+public final class MultimediaSectionRendererTest {
     /** */
     private transient Multimedia multimedia1;
 
@@ -26,8 +28,11 @@ public class MultimediaSectionRendererTest {
     private transient Multimedia multimedia3;
 
     /** */
+    private CalendarProvider provider;
+
+    /** */
     @Before
-    public final void init() {
+    public void init() {
         final Person person = new Person();
 
         multimedia1 = new Multimedia(person, "Multimedia", "");
@@ -56,11 +61,13 @@ public class MultimediaSectionRendererTest {
         person.insert(multimedia1);
         person.insert(multimedia2);
         person.insert(multimedia3);
+
+        provider = new CalendarProviderStub();
     }
 
     /** */
     @Test
-    public final void testRenderAsSectionEmpty() {
+    public void testRenderAsSectionEmpty() {
         final String expect =
                 "<p><span class=\"label\">Multimedia:</span> </p>\n<ul>\n"
                 + "<li><span class=\"label\">Title:</span> Title 1</li>\n"
@@ -69,7 +76,7 @@ public class MultimediaSectionRendererTest {
 
         final MultimediaRenderer aRenderer = new MultimediaRenderer(
                 multimedia1, new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         final MultimediaSectionRenderer asRenderer =
                 (MultimediaSectionRenderer) aRenderer.getSectionRenderer();
         StringBuilder builder = new StringBuilder();
@@ -80,7 +87,7 @@ public class MultimediaSectionRendererTest {
 
     /** */
     @Test
-    public final void testRenderAsSectionString() {
+    public void testRenderAsSectionString() {
         final String expect =
                 "<p><span class=\"label\">Multimedia:</span> </p>\n<ul>\n"
                 + "<li><span class=\"label\">Title:</span> Title 2</li>\n"
@@ -89,7 +96,7 @@ public class MultimediaSectionRendererTest {
 
         final MultimediaRenderer aRenderer = new MultimediaRenderer(
                 multimedia2, new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         final MultimediaSectionRenderer asRenderer =
                 (MultimediaSectionRenderer) aRenderer.getSectionRenderer();
         StringBuilder builder = new StringBuilder();
@@ -100,7 +107,7 @@ public class MultimediaSectionRendererTest {
 
     /** */
     @Test
-    public final void testRenderAsSection() {
+    public void testRenderAsSection() {
         final String expect =
                 "<p><span class=\"label\">Multimedia:</span> </p>\n<ul>\n"
                 + "<li><span class=\"label\">Title:</span> Title 3</li>\n"
@@ -110,7 +117,7 @@ public class MultimediaSectionRendererTest {
         final MultimediaRenderer aRenderer =
                 new MultimediaRenderer(multimedia3,
                         new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         final MultimediaSectionRenderer asRenderer =
                 (MultimediaSectionRenderer) aRenderer.getSectionRenderer();
         StringBuilder builder = new StringBuilder();

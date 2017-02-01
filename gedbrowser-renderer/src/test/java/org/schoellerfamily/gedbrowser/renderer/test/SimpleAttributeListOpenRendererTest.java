@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.renderer.DefaultRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -13,7 +14,7 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 /**
  * @author Dick Schoeller
  */
-public class SimpleAttributeListOpenRendererTest {
+public final class SimpleAttributeListOpenRendererTest {
     /** */
     private transient SimpleAttributeListOpenRenderer npr;
 
@@ -24,17 +25,18 @@ public class SimpleAttributeListOpenRendererTest {
 
     /** */
     @Before
-    public final void init() {
+    public void init() {
         final DefaultRenderer renderer = new DefaultRenderer(gob,
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(),
+                new CalendarProviderStub());
         npr = (SimpleAttributeListOpenRenderer) renderer
                 .getAttributeListOpenRenderer();
     }
 
     /** */
     @Test
-    public final void testRenderAsPhrase() {
+    public void testRenderAsPhrase() {
         final StringBuilder builder = new StringBuilder();
         npr.renderAttributeListOpen(builder, 0, gob);
         final String string = builder.toString();

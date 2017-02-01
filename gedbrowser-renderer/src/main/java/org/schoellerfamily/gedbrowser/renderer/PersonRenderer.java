@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -32,15 +33,17 @@ public final class PersonRenderer extends GedRenderer<Person> {
      * @param rendererFactory the factory that creates the renderers for the
      *        attributes
      * @param renderingContext the user context we are rendering in
+     * @param provider the calendar provider we are using to determine now
      */
     public PersonRenderer(final Person gedObject,
             final GedRendererFactory rendererFactory,
-            final RenderingContext renderingContext) {
-        super(gedObject, rendererFactory, renderingContext);
+            final RenderingContext renderingContext,
+            final CalendarProvider provider) {
+        super(gedObject, rendererFactory, renderingContext, provider);
         setNameHtmlRenderer(new PersonNameHtmlRenderer(this));
         setNameIndexRenderer(new PersonNameIndexRenderer(this));
         setAttributeListOpenRenderer(new PersonAttributeListOpenRenderer());
-        le = new LivingEstimator(gedObject);
+        le = new LivingEstimator(gedObject, provider);
     }
 
     /**

@@ -2,7 +2,10 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.AbstractLink;
 import org.schoellerfamily.gedbrowser.renderer.AbstractLinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -17,16 +20,26 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 /**
  * @author Dick Schoeller
  */
-public class AbstractLinkRendererTest {
+public final class AbstractLinkRendererTest {
+    /** */
+    private CalendarProvider provider;
+
+    /** */
+    @Before
+    public void setUp() {
+        provider = new CalendarProviderStub();
+    }
+
     /**
      * Test that we are using the appropriate sub-renderers.
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testAttributeListOpenRenderer() {
+    public void testAttributeListOpenRenderer() {
         final AbstractLinkRenderer<?> renderer =
                 new AbstractLinkRenderer<AbstractLink>(new AbstractLink(null) {
-                }, new GedRendererFactory(), RenderingContext.anonymous()) {
+                }, new GedRendererFactory(), RenderingContext.anonymous(),
+                        provider) {
         };
         assertTrue("renderer is not of the right type",
                 renderer.getAttributeListOpenRenderer()
@@ -38,10 +51,11 @@ public class AbstractLinkRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testListItemRenderer() {
+    public void testListItemRenderer() {
         final AbstractLinkRenderer<?> renderer =
                 new AbstractLinkRenderer<AbstractLink>(new AbstractLink(null) {
-                }, new GedRendererFactory(), RenderingContext.anonymous()) {
+                }, new GedRendererFactory(), RenderingContext.anonymous(),
+                        provider) {
         };
         assertTrue("renderer is not of the right type",
                 renderer.getListItemRenderer()
@@ -53,10 +67,11 @@ public class AbstractLinkRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testNameHtmlRenderer() {
+    public void testNameHtmlRenderer() {
         final AbstractLinkRenderer<?> renderer =
                 new AbstractLinkRenderer<AbstractLink>(new AbstractLink(null) {
-                }, new GedRendererFactory(), RenderingContext.anonymous()) {
+                }, new GedRendererFactory(), RenderingContext.anonymous(),
+                        provider) {
         };
         assertTrue("renderer is not of the right type",
                 renderer.getNameHtmlRenderer()
@@ -68,10 +83,11 @@ public class AbstractLinkRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testNameIndexRenderer() {
+    public void testNameIndexRenderer() {
         final AbstractLinkRenderer<?> renderer =
                 new AbstractLinkRenderer<AbstractLink>(new AbstractLink(null) {
-                }, new GedRendererFactory(), RenderingContext.anonymous()) {
+                }, new GedRendererFactory(), RenderingContext.anonymous(),
+                        provider) {
         };
         assertTrue("renderer is not of the right type",
                 renderer.getNameIndexRenderer()
@@ -83,10 +99,11 @@ public class AbstractLinkRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testPhraseRenderer() {
+    public void testPhraseRenderer() {
         final AbstractLinkRenderer<?> renderer =
                 new AbstractLinkRenderer<AbstractLink>(new AbstractLink(null) {
-                }, new GedRendererFactory(), RenderingContext.anonymous()) {
+                }, new GedRendererFactory(), RenderingContext.anonymous(),
+                        provider) {
         };
         assertTrue("renderer is not of the right type",
                 renderer.getPhraseRenderer()
@@ -98,10 +115,11 @@ public class AbstractLinkRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testSectionRenderer() {
+    public void testSectionRenderer() {
         final AbstractLinkRenderer<?> renderer =
                 new AbstractLinkRenderer<AbstractLink>(new AbstractLink(null) {
-                }, new GedRendererFactory(), RenderingContext.anonymous()) {
+                }, new GedRendererFactory(), RenderingContext.anonymous(),
+                        provider) {
         };
         assertTrue("renderer is not of the right type",
                 renderer.getSectionRenderer()
