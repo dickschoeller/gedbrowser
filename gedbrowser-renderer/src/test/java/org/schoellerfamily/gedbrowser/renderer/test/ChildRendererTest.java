@@ -4,6 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.renderer.ChildRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -27,9 +29,11 @@ public final class ChildRendererTest {
      */
     @Before
     public void init() {
+        final CalendarProvider provider = new CalendarProviderStub();
         renderer = new ChildRenderer(new Child(null),
                     new GedRendererFactory(),
-                    RenderingContext.anonymous());
+                    RenderingContext.anonymous(),
+                    provider);
     }
 
     /**

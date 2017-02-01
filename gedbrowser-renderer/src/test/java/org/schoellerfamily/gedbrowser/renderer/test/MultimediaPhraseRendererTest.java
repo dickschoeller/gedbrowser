@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -15,7 +17,7 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 /**
  * @author Dick Schoeller
  */
-public class MultimediaPhraseRendererTest {
+public final class MultimediaPhraseRendererTest {
     /** */
     private transient Multimedia multimedia1;
 
@@ -26,8 +28,11 @@ public class MultimediaPhraseRendererTest {
     private transient Multimedia multimedia3;
 
     /** */
+    private CalendarProvider provider;
+
+    /** */
     @Before
-    public final void init() {
+    public void init() {
         final Person person = new Person();
 
         multimedia1 = new Multimedia(person, "Multimedia", "");
@@ -56,14 +61,16 @@ public class MultimediaPhraseRendererTest {
         person.insert(multimedia1);
         person.insert(multimedia2);
         person.insert(multimedia3);
+
+        provider = new CalendarProviderStub();
     }
 
     /** */
     @Test
-    public final void testRenderAsPhraseEmpty() {
+    public void testRenderAsPhraseEmpty() {
         final MultimediaRenderer aRenderer =
                 new MultimediaRenderer(multimedia1, new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         final MultimediaPhraseRenderer apRenderer =
                 (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
@@ -73,10 +80,10 @@ public class MultimediaPhraseRendererTest {
 
     /** */
     @Test
-    public final void testRenderAsPhraseString() {
+    public void testRenderAsPhraseString() {
         final MultimediaRenderer aRenderer =
                 new MultimediaRenderer(multimedia2, new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         final MultimediaPhraseRenderer apRenderer =
                 (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
@@ -86,10 +93,10 @@ public class MultimediaPhraseRendererTest {
 
     /** */
     @Test
-    public final void testRenderAsPhrase() {
+    public void testRenderAsPhrase() {
         final MultimediaRenderer aRenderer =
                 new MultimediaRenderer(multimedia3, new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         final MultimediaPhraseRenderer apRenderer =
                 (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();

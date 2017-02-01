@@ -2,7 +2,10 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaListItemRenderer;
@@ -16,17 +19,26 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 /**
  * @author Dick Schoeller
  */
-public class MultimediaRendererTest {
+public final class MultimediaRendererTest {
+    /** */
+    private CalendarProvider provider;
+
+    /** */
+    @Before
+    public void init() {
+        provider = new CalendarProviderStub();
+    }
+
     /**
      * Test that we are using the appropriate sub-renderers.
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testMultimediaListItemRenderer() {
+    public void testMultimediaListItemRenderer() {
         final MultimediaRenderer renderer =
                 new MultimediaRenderer(
                         new Multimedia(null), new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof MultimediaListItemRenderer);
@@ -37,11 +49,11 @@ public class MultimediaRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testNameHtmlRenderer() {
+    public void testNameHtmlRenderer() {
         final MultimediaRenderer renderer =
                 new MultimediaRenderer(
                         new Multimedia(null), new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -52,11 +64,11 @@ public class MultimediaRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testNameIndexRenderer() {
+    public void testNameIndexRenderer() {
         final MultimediaRenderer renderer =
                 new MultimediaRenderer(
                         new Multimedia(null), new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -67,11 +79,11 @@ public class MultimediaRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testPhraseRenderer() {
+    public void testPhraseRenderer() {
         final MultimediaRenderer renderer =
                 new MultimediaRenderer(
                         new Multimedia(null), new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof MultimediaPhraseRenderer);
@@ -82,11 +94,11 @@ public class MultimediaRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testSectionRenderer() {
+    public void testSectionRenderer() {
         final MultimediaRenderer renderer =
                 new MultimediaRenderer(
                         new Multimedia(null), new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof MultimediaSectionRenderer);

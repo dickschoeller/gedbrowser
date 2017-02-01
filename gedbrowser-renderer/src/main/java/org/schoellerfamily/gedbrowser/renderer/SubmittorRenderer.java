@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 
 /**
@@ -13,11 +14,13 @@ public final class SubmittorRenderer extends GedRenderer<Submittor> {
      * @param rendererFactory the factory that creates the renderers for the
      *        attributes
      * @param renderingContext the context that we are rendering in
+     * @param provider the calendar provider
      */
     public SubmittorRenderer(final Submittor gedObject,
             final GedRendererFactory rendererFactory,
-            final RenderingContext renderingContext) {
-        super(gedObject, rendererFactory, renderingContext);
+            final RenderingContext renderingContext,
+            final CalendarProvider provider) {
+        super(gedObject, rendererFactory, renderingContext, provider);
         setSectionRenderer(new SubmittorSectionRenderer(this));
     }
 }

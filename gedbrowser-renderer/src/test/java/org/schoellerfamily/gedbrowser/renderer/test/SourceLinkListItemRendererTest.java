@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -17,13 +18,13 @@ import org.schoellerfamily.gedbrowser.renderer.SourceLinkRenderer;
 /**
  * @author Dick Schoeller
  */
-public class SourceLinkListItemRendererTest {
+public final class SourceLinkListItemRendererTest {
     /** */
     private transient Person person;
 
     /** */
     @Before
-    public final void init() {
+    public void init() {
         final Root root = new Root(null, "root");
         person = new Person(root, new ObjectId("I1"));
         root.insert(person);
@@ -33,13 +34,13 @@ public class SourceLinkListItemRendererTest {
 
     /** */
     @Test
-    public final void testRenderAsListItem() {
+    public void testRenderAsListItem() {
         final SourceLink sourceLink =
                 new SourceLink(person, "SOUR", new ObjectId("S1"));
         person.addAttribute(sourceLink);
-        final SourceLinkRenderer slRenderer =
-                new SourceLinkRenderer(sourceLink, new GedRendererFactory(),
-                        RenderingContext.anonymous());
+        final SourceLinkRenderer slRenderer = new SourceLinkRenderer(sourceLink,
+                new GedRendererFactory(), RenderingContext.anonymous(),
+                new CalendarProviderStub());
         final SourceLinkListItemRenderer lir =
                 (SourceLinkListItemRenderer) slRenderer
                 .getListItemRenderer();

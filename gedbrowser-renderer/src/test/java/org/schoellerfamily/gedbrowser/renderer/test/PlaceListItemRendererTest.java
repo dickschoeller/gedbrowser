@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
@@ -15,7 +17,7 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 /**
  * @author Dick Schoeller
  */
-public class PlaceListItemRendererTest {
+public final class PlaceListItemRendererTest {
     /** */
     private transient Attribute attribute;
 
@@ -23,22 +25,25 @@ public class PlaceListItemRendererTest {
     private transient Place place;
 
     /** */
+    private CalendarProvider provider;
+
+    /** */
     @Before
-    public final void init() {
+    public void init() {
         final Person person = new Person();
         attribute = new Attribute(person, "String", "");
         person.addAttribute(attribute);
         place = new Place(attribute, "Fayetteville, NC");
         attribute.addAttribute(place);
+        provider = new CalendarProviderStub();
     }
 
     /** */
     @Test
-    public final void testGetRenderAsListItem() {
-        final PlaceRenderer dRenderer =
-                new PlaceRenderer(place,
-                        new GedRendererFactory(),
-                        RenderingContext.anonymous());
+    public void testGetRenderAsListItem() {
+        final PlaceRenderer dRenderer = new PlaceRenderer(place,
+                new GedRendererFactory(), RenderingContext.anonymous(),
+                provider);
         final StringBuilder builder = new StringBuilder();
         final PlaceListItemRenderer liRenderer =
                 (PlaceListItemRenderer) dRenderer.getListItemRenderer();
@@ -50,11 +55,11 @@ public class PlaceListItemRendererTest {
 
     /** */
     @Test
-    public final void testGetRenderAsListItemEmpty() {
+    public void testGetRenderAsListItemEmpty() {
         final PlaceRenderer dRenderer =
                 new PlaceRenderer(new Place(attribute, ""),
                         new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         final StringBuilder builder = new StringBuilder();
         final PlaceListItemRenderer liRenderer =
                 (PlaceListItemRenderer) dRenderer.getListItemRenderer();
@@ -65,11 +70,11 @@ public class PlaceListItemRendererTest {
 
     /** */
     @Test
-    public final void testGetRenderAsListItemNull() {
+    public void testGetRenderAsListItemNull() {
         final PlaceRenderer dRenderer =
                 new PlaceRenderer(new Place(attribute, null),
                         new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         final StringBuilder builder = new StringBuilder();
         final PlaceListItemRenderer liRenderer =
                 (PlaceListItemRenderer) dRenderer.getListItemRenderer();

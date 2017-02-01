@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
@@ -13,50 +14,12 @@ public final class NullRenderer extends GedRenderer<GedObject> {
      * @param rendererFactory
      *            The factory that creates the renderers for the attributes.
      * @param renderingContext the context that we are rendering in
+     * @param provider calendar provider
      */
     public NullRenderer(final GedObject gedObject,
             final GedRendererFactory rendererFactory,
-            final RenderingContext renderingContext) {
-        super(gedObject, rendererFactory, renderingContext);
+            final RenderingContext renderingContext,
+            final CalendarProvider provider) {
+        super(gedObject, rendererFactory, renderingContext, provider);
     }
-
-//    @Override
-//    public StringBuilder renderAsPage(final StringBuilder builder) {
-//        return getDefaultRenderer().renderAsPage(builder);
-//    }
-
-//    @Override
-//    public StringBuilder renderAsListItem(final StringBuilder builder,
-//            final boolean newLine, final int pad) {
-//        return getDefaultRenderer().renderAsPage(builder);
-//    }
-
-//    @Override
-//    public StringBuilder renderAsSection(final StringBuilder builder,
-//            final GedRenderer<?> pageRenderer, final boolean newLine,
-//            final int pad, final int sectionNumber) {
-//        return getDefaultRenderer().renderAsSection(builder, pageRenderer,
-//                newLine, pad, sectionNumber);
-//    }
-
-//    @Override
-//    public String getIndexName() {
-//        return getDefaultRenderer().getIndexName();
-//    }
-
-//    @Override
-//    public String getNameHtml() {
-//        return getDefaultRenderer().getNameHtml();
-//    }
-
-//    @Override
-//    public String renderAsPhrase() {
-//        return getDefaultRenderer().renderAsPhrase();
-//    }
-
-//    @Override
-//    protected void renderAttributeListOpen(final StringBuilder builder,
-//            final int pad, final GedObject subObject) {
-//        getDefaultRenderer().renderAttributeListOpen(builder, pad, subObject);
-//    }
 }

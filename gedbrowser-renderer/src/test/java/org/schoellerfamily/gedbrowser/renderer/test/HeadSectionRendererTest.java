@@ -2,8 +2,13 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.text.DateFormat;
+import java.util.Locale;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -16,7 +21,7 @@ import org.schoellerfamily.gedbrowser.renderer.RootRenderer;
 /**
  * @author Dick Schoeller
  */
-public class HeadSectionRendererTest {
+public final class HeadSectionRendererTest {
     /** */
     private transient Root root;
 
@@ -24,13 +29,17 @@ public class HeadSectionRendererTest {
     private transient Head head;
 
     /** */
+    private CalendarProvider provider;
+
+    /** */
     @Before
-    public final void init() {
+    public void init() {
         root = new Root(null, "root");
         head = new Head(root);
         root.insert(head);
         root.setFilename("thefile.ged");
         root.setDbName("thefile");
+        provider = new CalendarProviderStub();
     }
 
     // TODO the above really represents head as page, not head as section.
@@ -40,16 +49,16 @@ public class HeadSectionRendererTest {
 
     /** */
     @Test
-    public final void testRenderAsSection() {
+    public void testRenderAsSection() {
         final HeadRenderer hRenderer =
                 new HeadRenderer(head, new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         final StringBuilder builder = new StringBuilder();
         final HeadSectionRenderer hsr =
                 (HeadSectionRenderer) hRenderer.getSectionRenderer();
         hsr.renderAsSection(builder,
                 new RootRenderer(root, new GedRendererFactory(),
-                        RenderingContext.anonymous()), false, 0, 0);
+                        RenderingContext.anonymous(), provider), false, 0, 0);
         assertEquals("Rendered html doesn't match expectation",
                 "Content-type: text/html\n"
                         + "\n"
@@ -92,7 +101,7 @@ public class HeadSectionRendererTest {
                         + "<a href=\"http://www.schoellerfamily.org/"
                         + "softwarwe/gedbrowser.html\">GEDbrowser</a>, version "
                         + GedObject.VERSION + " on "
-                        + GedRendererTest.getDateString() + "\n" + "    </p>\n"
+                        + getDateString() + "\n" + "    </p>\n"
                         + "    </td>\n" + "    <td class=\"brright\">\n"
                         + "    <p class=\"maintainer\">\n"
                         + "<a href=\"http://validator.w3.org/check/referer\">"
@@ -102,5 +111,17 @@ public class HeadSectionRendererTest {
                         + "    </td>\n" + "    </tr>\n" + "    </table>\n"
                         + "    <p>\n" + "  </body>\n" + "</html>\n",
                 builder.toString());
+    }
+
+    /**
+     * Get today as a date string. This emulates what happens in the renderers.
+     *
+     * @return the date string.
+     */
+    private static String getDateString() {
+        final java.util.Date javaDate = new java.util.Date();
+        final String timeString = DateFormat.getDateInstance(DateFormat.LONG,
+                Locale.getDefault()).format(javaDate);
+        return timeString;
     }
 }

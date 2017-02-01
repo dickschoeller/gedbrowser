@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.renderer.LivingRenderer;
 import org.schoellerfamily.gedbrowser.renderer.LivingRenderer.Bucket;
@@ -29,6 +31,9 @@ public final class LivingRendererTest {
     /** */
     private transient Root root;
 
+    /** */
+    private CalendarProvider provider;
+
     /**
      * @throws IOException if there is a problem reading the test data
      */
@@ -44,6 +49,7 @@ public final class LivingRendererTest {
         admin.addRole("ADMIN");
         adminContext = new RenderingContext(admin, true, true);
         root = (Root) TestDataReader.getInstance().readBigTestSource();
+        provider = new CalendarProviderStub();
     }
 
     /**
@@ -51,8 +57,8 @@ public final class LivingRendererTest {
      */
     @Test
     public void testRenderUserIndexHref() {
-        final LivingRenderer renderer = new LivingRenderer(root,
-                userContext);
+        final LivingRenderer renderer = new LivingRenderer(root, userContext,
+                provider);
         assertEquals("The index link should refer to the letter A",
                 "surnames?db=null&letter=A", renderer.getIndexHref());
     }
@@ -60,8 +66,8 @@ public final class LivingRendererTest {
     /** */
     @Test
     public void testRenderAdminIndexHref() {
-        final LivingRenderer renderer = new LivingRenderer(root,
-                adminContext);
+        final LivingRenderer renderer = new LivingRenderer(root, adminContext,
+                provider);
         assertEquals("The index link should refer to the letter A",
                 "surnames?db=null&letter=A", renderer.getIndexHref());
     }
@@ -71,8 +77,8 @@ public final class LivingRendererTest {
      */
     @Test
     public void testRenderUserBuckets() {
-        final LivingRenderer renderer = new LivingRenderer(root,
-                userContext);
+        final LivingRenderer renderer = new LivingRenderer(root, userContext,
+                provider);
         assertTrue("In user context, this is always empty",
                 renderer.getBuckets().isEmpty());
     }
@@ -82,8 +88,8 @@ public final class LivingRendererTest {
      */
     @Test
     public void testRenderAdminBuckets() {
-        final LivingRenderer renderer = new LivingRenderer(root,
-                adminContext);
+        final LivingRenderer renderer = new LivingRenderer(root, adminContext,
+                provider);
         assertFalse("In admin context, there should be some buckets",
                 renderer.getBuckets().isEmpty());
     }
@@ -91,14 +97,12 @@ public final class LivingRendererTest {
     /** */
     @Test
     public void testRenderAdminBucket() {
-        final LivingRenderer renderer = new LivingRenderer(root,
-                adminContext);
-        // FIXME this is too dependent on the test data's relationship to today'
-        final int thirtyToThirtyNine = 3;
-        final List<PersonRenderer> persons =
-                renderer.getBuckets().get(thirtyToThirtyNine).getPersons();
-        assertFalse(
-                "In admin context, there should be someone in the bucket",
+        final LivingRenderer renderer = new LivingRenderer(root, adminContext,
+                provider);
+        final int twentyToTwentyNine = 2;
+        final List<PersonRenderer> persons = renderer.getBuckets()
+                .get(twentyToTwentyNine).getPersons();
+        assertFalse("In admin context, there should be someone in the bucket",
                 persons.isEmpty());
     }
 
@@ -107,8 +111,8 @@ public final class LivingRendererTest {
      */
     @Test
     public void testRenderBucketSizes() {
-        final LivingRenderer renderer = new LivingRenderer(root,
-                adminContext);
+        final LivingRenderer renderer = new LivingRenderer(root, adminContext,
+                provider);
         final List<Bucket> buckets = renderer.getBuckets();
         final int increment = 10;
         final int limit = 100;

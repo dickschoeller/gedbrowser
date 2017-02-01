@@ -2,7 +2,10 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
@@ -17,17 +20,25 @@ import org.schoellerfamily.gedbrowser.renderer.SourceLinkRenderer;
 /**
  * @author Dick Schoeller
  */
-public class SourceLinkRendererTest {
+public final class SourceLinkRendererTest {
+    /** */
+    private CalendarProvider provider;
+
+    /** */
+    @Before
+    public void init() {
+        provider = new CalendarProviderStub();
+    }
+
     /**
      * Test that we are using the appropriate sub-renderers.
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testAttributeListOpenRenderer() {
-        final SourceLinkRenderer renderer =
-                new SourceLinkRenderer(
-                        new SourceLink(null), new GedRendererFactory(),
-                        RenderingContext.anonymous());
+    public void testAttributeListOpenRenderer() {
+        final SourceLinkRenderer renderer = new SourceLinkRenderer(
+                new SourceLink(null), new GedRendererFactory(),
+                RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -38,11 +49,10 @@ public class SourceLinkRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testListItemRenderer() {
-        final SourceLinkRenderer renderer =
-                new SourceLinkRenderer(
-                        new SourceLink(null), new GedRendererFactory(),
-                        RenderingContext.anonymous());
+    public void testListItemRenderer() {
+        final SourceLinkRenderer renderer = new SourceLinkRenderer(
+                new SourceLink(null), new GedRendererFactory(),
+                RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof SourceLinkListItemRenderer);
@@ -53,11 +63,10 @@ public class SourceLinkRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testNameHtmlRenderer() {
-        final SourceLinkRenderer renderer =
-                new SourceLinkRenderer(
-                        new SourceLink(null), new GedRendererFactory(),
-                        RenderingContext.anonymous());
+    public void testNameHtmlRenderer() {
+        final SourceLinkRenderer renderer = new SourceLinkRenderer(
+                new SourceLink(null), new GedRendererFactory(),
+                RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -68,11 +77,10 @@ public class SourceLinkRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testNameIndexRenderer() {
-        final SourceLinkRenderer renderer =
-                new SourceLinkRenderer(
-                        new SourceLink(null), new GedRendererFactory(),
-                        RenderingContext.anonymous());
+    public void testNameIndexRenderer() {
+        final SourceLinkRenderer renderer = new SourceLinkRenderer(
+                new SourceLink(null), new GedRendererFactory(),
+                RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -83,11 +91,10 @@ public class SourceLinkRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testPhraseRenderer() {
-        final SourceLinkRenderer renderer =
-                new SourceLinkRenderer(
-                        new SourceLink(null), new GedRendererFactory(),
-                        RenderingContext.anonymous());
+    public void testPhraseRenderer() {
+        final SourceLinkRenderer renderer = new SourceLinkRenderer(
+                new SourceLink(null), new GedRendererFactory(),
+                RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof SourceLinkPhraseRenderer);
@@ -98,11 +105,10 @@ public class SourceLinkRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
-    public final void testSectionRenderer() {
-        final SourceLinkRenderer renderer =
-                new SourceLinkRenderer(
-                        new SourceLink(null), new GedRendererFactory(),
-                        RenderingContext.anonymous());
+    public void testSectionRenderer() {
+        final SourceLinkRenderer renderer = new SourceLinkRenderer(
+                new SourceLink(null), new GedRendererFactory(),
+                RenderingContext.anonymous(), provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof NullSectionRenderer);

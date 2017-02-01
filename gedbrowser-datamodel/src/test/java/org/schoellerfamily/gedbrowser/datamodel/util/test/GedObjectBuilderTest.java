@@ -32,7 +32,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  */
 @SuppressWarnings({ "PMD.ExcessivePublicCount", "PMD.GodClass",
         "PMD.TooManyStaticImports" })
-public class GedObjectBuilderTest {
+public final class GedObjectBuilderTest {
     // TODO there might be more valid checks of the behaviors of the creators.
     // Check name and ID on person
     // Check type and date on events

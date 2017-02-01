@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -26,10 +28,14 @@ public final class SourceSectionRendererTest {
     private transient RenderingContext renderingContext;
 
     /** */
+    private CalendarProvider provider;
+
+    /** */
     @Before
     public void init() {
         root = new Root(null, "root");
         renderingContext = RenderingContext.anonymous();
+        provider = new CalendarProviderStub();
     }
 
     /** */
@@ -43,12 +49,13 @@ public final class SourceSectionRendererTest {
         source.addAttribute(attribute2);
         final SourceRenderer sRenderer =
                 new SourceRenderer(source, new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         final SourceSectionRenderer ssRenderer =
                 (SourceSectionRenderer) sRenderer.getSectionRenderer();
         final StringBuilder builder = new StringBuilder();
         ssRenderer.renderAsSection(builder, new PersonRenderer(new Person(root),
-                new GedRendererFactory(), renderingContext), false, 0, 1);
+                new GedRendererFactory(), renderingContext, provider),
+                false, 0, 1);
         assertEquals("Rendered html doesn't match expectation",
                 "\n" + "<ul>\n"
                 + "<li><span class=\"label\">ATTR:</span> Attr 1</li>\n"

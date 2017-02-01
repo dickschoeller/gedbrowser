@@ -28,14 +28,19 @@ public final class LivingEstimator {
 
     /** Hold the person we are estimating. */
     private final Person person;
+    /** Provides the "today" for use in comparisons. */
+    private final CalendarProvider provider;
 
     /**
      * Constructor.
      *
      * @param person the person we are estimating
+     * @param provider the provider of "today" for comparisons
      */
-    public LivingEstimator(final Person person) {
+    public LivingEstimator(final Person person,
+            final CalendarProvider provider) {
         this.person = person;
+        this.provider = provider;
     }
 
     /**
@@ -56,7 +61,7 @@ public final class LivingEstimator {
                 // No death date and no birth date estimate, assume living.
                 return true;
             }
-            final LocalDate today = new LocalDate();
+            final LocalDate today = provider.nowDate();
             final Period p = new Period(date, today);
             return p.getYears() < VERY_OLD_AGE;
         }
@@ -67,18 +72,21 @@ public final class LivingEstimator {
      * @param living the list of people estimated to be living
      * @param dead the list of people estimated to be dead
      * @param buckets the living people divided into buckets by decade
+     * @param provider the provider of "today" for comparisons
      */
     public static void fillBuckets(final GedObject root,
             final List<Person> living, final List<Person> dead,
-            final Map<Integer, Set<Person>> buckets) {
+            final Map<Integer, Set<Person>> buckets,
+            final CalendarProvider provider) {
         LOGGER.entering("LivingEstimator", "fillBuckets");
         for (final String letter : root.findSurnameInitialLetters()) {
             for (final String surname : root.findBySurnamesBeginWith(letter)) {
                 for (final Person person : root.findBySurname(surname)) {
-                    final LivingEstimator le = createLivingEstimator(person);
+                    final LivingEstimator le =
+                            createLivingEstimator(person, provider);
                     if (estimate(le)) {
                         living.add(person);
-                        addToBucket(buckets, person);
+                        addToBucket(buckets, person, provider);
                     } else {
                         dead.add(person);
                     }
@@ -102,21 +110,25 @@ public final class LivingEstimator {
      * Create a new estimator.
      *
      * @param person the person we're estimating
+     * @param provider the calendar provider we are using to determine now
      * @return the estimator
      */
-    private static LivingEstimator createLivingEstimator(final Person person) {
-        return new LivingEstimator(person);
+    private static LivingEstimator createLivingEstimator(final Person person,
+            final CalendarProvider provider) {
+        return new LivingEstimator(person, provider);
     }
 
     /**
      * @param buckets the collection of people into age ranges
      * @param person the person to add
+     * @param provider the calendar provider we are using to determine now
      */
     private static void addToBucket(final Map<Integer, Set<Person>> buckets,
-            final Person person) {
+            final Person person,
+            final CalendarProvider provider) {
         final BirthDateEstimator bde = new BirthDateEstimator(person);
         final LocalDate date = bde.estimateBirthDate();
-        final LocalDate today = new LocalDate();
+        final LocalDate today = provider.nowDate();
         final Period p = new Period(date, today);
         final int age = p.getYears();
         final int bucket = (age / AGE_BUCKET_SIZE) * AGE_BUCKET_SIZE;

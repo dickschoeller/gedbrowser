@@ -2,7 +2,10 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NameListItemRenderer;
@@ -12,7 +15,7 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 /**
  * @author Dick Schoeller
  */
-public class NameListItemRendererTest {
+public final class NameListItemRendererTest {
     /** */
     private static final String UNEXPECTED_STRING =
             "Unexpected string returned";
@@ -20,12 +23,21 @@ public class NameListItemRendererTest {
     private static final String EXPECT_EMPTY = "Expected empty string";
 
     /** */
+    private CalendarProvider provider;
+
+    /** */
+    @Before
+    public void init() {
+        provider = new CalendarProviderStub();
+    }
+
+    /** */
     @Test
-    public final void testRenderSimple() {
+    public void testRenderSimple() {
         final Name name = new Name(null, "Richard /Schoeller/");
         final NameRenderer nameRenderer = new NameRenderer(name,
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -36,11 +48,11 @@ public class NameListItemRendererTest {
 
     /** */
     @Test
-    public final void testRenderHarder() {
+    public void testRenderHarder() {
         final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
         final NameRenderer nameRenderer = new NameRenderer(name,
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -51,11 +63,11 @@ public class NameListItemRendererTest {
 
     /** */
     @Test
-    public final void testRenderNonZeroPad() {
+    public void testRenderNonZeroPad() {
         final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
         final NameRenderer nameRenderer = new NameRenderer(name,
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -65,11 +77,11 @@ public class NameListItemRendererTest {
 
     /** */
     @Test
-    public final void testRenderNewLine() {
+    public void testRenderNewLine() {
         final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
         final NameRenderer nameRenderer = new NameRenderer(name,
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -80,11 +92,11 @@ public class NameListItemRendererTest {
 
     /** */
     @Test
-    public final void testRenderNoPrefix() {
+    public void testRenderNoPrefix() {
         final Name name = new Name(null, "/Schoeller/");
         final NameRenderer nameRenderer = new NameRenderer(name,
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -94,11 +106,11 @@ public class NameListItemRendererTest {
 
     /** */
     @Test
-    public final void testRenderEmpty() {
+    public void testRenderEmpty() {
         final Name name = new Name(null, "");
         final NameRenderer nameRenderer = new NameRenderer(name,
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -108,11 +120,11 @@ public class NameListItemRendererTest {
 
     /** */
     @Test
-    public final void testRenderNull() {
+    public void testRenderNull() {
         final Name name = new Name(null);
         final NameRenderer nameRenderer = new NameRenderer(name,
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -122,11 +134,11 @@ public class NameListItemRendererTest {
 
     /** */
     @Test
-    public final void testRenderPrefixSuffix() {
+    public void testRenderPrefixSuffix() {
         final Name name = new Name(null, "Foo//Bar");
         final NameRenderer nameRenderer = new NameRenderer(name,
                 new GedRendererFactory(),
-                RenderingContext.anonymous());
+                RenderingContext.anonymous(), provider);
         final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();

@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Link;
 
 /**
@@ -13,10 +14,12 @@ public final class LinkRenderer extends AbstractLinkRenderer<Link> {
      * @param rendererFactory the factory that creates the renderers for the
      *        attributes
      * @param renderingContext the context that we are rendering in
+     * @param provider the calendar provider
      */
     public LinkRenderer(final Link gedObject,
             final GedRendererFactory rendererFactory,
-            final RenderingContext renderingContext) {
-        super(gedObject, rendererFactory, renderingContext);
+            final RenderingContext renderingContext,
+            final CalendarProvider provider) {
+        super(gedObject, rendererFactory, renderingContext, provider);
     }
 }

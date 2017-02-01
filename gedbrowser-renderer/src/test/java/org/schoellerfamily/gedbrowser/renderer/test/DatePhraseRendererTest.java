@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -15,7 +17,7 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 /**
  * @author Dick Schoeller
  */
-public class DatePhraseRendererTest {
+public final class DatePhraseRendererTest {
     /** */
     private transient Attribute attribute;
 
@@ -23,8 +25,12 @@ public class DatePhraseRendererTest {
     private transient Date date;
 
     /** */
+    private CalendarProvider provider;
+
+    /** */
     @Before
-    public final void init() {
+    public void init() {
+        provider = new CalendarProviderStub();
         final Person person = new Person();
         attribute = new Attribute(person, "String", "");
         person.addAttribute(attribute);
@@ -34,10 +40,11 @@ public class DatePhraseRendererTest {
 
     /** */
     @Test
-    public final void testGetRenderAsPhrase() {
+    public void testGetRenderAsPhrase() {
         final DateRenderer dRenderer =
                 new DateRenderer(date, new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(),
+                        provider);
         final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer
                 .getPhraseRenderer();
         final String string = dpRenderer.renderAsPhrase();
@@ -47,11 +54,12 @@ public class DatePhraseRendererTest {
 
     /** */
     @Test
-    public final void testGetRenderAsPhraseEmpty() {
+    public void testGetRenderAsPhraseEmpty() {
         final DateRenderer dRenderer =
                 new DateRenderer(new Date(attribute, ""),
                         new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(),
+                        provider);
         final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer
                 .getPhraseRenderer();
         final String string = dpRenderer.renderAsPhrase();
@@ -60,11 +68,12 @@ public class DatePhraseRendererTest {
 
     /** */
     @Test
-    public final void testGetRenderAsPhraseNull() {
+    public void testGetRenderAsPhraseNull() {
         final DateRenderer dRenderer =
                 new DateRenderer(new Date(attribute, null),
                         new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(),
+                        provider);
         final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer
                 .getPhraseRenderer();
         final String string = dpRenderer.renderAsPhrase();

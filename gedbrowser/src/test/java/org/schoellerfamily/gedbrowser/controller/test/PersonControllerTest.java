@@ -41,8 +41,8 @@ public class PersonControllerTest {
     public final void testPersonControllerI4() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser/person?db=gl120368&id=I4";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(url,
+                String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("<title>Person: I4 - Living </title>");
@@ -51,11 +51,10 @@ public class PersonControllerTest {
     /** */
     @Test
     public final void testPersonControllerI9() {
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(
-                        "http://localhost:" + port
-                                + "/gedbrowser/person?db=gl120368&id=I9",
-                        String.class);
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port
+                        + "/gedbrowser/person?db=gl120368&id=I9",
+                String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("<title>Person: I9 -"
@@ -65,11 +64,10 @@ public class PersonControllerTest {
     /** */
     @Test
     public final void testPersonControllerBadDataSet() {
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(
-                        "http://localhost:" + port
-                                + "/gedbrowser/person?db=XYZZY&id=I99",
-                        String.class);
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port
+                        + "/gedbrowser/person?db=XYZZY&id=I99",
+                String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         then(entity.getBody()).contains("Data set not found");
@@ -78,11 +76,10 @@ public class PersonControllerTest {
     /** */
     @Test
     public final void testPersonControllerBadPerson() {
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(
-                        "http://localhost:" + port
-                                + "/gedbrowser/person?db=gl120368&id=XYZZY",
-                        String.class);
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port
+                        + "/gedbrowser/person?db=gl120368&id=XYZZY",
+                String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         then(entity.getBody()).contains("Person not found");

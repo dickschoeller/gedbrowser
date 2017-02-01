@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
@@ -19,7 +21,7 @@ import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkSectionRenderer;
 /**
  * @author Dick Schoeller
  */
-public class SubmittorLinkSectionRendererTest {
+public final class SubmittorLinkSectionRendererTest {
     /** */
     private transient Root root;
 
@@ -27,35 +29,35 @@ public class SubmittorLinkSectionRendererTest {
     private transient SubmittorLink submittorLink;
 
     /** */
+    private CalendarProvider provider;
+
+    /** */
     @Before
-    public final void init() {
-        /** */
+    public void init() {
         root = new Root(null, "Root");
-        /** */
         final Head head = new Head(root, "Head");
         root.insert(head);
-
         final Submittor submittor = new Submittor(root, "SUBM", "S1");
         final Name name = new Name(submittor, "Richard/Schoeller/");
         root.insert(submittor);
         submittor.insert(name);
-
         submittorLink = new SubmittorLink(head, "SUBL", new ObjectId("S1"));
+        provider = new CalendarProviderStub();
     }
 
     /** */
     @Test
-    public final void testRenderAsSection() {
-        final SubmittorLinkRenderer slRenderer =
-                new SubmittorLinkRenderer(
-                        submittorLink, new GedRendererFactory(),
-                        RenderingContext.anonymous());
+    public void testRenderAsSection() {
+        final SubmittorLinkRenderer slRenderer = new SubmittorLinkRenderer(
+                submittorLink, new GedRendererFactory(),
+                RenderingContext.anonymous(), provider);
         final SubmittorLinkSectionRenderer slsRenderer =
                 (SubmittorLinkSectionRenderer) slRenderer.getSectionRenderer();
         final StringBuilder builder = new StringBuilder();
         slsRenderer.renderAsSection(builder,
                 new RootRenderer(root, new GedRendererFactory(),
-                        RenderingContext.anonymous()), false, 0, 0);
+                        RenderingContext.anonymous(), provider),
+                false, 0, 0);
         assertEquals("Rendered html doesn't match expectation",
                 "<p>\n" + "Submitted by: <a class=\"name\""
                 + " href=\"source?db=null&amp;id=S1\">S1</a></p>\n",
@@ -64,17 +66,17 @@ public class SubmittorLinkSectionRendererTest {
 
     /** */
     @Test
-    public final void testRenderAsSectionNewLine() {
-        final SubmittorLinkRenderer slRenderer =
-                new SubmittorLinkRenderer(
-                        submittorLink, new GedRendererFactory(),
-                        RenderingContext.anonymous());
+    public void testRenderAsSectionNewLine() {
+        final SubmittorLinkRenderer slRenderer = new SubmittorLinkRenderer(
+                submittorLink, new GedRendererFactory(),
+                RenderingContext.anonymous(), provider);
         final SubmittorLinkSectionRenderer slsRenderer =
                 (SubmittorLinkSectionRenderer) slRenderer.getSectionRenderer();
         final StringBuilder builder = new StringBuilder();
         slsRenderer.renderAsSection(builder,
                 new RootRenderer(root, new GedRendererFactory(),
-                        RenderingContext.anonymous()), true, 0, 0);
+                        RenderingContext.anonymous(), provider),
+                true, 0, 0);
         assertEquals("Rendered html doesn't match expectation",
                 "<p>\n" + "Submitted by: <a class=\"name\""
                 + " href=\"source?db=null&amp;id=S1\">S1</a></p>\n",
@@ -82,17 +84,17 @@ public class SubmittorLinkSectionRendererTest {
     }
     /** */
     @Test
-    public final void testRenderAsSectionPad() {
-        final SubmittorLinkRenderer slRenderer =
-                new SubmittorLinkRenderer(
-                        submittorLink, new GedRendererFactory(),
-                        RenderingContext.anonymous());
+    public void testRenderAsSectionPad() {
+        final SubmittorLinkRenderer slRenderer = new SubmittorLinkRenderer(
+                submittorLink, new GedRendererFactory(),
+                RenderingContext.anonymous(), provider);
         final SubmittorLinkSectionRenderer slsRenderer =
                 (SubmittorLinkSectionRenderer) slRenderer.getSectionRenderer();
         final StringBuilder builder = new StringBuilder();
         slsRenderer.renderAsSection(builder,
                 new RootRenderer(root, new GedRendererFactory(),
-                        RenderingContext.anonymous()), false, 2, 0);
+                        RenderingContext.anonymous(), provider),
+                false, 2, 0);
         assertEquals("Rendered html doesn't match expectation",
                 "<p>\n" + "Submitted by: <a class=\"name\""
                 + " href=\"source?db=null&amp;id=S1\">S1</a></p>\n",

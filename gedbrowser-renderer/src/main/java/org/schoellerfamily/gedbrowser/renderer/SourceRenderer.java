@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.renderer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
@@ -18,11 +19,13 @@ public final class SourceRenderer extends GedRenderer<Source> {
      * @param rendererFactory the factory that creates the renderers for the
      *        attributes
      * @param renderingContext the context that we are rendering in
+     * @param provider calendar provider
      */
     public SourceRenderer(final Source gedObject,
             final GedRendererFactory rendererFactory,
-            final RenderingContext renderingContext) {
-        super(gedObject, rendererFactory, renderingContext);
+            final RenderingContext renderingContext,
+            final CalendarProvider provider) {
+        super(gedObject, rendererFactory, renderingContext, provider);
         setSectionRenderer(new SourceSectionRenderer(this));
     }
 

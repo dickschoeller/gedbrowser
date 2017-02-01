@@ -2,12 +2,11 @@ package org.schoellerfamily.gedbrowser.analytics.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Calendar;
-import java.util.Locale;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.AgeEstimator;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
@@ -16,18 +15,17 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  */
 public final class AgeEstimatorTest {
     /** The comparison calendar. */
-    private final Calendar referenceCalendar = Calendar.getInstance(Locale.US);
+    private CalendarProvider provider;
+    /** The builder to construct gedobjects for testing. */
+    private GedObjectBuilder builder;
 
     /**
      * Prepare a comparison calendar at a fixed date. Makes tests predictable.
      */
     @Before
     public void before() {
-        final int birthYear = 2015;
-        final int birthDay = 14;
-        referenceCalendar.set(Calendar.YEAR, birthYear);
-        referenceCalendar.set(Calendar.MONTH, Calendar.DECEMBER);
-        referenceCalendar.set(Calendar.DAY_OF_MONTH, birthDay);
+        provider = new CalendarProviderStub();
+        builder = new GedObjectBuilder();
     }
 
     /**
@@ -35,14 +33,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testDick() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "14 DEC 1958");
 
         final int ageAtReferenceDate = 57;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 57",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -52,14 +48,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testLisa() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "09 MAY 1960");
 
         final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 55",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -69,14 +63,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testBeginYear() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "01 JAN 1960");
 
         final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 55",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -86,14 +78,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testEndYear() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "31 DEC 1960");
 
         final int ageAtReferenceDate = 54;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 54",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -103,14 +93,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testBeforeYear() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "BEF 1960");
 
         final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 55",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -120,14 +108,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testBeforeMonth() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "BEF DEC 1960");
 
         final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 55",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -137,14 +123,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testBeforeTheDayBeforeTheReference() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "BEF 13 DEC 1960");
 
         final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 55",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -154,14 +138,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testBeforeTheReference() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "BEF 14 DEC 1960");
 
         final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 55",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -171,14 +153,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testBeforeTheDayAfterTheReference() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "BEF 15 DEC 1960");
 
         final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 55",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -188,14 +168,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testBeforeTwoDaysAfterTheReference() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "BEF 16 DEC 1960");
 
         final int ageAtReferenceDate = 54;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 54",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -205,14 +183,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testAfterYear() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "AFT 1960");
 
         final int ageAtReferenceDate = 54;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 54",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -222,14 +198,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testAfterReferenceMonth() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "AFT DEC 1960");
 
         final int ageAtReferenceDate = 54;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 54",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -239,14 +213,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testAfterJanuary() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "AFT JAN 1960");
 
         final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 55",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -256,14 +228,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testAfterTwoDaysBeforeTheReference() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "AFT 12 DEC 1960");
 
         final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 55",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -273,14 +243,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testAfterTheDayBeforeTheReference() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "AFT 13 DEC 1960");
 
         final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 55",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -290,14 +258,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testAfterTheReference() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "AFT 14 DEC 1960");
 
         final int ageAtReferenceDate = 54;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 55",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -307,14 +273,12 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testAfterTheDayAfterTheReference() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "AFT 15 DEC 1960");
 
         final int ageAtReferenceDate = 54;
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate does not match expected value of 54",
                 ageAtReferenceDate, estimator.estimateInYears());
     }
@@ -324,13 +288,11 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testYearsDay() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "13 DEC 1960");
 
-        final AgeEstimator estimator =
-                new AgeEstimator(person, referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate string doesn't match",
                 "55 years, 1 day", estimator.estimateInYearsMonthsDays());
     }
@@ -340,13 +302,11 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testYearsMonthsDay() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "13 JAN 1961");
 
-        final AgeEstimator estimator = new AgeEstimator(person,
-                referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate string doesn't match",
                 "54 years, 11 months, 1 day",
                 estimator.estimateInYearsMonthsDays());
@@ -357,13 +317,11 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testYearsMonthsDays() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "16 DEC 1960");
 
-        final AgeEstimator estimator = new AgeEstimator(person,
-                referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate string doesn't match",
                 "54 years, 11 months, 28 days",
                 estimator.estimateInYearsMonthsDays());
@@ -374,13 +332,11 @@ public final class AgeEstimatorTest {
      */
     @Test
     public void testYearsMonths() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
         builder.createPersonEvent(person, "Birth", "14 JAN 1961");
 
-        final AgeEstimator estimator = new AgeEstimator(person,
-                referenceCalendar);
+        final AgeEstimator estimator = new AgeEstimator(person, provider);
         assertEquals("estimate string doesn't match",
                 "54 years, 11 months",
                 estimator.estimateInYearsMonthsDays());

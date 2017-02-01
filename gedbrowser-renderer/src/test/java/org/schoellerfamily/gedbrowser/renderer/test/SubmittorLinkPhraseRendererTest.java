@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
@@ -18,13 +20,16 @@ import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkRenderer;
 /**
  * @author Dick Schoeller
  */
-public class SubmittorLinkPhraseRendererTest {
+public final class SubmittorLinkPhraseRendererTest {
     /** */
     private transient SubmittorLink submittorLink;
 
     /** */
+    private CalendarProvider provider;
+
+    /** */
     @Before
-    public final void init() {
+    public void init() {
         /** */
         final Root root = new Root(null, "Root");
         /** */
@@ -37,15 +42,16 @@ public class SubmittorLinkPhraseRendererTest {
         submittor.insert(name);
 
         submittorLink = new SubmittorLink(head, "SUBL", new ObjectId("S1"));
+        provider = new CalendarProviderStub();
     }
 
     /** */
     @Test
-    public final void testRenderAsPhrase() {
+    public void testRenderAsPhrase() {
         final SubmittorLinkRenderer slr =
                 new SubmittorLinkRenderer(submittorLink,
                         new GedRendererFactory(),
-                        RenderingContext.anonymous());
+                        RenderingContext.anonymous(), provider);
         final SubmittorLinkPhraseRenderer slpr =
                 (SubmittorLinkPhraseRenderer) slr.getPhraseRenderer();
         assertEquals("Rendered html doesn't match expectation",

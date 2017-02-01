@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -19,11 +21,13 @@ import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 /**
  * @author Dick Schoeller
  */
-public class LivingEstimatorTest {
+public final class LivingEstimatorTest {
     /** Divide output into buckets of 10 years. */
     private static final int AGE_BUCKET_SIZE = 10;
     /** Anybody estimated at over 100 is assumed dead. */
     private static final int AGE_CUTOFF_FOR_LIVING_CHECK = 100;
+    /** Provides the "today" for use in comparisons. */
+    private final CalendarProvider provider = new CalendarProviderStub();
 
     /**
      * Smoke test and dump the listing by bucket group.
@@ -31,14 +35,14 @@ public class LivingEstimatorTest {
      * @throws IOException if there is a file IO problem
      */
     @Test
-    public final void testFactoryGedFile() throws IOException {
+    public void testFactoryGedFile() throws IOException {
         final AbstractGedLine top =
                 ReaderHelper.readFileTestSource(this, "gl120368.ged");
         final GedObject root = top.createGedObject((AbstractGedLine) null);
         final List<Person> living = new ArrayList<>();
         final Map<Integer, Set<Person>> buckets = new HashMap<>();
         final List<Person> dead = new ArrayList<>();
-        LivingEstimator.fillBuckets(root, living, dead, buckets);
+        LivingEstimator.fillBuckets(root, living, dead, buckets, provider);
         dumpBuckets(living, dead, buckets);
         assertNull("Should always pass", null);
     }

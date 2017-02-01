@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.controller;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.Users;
+import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
@@ -31,6 +32,10 @@ public class IndexController extends AbstractController {
     /** */
     @Autowired
     private transient Users users;
+
+    /** */
+    @Autowired
+    private transient CalendarProvider provider;
 
     /** */
     @Value("${gedbrowser.home}")
@@ -62,8 +67,8 @@ public class IndexController extends AbstractController {
                     "Data set " + dbName + " not found", dbName);
         }
 
-        final GedRenderer<?> gedRenderer =
-                new IndexRenderer(root, letter, createRenderingContext(users));
+        final GedRenderer<?> gedRenderer = new IndexRenderer(root, letter,
+                createRenderingContext(users), provider);
 
         model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
         model.addAttribute("index", gedRenderer);
