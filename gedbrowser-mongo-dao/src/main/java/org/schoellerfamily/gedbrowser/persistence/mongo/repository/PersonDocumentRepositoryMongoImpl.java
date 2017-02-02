@@ -6,8 +6,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
@@ -29,8 +30,7 @@ import org.springframework.data.mongodb.core.query.Query;
 public final class PersonDocumentRepositoryMongoImpl implements
         FindableByNameDocument<Person, PersonDocument> {
     /** Logger. */
-    private static final Logger LOGGER = Logger
-            .getLogger(PersonDocumentRepositoryMongoImpl.class.getName());
+    private final Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -152,8 +152,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
     @Override
     public Collection<PersonDocument> findByRootAndSurnameBeginsWith(
             final RootDocument rootDocument, final String beginsWith) {
-        LOGGER.entering("PersonDocumentRepositoryImpl",
-                "findByRootAndSurnameBeginsWith");
+        logger.debug("Starting findByRootAndSurnameBeginsWith");
         if (rootDocument == null) {
             return Collections.emptyList();
         }
@@ -164,8 +163,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
             final Person person = personDocument.getGedObject();
             person.setParent(rootDocument.getGedObject());
         }
-        LOGGER.exiting("PersonDocumentRepositoryImpl",
-                "findByRootAndSurnameBeginsWith");
+        logger.debug("Ending findByRootAndSurnameBeginsWith");
         return personDocuments;
     }
 
@@ -174,14 +172,14 @@ public final class PersonDocumentRepositoryMongoImpl implements
      */
     @Override
     public Collection<PersonDocument> findByFile(final String filename) {
-        LOGGER.entering("PersonDocumentRepositoryImpl", "findByFile");
+        logger.debug("Starting findByFile");
         final Query searchQuery = new Query(Criteria.where("filename").is(
                 filename));
         final List<PersonDocumentMongo> personDocuments =
                 mongoTemplate.find(searchQuery, PersonDocumentMongo.class);
         createGedObjects(personDocuments);
         Collections.sort(personDocuments, new PersonDocumentComparator());
-        LOGGER.exiting("PersonDocumentRepositoryImpl", "findByFile");
+        logger.debug("Ending findByFile");
         return copy(personDocuments);
     }
 
@@ -191,7 +189,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
     @Override
     public Collection<PersonDocument> findByRoot(
             final RootDocument rootDocument) {
-        LOGGER.entering("PersonDocumentRepositoryImpl", "findByRoot");
+        logger.info("Starting findByRoot");
         if (rootDocument == null) {
             return Collections.emptyList();
         }
@@ -201,7 +199,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
             final Person person = personDocument.getGedObject();
             person.setParent(rootDocument.getGedObject());
         }
-        LOGGER.exiting("PersonDocumentRepositoryImpl", "findByRoot");
+        logger.info("Ending findByRoot");
         return personDocuments;
     }
 

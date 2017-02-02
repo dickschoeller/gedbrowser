@@ -13,7 +13,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document(collection = "sources")
 @CompoundIndexes({
-    @CompoundIndex(name = "unique_idx", def = "{'string': 1, 'filename': 1}")
+    @CompoundIndex(name = "source_unique_idx",
+            def = "{'string': 1, 'filename': 1}",
+            unique = true)
 })
 public class SourceDocumentMongo extends GedDocumentMongo<Source>
         implements SourceDocument {

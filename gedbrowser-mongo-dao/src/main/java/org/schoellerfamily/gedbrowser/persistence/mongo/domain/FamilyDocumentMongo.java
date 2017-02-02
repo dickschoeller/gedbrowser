@@ -13,7 +13,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document(collection = "families")
 @CompoundIndexes({
-    @CompoundIndex(name = "unique_idx", def = "{'string': 1, 'filename': 1}")
+    @CompoundIndex(name = "family_unique_idx",
+            def = "{'string': 1, 'filename': 1}",
+            unique = true)
 })
 public class FamilyDocumentMongo extends GedDocumentMongo<Family>
         implements FamilyDocument {
