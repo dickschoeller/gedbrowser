@@ -13,7 +13,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document(collection = "persons")
 @CompoundIndexes({
-    @CompoundIndex(name = "unique_idx", def = "{'string': 1, 'filename': 1}")
+    @CompoundIndex(name = "person_unique_idx",
+            def = "{'string': 1, 'filename': 1}",
+            unique = true)
 })
 public class PersonDocumentMongo extends GedDocumentMongo<Person>
         implements PersonDocument {

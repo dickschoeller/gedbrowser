@@ -3,8 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -14,6 +15,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
  * @author Dick Schoeller
  */
 public final class IndexRenderer extends GedRenderer<Root> {
+    /** Logger. */
+    private final Log logger = LogFactory.getLog(getClass());
+
     /** */
     private final String base;
     /** Provides the "today" for use in comparisons. */
@@ -47,7 +51,7 @@ public final class IndexRenderer extends GedRenderer<Root> {
      * @return the collection of nameHtml results
      */
     public Collection<String> getIndexNameHtmls(final String surname) {
-        Logger.getGlobal().entering("IndexRenderer", "getIndexNameHtmls");
+        logger.info("Starting getIndexNameHtmls");
         final Collection<Person> persons = getGedObject()
                 .findBySurname(surname);
         final List<String> names = new ArrayList<>();
@@ -58,7 +62,7 @@ public final class IndexRenderer extends GedRenderer<Root> {
             final String html = createGedRenderer(person).getIndexName();
             names.add(html);
         }
-        Logger.getGlobal().exiting("IndexRenderer", "getIndexNameHtmls");
+        logger.info("Ending getIndexNameHtmls");
         return names;
     }
 
@@ -92,7 +96,7 @@ public final class IndexRenderer extends GedRenderer<Root> {
      *         base.
      */
     public Collection<String> getLetters() {
-        Logger.getGlobal().entering("IndexRenderer", "getLetters");
+        logger.info("Starting getLetters");
         final List<String> indexLetters = new ArrayList<>();
         for (final String letter : getGedObject().findSurnameInitialLetters()) {
             final String link = "<a href=\"surnames?db="
@@ -100,7 +104,7 @@ public final class IndexRenderer extends GedRenderer<Root> {
                     + "\" class=\"name\">" + "[" + letter + "]" + "</a>";
             indexLetters.add(link);
         }
-        Logger.getGlobal().exiting("IndexRenderer", "getLetters");
+        logger.info("Ending getLetters");
         return indexLetters;
     }
 }

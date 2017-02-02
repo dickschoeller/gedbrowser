@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.persistence.mongo.domain; // NOPMD
+package org.schoellerfamily.gedbrowser.persistence.mongo.domain;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +31,7 @@ import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.CouplingBetweenObjects")
 public final class GedDocumentMongoFactory {
     /** */
     private static final GedDocumentMongoFactory INSTANCE =

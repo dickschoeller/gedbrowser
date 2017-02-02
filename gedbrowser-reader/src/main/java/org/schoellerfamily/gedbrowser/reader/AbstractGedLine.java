@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
-import
-org.schoellerfamily.gedbrowser.reader.AbstractGedObjectFactory.GedObjectFactory;
+import org.schoellerfamily.gedbrowser.reader.AbstractGedObjectFactory.GedObjectFactory;
 
 /**
  * Base of GedLine and GedFile.

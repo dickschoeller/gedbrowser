@@ -13,7 +13,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document(collection = "submittors")
 @CompoundIndexes({
-    @CompoundIndex(name = "unique_idx", def = "{'string': 1, 'filename': 1}")
+    @CompoundIndex(name = "submittor_unique_idx",
+            def = "{'string': 1, 'filename': 1}",
+            unique = true)
 })
 public class SubmittorDocumentMongo extends GedDocumentMongo<Submittor>
         implements SubmittorDocument {
