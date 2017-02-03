@@ -15,11 +15,7 @@ public final class ApplicationInfo {
      * @return the version string.
      */
     public String getVersion() {
-<<<<<<< d9a8f74d12ba876b790816b5dbac255281bfa1e0
-        return "1.1.0";
-=======
         return "1.1.1-SNAPSHOT";
->>>>>>> Create development branch with snapshot version
     }
 
     /**
