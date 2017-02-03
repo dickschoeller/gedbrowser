@@ -20,6 +20,13 @@ public class GedBrowserBasicTest {
     /** Long timeout. */
     private static final int LONG_TIMEOUT = 5;
 
+    /** */
+    private final String host =
+            System.getProperty("selenium.host", "localhost");
+
+    /** */
+    private final String port =
+            System.getProperty("selenium.port", "8080");
 
     // FIXME IE driving, Safari driving, Mobile driving
 
@@ -199,7 +206,7 @@ public class GedBrowserBasicTest {
 
             // Matthias
             PersonPage currentPerson = new PersonPage(driver, "I180", null,
-                    waiter);
+                    waiter, baseUrl());
             currentPerson.open();
             assertEquals("Person ID mismatch", "I180", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
@@ -239,7 +246,7 @@ public class GedBrowserBasicTest {
 
             // Grandpop
             PersonPage currentPerson = new PersonPage(driver, "I11", null,
-                    waiter);
+                    waiter, baseUrl());
             currentPerson.open();
             assertEquals("Person ID mismatch", "I11", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
@@ -249,8 +256,8 @@ public class GedBrowserBasicTest {
             assertEquals("Person ID mismatch", "I32", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
 
-            final SourcePage currentSource =
-                    new SourcePage(driver, "S21", currentPerson, waiter);
+            final SourcePage currentSource = new SourcePage(driver, "S21",
+                    currentPerson, waiter, baseUrl());
             assertTrue("Title mismatch", currentSource.titleCheck());
 
             currentPerson = currentSource.back();
@@ -286,7 +293,7 @@ public class GedBrowserBasicTest {
 
             // Melissa
             PersonPage currentPerson = new PersonPage(driver, "I11", null,
-                    waiter);
+                    waiter, baseUrl());
             currentPerson.open();
             assertEquals("Person ID mismatch", "I11", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
@@ -305,5 +312,12 @@ public class GedBrowserBasicTest {
             driver.quit();
         }
         return true;
+    }
+
+    /**
+     * @return the base url string for connecting to the server
+     */
+    private String baseUrl() {
+        return "http://" + this.host + ":" + this.port + "/gedbrowser/";
     }
 }

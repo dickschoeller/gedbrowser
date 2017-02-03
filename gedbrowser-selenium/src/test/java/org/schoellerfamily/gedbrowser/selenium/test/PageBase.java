@@ -14,13 +14,6 @@ import org.openqa.selenium.WebElement;
  */
 public class PageBase {
 
-    // FIXME externalize base URL
-    /**
-     * Base URL string.
-     */
-    public static final String BASE_URL =
-            "http://minitokyo.schoellerfamily.org:8082/gedbrowser/";
-
     /** Associated Selenium driver. */
     private final WebDriver driver;
 
