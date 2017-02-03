@@ -35,7 +35,6 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <start-class>org.schoellerfamily.gedbrowser.Application</start-class>
-    <docker.image.prefix>schoellerfamily</docker.image.prefix>
     <config-dir>${project.parent.basedir}/config</config-dir>
   </properties>
 
@@ -250,7 +249,7 @@
               <goal>build</goal>
             </goals>
             <configuration>
-              <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+              <imageName>${docker.image.prefix}/${project.artifactId}:${docker.image.tag}</imageName>
               <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
               <skipDockerBuild>false</skipDockerBuild>
               <resources>
