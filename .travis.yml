@@ -10,7 +10,7 @@ before_install:
   - cp $(find . -name 'testUserFile.csv' | head -n 1) /home/travis/gedbrowser
   - docker run -v /home/travis/data:/data/db --name mongo -p 28001:27017 -d mongo
 
-install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -DskipDocker -Dskip.findbugs=true -Dpmd.skip=true -Dcheckstyle.skip=true -B -V > /dev/null 2>&1
+install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -DskipDocker -Dfindbugs.skip=true -Dcpd.skip=true -Dpmd.skip=true -Dcheckstyle.skip=true -Djacoco.skip=true -B -V > /dev/null 2>&1
 
 jdk:
   - oraclejdk8
@@ -19,8 +19,8 @@ jdk:
 script:
   - docker ps --all
   - mvn --batch-mode install jacoco:report coveralls:report -Dspring.data.mongodb.port=28001 -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -Dgedbrowser.home=/home/travis/gedbrowser
-  - docker run --link mongo:mongo -v /home/travis/gedbrowser:/var/lib/gedbrowser -p 8086:8080 -p 8087:8080 --name geoservice -d schoellerfamily/geoservice:snapshot
-  - docker run --link mongo:mongo -v /home/travis/gedbrowser:/var/lib/gedbrowser -p 8080:8080 -p 8081:8081 --name gedbrowser -d schoellerfamily/gedbrowser:snapshot
+  - docker run --link mongo:mongo -v /home/travis/gedbrowser:/var/lib/gedbrowser -p 8086:8080 -p 8087:8080 --name geoservice -d dickschoeller/geoservice:snapshot
+  - docker run --link mongo:mongo -v /home/travis/gedbrowser:/var/lib/gedbrowser -p 8080:8080 -p 8081:8081 --name gedbrowser -d dickschoeller/gedbrowser:snapshot
   - sleep 1m
   - docker images
   - docker ps --all
