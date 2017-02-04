@@ -205,6 +205,8 @@ public final class PersonPage extends PageBase {
     private final String id;
     /** Previous page. */
     private final PersonPage previous;
+    /** */
+    private final String baseUrl;
 
     /**
      * This class holds the expected values for a number of different
@@ -303,27 +305,47 @@ public final class PersonPage extends PageBase {
 
     /**
      * PageObject pattern for a page representing a person.
-     *
      * @param driver this is the basic web driver
      * @param id this is the ID of the person page being tested
      * @param previous where we came from. Can be null
      * @param waiter handles driver specific waits
+     * @param baseUrl the base URL from which all others derive
      */
     public PersonPage(final WebDriver driver, final String id,
-            final PersonPage previous, final PageWaiter waiter) {
-        super(driver, url(id), waiter);
+            final PersonPage previous, final PageWaiter waiter,
+            final String baseUrl) {
+        super(driver, url(baseUrl, id), waiter);
         this.id = id;
         this.previous = previous;
+        this.baseUrl = baseUrl;
     }
 
     /**
      * Build the URL string for this page.
      *
+     * @param baseUrl the base from which all URLs are derived
      * @param id the ID of the person on the page
      * @return the built url string
      */
-    private static String url(final String id) {
-        return BASE_URL + "person?db=schoeller&id=" + id;
+    private static String url(final String baseUrl, final String id) {
+        return baseUrl + "person?db=schoeller&id=" + id;
+    }
+
+    /**
+     * Build the URL string for this page.
+     *
+     * @param iD the ID of the person on the page
+     * @return the built url string
+     */
+    private String url(final String iD) {
+        return baseUrl() + "person?db=schoeller&id=" + iD;
+    }
+
+    /**
+     * @return the base URL
+     */
+    private String baseUrl() {
+        return baseUrl;
     }
 
     /**
@@ -374,7 +396,8 @@ public final class PersonPage extends PageBase {
         final String url = getCurrentUrl();
         final int index = url.indexOf("id=") + "id=".length();
         final String idText = url.substring(index);
-        return new PersonPage(getDriver(), idText, this, getPageWaiter());
+        return new PersonPage(getDriver(), idText, this, getPageWaiter(),
+                baseUrl());
     }
 
     /**
@@ -533,9 +556,7 @@ public final class PersonPage extends PageBase {
         try {
             final WebElement childLink = getChildLink(1, 1);
             final String childUrl = childLink.getAttribute("href");
-            return childUrl.equals(
-                PersonPage.BASE_URL + "person?db=schoeller&id="
-                        + childIdString);
+            return childUrl.equals(url(childIdString));
         } catch (NoSuchElementException e) {
             return childIdString == null;
         }

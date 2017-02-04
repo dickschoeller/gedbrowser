@@ -4,9 +4,11 @@ Spring Boot application to display the genealogy data from a [GEDCOM](http://wik
 
 Check it out by perusing [my genealogy database](http://www.schoellerfamily.org/gedbrowser/surnames?db=schoeller). You can browse the database anonymously, but you will need a login with the appropriate role to see living people.
 
-| Jenkins Build | Jenkins Pull Build | Travis Build | Coverage | Dependencies | Selenium |
+| Branch | Jenkins | Travis | Coverage | Dependencies | Selenium |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| [![Build Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser)](http://www.schoellerfamily.org/jenkins/job/gedbrowser/) | [![Build Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser-pull)](http://www.schoellerfamily.org/jenkins/job/gedbrowser-pull/) | [![Build Status](https://api.travis-ci.org/dickschoeller/gedbrowser.svg?branch=master)](https://travis-ci.org/dickschoeller/gedbrowser) | [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=master)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=master) | [![Dependency Status](https://www.versioneye.com/user/projects/5875a8c4fff5dc0039db0d10/badge.svg)](https://www.versioneye.com/user/projects/5875a8c4fff5dc0039db0d10?child=summary#tab-dependencies) | [![Selenium Test Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser-selenium)](http://www.schoellerfamily.org/jenkins/job/gedbrowser-selenium) |
+| Master | [![Build Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser)](http://www.schoellerfamily.org/jenkins/job/gedbrowser/) | [![Build Status](https://api.travis-ci.org/dickschoeller/gedbrowser.svg?branch=master)](https://travis-ci.org/dickschoeller/gedbrowser) | [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=master)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=master) | [![Dependency Status](https://www.versioneye.com/user/projects/5875a8c4fff5dc0039db0d10/badge.svg)](https://www.versioneye.com/user/projects/5875a8c4fff5dc0039db0d10?child=summary#tab-dependencies) | [![Selenium Test Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser-selenium)](http://www.schoellerfamily.org/jenkins/job/gedbrowser-selenium) |
+| Development | [![Build Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser-development)](http://www.schoellerfamily.org/jenkins/job/gedbrowser-development/) | [![Build Status](https://api.travis-ci.org/dickschoeller/gedbrowser.svg?branch=development)](https://travis-ci.org/dickschoeller/gedbrowser) | [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=development)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=development) |[![Dependency Status](https://www.versioneye.com/user/projects/5894a1e327d3c300443034fe/badge.svg)](https://www.versioneye.com/user/projects/5894a1e327d3c300443034fe?child=summary#tab-dependencies) | [![Selenium Test Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser-selenium-development)](http://www.schoellerfamily.org/jenkins/job/gedbrowser-selenium-development) |
+| Pull Request | [![Build Status](http://www.schoellerfamily.org/jenkins/buildStatus/icon?job=gedbrowser-pull)](http://www.schoellerfamily.org/jenkins/job/gedbrowser-pull/) | [![Build Status](https://api.travis-ci.org/dickschoeller/gedbrowser.svg)](https://travis-ci.org/dickschoeller/gedbrowser) | [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg)](https://coveralls.io/github/dickschoeller/gedbrowser) |
 
 ## Getting started
 
@@ -16,7 +18,7 @@ Check it out by perusing [my genealogy database](http://www.schoellerfamily.org/
 * From the top 'mvn clean install'
 * Place GEDCOM files in /var/lib/gedbrowser
 * Create /var/lib/gedbrowser/userFile.csv rows are: username,firstname,lastname,email,password,role,role...
-* java -jar gedbrowser/target/gedbrowser-1.1.0-SNAPSHOT.jar
+* java -jar gedbrowser/target/gedbrowser-1.1.1-SNAPSHOT.jar
 
 Running with Docker requires running the MongoDB with Docker. The following commands allow you to do this without conflicting ports with a native mongod service. Note that these commands will conflict with a running native Tomcat server.
 
