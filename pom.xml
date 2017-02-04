@@ -46,7 +46,7 @@
   </developers>
 
   <properties>
-    <docker.image.prefix>schoellerfamily</docker.image.prefix>
+    <docker.image.prefix>dickschoeller</docker.image.prefix>
     <docker.image.tag>snapshot</docker.image.tag>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -284,6 +284,7 @@
         <groupId>com.spotify</groupId>
         <artifactId>docker-maven-plugin</artifactId>
         <configuration>
+	  <serverId>docker-hub</serverId>
           <skipDockerBuild>true</skipDockerBuild>
         </configuration>
       </plugin>
