@@ -20,11 +20,18 @@ Check it out by perusing [my genealogy database](http://www.schoellerfamily.org/
 * Create /var/lib/gedbrowser/userFile.csv rows are: username,firstname,lastname,email,password,role,role...
 * java -jar gedbrowser/target/gedbrowser-1.1.1-SNAPSHOT.jar
 
-Running with Docker requires running the MongoDB with Docker. The following command allows you to do this without conflicting ports with a native mongod service.
+Running with Docker requires running the MongoDB with Docker. The following commands allow you to do this without conflicting ports with a native mongod service. Note that these commands will conflict with a running native Tomcat server.
 
-* docker run --rm -v /home/dick/data:/data/db --name mongo -p 28001:27017 -d mongo
-* docker run --link mongo:mongo -v /var/lib/gedbrowser:/var/lib/gedbrowser -p 8086:8080 -p 8087:8081 --name geoservice -d schoellerfamily/geoservice:snapshot
-* docker run --link mongo:mongo -v /var/lib/gedbrowser:/var/lib/gedbrowser -p 8080:8080 -p 8081:8081 --name gedbrowser -d schoellerfamily/gedbrowser:snapshot
+* Create data directory for mongodb and home directory for gedbrowser
+* Put data files in home directory
+  * Any GEDCOM files that you want to display
+  * google-geocoding-key - file should contain your geocoding and mapping keys on 2 separate lines
+  * userFile.csv - format is: username,first name,last name,email,password,role,role,... - supported roles are USER and ADMIN
+* export DATA_DIR=<your data directory>
+* export GEDBROWSER_HOME=<your gedbrowser home>
+* docker run --rm -v ${DATA_DIR}:/data/db --name mongo -p 28001:27017 -d mongo
+* docker run --link mongo:mongo -v ${GEDBROWSER_HOME}:/var/lib/gedbrowser -p 8086:8080 -p 8087:8081 --name geoservice -d dickschoeller/geoservice
+* docker run --link geoservice:geoservice --link mongo:mongo -v ${GEDBROWSER_HOME}:/var/lib/gedbrowser -p 8080:8080 -p 8081:8081 --name gedbrowser -d dickschoeller/gedbrowser
 
 As each GEDCOM file is referred to, it will be loaded into your instance of MongoDB. More explicit management
 of data loading is planned for the future.
