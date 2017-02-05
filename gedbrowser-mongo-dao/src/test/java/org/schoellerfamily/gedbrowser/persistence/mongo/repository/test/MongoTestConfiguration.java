@@ -59,6 +59,7 @@ public class MongoTestConfiguration {
      * @throws UnknownHostException because it must
      */
     // We turn off checkstyle because bean methods must not be final
+    // This seems to vary with checkstyle version
     // CHECKSTYLE:OFF
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
@@ -74,6 +75,7 @@ public class MongoTestConfiguration {
      * @throws UnknownHostException because it must
      */
     // We turn off checkstyle because bean methods must not be final
+    // This seems to vary with checkstyle version
     // CHECKSTYLE:OFF
     @Bean
     public MongoTemplate mongoTemplate() throws UnknownHostException {
@@ -91,6 +93,7 @@ public class MongoTestConfiguration {
      * @return the fixture
      */
     // We turn off checkstyle because bean methods must not be final
+    // This seems to vary with checkstyle version
     // CHECKSTYLE:OFF
     @Bean
     public RepositoryFixture repositoryFixture() {
@@ -102,6 +105,7 @@ public class MongoTestConfiguration {
      * @return the finder
      */
     // We turn off checkstyle because bean methods must not be final
+    // This seems to vary with checkstyle version
     // CHECKSTYLE:OFF
     @Bean
     public FinderStrategy finder() {

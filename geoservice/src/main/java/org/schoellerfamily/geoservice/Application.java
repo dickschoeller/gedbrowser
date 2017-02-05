@@ -38,40 +38,60 @@ public class Application {
     /**
      * @return the persistence manager
      */
+    // We turn off checkstyle because bean methods must not be final
+    // This seems to vary with checkstyle version
+    // CHECKSTYLE:OFF
     @Bean
     public GeoCode persistenceManager() {
+        // CHECKSTYLE:ON
         return new GeoCodeMongo();
     }
 
     /**
      * @return the backup manager
      */
+    // We turn off checkstyle because bean methods must not be final
+    // This seems to vary with checkstyle version
+    // CHECKSTYLE:OFF
     @Bean
     public GeoCodeBackup backupManager() {
+        // CHECKSTYLE:ON
         return new GeoCodeBackup();
     }
 
     /**
      * @return the backup manager
      */
+    // We turn off checkstyle because bean methods must not be final
+    // This seems to vary with checkstyle version
+    // CHECKSTYLE:OFF
     @Bean
     public ApplicationInfo appInfo() {
+        // CHECKSTYLE:ON
         return new ApplicationInfo();
     }
 
     /**
      * @return the geocodeloader
      */
+    // We turn off checkstyle because bean methods must not be final
+    // This seems to vary with checkstyle version
+    // CHECKSTYLE:OFF
     @Bean
     public GeoCodeLoader loader() {
+        // CHECKSTYLE:ON
         return new GeoCodeLoader();
     }
 
     /**
      * @return the manager of google keys
      */
+    // We turn off checkstyle because bean methods must not be final
+    // This seems to vary with checkstyle version
+    // CHECKSTYLE:OFF
     @Bean
     public KeyManager keyManager() {
+        // CHECKSTYLE:ON
         if ("stub".equals(keyfile)) {
             return new KeyManagerStub();
         }
@@ -81,8 +101,12 @@ public class Application {
     /**
      * @return the geocoder
      */
+    // We turn off checkstyle because bean methods must not be final
+    // This seems to vary with checkstyle version
+    // CHECKSTYLE:OFF
     @Bean
     public GeoCoder geoCoder() {
+        // CHECKSTYLE:ON
         if ("stub".equals(keyfile)) {
             return new StubGeoCoder(new String[0]);
         }

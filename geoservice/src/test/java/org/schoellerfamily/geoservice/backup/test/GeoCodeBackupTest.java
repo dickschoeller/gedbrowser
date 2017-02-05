@@ -49,6 +49,7 @@ public final class GeoCodeBackupTest {
          * @return the persistence manager
          */
         // We turn off checkstyle because bean methods must not be final
+        // This seems to vary with checkstyle version
         // CHECKSTYLE:OFF
         @Bean
         public GeoCode persistenceManager() {
@@ -60,6 +61,7 @@ public final class GeoCodeBackupTest {
          * @return the backup manager
          */
         // We turn off checkstyle because bean methods must not be final
+        // This seems to vary with checkstyle version
         // CHECKSTYLE:OFF
         @Bean
         public GeoCodeBackup backupManager() {
@@ -71,9 +73,11 @@ public final class GeoCodeBackupTest {
          * @return the geocoder
          */
         // We turn off checkstyle because bean methods must not be final
+        // This seems to vary with checkstyle version
         // CHECKSTYLE:OFF
         @Bean
         public GeoCoder geoCoder() {
+            // CHECKSTYLE:ON
             final GeoCodeTestFixture fixture = new GeoCodeTestFixture();
             return new StubGeoCoder(fixture.expectedNotFound());
         }

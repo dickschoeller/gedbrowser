@@ -75,16 +75,24 @@ public class GeoCodeTest {
          *
          * @return the fixture
          */
+        // We turn off checkstyle because bean methods must not be final
+        // This seems to vary with checkstyle version
+        // CHECKSTYLE:OFF
         @Bean
         public GeoCodeTestFixture testFixture() {
+            // CHECKSTYLE:ON
             return new GeoCodeTestFixture();
         }
 
         /**
          * @return the geocode cache
          */
+        // We turn off checkstyle because bean methods must not be final
+        // This seems to vary with checkstyle version
+        // CHECKSTYLE:OFF
         @Bean
         public GeoCode geoCode() {
+            // CHECKSTYLE:ON
             return new GeoCodeStub();
         }
 
@@ -92,9 +100,11 @@ public class GeoCodeTest {
          * @return the geocoder
          */
         // We turn off checkstyle because bean methods must not be final
+        // This seems to vary with checkstyle version
         // CHECKSTYLE:OFF
         @Bean
         public GeoCoder geoCoder() {
+            // CHECKSTYLE:ON
             return new StubGeoCoder(testFixture().expectedNotFound());
         }
 
@@ -102,9 +112,11 @@ public class GeoCodeTest {
          * @return the geocodeloader
          */
         // We turn off checkstyle because bean methods must not be final
+        // This seems to vary with checkstyle version
         // CHECKSTYLE:OFF
         @Bean
         public GeoCodeLoader loader() {
+            // CHECKSTYLE:ON
             return new GeoCodeLoader();
         }
     }
