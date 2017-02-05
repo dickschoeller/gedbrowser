@@ -15,14 +15,14 @@ import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 /**
  * @author Dick Schoeller
  */
-public class GedFileTest {
+public final class GedFileTest {
     /**
      * Test GedLine with an array input.
      *
      * @throws IOException never.
      */
     @Test
-    public final void testFactoryGedFile() throws IOException {
+    public void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = readFileTestSource();
         System.out.println(top);
         System.out.println("--------");
@@ -49,7 +49,7 @@ public class GedFileTest {
 
     /** */
     @Test
-    public final void testFactoryGedLineHeadString() {
+    public void testFactoryGedLineHeadString() {
         final AbstractGedLine line = GedLine.createGedLine(
                 null, "0 HEAD");
         assertMatch(line, 0, "HEAD", "", "");
@@ -57,7 +57,7 @@ public class GedFileTest {
 
     /** */
     @Test
-    public final void testFactoryGedLineSourString() {
+    public void testFactoryGedLineSourString() {
         final AbstractGedLine line = GedLine.createGedLine(
                 null, "1 SOUR TMG");
         assertMatch(line, 1, "SOUR", "TMG", "");
@@ -65,7 +65,7 @@ public class GedFileTest {
 
     /** */
     @Test
-    public final void testFactoryGedLineOneSubmString() {
+    public void testFactoryGedLineOneSubmString() {
         final AbstractGedLine line = GedLine.createGedLine(
                 null, "1 SUBM @SUB1@");
         assertMatch(line, 1, "SUBM", "@SUB1@", "");
@@ -73,7 +73,7 @@ public class GedFileTest {
 
     /** */
     @Test
-    public final void testFactoryGedLineZeroSubmString() {
+    public void testFactoryGedLineZeroSubmString() {
         final AbstractGedLine line = GedLine.createGedLine(
                 null, "0 @SUB1@ SUBM");
         assertMatch(line, 0, "SUBM", "", "SUB1");
@@ -81,7 +81,7 @@ public class GedFileTest {
 
     /** */
     @Test
-    public final void testFactoryGedLineNameString() {
+    public void testFactoryGedLineNameString() {
         final AbstractGedLine line = GedLine.createGedLine(
                 null, "1 NAME Richard Schoeller");
         assertMatch(line, 1, "NAME", "Richard Schoeller", "");
@@ -89,7 +89,7 @@ public class GedFileTest {
 
     /** */
     @Test
-    public final void testFactoryGedLineAddrString() {
+    public void testFactoryGedLineAddrString() {
         final AbstractGedLine line = GedLine.createGedLine(
                 null, "1 ADDR 242 Marked Tree Road");
         assertMatch(line, 1, "ADDR", "242 Marked Tree Road", "");
@@ -102,7 +102,7 @@ public class GedFileTest {
      * @param expectedTail the expected tail string
      * @param expectedXref the expected reference string
      */
-    public void assertMatch(final AbstractGedLine line,
+    private void assertMatch(final AbstractGedLine line,
             final int expectedLevel, final String expectedTag,
             final String expectedTail, final String expectedXref) {
         assertEquals("Level mismatch", expectedLevel, line.getLevel());

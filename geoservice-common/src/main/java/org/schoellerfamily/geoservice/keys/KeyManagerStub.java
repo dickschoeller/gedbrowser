@@ -3,7 +3,7 @@ package org.schoellerfamily.geoservice.keys;
 /**
  * @author Dick Schoeller
  */
-public class KeyManagerStub implements KeyManager {
+public final class KeyManagerStub implements KeyManager {
     /**
      * {@inheritDoc}
      */

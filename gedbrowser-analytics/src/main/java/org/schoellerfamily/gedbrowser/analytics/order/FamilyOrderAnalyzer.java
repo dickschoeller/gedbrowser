@@ -13,7 +13,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
  *
  * @author Dick Schoeller
  */
-public class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
+public final class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
     /** */
     private final Person person;
 

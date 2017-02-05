@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
  * @author Dick Schoeller
  */
 @Component
-public class GeoServiceClientImpl implements GeoServiceClient {
+public final class GeoServiceClientImpl implements GeoServiceClient {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 

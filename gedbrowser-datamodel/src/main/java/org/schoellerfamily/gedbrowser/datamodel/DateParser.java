@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.GodClass", "PMD.TooManyMethods" })
-public class DateParser {
+public final class DateParser {
     /** */
     private static final String ABT = "ABT ";
     /** */

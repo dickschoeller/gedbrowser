@@ -18,7 +18,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  * @author Dick Schoeller
  */
 @RunWith(Parameterized.class)
-public class LinkConstructorTest {
+public final class LinkConstructorTest {
     /** */
     private final Person parent;
     /** */

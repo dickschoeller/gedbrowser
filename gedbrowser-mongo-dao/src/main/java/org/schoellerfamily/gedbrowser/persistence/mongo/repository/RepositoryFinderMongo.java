@@ -70,7 +70,7 @@ public final class RepositoryFinderMongo implements FinderStrategy {
     /** */
     @Autowired
     private transient SubmittorDocumentRepositoryMongo
-        submittorDocumentRepository; // NOPMD
+        submittorDocumentRepository;
 
     /** */
     @Autowired

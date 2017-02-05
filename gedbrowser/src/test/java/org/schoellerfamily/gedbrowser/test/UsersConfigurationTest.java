@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Dick Schoeller
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class UsersConfigurationTest {
+public final class UsersConfigurationTest {
     /** */
     @Value("${gedbrowser.home:/var/lib/gedbrowser}")
     private transient String gedbrowserHome;

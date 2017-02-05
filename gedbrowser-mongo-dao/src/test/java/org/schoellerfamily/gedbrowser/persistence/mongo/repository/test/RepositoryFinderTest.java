@@ -30,7 +30,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public class RepositoryFinderTest { // NOPMD
+public final class RepositoryFinderTest {
     /** */
     private static final String BOGUS_ID = "XYZZY";
 
@@ -58,34 +58,34 @@ public class RepositoryFinderTest { // NOPMD
      * @throws IOException because the reader can
      */
     @Before
-    public final void setUp() throws IOException {
+    public void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
     }
 
     /** */
     @Test
-    public final void testUntypedPerson() {
+    public void testUntypedPerson() {
         final Person person = (Person) finder.find(root, "I1");
         assertEquals("Mismatched ID", "I1", person.getString());
     }
 
     /** */
     @Test
-    public final void testUntypedFamily() {
+    public void testUntypedFamily() {
         final Family family = (Family) finder.find(root, "F1");
         assertEquals("Mismatched ID", "F1", family.getString());
     }
 
     /** */
     @Test
-    public final void testUntypedSource() {
+    public void testUntypedSource() {
         final Source source = (Source) finder.find(root, "S2");
         assertEquals("Mismatched ID", "S2", source.getString());
     }
 
     /** */
     @Test
-    public final void testUntypedSubmittor() {
+    public void testUntypedSubmittor() {
         final Submittor submittor =
                 (Submittor) finder.find(root, SUBMITTOR_STRING);
         assertEquals("Mismatched tag string",
@@ -94,7 +94,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testUntypedHead() {
+    public void testUntypedHead() {
         final Head head = (Head) finder.find(root, HEADER_STRING);
         assertEquals("Mismatched tag string",
                 HEADER_STRING, head.getString());
@@ -102,7 +102,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testUntypedTrailer() {
+    public void testUntypedTrailer() {
         final Trailer trailer = (Trailer) finder.find(root, TRAILER_STRING);
         assertEquals("Mismatched tag string",
                 TRAILER_STRING, trailer.getString());
@@ -110,35 +110,35 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testUntypedNotFound() {
+    public void testUntypedNotFound() {
         final GedObject ged = finder.find(root, "Bozo");
         assertNull("Should not have found anything", ged);
     }
 
     /** */
     @Test
-    public final void testTypedPerson() {
+    public void testTypedPerson() {
         final Person person = (Person) finder.find(root, "I1", Person.class);
         assertEquals("Mismatched ID", "I1", person.getString());
     }
 
     /** */
     @Test
-    public final void testTypedFamily() {
+    public void testTypedFamily() {
         final Family family = (Family) finder.find(root, "F1", Family.class);
         assertEquals("Mismatched ID", "F1", family.getString());
     }
 
     /** */
     @Test
-    public final void testTypedSource() {
+    public void testTypedSource() {
         final Source source = (Source) finder.find(root, "S2", Source.class);
         assertEquals("Mismatched ID", "S2", source.getString());
     }
 
     /** */
     @Test
-    public final void testTypedSubmittor() {
+    public void testTypedSubmittor() {
         final Submittor submittor = (Submittor) finder.find(
                 root, SUBMITTOR_STRING, Submittor.class);
         assertEquals("Mismatched tag string",
@@ -147,7 +147,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testTypedHead() {
+    public void testTypedHead() {
         final Head head = (Head) finder.find(root, HEADER_STRING, Head.class);
         assertEquals("Mismatched tag string",
                 HEADER_STRING, head.getString());
@@ -155,7 +155,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testTypedTrailer() {
+    public void testTypedTrailer() {
         final Trailer trailer = (Trailer) finder.find(
                 root, TRAILER_STRING, Trailer.class);
         assertEquals("Mismatched tag string",
@@ -164,56 +164,56 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testTypedNotFoundPerson() {
+    public void testTypedNotFoundPerson() {
         final Person person = finder.find(root, "S1", Person.class);
         assertNull("Should not have found anything", person);
     }
 
     /** */
     @Test
-    public final void testTypedNotFoundFamily() {
+    public void testTypedNotFoundFamily() {
         final Family family = finder.find(root, "I1", Family.class);
         assertNull("Should not have found anything", family);
     }
 
     /** */
     @Test
-    public final void testTypedNotFoundSource() {
+    public void testTypedNotFoundSource() {
         final Source source = finder.find(root, "F1", Source.class);
         assertNull("Should not have found anything", source);
     }
 
     /** */
     @Test
-    public final void testTypedNotFoundSubmittor() {
+    public void testTypedNotFoundSubmittor() {
         final Submittor submittor = finder.find(root, "SUB1", Submittor.class);
         assertNull("Should not have found anything", submittor);
     }
 
     /** */
     @Test
-    public final void testTypedNotFoundHead() {
+    public void testTypedNotFoundHead() {
         final Head head = finder.find(root, TRAILER_STRING, Head.class);
         assertNull("Should not have found anything", head);
     }
 
     /** */
     @Test
-    public final void testTypedNotFoundTrailer() {
+    public void testTypedNotFoundTrailer() {
         final Trailer trailer = finder.find(root, "T1", Trailer.class);
         assertNull("Should not have found anything", trailer);
     }
 
     /** */
     @Test
-    public final void testGetFilenameFromRoot() {
+    public void testGetFilenameFromRoot() {
         assertEquals("Filename mismatch",
                 "bigtest.ged", finder.getFilename(root));
     }
 
     /** */
     @Test
-    public final void testGetFilenameFromNotRoot() {
+    public void testGetFilenameFromNotRoot() {
         final Person person = (Person) finder.find(root, "I1", Person.class);
         assertEquals("Filename mismatch",
                 "bigtest.ged", finder.getFilename(person));
@@ -221,14 +221,14 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testGetDbNameFromRoot() {
+    public void testGetDbNameFromRoot() {
         assertEquals("Filename mismatch",
                 "bigtest", finder.getDbName(root));
     }
 
     /** */
     @Test
-    public final void testGetDbNameFromNotRoot() {
+    public void testGetDbNameFromNotRoot() {
         final Person person = (Person) finder.find(root, "I1", Person.class);
         assertEquals("DB name mismatch",
                 "bigtest", finder.getDbName(person));
@@ -236,7 +236,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testInsertPerson() {
+    public void testInsertPerson() {
         final Person person = new Person(root);
         person.setString(BOGUS_ID);
         finder.insert(root, person);
@@ -246,7 +246,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testInsertFamily() {
+    public void testInsertFamily() {
         final Family family = new Family(root);
         family.setString(BOGUS_ID);
         finder.insert(root, family);
@@ -256,7 +256,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testInsertSource() {
+    public void testInsertSource() {
         final Source source = new Source(root);
         source.setString(BOGUS_ID);
         finder.insert(root, source);
@@ -266,7 +266,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testInsertSubmittor() {
+    public void testInsertSubmittor() {
         final Submittor submittor = new Submittor(root);
         submittor.setString(BOGUS_ID);
         finder.insert(root, submittor);
@@ -276,7 +276,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testInsertHead() {
+    public void testInsertHead() {
         // TODO this test describes the current, probably wrong behavior.
         final Head head = new Head(root);
         head.setString(BOGUS_ID);
@@ -287,7 +287,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testInsertHeadTag() {
+    public void testInsertHeadTag() {
         // TODO this test describes the current, probably wrong behavior.
         final Head head = new Head(root);
         head.setString(BOGUS_ID);
@@ -298,7 +298,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testInsertTrailer() {
+    public void testInsertTrailer() {
         final Trailer trailer = new Trailer(root);
         trailer.setString(BOGUS_ID);
         finder.insert(root, trailer);
@@ -308,7 +308,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testSurnameSchoeller() {
+    public void testSurnameSchoeller() {
         final String[] names = {
                 "Schoeller, John Vincent",
                 "Schoeller, Melissa Robinson",
@@ -326,7 +326,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testSurnameNotFound() {
+    public void testSurnameNotFound() {
         final Collection<Person> persons =
                 finder.findBySurname(root, "Mumble");
         assertEquals("Should be empty list",
@@ -335,7 +335,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testSurnamesBeginWithS() {
+    public void testSurnamesBeginWithS() {
         final String[] names = {
                 "Sacerdote",
                 "Schoeller"
@@ -350,7 +350,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testSurnamesBeginWithQ() {
+    public void testSurnamesBeginWithQ() {
         final Collection<String> surnames =
                 finder.findBySurnamesBeginWith(root, "Q");
         assertEquals("Should have no surnames with Q",
@@ -359,7 +359,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testSurnameInitialLetters() {
+    public void testSurnameInitialLetters() {
         final String[] expected = {
                 "F", "H", "K", "L", "R", "S",
         };
@@ -373,7 +373,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testWithWrongGedObjectForRoot() {
+    public void testWithWrongGedObjectForRoot() {
         try {
             finder.find(new Person(), "foo");
             fail("Expected an exception here");
@@ -385,7 +385,7 @@ public class RepositoryFinderTest { // NOPMD
 
     /** */
     @Test
-    public final void testWithWrongClassForClazz() {
+    public void testWithWrongClassForClazz() {
         assertNull("Should not have found anything",
                 finder.find(root, BOGUS_ID, GedObject.class));
     }

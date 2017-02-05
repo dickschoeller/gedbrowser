@@ -17,7 +17,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
  * @author Dick Schoeller
  */
 @RunWith(Parameterized.class)
-public class RootConstructorTest {
+public final class RootConstructorTest {
     /** */
     private final GedObject parent;
     /** */

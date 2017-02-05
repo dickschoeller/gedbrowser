@@ -24,10 +24,10 @@ import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessiveClassLength" })
-public class BirthDateEstimatorTest {
+public final class BirthDateEstimatorTest {
     /** */
     @Test
-    public final void testSimple() {
+    public void testSimple() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person =
                 builder.createPerson("I0", "J. Random/Schoeller/");
@@ -45,7 +45,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testEmpty() {
+    public void testEmpty() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person =
                 builder.createPerson("I0", "J. Random/Schoeller/");
@@ -57,7 +57,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testFromYoungerSibling() {
+    public void testFromYoungerSibling() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 =
                 builder.createPerson("I1", "J. Random/Schoeller/");
@@ -81,7 +81,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testFromYoungerSiblings() {
+    public void testFromYoungerSiblings() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson("I1",
                 "J. Random/Schoeller/");
@@ -107,7 +107,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testFromEmptyYoungerSiblings() {
+    public void testFromEmptyYoungerSiblings() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
@@ -125,7 +125,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testFromOlderSibling() {
+    public void testFromOlderSibling() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
@@ -148,7 +148,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testFromOlderSiblings() {
+    public void testFromOlderSiblings() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
@@ -173,7 +173,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testFromEmptyOlderSiblings() {
+    public void testFromEmptyOlderSiblings() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
@@ -191,7 +191,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testFromOwnMarriage() {
+    public void testFromOwnMarriage() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
@@ -214,7 +214,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testFromOwnMarriageWithNoDate() {
+    public void testFromOwnMarriageWithNoDate() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
@@ -230,7 +230,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testFromOwnMarriages() {
+    public void testFromOwnMarriages() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
@@ -259,7 +259,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testFromParentsMarriage() {
+    public void testFromParentsMarriage() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson("I1",
                 "J. Random/Schoeller/");
@@ -290,7 +290,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testFromParentsMarriageWithOlderSiblings() {
+    public void testFromParentsMarriageWithOlderSiblings() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson("I1",
                 "J. Random/Schoeller/");
@@ -316,7 +316,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testFromChild() {
+    public void testFromChild() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson("I1",
                 "J. Random/Schoeller/");
@@ -341,7 +341,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testFromChildren() {
+    public void testFromChildren() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson("I1",
                 "J. Random/Schoeller/");
@@ -364,7 +364,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testFromHusband() {
+    public void testFromHusband() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson("I1",
                 "J. Random/Schoeller/");
@@ -387,7 +387,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testFromWife() {
+    public void testFromWife() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson("I1",
                 "J. Random/Schoeller/");
@@ -417,7 +417,7 @@ public class BirthDateEstimatorTest {
      * @throws IOException if the file can't be read
      */
     @Test
-    public final void testFactoryGedFile() throws IOException {
+    public void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = readFileTestSource();
         final GedObject root = top.createGedObject((AbstractGedLine) null);
         final List<Person> unhandled = new ArrayList<>();
@@ -452,7 +452,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testFromBaptism() {
+    public void testFromBaptism() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
@@ -470,7 +470,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testChristening() {
+    public void testChristening() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
@@ -488,7 +488,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testBarMitzah() {
+    public void testBarMitzah() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
@@ -506,7 +506,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testBatMitzvah() {
+    public void testBatMitzvah() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
@@ -524,7 +524,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testDeath() {
+    public void testDeath() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
@@ -542,7 +542,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testBurial() {
+    public void testBurial() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
@@ -560,7 +560,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testChanged() {
+    public void testChanged() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
@@ -573,7 +573,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testOtherEvent() {
+    public void testOtherEvent() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
@@ -591,7 +591,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testNoDate() {
+    public void testNoDate() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
@@ -604,7 +604,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testBadDate() {
+    public void testBadDate() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
@@ -617,7 +617,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testEstimateBirthDate() {
+    public void testEstimateBirthDate() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
@@ -635,7 +635,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testEstimateMarriageDate() {
+    public void testEstimateMarriageDate() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");
@@ -653,7 +653,7 @@ public class BirthDateEstimatorTest {
 
     /** */
     @Test
-    public final void testEstimateOtherDate() {
+    public void testEstimateOtherDate() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I0",
                 "J. Random/Schoeller/");

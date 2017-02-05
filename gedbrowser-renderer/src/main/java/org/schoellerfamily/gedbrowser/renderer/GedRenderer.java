@@ -157,7 +157,7 @@ public abstract class GedRenderer<G extends GedObject> {
     public final String getHeaderHtml(final String title,
             final String keywords) {
         final StringBuilder builder = new StringBuilder(585);
-        builder.append("Content-type: text/html\n\n"); // NOPMD
+        builder.append("Content-type: text/html\n\n");
         builder.append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n");
         builder.append("  \"http://www.w3.org/TR/html4/strict.dtd\">\n");
         builder.append("<html>\n");
@@ -171,14 +171,14 @@ public abstract class GedRenderer<G extends GedObject> {
         builder.append("    <meta name=\"Keywords\" ");
         builder.append("content=\"genealogy gedbrowser ");
         builder.append(keywords);
-        builder.append("\">\n"); // NOPMD
+        builder.append("\">\n");
         builder.append("    <meta http-equiv=\"Content-Style-Type\" ");
         builder.append("content=\"text/css\">\n");
         builder.append("    <link href=\"/gedbrowser/gedbrowser.css\" ");
         builder.append("rel=\"stylesheet\" type=\"text/css\">\n");
         builder.append("    <title>");
         builder.append(title);
-        builder.append("</title>\n"); // NOPMD
+        builder.append("</title>\n");
         builder.append("  </head>\n");
         builder.append("  <body>\n");
         return builder.toString();
@@ -209,7 +209,7 @@ public abstract class GedRenderer<G extends GedObject> {
                 Locale.getDefault()).format(javaDate);
 
         final StringBuilder builder = new StringBuilder(769);
-        builder.append("\n    <hr class=\"final\"/>"); // NOPMD
+        builder.append("\n    <hr class=\"final\"/>");
         builder.append("\n    <p>");
         if ("Header".equals(omit)) {
             builder.append("\n    <a href=\"?" + gedObject.getDbName()
@@ -223,7 +223,7 @@ public abstract class GedRenderer<G extends GedObject> {
             builder.append("\n    <a href=\"?" + gedObject.getDbName()
                     + "+Index\">Index</a><br>");
         }
-        builder.append("\n    </p>"); // NOPMD
+        builder.append("\n    </p>");
         builder.append("\n    <hr class=\"final\"/>");
         builder.append("\n    <table class=\"buttonrow\">");
         builder.append("\n    <tr class=\"buttonrow\">");
@@ -231,14 +231,14 @@ public abstract class GedRenderer<G extends GedObject> {
         builder.append("\n    <p class=\"maintainer\">");
         builder.append("\n    Maintained by <a href=\"mailto:");
         builder.append(DICK_EMAIL);
-        builder.append("\">Dick Schoeller</a>.<br>"); // NOPMD
+        builder.append("\">Dick Schoeller</a>.<br>");
         builder.append("\n    Created with <a href=\"");
         builder.append(GEDBROWSER_URL);
         builder.append("\">GEDbrowser</a>, version ");
         builder.append(GedObject.VERSION);
         builder.append(" on ");
         builder.append(timeString);
-        builder.append("\n    </p>"); // NOPMD
+        builder.append("\n    </p>");
         builder.append("\n    </td>");
         builder.append("\n    <td class=\"brright\">");
         builder.append("\n    <p class=\"maintainer\">");

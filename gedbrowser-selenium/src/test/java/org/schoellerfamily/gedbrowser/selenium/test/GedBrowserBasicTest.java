@@ -14,7 +14,7 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 /**
  * @author Dick Schoeller
  */
-public class GedBrowserBasicTest {
+public final class GedBrowserBasicTest {
     /** Standard timeout. */
     private static final int SHORT_TIMEOUT = 3;
     /** Long timeout. */
@@ -36,7 +36,7 @@ public class GedBrowserBasicTest {
 //     * because the UI currently doesn't use IDs.
 //     */
 //    @Test
-//    public final void testChildLinkNavigationFirefox() {
+//    public void testChildLinkNavigationFirefox() {
 //        // Create a new instance of the Firefox driver
 //        // Notice that the remainder of the code relies on the interface,
 //        // not the implementation.
@@ -53,7 +53,7 @@ public class GedBrowserBasicTest {
      * because the UI currently doesn't use IDs.
      */
     @Test
-    public final void testChildLinkNavigationChrome() {
+    public void testChildLinkNavigationChrome() {
         // Create a new instance of the Chrome driver
         // Notice that the remainder of the code relies on the interface,
         // not the implementation.
@@ -71,7 +71,7 @@ public class GedBrowserBasicTest {
      * because the UI currently doesn't use IDs.
      */
     @Test
-    public final void testChildLinkNavigationHtmlUnit() {
+    public void testChildLinkNavigationHtmlUnit() {
         // Create a new instance of the HtmlUnit driver
         // Notice that the remainder of the code relies on the interface,
         // not the implementation.
@@ -90,7 +90,7 @@ public class GedBrowserBasicTest {
 //     * because the UI currently doesn't use IDs.
 //     */
 //    @Test
-//    public final void testFatherLinkNavigationFirefox() {
+//    public void testFatherLinkNavigationFirefox() {
 //        // Create a new instance of the Chrome driver
 //        // Notice that the remainder of the code relies on the interface,
 //        // not the implementation.
@@ -107,7 +107,7 @@ public class GedBrowserBasicTest {
      * because the UI currently doesn't use IDs.
      */
     @Test
-    public final void testFatherLinkNavigationChrome() {
+    public void testFatherLinkNavigationChrome() {
         // Create a new instance of the Chrome driver
         // Notice that the remainder of the code relies on the interface,
         // not the implementation.
@@ -125,7 +125,7 @@ public class GedBrowserBasicTest {
      * because the UI currently doesn't use IDs.
      */
     @Test
-    public final void testFatherLinkNavigationHtmlUnit() {
+    public void testFatherLinkNavigationHtmlUnit() {
         // Create a new instance of the HtmlUnit driver
         // Notice that the remainder of the code relies on the interface,
         // not the implementation.
@@ -144,7 +144,7 @@ public class GedBrowserBasicTest {
 //     * because the UI currently doesn't use IDs.
 //     */
 //    @Test
-//    public final void testMotherLinkNavigationFirefox() {
+//    public void testMotherLinkNavigationFirefox() {
 //        // Create a new instance of the Firefox driver
 //        // Notice that the remainder of the code relies on the interface,
 //        // not the implementation.
@@ -161,7 +161,7 @@ public class GedBrowserBasicTest {
      * because the UI currently doesn't use IDs.
      */
     @Test
-    public final void testMotherLinkNavigationChrome() {
+    public void testMotherLinkNavigationChrome() {
         // Create a new instance of the Chrome driver
         // Notice that the remainder of the code relies on the interface,
         // not the implementation.
@@ -179,7 +179,7 @@ public class GedBrowserBasicTest {
      * because the UI currently doesn't use IDs.
      */
     @Test
-    public final void testMotherLinkNavigationHtmlUnit() {
+    public void testMotherLinkNavigationHtmlUnit() {
         // Create a new instance of the HtmlUnit driver
         // Notice that the remainder of the code relies on the interface,
         // not the implementation.

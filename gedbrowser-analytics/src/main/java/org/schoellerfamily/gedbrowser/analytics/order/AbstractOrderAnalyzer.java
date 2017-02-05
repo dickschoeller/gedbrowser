@@ -232,7 +232,7 @@ public abstract class AbstractOrderAnalyzer {
      * @param event the event
      * @return true if it is non-time event
      */
-    protected boolean ignoreable(final Attribute event) {
+    protected final boolean ignoreable(final Attribute event) {
         // Layed out like this because it is easier to understand
         // coverage. No performance differences expected compared
         // to tighter layout.
