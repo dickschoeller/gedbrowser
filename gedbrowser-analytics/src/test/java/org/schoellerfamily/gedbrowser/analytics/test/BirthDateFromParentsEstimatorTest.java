@@ -14,7 +14,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public class BirthDateFromParentsEstimatorTest {
+public final class BirthDateFromParentsEstimatorTest {
     /** */
     private transient GedObjectBuilder builder;
     /** */

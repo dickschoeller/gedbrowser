@@ -1,8 +1,12 @@
 engines:
 #  csslint:
 #    enabled: true
-#  fixme:
-#    enabled: true
+  fixme:
+    enabled: true
+    config:
+      string:
+      - FIXME
+      - TODO
   checkstyle:
     enabled: true
     channel: "beta"
@@ -10,6 +14,7 @@ engines:
   pmd:
     enabled: true
     channel: "beta"
+    config: config/pmd.xml
 ratings:
   paths:
   - "**.css"

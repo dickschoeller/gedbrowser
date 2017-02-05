@@ -8,7 +8,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 /**
  * @author Dick Schoeller
  */
-public class OrderAnalyzer extends AbstractOrderAnalyzer {
+public final class OrderAnalyzer extends AbstractOrderAnalyzer {
     /** Which person are we estimating. */
     private final Person person;
 

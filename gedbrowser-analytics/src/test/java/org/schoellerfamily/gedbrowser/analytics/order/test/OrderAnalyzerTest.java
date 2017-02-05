@@ -20,7 +20,7 @@ import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 /**
  * @author Dick Schoeller
  */
-public class OrderAnalyzerTest {
+public final class OrderAnalyzerTest {
     /** */
     private final OrderAnalyzerTestHelper helper =
             new OrderAnalyzerTestHelper();
