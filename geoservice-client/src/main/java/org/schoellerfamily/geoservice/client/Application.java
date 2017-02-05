@@ -43,12 +43,8 @@ public class Application {
      * @param builder the rest template builder that Spring provides
      * @return the rest template
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public RestTemplate restTemplate(final RestTemplateBuilder builder) {
-        // CHECKSTYLE:ON
         return builder.build();
     }
 
@@ -56,12 +52,8 @@ public class Application {
      * @return the command line runner
      * @throws Exception because things can blow up
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public CommandLineRunner run() throws Exception {
-        // CHECKSTYLE:ON
         return args -> {
             for (final String arg : args) {
                 logger.info("Get geocode for: " + arg);

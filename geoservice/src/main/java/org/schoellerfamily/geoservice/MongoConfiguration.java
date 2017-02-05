@@ -41,12 +41,8 @@ public class MongoConfiguration {
      * @return the MongoDbFactory
      * @throws UnknownHostException because it must
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
-        // CHECKSTYLE:ON
         return new SimpleMongoDbFactory(new MongoClient(host, port),
                 "geoservice");
     }
@@ -57,12 +53,8 @@ public class MongoConfiguration {
      * @return the template
      * @throws UnknownHostException because it must
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public MongoTemplate mongoTemplate() throws UnknownHostException {
-        // CHECKSTYLE:ON
         return new MongoTemplate(mongoDbFactory());
     }
 }

@@ -49,24 +49,16 @@ public final class PlaceListRendererTest {
         /**
          * @return the persistence manager
          */
-        // We turn off checkstyle because bean methods must not be final
-        // This seems to vary with checkstyle version
-        // CHECKSTYLE:OFF
         @Bean
         public GeoServiceClient geoServiceClient() {
-            // CHECKSTYLE:ON
             return new GeoServiceClientStub();
         }
 
         /**
          * @return the calendar provider
          */
-        // We turn off checkstyle because bean methods must not be final
-        // This seems to vary with checkstyle version
-        // CHECKSTYLE:OFF
         @Bean
         public CalendarProvider getCalendarProvider() {
-            // CHECKSTYLE:ON
             return new CalendarProviderStub();
         }
     }

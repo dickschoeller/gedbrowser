@@ -82,12 +82,8 @@ public class MongoConfiguration {
      * @return the MongoDbFactory
      * @throws UnknownHostException because it must
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
-        // CHECKSTYLE:ON
         return new SimpleMongoDbFactory(new MongoClient(host, port),
                 "gedbrowser");
     }
@@ -98,48 +94,32 @@ public class MongoConfiguration {
      * @return the template
      * @throws UnknownHostException because it must
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public MongoTemplate mongoTemplate() throws UnknownHostException {
-        // CHECKSTYLE:ON
         return new MongoTemplate(mongoDbFactory());
     }
 
     /**
      * @return the finder
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public FinderStrategy finder() {
-        // CHECKSTYLE:ON
         return new RepositoryFinderMongo();
     }
 
     /**
      * @return the loader
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public GedFileLoader loader() {
-        // CHECKSTYLE:ON
         return new GedFileLoader();
     }
 
     /**
      * @return the application info provider
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public ApplicationInfo appInfo() {
-        // CHECKSTYLE:ON
         return new ApplicationInfo();
     }
 
@@ -147,24 +127,16 @@ public class MongoConfiguration {
      * @param builder the rest template builder that Spring provides
      * @return the rest template
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public RestTemplate restTemplate(final RestTemplateBuilder builder) {
-        // CHECKSTYLE:ON
         return builder.build();
     }
 
     /**
      * @return the geoservice client
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public GeoServiceClient client() {
-        // CHECKSTYLE:ON
         return new GeoServiceClientImpl();
     }
 
@@ -172,12 +144,8 @@ public class MongoConfiguration {
     /**
      * @return the manager of google keys
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public KeyManager keyManager() {
-        // CHECKSTYLE:ON
         if ("stub".equals(keyfile)) {
             return new KeyManagerStub();
         }
@@ -187,12 +155,8 @@ public class MongoConfiguration {
     /**
      * @return a calendar provider of REAL today
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public CalendarProvider calendarProvider() {
-        // CHECKSTYLE:ON
         if ("stub".equals(keyfile)) {
             return new CalendarProviderStub();
         }

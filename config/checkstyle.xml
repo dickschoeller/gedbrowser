@@ -69,7 +69,9 @@ Allow field shadowing with constructor and setter arguments
       <property name="suppressLoadErrors" value="true"/>
     </module -->
     <module name="SimplifyBooleanExpression"/>
-    <module name="SimplifyBooleanReturn"/>
+    <module name="SimplifyBooleanReturn">
+        <property name="ignoredAnnotations" value="Test, Before, After, BeforeClass, AfterClass, Bean"/>
+    </module>
     <module name="DesignForExtension"/>
     <module name="FinalClass"/>
     <module name="HideUtilityClassConstructor"/>

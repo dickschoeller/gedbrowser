@@ -46,24 +46,16 @@ public class MongoTestConfiguration {
     /**
      * @return the persistence manager
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public GeoCode persistenceManager() {
-        // CHECKSTYLE:ON
         return new GeoCodeMongo();
     }
 
     /**
      * @return the geocoder
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public GeoCoder geoCoder() {
-        // CHECKSTYLE:ON
         final GeoCodeTestFixture tempFixture = new GeoCodeTestFixture();
         return new StubGeoCoder(tempFixture.expectedNotFound());
     }
@@ -74,12 +66,8 @@ public class MongoTestConfiguration {
      * @return the MongoDbFactory
      * @throws UnknownHostException because it must
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
-        // CHECKSTYLE:ON
         return new SimpleMongoDbFactory(
                 new MongoClient(host, port), "geoserviceTest");
     }
@@ -90,12 +78,8 @@ public class MongoTestConfiguration {
      * @return the template
      * @throws UnknownHostException because it must
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public MongoTemplate mongoTemplate() throws UnknownHostException {
-        // CHECKSTYLE:ON
         final MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory());
 
         return mongoTemplate;
@@ -108,24 +92,16 @@ public class MongoTestConfiguration {
      *
      * @return the fixture
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public GeoRepositoryFixture repositoryFixture() {
-        // CHECKSTYLE:ON
         return new GeoRepositoryFixture();
     }
 
     /**
      * @return the geocodeloader
      */
-    // We turn off checkstyle because bean methods must not be final
-    // This seems to vary with checkstyle version
-    // CHECKSTYLE:OFF
     @Bean
     public GeoCodeLoader loader() {
-        // CHECKSTYLE:ON
         return new GeoCodeLoader();
     }
 }
