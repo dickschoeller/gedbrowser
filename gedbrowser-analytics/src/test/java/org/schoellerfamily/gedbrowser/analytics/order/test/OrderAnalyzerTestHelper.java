@@ -8,7 +8,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 /**
  * @author Dick Schoeller
  */
-public class OrderAnalyzerTestHelper {
+public final class OrderAnalyzerTestHelper {
     /**
      * Analyze and dump the result.
      *

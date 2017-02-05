@@ -9,7 +9,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public class GedObjectBuilderTrailerTest {
+public final class GedObjectBuilderTrailerTest {
 
     /** */
     @Test

@@ -18,7 +18,7 @@ import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 /**
  * @author Dick Schoeller
  */
-public class PersonPlacesTest {
+public final class PersonPlacesTest {
     /**
      * Test against the known data for Arnold Robinson.
      * TODO Replace this with something from sanitized data.
@@ -26,7 +26,7 @@ public class PersonPlacesTest {
      * @throws IOException if can't read the GEDCOM file
      */
     @Test
-    public final void testArnold() throws IOException {
+    public void testArnold() throws IOException {
         final AbstractGedLine top =
                 ReaderHelper.readFileTestSource(this,
                         "mini-schoeller.ged");
@@ -79,7 +79,7 @@ public class PersonPlacesTest {
      * @throws IOException if can't read the GEDCOM file
      */
     @Test
-    public final void testDick() throws IOException {
+    public void testDick() throws IOException {
         final AbstractGedLine top =
                 ReaderHelper.readFileTestSource(this,
                         "mini-schoeller.ged");
@@ -123,7 +123,7 @@ public class PersonPlacesTest {
      *
      * @param places the collection to dump
      */
-    protected final void dump(final Collection<Place> places) {
+    private void dump(final Collection<Place> places) {
         System.out.println("A total of " + places.size() + " distinct places");
         for (final Place place : places) {
             System.out.println("    " + place.getString());

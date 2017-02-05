@@ -6,7 +6,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 /**
  * @author Dick Schoeller
  */
-public class SubmittorSectionRenderer implements SectionRenderer {
+public final class SubmittorSectionRenderer implements SectionRenderer {
     /**
      * Holder for the SubmittorRenderer that is using this helper.
      */
@@ -25,7 +25,7 @@ public class SubmittorSectionRenderer implements SectionRenderer {
      * {@inheritDoc}
      */
     @Override
-    public final StringBuilder renderAsSection(final StringBuilder builder,
+    public StringBuilder renderAsSection(final StringBuilder builder,
             final GedRenderer<?> pageRenderer, final boolean newLine,
             final int pad, final int sectionNumber) {
         final Submittor submittor = submittorRenderer.getGedObject();

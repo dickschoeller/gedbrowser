@@ -22,7 +22,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  */
 @RunWith(Parameterized.class)
 @SuppressWarnings("PMD.CommentSize")
-public class FamCConstructorTest {
+public final class FamCConstructorTest {
     /** */
     private final Person parent;
     /** */

@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author Dick Schoeller
  */
-public class OrderAnalyzerResult {
+public final class OrderAnalyzerResult {
     /** Current status of the analysis. */
     private boolean correct;
     /** List of mismatch descriptions. */

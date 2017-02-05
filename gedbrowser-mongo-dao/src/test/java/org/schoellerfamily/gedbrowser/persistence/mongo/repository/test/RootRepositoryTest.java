@@ -46,7 +46,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 @SuppressWarnings({ "PMD.ExcessiveImports" })
-public class RootRepositoryTest {
+public final class RootRepositoryTest {
     /** */
     @Autowired
     private transient RootDocumentRepositoryMongo rootDocumentRepository;
@@ -70,7 +70,7 @@ public class RootRepositoryTest {
     /** */
     @Autowired
     private transient SubmittorDocumentRepositoryMongo
-        submittorDocumentRepository; // NOPMD
+        submittorDocumentRepository;
 
     /** */
     @Autowired
@@ -90,7 +90,7 @@ public class RootRepositoryTest {
      * @throws IOException because the reader can
      */
     @Before
-    public final void setUp() throws IOException {
+    public void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
         rootDocument = new RootDocumentMongo();
         rootDocument.setFilename(root.getFilename());
@@ -100,13 +100,13 @@ public class RootRepositoryTest {
 
     /** */
     @After
-    public final void tearDown() {
+    public void tearDown() {
         repositoryFixture.clearRepository();
     }
 
     /** */
     @Test
-    public final void testPersons() {
+    public void testPersons() {
         final long expectedPersonCount = 16L;
         assertEquals("Count mismatch",
                 expectedPersonCount, personDocumentRepository.count());
@@ -114,7 +114,7 @@ public class RootRepositoryTest {
 
     /** */
     @Test
-    public final void testPerson() {
+    public void testPerson() {
         final PersonDocument perdoc = personDocumentRepository.
                 findByFileAndString(root.getFilename(), "I1");
         final Person person = (Person) GedDocumentMongoFactory.getInstance().
@@ -125,7 +125,7 @@ public class RootRepositoryTest {
 
     /** */
     @Test
-    public final void testFamilies() {
+    public void testFamilies() {
         final long expectedFamilyCount = 6L;
         assertEquals("Count mismatch",
                 expectedFamilyCount, familyDocumentRepository.count());
@@ -133,7 +133,7 @@ public class RootRepositoryTest {
 
     /** */
     @Test
-    public final void testFamily() {
+    public void testFamily() {
         final String filename = root.getFilename();
         final FamilyDocument famdoc = familyDocumentRepository.
                 findByFileAndString(filename, "F1");
@@ -145,7 +145,7 @@ public class RootRepositoryTest {
 
     /** */
     @Test
-    public final void testSources() {
+    public void testSources() {
         final long expectedSourceCount = 9L;
         assertEquals("Count mismatch",
                 expectedSourceCount, sourceDocumentRepository.count());
@@ -153,7 +153,7 @@ public class RootRepositoryTest {
 
     /** */
     @Test
-    public final void testSource() {
+    public void testSource() {
         final SourceDocument soudoc = sourceDocumentRepository.
                 findByFileAndString(root.getFilename(), "S2");
         final Source source = (Source) GedDocumentMongoFactory.getInstance().
@@ -163,7 +163,7 @@ public class RootRepositoryTest {
 
     /** */
     @Test
-    public final void testRoot() {
+    public void testRoot() {
         final RootDocument rootdoc =
                 rootDocumentRepository.findByFileAndString(
                         root.getFilename(), root.getString());
@@ -175,7 +175,7 @@ public class RootRepositoryTest {
 
     /** */
     @Test
-    public final void testWhole() {
+    public void testWhole() {
         final Map<String, GedObject> map = root.getObjects();
         for (final Map.Entry<String, GedObject> entry : map.entrySet()) {
             final GedObject ged = entry.getValue();
@@ -279,7 +279,7 @@ public class RootRepositoryTest {
 
     /** */
     @Test
-    public final void testBogusNameRoot() {
+    public void testBogusNameRoot() {
         final RootDocument rootdoc =
                 rootDocumentRepository.findByFileAndString(
                         root.getFilename(), "Mumbles");
@@ -288,7 +288,7 @@ public class RootRepositoryTest {
 
     /** */
     @Test
-    public final void testBogusFileRoot() {
+    public void testBogusFileRoot() {
         final RootDocument rootdoc =
                 rootDocumentRepository.findByFileAndString(
                         "Mumbles", root.getString());
@@ -297,7 +297,7 @@ public class RootRepositoryTest {
 
     /** */
     @Test(expected = IllegalArgumentException.class)
-    public final void testFindByRoot() {
+    public void testFindByRoot() {
         rootDocumentRepository.findByRootAndString(
                 rootDocument, root.getString());
         fail("should not get here");

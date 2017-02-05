@@ -314,7 +314,7 @@ public final class OrderAnalyzerTest {
      * @throws IOException if failed to read file
      */
     @Test
-    public final void testFactoryGedFile() throws IOException {
+    public void testFactoryGedFile() throws IOException {
         final AbstractGedLine top =
                 ReaderHelper.readFileTestSource(this, "gl120368.ged");
         final GedObject root = top.createGedObject((AbstractGedLine) null);

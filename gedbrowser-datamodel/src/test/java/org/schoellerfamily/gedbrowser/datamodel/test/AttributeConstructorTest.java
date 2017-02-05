@@ -21,7 +21,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  * @author Dick Schoeller
  */
 @RunWith(Parameterized.class)
-public class AttributeConstructorTest {
+public final class AttributeConstructorTest {
     /** */
     private final GedObject parent;
     /** */

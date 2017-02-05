@@ -45,7 +45,9 @@ public final class FamCTest {
         if (family == null || person1 == null) {
             return new Child();
         }
-        // TODO inlined because we want to capture and look at the FamC object
+        // In-lined because we want to capture and look at the FamC object.
+        // That prevents us from using the builder, which only expposes the
+        // Child and not the FamC.
         famC = new FamC(person1, "FAMC",
                 new ObjectId(family.getString()));
         final Child child = new Child(family, "Child",

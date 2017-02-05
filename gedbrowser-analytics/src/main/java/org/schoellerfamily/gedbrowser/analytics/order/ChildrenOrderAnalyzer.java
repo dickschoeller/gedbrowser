@@ -9,7 +9,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 /**
  * @author Dick Schoeller
  */
-public class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
+public final class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
     /** Format for child order problem message. */
     private static final String CHILD_ORDER_FORMAT =
             "Child order: %s, born on %s, is after %s, born on %s";

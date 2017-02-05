@@ -18,7 +18,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  * @author Dick Schoeller
  */
 @RunWith(Parameterized.class)
-public class MultimediaConstructorTest {
+public final class MultimediaConstructorTest {
     /** */
     private final GedObject parent;
     /** */

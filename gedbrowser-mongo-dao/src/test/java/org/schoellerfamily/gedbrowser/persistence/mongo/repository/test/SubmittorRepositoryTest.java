@@ -32,7 +32,7 @@ public final class SubmittorRepositoryTest {
     /** */
     @Autowired
     private transient SubmittorDocumentRepositoryMongo
-        submittorDocumentRepository; // NOPMD
+        submittorDocumentRepository;
 
     /** */
     @Autowired

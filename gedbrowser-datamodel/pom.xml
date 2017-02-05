@@ -8,7 +8,7 @@
     <version>1.1.1-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  
+
   <artifactId>gedbrowser-datamodel</artifactId>
   <name>gedbrowser-datamodel</name>
 
@@ -47,7 +47,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
+
   <reporting>
     <plugins>
       <plugin>

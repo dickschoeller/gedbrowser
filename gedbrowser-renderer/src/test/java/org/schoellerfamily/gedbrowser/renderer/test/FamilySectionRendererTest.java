@@ -197,7 +197,7 @@ public final class FamilySectionRendererTest {
         final List<Family> families =
                 vivian.getFamilies(new ArrayList<Family>());
         for (final Family vFam : families) {
-            final FamilyRenderer famRenderer = new FamilyRenderer(vFam, // NOPMD
+            final FamilyRenderer famRenderer = new FamilyRenderer(vFam,
                     new GedRendererFactory(),
                     adminContext,
                     provider);
@@ -244,7 +244,7 @@ public final class FamilySectionRendererTest {
         final List<Family> families =
                 vivian.getFamilies(new ArrayList<Family>());
         for (final Family vFam : families) {
-            final FamilyRenderer famRenderer = new FamilyRenderer(vFam, // NOPMD
+            final FamilyRenderer famRenderer = new FamilyRenderer(vFam,
                     new GedRendererFactory(),
                     anonymousContext,
                     provider);

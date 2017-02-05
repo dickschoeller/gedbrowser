@@ -31,7 +31,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo
 /**
  * @author Dick Schoeller
  */
-public final class BadLoadTest { // NOPMD
+public final class BadLoadTest {
     /** */
     private final GedObject root = new Root(null);
     /** */
