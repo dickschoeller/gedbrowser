@@ -197,10 +197,8 @@ public final class FamilySectionRendererTest {
         final List<Family> families =
                 vivian.getFamilies(new ArrayList<Family>());
         for (final Family vFam : families) {
-            final FamilyRenderer famRenderer = new FamilyRenderer(vFam,
-                    new GedRendererFactory(),
-                    adminContext,
-                    provider);
+            final FamilyRenderer famRenderer =
+                    createFamilyRenderer(vFam, adminContext);
             final FamilySectionRenderer fsRenderer =
                     (FamilySectionRenderer) famRenderer.getSectionRenderer();
             builder.setLength(0);
@@ -208,6 +206,20 @@ public final class FamilySectionRendererTest {
             assertEquals("Rendered html doesn't match expectation",
                     outstrings[index++], builder.toString());
         }
+    }
+
+    /**
+     * Create a family renderer for this family, using the standard
+     * context.
+     *
+     * @param family the family to render
+     * @param context the current rendering context
+     * @return the renderer
+     */
+    private FamilyRenderer createFamilyRenderer(final Family family,
+            final RenderingContext context) {
+        return new FamilyRenderer(family, new GedRendererFactory(),
+                context, provider);
     }
 
     /**
@@ -244,10 +256,8 @@ public final class FamilySectionRendererTest {
         final List<Family> families =
                 vivian.getFamilies(new ArrayList<Family>());
         for (final Family vFam : families) {
-            final FamilyRenderer famRenderer = new FamilyRenderer(vFam,
-                    new GedRendererFactory(),
-                    anonymousContext,
-                    provider);
+            final FamilyRenderer famRenderer =
+                    createFamilyRenderer(vFam, anonymousContext);
             final FamilySectionRenderer fsRenderer =
                     (FamilySectionRenderer) famRenderer.getSectionRenderer();
             builder.setLength(0);
