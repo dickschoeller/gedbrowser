@@ -70,7 +70,9 @@ Allow field shadowing with constructor and setter arguments
     </module -->
     <module name="SimplifyBooleanExpression"/>
     <module name="SimplifyBooleanReturn"/>
-    <module name="DesignForExtension"/>
+    <module name="DesignForExtension">
+        <property name="ignoredAnnotations" value="Test, Before, After, BeforeClass, AfterClass, Bean"/>
+    </module>
     <module name="FinalClass"/>
     <module name="HideUtilityClassConstructor"/>
     <module name="InterfaceIsType"/>

@@ -26,11 +26,8 @@ public class UsersConfiguration {
      *
      * @return the Users object
      */
-    // We turn off checkstyle because bean methods must not be final
-    // CHECKSTYLE:OFF
     @Bean
     public Users users() {
-        // CHECKSTYLE:ON
         final String userFile = gedbrowserHome + "/userFile.csv";
         return readUserFile(userFile);
     }

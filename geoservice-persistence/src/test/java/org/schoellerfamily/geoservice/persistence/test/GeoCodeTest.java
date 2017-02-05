@@ -91,8 +91,6 @@ public class GeoCodeTest {
         /**
          * @return the geocoder
          */
-        // We turn off checkstyle because bean methods must not be final
-        // CHECKSTYLE:OFF
         @Bean
         public GeoCoder geoCoder() {
             return new StubGeoCoder(testFixture().expectedNotFound());
@@ -101,8 +99,6 @@ public class GeoCodeTest {
         /**
          * @return the geocodeloader
          */
-        // We turn off checkstyle because bean methods must not be final
-        // CHECKSTYLE:OFF
         @Bean
         public GeoCodeLoader loader() {
             return new GeoCodeLoader();

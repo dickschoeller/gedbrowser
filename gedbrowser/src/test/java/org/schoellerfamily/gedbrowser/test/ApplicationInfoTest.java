@@ -33,11 +33,8 @@ public final class ApplicationInfoTest {
         /**
          * @return the backup manager
          */
-        // We turn off checkstyle because bean methods must not be final
-        // CHECKSTYLE:OFF
         @Bean
         public ApplicationInfo appInfo() {
-            // CHECKSTYLE:ON
             return new ApplicationInfo();
         }
     }
