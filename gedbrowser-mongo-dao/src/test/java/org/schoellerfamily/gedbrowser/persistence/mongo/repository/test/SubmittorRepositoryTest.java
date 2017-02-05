@@ -25,7 +25,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public class SubmittorRepositoryTest {
+public final class SubmittorRepositoryTest {
     /** */
     private static final String SUBMITTOR_STRING = "Submittor";
 
@@ -48,7 +48,7 @@ public class SubmittorRepositoryTest {
      * @throws IOException because the reader does
      */
     @Before
-    public final void setUp() throws IOException {
+    public void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
         rootDocument = new RootDocumentMongo();
         rootDocument.setFilename(root.getFilename());
@@ -58,13 +58,13 @@ public class SubmittorRepositoryTest {
 
     /** */
     @After
-    public final void tearDown() {
+    public void tearDown() {
         repositoryFixture.clearRepository();
     }
 
     /** */
     @Test
-    public final void testSubmittor() {
+    public void testSubmittor() {
         final SubmittorDocument document = submittorDocumentRepository.
                 findByFileAndString(root.getFilename(), SUBMITTOR_STRING);
         final Submittor submittor =
@@ -76,7 +76,7 @@ public class SubmittorRepositoryTest {
 
     /** */
     @Test
-    public final void testSubmittorRoot() {
+    public void testSubmittorRoot() {
         final SubmittorDocument document = submittorDocumentRepository.
                 findByRootAndString(rootDocument, SUBMITTOR_STRING);
         final Submittor submittor =
@@ -88,7 +88,7 @@ public class SubmittorRepositoryTest {
 
     /** */
     @Test
-    public final void testBogus() {
+    public void testBogus() {
         final SubmittorDocument perdoc = submittorDocumentRepository.
                 findByFileAndString(root.getFilename(), "Mumble");
         assertNull("Bogus request should return null", perdoc);
@@ -96,7 +96,7 @@ public class SubmittorRepositoryTest {
 
     /** */
     @Test
-    public final void testBogusRoot() {
+    public void testBogusRoot() {
         final SubmittorDocument perdoc = submittorDocumentRepository.
                 findByRootAndString(rootDocument, "Mumble");
         assertNull("Bogus request should return null", perdoc);

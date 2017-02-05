@@ -10,7 +10,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public class GedObjectBuilderSubmittorTest {
+public final class GedObjectBuilderSubmittorTest {
     /** */
     @Test
     public void testCreateSubmittorSimple() {

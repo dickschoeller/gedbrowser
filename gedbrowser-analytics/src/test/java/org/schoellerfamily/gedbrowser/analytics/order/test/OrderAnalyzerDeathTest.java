@@ -13,7 +13,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public class OrderAnalyzerDeathTest {
+public final class OrderAnalyzerDeathTest {
     /** */
     private final OrderAnalyzerTestHelper helper =
             new OrderAnalyzerTestHelper();

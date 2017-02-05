@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
 /**
  * @author Dick Schoeller
  */
-public class SourcePage extends PageBase {
+public final class SourcePage extends PageBase {
     // FIXME reimplement this to go to the database for information
 
     /** Database ID associated with this page. */
@@ -70,7 +70,7 @@ public class SourcePage extends PageBase {
      *
      * @return the associated page object.
      */
-    public final PersonPage back() {
+    public PersonPage back() {
         if (previous != null) {
             navigateBack();
         }
@@ -82,7 +82,7 @@ public class SourcePage extends PageBase {
      *
      * @return true if the title matches the expected value
      */
-    public final boolean titleCheck() {
+    public boolean titleCheck() {
         System.out.println("Page title is: " + getTitle());
         return getTitle().equals(TITLE_MAP.get(id));
     }

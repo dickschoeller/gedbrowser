@@ -16,7 +16,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public class GedObjectBuilderFamilyTest {
+public final class GedObjectBuilderFamilyTest {
     // TODO there might be more valid checks of the behaviors of the creators.
     // Check ID on family
     // Check type and date on events

@@ -26,7 +26,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.CommentSize", "PMD.GodClass" })
-public class GedObjectBuilder {
+public final class GedObjectBuilder {
     /** */
     private final Root root;
 

@@ -25,7 +25,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public class SourceRepositoryTest {
+public final class SourceRepositoryTest {
     /**
      * Expected value in source count tests.
      */
@@ -49,7 +49,7 @@ public class SourceRepositoryTest {
      * @throws IOException because the reader does
      */
     @Before
-    public final void setUp() throws IOException {
+    public void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
         rootDocument = new RootDocumentMongo();
         rootDocument.setFilename(root.getFilename());
@@ -59,13 +59,13 @@ public class SourceRepositoryTest {
 
     /** */
     @After
-    public final void tearDown() {
+    public void tearDown() {
         repositoryFixture.clearRepository();
     }
 
     /** */
     @Test
-    public final void testSource() {
+    public void testSource() {
         final SourceDocument document = sourceDocumentRepository.
                 findByFileAndString(root.getFilename(), "S2");
         final Source source = (Source) GedDocumentMongoFactory.getInstance().
@@ -75,7 +75,7 @@ public class SourceRepositoryTest {
 
     /** */
     @Test
-    public final void testSourceRoot() {
+    public void testSourceRoot() {
         final SourceDocument document = sourceDocumentRepository.
                 findByRootAndString(rootDocument, "S2");
         final Source source = (Source) GedDocumentMongoFactory.getInstance().
@@ -85,7 +85,7 @@ public class SourceRepositoryTest {
 
     /** */
     @Test
-    public final void testBogus() {
+    public void testBogus() {
         final SourceDocument perdoc = sourceDocumentRepository.
                 findByFileAndString(root.getFilename(), "S999999");
         assertNull("Bogus request should return null", perdoc);
@@ -93,7 +93,7 @@ public class SourceRepositoryTest {
 
     /** */
     @Test
-    public final void testBogusRoot() {
+    public void testBogusRoot() {
         final SourceDocument perdoc = sourceDocumentRepository.
                 findByRootAndString(rootDocument, "S999999");
         assertNull("Bogus request should return null", perdoc);

@@ -103,7 +103,7 @@ public abstract class AbstractController {
      */
     @ExceptionHandler({ Throwable.class })
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ModelAndView error(final HttpServletRequest request,
+    public final ModelAndView error(final HttpServletRequest request,
             final Exception exception) {
         logger.info("Handling exception: " + exception.getMessage());
         final ModelAndView mav = createModelAndViewForException(

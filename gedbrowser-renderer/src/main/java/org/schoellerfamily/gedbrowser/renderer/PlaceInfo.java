@@ -5,7 +5,7 @@ import org.geojson.LngLatAlt;
 /**
  * @author Dick Schoeller
  */
-public class PlaceInfo {
+public final class PlaceInfo {
 
     /**
      * The place name to put on the map.

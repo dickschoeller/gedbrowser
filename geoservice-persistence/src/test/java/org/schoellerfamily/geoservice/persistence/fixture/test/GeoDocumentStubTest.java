@@ -11,7 +11,7 @@ import org.schoellerfamily.geoservice.persistence.fixture.GeoDocumentStub;
 /**
  * @author Dick Schoeller
  */
-public class GeoDocumentStubTest {
+public final class GeoDocumentStubTest {
     /** */
     @Test
     public void testNoArgHasNullItem() {
