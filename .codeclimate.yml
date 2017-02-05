@@ -1,6 +1,8 @@
 engines:
-#  csslint:
-#    enabled: true
+  stylelint:
+    enabled: true
+  markdownlint:
+    enabled: true
   fixme:
     enabled: true
     config:
@@ -20,5 +22,7 @@ ratings:
   paths:
   - "**.css"
   - "**.java"
+  - "**.md"
+  - "**.html"
 exclude_paths:
 - config/
