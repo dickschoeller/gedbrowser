@@ -43,7 +43,7 @@ import com.google.maps.model.LatLng;
 @SuppressWarnings({ "PMD.ExcessiveImports",
         "PMD.GodClass",
         "PMD.TooManyStaticImports" })
-public class GeoCodeTest {
+public final class GeoCodeTest {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -259,7 +259,8 @@ public class GeoCodeTest {
     public void testCacheOldHomeBroken() {
         logger.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
-        final GeoCodeItem entry1 = gcc.add(new GeoCodeItem("Old Home", "Blah Blah"));
+        final GeoCodeItem entry1 = gcc
+                .add(new GeoCodeItem("Old Home", "Blah Blah"));
         final GeoCodeItem entry2 = gcc.find("Old Home", "Blah Blah");
         assertEquals("Should be equal", entry1, entry2);
     }
@@ -269,8 +270,10 @@ public class GeoCodeTest {
     public void testCacheOldHomeAddThenFind() {
         logger.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
-        final GeoCodeItem entry1 = gcc.add(new GeoCodeItem("Old Home", "3341 Chaucer Lane, Bethlehem, PA"));
-        final GeoCodeItem entry2 = gcc.find("Old Home", "3341 Chaucer Lane, Bethlehem, PA");
+        final GeoCodeItem entry1 = gcc.add(new GeoCodeItem("Old Home",
+                "3341 Chaucer Lane, Bethlehem, PA"));
+        final GeoCodeItem entry2 = gcc.find("Old Home",
+                "3341 Chaucer Lane, Bethlehem, PA");
         assertNotEquals("Should NOT be equal", entry1, entry2);
     }
 
@@ -279,7 +282,8 @@ public class GeoCodeTest {
     public void testCacheAddThenFind() {
         logger.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
-        final GeoCodeItem entry1 = gcc.add(new GeoCodeItem("3341 Chaucer Lane, Bethlehem, PA"));
+        final GeoCodeItem entry1 = gcc
+                .add(new GeoCodeItem("3341 Chaucer Lane, Bethlehem, PA"));
         final GeoCodeItem entry2 = gcc.find("3341 Chaucer Lane, Bethlehem, PA");
         assertNotEquals("Should NOT be equal", entry1, entry2);
     }
