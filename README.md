@@ -24,7 +24,7 @@ role to see living people.
 * From the top 'mvn clean install'
 * Place GEDCOM files in /var/lib/gedbrowser
 * Create /var/lib/gedbrowser/userFile.csv rows are:
-username,firstname,lastname,email,password,role,role...
+...username,firstname,lastname,email,password,role,role...
 * java -jar gedbrowser/target/gedbrowser-1.1.1-SNAPSHOT.jar
 
 Running with Docker requires running the MongoDB with Docker. The following
