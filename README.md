@@ -24,7 +24,7 @@ role to see living people.
 * From the top 'mvn clean install'
 * Place GEDCOM files in /var/lib/gedbrowser
 * Create /var/lib/gedbrowser/userFile.csv rows are:
-...username,firstname,lastname,email,password,role,role...
+  username,firstname,lastname,email,password,role,role...
 * java -jar gedbrowser/target/gedbrowser-1.1.1-SNAPSHOT.jar
 
 Running with Docker requires running the MongoDB with Docker. The following
@@ -36,17 +36,17 @@ server.
 * Put data files in home directory
   * Any GEDCOM files that you want to display
   * google-geocoding-key - file should contain your geocoding and mapping keys
-  on 2 separate lines
+    on 2 separate lines
   * userFile.csv - format is: username,first name,last
-  name,email,password,role,role,... - supported roles are USER and ADMIN
+    name,email,password,role,role,... - supported roles are USER and ADMIN
 * export DATA_DIR=&lt;your data directory&gt;
 * export GEDBROWSER_HOME=&lt;your gedbrowser home&gt;
 * docker run --rm -v ${DATA_DIR}:/data/db --name mongo -p 28001:27017 -d mongo
 * docker run --link mongo:mongo -v ${GEDBROWSER_HOME}:/var/lib/gedbrowser -p
-8086:8080 -p 8087:8081 --name geoservice -d dickschoeller/geoservice
+  8086:8080 -p 8087:8081 --name geoservice -d dickschoeller/geoservice
 * docker run --link geoservice:geoservice --link mongo:mongo -v
-${GEDBROWSER_HOME}:/var/lib/gedbrowser -p 8080:8080 -p 8081:8081 --name
-gedbrowser -d dickschoeller/gedbrowser
+  ${GEDBROWSER_HOME}:/var/lib/gedbrowser -p 8080:8080 -p 8081:8081 --name
+  gedbrowser -d dickschoeller/gedbrowser
 
 As each GEDCOM file is referred to, it will be loaded into your instance of
 MongoDB. More explicit management of data loading is planned for the future.
@@ -57,41 +57,41 @@ can be adjusted in the file application.yml.
 ## Tooling
 
 * ![](images/overvio.png)
-[Overv.io](https://overv.io/dickschoeller/gedbrowser/)
-task board
+  [Overv.io](https://overv.io/dickschoeller/gedbrowser/)
+  task board
 * ![](images/reviewninja-25.png)
-[ReviewNinja](https://app.review.ninja/dickschoeller/gedbrowser)
-code reviews
+  [ReviewNinja](https://app.review.ninja/dickschoeller/gedbrowser)
+  code reviews
 * ![](images/jenkins-25.png)
-[Jenkins](http://www.schoellerfamily.org/jenkins/)
-builds
+  [Jenkins](http://www.schoellerfamily.org/jenkins/)
+  builds
 * ![](images/travis-ci-25.png)
-[Travis CI](https://travis-ci.org/dickschoeller/gedbrowser)
-builds
+  [Travis CI](https://travis-ci.org/dickschoeller/gedbrowser)
+  builds
 * ![](images/coveralls-25.png)
-[Coveralls](https://coveralls.io/github/dickschoeller/gedbrowser)
-coverage analysis
+  [Coveralls](https://coveralls.io/github/dickschoeller/gedbrowser)
+  coverage analysis
 * ![](images/versioneye-25.png)
-[VersionEye](https://www.versioneye.com/user/projects/586bf6913ab148003228ac5d?child=summary#tab-dependencies)
-dependency analysis
+  [VersionEye](https://www.versioneye.com/user/projects/586bf6913ab148003228ac5d?child=summary#tab-dependencies)
+  dependency analysis
 * ![](images/codeclimate-25.png)
-[Code Climate](https://codeclimate.com/github/dickschoeller/gedbrowser)
-static code analysis
+  [Code Climate](https://codeclimate.com/github/dickschoeller/gedbrowser)
+  static code analysis
 
 ## Technology
 
 * ![](images/spring-boot-25.png)
-[Spring Boot](http://projects.spring.io/spring-boot/)
+  [Spring Boot](http://projects.spring.io/spring-boot/)
 * ![](images/thymeleaf-25.png)
-[Thymeleaf](http://www.thymeleaf.org/)
+  [Thymeleaf](http://www.thymeleaf.org/)
 * ![](images/mongodb-25.png)
-[MongoDB](https://www.mongodb.org/)
+  [MongoDB](https://www.mongodb.org/)
 * ![](images/docker-25.png)
-[Docker](https://www.docker.com/)
+  [Docker](https://www.docker.com/)
 * ![](images/genealogy-net-25.png)
-[GEDCOM](http://wiki-en.genealogy.net/GEDCOM)
+  [GEDCOM](http://wiki-en.genealogy.net/GEDCOM)
 * ![](images/selenium-25.png)
-[Selenium WebDriver](http://www.seleniumhq.org/projects/webdriver/)
+  [Selenium WebDriver](http://www.seleniumhq.org/projects/webdriver/)
 
 ## Architecture
 
