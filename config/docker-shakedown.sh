@@ -6,4 +6,4 @@ sleep 1m
 echo "Done waiting, let's see how Docker has done"
 docker images
 docker ps --all
-docker logs geoservice
+echo "Expect that geoservice has died from lack of keyfile"
