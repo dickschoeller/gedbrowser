@@ -382,12 +382,20 @@
         <groupId>io.undertow</groupId>
         <artifactId>undertow-core</artifactId>
         <version>1.4.8.Final</version>
-    </dependency>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
   <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
     <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+    <!-- repository>
       <id>schoellerfamily-releases</id>
       <name>Internal Releases</name>
       <url>http://minitokyo.schoellerfamily.org:8081/nexus/content/repositories/releases</url>
@@ -395,10 +403,10 @@
     <snapshotRepository>
       <id>schoellerfamily-snapshots</id>
       <url>http://minitokyo.schoellerfamily.org:8081/nexus/content/repositories/snapshots</url>
-    </snapshotRepository>
+    </snapshotRepository -->
   </distributionManagement>
 
-  <repositories>
+  <!-- repositories>
     <repository>
       <id>schoellerfamily</id>
       <name>Local Nexus</name>
@@ -407,5 +415,5 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
-  </repositories>
+  </repositories -->
 </project>
