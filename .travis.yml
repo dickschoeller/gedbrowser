@@ -10,6 +10,10 @@ env:
     - secure: "ObzW1UHSjNrNjYjJU8Qwdefu0YfXesKGNOgefE7KbsaRN9OcsPpwaRd2AJVhTW8nJ7rLazGeeVuG1cdMnh5h5MkWz/rLOIjS0PR4gTpNiUlIJvuKJ8/vG3CZGnYpHrYkq+hWqvKIGY73TNMO5mZgRKn6EyIor21/NOM/jCPzGgWUg2GtJb3TGdD4uFu+dXX0HWLsEocYkLnRgQ8mfqxjKaKiisEV1JAAHBnm+60AWBux4wUZpw39kyIA7JfoxubDABv9onHk7Om9zcTa9N2xpKnEvKs1fFIF6VniRYFd6bgwE+ILqqiNnidhjPLvnkF28HVUSv7vhRDDT2O8qM2cpKkFSMmBnVRHX7zGPEhgBC8jYnSRXJ/zJsffb4WPVfV+INDTFtPNNgSQp6lJEwQShNqpzrFidrnqJb8r2iubihYMntfr2XCpDwlIdG0VsnvwplsRRo96yFdzxf3jj/UF5TottVrppTlCyB9ESGAGztAICMOTkIEt2iYCjQQ/1Yvqx6kMJ/SlVvHlj+wunYUxi3uwFJss8zOMSzU/VSZAS5v2Fm5fnxntFGDG4W5cA0QxIFn33LQsMW4BiQE5OSJwl+uNsEHpLlicKs0d8L2Lbesu+ct1mrjT9mJBHUa+yqe83IG2ovaKjdUHQMJFYOOYUKXX7dKE0BtxqqpLE0G2KQA="
     - secure: "jfKfBTXSFTZ8QQBtDVXfAy1X5cm3E2qMq1cWbhR0MDRI/v+441AtAOeJiN+aHhGXcm141QNiq+uhlgpU4K5nlRx+pVOfrIpqaBxDoGcRzvChF10QrvQ5oE2ViAr3Yp1L/koiOQIOqtAlN3O98ldmrNGWEOmtlOJeq49YtP6HR7VU7N+q1T34YeCxGNK8mRA/b6GKdcobf/RqrBgAZ2otwogcP6iJIzbgBl5id9OBa0wxanOVNfbLCkign0ZwQGjWDEKItmGv7b9+oN0aGg3MMHdZ4g2wyv925+v/zbWeYoSKT5PqmYPHa/7OgdPt8Eikp74D0vDnFVSWM5L8rpkLR2JxvfSbd3CCYRe7LMzC0Q812HavlRQH8cLcyT/OAJBKAKYjk7ykbj0nroyn1wi2GzUHxgiihTWXkPqoASscUhrau2uWvih1OLuw3p7+HJO9F4bn/Uw/vTe40Xvv0YQO+5V9TTDfegqzc3d4cvJTxgJ3qSkDxEU1x8Okq3R7pgLV+n84e0FNucDz7Tg37Dzm1a26p+5SppwaGTgvvBD6Fm5vAH2yUs0TKSOcdHxgzzXTajh2CNGZqgnI7KW/F+p7P5zDatgkOWw0DWl9tZ4p9jLCYHiPaiyDXswQRDiE6K1tk8RPB8niq+OJN130oXE4lfa9gr59+WDTpytfJ7aMc9I="
     - secure: "iHwZ7wRRvKmYZNX5XI+hS9ypPzLzWmjnT37D/hhg9tHl8t221dbb6xISwnpgyHbPDCo3YY3lZk2SJ45v/dBV5msoPOCr4rpyzd0pMHfnXIT1U9t0RAKbVIC3WC/L0oVPfIXaTi4WAJE5QBTBEHPhhcxnGVEXwDVboRQPsiyhXpJkGx/iHMt+lanD8WmFlC97NiCK2OpUxfeq+qRwM895grPk7qtRCo1Hl/dxRLVd56LplcPo+iyc8extsGKhkgjvJwmc/p0n+hHq6AE0UvIZnz3uAU8s7190POoCGzHVLCqLGwdIhd0jIwIY/fcLtqgfKzCvwS8CeV4OiaPkDM+eYy64noXpqU+NCP4k8eLIIYoCZpwaHQMR97KV4jQhhcLdYqfnbxBIERLuPa174nL8T7JfO2ZUPNAiO+hEngcuwVkKsfSGcaPzfyDskgRyF4u5Z+do9M43b8lBFmONsnDJX4dVbpo8UTMm1uVqbjU2wqhhy8bocH6wEqy8F1VIVdREt9mfyifYR2vLBzV6f3Qkt1diaOLDGsqX8OZ9EwIWunP/hpsMZx1sT6VoY/5UBO3hxOh7HuA02+MEAM6OzG6LpShb3L5DWKP96LOYk7JlYX/JfHK5VaIPPUdmpJP7UA1LKc1JyI3iWXlAhuT6lvgtLvMEpAGqy4cK7wX6MT34wpE="
+    - secure: "TnrDrMJnrq8/E7WVZHl1syYDgHY3TG2W8LwvHsGDHf1H1BHig3von8dPLJ26/9Jm+jVZMEWbYQCOEPtPUXc22wss/dN3HSSQU9GL3sX3AnSPTE1/MTxtY0ExFcgRNaxpL2M1eVzq0ashT2S0lNXC91U14vhAqJfSEHWjgAqMCMoO0hdo4l9RectlYFD/m/Kz6DJcKImv9gwRJElF0k5jgv0FK56gDXcICO8F66yltksGBZzcYymIkj4Nlx+5W0iMAUphHw4ZxnnqJoJuryM/ZGlYYZCGBPXrQ8dPdzuBR7TQ8b1Sc83aEsag4dQ1Uwy63OtAooUU/Jrb/JajNRJwy4ve41Zn1TrzscrTIWbiWaTyg2qhp8/zV8ifxqcAqHZ5eFUIYabTxGPWfGG9vpefCOWgPGcB7VbqZiNK81I2jt3HTKZVPza6ryexCkr+jSh1LF2/eUeoIrtkHSqM/fbWa1y6/NV+07BhobVzxzWsN6t0l647ae9zEihWYvgfxeI0gQSHdjmMh796xSZFhBk2eIoHs3jJdWaF+yVn1e4T+FsdZAOpM/47nzB64NZ30/FfR7/TaFNV0AQ+XguzlIITRBuLghH4uKmGeRxUYkXGEgR80cXYmWdOfU76jJNsifoxtHOqHMgjT/jaeqUdZefywMpbf/nxuUf1TpQywMpiOPs="
+    - secure: "j9lql8AFe5hSeTdS2ufvYejQtF7lFgM88YtnaR02fp1fwpQxknXH9l72+YPiilwRQ9IfnkhSEBUy92AVwAphuEYE/C5gNabTuuqSbIGwxGyaWPHJ5QmqDUiuO85E3svc4Hr4eEydJn/7i4jMpn6Pt/fdQJsGh2PCkRTiesP0YxvRiwGpPmJQyRmgr6+1G6mhGjiT5tT4udkLQCyQSnSTp+AyJ6pnaKxdOnNMy63+6WDxfQHbZ0S5kMtoihobac/b7anB7F8nRCR18aRzAt6vqgsdXGNjcsBnx1F6aJnAfkxJna4l14lFQvbodkt/ZWhIaVtteGe/OyQaPDX3xQKWGeGGF9gt4Qz3ClN2BOfn7tIx1ExuChavW4KftacPe+/zmQkbt8F2D8+ps3hpSeg3TSu7qVxeIrRzsMXLWWYXh7+IGWEdeDj0TBn9n/kwtACwi9SFVJzw+V7mY1H8ejoKBcNuhZKd6MNx7pmXpsyNVaLfynTyDumGGYMc99fj6KY6EL9Wgc0E0eyrrAIkvjxH09wAoa93HfoXg7NJStnOMPQHwTQZ232Wv3hhq5yBi1YMvdr6JEpeaDF9Nov/2i7Hp11hX7/PkjEM9gVDOytNL/apYyMJ7a+sqmlc5jlCCMk/x6sFY+gqV6hMqp+0DCDf+RxViUJHXf7/QNwTaKxff08="
+    - secure: "mL3CENmgMLQOalUvSKpGoT6lNPm3P8o4rlyGTQa1omqrU8CurOlZ4CBViPOf/ZY14lwBdRFrbuHkVAeYX8GgwMbhJ+yzM2sfEsTw+j86/28OyiTB/oHGfqowbNAsz5SrnLn8y1HBYOVPJmnRDsPT9TnaKwoLfmtQAibR7tp2xH/G7arReZTjZTxtnJtXYa1Kc0tUY01QZt2hHLZVtx9XyWIRqxcWz8wzASzylBBAHKtpNeOeDMqrZbJcJZOQXIqJNM5eN7XLcExhhjkl3FxREIQLelv93wKZcHeGRxynudgbCjOqL71QKoCXCVf3TUbR4Co42ZPFFTHx2q7918ygrv7kiJgIrX7sSpaOX+7SedhR+Br3Lr/NCt65vjhC8lgE+bXyPCPc7Y1iA7WS+qKG8eixAKnTwxZe0YJbaiGKb95oQfPmDGQSYRD0bQjyeu7hwJ1cZLP/YJNkJP4pe5Sn28V/Ii7gCAD/aTXS/0K9CxH4AN+T74c+rdCk1mRv8HkeiYvBXrDVHWpmMh2Lintmt/uuDXQjvNTEXaUBr8kApGMvghOXlS+Ds9hlhxCbxO8z0BDtI+ecHD10YaF8sPabQL+p+phexpt0+mRq51Ms94eGm2ALnCqWP+tKMlBKzEMS7cR1BXZ8G5VnC8k/vUnL24dRvbRYc7ZizkUzU4XtyM8="
+    - secure: "ioKvbKr+1oyIPH2958aHbtG3JZTesT2qaQGGW/oXzKX4rfTCObwovvYHcVHl0b080V681iFsr7QHmq5UmfeFFgjT/1YLBMKyTRUXQK3zzOo3DXmYQ12Nu3hGl+fAVxDkrLsgV2vr54sNe8Y5+QJZTo41p/BYtTPIgSTqkU+qs5uoG3ZVUoyUI2/iswUQb43gZ3qXOMU9+E455Te5/I6CPuRZ3Cl9ceho0hczKGn4iIJm2Egs+gZzpQxC1XrYZ2i1OIJrr0Fu4xOCvImJDOfIStZ0IOx4hy1T/4DC7dM6pOYpq/qHwK2Fx7lYnShSTEst+BQSmSQ1EMWHqaFortxa1CkSDc37jjmuHaINRmKd0hpe45hoCkxt6ui5W9EIv5yppKv+ClGZ554N65Ll1xeHdRksNNOtiOQrsLWUuSCo3sJ9fjbEfdqQoh5Jb9I7GX+MM3GE6KejQb4yE+WG21tKaHjDZww89F4Ro+rPOcNGnyzmuDyXdCJLOIzdW1iPDNv4KWWZt5i6kZh3UcghO1DioahEGuenqRFPudI7ZcDMvIofFVh1u8NRD/zQkUA8mbbe8qAZagNfHuMKXrQnSB9gKh6FSlAzLDWDZBNxJmBUeb0zdEg22k8/KYc87ChYW0WG5LQXzh8s/T1pdxS8cLjpvZPQ76DQaMSJIOhu1ra3vFM="
 
 before_install:
   - mkdir /home/travis/data
@@ -18,7 +22,7 @@ before_install:
   - cp $(find . -name 'testUserFile.csv' | head -n 1) /home/travis/gedbrowser
   - docker run -v /home/travis/data:/data/db --name mongo -p 28001:27017 -d mongo
 
-install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -DskipDocker -Dfindbugs.skip=true -Dcpd.skip=true -Dpmd.skip=true -Dcheckstyle.skip=true -Djacoco.skip=true -B -V > /dev/null 2>&1
+install: mvn install -Pinstall -B -V > /dev/null 2>&1
 
 jdk:
   - oraclejdk8
@@ -28,9 +32,6 @@ script:
   - mvn --batch-mode install jacoco:report coveralls:report -Dspring.data.mongodb.port=28001 -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -Dgedbrowser.home=/home/travis/gedbrowser -DrepoToken=${REPOTOKEN}
 
 after_success:
-  - docker run --link mongo:mongo -v /home/travis/gedbrowser:/var/lib/gedbrowser -p 8086:8080 -p 8087:8080 --name geoservice -d dickschoeller/geoservice:snapshot
-  - docker run --link mongo:mongo -v /home/travis/gedbrowser:/var/lib/gedbrowser -p 8080:8080 -p 8081:8081 --name gedbrowser -d dickschoeller/gedbrowser:snapshot
-  - sleep 1m
-  - docker images
-  - docker ps --all
-  - mvn --batch-mode --settings=settings.xml -DskipTests=true -Dmaven.javadoc.skip=true -Dfindbugs.skip=true -Dcpd.skip=true -Dpmd.skip=true -Dcheckstyle.skip=true -Djacoco.skip=true -DpushImage deploy
+  - ./config/docker-shakedown.sh
+  - ./config/before-deploy.sh
+  - ./config/deploy.sh
