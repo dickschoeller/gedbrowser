@@ -22,14 +22,14 @@ before_install:
   - cp $(find . -name 'testUserFile.csv' | head -n 1) /home/travis/gedbrowser
   - docker run -v /home/travis/data:/data/db --name mongo -p 28001:27017 -d mongo
 
-install: mvn install -Pinstall -B -V > /dev/null 2>&1
+install: mvn install --settings=config/settings.xml -Pinstall -B -V > /dev/null 2>&1
 
 jdk:
   - oraclejdk8
 
 script:
   - docker ps --all
-  - mvn --batch-mode install jacoco:report coveralls:report -Dspring.data.mongodb.port=28001 -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -Dgedbrowser.home=/home/travis/gedbrowser -DrepoToken=${REPOTOKEN}
+  - mvn --batch-mode install jacoco:report coveralls:report -Dspring.data.mongodb.port=28001 -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -Dgedbrowser.home=/home/travis/gedbrowser -DrepoToken=${REPOTOKEN} --settings=config/settings.xml
 
 after_success:
   - ./config/docker-shakedown.sh
