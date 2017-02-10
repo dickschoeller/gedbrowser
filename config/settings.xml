@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <servers>
+    <server>
+      <id>ossrh</id>
+      <username>${env.OSSRH_USER}</username>
+      <password>${env.OSSRH_PASS}</password>
+    </server>
+    <server>
+      <id>docker-hub</id>
+      <username>${env.DOCKERUSER}</username>
+      <password>${env.DOCKERPASS}</password>
+      <configuration>
+	<email>schoeller@comcast.net</email>
+      </configuration>
+    </server>
+  </servers>
+
+  <profiles>
+    <profile>
+      <id>install</id>
+      <activation>
+	<activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+	<skipTests>true</skipTests>
+	<maven.javadoc.skip>true</maven.javadoc.skip>
+	<skipDocker>true</skipDocker>
+	<findbugs.skip>true</findbugs.skip>
+	<cpd.skip>true</cpd.skip>
+	<pmd.skip>true</pmd.skip>
+	<checkstyle.skip>true</checkstyle.skip>
+	<jacoco.skip>true</jacoco.skip>
+      </properties>
+    </profile>
+    <profile>
+      <id>deploy</id>
+      <activation>
+	<activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+	<skipTests>true</skipTests>
+	<findbugs.skip>true</findbugs.skip>
+	<cpd.skip>true</cpd.skip>
+	<pmd.skip>true</pmd.skip>
+	<checkstyle.skip>true</checkstyle.skip>
+	<jacoco.skip>true</jacoco.skip>
+	<gpg.executable>gpg</gpg.executable>
+        <gpg.keyname>${env.GPG_KEY_NAME}</gpg.keyname>
+	<gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
+      </properties>
+    </profile>
+  </profiles>
+
+</settings>
