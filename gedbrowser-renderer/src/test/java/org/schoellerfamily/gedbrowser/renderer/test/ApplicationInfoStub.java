@@ -6,7 +6,7 @@ import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 /**
  * @author Dick Schoeller
  */
-public class ApplicationInfoStub implements ApplicationInfo {
+public final class ApplicationInfoStub implements ApplicationInfo {
     /**
      * {@inheritDoc}
      */
