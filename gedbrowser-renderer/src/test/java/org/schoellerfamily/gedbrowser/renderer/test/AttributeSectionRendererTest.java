@@ -8,6 +8,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.AttributeRenderer;
 import org.schoellerfamily.gedbrowser.renderer.AttributeSectionRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -31,15 +32,14 @@ public final class AttributeSectionRendererTest {
     private transient Attribute attribute3;
 
     /** */
-    private transient RenderingContext renderingContext;
+    private transient CalendarProvider provider;
 
     /** */
-    private CalendarProvider provider;
+    private transient RenderingContext anonymousContext;
 
     /** */
     @Before
     public void init() {
-        provider = new CalendarProviderStub();
         person = new Person();
         attribute1 = new Attribute(person, "String", "");
         attribute2 = new Attribute(person, "String", "Strung");
@@ -51,21 +51,21 @@ public final class AttributeSectionRendererTest {
         person.insert(attribute3);
         attribute3.insert(attribute4);
 
-        renderingContext = RenderingContext.anonymous();
+        provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /** */
     @Test
     public void testRenderAsSectionEmpty() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute1,
-                new GedRendererFactory(),
-                RenderingContext.anonymous(),
-                provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final AttributeSectionRenderer asRenderer =
                 (AttributeSectionRenderer) aRenderer.getSectionRenderer();
         final StringBuilder builder = new StringBuilder();
         asRenderer.renderAsSection(builder, new PersonRenderer(person,
-                new GedRendererFactory(), renderingContext,
+                new GedRendererFactory(), anonymousContext,
                 provider), false, 0, 1);
         assertEquals("Rendered html doesn't match expectation",
                 "<p><span class=\"label\">String:</span> </p>\n"
@@ -76,14 +76,12 @@ public final class AttributeSectionRendererTest {
     @Test
     public void testRenderAsSectionString() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute2,
-                new GedRendererFactory(),
-                RenderingContext.anonymous(),
-                provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final AttributeSectionRenderer asRenderer =
                 (AttributeSectionRenderer) aRenderer.getSectionRenderer();
         final StringBuilder builder = new StringBuilder();
         asRenderer.renderAsSection(builder, new PersonRenderer(person,
-                new GedRendererFactory(), renderingContext,
+                new GedRendererFactory(), anonymousContext,
                 provider), false, 0, 1);
         assertEquals("Rendered html doesn't match expectation",
                 "<p><span class=\"label\">String:</span> Strung</p>\n"
@@ -94,14 +92,12 @@ public final class AttributeSectionRendererTest {
     @Test
     public void testRenderAsSectionHierarchy() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute3,
-                new GedRendererFactory(),
-                RenderingContext.anonymous(),
-                provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final AttributeSectionRenderer asRenderer =
                 (AttributeSectionRenderer) aRenderer.getSectionRenderer();
         final StringBuilder builder = new StringBuilder();
         asRenderer.renderAsSection(builder, new PersonRenderer(person,
-                new GedRendererFactory(), renderingContext,
+                new GedRendererFactory(), anonymousContext,
                 provider), false, 0, 1);
         assertEquals("Rendered html doesn't match expectation",
                 "<p><span class=\"label\">Sproing:</span> Spring</p>\n"

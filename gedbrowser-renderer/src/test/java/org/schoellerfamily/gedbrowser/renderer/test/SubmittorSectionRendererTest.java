@@ -9,6 +9,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.RootRenderer;
@@ -29,6 +30,9 @@ public final class SubmittorSectionRendererTest {
     private CalendarProvider provider;
 
     /** */
+    private RenderingContext anonymousContext;
+
+    /** */
     @Before
     public void init() {
         root = new Root(null);
@@ -37,21 +41,21 @@ public final class SubmittorSectionRendererTest {
         root.insert(submittor);
         submittor.insert(name);
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /** */
     @Test
     public void testRenderAsSection() {
         final SubmittorRenderer sRenderer = new SubmittorRenderer(submittor,
-                new GedRendererFactory(), RenderingContext.anonymous(),
-                provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final SubmittorSectionRenderer ssRenderer =
                 (SubmittorSectionRenderer) sRenderer.getSectionRenderer();
         final StringBuilder builder = new StringBuilder();
         ssRenderer.renderAsSection(builder, new RootRenderer(root,
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider),
-                false, 0, 1);
+                new GedRendererFactory(), anonymousContext, provider), false,
+                0, 1);
         assertEquals("Rendered html doesn't match expectation",
                 "\n"
                 + "<h2 class=\"name\">SubmittorRichard/Schoeller/</h2>\n"

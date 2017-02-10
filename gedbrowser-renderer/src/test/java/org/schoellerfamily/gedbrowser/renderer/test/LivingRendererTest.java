@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.LivingRenderer;
 import org.schoellerfamily.gedbrowser.renderer.LivingRenderer.Bucket;
 import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
@@ -39,17 +40,18 @@ public final class LivingRendererTest {
      */
     @Before
     public void init() throws IOException {
-        final User user = new User();
-        user.setUsername("user");
-        user.addRole("USER");
-        userContext = new RenderingContext(user, true, false);
+        root = (Root) TestDataReader.getInstance().readBigTestSource();
+        provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
         final User admin = new User();
         admin.setUsername("admin");
         admin.addRole("USER");
         admin.addRole("ADMIN");
-        adminContext = new RenderingContext(admin, true, true);
-        root = (Root) TestDataReader.getInstance().readBigTestSource();
-        provider = new CalendarProviderStub();
+        adminContext = new RenderingContext(admin, true, true, appInfo);
+        final User user = new User();
+        user.setUsername("user");
+        user.addRole("USER");
+        userContext = new RenderingContext(user, true, false, appInfo);
     }
 
     /**

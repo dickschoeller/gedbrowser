@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.DefaultRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -28,12 +29,21 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
  */
 public final class GedRendererTest {
     /** */
+    private String homeUrl;
+
+    /** */
     private CalendarProvider provider;
+
+    /** */
+    private RenderingContext anonymousContext;
 
     /** */
     @Before
     public void init() {
+        homeUrl = "http://www.schoellerfamily.org/";
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /**
@@ -44,9 +54,7 @@ public final class GedRendererTest {
     public void testAttributeListOpenRenderer() {
         final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(
                 new GedObject(null) {
-                },
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider) {
+                }, new GedRendererFactory(), anonymousContext, provider) {
         };
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
@@ -61,9 +69,7 @@ public final class GedRendererTest {
     public void testListItemRenderer() {
         final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(
                 new GedObject(null) {
-                },
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider) {
+                }, new GedRendererFactory(), anonymousContext, provider) {
         };
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
@@ -78,9 +84,7 @@ public final class GedRendererTest {
     public void testNameHtmlRenderer() {
         final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(
                 new GedObject(null) {
-                },
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider) {
+                }, new GedRendererFactory(), anonymousContext, provider) {
         };
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
@@ -95,9 +99,7 @@ public final class GedRendererTest {
     public void testNameIndexRenderer() {
         final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(
                 new GedObject(null) {
-                },
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider) {
+                }, new GedRendererFactory(), anonymousContext, provider) {
         };
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
@@ -112,9 +114,7 @@ public final class GedRendererTest {
     public void testPhraseRenderer() {
         final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(
                 new GedObject(null) {
-                },
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider) {
+                }, new GedRendererFactory(), anonymousContext, provider) {
         };
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
@@ -129,9 +129,7 @@ public final class GedRendererTest {
     public void testSectionRenderer() {
         final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(
                 new GedObject(null) {
-                },
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider) {
+                }, new GedRendererFactory(), anonymousContext, provider) {
         };
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
@@ -142,10 +140,8 @@ public final class GedRendererTest {
     @Test
     public void testGetTrailerHtmlEmpty() {
         final Root root = new Root(null);
-        final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(
-                root,
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider) {
+        final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(root,
+                new GedRendererFactory(), anonymousContext, provider) {
         };
         assertEquals("Rendered string does not match expectation",
                 "\n"
@@ -158,9 +154,9 @@ public final class GedRendererTest {
                 + "    <td class=\"brleft\">\n"
                 + "    <p class=\"maintainer\">\n"
                 + "    Maintained by <a href=\"mailto:schoeller@comcast.net\">"
-                + "Dick Schoeller</a>.<br>\n"
-                + "    Created with <a href=\"http://www.schoellerfamily.org/"
-                + "softwarwe/gedbrowser.html\">GEDbrowser</a>, version "
+                + "Richard Schoeller</a>.<br>\n"
+                + "    Created with <a href=\"" + homeUrl
+                + "software/gedbrowser.html\">GEDbrowser</a>, version "
                 + GedObject.VERSION
                 + " on " + getDateString() + "\n"
                 + "    </p>\n"
@@ -187,7 +183,7 @@ public final class GedRendererTest {
         final Root root = new Root(null);
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
 
         final String keywords = "one two three";
         final String title = "title";
@@ -221,7 +217,7 @@ public final class GedRendererTest {
         final Root root = new Root(null);
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertEquals("Rendered string does not match expectation",
                 "\n"
                 + "    <hr class=\"final\"/>\n"
@@ -233,9 +229,9 @@ public final class GedRendererTest {
                 + "    <td class=\"brleft\">\n"
                 + "    <p class=\"maintainer\">\n"
                 + "    Maintained by <a href=\"mailto:schoeller@comcast.net\">"
-                + "Dick Schoeller</a>.<br>\n"
-                + "    Created with <a href=\"http://www.schoellerfamily.org/"
-                + "softwarwe/gedbrowser.html\">GEDbrowser</a>, version "
+                + "Richard Schoeller</a>.<br>\n"
+                + "    Created with <a href=\"" + homeUrl
+                + "software/gedbrowser.html\">GEDbrowser</a>, version "
                 + GedObject.VERSION
                 + " on " + getDateString() + "\n"
                 + "    </p>\n"
@@ -262,7 +258,7 @@ public final class GedRendererTest {
         final Root root = new Root(null);
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertEquals("Rendered string does not match expectation",
                 "\n"
                 + "    <hr class=\"final\"/>\n"
@@ -275,9 +271,9 @@ public final class GedRendererTest {
                 + "    <td class=\"brleft\">\n"
                 + "    <p class=\"maintainer\">\n"
                 + "    Maintained by <a href=\"mailto:schoeller@comcast.net\">"
-                + "Dick Schoeller</a>.<br>\n"
-                + "    Created with <a href=\"http://www.schoellerfamily.org/"
-                + "softwarwe/gedbrowser.html\">GEDbrowser</a>, version "
+                + "Richard Schoeller</a>.<br>\n"
+                + "    Created with <a href=\"" + homeUrl
+                + "software/gedbrowser.html\">GEDbrowser</a>, version "
                 + GedObject.VERSION
                 + " on " + getDateString() + "\n"
                 + "    </p>\n"
@@ -304,7 +300,7 @@ public final class GedRendererTest {
         final Root root = new Root(null);
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertEquals("Rendered string does not match expectation",
                 "\n"
                 + "    <hr class=\"final\"/>\n"
@@ -318,9 +314,9 @@ public final class GedRendererTest {
                 + "    <td class=\"brleft\">\n"
                 + "    <p class=\"maintainer\">\n"
                 + "    Maintained by <a href=\"mailto:schoeller@comcast.net\">"
-                + "Dick Schoeller</a>.<br>\n"
-                + "    Created with <a href=\"http://www.schoellerfamily.org/"
-                + "softwarwe/gedbrowser.html\">GEDbrowser</a>, version "
+                + "Richard Schoeller</a>.<br>\n"
+                + "    Created with <a href=\"" + homeUrl
+                + "software/gedbrowser.html\">GEDbrowser</a>, version "
                 + GedObject.VERSION
                 + " on " + getDateString() + "\n"
                 + "    </p>\n"
@@ -347,7 +343,7 @@ public final class GedRendererTest {
         final Root root = new Root(null);
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertEquals("Rendered string does not match expectation",
                 "\n"
                 + "    <hr class=\"final\"/>\n"
@@ -361,9 +357,9 @@ public final class GedRendererTest {
                 + "    <td class=\"brleft\">\n"
                 + "    <p class=\"maintainer\">\n"
                 + "    Maintained by <a href=\"mailto:schoeller@comcast.net\">"
-                + "Dick Schoeller</a>.<br>\n"
-                + "    Created with <a href=\"http://www.schoellerfamily.org/"
-                + "softwarwe/gedbrowser.html\">GEDbrowser</a>, version "
+                + "Richard Schoeller</a>.<br>\n"
+                + "    Created with <a href=\"" + homeUrl
+                + "software/gedbrowser.html\">GEDbrowser</a>, version "
                 + GedObject.VERSION
                 + " on " + getDateString() + "\n"
                 + "    </p>\n"
@@ -393,10 +389,10 @@ public final class GedRendererTest {
                 new GedObject(null) {
                 },
                 new GedRendererFactory(),
-                RenderingContext.anonymous(), provider) {
+                anonymousContext, provider) {
         };
         assertEquals("Home URL does not match expectation",
-                "http://www.schoellerfamily.org/", renderer.getHomeUrl());
+                homeUrl, renderer.getHomeUrl());
     }
 
     /**

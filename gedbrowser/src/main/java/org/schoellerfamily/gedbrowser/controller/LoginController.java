@@ -5,6 +5,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,10 @@ public class LoginController {
 
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
+
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
 
     /** Base path in URL. */
     @Value("${server.servlet-path}")
@@ -37,7 +43,7 @@ public class LoginController {
         final String referer = loginDestinationUrl(request);
         model.addAttribute("referer", referer);
         request.getSession().setAttribute(SESSION_REFERER_KEY, referer);
-        model.addAttribute("appInfo", new ApplicationInfo());
+        model.addAttribute("appInfo", appInfo);
         logger.debug("Exiting login");
         return "login";
     }
@@ -54,7 +60,7 @@ public class LoginController {
         final String referer = loginDestinationUrl(request);
         model.addAttribute("referer", referer);
         request.getSession().setAttribute(SESSION_REFERER_KEY, referer);
-        model.addAttribute("appInfo", new ApplicationInfo());
+        model.addAttribute("appInfo", appInfo);
         logger.debug("Exiting logout");
         return "login";
     }

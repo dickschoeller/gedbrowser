@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.DefaultRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
@@ -19,15 +20,16 @@ public final class NullListItemRendererTest {
     /** */
     private transient NullListItemRenderer nsr;
 
-
     /** */
     @Before
     public void init() {
         final CalendarProvider provider = new CalendarProviderStub();
-        final DefaultRenderer renderer =
-                new DefaultRenderer(new GedObject(null) { },
-                        new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        final RenderingContext anonymousContext =
+                RenderingContext.anonymous(appInfo);
+        final DefaultRenderer renderer = new DefaultRenderer(
+                new GedObject(null) {
+                }, new GedRendererFactory(), anonymousContext, provider);
         nsr = (NullListItemRenderer) renderer
                 .getListItemRenderer();
     }

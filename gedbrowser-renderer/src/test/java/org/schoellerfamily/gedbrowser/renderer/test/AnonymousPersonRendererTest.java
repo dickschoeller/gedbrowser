@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.CellRenderer;
 import org.schoellerfamily.gedbrowser.renderer.CellRow;
 import org.schoellerfamily.gedbrowser.renderer.FamilyRenderer;
@@ -298,16 +299,17 @@ public final class AnonymousPersonRendererTest {
     };
 
     /** */
-    private transient RenderingContext anonymousContext;
+    private CalendarProvider provider;
 
     /** */
-    private CalendarProvider provider;
+    private transient RenderingContext anonymousContext;
 
     /** */
     @Before
     public void init() {
         provider = new CalendarProviderStub();
-        anonymousContext = RenderingContext.anonymous();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /**

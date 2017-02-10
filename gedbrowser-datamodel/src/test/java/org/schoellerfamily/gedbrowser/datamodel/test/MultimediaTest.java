@@ -19,14 +19,14 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  */
 public final class MultimediaTest {
     /** */
-    private static final String FILE_PATH_STRING =
-            "http://www.schoellerfamily.org/images/genealogy/"
-            + "luckybag1924-john-a-hayes.jpg";
+    private transient String filePathString;
 
     /** */
     private transient GedObjectBuilder builder;
     /** */
     private transient Person person1;
+    /** */
+    private String homeUrl;
 
     /** */
     @Before
@@ -39,25 +39,27 @@ public final class MultimediaTest {
         builder.addChildToFamily(family, person1);
         builder.addHusbandToFamily(family, person2);
         builder.addWifeToFamily(family, person3);
+        homeUrl = "http://www.schoellerfamily.org/";
+        filePathString = homeUrl + "images/genealogy/"
+                + "luckybag1924-john-a-hayes.jpg";
     }
 
     /** */
     @Test
     public void testBasicConstruct() {
         final Multimedia mm = new Multimedia(
-                person1, "Multimedia", "http://www.schoellerfamily.org");
+                person1, "Multimedia", homeUrl);
         assertEquals("Mismatched tail",
-                "http://www.schoellerfamily.org", mm.getTail());
+                homeUrl, mm.getTail());
     }
 
     /** */
     @Test
     public void testAppendString() {
         final Multimedia mm = builder.addMultimediaToPerson(
-                person1, "http://www.schoellerfamily.org");
-        mm.appendString("/genealogy");
-        assertEquals("Mismatched tail",
-                "http://www.schoellerfamily.org/genealogy", mm.getTail());
+                person1, homeUrl);
+        mm.appendString("genealogy");
+        assertEquals("Mismatched tail", homeUrl + "genealogy", mm.getTail());
     }
 
     /** */
@@ -218,7 +220,7 @@ public final class MultimediaTest {
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
         final Attribute filePath =
-                new Attribute(multimedia, "File", FILE_PATH_STRING);
+                new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "jpg");
         filePath.addAttribute(format);
@@ -227,7 +229,7 @@ public final class MultimediaTest {
         final Attribute title = new Attribute(filePath, "Title", "The title");
         filePath.addAttribute(title);
         assertEquals("File path mismatch",
-                FILE_PATH_STRING, multimedia.getFilePath());
+                filePathString, multimedia.getFilePath());
     }
 
     /** */
@@ -238,7 +240,7 @@ public final class MultimediaTest {
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
         final Attribute filePath =
-                new Attribute(multimedia, "File", FILE_PATH_STRING);
+                new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "jpg");
         filePath.addAttribute(format);
@@ -258,7 +260,7 @@ public final class MultimediaTest {
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
         final Attribute filePath =
-                new Attribute(multimedia, "File", FILE_PATH_STRING);
+                new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         assertEquals("File format mismatch", null, multimedia.getFileFormat());
     }
@@ -278,7 +280,7 @@ public final class MultimediaTest {
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
         final Attribute filePath =
-                new Attribute(multimedia, "File", FILE_PATH_STRING);
+                new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "jpg");
         filePath.addAttribute(format);
@@ -298,7 +300,7 @@ public final class MultimediaTest {
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
         final Attribute filePath =
-                new Attribute(multimedia, "File", FILE_PATH_STRING);
+                new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "jpg");
         filePath.addAttribute(format);
@@ -325,7 +327,7 @@ public final class MultimediaTest {
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
         final Attribute filePath =
-                new Attribute(multimedia, "File", FILE_PATH_STRING);
+                new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "jpg");
         filePath.addAttribute(format);
@@ -344,7 +346,7 @@ public final class MultimediaTest {
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
         final Attribute filePath =
-                new Attribute(multimedia, "File", FILE_PATH_STRING);
+                new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "gif");
         filePath.addAttribute(format);
@@ -363,7 +365,7 @@ public final class MultimediaTest {
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
         final Attribute filePath =
-                new Attribute(multimedia, "File", FILE_PATH_STRING);
+                new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "png");
         filePath.addAttribute(format);
@@ -382,7 +384,7 @@ public final class MultimediaTest {
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
         final Attribute filePath =
-                new Attribute(multimedia, "File", FILE_PATH_STRING);
+                new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "tif");
         filePath.addAttribute(format);
@@ -401,7 +403,7 @@ public final class MultimediaTest {
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
         final Attribute filePath =
-                new Attribute(multimedia, "File", FILE_PATH_STRING);
+                new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "html");
         filePath.addAttribute(format);

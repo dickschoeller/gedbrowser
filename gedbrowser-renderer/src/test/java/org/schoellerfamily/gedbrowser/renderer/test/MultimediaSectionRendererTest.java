@@ -9,6 +9,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaRenderer;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaSectionRenderer;
@@ -29,6 +30,9 @@ public final class MultimediaSectionRendererTest {
 
     /** */
     private CalendarProvider provider;
+
+    /** */
+    private RenderingContext anonymousContext;
 
     /** */
     @Before
@@ -63,6 +67,8 @@ public final class MultimediaSectionRendererTest {
         person.insert(multimedia3);
 
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /** */
@@ -74,9 +80,8 @@ public final class MultimediaSectionRendererTest {
                 + "<li><span class=\"label\">File:</span> file1.jpg,"
                 + " jpg</li>\n</ul>\n";
 
-        final MultimediaRenderer aRenderer = new MultimediaRenderer(
-                multimedia1, new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+        final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia1,
+                new GedRendererFactory(), anonymousContext, provider);
         final MultimediaSectionRenderer asRenderer =
                 (MultimediaSectionRenderer) aRenderer.getSectionRenderer();
         StringBuilder builder = new StringBuilder();
@@ -94,9 +99,8 @@ public final class MultimediaSectionRendererTest {
                 + "<li><span class=\"label\">File:</span> file2.html,"
                 + " html</li>\n</ul>\n";
 
-        final MultimediaRenderer aRenderer = new MultimediaRenderer(
-                multimedia2, new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+        final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia2,
+                new GedRendererFactory(), anonymousContext, provider);
         final MultimediaSectionRenderer asRenderer =
                 (MultimediaSectionRenderer) aRenderer.getSectionRenderer();
         StringBuilder builder = new StringBuilder();
@@ -114,10 +118,8 @@ public final class MultimediaSectionRendererTest {
                 + "<li><span class=\"label\">File:</span> file3.html</li>\n"
                 + "</ul>\n";
 
-        final MultimediaRenderer aRenderer =
-                new MultimediaRenderer(multimedia3,
-                        new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia3,
+                new GedRendererFactory(), anonymousContext, provider);
         final MultimediaSectionRenderer asRenderer =
                 (MultimediaSectionRenderer) aRenderer.getSectionRenderer();
         StringBuilder builder = new StringBuilder();

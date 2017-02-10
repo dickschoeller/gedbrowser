@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.DefaultRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -21,15 +22,20 @@ public final class NullSectionRendererTest {
     private transient NullSectionRenderer nsr;
 
     /** */
+    private RenderingContext anonymousContext;
+
+    /** */
     private CalendarProvider provider;
 
     /** */
     @Before
     public void init() {
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
         final DefaultRenderer renderer = new DefaultRenderer(
                 new GedObject(null) {
-                }, new GedRendererFactory(), RenderingContext.anonymous(),
+                }, new GedRendererFactory(), anonymousContext,
                 provider);
         nsr = (NullSectionRenderer) renderer.getSectionRenderer();
     }
@@ -57,8 +63,7 @@ public final class NullSectionRendererTest {
     public void testNullSectionRendererOuterFalse21() {
         StringBuilder builder = new StringBuilder();
         builder = nsr.renderAsSection(builder, new GedRenderer<GedObject>(null,
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider) {
+                new GedRendererFactory(), anonymousContext, provider) {
         }, false, 2, 1);
         final String string = builder.toString();
         assertEquals("Expected empty string", "", string);
@@ -69,8 +74,7 @@ public final class NullSectionRendererTest {
     public void testNullSectionRendererOuterTrue02() {
         StringBuilder builder = new StringBuilder();
         builder = nsr.renderAsSection(builder, new GedRenderer<GedObject>(null,
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider) {
+                new GedRendererFactory(), anonymousContext, provider) {
         }, true, 0, 2);
         final String string = builder.toString();
         assertEquals("Expected empty string", "", string);

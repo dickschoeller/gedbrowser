@@ -9,6 +9,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.DateListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.DateRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -28,6 +29,9 @@ public final class DateListItemRendererTest {
     private CalendarProvider provider;
 
     /** */
+    private RenderingContext anonymousContext;
+
+    /** */
     @Before
     public void init() {
         final Person person = new Person();
@@ -36,14 +40,15 @@ public final class DateListItemRendererTest {
         date = new Date(attribute, "14 December 1958");
         attribute.addAttribute(date);
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /** */
     @Test
     public void testGetRenderAsListItem() {
         final DateRenderer dRenderer = new DateRenderer(date,
-                new GedRendererFactory(), RenderingContext.anonymous(),
-                provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -57,8 +62,7 @@ public final class DateListItemRendererTest {
     @Test
     public void testGetRenderAsListItemEmpty() {
         final DateRenderer dRenderer = new DateRenderer(new Date(attribute, ""),
-                new GedRendererFactory(), RenderingContext.anonymous(),
-                provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -72,7 +76,7 @@ public final class DateListItemRendererTest {
     public void testGetRenderAsListItemNull() {
         final DateRenderer dRenderer = new DateRenderer(
                 new Date(attribute, null), new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();

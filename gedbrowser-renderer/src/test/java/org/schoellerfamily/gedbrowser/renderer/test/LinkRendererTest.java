@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Link;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.LinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
@@ -25,9 +26,14 @@ public final class LinkRendererTest {
     private CalendarProvider provider;
 
     /** */
+    private RenderingContext anonymousContext;
+
+    /** */
     @Before
     public void init() {
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /**
@@ -36,10 +42,8 @@ public final class LinkRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final LinkRenderer renderer =
-                new LinkRenderer(new Link(null),
-                        new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final LinkRenderer renderer = new LinkRenderer(new Link(null),
+                new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -51,10 +55,8 @@ public final class LinkRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        final LinkRenderer renderer =
-                new LinkRenderer(new Link(null),
-                        new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final LinkRenderer renderer = new LinkRenderer(new Link(null),
+                new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
@@ -66,10 +68,8 @@ public final class LinkRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final LinkRenderer renderer =
-                new LinkRenderer(new Link(null),
-                        new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final LinkRenderer renderer = new LinkRenderer(new Link(null),
+                new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -81,10 +81,8 @@ public final class LinkRendererTest {
      */
     @Test
     public void testNameIndeRenderer() {
-        final LinkRenderer renderer =
-                new LinkRenderer(new Link(null),
-                        new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final LinkRenderer renderer = new LinkRenderer(new Link(null),
+                new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -96,10 +94,8 @@ public final class LinkRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final LinkRenderer renderer =
-                new LinkRenderer(new Link(null),
-                        new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final LinkRenderer renderer = new LinkRenderer(new Link(null),
+                new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
@@ -111,10 +107,8 @@ public final class LinkRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final LinkRenderer renderer =
-                new LinkRenderer(new Link(null),
-                        new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final LinkRenderer renderer = new LinkRenderer(new Link(null),
+                new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof NullSectionRenderer);

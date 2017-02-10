@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.HeadRenderer;
 import org.schoellerfamily.gedbrowser.renderer.HeadSectionRenderer;
@@ -25,9 +26,14 @@ public final class HeadRendererTest {
     private CalendarProvider provider;
 
     /** */
+    private RenderingContext anonymousContext;
+
+    /** */
     @Before
     public void init() {
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /**
@@ -37,8 +43,7 @@ public final class HeadRendererTest {
     @Test
     public void testAttributeListOpenRenderer() {
         final HeadRenderer renderer = new HeadRenderer(new Head(null),
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -51,8 +56,7 @@ public final class HeadRendererTest {
     @Test
     public void testListItemRenderer() {
         final HeadRenderer renderer = new HeadRenderer(new Head(null),
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
@@ -65,8 +69,7 @@ public final class HeadRendererTest {
     @Test
     public void testNameHtmlRenderer() {
         final HeadRenderer renderer = new HeadRenderer(new Head(null),
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -79,8 +82,7 @@ public final class HeadRendererTest {
     @Test
     public void testNameIndeRenderer() {
         final HeadRenderer renderer = new HeadRenderer(new Head(null),
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -93,8 +95,7 @@ public final class HeadRendererTest {
     @Test
     public void testPhraseRenderer() {
         final HeadRenderer renderer = new HeadRenderer(new Head(null),
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
@@ -107,8 +108,7 @@ public final class HeadRendererTest {
     @Test
     public void testSectionRenderer() {
         final HeadRenderer renderer = new HeadRenderer(new Head(null),
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof HeadSectionRenderer);

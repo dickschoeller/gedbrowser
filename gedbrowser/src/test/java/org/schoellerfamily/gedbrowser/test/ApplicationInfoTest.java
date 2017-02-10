@@ -4,7 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.controller.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.controller.ApplicationInfoImpl;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +36,7 @@ public final class ApplicationInfoTest {
          */
         @Bean
         public ApplicationInfo appInfo() {
-            return new ApplicationInfo();
+            return new ApplicationInfoImpl();
         }
     }
 
@@ -73,5 +74,12 @@ public final class ApplicationInfoTest {
     public void testApplicationInfoVersion() {
         assertEquals("Version mismatch",
                 "1.1.1-SNAPSHOT", appInfo.getVersion());
+    }
+
+    /** */
+    @Test
+    public void testApplicationInfoHomeURL() {
+        assertEquals("Home URL mismatch",
+                "http://www.schoellerfamily.org/", appInfo.getHomeURL());
     }
 }

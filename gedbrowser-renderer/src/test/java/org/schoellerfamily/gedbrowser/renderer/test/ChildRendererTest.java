@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.ChildRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
@@ -30,10 +31,9 @@ public final class ChildRendererTest {
     @Before
     public void init() {
         final CalendarProvider provider = new CalendarProviderStub();
-        renderer = new ChildRenderer(new Child(null),
-                    new GedRendererFactory(),
-                    RenderingContext.anonymous(),
-                    provider);
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        renderer = new ChildRenderer(new Child(null), new GedRendererFactory(),
+                RenderingContext.anonymous(appInfo), provider);
     }
 
     /**

@@ -9,6 +9,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaRenderer;
@@ -29,6 +30,9 @@ public final class MultimediaPhraseRendererTest {
 
     /** */
     private CalendarProvider provider;
+
+    /** */
+    private RenderingContext anonymousContext;
 
     /** */
     @Before
@@ -63,14 +67,15 @@ public final class MultimediaPhraseRendererTest {
         person.insert(multimedia3);
 
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /** */
     @Test
     public void testRenderAsPhraseEmpty() {
-        final MultimediaRenderer aRenderer =
-                new MultimediaRenderer(multimedia1, new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia1,
+                new GedRendererFactory(), anonymousContext, provider);
         final MultimediaPhraseRenderer apRenderer =
                 (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
@@ -81,9 +86,8 @@ public final class MultimediaPhraseRendererTest {
     /** */
     @Test
     public void testRenderAsPhraseString() {
-        final MultimediaRenderer aRenderer =
-                new MultimediaRenderer(multimedia2, new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia2,
+                new GedRendererFactory(), anonymousContext, provider);
         final MultimediaPhraseRenderer apRenderer =
                 (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
@@ -94,14 +98,12 @@ public final class MultimediaPhraseRendererTest {
     /** */
     @Test
     public void testRenderAsPhrase() {
-        final MultimediaRenderer aRenderer =
-                new MultimediaRenderer(multimedia3, new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia3,
+                new GedRendererFactory(), anonymousContext, provider);
         final MultimediaPhraseRenderer apRenderer =
                 (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
         assertEquals("Rendered string mismatch",
                 "<a href=\"file3.html\">Title 3</a>", string);
     }
-
 }

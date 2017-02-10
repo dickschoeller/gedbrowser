@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.User;
 import org.springframework.security.core.Authentication;
@@ -20,16 +21,21 @@ public final class RenderingContextBuilder {
     /** The associated user object. */
     private final User user;
 
+    /** */
+    private final ApplicationInfo appInfo;
+
     /**
      * Constructor.
      *
      * @param authentication the authentication object
      * @param user the associated user detail object
+     * @param appInfo supports rendering information about the application
      */
     public RenderingContextBuilder(final Authentication authentication,
-            final User user) {
+            final User user, final ApplicationInfo appInfo) {
         this.authentication = authentication;
         this.user = user;
+        this.appInfo = appInfo;
     }
 
     /**
@@ -57,7 +63,7 @@ public final class RenderingContextBuilder {
             }
         }
         final RenderingContext context =
-                new RenderingContext(user, isUser, isAdmin);
+                new RenderingContext(user, isUser, isAdmin, appInfo);
         logger.debug("Exiting build");
         return context;
     }

@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkListItemRenderer;
@@ -28,6 +29,9 @@ public final class SubmittorLinkListItemRendererTest {
     private CalendarProvider provider;
 
     /** */
+    private RenderingContext anonymousContext;
+
+    /** */
     @Before
     public void init() {
         final Root root = new Root(null, "Root");
@@ -42,6 +46,8 @@ public final class SubmittorLinkListItemRendererTest {
 
         submittorLink = new SubmittorLink(head, "SUBL", new ObjectId("S1"));
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /** */
@@ -49,7 +55,7 @@ public final class SubmittorLinkListItemRendererTest {
     public void testRenderAsListItem() {
         final SubmittorLinkRenderer slr = new SubmittorLinkRenderer(
                 submittorLink, new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         final SubmittorLinkListItemRenderer lir =
                 (SubmittorLinkListItemRenderer) slr.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -64,7 +70,7 @@ public final class SubmittorLinkListItemRendererTest {
     public void testRenderAsListItemNewLine() {
         final SubmittorLinkRenderer slr = new SubmittorLinkRenderer(
                 submittorLink, new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         final SubmittorLinkListItemRenderer lir =
                 (SubmittorLinkListItemRenderer) slr.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -79,7 +85,7 @@ public final class SubmittorLinkListItemRendererTest {
     public void testRenderAsListItemPad() {
         final SubmittorLinkRenderer slr = new SubmittorLinkRenderer(
                 submittorLink, new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         final SubmittorLinkListItemRenderer lir =
                 (SubmittorLinkListItemRenderer) slr.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();

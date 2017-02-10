@@ -1,43 +1,57 @@
-package org.schoellerfamily.gedbrowser.controller;
+package org.schoellerfamily.gedbrowser.renderer.test;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 
 /**
  * @author Dick Schoeller
  */
-public final class ApplicationInfo {
+public class ApplicationInfoStub implements ApplicationInfo {
     /**
-     * @return the application name.
+     * {@inheritDoc}
      */
+    @Override
     public String getName() {
         return "gedbrowser";
     }
 
     /**
-     * @return the version string.
+     * {@inheritDoc}
      */
+    @Override
     public String getVersion() {
         return GedObject.VERSION;
     }
 
     /**
-     * @return the maintainer's email address.
+     * {@inheritDoc}
      */
+    @Override
     public String getMaintainerEmail() {
         return "schoeller@comcast.net";
     }
 
     /**
-     * @return the maintainer's name.
+     * {@inheritDoc}
      */
+    @Override
     public String getMaintainerName() {
         return "Richard Schoeller";
     }
 
     /**
-     * @return the URL to learn more about the application.
+     * {@inheritDoc}
      */
+    @Override
     public String getApplicationURL() {
         return "https://github.com/dickschoeller/gedbrowser";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getHomeURL() {
+        return "http://www.schoellerfamily.org/";
     }
 }

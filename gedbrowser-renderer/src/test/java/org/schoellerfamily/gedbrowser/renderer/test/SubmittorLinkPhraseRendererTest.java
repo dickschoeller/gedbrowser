@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkPhraseRenderer;
@@ -26,6 +27,9 @@ public final class SubmittorLinkPhraseRendererTest {
 
     /** */
     private CalendarProvider provider;
+
+    /** */
+    private RenderingContext anonymousContext;
 
     /** */
     @Before
@@ -43,15 +47,16 @@ public final class SubmittorLinkPhraseRendererTest {
 
         submittorLink = new SubmittorLink(head, "SUBL", new ObjectId("S1"));
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /** */
     @Test
     public void testRenderAsPhrase() {
-        final SubmittorLinkRenderer slr =
-                new SubmittorLinkRenderer(submittorLink,
-                        new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final SubmittorLinkRenderer slr = new SubmittorLinkRenderer(
+                submittorLink, new GedRendererFactory(), anonymousContext,
+                provider);
         final SubmittorLinkPhraseRenderer slpr =
                 (SubmittorLinkPhraseRenderer) slr.getPhraseRenderer();
         assertEquals("Rendered html doesn't match expectation",

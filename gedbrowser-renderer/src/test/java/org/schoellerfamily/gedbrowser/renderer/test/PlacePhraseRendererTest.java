@@ -9,6 +9,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.PlacePhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PlaceRenderer;
@@ -28,6 +29,9 @@ public final class PlacePhraseRendererTest {
     private CalendarProvider provider;
 
     /** */
+    private RenderingContext anonymousContext;
+
+    /** */
     @Before
     public void init() {
         final Person person = new Person();
@@ -36,14 +40,15 @@ public final class PlacePhraseRendererTest {
         place = new Place(attribute, "Fayetteville, NC");
         attribute.addAttribute(place);
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /** */
     @Test
     public void testGetRenderAsPhrase() {
         final PlaceRenderer dRenderer = new PlaceRenderer(place,
-                new GedRendererFactory(), RenderingContext.anonymous(),
-                provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final PlacePhraseRenderer ppRenderer =
                 (PlacePhraseRenderer) dRenderer.getPhraseRenderer();
         final String string = ppRenderer.renderAsPhrase();
@@ -56,7 +61,7 @@ public final class PlacePhraseRendererTest {
     public void testGetRenderAsListItemEmpty() {
         final PlaceRenderer dRenderer = new PlaceRenderer(
                 new Place(attribute, ""), new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         final PlacePhraseRenderer ppRenderer =
                 (PlacePhraseRenderer) dRenderer.getPhraseRenderer();
         final String string = ppRenderer.renderAsPhrase();
@@ -68,7 +73,7 @@ public final class PlacePhraseRendererTest {
     public void testGetRenderAsListItemNull() {
         final PlaceRenderer dRenderer = new PlaceRenderer(
                 new Place(attribute, null), new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         final PlacePhraseRenderer ppRenderer =
                 (PlacePhraseRenderer) dRenderer.getPhraseRenderer();
         final String string = ppRenderer.renderAsPhrase();

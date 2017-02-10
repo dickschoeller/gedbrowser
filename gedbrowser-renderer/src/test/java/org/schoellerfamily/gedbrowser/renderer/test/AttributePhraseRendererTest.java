@@ -8,6 +8,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.AttributePhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.AttributeRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -30,9 +31,11 @@ public final class AttributePhraseRendererTest {
     private CalendarProvider provider;
 
     /** */
+    private RenderingContext anonymousContext;
+
+    /** */
     @Before
     public void init() {
-        provider = new CalendarProviderStub();
         final Person person = new Person();
         attribute1 = new Attribute(person, "String", "");
         attribute2 = new Attribute(person, "String", "Strung");
@@ -43,14 +46,16 @@ public final class AttributePhraseRendererTest {
         person.insert(attribute2);
         person.insert(attribute3);
         attribute3.insert(attribute4);
+        provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /** */
     @Test
     public void testRenderAsPhraseEmpty() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute1,
-                new GedRendererFactory(), RenderingContext.anonymous(),
-                provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final AttributePhraseRenderer apRenderer =
                 (AttributePhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
@@ -61,8 +66,7 @@ public final class AttributePhraseRendererTest {
     @Test
     public void testRenderAsPhraseString() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute2,
-                new GedRendererFactory(), RenderingContext.anonymous(),
-                provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final AttributePhraseRenderer apRenderer =
                 (AttributePhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
@@ -74,8 +78,7 @@ public final class AttributePhraseRendererTest {
     @Test
     public void testRenderAsPhrase() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute3,
-                new GedRendererFactory(), RenderingContext.anonymous(),
-                provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final AttributePhraseRenderer apRenderer =
                 (AttributePhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
