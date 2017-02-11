@@ -47,7 +47,7 @@ jdk:
 before_script:
   - wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
   - mkdir -p /home/travis/bin
-  - unzip chromedriver_linux64.zip /home/travis/bin/
+  - unzip chromedriver_linux64.zip -d /home/travis/bin/
   - export CHROME_DRIVER=/home/travis/bin/chromedriver
   - export CHROME_BIN=/usr/bin/chromium-browser
   - export DISPLAY=:99.0
