@@ -18,13 +18,6 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
         "PMD.TooManyMethods" })
 public abstract class GedRenderer<G extends GedObject> {
     /** */
-    private static final String DICK_EMAIL = "schoeller@comcast.net";
-
-    /** */
-    private static final String GEDBROWSER_URL =
-            "http://www.schoellerfamily.org/softwarwe/gedbrowser.html";
-
-    /** */
     private final transient G gedObject;
 
     /** */
@@ -230,12 +223,12 @@ public abstract class GedRenderer<G extends GedObject> {
         builder.append("\n    <td class=\"brleft\">");
         builder.append("\n    <p class=\"maintainer\">");
         builder.append("\n    Maintained by <a href=\"mailto:");
-        builder.append(DICK_EMAIL);
-        builder.append("\">Dick Schoeller</a>.<br>");
+        builder.append(getMaintainerEmail());
+        builder.append("\">").append(getMaintainerName()).append("</a>.<br>");
         builder.append("\n    Created with <a href=\"");
-        builder.append(GEDBROWSER_URL);
+        builder.append(getHomeUrl()).append("software/gedbrowser.html");
         builder.append("\">GEDbrowser</a>, version ");
-        builder.append(GedObject.VERSION);
+        builder.append(getVersion());
         builder.append(" on ");
         builder.append(timeString);
         builder.append("\n    </p>");
@@ -558,8 +551,28 @@ public abstract class GedRenderer<G extends GedObject> {
      * @return the standard URL for home.
      */
     public final String getHomeUrl() {
-        // TODO externalize this.
-        return "http://www.schoellerfamily.org/";
+        return renderingContext.getHomeURL();
+    }
+
+    /**
+     * @return the standard URL for home.
+     */
+    public final String getMaintainerEmail() {
+        return renderingContext.getMaintainerEmail();
+    }
+
+    /**
+     * @return the maintainer's name
+     */
+    public final String getMaintainerName() {
+        return renderingContext.getMaintainerName();
+    }
+
+    /**
+     * @return the version string
+     */
+    public final String getVersion() {
+        return renderingContext.getVersion();
     }
 
     /**

@@ -9,6 +9,7 @@ import org.schoellerfamily.gedbrowser.controller.exception.SourceNotFoundExcepti
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,10 @@ public class SourceController extends AbstractController {
     /** */
     @Autowired
     private transient CalendarProvider provider;
+
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
 
     /** */
     @Value("${gedbrowser.home}")
@@ -79,7 +84,7 @@ public class SourceController extends AbstractController {
         model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
         model.addAttribute("sourceString", source.getString());
         model.addAttribute("source", gedRenderer);
-        model.addAttribute("appInfo", new ApplicationInfo());
+        model.addAttribute("appInfo", appInfo);
         logger.debug("Exiting source");
         return "source";
     }

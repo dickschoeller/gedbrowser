@@ -126,12 +126,12 @@ public final class GedRendererFactory {
      *
      * @param gedObject the GedObject to be rendered
      * @param provider provides information about "today"
+     * @param appInfo provides the information about the application
      * @return the renderer
      */
-    public GedRenderer<? extends GedObject> create(
-            final GedObject gedObject,
-            final CalendarProvider provider) {
-        return create(gedObject, RenderingContext.anonymous(), provider);
+    public GedRenderer<? extends GedObject> create(final GedObject gedObject,
+            final CalendarProvider provider, final ApplicationInfo appInfo) {
+        return create(gedObject, RenderingContext.anonymous(appInfo), provider);
     }
 
     /**

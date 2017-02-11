@@ -11,6 +11,7 @@ import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundExcepti
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
@@ -56,6 +57,10 @@ public class PersonController extends AbstractController {
     /** */
     @Autowired
     private transient CalendarProvider provider;
+
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
 
     /**
      * Connects HTML template file with data for the person page.
@@ -113,7 +118,7 @@ public class PersonController extends AbstractController {
         model.addAttribute("places", places);
         model.addAttribute("key", key);
         model.addAttribute("showMap", showMap);
-        model.addAttribute("appInfo", new ApplicationInfo());
+        model.addAttribute("appInfo", appInfo);
 
         logger.debug("Exiting person");
         return "person";

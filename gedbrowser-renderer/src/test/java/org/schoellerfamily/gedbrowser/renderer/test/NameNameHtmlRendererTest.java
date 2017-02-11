@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NameNameHtmlRenderer;
@@ -27,12 +28,17 @@ public final class NameNameHtmlRendererTest {
     private CalendarProvider provider;
 
     /** */
+    private RenderingContext anonymousContext;
+
+    /** */
     @Before
     public void init() {
         final Root root = new Root(null, "root");
         person = new Person(root, new ObjectId("I1"));
         root.insert(person);
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /** */
@@ -41,8 +47,7 @@ public final class NameNameHtmlRendererTest {
         final Name name = new Name(person);
         person.addAttribute(name);
         final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final NameHtmlRenderer nameHtmlRenderer = new NameNameHtmlRenderer(
                 nameRenderer);
         assertEquals("Rendered string mismatch",
@@ -56,8 +61,7 @@ public final class NameNameHtmlRendererTest {
         final Name name = new Name(person, "");
         person.addAttribute(name);
         final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final NameHtmlRenderer nameHtmlRenderer = new NameNameHtmlRenderer(
                 nameRenderer);
         assertEquals("Rendered string mismatch",
@@ -71,8 +75,7 @@ public final class NameNameHtmlRendererTest {
         final Name name = new Name(person, "/Schoeller/");
         person.addAttribute(name);
         final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final NameHtmlRenderer nameHtmlRenderer = new NameNameHtmlRenderer(
                 nameRenderer);
         assertEquals("Rendered string mismatch",
@@ -86,8 +89,7 @@ public final class NameNameHtmlRendererTest {
         final Name name = new Name(person, "Richard/Schoeller/");
         person.addAttribute(name);
         final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final NameHtmlRenderer nameHtmlRenderer = new NameNameHtmlRenderer(
                 nameRenderer);
         assertEquals("Rendered string mismatch",
@@ -101,8 +103,7 @@ public final class NameNameHtmlRendererTest {
         final Name name = new Name(person, "/Deng/Shao Ping");
         person.addAttribute(name);
         final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final NameHtmlRenderer nameHtmlRenderer = new NameNameHtmlRenderer(
                 nameRenderer);
         assertEquals("Rendered string mismatch",
@@ -116,8 +117,7 @@ public final class NameNameHtmlRendererTest {
         final Name name = new Name(person, "Karl Frederick/Schoeller/Sr.");
         person.addAttribute(name);
         final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final NameHtmlRenderer nameHtmlRenderer = new NameNameHtmlRenderer(
                 nameRenderer);
         assertEquals("Rendered string mismatch",
@@ -131,8 +131,7 @@ public final class NameNameHtmlRendererTest {
         final Name name = new Name(person, "//");
         person.addAttribute(name);
         final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                new GedRendererFactory(), anonymousContext, provider);
         final NameHtmlRenderer nameHtmlRenderer = new NameNameHtmlRenderer(
                 nameRenderer);
         assertEquals("Rendered string mismatch",

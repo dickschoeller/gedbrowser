@@ -11,6 +11,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
@@ -30,9 +31,14 @@ public final class SourceRendererTest {
     private CalendarProvider provider;
 
     /** */
+    private RenderingContext anonymousContext;
+
+    /** */
     @Before
     public void init() {
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /**
@@ -43,7 +49,7 @@ public final class SourceRendererTest {
     public void testAttributeListOpenRenderer() {
         final SourceRenderer renderer = new SourceRenderer(new Source(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -57,7 +63,7 @@ public final class SourceRendererTest {
     public void testListItemRenderer() {
         final SourceRenderer renderer = new SourceRenderer(new Source(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
@@ -71,7 +77,7 @@ public final class SourceRendererTest {
     public void testNameHtmlRenderer() {
         final SourceRenderer renderer = new SourceRenderer(new Source(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -85,7 +91,7 @@ public final class SourceRendererTest {
     public void testNameIndexRenderer() {
         final SourceRenderer renderer = new SourceRenderer(new Source(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -99,7 +105,7 @@ public final class SourceRendererTest {
     public void testPhraseRenderer() {
         final SourceRenderer renderer = new SourceRenderer(new Source(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
@@ -113,7 +119,7 @@ public final class SourceRendererTest {
     public void testSectionRenderer() {
         final SourceRenderer renderer = new SourceRenderer(new Source(null),
                 new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof SourceSectionRenderer);
@@ -129,7 +135,7 @@ public final class SourceRendererTest {
         final Source source = (Source) root.find("S3");
         final SourceRenderer renderer = new SourceRenderer(source,
                 new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertEquals("Mismatched title string",
                 "Schoeller, Richard John, birth certificate",
                 renderer.getTitleString());
@@ -145,7 +151,7 @@ public final class SourceRendererTest {
         final Source source = (Source) root.find("S3");
         final SourceRenderer renderer = new SourceRenderer(source,
                 new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertEquals("Mismatched source ID",
                 "S3",
                 renderer.getIdString());
@@ -167,7 +173,7 @@ public final class SourceRendererTest {
         final Source source = (Source) root.find("S3");
         final SourceRenderer renderer = new SourceRenderer(source,
                 new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         int i = 0;
         for (final GedRenderer<?> attribute : renderer.getAttributes()) {
             assertEquals("Rendered html doesn't match expectation",

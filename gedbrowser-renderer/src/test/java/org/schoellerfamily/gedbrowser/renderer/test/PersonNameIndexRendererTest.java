@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.PersonNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
@@ -23,10 +24,10 @@ public final class PersonNameIndexRendererTest {
     private transient Person person;
 
     /** */
-    private transient RenderingContext userContext;
+    private CalendarProvider provider;
 
     /** */
-    private CalendarProvider provider;
+    private transient RenderingContext userContext;
 
     /** */
     @Before
@@ -34,8 +35,9 @@ public final class PersonNameIndexRendererTest {
         final Root root = new Root(null, "root");
         person = new Person(root, new ObjectId("I1"));
         root.insert(person);
-        userContext = RenderingContext.user();
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        userContext = RenderingContext.user(appInfo);
     }
 
     /** */

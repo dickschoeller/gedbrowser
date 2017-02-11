@@ -17,6 +17,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.FamilyRenderer;
 import org.schoellerfamily.gedbrowser.renderer.FamilySectionRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -29,13 +30,16 @@ import org.schoellerfamily.gedbrowser.renderer.User;
  */
 public final class FamilySectionRendererTest {
     /** */
+    private CalendarProvider provider;
+
+    /** */
     private transient RenderingContext anonymousContext;
+
     /** */
     private transient RenderingContext userContext;
+
     /** */
     private transient RenderingContext adminContext;
-    /** */
-    private CalendarProvider provider;
 
     /** */
     @Before
@@ -43,12 +47,13 @@ public final class FamilySectionRendererTest {
         final Root root = new Root(null, "root");
         final Family family = new Family(root, new ObjectId("F1"));
         root.insert(family);
-        anonymousContext = RenderingContext.anonymous();
-        userContext = RenderingContext.user();
         final User user = new User();
         user.setUsername("dick");
-        adminContext = new RenderingContext(user, true, true);
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
+        userContext = RenderingContext.user(appInfo);
+        adminContext = new RenderingContext(user, true, true, appInfo);
     }
 
     /**

@@ -5,7 +5,7 @@ import java.net.UnknownHostException;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderImpl;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
-import org.schoellerfamily.gedbrowser.controller.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.controller.ApplicationInfoImpl;
 import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
@@ -24,6 +24,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     SubmittorDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     TrailerDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.schoellerfamily.geoservice.client.GeoServiceClientImpl;
 import org.schoellerfamily.geoservice.keys.KeyManager;
@@ -120,7 +121,7 @@ public class MongoConfiguration {
      */
     @Bean
     public ApplicationInfo appInfo() {
-        return new ApplicationInfo();
+        return new ApplicationInfoImpl();
     }
 
     /**

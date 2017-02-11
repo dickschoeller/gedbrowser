@@ -7,6 +7,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.LivingRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,10 @@ public class LivingController extends AbstractController {
     /** */
     @Autowired
     private transient CalendarProvider provider;
+
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
 
     /** */
     @Value("${gedbrowser.home}")
@@ -66,7 +71,7 @@ public class LivingController extends AbstractController {
 
         model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
         model.addAttribute("living", gedRenderer);
-        model.addAttribute("appInfo", new ApplicationInfo());
+        model.addAttribute("appInfo", appInfo);
 
         logger.debug("Exiting living");
         return "living";

@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.HeadRenderer;
 import org.schoellerfamily.gedbrowser.renderer.HeadSectionRenderer;
@@ -32,6 +33,12 @@ public final class HeadSectionRendererTest {
     private CalendarProvider provider;
 
     /** */
+    private RenderingContext anonymousContext;
+
+    /** */
+    private String homeUrl;
+
+    /** */
     @Before
     public void init() {
         root = new Root(null, "root");
@@ -40,6 +47,9 @@ public final class HeadSectionRendererTest {
         root.setFilename("thefile.ged");
         root.setDbName("thefile");
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
+        homeUrl = "http://www.schoellerfamily.org/";
     }
 
     // TODO the above really represents head as page, not head as section.
@@ -52,13 +62,13 @@ public final class HeadSectionRendererTest {
     public void testRenderAsSection() {
         final HeadRenderer hRenderer =
                 new HeadRenderer(head, new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+                        anonymousContext, provider);
         final StringBuilder builder = new StringBuilder();
         final HeadSectionRenderer hsr =
                 (HeadSectionRenderer) hRenderer.getSectionRenderer();
         hsr.renderAsSection(builder,
                 new RootRenderer(root, new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider), false, 0, 0);
+                        anonymousContext, provider), false, 0, 0);
         assertEquals("Rendered html doesn't match expectation",
                 "Content-type: text/html\n"
                         + "\n"
@@ -95,11 +105,11 @@ public final class HeadSectionRendererTest {
                         + "    <td class=\"brleft\">\n"
                         + "    <p class=\"maintainer\">\n"
                         + "    Maintained by "
-                        + "<a href=\"mailto:schoeller@comcast.net\">Dick "
+                        + "<a href=\"mailto:schoeller@comcast.net\">Richard "
                         + "Schoeller</a>.<br>\n"
                         + "    Created with "
-                        + "<a href=\"http://www.schoellerfamily.org/"
-                        + "softwarwe/gedbrowser.html\">GEDbrowser</a>, version "
+                        + "<a href=\"" + homeUrl
+                        + "software/gedbrowser.html\">GEDbrowser</a>, version "
                         + GedObject.VERSION + " on "
                         + getDateString() + "\n" + "    </p>\n"
                         + "    </td>\n" + "    <td class=\"brright\">\n"

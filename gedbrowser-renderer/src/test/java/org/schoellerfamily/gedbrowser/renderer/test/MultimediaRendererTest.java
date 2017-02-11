@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaPhraseRenderer;
@@ -24,9 +25,14 @@ public final class MultimediaRendererTest {
     private CalendarProvider provider;
 
     /** */
+    private RenderingContext anonymousContext;
+
+    /** */
     @Before
     public void init() {
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /**
@@ -35,10 +41,9 @@ public final class MultimediaRendererTest {
      */
     @Test
     public void testMultimediaListItemRenderer() {
-        final MultimediaRenderer renderer =
-                new MultimediaRenderer(
-                        new Multimedia(null), new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final MultimediaRenderer renderer = new MultimediaRenderer(
+                new Multimedia(null), new GedRendererFactory(),
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof MultimediaListItemRenderer);
@@ -50,10 +55,9 @@ public final class MultimediaRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final MultimediaRenderer renderer =
-                new MultimediaRenderer(
-                        new Multimedia(null), new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final MultimediaRenderer renderer = new MultimediaRenderer(
+                new Multimedia(null), new GedRendererFactory(),
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -65,10 +69,9 @@ public final class MultimediaRendererTest {
      */
     @Test
     public void testNameIndexRenderer() {
-        final MultimediaRenderer renderer =
-                new MultimediaRenderer(
-                        new Multimedia(null), new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final MultimediaRenderer renderer = new MultimediaRenderer(
+                new Multimedia(null), new GedRendererFactory(),
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -80,10 +83,9 @@ public final class MultimediaRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final MultimediaRenderer renderer =
-                new MultimediaRenderer(
-                        new Multimedia(null), new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final MultimediaRenderer renderer = new MultimediaRenderer(
+                new Multimedia(null), new GedRendererFactory(),
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof MultimediaPhraseRenderer);
@@ -95,10 +97,9 @@ public final class MultimediaRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final MultimediaRenderer renderer =
-                new MultimediaRenderer(
-                        new Multimedia(null), new GedRendererFactory(),
-                        RenderingContext.anonymous(), provider);
+        final MultimediaRenderer renderer = new MultimediaRenderer(
+                new Multimedia(null), new GedRendererFactory(),
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof MultimediaSectionRenderer);

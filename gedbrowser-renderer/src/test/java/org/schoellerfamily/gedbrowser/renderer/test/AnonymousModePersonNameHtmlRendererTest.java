@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.PersonNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
@@ -39,11 +40,12 @@ public final class AnonymousModePersonNameHtmlRendererTest {
     /** */
     @Before
     public void init() {
-        provider = new CalendarProviderStub();
         final Root root = new Root(null, "root");
         person = new Person(root, new ObjectId("I1"));
         root.insert(person);
-        renderingContext = RenderingContext.anonymous();
+        provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        renderingContext = RenderingContext.anonymous(appInfo);
     }
 
     /** */

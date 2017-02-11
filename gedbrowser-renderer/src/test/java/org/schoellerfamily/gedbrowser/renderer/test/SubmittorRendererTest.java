@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
@@ -25,9 +26,14 @@ public final class SubmittorRendererTest {
     private CalendarProvider provider;
 
     /** */
+    private RenderingContext anonymousContext;
+
+    /** */
     @Before
     public void init() {
         provider = new CalendarProviderStub();
+        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /**
@@ -38,7 +44,7 @@ public final class SubmittorRendererTest {
     public void testAttributeListOpenRenderer() {
         final SubmittorRenderer renderer = new SubmittorRenderer(
                 new Submittor(null), new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -52,7 +58,7 @@ public final class SubmittorRendererTest {
     public void testListItemRenderer() {
         final SubmittorRenderer renderer = new SubmittorRenderer(
                 new Submittor(null), new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
@@ -66,7 +72,7 @@ public final class SubmittorRendererTest {
     public void testNameHtmlRenderer() {
         final SubmittorRenderer renderer = new SubmittorRenderer(
                 new Submittor(null), new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -80,7 +86,7 @@ public final class SubmittorRendererTest {
     public void testNameIndexRenderer() {
         final SubmittorRenderer renderer = new SubmittorRenderer(
                 new Submittor(null), new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -94,7 +100,7 @@ public final class SubmittorRendererTest {
     public void testPhraseRenderer() {
         final SubmittorRenderer renderer = new SubmittorRenderer(
                 new Submittor(null), new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
@@ -108,7 +114,7 @@ public final class SubmittorRendererTest {
     public void testSectionRenderer() {
         final SubmittorRenderer renderer = new SubmittorRenderer(
                 new Submittor(null), new GedRendererFactory(),
-                RenderingContext.anonymous(), provider);
+                anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof SubmittorSectionRenderer);

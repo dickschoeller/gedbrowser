@@ -8,6 +8,7 @@ import org.schoellerfamily.gedbrowser.Users;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.SourceNotFoundException;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,8 @@ public abstract class AbstractController {
         final Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
         final User user = users.get(authentication.getName());
-        renderingContext = new RenderingContextBuilder(authentication, user)
-                .build();
+        renderingContext = new RenderingContextBuilder(authentication, user,
+                applicationInfo).build();
         logger.debug("Exiting createRenderingContext");
         return renderingContext;
     }
@@ -131,8 +132,7 @@ public abstract class AbstractController {
         mav.addObject("url", request.getRequestURL());
         mav.addObject("renderingContext", renderingContext);
         mav.addObject("appInfo", applicationInfo);
-        // TODO hard coded in several places need to refactor
-        mav.addObject("homeUrl", "http://www.schoellerfamily.org");
+        mav.addObject("homeUrl", applicationInfo.getHomeURL());
         mav.setViewName(viewName);
         mav.setStatus(status);
         return mav;
