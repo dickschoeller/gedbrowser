@@ -53,9 +53,10 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - sleep 3
+  - docker ps --all
+  - ps -ef | grep xvfb
 
 script:
-  - docker ps --all
   - mvn --batch-mode install jacoco:report coveralls:report -Dspring.data.mongodb.port=28001 -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -Dgedbrowser.home=/home/travis/gedbrowser -DrepoToken=${REPOTOKEN} --settings=config/settings.xml
 
 after_success:
@@ -63,4 +64,4 @@ after_success:
   - ./config/before-deploy.sh
   - ./config/deploy.sh
   - cd gedbrowser-selenium
-  - mvn -DskipTests=false -Dwebdriver.firefox.bin=/usr/bin/firefox -Dwebdriver.chrome.driver=${CHROME_DRIVER} -Dchrome.binary=${CHROME-BIN} clean compile integration-test -Dselenium.port=8082
+  - mvn -DskipTests=false -Dwebdriver.firefox.bin=/usr/bin/firefox -Dwebdriver.chrome.driver=${CHROME_DRIVER} -Dchrome.binary=${CHROME-BIN} clean compile integration-test -Dselenium.port=8080
