@@ -5,9 +5,6 @@ services:
 
 addons:
   firefox: "49.0.2"
-  apt:
-    packages:
-    - google-chrome-stable
 
 env:
   global:
@@ -57,8 +54,11 @@ after_success:
   - wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
   - mkdir -p /home/travis/bin
   - unzip chromedriver_linux64.zip -d /home/travis/bin/
+  - sudo apt-get update
+  - sudo apt-get install -y libappindicator1 fonts-liberation
+  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  - sudo dpkg -i google-chrome*.deb
   - which google-chrome
-  - which chromium-browser
   - export CHROME_DRIVER=/home/travis/bin/chromedriver
   - export CHROME_BIN=/usr/bin/google-chrome
   - wget https://github.com/mozilla/geckodriver/releases/download/v0.14.0/geckodriver-v0.14.0-linux64.tar.gz
