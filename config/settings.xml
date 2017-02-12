@@ -14,7 +14,7 @@
       <username>${env.DOCKERUSER}</username>
       <password>${env.DOCKERPASS}</password>
       <configuration>
-	<email>schoeller@comcast.net</email>
+        <email>schoeller@comcast.net</email>
       </configuration>
     </server>
   </servers>
@@ -23,36 +23,35 @@
     <profile>
       <id>install</id>
       <activation>
-	<activeByDefault>false</activeByDefault>
+        <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-	<skipTests>true</skipTests>
-	<maven.javadoc.skip>true</maven.javadoc.skip>
-	<skipDocker>true</skipDocker>
-	<findbugs.skip>true</findbugs.skip>
-	<cpd.skip>true</cpd.skip>
-	<pmd.skip>true</pmd.skip>
-	<checkstyle.skip>true</checkstyle.skip>
-	<jacoco.skip>true</jacoco.skip>
+        <skipTests>true</skipTests>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <skipDocker>true</skipDocker>
+        <findbugs.skip>true</findbugs.skip>
+        <cpd.skip>true</cpd.skip>
+        <pmd.skip>true</pmd.skip>
+        <checkstyle.skip>true</checkstyle.skip>
+        <jacoco.skip>true</jacoco.skip>
       </properties>
     </profile>
     <profile>
       <id>deploy</id>
       <activation>
-	<activeByDefault>false</activeByDefault>
+        <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-	<skipTests>true</skipTests>
-	<findbugs.skip>true</findbugs.skip>
-	<cpd.skip>true</cpd.skip>
-	<pmd.skip>true</pmd.skip>
-	<checkstyle.skip>true</checkstyle.skip>
-	<jacoco.skip>true</jacoco.skip>
-	<gpg.executable>gpg</gpg.executable>
+        <skipTests>true</skipTests>
+        <findbugs.skip>true</findbugs.skip>
+        <cpd.skip>true</cpd.skip>
+        <pmd.skip>true</pmd.skip>
+        <checkstyle.skip>true</checkstyle.skip>
+        <jacoco.skip>true</jacoco.skip>
+        <gpg.executable>gpg</gpg.executable>
         <gpg.keyname>${env.GPG_KEY_NAME}</gpg.keyname>
-	<gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
+        <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
       </properties>
     </profile>
   </profiles>
-
 </settings>

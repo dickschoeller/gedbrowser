@@ -11,194 +11,250 @@ import org.openqa.selenium.WebElement;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.TooManyMethods",
-    "PMD.CommentSize" })
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.CommentSize", "PMD.GodClass" })
 public final class PersonPage extends PageBase {
-    // FIXME reimplement this to go to the database for information
+    /** */
+    private static final boolean PRINT_NAVIGATION = "true"
+            .equals(System.getProperty("printNavigation", "false"));
 
     /** */
     private static final Map<String, Expectations> EXPECTATIONS_MAP =
             new HashMap<>();
     static {
-        EXPECTATIONS_MAP.put("I11",
+        EXPECTATIONS_MAP.put("I6",
                 new Expectations(
-                    "Person: I11 - Karl Frederick Schoeller"
-                            + " (17 FEB 1907-08 APR 1985)",
-                    "I32",
-                    "Friedrich Schöller (1870-1958) [I32]",
-                    "I33",
-                    "Clara Savilla Achenbach (1870-1955) [I33]",
-                    "I12",
-                    null));
-        EXPECTATIONS_MAP.put("I32",
+                        "Person: I6 - Reginald Amass Williams (25 JAN 1918-2 "
+                        + "FEB 1996)",
+                        "I9",
+                        "Edwin Elijah A Williams (1883-1951) [I9]",
+                        "I15",
+                        "Ethel Ruth Moore (1893-1968) [I15]",
+                        "I8",
+                        new GreatGreatGrandParentIds(
+                                new GreatGrandParentIds(
+                                        new GrandParentIds(
+                                                new ParentIds("I22", "I33"),
+                                                new ParentIds("I127", "I27")
+                                                ),
+                                        new GrandParentIds(
+                                                new ParentIds("I384", "I92"),
+                                                new ParentIds("I64", "I36")
+                                                )
+                                        ),
+                                new GreatGrandParentIds(
+                                        new GrandParentIds(
+                                                new ParentIds("I627", "I502"),
+                                                new ParentIds("I3591", "I3592")
+                                                ),
+                                        new GrandParentIds(
+                                                new ParentIds("I621", "I622"),
+                                                new ParentIds("I617", "I616")
+                                                )
+                                        )
+                                )
+                        )
+                );
+        EXPECTATIONS_MAP.put("I9",
                 new Expectations(
-                    "Person: I32 - Friedrich Schöller"
-                            + " (10 DEC 1870-01 FEB 1958)",
-                    "I99",
-                    "Johannes Schöller (1847-) [I99]",
-                    "I104",
-                    "Maria Barbara Krimmel (1853-1888) [I104]",
-                    "I11",
-                    null));
-        EXPECTATIONS_MAP.put("I99",
-                new Expectations(
-                    "Person: I99 - Johannes Schöller"
-                            + " (22 OCT 1847-)",
-                    "I180",
-                    "Matthias Schöller (1818-) [I180]",
-                    "I181",
-                    "Anna Maria Müller (1819-) [I181]",
-                    "I32",
-                    null));
-        EXPECTATIONS_MAP.put("I180",
-            new Expectations(
-                    "Person: I180 - Matthias Schöller"
-                        + " (15 NOV 1818-)",
-                    "I3104",
-                    "Johannes Schöller (1785-) [I3104]",
-                    "I3105",
-                    "Veronika Conzelmann (1793-1855) [I3105]",
-                    "I3554",
-                    null));
-        EXPECTATIONS_MAP.put("I33",
-                new Expectations(
-                        "Person: I33 - Clara Savilla Achenbach"
-                        + " (27 JUN 1870-09 DEC 1955)",
-                        "I105",
-                        "Israel Achenbach (1849-1916) [I105]",
-                        "I117",
-                        "Sara Alice Zimmerman (1853-1929) [I117]",
+                        "Person: I9 - Edwin Elijah A Williams (13 DEC 1883-AB"
+                        + "T AUG 1951)",
+                        "I10",
+                        "Thomas Harris Williams (1826-1903) [I10]",
                         "I11",
-                        null));
-        EXPECTATIONS_MAP.put("I117",
-                new Expectations(
-                        "Person: I117 - Sara Alice Zimmerman"
-                        + " (15 DEC 1853-25 JUL 1929)",
-                        "I204",
-                        "William Zimmerman (1829-1903) [I204]",
-                        "I207",
-                        "Susan Derr (1836-1913) [I207]",
-                        "I33",
-                        null));
-        EXPECTATIONS_MAP.put("I3554",
-                new Expectations(
-                    "Person: I3554 - Johann Martin Schöller (07 OCT 1842-)",
-                    "I180",
-                    "Matthias Schöller (1818-) [I180]",
-                    "I181",
-                    "Anna Maria Müller (1819-) [I181]",
-                    "I3881",
-                    null));
-        EXPECTATIONS_MAP.put("I3881",
-                new Expectations(
-                    "Person: I3881 - Anna Maria Schöller (28 JUL 1873-)",
-                    "I3554",
-                    "Johann Martin Schöller (1842-) [I3554]",
-                    "I3555",
-                    "Christina Scheirer [I3555]",
-                    "I3891",
-                    null));
-        EXPECTATIONS_MAP.put("I3891",
-                new Expectations(
-                    "Person: I3891 - Maria Berta Faigle (1908-)",
-                    "I3882",
-                    "Christian Faigle (1870-) [I3882]",
-                    "I3881",
-                    "Anna Maria Schöller (1873-) [I3881]",
-                    null,
-                    null));
-        EXPECTATIONS_MAP.put("I1",
-            new Expectations(
-                    "Person: I1 - Melissa Robinson Schoeller (-)",
-                    "I2",
-                    "Richard John Schoeller (1958-) [I2]",
-                    "I3",
-                    "Lisa Hope Robinson (1960-) [I3]",
-                    null,
-                    null));
-        EXPECTATIONS_MAP.put("I2",
-            new Expectations(
-                    "Person: I2 - Richard John Schoeller (14 DEC 1958-)",
-                    "I4",
-                    "John Vincent Schoeller (1934-2005) [I4]",
-                    "I6",
-                    "Patricia Ruth Hayes (1937-) [I6]",
-                    "I1",
-                    null));
-        EXPECTATIONS_MAP.put("I3",
-            new Expectations(
-                    "Person: I3 - Lisa Hope Robinson (09 MAY 1960-)",
-                    "I7",
-                    "Arnold Robinson (1917-1969) [I7]",
-                    "I10",
-                    "Estelle Liberman (1925-) [I10]",
-                    "I1",
-                    null));
-        EXPECTATIONS_MAP.put("I4",
-            new Expectations(
-                    "Person: I4 - John Vincent Schoeller"
-                            + " (23 JUN 1934-14 SEP 2005)",
-                    "I11",
-                    "Karl Frederick Schoeller (1907-1985) [I11]",
-                    "I14",
-                    "Mary Beer Moyer (1909-2003) [I14]",
-                    "I2",
-                    new GreatGreatGrandParentIds(
-                            new GreatGrandParentIds(
-                                    new GrandParentIds(
-                                            new ParentIds("I180", "I181"),
-                                            new ParentIds("I182", "I185")
-                                            ),
-                                    new GrandParentIds(
-                                            new ParentIds("I186", "I203"),
-                                            new ParentIds("I204", "I207")
-                                            )
-                                    ),
-                            new GreatGrandParentIds(
-                                    new GrandParentIds(
-                                            new ParentIds(null, null),
-                                            new ParentIds(null, null)
-                                            ),
-                                    new GrandParentIds(
-                                            new ParentIds("I208", "I225"),
-                                            new ParentIds("I226", "I238")
-                                            )
-                                    )
-                            )
-                    )
-            );
+                        "Mary Amelia Shepperd Amass (1856-1929) [I11]",
+                        "I6",
+                        new GreatGreatGrandParentIds(
+                                new GreatGrandParentIds(
+                                        new GrandParentIds(
+                                                new ParentIds("I372", "I373"),
+                                                new ParentIds("I259", "I594")
+                                                ),
+                                        new GrandParentIds(
+                                                new ParentIds("I154", "I641"),
+                                                new ParentIds("I1479", "I1480")
+                                                )
+                                        ),
+                                new GreatGrandParentIds(
+                                        new GrandParentIds(
+                                                new ParentIds("I418", "I1258"),
+                                                new ParentIds("I23", "I93")
+                                                ),
+                                        new GrandParentIds(
+                                                new ParentIds("I415", "I861"),
+                                                new ParentIds("I857", "I856")
+                                                )
+                                        )
+                                )
+                        )
+                );
+        // "I10"
         EXPECTATIONS_MAP.put("I10",
-            new Expectations(
-                    "Person: I10 - Estelle Liberman (26 JUN 1925-)",
-                    "I30",
-                    "Abraham Liberman (1894-1962) [I30]",
-                    "I31",
-                    "Minnie Rubin (1894-1983) [I31]",
-                    "I8",
-                    new GreatGreatGrandParentIds(
-                            new GreatGrandParentIds(
-                                    new GrandParentIds(
-                                            new ParentIds(null, null),
-                                            new ParentIds(null, null)
-                                            ),
-                                    new GrandParentIds(
-                                            new ParentIds(null, null),
-                                            new ParentIds(null, null)
-                                            )
-                                    ),
-                            new GreatGrandParentIds(
-                                    new GrandParentIds(
-                                            new ParentIds(null, null),
-                                            new ParentIds(null, null)
-                                            ),
-                                    new GrandParentIds(
-                                            new ParentIds(null, null),
-                                            new ParentIds(null, null)
-                                            )
-                                    )
-                            )
-                    )
-            );
+                new Expectations(
+                        "Person: I10 - Thomas Harris Williams (1826-5 NOV 190"
+                        + "3)",
+                        "I193",
+                        "Thomas Williams (1802-1886) [I193]",
+                        "I21",
+                        "Sarah Harris (1798-1884) [I21]",
+                        null,
+                        null
+                        ));
+        // "I15"
+        EXPECTATIONS_MAP.put("I15",
+                new Expectations(
+                        "Person: I15 - Ethel Ruth Moore (7 DEC 1893-9 JUL 196"
+                        + "8)",
+                        "I538",
+                        "William Moore (1842-1915) [I538]",
+                        "I539",
+                        "Emily Francis Hunt (1860-) [I539]",
+                        "I6",
+                        null
+                        ));
+        // "I22"
+        EXPECTATIONS_MAP.put("I22",
+                new Expectations(
+                        "Person: I22 - John Williams (ABT 1778-ABT AUG 1840)",
+                        "I372",
+                        "George Williams (1751-1810) [I372]",
+                        "I373",
+                        "Elizabeth Ayres (1755-) [I373]",
+                        "I164",
+                        null
+                        ));
+        // "I193"
+        EXPECTATIONS_MAP.put("I193",
+                new Expectations(
+                        "Person: I193 - Thomas Williams (27 MAR 1802-17 JUN 1"
+                        + "886)",
+                        "I22",
+                        "John Williams (1778-1840) [I22]",
+                        "I33",
+                        "Elizabeth Tomkins (1776-1851) [I33]",
+                        "I10",
+                        new GreatGreatGrandParentIds(
+                                new GreatGrandParentIds(
+                                        new GrandParentIds(
+                                                new ParentIds("I376", "I377"),
+                                                new ParentIds(null, null)
+                                                ),
+                                        new GrandParentIds(
+                                                new ParentIds(null, null),
+                                                new ParentIds(null, null)
+                                                )
+                                        ),
+                                new GreatGrandParentIds(
+                                        new GrandParentIds(
+                                                new ParentIds(null, null),
+                                                new ParentIds(null, null)
+                                                ),
+                                        new GrandParentIds(
+                                                new ParentIds(null, null),
+                                                new ParentIds(null, null)
+                                                )
+                                        )
+                                )
+                        )
+                );
+        // "I237"
+        EXPECTATIONS_MAP.put("I237",
+                new Expectations(
+                        "Person: I237 - Priscilla COOK (1821-ABT NOV 1886)",
+                        "I617",
+                        "James Cook (1801-1877) [I617]",
+                        "I616",
+                        "Priscilla DARKINGS (1799-1856) [I616]",
+                        "I3904",
+                        new GreatGreatGrandParentIds(
+                                new GreatGrandParentIds(
+                                        new GrandParentIds(
+                                                new ParentIds(null, null),
+                                                new ParentIds(null, null)
+                                                ),
+                                        new GrandParentIds(
+                                                new ParentIds(null, null),
+                                                new ParentIds(null, null)
+                                                )
+                                        ),
+                                new GreatGrandParentIds(
+                                        new GrandParentIds(
+                                                new ParentIds(null, null),
+                                                new ParentIds(null, null)
+                                                ),
+                                        new GrandParentIds(
+                                                new ParentIds(null, null),
+                                                new ParentIds(null, null)
+                                                )
+                                        )
+                                )
+                        )
+                );
+        // "I539"
+        EXPECTATIONS_MAP.put("I539",
+                new Expectations(
+                        "Person: I539 - Emily Francis Hunt (ABT JUN 1860-)",
+                        "I385",
+                        "Stephen HUNT (1813-1884) [I385]",
+                        "I237",
+                        "Priscilla COOK (1821-1886) [I237]",
+                        "I480",
+                        new GreatGreatGrandParentIds(
+                                new GreatGrandParentIds(
+                                        new GrandParentIds(
+                                                new ParentIds(null, null),
+                                                new ParentIds(null, null)
+                                                ),
+                                        new GrandParentIds(
+                                                new ParentIds(null, null),
+                                                new ParentIds(null, null)
+                                                )
+                                        ),
+                                new GreatGrandParentIds(
+                                        new GrandParentIds(
+                                                new ParentIds(null, null),
+                                                new ParentIds(null, null)
+                                                ),
+                                        new GrandParentIds(
+                                                new ParentIds(null, null),
+                                                new ParentIds(null, null)
+                                                )
+                                        )
+                                )
+                        )
+                );
+        // "I616"
+        EXPECTATIONS_MAP.put("I616",
+                new Expectations(
+                        "Person: I616 - Priscilla DARKINGS (1799-ABT 1856)",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "I1409",
+                        new GreatGreatGrandParentIds(
+                                new GreatGrandParentIds(
+                                        new GrandParentIds(
+                                                new ParentIds(null, null),
+                                                new ParentIds(null, null)
+                                                ),
+                                        new GrandParentIds(
+                                                new ParentIds(null, null),
+                                                new ParentIds(null, null)
+                                                )
+                                        ),
+                                new GreatGrandParentIds(
+                                        new GrandParentIds(
+                                                new ParentIds(null, null),
+                                                new ParentIds(null, null)
+                                                ),
+                                        new GrandParentIds(
+                                                new ParentIds(null, null),
+                                                new ParentIds(null, null)
+                                                )
+                                        )
+                                )
+                        )
+                );
     }
 
     /** Database ID associated with this page. */
@@ -328,17 +384,21 @@ public final class PersonPage extends PageBase {
      * @return the built url string
      */
     private static String url(final String baseUrl, final String id) {
-        return baseUrl + "person?db=schoeller&id=" + id;
+        if (baseUrl == null || baseUrl.isEmpty() || id == null
+                || id.isEmpty()) {
+            return "";
+        }
+        return baseUrl + "person?db=gl120368&id=" + id;
     }
 
     /**
-     * Build the URL string for this page.
+     * Build the URL string for the provided id.
      *
-     * @param iD the ID of the person on the page
+     * @param iD the ID of the person linked
      * @return the built url string
      */
     private String url(final String iD) {
-        return baseUrl() + "person?db=schoeller&id=" + iD;
+        return url(baseUrl(), iD);
     }
 
     /**
@@ -417,12 +477,15 @@ public final class PersonPage extends PageBase {
      *
      * @return true if the title matches the expected value
      */
-    public boolean titleCheck() {
+    public String titleCheck() {
         // Logs pages visited
         final String actual = getTitle();
-        System.out.println("Page title is: " + actual);
         final String expected = getExpectedTitleString();
-        return actual.equals(expected);
+        if (actual.equals(expected)) {
+            return "";
+        }
+        return "Title mismatch, expected: [" + expected + "], actual: ["
+                + actual + "]\n";
     }
 
     /**
@@ -430,10 +493,14 @@ public final class PersonPage extends PageBase {
      *
      * @return true if the title matches the expected value
      */
-    public boolean fatherCheck() {
+    public String fatherCheck() {
         final String actual = getFatherString();
         final String expected = getExpectedFatherString();
-        return actual.equals(expected);
+        if (actual.equals(expected)) {
+            return "";
+        }
+        return "Father mismatch: expected: [" + expected + "], actual: ["
+                + actual + "]\n";
     }
 
     /**
@@ -441,10 +508,14 @@ public final class PersonPage extends PageBase {
      *
      * @return true if the title matches the expected value
      */
-    public boolean motherCheck() {
+    public String motherCheck() {
         final String actual = getMotherString();
         final String expected = getExpectedMotherString();
-        return actual.equals(expected);
+        if (actual.equals(expected)) {
+            return "";
+        }
+        return "Mother mismatch: expected: [" + expected + "], actual: ["
+                + actual + "]\n";
     }
 
     /**
@@ -453,7 +524,15 @@ public final class PersonPage extends PageBase {
      * @return the father's name and ID on this page.
      */
     private String getFatherString() {
-        return getFather().getText();
+        try {
+            final WebElement father = getFather();
+            if (father == null) {
+                return "";
+            }
+            return father.getText();
+        } catch (NoSuchElementException e) {
+            return "";
+        }
     }
 
     /**
@@ -462,7 +541,15 @@ public final class PersonPage extends PageBase {
      * @return the mother's name and ID on this page.
      */
     private String getMotherString() {
-        return getMother().getText();
+        try {
+            final WebElement mother = getMother();
+            if (mother == null) {
+                return "";
+            }
+            return mother.getText();
+        } catch (NoSuchElementException e) {
+            return "";
+        }
     }
 
     /**
@@ -471,7 +558,15 @@ public final class PersonPage extends PageBase {
      * @return the web element for the a tag inside the father element
      */
     private WebElement getFatherLink() {
-        return getFather().findElement(By.tagName("a"));
+        try {
+            final WebElement father = getFather();
+            if (father == null) {
+                return null;
+            }
+            return father.findElement(By.tagName("a"));
+        } catch (NoSuchElementException e) {
+            return null;
+        }
     }
 
     /**
@@ -480,7 +575,11 @@ public final class PersonPage extends PageBase {
      * @return the father element
      */
     private WebElement getFather() {
-        return getWebElement(By.id("father"));
+        try {
+            return getWebElement(By.id("father"));
+        } catch (NoSuchElementException e) {
+            return null;
+        }
     }
 
     /**
@@ -489,7 +588,15 @@ public final class PersonPage extends PageBase {
      * @return the web element for the a tag inside the mother element
      */
     private WebElement getMotherLink() {
-        return getMother().findElement(By.tagName("a"));
+        try {
+            final WebElement mother = getMother();
+            if (mother == null) {
+                return null;
+            }
+            return mother.findElement(By.tagName("a"));
+        } catch (NoSuchElementException e) {
+            return null;
+        }
     }
 
     /**
@@ -498,7 +605,11 @@ public final class PersonPage extends PageBase {
      * @return the mother element
      */
     private WebElement getMother() {
-        return getWebElement(By.id("mother"));
+        try {
+            return getWebElement(By.id("mother"));
+        } catch (NoSuchElementException e) {
+            return null;
+        }
     }
 
     /**
@@ -531,9 +642,29 @@ public final class PersonPage extends PageBase {
      *
      * @return true if the father link is correct
      */
-    public boolean fatherLinkCheck() {
-        final String fatherUrl = getFatherLink().getAttribute("href");
-        return fatherUrl.equals(getExpectedFatherUrl());
+    public String fatherLinkCheck() {
+        final String fatherUrl = getFatherLinkUrl();
+        final String expectedFatherUrl = getExpectedFatherUrl();
+        if (fatherUrl.equals(expectedFatherUrl)) {
+            return "";
+        }
+        return "Father link mismatch, expected: [" + expectedFatherUrl
+                + "], actual: [" + fatherUrl + "]\n";
+    }
+
+    /**
+     * @return the father link URL or empty string if not found
+     */
+    private String getFatherLinkUrl() {
+        final WebElement fatherLink = getFatherLink();
+        if (fatherLink == null) {
+            return "";
+        }
+        final String fatherUrl = fatherLink.getAttribute("href");
+        if (fatherUrl == null) {
+            return "";
+        }
+        return fatherUrl;
     }
 
     /**
@@ -541,9 +672,29 @@ public final class PersonPage extends PageBase {
      *
      * @return true if the mother link is correct
      */
-    public boolean motherLinkCheck() {
-        final String motherUrl = getMotherLink().getAttribute("href");
-        return motherUrl.equals(getExpectedMotherUrl());
+    public String motherLinkCheck() {
+        final String motherUrl = getMotherLinkUrl();
+        final String expectedMotherUrl = getExpectedMotherUrl();
+        if (motherUrl.equals(expectedMotherUrl)) {
+            return "";
+        }
+        return "Mother link mismatch, expected: [" + expectedMotherUrl
+                + "], actual: [" + motherUrl + "]\n";
+    }
+
+    /**
+     * @return the mother link URL or empty string if not found
+     */
+    private String getMotherLinkUrl() {
+        final WebElement motherLink = getMotherLink();
+        if (motherLink == null) {
+            return "";
+        }
+        final String motherUrl = motherLink.getAttribute("href");
+        if (motherUrl == null) {
+            return "";
+        }
+        return motherUrl;
     }
 
     /**
@@ -570,27 +721,40 @@ public final class PersonPage extends PageBase {
     @SuppressWarnings("PMD.NPathComplexity")
     public String check() {
         final StringBuilder status = new StringBuilder();
-        if (!titleCheck()) {
-            status.append("Title failed\n");
+        println("        title check");
+        final String titleCheckResult = titleCheck();
+        if (!titleCheckResult.isEmpty()) {
+            status.append(titleCheckResult);
         }
-        if (!fatherCheck()) {
-            status.append("Father failed\n");
+        println("        father check");
+        final String fatherCheckResult = fatherCheck();
+        if (!fatherCheckResult.isEmpty()) {
+            status.append(fatherCheckResult);
         }
-        if (!motherCheck()) {
-            status.append("Mother failed\n");
+        println("        mother check");
+        final String motherCheckResult = motherCheck();
+        if (!motherCheckResult.isEmpty()) {
+            status.append(motherCheckResult);
         }
-        if (!fatherLinkCheck()) {
-            status.append("Father link failed\n");
+        println("        father link check");
+        final String fatherLinkCheckResult = fatherLinkCheck();
+        if (!fatherLinkCheckResult.isEmpty()) {
+            status.append(fatherLinkCheckResult);
         }
-        if (!motherLinkCheck()) {
-            status.append("Mother link failed\n");
+        println("        mother link check");
+        final String motherLinkCheckResult = motherLinkCheck();
+        if (!motherLinkCheckResult.isEmpty()) {
+            status.append(motherLinkCheckResult);
         }
+        println("        child one check");
         if (!childOneCheck()) {
             status.append("Child one failed\n");
         }
+        println("        leaves check");
         if (!leavesCheck()) {
             status.append("Leaf check failed\n");
         }
+        println("        final status check");
         if (status.length() != 0) {
             status.insert(0, "Id: " + id + "\n");
         }
@@ -613,82 +777,82 @@ public final class PersonPage extends PageBase {
         }
         if (!leafCheck("tree-1x9",
                 EXPECTATIONS_MAP.get(id).getLeaves().getFfff())) {
-            System.out.println("failed 1x9");
+            println("            failed 1x9");
             return false;
         }
         if (!leafCheck("tree-3x9",
                 EXPECTATIONS_MAP.get(id).getLeaves().getFffm())) {
-            System.out.println("failed 3x9");
+            println("            failed 3x9");
             return false;
         }
         if (!leafCheck("tree-5x9",
                 EXPECTATIONS_MAP.get(id).getLeaves().getFfmf())) {
-            System.out.println("failed 5x9");
+            println("            failed 5x9");
             return false;
         }
         if (!leafCheck("tree-7x9",
                 EXPECTATIONS_MAP.get(id).getLeaves().getFfmm())) {
-            System.out.println("failed 7x9");
+            println("            failed 7x9");
             return false;
         }
         if (!leafCheck("tree-9x9",
                 EXPECTATIONS_MAP.get(id).getLeaves().getFmff())) {
-            System.out.println("failed 9x9");
+            println("            failed 9x9");
             return false;
         }
         if (!leafCheck("tree-11x9",
                 EXPECTATIONS_MAP.get(id).getLeaves().getFmfm())) {
-            System.out.println("failed 11x9");
+            println("            failed 11x9");
             return false;
         }
         if (!leafCheck("tree-13x9",
                 EXPECTATIONS_MAP.get(id).getLeaves().getFmmf())) {
-            System.out.println("failed 13x9");
+            println("            failed 13x9");
             return false;
         }
         if (!leafCheck("tree-15x9",
                 EXPECTATIONS_MAP.get(id).getLeaves().getFmmm())) {
-            System.out.println("failed 15x9");
+            println("            failed 15x9");
             return false;
         }
         if (!leafCheck("tree-17x9",
                 EXPECTATIONS_MAP.get(id).getLeaves().getMfff())) {
-            System.out.println("failed 17x9");
+            println("            failed 17x9");
             return false;
         }
         if (!leafCheck("tree-19x9",
                 EXPECTATIONS_MAP.get(id).getLeaves().getMffm())) {
-            System.out.println("failed 19x9");
+            println("            failed 19x9");
             return false;
         }
         if (!leafCheck("tree-21x9",
                 EXPECTATIONS_MAP.get(id).getLeaves().getMfmf())) {
-            System.out.println("failed 21x9");
+            println("            failed 21x9");
             return false;
         }
         if (!leafCheck("tree-23x9",
                 EXPECTATIONS_MAP.get(id).getLeaves().getMfmm())) {
-            System.out.println("failed 23x9");
+            println("            failed 23x9");
             return false;
         }
         if (!leafCheck("tree-25x9",
                 EXPECTATIONS_MAP.get(id).getLeaves().getMmff())) {
-            System.out.println("failed 25x9");
+            println("            failed 25x9");
             return false;
         }
         if (!leafCheck("tree-27x9",
                 EXPECTATIONS_MAP.get(id).getLeaves().getMmfm())) {
-            System.out.println("failed 27x9");
+            println("            failed 27x9");
             return false;
         }
         if (!leafCheck("tree-29x9",
                 EXPECTATIONS_MAP.get(id).getLeaves().getMmmf())) {
-            System.out.println("failed 29x9");
+            println("            failed 29x9");
             return false;
         }
         if (!leafCheck("tree-31x9",
                 EXPECTATIONS_MAP.get(id).getLeaves().getMmmm())) {
-            System.out.println("failed 31x9");
+            println("            failed 31x9");
             return false;
         }
         return true;
@@ -759,5 +923,16 @@ public final class PersonPage extends PageBase {
      */
     public String getId() {
         return id;
+    }
+
+    /**
+     * Print the provide string.
+     *
+     * @param string the string to print
+     */
+    private static void println(final String string) {
+        if (PRINT_NAVIGATION) {
+            System.out.println(string);
+        }
     }
 }

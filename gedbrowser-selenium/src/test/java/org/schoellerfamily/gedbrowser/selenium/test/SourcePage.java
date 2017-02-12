@@ -11,7 +11,9 @@ import org.openqa.selenium.WebElement;
  * @author Dick Schoeller
  */
 public final class SourcePage extends PageBase {
-    // FIXME reimplement this to go to the database for information
+    /** */
+    private static final boolean PRINT_NAVIGATION = "true"
+            .equals(System.getProperty("printNavigation", "false"));
 
     /** Database ID associated with this page. */
     private final String id;
@@ -26,12 +28,8 @@ public final class SourcePage extends PageBase {
      */
     private static final Map<String, String> TITLE_MAP = new HashMap<>();
     static {
-        TITLE_MAP.put("S4",
-                "Source: S4 - Robinson, Lisa Hope and Schoeller,"
-                        + " Richard John, certificate of marriage");
-        TITLE_MAP.put("S21",
-                "Source: S21 - Saint John's Lutheran Church, Pine Grove, PA,"
-                        + " church record transcription");
+        TITLE_MAP.put("S33651",
+                "Source: S33651 - Births, Marriages & Deaths Register");
     };
 
     /**
@@ -62,7 +60,7 @@ public final class SourcePage extends PageBase {
      * @return the built url string
      */
     private static String url(final String baseUrl, final String id) {
-        return baseUrl + "source?db=schoeller&id=" + id;
+        return baseUrl + "source?db=gl120368&id=" + id;
     }
 
     /**
@@ -83,7 +81,7 @@ public final class SourcePage extends PageBase {
      * @return true if the title matches the expected value
      */
     public boolean titleCheck() {
-        System.out.println("Page title is: " + getTitle());
+        println("Page title is: " + getTitle());
         return getTitle().equals(TITLE_MAP.get(id));
     }
 
@@ -102,5 +100,16 @@ public final class SourcePage extends PageBase {
      */
     private String baseUrl() {
         return baseUrl;
+    }
+
+    /**
+     * Print the provide string.
+     *
+     * @param string the string to print
+     */
+    private static void println(final String string) {
+        if (PRINT_NAVIGATION) {
+            System.out.println(string);
+        }
     }
 }

@@ -4,10 +4,10 @@ services:
   - docker
 
 addons:
+  firefox: "49.0.2"
   apt:
     packages:
     - google-chrome-stable
-    - firefox
 
 env:
   global:
@@ -45,14 +45,6 @@ jdk:
   - oraclejdk8
 
 before_script:
-  - wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
-  - mkdir -p /home/travis/bin
-  - unzip chromedriver_linux64.zip -d /home/travis/bin/
-  - export CHROME_DRIVER=/home/travis/bin/chromedriver
-  - export CHROME_BIN=/usr/bin/chromium-browser
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3
   - docker ps --all
   - ps -ef | grep xvfb
 
@@ -63,5 +55,15 @@ after_success:
   - ./config/docker-shakedown.sh
   - ./config/before-deploy.sh
   - ./config/deploy.sh
+  - wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
+  - mkdir -p /home/travis/bin
+  - unzip chromedriver_linux64.zip -d /home/travis/bin/
+  - export CHROME_DRIVER=/home/travis/bin/chromedriver
+  - export CHROME_BIN=/usr/bin/chromium-browser
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.14.0/geckodriver-v0.14.0-linux64.tar.gz
+  - tar -xzf geckodriver-v0.14.0-linux64.tar.gz -C /home/travis/bin/geckodriver
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
   - cd gedbrowser-selenium
-  - mvn -DskipTests=false -Dwebdriver.firefox.bin=/usr/bin/firefox -Dwebdriver.chrome.driver=${CHROME_DRIVER} -Dchrome.binary=${CHROME-BIN} clean compile integration-test -Dselenium.port=8080
+  - mvn integration-test -DskipTests=false -Dwebdriver.gecko.driver=/home/travis/bin/geckodriver -Dwebdriver.chrome.driver=${CHROME_DRIVER} -Dchrome.binary=${CHROME-BIN} -Dselenium.port=8080 -DprintNavigation=true -Dpmd.skip=true -Dcpd.skip=true -Dfindbugs.skip=true -Dmaven.javadoc.skip=true -Djacoco.skip=true
