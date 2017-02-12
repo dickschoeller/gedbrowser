@@ -67,7 +67,7 @@ public final class GedBrowserBasicTest {
         if (chromeDriver == null) {
             println("Enable Chrome tests with:"
                     + " -Dwebdriver.chrome.driver=/usr/bin/chromedriver"
-                    + " -Dchrome.binary=/opt/google/chrome/chrome");
+                    + " -Dchrome.binary=/opt/google/chrome/google-chrome");
         } else {
             println("Adding ChromeDriver");
             final Object[] chrome = {new ChromeDriverProvider()};
