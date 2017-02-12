@@ -6,7 +6,7 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 /**
  * @author Dick Schoeller
  */
-public class HtmlUnitDriverProvider implements DriverProvider {
+public final class HtmlUnitDriverProvider implements DriverProvider {
     /**
      * The timeout in seconds.
      */

@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 /**
  * @author Dick Schoeller
  */
-public class FirefoxPageWaiter implements PageWaiter {
+public final class FirefoxPageWaiter implements PageWaiter {
     /** */
     private final WebDriver driver;
 
@@ -48,5 +48,4 @@ public class FirefoxPageWaiter implements PageWaiter {
             fail("Timeout waiting for Page Load Request to complete.");
         }
     }
-
 }

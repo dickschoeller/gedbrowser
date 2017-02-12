@@ -6,7 +6,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 /**
  * @author Dick Schoeller
  */
-public class FirefoxDriverProvider implements DriverProvider {
+public final class FirefoxDriverProvider implements DriverProvider {
     /**
      * The timeout in seconds.
      */

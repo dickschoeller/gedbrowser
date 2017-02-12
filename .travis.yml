@@ -66,4 +66,4 @@ after_success:
   - sh -e /etc/init.d/xvfb start
   - sleep 3
   - cd gedbrowser-selenium
-  - mvn integration-test -DskipTests=false -Dwebdriver.gecko.driver=/home/travis/bin/geckodriver -Dwebdriver.chrome.driver=${CHROME_DRIVER} -Dchrome.binary=${CHROME-BIN} -Dselenium.port=8080 -DprintNavigation=true -Dpmd.skip=true -Dcpd.skip=true -Dfindbugs.skip=true -Dmaven.javadoc.skip=true -Djacoco.skip=true
+  - mvn integration-test -Pintegration-test -Dselenium.port=8080 -DprintNavigation=true
