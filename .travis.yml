@@ -57,6 +57,8 @@ after_success:
   - wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
   - mkdir -p /home/travis/bin
   - unzip chromedriver_linux64.zip -d /home/travis/bin/
+  - which google-chrome
+  - which chromium-browser
   - export CHROME_DRIVER=/home/travis/bin/chromedriver
   - export CHROME_BIN=/usr/bin/google-chrome
   - wget https://github.com/mozilla/geckodriver/releases/download/v0.14.0/geckodriver-v0.14.0-linux64.tar.gz
@@ -66,4 +68,4 @@ after_success:
   - sleep 3
   - ps -ef | grep -i xvfb
   - cd gedbrowser-selenium
-  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -Dselenium.port=8080 -DprintNavigation=true -Dwebdriver.chrome.driver=${CHROME_DRIVER}" -Dchrome.binary=${CHROME_BIN}
+  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -Dselenium.port=8080 -DprintNavigation=true -Dwebdriver.chrome.driver=${CHROME_DRIVER} -Dchrome.binary=${CHROME_BIN}
