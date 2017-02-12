@@ -66,4 +66,4 @@ after_success:
   - sh -e /etc/init.d/xvfb start
   - sleep 3
   - cd gedbrowser-selenium
-  - mvn integration-test -Pintegration-test -Dselenium.port=8080 -DprintNavigation=true
+  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -Dselenium.port=8080 -DprintNavigation=true
