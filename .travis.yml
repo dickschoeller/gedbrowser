@@ -3,6 +3,9 @@ language: java
 services:
   - docker
 
+addons:
+  firefox: "49.0.2"
+
 env:
   global:
     # REPOTOKEN
@@ -19,12 +22,18 @@ env:
     - secure: "I7kpYvDzSW8c/aitLg+xrTSTihCEmravYKiBHQd5uEfLUq4iF59jAntYyQZWiO2Hr4GjeVekq6XpMBloddcyfg9RIXWh36BZ6v+1HOTNaA1GqjDLFjGdNBX8zgp1M0tCKor3xM00rMn9XvUcJIYRX3DkPLCefzsoBum4XZEhcVWxppClz1fHgJ/m4Wuc9IX47XWjXOiWha5ACM0osTXgNGEcDDtXDxZV3L+WPeNurATURiKXaCSlYOVIvpVHYAMLga4IT65ia3croRA37+EksRunt5rlhm5F0q9h/GtgCDdUVCl6sRFlq2xjzq5Ff3EpE+p0NWOH/vcvxc6Nre/+qDtoqHbw2Vc9lmnGYw+LUuboGY3hnmbDsqpi1C3aklNPlLgjldQKQ75bi6iWwyFcQ1Gp0+WoQ84qH1xV+HtEcPi8W5HBnD+vyi3RveL44FJ9ttXFwzymmWbgGGNaTwePl+hhwcXp3jYpnAfvlp9pgsKmMnw12g+8WBd5c3NbKCX85NFbKpa3aTp5x5RbfYsmar+qqf1FreiXM0B5noksca1FG0iQCRlTQIwLcQRjQc9AX4MkSPCvu9rrP9vToIBFITjgIaVjZEknf3eNkNjGD96fS1im+56+So5wJmpASPJnVbIJM6Fui+VMZAF4jhUgOi7In7zwDgALKr0oFSbxs44="
     # OSSRH_PASS
     - secure: "QcYMf74iQ//5ahvbXcWqvj0pHz4RtvH/gZWV+uBuhDsuxGDjC6I0jN0X2ew35c2KR1gQJz1jXwxkveU1PH3NNgeq0dOOI7teMDkuULrVaptMzzjU6puJPreq3GCRVE6LSWeSObBfpSfAbGfzoeagXOuUR8wmgh73nKr0vyVPM6QdDewmbdMiSfIYRYRWw+bmMENqn9roehYEHX90L8ac1JSiMaxKkDdL1WFaL3o/9IwrTN9vIXYbklRny8s1Qa81cYHWEO/3jaDEuniDcZ9tw6hH2J0POjewh1cEZwmYbc2H4IGkqLCays7zqqjP7YT9W6JKY2cWLtdTD35Lgr4nOZ8Ned8gzoX2PjuZDi60wv0pddpstic6T8XK/YDd7tnJD0lzSFhOu8auaXpn93UZiroamN1ajW5SHfnmEXt6Dg8coF1/JmXEZfbPaU68LDdcnN8vep5m7mNaS83DlhIyircH95+iPWXyOe+FAW9sOXurc2NnJF4DgMHvcmHosWQtGIuItpnsIyXyfb/ZzKullJ9jLeF+MesCCLy8IFzCBYWf2BKMiNC76OOeE8QLtXi8rFPlQzy1545cvTIPC5nz/pWRwyZ2Vh/cFQILiu/Px0wj1B73TSsH+Neqoyuf9AqeV6ysjYylPys9TcBbmGwz8Yrg4jHFeeFFfkTB+xQRW3k="
+    # GOOGLE_GEOCODING_KEY
+    - secure: "vVh1Gab3sJdoAh+RZrRYbz8XlGCPX3WVvVSuqyRsMdKt1HT2ZJsOzshLDdnUeOGlkwZp+NQcvR3oB1MyFwj6DO92hxETl2eW+AXRMR9ZV09Rhsvg/ZfnR7FZIuo/tV6XtNLHucLqKgGWuETzmsmTlObor4Ovr4nRpwibU7qCQJUinAlEDh5F9Nt1Nl2+2yqdPAzUdht56RlRMhdBR9vFjDK6cRj75QtrBt2r9GjCnM0fdCTX/5/zBiDQ0dsrhFl1sWNASmRjKJHuidGCmwjIa87Fn1I1CZXIutxQ3iGIKKKQYOJQ+kXqfUMaX76nE+LJqQtNle4HrkzYN/OO2xECiqN4boJjf0GsufscAurJG2eOWVhbfB0nxqPyMU7zg9MdJ46jm6mQ4vRwSfu6iuoBB944rhRO+JHcUAf08D5/F//tmus6H9RCOqneSGmkqpYFAWSPnm+I4aOLzxk2IXyoPDl45VPBXEMo+VSSveGJ2aEjdYbLm4hDxvhy/rvIhJwhp59NnNEJHV2AAtyriL4f4dDTfa6uw7TzjdA6qU0SxskH0YJ0Ixp0bauRwQf3r4Vs6BdGvp11gtJvvRM0eHUYKIRue/Nl0YOWhM2kJH+3BNufkqkxddTHZE/2T7rPFvk9dNmp+VOQAZWX+ceV757jxj9XyrHZO9BEeGs5DvI7clM="
+    # GOOGLE_MAPPING_KEY
+    - secure: "sMdtSxE1udkKi1DQOEnMW/WG5HCXEieHzVuyRwdA6dnTHb5IQEDkv/cVpBQ/m+ufEcg/mezNHK+P1kWbs/Nynv17CdxTxOZYTRCtLKeAMl7ev7B36eEwoqfmyCyPbjeVHbljatJKSYKBjKluzTMFbsSonrQosoHMF30ynFRRYoF5EVKt1FSc2K+RZR29u1fzSAsqFLPAl7hq8uO2BVspNUBj5vDL93WWidZ941Su1M1l+LDlj0ZYeHAdrsjRdO88l2ElPdbaQzHFewF+gjbC8Tm+OkKuio+Z9I9/6WJ4fZsnPQNtX2n8CysvxUDB6glk9RRZV5bfsJbE0Yig3ckY4IBWgBopk6IiGgiV7i3F9HxsSz1Vim6EEjar3BUVGc3D03K5bHxafIdxroq7x8e/8GzmojFREdcxKKbKCpvv8s5pVczIE5yNLVpatrKZOc7uMMuK6JqK1vzL4U5Cm1Xr4d4njy73+Fxt8iI4AyJZoHn11PTlkR9mPHT/0gb3IKFSvuLomKQXU/lE46tGTH/OephCJM+alIKBI+7ORoIKspfCL4Q2Gh4XbSnkO7eya9UqpLjqoFja1ms8Mxa2YMM5KL9WOmGJBbu8JRRYzQF/kQcOxrH3bOua8MYjXMNCGeGrDL6/X6KDLgkTiwEndOHzw+TDjid6dY3OHGPq8CwMkXk="
 
 before_install:
   - mkdir /home/travis/data
   - mkdir /home/travis/gedbrowser
   - cp $(find . -name 'gl120368.ged' | head -n 1) /home/travis/gedbrowser
   - cp $(find . -name 'testUserFile.csv' | head -n 1) /home/travis/gedbrowser
+  - echo $GOOGLE_GEOCODING_KEY > /home/travis/gedbrowser/google-geocoding-key
+  - echo $GOOGLE_MAPPING_KEY >> /home/travis/gedbrowser/google-geocoding-key
   - docker run -v /home/travis/data:/data/db --name mongo -p 28001:27017 -d mongo
 
 install: mvn install --settings=config/settings.xml -Pinstall -B -V > /dev/null 2>&1
@@ -32,11 +41,32 @@ install: mvn install --settings=config/settings.xml -Pinstall -B -V > /dev/null 
 jdk:
   - oraclejdk8
 
-script:
+before_script:
   - docker ps --all
+
+script:
   - mvn --batch-mode install jacoco:report coveralls:report -Dspring.data.mongodb.port=28001 -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -Dgedbrowser.home=/home/travis/gedbrowser -DrepoToken=${REPOTOKEN} --settings=config/settings.xml
 
 after_success:
   - ./config/docker-shakedown.sh
   - ./config/before-deploy.sh
   - ./config/deploy.sh
+  - wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
+  - mkdir -p /home/travis/bin
+  - unzip chromedriver_linux64.zip -d /home/travis/bin/
+  - sudo apt-get update
+  - sudo apt-get install -y libappindicator1 fonts-liberation
+  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  - sudo dpkg -i google-chrome*.deb
+  - which google-chrome
+  - export CHROME_DRIVER=/home/travis/bin/chromedriver
+  - export CHROME_BIN=/usr/bin/google-chrome
+  # - export CHROME="-Dwebdriver.chrome.driver=${CHROME_DRIVER} -Dchrome.binary=${CHROME_BIN}"
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.14.0/geckodriver-v0.14.0-linux64.tar.gz
+  - tar -xzf geckodriver-v0.14.0-linux64.tar.gz -C /home/travis/bin
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
+  - ps -ef | grep -i xvfb
+  - cd gedbrowser-selenium
+  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -Dselenium.port=8080 -DprintNavigation=true ${CHROME}

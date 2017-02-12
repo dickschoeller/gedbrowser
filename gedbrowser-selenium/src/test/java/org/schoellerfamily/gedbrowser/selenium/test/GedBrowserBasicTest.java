@@ -3,22 +3,25 @@ package org.schoellerfamily.gedbrowser.selenium.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-//import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(Parameterized.class)
 public final class GedBrowserBasicTest {
-    /** Standard timeout. */
-    private static final int SHORT_TIMEOUT = 3;
-    /** Long timeout. */
-    private static final int LONG_TIMEOUT = 5;
+    /** */
+    private static final boolean PRINT_NAVIGATION = "true"
+            .equals(System.getProperty("printNavigation", "false"));
 
     /** */
     private final String host =
@@ -28,42 +31,61 @@ public final class GedBrowserBasicTest {
     private final String port =
             System.getProperty("selenium.port", "8080");
 
-    // FIXME IE driving, Safari driving, Mobile driving
+    /** */
+    private final String drivername;
 
-// FIXME firefox drivers still not working Jenkins
-//    /**
-//     * This test runs through the links by a partial of the text. This is done
-//     * because the UI currently doesn't use IDs.
-//     */
-//    @Test
-//    public void testChildLinkNavigationFirefox() {
-//        // Create a new instance of the Firefox driver
-//        // Notice that the remainder of the code relies on the interface,
-//        // not the implementation.
-//        final WebDriver driver = new FirefoxDriver();
-//        final PageWaiter waiter = new ChromePageWaiter(driver);
-//
-//        System.out.println("Firefox child test");
-//        childNavigationExercise(driver, LONG_TIMEOUT, waiter);
-//        System.out.println();
-//    }
+    /** */
+    private final WebDriver driver;
+
+    /** */
+    private final PageWaiter waiter;
+
+    /** */
+    private final int timeout;
 
     /**
-     * This test runs through the links by a partial of the text. This is done
-     * because the UI currently doesn't use IDs.
+     * @param provider the driver provider to use
      */
-    @Test
-    public void testChildLinkNavigationChrome() {
-        // Create a new instance of the Chrome driver
-        // Notice that the remainder of the code relies on the interface,
-        // not the implementation.
-        final WebDriver driver = new ChromeDriver();
-        final PageWaiter waiter = new ChromePageWaiter(driver);
+    public GedBrowserBasicTest(final DriverProvider provider) {
+        this.drivername = provider.getName();
+        this.driver = provider.getDriver();
+        this.waiter = provider.getWaiter(driver);
+        this.timeout = provider.getTimeout();
+    }
 
-        System.out.println("Chrome child test");
-        assertTrue("Navigation failed",
-                childNavigationExercise(driver, LONG_TIMEOUT, waiter));
-        System.out.println();
+    /**
+     * @return collection of parameter arrays
+     */
+    @Parameters
+    public static Collection<Object[]> params() {
+        final List<Object[]> list = new ArrayList<>();
+        println("Adding HtmlUnitDriver");
+        final Object[] html = {new HtmlUnitDriverProvider()};
+        list.add(html);
+        final String chromeDriver =
+                System.getProperty("webdriver.chrome.driver");
+        if (chromeDriver == null) {
+            println("Enable Chrome tests with:"
+                    + " -Dwebdriver.chrome.driver=/usr/bin/chromedriver"
+                    + " -Dchrome.binary=/opt/google/chrome/google-chrome");
+        } else {
+            println("Adding ChromeDriver");
+            final Object[] chrome = {new ChromeDriverProvider()};
+            list.add(chrome);
+        }
+        final String geckoDriver =
+                System.getProperty("webdriver.gecko.driver");
+        if (geckoDriver == null) {
+            println("Enable Firefox tests with:"
+                    + " -Dwebdriver.gecko.driver=/usr/local/bin/geckodriver");
+        } else {
+            println(
+                    "Adding FirefoxDriver");
+            final Object[] firefox = {new FirefoxDriverProvider()};
+            list.add(firefox);
+        }
+        return list;
+        // FIXME IE driving, Safari driving, Mobile driving
     }
 
     /**
@@ -71,53 +93,11 @@ public final class GedBrowserBasicTest {
      * because the UI currently doesn't use IDs.
      */
     @Test
-    public void testChildLinkNavigationHtmlUnit() {
-        // Create a new instance of the HtmlUnit driver
-        // Notice that the remainder of the code relies on the interface,
-        // not the implementation.
-        final WebDriver driver = new HtmlUnitDriver();
-        final PageWaiter waiter = new HtmlUnitPageWaiter(driver);
-
-        System.out.println("HtmlUnit child test");
+    public void testChildLinkNavigation() {
+        println(drivername + " child test");
         assertTrue("Navigation failed",
-                childNavigationExercise(driver, SHORT_TIMEOUT, waiter));
-        System.out.println();
-    }
-
-// FIXME firefox drivers still not working Jenkins
-//    /**
-//     * This test runs through the links by a partial of the text. This is done
-//     * because the UI currently doesn't use IDs.
-//     */
-//    @Test
-//    public void testFatherLinkNavigationFirefox() {
-//        // Create a new instance of the Chrome driver
-//        // Notice that the remainder of the code relies on the interface,
-//        // not the implementation.
-//        final WebDriver driver = new FirefoxDriver();
-//        final PageWaiter waiter = new ChromePageWaiter(driver);
-//
-//        System.out.println("Firefox father test");
-//        fathersNavigationExercise(driver, LONG_TIMEOUT, waiter);
-//        System.out.println();
-//    }
-
-    /**
-     * This test runs through the links by a partial of the text. This is done
-     * because the UI currently doesn't use IDs.
-     */
-    @Test
-    public void testFatherLinkNavigationChrome() {
-        // Create a new instance of the Chrome driver
-        // Notice that the remainder of the code relies on the interface,
-        // not the implementation.
-        final WebDriver driver = new ChromeDriver();
-        final PageWaiter waiter = new ChromePageWaiter(driver);
-
-        System.out.println("Chrome father test");
-        assertTrue("Navigation failed",
-                fathersNavigationExercise(driver, LONG_TIMEOUT, waiter));
-        System.out.println();
+                childNavigationExercise(driver, timeout, waiter));
+        println();
     }
 
     /**
@@ -125,53 +105,11 @@ public final class GedBrowserBasicTest {
      * because the UI currently doesn't use IDs.
      */
     @Test
-    public void testFatherLinkNavigationHtmlUnit() {
-        // Create a new instance of the HtmlUnit driver
-        // Notice that the remainder of the code relies on the interface,
-        // not the implementation.
-        final WebDriver driver = new HtmlUnitDriver();
-        final PageWaiter waiter = new HtmlUnitPageWaiter(driver);
-
-        System.out.println("HtmlUnit father test");
+    public void testFatherLinkNavigation() {
+        println(drivername + " father test");
         assertTrue("Navigation failed",
-                fathersNavigationExercise(driver, SHORT_TIMEOUT, waiter));
-        System.out.println();
-    }
-
-// FIXME firefox drivers still not working Jenkins
-//    /**
-//     * This test runs through the links by a partial of the text. This is done
-//     * because the UI currently doesn't use IDs.
-//     */
-//    @Test
-//    public void testMotherLinkNavigationFirefox() {
-//        // Create a new instance of the Firefox driver
-//        // Notice that the remainder of the code relies on the interface,
-//        // not the implementation.
-//        final WebDriver driver = new FirefoxDriver();
-//        final PageWaiter waiter = new ChromePageWaiter(driver);
-//
-//        System.out.println("Firefox mother test");
-//        mothersNavigationExercise(driver, LONG_TIMEOUT, waiter);
-//        System.out.println();
-//    }
-
-    /**
-     * This test runs through the links by a partial of the text. This is done
-     * because the UI currently doesn't use IDs.
-     */
-    @Test
-    public void testMotherLinkNavigationChrome() {
-        // Create a new instance of the Chrome driver
-        // Notice that the remainder of the code relies on the interface,
-        // not the implementation.
-        final WebDriver driver = new ChromeDriver();
-        final PageWaiter waiter = new ChromePageWaiter(driver);
-
-        System.out.println("Chrome mother test");
-        assertTrue("Navigation failed",
-                mothersNavigationExercise(driver, LONG_TIMEOUT, waiter));
-        System.out.println();
+                fathersNavigationExercise(driver, timeout, waiter));
+        println();
     }
 
     /**
@@ -179,137 +117,140 @@ public final class GedBrowserBasicTest {
      * because the UI currently doesn't use IDs.
      */
     @Test
-    public void testMotherLinkNavigationHtmlUnit() {
-        // Create a new instance of the HtmlUnit driver
-        // Notice that the remainder of the code relies on the interface,
-        // not the implementation.
-        final WebDriver driver = new HtmlUnitDriver();
-        final PageWaiter waiter = new HtmlUnitPageWaiter(driver);
-
-        System.out.println("HtmlUnit mother test");
+    public void testMotherLinkNavigation() {
+        println(drivername + " mother test");
         assertTrue("Navigation failed",
-                mothersNavigationExercise(driver, SHORT_TIMEOUT, waiter));
-        System.out.println();
+                mothersNavigationExercise(driver, timeout, waiter));
+        println();
     }
 
     /**
-     * @param driver the web driver to use for the test
+     * @param wd the web driver to use for the test
      * @param wait the implicit wait value for this run
-     * @param waiter handles driver specific waits
+     * @param pw handles driver specific waits
      *
      * @return always returns true
      */
-    private boolean childNavigationExercise(final WebDriver driver,
-            final long wait, final PageWaiter waiter) {
+    private boolean childNavigationExercise(final WebDriver wd,
+            final long wait, final PageWaiter pw) {
         try {
-            driver.manage().timeouts().implicitlyWait(wait, TimeUnit.SECONDS);
+            wd.manage().timeouts().implicitlyWait(wait, TimeUnit.SECONDS);
 
-            // Matthias
-            PersonPage currentPerson = new PersonPage(driver, "I180", null,
-                    waiter, baseUrl());
+            PersonPage currentPerson = new PersonPage(wd, "I22", null,
+                    pw, baseUrl());
             currentPerson.open();
-            assertEquals("Person ID mismatch", "I180", currentPerson.getId());
+            println("    Person is: I22");
+            assertEquals("Person ID mismatch", "I22", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
 
-            // Johann Martin
-            currentPerson = currentPerson.navigateChild(1, 1);
-            assertEquals("Person ID mismatch", "I3554", currentPerson.getId());
+            println("    Navigating to child: I193");
+            final int thomasChildIndex = 5;
+            currentPerson = currentPerson.navigateChild(1, thomasChildIndex);
+            assertEquals("Person ID mismatch", "I193", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
 
-            // Anna Maria
+            println("    Navigating to child: I10");
             currentPerson = currentPerson.navigateChild(1, 1);
-            assertEquals("Person ID mismatch", "I3881", currentPerson.getId());
+            assertEquals("Person ID mismatch", "I10", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
 
-            // Go to Maria Berta Faigle
-            currentPerson = currentPerson.navigateChild(1, 1);
-            assertEquals("Person ID mismatch", "I3891", currentPerson.getId());
+            println("    Navigating to child: I9");
+            final int maryAmassFamilyIndex = 3;
+            final int edwinChildIndex = 2;
+            currentPerson = currentPerson.navigateChild(maryAmassFamilyIndex,
+                    edwinChildIndex);
+            assertEquals("Person ID mismatch", "I9", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
         } finally {
             // Close the browser
-            driver.quit();
+            wd.quit();
         }
         return true;
     }
 
     /**
-     * @param driver the web driver to use for the test
+     * @param wd the web driver to use for the test
      * @param wait the implicit wait value for this run
-     * @param waiter handles driver specific waits
+     * @param pw handles driver specific waits
      *
      * @return always returns true
      */
-    private boolean fathersNavigationExercise(final WebDriver driver,
-            final long wait, final PageWaiter waiter) {
+    private boolean fathersNavigationExercise(final WebDriver wd,
+            final long wait, final PageWaiter pw) {
         try {
-            driver.manage().timeouts().implicitlyWait(wait, TimeUnit.SECONDS);
+            wd.manage().timeouts().implicitlyWait(wait, TimeUnit.SECONDS);
 
-            // Grandpop
-            PersonPage currentPerson = new PersonPage(driver, "I11", null,
-                    waiter, baseUrl());
+            PersonPage currentPerson = new PersonPage(wd, "I9", null,
+                    pw, baseUrl());
             currentPerson.open();
-            assertEquals("Person ID mismatch", "I11", currentPerson.getId());
+            println("    Person is: I9");
+            assertEquals("Person ID mismatch", "I9", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
 
-            // Fred
-            currentPerson = currentPerson.navigateFather();
-            assertEquals("Person ID mismatch", "I32", currentPerson.getId());
-            assertEquals("Person failed check", "", currentPerson.check());
-
-            final SourcePage currentSource = new SourcePage(driver, "S21",
-                    currentPerson, waiter, baseUrl());
+            final SourcePage currentSource = new SourcePage(wd, "S33651",
+                    currentPerson, pw, baseUrl());
             assertTrue("Title mismatch", currentSource.titleCheck());
 
             currentPerson = currentSource.back();
-            assertEquals("Person ID mismatch", "I32", currentPerson.getId());
+            assertEquals("Person ID mismatch", "I9", currentPerson.getId());
 
-            // Johannes
+            println("    Navigating to father: I10");
             currentPerson = currentPerson.navigateFather();
-            assertEquals("Person ID mismatch", "I99", currentPerson.getId());
+            assertEquals("Person ID mismatch", "I10", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
 
-            // Matthias
+            println("    Navigating to father: I193");
             currentPerson = currentPerson.navigateFather();
-            assertEquals("Person ID mismatch", "I180", currentPerson.getId());
+            assertEquals("Person ID mismatch", "I193", currentPerson.getId());
+            assertEquals("Person failed check", "", currentPerson.check());
+
+            println("    Navigating to father: I22");
+            currentPerson = currentPerson.navigateFather();
+            assertEquals("Person ID mismatch", "I22", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
         } finally {
             // Close the browser
-            driver.quit();
+            wd.quit();
         }
         return true;
     }
 
     /**
-     * @param driver the web driver to use for the test
+     * @param wd the web driver to use for the test
      * @param wait the implicit wait value for this run
-     * @param waiter handles driver specific waits
+     * @param pw handles driver specific waits
      *
      * @return always returns true
      */
-    private boolean mothersNavigationExercise(final WebDriver driver,
-            final long wait, final PageWaiter waiter) {
+    private boolean mothersNavigationExercise(final WebDriver wd,
+            final long wait, final PageWaiter pw) {
         try {
-            driver.manage().timeouts().implicitlyWait(wait, TimeUnit.SECONDS);
+            wd.manage().timeouts().implicitlyWait(wait, TimeUnit.SECONDS);
 
-            // Melissa
-            PersonPage currentPerson = new PersonPage(driver, "I11", null,
-                    waiter, baseUrl());
+            PersonPage currentPerson = new PersonPage(wd, "I15", null,
+                    pw, baseUrl());
             currentPerson.open();
-            assertEquals("Person ID mismatch", "I11", currentPerson.getId());
+            println("    Person is: I15");
+            assertEquals("Person ID mismatch", "I15", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
 
-            // Lisa
+            println("    Navigating to mother: I539");
             currentPerson = currentPerson.navigateMother();
-            assertEquals("Person ID mismatch", "I33", currentPerson.getId());
+            assertEquals("Person ID mismatch", "I539", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
 
-            // Estelle
+            println("    Navigating to mother: I237");
             currentPerson = currentPerson.navigateMother();
-            assertEquals("Person ID mismatch", "I117", currentPerson.getId());
+            assertEquals("Person ID mismatch", "I237", currentPerson.getId());
+            assertEquals("Person failed check", "", currentPerson.check());
+
+            println("    Navigating to mother: I616");
+            currentPerson = currentPerson.navigateMother();
+            assertEquals("Person ID mismatch", "I616", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
         } finally {
             // Close the browser
-            driver.quit();
+            wd.quit();
         }
         return true;
     }
@@ -319,5 +260,25 @@ public final class GedBrowserBasicTest {
      */
     private String baseUrl() {
         return "http://" + this.host + ":" + this.port + "/gedbrowser/";
+    }
+
+    /**
+     * Print the provide string.
+     *
+     * @param string the string to print
+     */
+    private static void println(final String string) {
+        if (PRINT_NAVIGATION) {
+            System.out.println(string);
+        }
+    }
+
+    /**
+     * Print empty line.
+     */
+    private static void println() {
+        if (PRINT_NAVIGATION) {
+            System.out.println();
+        }
     }
 }
