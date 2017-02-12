@@ -1,6 +1,6 @@
 FROM java:8
 VOLUME /tmp
-ADD geoservice-1.1.1-SNAPSHOT.jar geoservice.jar
+ADD geoservice-1.1.1.jar geoservice.jar
 EXPOSE 8080
 EXPOSE 8081
 ENV spring.data.mongodb.host=mongo
