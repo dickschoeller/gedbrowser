@@ -61,6 +61,7 @@ after_success:
   - which google-chrome
   - export CHROME_DRIVER=/home/travis/bin/chromedriver
   - export CHROME_BIN=/usr/bin/google-chrome
+  # - export CHROME="-Dwebdriver.chrome.driver=${CHROME_DRIVER} -Dchrome.binary=${CHROME_BIN}"
   - wget https://github.com/mozilla/geckodriver/releases/download/v0.14.0/geckodriver-v0.14.0-linux64.tar.gz
   - tar -xzf geckodriver-v0.14.0-linux64.tar.gz -C /home/travis/bin
   - export DISPLAY=:99.0
@@ -68,4 +69,4 @@ after_success:
   - sleep 3
   - ps -ef | grep -i xvfb
   - cd gedbrowser-selenium
-  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -Dselenium.port=8080 -DprintNavigation=true -Dwebdriver.chrome.driver=${CHROME_DRIVER} -Dchrome.binary=${CHROME_BIN}
+  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -Dselenium.port=8080 -DprintNavigation=true ${CHROME}
