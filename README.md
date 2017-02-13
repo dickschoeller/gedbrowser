@@ -59,9 +59,6 @@ can be adjusted in the file application.yml.
 * ![](images/overvio.png)
   [Overv.io](https://overv.io/dickschoeller/gedbrowser/)
   task board
-* ![](images/reviewninja-25.png)
-  [ReviewNinja](https://app.review.ninja/dickschoeller/gedbrowser)
-  code reviews
 * ![](images/jenkins-25.png)
   [Jenkins](http://www.schoellerfamily.org/jenkins/)
   builds
