@@ -25,7 +25,7 @@ role to see living people.
 * Place GEDCOM files in /var/lib/gedbrowser
 * Create /var/lib/gedbrowser/userFile.csv rows are:
   username,firstname,lastname,email,password,role,role...
-* java -jar gedbrowser/target/gedbrowser-1.1.1.jar
+* java -jar gedbrowser/target/gedbrowser-1.1.2-SNAPSHOT.jar
 
 Running with Docker requires running the MongoDB with Docker. The following
 commands allow you to do this without conflicting ports with a native mongod

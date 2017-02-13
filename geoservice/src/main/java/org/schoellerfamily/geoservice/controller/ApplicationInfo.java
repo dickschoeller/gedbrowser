@@ -15,7 +15,7 @@ public final class ApplicationInfo {
      * @return the version string.
      */
     public String getVersion() {
-        return "1.1.1";
+        return "1.1.2-SNAPSHOT";
     }
 
     /**
