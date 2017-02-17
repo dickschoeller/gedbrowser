@@ -42,8 +42,7 @@ public final class WifeRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final WifeRenderer renderer = new WifeRenderer(new Wife(null),
-                new GedRendererFactory(), anonymousContext, provider);
+        final WifeRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -55,8 +54,7 @@ public final class WifeRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        final WifeRenderer renderer = new WifeRenderer(new Wife(null),
-                new GedRendererFactory(), anonymousContext, provider);
+        final WifeRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer() instanceof NullListItemRenderer);
     }
@@ -67,8 +65,7 @@ public final class WifeRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final WifeRenderer renderer = new WifeRenderer(new Wife(null),
-                new GedRendererFactory(), anonymousContext, provider);
+        final WifeRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer);
     }
@@ -79,8 +76,7 @@ public final class WifeRendererTest {
      */
     @Test
     public void testNameIndexRenderer() {
-        final WifeRenderer renderer = new WifeRenderer(new Wife(null),
-                new GedRendererFactory(), anonymousContext, provider);
+        final WifeRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -92,8 +88,7 @@ public final class WifeRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final WifeRenderer renderer = new WifeRenderer(new Wife(null),
-                new GedRendererFactory(), anonymousContext, provider);
+        final WifeRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer() instanceof NullPhraseRenderer);
     }
@@ -104,9 +99,18 @@ public final class WifeRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final WifeRenderer renderer = new WifeRenderer(new Wife(null),
-                new GedRendererFactory(), anonymousContext, provider);
+        final WifeRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer() instanceof NullSectionRenderer);
+    }
+
+    /**
+     * @return the renderer
+     */
+    private WifeRenderer createRenderer() {
+        final WifeRenderer renderer = new WifeRenderer(
+                new Wife(null, "Wife"), new GedRendererFactory(),
+                anonymousContext, provider);
+        return renderer;
     }
 }

@@ -42,7 +42,7 @@ public final class RootRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final RootRenderer renderer = new RootRenderer(new Root(null),
+        final RootRenderer renderer = new RootRenderer(new Root(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
@@ -55,7 +55,7 @@ public final class RootRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        final RootRenderer renderer = new RootRenderer(new Root(null),
+        final RootRenderer renderer = new RootRenderer(new Root(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
@@ -68,7 +68,7 @@ public final class RootRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final RootRenderer renderer = new RootRenderer(new Root(null),
+        final RootRenderer renderer = new RootRenderer(new Root(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
@@ -81,7 +81,7 @@ public final class RootRendererTest {
      */
     @Test
     public void testNameIndexRenderer() {
-        final RootRenderer renderer = new RootRenderer(new Root(null),
+        final RootRenderer renderer = new RootRenderer(new Root(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
@@ -94,7 +94,7 @@ public final class RootRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final RootRenderer renderer = new RootRenderer(new Root(null),
+        final RootRenderer renderer = new RootRenderer(new Root(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
@@ -107,7 +107,7 @@ public final class RootRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final RootRenderer renderer = new RootRenderer(new Root(null),
+        final RootRenderer renderer = new RootRenderer(new Root(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()

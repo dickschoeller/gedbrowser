@@ -5,10 +5,10 @@ package org.schoellerfamily.gedbrowser.datamodel;
  */
 public final class Head extends AbstractSpecialObject {
     /**
-     * @param parent parent object of this object
+     * Default constructor.
      */
-    public Head(final GedObject parent) {
-        super(parent);
+    public Head() {
+        super();
     }
 
     /**

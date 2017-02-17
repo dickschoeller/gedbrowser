@@ -102,20 +102,10 @@ public final class HusbandTest {
 
     /** */
     @Test
-    public void testHusbandGedObject() {
-        final Root localRoot = new Root(null, ROOT_TAG);
-        final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", family);
-        final Husband husband = new Husband(family);
-        assertMatch(husband, "", "", "F1", false);
-    }
-
-    /** */
-    @Test
     public void testHusbandGedObjectString() {
-        final Root localRoot = new Root(null, ROOT_TAG);
+        final Root localRoot = new Root(ROOT_TAG);
         final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", family);
+        localRoot.insert(family);
         final Husband husband = new Husband(family, HUSB_TAG);
         assertMatch(husband, HUSB_TAG, "", "F1", false);
     }
@@ -123,9 +113,9 @@ public final class HusbandTest {
     /** */
     @Test
     public void testHusbandGedObjectStringString() {
-        final Root localRoot = new Root(null, ROOT_TAG);
+        final Root localRoot = new Root(ROOT_TAG);
         final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", family);
+        localRoot.insert(family);
         final Husband husband =
                 new Husband(family, HUSB_TAG, new ObjectId("@I3@"));
         assertMatch(husband, HUSB_TAG, "I3", "F1", false);

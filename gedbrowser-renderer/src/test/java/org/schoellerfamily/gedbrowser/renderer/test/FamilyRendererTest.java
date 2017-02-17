@@ -85,7 +85,7 @@ public final class FamilyRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
+        final FamilyRenderer renderer = new FamilyRenderer(new Family(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
@@ -98,7 +98,7 @@ public final class FamilyRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
+        final FamilyRenderer renderer = new FamilyRenderer(new Family(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
@@ -111,7 +111,7 @@ public final class FamilyRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
+        final FamilyRenderer renderer = new FamilyRenderer(new Family(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
@@ -124,7 +124,7 @@ public final class FamilyRendererTest {
      */
     @Test
     public void testNameIndexRenderer() {
-        final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
+        final FamilyRenderer renderer = new FamilyRenderer(new Family(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
@@ -137,7 +137,7 @@ public final class FamilyRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
+        final FamilyRenderer renderer = new FamilyRenderer(new Family(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
@@ -150,7 +150,7 @@ public final class FamilyRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final FamilyRenderer renderer = new FamilyRenderer(new Family(null),
+        final FamilyRenderer renderer = new FamilyRenderer(new Family(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
@@ -306,7 +306,7 @@ public final class FamilyRendererTest {
     /** */
     @Test
     public void testMinimalFamilySpouses() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final Family fam = new Family(root, new ObjectId("F1"));
         root.insert(fam);
         final Person person = new Person(root, new ObjectId("I1"));
@@ -335,7 +335,7 @@ public final class FamilyRendererTest {
     /** */
     @Test
     public void testMinimalFamilySpousesAnonymous() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final Family fam = new Family(root, new ObjectId("F1"));
         root.insert(fam);
         final Person person = new Person(root, new ObjectId("I1"));
@@ -366,7 +366,7 @@ public final class FamilyRendererTest {
     /** */
     @Test
     public void testMinimalFamilySpouses2() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final Family fam = new Family(root, new ObjectId("F1"));
         root.insert(fam);
         final Person person = new Person(root, new ObjectId("I1"));
@@ -394,7 +394,7 @@ public final class FamilyRendererTest {
     /** */
     @Test
     public void testMinimalFamilySpouses2Anonymous() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final Family fam = new Family(root, new ObjectId("F1"));
         root.insert(fam);
         final Person person = new Person(root, new ObjectId("I1"));

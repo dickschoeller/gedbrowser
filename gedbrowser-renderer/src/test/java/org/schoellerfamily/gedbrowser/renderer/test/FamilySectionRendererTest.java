@@ -44,7 +44,7 @@ public final class FamilySectionRendererTest {
     /** */
     @Before
     public void init() {
-        final Root root = new Root(null, "root");
+        final Root root = new Root("Root");
         final Family family = new Family(root, new ObjectId("F1"));
         root.insert(family);
         final User user = new User();
@@ -275,7 +275,7 @@ public final class FamilySectionRendererTest {
     /** */
     @Test
     public void testMinimalFamilyAsSectionUser() {
-        final Root root1 = new Root(null);
+        final Root root1 = new Root();
         final Family fam = new Family(root1, new ObjectId("F1"));
         root1.insert(fam);
         final Person person = new Person(root1, new ObjectId("I1"));
@@ -314,7 +314,7 @@ public final class FamilySectionRendererTest {
     /** */
     @Test
     public void testMinimalFamilyAsSectionAnonymous() {
-        final Root root1 = new Root(null);
+        final Root root1 = new Root();
         final Family fam = new Family(root1, new ObjectId("F1"));
         root1.insert(fam);
         final Person person = new Person(root1, new ObjectId("I1"));

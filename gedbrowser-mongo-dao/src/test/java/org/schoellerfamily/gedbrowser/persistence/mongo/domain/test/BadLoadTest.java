@@ -33,7 +33,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo
  */
 public final class BadLoadTest {
     /** */
-    private final GedObject root = new Root(null);
+    private final GedObject root = new Root();
     /** */
     private final GedObject attr = new Attribute(root);
 

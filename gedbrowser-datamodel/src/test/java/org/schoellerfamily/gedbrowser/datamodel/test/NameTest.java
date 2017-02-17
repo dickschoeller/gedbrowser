@@ -213,9 +213,9 @@ public final class NameTest {
     /** */
     @Test
     public void testNameGedObject() {
-        final Root localRoot = new Root(null, "Root");
+        final Root localRoot = new Root("Root");
         final Person localPerson = new Person(localRoot, new ObjectId("I1"));
-        localRoot.insert("I1", localPerson);
+        localRoot.insert(localPerson);
         final Name name = new Name(localPerson);
         localPerson.insert(name);
         assertMatch(localPerson, name, "", "", "?", "");
@@ -224,9 +224,9 @@ public final class NameTest {
     /** */
     @Test
     public void testNameGedObjectString() {
-        final Root localRoot = new Root(null, "Root");
+        final Root localRoot = new Root("Root");
         final Person localPerson = new Person(localRoot, new ObjectId("I1"));
-        localRoot.insert("I1", localPerson);
+        localRoot.insert(localPerson);
         final Name name = new Name(localPerson, "Karl/Schoeller/Jr.");
         localPerson.insert(name);
         assertMatch(localPerson, name, "Karl/Schoeller/Jr.", "Karl",

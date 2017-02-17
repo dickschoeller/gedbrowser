@@ -13,7 +13,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 @SuppressWarnings({ "PMD.ExcessivePublicCount" })
 public final class DateTest {
     /** */
-    private final transient Root root = new Root(null, "Root");
+    private final transient Root root = new Root("Root");
 
     /** */
     @Test

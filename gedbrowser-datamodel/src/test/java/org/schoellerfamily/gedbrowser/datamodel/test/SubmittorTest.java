@@ -18,7 +18,7 @@ public final class SubmittorTest {
     /** */
     private static final String TEST_STRING = "string";
     /** */
-    private final transient Root root = new Root(null, "Root");
+    private final transient Root root = new Root("Root");
 
     /** */
     @Test
@@ -80,33 +80,22 @@ public final class SubmittorTest {
     /** */
     @Test
     public void testSubmittorNullParent() {
-        Submittor submittor;
-        submittor = new Submittor(null);
+        final Submittor submittor = new Submittor();
         assertNull("Expected null parent", submittor.getParent());
     }
 
     /** */
     @Test
     public void testSubmittorNullString() {
-        Submittor submittor;
-        submittor = new Submittor(null);
+        final Submittor submittor = new Submittor();
         assertEquals("Expected empty string", "", submittor.getString());
     }
 
     /** */
     @Test
     public void testSubmittorRootParent() {
-        Submittor submittor;
-        submittor = new Submittor(root);
+        final Submittor submittor = new Submittor(root, "SUB1");
         assertEquals("Mismatched parent", root, submittor.getParent());
-    }
-
-    /** */
-    @Test
-    public void testSubmittorGedObject() {
-        Submittor submittor;
-        submittor = new Submittor(root);
-        assertEquals("Expected empty string", "", submittor.getString());
     }
 
     /** */

@@ -5,10 +5,10 @@ package org.schoellerfamily.gedbrowser.datamodel;
  */
 public abstract class AbstractSource extends GedObject {
     /**
-     * @param parent parent object of this attribute
+     * Default constructor.
      */
-    public AbstractSource(final GedObject parent) {
-        super(parent);
+    public AbstractSource() {
+        super();
     }
 
     /**

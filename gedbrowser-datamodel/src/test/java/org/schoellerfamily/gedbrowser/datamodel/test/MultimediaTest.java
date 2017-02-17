@@ -208,14 +208,14 @@ public final class MultimediaTest {
     /** */
     @Test
     public void testGetFilePathEmpty() {
-        final Multimedia multimedia = new Multimedia(person1);
+        final Multimedia multimedia = new Multimedia();
         assertEquals("File path mismatch", null, multimedia.getFilePath());
     }
 
     /** */
     @Test
     public void testGetFilePathGood() {
-        final Multimedia multimedia = new Multimedia(person1);
+        final Multimedia multimedia = new Multimedia();
         final Attribute note =
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -235,7 +235,7 @@ public final class MultimediaTest {
     /** */
     @Test
     public void testGetFileFormatGood() {
-        final Multimedia multimedia = new Multimedia(person1);
+        final Multimedia multimedia = new Multimedia();
         final Attribute note =
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -255,7 +255,7 @@ public final class MultimediaTest {
     /** */
     @Test
     public void testGetFileFormatEmpty() {
-        final Multimedia multimedia = new Multimedia(person1);
+        final Multimedia multimedia = new Multimedia();
         final Attribute note =
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -268,14 +268,14 @@ public final class MultimediaTest {
     /** */
     @Test
     public void testGetFileFormatPartiallyBuilt() {
-        final Multimedia multimedia = new Multimedia(person1);
+        final Multimedia multimedia = new Multimedia();
         assertEquals("File format mismatch", null, multimedia.getFileFormat());
     }
 
     /** */
     @Test
     public void testGetFileTitleGood1() {
-        final Multimedia multimedia = new Multimedia(person1);
+        final Multimedia multimedia = new Multimedia();
         final Attribute note =
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -295,7 +295,7 @@ public final class MultimediaTest {
     /** */
     @Test
     public void testGetFileTitleGood2() {
-        final Multimedia multimedia = new Multimedia(person1);
+        final Multimedia multimedia = new Multimedia();
         final Attribute note =
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -315,14 +315,14 @@ public final class MultimediaTest {
     /** */
     @Test
     public void testGetFileTitleEmpty() {
-        final Multimedia multimedia = new Multimedia(person1);
+        final Multimedia multimedia = new Multimedia();
         assertEquals("File title mismatch", null, multimedia.getFileTitle());
     }
 
     /** */
     @Test
     public void testIsImageTrueJpg() {
-        final Multimedia multimedia = new Multimedia(person1);
+        final Multimedia multimedia = new Multimedia();
         final Attribute note =
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -341,7 +341,7 @@ public final class MultimediaTest {
     /** */
     @Test
     public void testIsImageTrueGif() {
-        final Multimedia multimedia = new Multimedia(person1);
+        final Multimedia multimedia = new Multimedia();
         final Attribute note =
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -360,7 +360,7 @@ public final class MultimediaTest {
     /** */
     @Test
     public void testIsImageTruePng() {
-        final Multimedia multimedia = new Multimedia(person1);
+        final Multimedia multimedia = new Multimedia();
         final Attribute note =
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -379,7 +379,7 @@ public final class MultimediaTest {
     /** */
     @Test
     public void testIsImageTrueTif() {
-        final Multimedia multimedia = new Multimedia(person1);
+        final Multimedia multimedia = new Multimedia();
         final Attribute note =
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -398,7 +398,7 @@ public final class MultimediaTest {
     /** */
     @Test
     public void testIsImageFalse() {
-        final Multimedia multimedia = new Multimedia(person1);
+        final Multimedia multimedia = new Multimedia();
         final Attribute note =
                 new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -417,7 +417,7 @@ public final class MultimediaTest {
     /** */
     @Test
     public void testIsImageEmpty() {
-        final Multimedia multimedia = new Multimedia(person1);
+        final Multimedia multimedia = new Multimedia();
         assertFalse("Expected is not image", multimedia.isImage());
     }
 }

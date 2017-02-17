@@ -33,7 +33,7 @@ public final class SourceLinkListItemRendererTest {
     /** */
     @Before
     public void init() {
-        final Root root = new Root(null, "root");
+        final Root root = new Root("Root");
         person = new Person(root, new ObjectId("I1"));
         root.insert(person);
         final Source source = new Source(root, new ObjectId("S1"));

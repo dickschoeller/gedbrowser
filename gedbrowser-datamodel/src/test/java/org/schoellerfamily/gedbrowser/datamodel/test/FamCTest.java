@@ -60,7 +60,7 @@ public final class FamCTest {
     /** */
     @Test
     public void testGetFatherNotSet() {
-        final FamC dummy = new FamC(null);
+        final FamC dummy = new FamC();
         assertFalse("Father should be unset", dummy.getFather().isSet());
     }
 
@@ -73,7 +73,7 @@ public final class FamCTest {
     /** */
     @Test
     public void testGetMotherNotSet() {
-        final FamC dummy = new FamC(null);
+        final FamC dummy = new FamC();
         assertFalse("Mother should be unset", dummy.getMother().isSet());
     }
 

@@ -41,9 +41,7 @@ public final class MultimediaRendererTest {
      */
     @Test
     public void testMultimediaListItemRenderer() {
-        final MultimediaRenderer renderer = new MultimediaRenderer(
-                new Multimedia(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final MultimediaRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof MultimediaListItemRenderer);
@@ -55,9 +53,7 @@ public final class MultimediaRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final MultimediaRenderer renderer = new MultimediaRenderer(
-                new Multimedia(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final MultimediaRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -69,9 +65,7 @@ public final class MultimediaRendererTest {
      */
     @Test
     public void testNameIndexRenderer() {
-        final MultimediaRenderer renderer = new MultimediaRenderer(
-                new Multimedia(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final MultimediaRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -83,9 +77,7 @@ public final class MultimediaRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final MultimediaRenderer renderer = new MultimediaRenderer(
-                new Multimedia(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final MultimediaRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof MultimediaPhraseRenderer);
@@ -97,12 +89,21 @@ public final class MultimediaRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final MultimediaRenderer renderer = new MultimediaRenderer(
-                new Multimedia(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final MultimediaRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof MultimediaSectionRenderer);
     }
+
+    /**
+     * @return the renderer
+     */
+    private MultimediaRenderer createRenderer() {
+        final MultimediaRenderer renderer = new MultimediaRenderer(
+                new Multimedia(), new GedRendererFactory(), anonymousContext,
+                provider);
+        return renderer;
+    }
+
     // TODO test render as page and renderAsListItem
 }

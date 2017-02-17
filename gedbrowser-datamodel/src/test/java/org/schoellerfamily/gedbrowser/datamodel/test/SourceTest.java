@@ -16,18 +16,17 @@ public final class SourceTest {
     /** */
     @Test
     public void testSourceGedObjectCompare() {
-        final Root root = new Root(null, "Root");
-        final Source source = new Source(root);
-        root.insert("S1", source);
+        final Root root = new Root("Root");
+        final Source source = new Source(root, new ObjectId("S1"));
+        root.insert(source);
         final GedObject gob = root.find("S1");
         assertEquals("Found wrong source", source, gob);
     }
+
     /** */
     @Test
     public void testSourceGedObjectGetString() {
-        final Root root = new Root(null, "Root");
-        final Source source = new Source(root);
-        root.insert("S1", source);
+        final Source source = new Source();
         assertTrue("Source string should be empty", source.getString()
                 .isEmpty());
     }
@@ -35,9 +34,9 @@ public final class SourceTest {
     /** */
     @Test
     public void testSourceGedObjectStringCompare() {
-        final Root root = new Root(null, "Root");
+        final Root root = new Root("Root");
         final Source source = new Source(root, new ObjectId("S1"));
-        root.insert("S1", source);
+        root.insert(source);
         final GedObject gob = root.find("S1");
         assertEquals("Found wrong source", source, gob);
     }
@@ -45,9 +44,9 @@ public final class SourceTest {
     /** */
     @Test
     public void testSourceGedObjectStringGetString() {
-        final Root root = new Root(null, "Root");
+        final Root root = new Root("Root");
         final Source source = new Source(root, new ObjectId("S1"));
-        root.insert("S1", source);
+        root.insert(source);
         assertEquals("Expected source 1", "S1", source.getString());
     }
 }

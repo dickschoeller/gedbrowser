@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
+import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
@@ -47,9 +48,7 @@ public final class SourceRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final SourceRenderer renderer = new SourceRenderer(new Source(null),
-                new GedRendererFactory(),
-                anonymousContext, provider);
+        final SourceRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -61,9 +60,7 @@ public final class SourceRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        final SourceRenderer renderer = new SourceRenderer(new Source(null),
-                new GedRendererFactory(),
-                anonymousContext, provider);
+        final SourceRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
@@ -75,9 +72,7 @@ public final class SourceRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final SourceRenderer renderer = new SourceRenderer(new Source(null),
-                new GedRendererFactory(),
-                anonymousContext, provider);
+        final SourceRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -89,9 +84,7 @@ public final class SourceRendererTest {
      */
     @Test
     public void testNameIndexRenderer() {
-        final SourceRenderer renderer = new SourceRenderer(new Source(null),
-                new GedRendererFactory(),
-                anonymousContext, provider);
+        final SourceRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -103,9 +96,7 @@ public final class SourceRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final SourceRenderer renderer = new SourceRenderer(new Source(null),
-                new GedRendererFactory(),
-                anonymousContext, provider);
+        final SourceRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
@@ -117,12 +108,20 @@ public final class SourceRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final SourceRenderer renderer = new SourceRenderer(new Source(null),
-                new GedRendererFactory(),
-                anonymousContext, provider);
+        final SourceRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof SourceSectionRenderer);
+    }
+
+    /**
+     * @return the renderer
+     */
+    private SourceRenderer createRenderer() {
+        final SourceRenderer renderer = new SourceRenderer(
+                new Source(null, new ObjectId("S1")), new GedRendererFactory(),
+                anonymousContext, provider);
+        return renderer;
     }
 
     /**

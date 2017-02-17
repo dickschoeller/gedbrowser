@@ -64,8 +64,8 @@ public final class PlaceTest {
     /** */
     @Test
     public void testOneArgumentConstructor() {
-        final Place place1 = new Place(parent);
-        assertMatch(place1, expectedParent, "");
+        final Place place1 = new Place();
+        assertMatch(place1, null, "");
     }
 
     /** */

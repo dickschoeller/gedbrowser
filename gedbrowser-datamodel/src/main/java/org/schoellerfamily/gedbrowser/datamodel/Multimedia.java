@@ -8,20 +8,17 @@ public final class Multimedia extends AbstractAttribute {
     private String tail;
 
     /**
-     * @param parent
-     *            parent object of this attribute
+     * Default constructor.
      */
-    public Multimedia(final GedObject parent) {
-        super(parent);
+    public Multimedia() {
+        super();
         this.tail = "";
         this.setAppender(new MultimediaAppender(this));
     }
 
     /**
-     * @param parent
-     *            parent object of this attribute
-     * @param string
-     *            long version of type string
+     * @param parent parent object of this attribute
+     * @param string long version of type string
      */
     public Multimedia(final GedObject parent, final String string) {
         super(parent, string);

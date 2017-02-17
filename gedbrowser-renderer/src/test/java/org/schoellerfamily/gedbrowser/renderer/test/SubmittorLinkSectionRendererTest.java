@@ -38,7 +38,7 @@ public final class SubmittorLinkSectionRendererTest {
     /** */
     @Before
     public void init() {
-        root = new Root(null, "Root");
+        root = new Root("Root");
         final Head head = new Head(root, "Head");
         root.insert(head);
         final Submittor submittor = new Submittor(root, "SUBM", "S1");

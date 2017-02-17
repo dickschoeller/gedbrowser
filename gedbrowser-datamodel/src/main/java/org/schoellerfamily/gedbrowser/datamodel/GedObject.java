@@ -348,24 +348,36 @@ public class GedObject {
     }
 
     /**
-     * @return the filename associated with this data set.
+     * @return the filename associated with this data set
      */
     public final String getFilename() {
         return finder.getFilename(this);
     }
 
     /**
-     * @return the filename associated with this data set.
+     * @return the filename associated with this data set
      */
     public final String getDbName() {
         return finder.getDbName(this);
     }
 
     /**
-     * @param gob object to insert.
+     * @param gob object to insert
      */
     public final void insert(final GedObject gob) {
+        if (gob == null) {
+            return;
+        }
+        extraInsert(gob);
         finder.insert(this, gob);
+    }
+
+    /**
+     * @param gob object to insert
+     */
+    public void extraInsert(final GedObject gob) {
+        // The default implementation is empty. Some derived
+        // classes implement this.
     }
 
     /**

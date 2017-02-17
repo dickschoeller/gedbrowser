@@ -5,10 +5,10 @@ package org.schoellerfamily.gedbrowser.datamodel;
  */
 public final class SubmittorLink extends AbstractLink {
     /**
-     * @param parent parent object of this link
+     * Default constructor.
      */
-    public SubmittorLink(final GedObject parent) {
-        super(parent);
+    public SubmittorLink() {
+        super();
     }
 
     /**

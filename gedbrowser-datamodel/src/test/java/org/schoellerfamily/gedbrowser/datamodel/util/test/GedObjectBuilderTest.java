@@ -236,7 +236,7 @@ public final class GedObjectBuilderTest {
     /** */
     @Test
     public void testFamilyWithIdFind() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final GedObjectBuilder builder = new GedObjectBuilder(root);
         final Family family = builder.createFamily("F1");
         assertEquals("Should have found matching family",

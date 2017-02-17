@@ -61,7 +61,7 @@ public final class IndexTest {
     /** */
     @Before
     public void setUp() {
-        root = new Root(null);
+        root = new Root();
         final GedObjectBuilder builder = new GedObjectBuilder(root);
         builder.createPerson("I1", "Richard John/Schoeller/");
         builder.createPerson("I2", "Lisa Hope/Robinson/");

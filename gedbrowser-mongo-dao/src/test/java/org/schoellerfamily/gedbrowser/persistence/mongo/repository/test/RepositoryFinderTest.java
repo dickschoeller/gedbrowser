@@ -15,6 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
+import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
@@ -237,8 +238,7 @@ public final class RepositoryFinderTest {
     /** */
     @Test
     public void testInsertPerson() {
-        final Person person = new Person(root);
-        person.setString(BOGUS_ID);
+        final Person person = new Person(root, new ObjectId(BOGUS_ID));
         finder.insert(root, person);
         assertEquals("Person mismatch",
                 person, finder.find(root, BOGUS_ID, Person.class));
@@ -247,8 +247,7 @@ public final class RepositoryFinderTest {
     /** */
     @Test
     public void testInsertFamily() {
-        final Family family = new Family(root);
-        family.setString(BOGUS_ID);
+        final Family family = new Family(root, new ObjectId(BOGUS_ID));
         finder.insert(root, family);
         assertEquals("Family mismatch",
                 family, finder.find(root, BOGUS_ID, Family.class));
@@ -257,8 +256,7 @@ public final class RepositoryFinderTest {
     /** */
     @Test
     public void testInsertSource() {
-        final Source source = new Source(root);
-        source.setString(BOGUS_ID);
+        final Source source = new Source(root, new ObjectId(BOGUS_ID));
         finder.insert(root, source);
         assertEquals("Source mismatch",
                 source, finder.find(root, BOGUS_ID, Source.class));
@@ -267,8 +265,7 @@ public final class RepositoryFinderTest {
     /** */
     @Test
     public void testInsertSubmittor() {
-        final Submittor submittor = new Submittor(root);
-        submittor.setString(BOGUS_ID);
+        final Submittor submittor = new Submittor(root, BOGUS_ID);
         finder.insert(root, submittor);
         assertEquals("Submittor mismatch",
                 submittor, finder.find(root, BOGUS_ID, Submittor.class));
@@ -278,8 +275,7 @@ public final class RepositoryFinderTest {
     @Test
     public void testInsertHead() {
         // TODO this test describes the current, probably wrong behavior.
-        final Head head = new Head(root);
-        head.setString(BOGUS_ID);
+        final Head head = new Head(root, BOGUS_ID);
         finder.insert(root, head);
         final Head newHead = finder.find(root, BOGUS_ID, Head.class);
         assertNotEquals(head, newHead);
@@ -288,9 +284,7 @@ public final class RepositoryFinderTest {
     /** */
     @Test
     public void testInsertHeadTag() {
-        // TODO this test describes the current, probably wrong behavior.
-        final Head head = new Head(root);
-        head.setString(BOGUS_ID);
+        final Head head = new Head(root, BOGUS_ID);
         finder.insert(root, head);
         final Head newHead = finder.find(root, BOGUS_ID, Head.class);
         assertEquals("Tag string mismatch", "Header", newHead.getString());
@@ -299,8 +293,7 @@ public final class RepositoryFinderTest {
     /** */
     @Test
     public void testInsertTrailer() {
-        final Trailer trailer = new Trailer(root);
-        trailer.setString(BOGUS_ID);
+        final Trailer trailer = new Trailer(root, BOGUS_ID);
         finder.insert(root, trailer);
         assertEquals("Should have found trailer",
                 trailer, finder.find(root, BOGUS_ID, Trailer.class));

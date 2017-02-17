@@ -66,24 +66,14 @@ public final class GedObjectTest {
     /** */
     @Before
     public void setUp() {
-        root = new Root(null, "Root");
+        root = new Root("Root");
         root.setDbName("DBNAME");
-    }
-
-    /** */
-    @Test
-    public void testGedObjectFind() {
-        gob = new GedObjectWrapper(root);
-        root.insert(GOB_TAG, gob);
-        assertEquals("Find should have matched",
-                gob, gob.find(GOB_TAG));
     }
 
     /** */
     @Test
     public void testGedObjectDefaultEmptyString() {
         gob = new GedObjectWrapper(root);
-        root.insert(GOB_TAG, gob);
         assertEquals("Expected empty string",
                 "", gob.toString());
     }
@@ -92,7 +82,7 @@ public final class GedObjectTest {
     @Test
     public void testGedObjectStringFind() {
         gob = new GedObjectWrapper(root, GOB_TAG);
-        root.insert(null, gob);
+        root.insert(gob);
         assertEquals("Find should have matched", gob, gob.find(GOB_TAG));
     }
 
@@ -100,7 +90,7 @@ public final class GedObjectTest {
     @Test
     public void testGedObjectGedObjectString() {
         gob = new GedObjectWrapper(root, GOB_TAG);
-        root.insert(null, gob);
+        root.insert(gob);
         assertEquals("String mismatch", GOB_TAG, gob.toString());
     }
 
@@ -169,8 +159,7 @@ public final class GedObjectTest {
     /** */
     @Test
     public void testInsertFamily() {
-        final Family family = new Family(root);
-        family.setString("F777");
+        final Family family = new Family(root, new ObjectId("F777"));
         root.insert(family);
         assertEquals("Should have found same family",
                 family, finder.find(family, "F777", Family.class));
@@ -414,16 +403,15 @@ public final class GedObjectTest {
     /** */
     @Test
     public void testFindUnaffectedBySetString() {
-        gob = new GedObjectWrapper(root);
-        gob.setString(GOB_TAG);
+        gob = new GedObjectWrapper(root, GOB_TAG);
         assertNull("Expected null result", gob.find(GOB_TAG));
     }
 
     /** */
     @Test
     public void testFindAfterInsert() {
-        gob = new GedObjectWrapper(root);
-        root.insert(GOB_TAG, gob);
+        gob = new GedObjectWrapper(root, GOB_TAG);
+        root.insert(gob);
         assertEquals("Object mismatch", gob, gob.find(GOB_TAG));
     }
 
@@ -432,7 +420,7 @@ public final class GedObjectTest {
     public void testFindPersonWithProperId() {
         gob = new GedObjectWrapper(root);
         final Person person = new Person(root, new ObjectId("I1"));
-        root.insert("I1", person);
+        root.insert(person);
         assertEquals("Person mismatch", person, gob.find("I1"));
     }
 
@@ -441,7 +429,7 @@ public final class GedObjectTest {
     public void testFindNullWithNullParent() {
         gob = new GedObjectWrapper(root);
         final Person person = new Person(root, new ObjectId("I1"));
-        root.insert("I1", person);
+        root.insert(person);
         gob = new GedObjectWrapper(null);
         assertNull("Expected null", gob.find(GOB_TAG));
     }

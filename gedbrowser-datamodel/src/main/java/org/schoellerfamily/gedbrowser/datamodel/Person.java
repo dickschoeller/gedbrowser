@@ -17,13 +17,6 @@ public final class Person extends GedObject implements Nameable, FamilyLinkage {
 
     /**
      * @param parent parent object of this person
-     */
-    public Person(final GedObject parent) {
-        super(parent);
-    }
-
-    /**
-     * @param parent parent object of this person
      * @param xref cross reference to this person
      */
     public Person(final GedObject parent, final ObjectId xref) {

@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.CellRenderer;
@@ -522,8 +523,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final PersonRenderer renderer = new PersonRenderer(new Person(null),
-                new GedRendererFactory(), userContext, provider);
+        final PersonRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof PersonAttributeListOpenRenderer);
@@ -535,8 +535,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        final PersonRenderer renderer = new PersonRenderer(new Person(null),
-                new GedRendererFactory(), userContext, provider);
+        final PersonRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
@@ -548,8 +547,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final PersonRenderer renderer = new PersonRenderer(new Person(null),
-                new GedRendererFactory(), userContext, provider);
+        final PersonRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof PersonNameHtmlRenderer);
@@ -561,8 +559,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testNameIndexRenderer() {
-        final PersonRenderer renderer = new PersonRenderer(new Person(null),
-                new GedRendererFactory(), userContext, provider);
+        final PersonRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof PersonNameIndexRenderer);
@@ -574,8 +571,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final PersonRenderer renderer = new PersonRenderer(new Person(null),
-                new GedRendererFactory(), userContext, provider);
+        final PersonRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
@@ -587,11 +583,20 @@ public final class PersonRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final PersonRenderer renderer = new PersonRenderer(new Person(null),
-                new GedRendererFactory(), userContext, provider);
+        final PersonRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof NullSectionRenderer);
+    }
+
+    /**
+     * @return the renderer
+     */
+    private PersonRenderer createRenderer() {
+        final PersonRenderer renderer = new PersonRenderer(
+                new Person(null, new ObjectId("I1")), new GedRendererFactory(),
+                userContext, provider);
+        return renderer;
     }
 
     /**

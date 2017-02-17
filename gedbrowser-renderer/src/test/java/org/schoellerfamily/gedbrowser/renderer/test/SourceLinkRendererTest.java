@@ -42,9 +42,7 @@ public final class SourceLinkRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final SourceLinkRenderer renderer = new SourceLinkRenderer(
-                new SourceLink(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final SourceLinkRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -56,9 +54,7 @@ public final class SourceLinkRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        final SourceLinkRenderer renderer = new SourceLinkRenderer(
-                new SourceLink(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final SourceLinkRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof SourceLinkListItemRenderer);
@@ -70,9 +66,7 @@ public final class SourceLinkRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final SourceLinkRenderer renderer = new SourceLinkRenderer(
-                new SourceLink(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final SourceLinkRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -84,9 +78,7 @@ public final class SourceLinkRendererTest {
      */
     @Test
     public void testNameIndexRenderer() {
-        final SourceLinkRenderer renderer = new SourceLinkRenderer(
-                new SourceLink(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final SourceLinkRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -98,9 +90,7 @@ public final class SourceLinkRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final SourceLinkRenderer renderer = new SourceLinkRenderer(
-                new SourceLink(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final SourceLinkRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof SourceLinkPhraseRenderer);
@@ -112,11 +102,19 @@ public final class SourceLinkRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final SourceLinkRenderer renderer = new SourceLinkRenderer(
-                new SourceLink(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final SourceLinkRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof NullSectionRenderer);
+    }
+
+    /**
+     * @return the renderer
+     */
+    private SourceLinkRenderer createRenderer() {
+        final SourceLinkRenderer renderer = new SourceLinkRenderer(
+                new SourceLink(), new GedRendererFactory(),
+                anonymousContext, provider);
+        return renderer;
     }
 }

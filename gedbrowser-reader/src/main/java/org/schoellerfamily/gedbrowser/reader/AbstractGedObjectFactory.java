@@ -532,7 +532,8 @@ public abstract class AbstractGedObjectFactory {
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
-            return new Root(parent, tag);
+            // Root is a special case. Always has null parent.
+            return new Root(tag);
         }
     }
 

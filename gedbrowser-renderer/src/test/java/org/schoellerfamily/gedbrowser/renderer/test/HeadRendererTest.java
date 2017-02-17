@@ -42,7 +42,7 @@ public final class HeadRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final HeadRenderer renderer = new HeadRenderer(new Head(null),
+        final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
@@ -55,7 +55,7 @@ public final class HeadRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        final HeadRenderer renderer = new HeadRenderer(new Head(null),
+        final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
@@ -68,7 +68,7 @@ public final class HeadRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final HeadRenderer renderer = new HeadRenderer(new Head(null),
+        final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
@@ -81,7 +81,7 @@ public final class HeadRendererTest {
      */
     @Test
     public void testNameIndeRenderer() {
-        final HeadRenderer renderer = new HeadRenderer(new Head(null),
+        final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
@@ -94,7 +94,7 @@ public final class HeadRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final HeadRenderer renderer = new HeadRenderer(new Head(null),
+        final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
@@ -107,7 +107,7 @@ public final class HeadRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final HeadRenderer renderer = new HeadRenderer(new Head(null),
+        final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()

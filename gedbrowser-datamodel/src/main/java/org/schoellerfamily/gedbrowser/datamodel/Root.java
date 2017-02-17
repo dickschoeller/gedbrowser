@@ -27,67 +27,43 @@ public final class Root extends AbstractSpecialObject {
     private final transient Index surnameIndex;
 
     /**
-     * @param parent
-     *            parent object of this child
+     * Default constructor.
      */
-    public Root(final GedObject parent) {
-        super(parent);
-        surnameIndex = new Index(this);
-        setFinder(new RootFinder());
+    public Root() {
+        this(new RootFinder());
     }
 
     /**
-     * @param parent parent object of this child
      * @param string long version of type string
      * @param finder the engine for find objects in this data set
      */
-    public Root(final GedObject parent, final String string,
-            final FinderStrategy finder) {
-        super(parent, string);
-        surnameIndex = new Index(this);
-        setFinder(finder);
+    public Root(final String string, final FinderStrategy finder) {
+        this(finder);
+        setString(string);
     }
 
     /**
-     * @param parent parent object of this child
      * @param finder the engine for finding objects in the data set
      */
-    public Root(final GedObject parent, final FinderStrategy finder) {
-        super(parent);
+    public Root(final FinderStrategy finder) {
+        super();
         surnameIndex = new Index(this);
         setFinder(finder);
     }
 
     /**
-     * @param parent
-     *            parent object of this child
-     * @param string
-     *            long version of type string
+     * @param string long version of type string
      */
-    public Root(final GedObject parent, final String string) {
-        super(parent, string);
-        surnameIndex = new Index(this);
-        setFinder(new RootFinder());
+    public Root(final String string) {
+        this(string, new RootFinder());
     }
 
     /**
-     * @param str ID string of object to insert
      * @param gob object to insert
      */
-    public void insert(final String str, final GedObject gob) {
-        if (gob == null) {
-            // I don't think this should happen. We would only get
-            // here is the factory for a level 0 tag didn't return
-            // anything. Even then, I think that that insert would
-            // have been cut off by gob being NULL.
-            return;
-        }
-
-        if (str == null || str.isEmpty()) {
-            objects.put(gob.getString(), gob);
-        } else {
-            objects.put(str, gob);
-        }
+    @Override
+    public void extraInsert(final GedObject gob) {
+        objects.put(gob.getString(), gob);
         addAttribute(gob);
     }
 

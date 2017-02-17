@@ -39,7 +39,7 @@ public final class RootTest {
     /** */
     @Before
     public void setUp() {
-        root = new Root(null, "Root");
+        root = new Root("Root");
         final GedObjectBuilder builder = new GedObjectBuilder(root);
         person1 = builder.createPerson("I1", "Richard/Schoeller/");
         person2 = builder.createPerson("I2", "John/Schoeller/");
@@ -53,7 +53,7 @@ public final class RootTest {
     /** */
     @Test
     public void testOneArgInsertAndFind() {
-        final Root rt = new Root(null, "Root");
+        final Root rt = new Root("Root");
         final Person person = new Person(rt, new ObjectId("I2"));
         rt.insert(person);
         final Name name2 = new Name(person, "John/Schoeller/");
@@ -61,58 +61,6 @@ public final class RootTest {
         final Person personx = new Person(root, new ObjectId("I3"));
         personx.insert(new Name(personx, "Patricia/Hayes/"));
         assertEquals("Person mismatch", person, root.find("I2"));
-    }
-
-    /** */
-    @Test
-    public void testTwoArgInsertBlankAndFind() {
-        final Root rt = new Root(null, "Root");
-        final Person person = new Person(rt, new ObjectId("I2"));
-        rt.insert("", person);
-        final Name name2 = new Name(person, "John/Schoeller/");
-        person.insert(name2);
-        final Person personx = new Person(root, new ObjectId("I3"));
-        personx.insert(new Name(personx, "Patricia/Hayes/"));
-        assertEquals("Person mismatch", person, rt.find("I2"));
-    }
-
-    /** */
-    @Test
-    public void testTwoArgInsertNullAndFind() {
-        final Root rt = new Root(null, "Root");
-        final Person person = new Person(rt, new ObjectId("I2"));
-        rt.insert(null, person);
-        final Name name2 = new Name(person, "John/Schoeller/");
-        person.insert(name2);
-        final Person personx = new Person(root, new ObjectId("I3"));
-        personx.insert(new Name(personx, "Patricia/Hayes/"));
-        assertEquals("Person mismatch", person, rt.find("I2"));
-    }
-
-    /** */
-    @Test
-    public void testTwoArgInsertAndFind() {
-        final Root rt = new Root(null, "Root");
-        final Person person = new Person(rt, new ObjectId("I2"));
-        rt.insert("I4", person);
-        final Name name2 = new Name(person, "John/Schoeller/");
-        person.insert(name2);
-        final Person personx = new Person(root, new ObjectId("I3"));
-        personx.insert(new Name(personx, "Patricia/Hayes/"));
-        assertEquals("Person mismatch", person, rt.find("I4"));
-    }
-
-    /** */
-    @Test
-    public void testTwoArgInsertAndGetObjects() {
-        final Root rt = new Root(null, "Root");
-        final Person person = new Person(rt, new ObjectId("I2"));
-        rt.insert("I4", person);
-        final Name name2 = new Name(person, "John/Schoeller/");
-        person.insert(name2);
-        final Person personx = new Person(root, new ObjectId("I3"));
-        personx.insert(new Name(personx, "Patricia/Hayes/"));
-        assertEquals("Person mismatch", person, rt.getObjects().get("I4"));
     }
 
     /** */
@@ -143,9 +91,9 @@ public final class RootTest {
     @Test
     public void testGetObjects() {
         final Person person4 = new Person(root, new ObjectId("I4"));
-        root.insert(null, person4);
-        final Person person5 = new Person(root, new ObjectId("I4"));
-        root.insert("SQUIRT", person5);
+        root.insert(person4);
+        final Person person5 = new Person(root, new ObjectId("SQUIRT"));
+        root.insert(person5);
         final Map<String, GedObject> objects = root.getObjects();
         assertTrue("Content mismatch",
                 OBJECT_COUNT == objects.size()
@@ -160,10 +108,11 @@ public final class RootTest {
     /** */
     @Test
     public void testGetObjectsNull() {
-        root.insert("nullTest", null);
+        final Root localRoot = new Root();
+        localRoot.insert(null);
         final Map<String, GedObject> objects = root.getObjects();
         assertFalse("Null object should not be inserted",
-                objects.keySet().contains("nullTest"));
+                objects.isEmpty());
     }
 
     /** */

@@ -93,13 +93,6 @@ public final class FamCConstructorTest {
 
     /** */
     @Test
-    public void testOneArgumentConstructor() {
-        final FamC famc = new FamC(parent);
-        assertMatch(famc, expectedParent, "", "", expectedFromString);
-    }
-
-    /** */
-    @Test
     public void testTwoArgumentConstructor() {
         final FamC famc = new FamC(parent, string);
         assertMatch(famc, expectedParent, expectedString, "",

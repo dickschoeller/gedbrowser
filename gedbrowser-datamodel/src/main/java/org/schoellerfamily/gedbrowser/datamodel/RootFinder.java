@@ -36,7 +36,7 @@ public final class RootFinder implements FinderStrategy {
     @Override
     public void insert(final GedObject owner, final GedObject gob) {
         final Root root = (Root) owner;
-        root.insert(gob.getString(), gob);
+        root.extraInsert(gob);
     }
 
     /**

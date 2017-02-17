@@ -44,7 +44,7 @@ public final class PersonAttributeListOpenRendererTest {
     @Before
     public void init() {
         Root root;
-        root = new Root(null, "root");
+        root = new Root("Root");
         person = new Person(root, new ObjectId("I1"));
         root.insert(person);
         provider = new CalendarProviderStub();

@@ -42,8 +42,7 @@ public final class TrailerRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final TrailerRenderer renderer = new TrailerRenderer(new Trailer(null),
-                new GedRendererFactory(), anonymousContext, provider);
+        final TrailerRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -55,8 +54,7 @@ public final class TrailerRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        final TrailerRenderer renderer = new TrailerRenderer(new Trailer(null),
-                new GedRendererFactory(), anonymousContext, provider);
+        final TrailerRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer() instanceof NullListItemRenderer);
     }
@@ -67,8 +65,7 @@ public final class TrailerRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final TrailerRenderer renderer = new TrailerRenderer(new Trailer(null),
-                new GedRendererFactory(), anonymousContext, provider);
+        final TrailerRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer);
     }
@@ -79,8 +76,7 @@ public final class TrailerRendererTest {
      */
     @Test
     public void testNameIndexRenderer() {
-        final TrailerRenderer renderer = new TrailerRenderer(new Trailer(null),
-                new GedRendererFactory(), anonymousContext, provider);
+        final TrailerRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type", renderer
                 .getNameIndexRenderer() instanceof NullNameIndexRenderer);
     }
@@ -91,8 +87,7 @@ public final class TrailerRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final TrailerRenderer renderer = new TrailerRenderer(new Trailer(null),
-                new GedRendererFactory(), anonymousContext, provider);
+        final TrailerRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer() instanceof NullPhraseRenderer);
     }
@@ -103,9 +98,18 @@ public final class TrailerRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final TrailerRenderer renderer = new TrailerRenderer(new Trailer(null),
-                new GedRendererFactory(), anonymousContext, provider);
+        final TrailerRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer() instanceof NullSectionRenderer);
+    }
+
+    /**
+     * @return the renderer
+     */
+    private TrailerRenderer createRenderer() {
+        final TrailerRenderer renderer = new TrailerRenderer(
+                new Trailer(null, "Trailer"), new GedRendererFactory(),
+                anonymousContext, provider);
+        return renderer;
     }
 }

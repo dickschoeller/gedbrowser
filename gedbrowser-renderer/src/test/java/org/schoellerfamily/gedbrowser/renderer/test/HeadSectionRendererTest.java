@@ -41,8 +41,8 @@ public final class HeadSectionRendererTest {
     /** */
     @Before
     public void init() {
-        root = new Root(null, "root");
-        head = new Head(root);
+        root = new Root("Root");
+        head = new Head(root, "Header");
         root.insert(head);
         root.setFilename("thefile.ged");
         root.setDbName("thefile");

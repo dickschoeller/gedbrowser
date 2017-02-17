@@ -118,13 +118,13 @@ public final class FamilyTest {
     /** */
     @Test
     public void testFamilyUsualSetup() {
-        final Root localRoot = new Root(null, ROOT_NAME);
+        final Root localRoot = new Root(ROOT_NAME);
         final Family localFamily1 = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", localFamily1);
+        localRoot.insert(localFamily1);
         final Person localPerson1 = new Person(localRoot, new ObjectId("I1"));
-        localRoot.insert("I1", localPerson1);
+        localRoot.insert(localPerson1);
         final Person localPerson2 = new Person(localRoot, new ObjectId("I2"));
-        localRoot.insert("I2", localPerson2);
+        localRoot.insert(localPerson2);
         final Husband localHusband = new Husband(localFamily1, "HUSB",
                 new ObjectId("@I1@"));
         localFamily1.insert(localHusband);
@@ -132,7 +132,7 @@ public final class FamilyTest {
                 new Wife(localFamily1, "WIFE", new ObjectId("@I2@"));
         localFamily1.insert(localWife);
         final Person localPerson3 = new Person(localRoot, new ObjectId("I3"));
-        localRoot.insert("I3", localPerson3);
+        localRoot.insert(localPerson3);
         final Child localChild = new Child(localFamily1, "CHIL",
                 new ObjectId("@I3@"));
         localFamily1.insert(localChild);
@@ -155,7 +155,7 @@ public final class FamilyTest {
                 new ObjectId("@S4@"));
         marriage.insert(sourceLink);
         final Source source = new Source(localRoot, new ObjectId("S4"));
-        localRoot.insert("S4", source);
+        localRoot.insert(source);
 
         final GedObject gob = localRoot.find("F1");
         assertMatchUnusual(localFamily1, gob, localChild, localHusband,
@@ -205,19 +205,10 @@ public final class FamilyTest {
 
     /** */
     @Test
-    public void testConstructorRoot() {
-        final Root localRoot = new Root(null, ROOT_NAME);
-        final Family family = new Family(localRoot);
-        localRoot.insert("F1", family);
-        assertMatch(localRoot, family, "", false, false, 0);
-    }
-
-    /** */
-    @Test
     public void testConstructorRootId() {
-        final Root localRoot = new Root(null, ROOT_NAME);
+        final Root localRoot = new Root(ROOT_NAME);
         final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert("F1", family);
+        localRoot.insert(family);
         assertMatch(localRoot, family, "F1", false, false, 0);
     }
 

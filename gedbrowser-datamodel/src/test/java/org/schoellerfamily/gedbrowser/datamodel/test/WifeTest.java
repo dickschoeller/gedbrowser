@@ -107,19 +107,10 @@ public final class WifeTest {
 
     /** */
     @Test
-    public void testWifeGedObjectEmptyString() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Wife wife = new Wife(family);
-        assertTrue("Wife string should be empty", wife.getString().isEmpty());
-    }
-
-    /** */
-    @Test
     public void testWifeGedObjectEmptyToString() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily1();
-        final Wife wife = new Wife(family);
+        final Wife wife = new Wife(family, "Wife");
         assertTrue("Wife getToString should be empty",
                 wife.getToString().isEmpty());
     }
@@ -129,7 +120,7 @@ public final class WifeTest {
     public void testWifeGedObjectFromString() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily1();
-        final Wife wife = new Wife(family);
+        final Wife wife = new Wife(family, "Wife");
         assertEquals("Wife fromString doesn't match",
                 "F1", wife.getFromString());
     }
@@ -139,7 +130,7 @@ public final class WifeTest {
     public void testWifeGedObjectMotherNotSet() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily1();
-        final Wife wife = new Wife(family);
+        final Wife wife = new Wife(family, "Wife");
         assertFalse("Mother should not be set", wife.getMother().isSet());
     }
 

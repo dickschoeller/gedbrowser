@@ -43,7 +43,7 @@ public final class SubmittorLinkRendererTest {
     @Test
     public void testAttributeListOpenRenderer() {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
-                new SubmittorLink(null), new GedRendererFactory(),
+                new SubmittorLink(), new GedRendererFactory(),
                 anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
@@ -57,7 +57,7 @@ public final class SubmittorLinkRendererTest {
     @Test
     public void testListItemRenderer() {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
-                new SubmittorLink(null), new GedRendererFactory(),
+                new SubmittorLink(), new GedRendererFactory(),
                 anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
@@ -71,7 +71,7 @@ public final class SubmittorLinkRendererTest {
     @Test
     public void testNameHtmlRenderer() {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
-                new SubmittorLink(null), new GedRendererFactory(),
+                new SubmittorLink(), new GedRendererFactory(),
                 anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
@@ -85,7 +85,7 @@ public final class SubmittorLinkRendererTest {
     @Test
     public void testNameIndeRenderer() {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
-                new SubmittorLink(null), new GedRendererFactory(),
+                new SubmittorLink(), new GedRendererFactory(),
                 anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
@@ -99,7 +99,7 @@ public final class SubmittorLinkRendererTest {
     @Test
     public void testPhraseRenderer() {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
-                new SubmittorLink(null), new GedRendererFactory(),
+                new SubmittorLink(), new GedRendererFactory(),
                 anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
@@ -113,7 +113,7 @@ public final class SubmittorLinkRendererTest {
     @Test
     public void testSectionRenderer() {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
-                new SubmittorLink(null), new GedRendererFactory(),
+                new SubmittorLink(), new GedRendererFactory(),
                 anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()

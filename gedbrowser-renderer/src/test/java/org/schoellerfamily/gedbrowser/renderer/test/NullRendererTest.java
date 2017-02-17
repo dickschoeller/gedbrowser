@@ -124,7 +124,7 @@ public final class NullRendererTest {
     /** */
     @Test
     public void testGetTrailerHtmlEmpty() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root,
                 new GedRendererFactory(), anonymousContext,
                 provider);
@@ -155,7 +155,7 @@ public final class NullRendererTest {
     /** */
     @Test
     public void testGetHeaderHtml() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root,
                 new GedRendererFactory(), anonymousContext,
                 provider);
@@ -183,7 +183,7 @@ public final class NullRendererTest {
     /** */
     @Test
     public void testGetTrailerHtml() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root,
                 new GedRendererFactory(), anonymousContext,
                 provider);
@@ -214,7 +214,7 @@ public final class NullRendererTest {
     /** */
     @Test
     public void testGetTrailerHtmlHeader() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root,
                 new GedRendererFactory(), anonymousContext,
                 provider);
@@ -246,7 +246,7 @@ public final class NullRendererTest {
     /** */
     @Test
     public void testGetTrailerHtmlSurnames() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root,
                 new GedRendererFactory(), anonymousContext,
                 provider);
@@ -279,7 +279,7 @@ public final class NullRendererTest {
     /** */
     @Test
     public void testGetTrailerHtmlIndex() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root,
                 new GedRendererFactory(), anonymousContext,
                 provider);
