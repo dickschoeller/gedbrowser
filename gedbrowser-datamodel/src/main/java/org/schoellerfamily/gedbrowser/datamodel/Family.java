@@ -16,13 +16,6 @@ public final class Family extends GedObject implements FamilyLinkage {
 
     /**
      * @param parent parent object of this family
-     */
-    public Family(final GedObject parent) {
-        super(parent);
-    }
-
-    /**
-     * @param parent parent object of this family
      * @param xref cross reference to this family
      */
     public Family(final GedObject parent, final ObjectId xref) {

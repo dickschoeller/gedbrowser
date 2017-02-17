@@ -34,7 +34,7 @@ public final class GedObjectBuilder {
      * Constructor.
      */
     public GedObjectBuilder() {
-        this(new Root(null));
+        this(new Root());
     }
 
     /**
@@ -295,7 +295,7 @@ public final class GedObjectBuilder {
      */
     public Submittor createSubmittor(final String idString, final String name) {
         if (idString == null || name == null) {
-            return new Submittor(root);
+            return new Submittor(root, null);
         }
         final Submittor submittor = new Submittor(root, idString);
         submittor.insert(new Name(submittor, name));
@@ -312,7 +312,7 @@ public final class GedObjectBuilder {
      */
     public Submittor createSubmittor(final String idString) {
         if (idString == null) {
-            return new Submittor(root);
+            return new Submittor(root, null);
         }
         final Submittor submittor = new Submittor(root, idString);
         root.insert(submittor);
@@ -326,7 +326,7 @@ public final class GedObjectBuilder {
      */
     public Trailer createTrailer() {
         final Trailer trailer = new Trailer(root, "Trailer");
-        root.insert("Trailer", trailer);
+        root.insert(trailer);
         return trailer;
     }
 
@@ -337,7 +337,7 @@ public final class GedObjectBuilder {
      */
     public Head createHead() {
         final Head head = new Head(root, "Head");
-        root.insert("Head", head);
+        root.insert(head);
         return head;
     }
 
@@ -377,7 +377,7 @@ public final class GedObjectBuilder {
     public Multimedia addMultimediaToPerson(final Person person,
             final String string) {
         if (person == null || string == null) {
-            return new Multimedia(null);
+            return new Multimedia();
         }
         final Multimedia mm = new Multimedia(person, "Multimedia", string);
         person.insert(mm);
@@ -408,7 +408,7 @@ public final class GedObjectBuilder {
      */
     public Source createSource(final String string) {
         final Source source = new Source(root, new ObjectId(string));
-        root.insert(string, source);
+        root.insert(source);
         return source;
     }
 
@@ -420,7 +420,7 @@ public final class GedObjectBuilder {
     public SourceLink createSourceLink(final GedObject ged,
             final Source source) {
         if (ged == null || source == null) {
-            return new SourceLink(null);
+            return new SourceLink();
         }
         final SourceLink sourceLink = new SourceLink(ged, "Source",
                 new ObjectId(source.getString()));
@@ -436,7 +436,7 @@ public final class GedObjectBuilder {
     public SubmittorLink createSubmittorLink(final GedObject ged,
             final Submittor submittor) {
         if (ged == null || submittor == null) {
-            return new SubmittorLink(null);
+            return new SubmittorLink();
         }
         final SubmittorLink submittorLink = new SubmittorLink(ged, "Submittor",
                 new ObjectId(submittor.getString()));

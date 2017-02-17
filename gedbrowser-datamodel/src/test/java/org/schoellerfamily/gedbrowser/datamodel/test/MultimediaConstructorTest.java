@@ -100,8 +100,8 @@ public final class MultimediaConstructorTest {
     /** */
     @Test
     public void testOneArgumentConstructor() {
-        final Multimedia attribute = new Multimedia(parent);
-        assertMatch(attribute, expectedParent, "", "");
+        final Multimedia attribute = new Multimedia();
+        assertMatch(attribute, null, "", "");
     }
 
     /**

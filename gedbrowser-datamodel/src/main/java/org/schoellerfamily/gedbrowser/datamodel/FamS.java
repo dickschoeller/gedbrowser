@@ -7,10 +7,10 @@ import java.util.List;
  */
 public final class FamS extends AbstractLink implements FamilyLinkage {
     /**
-     * @param parent parent object of this link
+     * Default constructor.
      */
-    public FamS(final GedObject parent) {
-        super(parent);
+    public FamS() {
+        super();
     }
 
     /**

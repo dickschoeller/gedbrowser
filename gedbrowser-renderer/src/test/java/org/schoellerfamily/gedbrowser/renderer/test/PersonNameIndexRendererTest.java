@@ -32,7 +32,7 @@ public final class PersonNameIndexRendererTest {
     /** */
     @Before
     public void init() {
-        final Root root = new Root(null, "root");
+        final Root root = new Root("Root");
         person = new Person(root, new ObjectId("I1"));
         root.insert(person);
         provider = new CalendarProviderStub();

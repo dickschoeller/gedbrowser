@@ -114,15 +114,8 @@ public final class FamSTest {
     /** */
     @Test
     public void testFamSConstructNull() {
-        final FamS fams = new FamS(null);
+        final FamS fams = new FamS();
         assertMatch(fams, null, "", "", "", false, 0, false);
-    }
-
-    /** */
-    @Test
-    public void testFamSConstructPerson() {
-        final FamS fams = new FamS(person1);
-        assertMatch(fams, person1, "", "", "I1", false, 0, false);
     }
 
     /** */

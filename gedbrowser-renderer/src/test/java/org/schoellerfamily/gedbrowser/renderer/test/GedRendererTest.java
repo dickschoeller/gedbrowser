@@ -139,7 +139,7 @@ public final class GedRendererTest {
     /** */
     @Test
     public void testGetTrailerHtmlEmpty() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(root,
                 new GedRendererFactory(), anonymousContext, provider) {
         };
@@ -180,7 +180,7 @@ public final class GedRendererTest {
     /** */
     @Test
     public void testGetHeaderHtml() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 anonymousContext, provider);
@@ -214,7 +214,7 @@ public final class GedRendererTest {
     /** */
     @Test
     public void testGetTrailerHtml() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 anonymousContext, provider);
@@ -255,7 +255,7 @@ public final class GedRendererTest {
     /** */
     @Test
     public void testGetTrailerHtmlHeader() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 anonymousContext, provider);
@@ -297,7 +297,7 @@ public final class GedRendererTest {
     /** */
     @Test
     public void testGetTrailerHtmlSurnames() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 anonymousContext, provider);
@@ -340,7 +340,7 @@ public final class GedRendererTest {
     /** */
     @Test
     public void testGetTrailerHtmlIndex() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 anonymousContext, provider);

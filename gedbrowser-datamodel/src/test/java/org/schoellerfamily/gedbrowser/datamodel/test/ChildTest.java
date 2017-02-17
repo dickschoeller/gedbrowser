@@ -212,7 +212,7 @@ public final class ChildTest {
     /** */
     @Test
     public void testChildNullString() {
-        final Root localRoot = new Root(null, "Root");
+        final Root localRoot = new Root("Root");
         final Child child = new Child(localRoot, null);
         assertEmpty(child);
     }
@@ -220,7 +220,7 @@ public final class ChildTest {
     /** */
     @Test
     public void testChildEmptyString() {
-        final Root localRoot = new Root(null, "Root");
+        final Root localRoot = new Root("Root");
         final Child child = new Child(localRoot, "");
         assertEmpty(child);
     }
@@ -239,7 +239,7 @@ public final class ChildTest {
     /** */
     @Test
     public void testChildEmptyTail() {
-        final Root localRoot = new Root(null, "Root");
+        final Root localRoot = new Root("Root");
         final Child child = new Child(localRoot, "I1", new ObjectId(""));
         assertPerson1(child, "I1");
     }
@@ -247,7 +247,7 @@ public final class ChildTest {
     /** */
     @Test
     public void testChildEmptyTailStrip() {
-        final Root localRoot = new Root(null, "Root");
+        final Root localRoot = new Root("Root");
         final Child child = new Child(localRoot, "I1", new ObjectId("@@"));
         assertPerson1(child, "I1");
     }
@@ -267,9 +267,9 @@ public final class ChildTest {
     /** */
     @Test
     public void testChildEmptyTailAfterInsert() {
-        final Root localRoot = new Root(null, "Root");
-        final Child child2 = new Child(localRoot, "I1", new ObjectId(""));
-        localRoot.insert("I1", child2);
+        final Root localRoot = new Root("Root");
+        final Child child2 = new Child(localRoot, "I1", new ObjectId("I1"));
+        localRoot.insert(child2);
         assertEquals("Mismatched child", child2, child2.find("I1"));
     }
 }

@@ -47,7 +47,7 @@ public final class PersonTest {
     /** */
     @Before
     public void setUp() {
-        final Root root = new Root(null);
+        final Root root = new Root();
         final GedObjectBuilder builder = new GedObjectBuilder(root);
         person1 = builder.createPerson("I1", "Richard John/Schoeller/");
         final Attribute attr =
@@ -345,56 +345,40 @@ public final class PersonTest {
     /** */
     @Test
     public void testPersonGedObjectMissingID() {
-        final Root localRoot = new Root(null, "Root");
-        final Person person = new Person(localRoot);
-        localRoot.insert("I1", person);
+        final Person person = new Person();
         assertTrue("Person string should be empty", person.getString()
                 .isEmpty());
     }
 
     /** */
     @Test
-    public void testPersonGedObjectMissingIDFindable() {
-        final Root localRoot = new Root(null, "Root");
-        final Person person = new Person(localRoot);
-        localRoot.insert("I1", person);
-        assertEquals("Expected to find person anyway",
-                person, localRoot.find("I1"));
-    }
-
-    /** */
-    @Test
     public void testPersonGedObjectMissingIDNoFather() {
-        final Root localRoot = new Root(null, "Root");
-        final Person person = new Person(localRoot);
-        localRoot.insert("I1", person);
+        final Person person = new Person();
         assertFalse("Expected no father", person.getFather().isSet());
     }
 
     /** */
     @Test
     public void testPersonGedObjectMissingIDNoMother() {
-        final Root localRoot = new Root(null, "Root");
-        final Person person = new Person(localRoot);
-        localRoot.insert("I1", person);
+        final Person person = new Person();
         assertFalse("Expected no mother", person.getMother().isSet());
     }
 
     /** */
     @Test
     public void testPersonGedObjectString() {
-        final Root localRoot = new Root(null, "Root");
+        final Root localRoot = new Root("Root");
         final Person person = new Person(localRoot, new ObjectId("I1"));
-        localRoot.insert("I1", person);
+        localRoot.insert(person);
         assertEquals("Expected ID to match", "I1", person.getString());
     }
 
     /** */
     @Test
     public void testPersonFindGedObjectString() {
-        final Root localRoot = new Root(null, "Root");
+        final Root localRoot = new Root("Root");
         final Person person = new Person(localRoot, new ObjectId("I1"));
-        localRoot.insert("I1", person);
+        localRoot.insert(person);
         assertEquals("Expected to find person by ID",
                 person, localRoot.find("I1"));
     }

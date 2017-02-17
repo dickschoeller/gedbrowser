@@ -42,9 +42,7 @@ public final class SubmittorRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final SubmittorRenderer renderer = new SubmittorRenderer(
-                new Submittor(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final SubmittorRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -56,9 +54,7 @@ public final class SubmittorRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        final SubmittorRenderer renderer = new SubmittorRenderer(
-                new Submittor(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final SubmittorRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
@@ -70,9 +66,7 @@ public final class SubmittorRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final SubmittorRenderer renderer = new SubmittorRenderer(
-                new Submittor(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final SubmittorRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -84,9 +78,7 @@ public final class SubmittorRendererTest {
      */
     @Test
     public void testNameIndexRenderer() {
-        final SubmittorRenderer renderer = new SubmittorRenderer(
-                new Submittor(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final SubmittorRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -98,9 +90,7 @@ public final class SubmittorRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final SubmittorRenderer renderer = new SubmittorRenderer(
-                new Submittor(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final SubmittorRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
@@ -112,11 +102,19 @@ public final class SubmittorRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final SubmittorRenderer renderer = new SubmittorRenderer(
-                new Submittor(null), new GedRendererFactory(),
-                anonymousContext, provider);
+        final SubmittorRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof SubmittorSectionRenderer);
+    }
+
+    /**
+     * @return the renderer
+     */
+    private SubmittorRenderer createRenderer() {
+        final SubmittorRenderer renderer = new SubmittorRenderer(
+                new Submittor(null, "SUB1"), new GedRendererFactory(),
+                anonymousContext, provider);
+        return renderer;
     }
 }

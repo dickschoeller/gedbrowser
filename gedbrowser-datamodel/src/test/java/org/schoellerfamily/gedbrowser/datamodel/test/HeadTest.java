@@ -83,24 +83,11 @@ public final class HeadTest {
 
     /** */
     @Test
-    public void testHeadGedObject() {
-        final Root root = new Root(null, "Root");
-
-        final Head head = new Head(root);
-        root.insert("Head", head);
-
-        final GedObject gob = root.find("Head");
-        assertTrue("Should have found head with empty string",
-                head.equals(gob) && head.getString().isEmpty());
-    }
-
-    /** */
-    @Test
     public void testHeadGedObjectString() {
-        final Root root = new Root(null, "Root");
+        final Root root = new Root("Root");
 
         final Head head = new Head(root, "Head");
-        root.insert("Head", head);
+        root.insert(head);
 
         final GedObject gob = root.find("Head");
         assertTrue("Should have found head with head tag string",
@@ -110,10 +97,10 @@ public final class HeadTest {
     /** */
     @Test
     public void testHeadGedObjectStringEmptyString() {
-        final Root root = new Root(null, "Root");
+        final Root root = new Root("Root");
 
         final Head head = new Head(root, "Head", "");
-        root.insert("Head", head);
+        root.insert(head);
 
         final GedObject gob = root.find("Head");
         assertTrue("Should have found the head with head tag string",
@@ -123,7 +110,7 @@ public final class HeadTest {
     /** */
     @Test
     public void testHeadGedObjectStringString() {
-        final Root root = new Root(null, "Root");
+        final Root root = new Root("Root");
         final Head head2 = new Head(root, "Head", "foo");
         assertEquals("Combined string mismatch",
                 "Head" + " foo", head2.getString());

@@ -6,10 +6,10 @@ package org.schoellerfamily.gedbrowser.datamodel;
 public final class Place extends AbstractAttribute
         implements Comparable<Place> {
     /**
-     * @param parent parent object of this child
+     * Default constructor.
      */
-    public Place(final GedObject parent) {
-        super(parent);
+    public Place() {
+        super();
     }
 
     /**

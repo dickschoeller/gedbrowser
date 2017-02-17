@@ -5,10 +5,10 @@ package org.schoellerfamily.gedbrowser.datamodel;
  */
 public final class Submittor extends AbstractSource implements Nameable {
     /**
-     * @param parent parent object of this submittor
+     * Default constructor.
      */
-    public Submittor(final GedObject parent) {
-        super(parent);
+    public Submittor() {
+        super();
     }
 
     /**

@@ -5,10 +5,10 @@ package org.schoellerfamily.gedbrowser.datamodel;
  */
 public final class SourceLink extends AbstractLink {
     /**
-     * @param parent parent object of this link
+     * Default constructor.
      */
-    public SourceLink(final GedObject parent) {
-        super(parent);
+    public SourceLink() {
+        super();
     }
 
     /**

@@ -35,8 +35,8 @@ public final class SubmittorSectionRendererTest {
     /** */
     @Before
     public void init() {
-        root = new Root(null);
-        submittor = new Submittor(root);
+        root = new Root();
+        submittor = new Submittor(root, "SUB1");
         final Name name = new Name(submittor, "Richard/Schoeller/");
         root.insert(submittor);
         submittor.insert(name);

@@ -42,7 +42,7 @@ public final class PlaceRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final PlaceRenderer renderer = new PlaceRenderer(new Place(null),
+        final PlaceRenderer renderer = new PlaceRenderer(new Place(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
@@ -55,7 +55,7 @@ public final class PlaceRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        final PlaceRenderer renderer = new PlaceRenderer(new Place(null),
+        final PlaceRenderer renderer = new PlaceRenderer(new Place(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
@@ -68,7 +68,7 @@ public final class PlaceRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final PlaceRenderer renderer = new PlaceRenderer(new Place(null),
+        final PlaceRenderer renderer = new PlaceRenderer(new Place(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
@@ -81,7 +81,7 @@ public final class PlaceRendererTest {
      */
     @Test
     public void testNameIndexRenderer() {
-        final PlaceRenderer renderer = new PlaceRenderer(new Place(null),
+        final PlaceRenderer renderer = new PlaceRenderer(new Place(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
@@ -94,7 +94,7 @@ public final class PlaceRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final PlaceRenderer renderer = new PlaceRenderer(new Place(null),
+        final PlaceRenderer renderer = new PlaceRenderer(new Place(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
@@ -107,7 +107,7 @@ public final class PlaceRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final PlaceRenderer renderer = new PlaceRenderer(new Place(null),
+        final PlaceRenderer renderer = new PlaceRenderer(new Place(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()

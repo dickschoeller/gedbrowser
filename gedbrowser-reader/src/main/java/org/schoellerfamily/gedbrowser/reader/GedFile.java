@@ -46,9 +46,9 @@ public final class GedFile extends AbstractGedLine {
     protected GedObject createGedObject(final GedObject parent) {
         Root gob;
         if (finder == null) {
-            gob = new Root(null);
+            gob = new Root();
         } else {
-            gob = new Root(null, finder);
+            gob = new Root(finder);
         }
         gob.setFilename(filename);
         gob.setDbName(dbName);

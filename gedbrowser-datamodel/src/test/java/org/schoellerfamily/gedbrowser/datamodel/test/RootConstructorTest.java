@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
-import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 
 /**
@@ -19,25 +18,17 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 @RunWith(Parameterized.class)
 public final class RootConstructorTest {
     /** */
-    private final GedObject parent;
-    /** */
     private final String string;
-    /** */
-    private final GedObject expectedParent;
     /** */
     private final String expectedString;
 
     /**
-     * @param parent the input parent
      * @param string the input string
-     * @param expectedParent the expected result of getParent
      * @param expectedString the expected result of getString
      */
-    public RootConstructorTest(final GedObject parent, final String string,
-            final GedObject expectedParent, final String expectedString) {
-        this.parent = parent;
+    public RootConstructorTest(final String string,
+            final String expectedString) {
         this.string = string;
-        this.expectedParent = expectedParent;
         this.expectedString = expectedString;
     }
 
@@ -46,29 +37,26 @@ public final class RootConstructorTest {
      */
     @Parameters
     public static Collection<Object[]> params() {
-        final GedObject gob = new Person();
         return Arrays.asList(new Object[][] {
-            {null, null, null, ""},
-            {gob, null, gob, ""},
-            {null, "", null, ""},
-            {gob, "", gob, ""},
-            {null, "Root", null, "Root"},
-            {gob, "ROOT", gob, "ROOT"},
+            {null, ""},
+            {"", ""},
+            {"Root", "Root"},
+            {"ROOT", "ROOT"},
         });
     }
 
     /** */
     @Test
     public void testRootGedObject() {
-        final Root root = new Root(parent);
-        assertMatch(root, expectedParent, "");
+        final Root root = new Root();
+        assertMatch(root, null, "");
     }
 
     /** */
     @Test
     public void testTwoArgumentConstructor() {
-        final Root root = new Root(parent, string);
-        assertMatch(root, expectedParent, expectedString);
+        final Root root = new Root(string);
+        assertMatch(root, null, expectedString);
     }
 
     /**

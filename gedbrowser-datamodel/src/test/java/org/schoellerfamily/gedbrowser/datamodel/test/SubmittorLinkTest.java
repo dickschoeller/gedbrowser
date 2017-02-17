@@ -84,8 +84,8 @@ public final class SubmittorLinkTest {
     /** */
     @Test
     public void testOneArgumentConstructor() {
-        final SubmittorLink sourceLink = new SubmittorLink(parent);
-        assertMatch(sourceLink, parent, "", expectedFromString, "");
+        final SubmittorLink sourceLink = new SubmittorLink();
+        assertMatch(sourceLink, null, "", "", "");
     }
 
     /** */

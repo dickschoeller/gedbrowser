@@ -34,7 +34,7 @@ public final class SourceSectionRendererTest {
     /** */
     @Before
     public void init() {
-        root = new Root(null, "root");
+        root = new Root("Root");
         provider = new CalendarProviderStub();
         final ApplicationInfo appInfo = new ApplicationInfoStub();
         anonymousContext = RenderingContext.anonymous(appInfo);
@@ -54,8 +54,9 @@ public final class SourceSectionRendererTest {
         final SourceSectionRenderer ssRenderer =
                 (SourceSectionRenderer) sRenderer.getSectionRenderer();
         final StringBuilder builder = new StringBuilder();
-        ssRenderer.renderAsSection(builder, new PersonRenderer(new Person(root),
-                new GedRendererFactory(), anonymousContext, provider),
+        ssRenderer.renderAsSection(builder,
+                new PersonRenderer(new Person(root, new ObjectId("I1")),
+                        new GedRendererFactory(), anonymousContext, provider),
                 false, 0, 1);
         assertEquals("Rendered html doesn't match expectation",
                 "\n" + "<ul>\n"

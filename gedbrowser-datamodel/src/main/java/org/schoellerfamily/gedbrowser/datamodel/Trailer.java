@@ -5,10 +5,10 @@ package org.schoellerfamily.gedbrowser.datamodel;
  */
 public final class Trailer extends AbstractSpecialObject {
     /**
-     * @param parent parent object of this object
+     * Default constructor.
      */
-    public Trailer(final GedObject parent) {
-        super(parent);
+    public Trailer() {
+        super();
     }
 
     /**

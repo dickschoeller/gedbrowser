@@ -84,8 +84,8 @@ public final class SourceLinkTest {
     /** */
     @Test
     public void testOneArgumentConstructor() {
-        final SourceLink sourceLink = new SourceLink(parent);
-        assertMatch(sourceLink, parent, "", expectedFromString, "");
+        final SourceLink sourceLink = new SourceLink();
+        assertMatch(sourceLink, null, "", "", "");
     }
 
     /** */

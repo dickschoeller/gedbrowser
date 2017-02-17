@@ -42,7 +42,7 @@ public final class FamCRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final FamCRenderer renderer = new FamCRenderer(new FamC(null),
+        final FamCRenderer renderer = new FamCRenderer(new FamC(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
@@ -55,7 +55,7 @@ public final class FamCRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        final FamCRenderer renderer = new FamCRenderer(new FamC(null),
+        final FamCRenderer renderer = new FamCRenderer(new FamC(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
@@ -68,7 +68,7 @@ public final class FamCRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final FamCRenderer renderer = new FamCRenderer(new FamC(null),
+        final FamCRenderer renderer = new FamCRenderer(new FamC(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
@@ -81,7 +81,7 @@ public final class FamCRendererTest {
      */
     @Test
     public void testNameIndexRenderer() {
-        final FamCRenderer renderer = new FamCRenderer(new FamC(null),
+        final FamCRenderer renderer = new FamCRenderer(new FamC(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
@@ -94,7 +94,7 @@ public final class FamCRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final FamCRenderer renderer = new FamCRenderer(new FamC(null),
+        final FamCRenderer renderer = new FamCRenderer(new FamC(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
@@ -107,7 +107,7 @@ public final class FamCRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final FamCRenderer renderer = new FamCRenderer(new FamC(null),
+        final FamCRenderer renderer = new FamCRenderer(new FamC(),
                 new GedRendererFactory(), anonymousContext, provider);
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
