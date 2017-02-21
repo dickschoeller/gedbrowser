@@ -37,7 +37,8 @@ import com.google.maps.model.LatLng;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.CommentSize", "PMD.GodClass", "PMD.TooManyStaticImports" })
+@SuppressWarnings({ "PMD.CommentSize", "PMD.GodClass",
+    "PMD.TooManyStaticImports" })
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = MongoTestConfiguration.class)
 public final class GeoCodeMongoTest {
