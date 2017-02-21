@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
 import java.net.UnknownHostException;
+import java.util.UUID;
 
 import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
@@ -60,8 +61,10 @@ public class MongoTestConfiguration {
      */
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
+        final String databaseName =
+                "gebrowserTest_" + UUID.randomUUID().toString();
         return new SimpleMongoDbFactory(
-                new MongoClient(host, port), "gedbrowserTest");
+                new MongoClient(host, port), databaseName);
     }
 
     /**
@@ -72,10 +75,7 @@ public class MongoTestConfiguration {
      */
     @Bean
     public MongoTemplate mongoTemplate() throws UnknownHostException {
-        final MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory());
-
-        return mongoTemplate;
-
+        return new MongoTemplate(mongoDbFactory());
     }
 
     /**

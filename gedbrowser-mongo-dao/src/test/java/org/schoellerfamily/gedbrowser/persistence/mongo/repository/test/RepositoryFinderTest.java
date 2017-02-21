@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 import java.util.Collection;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,6 +62,12 @@ public final class RepositoryFinderTest {
     @Before
     public void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
+    }
+
+    /** */
+    @After
+    public void tearDown() {
+        repositoryFixture.clearRepository();
     }
 
     /** */
