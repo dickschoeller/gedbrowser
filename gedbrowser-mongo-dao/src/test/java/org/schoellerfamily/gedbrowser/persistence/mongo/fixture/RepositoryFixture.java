@@ -23,6 +23,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumen
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmittorDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 
 /**
  * @author Dick Schoeller
@@ -56,6 +57,10 @@ public final class RepositoryFixture {
     /** */
     @Autowired
     private transient TrailerDocumentRepositoryMongo trailerDocumentRepository;
+
+    /** */
+    @Autowired
+    private transient MongoTemplate mongoTemplate;
 
     /**
      * This is private because this is a singleton.
@@ -118,5 +123,6 @@ public final class RepositoryFixture {
         headDocumentRepository.deleteAll();
         submittorDocumentRepository.deleteAll();
         trailerDocumentRepository.deleteAll();
+        mongoTemplate.getDb().dropDatabase();
     }
 }

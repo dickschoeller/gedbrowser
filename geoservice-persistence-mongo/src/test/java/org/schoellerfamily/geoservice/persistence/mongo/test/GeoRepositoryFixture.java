@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeTestFixture;
 import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 
 /**
  * Test fixture for the MongoDB tests. Extends the standard fixture a little.
@@ -15,6 +16,10 @@ public final class GeoRepositoryFixture extends GeoCodeTestFixture {
     /** */
     @Autowired
     private transient GeoDocumentRepositoryMongo geoDocumentRepository;
+
+    /** */
+    @Autowired
+    private transient MongoTemplate mongoTemplate;
 
     /**
      * This is private because this is a singleton.
@@ -29,7 +34,7 @@ public final class GeoRepositoryFixture extends GeoCodeTestFixture {
      * @throws IOException if there is a problem reading the file
      */
     public void loadRepository() throws IOException {
-        clearRepository();
+        geoDocumentRepository.deleteAll();
         // TODO put in a loader
     }
 
@@ -38,5 +43,6 @@ public final class GeoRepositoryFixture extends GeoCodeTestFixture {
      */
     public void clearRepository() {
         geoDocumentRepository.deleteAll();
+        mongoTemplate.getDb().dropDatabase();
     }
 }

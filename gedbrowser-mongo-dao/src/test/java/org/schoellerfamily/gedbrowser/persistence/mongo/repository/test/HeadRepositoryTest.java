@@ -22,10 +22,10 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -42,8 +42,8 @@ public final class HeadRepositoryTest {
     private static final String HEADER_STRING = "Header";
 
     /** */
-    @Autowired
-    private transient RootDocumentRepositoryMongo rootDocumentRepository;
+//    @Autowired
+//    private transient RootDocumentRepositoryMongo rootDocumentRepository;
 
     /** */
     @Autowired
@@ -62,6 +62,10 @@ public final class HeadRepositoryTest {
     private transient HeadDocumentRepositoryMongo headDocumentRepository;
 
     /** */
+    @Autowired
+    private transient RepositoryFixture repositoryFixture;
+
+    /** */
     private transient Root root;
 
     /** */
@@ -72,11 +76,7 @@ public final class HeadRepositoryTest {
      */
     @Before
     public void setUp() throws IOException {
-        rootDocumentRepository.deleteAll();
-        personDocumentRepository.deleteAll();
-        familyDocumentRepository.deleteAll();
-        sourceDocumentRepository.deleteAll();
-        sourceDocumentRepository.deleteAll();
+        repositoryFixture.clearRepository();
 
         root = (Root) TestDataReader.getInstance().readBigTestSource();
         root.setFilename("bigtest");
@@ -104,11 +104,7 @@ public final class HeadRepositoryTest {
     /** */
     @After
     public void tearDown() {
-        rootDocumentRepository.deleteAll();
-        personDocumentRepository.deleteAll();
-        familyDocumentRepository.deleteAll();
-        sourceDocumentRepository.deleteAll();
-        headDocumentRepository.deleteAll();
+        repositoryFixture.clearRepository();
     }
 
     /** */

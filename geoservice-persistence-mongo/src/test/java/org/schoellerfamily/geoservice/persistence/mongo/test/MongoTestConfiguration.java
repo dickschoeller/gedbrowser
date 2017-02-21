@@ -1,6 +1,7 @@
 package org.schoellerfamily.geoservice.persistence.mongo.test;
 
 import java.net.UnknownHostException;
+import java.util.UUID;
 
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.geocoder.StubGeoCoder;
@@ -68,8 +69,10 @@ public class MongoTestConfiguration {
      */
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
+        final String databaseName =
+                "geoserviceTest_" + UUID.randomUUID().toString();
         return new SimpleMongoDbFactory(
-                new MongoClient(host, port), "geoserviceTest");
+                new MongoClient(host, port), databaseName);
     }
 
     /**
