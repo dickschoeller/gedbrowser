@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -12,11 +11,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
-import org.schoellerfamily.gedbrowser.datamodel.GetDateVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
  * @author Dick Schoeller
@@ -275,31 +275,38 @@ public final class PersonTest {
     /** */
     @Test
     public void testGetFather() {
-        assertEquals("Expected to find father", person6, person3.getFather());
+        final PersonNavigator navigator = new PersonNavigator(person3);
+        assertEquals("Expected to find father", person6, navigator.getFather());
     }
 
     /** */
     @Test
     public void testGetMother() {
-        assertEquals("Expected to find mother", person7, person3.getMother());
+        final PersonNavigator navigator = new PersonNavigator(person3);
+        assertEquals("Expected to find mother", person7, navigator.getMother());
     }
 
     /** */
     @Test
     public void testGetFatherUnset() {
-        assertFalse("Expected not to find father", person6.getFather().isSet());
+        final PersonNavigator navigator = new PersonNavigator(person6);
+        assertFalse("Expected not to find father",
+                navigator.getFather().isSet());
     }
 
     /** */
     @Test
     public void testGetMotherUnset() {
-        assertFalse("Expected not to find mother", person6.getMother().isSet());
+        final PersonNavigator navigator = new PersonNavigator(person6);
+        assertFalse("Expected not to find mother",
+                navigator.getMother().isSet());
     }
 
     /** */
     @Test
     public void testGetHusbandsFamily() {
-        final List<Family> list6 = person6.getFamilies(new ArrayList<Family>());
+        final PersonNavigator navigator = new PersonNavigator(person6);
+        final List<Family> list6 = navigator.getFamilies();
         assertTrue(
                 "Should have found husband's family", list6.contains(family6));
     }
@@ -307,7 +314,8 @@ public final class PersonTest {
     /** */
     @Test
     public void testGetWifesFamily() {
-        final List<Family> list7 = person7.getFamilies(new ArrayList<Family>());
+        final PersonNavigator navigator = new PersonNavigator(person7);
+        final List<Family> list7 = navigator.getFamilies();
         assertTrue("Should have found wife's family", list7.contains(family6));
     }
 
@@ -317,8 +325,8 @@ public final class PersonTest {
         // Make these persons malformed.
         person6.setString("");
         person7.setString("");
-        final List<Person> list6 = person6.getSpouses(new ArrayList<Person>(),
-                person6);
+        final PersonNavigator navigator = new PersonNavigator(person7);
+        final List<Person> list6 = navigator.getSpouses();
         assertEquals("Screwing with ID strings should have hidden these",
                 0, list6.size());
     }
@@ -326,22 +334,24 @@ public final class PersonTest {
     /** */
     @Test
     public void testGetSpouses() {
-        final List<Person> list6 = person6.getSpouses(new ArrayList<Person>(),
-                person6);
+        final PersonNavigator navigator = new PersonNavigator(person6);
+        final List<Person> list6 = navigator.getSpouses();
         assertTrue("Should have found spouse", list6.contains(person7));
     }
 
     /** */
     @Test
     public void testGetFathersChildren() {
-        final List<Person> list6 = person6.getChildren();
+        final PersonNavigator navigator = new PersonNavigator(person6);
+        final List<Person> list6 = navigator.getChildren();
         assertTrue("Expected to find person3", list6.contains(person3));
     }
 
     /** */
     @Test
     public void testGetMothersChildren() {
-        final List<Person> list7 = person7.getChildren();
+        final PersonNavigator navigator = new PersonNavigator(person7);
+        final List<Person> list7 = navigator.getChildren();
         assertTrue("Expected to find person3", list7.contains(person3));
     }
 
@@ -356,15 +366,15 @@ public final class PersonTest {
     /** */
     @Test
     public void testPersonGedObjectMissingIDNoFather() {
-        final Person person = new Person();
-        assertFalse("Expected no father", person.getFather().isSet());
+        final PersonNavigator navigator = new PersonNavigator(new Person());
+        assertFalse("Expected no father", navigator.getFather().isSet());
     }
 
     /** */
     @Test
     public void testPersonGedObjectMissingIDNoMother() {
-        final Person person = new Person();
-        assertFalse("Expected no mother", person.getMother().isSet());
+        final PersonNavigator navigator = new PersonNavigator(new Person());
+        assertFalse("Expected no mother", navigator.getMother().isSet());
     }
 
     /** */
@@ -521,17 +531,17 @@ public final class PersonTest {
     /** */
     @Test
     public void testGetFamiliesCWith() {
-        final List<Family> families = new ArrayList<>();
+        final PersonNavigator navigator = new PersonNavigator(person3);
         assertFalse("Should have a FAMC",
-                person3.getFamiliesC(families).isEmpty());
+                navigator.getFamiliesC().isEmpty());
     }
 
     /** */
     @Test
     public void testGetFamiliesCWithout() {
-        final List<Family> families = new ArrayList<>();
+        final PersonNavigator navigator = new PersonNavigator(person1);
         assertTrue("Should not have a FAMC",
-                person1.getFamiliesC(families).isEmpty());
+                navigator.getFamiliesC().isEmpty());
     }
 
     /**

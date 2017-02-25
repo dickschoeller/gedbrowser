@@ -1,11 +1,11 @@
 package org.schoellerfamily.gedbrowser.analytics;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.LocalDate;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
  * Encapsulates the estimation methods associated with look at a person's
@@ -38,8 +38,8 @@ public final class BirthDateFromChildrenEstimator extends Estimator {
         }
         int count = 1;
         LocalDate date = null;
-        final List<Family> families = person
-                .getFamilies(new ArrayList<Family>());
+        final PersonNavigator navigator = new PersonNavigator(person);
+        final List<Family> families = navigator.getFamilies();
         for (final Family family : families) {
             for (final Person child : getChildren(family)) {
                 final String birthDateString = getBirthDate(child);
@@ -76,8 +76,8 @@ public final class BirthDateFromChildrenEstimator extends Estimator {
             return localDate;
         }
         LocalDate date = null;
-        final List<Family> families = person
-                .getFamilies(new ArrayList<Family>());
+        final PersonNavigator navigator = new PersonNavigator(person);
+        final List<Family> families = navigator.getFamilies();
         for (final Family family : families) {
             for (final Person child : getChildren(family)) {
                 final BirthDateEstimator bde = createEstimator(child);

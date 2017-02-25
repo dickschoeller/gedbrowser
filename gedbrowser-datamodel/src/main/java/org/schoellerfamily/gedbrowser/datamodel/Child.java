@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
+
 /**
  * @author Dick Schoeller
  */
@@ -49,40 +51,6 @@ public final class Child extends AbstractLink implements FamilyLinkage {
             return new Person();
         }
         return toPerson;
-    }
-
-    /**
-     * Get the father from the family that this object comes from. If not found,
-     * return an unset Person object.
-     *
-     * @return the father
-     */
-    public Person getFather() {
-        if (!isSet()) {
-            return new Person();
-        }
-        final Family family = (Family) find(getFromString());
-        if (family == null) {
-            return new Person();
-        }
-        return family.getFather();
-    }
-
-    /**
-     * Get the mother from the family that this object comes from. If not found,
-     * return an unset Person object.
-     *
-     * @return the mother
-     */
-    public Person getMother() {
-        if (!isSet()) {
-            return new Person();
-        }
-        final Family family = (Family) find(getFromString());
-        if (family == null) {
-            return new Person();
-        }
-        return family.getMother();
     }
 
     /**

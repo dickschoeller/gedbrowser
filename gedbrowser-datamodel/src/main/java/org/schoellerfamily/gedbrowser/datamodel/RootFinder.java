@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
+
 /**
  * @author Dick Schoeller
  */

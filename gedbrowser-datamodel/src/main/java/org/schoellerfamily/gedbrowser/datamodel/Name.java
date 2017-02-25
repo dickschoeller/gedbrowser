@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
+
 /**
  * Model a complex GEDCOM name.
  *

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
+
 /**
  * @author Dick Schoeller
  */
@@ -310,34 +312,6 @@ public abstract class GedObject {
 //    public final boolean sameAs(final GedObject gob) {
 //        return this == gob;
 //    }
-
-    /**
-     * Find a Wife object among the contained objects.
-     *
-     * @return the wife.
-     */
-    public final Wife findWife() {
-        for (final GedObject gob : getAttributes()) {
-            if (gob instanceof Wife) {
-                return (Wife) gob;
-            }
-        }
-        return new Wife();
-    }
-
-    /**
-     * Find a Husband object among the contained objects.
-     *
-     * @return the husband.
-     */
-    public final Husband findHusband() {
-        for (final GedObject gob : getAttributes()) {
-            if (gob instanceof Husband) {
-                return (Husband) gob;
-            }
-        }
-        return new Husband();
-    }
 
     /**
      * @param str the ID string of the object being sought

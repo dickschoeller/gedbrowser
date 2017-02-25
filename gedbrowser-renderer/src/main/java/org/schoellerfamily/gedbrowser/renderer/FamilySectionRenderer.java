@@ -5,6 +5,7 @@ import java.util.List;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 
 /**
  * @author Dick Schoeller
@@ -52,7 +53,8 @@ public class FamilySectionRenderer implements SectionRenderer {
                 true);
         builder.append("</ul>\n");
 
-        final List<Person> children = family.getChildren();
+        final FamilyNavigator navigator = new FamilyNavigator(family);
+        final List<Person> children = navigator.getChildren();
 
         if (!children.isEmpty()) {
             GedRenderer.renderPad(builder,

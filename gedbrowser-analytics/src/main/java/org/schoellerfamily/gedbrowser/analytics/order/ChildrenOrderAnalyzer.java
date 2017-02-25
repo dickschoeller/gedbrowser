@@ -1,10 +1,12 @@
 package org.schoellerfamily.gedbrowser.analytics.order;
 
+import java.util.List;
+
 import org.joda.time.LocalDate;
-import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
  * @author Dick Schoeller
@@ -36,12 +38,9 @@ public final class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
      */
     @Override
     public OrderAnalyzerResult analyze() {
-        for (final GedObject gob : person.getAttributes()) {
-            if (!(gob instanceof FamS)) {
-                continue;
-            }
-            final FamS fams = (FamS) gob;
-            final Family family = fams.getFamily();
+        final PersonNavigator navigator = new PersonNavigator(person);
+        final List<Family> families = navigator.getFamilies();
+        for (final Family family : families) {
             analyzeFamily(family);
         }
         return result;
@@ -54,7 +53,8 @@ public final class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
      */
     private void analyzeFamily(final Family family) {
         Person prevChild = null;
-        for (final Person child : family.getChildren()) {
+        final FamilyNavigator navigator = new FamilyNavigator(family);
+        for (final Person child : navigator.getChildren()) {
             prevChild = analyzeChild(child, prevChild);
         }
     }

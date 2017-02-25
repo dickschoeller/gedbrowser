@@ -15,6 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
@@ -61,32 +62,37 @@ public final class FamSTest {
     /** */
     @Test
     public void testGetSpouseFromSpouse() {
-        assertEquals("Person mismatch", person3, famS2.getSpouse(person2));
+        final FamilyNavigator navigator = new FamilyNavigator(famS2);
+        assertEquals("Person mismatch", person3, navigator.getSpouse(person2));
     }
 
     /** */
     @Test
     public void testGetSpouseFromParent() {
-        assertEquals("Person mismatch", person2, famS2.getSpouse(person3));
+        final FamilyNavigator navigator = new FamilyNavigator(famS2);
+        assertEquals("Person mismatch", person2, navigator.getSpouse(person3));
     }
 
     /** */
     @Test
     public void testGetSpouseNotSetFromUnrelated() {
+        final FamilyNavigator navigator = new FamilyNavigator(famS2);
         assertFalse("Should be unset person when not from one of the spouses",
-                famS2.getSpouse(person1).isSet());
+                navigator.getSpouse(person1).isSet());
     }
 
     /** */
     @Test
     public void testGetSpouseIsParentFromNull() {
-        assertEquals("Person mismatch", person2, famS2.getSpouse(null));
+        final FamilyNavigator navigator = new FamilyNavigator(famS2);
+        assertEquals("Person mismatch", person2, navigator.getSpouse(null));
     }
 
     /** */
     @Test
     public void testGetFamilies() {
-        final Family gottenFamily = famS2.getFamily();
+        final FamilyNavigator navigator = new FamilyNavigator(famS2);
+        final Family gottenFamily = navigator.getFamily();
         assertSame("Mismatched family", family, gottenFamily);
     }
 
@@ -94,20 +100,23 @@ public final class FamSTest {
     @Test
     public void testGetFamiliesUnsetWhenUnattached() {
         final FamS fams = new FamS(null, "F73");
-        assertFalse("Family should not be set", fams.getFamily().isSet());
+        final FamilyNavigator navigator = new FamilyNavigator(fams);
+        assertFalse("Family should not be set", navigator.getFamily().isSet());
     }
 
     /** */
     @Test
     public void testGetChildrenFromHusband() {
-        final List<Person> newList = famS2.getChildren();
+        final FamilyNavigator navigator = new FamilyNavigator(famS2);
+        final List<Person> newList = navigator.getChildren();
         assertTrue("List should contain person1", newList.contains(person1));
     }
 
     /** */
     @Test
     public void testGetChildrenFromWife() {
-        final List<Person> newList = famS3.getChildren();
+        final FamilyNavigator navigator = new FamilyNavigator(famS3);
+        final List<Person> newList = navigator.getChildren();
         assertTrue("List should contain person1", newList.contains(person1));
     }
 
@@ -309,12 +318,13 @@ public final class FamSTest {
         assertEquals("String mismatch", string, fams.getString());
         assertEquals("To string mismatch", toString, fams.getToString());
         assertEquals("From string mismatch", fromString, fams.getFromString());
+        final FamilyNavigator navigator = new FamilyNavigator(fams);
         assertEquals("Spouse set mismatch",
-                spouseSet, fams.getSpouse(parent).isSet());
+                spouseSet, navigator.getSpouse(parent).isSet());
         assertEquals("Expected " + childrenSize + " children",
-                childrenSize, fams.getChildren().size());
+                childrenSize, navigator.getChildren().size());
         assertEquals("Spouse set mismatch",
-                spouseNullSet, fams.getSpouse(null).isSet());
+                spouseNullSet, navigator.getSpouse(null).isSet());
     }
 
     // TODO we don't have a test where FamS.getSpouse returns a set person.

@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
+
 /**
  * @author Dick Schoeller
  */

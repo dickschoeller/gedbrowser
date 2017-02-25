@@ -1,4 +1,26 @@
-package org.schoellerfamily.gedbrowser.datamodel;
+package org.schoellerfamily.gedbrowser.datamodel.visitor;
+
+import org.schoellerfamily.gedbrowser.datamodel.Attribute;
+import org.schoellerfamily.gedbrowser.datamodel.Child;
+import org.schoellerfamily.gedbrowser.datamodel.Date;
+import org.schoellerfamily.gedbrowser.datamodel.FamC;
+import org.schoellerfamily.gedbrowser.datamodel.FamS;
+import org.schoellerfamily.gedbrowser.datamodel.Family;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Head;
+import org.schoellerfamily.gedbrowser.datamodel.Husband;
+import org.schoellerfamily.gedbrowser.datamodel.Link;
+import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
+import org.schoellerfamily.gedbrowser.datamodel.Name;
+import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.Place;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.Source;
+import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submittor;
+import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.Trailer;
+import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 /**
  * This interface provides for using the visitor pattern to accumulate

@@ -20,6 +20,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
@@ -95,8 +96,8 @@ public final class PlaceListRenderer {
      */
     private Collection<String> collectFamilyPlaceNames() {
         final Set<String> places = new TreeSet<>();
-        final List<Family> families = new ArrayList<>();
-        for (final Family family : person.getFamilies(families)) {
+        final PersonNavigator navigator = new PersonNavigator(person);
+        for (final Family family : navigator.getFamilies()) {
             for (final GedObject gob : family.getAttributes()) {
                 for (final GedObject subgob : gob.getAttributes()) {
                     if (subgob instanceof Place) {

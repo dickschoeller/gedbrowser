@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
-import org.schoellerfamily.gedbrowser.datamodel.GedObjectVisitor;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.DefaultRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;

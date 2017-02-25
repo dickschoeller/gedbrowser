@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.datamodel.FamC;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
@@ -60,26 +61,28 @@ public final class FamCTest {
     /** */
     @Test
     public void testGetFatherNotSet() {
-        final FamC dummy = new FamC();
-        assertFalse("Father should be unset", dummy.getFather().isSet());
+        final FamilyNavigator navigator = new FamilyNavigator(new FamC());
+        assertFalse("Father should be unset", navigator.getFather().isSet());
     }
 
     /** */
     @Test
     public void testGetFather() {
-        assertEquals("Person mismatch", person2, famC.getFather());
+        final FamilyNavigator navigator = new FamilyNavigator(famC);
+        assertEquals("Person mismatch", person2, navigator.getFather());
     }
 
     /** */
     @Test
     public void testGetMotherNotSet() {
-        final FamC dummy = new FamC();
-        assertFalse("Mother should be unset", dummy.getMother().isSet());
+        final FamilyNavigator navigator = new FamilyNavigator(new FamC());
+        assertFalse("Mother should be unset", navigator.getMother().isSet());
     }
 
     /** */
     @Test
     public void testGetMother() {
-        assertEquals("Person mismatch", person3, famC.getMother());
+        final FamilyNavigator navigator = new FamilyNavigator(famC);
+        assertEquals("Person mismatch", person3, navigator.getMother());
     }
 }
