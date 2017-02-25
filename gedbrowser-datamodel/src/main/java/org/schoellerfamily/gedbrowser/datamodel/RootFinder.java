@@ -112,10 +112,10 @@ public final class RootFinder implements FinderStrategy {
             }
             // If the names are the same, use the sort date (approximates on
             // birth).
-            GetDateVisitor visitor0 = new GetDateVisitor("Birth");
+            final GetDateVisitor visitor0 = new GetDateVisitor("Birth");
             arg0.accept(visitor0);
             final String sortDate0 = visitor0.getSortDate();
-            GetDateVisitor visitor1 = new GetDateVisitor("Birth");
+            final GetDateVisitor visitor1 = new GetDateVisitor("Birth");
             arg1.accept(visitor1);
             final String sortDate1 = visitor1.getSortDate();
             final int birthComparison =

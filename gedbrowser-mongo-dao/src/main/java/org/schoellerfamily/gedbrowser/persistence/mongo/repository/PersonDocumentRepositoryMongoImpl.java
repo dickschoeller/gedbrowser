@@ -259,10 +259,10 @@ public final class PersonDocumentRepositoryMongoImpl implements
             }
             // If the names are the same, use the sort date (approximates on
             // birth).
-            GetDateVisitor visitor0 = new GetDateVisitor("Birth");
+            final GetDateVisitor visitor0 = new GetDateVisitor("Birth");
             p0.accept(visitor0);
             final String sortDate0 = visitor0.getSortDate();
-            GetDateVisitor visitor1 = new GetDateVisitor("Birth");
+            final GetDateVisitor visitor1 = new GetDateVisitor("Birth");
             p1.accept(visitor1);
             final String sortDate1 = visitor1.getSortDate();
             final int dateComparison =

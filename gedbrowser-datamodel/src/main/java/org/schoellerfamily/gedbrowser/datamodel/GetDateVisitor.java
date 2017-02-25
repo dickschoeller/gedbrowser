@@ -157,7 +157,6 @@ public final class GetDateVisitor implements GedObjectVisitor {
     @Override
     public void visit(final Multimedia multimedia) {
         // Does not contribute to the process
-        // TODO multimedia has getDate, need to eliminate.
     }
 
     /**

@@ -230,7 +230,7 @@ public final class PersonTest {
     /** */
     @Test
     public void testWhosisGetSortDate() {
-        GetDateVisitor visitor = new GetDateVisitor("Birth");
+        final GetDateVisitor visitor = new GetDateVisitor("Birth");
         person5.accept(visitor);
         assertEquals("Sort date mismatch", "19000101", visitor.getSortDate());
     }
@@ -506,7 +506,7 @@ public final class PersonTest {
     /** */
     @Test
     public void testEmptySortDate() {
-        GetDateVisitor visitor = new GetDateVisitor("Birth");
+        final GetDateVisitor visitor = new GetDateVisitor("Birth");
         person2.accept(visitor);
         assertTrue("Should not have sort date",
                 visitor.getSortDate().isEmpty());
