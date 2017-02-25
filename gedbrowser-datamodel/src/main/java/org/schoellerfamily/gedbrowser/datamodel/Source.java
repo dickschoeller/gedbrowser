@@ -18,4 +18,12 @@ public final class Source extends AbstractSource {
     public Source(final GedObject parent, final ObjectId xref) {
         super(parent, xref.getIdString());
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
+    }
 }

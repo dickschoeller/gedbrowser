@@ -44,4 +44,12 @@ public final class Head extends AbstractSpecialObject {
             return tag + " " + tail;
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
+    }
 }

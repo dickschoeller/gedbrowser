@@ -138,4 +138,12 @@ public final class Name extends GedObject implements Nameable {
 
         return buffer.toString();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
+    }
 }

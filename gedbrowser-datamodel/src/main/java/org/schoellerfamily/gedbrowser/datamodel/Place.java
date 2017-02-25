@@ -27,4 +27,12 @@ public final class Place extends AbstractAttribute
     public int compareTo(final Place other) {
         return getString().compareTo(other.getString());
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
+    }
 }

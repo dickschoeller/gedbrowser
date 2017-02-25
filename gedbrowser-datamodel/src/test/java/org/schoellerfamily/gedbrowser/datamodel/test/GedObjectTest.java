@@ -15,6 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.ParentFinder;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -60,6 +61,14 @@ public final class GedObjectTest {
          */
         GedObjectWrapper(final GedObject parent, final String string) {
             super(parent, string);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void accept(final GedObjectVisitor visitor) {
+            visitor.visit(this);
         }
     }
 

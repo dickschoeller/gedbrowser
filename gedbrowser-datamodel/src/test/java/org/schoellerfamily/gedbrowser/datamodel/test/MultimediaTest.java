@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
-import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
@@ -60,93 +59,6 @@ public final class MultimediaTest {
                 person1, homeUrl);
         mm.appendString("genealogy");
         assertEquals("Mismatched tail", homeUrl + "genealogy", mm.getTail());
-    }
-
-    /** */
-    @Test
-    public void testGetDummyBirthDate() {
-        final Multimedia mm = builder.addMultimediaToPerson(person1, "Dummy");
-        builder.addDateToGedObject(mm, "31 July 1990");
-        assertEquals("Expected empty birth date string",
-                "", mm.getBirthDate());
-    }
-
-    /** */
-    @Test
-    public void testGetUninsertedBirthDate() {
-        final Multimedia mm = new Multimedia(person1, "Birth");
-        new Date(mm, "31 July 1990");
-        assertEquals("Expected empty birth date string",
-                "", mm.getBirthDate());
-    }
-
-    /** */
-    @Test
-    public void testGetBirthDate() {
-        final Multimedia mm = new Multimedia(person1, "Birth");
-        builder.addDateToGedObject(mm, "31 July 1990");
-        assertEquals("Expected empty birth date string",
-                "", mm.getBirthDate());
-    }
-
-    /** */
-    @Test
-    public void testGetDummyDeathDate() {
-        final Multimedia mm = new Multimedia(person1, "Dummy");
-        builder.addDateToGedObject(mm, "31 July 1990");
-        assertEquals("Expected empty death date string",
-                "", mm.getDeathDate());
-    }
-
-    /** */
-    @Test
-    public void testGetDeathDateWithNoDate() {
-        final Multimedia mm = new Multimedia(person1, "Death");
-        assertEquals("Expected empty death date string",
-                "", mm.getDeathDate());
-    }
-
-    /** */
-    @Test
-    public void testGetDeathDate() {
-        final Multimedia mm = new Multimedia(person1, "Death");
-        builder.addDateToGedObject(mm, "31 July 1990");
-        assertEquals("Expected empty death date string",
-                "", mm.getDeathDate());
-    }
-
-    /** */
-    @Test
-    public void testGetDummyDate() {
-        final Multimedia mm = new Multimedia(person1, "Dummy");
-        // TODO this should become unnecessary if I can further restrict the
-        // children of an attribute.
-        mm.insert(new Person());
-        builder.addDateToGedObject(mm, "31 July 1990");
-        assertEquals("Expected empty date string", "", mm.getDate());
-    }
-
-    /** */
-    @Test
-    public void testGetDateWithString() {
-        final Multimedia mm = new Multimedia(person1, "Dummy");
-        builder.addDateToGedObject(mm, "31 July 1990");
-        assertEquals("Expected empty date string", "", mm.getDate());
-    }
-
-    /** */
-    @Test
-    public void testGetDateWithNoDate() {
-        final Multimedia death = new Multimedia(person1, "Death");
-        assertEquals("Expected empty date string", "", death.getDate());
-    }
-
-    /** */
-    @Test
-    public void testGetDateWithDate() {
-        final Multimedia mm = new Multimedia(person1, "Death");
-        builder.addDateToGedObject(mm, "31 July 1990");
-        assertEquals("Expected empty date string", "", mm.getDate());
     }
 
     /**

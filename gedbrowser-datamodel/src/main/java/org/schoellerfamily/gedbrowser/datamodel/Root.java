@@ -117,4 +117,12 @@ public final class Root extends AbstractSpecialObject {
     public void setDbName(final String dbName) {
         this.dbname = dbName;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
+    }
 }

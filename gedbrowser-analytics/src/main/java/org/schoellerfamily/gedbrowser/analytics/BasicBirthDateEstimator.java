@@ -7,6 +7,7 @@ import org.joda.time.LocalDate;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.GetDateVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
@@ -46,7 +47,9 @@ public class BasicBirthDateEstimator extends Estimator {
      * @return a local date from the actual birth date value
      */
     protected final LocalDate estimateFromBirthDate() {
-        final String birthDateString = person.getBirthDate();
+        final GetDateVisitor visitor = new GetDateVisitor("Birth");
+        person.accept(visitor);
+        final String birthDateString = visitor.getDate();
         return createLocalDate(birthDateString);
     }
 

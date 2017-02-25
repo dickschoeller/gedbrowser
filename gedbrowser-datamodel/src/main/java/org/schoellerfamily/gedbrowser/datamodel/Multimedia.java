@@ -53,8 +53,7 @@ public final class Multimedia extends AbstractAttribute {
     }
 
     /**
-     * @param tail
-     *            additional data
+     * @param tail additional data
      */
     public void setTail(final String tail) {
         if (tail == null) {
@@ -62,36 +61,6 @@ public final class Multimedia extends AbstractAttribute {
         } else {
             this.tail = tail;
         }
-    }
-
-    /**
-     * If this is a birth attribute, return the date as a string. Otherwise
-     * return an empty string.
-     *
-     * @return the birth date string.
-     */
-    public String getBirthDate() {
-        return "";
-    }
-
-    /**
-     * If this is a death attribute, return the date as a string. Otherwise
-     * return an empty string.
-     *
-     * @return the death date string.
-     */
-    public String getDeathDate() {
-        return "";
-    }
-
-    /**
-     * Get the first date attribute found as a string. If none are found return
-     * an empty string.
-     *
-     * @return the date string.
-     */
-    public String getDate() {
-        return "";
     }
 
     /**
@@ -173,5 +142,13 @@ public final class Multimedia extends AbstractAttribute {
                 || "gif".equalsIgnoreCase(format)
                 || "png".equalsIgnoreCase(format)
                 || "tif".equalsIgnoreCase(format);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }

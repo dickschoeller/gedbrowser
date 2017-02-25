@@ -131,4 +131,12 @@ public final class Family extends GedObject implements FamilyLinkage {
         }
         return retVal;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
+    }
 }

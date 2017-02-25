@@ -87,4 +87,12 @@ public final class Submittor extends AbstractSource implements Nameable {
         final Name name = getName();
         return name.getIndexName();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
+    }
 }

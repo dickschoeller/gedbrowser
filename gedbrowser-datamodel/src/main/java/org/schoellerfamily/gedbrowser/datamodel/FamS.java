@@ -67,4 +67,12 @@ public final class FamS extends AbstractLink implements FamilyLinkage {
         final Family family = getFamily();
         return family.getChildren();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
+    }
 }

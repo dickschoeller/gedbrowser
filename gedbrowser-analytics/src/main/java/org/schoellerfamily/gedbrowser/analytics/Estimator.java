@@ -7,6 +7,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.GetDateVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
@@ -55,7 +56,9 @@ public abstract class Estimator {
      * @return the birth date
      */
     protected final String getBirthDate(final Person person) {
-        return person.getBirthDate();
+        final GetDateVisitor visitor = new GetDateVisitor("Birth");
+        person.accept(visitor);
+        return visitor.getDate();
     }
 
     /**
@@ -65,7 +68,9 @@ public abstract class Estimator {
      * @return the date
      */
     protected final String getDate(final Attribute attr) {
-        return attr.getDate();
+        final GetDateVisitor visitor = new GetDateVisitor();
+        attr.accept(visitor);
+        return visitor.getDate();
     }
 
     /**

@@ -6,6 +6,7 @@ import org.joda.time.LocalDate;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.GetDateVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
@@ -101,7 +102,9 @@ public abstract class AbstractOrderAnalyzer {
      * @return the local date
      */
     protected final LocalDate createLocalDate(final Attribute attribute) {
-        return createLocalDate(attribute.getDate());
+        final GetDateVisitor visitor = new GetDateVisitor();
+        attribute.accept(visitor);
+        return createLocalDate(visitor.getDate());
     }
 
     /**
@@ -211,7 +214,9 @@ public abstract class AbstractOrderAnalyzer {
      * @return the best birth date from near birth events
      */
     protected final LocalDate getNearBirthEventDate(final Person person0) {
-        LocalDate birthDate = createLocalDate(person0.getBirthDate());
+        final GetDateVisitor visitor = new GetDateVisitor("Birth");
+        person0.accept(visitor);
+        LocalDate birthDate = createLocalDate(visitor.getDate());
         if (birthDate == null) {
             for (final GedObject gob : person0.getAttributes()) {
                 if (!(gob instanceof Attribute)) {
@@ -250,11 +255,15 @@ public abstract class AbstractOrderAnalyzer {
         }
         if ("Attribute".equals(event.getString())) {
             // Only care about random attributes if they are dated
-            return "".equals(event.getDate());
+            final GetDateVisitor visitor = new GetDateVisitor();
+            event.accept(visitor);
+            return "".equals(visitor.getDate());
         }
         if ("Note".equals(event.getString())) {
             // Only care about notes if they are dated
-            return "".equals(event.getDate());
+            final GetDateVisitor visitor = new GetDateVisitor();
+            event.accept(visitor);
+            return "".equals(visitor.getDate());
         }
         return "Reference Number".equals(event.getString());
     }

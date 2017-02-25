@@ -13,6 +13,7 @@ import org.schoellerfamily.gedbrowser.datamodel.FamC;
 import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Link;
@@ -248,8 +249,23 @@ public final class GedRendererFactoryTest {
     @Test
     public void testGetDefaultRenderer() {
         final GedRenderer<?> gedRenderer =
-                grf.create(new GedObject() { }, provider, appInfo);
+                grf.create(createGedObject(), provider, appInfo);
         assertTrue("Expected DefaultRenderer",
                 gedRenderer instanceof DefaultRenderer);
+    }
+
+    /**
+     * @return an anonymous subclass of GedObject for testing
+     */
+    private GedObject createGedObject() {
+        return new GedObject() {
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void accept(final GedObjectVisitor visitor) {
+                visitor.visit(this);
+            }
+        };
     }
 }

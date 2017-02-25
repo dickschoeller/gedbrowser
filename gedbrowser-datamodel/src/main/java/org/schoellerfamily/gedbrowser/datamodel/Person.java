@@ -6,7 +6,6 @@ import java.util.List;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.GodClass")
 public final class Person extends GedObject implements Nameable, FamilyLinkage {
     /**
      * Default constructor.
@@ -42,86 +41,6 @@ public final class Person extends GedObject implements Nameable, FamilyLinkage {
     }
 
     /**
-     * Find an attribute that can return a birth date string for this person and
-     * get that string.
-     *
-     * @return the birth date string.
-     */
-    public String getBirthDate() {
-        for (final GedObject gob : getAttributes()) {
-            if (!(gob instanceof Attribute)) {
-                continue;
-            }
-            final Attribute attr = (Attribute) gob;
-            final String datestring = attr.getBirthDate();
-            if (!datestring.isEmpty()) {
-                return datestring;
-            }
-        }
-        return "";
-    }
-
-    /**
-     * Find an attribute that can return a birth date string for this person and
-     * get that string.
-     *
-     * @return the birth date string.
-     */
-    public String getBirthYear() {
-        for (final GedObject gob : getAttributes()) {
-            if (!(gob instanceof Attribute)) {
-                continue;
-            }
-            final Attribute attr = (Attribute) gob;
-            final String datestring = attr.getBirthYear();
-            if (!datestring.isEmpty()) {
-                return datestring;
-            }
-        }
-        return "";
-    }
-
-    /**
-     * Find an attribute that can return a birth date string for this person and
-     * get that string.
-     *
-     * @return the birth date string.
-     */
-    public String getSortDate() {
-        for (final GedObject gob : getAttributes()) {
-            if (!(gob instanceof Attribute)) {
-                continue;
-            }
-            final Attribute attr = (Attribute) gob;
-            final String datestring = attr.getSortDate();
-            if (!datestring.isEmpty()) {
-                return datestring;
-            }
-        }
-        return "";
-    }
-
-    /**
-     * Find an attribute that can return a death date string for this person and
-     * get that string.  If not found return an empty string.
-     *
-     * @return the death date string.
-     */
-    public String getDeathDate() {
-        for (final GedObject gob : getAttributes()) {
-            if (!(gob instanceof Attribute)) {
-                continue;
-            }
-            final Attribute attr = (Attribute) gob;
-            final String datestring = attr.getDeathDate();
-            if (!datestring.isEmpty()) {
-                return datestring;
-            }
-        }
-        return "";
-    }
-
-    /**
      * Doesn't care about dates, just checks whether there is a death
      * attribute.
      *
@@ -138,25 +57,6 @@ public final class Person extends GedObject implements Nameable, FamilyLinkage {
             }
         }
         return false;
-    }
-    /**
-     * Find an attribute that can return a death date string for this person and
-     * get that string.  If not found return an empty string.
-     *
-     * @return the death date string.
-     */
-    public String getDeathYear() {
-        for (final GedObject gob : getAttributes()) {
-            if (!(gob instanceof Attribute)) {
-                continue;
-            }
-            final Attribute attr = (Attribute) gob;
-            final String datestring = attr.getDeathYear();
-            if (!datestring.isEmpty()) {
-                return datestring;
-            }
-        }
-        return "";
     }
 
     /**
@@ -286,5 +186,13 @@ public final class Person extends GedObject implements Nameable, FamilyLinkage {
             families.add(family);
         }
         return families;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }

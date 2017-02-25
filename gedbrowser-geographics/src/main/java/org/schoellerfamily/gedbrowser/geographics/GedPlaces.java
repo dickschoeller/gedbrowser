@@ -37,8 +37,7 @@ public abstract class GedPlaces implements Places {
      * Create a copy of a place without the parent information. This allows us
      * to use equals as defined for GedObjects.
      *
-     * @param place
-     *            the place to copy
+     * @param place the place to copy
      * @return the copy
      */
     protected final Place clonePlace(final Place place) {

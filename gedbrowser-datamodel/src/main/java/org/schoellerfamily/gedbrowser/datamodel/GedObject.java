@@ -9,7 +9,7 @@ import java.util.List;
  */
 @SuppressWarnings({ "PMD.TooManyMethods",
     "PMD.GodClass" })
-public class GedObject {
+public abstract class GedObject {
 
     /** */
     protected static final String DEFAULT_IDX_NAME = "";
@@ -375,6 +375,7 @@ public class GedObject {
     /**
      * @param gob object to insert
      */
+    @SuppressWarnings("PMD.EmptyMethodInAbstractClassShouldBeAbstract")
     public void extraInsert(final GedObject gob) {
         // The default implementation is empty. Some derived
         // classes implement this.
@@ -470,4 +471,12 @@ public class GedObject {
         }
         return false;
     }
+
+    /**
+     * Hook for using the visitor design pattern to accumulate information
+     * about a GedObject and its children.
+     *
+     * @param visitor the visitor
+     */
+    public abstract void accept(GedObjectVisitor visitor);
 }

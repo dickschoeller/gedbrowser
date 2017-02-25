@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.datamodel.GetDateVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
@@ -258,8 +259,14 @@ public final class PersonDocumentRepositoryMongoImpl implements
             }
             // If the names are the same, use the sort date (approximates on
             // birth).
+            GetDateVisitor visitor0 = new GetDateVisitor("Birth");
+            p0.accept(visitor0);
+            final String sortDate0 = visitor0.getSortDate();
+            GetDateVisitor visitor1 = new GetDateVisitor("Birth");
+            p1.accept(visitor1);
+            final String sortDate1 = visitor1.getSortDate();
             final int dateComparison =
-                    p0.getSortDate().compareTo(p1.getSortDate());
+                    sortDate0.compareTo(sortDate1);
             if (dateComparison != 0) {
                 return dateComparison;
             }

@@ -63,4 +63,12 @@ public final class FamC extends AbstractLink {
             return toFamily;
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
+    }
 }

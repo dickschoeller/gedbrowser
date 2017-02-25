@@ -28,4 +28,12 @@ public final class SourceLink extends AbstractLink {
             final ObjectId xref) {
         super(parent, tag, xref);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
+    }
 }

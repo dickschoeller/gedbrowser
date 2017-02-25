@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.GetDateVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
@@ -192,7 +193,9 @@ public final class GedObjectBuilderTest {
         final Person person = builder.createPerson1();
         final Attribute event =
                 builder.createPersonEvent(person, "Birth");
-        assertTrue("Should create undated event", event.getDate().isEmpty());
+        final GetDateVisitor visitor = new GetDateVisitor();
+        event.accept(visitor);
+        assertTrue("Should create undated event", visitor.getDate().isEmpty());
     }
 
     /** */
@@ -202,8 +205,10 @@ public final class GedObjectBuilderTest {
         final Person person = builder.createPerson1();
         final Attribute event =
                 builder.createPersonEvent(person, "Birth",  "HUH?");
+        final GetDateVisitor visitor = new GetDateVisitor();
+        event.accept(visitor);
         assertEquals("Should create event with this date string",
-                "HUH?", event.getDate());
+                "HUH?", visitor.getDate());
     }
 
     /** */
@@ -304,7 +309,9 @@ public final class GedObjectBuilderTest {
         final Family family = builder.createFamily1();
         final Attribute event =
                 builder.createFamilyEvent(family, "Marriage");
-        assertTrue("Should create undated event", event.getDate().isEmpty());
+        final GetDateVisitor visitor = new GetDateVisitor();
+        event.accept(visitor);
+        assertTrue("Should create undated event", visitor.getDate().isEmpty());
     }
 
     /** */
@@ -314,8 +321,10 @@ public final class GedObjectBuilderTest {
         final Family family = builder.createFamily1();
         final Attribute event =
                 builder.createFamilyEvent(family, "Marriage",  "HUH?");
+        final GetDateVisitor visitor = new GetDateVisitor();
+        event.accept(visitor);
         assertEquals("Should create event with this date string",
-                "HUH?", event.getDate());
+                "HUH?", visitor.getDate());
     }
 
     /** */

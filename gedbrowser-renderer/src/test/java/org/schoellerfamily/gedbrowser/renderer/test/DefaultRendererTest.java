@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.DefaultRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -42,9 +43,7 @@ public final class DefaultRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final DefaultRenderer renderer = new DefaultRenderer(
-                new GedObject(null) {
-                }, new GedRendererFactory(), anonymousContext, provider);
+        final DefaultRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -56,9 +55,7 @@ public final class DefaultRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        final DefaultRenderer renderer = new DefaultRenderer(
-                new GedObject(null) {
-                }, new GedRendererFactory(), anonymousContext, provider);
+        final DefaultRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
@@ -70,9 +67,7 @@ public final class DefaultRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final DefaultRenderer renderer = new DefaultRenderer(
-                new GedObject(null) {
-                }, new GedRendererFactory(), anonymousContext, provider);
+        final DefaultRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -84,9 +79,7 @@ public final class DefaultRendererTest {
      */
     @Test
     public void testNameIndexRenderer() {
-        final DefaultRenderer renderer = new DefaultRenderer(
-                new GedObject(null) {
-                }, new GedRendererFactory(), anonymousContext, provider);
+        final DefaultRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -98,9 +91,7 @@ public final class DefaultRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final DefaultRenderer renderer = new DefaultRenderer(
-                new GedObject(null) {
-                }, new GedRendererFactory(), anonymousContext, provider);
+        final DefaultRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
@@ -112,11 +103,32 @@ public final class DefaultRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final DefaultRenderer renderer = new DefaultRenderer(
-                new GedObject(null) {
-                }, new GedRendererFactory(), anonymousContext, provider);
+        final DefaultRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof NullSectionRenderer);
+    }
+
+    /**
+     * @return the renderer we will be testing
+     */
+    private DefaultRenderer createRenderer() {
+        return new DefaultRenderer(createGedObject(), new GedRendererFactory(),
+                anonymousContext, provider);
+    }
+
+    /**
+     * @return an anonymous subclass of GedObject for testing
+     */
+    private GedObject createGedObject() {
+        return new GedObject() {
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void accept(final GedObjectVisitor visitor) {
+                visitor.visit(this);
+            }
+        };
     }
 }

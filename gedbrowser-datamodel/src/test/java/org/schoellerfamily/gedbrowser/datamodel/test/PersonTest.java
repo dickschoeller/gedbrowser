@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
+import org.schoellerfamily.gedbrowser.datamodel.GetDateVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -180,93 +181,95 @@ public final class PersonTest {
     /** */
     @Test
     public void testDickGetBirthDate() {
-        assertEquals("Expected empty birth date", "", person1.getBirthDate());
+        assertEquals("Expected empty birth date", "", getBirthDate(person1));
     }
 
     /** */
     @Test
     public void testUnknownGetBirthDate() {
-        assertEquals("Expected empty birth date", "", person4.getBirthDate());
+        assertEquals("Expected empty birth date", "", getBirthDate(person4));
     }
 
     /** */
     @Test
     public void testWhosisGetBirthDate() {
         assertEquals("Birth date mismatch",
-                "1 JAN 1900", person5.getBirthDate());
+                "1 JAN 1900", getBirthDate(person5));
     }
 
     /** */
     @Test
     public void testDickGetBirthYear() {
-        assertEquals("Expected empty birth year", "", person1.getBirthDate());
+        assertEquals("Expected empty birth year", "", getBirthDate(person1));
     }
 
     /** */
     @Test
     public void testGetUnknownBirthYear() {
-        assertEquals("Expected empty birth year", "", person4.getBirthDate());
+        assertEquals("Expected empty birth year", "", getBirthDate(person4));
     }
 
     /** */
     @Test
     public void testWhosisGetBirthYear() {
-        assertEquals("Birth year mismatch", "1900", person5.getBirthYear());
+        assertEquals("Birth year mismatch", "1900", getBirthYear(person5));
     }
 
     /** */
     @Test
     public void testDickGetSortDate() {
-        assertEquals("Expected empty sort date", "", person1.getBirthDate());
+        assertEquals("Expected empty sort date", "", getBirthDate(person1));
     }
 
     /** */
     @Test
     public void testUnknownGetSortDate() {
-        assertEquals("Expected empty sort date", "", person4.getBirthDate());
+        assertEquals("Expected empty sort date", "", getBirthDate(person4));
     }
 
     /** */
     @Test
     public void testWhosisGetSortDate() {
-        assertEquals("Sort date mismatch", "19000101", person5.getSortDate());
+        GetDateVisitor visitor = new GetDateVisitor("Birth");
+        person5.accept(visitor);
+        assertEquals("Sort date mismatch", "19000101", visitor.getSortDate());
     }
 
     /** */
     @Test
     public void testDickGetDeathDate() {
-        assertEquals("Expected emtpy death date", "", person1.getDeathDate());
+        assertEquals("Expected emtpy death date", "", getDeathDate(person1));
     }
 
     /** */
     @Test
     public void testUnknownGetDeathDate() {
-        assertEquals("Expected emtpy death date", "", person4.getDeathDate());
+        assertEquals("Expected emtpy death date", "", getDeathDate(person4));
     }
 
     /** */
     @Test
     public void testWhosisGetDeathDate() {
         assertEquals("Death date mismatch", "1 JAN 1950",
-                person5.getDeathDate());
+                getDeathDate(person5));
     }
 
     /** */
     @Test
     public void testDickGetDeathYear() {
-        assertEquals("Expected empty death year", "", person1.getDeathYear());
+        assertEquals("Expected empty death year", "", getDeathYear(person1));
     }
 
     /** */
     @Test
     public void testUnknownGetDeathYear() {
-        assertEquals("Expected empty death year", "", person4.getDeathYear());
+        assertEquals("Expected empty death year", "", getDeathYear(person4));
     }
 
     /** */
     @Test
     public void testWhosisGetDeathYear() {
-        assertEquals("Death year mismatch", "1950", person5.getDeathYear());
+        assertEquals("Death year mismatch", "1950", getDeathYear(person5));
     }
 
     /** */
@@ -483,28 +486,30 @@ public final class PersonTest {
     @Test
     public void testEmptyDeathYear() {
         assertTrue("Should not have death year",
-                person2.getDeathYear().isEmpty());
+                getDeathYear(person2).isEmpty());
     }
 
     /** */
     @Test
     public void testEmptyDeathDate() {
         assertTrue("Should not have death date",
-                person2.getDeathDate().isEmpty());
+                getDeathDate(person2).isEmpty());
     }
 
     /** */
     @Test
     public void testEmptyBirthDate() {
         assertTrue("Should not have birth date",
-                person2.getBirthDate().isEmpty());
+                getBirthDate(person2).isEmpty());
     }
 
     /** */
     @Test
     public void testEmptySortDate() {
+        GetDateVisitor visitor = new GetDateVisitor("Birth");
+        person2.accept(visitor);
         assertTrue("Should not have sort date",
-                person2.getSortDate().isEmpty());
+                visitor.getSortDate().isEmpty());
     }
 
     /** */
@@ -527,5 +532,45 @@ public final class PersonTest {
         final List<Family> families = new ArrayList<>();
         assertTrue("Should not have a FAMC",
                 person1.getFamiliesC(families).isEmpty());
+    }
+
+    /**
+     * @param person the person we're checking
+     * @return the date string
+     */
+    private String getBirthDate(final Person person) {
+        final GetDateVisitor birthVisitor = new GetDateVisitor("Birth");
+        person.accept(birthVisitor);
+        return birthVisitor.getDate();
+    }
+
+    /**
+     * @param person the person we're checking
+     * @return the year string
+     */
+    private String getBirthYear(final Person person) {
+        final GetDateVisitor birthVisitor = new GetDateVisitor("Birth");
+        person.accept(birthVisitor);
+        return birthVisitor.getYear();
+    }
+
+    /**
+     * @param person the person we're checking
+     * @return the date string
+     */
+    private String getDeathDate(final Person person) {
+        final GetDateVisitor birthVisitor = new GetDateVisitor("Death");
+        person.accept(birthVisitor);
+        return birthVisitor.getDate();
+    }
+
+    /**
+     * @param person the person we're checking
+     * @return the year string
+     */
+    private String getDeathYear(final Person person) {
+        final GetDateVisitor birthVisitor = new GetDateVisitor("Death");
+        person.accept(birthVisitor);
+        return birthVisitor.getYear();
     }
 }

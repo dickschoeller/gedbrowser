@@ -8,6 +8,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.GetDateVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
@@ -136,8 +137,12 @@ public final class PersonRenderer extends GedRenderer<Person> {
         }
 
         // Get some of used strings.
-        final String birthDate = getGedObject().getBirthDate();
-        final String deathDate = getGedObject().getDeathDate();
+        final GetDateVisitor birthVisitor = new GetDateVisitor("Birth");
+        getGedObject().accept(birthVisitor);
+        final String birthDate = birthVisitor.getDate();
+        final GetDateVisitor deathVisitor = new GetDateVisitor("Death");
+        getGedObject().accept(deathVisitor);
+        final String deathDate = deathVisitor.getDate();
         return "(" + birthDate + "-" + deathDate + ")";
     }
 
