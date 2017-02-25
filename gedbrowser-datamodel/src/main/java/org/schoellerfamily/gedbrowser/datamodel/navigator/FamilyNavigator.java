@@ -132,10 +132,8 @@ public final class FamilyNavigator {
      */
     public Person getSpouse(final GedObject person) {
         final List<Person> spouses = visitor.getSpouses();
-        if (person != null) {
-            if (!spouses.contains(person)) {
-                return new Person();
-            }
+        if (person != null && !spouses.contains(person)) {
+            return new Person();
         }
         for (final Person spouse : spouses) {
             if (!spouse.equals(person)) {

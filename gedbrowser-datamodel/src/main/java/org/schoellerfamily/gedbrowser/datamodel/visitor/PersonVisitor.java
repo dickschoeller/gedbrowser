@@ -31,6 +31,7 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
  *
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.TooManyMethods")
 public final class PersonVisitor implements GedObjectVisitor {
     /**
      * The person that we seem to be visiting.
@@ -115,7 +116,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      * @return the list of spouses.
      */
     public List<Person> getSpouses() {
-        List<Person> spouses = new ArrayList<>();
+        final List<Person> spouses = new ArrayList<>();
         for (final FamilyNavigator nav : familySNavigators) {
             final Person spouse = nav.getSpouse(visitedPerson);
             if (spouse.isSet()) {
@@ -129,7 +130,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      * @return list of all families that this person is a child of
      */
     public List<Family> getFamiliesC() {
-        List<Family> families = new ArrayList<>();
+        final List<Family> families = new ArrayList<>();
         for (final FamilyNavigator nav: familyCNavigators) {
             final Family family = nav.getFamily();
             if (family.isSet()) {
@@ -144,7 +145,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Attribute attribute) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -152,7 +153,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Child child) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -160,7 +161,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Date date) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -176,7 +177,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Family family) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -196,7 +197,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Head head) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -204,7 +205,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Husband husband) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
 
     }
 
@@ -213,7 +214,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Link link) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -221,7 +222,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Multimedia multimedia) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -229,7 +230,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Name name) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -248,7 +249,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Place place) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -256,7 +257,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Root root) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -264,7 +265,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Source source) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -272,7 +273,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final SourceLink sourceLink) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -280,7 +281,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Submittor submittor) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -288,7 +289,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final SubmittorLink submittorLink) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -296,7 +297,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Trailer trailer) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -304,7 +305,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Wife wife) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -312,7 +313,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final GedObject gedObject) {
-        // TODO Auto-generated method stub
+        // Type does not contribute to algorithm
     }
 
 }

@@ -9,7 +9,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 /**
  * @author Dick Schoeller
  */
-public class PersonNavigator {
+public final class PersonNavigator {
     /** */
     private final Person person;
 

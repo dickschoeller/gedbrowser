@@ -30,7 +30,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  *
  * @author Dick Schoeller
  */
-public class FamilyVisitor implements GedObjectVisitor {
+@SuppressWarnings("PMD.TooManyMethods")
+public final class FamilyVisitor implements GedObjectVisitor {
     /** */
     private Wife wifeFound;
 
@@ -44,13 +45,13 @@ public class FamilyVisitor implements GedObjectVisitor {
     private Person father;
 
     /** */
-    private List<Child> childList = new ArrayList<>();
+    private final List<Child> childList = new ArrayList<>();
 
     /** */
-    private List<Person> children = new ArrayList<>();
+    private final List<Person> children = new ArrayList<>();
 
     /** */
-    private List<Person> spouses = new ArrayList<>();
+    private final List<Person> spouses = new ArrayList<>();
 
     /**
      * Get the wife found in this scan. Can return an empty wife.

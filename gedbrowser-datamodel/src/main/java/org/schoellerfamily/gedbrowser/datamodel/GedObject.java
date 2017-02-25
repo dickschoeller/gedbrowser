@@ -214,7 +214,7 @@ public abstract class GedObject {
     }
 
     /**
-     * @return name object found among the attributes or null if not found
+     * @return name object found among the attributes or empty if not found
      */
     protected final Name getNameAttribute() {
         for (final GedObject gob : attributes) {
