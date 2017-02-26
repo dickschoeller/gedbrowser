@@ -26,7 +26,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.TooManyMethods")
-public class SourceVisitor implements GedObjectVisitor {
+public final class SourceVisitor implements GedObjectVisitor {
     /** */
     private String titleString;
 

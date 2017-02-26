@@ -29,7 +29,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
     "PMD.CouplingBetweenObjects",
     "PMD.TooManyFields",
     "PMD.TooManyMethods" })
-public class TypeFinderVisitor implements GedObjectVisitor {
+public final class TypeFinderVisitor implements GedObjectVisitor {
     /** */
     private Attribute attributeField;
     /** */

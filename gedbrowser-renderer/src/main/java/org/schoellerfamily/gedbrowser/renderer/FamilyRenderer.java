@@ -79,18 +79,19 @@ public final class FamilyRenderer extends GedRenderer<Family> {
         final GedObject gedObject = pageRenderer.getGedObject();
         final TypeFinderVisitor visitor = new TypeFinderVisitor();
         gedObject.accept(visitor);
-        Person person = visitor.getPerson();
-        if (person != null) {
-            final Person spouse = (new FamilyNavigator(family))
-                    .getSpouse(person);
-            if (spouse != null) {
+        final Person person = visitor.getPerson();
+        if (person == null) {
+            final List<Person> spouses =
+                    (new FamilyNavigator(family)).getSpouses();
+            if (!spouses.isEmpty()) {
                 renderPad(builder, 0, true);
                 builder.append("  <hr class=\"family\"/>");
 
                 renderPad(builder, 0, true);
                 builder.append("  <h3 class=\"family\">Family ")
                         .append(sectionNumber).append("</h3>");
-
+            }
+            for (final Person spouse : spouses) {
                 renderPad(builder, 0, true);
                 builder.append("  <p class=\"spouse\">");
 
@@ -105,17 +106,16 @@ public final class FamilyRenderer extends GedRenderer<Family> {
                 renderNewLine(builder, true);
             }
         } else {
-            final List<Person> spouses =
-                    (new FamilyNavigator(family)).getSpouses();
-            if (!spouses.isEmpty()) {
+            final Person spouse = (new FamilyNavigator(family))
+                    .getSpouse(person);
+            if (spouse != null) {
                 renderPad(builder, 0, true);
                 builder.append("  <hr class=\"family\"/>");
 
                 renderPad(builder, 0, true);
                 builder.append("  <h3 class=\"family\">Family ")
                         .append(sectionNumber).append("</h3>");
-            }
-            for (final Person spouse : spouses) {
+
                 renderPad(builder, 0, true);
                 builder.append("  <p class=\"spouse\">");
 

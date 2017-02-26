@@ -552,10 +552,10 @@ public abstract class AbstractGedObjectFactory {
                 final ObjectId xref, final String tag, final String tail) {
             final TypeFinderVisitor visitor = new TypeFinderVisitor();
             parent.accept(visitor);
-            if (visitor.getRoot() != null) {
-                return new Source(parent, xref);
-            } else {
+            if (visitor.getRoot() == null) {
                 return SOURLINK_FACTORY.create(parent, xref, tag, tail);
+            } else {
+                return new Source(parent, xref);
             }
         }
     }
@@ -590,10 +590,10 @@ public abstract class AbstractGedObjectFactory {
                 final ObjectId xref, final String tag, final String tail) {
             final TypeFinderVisitor visitor = new TypeFinderVisitor();
             parent.accept(visitor);
-            if (visitor.getRoot() != null) {
-                return new Submittor(parent, tag, tail);
-            } else {
+            if (visitor.getRoot() == null) {
                 return SUBMLINK_FACTORY.create(parent, xref, tag, tail);
+            } else {
+                return new Submittor(parent, tag, tail);
             }
         }
     }
