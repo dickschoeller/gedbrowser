@@ -40,8 +40,6 @@ public final class PersonTest {
     /** */
     private transient Person person5;
     /** */
-    private transient Family family6;
-    /** */
     private transient Person person6;
     /** */
     private transient Person person7;
@@ -66,7 +64,7 @@ public final class PersonTest {
         builder.createPersonEvent(person5, "Birth", "1 JAN 1900");
         builder.createPersonEvent(person5, "Death", "1 JAN 1950");
 
-        family6 = builder.createFamily("F6");
+        final Family family6 = builder.createFamily("F6");
         builder.addChildToFamily(family6, person3);
 
         person6 = builder.createPerson("I6");
@@ -272,54 +270,6 @@ public final class PersonTest {
     public void testWhosisGetDeathYear() {
         assertEquals("Death year mismatch", "1950", getDeathYear(person5));
     }
-
-    /** */
-    @Test
-    public void testGetFather() {
-        final PersonNavigator navigator = new PersonNavigator(person3);
-        assertEquals("Expected to find father", person6, navigator.getFather());
-    }
-
-    /** */
-    @Test
-    public void testGetMother() {
-        final PersonNavigator navigator = new PersonNavigator(person3);
-        assertEquals("Expected to find mother", person7, navigator.getMother());
-    }
-
-    /** */
-    @Test
-    public void testGetFatherUnset() {
-        final PersonNavigator navigator = new PersonNavigator(person6);
-        assertFalse("Expected not to find father",
-                navigator.getFather().isSet());
-    }
-
-    /** */
-    @Test
-    public void testGetMotherUnset() {
-        final PersonNavigator navigator = new PersonNavigator(person6);
-        assertFalse("Expected not to find mother",
-                navigator.getMother().isSet());
-    }
-
-    /** */
-    @Test
-    public void testGetHusbandsFamily() {
-        final PersonNavigator navigator = new PersonNavigator(person6);
-        final List<Family> list6 = navigator.getFamilies();
-        assertTrue(
-                "Should have found husband's family", list6.contains(family6));
-    }
-
-    /** */
-    @Test
-    public void testGetWifesFamily() {
-        final PersonNavigator navigator = new PersonNavigator(person7);
-        final List<Family> list7 = navigator.getFamilies();
-        assertTrue("Should have found wife's family", list7.contains(family6));
-    }
-
     /** */
     @Test
     public void testGetSpousesFailsWithoutPersonStrings() {

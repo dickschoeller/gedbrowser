@@ -57,20 +57,6 @@ public final class FamilyTest {
 
     /** */
     @Test
-    public void testGetFather() {
-        final FamilyNavigator navigator = new FamilyNavigator(family1);
-        assertEquals("Father mismatch", person1, navigator.getFather());
-    }
-
-    /** */
-    @Test
-    public void testGetMother() {
-        final FamilyNavigator navigator = new FamilyNavigator(family1);
-        assertEquals("Mother mismatch", person2, navigator.getMother());
-    }
-
-    /** */
-    @Test
     public void testGetSpouseFromHusband() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final Person spouse = navigator.getSpouse(person1);
@@ -117,15 +103,6 @@ public final class FamilyTest {
         final List<Person> spouses = navigator.getSpouses();
         assertFalse("Did not expect to find child in spouses list",
                 spouses.contains(person3));
-    }
-
-    /** */
-    @Test
-    public void testGetChildren() {
-        final FamilyNavigator navigator = new FamilyNavigator(family1);
-        final List<Person> children = navigator.getChildren();
-        assertTrue("Expected child to be in children",
-                children.contains(person3) && children.size() == 1);
     }
 
     /** */
