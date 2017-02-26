@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.analytics.order;
 
 import org.joda.time.LocalDate;
+import org.schoellerfamily.gedbrowser.analytics.visitor.PersonAnalysisVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
@@ -39,14 +39,9 @@ public final class OrderAnalyzer extends AbstractOrderAnalyzer {
     public OrderAnalyzerResult analyze() {
         setCurrentDate(null);
         setSeenEvent(null);
-        for (final GedObject gob : person.getAttributes()) {
-            if (!(gob instanceof Attribute)) {
-                continue;
-            }
-            final Attribute attribute = (Attribute) gob;
-            if (ignoreable(attribute)) {
-                continue;
-            }
+        final PersonAnalysisVisitor visitor = new PersonAnalysisVisitor();
+        person.accept(visitor);
+        for (final Attribute attribute  : visitor.getTrimmedAttributes()) {
             basicOrderCheck(attribute);
             if (isUnorderedEvent(attribute)) {
                 // We DO NOT pay attention to this event when

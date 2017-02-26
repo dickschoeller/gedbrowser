@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 
 /**
  * @author Dick Schoeller
@@ -74,7 +75,9 @@ public final class IndexRenderer extends GedRenderer<Root> {
         if (getRenderingContext().isAdmin()) {
             return false;
         }
-        if (person.isConfidential()) {
+        final PersonVisitor visitor = new PersonVisitor();
+        person.accept(visitor);
+        if (visitor.isConfidential()) {
             return true;
         }
         if (getRenderingContext().isUser()) {

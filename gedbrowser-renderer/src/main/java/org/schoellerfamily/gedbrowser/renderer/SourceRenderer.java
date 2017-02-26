@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.SourceVisitor;
 
 /**
  * Render a Source.
@@ -40,14 +40,9 @@ public final class SourceRenderer extends GedRenderer<Source> {
      * @return the title string
      */
     public String getTitleString() {
-        final Source source = getGedObject();
-        for (final GedObject attribute : source.getAttributes()) {
-            if (attribute instanceof Attribute
-                    && "Title".equals(attribute.getString())) {
-                return ((Attribute) attribute).getTail();
-            }
-        }
-        return getIdString();
+        final SourceVisitor visitor = new SourceVisitor();
+        getGedObject().accept(visitor);
+        return visitor.getTitleString();
     }
 
     /**

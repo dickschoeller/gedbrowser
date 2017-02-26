@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
@@ -24,144 +24,31 @@ import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
-import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
- * Visitor for determining a person's relationships.
- *
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.TooManyMethods")
-public final class PersonVisitor implements GedObjectVisitor {
-    /**
-     * The person that we seem to be visiting.
-     */
-    private Person visitedPerson;
+public final class PlaceVisitor implements GedObjectVisitor {
+    /** */
+    private final Set<String> placeStrings = new TreeSet<>();
+
+    /** */
+    private final Set<Place> places = new TreeSet<>();
 
     /**
-     * The list of families that visited person is a child of.
+     * @return the places found in the visit
      */
-    private final List<FamilyNavigator> familyCNavigators = new ArrayList<>();
-
-    /**
-     * The list of families that the person is a spouse of.
-     */
-    private final List<FamilyNavigator> familySNavigators = new ArrayList<>();
-
-    /**
-     * Has a death attribute.
-     */
-    private boolean hasDeathAttribute;
-
-    /**
-     * Has a confidential setting.
-     */
-    private boolean isConfidential;
-
-    /**
-     * Get the family that the person is a child of.
-     *
-     * @return the family
-     */
-    public Family getFamily() {
-        if (familyCNavigators.isEmpty()) {
-            return new Family();
-        }
-        return familyCNavigators.get(0).getFamily();
+    public Set<String> getPlaceStrings() {
+        return placeStrings;
     }
 
     /**
-     * Get the families that the person is a spouse of.
-     *
-     * @return the list of families
+     * @return the places found in the visit
      */
-    public List<Family> getFamilies() {
-        final List<Family> families = new ArrayList<>();
-        for (final FamilyNavigator nav : familySNavigators) {
-            families.add(nav.getFamily());
-        }
-        return families;
-    }
-
-    /**
-     * Find the father of this person.  If not found, return an unset Person.
-     *
-     * @return the father.
-     */
-    public Person getFather() {
-        if (familyCNavigators == null || familyCNavigators.isEmpty()) {
-            return new Person();
-        }
-        return familyCNavigators.get(0).getFather();
-    }
-
-    /**
-     * Find the mother of this person.  If not found, return an unset Person.
-     *
-     * @return the mother.
-     */
-    public Person getMother() {
-        if (familyCNavigators == null || familyCNavigators.isEmpty()) {
-            return new Person();
-        }
-        return familyCNavigators.get(0).getMother();
-    }
-
-    /**
-     * Get the list of all of children of this person.
-     *
-     * @return the list of children
-     */
-    public List<Person> getChildren() {
-        final List<Person> children = new ArrayList<>();
-        for (final FamilyNavigator nav : familySNavigators) {
-            children.addAll(nav.getChildren());
-        }
-        return children;
-    }
-
-    /**
-     * Get the list of all of the spouses of this person.
-     *
-     * @return the list of spouses.
-     */
-    public List<Person> getSpouses() {
-        final List<Person> spouses = new ArrayList<>();
-        for (final FamilyNavigator nav : familySNavigators) {
-            final Person spouse = nav.getSpouse(visitedPerson);
-            if (spouse.isSet()) {
-                spouses.add(spouse);
-            }
-        }
-        return spouses;
-    }
-
-    /**
-     * @return list of all families that this person is a child of
-     */
-    public List<Family> getFamiliesC() {
-        final List<Family> families = new ArrayList<>();
-        for (final FamilyNavigator nav: familyCNavigators) {
-            final Family family = nav.getFamily();
-            if (family.isSet()) {
-                families.add(family);
-            }
-        }
-        return families;
-    }
-
-    /**
-     * @return true if a death attribute is found
-     */
-    public boolean hasDeathAttribute() {
-        return hasDeathAttribute;
-    }
-
-    /**
-     * @return true if this person is confidential
-     */
-    public boolean isConfidential() {
-        return isConfidential;
+    public Set<Place> getPlaces() {
+        return places;
     }
 
     /**
@@ -169,12 +56,8 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Attribute attribute) {
-        if ("Death".equals(attribute.getString())) {
-            hasDeathAttribute = true;
-        }
-        if ("Restriction".equals(attribute.getString())
-                && "confidential".equals(attribute.getTail())) {
-            isConfidential = true;
+        for (final GedObject gob : attribute.getAttributes()) {
+            gob.accept(this);
         }
     }
 
@@ -199,14 +82,6 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final FamC famc) {
-        familyCNavigators.add(new FamilyNavigator(famc));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final Family family) {
         // Type does not contribute to algorithm
     }
 
@@ -214,12 +89,18 @@ public final class PersonVisitor implements GedObjectVisitor {
      * {@inheritDoc}
      */
     @Override
-    public void visit(final FamS fams) {
-        final FamilyNavigator navigator = new FamilyNavigator(fams);
-        final Family family = navigator.getFamily();
-        if (family.isSet()) {
-            familySNavigators.add(navigator);
+    public void visit(final Family family) {
+        for (final GedObject gob : family.getAttributes()) {
+            gob.accept(this);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void visit(final FamS fams) {
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -236,7 +117,6 @@ public final class PersonVisitor implements GedObjectVisitor {
     @Override
     public void visit(final Husband husband) {
         // Type does not contribute to algorithm
-
     }
 
     /**
@@ -268,9 +148,12 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Person person) {
-        visitedPerson = person;
         for (final GedObject gob : person.getAttributes()) {
             gob.accept(this);
+        }
+        final PersonNavigator navigator = new PersonNavigator(person);
+        for (final Family family : navigator.getFamilies()) {
+            family.accept(this);
         }
     }
 
@@ -279,7 +162,8 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Place place) {
-        // Type does not contribute to algorithm
+        placeStrings.add(place.getString());
+        places.add(place);
     }
 
     /**
@@ -287,7 +171,13 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Root root) {
-        // Type does not contribute to algorithm
+        for (final String letter : root.findSurnameInitialLetters()) {
+            for (final String surname : root.findBySurnamesBeginWith(letter)) {
+                for (final Person person : root.findBySurname(surname)) {
+                    person.accept(this);
+                }
+            }
+        }
     }
 
     /**
@@ -345,5 +235,4 @@ public final class PersonVisitor implements GedObjectVisitor {
     public void visit(final GedObject gedObject) {
         // Type does not contribute to algorithm
     }
-
 }

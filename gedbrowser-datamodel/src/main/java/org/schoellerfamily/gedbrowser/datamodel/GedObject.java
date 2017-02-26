@@ -214,23 +214,6 @@ public abstract class GedObject {
     }
 
     /**
-     * @return name object found among the attributes or empty if not found
-     */
-    protected final Name getNameAttribute() {
-        for (final GedObject gob : attributes) {
-            if (!(gob instanceof Nameable)) {
-                continue;
-            }
-            final Nameable nameable = (Nameable) gob;
-            final Name temp = nameable.getName();
-            if (temp != null) {
-                return temp;
-            }
-        }
-        return new Name(this);
-    }
-
-    /**
      * @param str the ID string of the object being sought
      * @return the object found from the searching the top level object list
      */
@@ -424,26 +407,6 @@ public abstract class GedObject {
      */
     public final Collection<String> findSurnameInitialLetters() {
         return finder.findSurnameInitialLetters(this);
-    }
-
-    /**
-     * A GED object is confidential if it has an immediate child attribute
-     * that restricts access to confidential. This allows restriction of
-     * specific facts rather than just whole persons or families.
-     *
-     * @return true if this record is confidential.
-     */
-    public final boolean isConfidential() {
-        for (final GedObject gob : getAttributes()) {
-            if (gob instanceof Attribute) {
-                final Attribute attr = (Attribute) gob;
-                if (attr.getString().equals("Restriction")
-                        && attr.getTail().equals("confidential")) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     /**

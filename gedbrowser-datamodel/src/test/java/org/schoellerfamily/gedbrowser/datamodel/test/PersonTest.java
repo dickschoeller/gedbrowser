@@ -17,6 +17,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 
 /**
  * @author Dick Schoeller
@@ -476,20 +477,26 @@ public final class PersonTest {
     /** */
     @Test
     public void testIsConfidential() {
-        assertTrue("Should be confidential", person1.isConfidential());
+        final PersonVisitor visitor = new PersonVisitor();
+        person1.accept(visitor);
+        assertTrue("Should be confidential", visitor.isConfidential());
     }
 
     /** */
     @Test
     public void testIsNotConfidential() {
-        assertFalse("Should not be confidential", person2.isConfidential());
+        final PersonVisitor visitor = new PersonVisitor();
+        person2.accept(visitor);
+        assertFalse("Should not be confidential", visitor.isConfidential());
     }
 
     /** */
     @Test
     public void testHasNotDeathAttribute() {
+        final PersonVisitor visitor = new PersonVisitor();
+        person2.accept(visitor);
         assertFalse("Should not have death attribute",
-                person2.hasDeathAttribute());
+                visitor.hasDeathAttribute());
     }
 
     /** */
@@ -525,7 +532,9 @@ public final class PersonTest {
     /** */
     @Test
     public void testHasDeathAttribute() {
-        assertTrue("Should have death attribute", person4.hasDeathAttribute());
+        final PersonVisitor visitor = new PersonVisitor();
+        person4.accept(visitor);
+        assertTrue("Should have death attribute", visitor.hasDeathAttribute());
     }
 
     /** */

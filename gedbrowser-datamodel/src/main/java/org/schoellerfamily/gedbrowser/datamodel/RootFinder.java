@@ -6,11 +6,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.RootVisitor;
 
 /**
  * @author Dick Schoeller
@@ -75,16 +75,13 @@ public final class RootFinder implements FinderStrategy {
     public Collection<Person> findBySurname(final GedObject owner,
             final String surname) {
         final Root root = (Root) owner;
-        final Map<String, GedObject> objectMap = root.getObjects();
-        final Collection<GedObject> objects = objectMap.values();
+        final RootVisitor visitor = new RootVisitor();
+        root.accept(visitor);
         final List<Person> matches = new ArrayList<>();
-        for (final GedObject object : objects) {
-            if (object instanceof Person) {
-                final Person person = (Person) object;
-                final String personSurname = person.getSurname();
-                if (personSurname.equals(surname)) {
-                    matches.add((Person) object);
-                }
+        for (final Person person : visitor.getPersons()) {
+            final String personSurname = person.getSurname();
+            if (personSurname.equals(surname)) {
+                matches.add(person);
             }
         }
 
@@ -137,16 +134,13 @@ public final class RootFinder implements FinderStrategy {
     public Collection<String> findBySurnamesBeginWith(final GedObject owner,
             final String beginsWith) {
         final Root root = (Root) owner;
-        final Map<String, GedObject> objectMap = root.getObjects();
-        final Collection<GedObject> objects = objectMap.values();
+        final RootVisitor visitor = new RootVisitor();
+        root.accept(visitor);
         final Set<String> matches = new TreeSet<>();
-        for (final GedObject object : objects) {
-            if (object instanceof Person) {
-                final Person person = (Person) object;
-                final String personSurname = person.getSurname();
-                if (personSurname.startsWith(beginsWith)) {
-                    matches.add(personSurname);
-                }
+        for (final Person person : visitor.getPersons()) {
+            final String personSurname = person.getSurname();
+            if (personSurname.startsWith(beginsWith)) {
+                matches.add(personSurname);
             }
         }
         return matches;
@@ -158,15 +152,12 @@ public final class RootFinder implements FinderStrategy {
     @Override
     public Collection<String> findSurnameInitialLetters(final GedObject owner) {
         final Root root = (Root) owner;
-        final Map<String, GedObject> objectMap = root.getObjects();
-        final Collection<GedObject> objects = objectMap.values();
+        final RootVisitor visitor = new RootVisitor();
+        root.accept(visitor);
         final Set<String> matches = new TreeSet<>();
-        for (final GedObject object : objects) {
-            if (object instanceof Person) {
-                final Person person = (Person) object;
-                final String firstLetter = person.getSurname().substring(0, 1);
-                matches.add(firstLetter);
-            }
+        for (final Person person : visitor.getPersons()) {
+            final String firstLetter = person.getSurname().substring(0, 1);
+            matches.add(firstLetter);
         }
         return matches;
     }

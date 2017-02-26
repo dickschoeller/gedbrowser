@@ -12,6 +12,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 
 /**
  * @author Dick Schoeller
@@ -51,7 +52,9 @@ public final class LivingEstimator {
      * @return estimated living or dead
      */
     public boolean estimate() {
-        if (person.hasDeathAttribute()) {
+        final PersonVisitor visitor = new PersonVisitor();
+        person.accept(visitor);
+        if (visitor.hasDeathAttribute()) {
             // Death attribute found, we're out of here.
             return false;
         } else {

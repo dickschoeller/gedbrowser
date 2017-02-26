@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 
 /**
  * Render a Person.
@@ -319,7 +320,9 @@ public final class PersonRenderer extends GedRenderer<Person> {
         if (getRenderingContext().isAdmin()) {
             return false;
         }
-        return getGedObject().isConfidential();
+        final PersonVisitor visitor = new PersonVisitor();
+        getGedObject().accept(visitor);
+        return visitor.isConfidential();
     }
 
     /**

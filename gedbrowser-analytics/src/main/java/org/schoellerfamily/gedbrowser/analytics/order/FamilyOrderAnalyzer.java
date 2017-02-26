@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.analytics.order;
 
 import org.joda.time.LocalDate;
+import org.schoellerfamily.gedbrowser.analytics.visitor.FamilyAnalysisVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
@@ -87,21 +87,37 @@ public final class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
      * @return the earliest date of an event in the family
      */
     private LocalDate analyzeDates(final Family family) {
+        if (family == null) {
+            return null;
+        }
         LocalDate earliestDate = null;
-        for (final GedObject gob : family.getAttributes()) {
-            if (!(gob instanceof Attribute)) {
-                continue;
-            }
-            final Attribute attribute = (Attribute) gob;
-            if (ignoreable(attribute)) {
-                continue;
-            }
+        final FamilyAnalysisVisitor visitor = new FamilyAnalysisVisitor();
+        family.accept(visitor);
+        for (final Attribute attribute : visitor.getTrimmedAttributes()) {
             basicOrderCheck(attribute);
             setSeenEvent(attribute);
             final LocalDate date = createLocalDate(attribute);
             earliestDate = minDate(earliestDate, date);
         }
-        return earliestDate(family);
+        return earliestDate(visitor);
+    }
+
+    /**
+     * @param visitor the visitor that is doing the processing
+     * @return the earliest date from the contents
+     */
+    private LocalDate earliestDate(final FamilyAnalysisVisitor visitor) {
+        LocalDate earliestDate = null;
+        for (final Attribute attribute : visitor.getTrimmedAttributes()) {
+            final LocalDate date = createLocalDate(attribute);
+            earliestDate = minDate(earliestDate, date);
+        }
+        for (final Child child : visitor.getChildren()) {
+            final Person personC = child.getChild();
+            final LocalDate birthDate = getNearBirthEventDate(personC);
+            earliestDate = minDate(earliestDate, birthDate);
+        }
+        return earliestDate;
     }
 
     /**
@@ -109,23 +125,11 @@ public final class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
      * @return the earliest date of an event in the family
      */
     private LocalDate earliestDate(final Family family) {
-        LocalDate earliestDate = null;
         if (family == null) {
-            return earliestDate;
+            return null;
         }
-        for (final GedObject gob : family.getAttributes()) {
-            if (gob instanceof Attribute) {
-                final Attribute attribute = (Attribute) gob;
-                final LocalDate date = createLocalDate(attribute);
-                earliestDate = minDate(earliestDate, date);
-            }
-            if (gob instanceof Child) {
-                final Child child = (Child) gob;
-                final Person personC = child.getChild();
-                final LocalDate birthDate = getNearBirthEventDate(personC);
-                earliestDate = minDate(earliestDate, birthDate);
-            }
-        }
-        return earliestDate;
+        final FamilyAnalysisVisitor visitor = new FamilyAnalysisVisitor();
+        family.accept(visitor);
+        return earliestDate(visitor);
     }
 }

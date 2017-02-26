@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.NameableVisitor;
 
 /**
  * @author Dick Schoeller
@@ -26,8 +27,9 @@ public final class Person extends GedObject implements Nameable, FamilyLinkage {
      */
     @Override
     public String getSurname() {
-        final Name name = getName();
-        return name.getSurname();
+        final NameableVisitor visitor = new NameableVisitor();
+        this.accept(visitor);
+        return visitor.getSurname();
     }
 
     /**
@@ -35,27 +37,9 @@ public final class Person extends GedObject implements Nameable, FamilyLinkage {
      */
     @Override
     public String getIndexName() {
-        final Name name = getName();
-        return name.getIndexName();
-    }
-
-    /**
-     * Doesn't care about dates, just checks whether there is a death
-     * attribute.
-     *
-     * @return true if a death attribute is found
-     */
-    public boolean hasDeathAttribute() {
-        for (final GedObject gob : getAttributes()) {
-            if (!(gob instanceof Attribute)) {
-                continue;
-            }
-            final Attribute attr = (Attribute) gob;
-            if ("Death".equals(attr.getString())) {
-                return true;
-            }
-        }
-        return false;
+        final NameableVisitor visitor = new NameableVisitor();
+        this.accept(visitor);
+        return visitor.getIndexName();
     }
 
     /**
@@ -63,7 +47,9 @@ public final class Person extends GedObject implements Nameable, FamilyLinkage {
      */
     @Override
     public Name getName() {
-        return getNameAttribute();
+        final NameableVisitor visitor = new NameableVisitor();
+        this.accept(visitor);
+        return visitor.getNameAttribute();
     }
 
     /**

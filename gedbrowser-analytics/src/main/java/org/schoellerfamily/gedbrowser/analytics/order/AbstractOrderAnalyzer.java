@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.analytics.order;
 import java.util.Calendar;
 
 import org.joda.time.LocalDate;
+import org.schoellerfamily.gedbrowser.analytics.visitor.PersonAnalysisVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.DateParser;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
@@ -214,57 +214,19 @@ public abstract class AbstractOrderAnalyzer {
      * @return the best birth date from near birth events
      */
     protected final LocalDate getNearBirthEventDate(final Person person0) {
-        final GetDateVisitor visitor = new GetDateVisitor("Birth");
-        person0.accept(visitor);
-        LocalDate birthDate = createLocalDate(visitor.getDate());
+        final GetDateVisitor dateVisitor = new GetDateVisitor("Birth");
+        person0.accept(dateVisitor);
+        LocalDate birthDate = createLocalDate(dateVisitor.getDate());
         if (birthDate == null) {
-            for (final GedObject gob : person0.getAttributes()) {
-                if (!(gob instanceof Attribute)) {
-                    continue;
-                }
-                final Attribute attribute = (Attribute) gob;
+            final PersonAnalysisVisitor personVisitor =
+                    new PersonAnalysisVisitor();
+            person0.accept(personVisitor);
+            for (final Attribute attribute : personVisitor.getAttributes()) {
                 if (isNamingEvent(attribute)) {
                     birthDate = minDate(birthDate, createLocalDate(attribute));
                 }
             }
         }
         return birthDate;
-    }
-
-    /**
-     * Certain events have no time basis on the person.
-     *
-     * @param event the event
-     * @return true if it is non-time event
-     */
-    protected final boolean ignoreable(final Attribute event) {
-        // Layed out like this because it is easier to understand
-        // coverage. No performance differences expected compared
-        // to tighter layout.
-        if ("Sex".equals(event.getString())) {
-            return true;
-        }
-        if ("Changed".equals(event.getString())) {
-            return true;
-        }
-        if ("Ancestral File Number".equals(event.getString())) {
-            return true;
-        }
-        if ("Title".equals(event.getString())) {
-            return true;
-        }
-        if ("Attribute".equals(event.getString())) {
-            // Only care about random attributes if they are dated
-            final GetDateVisitor visitor = new GetDateVisitor();
-            event.accept(visitor);
-            return "".equals(visitor.getDate());
-        }
-        if ("Note".equals(event.getString())) {
-            // Only care about notes if they are dated
-            final GetDateVisitor visitor = new GetDateVisitor();
-            event.accept(visitor);
-            return "".equals(visitor.getDate());
-        }
-        return "Reference Number".equals(event.getString());
     }
 }

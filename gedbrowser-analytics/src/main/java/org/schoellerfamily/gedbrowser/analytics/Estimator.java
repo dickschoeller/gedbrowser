@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.analytics;
 import java.util.List;
 
 import org.joda.time.LocalDate;
+import org.schoellerfamily.gedbrowser.analytics.visitor.FamilyAnalysisVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
@@ -214,14 +215,12 @@ public abstract class Estimator {
     protected final LocalDate processMarriageDate(final LocalDate date,
             final Family family) {
         LocalDate returnDate = date;
-        for (final GedObject gob : family.getAttributes()) {
-            if (!(gob instanceof Attribute)) {
+        final FamilyAnalysisVisitor visitor = new FamilyAnalysisVisitor();
+        family.accept(visitor);
+        for (final Attribute attr : visitor.getAttributes()) {
+            if (!"Marriage".equals(getString(attr))) {
                 continue;
             }
-            if (!"Marriage".equals(getString(gob))) {
-                continue;
-            }
-            final Attribute attr = (Attribute) gob;
             final String datestring = getDate(attr);
             final LocalDate marriageLocalDate = createLocalDate(datestring);
             if (marriageLocalDate == null) {

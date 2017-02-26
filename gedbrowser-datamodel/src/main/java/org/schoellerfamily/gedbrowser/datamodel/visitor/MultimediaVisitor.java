@@ -1,8 +1,5 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -24,144 +21,51 @@ import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
-import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 
 /**
- * Visitor for determining a person's relationships.
- *
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.TooManyMethods")
-public final class PersonVisitor implements GedObjectVisitor {
-    /**
-     * The person that we seem to be visiting.
-     */
-    private Person visitedPerson;
+public final class MultimediaVisitor implements GedObjectVisitor {
+    /** */
+    private String filePath;
+
+    /** */
+    private String format;
+
+    /** */
+    private String title;
 
     /**
-     * The list of families that visited person is a child of.
+     * @return the file name of the multimedia item
      */
-    private final List<FamilyNavigator> familyCNavigators = new ArrayList<>();
-
-    /**
-     * The list of families that the person is a spouse of.
-     */
-    private final List<FamilyNavigator> familySNavigators = new ArrayList<>();
-
-    /**
-     * Has a death attribute.
-     */
-    private boolean hasDeathAttribute;
-
-    /**
-     * Has a confidential setting.
-     */
-    private boolean isConfidential;
-
-    /**
-     * Get the family that the person is a child of.
-     *
-     * @return the family
-     */
-    public Family getFamily() {
-        if (familyCNavigators.isEmpty()) {
-            return new Family();
-        }
-        return familyCNavigators.get(0).getFamily();
+    public String getFilePath() {
+        return filePath;
     }
 
     /**
-     * Get the families that the person is a spouse of.
-     *
-     * @return the list of families
+     * @return the file format of the multimedia item
      */
-    public List<Family> getFamilies() {
-        final List<Family> families = new ArrayList<>();
-        for (final FamilyNavigator nav : familySNavigators) {
-            families.add(nav.getFamily());
-        }
-        return families;
+    public String getFormat() {
+        return format;
     }
 
     /**
-     * Find the father of this person.  If not found, return an unset Person.
-     *
-     * @return the father.
+     * @return whether the type is an image type
      */
-    public Person getFather() {
-        if (familyCNavigators == null || familyCNavigators.isEmpty()) {
-            return new Person();
-        }
-        return familyCNavigators.get(0).getFather();
+    public boolean isImage() {
+        final String form = getFormat();
+        return "jpg".equalsIgnoreCase(form)
+                || "gif".equalsIgnoreCase(form)
+                || "png".equalsIgnoreCase(form)
+                || "tif".equalsIgnoreCase(form);
     }
 
     /**
-     * Find the mother of this person.  If not found, return an unset Person.
-     *
-     * @return the mother.
+     * @return the title of the multimedia item
      */
-    public Person getMother() {
-        if (familyCNavigators == null || familyCNavigators.isEmpty()) {
-            return new Person();
-        }
-        return familyCNavigators.get(0).getMother();
-    }
-
-    /**
-     * Get the list of all of children of this person.
-     *
-     * @return the list of children
-     */
-    public List<Person> getChildren() {
-        final List<Person> children = new ArrayList<>();
-        for (final FamilyNavigator nav : familySNavigators) {
-            children.addAll(nav.getChildren());
-        }
-        return children;
-    }
-
-    /**
-     * Get the list of all of the spouses of this person.
-     *
-     * @return the list of spouses.
-     */
-    public List<Person> getSpouses() {
-        final List<Person> spouses = new ArrayList<>();
-        for (final FamilyNavigator nav : familySNavigators) {
-            final Person spouse = nav.getSpouse(visitedPerson);
-            if (spouse.isSet()) {
-                spouses.add(spouse);
-            }
-        }
-        return spouses;
-    }
-
-    /**
-     * @return list of all families that this person is a child of
-     */
-    public List<Family> getFamiliesC() {
-        final List<Family> families = new ArrayList<>();
-        for (final FamilyNavigator nav: familyCNavigators) {
-            final Family family = nav.getFamily();
-            if (family.isSet()) {
-                families.add(family);
-            }
-        }
-        return families;
-    }
-
-    /**
-     * @return true if a death attribute is found
-     */
-    public boolean hasDeathAttribute() {
-        return hasDeathAttribute;
-    }
-
-    /**
-     * @return true if this person is confidential
-     */
-    public boolean isConfidential() {
-        return isConfidential;
+    public String getTitle() {
+        return title;
     }
 
     /**
@@ -169,12 +73,18 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Attribute attribute) {
-        if ("Death".equals(attribute.getString())) {
-            hasDeathAttribute = true;
+        final String string = attribute.getString();
+        if ("File".equals(string)) {
+            filePath = attribute.getTail();
+            for (final GedObject subObject : attribute.getAttributes()) {
+                subObject.accept(this);
+            }
         }
-        if ("Restriction".equals(attribute.getString())
-                && "confidential".equals(attribute.getTail())) {
-            isConfidential = true;
+        if ("Format".equals(string)) {
+            format = attribute.getTail();
+        }
+        if ("Title".equals(string)) {
+            title = attribute.getTail();
         }
     }
 
@@ -199,7 +109,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final FamC famc) {
-        familyCNavigators.add(new FamilyNavigator(famc));
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -215,11 +125,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final FamS fams) {
-        final FamilyNavigator navigator = new FamilyNavigator(fams);
-        final Family family = navigator.getFamily();
-        if (family.isSet()) {
-            familySNavigators.add(navigator);
-        }
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -236,7 +142,6 @@ public final class PersonVisitor implements GedObjectVisitor {
     @Override
     public void visit(final Husband husband) {
         // Type does not contribute to algorithm
-
     }
 
     /**
@@ -252,7 +157,9 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Multimedia multimedia) {
-        // Type does not contribute to algorithm
+        for (final GedObject gedObject : multimedia.getAttributes()) {
+            gedObject.accept(this);
+        }
     }
 
     /**
@@ -268,10 +175,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     @Override
     public void visit(final Person person) {
-        visitedPerson = person;
-        for (final GedObject gob : person.getAttributes()) {
-            gob.accept(this);
-        }
+        // Type does not contribute to algorithm
     }
 
     /**
@@ -345,5 +249,4 @@ public final class PersonVisitor implements GedObjectVisitor {
     public void visit(final GedObject gedObject) {
         // Type does not contribute to algorithm
     }
-
 }

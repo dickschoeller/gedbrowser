@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.analytics;
 import java.util.List;
 
 import org.joda.time.LocalDate;
+import org.schoellerfamily.gedbrowser.analytics.visitor.PersonAnalysisVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -85,13 +86,11 @@ public class BasicBirthDateEstimator extends Estimator {
         if (localDate != null) {
             return localDate;
         }
-        for (final GedObject gob : person.getAttributes()) {
-            if (!(gob instanceof Attribute)) {
-                continue;
-            }
-            final Attribute attr = (Attribute) gob;
+        final PersonAnalysisVisitor visitor = new PersonAnalysisVisitor();
+        person.accept(visitor);
+        for (final Attribute attr : visitor.getAttributes()) {
             final String dateString = getDate(attr);
-            final LocalDate date = estimateFromEvent(gob, dateString);
+            final LocalDate date = estimateFromEvent(attr, dateString);
             if (date != null) {
                 return date;
             }

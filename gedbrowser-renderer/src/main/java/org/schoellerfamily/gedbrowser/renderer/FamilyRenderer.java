@@ -8,6 +8,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.TypeFinderVisitor;
 
 /**
  * Render an Family.
@@ -76,8 +77,10 @@ public final class FamilyRenderer extends GedRenderer<Family> {
             final GedRenderer<?> pageRenderer, final int sectionNumber) {
         final Family family = getGedObject();
         final GedObject gedObject = pageRenderer.getGedObject();
-        if (gedObject instanceof Person) {
-            final Person person = (Person) gedObject;
+        final TypeFinderVisitor visitor = new TypeFinderVisitor();
+        gedObject.accept(visitor);
+        Person person = visitor.getPerson();
+        if (person != null) {
             final Person spouse = (new FamilyNavigator(family))
                     .getSpouse(person);
             if (spouse != null) {
