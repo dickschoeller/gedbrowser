@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
+
 /**
  * Model a complex GEDCOM name.
  *
@@ -137,5 +139,13 @@ public final class Name extends GedObject implements Nameable {
         }
 
         return buffer.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }

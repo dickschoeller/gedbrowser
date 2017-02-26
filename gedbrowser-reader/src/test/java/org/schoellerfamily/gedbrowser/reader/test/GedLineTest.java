@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLine;
 
@@ -341,8 +342,10 @@ public final class GedLineTest {
         System.out.println(out);
 
         final Person melissa = (Person) root.find("I1");
-        final Person dick = melissa.getFather();
-        final List<Person> spouses = dick.getSpouses(null, dick);
+        final PersonNavigator meliNavigator = new PersonNavigator(melissa);
+        final Person dick = meliNavigator.getFather();
+        final PersonNavigator dickNavigator = new PersonNavigator(dick);
+        final List<Person> spouses = dickNavigator.getSpouses();
         System.out.println(spouses.get(0));
         assertEquals("Dick only has one spouse", 1, spouses.size());
     }

@@ -1,13 +1,15 @@
 package org.schoellerfamily.gedbrowser.analytics;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.LocalDate;
+import org.schoellerfamily.gedbrowser.analytics.visitor.PersonAnalysisVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
  * Basic birth date estimator for a person. Only looks at the person's events.
@@ -46,7 +48,9 @@ public class BasicBirthDateEstimator extends Estimator {
      * @return a local date from the actual birth date value
      */
     protected final LocalDate estimateFromBirthDate() {
-        final String birthDateString = person.getBirthDate();
+        final GetDateVisitor visitor = new GetDateVisitor("Birth");
+        person.accept(visitor);
+        final String birthDateString = visitor.getDate();
         return createLocalDate(birthDateString);
     }
 
@@ -59,8 +63,8 @@ public class BasicBirthDateEstimator extends Estimator {
         if (localDate != null) {
             return localDate;
         }
-        final List<Family> families = person
-                .getFamilies(new ArrayList<Family>());
+        final PersonNavigator navigator = new PersonNavigator(person);
+        final List<Family> families = navigator.getFamilies();
         LocalDate date = null;
         for (final Family family : families) {
             date = processMarriageDate(date, family);
@@ -82,13 +86,11 @@ public class BasicBirthDateEstimator extends Estimator {
         if (localDate != null) {
             return localDate;
         }
-        for (final GedObject gob : person.getAttributes()) {
-            if (!(gob instanceof Attribute)) {
-                continue;
-            }
-            final Attribute attr = (Attribute) gob;
+        final PersonAnalysisVisitor visitor = new PersonAnalysisVisitor();
+        person.accept(visitor);
+        for (final Attribute attr : visitor.getAttributes()) {
             final String dateString = getDate(attr);
-            final LocalDate date = estimateFromEvent(gob, dateString);
+            final LocalDate date = estimateFromEvent(attr, dateString);
             if (date != null) {
                 return date;
             }

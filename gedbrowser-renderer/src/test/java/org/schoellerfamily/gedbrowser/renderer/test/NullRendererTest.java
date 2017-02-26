@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
@@ -54,8 +55,7 @@ public final class NullRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final NullRenderer renderer = new NullRenderer(new GedObject(null) {
-        }, new GedRendererFactory(), anonymousContext, provider);
+        final NullRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -67,8 +67,7 @@ public final class NullRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        final NullRenderer renderer = new NullRenderer(new GedObject(null) {
-        }, new GedRendererFactory(), anonymousContext, provider);
+        final NullRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer() instanceof NullListItemRenderer);
     }
@@ -79,8 +78,7 @@ public final class NullRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final NullRenderer renderer = new NullRenderer(new GedObject(null) {
-        }, new GedRendererFactory(), anonymousContext, provider);
+        final NullRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer);
     }
@@ -91,8 +89,7 @@ public final class NullRendererTest {
      */
     @Test
     public void testNameIndexRenderer() {
-        final NullRenderer renderer = new NullRenderer(new GedObject(null) {
-        }, new GedRendererFactory(), anonymousContext, provider);
+        final NullRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type", renderer
                 .getNameIndexRenderer() instanceof NullNameIndexRenderer);
     }
@@ -103,8 +100,7 @@ public final class NullRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final NullRenderer renderer = new NullRenderer(new GedObject(null) {
-        }, new GedRendererFactory(), anonymousContext, provider);
+        final NullRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer() instanceof NullPhraseRenderer);
     }
@@ -115,8 +111,7 @@ public final class NullRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final NullRenderer renderer = new NullRenderer(new GedObject(null) {
-        }, new GedRendererFactory(), anonymousContext, provider);
+        final NullRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer() instanceof NullSectionRenderer);
     }
@@ -314,10 +309,32 @@ public final class NullRendererTest {
      */
     @Test
     public void testGetHomeUrl() {
-        final NullRenderer renderer = new NullRenderer(new GedObject(null) {
-        }, new GedRendererFactory(), anonymousContext, provider);
+        final NullRenderer renderer = createRenderer();
         assertEquals("Home URL does not match expectation",
                 homeUrl, renderer.getHomeUrl());
+    }
+
+    /**
+     * @return the renderer for testing
+     */
+    private NullRenderer createRenderer() {
+        return new NullRenderer(createGedObject(), new GedRendererFactory(),
+                anonymousContext, provider);
+    }
+
+    /**
+     * @return an anonymous subclass of GedObject for testing
+     */
+    private GedObject createGedObject() {
+        return new GedObject() {
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void accept(final GedObjectVisitor visitor) {
+                visitor.visit(this);
+            }
+        };
     }
 
     /**

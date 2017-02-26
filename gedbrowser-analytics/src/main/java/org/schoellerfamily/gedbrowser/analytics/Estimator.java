@@ -3,11 +3,14 @@ package org.schoellerfamily.gedbrowser.analytics;
 import java.util.List;
 
 import org.joda.time.LocalDate;
+import org.schoellerfamily.gedbrowser.analytics.visitor.FamilyAnalysisVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
  * Base class for estimators. Primarily contains useful methods to avoid
@@ -25,7 +28,8 @@ public abstract class Estimator {
      * @return the children
      */
     protected final List<Person> getChildren(final Family family) {
-        return family.getChildren();
+        final FamilyNavigator navigator = new FamilyNavigator(family);
+        return navigator.getChildren();
     }
 
     /**
@@ -35,7 +39,8 @@ public abstract class Estimator {
      * @return the father
      */
     protected final Person getFather(final Family family) {
-        return family.getFather();
+        final FamilyNavigator navigator = new FamilyNavigator(family);
+        return navigator.getFather();
     }
 
     /**
@@ -45,7 +50,8 @@ public abstract class Estimator {
      * @return the mother
      */
     protected final Person getMother(final Family family) {
-        return family.getMother();
+        final FamilyNavigator navigator = new FamilyNavigator(family);
+        return navigator.getMother();
     }
 
     /**
@@ -55,7 +61,9 @@ public abstract class Estimator {
      * @return the birth date
      */
     protected final String getBirthDate(final Person person) {
-        return person.getBirthDate();
+        final GetDateVisitor visitor = new GetDateVisitor("Birth");
+        person.accept(visitor);
+        return visitor.getDate();
     }
 
     /**
@@ -65,7 +73,9 @@ public abstract class Estimator {
      * @return the date
      */
     protected final String getDate(final Attribute attr) {
-        return attr.getDate();
+        final GetDateVisitor visitor = new GetDateVisitor();
+        attr.accept(visitor);
+        return visitor.getDate();
     }
 
     /**
@@ -205,14 +215,12 @@ public abstract class Estimator {
     protected final LocalDate processMarriageDate(final LocalDate date,
             final Family family) {
         LocalDate returnDate = date;
-        for (final GedObject gob : family.getAttributes()) {
-            if (!(gob instanceof Attribute)) {
+        final FamilyAnalysisVisitor visitor = new FamilyAnalysisVisitor();
+        family.accept(visitor);
+        for (final Attribute attr : visitor.getAttributes()) {
+            if (!"Marriage".equals(getString(attr))) {
                 continue;
             }
-            if (!"Marriage".equals(getString(gob))) {
-                continue;
-            }
-            final Attribute attr = (Attribute) gob;
             final String datestring = getDate(attr);
             final LocalDate marriageLocalDate = createLocalDate(datestring);
             if (marriageLocalDate == null) {

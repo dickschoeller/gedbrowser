@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
  * @author Dick Schoeller
@@ -54,12 +55,14 @@ public final class TreeTableRenderer {
             final PersonRenderer personRenderer, final int currentDepth,
             final int depthLimit, final int seedRow) {
         final Person person = personRenderer.getGedObject();
+        final PersonNavigator navigator = new PersonNavigator(person);
+
         final TreeNode<PersonRenderer> treeNode = new TreeNode<PersonRenderer>(
                 personRenderer, currentDepth, currentDepth);
 
         int row = seedRow;
         if (currentDepth < depthLimit) {
-            final Person father = person.getFather();
+            final Person father = navigator.getFather();
             final PersonRenderer fatherRenderer =
                     (PersonRenderer) personRenderer.createGedRenderer(father);
             final TreeNode<PersonRenderer> fatherTreeNode = buildTree(
@@ -71,7 +74,7 @@ public final class TreeTableRenderer {
         treeNode.setRow(row++);
 
         if (currentDepth < depthLimit) {
-            final Person mother = person.getMother();
+            final Person mother = navigator.getMother();
             final PersonRenderer motherRenderer =
                     (PersonRenderer) personRenderer.createGedRenderer(mother);
             final TreeNode<PersonRenderer> motherTreeNode = buildTree(

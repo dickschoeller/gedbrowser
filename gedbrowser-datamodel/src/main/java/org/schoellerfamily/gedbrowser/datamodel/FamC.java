@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
+
 /**
  * @author Dick Schoeller
  */
@@ -30,37 +32,10 @@ public final class FamC extends AbstractLink {
     }
 
     /**
-     * Get the father of the family that this FamC refers to.
-     *
-     * @return the father
+     * {@inheritDoc}
      */
-    public Person getFather() {
-        final Family toFamily = findFamily();
-        return toFamily.getFather();
-    }
-
-    /**
-     * Get the mother of the family that this FamC refers to.
-     *
-     * @return the mother
-     */
-    public Person getMother() {
-        final Family toFamily = findFamily();
-        return toFamily.getMother();
-    }
-
-    /**
-     * Find the family that this FamC refers to. If not found, return an unset
-     * Family.
-     *
-     * @return the family.
-     */
-    public Family findFamily() {
-        final Family toFamily = (Family) find(getToString());
-        if (toFamily == null) {
-            return new Family();
-        } else {
-            return toFamily;
-        }
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }

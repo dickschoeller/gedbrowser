@@ -1,5 +1,8 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.NameableVisitor;
+
 /**
  * @author Dick Schoeller
  */
@@ -68,7 +71,9 @@ public final class Submittor extends AbstractSource implements Nameable {
      */
     @Override
     public Name getName() {
-        return getNameAttribute();
+        final NameableVisitor visitor = new NameableVisitor();
+        this.accept(visitor);
+        return visitor.getNameAttribute();
     }
 
     /**
@@ -76,7 +81,9 @@ public final class Submittor extends AbstractSource implements Nameable {
      */
     @Override
     public String getSurname() {
-        return getName().getSurname();
+        final NameableVisitor visitor = new NameableVisitor();
+        this.accept(visitor);
+        return visitor.getSurname();
     }
 
     /**
@@ -84,7 +91,16 @@ public final class Submittor extends AbstractSource implements Nameable {
      */
     @Override
     public String getIndexName() {
-        final Name name = getName();
-        return name.getIndexName();
+        final NameableVisitor visitor = new NameableVisitor();
+        this.accept(visitor);
+        return visitor.getIndexName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }

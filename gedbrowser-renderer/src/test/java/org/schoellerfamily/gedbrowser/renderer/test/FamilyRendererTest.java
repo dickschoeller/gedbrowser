@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -18,6 +17,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.FamilyRenderer;
 import org.schoellerfamily.gedbrowser.renderer.FamilySectionRenderer;
@@ -167,7 +167,8 @@ public final class FamilyRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(dick,
                 new GedRendererFactory(), userContext,
                 provider);
-        final Family family = dick.getFamilies(new ArrayList<Family>()).get(0);
+        final PersonNavigator navigator = new PersonNavigator(dick);
+        final Family family = navigator.getFamilies().get(0);
         final FamilyRenderer familyRenderer = createFamilyRenderer(family,
                 userContext);
         final StringBuilder builder = new StringBuilder();
@@ -195,7 +196,8 @@ public final class FamilyRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(dick,
                 new GedRendererFactory(), anonymousContext,
                 provider);
-        final Family family = dick.getFamilies(new ArrayList<Family>()).get(0);
+        final PersonNavigator navigator = new PersonNavigator(dick);
+        final Family family = navigator.getFamilies().get(0);
         final FamilyRenderer familyRenderer = createFamilyRenderer(family,
                 anonymousContext);
         final StringBuilder builder = new StringBuilder();
@@ -220,7 +222,8 @@ public final class FamilyRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(dick,
                 new GedRendererFactory(), userContext,
                 provider);
-        final Family family = dick.getFamilies(new ArrayList<Family>()).get(0);
+        final PersonNavigator navigator = new PersonNavigator(dick);
+        final Family family = navigator.getFamilies().get(0);
         final FamilyRenderer familyRenderer = createFamilyRenderer(family,
                 userContext);
         assertEquals("Rendered html doesn't match expectation",
@@ -241,7 +244,8 @@ public final class FamilyRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(dick,
                 new GedRendererFactory(), anonymousContext,
                 provider);
-        final Family family = dick.getFamilies(new ArrayList<Family>()).get(0);
+        final PersonNavigator navigator = new PersonNavigator(dick);
+        final Family family = navigator.getFamilies().get(0);
         final FamilyRenderer familyRenderer = createFamilyRenderer(family,
                 anonymousContext);
         assertEquals("Rendered text doesn't match expdectation",
@@ -278,8 +282,8 @@ public final class FamilyRendererTest {
         };
         int index = 0;
         final StringBuilder builder = new StringBuilder();
-        final ArrayList<Family> startingList = new ArrayList<Family>();
-        for (final Family family : vivian.getFamilies(startingList)) {
+        final PersonNavigator navigator = new PersonNavigator(vivian);
+        for (final Family family : navigator.getFamilies()) {
             builder.setLength(0);
             final FamilyRenderer familyRenderer = createFamilyRenderer(family,
                     adminContext);

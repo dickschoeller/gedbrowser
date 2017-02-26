@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
+
 /**
  * @author Dick Schoeller
  */
@@ -27,5 +29,13 @@ public final class SourceLink extends AbstractLink {
     public SourceLink(final GedObject parent, final String tag,
             final ObjectId xref) {
         super(parent, tag, xref);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }

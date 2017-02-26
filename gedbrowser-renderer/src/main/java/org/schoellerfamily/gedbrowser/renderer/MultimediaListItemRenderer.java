@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.MultimediaVisitor;
 
 /**
  * @author Dick Schoeller
@@ -59,51 +60,23 @@ public final class MultimediaListItemRenderer implements ListItemRenderer {
         builder.append(GedRenderer.escapeString(multimedia));
         builder.append(":</span> ");
 
-        if (isImage(multimedia)) {
-            builder.append(getFileTitle(multimedia));
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        multimedia.accept(visitor);
+        if (visitor.isImage()) {
+            builder.append(visitor.getTitle());
             builder.append("<br/>\n<a href=\"");
-            builder.append(getFilePath(multimedia));
+            builder.append(visitor.getFilePath());
             builder.append("\"><img height=\"300px\" src=\"");
-            builder.append(getFilePath(multimedia));
+            builder.append(visitor.getFilePath());
             builder.append("\" title=\"");
-            builder.append(getFileTitle(multimedia));
+            builder.append(visitor.getTitle());
             builder.append("\"/></a>");
         } else {
             builder.append("<a href=\"");
-            builder.append(getFilePath(multimedia));
+            builder.append(visitor.getFilePath());
             builder.append("\">");
-            builder.append(getFileTitle(multimedia));
+            builder.append(visitor.getTitle());
             builder.append("</a>");
         }
-    }
-
-    /**
-     * Check if a multimedia item is an image.
-     *
-     * @param multimedia the multimedia object
-     * @return true if this is an image
-     */
-    private boolean isImage(final Multimedia multimedia) {
-        return multimedia.isImage();
-    }
-
-    /**
-     * Get the file path to the multimedia object.
-     *
-     * @param multimedia the multimedia object
-     * @return the path
-     */
-    private String getFilePath(final Multimedia multimedia) {
-        return multimedia.getFilePath();
-    }
-
-    /**
-     * Get the file title of the multimedia object.
-     *
-     * @param multimedia the multimedia object
-     * @return the title
-     */
-    private String getFileTitle(final Multimedia multimedia) {
-        return multimedia.getFileTitle();
     }
 }

@@ -9,6 +9,7 @@ import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
  * @author Dick Schoeller
@@ -36,7 +37,9 @@ public final class AgeEstimator {
      * @return the estimated difference in years
      */
     public int estimateInYears() {
-        final String birthDateString = person.getBirthDate();
+        final GetDateVisitor visitor = new GetDateVisitor("Birth");
+        person.accept(visitor);
+        final String birthDateString = visitor.getDate();
         final LocalDate l0 = provider.nowDate();
         final DateParser parser = new DateParser(birthDateString);
         final LocalDate l1 = new LocalDate(parser.getEstimateCalendar());
@@ -49,7 +52,9 @@ public final class AgeEstimator {
      * @return the estimated difference in years
      */
     public String estimateInYearsMonthsDays() {
-        final String birthDateString = person.getBirthDate();
+        final GetDateVisitor visitor = new GetDateVisitor("Birth");
+        person.accept(visitor);
+        final String birthDateString = visitor.getDate();
         final LocalDate l0 = provider.nowDate();
         final DateParser parser = new DateParser(birthDateString);
         final Calendar estimateCalendar = parser.getEstimateCalendar();

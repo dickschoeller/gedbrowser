@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,10 +14,9 @@ import org.geojson.Point;
 import org.geojson.Polygon;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
-import org.schoellerfamily.gedbrowser.datamodel.Family;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.Place;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.PlaceVisitor;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
@@ -67,47 +64,10 @@ public final class PlaceListRenderer {
         if (isHiddenConfidential() || isHiddenLiving()) {
             return Collections.<PlaceInfo>emptyList();
         }
-        final Collection<String> places = collectPlaceNames();
-        places.addAll(collectFamilyPlaceNames());
+        final PlaceVisitor visitor = new PlaceVisitor();
+        person.accept(visitor);
+        final Collection<String> places = visitor.getPlaceStrings();
         return geoCodePlaces(places);
-    }
-
-    /**
-     * @return the collection of place names associated with this person
-     */
-    private Collection<String> collectPlaceNames() {
-        final Set<String> places = new TreeSet<>();
-        // FIXME Feature envy - GedObjects should be able to tell you place.
-        for (final GedObject gob : person.getAttributes()) {
-            for (final GedObject subgob : gob.getAttributes()) {
-                if (subgob instanceof Place) {
-                    final Place place = (Place) subgob;
-                    final String placeName = place.getString();
-                    places.add(placeName);
-                }
-            }
-        }
-        return places;
-    }
-
-    /**
-     * @return the collection of places associated with this person's families
-     */
-    private Collection<String> collectFamilyPlaceNames() {
-        final Set<String> places = new TreeSet<>();
-        final List<Family> families = new ArrayList<>();
-        for (final Family family : person.getFamilies(families)) {
-            for (final GedObject gob : family.getAttributes()) {
-                for (final GedObject subgob : gob.getAttributes()) {
-                    if (subgob instanceof Place) {
-                        final Place place = (Place) subgob;
-                        final String placeName = place.getString();
-                        places.add(placeName);
-                    }
-                }
-            }
-        }
-        return places;
     }
 
     /**
@@ -174,6 +134,8 @@ public final class PlaceListRenderer {
         if (renderingContext.isAdmin()) {
             return false;
         }
-        return person.isConfidential();
+        final PersonVisitor visitor = new PersonVisitor();
+        person.accept(visitor);
+        return visitor.isConfidential();
     }
 }

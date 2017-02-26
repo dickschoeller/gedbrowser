@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,7 +14,10 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 
 /**
  * @author Dick Schoeller
@@ -37,8 +39,6 @@ public final class PersonTest {
     private transient Person person4;
     /** */
     private transient Person person5;
-    /** */
-    private transient Family family6;
     /** */
     private transient Person person6;
     /** */
@@ -64,7 +64,7 @@ public final class PersonTest {
         builder.createPersonEvent(person5, "Birth", "1 JAN 1900");
         builder.createPersonEvent(person5, "Death", "1 JAN 1950");
 
-        family6 = builder.createFamily("F6");
+        final Family family6 = builder.createFamily("F6");
         builder.addChildToFamily(family6, person3);
 
         person6 = builder.createPerson("I6");
@@ -180,142 +180,104 @@ public final class PersonTest {
     /** */
     @Test
     public void testDickGetBirthDate() {
-        assertEquals("Expected empty birth date", "", person1.getBirthDate());
+        assertEquals("Expected empty birth date", "", getBirthDate(person1));
     }
 
     /** */
     @Test
     public void testUnknownGetBirthDate() {
-        assertEquals("Expected empty birth date", "", person4.getBirthDate());
+        assertEquals("Expected empty birth date", "", getBirthDate(person4));
     }
 
     /** */
     @Test
     public void testWhosisGetBirthDate() {
         assertEquals("Birth date mismatch",
-                "1 JAN 1900", person5.getBirthDate());
+                "1 JAN 1900", getBirthDate(person5));
     }
 
     /** */
     @Test
     public void testDickGetBirthYear() {
-        assertEquals("Expected empty birth year", "", person1.getBirthDate());
+        assertEquals("Expected empty birth year", "", getBirthDate(person1));
     }
 
     /** */
     @Test
     public void testGetUnknownBirthYear() {
-        assertEquals("Expected empty birth year", "", person4.getBirthDate());
+        assertEquals("Expected empty birth year", "", getBirthDate(person4));
     }
 
     /** */
     @Test
     public void testWhosisGetBirthYear() {
-        assertEquals("Birth year mismatch", "1900", person5.getBirthYear());
+        assertEquals("Birth year mismatch", "1900", getBirthYear(person5));
     }
 
     /** */
     @Test
     public void testDickGetSortDate() {
-        assertEquals("Expected empty sort date", "", person1.getBirthDate());
+        assertEquals("Expected empty sort date", "", getBirthDate(person1));
     }
 
     /** */
     @Test
     public void testUnknownGetSortDate() {
-        assertEquals("Expected empty sort date", "", person4.getBirthDate());
+        assertEquals("Expected empty sort date", "", getBirthDate(person4));
     }
 
     /** */
     @Test
     public void testWhosisGetSortDate() {
-        assertEquals("Sort date mismatch", "19000101", person5.getSortDate());
+        final GetDateVisitor visitor = new GetDateVisitor("Birth");
+        person5.accept(visitor);
+        assertEquals("Sort date mismatch", "19000101", visitor.getSortDate());
     }
 
     /** */
     @Test
     public void testDickGetDeathDate() {
-        assertEquals("Expected emtpy death date", "", person1.getDeathDate());
+        assertEquals("Expected emtpy death date", "", getDeathDate(person1));
     }
 
     /** */
     @Test
     public void testUnknownGetDeathDate() {
-        assertEquals("Expected emtpy death date", "", person4.getDeathDate());
+        assertEquals("Expected emtpy death date", "", getDeathDate(person4));
     }
 
     /** */
     @Test
     public void testWhosisGetDeathDate() {
         assertEquals("Death date mismatch", "1 JAN 1950",
-                person5.getDeathDate());
+                getDeathDate(person5));
     }
 
     /** */
     @Test
     public void testDickGetDeathYear() {
-        assertEquals("Expected empty death year", "", person1.getDeathYear());
+        assertEquals("Expected empty death year", "", getDeathYear(person1));
     }
 
     /** */
     @Test
     public void testUnknownGetDeathYear() {
-        assertEquals("Expected empty death year", "", person4.getDeathYear());
+        assertEquals("Expected empty death year", "", getDeathYear(person4));
     }
 
     /** */
     @Test
     public void testWhosisGetDeathYear() {
-        assertEquals("Death year mismatch", "1950", person5.getDeathYear());
+        assertEquals("Death year mismatch", "1950", getDeathYear(person5));
     }
-
-    /** */
-    @Test
-    public void testGetFather() {
-        assertEquals("Expected to find father", person6, person3.getFather());
-    }
-
-    /** */
-    @Test
-    public void testGetMother() {
-        assertEquals("Expected to find mother", person7, person3.getMother());
-    }
-
-    /** */
-    @Test
-    public void testGetFatherUnset() {
-        assertFalse("Expected not to find father", person6.getFather().isSet());
-    }
-
-    /** */
-    @Test
-    public void testGetMotherUnset() {
-        assertFalse("Expected not to find mother", person6.getMother().isSet());
-    }
-
-    /** */
-    @Test
-    public void testGetHusbandsFamily() {
-        final List<Family> list6 = person6.getFamilies(new ArrayList<Family>());
-        assertTrue(
-                "Should have found husband's family", list6.contains(family6));
-    }
-
-    /** */
-    @Test
-    public void testGetWifesFamily() {
-        final List<Family> list7 = person7.getFamilies(new ArrayList<Family>());
-        assertTrue("Should have found wife's family", list7.contains(family6));
-    }
-
     /** */
     @Test
     public void testGetSpousesFailsWithoutPersonStrings() {
         // Make these persons malformed.
         person6.setString("");
         person7.setString("");
-        final List<Person> list6 = person6.getSpouses(new ArrayList<Person>(),
-                person6);
+        final PersonNavigator navigator = new PersonNavigator(person7);
+        final List<Person> list6 = navigator.getSpouses();
         assertEquals("Screwing with ID strings should have hidden these",
                 0, list6.size());
     }
@@ -323,22 +285,24 @@ public final class PersonTest {
     /** */
     @Test
     public void testGetSpouses() {
-        final List<Person> list6 = person6.getSpouses(new ArrayList<Person>(),
-                person6);
+        final PersonNavigator navigator = new PersonNavigator(person6);
+        final List<Person> list6 = navigator.getSpouses();
         assertTrue("Should have found spouse", list6.contains(person7));
     }
 
     /** */
     @Test
     public void testGetFathersChildren() {
-        final List<Person> list6 = person6.getChildren();
+        final PersonNavigator navigator = new PersonNavigator(person6);
+        final List<Person> list6 = navigator.getChildren();
         assertTrue("Expected to find person3", list6.contains(person3));
     }
 
     /** */
     @Test
     public void testGetMothersChildren() {
-        final List<Person> list7 = person7.getChildren();
+        final PersonNavigator navigator = new PersonNavigator(person7);
+        final List<Person> list7 = navigator.getChildren();
         assertTrue("Expected to find person3", list7.contains(person3));
     }
 
@@ -353,15 +317,15 @@ public final class PersonTest {
     /** */
     @Test
     public void testPersonGedObjectMissingIDNoFather() {
-        final Person person = new Person();
-        assertFalse("Expected no father", person.getFather().isSet());
+        final PersonNavigator navigator = new PersonNavigator(new Person());
+        assertFalse("Expected no father", navigator.getFather().isSet());
     }
 
     /** */
     @Test
     public void testPersonGedObjectMissingIDNoMother() {
-        final Person person = new Person();
-        assertFalse("Expected no mother", person.getMother().isSet());
+        final PersonNavigator navigator = new PersonNavigator(new Person());
+        assertFalse("Expected no mother", navigator.getMother().isSet());
     }
 
     /** */
@@ -463,69 +427,119 @@ public final class PersonTest {
     /** */
     @Test
     public void testIsConfidential() {
-        assertTrue("Should be confidential", person1.isConfidential());
+        final PersonVisitor visitor = new PersonVisitor();
+        person1.accept(visitor);
+        assertTrue("Should be confidential", visitor.isConfidential());
     }
 
     /** */
     @Test
     public void testIsNotConfidential() {
-        assertFalse("Should not be confidential", person2.isConfidential());
+        final PersonVisitor visitor = new PersonVisitor();
+        person2.accept(visitor);
+        assertFalse("Should not be confidential", visitor.isConfidential());
     }
 
     /** */
     @Test
     public void testHasNotDeathAttribute() {
+        final PersonVisitor visitor = new PersonVisitor();
+        person2.accept(visitor);
         assertFalse("Should not have death attribute",
-                person2.hasDeathAttribute());
+                visitor.hasDeathAttribute());
     }
 
     /** */
     @Test
     public void testEmptyDeathYear() {
         assertTrue("Should not have death year",
-                person2.getDeathYear().isEmpty());
+                getDeathYear(person2).isEmpty());
     }
 
     /** */
     @Test
     public void testEmptyDeathDate() {
         assertTrue("Should not have death date",
-                person2.getDeathDate().isEmpty());
+                getDeathDate(person2).isEmpty());
     }
 
     /** */
     @Test
     public void testEmptyBirthDate() {
         assertTrue("Should not have birth date",
-                person2.getBirthDate().isEmpty());
+                getBirthDate(person2).isEmpty());
     }
 
     /** */
     @Test
     public void testEmptySortDate() {
+        final GetDateVisitor visitor = new GetDateVisitor("Birth");
+        person2.accept(visitor);
         assertTrue("Should not have sort date",
-                person2.getSortDate().isEmpty());
+                visitor.getSortDate().isEmpty());
     }
 
     /** */
     @Test
     public void testHasDeathAttribute() {
-        assertTrue("Should have death attribute", person4.hasDeathAttribute());
+        final PersonVisitor visitor = new PersonVisitor();
+        person4.accept(visitor);
+        assertTrue("Should have death attribute", visitor.hasDeathAttribute());
     }
 
     /** */
     @Test
     public void testGetFamiliesCWith() {
-        final List<Family> families = new ArrayList<>();
+        final PersonNavigator navigator = new PersonNavigator(person3);
         assertFalse("Should have a FAMC",
-                person3.getFamiliesC(families).isEmpty());
+                navigator.getFamiliesC().isEmpty());
     }
 
     /** */
     @Test
     public void testGetFamiliesCWithout() {
-        final List<Family> families = new ArrayList<>();
+        final PersonNavigator navigator = new PersonNavigator(person1);
         assertTrue("Should not have a FAMC",
-                person1.getFamiliesC(families).isEmpty());
+                navigator.getFamiliesC().isEmpty());
+    }
+
+    /**
+     * @param person the person we're checking
+     * @return the date string
+     */
+    private String getBirthDate(final Person person) {
+        final GetDateVisitor birthVisitor = new GetDateVisitor("Birth");
+        person.accept(birthVisitor);
+        return birthVisitor.getDate();
+    }
+
+    /**
+     * @param person the person we're checking
+     * @return the year string
+     */
+    private String getBirthYear(final Person person) {
+        final GetDateVisitor birthVisitor = new GetDateVisitor("Birth");
+        person.accept(birthVisitor);
+        return birthVisitor.getYear();
+    }
+
+    /**
+     * @param person the person we're checking
+     * @return the date string
+     */
+    private String getDeathDate(final Person person) {
+        final GetDateVisitor birthVisitor = new GetDateVisitor("Death");
+        person.accept(birthVisitor);
+        return birthVisitor.getDate();
+    }
+
+    /**
+     * @param person the person we're checking
+     * @return the year string
+     */
+    private String getDeathYear(final Person person) {
+        final GetDateVisitor birthVisitor = new GetDateVisitor("Death");
+        person.accept(birthVisitor);
+        return birthVisitor.getYear();
     }
 }

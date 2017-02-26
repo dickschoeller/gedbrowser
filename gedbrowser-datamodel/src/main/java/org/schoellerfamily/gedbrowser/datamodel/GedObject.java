@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
+
 /**
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyMethods",
     "PMD.GodClass" })
-public class GedObject {
+public abstract class GedObject {
 
     /** */
     protected static final String DEFAULT_IDX_NAME = "";
@@ -212,23 +214,6 @@ public class GedObject {
     }
 
     /**
-     * @return name object found among the attributes or null if not found
-     */
-    protected final Name getNameAttribute() {
-        for (final GedObject gob : attributes) {
-            if (!(gob instanceof Nameable)) {
-                continue;
-            }
-            final Nameable nameable = (Nameable) gob;
-            final Name temp = nameable.getName();
-            if (temp != null) {
-                return temp;
-            }
-        }
-        return new Name(this);
-    }
-
-    /**
      * @param str the ID string of the object being sought
      * @return the object found from the searching the top level object list
      */
@@ -312,34 +297,6 @@ public class GedObject {
 //    }
 
     /**
-     * Find a Wife object among the contained objects.
-     *
-     * @return the wife.
-     */
-    public final Wife findWife() {
-        for (final GedObject gob : getAttributes()) {
-            if (gob instanceof Wife) {
-                return (Wife) gob;
-            }
-        }
-        return new Wife();
-    }
-
-    /**
-     * Find a Husband object among the contained objects.
-     *
-     * @return the husband.
-     */
-    public final Husband findHusband() {
-        for (final GedObject gob : getAttributes()) {
-            if (gob instanceof Husband) {
-                return (Husband) gob;
-            }
-        }
-        return new Husband();
-    }
-
-    /**
      * @param str the ID string of the object being sought
      * @return the object found from the searching the top level object list
      */
@@ -375,6 +332,7 @@ public class GedObject {
     /**
      * @param gob object to insert
      */
+    @SuppressWarnings("PMD.EmptyMethodInAbstractClassShouldBeAbstract")
     public void extraInsert(final GedObject gob) {
         // The default implementation is empty. Some derived
         // classes implement this.
@@ -452,22 +410,10 @@ public class GedObject {
     }
 
     /**
-     * A GED object is confidential if it has an immediate child attribute
-     * that restricts access to confidential. This allows restriction of
-     * specific facts rather than just whole persons or families.
+     * Hook for using the visitor design pattern to accumulate information
+     * about a GedObject and its children.
      *
-     * @return true if this record is confidential.
+     * @param visitor the visitor
      */
-    public final boolean isConfidential() {
-        for (final GedObject gob : getAttributes()) {
-            if (gob instanceof Attribute) {
-                final Attribute attr = (Attribute) gob;
-                if (attr.getString().equals("Restriction")
-                        && attr.getTail().equals("confidential")) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+    public abstract void accept(GedObjectVisitor visitor);
 }

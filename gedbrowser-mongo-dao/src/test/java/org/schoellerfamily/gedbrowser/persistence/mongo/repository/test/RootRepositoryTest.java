@@ -14,11 +14,14 @@ import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
+import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
+import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 import org.schoellerfamily.gedbrowser.persistence.domain.FamilyDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
@@ -133,14 +136,28 @@ public final class RootRepositoryTest {
 
     /** */
     @Test
-    public void testFamily() {
+    public void testFamilyHusband() {
         final String filename = root.getFilename();
         final FamilyDocument famdoc = familyDocumentRepository.
                 findByFileAndString(filename, "F1");
         final Family family = (Family) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, famdoc);
-        assertEquals("ID mismatch",
-                "I2", family.findHusband().getToString());
+        final FamilyNavigator navigator = new FamilyNavigator(family);
+        final Husband h = navigator.getHusband();
+        assertEquals("ID mismatch", "I2", h.getToString());
+    }
+
+    /** */
+    @Test
+    public void testFamilyWife() {
+        final String filename = root.getFilename();
+        final FamilyDocument famdoc = familyDocumentRepository.
+                findByFileAndString(filename, "F1");
+        final Family family = (Family) GedDocumentMongoFactory.getInstance().
+                createGedObject(root, famdoc);
+        final FamilyNavigator navigator = new FamilyNavigator(family);
+        final Wife w = navigator.getWife();
+        assertEquals("ID mismatch", "I3", w.getToString());
     }
 
     /** */

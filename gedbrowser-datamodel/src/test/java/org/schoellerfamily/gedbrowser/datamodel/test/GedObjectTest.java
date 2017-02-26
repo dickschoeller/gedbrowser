@@ -19,6 +19,7 @@ import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.ParentFinder;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
  * @author Dick Schoeller
@@ -60,6 +61,14 @@ public final class GedObjectTest {
          */
         GedObjectWrapper(final GedObject parent, final String string) {
             super(parent, string);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void accept(final GedObjectVisitor visitor) {
+            visitor.visit(this);
         }
     }
 

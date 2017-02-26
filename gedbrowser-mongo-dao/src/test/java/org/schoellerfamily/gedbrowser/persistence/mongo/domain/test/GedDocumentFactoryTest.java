@@ -27,6 +27,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.persistence.PersistenceException;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.AttributeDocumentMongo;
@@ -305,8 +306,7 @@ public final class GedDocumentFactoryTest {
     /** */
     @Test
     public void testUnexpectedCreateDocument() {
-        final GedObject ged = new GedObject() {
-        };
+        final GedObject ged = createGedObject();
         GedDocument<?> gmd = null;
         try {
             gmd = GedDocumentMongoFactory.getInstance().
@@ -315,6 +315,21 @@ public final class GedDocumentFactoryTest {
         } catch (PersistenceException e) {
             assertNull("Should be null", gmd); // Expected
         }
+    }
+
+    /**
+     * @return an anonymous subclass of GedObject for testing
+     */
+    private GedObject createGedObject() {
+        return new GedObject() {
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void accept(final GedObjectVisitor visitor) {
+                visitor.visit(this);
+            }
+        };
     }
 
     /**

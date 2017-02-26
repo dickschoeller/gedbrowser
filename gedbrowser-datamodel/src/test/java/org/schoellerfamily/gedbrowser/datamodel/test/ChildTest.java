@@ -15,6 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
@@ -47,14 +48,16 @@ public final class ChildTest {
     /** */
     @Test
     public void testGetChildrenSize() {
-        final List<Person> list = family1.getChildren();
+        final FamilyNavigator navigator = new FamilyNavigator(family1);
+        final List<Person> list = navigator.getChildren();
         assertEquals("Expected only 1 person", 1, list.size());
     }
 
     /** */
     @Test
     public void testGetChildrenContains() {
-        final List<Person> list = family1.getChildren();
+        final FamilyNavigator navigator = new FamilyNavigator(family1);
+        final List<Person> list = navigator.getChildren();
         assertTrue("Contents mismatch", list.contains(person3));
     }
 
@@ -79,27 +82,30 @@ public final class ChildTest {
     /** */
     @Test
     public void testGetFatherNullParentUnset() {
+        final FamilyNavigator navigator = new FamilyNavigator(new Child(null));
         assertFalse("Expected null object",
-                new Child(null).getFather().isSet());
+                navigator.getFather().isSet());
     }
 
     /** */
     @Test
     public void testGetFatherUnspecifiedParentUnset() {
-        assertFalse("Expected null object", new Child().getFather().isSet());
+        final FamilyNavigator navigator = new FamilyNavigator(new Child());
+        assertFalse("Expected null object", navigator.getFather().isSet());
     }
 
     /** */
     @Test
     public void testGetMotherNullParentUnset() {
-        assertFalse("Expected null object",
-                new Child(null).getMother().isSet());
+        final FamilyNavigator navigator = new FamilyNavigator(new Child(null));
+        assertFalse("Expected null object", navigator.getMother().isSet());
     }
 
     /** */
     @Test
     public void testGetMotherUnsetParentUnset() {
-        assertFalse("Expected null object", new Child().getMother().isSet());
+        final FamilyNavigator navigator = new FamilyNavigator(new Child());
+        assertFalse("Expected null object", navigator.getMother().isSet());
     }
 
     /** */
@@ -181,7 +187,8 @@ public final class ChildTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily1();
         final Child child = new Child(family, "Child", new ObjectId("I3"));
-        assertFalse("Expected null object", child.getFather().isSet());
+        final FamilyNavigator navigator = new FamilyNavigator(child);
+        assertFalse("Expected null object", navigator.getFather().isSet());
     }
 
     /** */
@@ -190,7 +197,8 @@ public final class ChildTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily1();
         final Child child = new Child(family, "Child", new ObjectId("I3"));
-        assertFalse("Expected null object", child.getMother().isSet());
+        final FamilyNavigator navigator = new FamilyNavigator(child);
+        assertFalse("Expected null object", navigator.getMother().isSet());
     }
 
     /** */

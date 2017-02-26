@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
  * @author Dick Schoeller
@@ -207,7 +208,10 @@ public final class GedObjectBuilderFamilyTest {
         final Family family = builder.createFamily1();
         final Attribute event =
                 builder.createFamilyEvent(family, "Marriage");
-        assertTrue("Should create empty event date", event.getDate().isEmpty());
+        final GetDateVisitor visitor = new GetDateVisitor();
+        event.accept(visitor);
+        assertTrue("Should create empty event date",
+                visitor.getDate().isEmpty());
     }
 
     /** */
@@ -217,8 +221,10 @@ public final class GedObjectBuilderFamilyTest {
         final Family family = builder.createFamily1();
         final Attribute event =
                 builder.createFamilyEvent(family, "Marriage", "HUH?");
+        final GetDateVisitor visitor = new GetDateVisitor();
+        event.accept(visitor);
         assertEquals("Should create event with this date string",
-                "HUH?", event.getDate());
+                "HUH?", visitor.getDate());
     }
 
     /** */

@@ -10,6 +10,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 
 /**
  * Render a Person.
@@ -28,6 +31,9 @@ public final class PersonRenderer extends GedRenderer<Person> {
      */
     private final LivingEstimator le;
 
+    /** */
+    private final PersonNavigator navigator;
+
     /**
      * @param gedObject the Person that we are going to render
      * @param rendererFactory the factory that creates the renderers for the
@@ -44,6 +50,7 @@ public final class PersonRenderer extends GedRenderer<Person> {
         setNameIndexRenderer(new PersonNameIndexRenderer(this));
         setAttributeListOpenRenderer(new PersonAttributeListOpenRenderer());
         le = new LivingEstimator(gedObject, provider);
+        navigator = new PersonNavigator(gedObject);
     }
 
     /**
@@ -136,8 +143,12 @@ public final class PersonRenderer extends GedRenderer<Person> {
         }
 
         // Get some of used strings.
-        final String birthDate = getGedObject().getBirthDate();
-        final String deathDate = getGedObject().getDeathDate();
+        final GetDateVisitor birthVisitor = new GetDateVisitor("Birth");
+        getGedObject().accept(birthVisitor);
+        final String birthDate = birthVisitor.getDate();
+        final GetDateVisitor deathVisitor = new GetDateVisitor("Death");
+        getGedObject().accept(deathVisitor);
+        final String deathDate = deathVisitor.getDate();
         return "(" + birthDate + "-" + deathDate + ")";
     }
 
@@ -181,7 +192,7 @@ public final class PersonRenderer extends GedRenderer<Person> {
      */
     public String getFatherRendition() {
         final StringBuilder builder = new StringBuilder();
-        final Person father = getGedObject().getFather();
+        final Person father = navigator.getFather();
         if (father != null) {
             renderParent(builder, 0, createGedRenderer(father).getNameHtml(),
                     "Father");
@@ -194,7 +205,7 @@ public final class PersonRenderer extends GedRenderer<Person> {
      */
     public String getMotherRendition() {
         final StringBuilder builder = new StringBuilder();
-        final Person mother = getGedObject().getMother();
+        final Person mother = navigator.getMother();
         if (mother != null) {
             renderParent(builder, 0, createGedRenderer(mother).getNameHtml(),
                     "Mother");
@@ -212,7 +223,7 @@ public final class PersonRenderer extends GedRenderer<Person> {
         if (isHiddenLiving()) {
             return "";
         }
-        return createGedRenderer(getGedObject().getFather()).getNameHtml();
+        return createGedRenderer(navigator.getFather()).getNameHtml();
     }
 
     /**
@@ -225,7 +236,7 @@ public final class PersonRenderer extends GedRenderer<Person> {
         if (isHiddenLiving()) {
             return "";
         }
-        return createGedRenderer(getGedObject().getMother()).getNameHtml();
+        return createGedRenderer(navigator.getMother()).getNameHtml();
     }
 
     /**
@@ -236,8 +247,7 @@ public final class PersonRenderer extends GedRenderer<Person> {
             return Collections.emptyList();
         }
 
-        final List<Family> families = getGedObject().getFamilies(
-                new ArrayList<Family>());
+        final List<Family> families = navigator.getFamilies();
         final List<FamilyRenderer> rendererList =
                 new ArrayList<FamilyRenderer>(families.size());
 
@@ -310,7 +320,9 @@ public final class PersonRenderer extends GedRenderer<Person> {
         if (getRenderingContext().isAdmin()) {
             return false;
         }
-        return getGedObject().isConfidential();
+        final PersonVisitor visitor = new PersonVisitor();
+        getGedObject().accept(visitor);
+        return visitor.isConfidential();
     }
 
     /**

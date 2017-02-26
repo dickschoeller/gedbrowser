@@ -9,6 +9,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
  * @author Dick Schoeller
@@ -52,7 +53,9 @@ public final class AttributeTest {
         final Attribute dummy = new Attribute(person1, DUMMY);
         final Date dummyDate = new Date(dummy, POTTER_DAY);
         dummy.insert(dummyDate);
-        assertEquals("Expected empty string", "", dummy.getBirthDate());
+        final GetDateVisitor visitor = new GetDateVisitor("Birth");
+        dummy.accept(visitor);
+        assertEquals("Expected empty string", "", visitor.getDate());
     }
 
     /** */
@@ -63,7 +66,9 @@ public final class AttributeTest {
         dummy.insert(dummyDate);
         final Attribute birth = new Attribute(person1, "Birth");
         new Date(birth, POTTER_DAY);
-        assertEquals("Expected empty string", "", birth.getBirthDate());
+        final GetDateVisitor visitor = new GetDateVisitor("Birth");
+        birth.accept(visitor);
+        assertEquals("Expected empty string", "", visitor.getDate());
     }
 
     /** */
@@ -75,8 +80,10 @@ public final class AttributeTest {
         final Attribute birth = new Attribute(person1, "Birth");
         final Date date = new Date(birth, POTTER_DAY);
         birth.insert(date);
+        final GetDateVisitor visitor = new GetDateVisitor("Birth");
+        birth.accept(visitor);
         assertEquals("Date's filled in. Should match", POTTER_DAY,
-                birth.getBirthDate());
+                visitor.getDate());
     }
 
     /** */
@@ -85,7 +92,9 @@ public final class AttributeTest {
         final Attribute dummy = new Attribute(person1, DUMMY);
         final Date dummyDate = new Date(dummy, POTTER_DAY);
         dummy.insert(dummyDate);
-        assertEquals("Expected empty string", "", dummy.getDeathDate());
+        final GetDateVisitor visitor = new GetDateVisitor("Death");
+        dummy.accept(visitor);
+        assertEquals("Expected empty string", "", visitor.getDate());
     }
 
     /** */
@@ -95,7 +104,9 @@ public final class AttributeTest {
         final Date dummyDate = new Date(dummy, POTTER_DAY);
         dummy.insert(dummyDate);
         final Attribute death = new Attribute(person1, "Death");
-        assertEquals("Expected empty string", "", death.getDeathDate());
+        final GetDateVisitor visitor = new GetDateVisitor("Death");
+        death.accept(visitor);
+        assertEquals("Expected empty string", "", visitor.getDate());
     }
 
     /** */
@@ -107,8 +118,10 @@ public final class AttributeTest {
         final Attribute death = new Attribute(person1, "Death");
         final Date date = new Date(death, HUNDRED_DAY);
         death.insert(date);
-        assertEquals("Date's filled in. Should match",
-                HUNDRED_DAY, death.getDeathDate());
+        final GetDateVisitor visitor = new GetDateVisitor("Death");
+        death.accept(visitor);
+        assertEquals("Date's filled in. Should match", HUNDRED_DAY,
+                visitor.getDate());
     }
 
     /** */
@@ -120,7 +133,9 @@ public final class AttributeTest {
         // children of an attribute.
         dummy.insert(new Person());
         dummy.insert(dummyDate);
-        assertEquals("Date mismatch", POTTER_DAY, dummy.getDate());
+        final GetDateVisitor visitor = new GetDateVisitor();
+        dummy.accept(visitor);
+        assertEquals("Date mismatch", POTTER_DAY, visitor.getDate());
     }
 
     /** */
@@ -129,14 +144,18 @@ public final class AttributeTest {
         final Attribute dummy1 = new Attribute(person1, DUMMY);
         final Date dummyDate1 = new Date(dummy1, null);
         dummy1.insert(dummyDate1);
-        assertEquals("Expected empty date string", "", dummy1.getDate());
+        final GetDateVisitor visitor = new GetDateVisitor();
+        dummy1.accept(visitor);
+        assertEquals("Expected empty date string", "", visitor.getDate());
     }
 
     /** */
     @Test
     public void testGetDeathDateNoDateString() {
         final Attribute death = new Attribute(person1, "Death");
-        assertEquals("Expected empty date string", "", death.getDate());
+        final GetDateVisitor visitor = new GetDateVisitor();
+        death.accept(visitor);
+        assertEquals("Expected empty date string", "", visitor.getDate());
     }
 
     /** */

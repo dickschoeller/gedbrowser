@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.DefaultRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
@@ -52,10 +53,7 @@ public final class GedRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(
-                new GedObject(null) {
-                }, new GedRendererFactory(), anonymousContext, provider) {
-        };
+        final GedRenderer<GedObject> renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -67,10 +65,7 @@ public final class GedRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(
-                new GedObject(null) {
-                }, new GedRendererFactory(), anonymousContext, provider) {
-        };
+        final GedRenderer<GedObject> renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
@@ -82,10 +77,7 @@ public final class GedRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(
-                new GedObject(null) {
-                }, new GedRendererFactory(), anonymousContext, provider) {
-        };
+        final GedRenderer<GedObject> renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -97,10 +89,7 @@ public final class GedRendererTest {
      */
     @Test
     public void testNameIndexRenderer() {
-        final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(
-                new GedObject(null) {
-                }, new GedRendererFactory(), anonymousContext, provider) {
-        };
+        final GedRenderer<GedObject> renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -112,10 +101,7 @@ public final class GedRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(
-                new GedObject(null) {
-                }, new GedRendererFactory(), anonymousContext, provider) {
-        };
+        final GedRenderer<GedObject> renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
@@ -127,13 +113,19 @@ public final class GedRendererTest {
      */
     @Test
     public void testSectionRenderer() {
-        final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(
-                new GedObject(null) {
-                }, new GedRendererFactory(), anonymousContext, provider) {
-        };
+        final GedRenderer<GedObject> renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getSectionRenderer()
                 instanceof NullSectionRenderer);
+    }
+
+    /**
+     * @return the renderer for testing
+     */
+    private GedRenderer<GedObject> createRenderer() {
+        return new GedRenderer<GedObject>(createGedObject(),
+                new GedRendererFactory(), anonymousContext, provider) {
+        };
     }
 
     /** */
@@ -385,14 +377,24 @@ public final class GedRendererTest {
      */
     @Test
     public void testGetHomeUrl() {
-        final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(
-                new GedObject(null) {
-                },
-                new GedRendererFactory(),
-                anonymousContext, provider) {
-        };
+        final GedRenderer<GedObject> renderer = createRenderer();
         assertEquals("Home URL does not match expectation",
                 homeUrl, renderer.getHomeUrl());
+    }
+
+    /**
+     * @return an anonymous subclass of GedObject for testing
+     */
+    private GedObject createGedObject() {
+        return new GedObject() {
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void accept(final GedObjectVisitor visitor) {
+                visitor.visit(this);
+            }
+        };
     }
 
     /**

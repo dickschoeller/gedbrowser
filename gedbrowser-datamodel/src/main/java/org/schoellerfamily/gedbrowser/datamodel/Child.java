@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
+
 /**
  * @author Dick Schoeller
  */
@@ -12,30 +14,24 @@ public final class Child extends AbstractLink implements FamilyLinkage {
     }
 
     /**
-     * @param parent
-     *            parent object of this child
+     * @param parent parent object of this child
      */
     public Child(final GedObject parent) {
         super(parent);
     }
 
     /**
-     * @param parent
-     *            parent object of this child
-     * @param string
-     *            long version of type string
+     * @param parent parent object of this child
+     * @param string long version of type string
      */
     public Child(final GedObject parent, final String string) {
         super(parent, string);
     }
 
     /**
-     * @param parent
-     *            parent object of this child
-     * @param string
-     *            long version of type string
-     * @param xref
-     *            the reference to a person object
+     * @param parent parent object of this child
+     * @param string long version of type string
+     * @param xref the reference to a person object
      */
     public Child(final GedObject parent, final String string,
             final ObjectId xref) {
@@ -47,7 +43,7 @@ public final class Child extends AbstractLink implements FamilyLinkage {
      * Get the person that this object points to. If not found, return an unset
      * Person object.
      *
-     * @return the chile
+     * @return the child
      */
     public Person getChild() {
         final Person toPerson = (Person) find(getToString());
@@ -58,36 +54,10 @@ public final class Child extends AbstractLink implements FamilyLinkage {
     }
 
     /**
-     * Get the father from the family that this object comes from. If not found,
-     * return an unset Person object.
-     *
-     * @return the father
+     * {@inheritDoc}
      */
-    public Person getFather() {
-        if (!isSet()) {
-            return new Person();
-        }
-        final Family family = (Family) find(getFromString());
-        if (family == null) {
-            return new Person();
-        }
-        return family.getFather();
-    }
-
-    /**
-     * Get the mother from the family that this object comes from. If not found,
-     * return an unset Person object.
-     *
-     * @return the mother
-     */
-    public Person getMother() {
-        if (!isSet()) {
-            return new Person();
-        }
-        final Family family = (Family) find(getFromString());
-        if (family == null) {
-            return new Person();
-        }
-        return family.getMother();
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }

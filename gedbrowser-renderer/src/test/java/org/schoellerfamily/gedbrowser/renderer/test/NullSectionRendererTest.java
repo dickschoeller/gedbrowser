@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.DefaultRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
@@ -33,11 +34,24 @@ public final class NullSectionRendererTest {
         provider = new CalendarProviderStub();
         final ApplicationInfo appInfo = new ApplicationInfoStub();
         anonymousContext = RenderingContext.anonymous(appInfo);
-        final DefaultRenderer renderer = new DefaultRenderer(
-                new GedObject(null) {
-                }, new GedRendererFactory(), anonymousContext,
-                provider);
+        final DefaultRenderer renderer = new DefaultRenderer(createGedObject(),
+                new GedRendererFactory(), anonymousContext, provider);
         nsr = (NullSectionRenderer) renderer.getSectionRenderer();
+    }
+
+    /**
+     * @return an anonymous subclass of GedObject for testing
+     */
+    private GedObject createGedObject() {
+        return new GedObject() {
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void accept(final GedObjectVisitor visitor) {
+                visitor.visit(this);
+            }
+        };
     }
 
     /** */

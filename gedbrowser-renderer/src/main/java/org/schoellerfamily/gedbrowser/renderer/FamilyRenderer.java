@@ -7,6 +7,8 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.TypeFinderVisitor;
 
 /**
  * Render an Family.
@@ -40,7 +42,7 @@ public final class FamilyRenderer extends GedRenderer<Family> {
             final PersonRenderer personRenderer) {
         final Family family = getGedObject();
         final Person person = personRenderer.getGedObject();
-        final Person spouse = family.getSpouse(person);
+        final Person spouse = (new FamilyNavigator(family)).getSpouse(person);
         return (PersonRenderer) createGedRenderer(spouse);
     }
 
@@ -75,32 +77,12 @@ public final class FamilyRenderer extends GedRenderer<Family> {
             final GedRenderer<?> pageRenderer, final int sectionNumber) {
         final Family family = getGedObject();
         final GedObject gedObject = pageRenderer.getGedObject();
-        if (gedObject instanceof Person) {
-            final Person person = (Person) gedObject;
-            final GedObject spouse = family.getSpouse(person);
-            if (spouse != null) {
-                renderPad(builder, 0, true);
-                builder.append("  <hr class=\"family\"/>");
-
-                renderPad(builder, 0, true);
-                builder.append("  <h3 class=\"family\">Family ")
-                        .append(sectionNumber).append("</h3>");
-
-                renderPad(builder, 0, true);
-                builder.append("  <p class=\"spouse\">");
-
-                renderPad(builder, 0, true);
-                builder.append(
-                        "    <span class=\"spouse label\">Spouse:</span> ");
-                final String nameHtml = createGedRenderer(spouse).getNameHtml();
-                builder.append(nameHtml);
-
-                renderPad(builder, 2, true);
-                builder.append("</p>");
-                renderNewLine(builder, true);
-            }
-        } else {
-            final List<Person> spouses = family.getSpouses();
+        final TypeFinderVisitor visitor = new TypeFinderVisitor();
+        gedObject.accept(visitor);
+        final Person person = visitor.getPerson();
+        if (person == null) {
+            final List<Person> spouses =
+                    (new FamilyNavigator(family)).getSpouses();
             if (!spouses.isEmpty()) {
                 renderPad(builder, 0, true);
                 builder.append("  <hr class=\"family\"/>");
@@ -123,6 +105,30 @@ public final class FamilyRenderer extends GedRenderer<Family> {
                 builder.append("</p>");
                 renderNewLine(builder, true);
             }
+        } else {
+            final Person spouse = (new FamilyNavigator(family))
+                    .getSpouse(person);
+            if (spouse != null) {
+                renderPad(builder, 0, true);
+                builder.append("  <hr class=\"family\"/>");
+
+                renderPad(builder, 0, true);
+                builder.append("  <h3 class=\"family\">Family ")
+                        .append(sectionNumber).append("</h3>");
+
+                renderPad(builder, 0, true);
+                builder.append("  <p class=\"spouse\">");
+
+                renderPad(builder, 0, true);
+                builder.append(
+                        "    <span class=\"spouse label\">Spouse:</span> ");
+                final String nameHtml = createGedRenderer(spouse).getNameHtml();
+                builder.append(nameHtml);
+
+                renderPad(builder, 2, true);
+                builder.append("</p>");
+                renderNewLine(builder, true);
+            }
         }
     }
 
@@ -131,7 +137,8 @@ public final class FamilyRenderer extends GedRenderer<Family> {
      */
     public List<PersonRenderer> getChildren() {
         final Family family = getGedObject();
-        final List<Person> children = family.getChildren();
+        final FamilyNavigator navigator = new FamilyNavigator(family);
+        final List<Person> children = navigator.getChildren();
         final List<PersonRenderer> rendererList =
                 new ArrayList<PersonRenderer>(children.size());
         for (final Person child : children) {

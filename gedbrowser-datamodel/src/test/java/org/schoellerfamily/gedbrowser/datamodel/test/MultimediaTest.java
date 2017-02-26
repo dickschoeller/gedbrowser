@@ -7,12 +7,12 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
-import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.MultimediaVisitor;
 
 /**
  * @author Dick Schoeller
@@ -60,93 +60,6 @@ public final class MultimediaTest {
                 person1, homeUrl);
         mm.appendString("genealogy");
         assertEquals("Mismatched tail", homeUrl + "genealogy", mm.getTail());
-    }
-
-    /** */
-    @Test
-    public void testGetDummyBirthDate() {
-        final Multimedia mm = builder.addMultimediaToPerson(person1, "Dummy");
-        builder.addDateToGedObject(mm, "31 July 1990");
-        assertEquals("Expected empty birth date string",
-                "", mm.getBirthDate());
-    }
-
-    /** */
-    @Test
-    public void testGetUninsertedBirthDate() {
-        final Multimedia mm = new Multimedia(person1, "Birth");
-        new Date(mm, "31 July 1990");
-        assertEquals("Expected empty birth date string",
-                "", mm.getBirthDate());
-    }
-
-    /** */
-    @Test
-    public void testGetBirthDate() {
-        final Multimedia mm = new Multimedia(person1, "Birth");
-        builder.addDateToGedObject(mm, "31 July 1990");
-        assertEquals("Expected empty birth date string",
-                "", mm.getBirthDate());
-    }
-
-    /** */
-    @Test
-    public void testGetDummyDeathDate() {
-        final Multimedia mm = new Multimedia(person1, "Dummy");
-        builder.addDateToGedObject(mm, "31 July 1990");
-        assertEquals("Expected empty death date string",
-                "", mm.getDeathDate());
-    }
-
-    /** */
-    @Test
-    public void testGetDeathDateWithNoDate() {
-        final Multimedia mm = new Multimedia(person1, "Death");
-        assertEquals("Expected empty death date string",
-                "", mm.getDeathDate());
-    }
-
-    /** */
-    @Test
-    public void testGetDeathDate() {
-        final Multimedia mm = new Multimedia(person1, "Death");
-        builder.addDateToGedObject(mm, "31 July 1990");
-        assertEquals("Expected empty death date string",
-                "", mm.getDeathDate());
-    }
-
-    /** */
-    @Test
-    public void testGetDummyDate() {
-        final Multimedia mm = new Multimedia(person1, "Dummy");
-        // TODO this should become unnecessary if I can further restrict the
-        // children of an attribute.
-        mm.insert(new Person());
-        builder.addDateToGedObject(mm, "31 July 1990");
-        assertEquals("Expected empty date string", "", mm.getDate());
-    }
-
-    /** */
-    @Test
-    public void testGetDateWithString() {
-        final Multimedia mm = new Multimedia(person1, "Dummy");
-        builder.addDateToGedObject(mm, "31 July 1990");
-        assertEquals("Expected empty date string", "", mm.getDate());
-    }
-
-    /** */
-    @Test
-    public void testGetDateWithNoDate() {
-        final Multimedia death = new Multimedia(person1, "Death");
-        assertEquals("Expected empty date string", "", death.getDate());
-    }
-
-    /** */
-    @Test
-    public void testGetDateWithDate() {
-        final Multimedia mm = new Multimedia(person1, "Death");
-        builder.addDateToGedObject(mm, "31 July 1990");
-        assertEquals("Expected empty date string", "", mm.getDate());
     }
 
     /**
@@ -209,7 +122,9 @@ public final class MultimediaTest {
     @Test
     public void testGetFilePathEmpty() {
         final Multimedia multimedia = new Multimedia();
-        assertEquals("File path mismatch", null, multimedia.getFilePath());
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        multimedia.accept(visitor);
+        assertEquals("File path mismatch", null, visitor.getFilePath());
     }
 
     /** */
@@ -228,8 +143,10 @@ public final class MultimediaTest {
         filePath.addAttribute(mediaType);
         final Attribute title = new Attribute(filePath, "Title", "The title");
         filePath.addAttribute(title);
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        multimedia.accept(visitor);
         assertEquals("File path mismatch",
-                filePathString, multimedia.getFilePath());
+                filePathString, visitor.getFilePath());
     }
 
     /** */
@@ -248,8 +165,10 @@ public final class MultimediaTest {
         filePath.addAttribute(mediaType);
         final Attribute title = new Attribute(filePath, "Title", "The title");
         filePath.addAttribute(title);
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        multimedia.accept(visitor);
         assertEquals("File format mismatch",
-                "jpg", multimedia.getFileFormat());
+                "jpg", visitor.getFormat());
     }
 
     /** */
@@ -262,14 +181,18 @@ public final class MultimediaTest {
         final Attribute filePath =
                 new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
-        assertEquals("File format mismatch", null, multimedia.getFileFormat());
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        multimedia.accept(visitor);
+        assertEquals("File format mismatch", null, visitor.getFormat());
     }
 
     /** */
     @Test
     public void testGetFileFormatPartiallyBuilt() {
         final Multimedia multimedia = new Multimedia();
-        assertEquals("File format mismatch", null, multimedia.getFileFormat());
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        multimedia.accept(visitor);
+        assertEquals("File format mismatch", null, visitor.getFormat());
     }
 
     /** */
@@ -288,8 +211,9 @@ public final class MultimediaTest {
         filePath.addAttribute(mediaType);
         final Attribute title = new Attribute(filePath, "Title", "The title");
         filePath.addAttribute(title);
-        assertEquals("File title mismatch",
-                "The title", multimedia.getFileTitle());
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        multimedia.accept(visitor);
+        assertEquals("File title mismatch", "The title", visitor.getTitle());
     }
 
     /** */
@@ -308,15 +232,18 @@ public final class MultimediaTest {
         filePath.addAttribute(mediaType);
         final Attribute title = new Attribute(filePath, "Title", "The title");
         multimedia.addAttribute(title);
-        assertEquals("File title mismatch",
-                "The title", multimedia.getFileTitle());
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        multimedia.accept(visitor);
+        assertEquals("File title mismatch", "The title", visitor.getTitle());
     }
 
     /** */
     @Test
     public void testGetFileTitleEmpty() {
         final Multimedia multimedia = new Multimedia();
-        assertEquals("File title mismatch", null, multimedia.getFileTitle());
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        multimedia.accept(visitor);
+        assertEquals("File title mismatch", null, visitor.getTitle());
     }
 
     /** */
@@ -335,7 +262,9 @@ public final class MultimediaTest {
         filePath.addAttribute(mediaType);
         final Attribute title = new Attribute(filePath, "Title", "The title");
         filePath.addAttribute(title);
-        assertTrue("Expected is image", multimedia.isImage());
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        multimedia.accept(visitor);
+        assertTrue("Expected is image", visitor.isImage());
     }
 
     /** */
@@ -354,7 +283,9 @@ public final class MultimediaTest {
         filePath.addAttribute(mediaType);
         final Attribute title = new Attribute(filePath, "Title", "The title");
         filePath.addAttribute(title);
-        assertTrue("Expected is image", multimedia.isImage());
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        multimedia.accept(visitor);
+        assertTrue("Expected is image", visitor.isImage());
     }
 
     /** */
@@ -373,7 +304,9 @@ public final class MultimediaTest {
         filePath.addAttribute(mediaType);
         final Attribute title = new Attribute(filePath, "Title", "The title");
         filePath.addAttribute(title);
-        assertTrue("Expected is image", multimedia.isImage());
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        multimedia.accept(visitor);
+        assertTrue("Expected is image", visitor.isImage());
     }
 
     /** */
@@ -392,7 +325,9 @@ public final class MultimediaTest {
         filePath.addAttribute(mediaType);
         final Attribute title = new Attribute(filePath, "Title", "The title");
         filePath.addAttribute(title);
-        assertTrue("Expected is image", multimedia.isImage());
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        multimedia.accept(visitor);
+        assertTrue("Expected is image", visitor.isImage());
     }
 
     /** */
@@ -411,13 +346,17 @@ public final class MultimediaTest {
         filePath.addAttribute(mediaType);
         final Attribute title = new Attribute(filePath, "Title", "The title");
         filePath.addAttribute(title);
-        assertFalse("Expected is not image", multimedia.isImage());
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        multimedia.accept(visitor);
+        assertFalse("Expected is not image", visitor.isImage());
     }
 
     /** */
     @Test
     public void testIsImageEmpty() {
         final Multimedia multimedia = new Multimedia();
-        assertFalse("Expected is not image", multimedia.isImage());
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        multimedia.accept(visitor);
+        assertFalse("Expected is not image", visitor.isImage());
     }
 }

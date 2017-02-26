@@ -25,6 +25,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.TypeFinderVisitor;
 
 /**
  * Factory that creates the right kind of GedObject based on the strings found
@@ -549,10 +550,12 @@ public abstract class AbstractGedObjectFactory {
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
-            if (parent instanceof Root) {
-                return new Source(parent, xref);
-            } else {
+            final TypeFinderVisitor visitor = new TypeFinderVisitor();
+            parent.accept(visitor);
+            if (visitor.getRoot() == null) {
                 return SOURLINK_FACTORY.create(parent, xref, tag, tail);
+            } else {
+                return new Source(parent, xref);
             }
         }
     }
@@ -585,10 +588,12 @@ public abstract class AbstractGedObjectFactory {
         @Override
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
-            if (parent instanceof Root) {
-                return new Submittor(parent, tag, tail);
-            } else {
+            final TypeFinderVisitor visitor = new TypeFinderVisitor();
+            parent.accept(visitor);
+            if (visitor.getRoot() == null) {
                 return SUBMLINK_FACTORY.create(parent, xref, tag, tail);
+            } else {
+                return new Submittor(parent, tag, tail);
             }
         }
     }

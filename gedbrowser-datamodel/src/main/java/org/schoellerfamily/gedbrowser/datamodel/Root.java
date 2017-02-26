@@ -3,6 +3,8 @@ package org.schoellerfamily.gedbrowser.datamodel;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
+
 /**
  * @author Dick Schoeller
  */
@@ -116,5 +118,13 @@ public final class Root extends AbstractSpecialObject {
      */
     public void setDbName(final String dbName) {
         this.dbname = dbName;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }

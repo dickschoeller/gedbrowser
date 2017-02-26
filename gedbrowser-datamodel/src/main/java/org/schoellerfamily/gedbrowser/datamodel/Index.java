@@ -8,6 +8,8 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.schoellerfamily.gedbrowser.datamodel.visitor.RootVisitor;
+
 /**
  * @author Dick Schoeller
  */
@@ -43,28 +45,20 @@ public final class Index {
      * Initialize the index from the root's objects.
      */
     void init() {
-        final Map<String, GedObject> objects = mRoot.getObjects();
-
         surnameIndex.clear();
 
-        for (final Map.Entry<String, GedObject> entry : objects.entrySet()) {
-            final String key = entry.getKey();
-            final GedObject gob = entry.getValue();
-
-            if (!(gob instanceof Nameable)) {
-                // TODO log this
-                continue;
-            }
-
-            final Nameable nameable = (Nameable) gob;
-
+        final RootVisitor visitor = new RootVisitor();
+        mRoot.accept(visitor);
+        visitor.getPersons();
+        for (final Person person : visitor.getPersons()) {
+            final String key = person.getString();
             // Surname for inclusion in the index.
             // This is the string by which the person will be indexed.
-            final String indexName = nameable.getIndexName();
+            final String indexName = person.getIndexName();
 
             if (!indexName.isEmpty()) {
                 final SortedMap<String, SortedSet<String>> names =
-                        findNamesPerSurname(nameable.getSurname());
+                        findNamesPerSurname(person.getSurname());
                 final SortedSet<String> ids = findIdsPerName(indexName, names);
                 ids.add(key);
             }

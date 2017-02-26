@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
+
 /**
  * @author Dick Schoeller
  */
@@ -43,6 +45,9 @@ public final class Date extends AbstractAttribute {
      * @return the year as a string.
      */
     public String getYear() {
+        if (getString() == null || getString().isEmpty()) {
+            return "";
+        }
         final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy",
                 Locale.US);
         return format(dateFormatter, getSortCalendar());
@@ -52,6 +57,9 @@ public final class Date extends AbstractAttribute {
      * @return the string in a sortable format.
      */
     public String getSortDate() {
+        if (getString() == null || getString().isEmpty()) {
+            return "";
+        }
         final SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd",
                 Locale.US);
         return format(formatter, getSortCalendar());
@@ -96,5 +104,13 @@ public final class Date extends AbstractAttribute {
             return "Unknown";
         }
         return formatter.format(c.getTime());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }

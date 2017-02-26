@@ -3,7 +3,6 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -17,6 +16,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.FamilyRenderer;
 import org.schoellerfamily.gedbrowser.renderer.FamilySectionRenderer;
@@ -66,8 +66,8 @@ public final class FamilySectionRendererTest {
         final PersonRenderer pRenderer = new PersonRenderer(dick,
                 new GedRendererFactory(), userContext,
                 provider);
-        final Family family1 =
-                dick.getFamilies(new ArrayList<Family>()).get(0);
+        final PersonNavigator navigator = new PersonNavigator(dick);
+        final Family family1 = navigator.getFamilies().get(0);
         final FamilyRenderer familyRenderer = new FamilyRenderer(family1,
                 new GedRendererFactory(),
                 userContext,
@@ -120,8 +120,8 @@ public final class FamilySectionRendererTest {
         final PersonRenderer pRenderer = new PersonRenderer(dick,
                 new GedRendererFactory(), anonymousContext,
                 provider);
-        final Family family1 =
-                dick.getFamilies(new ArrayList<Family>()).get(0);
+        final PersonNavigator navigator = new PersonNavigator(dick);
+        final Family family1 = navigator.getFamilies().get(0);
         final FamilyRenderer familyRenderer = new FamilyRenderer(family1,
                 new GedRendererFactory(),
                 anonymousContext,
@@ -199,8 +199,8 @@ public final class FamilySectionRendererTest {
                         + "  </ol>\n" + "</div>\n", "" };
         int index = 0;
         final StringBuilder builder = new StringBuilder();
-        final List<Family> families =
-                vivian.getFamilies(new ArrayList<Family>());
+        final PersonNavigator navigator = new PersonNavigator(vivian);
+        final List<Family> families = navigator.getFamilies();
         for (final Family vFam : families) {
             final FamilyRenderer famRenderer =
                     createFamilyRenderer(vFam, adminContext);
@@ -258,8 +258,8 @@ public final class FamilySectionRendererTest {
                         + "  </ol>\n" + "</div>\n", "" };
         int index = 0;
         final StringBuilder builder = new StringBuilder();
-        final List<Family> families =
-                vivian.getFamilies(new ArrayList<Family>());
+        final PersonNavigator navigator = new PersonNavigator(vivian);
+        final List<Family> families = navigator.getFamilies();
         for (final Family vFam : families) {
             final FamilyRenderer famRenderer =
                     createFamilyRenderer(vFam, anonymousContext);

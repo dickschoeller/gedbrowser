@@ -13,6 +13,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.CellRenderer;
 import org.schoellerfamily.gedbrowser.renderer.CellRow;
@@ -502,7 +503,8 @@ public final class AnonymousPersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext, provider);
         final StringBuilder builder = new StringBuilder();
-        personRenderer.renderFather(builder, 2, melissa.getFather());
+        final PersonNavigator navigator = new PersonNavigator(melissa);
+        personRenderer.renderFather(builder, 2, navigator.getFather());
         final String expected = "\n"
                 + START_PARENT
                 + "   <span class=\"parent label\">Father:</span> \n"
@@ -537,7 +539,8 @@ public final class AnonymousPersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext, provider);
         final StringBuilder builder = new StringBuilder();
-        personRenderer.renderFather(builder, 2, melissa.getFather());
+        final PersonNavigator navigator = new PersonNavigator(melissa);
+        personRenderer.renderFather(builder, 2, navigator.getFather());
         final String actual = builder.toString();
         assertTrue("Expected empty string", actual.isEmpty());
     }
@@ -553,7 +556,8 @@ public final class AnonymousPersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext, provider);
         final StringBuilder builder = new StringBuilder();
-        personRenderer.renderMother(builder, 2, melissa.getMother());
+        final PersonNavigator navigator = new PersonNavigator(melissa);
+        personRenderer.renderMother(builder, 2, navigator.getMother());
         final String expected = "\n"
                 + START_PARENT
                 + "   <span class=\"parent label\">Mother:</span> \n"
@@ -573,7 +577,8 @@ public final class AnonymousPersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(sabino,
                 new GedRendererFactory(), anonymousContext, provider);
         final StringBuilder builder = new StringBuilder();
-        personRenderer.renderMother(builder, 2, sabino.getMother());
+        final PersonNavigator navigator = new PersonNavigator(sabino);
+        personRenderer.renderMother(builder, 2, navigator.getMother());
         final String expected = "\n"
                 + START_PARENT
                 + "   <span class=\"parent label\">Mother:</span> \n"
@@ -592,7 +597,8 @@ public final class AnonymousPersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext, provider);
         final StringBuilder builder = new StringBuilder();
-        personRenderer.renderMother(builder, 2, melissa.getMother());
+        final PersonNavigator navigator = new PersonNavigator(melissa);
+        personRenderer.renderMother(builder, 2, navigator.getMother());
         final String actual = builder.toString();
         assertTrue("Expected empty string", actual.isEmpty());
     }
