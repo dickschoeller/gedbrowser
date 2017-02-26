@@ -35,34 +35,30 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PlaceVisitor;
 /**
  * @author Dick Schoeller
  */
-public class PlaceVisitorTest {
+public final class PlaceVisitorTest {
     /** */
     private transient Root root;
-    /** */
-    private transient Person person1;
-    /** */
-    private transient Person person3;
     /** */
     private transient Person person4;
     /** */
     private transient Family family6;
     /** */
     private transient Person person6;
-    /** */
-    private transient Person person7;
 
     /** */
     @Before
     public void init() {
         root = new Root();
         final GedObjectBuilder builder = new GedObjectBuilder(root);
-        person1 = builder.createPerson("I1", "Richard John/Schoeller/");
+        final Person person1 =
+                builder.createPerson("I1", "Richard John/Schoeller/");
         final Attribute attr =
                 new Attribute(person1, "Restriction", "confidential");
         person1.insert(attr);
 
         builder.createPerson("I2", "Lisa Hope/Robinson/");
-        person3 = builder.createPerson("I3", "Karl Frederick/Schoeller/Jr.");
+        final Person person3 =
+                builder.createPerson("I3", "Karl Frederick/Schoeller/Jr.");
         person4 = builder.createPerson("I4");
         final Attribute birth = builder.createPersonEvent(person4, "Birth");
         final Place birthPlace = new Place(birth, "Here");
@@ -84,19 +80,10 @@ public class PlaceVisitorTest {
         marriage.insert(marriagePlace);
 
         person6 = builder.createPerson("I6");
-        person7 = builder.createPerson("I7");
+        final Person person7 = builder.createPerson("I7");
 
         builder.addHusbandToFamily(family6, person6);
         builder.addWifeToFamily(family6, person7);
-
-        final Person person8 = builder.createPerson("I8", "Same/Name/");
-        builder.createPersonEvent(person8, "Birth", "1 JAN 1950");
-        final Person person9 = builder.createPerson("I9", "Same/Name/");
-        builder.createPersonEvent(person9, "Birth", "1 JAN 1940");
-        final Person person10 = builder.createPerson("I10", "Same/Name/");
-        builder.createPersonEvent(person10, "Birth", "1 JAN 1950");
-        final Person person11 = builder.createPerson("I11", "Different/Name/");
-        builder.createPersonEvent(person11, "Birth", "1 JAN 1930");
     }
 
     /** */

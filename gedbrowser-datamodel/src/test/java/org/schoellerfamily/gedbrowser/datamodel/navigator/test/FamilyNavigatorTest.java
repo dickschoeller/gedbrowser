@@ -17,7 +17,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public class FamilyNavigatorTest {
+public final class FamilyNavigatorTest {
     /** */
     private transient Family family1;
     /** */

@@ -32,7 +32,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.TypeFinderVisitor;
 /**
  * @author Dick Schoeller
  */
-public class TypeFinderVisitorTest {
+public final class TypeFinderVisitorTest {
     /** */
     private transient TypeFinderVisitor visitor;
 

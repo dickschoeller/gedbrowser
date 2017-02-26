@@ -19,7 +19,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public class PersonNavigatorTest {
+public final class PersonNavigatorTest {
     /** */
     private transient Person person1;
     /** */
