@@ -32,7 +32,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 /**
  * @author Dick Schoeller
  */
-public class PersonVisitorTest {
+public final class PersonVisitorTest {
     /** */
     @Test
     public void testEmptyGetFamily() {

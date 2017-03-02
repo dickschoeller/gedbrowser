@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -44,6 +45,13 @@ public final class HusbandTest {
         builder.addWifeToFamily(family1, person2);
         husband2a = builder.addHusbandToFamily(family2, person1);
         husband2b = builder.addHusbandToFamily(family2, person3);
+    }
+
+    /** */
+    @Test
+    public void testEmptyGetFather() {
+        final Husband husband = new Husband();
+        assertFalse("Should not be set", husband.getFather().isSet());
     }
 
     /** */

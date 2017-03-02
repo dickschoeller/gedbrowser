@@ -31,7 +31,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.RootVisitor;
 /**
  * @author Dick Schoeller
  */
-public class RootVisitorTest {
+public final class RootVisitorTest {
     /** */
     @Test
     public void testBasicGetPersons() {

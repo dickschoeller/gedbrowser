@@ -28,7 +28,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.MultimediaVisitor;
 /**
  * @author Dick Schoeller
  */
-public class MultimediaVisitorTest {
+public final class MultimediaVisitorTest {
     /** */
     @Test
     public void testNoFilePathFromUnrelated() {

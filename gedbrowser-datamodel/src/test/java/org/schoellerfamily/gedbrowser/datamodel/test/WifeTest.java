@@ -47,6 +47,13 @@ public final class WifeTest {
 
     /** */
     @Test
+    public void testEmptyGetMother() {
+        final Wife wife = new Wife();
+        assertFalse("Should not be set", wife.getMother().isSet());
+    }
+
+    /** */
+    @Test
     public void testGetMother1() {
         assertEquals("Person's mother doesn't match", person2,
                 wife1.getMother());

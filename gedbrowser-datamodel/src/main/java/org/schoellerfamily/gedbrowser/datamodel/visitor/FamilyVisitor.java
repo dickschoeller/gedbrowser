@@ -3,26 +3,11 @@ package org.schoellerfamily.gedbrowser.datamodel.visitor;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
-import org.schoellerfamily.gedbrowser.datamodel.Date;
-import org.schoellerfamily.gedbrowser.datamodel.FamC;
-import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
-import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
-import org.schoellerfamily.gedbrowser.datamodel.Link;
-import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
-import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.Place;
-import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.Source;
-import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
-import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
-import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 /**
@@ -131,15 +116,10 @@ public final class FamilyVisitor implements GedObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final Attribute attribute) {
-        // This type doesn't contribute to the process
-    }
-
-    /**
-     * {@inheritDoc}
+     * Visit a Child. We track this and, if set, the Person who is the
+     * child.
+     *
+     * @see GedObjectVisitor#visit(Child)
      */
     @Override
     public void visit(final Child child) {
@@ -151,23 +131,10 @@ public final class FamilyVisitor implements GedObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final Date date) {
-        // This type doesn't contribute to the process
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final FamC famc) {
-        // This type doesn't contribute to the process
-    }
-
-    /**
-     * {@inheritDoc}
+     * Visit a Family. This is the primary focus of the visitation. From
+     * here, interesting information is gathered from the attributes.
+     *
+     * @see GedObjectVisitor#visit(Family)
      */
     @Override
     public void visit(final Family family) {
@@ -177,23 +144,10 @@ public final class FamilyVisitor implements GedObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final FamS fams) {
-        // This type doesn't contribute to the process
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final Head head) {
-        // This type doesn't contribute to the process
-    }
-
-    /**
-     * {@inheritDoc}
+     * Visit a Husband. We track this and, if set, the Person who is the
+     * father.
+     *
+     * @see GedObjectVisitor#visit(Husband)
      */
     @Override
     public void visit(final Husband husband) {
@@ -205,95 +159,10 @@ public final class FamilyVisitor implements GedObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final Link link) {
-        // This type doesn't contribute to the process
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final Multimedia multimedia) {
-        // This type doesn't contribute to the process
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final Name name) {
-        // This type doesn't contribute to the process
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final Person person) {
-        // This type doesn't contribute to the process
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final Place place) {
-        // This type doesn't contribute to the process
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final Root root) {
-        // This type doesn't contribute to the process
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final Source source) {
-        // This type doesn't contribute to the process
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final SourceLink sourceLink) {
-        // This type doesn't contribute to the process
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final Submittor submittor) {
-        // This type doesn't contribute to the process
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final SubmittorLink submittorLink) {
-        // This type doesn't contribute to the process
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final Trailer trailer) {
-        // This type doesn't contribute to the process
-    }
-
-    /**
-     * {@inheritDoc}
+     * Visit a Wife. We track this and, if set, the Person who is the
+     * mother.
+     *
+     * @see GedObjectVisitor#visit(Wife)
      */
     @Override
     public void visit(final Wife wife) {
@@ -302,13 +171,5 @@ public final class FamilyVisitor implements GedObjectVisitor {
             mother = wife.getMother();
             spouses.add(mother);
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void visit(final GedObject gedObject) {
-        // This type doesn't contribute to the process
     }
 }
