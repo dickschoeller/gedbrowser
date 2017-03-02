@@ -1,0 +1,136 @@
+package org.schoellerfamily.gedbrowser.datamodel.visitor.test;
+
+import static org.junit.Assert.assertNull;
+
+import org.junit.Test;
+import org.schoellerfamily.gedbrowser.datamodel.Child;
+import org.schoellerfamily.gedbrowser.datamodel.Date;
+import org.schoellerfamily.gedbrowser.datamodel.FamC;
+import org.schoellerfamily.gedbrowser.datamodel.FamS;
+import org.schoellerfamily.gedbrowser.datamodel.Family;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Head;
+import org.schoellerfamily.gedbrowser.datamodel.Husband;
+import org.schoellerfamily.gedbrowser.datamodel.Link;
+import org.schoellerfamily.gedbrowser.datamodel.Name;
+import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.Place;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.Source;
+import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submittor;
+import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.Trailer;
+import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.MultimediaVisitor;
+
+/**
+ * @author Dick Schoeller
+ */
+public class MultimediaVisitorTest {
+    /** */
+    @Test
+    public void testNoFilePathFromUnrelated() {
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        new Child().accept(visitor);
+        new Date(null).accept(visitor);
+        new FamC().accept(visitor);
+        new Family().accept(visitor);
+        new FamS().accept(visitor);
+        new Head().accept(visitor);
+        new Husband().accept(visitor);
+        new Link(null).accept(visitor);
+        new Name().accept(visitor);
+        new Person().accept(visitor);
+        new Place().accept(visitor);
+        new Root().accept(visitor);
+        new Source().accept(visitor);
+        new SourceLink().accept(visitor);
+        new Submittor().accept(visitor);
+        new SubmittorLink().accept(visitor);
+        new Trailer().accept(visitor);
+        new Wife().accept(visitor);
+        final GedObject gob = new GedObject() {
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void accept(final GedObjectVisitor visitor) {
+                visitor.visit(this);
+            } };
+        gob.accept(visitor);
+        assertNull("Found unexpected content",
+                visitor.getFilePath());
+    }
+
+    /** */
+    @Test
+    public void testNoFormatFromUnrelated() {
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        new Child().accept(visitor);
+        new Date(null).accept(visitor);
+        new FamC().accept(visitor);
+        new Family().accept(visitor);
+        new FamS().accept(visitor);
+        new Head().accept(visitor);
+        new Husband().accept(visitor);
+        new Link(null).accept(visitor);
+        new Name().accept(visitor);
+        new Person().accept(visitor);
+        new Place().accept(visitor);
+        new Root().accept(visitor);
+        new Source().accept(visitor);
+        new SourceLink().accept(visitor);
+        new Submittor().accept(visitor);
+        new SubmittorLink().accept(visitor);
+        new Trailer().accept(visitor);
+        new Wife().accept(visitor);
+        final GedObject gob = new GedObject() {
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void accept(final GedObjectVisitor visitor) {
+                visitor.visit(this);
+            } };
+        gob.accept(visitor);
+        assertNull("Found unexpected content",
+                visitor.getFormat());
+    }
+
+    /** */
+    @Test
+    public void testNoTitleFromUnrelated() {
+        final MultimediaVisitor visitor = new MultimediaVisitor();
+        new Child().accept(visitor);
+        new Date(null).accept(visitor);
+        new FamC().accept(visitor);
+        new Family().accept(visitor);
+        new FamS().accept(visitor);
+        new Head().accept(visitor);
+        new Husband().accept(visitor);
+        new Link(null).accept(visitor);
+        new Name().accept(visitor);
+        new Person().accept(visitor);
+        new Place().accept(visitor);
+        new Root().accept(visitor);
+        new Source().accept(visitor);
+        new SourceLink().accept(visitor);
+        new Submittor().accept(visitor);
+        new SubmittorLink().accept(visitor);
+        new Trailer().accept(visitor);
+        new Wife().accept(visitor);
+        final GedObject gob = new GedObject() {
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void accept(final GedObjectVisitor visitor) {
+                visitor.visit(this);
+            } };
+        gob.accept(visitor);
+        assertNull("Found unexpected content",
+                visitor.getTitle());
+    }
+}

@@ -141,7 +141,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      */
     public List<Family> getFamiliesC() {
         final List<Family> families = new ArrayList<>();
-        for (final FamilyNavigator nav: familyCNavigators) {
+        for (final FamilyNavigator nav : familyCNavigators) {
             final Family family = nav.getFamily();
             if (family.isSet()) {
                 families.add(family);
