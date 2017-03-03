@@ -62,6 +62,17 @@ public final class FamilyAnalysisVisitor extends IgnoreableProcessor
     }
 
     /**
+     * Visit a Child. The list of children may be used by the calling
+     * algorithm.
+     *
+     * @see GedObjectVisitor#visit(Child)
+     */
+    @Override
+    public void visit(final Child child) {
+        children.add(child);
+    }
+
+    /**
      * Visit a Family. This is the primary focus of the visitation. From
      * here, interesting information is gathered from the attributes.
      *
