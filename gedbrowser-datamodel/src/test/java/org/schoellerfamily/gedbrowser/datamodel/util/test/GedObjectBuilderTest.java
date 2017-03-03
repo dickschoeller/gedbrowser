@@ -39,6 +39,14 @@ public final class GedObjectBuilderTest {
     // Check type and date on events
     /** */
     @Test
+    public void testPersonWithNull() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson(null);
+        assertFalse("Should create empty person", person.isSet());
+    }
+
+    /** */
+    @Test
     public void testPersonWithNulls() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson(null, null);
