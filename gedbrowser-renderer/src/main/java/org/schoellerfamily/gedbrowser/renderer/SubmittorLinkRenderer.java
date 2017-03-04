@@ -24,7 +24,6 @@ public final class SubmittorLinkRenderer extends
             final CalendarProvider provider) {
         super(gedObject, rendererFactory, renderingContext, provider);
         setListItemRenderer(new SubmittorLinkListItemRenderer(this));
-        setSectionRenderer(new SubmittorLinkSectionRenderer(this));
         setPhraseRenderer(new SubmittorLinkPhraseRenderer(this));
     }
 

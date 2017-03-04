@@ -186,10 +186,7 @@ public final class GeocodeResultBuilder {
         if (lla == null) {
             return null;
         }
-        final LatLng latLng = new LatLng(
-                lla.getLatitude(),
-                lla.getLongitude());
-        return latLng;
+        return new LatLng(lla.getLatitude(), lla.getLongitude());
     }
 
     /**

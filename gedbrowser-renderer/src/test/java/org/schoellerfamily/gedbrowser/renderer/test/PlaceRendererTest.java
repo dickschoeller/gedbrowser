@@ -11,7 +11,6 @@ import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
-import org.schoellerfamily.gedbrowser.renderer.NullSectionRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PlaceListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PlacePhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PlaceRenderer;
@@ -99,18 +98,5 @@ public final class PlaceRendererTest {
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof PlacePhraseRenderer);
-    }
-
-    /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
-     */
-    @Test
-    public void testSectionRenderer() {
-        final PlaceRenderer renderer = new PlaceRenderer(new Place(),
-                new GedRendererFactory(), anonymousContext, provider);
-        assertTrue("Wrong renderer type",
-                renderer.getSectionRenderer()
-                instanceof NullSectionRenderer);
     }
 }

@@ -1,8 +1,5 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.text.DateFormat;
-import java.util.Locale;
-
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
@@ -12,16 +9,10 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
  * @author Dick Schoeller
  * @param <G> the GedObject type to render.
  */
-@SuppressWarnings({ "PMD.AbstractClassWithoutAbstractMethod",
-        "PMD.CommentSize",
-        "PMD.GodClass",
-        "PMD.TooManyMethods" })
-public abstract class GedRenderer<G extends GedObject> {
+@SuppressWarnings({ "PMD.AbstractClassWithoutAbstractMethod" })
+public abstract class GedRenderer<G extends GedObject> extends Renderer {
     /** */
     private final transient G gedObject;
-
-    /** */
-    private final RenderingContext renderingContext;
 
     /** */
     private final transient GedRendererFactory rendererFactory;
@@ -34,9 +25,6 @@ public abstract class GedRenderer<G extends GedObject> {
 
     /** */
     private ListItemRenderer listItemRenderer;
-
-    /** */
-    private SectionRenderer sectionRenderer;
 
     /** */
     private PhraseRenderer phraseRenderer;
@@ -58,15 +46,14 @@ public abstract class GedRenderer<G extends GedObject> {
             final GedRendererFactory rendererFactory,
             final RenderingContext renderingContext,
             final CalendarProvider provider) {
+        super(renderingContext);
         this.gedObject = gedObject;
         this.rendererFactory = rendererFactory;
         this.nameHtmlRenderer = new NullNameHtmlRenderer();
         this.nameIndexRenderer = new NullNameIndexRenderer();
         this.listItemRenderer = new NullListItemRenderer();
-        this.sectionRenderer = new NullSectionRenderer();
         this.phraseRenderer = new NullPhraseRenderer();
         this.attributeListOpenRenderer = new SimpleAttributeListOpenRenderer();
-        this.renderingContext = renderingContext;
         this.provider = provider;
     }
 
@@ -102,151 +89,6 @@ public abstract class GedRenderer<G extends GedObject> {
     public final StringBuilder renderAsListItem(final StringBuilder builder,
             final boolean newLine, final int pad) {
         return listItemRenderer.renderAsListItem(builder, newLine, pad);
-    }
-
-    /**
-     * Render the GedObject as a section of a page.
-     *
-     * @param builder Buffer for holding the rendition
-     * @param outerRenderer the renderer being used for the current page
-     * @param newLine put in a new line for each line.
-     * @param pad Minimum number spaces for padding each line of the output
-     * @param sectionNumber numbers repeated sections of the same type.
-     * @return the builder
-     */
-    public final StringBuilder renderAsSection(final StringBuilder builder,
-            final GedRenderer<?> outerRenderer, final boolean newLine,
-            final int pad, final int sectionNumber) {
-        return sectionRenderer.renderAsSection(builder, outerRenderer, newLine,
-                pad, sectionNumber);
-    }
-
-    /**
-     * Render the GedObject as a section of a page.
-     *
-     * @param outerRenderer the renderer being used for the current page
-     * @param sectionNumber numbers repeated sections of the same type
-     * @return the section rendition as a string
-     */
-    public final String getAsSection(final GedRenderer<?> outerRenderer,
-            final int sectionNumber) {
-        final StringBuilder builder =
-                sectionRenderer.renderAsSection(new StringBuilder(),
-                        outerRenderer, true, 0, sectionNumber);
-        return builder.toString();
-    }
-
-    /**
-     * Get the HTML header for a page.
-     *
-     * This method is public for testing purposes only. Do
-     * not try to call it outside of the context of the rendering
-     * engine.
-     *
-     * @param title the title string.
-     * @param keywords any keywords.
-     * @return a string containing the HTML header.
-     */
-    public final String getHeaderHtml(final String title,
-            final String keywords) {
-        final StringBuilder builder = new StringBuilder(585);
-        builder.append("Content-type: text/html\n\n");
-        builder.append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n");
-        builder.append("  \"http://www.w3.org/TR/html4/strict.dtd\">\n");
-        builder.append("<html>\n");
-        builder.append("  <head>\n");
-        builder.append("    <meta http-equiv=\"Content-Type\" ");
-        builder.append("content=\"text/html; charset=utf-8\">\n");
-        builder.append("    <meta name=\"Author\" ");
-        builder.append("content=\"gedbrowser\">\n");
-        builder.append("    <meta name=\"Description\" ");
-        builder.append("content=\"genealogy\">\n");
-        builder.append("    <meta name=\"Keywords\" ");
-        builder.append("content=\"genealogy gedbrowser ");
-        builder.append(keywords);
-        builder.append("\">\n");
-        builder.append("    <meta http-equiv=\"Content-Style-Type\" ");
-        builder.append("content=\"text/css\">\n");
-        builder.append("    <link href=\"/gedbrowser/gedbrowser.css\" ");
-        builder.append("rel=\"stylesheet\" type=\"text/css\">\n");
-        builder.append("    <title>");
-        builder.append(title);
-        builder.append("</title>\n");
-        builder.append("  </head>\n");
-        builder.append("  <body>\n");
-        return builder.toString();
-    }
-
-    /**
-     * This method is public for testing purposes only. Do
-     * not try to call it outside of the context of the rendering
-     * engine.
-     *
-     * @return trailer HTML with no omissions.
-     */
-    public final String getTrailerHtml() {
-        return getTrailerHtml("");
-    }
-
-    /**
-     * This method is public for testing purposes only. Do
-     * not try to call it outside of the context of the rendering
-     * engine.
-     *
-     * @param omit title of section to leave out.
-     * @return trailer HTML
-     */
-    public final String getTrailerHtml(final String omit) {
-        final java.util.Date javaDate = new java.util.Date();
-        final String timeString = DateFormat.getDateInstance(DateFormat.LONG,
-                Locale.getDefault()).format(javaDate);
-
-        final StringBuilder builder = new StringBuilder(769);
-        builder.append("\n    <hr class=\"final\"/>");
-        builder.append("\n    <p>");
-        if ("Header".equals(omit)) {
-            builder.append("\n    <a href=\"?" + gedObject.getDbName()
-                    + "+Header\">Header</a><br>");
-        }
-        if ("Surnames".equals(omit)) {
-            builder.append("\n    <a href=\"?" + gedObject.getDbName()
-                    + "+Surnames\">Surnames</a><br>");
-        }
-        if ("Index".equals(omit)) {
-            builder.append("\n    <a href=\"?" + gedObject.getDbName()
-                    + "+Index\">Index</a><br>");
-        }
-        builder.append("\n    </p>");
-        builder.append("\n    <hr class=\"final\"/>");
-        builder.append("\n    <table class=\"buttonrow\">");
-        builder.append("\n    <tr class=\"buttonrow\">");
-        builder.append("\n    <td class=\"brleft\">");
-        builder.append("\n    <p class=\"maintainer\">");
-        builder.append("\n    Maintained by <a href=\"mailto:");
-        builder.append(getMaintainerEmail());
-        builder.append("\">").append(getMaintainerName()).append("</a>.<br>");
-        builder.append("\n    Created with <a href=\"");
-        builder.append(getHomeUrl()).append("software/gedbrowser.html");
-        builder.append("\">GEDbrowser</a>, version ");
-        builder.append(getVersion());
-        builder.append(" on ");
-        builder.append(timeString);
-        builder.append("\n    </p>");
-        builder.append("\n    </td>");
-        builder.append("\n    <td class=\"brright\">");
-        builder.append("\n    <p class=\"maintainer\">");
-        builder.append("\n<a href=\"http://validator.w3.org/check/referer\">");
-        builder.append("<img src=\"/gedbrowser/valid-html401.gif\" ");
-        builder.append("class=\"button\" alt=\"[ Valid HTML 4.01! ]\" ");
-        builder.append("height=\"31\" width=\"88\"></a>");
-        builder.append("\n    </p>");
-        builder.append("\n    </td>");
-        builder.append("\n    </tr>");
-        builder.append("\n    </table>");
-        builder.append("\n    <p>");
-        builder.append("\n  </body>");
-        builder.append("\n</html>\n");
-        return builder.toString();
     }
 
     /**
@@ -360,19 +202,6 @@ public abstract class GedRenderer<G extends GedObject> {
     }
 
     /**
-     * @param separate
-     *            whether to return the separator.
-     * @return the separator
-     */
-    public final String getSeparator(final boolean separate) {
-        if (separate) {
-            return ", ";
-        } else {
-            return "";
-        }
-    }
-
-    /**
      * @return the factory
      */
     protected final GedRendererFactory getRendererFactory() {
@@ -413,36 +242,13 @@ public abstract class GedRenderer<G extends GedObject> {
     }
 
     /**
-     * This method is public for testing purposes only. Do
-     * not try to call it outside of the context of the rendering
-     * engine.
+     * This method is public for testing purposes only. Do not try to call it
+     * outside of the context of the rendering engine.
      *
      * @return the renderer.
      */
     public final ListItemRenderer getListItemRenderer() {
         return this.listItemRenderer;
-    }
-
-    /**
-     * Set the renderer to something new.
-     *
-     * @param sectionRenderer
-     *            the new renderer.
-     */
-    protected final void setSectionRenderer(
-            final SectionRenderer sectionRenderer) {
-        this.sectionRenderer = sectionRenderer;
-    }
-
-    /**
-     * This method is public for testing purposes only. Do
-     * not try to call it outside of the context of the rendering
-     * engine.
-     *
-     * @return the renderer.
-     */
-    public final SectionRenderer getSectionRenderer() {
-        return this.sectionRenderer;
     }
 
     /**
@@ -457,9 +263,8 @@ public abstract class GedRenderer<G extends GedObject> {
     }
 
     /**
-     * This method is public for testing purposes only. Do
-     * not try to call it outside of the context of the rendering
-     * engine.
+     * This method is public for testing purposes only. Do not try to call it
+     * outside of the context of the rendering engine.
      *
      * @return the renderer.
      */
@@ -513,27 +318,6 @@ public abstract class GedRenderer<G extends GedObject> {
     }
 
     /**
-     * Convert the string for use in HTML or URLs.
-     *
-     * @param input unescaped string.
-     * @return the escaped string.
-     */
-    protected static final String escapeString(final String input) {
-        return input.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;").replaceAll("\n", "<br/>\n");
-    }
-
-    /**
-     * Convert the string for use in HTML or URLs.
-     *
-     * @param gedObject the object whose string we are going to escape.
-     * @return the escaped string.
-     */
-    protected static final String escapeString(final GedObject gedObject) {
-        return escapeString(gedObject.getString());
-    }
-
-    /**
      * @return the string field from the underlying GED object.
      */
     public final String getString() {
@@ -545,58 +329,6 @@ public abstract class GedRenderer<G extends GedObject> {
      */
     public final String getListItemContents() {
         return listItemRenderer.getListItemContents();
-    }
-
-    /**
-     * @return the standard URL for home.
-     */
-    public final String getHomeUrl() {
-        return renderingContext.getHomeURL();
-    }
-
-    /**
-     * @return the standard URL for home.
-     */
-    public final String getMaintainerEmail() {
-        return renderingContext.getMaintainerEmail();
-    }
-
-    /**
-     * @return the maintainer's name
-     */
-    public final String getMaintainerName() {
-        return renderingContext.getMaintainerName();
-    }
-
-    /**
-     * @return the version string
-     */
-    public final String getVersion() {
-        return renderingContext.getVersion();
-    }
-
-    /**
-     * @return the user context we are rendering in
-     */
-    protected final RenderingContext getRenderingContext() {
-        return renderingContext;
-    }
-
-    /**
-     * @return user's first name
-     */
-    public final String getUserFirstname() {
-        return renderingContext.getFirstname();
-    }
-
-    /**
-     * Check if the user in the rendering context has a particular role.
-     *
-     * @param role role that we are looking for
-     * @return true if the user has the role
-     */
-    public final boolean hasRole(final String role) {
-        return renderingContext.hasRole(role);
     }
 
     /**
@@ -621,5 +353,26 @@ public abstract class GedRenderer<G extends GedObject> {
      */
     public final CalendarProvider getCalendarProvider() {
         return provider;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected final void menuInsertions(final String omit,
+            final StringBuilder builder) {
+        builder.append("\n    <p>");
+        if ("Header".equals(omit)) {
+            builder.append("\n    <a href=\"?" + gedObject.getDbName()
+                    + "+Header\">Header</a><br>");
+        }
+        if ("Surnames".equals(omit)) {
+            builder.append("\n    <a href=\"?" + gedObject.getDbName()
+                    + "+Surnames\">Surnames</a><br>");
+        }
+        if ("Index".equals(omit)) {
+            builder.append("\n    <a href=\"?" + gedObject.getDbName()
+                    + "+Index\">Index</a><br>");
+        }
+        builder.append("\n    </p>");
     }
 }

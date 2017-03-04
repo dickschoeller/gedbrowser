@@ -22,7 +22,6 @@ import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
-import org.schoellerfamily.gedbrowser.renderer.NullSectionRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonNameIndexRenderer;
@@ -372,18 +371,6 @@ public final class AnonymousPersonRendererTest {
         assertTrue("Mismatched renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
-    }
-
-    /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
-     */
-    @Test
-    public void testSectionRenderer() {
-        final PersonRenderer renderer = createRenderer();
-        assertTrue("Mismatched renderer type",
-                renderer.getSectionRenderer()
-                instanceof NullSectionRenderer);
     }
 
     /**

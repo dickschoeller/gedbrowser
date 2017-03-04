@@ -6,8 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -18,8 +19,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
  */
 public final class LivingRenderer extends GedRenderer<Root> {
     /** Logger. */
-    private static final Logger LOGGER = Logger.getLogger(LivingRenderer.class
-            .getName());
+    private final Log logger = LogFactory.getLog(getClass());
 
     /** The size of a bucket. */
     private static final int AGE_BUCKET_SIZE = 10;
@@ -46,7 +46,7 @@ public final class LivingRenderer extends GedRenderer<Root> {
      * @return the buckets by 10 year bands
      */
     public List<Bucket> getBuckets() {
-        LOGGER.entering("LivingRenderer", "getBuckets");
+        logger.info("Starting LivingRenderer.getBuckets()");
         final List<Bucket> bucketList = new ArrayList<>();
         if (getRenderingContext().hasRole("ADMIN")) {
             final Root root = getGedObject();
@@ -60,7 +60,7 @@ public final class LivingRenderer extends GedRenderer<Root> {
                 bucketList.add(bucket);
             }
         }
-        LOGGER.exiting("LivingRenderer", "getBuckets");
+        logger.info("Exiting LivingRenderer.getBuckets()");
         return bucketList;
     }
 

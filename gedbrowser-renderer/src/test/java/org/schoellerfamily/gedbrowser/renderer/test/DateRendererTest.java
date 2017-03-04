@@ -14,7 +14,6 @@ import org.schoellerfamily.gedbrowser.renderer.DateRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
-import org.schoellerfamily.gedbrowser.renderer.NullSectionRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 
@@ -99,18 +98,5 @@ public final class DateRendererTest {
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof DatePhraseRenderer);
-    }
-
-    /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
-     */
-    @Test
-    public void testSectionRenderer() {
-        final DateRenderer renderer = new DateRenderer(new Date(null),
-                new GedRendererFactory(), anonymousContext, provider);
-        assertTrue("Wrong renderer type",
-                renderer.getSectionRenderer()
-                instanceof NullSectionRenderer);
     }
 }

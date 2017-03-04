@@ -12,7 +12,6 @@ import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaRenderer;
-import org.schoellerfamily.gedbrowser.renderer.MultimediaSectionRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
@@ -81,18 +80,6 @@ public final class MultimediaRendererTest {
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof MultimediaPhraseRenderer);
-    }
-
-    /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
-     */
-    @Test
-    public void testSectionRenderer() {
-        final MultimediaRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getSectionRenderer()
-                instanceof MultimediaSectionRenderer);
     }
 
     /**

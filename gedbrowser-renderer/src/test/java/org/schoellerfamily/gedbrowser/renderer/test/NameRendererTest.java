@@ -14,7 +14,6 @@ import org.schoellerfamily.gedbrowser.renderer.NameNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NameNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NamePhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NameRenderer;
-import org.schoellerfamily.gedbrowser.renderer.NullSectionRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 
@@ -99,18 +98,5 @@ public final class NameRendererTest {
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NamePhraseRenderer);
-    }
-
-    /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
-     */
-    @Test
-    public void testSectionRenderer() {
-        final NameRenderer renderer = new NameRenderer(new Name(null),
-                new GedRendererFactory(), anonymousContext, provider);
-        assertTrue("Wrong renderer type",
-                renderer.getSectionRenderer()
-                instanceof NullSectionRenderer);
     }
 }

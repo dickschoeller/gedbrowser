@@ -60,9 +60,8 @@ public abstract class AbstractController {
             final HttpServletRequest request,
             final PersonNotFoundException exception) {
         logger.info("Handling exception: " + exception.getMessage());
-        final ModelAndView mav = createModelAndViewForException(
-                request, exception, "personNotFound", HttpStatus.NOT_FOUND);
-        return mav;
+        return createModelAndViewForException(request, exception,
+                "personNotFound", HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -76,9 +75,8 @@ public abstract class AbstractController {
             final HttpServletRequest request,
             final SourceNotFoundException exception) {
         logger.info("Handling exception: " + exception.getMessage());
-        final ModelAndView mav = createModelAndViewForException(
-                request, exception, "sourceNotFound", HttpStatus.NOT_FOUND);
-        return mav;
+        return createModelAndViewForException(request, exception,
+                "sourceNotFound", HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -92,9 +90,8 @@ public abstract class AbstractController {
             final HttpServletRequest request,
             final DataSetNotFoundException exception) {
         logger.info("Handling exception: " + exception.getMessage());
-        final ModelAndView mav = createModelAndViewForException(
-                request, exception, "dataSetNotFound", HttpStatus.NOT_FOUND);
-        return mav;
+        return createModelAndViewForException(request, exception,
+                "dataSetNotFound", HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -107,9 +104,8 @@ public abstract class AbstractController {
     public final ModelAndView error(final HttpServletRequest request,
             final Exception exception) {
         logger.info("Handling exception: " + exception.getMessage());
-        final ModelAndView mav = createModelAndViewForException(
-                request, exception, "error", HttpStatus.INTERNAL_SERVER_ERROR);
-        return mav;
+        return createModelAndViewForException(request, exception, "error",
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**

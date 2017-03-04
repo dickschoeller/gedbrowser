@@ -64,10 +64,8 @@ public final class GeoCodeMongo extends GeoCodeBasic {
      */
     @Override
     public GeoDocument create(final GeoCodeItem item) {
-        final GeoDocumentMongo geoDocument =
-                (GeoDocumentMongo) GeoDocumentMongoFactory.getInstance()
-                        .createGeoDocument(item);
-        return geoDocument;
+        return (GeoDocumentMongo) GeoDocumentMongoFactory.getInstance()
+                .createGeoDocument(item);
     }
 
     /**

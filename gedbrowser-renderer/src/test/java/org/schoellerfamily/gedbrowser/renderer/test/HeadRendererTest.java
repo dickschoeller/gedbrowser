@@ -10,7 +10,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.HeadRenderer;
-import org.schoellerfamily.gedbrowser.renderer.HeadSectionRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
@@ -99,18 +98,5 @@ public final class HeadRendererTest {
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
-    }
-
-    /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
-     */
-    @Test
-    public void testSectionRenderer() {
-        final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
-                new GedRendererFactory(), anonymousContext, provider);
-        assertTrue("Wrong renderer type",
-                renderer.getSectionRenderer()
-                instanceof HeadSectionRenderer);
     }
 }
