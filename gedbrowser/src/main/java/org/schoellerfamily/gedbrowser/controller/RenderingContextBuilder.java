@@ -62,9 +62,7 @@ public final class RenderingContextBuilder {
                 break;
             }
         }
-        final RenderingContext context =
-                new RenderingContext(user, isUser, isAdmin, appInfo);
         logger.debug("Exiting build");
-        return context;
+        return new RenderingContext(user, isUser, isAdmin, appInfo);
     }
 }

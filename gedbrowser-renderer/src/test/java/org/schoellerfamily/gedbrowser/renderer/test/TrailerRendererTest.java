@@ -13,7 +13,6 @@ import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
-import org.schoellerfamily.gedbrowser.renderer.NullSectionRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.TrailerRenderer;
@@ -90,17 +89,6 @@ public final class TrailerRendererTest {
         final TrailerRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer() instanceof NullPhraseRenderer);
-    }
-
-    /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
-     */
-    @Test
-    public void testSectionRenderer() {
-        final TrailerRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getSectionRenderer() instanceof NullSectionRenderer);
     }
 
     /**

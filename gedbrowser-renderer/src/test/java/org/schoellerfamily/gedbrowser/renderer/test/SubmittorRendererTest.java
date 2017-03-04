@@ -16,7 +16,6 @@ import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorRenderer;
-import org.schoellerfamily.gedbrowser.renderer.SubmittorSectionRenderer;
 
 /**
  * @author Dick Schoeller
@@ -94,18 +93,6 @@ public final class SubmittorRendererTest {
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
-    }
-
-    /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
-     */
-    @Test
-    public void testSectionRenderer() {
-        final SubmittorRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getSectionRenderer()
-                instanceof SubmittorSectionRenderer);
     }
 
     /**

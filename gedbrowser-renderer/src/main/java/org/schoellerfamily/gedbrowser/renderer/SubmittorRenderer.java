@@ -21,6 +21,5 @@ public final class SubmittorRenderer extends GedRenderer<Submittor> {
             final RenderingContext renderingContext,
             final CalendarProvider provider) {
         super(gedObject, rendererFactory, renderingContext, provider);
-        setSectionRenderer(new SubmittorSectionRenderer(this));
     }
 }

@@ -20,7 +20,6 @@ public final class MultimediaRenderer extends GedRenderer<Multimedia> {
             final CalendarProvider provider) {
         super(gedObject, rendererFactory, renderingContext, provider);
         setListItemRenderer(new MultimediaListItemRenderer(this));
-        setSectionRenderer(new MultimediaSectionRenderer(this));
         setPhraseRenderer(new MultimediaPhraseRenderer(this));
     }
 

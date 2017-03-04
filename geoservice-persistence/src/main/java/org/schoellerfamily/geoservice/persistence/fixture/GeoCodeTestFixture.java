@@ -29,7 +29,8 @@ public class GeoCodeTestFixture {
     /**
      * @return table of addresses
      */
-    @SuppressWarnings("PMD.MethodReturnsInternalArray")
+    @SuppressWarnings({ "PMD.MethodReturnsInternalArray",
+            "PMD.UnnecessaryLocalBeforeReturn" })
     public final String[][] addressTable() {
         /**
          * Table of old and modern addresses for some bigger tests.
@@ -123,7 +124,8 @@ public class GeoCodeTestFixture {
     /**
      * @return table of addresses
      */
-    @SuppressWarnings("PMD.MethodReturnsInternalArray")
+    @SuppressWarnings({ "PMD.MethodReturnsInternalArray",
+            "PMD.UnnecessaryLocalBeforeReturn" })
     public final String[] expectedNotFound() {
         final String[] expectedNotFound = {
             "1st United Methodist Church, Perkasie, Bucks County, Pennsylvania"

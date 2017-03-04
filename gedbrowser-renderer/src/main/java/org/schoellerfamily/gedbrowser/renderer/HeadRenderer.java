@@ -21,6 +21,5 @@ public final class HeadRenderer extends GedRenderer<Head> {
             final RenderingContext renderingContext,
             final CalendarProvider provider) {
         super(gedObject, rendererFactory, renderingContext, provider);
-        setSectionRenderer(new HeadSectionRenderer(this));
     }
 }

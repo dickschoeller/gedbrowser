@@ -26,7 +26,6 @@ public final class SourceRenderer extends GedRenderer<Source> {
             final RenderingContext renderingContext,
             final CalendarProvider provider) {
         super(gedObject, rendererFactory, renderingContext, provider);
-        setSectionRenderer(new SourceSectionRenderer(this));
     }
 
     /**

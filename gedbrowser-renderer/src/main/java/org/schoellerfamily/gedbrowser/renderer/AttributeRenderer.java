@@ -22,7 +22,6 @@ public final class AttributeRenderer extends GedRenderer<Attribute> {
             final CalendarProvider provider) {
         super(gedObject, rendererFactory, renderingContext, provider);
         setListItemRenderer(new AttributeListItemRenderer(this));
-        setSectionRenderer(new AttributeSectionRenderer(this));
         setPhraseRenderer(new AttributePhraseRenderer(this));
     }
 

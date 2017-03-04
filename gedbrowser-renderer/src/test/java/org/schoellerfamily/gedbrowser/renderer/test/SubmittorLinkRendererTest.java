@@ -16,7 +16,6 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkRenderer;
-import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkSectionRenderer;
 
 /**
  * @author Dick Schoeller
@@ -104,19 +103,5 @@ public final class SubmittorLinkRendererTest {
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof SubmittorLinkPhraseRenderer);
-    }
-
-    /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
-     */
-    @Test
-    public void testSectionRenderer() {
-        final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
-                new SubmittorLink(), new GedRendererFactory(),
-                anonymousContext, provider);
-        assertTrue("Wrong renderer type",
-                renderer.getSectionRenderer()
-                instanceof SubmittorLinkSectionRenderer);
     }
 }

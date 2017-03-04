@@ -8,7 +8,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
-import org.schoellerfamily.gedbrowser.datamodel.visitor.TypeFinderVisitor;
 
 /**
  * Render an Family.
@@ -31,7 +30,6 @@ public final class FamilyRenderer extends GedRenderer<Family> {
             final RenderingContext renderingContext,
             final CalendarProvider provider) {
         super(gedObject, rendererFactory, renderingContext, provider);
-        setSectionRenderer(new FamilySectionRenderer(this));
     }
 
     /**
@@ -63,73 +61,6 @@ public final class FamilyRenderer extends GedRenderer<Family> {
             }
         }
         return rendererList;
-    }
-
-    /**
-     * This method is public for testing purposes only. Do not try to call it
-     * outside of the context of the rendering engine.
-     *
-     * @param builder Buffer for holding the rendition
-     * @param pageRenderer The page renderer that is invoking this
-     * @param sectionNumber Which family section is being rendered
-     */
-    public void renderSpouses(final StringBuilder builder,
-            final GedRenderer<?> pageRenderer, final int sectionNumber) {
-        final Family family = getGedObject();
-        final GedObject gedObject = pageRenderer.getGedObject();
-        final TypeFinderVisitor visitor = new TypeFinderVisitor();
-        gedObject.accept(visitor);
-        final Person person = visitor.getPerson();
-        if (person == null) {
-            final List<Person> spouses =
-                    (new FamilyNavigator(family)).getSpouses();
-            if (!spouses.isEmpty()) {
-                renderPad(builder, 0, true);
-                builder.append("  <hr class=\"family\"/>");
-
-                renderPad(builder, 0, true);
-                builder.append("  <h3 class=\"family\">Family ")
-                        .append(sectionNumber).append("</h3>");
-            }
-            for (final Person spouse : spouses) {
-                renderPad(builder, 0, true);
-                builder.append("  <p class=\"spouse\">");
-
-                renderPad(builder, 0, true);
-                builder.append(
-                        "    <span class=\"spouse label\">Spouse:</span> ");
-                final String nameHtml = createGedRenderer(spouse).getNameHtml();
-                builder.append(nameHtml);
-
-                renderPad(builder, 2, true);
-                builder.append("</p>");
-                renderNewLine(builder, true);
-            }
-        } else {
-            final Person spouse = (new FamilyNavigator(family))
-                    .getSpouse(person);
-            if (spouse != null) {
-                renderPad(builder, 0, true);
-                builder.append("  <hr class=\"family\"/>");
-
-                renderPad(builder, 0, true);
-                builder.append("  <h3 class=\"family\">Family ")
-                        .append(sectionNumber).append("</h3>");
-
-                renderPad(builder, 0, true);
-                builder.append("  <p class=\"spouse\">");
-
-                renderPad(builder, 0, true);
-                builder.append(
-                        "    <span class=\"spouse label\">Spouse:</span> ");
-                final String nameHtml = createGedRenderer(spouse).getNameHtml();
-                builder.append(nameHtml);
-
-                renderPad(builder, 2, true);
-                builder.append("</p>");
-                renderNewLine(builder, true);
-            }
-        }
     }
 
     /**
