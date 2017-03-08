@@ -69,4 +69,14 @@
       </properties>
     </profile>
   </profiles>
+
+  <proxies>
+    <proxy>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>proxy.bos.sap.corp</host>
+      <port>8080</port>
+      <nonProxyHosts>*.ariba.com|*.sap.corp|*.corp.sap</nonProxyHosts>
+    </proxy>
+  </proxies>
 </settings>
