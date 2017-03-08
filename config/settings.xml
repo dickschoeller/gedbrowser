@@ -70,7 +70,7 @@
     </profile>
   </profiles>
 
-  <proxies>
+  <!-- proxies>
     <proxy>
       <active>true</active>
       <protocol>http</protocol>
@@ -78,5 +78,5 @@
       <port>8080</port>
       <nonProxyHosts>*.ariba.com|*.sap.corp|*.corp.sap</nonProxyHosts>
     </proxy>
-  </proxies>
+  </proxies -->
 </settings>
