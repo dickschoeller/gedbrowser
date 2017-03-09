@@ -49,7 +49,6 @@ public final class Index {
 
         final RootVisitor visitor = new RootVisitor();
         mRoot.accept(visitor);
-        visitor.getPersons();
         for (final Person person : visitor.getPersons()) {
             final String key = person.getString();
             // Surname for inclusion in the index.
