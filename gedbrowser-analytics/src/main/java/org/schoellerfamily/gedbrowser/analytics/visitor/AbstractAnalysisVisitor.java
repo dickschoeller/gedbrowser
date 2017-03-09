@@ -31,21 +31,21 @@ public abstract class AbstractAnalysisVisitor extends IgnoreableProcessor
     /**
      * @return the list of all attributes
      */
-    public List<Attribute> getAttributes() {
+    public final List<Attribute> getAttributes() {
         return attributes;
     }
 
     /**
      * @return the list of attributes that are interesting
      */
-    public List<Attribute> getTrimmedAttributes() {
+    public final List<Attribute> getTrimmedAttributes() {
         return trimmedAttributes;
     }
 
     /**
      * @return the list of attributes that are interesting
      */
-    public List<Child> getChildren() {
+    public final List<Child> getChildren() {
         return children;
     }
 
@@ -56,7 +56,7 @@ public abstract class AbstractAnalysisVisitor extends IgnoreableProcessor
      * @see GedObjectVisitor#visit(Attribute)
      */
     @Override
-    public void visit(final Attribute attribute) {
+    public final void visit(final Attribute attribute) {
         attributes.add(attribute);
         if (ignoreable(attribute)) {
             return;
@@ -71,7 +71,7 @@ public abstract class AbstractAnalysisVisitor extends IgnoreableProcessor
      * @see GedObjectVisitor#visit(Child)
      */
     @Override
-    public void visit(final Child child) {
+    public final void visit(final Child child) {
         children.add(child);
     }
 }
