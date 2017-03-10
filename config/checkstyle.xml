@@ -72,7 +72,7 @@ Allow field shadowing with constructor and setter arguments
     <module name="SimplifyBooleanReturn"/>
     <module name="DesignForExtension">
       <!-- disable until codeclimate gets 7.2 or better -->
-      <!-- property name="ignoredAnnotations" value="Test, Before, After, BeforeClass, AfterClass, Bean"/ -->
+      <property name="ignoredAnnotations" value="Test, Before, After, BeforeClass, AfterClass, Bean"/>
     </module>
     <module name="FinalClass"/>
     <module name="HideUtilityClassConstructor"/>

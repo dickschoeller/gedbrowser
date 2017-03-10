@@ -70,7 +70,7 @@
 
     <pmd-version>5.5.4</pmd-version>
     <checkstyle-version>7.6</checkstyle-version>
-    
+
     <config-dir>${project.basedir}/config</config-dir>
   </properties>
 
