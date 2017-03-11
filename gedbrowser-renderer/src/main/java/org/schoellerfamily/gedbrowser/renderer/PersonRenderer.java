@@ -126,8 +126,6 @@ public final class PersonRenderer extends GedRenderer<Person> {
             return "Confidential";
         } else if (isHiddenLiving()) {
             return "Living";
-        } else if (name == null) {
-            return "? ?";
         } else {
             final GedRenderer<?> nameRenderer = createGedRenderer(name);
             return nameRenderer.getNameHtml();
@@ -169,9 +167,6 @@ public final class PersonRenderer extends GedRenderer<Person> {
             return "Living";
         }
         final Name name = getGedObject().getName();
-        if (name == null) {
-            return "? ?";
-        }
 
         final String prefix = GedRenderer.escapeString(name.getPrefix());
         final String surname = GedRenderer.escapeString(name.getSurname());

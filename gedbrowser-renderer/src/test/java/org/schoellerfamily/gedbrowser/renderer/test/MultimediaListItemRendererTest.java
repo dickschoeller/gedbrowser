@@ -117,4 +117,48 @@ public final class MultimediaListItemRendererTest {
                 + " <a href=\"file3.html\">Title 3</a></li>\n",
                 builder.toString());
     }
+
+    /** */
+    @Test
+    public void testGetListItemContentsEmpty() {
+        final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia1,
+                new GedRendererFactory(), anonymousContext, provider);
+        final MultimediaListItemRenderer apr =
+                (MultimediaListItemRenderer) aRenderer.getListItemRenderer();
+        final String contents = apr.getListItemContents();
+        assertEquals("Rendered string mismatch",
+                "<span class=\"label\">Multimedia:</span> Title 1<br/>\n"
+                + "<a href=\"file1.jpg\">"
+                + "<img height=\"300px\" src=\"file1.jpg\" title=\"Title 1\"/>"
+                + "</a>",
+                contents);
+    }
+
+    /** */
+    @Test
+    public void testGetListItemContentsString() {
+        final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia2,
+                new GedRendererFactory(), anonymousContext, provider);
+        final MultimediaListItemRenderer apr =
+                (MultimediaListItemRenderer) aRenderer.getListItemRenderer();
+        final String contents = apr.getListItemContents();
+        assertEquals("Rendered string mismatch",
+                "<span class=\"label\">Multimedia:</span> "
+                + "<a href=\"file2.html\">Title 2</a>",
+                contents);
+    }
+
+    /** */
+    @Test
+    public void testGetListItemContents() {
+        final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia3,
+                new GedRendererFactory(), anonymousContext, provider);
+        final MultimediaListItemRenderer apr =
+                (MultimediaListItemRenderer) aRenderer .getListItemRenderer();
+        final String contents = apr.getListItemContents();
+        assertEquals("Rendered string mismatch",
+                "<span class=\"label\">Multimedia:</span>"
+                + " <a href=\"file3.html\">Title 3</a>",
+                contents);
+    }
 }

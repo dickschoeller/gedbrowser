@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.text.DateFormat;
@@ -23,6 +24,7 @@ import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
+import org.schoellerfamily.gedbrowser.renderer.User;
 
 /**
  * @author Dick Schoeller
@@ -38,11 +40,14 @@ public final class GedRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
+    private ApplicationInfo appInfo;
+
+    /** */
     @Before
     public void init() {
         homeUrl = "http://www.schoellerfamily.org/";
         provider = new CalendarProviderStub();
-        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        appInfo = new ApplicationInfoStub();
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -233,6 +238,55 @@ public final class GedRendererTest {
 
     /** */
     @Test
+    public void testHasRoleAdminFalse() {
+        final Root root = new Root();
+        final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
+                new GedRendererFactory(),
+                anonymousContext, provider);
+        assertFalse("Expected admin to be false", renderer.hasRole("Admin"));
+    }
+
+    /** */
+    @Test
+    public void testHasRoleUserTrue() {
+        final Root root = new Root();
+        final ApplicationInfo appInfo1 = appInfo;
+        final User user2 = new User();
+        user2.setUsername("User");
+        user2.setFirstname("Ursula");
+        user2.setLastname("User");
+        user2.addRole("User");
+        final RenderingContext context =
+                new RenderingContext(user2, true, false, appInfo1);
+        final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
+                new GedRendererFactory(),
+                context, provider);
+        assertTrue("Expected user to be true", renderer.hasRole("User"));
+    }
+
+    /** */
+    @Test
+    public void testHasRoleUserFalse() {
+        final Root root = new Root();
+        final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
+                new GedRendererFactory(),
+                anonymousContext, provider);
+        assertFalse("Expected user to be false", renderer.hasRole("User"));
+    }
+
+    /** */
+    @Test
+    public void testUserGetFirstname() {
+        final Root root = new Root();
+        final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
+                new GedRendererFactory(),
+                RenderingContext.user(appInfo), provider);
+        assertEquals("Expected user to be Ursula",
+                "Ursula", renderer.getUserFirstname());
+    }
+
+    /** */
+    @Test
     public void testGetTrailerHtmlHeader() {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
@@ -367,6 +421,28 @@ public final class GedRendererTest {
         final GedRenderer<GedObject> renderer = createRenderer();
         assertEquals("Home URL does not match expectation",
                 homeUrl, renderer.getHomeUrl());
+    }
+
+    /**
+     * Test the living reference.
+     */
+    @Test
+    public void testGetLivingHref() {
+        final GedRenderer<GedObject> renderer = createRenderer();
+        assertEquals("Living href does not match expectation",
+                "living?db=null", renderer.getLivingHref());
+    }
+
+    /**
+     * Test the calendar provider.
+     */
+    @Test
+    public void testGetCalendarProvider() {
+        final GedRenderer<GedObject> renderer = createRenderer();
+        final CalendarProvider cp = renderer.getCalendarProvider();
+        final String nowString = cp.nowDate().toString("YYYYMMdd");
+        assertEquals("Should match fixed past date for testing",
+                "20151214", nowString);
     }
 
     /**

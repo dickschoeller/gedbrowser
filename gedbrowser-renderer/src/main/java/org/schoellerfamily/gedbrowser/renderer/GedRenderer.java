@@ -77,19 +77,19 @@ public abstract class GedRenderer<G extends GedObject> extends Renderer {
     protected final G getGedObject() {
         return gedObject;
     }
-
-    /**
-     * Render the GedObject as an item in a list.
-     *
-     * @param builder Buffer for holding the rendition
-     * @param newLine put in a new line for each line.
-     * @param pad Minimum number spaces for padding each line of the output
-     * @return the builder
-     */
-    public final StringBuilder renderAsListItem(final StringBuilder builder,
-            final boolean newLine, final int pad) {
-        return listItemRenderer.renderAsListItem(builder, newLine, pad);
-    }
+//
+//    /**
+//     * Render the GedObject as an item in a list.
+//     *
+//     * @param builder Buffer for holding the rendition
+//     * @param newLine put in a new line for each line.
+//     * @param pad Minimum number spaces for padding each line of the output
+//     * @return the builder
+//     */
+//    public final StringBuilder renderAsListItem(final StringBuilder builder,
+//            final boolean newLine, final int pad) {
+//        return listItemRenderer.renderAsListItem(builder, newLine, pad);
+//    }
 
     /**
      * @param builder Buffer for holding the rendition
@@ -122,43 +122,6 @@ public abstract class GedRenderer<G extends GedObject> extends Renderer {
     }
 
     /**
-     * @param builder Buffer for holding the rendition
-     * @param pad Minimum number spaces for padding each line of the output
-     * @param subObject sub-object whose attributes are rendered
-     * @return the builder
-     */
-    protected final StringBuilder renderAttributeList(
-            final StringBuilder builder, final int pad,
-            final GedObject subObject) {
-        StringBuilder b = builder;
-        renderAttributeListOpen(b, pad, subObject);
-
-        for (final GedObject attribute : subObject.getAttributes()) {
-            final GedRenderer<? extends GedObject> renderer =
-                    createGedRenderer(attribute);
-            b = renderAsListItem(renderer, b, pad);
-        }
-
-        renderAttributeListClose(builder, pad, subObject);
-
-        return builder;
-    }
-
-    /**
-     * Render as a list item.
-     *
-     * @param renderer the renderer to use
-     * @param builder the string builder to fill
-     * @param pad the amount of padding to make the html look nice
-     * @return the string builder that was passed in
-     */
-    private StringBuilder renderAsListItem(
-            final GedRenderer<? extends GedObject> renderer,
-            final StringBuilder builder, final int pad) {
-        return renderer.renderAsListItem(builder, true, pad + 2);
-    }
-
-    /**
      * @param attribute
      *            The sub-object to render.
      * @return The renderer.
@@ -168,30 +131,6 @@ public abstract class GedRenderer<G extends GedObject> extends Renderer {
         return getRendererFactory().create(attribute,
                 getRenderingContext(),
                 provider);
-    }
-
-    /**
-     * @param builder Buffer for holding the rendition
-     * @param pad Minimum number spaces for padding each line of the output
-     * @param subObject subobject whose attributes are rendered
-     */
-    protected final void renderAttributeListOpen(final StringBuilder builder,
-            final int pad, final GedObject subObject) {
-        attributeListOpenRenderer.renderAttributeListOpen(builder, pad,
-                subObject);
-    }
-
-    /**
-     * @param builder Buffer for holding the rendition
-     * @param pad Minimum number spaces for padding each line of the output
-     * @param subObject subobject whose attributes are rendered
-     */
-    protected final void renderAttributeListClose(final StringBuilder builder,
-            final int pad, final GedObject subObject) {
-        if (subObject.hasAttributes()) {
-            renderPad(builder, pad, false);
-            builder.append("</ul>");
-        }
     }
 
     /**
