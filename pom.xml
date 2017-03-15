@@ -64,7 +64,7 @@
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.9.7</joda-time.version>
 
-    <selenium.version>3.2.0</selenium.version>
+    <selenium.version>3.3.1</selenium.version>
     <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
     <htmlunit-driver.version>2.25</htmlunit-driver.version>
 
