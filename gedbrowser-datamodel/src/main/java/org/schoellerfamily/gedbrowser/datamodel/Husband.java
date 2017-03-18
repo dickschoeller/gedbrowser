@@ -14,14 +14,6 @@ public final class Husband extends AbstractLink implements Spouse {
     }
 
     /**
-     * @param parent parent object of this husband
-     * @param string long version of type string
-     */
-    public Husband(final GedObject parent, final String string) {
-        super(parent, string);
-    }
-
-    /**
      * @param parent family that refers to this husband
      * @param string long version of type string
      * @param xref the reference to a person object

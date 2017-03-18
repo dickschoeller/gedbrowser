@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.datamodel;
+package org.schoellerfamily.gedbrowser.datamodel.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -146,7 +146,8 @@ public final class DateParser {
         String string = stripPrefix(dateString, "(").trim();
         string = stripSuffix(string, ")").trim();
         if ("BIC".equals(string)) {
-            // TODO WTF is BIC? I see it in the data and it means nothing to me
+            // BIC refers to LDS status "born in the covenant". Such a date can
+            // be treated as a plain string with no approximation semantics.
             return "";
         }
         if (startsWithIgnoreCase(string, ABT)) {

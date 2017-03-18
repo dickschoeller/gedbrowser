@@ -5,8 +5,8 @@ import java.util.Calendar;
 import org.joda.time.LocalDate;
 import org.schoellerfamily.gedbrowser.analytics.visitor.PersonAnalysisVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
-import org.schoellerfamily.gedbrowser.datamodel.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**

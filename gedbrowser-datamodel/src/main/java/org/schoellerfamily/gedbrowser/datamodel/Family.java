@@ -5,7 +5,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 /**
  * @author Dick Schoeller
  */
-public final class Family extends GedObject implements FamilyLinkage {
+public final class Family extends GedObject {
     /**
      * Default constructor.
      */

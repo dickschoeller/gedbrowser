@@ -3,6 +3,8 @@ package org.schoellerfamily.gedbrowser.datamodel;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
+import org.schoellerfamily.gedbrowser.datamodel.finder.RootFinder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**

@@ -90,13 +90,6 @@ public final class SourceLinkTest {
 
     /** */
     @Test
-    public void testTwoArgumentConstructor() {
-        final SourceLink sourceLink = new SourceLink(parent, string);
-        assertMatch(sourceLink, parent, expectedString, expectedFromString, "");
-    }
-
-    /** */
-    @Test
     public void testThreeArgumentConstructor() {
         final SourceLink sourceLink = new SourceLink(parent, string, xref);
         assertMatch(sourceLink, parent, expectedString, expectedFromString,

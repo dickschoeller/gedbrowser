@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import org.schoellerfamily.gedbrowser.datamodel.appender.MultimediaAppender;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**

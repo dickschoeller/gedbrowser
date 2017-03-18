@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.reader;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 
 /**
  * The file level object for parsing GEDCOM files into GedBrowser form.

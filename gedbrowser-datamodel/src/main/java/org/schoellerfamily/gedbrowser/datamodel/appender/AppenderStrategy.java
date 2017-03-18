@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.datamodel;
+package org.schoellerfamily.gedbrowser.datamodel.appender;
 
 /**
  * @author Dick Schoeller

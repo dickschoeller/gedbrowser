@@ -10,17 +10,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
  * @author Dick Schoeller
  */
 public final class HusbandTest {
-    /** */
-    private static final String HUSB_TAG = "HUSB";
-    /** */
-    private static final String ROOT_TAG = "Root";
     /** */
     private transient Person person1;
     /** */
@@ -110,42 +105,29 @@ public final class HusbandTest {
 
     /** */
     @Test
-    public void testHusbandGedObjectString() {
-        final Root localRoot = new Root(ROOT_TAG);
-        final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert(family);
-        final Husband husband = new Husband(family, HUSB_TAG);
-        assertMatch(husband, HUSB_TAG, "", "F1", false);
+    public void testHusbandGedObjectFatherNotSet() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
+        final Husband husband = new Husband(family, "Husband", null);
+        assertFalse("Father should not be set", husband.getFather().isSet());
     }
 
     /** */
     @Test
-    public void testHusbandGedObjectStringString() {
-        final Root localRoot = new Root(ROOT_TAG);
-        final Family family = new Family(localRoot, new ObjectId("F1"));
-        localRoot.insert(family);
+    public void testHusbandGedObjectStringFatherNotSet() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
+        final Husband husband = new Husband(family, "Husband", null);
+        assertFalse("Father should not be set", husband.getFather().isSet());
+    }
+
+    /** */
+    @Test
+    public void testHusbandGedObjectStringStringFather() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Family family = builder.createFamily1();
         final Husband husband =
-                new Husband(family, HUSB_TAG, new ObjectId("@I3@"));
-        assertMatch(husband, HUSB_TAG, "I3", "F1", false);
+                new Husband(family, "Husband", new ObjectId("@I3@"));
+        assertFalse("Father should not be set", husband.getFather().isSet());
     }
-
-    /**
-     * @param husband the object being checked
-     * @param expectedTag expected tag
-     * @param expectedToString expected to string
-     * @param expectedFromString expected from string
-     * @param expectedSet expected set value
-     */
-    private void assertMatch(final Husband husband,
-            final String expectedTag, final String expectedToString,
-            final String expectedFromString, final boolean expectedSet) {
-        assertEquals("Tag mismatch", expectedTag, husband.getString());
-        assertEquals("To string mismatch", expectedToString,
-                husband.getToString());
-        assertEquals("From string mismatch", expectedFromString,
-                husband.getFromString());
-        assertEquals("Husband set mismatch", expectedSet,
-                husband.getFather().isSet());
-    }
-
 }

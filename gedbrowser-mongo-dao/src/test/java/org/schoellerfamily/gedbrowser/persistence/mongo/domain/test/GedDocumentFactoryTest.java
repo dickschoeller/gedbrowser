@@ -72,7 +72,7 @@ public final class GedDocumentFactoryTest {
     /** */
     @Test
     public void testCreateChildDocument() {
-        final GedObject ged = new Child(null);
+        final GedObject ged = new Child();
         final String typeString = "child";
         final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
                 .createGedDocument(ged);

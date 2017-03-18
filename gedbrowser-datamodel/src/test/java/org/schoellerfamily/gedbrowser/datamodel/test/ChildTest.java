@@ -70,21 +70,7 @@ public final class ChildTest {
     /** */
     @Test
     public void testGetChildNullParentUnset() {
-        assertFalse("Expected null object", new Child(null).getChild().isSet());
-    }
-
-    /** */
-    @Test
-    public void testGetChildUnspecifiedParentUnset() {
         assertFalse("Expected null object", new Child().getChild().isSet());
-    }
-
-    /** */
-    @Test
-    public void testGetFatherNullParentUnset() {
-        final FamilyNavigator navigator = new FamilyNavigator(new Child(null));
-        assertFalse("Expected null object",
-                navigator.getFather().isSet());
     }
 
     /** */
@@ -96,89 +82,9 @@ public final class ChildTest {
 
     /** */
     @Test
-    public void testGetMotherNullParentUnset() {
-        final FamilyNavigator navigator = new FamilyNavigator(new Child(null));
-        assertFalse("Expected null object", navigator.getMother().isSet());
-    }
-
-    /** */
-    @Test
     public void testGetMotherUnsetParentUnset() {
         final FamilyNavigator navigator = new FamilyNavigator(new Child());
         assertFalse("Expected null object", navigator.getMother().isSet());
-    }
-
-    /** */
-    @Test
-    public void testChildUnspecifiedIdStringShouldReturnEmpty() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Child child = new Child(family);
-        assertTrue("Child string should be empty", child.getString().isEmpty());
-    }
-
-    /** */
-    @Test
-    public void testChildUnspecifiedIdStringToStringShouldBeEmpty() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Child child = new Child(family);
-        assertTrue("Expected empty string", child.getToString().isEmpty());
-    }
-
-    /** */
-    @Test
-    public void testChildFamilyId() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Child child = new Child(family);
-        assertEquals("Should match family ID", "F1", child.getFromString());
-    }
-
-    /** */
-    @Test
-    public void testChildUnspecifiedPersonShouldReturnUnset() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Child child = new Child(family);
-        assertFalse("Expected null object", child.getChild().isSet());
-    }
-
-    /** */
-    @Test
-    public void testChildWithTagShouldBeInToString() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Child child = new Child(family, "Child");
-        assertEquals("Expected matching tag", "Child", child.getString());
-    }
-
-    /** */
-    @Test
-    public void testChildTag() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Child child = new Child(family, "Child", new ObjectId("I3"));
-        assertEquals("Expected matching tag", "Child", child.getString());
-    }
-
-    /** */
-    @Test
-    public void testChildPersonId() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Child child = new Child(family, "Child", new ObjectId("I3"));
-        assertEquals("Expected matching person ID", "I3", child.getToString());
-    }
-
-    /** */
-    @Test
-    public void testChildFamilyIdShouldBeDerivableFromParent() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Child child = new Child(family, "Child", new ObjectId("I3"));
-        assertEquals("Expected matching family ID",
-                "F1", child.getFromString());
     }
 
     /** */
@@ -213,35 +119,8 @@ public final class ChildTest {
     /** */
     @Test
     public void testChildNullParentFind() {
-        final Child child = new Child(null);
+        final Child child = new Child();
         assertNull("Expected to not find", child.find("I1"));
-    }
-
-    /** */
-    @Test
-    public void testChildNullString() {
-        final Root localRoot = new Root("Root");
-        final Child child = new Child(localRoot, null);
-        assertEmpty(child);
-    }
-
-    /** */
-    @Test
-    public void testChildEmptyString() {
-        final Root localRoot = new Root("Root");
-        final Child child = new Child(localRoot, "");
-        assertEmpty(child);
-    }
-
-    /**
-     * Check for nothing set.
-     *
-     * @param child the child to check
-     */
-    private void assertEmpty(final Child child) {
-        assertEquals("Expected empty string", "", child.getString());
-        assertEquals("Expected empty string", "", child.getToString());
-        assertNull("Expected not to find", child.find("I1"));
     }
 
     /** */

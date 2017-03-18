@@ -5,27 +5,12 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 /**
  * @author Dick Schoeller
  */
-public final class Child extends AbstractLink implements FamilyLinkage {
+public final class Child extends AbstractLink {
     /**
      * Default constructor.
      */
     public Child() {
         super();
-    }
-
-    /**
-     * @param parent parent object of this child
-     */
-    public Child(final GedObject parent) {
-        super(parent);
-    }
-
-    /**
-     * @param parent parent object of this child
-     * @param string long version of type string
-     */
-    public Child(final GedObject parent, final String string) {
-        super(parent, string);
     }
 
     /**

@@ -1,4 +1,6 @@
-package org.schoellerfamily.gedbrowser.datamodel;
+package org.schoellerfamily.gedbrowser.datamodel.appender;
+
+import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 
 /**
  * @author Dick Schoeller
@@ -15,7 +17,7 @@ public final class MultimediaAppender implements AppenderStrategy {
      *
      * @param owner the Attribute that owns this appender.
      */
-    protected MultimediaAppender(final Multimedia owner) {
+    public MultimediaAppender(final Multimedia owner) {
         this.owner = owner;
     }
 

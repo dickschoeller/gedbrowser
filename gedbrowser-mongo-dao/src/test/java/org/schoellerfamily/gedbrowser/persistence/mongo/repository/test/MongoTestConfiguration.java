@@ -3,7 +3,7 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 import java.net.UnknownHostException;
 import java.util.UUID;
 
-import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
+import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
