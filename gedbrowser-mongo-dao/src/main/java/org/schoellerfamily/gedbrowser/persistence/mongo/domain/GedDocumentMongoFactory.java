@@ -9,7 +9,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.FamC;
 import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
-import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
@@ -25,6 +24,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.PersistenceException;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
@@ -137,10 +137,9 @@ public final class GedDocumentMongoFactory {
         } else if (document instanceof ChildDocumentMongo) {
             final ChildDocumentMongo childDocument =
                     (ChildDocumentMongo) document;
-            final Child child = new Child(parent);
-            child.setString("Child");
+            final Child child = new Child(parent, "Child",
+                    new ObjectId(childDocument.getString()));
             child.setFromString(parent.getString());
-            child.setToString(childDocument.getString());
             retval = child;
         } else if (document instanceof DateDocumentMongo) {
             retval = new Date(parent, document.getString());
@@ -157,24 +156,24 @@ public final class GedDocumentMongoFactory {
             retval = new Family(parent, new ObjectId(document.getString()));
         } else if (document instanceof FamCDocumentMongo) {
             final FamCDocumentMongo famcDocument = (FamCDocumentMongo) document;
-            final FamC famc = new FamC(parent, "Child of Family");
+            final FamC famc = new FamC(parent, "Child of Family",
+                    new ObjectId(famcDocument.getString()));
             famc.setFromString(parent.getString());
-            famc.setToString(famcDocument.getString());
             retval = famc;
         } else if (document instanceof FamSDocumentMongo) {
             final FamSDocumentMongo famsDocument = (FamSDocumentMongo) document;
-            final FamS fams = new FamS(parent, "Spouse of Family");
+            final FamS fams = new FamS(parent, "Spouse of Family",
+                    new ObjectId(famsDocument.getString()));
             fams.setFromString(parent.getString());
-            fams.setToString(famsDocument.getString());
             retval = fams;
         } else if (document instanceof HeadDocumentMongo) {
             retval = new Head(parent, "Header");
         } else if (document instanceof HusbandDocumentMongo) {
             final HusbandDocumentMongo husbandDocument =
                     (HusbandDocumentMongo) document;
-            final Husband husband = new Husband(parent, "Husband");
+            final Husband husband = new Husband(parent, "Husband",
+                    new ObjectId(husbandDocument.getString()));
             husband.setFromString(parent.getString());
-            husband.setToString(husbandDocument.getString());
             retval = husband;
         } else if (document instanceof PersonDocumentMongo) {
             retval = new Person(parent, new ObjectId(document.getString()));
@@ -183,8 +182,8 @@ public final class GedDocumentMongoFactory {
         } else if (document instanceof SourceDocumentMongo) {
             retval = new Source(parent, new ObjectId(document.getString()));
         } else if (document instanceof SourceLinkDocumentMongo) {
-            final SourceLink slink = new SourceLink(parent, "Source");
-            slink.setToString(document.getString());
+            final SourceLink slink = new SourceLink(parent, "Source",
+                    new ObjectId(document.getString()));
             retval = slink;
         } else if (document instanceof SubmittorDocumentMongo) {
             retval = new Submittor(parent, document.getString());
@@ -194,9 +193,9 @@ public final class GedDocumentMongoFactory {
             retval = new Trailer(parent, document.getString());
         } else if (document instanceof WifeDocumentMongo) {
             final WifeDocumentMongo wifeDocument = (WifeDocumentMongo) document;
-            final Wife wife = new Wife(parent, "Wife");
+            final Wife wife = new Wife(parent, "Wife",
+                    new ObjectId(wifeDocument.getString()));
             wife.setFromString(parent.getString());
-            wife.setToString(wifeDocument.getString());
             retval = wife;
         } else if (document instanceof RootDocumentMongo) {
             final RootDocumentMongo rootDocument = (RootDocumentMongo) document;

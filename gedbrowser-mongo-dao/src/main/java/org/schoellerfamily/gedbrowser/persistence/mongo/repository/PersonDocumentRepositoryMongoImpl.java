@@ -10,7 +10,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
+import org.schoellerfamily.gedbrowser.datamodel.util.PersonComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
@@ -238,7 +238,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
      * @author Dick Schoeller
      */
     private static class PersonDocumentComparator implements
-            Comparator<PersonDocumentMongo>, Serializable {
+            Comparator<PersonDocument>, Serializable {
         // TODO combine with the person comparator.
 
         /** */
@@ -248,30 +248,10 @@ public final class PersonDocumentRepositoryMongoImpl implements
          * {@inheritDoc}
          */
         @Override
-        public int compare(final PersonDocumentMongo arg0,
-                final PersonDocumentMongo arg1) {
-            final Person p0 = arg0.getGedObject();
-            final Person p1 = arg1.getGedObject();
-            final int nameComparison =
-                    p0.getIndexName().compareTo(p1.getIndexName());
-            if (nameComparison != 0) {
-                return nameComparison;
-            }
-            // If the names are the same, use the sort date (approximates on
-            // birth).
-            final GetDateVisitor visitor0 = new GetDateVisitor("Birth");
-            p0.accept(visitor0);
-            final String sortDate0 = visitor0.getSortDate();
-            final GetDateVisitor visitor1 = new GetDateVisitor("Birth");
-            p1.accept(visitor1);
-            final String sortDate1 = visitor1.getSortDate();
-            final int dateComparison =
-                    sortDate0.compareTo(sortDate1);
-            if (dateComparison != 0) {
-                return dateComparison;
-            }
-            // If the dates are the same, use the I number.
-            return p0.getString().compareTo(p1.getString());
+        public int compare(final PersonDocument arg0,
+                final PersonDocument arg1) {
+            final PersonComparator pc = new PersonComparator();
+            return pc.compare(arg0.getGedObject(), arg1.getGedObject());
         }
     }
 

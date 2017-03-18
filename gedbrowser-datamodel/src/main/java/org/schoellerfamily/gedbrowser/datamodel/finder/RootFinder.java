@@ -1,15 +1,16 @@
-package org.schoellerfamily.gedbrowser.datamodel;
+package org.schoellerfamily.gedbrowser.datamodel.finder;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.util.PersonComparator;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.RootVisitor;
 
 /**
@@ -19,7 +20,7 @@ public final class RootFinder implements FinderStrategy {
     /**
      * Constructor.
      */
-    RootFinder() {
+    public RootFinder() {
         // Empty constructor.
     }
 
@@ -88,43 +89,6 @@ public final class RootFinder implements FinderStrategy {
         Collections.sort(matches, new PersonComparator());
 
         return matches;
-    }
-
-    /**
-     * @author Dick Schoeller
-     */
-    public static final class PersonComparator implements Comparator<Person>,
-            Serializable {
-        /** */
-        private static final long serialVersionUID = 3;
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public int compare(final Person arg0,
-                final Person arg1) {
-            final int nameComparison =
-                    arg0.getIndexName().compareTo(arg1.getIndexName());
-            if (nameComparison != 0) {
-                return nameComparison;
-            }
-            // If the names are the same, use the sort date (approximates on
-            // birth).
-            final GetDateVisitor visitor0 = new GetDateVisitor("Birth");
-            arg0.accept(visitor0);
-            final String sortDate0 = visitor0.getSortDate();
-            final GetDateVisitor visitor1 = new GetDateVisitor("Birth");
-            arg1.accept(visitor1);
-            final String sortDate1 = visitor1.getSortDate();
-            final int birthComparison =
-                    sortDate0.compareTo(sortDate1);
-            if (birthComparison != 0) {
-                return birthComparison;
-            }
-            // If the dates are the same, use the I number.
-            return arg0.getString().compareTo(arg1.getString());
-        }
     }
 
     /**

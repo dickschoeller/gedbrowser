@@ -1,6 +1,9 @@
-package org.schoellerfamily.gedbrowser.datamodel;
+package org.schoellerfamily.gedbrowser.datamodel.finder;
 
 import java.util.Collection;
+
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
  * @author Dick Schoeller

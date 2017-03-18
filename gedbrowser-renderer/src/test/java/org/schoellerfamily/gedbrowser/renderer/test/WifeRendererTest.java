@@ -97,7 +97,7 @@ public final class WifeRendererTest {
      */
     private WifeRenderer createRenderer() {
         final WifeRenderer renderer = new WifeRenderer(
-                new Wife(null, "Wife"), new GedRendererFactory(),
+                new Wife(null, "Wife", null), new GedRendererFactory(),
                 anonymousContext, provider);
         return renderer;
     }

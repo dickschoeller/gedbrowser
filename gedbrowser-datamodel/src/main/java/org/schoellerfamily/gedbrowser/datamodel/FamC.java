@@ -14,14 +14,6 @@ public final class FamC extends AbstractLink {
     }
 
     /**
-     * @param parent parent object of this link
-     * @param string long version of type string
-     */
-    public FamC(final GedObject parent, final String string) {
-        super(parent, string);
-    }
-
-    /**
      * @param parent person that is a child in the referred family
      * @param string long version of type string
      * @param xref the reference to a family object

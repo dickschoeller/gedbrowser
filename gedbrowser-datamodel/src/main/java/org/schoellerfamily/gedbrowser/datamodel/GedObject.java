@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.schoellerfamily.gedbrowser.datamodel.appender.AppenderStrategy;
+import org.schoellerfamily.gedbrowser.datamodel.appender.GedAppender;
+import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
+import org.schoellerfamily.gedbrowser.datamodel.finder.ParentFinder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
@@ -217,7 +221,7 @@ public abstract class GedObject {
      * @param str the ID string of the object being sought
      * @return the object found from the searching the top level object list
      */
-    protected final GedObject findInParent(final String str) {
+    public final GedObject findInParent(final String str) {
         if (parent == null) {
             return null;
         }
@@ -249,7 +253,7 @@ public abstract class GedObject {
     /**
      * @return the filename provided by the parent
      */
-    protected final String getParentFilename() {
+    public final String getParentFilename() {
         if (getParent() == null) {
             return null;
         }
@@ -259,7 +263,7 @@ public abstract class GedObject {
     /**
      * @return the filename provided by the parent
      */
-    protected final String getParentDbName() {
+    public final String getParentDbName() {
         if (getParent() == null) {
             return null;
         }

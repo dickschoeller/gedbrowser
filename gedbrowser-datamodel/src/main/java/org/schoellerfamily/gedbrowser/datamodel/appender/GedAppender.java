@@ -1,4 +1,6 @@
-package org.schoellerfamily.gedbrowser.datamodel;
+package org.schoellerfamily.gedbrowser.datamodel.appender;
+
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
  * @author Dick Schoeller
@@ -14,7 +16,7 @@ public final class GedAppender implements AppenderStrategy {
      *
      * @param owner the GedObject that owns this appender.
      */
-    protected GedAppender(final GedObject owner) {
+    public GedAppender(final GedObject owner) {
         this.owner = owner;
     }
 

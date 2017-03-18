@@ -114,58 +114,11 @@ public final class WifeTest {
 
     /** */
     @Test
-    public void testWifeGedObjectEmptyToString() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Wife wife = new Wife(family, "Wife");
-        assertTrue("Wife getToString should be empty",
-                wife.getToString().isEmpty());
-    }
-
-    /** */
-    @Test
-    public void testWifeGedObjectFromString() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Wife wife = new Wife(family, "Wife");
-        assertEquals("Wife fromString doesn't match",
-                "F1", wife.getFromString());
-    }
-
-    /** */
-    @Test
     public void testWifeGedObjectMotherNotSet() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily1();
-        final Wife wife = new Wife(family, "Wife");
+        final Wife wife = new Wife(family, "Wife", null);
         assertFalse("Mother should not be set", wife.getMother().isSet());
-    }
-
-    /** */
-    @Test
-    public void testWifeGedObjectStringTag() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Wife wife = new Wife(family, WIFE_TAG);
-        assertEquals("Tag doesn't match", WIFE_TAG, wife.getString());
-    }
-
-    /** */
-    @Test
-    public void testWifeGedObjectStringEmptyTo() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Wife wife = new Wife(family, WIFE_TAG);
-        assertTrue("To string should be empty", wife.getToString().isEmpty());
-    }
-
-    /** */
-    @Test
-    public void testWifeGedObjectStringFrom() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Wife wife = new Wife(family, WIFE_TAG);
-        assertEquals("From string doesn't match", "F1", wife.getFromString());
     }
 
     /** */
@@ -173,35 +126,8 @@ public final class WifeTest {
     public void testWifeGedObjectStringMotherNotSet() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily1();
-        final Wife wife = new Wife(family, WIFE_TAG);
+        final Wife wife = new Wife(family, WIFE_TAG, null);
         assertFalse("Mother should not be set", wife.getMother().isSet());
-    }
-
-    /** */
-    @Test
-    public void testWifeGedObjectStringStringTag() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
-        assertEquals("Tag doesn't match", WIFE_TAG, wife.getString());
-    }
-
-    /** */
-    @Test
-    public void testWifeGedObjectStringStringTo() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
-        assertEquals("To string doesn't match", "I3", wife.getToString());
-    }
-
-    /** */
-    @Test
-    public void testWifeGedObjectStringStringFrom() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
-        final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
-        assertEquals("From string doesn't match", "F1", wife.getFromString());
     }
 
     /** */

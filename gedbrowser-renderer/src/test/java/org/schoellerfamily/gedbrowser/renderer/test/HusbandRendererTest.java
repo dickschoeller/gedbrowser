@@ -100,7 +100,7 @@ public final class HusbandRendererTest {
      */
     private HusbandRenderer createRenderer() {
         final HusbandRenderer renderer = new HusbandRenderer(
-                new Husband(null, "Husband"), new GedRendererFactory(),
+                new Husband(null, "Husband", null), new GedRendererFactory(),
                 anonymousContext, provider);
         return renderer;
     }

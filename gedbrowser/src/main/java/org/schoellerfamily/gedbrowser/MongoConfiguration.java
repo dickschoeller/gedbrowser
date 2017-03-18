@@ -6,7 +6,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderImpl;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.controller.ApplicationInfoImpl;
-import org.schoellerfamily.gedbrowser.datamodel.FinderStrategy;
+import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     FamilyDocumentRepositoryMongo;

@@ -6,7 +6,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.NameableVisitor;
 /**
  * @author Dick Schoeller
  */
-public final class Person extends GedObject implements Nameable, FamilyLinkage {
+public final class Person extends GedObject implements Nameable {
     /**
      * Default constructor.
      */

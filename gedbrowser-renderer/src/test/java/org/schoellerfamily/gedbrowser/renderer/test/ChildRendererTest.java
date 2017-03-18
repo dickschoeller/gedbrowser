@@ -31,7 +31,7 @@ public final class ChildRendererTest {
     public void init() {
         final CalendarProvider provider = new CalendarProviderStub();
         final ApplicationInfo appInfo = new ApplicationInfoStub();
-        renderer = new ChildRenderer(new Child(null), new GedRendererFactory(),
+        renderer = new ChildRenderer(new Child(), new GedRendererFactory(),
                 RenderingContext.anonymous(appInfo), provider);
     }
 

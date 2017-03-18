@@ -82,7 +82,7 @@ public final class FamilyNavigatorTest {
     /** */
     @Test
     public void testNullFamily() {
-        final FamC famc = new FamC(null, "F8888");
+        final FamC famc = new FamC(null, "F8888", null);
         final FamilyNavigator navigator = new FamilyNavigator(famc);
         assertFalse("Expected null", navigator.getFamily().isSet());
     }

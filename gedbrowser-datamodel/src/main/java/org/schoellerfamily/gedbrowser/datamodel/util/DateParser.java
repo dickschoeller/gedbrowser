@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.datamodel;
+package org.schoellerfamily.gedbrowser.datamodel.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
