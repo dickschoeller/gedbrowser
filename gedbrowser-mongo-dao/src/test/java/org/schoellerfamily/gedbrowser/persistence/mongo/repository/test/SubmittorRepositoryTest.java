@@ -27,9 +27,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 public final class SubmittorRepositoryTest {
     /** */
-    private static final String SUBMITTOR_STRING = "Submittor";
-
-    /** */
     @Autowired
     private transient SubmittorDocumentRepositoryMongo
         submittorDocumentRepository;
@@ -66,24 +63,24 @@ public final class SubmittorRepositoryTest {
     @Test
     public void testSubmittor() {
         final SubmittorDocument document = submittorDocumentRepository.
-                findByFileAndString(root.getFilename(), SUBMITTOR_STRING);
+                findByFileAndString(root.getFilename(), "SUB1");
         final Submittor submittor =
                 (Submittor) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, document);
         assertEquals("Expected submittor string",
-                SUBMITTOR_STRING, submittor.getString());
+                "SUB1", submittor.getString());
     }
 
     /** */
     @Test
     public void testSubmittorRoot() {
         final SubmittorDocument document = submittorDocumentRepository.
-                findByRootAndString(rootDocument, SUBMITTOR_STRING);
+                findByRootAndString(rootDocument, "SUB1");
         final Submittor submittor =
                 (Submittor) GedDocumentMongoFactory.getInstance().
                 createGedObject(root, document);
         assertEquals("Expected submittor string",
-                SUBMITTOR_STRING, submittor.getString());
+                "SUB1", submittor.getString());
     }
 
     /** */
