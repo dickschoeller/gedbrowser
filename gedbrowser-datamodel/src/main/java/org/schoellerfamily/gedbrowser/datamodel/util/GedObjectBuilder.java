@@ -297,7 +297,7 @@ public final class GedObjectBuilder {
         if (idString == null || name == null) {
             return new Submittor(root, null);
         }
-        final Submittor submittor = new Submittor(root, idString);
+        final Submittor submittor = new Submittor(root, new ObjectId(idString));
         submittor.insert(new Name(submittor, name));
         root.insert(submittor);
         return submittor;
@@ -314,7 +314,7 @@ public final class GedObjectBuilder {
         if (idString == null) {
             return new Submittor(root, null);
         }
-        final Submittor submittor = new Submittor(root, idString);
+        final Submittor submittor = new Submittor(root, new ObjectId(idString));
         root.insert(submittor);
         return submittor;
     }

@@ -43,9 +43,6 @@ public final class RepositoryFinderTest {
     private static final String HEADER_STRING = "Header";
 
     /** */
-    private static final String SUBMITTOR_STRING = "Submittor";
-
-    /** */
     @Autowired
     private transient FinderStrategy finder;
 
@@ -95,9 +92,9 @@ public final class RepositoryFinderTest {
     @Test
     public void testUntypedSubmittor() {
         final Submittor submittor =
-                (Submittor) finder.find(root, SUBMITTOR_STRING);
+                (Submittor) finder.find(root, "SUB1");
         assertEquals("Mismatched tag string",
-                SUBMITTOR_STRING, submittor.getString());
+                "SUB1", submittor.getString());
     }
 
     /** */
@@ -147,10 +144,9 @@ public final class RepositoryFinderTest {
     /** */
     @Test
     public void testTypedSubmittor() {
-        final Submittor submittor = (Submittor) finder.find(
-                root, SUBMITTOR_STRING, Submittor.class);
-        assertEquals("Mismatched tag string",
-                SUBMITTOR_STRING, submittor.getString());
+        final Submittor submittor =
+                (Submittor) finder.find(root, "SUB1", Submittor.class);
+        assertEquals("Mismatched tag string", "SUB1", submittor.getString());
     }
 
     /** */
@@ -194,7 +190,7 @@ public final class RepositoryFinderTest {
     /** */
     @Test
     public void testTypedNotFoundSubmittor() {
-        final Submittor submittor = finder.find(root, "SUB1", Submittor.class);
+        final Submittor submittor = finder.find(root, "SUB2", Submittor.class);
         assertNull("Should not have found anything", submittor);
     }
 
@@ -272,7 +268,7 @@ public final class RepositoryFinderTest {
     /** */
     @Test
     public void testInsertSubmittor() {
-        final Submittor submittor = new Submittor(root, BOGUS_ID);
+        final Submittor submittor = new Submittor(root, new ObjectId(BOGUS_ID));
         finder.insert(root, submittor);
         assertEquals("Submittor mismatch",
                 submittor, finder.find(root, BOGUS_ID, Submittor.class));

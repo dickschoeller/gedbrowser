@@ -17,7 +17,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Link;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
-import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -194,8 +193,8 @@ public final class GedRendererFactoryTest {
     /** */
     @Test
     public void testGetSourceRenderer() {
-        final GedRenderer<?> gedRenderer = grf.create(
-                new Source(null, new ObjectId("S1")), provider, appInfo);
+        final GedRenderer<?> gedRenderer =
+                grf.create(new Source(), provider, appInfo);
         assertTrue("Expected SourceRenderer",
                 gedRenderer instanceof SourceRenderer);
     }
@@ -213,7 +212,7 @@ public final class GedRendererFactoryTest {
     @Test
     public void testGetSubmittorRenderer() {
         final GedRenderer<?> gedRenderer =
-                grf.create(new Submittor(null, "SUB1"), provider, appInfo);
+                grf.create(new Submittor(), provider, appInfo);
         assertTrue("Expected SubmittorRenderer",
                 gedRenderer instanceof SubmittorRenderer);
     }

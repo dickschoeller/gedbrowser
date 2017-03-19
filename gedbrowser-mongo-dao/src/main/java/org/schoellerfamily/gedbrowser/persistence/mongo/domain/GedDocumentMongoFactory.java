@@ -186,9 +186,10 @@ public final class GedDocumentMongoFactory {
                     new ObjectId(document.getString()));
             retval = slink;
         } else if (document instanceof SubmittorDocumentMongo) {
-            retval = new Submittor(parent, document.getString());
+            retval = new Submittor(parent, new ObjectId(document.getString()));
         } else if (document instanceof SubmittorLinkDocumentMongo) {
-            retval = new SubmittorLink(parent, document.getString());
+            retval = new SubmittorLink(parent, "Submittor",
+                    new ObjectId(document.getString()));
         } else if (document instanceof TrailerDocumentMongo) {
             retval = new Trailer(parent, document.getString());
         } else if (document instanceof WifeDocumentMongo) {

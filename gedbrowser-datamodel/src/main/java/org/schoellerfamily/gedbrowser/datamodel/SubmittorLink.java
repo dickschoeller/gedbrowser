@@ -14,14 +14,6 @@ public final class SubmittorLink extends AbstractLink {
     }
 
     /**
-     * @param parent parent object of this link
-     * @param tag long version of type string
-     */
-    public SubmittorLink(final GedObject parent, final String tag) {
-        super(parent, tag);
-    }
-
-    /**
      * @param parent parent object of this submittor link
      * @param tag long version of type string
      * @param xref the reference to a submittor object

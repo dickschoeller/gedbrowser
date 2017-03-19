@@ -593,7 +593,7 @@ public abstract class AbstractGedObjectFactory {
             if (visitor.getRoot() == null) {
                 return SUBMLINK_FACTORY.create(parent, xref, tag, tail);
             } else {
-                return new Submittor(parent, tag, tail);
+                return new Submittor(parent, xref);
             }
         }
     }

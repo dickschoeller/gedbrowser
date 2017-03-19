@@ -90,13 +90,6 @@ public final class SubmittorLinkTest {
 
     /** */
     @Test
-    public void testTwoArgumentConstructor() {
-        final SubmittorLink sourceLink = new SubmittorLink(parent, string);
-        assertMatch(sourceLink, parent, expectedString, expectedFromString, "");
-    }
-
-    /** */
-    @Test
     public void testThreeArgumentConstructor() {
         final SubmittorLink sourceLink = new SubmittorLink(parent, string,
                 xref);

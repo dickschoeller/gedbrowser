@@ -39,12 +39,12 @@ public final class SubmittorLinkListItemRendererTest {
         final Head head = new Head(root, "Head");
         root.insert(head);
 
-        final Submittor submittor = new Submittor(root, "SUBM", "S1");
+        final Submittor submittor = new Submittor(root, new ObjectId("S1"));
         final Name name = new Name(submittor, "Richard/Schoeller/");
         root.insert(submittor);
         submittor.insert(name);
 
-        submittorLink = new SubmittorLink(head, "SUBL", new ObjectId("S1"));
+        submittorLink = new SubmittorLink(head, "SUBM", new ObjectId("S1"));
         provider = new CalendarProviderStub();
         final ApplicationInfo appInfo = new ApplicationInfoStub();
         anonymousContext = RenderingContext.anonymous(appInfo);

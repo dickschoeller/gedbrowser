@@ -100,7 +100,7 @@ public final class SubmittorRendererTest {
      */
     private SubmittorRenderer createRenderer() {
         final SubmittorRenderer renderer = new SubmittorRenderer(
-                new Submittor(null, "SUB1"), new GedRendererFactory(),
+                new Submittor(), new GedRendererFactory(),
                 anonymousContext, provider);
         return renderer;
     }
