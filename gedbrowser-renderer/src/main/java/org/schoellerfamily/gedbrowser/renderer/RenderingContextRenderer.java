@@ -3,45 +3,86 @@ package org.schoellerfamily.gedbrowser.renderer;
 import java.text.DateFormat;
 import java.util.Locale;
 
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+
 /**
+ * Some base rendering behaviors outside of the context of GedObject rendering.
+ * This provides methods that can be used in the context of error pages, etc.
+ *
  * @author Dick Schoeller
  */
-public interface Renderer {
-    /**
-     * @return the application name.
-     */
-    String getName();
+@SuppressWarnings({ "PMD.CommentSize" })
+public abstract class Renderer {
+
+    /** */
+    private final RenderingContext renderingContext;
 
     /**
-     * @return the application URL.
+     * Constructor.
+     *
+     * @param renderingContext the context that we are rendering in
      */
-    String getApplicationURL();
+    public Renderer(final RenderingContext renderingContext) {
+        this.renderingContext = renderingContext;
+    }
+
+    /**
+     * @return the user context we are rendering in
+     */
+    protected final RenderingContext getRenderingContext() {
+        return renderingContext;
+    }
 
     /**
      * @return the standard URL for home.
      */
-    String getHomeUrl();
+    public final String getHomeUrl() {
+        return renderingContext.getHomeURL();
+    }
 
     /**
      * @return the standard URL for home.
      */
-    String getMaintainerEmail();
+    public final String getMaintainerEmail() {
+        return renderingContext.getMaintainerEmail();
+    }
 
     /**
      * @return the maintainer's name
      */
-    String getMaintainerName();
+    public final String getMaintainerName() {
+        return renderingContext.getMaintainerName();
+    }
 
     /**
      * @return the version string
      */
-    String getVersion();
+    public final String getVersion() {
+        return renderingContext.getVersion();
+    }
+
+    /**
+     * @return user's first name
+     */
+    public final String getUserFirstname() {
+        return renderingContext.getFirstname();
+    }
+
+    /**
+     * Check if the user in the rendering context has a particular role.
+     *
+     * @param role role that we are looking for
+     * @return true if the user has the role
+     */
+    public final boolean hasRole(final String role) {
+        return renderingContext.hasRole(role);
+    }
 
     /**
      * @param separate whether to return the separator.
      * @return the separator
      */
-    default String getSeparator(final boolean separate) {
+    public final String getSeparator(final boolean separate) {
         if (separate) {
             return ", ";
         } else {
@@ -49,16 +90,38 @@ public interface Renderer {
         }
     }
 
+    /**
+     * Convert the string for use in HTML or URLs.
+     *
+     * @param input unescaped string.
+     * @return the escaped string.
+     */
+    protected static final String escapeString(final String input) {
+        return input.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;").replaceAll("\n", "<br/>\n");
+    }
 
     /**
-     * Get the HTML header for a page. <p> This method is public for testing
-     * purposes only. Do not try to call it outside of the context of the
-     * rendering engine.
+     * Convert the string for use in HTML or URLs.
+     *
+     * @param gedObject the object whose string we are going to escape.
+     * @return the escaped string.
+     */
+    protected static final String escapeString(final GedObject gedObject) {
+        return escapeString(gedObject.getString());
+    }
+
+    /**
+     * Get the HTML header for a page.
+     *
+     * This method is public for testing purposes only. Do not try to call it
+     * outside of the context of the rendering engine.
+     *
      * @param title the title string.
      * @param keywords any keywords.
      * @return a string containing the HTML header.
      */
-    default String getHeaderHtml(final String title,
+    public final String getHeaderHtml(final String title,
             final String keywords) {
         final StringBuilder builder = new StringBuilder(585);
         builder.append("Content-type: text/html\n\n");
@@ -94,7 +157,7 @@ public interface Renderer {
      *
      * @return trailer HTML with no omissions.
      */
-    default String getTrailerHtml() {
+    public final String getTrailerHtml() {
         return getTrailerHtml("");
     }
 
@@ -105,7 +168,7 @@ public interface Renderer {
      * @param omit title of section to leave out.
      * @return trailer HTML
      */
-    default String getTrailerHtml(final String omit) {
+    public final String getTrailerHtml(final String omit) {
         final java.util.Date javaDate = new java.util.Date();
         final String timeString = DateFormat.getDateInstance(DateFormat.LONG,
                 Locale.getDefault()).format(javaDate);
@@ -151,7 +214,5 @@ public interface Renderer {
      * @param omit if true don't add them
      * @param builder the builder that will contain the items
      */
-    default void menuInsertions(String omit, StringBuilder builder) {
-        // Empty default
-    }
+    protected abstract void menuInsertions(String omit, StringBuilder builder);
 }
