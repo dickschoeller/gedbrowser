@@ -26,7 +26,7 @@ public final class LinkTest {
         person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
         final Person person3 = builder.createPerson3();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addChildToFamily(family, person1);
         builder.addHusbandToFamily(family, person2);
         builder.addWifeToFamily(family, person3);

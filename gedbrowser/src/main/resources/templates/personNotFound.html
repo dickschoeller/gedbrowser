@@ -7,7 +7,7 @@
 <body>
     <div class="menubar">
         <span class="left">
-            <span><a th:href="${homeUrl}">Home</a></span>
+            <span><a th:href="${error.homeUrl}">Home</a></span>
             <!--
             <span><a th:href="${person.indexHref}">Index</a></span>
             <span><a th:if="${person.hasRole('ADMIN')}" th:href="${person.livingHref}">Living</a></span>
@@ -16,7 +16,7 @@
         </span>
         <div  th:if="${#httpServletRequest.remoteUser} != null" class="right">
             <form th:action="@{logout}" method="post">
-                <input class="menubar" type="submit" th:value="'Logout ' + ${renderingContext.firstname}"/>
+                <input class="menubar" type="submit" th:value="'Logout ' + ${error.userFirstname}"/>
             </form>
         </div>
         <span th:if="${#httpServletRequest.remoteUser} == null" class="right" th:inline="text"><a th:href="@{login}">Login</a></span>
@@ -24,15 +24,15 @@
     <div class="outer">
     <div class="middle">
     <div class="inner">
-    <h1 th:utext="${exception.message}">Person</h1>
-    <h2 class="name"><span th:utext="${exception.personId}">I1</span> not found in dataset <span  th:utext="${exception.datasetName}"></span></h2>
+    <h1 th:utext="${error.message}">Person</h1>
+    <h2 class="name"><span th:utext="${error.exception.personId}">I1</span> not found in dataset <span  th:utext="${error.exception.datasetName}"></span></h2>
     <hr class="final"/>
     <table class="buttonrow">
         <tr class="buttonrow">
             <td class="brleft">
-                <p class="maintainer">Maintained by <a id="maintainerMail" th:href="'mailto:' + ${appInfo.maintainerEmail}" th:text="${appInfo.maintainerName}"></a>.<br/>
-                Created with <a th:href="${appInfo.applicationURL}" th:text="${appInfo.name}"></a>, version <span th:text="${appInfo.version}">2.0</span> on <span th:text="${#dates.format(#dates.createToday(),'MMMMM dd, yyyy')}"></span>.<br/>
-                Get the sources on <a th:href="${appInfo.applicationURL}">GitHub</a> <a th:href="${appInfo.applicationURL}"><img src="images/github-25.png" style="vertical-align:top"/></a></p>
+                <p class="maintainer">Maintained by <a id="maintainerMail" th:href="'mailto:' + ${error.maintainerEmail}" th:text="${error.maintainerName}"></a>.<br/>
+                Created with <a th:href="${error.applicationURL}" th:text="${error.name}"></a>, version <span th:text="${error.version}">2.0</span> on <span th:text="${#dates.format(#dates.createToday(),'MMMMM dd, yyyy')}"></span>.<br/>
+                Get the sources on <a th:href="${error.applicationURL}">GitHub</a> <a th:href="${error.applicationURL}"><img src="images/github-25.png" style="vertical-align:top"/></a></p>
             </td>
         </tr>
     </table>

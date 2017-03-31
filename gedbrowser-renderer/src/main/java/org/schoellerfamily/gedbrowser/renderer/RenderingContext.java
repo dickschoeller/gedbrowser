@@ -129,4 +129,18 @@ public final class RenderingContext {
     public String getVersion() {
         return appInfo.getVersion();
     }
+
+    /**
+     * @return the application URL.
+     */
+    public String getApplicationURL() {
+        return appInfo.getApplicationURL();
+    }
+
+    /**
+     * @return the application name.
+     */
+    public String getApplicationName() {
+        return appInfo.getName();
+    }
 }

@@ -359,7 +359,7 @@ public final class PlaceListRendererTest {
         final Person person = builder.createPerson1();
         builder.createPersonEvent(person, "Death", "20 JAN 2017");
         final Person person2 = builder.createPerson2();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addHusbandToFamily(family, person);
         builder.addWifeToFamily(family, person2);
         final Attribute marriage =

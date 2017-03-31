@@ -31,7 +31,7 @@ public final class FamCTest {
         final Person person1 = builder.createPerson1();
         person2 = builder.createPerson2();
         person3 = builder.createPerson3();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         buildChild(family, person1);
         builder.addHusbandToFamily(family, person2);
         builder.addWifeToFamily(family, person3);

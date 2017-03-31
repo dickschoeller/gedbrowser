@@ -44,7 +44,7 @@ public final class RootTest {
         person1 = builder.createPerson("I1", "Richard/Schoeller/");
         person2 = builder.createPerson("I2", "John/Schoeller/");
         person3 = builder.createPerson("I3", "Patricia/Hayes/");
-        family = builder.createFamily1();
+        family = builder.createFamily("F1");
         builder.addChildToFamily(family, person1);
         builder.addHusbandToFamily(family, person2);
         builder.addWifeToFamily(family, person2);

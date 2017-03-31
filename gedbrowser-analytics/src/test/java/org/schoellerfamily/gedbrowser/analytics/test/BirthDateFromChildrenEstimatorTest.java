@@ -23,7 +23,7 @@ public class BirthDateFromChildrenEstimatorTest {
 
         builder.createPersonEvent(person3, "Birth", "11 JUL 1960");
 
-        final Family family1 = builder.createFamily1();
+        final Family family1 = builder.createFamily("F1");
 
         builder.addHusbandToFamily(family1, person1);
         builder.addChildToFamily(family1, person3);
@@ -48,7 +48,7 @@ public class BirthDateFromChildrenEstimatorTest {
 
         builder.createPersonEvent(person3, "Occupation", "11 JUL 1985");
 
-        final Family family1 = builder.createFamily1();
+        final Family family1 = builder.createFamily("F1");
 
         builder.addHusbandToFamily(family1, person1);
         builder.addChildToFamily(family1, person3);
@@ -74,7 +74,7 @@ public class BirthDateFromChildrenEstimatorTest {
 
         builder.createPersonEvent(person3, "Birth", "11 JUL 1962");
 
-        final Family family1 = builder.createFamily1();
+        final Family family1 = builder.createFamily("F1");
 
         builder.addHusbandToFamily(family1, person1);
         builder.addChildToFamily(family1, person2);
@@ -103,18 +103,18 @@ public class BirthDateFromChildrenEstimatorTest {
 
         builder.createPersonEvent(person4, "Birth", "11 JUL 1960");
 
-        final Family family1 = builder.createFamily1();
+        final Family family1 = builder.createFamily("F1");
 
         builder.addHusbandToFamily(family1, person1);
         builder.addChildToFamily(family1, person5);
         builder.addChildToFamily(family1, person2);
 
-        final Family family2 = builder.createFamily2();
+        final Family family2 = builder.createFamily("F2");
 
         builder.addHusbandToFamily(family2, person4);
         builder.addChildToFamily(family2, person3);
 
-        final Family family3 = builder.createFamily3();
+        final Family family3 = builder.createFamily("F3");
 
         builder.addHusbandToFamily(family3, person2);
         builder.addWifeToFamily(family3, person3);

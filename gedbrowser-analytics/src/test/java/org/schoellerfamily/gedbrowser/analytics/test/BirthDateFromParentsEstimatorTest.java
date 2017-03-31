@@ -34,7 +34,7 @@ public final class BirthDateFromParentsEstimatorTest {
         person2 = builder.createPerson2();
         person3 = builder.createPerson3();
 
-        family1 = builder.createFamily1();
+        family1 = builder.createFamily("F1");
 
         builder.addChildToFamily(family1, person1);
         builder.addHusbandToFamily(family1, person2);
@@ -63,7 +63,7 @@ public final class BirthDateFromParentsEstimatorTest {
     public void testFromBirthWithOnlyFather() {
         final Person child1 = builder.createPerson1();
         final Person father = builder.createPerson3();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addChildToFamily(family, child1);
         builder.addHusbandToFamily(family, father);
         builder.createPersonEvent(father, "Birth", "1 JAN 1935");
@@ -86,7 +86,7 @@ public final class BirthDateFromParentsEstimatorTest {
     public void testFromBirthWithOnlyMother() {
         final Person child1 = builder.createPerson1();
         final Person mother = builder.createPerson4();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.createFamilyEvent(family, "Marriage", "10 MAY 1960");
         builder.addChildToFamily(family, child1);
         builder.addWifeToFamily(family, mother);
@@ -101,7 +101,7 @@ public final class BirthDateFromParentsEstimatorTest {
     @Test
     public void testFromBirthFamilyNoParents() {
         final Person child1 = builder.createPerson1();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addChildToFamily(family, child1);
         final BirthDateFromParentsEstimator e =
                 new BirthDateFromParentsEstimator(child1);
@@ -142,7 +142,7 @@ public final class BirthDateFromParentsEstimatorTest {
         final Person child2 = builder.createPerson2();
         final Person father = builder.createPerson3();
         final Person mother = builder.createPerson4();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.createFamilyEvent(family, "Marriage", "10 MAY 1960");
         builder.addChildToFamily(family, child1);
         builder.addChildToFamily(family, child2);
@@ -161,7 +161,7 @@ public final class BirthDateFromParentsEstimatorTest {
         final Person child2 = builder.createPerson2();
         final Person father = builder.createPerson3();
         final Person mother = builder.createPerson4();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.createFamilyEvent(family, "Marriage", "10 MAY 1960");
         builder.addChildToFamily(family, child1);
         builder.addChildToFamily(family, child2);
@@ -210,7 +210,7 @@ public final class BirthDateFromParentsEstimatorTest {
     @Test
     public void testFromMarriageFamilyNoParents() {
         final Person child1 = builder.createPerson1();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addChildToFamily(family, child1);
         builder.createFamilyEvent(family, "Marriage", "10 MAY 1960");
         final BirthDateFromParentsEstimator e =

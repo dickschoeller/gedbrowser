@@ -9,6 +9,8 @@ import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundExcept
 import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.SourceNotFoundException;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.renderer.GedResourceNotFoundRenderer;
+import org.schoellerfamily.gedbrowser.renderer.Renderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,23 +30,23 @@ public abstract class AbstractController {
     private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
-    private RenderingContext renderingContext;
-
-    /** */
     @Autowired
     private transient ApplicationInfo applicationInfo;
 
+    /** */
+    @Autowired
+    private transient Users users;
+
     /**
-     * @param users the known users
      * @return the rendering context
      */
-    protected final RenderingContext createRenderingContext(final Users users) {
+    protected final RenderingContext createRenderingContext() {
         logger.debug("Entering createRenderingContext");
         final Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
         final User user = users.get(authentication.getName());
-        renderingContext = new RenderingContextBuilder(authentication, user,
-                applicationInfo).build();
+        final RenderingContext renderingContext = new RenderingContextBuilder(
+                authentication, user, applicationInfo).build();
         logger.debug("Exiting createRenderingContext");
         return renderingContext;
     }
@@ -103,8 +105,8 @@ public abstract class AbstractController {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public final ModelAndView error(final HttpServletRequest request,
             final Exception exception) {
-        logger.info("Handling exception: " + exception.getMessage());
-        return createModelAndViewForException(request, exception, "error",
+        logger.error("Handling exception", exception);
+        return createModelAndViewForException(request, exception, "exception",
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -119,16 +121,11 @@ public abstract class AbstractController {
             final HttpServletRequest request, final Exception exception,
             final String viewName, final HttpStatus status) {
         final ModelAndView mav = new ModelAndView();
-        if (exception == null) {
-            mav.addObject("message", "null exception");
-        } else {
-            mav.addObject("message", exception.getMessage());
-        }
-        mav.addObject("exception", exception);
+        final RenderingContext context = createRenderingContext();
+        final Renderer renderer = new GedResourceNotFoundRenderer(
+                exception, context);
+        mav.addObject("error", renderer);
         mav.addObject("url", request.getRequestURL());
-        mav.addObject("renderingContext", renderingContext);
-        mav.addObject("appInfo", applicationInfo);
-        mav.addObject("homeUrl", applicationInfo.getHomeURL());
         mav.setViewName(viewName);
         mav.setStatus(status);
         return mav;
