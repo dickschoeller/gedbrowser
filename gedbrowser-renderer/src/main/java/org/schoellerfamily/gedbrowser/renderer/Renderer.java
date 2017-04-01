@@ -97,11 +97,9 @@ public interface Renderer {
         final java.util.Date javaDate = new java.util.Date();
         final String timeString = DateFormat.getDateInstance(DateFormat.LONG,
                 Locale.getDefault()).format(javaDate);
-        final StringBuilder builder = new StringBuilder();
-        menuInsertions(omit, builder);
         final String retVal =
         "\n    <hr class=\"final\"/>"
-        + builder.toString()
+        + menuInsertions(omit)
         + "\n    <hr class=\"final\"/>"
         + "\n    <table class=\"buttonrow\">"
         + "\n    <tr class=\"buttonrow\">\n    <td class=\"brleft\">"
@@ -125,9 +123,9 @@ public interface Renderer {
      * Insert menu items specific to context.
      *
      * @param omit if true don't add them
-     * @param builder the builder that will contain the items
+     * @return the built string of extra menu stuff
      */
-    default void menuInsertions(String omit, StringBuilder builder) {
-        // Empty default
+    default String menuInsertions(final String omit) {
+        return "";
     }
 }

@@ -21,9 +21,9 @@ public class GedResourceNotFoundRenderer extends RenderingContextRenderer {
      * {@inheritDoc}
      */
     @Override
-    public void menuInsertions(final String omit,
-            final StringBuilder builder) {
+    public String menuInsertions(final String omit) {
         // There are issues #243 and #244 that require filling this in.
+        return "";
     }
 
     /**

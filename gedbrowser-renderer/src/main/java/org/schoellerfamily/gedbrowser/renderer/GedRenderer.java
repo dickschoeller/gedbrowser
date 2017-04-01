@@ -299,8 +299,8 @@ public abstract class GedRenderer<G extends GedObject>
      * {@inheritDoc}
      */
     @Override
-    public final void menuInsertions(final String omit,
-            final StringBuilder builder) {
+    public final String menuInsertions(final String omit) {
+        final StringBuilder builder = new StringBuilder();
         builder.append("\n    <p>");
         if ("Header".equals(omit)) {
             builder.append("\n    <a href=\"?" + gedObject.getDbName()
@@ -315,5 +315,6 @@ public abstract class GedRenderer<G extends GedObject>
                     + "+Index\">Index</a><br>");
         }
         builder.append("\n    </p>");
+        return builder.toString();
     }
 }
