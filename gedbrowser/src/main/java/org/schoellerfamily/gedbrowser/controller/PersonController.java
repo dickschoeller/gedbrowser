@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.Users;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
@@ -37,10 +36,6 @@ public class PersonController extends AbstractController {
     /** */
     @Autowired
     private transient GedFileLoader loader;
-
-    /** */
-    @Autowired
-    private transient Users users;
 
     /** */
     @Value("${gedbrowser.home}")
@@ -93,7 +88,7 @@ public class PersonController extends AbstractController {
         }
 
         final RenderingContext renderingContext =
-                createRenderingContext(users);
+                createRenderingContext();
 
         final PlaceListRenderer pl = new PlaceListRenderer(person, client,
                 renderingContext, provider);

@@ -10,7 +10,8 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
  * @param <G> the GedObject type to render.
  */
 @SuppressWarnings({ "PMD.AbstractClassWithoutAbstractMethod" })
-public abstract class GedRenderer<G extends GedObject> extends Renderer {
+public abstract class GedRenderer<G extends GedObject>
+        extends RenderingContextRenderer {
     /** */
     private final transient G gedObject;
 
@@ -297,8 +298,9 @@ public abstract class GedRenderer<G extends GedObject> extends Renderer {
     /**
      * {@inheritDoc}
      */
-    protected final void menuInsertions(final String omit,
-            final StringBuilder builder) {
+    @Override
+    public final String menuInsertions(final String omit) {
+        final StringBuilder builder = new StringBuilder();
         builder.append("\n    <p>");
         if ("Header".equals(omit)) {
             builder.append("\n    <a href=\"?" + gedObject.getDbName()
@@ -313,5 +315,6 @@ public abstract class GedRenderer<G extends GedObject> extends Renderer {
                     + "+Index\">Index</a><br>");
         }
         builder.append("\n    </p>");
+        return builder.toString();
     }
 }

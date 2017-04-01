@@ -116,7 +116,7 @@ public final class WifeTest {
     @Test
     public void testWifeGedObjectMotherNotSet() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         final Wife wife = new Wife(family, "Wife", null);
         assertFalse("Mother should not be set", wife.getMother().isSet());
     }
@@ -125,7 +125,7 @@ public final class WifeTest {
     @Test
     public void testWifeGedObjectStringMotherNotSet() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         final Wife wife = new Wife(family, WIFE_TAG, null);
         assertFalse("Mother should not be set", wife.getMother().isSet());
     }
@@ -134,7 +134,7 @@ public final class WifeTest {
     @Test
     public void testWifeGedObjectStringStringMother() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
         assertFalse("Mother should not be set", wife.getMother().isSet());
     }

@@ -39,7 +39,7 @@ public final class ChildTest {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
         person3 = builder.createPerson3();
-        family1 = builder.createFamily1();
+        family1 = builder.createFamily("F1");
         builder.addHusbandToFamily(family1, person1);
         builder.addWifeToFamily(family1, person2);
         child1 = builder.addChildToFamily(family1, person3);
@@ -91,7 +91,7 @@ public final class ChildTest {
     @Test
     public void testChildUnspecifiedFatherShouldBeUnset() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         final Child child = new Child(family, "Child", new ObjectId("I3"));
         final FamilyNavigator navigator = new FamilyNavigator(child);
         assertFalse("Expected null object", navigator.getFather().isSet());
@@ -101,7 +101,7 @@ public final class ChildTest {
     @Test
     public void testChildUnspecifiedMotherShouldBeUnset() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         final Child child = new Child(family, "Child", new ObjectId("I3"));
         final FamilyNavigator navigator = new FamilyNavigator(child);
         assertFalse("Expected null object", navigator.getMother().isSet());
@@ -111,7 +111,7 @@ public final class ChildTest {
     @Test
     public void testChildUnspecifiedPersonShouldBeUnset() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         final Child child = new Child(family, "Child", new ObjectId("I3"));
         assertFalse("Expected null object", child.getChild().isSet());
     }

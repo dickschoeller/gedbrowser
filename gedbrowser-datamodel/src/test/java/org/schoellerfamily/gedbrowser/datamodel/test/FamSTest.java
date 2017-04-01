@@ -42,7 +42,7 @@ public final class FamSTest {
         person1 = builder.createPerson1();
         person2 = builder.createPerson2();
         person3 = builder.createPerson3();
-        family = builder.createFamily1();
+        family = builder.createFamily("F1");
         builder.addChildToFamily(family, person1);
 
         // Because we are working directly with FamS can't use builder.

@@ -31,7 +31,7 @@ public final class FamilyNavigatorTest {
     @Before
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        family1 = builder.createFamily1();
+        family1 = builder.createFamily("F1");
         person1 = builder.createPerson1();
         person2 = builder.createPerson2();
         person3 = builder.createPerson3();

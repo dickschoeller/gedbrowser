@@ -135,7 +135,7 @@ public class GedFileLoader {
             root.setFilename(filename);
             root.setDbName(dbName);
         } catch (IOException e) {
-            logger.error("Could not read file: " + filename, e);
+            logger.warn("Could not read file: " + filename);
             return null;
         }
 

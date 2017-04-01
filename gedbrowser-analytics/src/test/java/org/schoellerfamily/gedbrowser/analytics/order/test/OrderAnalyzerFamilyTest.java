@@ -26,7 +26,7 @@ public final class OrderAnalyzerFamilyTest {
     public void testPersonWithOneUndatedFamilyMatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addHusbandToFamily(family, person1);
         builder.addWifeToFamily(family, person2);
         final OrderAnalyzerResult result = helper.analyze(person1);
@@ -39,11 +39,11 @@ public final class OrderAnalyzerFamilyTest {
     public void testPersonWithTwoUndatedFamiliesMatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family1 = builder.createFamily1();
+        final Family family1 = builder.createFamily("F1");
         builder.addHusbandToFamily(family1, person1);
         builder.addWifeToFamily(family1, person2);
         final Person person3 = builder.createPerson3();
-        final Family family2 = builder.createFamily2();
+        final Family family2 = builder.createFamily("F2");
         builder.addHusbandToFamily(family2, person1);
         builder.addWifeToFamily(family2, person3);
         final OrderAnalyzerResult result = helper.analyze(person1);
@@ -56,12 +56,12 @@ public final class OrderAnalyzerFamilyTest {
     public void testPersonWithTwoFamiliesFirstDatedMatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family1 = builder.createFamily1();
+        final Family family1 = builder.createFamily("F1");
         builder.addHusbandToFamily(family1, person1);
         builder.addWifeToFamily(family1, person2);
         builder.createFamilyEvent(family1, "Marriage", "8 JAN 2016");
         final Person person3 = builder.createPerson3();
-        final Family family2 = builder.createFamily2();
+        final Family family2 = builder.createFamily("F2");
         builder.addHusbandToFamily(family2, person1);
         builder.addWifeToFamily(family2, person3);
         final OrderAnalyzerResult result = helper.analyze(person1);
@@ -74,11 +74,11 @@ public final class OrderAnalyzerFamilyTest {
     public void testPersonWithTwoFamiliesSecondDatedMatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family1 = builder.createFamily1();
+        final Family family1 = builder.createFamily("F1");
         builder.addHusbandToFamily(family1, person1);
         builder.addWifeToFamily(family1, person2);
         final Person person3 = builder.createPerson3();
-        final Family family2 = builder.createFamily2();
+        final Family family2 = builder.createFamily("F2");
         builder.addHusbandToFamily(family2, person1);
         builder.addWifeToFamily(family2, person3);
         builder.createFamilyEvent(family2, "Marriage", "8 JAN 2016");
@@ -92,12 +92,12 @@ public final class OrderAnalyzerFamilyTest {
     public void testPersonWithTwoFamiliesDatedInOrderMatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family1 = builder.createFamily1();
+        final Family family1 = builder.createFamily("F1");
         builder.addHusbandToFamily(family1, person1);
         builder.addWifeToFamily(family1, person2);
         builder.createFamilyEvent(family1, "Marriage", "7 JAN 2016");
         final Person person3 = builder.createPerson3();
-        final Family family2 = builder.createFamily2();
+        final Family family2 = builder.createFamily("F2");
         builder.addHusbandToFamily(family2, person1);
         builder.addWifeToFamily(family2, person3);
         builder.createFamilyEvent(family2, "Marriage", "8 JAN 2016");
@@ -111,12 +111,12 @@ public final class OrderAnalyzerFamilyTest {
     public void testPersonWithTwoFamiliesDatedOutOfOrderMismatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family1 = builder.createFamily1();
+        final Family family1 = builder.createFamily("F1");
         builder.addHusbandToFamily(family1, person1);
         builder.addWifeToFamily(family1, person2);
         builder.createFamilyEvent(family1, "Marriage", "8 JAN 2016");
         final Person person3 = builder.createPerson3();
-        final Family family2 = builder.createFamily2();
+        final Family family2 = builder.createFamily("F2");
         builder.addHusbandToFamily(family2, person1);
         builder.addWifeToFamily(family2, person3);
         builder.createFamilyEvent(family2, "Marriage", "7 JAN 2016");
@@ -130,18 +130,18 @@ public final class OrderAnalyzerFamilyTest {
     public void testPersonWithTwoFamiliesDatedInOrderWithUndatedBtwnMatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family1 = builder.createFamily1();
+        final Family family1 = builder.createFamily("F1");
         builder.addHusbandToFamily(family1, person1);
         builder.addWifeToFamily(family1, person2);
         builder.createFamilyEvent(family1, "Marriage", "7 JAN 2016");
 
         final Person person4 = builder.createPerson4();
-        final Family family3 = builder.createFamily3();
+        final Family family3 = builder.createFamily("F3");
         builder.addHusbandToFamily(family3, person1);
         builder.addWifeToFamily(family3, person4);
 
         final Person person3 = builder.createPerson3();
-        final Family family2 = builder.createFamily2();
+        final Family family2 = builder.createFamily("F2");
         builder.addHusbandToFamily(family2, person1);
         builder.addWifeToFamily(family2, person3);
         builder.createFamilyEvent(family2, "Marriage", "8 JAN 2016");
@@ -155,18 +155,18 @@ public final class OrderAnalyzerFamilyTest {
     public void testPersonWithTwoFamiliesDatedOutOfOrderUndatedBtwnMismatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family1 = builder.createFamily1();
+        final Family family1 = builder.createFamily("F1");
         builder.addHusbandToFamily(family1, person1);
         builder.addWifeToFamily(family1, person2);
         builder.createFamilyEvent(family1, "Marriage", "8 JAN 2016");
 
         final Person person4 = builder.createPerson4();
-        final Family family3 = builder.createFamily3();
+        final Family family3 = builder.createFamily("F3");
         builder.addHusbandToFamily(family3, person1);
         builder.addWifeToFamily(family3, person4);
 
         final Person person3 = builder.createPerson3();
-        final Family family2 = builder.createFamily2();
+        final Family family2 = builder.createFamily("F2");
         builder.addHusbandToFamily(family2, person1);
         builder.addWifeToFamily(family2, person3);
         builder.createFamilyEvent(family2, "Marriage", "7 JAN 2016");
@@ -180,7 +180,7 @@ public final class OrderAnalyzerFamilyTest {
     public void testPersonWithFamilyDatesInOrderMatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family1 = builder.createFamily1();
+        final Family family1 = builder.createFamily("F1");
         builder.addHusbandToFamily(family1, person1);
         builder.addWifeToFamily(family1, person2);
         builder.createFamilyEvent(family1, "Engaged", "7 JAN 2016");
@@ -195,7 +195,7 @@ public final class OrderAnalyzerFamilyTest {
     public void testPersonWithFamilyDatesOutOfOrderMismatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family1 = builder.createFamily1();
+        final Family family1 = builder.createFamily("F1");
         builder.addHusbandToFamily(family1, person1);
         builder.addWifeToFamily(family1, person2);
         builder.createFamilyEvent(family1, "Marriage", "8 JAN 2016");
@@ -210,14 +210,14 @@ public final class OrderAnalyzerFamilyTest {
     public void testPersonWith1stFamilyDatesOutOfOrderMismatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family1 = builder.createFamily1();
+        final Family family1 = builder.createFamily("F1");
         builder.addHusbandToFamily(family1, person1);
         builder.addWifeToFamily(family1, person2);
         builder.createFamilyEvent(family1, "Marriage", "8 JAN 2016");
         builder.createFamilyEvent(family1, "Engaged", "7 JAN 2016");
 
         final Person person3 = builder.createPerson3();
-        final Family family2 = builder.createFamily2();
+        final Family family2 = builder.createFamily("F2");
         builder.addHusbandToFamily(family2, person1);
         builder.addWifeToFamily(family2, person3);
         builder.createFamilyEvent(family2, "Marriage", "9 JAN 2016");
@@ -232,14 +232,14 @@ public final class OrderAnalyzerFamilyTest {
     public void testPersonWith2ndBefore1stAnd1stFamDatesOutOfOrderMismatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family1 = builder.createFamily1();
+        final Family family1 = builder.createFamily("F1");
         builder.addHusbandToFamily(family1, person1);
         builder.addWifeToFamily(family1, person2);
         builder.createFamilyEvent(family1, "Marriage", "8 JAN 2016");
         builder.createFamilyEvent(family1, "Engaged", "7 JAN 2016");
 
         final Person person3 = builder.createPerson3();
-        final Family family2 = builder.createFamily2();
+        final Family family2 = builder.createFamily("F2");
         builder.addHusbandToFamily(family2, person1);
         builder.addWifeToFamily(family2, person3);
         builder.createFamilyEvent(family2, "Marriage", "6 JAN 2016");
@@ -254,14 +254,14 @@ public final class OrderAnalyzerFamilyTest {
     public void testPersonWithDateFromChildMismatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family1 = builder.createFamily1();
+        final Family family1 = builder.createFamily("F1");
         builder.addHusbandToFamily(family1, person1);
         builder.addWifeToFamily(family1, person2);
         builder.createFamilyEvent(family1, "Marriage", "8 JAN 2016");
         builder.createFamilyEvent(family1, "Engaged", "7 JAN 2016");
 
         final Person person3 = builder.createPerson3();
-        final Family family2 = builder.createFamily2();
+        final Family family2 = builder.createFamily("F2");
         builder.addHusbandToFamily(family2, person1);
         builder.addWifeToFamily(family2, person3);
         final Person person4 = builder.createPerson4();

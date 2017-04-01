@@ -152,33 +152,6 @@ public final class GedObjectBuilder {
     }
 
     /**
-     * Encapsulate creating family 1.
-     *
-     * @return the family
-     */
-    public Family createFamily1() {
-        return createFamily("F1");
-    }
-
-    /**
-     * Encapsulate creating family 2.
-     *
-     * @return the family
-     */
-    public Family createFamily2() {
-        return createFamily("F2");
-    }
-
-    /**
-     * Encapsulate creating family 3.
-     *
-     * @return the family
-     */
-    public Family createFamily3() {
-        return createFamily("F3");
-    }
-
-    /**
      * Encapsulate creating family with the given ID.
      *
      * @param idString the id string for the family
@@ -188,9 +161,9 @@ public final class GedObjectBuilder {
         if (idString == null) {
             return new Family();
         }
-        final Family family3 = new Family(root, new ObjectId(idString));
-        root.insert(family3);
-        return family3;
+        final Family family = new Family(root, new ObjectId(idString));
+        root.insert(family);
+        return family;
     }
 
     /**
@@ -393,13 +366,6 @@ public final class GedObjectBuilder {
         final Date date = new Date(gob, string);
         gob.insert(date);
         return date;
-    }
-
-    /**
-     * @return the new source
-     */
-    public Source createSource1() {
-        return createSource("S1");
     }
 
     /**

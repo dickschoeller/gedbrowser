@@ -25,7 +25,7 @@ public final class OrderAnalyzerChildrenTest {
     public void testPersonWithFamilyOneUndatedChildMatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addHusbandToFamily(family, person1);
         builder.addWifeToFamily(family, person2);
         final Person person3 = builder.createPerson3();
@@ -40,7 +40,7 @@ public final class OrderAnalyzerChildrenTest {
     public void testPersonWithFamilyTwoUndatedChildrenMatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addHusbandToFamily(family, person1);
         builder.addWifeToFamily(family, person2);
         final Person person3 = builder.createPerson3();
@@ -57,7 +57,7 @@ public final class OrderAnalyzerChildrenTest {
     public void testPersonWithFamilyTwoChildren1stUndatedMatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addHusbandToFamily(family, person1);
         builder.addWifeToFamily(family, person2);
         final Person person3 = builder.createPerson3();
@@ -75,7 +75,7 @@ public final class OrderAnalyzerChildrenTest {
     public void testPersonWithFamilyTwoChildren1stUndatedBirthMatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addHusbandToFamily(family, person1);
         builder.addWifeToFamily(family, person2);
         final Person person3 = builder.createPerson3();
@@ -94,7 +94,7 @@ public final class OrderAnalyzerChildrenTest {
     public void testPersonWithFamilyTwoChildren2ndUndatedMatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addHusbandToFamily(family, person1);
         builder.addWifeToFamily(family, person2);
         final Person person3 = builder.createPerson3();
@@ -112,7 +112,7 @@ public final class OrderAnalyzerChildrenTest {
     public void testPersonWithFamilyTwoChildren2ndUndatedBirthMatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addHusbandToFamily(family, person1);
         builder.addWifeToFamily(family, person2);
         final Person person3 = builder.createPerson3();
@@ -131,7 +131,7 @@ public final class OrderAnalyzerChildrenTest {
     public void testPersonWithFamilyTwoChildrenDatedInOrderMatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addHusbandToFamily(family, person1);
         builder.addWifeToFamily(family, person2);
         final Person person3 = builder.createPerson3();
@@ -150,7 +150,7 @@ public final class OrderAnalyzerChildrenTest {
     public void testPersonWithFamilyTwoChildrenDatedOutOfOrderMisMatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addHusbandToFamily(family, person1);
         builder.addWifeToFamily(family, person2);
         final Person person3 = builder.createPerson3();
@@ -169,7 +169,7 @@ public final class OrderAnalyzerChildrenTest {
     public void testPersonWithFamilyTwoChildrenDatedNearBirthInOrderMatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addHusbandToFamily(family, person1);
         builder.addWifeToFamily(family, person2);
         final Person person3 = builder.createPerson3();
@@ -189,7 +189,7 @@ public final class OrderAnalyzerChildrenTest {
     public void testPersonWithFamilyTwoChildrenDateBaptismOutOrderMisatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addHusbandToFamily(family, person1);
         builder.addWifeToFamily(family, person2);
         final Person person3 = builder.createPerson3();
@@ -209,7 +209,7 @@ public final class OrderAnalyzerChildrenTest {
     public void testPersonWithFamilyTwoChildrenNamingBirthOutOrderMisatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addHusbandToFamily(family, person1);
         builder.addWifeToFamily(family, person2);
         final Person person3 = builder.createPerson3();
@@ -229,7 +229,7 @@ public final class OrderAnalyzerChildrenTest {
     public void testPersonWithFamily3ChildrenChristeningBirthOutOrderMisatch() {
         final Person person1 = builder.createPerson1();
         final Person person2 = builder.createPerson2();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addHusbandToFamily(family, person1);
         builder.addWifeToFamily(family, person2);
         final Person person3 = builder.createPerson3();

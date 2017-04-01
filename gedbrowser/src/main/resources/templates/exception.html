@@ -24,9 +24,9 @@
     <div class="outer">
     <div class="middle">
     <div class="inner">
-    <h1 th:utext="${error.message}">Person</h1>
-    <h2 class="name"><span th:utext="${error.exception.personId}">I1</span> not found in dataset <span  th:utext="${error.exception.datasetName}"></span></h2>
-    <hr class="final"/>
+    <h1>Unexpected exception</h1>
+    <!-- h1 th:utext="${error.message}">Exception message goes here</h1 -->
+    <p>Ask system administrator to check the logs.</p>
     <table class="buttonrow">
         <tr class="buttonrow">
             <td class="brleft">

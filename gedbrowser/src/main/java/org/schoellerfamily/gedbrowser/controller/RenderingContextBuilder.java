@@ -45,6 +45,9 @@ public final class RenderingContextBuilder {
      */
     public RenderingContext build() {
         logger.debug("Entering build");
+        if (authentication == null) {
+            return new RenderingContext(null, false, false, appInfo);
+        }
         final String name = authentication.getName();
         boolean isUser = false;
         boolean isAdmin = false;

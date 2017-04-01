@@ -48,7 +48,7 @@ public final class PersonVisitorTest {
     public void testGetFamily() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
-        final Family family = builder.createFamily1();
+        final Family family = builder.createFamily("F1");
         builder.addChildToFamily(family, person);
         final PersonVisitor visitor = new PersonVisitor();
         person.accept(visitor);
@@ -60,8 +60,8 @@ public final class PersonVisitorTest {
     public void testGetFirstFamily() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
-        final Family family = builder.createFamily1();
-        final Family family2 = builder.createFamily2();
+        final Family family = builder.createFamily("F1");
+        final Family family2 = builder.createFamily("F2");
         builder.addChildToFamily(family, person);
         builder.addChildToFamily(family2, person);
         final PersonVisitor visitor = new PersonVisitor();
@@ -74,8 +74,8 @@ public final class PersonVisitorTest {
     public void testGetFirstFamiliesC() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson1();
-        final Family family = builder.createFamily1();
-        final Family family2 = builder.createFamily2();
+        final Family family = builder.createFamily("F1");
+        final Family family2 = builder.createFamily("F2");
         builder.addChildToFamily(family, person);
         builder.addChildToFamily(family2, person);
         final PersonVisitor visitor = new PersonVisitor();
