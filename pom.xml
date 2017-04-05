@@ -59,7 +59,7 @@
     <cglib.version>3.2.5</cglib.version>
     <spring-data-mongodb.version>1.10.1.RELEASE</spring-data-mongodb.version>
     <spring-data-commons.version>1.13.1.RELEASE</spring-data-commons.version>
-    <google-maps-services.version>0.1.18</google-maps-services.version>
+    <google-maps-services.version>0.1.19</google-maps-services.version>
     <jackson-core.version>2.8.7</jackson-core.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.9.9</joda-time.version>
@@ -68,8 +68,8 @@
     <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
     <htmlunit-driver.version>2.25</htmlunit-driver.version>
 
-    <pmd-version>5.5.4</pmd-version>
-    <checkstyle-version>7.6</checkstyle-version>
+    <pmd-version>5.5.5</pmd-version>
+    <checkstyle-version>7.6.1</checkstyle-version>
 
     <config-dir>${project.basedir}/config</config-dir>
   </properties>
@@ -429,7 +429,7 @@
         <!-- 1.3.25 is what my dependencies brought in -->
         <groupId>io.undertow</groupId>
         <artifactId>undertow-core</artifactId>
-        <version>1.4.11.Final</version>
+        <version>1.4.12.Final</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
