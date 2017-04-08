@@ -41,14 +41,14 @@ public abstract class AbstractController {
      * @return the rendering context
      */
     protected final RenderingContext createRenderingContext() {
-        logger.debug("Entering createRenderingContext");
-        final Authentication authentication = SecurityContextHolder.getContext()
-                .getAuthentication();
+        logger.debug("Creating RenderingContext");
+        final Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
         final User user = users.get(authentication.getName());
-        final RenderingContext renderingContext = new RenderingContextBuilder(
-                authentication, user, applicationInfo).build();
-        logger.debug("Exiting createRenderingContext");
-        return renderingContext;
+        final RenderingContextBuilder contextBuilder =
+                new RenderingContextBuilder(
+                        authentication, user, applicationInfo);
+        return contextBuilder.build();
     }
 
     /**
