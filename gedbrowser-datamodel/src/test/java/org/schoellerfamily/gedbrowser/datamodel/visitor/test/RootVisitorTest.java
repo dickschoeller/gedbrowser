@@ -37,8 +37,8 @@ public final class RootVisitorTest {
     public void testBasicGetPersons() {
         final Root root = new Root();
         final GedObjectBuilder builder = new GedObjectBuilder(root);
-        builder.createPerson1();
-        builder.createPerson2();
+        builder.getPersonBuilder().createPerson("I1", "J. Random/Schoeller/");
+        builder.getPersonBuilder().createPerson("I2", "Anonymous/Schoeller/");
         final RootVisitor visitor = new RootVisitor();
         root.accept(visitor);
         assertEquals("Expected 2 persons", 2, visitor.getPersons().size());

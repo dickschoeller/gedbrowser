@@ -31,15 +31,24 @@ public final class HusbandTest {
     @Before
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        person1 = builder.createPerson1();
-        final Person person2 = builder.createPerson2();
-        person3 = builder.createPerson3();
-        final Family family1 = builder.createFamily("F1");
-        final Family family2 = builder.createFamily("F2");
-        husband1 = builder.addHusbandToFamily(family1, person1);
-        builder.addWifeToFamily(family1, person2);
-        husband2a = builder.addHusbandToFamily(family2, person1);
-        husband2b = builder.addHusbandToFamily(family2, person3);
+        person1 = builder.getPersonBuilder().createPerson(
+                "I1", "J. Random/Schoeller/");
+        final Person person2 = builder.getPersonBuilder().createPerson(
+                "I2", "Anonymous/Schoeller/");
+        person3 = builder.getPersonBuilder().createPerson(
+                "I3", "Anonymous/Jones/");
+        final Family family1 = builder.getFamilyBuilder().createFamily("F1");
+        final Family family2 = builder.getFamilyBuilder().createFamily("F2");
+        final Person person = person1;
+        husband1 =
+                builder.getFamilyBuilder().addHusbandToFamily(family1, person);
+        builder.getFamilyBuilder().addWifeToFamily(family1, person2);
+        final Person person4 = person1;
+        husband2a =
+                builder.getFamilyBuilder().addHusbandToFamily(family2, person4);
+        final Person person5 = person3;
+        husband2b =
+                builder.getFamilyBuilder().addHusbandToFamily(family2, person5);
     }
 
     /** */
@@ -107,7 +116,7 @@ public final class HusbandTest {
     @Test
     public void testHusbandGedObjectFatherNotSet() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily("F1");
+        final Family family = builder.getFamilyBuilder().createFamily("F1");
         final Husband husband = new Husband(family, "Husband", null);
         assertFalse("Father should not be set", husband.getFather().isSet());
     }
@@ -116,7 +125,7 @@ public final class HusbandTest {
     @Test
     public void testHusbandGedObjectStringFatherNotSet() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily("F1");
+        final Family family = builder.getFamilyBuilder().createFamily("F1");
         final Husband husband = new Husband(family, "Husband", null);
         assertFalse("Father should not be set", husband.getFather().isSet());
     }
@@ -125,7 +134,7 @@ public final class HusbandTest {
     @Test
     public void testHusbandGedObjectStringStringFather() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily("F1");
+        final Family family = builder.getFamilyBuilder().createFamily("F1");
         final Husband husband =
                 new Husband(family, "Husband", new ObjectId("@I3@"));
         assertFalse("Father should not be set", husband.getFather().isSet());

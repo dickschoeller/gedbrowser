@@ -57,7 +57,8 @@ public final class LinkConstructorTest {
     @Parameters
     public static Collection<Object[]> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
+        final Person person1 = builder.getPersonBuilder().createPerson(
+                "I1", "J. Random/Schoeller/");
 
         return Arrays.asList(new Object[][] {
             {null, null, new ObjectId("I2"), "", "I2", ""},

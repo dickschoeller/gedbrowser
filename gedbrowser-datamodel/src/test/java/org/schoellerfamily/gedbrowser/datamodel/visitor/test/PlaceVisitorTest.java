@@ -50,40 +50,52 @@ public final class PlaceVisitorTest {
     public void init() {
         root = new Root();
         final GedObjectBuilder builder = new GedObjectBuilder(root);
-        final Person person1 =
-                builder.createPerson("I1", "Richard John/Schoeller/");
-        final Attribute attr =
-                new Attribute(person1, "Restriction", "confidential");
+        final Person person1 = builder.getPersonBuilder().createPerson("I1",
+                "Richard John/Schoeller/");
+        final Attribute attr = new Attribute(person1, "Restriction",
+                "confidential");
         person1.insert(attr);
 
-        builder.createPerson("I2", "Lisa Hope/Robinson/");
-        final Person person3 =
-                builder.createPerson("I3", "Karl Frederick/Schoeller/Jr.");
-        person4 = builder.createPerson("I4");
-        final Attribute birth = builder.createPersonEvent(person4, "Birth");
+        builder.getPersonBuilder().createPerson("I2", "Lisa Hope/Robinson/");
+        final Person person3 = builder.getPersonBuilder().createPerson("I3",
+                "Karl Frederick/Schoeller/Jr.");
+        person4 = builder.getPersonBuilder().createPerson("I4");
+        final Person person = person4;
+        final Attribute birth = builder.getPersonBuilder()
+                .createPersonEvent(person, "Birth");
         final Place birthPlace = new Place(birth, "Here");
         birth.insert(birthPlace);
-        final Attribute death = builder.createPersonEvent(person4, "Death");
+        final Person person2 = person4;
+        final Attribute death = builder.getPersonBuilder()
+                .createPersonEvent(person2, "Death");
         final Place deathPlace = new Place(death, "There");
         death.insert(deathPlace);
 
-        final Person person5 = builder.createPerson("I5",
+        final Person person5 = builder.getPersonBuilder().createPerson("I5",
                 "Whosis/Schoeller/Jr./Huh?");
-        builder.createPersonEvent(person5, "Birth", "1 JAN 1900");
-        builder.createPersonEvent(person5, "Death", "1 JAN 1950");
+        builder.getPersonBuilder().createPersonEvent(person5, "Birth",
+                "1 JAN 1900");
+        builder.getPersonBuilder().createPersonEvent(person5, "Death",
+                "1 JAN 1950");
 
-        family6 = builder.createFamily("F6");
-        builder.addChildToFamily(family6, person3);
+        family6 = builder.getFamilyBuilder().createFamily("F6");
+        final Family family3 = family6;
+        builder.getFamilyBuilder().addChildToFamily(family3, person3);
+        final Family family = family6;
         final Attribute marriage =
-                builder.createFamilyEvent(family6, "Marriage", "1 JAN 1900");
+                builder.getFamilyBuilder().createFamilyEvent(
+                        family, "Marriage", "1 JAN 1900");
         final Place marriagePlace = new Place(marriage, "Everywhere");
         marriage.insert(marriagePlace);
 
-        person6 = builder.createPerson("I6");
-        final Person person7 = builder.createPerson("I7");
+        person6 = builder.getPersonBuilder().createPerson("I6");
+        final Person person7 = builder.getPersonBuilder().createPerson("I7");
+        final Family family1 = family6;
+        final Person person8 = person6;
 
-        builder.addHusbandToFamily(family6, person6);
-        builder.addWifeToFamily(family6, person7);
+        builder.getFamilyBuilder().addHusbandToFamily(family1, person8);
+        final Family family2 = family6;
+        builder.getFamilyBuilder().addWifeToFamily(family2, person7);
     }
 
     /** */
@@ -149,7 +161,8 @@ public final class PlaceVisitorTest {
             @Override
             public void accept(final GedObjectVisitor visitor) {
                 visitor.visit(this);
-            } };
+            }
+        };
         gob.accept(visitor);
         assertTrue("Found unexpected content", visitor.getPlaces().isEmpty());
     }

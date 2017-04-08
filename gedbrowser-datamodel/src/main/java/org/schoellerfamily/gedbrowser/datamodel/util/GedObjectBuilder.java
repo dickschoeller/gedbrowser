@@ -1,18 +1,11 @@
 package org.schoellerfamily.gedbrowser.datamodel.util;
 
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
-import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
-import org.schoellerfamily.gedbrowser.datamodel.FamC;
-import org.schoellerfamily.gedbrowser.datamodel.FamS;
-import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
-import org.schoellerfamily.gedbrowser.datamodel.Husband;
-import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
-import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
@@ -20,15 +13,19 @@ import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
-import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.CommentSize", "PMD.GodClass" })
 public final class GedObjectBuilder {
     /** */
     private final Root root;
+
+    /** */
+    private final PersonBuilder personBuilder;
+
+    /** */
+    private final FamilyBuilder familyBuilder;
 
     /**
      * Constructor.
@@ -44,219 +41,29 @@ public final class GedObjectBuilder {
      */
     public GedObjectBuilder(final Root root) {
         this.root = root;
+        this.personBuilder = new PersonBuilder(this);
+        this.familyBuilder = new FamilyBuilder(this);
     }
 
     /**
-     * Encapsulate creating person 1.
-     *
-     * @return the person
+     * @return the associated root object
      */
-    public Person createPerson1() {
-        return createPerson("I1", "J. Random/Schoeller/");
+    public Root getRoot() {
+        return root;
     }
 
     /**
-     * Encapsulate creating person 2.
-     *
-     * @return the person
+     * @return the associated personBuilder
      */
-    public Person createPerson2() {
-        return createPerson("I2", "Anonymous/Schoeller/");
+    public PersonBuilder getPersonBuilder() {
+        return personBuilder;
     }
 
     /**
-     * Encapsulate creating person 3.
-     *
-     * @return the person
+     * @return the associated familyBuilder
      */
-    public Person createPerson3() {
-        return createPerson("I3", "Anonymous/Jones/");
-    }
-
-    /**
-     * Encapsulate creating person 4.
-     *
-     * @return the person
-     */
-    public Person createPerson4() {
-        return createPerson("I4", "Too Tall/Jones/");
-    }
-
-    /**
-     * Encapsulate creating person 5.
-     *
-     * @return the person
-     */
-    public Person createPerson5() {
-        return createPerson("I5", "Anonyma/Schoeller/");
-    }
-
-    /**
-     * Create a person with the given ID and name.
-     *
-     * @param idString the ID
-     * @return the person
-     */
-    public Person createPerson(final String idString) {
-        if (idString == null) {
-            return new Person();
-        }
-        final Person person = new Person(root, new ObjectId(idString));
-        root.insert(person);
-        return person;
-    }
-
-    /**
-     * Create a person with the given ID and name.
-     *
-     * @param idString the ID
-     * @param name the name
-     * @return the person
-     */
-    public Person createPerson(final String idString, final String name) {
-        if (idString == null || name == null) {
-            return new Person();
-        }
-        final Person person = new Person(root, new ObjectId(idString));
-        addNameToPerson(person, name);
-        root.insert(person);
-        return person;
-    }
-
-    /**
-     * Create a dated event that we use as the starting point for the test
-     * estimate.
-     *
-     * @param person the person the event is for
-     * @param type the type of event
-     * @param dateString the date of the event
-     * @return the created event
-     */
-    public Attribute createPersonEvent(final Person person, final String type,
-            final String dateString) {
-        final Attribute event = createAttribute(person, type);
-        event.insert(new Date(event, dateString));
-        return event;
-    }
-
-    /**
-     * Create an undated event that we use as the starting point for the test
-     * estimate.
-     *
-     * @param person the person the event is for
-     * @param type the type of event
-     * @return the created event
-     */
-    public Attribute createPersonEvent(final Person person, final String type) {
-        return createAttribute(person, type);
-    }
-
-    /**
-     * Encapsulate creating family with the given ID.
-     *
-     * @param idString the id string for the family
-     * @return the family
-     */
-    public Family createFamily(final String idString) {
-        if (idString == null) {
-            return new Family();
-        }
-        final Family family = new Family(root, new ObjectId(idString));
-        root.insert(family);
-        return family;
-    }
-
-    /**
-     * Create a dated event that we use as the starting point for the test
-     * estimate.
-     *
-     * @param family the family the event is for
-     * @param type the type of event
-     * @param dateString the date of the event
-     * @return the created event
-     */
-    public Attribute createFamilyEvent(final Family family, final String type,
-            final String dateString) {
-        if (family == null || type == null || dateString == null) {
-            return new Attribute();
-        }
-        final Attribute event = createAttribute(family, type);
-        event.insert(new Date(event, dateString));
-        return event;
-    }
-
-    /**
-     * Create a dated event that we use as the starting point for the test
-     * estimate.
-     *
-     * @param family the family the event is for
-     * @param type the type of event
-     * @return the created event
-     */
-    public Attribute createFamilyEvent(final Family family,
-            final String type) {
-        return createAttribute(family, type);
-    }
-
-    /**
-     * Add a person as the husband in a family.
-     * @param family the family
-     * @param person the person
-     *
-     * @return the husband object
-     */
-    public Husband addHusbandToFamily(final Family family,
-            final Person person) {
-        if (family == null || person == null) {
-            return new Husband();
-        }
-        final FamS famS = new FamS(person, "FAMS",
-                new ObjectId(family.getString()));
-        final Husband husband = new Husband(family, "Husband",
-                new ObjectId(person.getString()));
-        family.insert(husband);
-        person.insert(famS);
-        return husband;
-    }
-
-    /**
-     * Add a person as the wife in a family.
-     * @param family the family
-     * @param person the person
-     *
-     * @return the wife object
-     */
-    public Wife addWifeToFamily(final Family family, final Person person) {
-        if (family == null || person == null) {
-            return new Wife();
-        }
-        final FamS famS = new FamS(person, "FAMS",
-                new ObjectId(family.getString()));
-        final Wife wife = new Wife(family, "Wife",
-                new ObjectId(person.getString()));
-        family.insert(wife);
-        person.insert(famS);
-        return wife;
-    }
-
-    /**
-     * Add a person as a child in a family.
-     *
-     * @param person the person
-     * @param family the family
-     * @return the Child object
-     */
-    public Child addChildToFamily(final Family family, final Person person) {
-        if (family == null || person == null) {
-            return new Child();
-        }
-        final FamC famC = new FamC(person, "FAMC",
-                new ObjectId(family.getString()));
-        final Child child = new Child(family, "Child",
-                new ObjectId(person.getString()));
-        family.insert(child);
-        person.insert(famC);
-        return child;
+    public FamilyBuilder getFamilyBuilder() {
+        return familyBuilder;
     }
 
     /**
@@ -268,11 +75,12 @@ public final class GedObjectBuilder {
      */
     public Submittor createSubmittor(final String idString, final String name) {
         if (idString == null || name == null) {
-            return new Submittor(root, null);
+            return new Submittor(getRoot(), null);
         }
-        final Submittor submittor = new Submittor(root, new ObjectId(idString));
+        final Submittor submittor =
+                new Submittor(getRoot(), new ObjectId(idString));
         submittor.insert(new Name(submittor, name));
-        root.insert(submittor);
+        getRoot().insert(submittor);
         return submittor;
     }
 
@@ -285,10 +93,11 @@ public final class GedObjectBuilder {
      */
     public Submittor createSubmittor(final String idString) {
         if (idString == null) {
-            return new Submittor(root, null);
+            return new Submittor(getRoot(), null);
         }
-        final Submittor submittor = new Submittor(root, new ObjectId(idString));
-        root.insert(submittor);
+        final Submittor submittor =
+                new Submittor(getRoot(), new ObjectId(idString));
+        getRoot().insert(submittor);
         return submittor;
     }
 
@@ -298,8 +107,8 @@ public final class GedObjectBuilder {
      * @return the created trailer
      */
     public Trailer createTrailer() {
-        final Trailer trailer = new Trailer(root, "Trailer");
-        root.insert(trailer);
+        final Trailer trailer = new Trailer(getRoot(), "Trailer");
+        getRoot().insert(trailer);
         return trailer;
     }
 
@@ -309,8 +118,8 @@ public final class GedObjectBuilder {
      * @return the created trailer
      */
     public Head createHead() {
-        final Head head = new Head(root, "Head");
-        root.insert(head);
+        final Head head = new Head(getRoot(), "Head");
+        getRoot().insert(head);
         return head;
     }
 
@@ -329,35 +138,6 @@ public final class GedObjectBuilder {
     }
 
     /**
-     * @param person the person to add the name to
-     * @param string the name string
-     * @return the new name object
-     */
-    public Name addNameToPerson(final Person person, final String string) {
-        if (person == null || string == null) {
-            return new Name();
-        }
-        final Name name = new Name(person, string);
-        person.insert(name);
-        return name;
-    }
-
-    /**
-     * @param person the person to add the name to
-     * @param string the reference string
-     * @return the new multimedia object
-     */
-    public Multimedia addMultimediaToPerson(final Person person,
-            final String string) {
-        if (person == null || string == null) {
-            return new Multimedia();
-        }
-        final Multimedia mm = new Multimedia(person, "Multimedia", string);
-        person.insert(mm);
-        return mm;
-    }
-
-    /**
      * @param gob the GedObject to add the name to
      * @param string the date string
      * @return the new date object
@@ -373,8 +153,8 @@ public final class GedObjectBuilder {
      * @return the source
      */
     public Source createSource(final String string) {
-        final Source source = new Source(root, new ObjectId(string));
-        root.insert(source);
+        final Source source = new Source(getRoot(), new ObjectId(string));
+        getRoot().insert(source);
         return source;
     }
 

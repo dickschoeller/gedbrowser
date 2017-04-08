@@ -32,16 +32,27 @@ public class PersonComparatorTest {
     @Before
     public void init() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        person1 = builder.createPerson1();
-        person2 = builder.createPerson2();
-        person3 = builder.createPerson("I3", "Richard/Schoeller/");
-        final Attribute birth3 = builder.createPersonEvent(person3, "Birth");
+        person1 = builder.getPersonBuilder().createPerson("I1",
+                "J. Random/Schoeller/");
+        person2 = builder.getPersonBuilder().createPerson("I2",
+                "Anonymous/Schoeller/");
+        person3 = builder.getPersonBuilder().createPerson("I3",
+                "Richard/Schoeller/");
+        final Person person = person3;
+        final Attribute birth3 = builder.getPersonBuilder()
+                .createPersonEvent(person, "Birth");
         builder.addDateToGedObject(birth3, "12 OCT 1492");
-        person4 = builder.createPerson("I4", "Richard/Schoeller/");
-        final Attribute birth4 = builder.createPersonEvent(person4, "Birth");
+        person4 = builder.getPersonBuilder().createPerson("I4",
+                "Richard/Schoeller/");
+        final Person person6 = person4;
+        final Attribute birth4 = builder.getPersonBuilder()
+                .createPersonEvent(person6, "Birth");
         builder.addDateToGedObject(birth4, "12 OCT 1492");
-        person5 = builder.createPerson("I5", "Richard/Schoeller/");
-        final Attribute birth5 = builder.createPersonEvent(person5, "Birth");
+        person5 = builder.getPersonBuilder().createPerson("I5",
+                "Richard/Schoeller/");
+        final Person person7 = person5;
+        final Attribute birth5 = builder.getPersonBuilder()
+                .createPersonEvent(person7, "Birth");
         builder.addDateToGedObject(birth5, "12 OCT 1942");
         comparator = new PersonComparator();
     }
@@ -49,8 +60,8 @@ public class PersonComparatorTest {
     /** */
     @Test
     public void testSamePerson() {
-        assertEquals("Same person should match",
-                0, comparator.compare(person1, person1));
+        assertEquals("Same person should match", 0,
+                comparator.compare(person1, person1));
     }
 
     /** */

@@ -11,12 +11,15 @@ import java.util.List;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.BirthDateEstimator;
+import org.schoellerfamily.gedbrowser.analytics.order.test.AnalyzerTest;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.FamilyBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
+import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 
@@ -24,14 +27,31 @@ import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessiveClassLength" })
-public final class BirthDateEstimatorTest {
+public final class BirthDateEstimatorTest implements AnalyzerTest {
+    /** */
+    private final GedObjectBuilder builder = new GedObjectBuilder();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public PersonBuilder personBuilder() {
+        return builder.getPersonBuilder();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public FamilyBuilder familyBuilder() {
+        return builder.getFamilyBuilder();
+    }
+
     /** */
     @Test
     public void testSimple() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person =
-                builder.createPerson("I0", "J. Random/Schoeller/");
-        builder.createPersonEvent(person, "Birth", "11 JUL 1960");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Birth", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1960;
@@ -46,9 +66,7 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testEmpty() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person =
-                builder.createPerson("I0", "J. Random/Schoeller/");
+        final Person person = createJRandom();
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -58,16 +76,15 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testFromYoungerSibling() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 =
-                builder.createPerson("I1", "J. Random/Schoeller/");
-        builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
+                createJRandom();
+        personBuilder().createPersonEvent(person1, "Birth", "11 JUL 1960");
         final Person person2 =
-                builder.createPerson("I2", "Anon/Schoeller/");
-        final Family family = builder.createFamily("F1");
+                personBuilder().createPerson("I2", "Anon/Schoeller/");
+        final Family family = familyBuilder().createFamily("F1");
 
-        builder.addChildToFamily(family, person1);
-        builder.addChildToFamily(family, person2);
+        familyBuilder().addChildToFamily(family, person1);
+        familyBuilder().addChildToFamily(family, person2);
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
         final int birthYear = 1962;
@@ -82,18 +99,18 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testFromYoungerSiblings() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson("I1",
-                "J. Random/Schoeller/");
-        builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
+        final Person person1 = createJRandom();
+        personBuilder().createPersonEvent(person1, "Birth", "11 JUL 1960");
 
-        final Person person2 = builder.createPerson("I2", "Anon/Schoeller/");
-        final Person person3 = builder.createPerson("I3", "Anonyma/Schoeller/");
+        final Person person2 =
+                personBuilder().createPerson("I2", "Anon/Schoeller/");
+        final Person person3 =
+                personBuilder().createPerson("I3", "Anonyma/Schoeller/");
 
-        final Family family = builder.createFamily("F1");
-        builder.addChildToFamily(family, person1);
-        builder.addChildToFamily(family, person2);
-        builder.addChildToFamily(family, person3);
+        final Family family = familyBuilder().createFamily("F1");
+        familyBuilder().addChildToFamily(family, person1);
+        familyBuilder().addChildToFamily(family, person2);
+        familyBuilder().addChildToFamily(family, person3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
         final int birthYear = 1964;
@@ -108,15 +125,14 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testFromEmptyYoungerSiblings() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
-        final Person person2 = builder.createPerson2();
-        final Person person3 = builder.createPerson3();
+        final Person person1 = createJRandom();
+        final Person person2 = createAnonymousSchoeller();
+        final Person person3 = createAnonymousJones();
 
-        final Family family = builder.createFamily("F1");
-        builder.addChildToFamily(family, person1);
-        builder.addChildToFamily(family, person2);
-        builder.addChildToFamily(family, person3);
+        final Family family = familyBuilder().createFamily("F1");
+        familyBuilder().addChildToFamily(family, person1);
+        familyBuilder().addChildToFamily(family, person2);
+        familyBuilder().addChildToFamily(family, person3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -126,15 +142,14 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testFromOlderSibling() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
-        final Person person2 = builder.createPerson2();
+        final Person person1 = createJRandom();
+        final Person person2 = createAnonymousSchoeller();
 
-        builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
+        personBuilder().createPersonEvent(person1, "Birth", "11 JUL 1960");
 
-        final Family family = builder.createFamily("F1");
-        builder.addChildToFamily(family, person1);
-        builder.addChildToFamily(family, person2);
+        final Family family = familyBuilder().createFamily("F1");
+        familyBuilder().addChildToFamily(family, person1);
+        familyBuilder().addChildToFamily(family, person2);
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
         final int birthYear = 1962;
@@ -149,17 +164,16 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testFromOlderSiblings() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
-        final Person person2 = builder.createPerson2();
-        final Person person3 = builder.createPerson3();
+        final Person person1 = createJRandom();
+        final Person person2 = createAnonymousSchoeller();
+        final Person person3 = createAnonymousJones();
 
-        builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
+        personBuilder().createPersonEvent(person1, "Birth", "11 JUL 1960");
 
-        final Family family = builder.createFamily("F1");
-        builder.addChildToFamily(family, person1);
-        builder.addChildToFamily(family, person2);
-        builder.addChildToFamily(family, person3);
+        final Family family = familyBuilder().createFamily("F1");
+        familyBuilder().addChildToFamily(family, person1);
+        familyBuilder().addChildToFamily(family, person2);
+        familyBuilder().addChildToFamily(family, person3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
         final int birthYear = 1964;
@@ -174,15 +188,14 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testFromEmptyOlderSiblings() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
-        final Person person2 = builder.createPerson2();
-        final Person person3 = builder.createPerson3();
+        final Person person1 = createJRandom();
+        final Person person2 = createAnonymousSchoeller();
+        final Person person3 = createAnonymousJones();
 
-        final Family family = builder.createFamily("F1");
-        builder.addChildToFamily(family, person1);
-        builder.addChildToFamily(family, person2);
-        builder.addChildToFamily(family, person3);
+        final Family family = familyBuilder().createFamily("F1");
+        familyBuilder().addChildToFamily(family, person1);
+        familyBuilder().addChildToFamily(family, person2);
+        familyBuilder().addChildToFamily(family, person3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -192,15 +205,14 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testFromOwnMarriage() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
-        final Person person2 = builder.createPerson2();
+        final Person person1 = createJRandom();
+        final Person person2 = createAnonymousSchoeller();
 
-        final Family family = builder.createFamily("F1");
-        builder.addHusbandToFamily(family, person1);
-        builder.addWifeToFamily(family, person2);
+        final Family family = familyBuilder().createFamily("F1");
+        familyBuilder().addHusbandToFamily(family, person1);
+        familyBuilder().addWifeToFamily(family, person2);
 
-        builder.createFamilyEvent(family, "Marriage", "27 MAY 1984");
+        familyBuilder().createFamilyEvent(family, "Marriage", "27 MAY 1984");
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
         final int birthYear = 1959;
@@ -215,13 +227,12 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testFromOwnMarriageWithNoDate() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
-        final Person person2 = builder.createPerson2();
+        final Person person1 = createJRandom();
+        final Person person2 = createAnonymousSchoeller();
 
-        final Family family = builder.createFamily("F1");
-        builder.addHusbandToFamily(family, person1);
-        builder.addWifeToFamily(family, person2);
+        final Family family = familyBuilder().createFamily("F1");
+        familyBuilder().addHusbandToFamily(family, person1);
+        familyBuilder().addWifeToFamily(family, person2);
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -231,21 +242,20 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testFromOwnMarriages() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
-        final Person person2 = builder.createPerson2();
-        final Person person3 = builder.createPerson3();
+        final Person person1 = createJRandom();
+        final Person person2 = createAnonymousSchoeller();
+        final Person person3 = createAnonymousJones();
 
-        final Family family1 = builder.createFamily("F1");
-        builder.addHusbandToFamily(family1, person1);
-        builder.addWifeToFamily(family1, person2);
+        final Family family1 = familyBuilder().createFamily("F1");
+        familyBuilder().addHusbandToFamily(family1, person1);
+        familyBuilder().addWifeToFamily(family1, person2);
 
-        final Family family2 = builder.createFamily("F2");
-        builder.addHusbandToFamily(family2, person1);
-        builder.addWifeToFamily(family2, person3);
+        final Family family2 = familyBuilder().createFamily("F2");
+        familyBuilder().addHusbandToFamily(family2, person1);
+        familyBuilder().addWifeToFamily(family2, person3);
 
-        builder.createFamilyEvent(family1, "Marriage", "14 JUN 1980");
-        builder.createFamilyEvent(family2, "Marriage", "27 MAY 1984");
+        familyBuilder().createFamilyEvent(family1, "Marriage", "14 JUN 1980");
+        familyBuilder().createFamilyEvent(family2, "Marriage", "27 MAY 1984");
 
         final BirthDateEstimator estimator = createBirthEstimator(person1);
         final int birthYear = 1955;
@@ -260,18 +270,16 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testFromParentsMarriage() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson("I1",
-                "J. Random/Schoeller/");
-        builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
+        final Person person1 = createJRandom();
+        personBuilder().createPersonEvent(person1, "Birth", "11 JUL 1960");
 
-        final Person person2 = builder.createPerson("I2", "Anonymous/Smith/");
-        final Person person3 = builder.createPerson("I3", "Anonymous/Jones/");
+        final Person person2 = createAnonymousSmith();
+        final Person person3 = createAnonymousJones();
 
-        final Family family1 = builder.createFamily("F1");
-        builder.addHusbandToFamily(family1, person1);
-        builder.addWifeToFamily(family1, person2);
-        builder.addChildToFamily(family1, person3);
+        final Family family1 = familyBuilder().createFamily("F1");
+        familyBuilder().addHusbandToFamily(family1, person1);
+        familyBuilder().addWifeToFamily(family1, person2);
+        familyBuilder().addChildToFamily(family1, person3);
 
         final Attribute marriage1 = new Attribute(family1, "Marriage");
         family1.insert(marriage1);
@@ -291,18 +299,17 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testFromParentsMarriageWithOlderSiblings() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson("I1",
-                "J. Random/Schoeller/");
-        final Person person2 = builder.createPerson("I2", "Anonymous/Smith/");
-        final Person person3 = builder.createPerson("I3", "Anonymous/Jones/");
-        final Person person4 = builder.createPerson("I4", "No Name/Johnson/");
-        final Family family1 = builder.createFamily("F1");
-        builder.addHusbandToFamily(family1, person1);
-        builder.addWifeToFamily(family1, person2);
-        builder.addChildToFamily(family1, person3);
-        builder.addChildToFamily(family1, person4);
-        builder.createFamilyEvent(family1, "Marriage", "27 MAY 1984");
+        final Person person1 = createJRandom();
+        final Person person2 = createAnonymousSmith();
+        final Person person3 = createAnonymousJones();
+        final Person person4 =
+                personBuilder().createPerson("I4", "No Name/Johnson/");
+        final Family family1 = familyBuilder().createFamily("F1");
+        familyBuilder().addHusbandToFamily(family1, person1);
+        familyBuilder().addWifeToFamily(family1, person2);
+        familyBuilder().addChildToFamily(family1, person3);
+        familyBuilder().addChildToFamily(family1, person4);
+        familyBuilder().createFamilyEvent(family1, "Marriage", "27 MAY 1984");
 
         final BirthDateEstimator estimator = createBirthEstimator(person4);
         final int birthYear = 1988;
@@ -317,17 +324,15 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testFromChild() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson("I1",
-                "J. Random/Schoeller/");
-        final Person person2 = builder.createPerson("I2", "Anonymous/Smith/");
-        final Person person3 = builder.createPerson("I3", "Anonymous/Jones/");
-        builder.createPersonEvent(person3, "Birth", "11 JUL 1960");
+        final Person person1 = createJRandom();
+        final Person person2 = createAnonymousSmith();
+        final Person person3 = createAnonymousJones();
+        personBuilder().createPersonEvent(person3, "Birth", "11 JUL 1960");
 
-        final Family family1 = builder.createFamily("F1");
-        builder.addHusbandToFamily(family1, person1);
-        builder.addChildToFamily(family1, person2);
-        builder.addChildToFamily(family1, person3);
+        final Family family1 = familyBuilder().createFamily("F1");
+        familyBuilder().addHusbandToFamily(family1, person1);
+        familyBuilder().addChildToFamily(family1, person2);
+        familyBuilder().addChildToFamily(family1, person3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person1);
         final int birthYear = 1931;
@@ -342,15 +347,13 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testFromChildren() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson("I1",
-                "J. Random/Schoeller/");
-        final Person person3 = builder.createPerson("I3", "Anonymous/Jones/");
-        builder.createPersonEvent(person3, "Birth", "11 JUL 1960");
+        final Person person1 = createJRandom();
+        final Person person3 = createAnonymousJones();
+        personBuilder().createPersonEvent(person3, "Birth", "11 JUL 1960");
 
-        final Family family1 = builder.createFamily("F1");
-        builder.addHusbandToFamily(family1, person1);
-        builder.addChildToFamily(family1, person3);
+        final Family family1 = familyBuilder().createFamily("F1");
+        familyBuilder().addHusbandToFamily(family1, person1);
+        familyBuilder().addChildToFamily(family1, person3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person1);
         final int birthYear = 1933;
@@ -365,15 +368,13 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testFromHusband() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson("I1",
-                "J. Random/Schoeller/");
-        final Person person2 = builder.createPerson("I2", "Anonymous/Smith/");
-        builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
+        final Person person1 = createJRandom();
+        final Person person2 = createAnonymousSmith();
+        personBuilder().createPersonEvent(person1, "Birth", "11 JUL 1960");
 
-        final Family family1 = builder.createFamily("F1");
-        builder.addHusbandToFamily(family1, person1);
-        builder.addWifeToFamily(family1, person2);
+        final Family family1 = familyBuilder().createFamily("F1");
+        familyBuilder().addHusbandToFamily(family1, person1);
+        familyBuilder().addWifeToFamily(family1, person2);
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
         final int birthYear = 1965;
@@ -388,15 +389,13 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testFromWife() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson("I1",
-                "J. Random/Schoeller/");
-        final Person person2 = builder.createPerson("I2", "Anonymous/Smith/");
-        builder.createPersonEvent(person2, "Birth", "11 JUL 1960");
+        final Person person1 = createJRandom();
+        final Person person2 = createAnonymousSmith();
+        personBuilder().createPersonEvent(person2, "Birth", "11 JUL 1960");
 
-        final Family family1 = builder.createFamily("F1");
-        builder.addHusbandToFamily(family1, person1);
-        builder.addWifeToFamily(family1, person2);
+        final Family family1 = familyBuilder().createFamily("F1");
+        familyBuilder().addHusbandToFamily(family1, person1);
+        familyBuilder().addWifeToFamily(family1, person2);
 
         final BirthDateEstimator estimator = createBirthEstimator(person1);
         final int birthYear = 1955;
@@ -453,10 +452,8 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testFromBaptism() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson("I0",
-                "J. Random/Schoeller/");
-        builder.createPersonEvent(person, "Baptism", "11 JUL 1960");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Baptism", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1960;
@@ -471,10 +468,8 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testChristening() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson("I0",
-                "J. Random/Schoeller/");
-        builder.createPersonEvent(person, "Christening", "11 JUL 1960");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Christening", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1960;
@@ -489,10 +484,8 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testBarMitzah() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson("I0",
-                "J. Random/Schoeller/");
-        builder.createPersonEvent(person, "Bar Mitzvah", "11 JUL 1960");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Bar Mitzvah", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1947;
@@ -507,10 +500,8 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testBatMitzvah() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson("I0",
-                "J. Random/Schoeller/");
-        builder.createPersonEvent(person, "Bat Mitzvah", "11 JUL 1960");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Bat Mitzvah", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1947;
@@ -525,10 +516,8 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testDeath() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson("I0",
-                "J. Random/Schoeller/");
-        builder.createPersonEvent(person, "Death", "11 JUL 1960");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Death", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1885;
@@ -543,10 +532,8 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testBurial() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson("I0",
-                "J. Random/Schoeller/");
-        builder.createPersonEvent(person, "Burial", "11 JUL 1960");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Burial", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1885;
@@ -561,10 +548,8 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testChanged() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson("I0",
-                "J. Random/Schoeller/");
-        builder.createPersonEvent(person, "Changed", "11 JUL 1960");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Changed", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -574,10 +559,8 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testOtherEvent() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson("I0",
-                "J. Random/Schoeller/");
-        builder.createPersonEvent(person, "Occupation", "11 JUL 1960");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Occupation", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1935;
@@ -592,10 +575,8 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testNoDate() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson("I0",
-                "J. Random/Schoeller/");
-        builder.createPersonEvent(person, "Death");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Death");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -605,10 +586,8 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testBadDate() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson("I0",
-                "J. Random/Schoeller/");
-        builder.createPersonEvent(person, "Changed", "");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Changed", "");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -618,10 +597,8 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testEstimateBirthDate() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson("I0",
-                "J. Random/Schoeller/");
-        builder.createPersonEvent(person, "Birth", "11 JUL 1960");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Birth", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1960;
@@ -636,10 +613,8 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testEstimateMarriageDate() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson("I0",
-                "J. Random/Schoeller/");
-        builder.createPersonEvent(person, "Marriage", "11 JUL 1960");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Marriage", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1935;
@@ -654,10 +629,8 @@ public final class BirthDateEstimatorTest {
     /** */
     @Test
     public void testEstimateOtherDate() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson("I0",
-                "J. Random/Schoeller/");
-        builder.createPersonEvent(person, "Occupation", "11 JUL 1960");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Occupation", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1935;
