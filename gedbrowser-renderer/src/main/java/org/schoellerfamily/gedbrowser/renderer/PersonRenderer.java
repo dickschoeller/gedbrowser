@@ -19,7 +19,6 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.GodClass" })
 public final class PersonRenderer extends GedRenderer<Person> {
     /**
      * Number of generations, including the root when rendering the tree.
@@ -33,6 +32,9 @@ public final class PersonRenderer extends GedRenderer<Person> {
 
     /** */
     private final PersonNavigator navigator;
+
+    /** */
+    private final ParentsRenderer parentsRenderer;
 
     /**
      * @param gedObject the Person that we are going to render
@@ -51,70 +53,16 @@ public final class PersonRenderer extends GedRenderer<Person> {
         setAttributeListOpenRenderer(new PersonAttributeListOpenRenderer());
         le = new LivingEstimator(gedObject, provider);
         navigator = new PersonNavigator(gedObject);
+        parentsRenderer = new ParentsRenderer(this);
     }
 
     /**
-     * This method is public for testing purposes only. Do not try to call it
-     * outside of the context of the rendering engine.
+     * Get the renderer responsible for rendering the parents of this person.
      *
-     * @param builder Buffer for holding the rendition
-     * @param pad Minimum number spaces for padding each line of the output
-     * @param father Father
+     * @return the parents renderer
      */
-    public void renderFather(final StringBuilder builder,
-            final int pad, final Person father) {
-        renderParent(builder, pad, father, "Father");
-    }
-
-    /**
-     * This method is public for testing purposes only. Do not try to call it
-     * outside of the context of the rendering engine.
-     *
-     * @param builder Buffer for holding the rendition
-     * @param pad Minimum number spaces for padding each line of the output
-     * @param mother Mother
-     */
-    public void renderMother(final StringBuilder builder,
-            final int pad, final Person mother) {
-        renderParent(builder, pad, mother, "Mother");
-    }
-
-    /**
-     * @param builder Buffer for holding the rendition
-     * @param pad Minimum number spaces for padding each line of the output
-     * @param parent The parent being rendered
-     * @param parentLabel The string containing the parent type
-     */
-    private void renderParent(final StringBuilder builder,
-            final int pad, final Person parent, final String parentLabel) {
-        if (parent != null) {
-            final String parentHtml = createGedRenderer(parent).getNameHtml();
-            renderParent(builder, pad, parentHtml, parentLabel);
-        }
-    }
-
-    /**
-     * @param builder Buffer for holding the rendition
-     * @param pad Minimum number spaces for padding each line of the output
-     * @param parentHtml The parent being rendered
-     * @param parentLabel The string containing the parent type
-     */
-    private void renderParent(final StringBuilder builder,
-            final int pad, final String parentHtml, final String parentLabel) {
-        if (!parentHtml.isEmpty() && (isConfidential() || isHiddenLiving())) {
-            return;
-        }
-        renderPad(builder, pad, true);
-        builder.append("<p class=\"parent\">");
-
-        renderPad(builder, pad, true);
-        builder.append(
-                " <span class=\"parent label\">" + parentLabel
-                + ":</span> ").append(
-                        parentHtml);
-
-        renderPad(builder, pad, true);
-        builder.append("</p>");
+    public ParentsRenderer getParents() {
+        return parentsRenderer;
     }
 
     /**
@@ -180,58 +128,6 @@ public final class PersonRenderer extends GedRenderer<Person> {
         }
 
         return builder.toString();
-    }
-
-    /**
-     * @return the father string.
-     */
-    public String getFatherRendition() {
-        final StringBuilder builder = new StringBuilder();
-        final Person father = navigator.getFather();
-        if (father != null) {
-            renderParent(builder, 0, createGedRenderer(father).getNameHtml(),
-                    "Father");
-        }
-        return builder.toString();
-    }
-
-    /**
-     * @return the mother string
-     */
-    public String getMotherRendition() {
-        final StringBuilder builder = new StringBuilder();
-        final Person mother = navigator.getMother();
-        if (mother != null) {
-            renderParent(builder, 0, createGedRenderer(mother).getNameHtml(),
-                    "Mother");
-        }
-        return builder.toString();
-    }
-
-    /**
-     * @return the HTML string format of the father's name.
-     */
-    public String getFatherNameHtml() {
-        if (isConfidential()) {
-            return "";
-        }
-        if (isHiddenLiving()) {
-            return "";
-        }
-        return createGedRenderer(navigator.getFather()).getNameHtml();
-    }
-
-    /**
-     * @return the HTML string format of the mother's name.
-     */
-    public String getMotherNameHtml() {
-        if (isConfidential()) {
-            return "";
-        }
-        if (isHiddenLiving()) {
-            return "";
-        }
-        return createGedRenderer(navigator.getMother()).getNameHtml();
     }
 
     /**

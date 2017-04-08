@@ -655,7 +655,7 @@ public final class PersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
         final StringBuilder builder = new StringBuilder();
-        personRenderer.renderFather(builder, 2, null);
+        personRenderer.getParents().renderFather(builder, 2, null);
         assertEquals("Expected empty string", "", builder.toString());
     }
 
@@ -671,7 +671,8 @@ public final class PersonRendererTest {
                 new GedRendererFactory(), userContext, provider);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(melissa);
-        personRenderer.renderFather(builder, 2, navigator.getFather());
+        personRenderer.getParents().renderFather(builder, 2,
+                navigator.getFather());
         final String ts1 = "\n"
                 + START_PARENT
                 + "   <span class=\"parent label\">Father:</span> \n"
@@ -691,7 +692,7 @@ public final class PersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
         final StringBuilder builder = new StringBuilder();
-        personRenderer.renderMother(builder, 2, null);
+        personRenderer.getParents().renderMother(builder, 2, null);
         assertEquals("Expected empty string", "", builder.toString());
     }
 
@@ -706,7 +707,8 @@ public final class PersonRendererTest {
                 new GedRendererFactory(), userContext, provider);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(melissa);
-        personRenderer.renderFather(builder, 2, navigator.getFather());
+        personRenderer.getParents().renderFather(builder, 2,
+                navigator.getFather());
         final String ts1 = "\n"
                 + START_PARENT
                 + "   <span class=\"parent label\">Father:</span> "
@@ -731,7 +733,8 @@ public final class PersonRendererTest {
                 new GedRendererFactory(), userContext, provider);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(melissa);
-        personRenderer.renderMother(builder, 2, navigator.getMother());
+        personRenderer.getParents().renderMother(builder, 2,
+                navigator.getMother());
         final String ts1 = "\n"
                 + START_PARENT
                 + "   <span class=\"parent label\">Mother:</span> \n"
@@ -752,7 +755,8 @@ public final class PersonRendererTest {
                 new GedRendererFactory(), adminContext, provider);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(sabino);
-        personRenderer.renderMother(builder, 2, navigator.getMother());
+        personRenderer.getParents().renderMother(builder, 2,
+                navigator.getMother());
         final String ts1 = "\n"
                 + START_PARENT
                 + "   <span class=\"parent label\">Mother:</span> \n"
@@ -773,7 +777,8 @@ public final class PersonRendererTest {
                 new GedRendererFactory(), userContext, provider);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(sabino);
-        personRenderer.renderMother(builder, 2, navigator.getMother());
+        personRenderer.getParents().renderMother(builder, 2,
+                navigator.getMother());
         final String expected = "\n"
                 + "  <p class=\"parent\">\n"
                 + "   <span class=\"parent label\">Mother:</span> \n"
@@ -794,7 +799,8 @@ public final class PersonRendererTest {
                 new GedRendererFactory(), userContext, provider);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(melissa);
-        personRenderer.renderMother(builder, 2, navigator.getMother());
+        personRenderer.getParents().renderMother(builder, 2,
+                navigator.getMother());
         final String ts1 = "\n"
                 + START_PARENT
                 + "   <span class=\"parent label\">Mother:</span> "
@@ -916,7 +922,7 @@ public final class PersonRendererTest {
                 + "Richard John"
                 + " <span class=\"surname\">Schoeller</span>"
                 + " (1958-) [I2]</a>",
-                personRenderer.getFatherNameHtml());
+                personRenderer.getParents().getFatherNameHtml());
     }
 
     /**
@@ -933,7 +939,7 @@ public final class PersonRendererTest {
                 "<a href=\"person?db=null&amp;id=I4248\" class=\"name\">"
                 + "Sabino"
                 + " <span class=\"surname\">Figliuolo</span> [I4248]</a>",
-                personRenderer.getFatherNameHtml());
+                personRenderer.getParents().getFatherNameHtml());
     }
 
     /**
@@ -946,7 +952,8 @@ public final class PersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
         assertEquals("Rendered html doesn't match expectation",
-                "Confidential", personRenderer.getFatherNameHtml());
+                "Confidential",
+                personRenderer.getParents().getFatherNameHtml());
     }
 
     /**
@@ -964,7 +971,7 @@ public final class PersonRendererTest {
                 + "John Vincent"
                 + " <span class=\"surname\">Schoeller</span>"
                 + " (1934-) [I4]</a>",
-                personRenderer.getFatherNameHtml());
+                personRenderer.getParents().getFatherNameHtml());
     }
 
     /**
@@ -977,7 +984,7 @@ public final class PersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
         assertEquals("Expected empty string",
-                "", personRenderer.getFatherNameHtml());
+                "", personRenderer.getParents().getFatherNameHtml());
     }
 
     /**
@@ -990,7 +997,7 @@ public final class PersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
         assertEquals("Expected empty string",
-                "", personRenderer.getFatherNameHtml());
+                "", personRenderer.getParents().getFatherNameHtml());
     }
 
     /**
@@ -1007,7 +1014,7 @@ public final class PersonRendererTest {
                 + "Lisa Hope"
                 + " <span class=\"surname\">Robinson</span>"
                 + " (1960-) [I3]</a>",
-                personRenderer.getMotherNameHtml());
+                personRenderer.getParents().getMotherNameHtml());
     }
 
     /**
@@ -1025,7 +1032,7 @@ public final class PersonRendererTest {
                 + "Vivian Grace"
                 + " <span class=\"surname\">Schoeller</span>"
                 + " (1960-) [I5]</a>",
-                personRenderer.getMotherNameHtml());
+                personRenderer.getParents().getMotherNameHtml());
     }
 
     /**
@@ -1038,7 +1045,8 @@ public final class PersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
         assertEquals("Rendered html doesn't match expectation",
-                "Confidential", personRenderer.getMotherNameHtml());
+                "Confidential",
+                personRenderer.getParents().getMotherNameHtml());
     }
 
     /**
@@ -1056,7 +1064,7 @@ public final class PersonRendererTest {
                 + "Patricia Ruth"
                 + " <span class=\"surname\">Hayes</span>"
                 + " (1937-) [I6]</a>",
-                personRenderer.getMotherNameHtml());
+                personRenderer.getParents().getMotherNameHtml());
     }
 
     /**
@@ -1069,7 +1077,7 @@ public final class PersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
         assertEquals("Expected empty string",
-                "", personRenderer.getMotherNameHtml());
+                "", personRenderer.getParents().getMotherNameHtml());
     }
 
     /**
@@ -1082,7 +1090,7 @@ public final class PersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
         assertEquals("Expected empty string",
-                "", personRenderer.getMotherNameHtml());
+                "", personRenderer.getParents().getMotherNameHtml());
     }
 
     /**
@@ -1099,7 +1107,7 @@ public final class PersonRendererTest {
                 + "</span> <a href=\"person?db=null&amp;id=I2\" class=\"name\">"
                 + "Richard John <span class=\"surname\">Schoeller</span>"
                 + " (1958-) [I2]</a>\n</p>",
-                personRenderer.getFatherRendition());
+                personRenderer.getParents().getFatherRendition());
     }
 
     /**
@@ -1114,7 +1122,7 @@ public final class PersonRendererTest {
         assertEquals("Rendered html doesn't match expectation",
                 "\n<p class=\"parent\">\n <span class=\"parent label\">Father:"
                 + "</span> \n</p>",
-                personRenderer.getFatherRendition());
+                personRenderer.getParents().getFatherRendition());
     }
 
     /**
@@ -1131,7 +1139,7 @@ public final class PersonRendererTest {
                 + "</span> <a href=\"person?db=null&amp;id=I3\" class=\"name\">"
                 + "Lisa Hope <span class=\"surname\">Robinson</span>"
                 + " (1960-) [I3]</a>\n</p>",
-                personRenderer.getMotherRendition());
+                personRenderer.getParents().getMotherRendition());
     }
 
     /**
@@ -1146,7 +1154,7 @@ public final class PersonRendererTest {
         assertEquals("Rendered html doesn't match expectation",
                 "\n<p class=\"parent\">\n <span class=\"parent label\">Mother:"
                 + "</span> \n</p>",
-                personRenderer.getMotherRendition());
+                personRenderer.getParents().getMotherRendition());
     }
 
     /**
