@@ -63,15 +63,15 @@
 
     <div id="map_container" th:if="${showMap}"></div>
 
-    <p class="parent" th:if="${not person.fatherNameHtml.isEmpty()}">
+    <p class="parent" th:if="${not person.parents.fatherNameHtml.isEmpty()}">
         <span class="parent label">Father:</span>
         <!-- FIXME utext is necessary because all nameHtml variants contain HTML formatting -->
-        <span id="father" th:utext="${person.fatherNameHtml}">Joe Doe</span>
+        <span id="father" th:utext="${person.parents.fatherNameHtml}">Joe Doe</span>
     </p>
-    <p class="parent" th:if="${not person.motherNameHtml.isEmpty()}">
+    <p class="parent" th:if="${not person.parents.motherNameHtml.isEmpty()}">
         <span class="parent label">Mother:</span>
         <!-- FIXME utext is necessary because all nameHtml variants contain HTML formatting -->
-        <span id="mother" th:utext="${person.motherNameHtml}">Rhonda Roe</span>
+        <span id="mother" th:utext="${person.parents.motherNameHtml}">Rhonda Roe</span>
     </p>
 
     <div th:each="family,iterStat : ${person.families}" class="family">

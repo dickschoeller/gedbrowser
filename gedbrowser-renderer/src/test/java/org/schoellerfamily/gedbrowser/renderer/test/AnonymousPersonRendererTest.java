@@ -474,7 +474,7 @@ public final class AnonymousPersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext, provider);
         final StringBuilder builder = new StringBuilder();
-        personRenderer.renderFather(builder, 2, null);
+        personRenderer.getParents().renderFather(builder, 2, null);
         final String actual = builder.toString();
         assertTrue("Expected empty string", actual.isEmpty());
     }
@@ -491,7 +491,8 @@ public final class AnonymousPersonRendererTest {
                 new GedRendererFactory(), anonymousContext, provider);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(melissa);
-        personRenderer.renderFather(builder, 2, navigator.getFather());
+        personRenderer.getParents().renderFather(
+                builder, 2, navigator.getFather());
         final String expected = "\n"
                 + START_PARENT
                 + "   <span class=\"parent label\">Father:</span> \n"
@@ -511,7 +512,7 @@ public final class AnonymousPersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext, provider);
         final StringBuilder builder = new StringBuilder();
-        personRenderer.renderMother(builder, 2, null);
+        personRenderer.getParents().renderMother(builder, 2, null);
         final String actual = builder.toString();
         assertTrue("Expected empty string", actual.isEmpty());
     }
@@ -527,7 +528,8 @@ public final class AnonymousPersonRendererTest {
                 new GedRendererFactory(), anonymousContext, provider);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(melissa);
-        personRenderer.renderFather(builder, 2, navigator.getFather());
+        personRenderer.getParents().renderFather(
+                builder, 2, navigator.getFather());
         final String actual = builder.toString();
         assertTrue("Expected empty string", actual.isEmpty());
     }
@@ -544,7 +546,8 @@ public final class AnonymousPersonRendererTest {
                 new GedRendererFactory(), anonymousContext, provider);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(melissa);
-        personRenderer.renderMother(builder, 2, navigator.getMother());
+        personRenderer.getParents().renderMother(
+                builder, 2, navigator.getMother());
         final String expected = "\n"
                 + START_PARENT
                 + "   <span class=\"parent label\">Mother:</span> \n"
@@ -565,7 +568,8 @@ public final class AnonymousPersonRendererTest {
                 new GedRendererFactory(), anonymousContext, provider);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(sabino);
-        personRenderer.renderMother(builder, 2, navigator.getMother());
+        personRenderer.getParents().renderMother(
+                builder, 2, navigator.getMother());
         final String expected = "\n"
                 + START_PARENT
                 + "   <span class=\"parent label\">Mother:</span> \n"
@@ -585,7 +589,8 @@ public final class AnonymousPersonRendererTest {
                 new GedRendererFactory(), anonymousContext, provider);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(melissa);
-        personRenderer.renderMother(builder, 2, navigator.getMother());
+        personRenderer.getParents().renderMother(
+                builder, 2, navigator.getMother());
         final String actual = builder.toString();
         assertTrue("Expected empty string", actual.isEmpty());
     }
@@ -664,7 +669,8 @@ public final class AnonymousPersonRendererTest {
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext, provider);
-        final String actual = personRenderer.getFatherNameHtml();
+        final String actual = personRenderer.getParents()
+                .getFatherNameHtml();
         assertTrue("Expected empty string", actual.isEmpty());
     }
 
@@ -677,7 +683,8 @@ public final class AnonymousPersonRendererTest {
         final Person melissa = (Person) root.find("I5266");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext, provider);
-        final String actual = personRenderer.getFatherNameHtml();
+        final String actual = personRenderer.getParents()
+                .getFatherNameHtml();
         assertTrue("Expected empty string", actual.isEmpty());
     }
 
@@ -690,7 +697,8 @@ public final class AnonymousPersonRendererTest {
         final Person melissa = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext, provider);
-        final String actual = personRenderer.getFatherNameHtml();
+        final String actual = personRenderer.getParents()
+                .getFatherNameHtml();
         assertTrue("Expected empty string", actual.isEmpty());
     }
 
@@ -703,7 +711,8 @@ public final class AnonymousPersonRendererTest {
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext, provider);
-        final String actual = personRenderer.getFatherNameHtml();
+        final String actual = personRenderer.getParents()
+                .getFatherNameHtml();
         assertTrue("Expected empty string", actual.isEmpty());
     }
 
@@ -716,7 +725,8 @@ public final class AnonymousPersonRendererTest {
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext, provider);
-        final String actual = personRenderer.getMotherNameHtml();
+        final String actual = personRenderer.getParents()
+                .getMotherNameHtml();
         assertTrue("Expected empty string", actual.isEmpty());
     }
 
@@ -729,7 +739,8 @@ public final class AnonymousPersonRendererTest {
         final Person melissa = (Person) root.find("I5266");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext, provider);
-        final String actual = personRenderer.getMotherNameHtml();
+        final String actual = personRenderer.getParents()
+                .getMotherNameHtml();
         assertTrue("Expected empty string", actual.isEmpty());
     }
 
@@ -742,7 +753,8 @@ public final class AnonymousPersonRendererTest {
         final Person melissa = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext, provider);
-        final String actual = personRenderer.getMotherNameHtml();
+        final String actual = personRenderer.getParents()
+                .getMotherNameHtml();
         assertTrue("Expected empty string", actual.isEmpty());
     }
 
@@ -755,7 +767,8 @@ public final class AnonymousPersonRendererTest {
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext, provider);
-        final String actual = personRenderer.getMotherNameHtml();
+        final String actual = personRenderer.getParents()
+                .getMotherNameHtml();
         assertTrue("Expected empty string", actual.isEmpty());
     }
 
@@ -768,7 +781,8 @@ public final class AnonymousPersonRendererTest {
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext, provider);
-        final String actual = personRenderer.getFatherRendition();
+        final String actual = personRenderer.getParents()
+                .getFatherRendition();
         assertTrue("Expected empty string", actual.isEmpty());
     }
 
@@ -783,7 +797,8 @@ public final class AnonymousPersonRendererTest {
                 new GedRendererFactory(), anonymousContext, provider);
         final String expected = "\n<p class=\"parent\">\n <span class=\"par"
                 + "ent label\">Father:</span> \n</p>";
-        final String actual = personRenderer.getFatherRendition();
+        final String actual = personRenderer.getParents()
+                .getFatherRendition();
         assertEquals("Mismatched rendered string",
                 expected,
                 actual);
@@ -798,7 +813,8 @@ public final class AnonymousPersonRendererTest {
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), anonymousContext, provider);
-        final String actual = personRenderer.getMotherRendition();
+        final String actual = personRenderer.getParents()
+                .getMotherRendition();
         assertTrue("Expected empty string", actual.isEmpty());
     }
 
@@ -814,7 +830,8 @@ public final class AnonymousPersonRendererTest {
         final String expected = "\n<p class=\"parent\">\n"
                 + " <span class=\"parent label\">Mother:"
                 + "</span> \n</p>";
-        final String actual = personRenderer.getMotherRendition();
+        final String actual = personRenderer.getParents()
+                .getMotherRendition();
         assertEquals("Mismatched rendered string", expected, actual);
     }
 
