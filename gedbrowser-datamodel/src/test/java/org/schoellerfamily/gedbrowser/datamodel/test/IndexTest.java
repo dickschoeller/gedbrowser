@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
+import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
 
 /**
  * @author Dick Schoeller
@@ -56,36 +57,46 @@ public final class IndexTest {
             "I1 = Schoeller, Richard John", "I5 = Schoeller, Whosis, Jr."};
 
     /** */
-    private transient Root root;
+    private final Root root = new Root();
+
+    /** */
+    private final GedObjectBuilder builder = new GedObjectBuilder(root);
+
+    /**
+     * @return get the person builder associated with this test
+     */
+    private PersonBuilder personBuilder() {
+        return builder.getPersonBuilder();
+    }
 
     /** */
     @Before
     public void setUp() {
-        root = new Root();
-        final GedObjectBuilder builder = new GedObjectBuilder(root);
-        builder.createPerson("I1", "Richard John/Schoeller/");
-        builder.createPerson("I2", "Lisa Hope/Robinson/");
+        personBuilder().createPerson("I1", "Richard John/Schoeller/");
+        personBuilder().createPerson("I2", "Lisa Hope/Robinson/");
         final Person person3 =
-                builder.createPerson("I3", "Karl Frederick/Schoeller/Jr.");
-        final Person person4 = builder.createPerson("I4");
-        builder.createPersonEvent(person4, "Birth");
-        builder.createPersonEvent(person4, "Death");
+                personBuilder().createPerson(
+                        "I3", "Karl Frederick/Schoeller/Jr.");
+        final Person person4 = personBuilder().createPerson("I4");
+        personBuilder().createPersonEvent(person4, "Birth");
+        personBuilder().createPersonEvent(person4, "Death");
 
         final Person person5 =
-                builder.createPerson("I5", "Whosis/Schoeller/Jr.");
-        builder.createPersonEvent(person5, "Birth", "1 January 1900");
-        builder.createPersonEvent(person5, "Death", "1 January 1950");
+                personBuilder().createPerson("I5", "Whosis/Schoeller/Jr.");
+        personBuilder().createPersonEvent(person5, "Birth", "1 January 1900");
+        personBuilder().createPersonEvent(person5, "Death", "1 January 1950");
         final Person person6 =
-                builder.createPerson("I6", "Karl Frederick/Schoeller/Sr.");
+                personBuilder().createPerson(
+                        "I6", "Karl Frederick/Schoeller/Sr.");
         final Person person7 =
-                builder.createPerson("I7", "Mary Beer/Moyer/");
-        final Family family6 = builder.createFamily("F6");
-        builder.addChildToFamily(family6, person3);
-        builder.addHusbandToFamily(family6, person6);
-        builder.addWifeToFamily(family6, person7);
+                personBuilder().createPerson("I7", "Mary Beer/Moyer/");
+        final Family family6 = builder.getFamilyBuilder().createFamily("F6");
+        builder.getFamilyBuilder().addChildToFamily(family6, person3);
+        builder.getFamilyBuilder().addHusbandToFamily(family6, person6);
+        builder.getFamilyBuilder().addWifeToFamily(family6, person7);
 
-        builder.createPerson("I8", "John/Schoeller/");
-        builder.createPerson("I9", "John/Schoeller/");
+        personBuilder().createPerson("I8", "John/Schoeller/");
+        personBuilder().createPerson("I9", "John/Schoeller/");
 
         root.initIndex();
     }

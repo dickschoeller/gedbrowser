@@ -58,7 +58,8 @@ public final class SourceLinkTest {
     @Parameters
     public static Collection<Object[]> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson1();
+        final Person person = builder.getPersonBuilder().createPerson(
+                "I1", "J. Random/Schoeller/");
         return Arrays.asList(new Object[][] {
             {null, null, null, "", "", ""},
             {person, null, null, "", "I1", ""},

@@ -28,7 +28,8 @@ public final class AttributeTest {
     @Before
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        person1 = builder.createPerson1();
+        person1 = builder.getPersonBuilder().createPerson(
+                "I1", "J. Random/Schoeller/");
     }
 
     /** */

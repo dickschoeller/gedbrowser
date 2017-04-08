@@ -8,22 +8,42 @@ import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzer;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzerResult;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.FamilyBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
+import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
 
 /**
  * @author Dick Schoeller
  */
-public final class OrderAnalyzerDeathTest {
+public final class OrderAnalyzerDeathTest implements AnalyzerTest {
     /** */
     private final OrderAnalyzerTestHelper helper =
             new OrderAnalyzerTestHelper();
 
     /** */
+    private final GedObjectBuilder builder = new GedObjectBuilder();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public PersonBuilder personBuilder() {
+        return builder.getPersonBuilder();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public FamilyBuilder familyBuilder() {
+        return builder.getFamilyBuilder();
+    }
+
+    /** */
     @Test
     public void testPersonWithOnlyDeathMatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Death");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Death");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertTrue("Expected correct with only death event",
                 result.isCorrect());
@@ -32,10 +52,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testPersonWithDeathAfterNonDeathMatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Education");
-        builder.createPersonEvent(person, "Death");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Education");
+        personBuilder().createPersonEvent(person, "Death");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertTrue("Expected correct with death events are after others",
                 result.isCorrect());
@@ -44,10 +63,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testPersonWithNonDeathAfterDeathMismatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Death");
-        builder.createPersonEvent(person, "Education");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Death");
+        personBuilder().createPersonEvent(person, "Education");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertFalse("Expected incorrect with death events are before others",
                 result.isCorrect());
@@ -56,10 +74,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testPersonWithWillAfterDeathMatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Death");
-        builder.createPersonEvent(person, "Will");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Death");
+        personBuilder().createPersonEvent(person, "Will");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertTrue("Expected correct with death before will",
                 result.isCorrect());
@@ -68,10 +85,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testPersonWithWillBeforeDeathMatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Will");
-        builder.createPersonEvent(person, "Death");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Will");
+        personBuilder().createPersonEvent(person, "Death");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertTrue("Expected correct with will before death",
                 result.isCorrect());
@@ -80,11 +96,10 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testPersonWithWillEducDeathMatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Will");
-        builder.createPersonEvent(person, "Education");
-        builder.createPersonEvent(person, "Death");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Will");
+        personBuilder().createPersonEvent(person, "Education");
+        personBuilder().createPersonEvent(person, "Death");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertTrue("Expected correct with will, education, death",
                 result.isCorrect());
@@ -93,11 +108,10 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testPersonWithDeathFuneralBurialMatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Death");
-        builder.createPersonEvent(person, "Funeral");
-        builder.createPersonEvent(person, "Burial");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Death");
+        personBuilder().createPersonEvent(person, "Funeral");
+        personBuilder().createPersonEvent(person, "Burial");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertTrue("Expected correct with death, funeral, burial",
                 result.isCorrect());
@@ -106,10 +120,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testPersonWithDeathBurialMatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Death");
-        builder.createPersonEvent(person, "Burial");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Death");
+        personBuilder().createPersonEvent(person, "Burial");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertTrue("Expected correct with death, burial",
                 result.isCorrect());
@@ -118,11 +131,10 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testPersonWithFuneralBurialDeathMismatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Funeral");
-        builder.createPersonEvent(person, "Burial");
-        builder.createPersonEvent(person, "Death");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Funeral");
+        personBuilder().createPersonEvent(person, "Burial");
+        personBuilder().createPersonEvent(person, "Death");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertFalse("Expected incorrect with funeral, burial, death",
                 result.isCorrect());
@@ -131,11 +143,10 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testPersonWithDeathBurialDeathMismatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Death");
-        builder.createPersonEvent(person, "Burial");
-        builder.createPersonEvent(person, "Death");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Death");
+        personBuilder().createPersonEvent(person, "Burial");
+        personBuilder().createPersonEvent(person, "Death");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertFalse("Expected incorrect with death, burial, death",
                 result.isCorrect());
@@ -144,11 +155,10 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testPersonWithBurialBurialBurialMatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Burial");
-        builder.createPersonEvent(person, "Burial");
-        builder.createPersonEvent(person, "Burial");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Burial");
+        personBuilder().createPersonEvent(person, "Burial");
+        personBuilder().createPersonEvent(person, "Burial");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertTrue("Expected correct with burial, burial, burial",
                 result.isCorrect());
@@ -157,11 +167,10 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testPersonWithDeathDeathDeathMismatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Death");
-        builder.createPersonEvent(person, "Death");
-        builder.createPersonEvent(person, "Death");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Death");
+        personBuilder().createPersonEvent(person, "Death");
+        personBuilder().createPersonEvent(person, "Death");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertTrue("Expected correct with death, death, death",
                 result.isCorrect());
@@ -170,11 +179,10 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testPersonWithDeathWillDeathMismatch() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson1();
-        builder.createPersonEvent(person, "Death");
-        builder.createPersonEvent(person, "Will");
-        builder.createPersonEvent(person, "Death");
+        final Person person = createJRandom();
+        personBuilder().createPersonEvent(person, "Death");
+        personBuilder().createPersonEvent(person, "Will");
+        personBuilder().createPersonEvent(person, "Death");
         final OrderAnalyzerResult result = helper.analyze(person);
         assertTrue("Expected correct with death, will, death",
                 result.isCorrect());
@@ -184,10 +192,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testDeathIsDeath() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
+        final Person person1 = createJRandom();
         final Attribute event =
-                builder.createPersonEvent(person1, "Death");
+                personBuilder().createPersonEvent(person1, "Death");
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertTrue("Death is death", analyzer.isDeathEvent(event));
     }
@@ -195,10 +202,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testBurialIsNotDeath() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
+        final Person person1 = createJRandom();
         final Attribute event =
-                builder.createPersonEvent(person1, "Burial");
+                personBuilder().createPersonEvent(person1, "Burial");
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertFalse("Burial is not death", analyzer.isDeathEvent(event));
     }
@@ -206,10 +212,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testDeathIsDeathRelated() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
+        final Person person1 = createJRandom();
         final Attribute event =
-                builder.createPersonEvent(person1, "Death");
+                personBuilder().createPersonEvent(person1, "Death");
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertTrue("Death is death related",
                 analyzer.isDeathRelatedEvent(event));
@@ -218,10 +223,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testBurialIsDeathRelated() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
+        final Person person1 = createJRandom();
         final Attribute event =
-                builder.createPersonEvent(person1, "Burial");
+                personBuilder().createPersonEvent(person1, "Burial");
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertTrue("Burial is death related",
                 analyzer.isDeathRelatedEvent(event));
@@ -230,10 +234,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testCremationIsDeathRelated() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
+        final Person person1 = createJRandom();
         final Attribute event =
-                builder.createPersonEvent(person1, "Cremation");
+                personBuilder().createPersonEvent(person1, "Cremation");
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertTrue("Cremation is death related",
                 analyzer.isDeathRelatedEvent(event));
@@ -242,36 +245,31 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testUnveilingIsDeathRelated() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
-        final Attribute event =
-                builder.createPersonEvent(person1, "Headstone unveiling");
+        final Person person1 = createJRandom();
+        final Attribute event = personBuilder().createPersonEvent(
+                person1, "Headstone unveiling");
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertTrue("Unveiling is death related",
                 analyzer.isDeathRelatedEvent(event));
     }
 
-
     /** */
     @Test
     public void testWillIsDeathRelated() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
+        final Person person1 = createJRandom();
         final Attribute event =
-                builder.createPersonEvent(person1, "Will");
+                personBuilder().createPersonEvent(person1, "Will");
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertTrue("Will is death related",
                 analyzer.isDeathRelatedEvent(event));
     }
 
-
     /** */
     @Test
     public void testDeathIsNotPostDeath() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
+        final Person person1 = createJRandom();
         final Attribute event =
-                builder.createPersonEvent(person1, "Death");
+                personBuilder().createPersonEvent(person1, "Death");
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertFalse("Death is not post death",
                 analyzer.isPostDeathEvent(event));
@@ -280,10 +278,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testBurialIsPostDeath() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
+        final Person person1 = createJRandom();
         final Attribute event =
-                builder.createPersonEvent(person1, "Burial");
+                personBuilder().createPersonEvent(person1, "Burial");
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertTrue("Burial is post death",
                 analyzer.isPostDeathEvent(event));
@@ -292,10 +289,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testCremationIsPostDeath() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
+        final Person person1 = createJRandom();
         final Attribute event =
-                builder.createPersonEvent(person1, "Cremation");
+                personBuilder().createPersonEvent(person1, "Cremation");
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertTrue("Cremation is post death",
                 analyzer.isPostDeathEvent(event));
@@ -304,10 +300,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testUnveilingIsPostDeath() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
-        final Attribute event =
-                builder.createPersonEvent(person1, "Headstone unveiling");
+        final Person person1 = createJRandom();
+        final Attribute event = personBuilder().createPersonEvent(
+                person1, "Headstone unveiling");
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertTrue("Unveiling is post death",
                 analyzer.isPostDeathEvent(event));
@@ -316,10 +311,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testFuneralIsPostDeath() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
+        final Person person1 = createJRandom();
         final Attribute event =
-                builder.createPersonEvent(person1, "Funeral");
+                personBuilder().createPersonEvent(person1, "Funeral");
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertTrue("Funeral is post death",
                 analyzer.isPostDeathEvent(event));
@@ -328,9 +322,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testWillIsNotPostDeath() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
-        final Attribute event = builder.createPersonEvent(person1, "Will");
+        final Person person1 = createJRandom();
+        final Attribute event = personBuilder().createPersonEvent(
+                person1, "Will");
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertFalse("Will is not post death",
                 analyzer.isPostDeathEvent(event));
@@ -339,9 +333,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testDeathIsNotUnordered() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
-        final Attribute event = builder.createPersonEvent(person1, "Death");
+        final Person person1 = createJRandom();
+        final Attribute event = personBuilder().createPersonEvent(
+                person1, "Death");
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertFalse("Death is ordered", analyzer.isUnorderedEvent(event));
     }
@@ -349,9 +343,9 @@ public final class OrderAnalyzerDeathTest {
     /** */
     @Test
     public void testWillIsUnordered() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson1();
-        final Attribute event = builder.createPersonEvent(person1, "Will");
+        final Person person1 = createJRandom();
+        final Attribute event = personBuilder().createPersonEvent(
+                person1, "Will");
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertTrue("Will is unordered", analyzer.isUnorderedEvent(event));
     }
