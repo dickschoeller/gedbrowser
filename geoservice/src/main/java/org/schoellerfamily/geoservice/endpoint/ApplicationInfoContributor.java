@@ -1,8 +1,5 @@
 package org.schoellerfamily.geoservice.endpoint;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.geoservice.controller.ApplicationInfo;
@@ -31,15 +28,6 @@ public final class ApplicationInfoContributor implements InfoContributor {
     @Override
     public void contribute(final Builder builder) {
         logger.info("Contribute to info");
-        final Map<String, Object> infoMap = new HashMap<>();
-        final Map<String, Object> maintainerMap = new HashMap<>();
-        infoMap.put("name", appInfo.getName());
-        infoMap.put("version", appInfo.getVersion());
-        infoMap.put("URL", appInfo.getApplicationURL());
-        infoMap.put("maintainer", maintainerMap);
-        maintainerMap.put("name", appInfo.getMaintainerName());
-        maintainerMap.put("email", appInfo.getMaintainerEmail());
-
-        builder.withDetail("app", infoMap);
+        builder.withDetail("app", appInfo.getInfoMap());
     }
 }
