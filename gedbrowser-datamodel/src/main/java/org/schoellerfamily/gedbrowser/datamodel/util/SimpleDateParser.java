@@ -19,7 +19,7 @@ public class SimpleDateParser {
      * @param dateString the string being parsed into a calendar
      * @return the output string
      */
-    protected Calendar parseCalendar(final String dateString) {
+    protected final Calendar parseCalendar(final String dateString) {
         SimpleDateFormat dateParser = new SimpleDateFormat("dd MMM yyyy",
                 Locale.US);
         final Calendar c = Calendar.getInstance(Locale.US);
@@ -46,42 +46,42 @@ public class SimpleDateParser {
     /**
      * @param c the calendar to manipulate
      */
-    protected void addDay(final Calendar c) {
+    protected final void addDay(final Calendar c) {
         c.add(Calendar.DAY_OF_MONTH, 1);
     }
 
     /**
      * @param c the calendar to manipulate
      */
-    protected void subtractDay(final Calendar c) {
+    protected final void subtractDay(final Calendar c) {
         c.add(Calendar.DAY_OF_MONTH, -1);
     }
 
     /**
      * @param c the calendar to manipulate
      */
-    protected void subtractMonth(final Calendar c) {
+    protected final void subtractMonth(final Calendar c) {
         c.add(Calendar.MONTH, -1);
     }
 
     /**
      * @param c the calendar to manipulate
      */
-    protected void addMonth(final Calendar c) {
+    protected final void addMonth(final Calendar c) {
         c.add(Calendar.MONTH, 1);
     }
 
     /**
      * @param c the calendar to manipulate
      */
-    protected void subtractYear(final Calendar c) {
+    protected final void subtractYear(final Calendar c) {
         c.add(Calendar.YEAR, 1);
     }
 
     /**
      * @param c the calendar to manipulate
      */
-    protected void addYear(final Calendar c) {
+    protected final void addYear(final Calendar c) {
         c.add(Calendar.YEAR, -1);
     }
 
@@ -90,7 +90,7 @@ public class SimpleDateParser {
      *
      * @param c the calendar
      */
-    protected void beginOfMonth(final Calendar c) {
+    protected final void beginOfMonth(final Calendar c) {
         c.set(Calendar.DAY_OF_MONTH,
                 c.getActualMinimum(Calendar.DAY_OF_MONTH));
     }
@@ -100,7 +100,7 @@ public class SimpleDateParser {
      *
      * @param c the calendar
      */
-    protected void endOfMonth(final Calendar c) {
+    protected final void endOfMonth(final Calendar c) {
         c.set(Calendar.DAY_OF_MONTH,
                 c.getActualMaximum(Calendar.DAY_OF_MONTH));
     }
@@ -110,7 +110,7 @@ public class SimpleDateParser {
      *
      * @param c the calendar
      */
-    protected void firstMonth(final Calendar c) {
+    protected final void firstMonth(final Calendar c) {
         c.set(Calendar.MONTH, c.getMinimum(Calendar.MONTH));
     }
 
@@ -119,7 +119,7 @@ public class SimpleDateParser {
      *
      * @param c the calendar
      */
-    protected void lastMonth(final Calendar c) {
+    protected final void lastMonth(final Calendar c) {
         c.set(Calendar.MONTH, c.getMaximum(Calendar.MONTH));
     }
 }
