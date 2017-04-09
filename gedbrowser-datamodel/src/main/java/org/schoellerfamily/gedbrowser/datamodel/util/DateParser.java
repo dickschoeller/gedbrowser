@@ -1,16 +1,12 @@
 package org.schoellerfamily.gedbrowser.datamodel.util;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 import java.util.StringTokenizer;
 
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.GodClass", "PMD.TooManyMethods" })
-public final class DateParser {
+public final class DateParser extends SimpleDateParser {
     /** */
     private static final String ABT = "ABT ";
     /** */
@@ -245,34 +241,6 @@ public final class DateParser {
     }
 
     /**
-     * @param dateString the string being parsed into a calendar
-     * @return the output string
-     */
-    private Calendar parseCalendar(final String dateString) {
-        SimpleDateFormat dateParser = new SimpleDateFormat("dd MMM yyyy",
-                Locale.US);
-        final Calendar c = Calendar.getInstance(Locale.US);
-        try {
-            c.setTime(dateParser.parse(dateString));
-            return c;
-        } catch (ParseException e) {
-            dateParser = new SimpleDateFormat("MMM yyyy", Locale.US);
-            try {
-                c.setTime(dateParser.parse(dateString));
-                return c;
-            } catch (ParseException e1) {
-                dateParser = new SimpleDateFormat("yyyy", Locale.US);
-                try {
-                    c.setTime(dateParser.parse(dateString));
-                    return c;
-                } catch (ParseException e2) {
-                    return null;
-                }
-            }
-        }
-    }
-
-    /**
      * @param dateString input date string
      * @return the adjusted string
      */
@@ -296,9 +264,9 @@ public final class DateParser {
     private Calendar estimateDay(final String dateString) {
         final Calendar c = parseCalendar(dateString);
         if (approximation == DateParser.Approximation.BEFORE) {
-            add(c, Calendar.DAY_OF_MONTH, -1);
+            subtractDay(c);
         } else if (approximation == DateParser.Approximation.AFTER) {
-            add(c, Calendar.DAY_OF_MONTH, 1);
+            addDay(c);
         }
         return c;
     }
@@ -310,10 +278,10 @@ public final class DateParser {
     private Calendar estimateMonth(final String dateString) {
         final Calendar c = parseCalendar(dateString);
         if (approximation == DateParser.Approximation.BEFORE) {
-            add(c, Calendar.MONTH, -1);
+            subtractMonth(c);
             endOfMonth(c);
         } else if (approximation == DateParser.Approximation.AFTER) {
-            add(c, Calendar.MONTH, 1);
+            addMonth(c);
             beginOfMonth(c);
         }
         return c;
@@ -326,64 +294,14 @@ public final class DateParser {
     private Calendar estimateYear(final String dateString) {
         final Calendar c = parseCalendar(dateString);
         if (approximation == DateParser.Approximation.BEFORE) {
-            add(c, Calendar.YEAR, -1);
+            addYear(c);
             lastMonth(c);
             endOfMonth(c);
         } else if (approximation == DateParser.Approximation.AFTER) {
-            add(c, Calendar.YEAR, 1);
+            subtractYear(c);
             firstMonth(c);
             beginOfMonth(c);
         }
         return c;
-    }
-
-    /**
-     * Add or subtract the specified amount of time the given calendar field
-     * based on the calendar's rules. For example, to subtract 5 days from the
-     * current time of the calendar, call: add(c, Calendar.DAY_OF_MONTH, -5).
-     * @param c the calendar
-     * @param field the calendar field
-     * @param amount the amount of date or time to be added to the field
-     */
-    private void add(final Calendar c, final int field, final int amount) {
-        c.add(field, amount);
-    }
-
-    /**
-     * Adjust calendar to the beginning of the current month.
-     *
-     * @param c the calendar
-     */
-    private void beginOfMonth(final Calendar c) {
-        c.set(Calendar.DAY_OF_MONTH,
-                c.getActualMinimum(Calendar.DAY_OF_MONTH));
-    }
-
-    /**
-     * Adjust calendar to the end of the current month.
-     *
-     * @param c the calendar
-     */
-    private void endOfMonth(final Calendar c) {
-        c.set(Calendar.DAY_OF_MONTH,
-                c.getActualMaximum(Calendar.DAY_OF_MONTH));
-    }
-
-    /**
-     * Adjust calendar to the first month of the year.
-     *
-     * @param c the calendar
-     */
-    private void firstMonth(final Calendar c) {
-        c.set(Calendar.MONTH, c.getMinimum(Calendar.MONTH));
-    }
-
-    /**
-     * Adjust calendar to the last month of the year.
-     *
-     * @param c the calendar
-     */
-    private void lastMonth(final Calendar c) {
-        c.set(Calendar.MONTH, c.getMaximum(Calendar.MONTH));
     }
 }
