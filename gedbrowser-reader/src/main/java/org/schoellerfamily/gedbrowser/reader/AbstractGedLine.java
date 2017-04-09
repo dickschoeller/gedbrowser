@@ -16,12 +16,10 @@ import org.schoellerfamily.gedbrowser.reader.AbstractGedObjectFactory.GedObjectF
 public abstract class AbstractGedLine {
     /** */
     private static final GedObjectFactory GOB_FACTORY = new GedObjectFactory();
+
     /** */
-    private transient AbstractGedLine parent;
-    /** */
-    private transient BufferedReader reader;
-    /** */
-    private transient String[] arraySource;
+    private final transient GedLineSource source;
+
     /** */
     private final transient List<AbstractGedLine> children =
             new ArrayList<AbstractGedLine>();
@@ -29,8 +27,6 @@ public abstract class AbstractGedLine {
     private final transient int lineNumber;
     /** */
     private transient int level;
-    /** */
-    private transient int maxLineNumber;
     /** */
     private transient String xref = "";
     /** */
@@ -45,18 +41,14 @@ public abstract class AbstractGedLine {
      *               level number.
      */
     protected AbstractGedLine(final AbstractGedLine parent) {
-        this.parent = parent;
         if (parent == null) {
-            this.reader = null;
-            this.arraySource = null;
+            this.source = new NullSource();
             this.lineNumber = 0;
         } else {
-            this.reader = parent.reader;
-            this.arraySource = parent.arraySource;
-            this.lineNumber = parent.getMaxLineNumber();
+            this.source = parent.source;
+            this.lineNumber = parent.source.getMaxLineNumber();
         }
-        this.maxLineNumber = 0;
-        this.level = -1;
+        this.setLevel(-1);
         this.gedObject = null;
     }
 
@@ -64,12 +56,9 @@ public abstract class AbstractGedLine {
      * @param reader The buffered reader that we are getting data from.
      */
     protected AbstractGedLine(final BufferedReader reader) {
-        this.parent = null;
-        this.reader = reader;
-        this.arraySource = null;
+        this.source = new ReaderSource(reader);
         this.lineNumber = 0;
-        this.maxLineNumber = 0;
-        this.level = -1;
+        this.setLevel(-1);
         this.gedObject = null;
     }
 
@@ -78,66 +67,85 @@ public abstract class AbstractGedLine {
      */
     @SuppressWarnings("PMD.UseVarargs")
     protected AbstractGedLine(final String[] arraySource) {
-        this.parent = null;
-        this.reader = null;
-        this.arraySource = arraySource.clone();
+        this.source = new ArraySource(arraySource);
         this.lineNumber = 0;
-        this.level = -1;
-        this.maxLineNumber = 0;
-        this.tag = "ROOT";
+        this.setLevel(-1);
+        this.setTag("ROOT");
         this.gedObject = null;
     }
 
     /**
-     * Create the next GedLine.
+     * Create a GedLine from the provided string.
      *
      * @param parent the current parent.
-     * @return the GedLine.
-     * @throws IOException if this is a file source and there are problems.
+     * @param inLine the line of GEDCOM data
+     * @return the GedLine
      */
-    protected static AbstractGedLine createGedLine(final AbstractGedLine parent)
-            throws IOException {
-        if (parent.reader != null) {
-            final String line = parent.reader.readLine();
-            return createGedLine(parent, line);
+    public static AbstractGedLine createGedLine(
+            final AbstractGedLine parent, final String inLine) {
+        GedLineSource sour;
+        if (parent == null) {
+            sour = new NullSource();
+        } else {
+            sour = parent.source;
         }
-        if (parent.arraySource != null) {
-            final int lineNumber = parent.nextLineNumber();
-            if (lineNumber >= parent.arraySource.length) {
-                return null;
-            }
-            final String line = parent.arraySource[lineNumber];
-            return createGedLine(parent, line);
-        }
-        return null;
+        return sour.createGedLine(parent, inLine);
     }
 
     /**
-     * @return the current GEDCOM level.
+     * @return the current GEDCOM level
      */
     public final int getLevel() {
         return level;
     }
 
     /**
-     * @return the cross reference string for this line.
+     * @param level the GEDCOM level for this line
+     */
+    public final void setLevel(final int level) {
+        this.level = level;
+    }
+
+    /**
+     * @return the cross reference string for this line
      */
     public final String getXref() {
         return xref;
     }
 
     /**
-     * @return the GEDCOM tag on this line.
+     * @param xref the cross reference string for this line
+     */
+    public final void setXref(final String xref) {
+        this.xref = xref;
+    }
+
+    /**
+     * @return the GEDCOM tag on this line
      */
     public final String getTag() {
         return tag;
     }
 
     /**
-     * @return whatever text follows the tag.
+     * @param tag the GEDCOM tag on this line
+     */
+    public final void setTag(final String tag) {
+        this.tag = tag;
+    }
+
+    /**
+     * @return whatever text follows the tag
      */
     public final String getTail() {
         return tail;
+    }
+
+    /**
+     * @param tail the text following the tag
+     */
+    public final void setTail(final String tail) {
+        this.tail = tail;
     }
 
     /**
@@ -156,86 +164,6 @@ public abstract class AbstractGedLine {
      */
     public final GedObject getGedObject() {
         return gedObject;
-    }
-
-    /**
-     * @return the highest line number known in the file.
-     */
-    protected final int getMaxLineNumber() {
-        if (parent != null) {
-            return parent.getMaxLineNumber();
-        }
-        return maxLineNumber;
-    }
-
-    /**
-     * @return the next line number in the file.
-     */
-    private int nextLineNumber() {
-        if (parent != null) {
-            return parent.nextLineNumber();
-        }
-        return maxLineNumber++;
-    }
-
-    /**
-     * Create a GedLine from the provided string.
-     *
-     * @param parent the current parent.
-     * @param inLine the line of GEDCOM data
-     * @return the GedLine
-     */
-    public static AbstractGedLine createGedLine(
-            final AbstractGedLine parent, final String inLine) {
-        String line = inLine;
-        if (line == null) {
-            return null;
-        }
-
-        line = line.trim();
-
-        if (line.isEmpty()) {
-            return null;
-        }
-
-        final AbstractGedLine gedLine = new GedLine(parent);
-
-        final String[] levelAndRest = line.split("[^0-9]", 2);
-        gedLine.level = Integer.parseInt(levelAndRest[0]);
-
-        line = levelAndRest[1].trim();
-
-        if (gedLine.level == 0) {
-            int bpos = line.indexOf('@');
-            if (bpos == -1) {
-                gedLine.xref = "";
-            } else {
-                bpos++;
-                final int epos = line.indexOf('@', bpos);
-                gedLine.xref = line.substring(bpos, epos);
-                line = line.substring(epos + 1);
-            }
-
-            line = line.trim();
-            final String[] parts = line.split("[ \t]", 2);
-            gedLine.tag = parts[0];
-            gedLine.tail = "";
-        } else {
-            gedLine.xref = "";
-
-            line = line.trim();
-
-            final String[] parts = line.split("[ \t]", 2);
-            gedLine.tag = parts[0];
-            if (parts.length == 1) {
-                line = "";
-            } else {
-                line = parts[1].trim();
-            }
-
-            gedLine.tail = line;
-        }
-        return gedLine;
     }
 
     /**
@@ -293,22 +221,19 @@ public abstract class AbstractGedLine {
      * @throws IOException If this is a file source and we encounter a problem.
      */
     public final AbstractGedLine readToNext() throws IOException {
-        AbstractGedLine gedLine = createGedLine(this);
+        AbstractGedLine gedLine = source.createGedLine(this);
         while (true) {
-            if (gedLine == null || gedLine.level == -1) {
+            if (gedLine == null || gedLine.getLevel() == -1) {
                 break;
             }
 
-            if (gedLine.level <= this.level) {
+            if (gedLine.getLevel() <= this.getLevel()) {
                 return gedLine;
             }
 
             children.add(gedLine);
 
             gedLine = gedLine.readToNext();
-            if (gedLine != null) {
-                gedLine.parent = this;
-            }
         }
 
         return null;
