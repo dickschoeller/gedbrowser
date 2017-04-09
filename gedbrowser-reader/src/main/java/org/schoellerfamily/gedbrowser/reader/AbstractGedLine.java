@@ -65,6 +65,7 @@ public abstract class AbstractGedLine {
     /**
      * @param arraySource Array of strings containing lines of GEDCOM.
      */
+    @SuppressWarnings("PMD.UseVarargs")
     protected AbstractGedLine(final String[] arraySource) {
         this.source = new ArraySource(arraySource);
         this.lineNumber = 0;
@@ -101,7 +102,7 @@ public abstract class AbstractGedLine {
     /**
      * @param level the GEDCOM level for this line
      */
-    public void setLevel(final int level) {
+    public final void setLevel(final int level) {
         this.level = level;
     }
 
@@ -115,7 +116,7 @@ public abstract class AbstractGedLine {
     /**
      * @param xref the cross reference string for this line
      */
-    public void setXref(final String xref) {
+    public final void setXref(final String xref) {
         this.xref = xref;
     }
 
@@ -129,7 +130,7 @@ public abstract class AbstractGedLine {
     /**
      * @param tag the GEDCOM tag on this line
      */
-    public void setTag(final String tag) {
+    public final void setTag(final String tag) {
         this.tag = tag;
     }
 
@@ -143,7 +144,7 @@ public abstract class AbstractGedLine {
     /**
      * @param tail the text following the tag
      */
-    public void setTail(final String tail) {
+    public final void setTail(final String tail) {
         this.tail = tail;
     }
 

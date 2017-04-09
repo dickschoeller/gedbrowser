@@ -14,6 +14,7 @@ public final class ArraySource extends AbstractGedLineSource {
      *
      * @param arraySource array of strings containing the gedcom content
      */
+    @SuppressWarnings("PMD.UseVarargs")
     public ArraySource(final String[] arraySource) {
         this.arraySource = arraySource.clone();
     }
