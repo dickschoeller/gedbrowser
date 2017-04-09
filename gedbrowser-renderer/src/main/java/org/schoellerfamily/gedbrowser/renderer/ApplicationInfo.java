@@ -1,5 +1,8 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This interface is for obtaining commonly interesting information about the
  * running application.
@@ -38,4 +41,27 @@ public interface ApplicationInfo {
      */
     String getHomeURL();
 
+    /**
+     * @return the map that feeds the contributor.
+     */
+    default Map<String, Object> getInfoMap() {
+        final Map<String, Object> infoMap = new HashMap<>();
+        infoMap.put("name", getName());
+        infoMap.put("version", getVersion());
+        infoMap.put("URL", getApplicationURL());
+        final Map<String, Object> maintainerMap = getMaintainerMap();
+        infoMap.put("maintainer", maintainerMap);
+        return infoMap;
+    }
+
+
+    /**
+     * @return the maintainer part of the info
+     */
+    default Map<String, Object> getMaintainerMap() {
+        final Map<String, Object> maintainerMap = new HashMap<>();
+        maintainerMap.put("name", getMaintainerName());
+        maintainerMap.put("email", getMaintainerEmail());
+        return maintainerMap;
+    }
 }

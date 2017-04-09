@@ -61,17 +61,13 @@ public abstract class AbstractGedLineSource implements GedLineSource {
     private void process(final String lineIn, final AbstractGedLine gedLine) {
         gedLine.setXref("");
 
-        String line = lineIn.trim();
-
-        final String[] parts = line.split("[ \t]", 2);
+        final String[] parts = lineIn.trim().split("[ \t]", 2);
         gedLine.setTag(parts[0]);
         if (parts.length == 1) {
-            line = "";
+            gedLine.setTail("");
         } else {
-            line = parts[1].trim();
+            gedLine.setTail(parts[1].trim());
         }
-
-        gedLine.setTail(line);
     }
 
     /**
