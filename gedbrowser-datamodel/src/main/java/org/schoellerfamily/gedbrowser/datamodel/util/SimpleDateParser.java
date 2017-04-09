@@ -13,6 +13,7 @@ public class SimpleDateParser {
      * Constructor.
      */
     public SimpleDateParser() {
+        // Intentionally empty.
     }
 
     /**
