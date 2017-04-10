@@ -51,4 +51,12 @@ public class MultimediaDocumentMongo extends GedDocumentMongo<Multimedia>
     public final void setTail(final String tail) {
         this.tail = tail;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedDocumentMongoVisitor visitor) {
+        visitor.visit(this);
+    }
 }

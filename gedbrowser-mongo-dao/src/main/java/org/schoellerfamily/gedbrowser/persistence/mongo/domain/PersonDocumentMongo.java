@@ -64,4 +64,12 @@ public class PersonDocumentMongo extends GedDocumentMongo<Person>
     public final String getIndexName() {
         return indexName;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedDocumentMongoVisitor visitor) {
+        visitor.visit(this);
+    }
 }

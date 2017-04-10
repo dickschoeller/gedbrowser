@@ -38,6 +38,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamSDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamilyDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HusbandDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.MultimediaDocumentMongo;
@@ -543,6 +544,14 @@ public final class GedDocumentFactoryTest {
             @Override
             public void loadGedObject(final GedObject ged) {
                 // Intentionally empty
+            }
+
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void accept(final GedDocumentMongoVisitor visitor) {
+                visitor.visit(this);
             }
         };
         gmd.setString("Foo");
