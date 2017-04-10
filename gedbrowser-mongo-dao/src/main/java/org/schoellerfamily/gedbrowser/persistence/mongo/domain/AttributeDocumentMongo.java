@@ -51,4 +51,12 @@ public class AttributeDocumentMongo extends GedDocumentMongo<Attribute>
     public final void setTail(final String tail) {
         this.tail = tail;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedDocumentMongoVisitor visitor) {
+        visitor.visit(this);
+    }
 }

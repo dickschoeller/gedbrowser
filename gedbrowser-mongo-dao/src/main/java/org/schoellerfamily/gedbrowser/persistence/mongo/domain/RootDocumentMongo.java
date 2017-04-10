@@ -42,4 +42,11 @@ public class RootDocumentMongo extends GedDocumentMongo<Root>
 //        this.loadAttributes(gedObject.getAttributes());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedDocumentMongoVisitor visitor) {
+        visitor.visit(this);
+    }
 }

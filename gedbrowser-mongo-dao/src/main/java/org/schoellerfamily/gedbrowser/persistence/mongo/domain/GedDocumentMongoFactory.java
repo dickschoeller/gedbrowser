@@ -83,7 +83,7 @@ public final class GedDocumentMongoFactory {
      * @param ged the GedObject that we are going to persist
      * @return the mongo document to represent it
      */
-    private GedDocument<? extends GedObject> create(final GedObject ged) {
+    private GedDocumentMongo<? extends GedObject> create(final GedObject ged) {
         if (ged == null) {
             throw new PersistenceException(
                     "Null ged object not supported");
@@ -94,7 +94,7 @@ public final class GedDocumentMongoFactory {
             throw new PersistenceException("Class not supported");
         }
         try {
-            final GedDocument<?> retval = mongoClass.newInstance();
+            final GedDocumentMongo<?> retval = mongoClass.newInstance();
             retval.loadGedObject(ged);
             return retval;
         } catch (InstantiationException | IllegalAccessException e) {
@@ -108,10 +108,10 @@ public final class GedDocumentMongoFactory {
      * @param ged the GedObject that is being transformed
      * @return the mongo document produced
      */
-    public <G extends GedObject> GedDocument<G> createGedDocument(
+    public <G extends GedObject> GedDocumentMongo<G> createGedDocument(
             final G ged) {
         @SuppressWarnings("unchecked")
-        final GedDocument<G> retval = (GedDocument<G>) create(ged);
+        final GedDocumentMongo<G> retval = (GedDocumentMongo<G>) create(ged);
         retval.setGedObject(ged);
         return retval;
     }

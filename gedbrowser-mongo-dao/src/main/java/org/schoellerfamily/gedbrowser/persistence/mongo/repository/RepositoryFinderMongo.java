@@ -2,7 +2,9 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -17,29 +19,15 @@ import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
-import org.schoellerfamily.gedbrowser.persistence.domain.FamilyDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
-import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
-import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
-import org.schoellerfamily.gedbrowser.persistence.domain.SubmittorDocument;
-import org.schoellerfamily.gedbrowser.persistence.domain.TrailerDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    FamilyDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    HeadDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    PersonDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     RootDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    SourceDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    SubmittorDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    TrailerDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
@@ -77,33 +65,95 @@ public final class RepositoryFinderMongo implements FinderStrategy {
     private transient TrailerDocumentRepositoryMongo trailerDocumentRepository;
 
     /**
+     * Ordered list of classes to process. This order represents the
+     * most likely search order.
+     */
+    private static final List<Class<? extends GedObject>> CLASSES =
+            new ArrayList<>();
+    static {
+        CLASSES.add(Person.class);
+        CLASSES.add(Family.class);
+        CLASSES.add(Source.class);
+        CLASSES.add(Head.class);
+        CLASSES.add(Submittor.class);
+        CLASSES.add(Trailer.class);
+    }
+
+    /**
+     * Get the map that we need to go from class to repository.
+     *
+     * @return the map
+     */
+    private Map<Class<? extends GedObject>,
+    FindableDocument<? extends GedObject,
+            ? extends GedDocument<?>>> getRepoMap() {
+        /**
+         * Holds the connections between ged classes and repositories.
+         */
+        final Map<Class<? extends GedObject>,
+            FindableDocument<? extends GedObject,
+                    ? extends GedDocument<?>>> repoMap = new HashMap<>();
+        repoMap.put(Family.class, familyDocumentRepository);
+        repoMap.put(Head.class, headDocumentRepository);
+        repoMap.put(Person.class, personDocumentRepository);
+        repoMap.put(Source.class, sourceDocumentRepository);
+        repoMap.put(Submittor.class, submittorDocumentRepository);
+        repoMap.put(Trailer.class, trailerDocumentRepository);
+        return repoMap;
+    }
+
+    /**
+     * @return the repository
+     */
+    public PersonDocumentRepositoryMongo getPersonDocumentRepository() {
+        return personDocumentRepository;
+    }
+
+    /**
+     * @return the repository
+     */
+    public FamilyDocumentRepositoryMongo getFamilyDocumentRepository() {
+        return familyDocumentRepository;
+    }
+
+    /**
+     * @return the repository
+     */
+    public SourceDocumentRepositoryMongo getSourceDocumentRepository() {
+        return sourceDocumentRepository;
+    }
+
+    /**
+     * @return the repository
+     */
+    public HeadDocumentRepositoryMongo getHeadDocumentRepository() {
+        return headDocumentRepository;
+    }
+
+    /**
+     * @return the repository
+     */
+    public SubmittorDocumentRepositoryMongo getSubmittorDocumentRepository() {
+        return submittorDocumentRepository;
+    }
+
+    /**
+     * @return the repository
+     */
+    public TrailerDocumentRepositoryMongo getTrailerDocumentRepository() {
+        return trailerDocumentRepository;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public GedObject find(final GedObject owner, final String str) {
-        GedObject ged = find(owner, str, Person.class);
-        if (ged != null) {
-            return ged;
-        }
-        ged = find(owner, str, Family.class);
-        if (ged != null) {
-            return ged;
-        }
-        ged = find(owner, str, Source.class);
-        if (ged != null) {
-            return ged;
-        }
-        ged = find(owner, str, Head.class);
-        if (ged != null) {
-            return ged;
-        }
-        ged = find(owner, str, Submittor.class);
-        if (ged != null) {
-            return ged;
-        }
-        ged = find(owner, str, Trailer.class);
-        if (ged != null) {
-            return ged;
+        for (final Class<? extends GedObject> clazz : CLASSES) {
+            final GedObject ged = find(owner, str, clazz);
+            if (ged != null) {
+                return ged;
+            }
         }
         return null;
     }
@@ -112,67 +162,26 @@ public final class RepositoryFinderMongo implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.CyclomaticComplexity",
-            "PMD.ModifiedCyclomaticComplexity", "PMD.StdCyclomaticComplexity" })
     public <T extends GedObject> T find(final GedObject owner,
             final String str, final Class<T> clazz) {
         if (!(owner instanceof Root)) {
             throw new IllegalArgumentException("Owner must be root");
         }
+        final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
+            repo = getRepoMap().get(clazz);
+        if (repo == null) {
+            return null;
+        }
         final Root root = (Root) owner;
         final RootDocumentMongo rootDocument =
                 (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
-                        .createGedDocument(root);
-        if (clazz.equals(Family.class)) {
-            final FamilyDocument document = familyDocumentRepository.
-                    findByRootAndString(
-                            rootDocument, str);
-            if (document == null) {
-                return null;
-            }
-            return clazz.cast(document.getGedObject());
-        } else if (clazz.equals(Head.class)) {
-            final HeadDocument document = headDocumentRepository.
-                    findByRootAndString(
-                            rootDocument, str);
-            if (document == null) {
-                return null;
-            }
-            return clazz.cast(document.getGedObject());
-        } else if (clazz.equals(Person.class)) {
-            final PersonDocument document = personDocumentRepository.
-                    findByRootAndString(
-                            rootDocument, str);
-            if (document == null) {
-                return null;
-            }
-            return clazz.cast(document.getGedObject());
-        } else if (clazz.equals(Source.class)) {
-            final SourceDocument document = sourceDocumentRepository.
-                    findByRootAndString(
-                            rootDocument, str);
-            if (document == null) {
-                return null;
-            }
-            return clazz.cast(document.getGedObject());
-        } else if (clazz.equals(Submittor.class)) {
-            final SubmittorDocument document = submittorDocumentRepository.
-                    findByRootAndString(
-                            rootDocument, str);
-            if (document == null) {
-                return null;
-            }
-            return clazz.cast(document.getGedObject());
-        } else if (clazz.equals(Trailer.class)) {
-            final TrailerDocument document = trailerDocumentRepository.
-                    findByRootAndString(
-                            rootDocument, str);
-            if (document == null) {
-                return null;
-            }
-            return clazz.cast(document.getGedObject());
+                .createGedDocument(root);
+        final GedDocument<?> document =
+                repo.findByRootAndString(rootDocument, str);
+        if (document == null) {
+            return null;
         }
-        return null;
+        return clazz.cast(document.getGedObject());
     }
 
     /**
@@ -203,22 +212,12 @@ public final class RepositoryFinderMongo implements FinderStrategy {
     @Override
     public void insert(final GedObject owner, final GedObject gob) {
         try {
-        logger.debug("Starting insert: " + gob.getString());
-        final GedDocument<?> gedDoc = GedDocumentMongoFactory.getInstance().
-                createGedDocument(gob);
-        if (gedDoc instanceof PersonDocumentMongo) {
-            personDocumentRepository.save((PersonDocumentMongo) gedDoc);
-        } else if (gedDoc instanceof FamilyDocumentMongo) {
-            familyDocumentRepository.save((FamilyDocumentMongo) gedDoc);
-        } else if (gedDoc instanceof SourceDocumentMongo) {
-            sourceDocumentRepository.save((SourceDocumentMongo) gedDoc);
-        } else if (gedDoc instanceof HeadDocumentMongo) {
-            headDocumentRepository.save((HeadDocumentMongo) gedDoc);
-        } else if (gedDoc instanceof SubmittorDocumentMongo) {
-            submittorDocumentRepository.save((SubmittorDocumentMongo) gedDoc);
-        } else if (gedDoc instanceof TrailerDocumentMongo) {
-            trailerDocumentRepository.save((TrailerDocumentMongo) gedDoc);
-        }
+            logger.debug("Starting insert: " + gob.getString());
+            final GedDocumentMongo<?> gedDoc =
+                    GedDocumentMongoFactory.getInstance().
+                    createGedDocument(gob);
+            final GedDocumentMongoVisitor visitor = new SaveVisitor(this);
+            gedDoc.accept(visitor);
         } catch (DataAccessException e) {
             logger.error("Error saving: " + gob.getString(), e);
         }

@@ -188,4 +188,11 @@ public abstract class GedDocumentMongo<G extends GedObject>
      */
     @Override
     public abstract void loadGedObject(GedObject ged);
+
+    /**
+     * Accept a visitor.
+     *
+     * @param visitor the visitor
+     */
+    public abstract void accept(GedDocumentMongoVisitor visitor);
 }

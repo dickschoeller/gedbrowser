@@ -31,4 +31,12 @@ public class PlaceDocumentMongo extends GedDocumentMongo<Place>
         this.setFilename(gedObject.getFilename());
         this.loadAttributes(gedObject.getAttributes());
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedDocumentMongoVisitor visitor) {
+        visitor.visit(this);
+    }
 }
