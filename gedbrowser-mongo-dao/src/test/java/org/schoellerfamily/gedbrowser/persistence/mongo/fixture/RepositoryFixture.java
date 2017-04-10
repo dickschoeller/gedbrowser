@@ -6,22 +6,12 @@ import java.util.Map;
 import org.schoellerfamily.gedbrowser.dao.mongo.TestDataReader;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamilyDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmittorDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SaveVisitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
@@ -31,32 +21,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 public final class RepositoryFixture {
     /** */
     @Autowired
-    private transient RootDocumentRepositoryMongo rootDocumentRepository;
-
-    /** */
-    @Autowired
-    private transient PersonDocumentRepositoryMongo personDocumentRepository;
-
-    /** */
-    @Autowired
-    private transient FamilyDocumentRepositoryMongo familyDocumentRepository;
-
-    /** */
-    @Autowired
-    private transient SourceDocumentRepositoryMongo sourceDocumentRepository;
-
-    /** */
-    @Autowired
-    private transient HeadDocumentRepositoryMongo headDocumentRepository;
-
-    /** */
-    @Autowired
-    private transient SubmittorDocumentRepositoryMongo
-        submittorDocumentRepository;
-
-    /** */
-    @Autowired
-    private transient TrailerDocumentRepositoryMongo trailerDocumentRepository;
+    private transient RepositoryManagerMongo repositoryManager;
 
     /** */
     @Autowired
@@ -86,28 +51,16 @@ public final class RepositoryFixture {
         final RootDocumentMongo rootdoc =
                 (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
                         .createGedDocument(root);
-        rootDocumentRepository.save(rootdoc);
-
-        // TODO we aren't saving root.
+        repositoryManager.getRootDocumentRepository().save(rootdoc);
 
         final Map<String, GedObject> map = root.getObjects();
+        final GedDocumentMongoVisitor visitor =
+                new SaveVisitor(repositoryManager);
+
         for (final GedObject ged : map.values()) {
-            final GedDocument<?> gedDoc = GedDocumentMongoFactory.getInstance().
-                    createGedDocument(ged);
-            if (gedDoc instanceof PersonDocumentMongo) {
-                personDocumentRepository.save((PersonDocumentMongo) gedDoc);
-            } else if (gedDoc instanceof FamilyDocumentMongo) {
-                familyDocumentRepository.save((FamilyDocumentMongo) gedDoc);
-            } else if (gedDoc instanceof SourceDocumentMongo) {
-                sourceDocumentRepository.save((SourceDocumentMongo) gedDoc);
-            } else if (gedDoc instanceof HeadDocumentMongo) {
-                headDocumentRepository.save((HeadDocumentMongo) gedDoc);
-            } else if (gedDoc instanceof SubmittorDocumentMongo) {
-                submittorDocumentRepository
-                        .save((SubmittorDocumentMongo) gedDoc);
-            } else if (gedDoc instanceof TrailerDocumentMongo) {
-                trailerDocumentRepository.save((TrailerDocumentMongo) gedDoc);
-            }
+            final GedDocumentMongo<GedObject> gedDoc = GedDocumentMongoFactory
+                    .getInstance().createGedDocument(ged);
+            gedDoc.accept(visitor);
         }
         return root;
     }
@@ -116,13 +69,7 @@ public final class RepositoryFixture {
      * Clear out all of the tables in the repository.
      */
     public void clearRepository() {
-        rootDocumentRepository.deleteAll();
-        personDocumentRepository.deleteAll();
-        familyDocumentRepository.deleteAll();
-        sourceDocumentRepository.deleteAll();
-        headDocumentRepository.deleteAll();
-        submittorDocumentRepository.deleteAll();
-        trailerDocumentRepository.deleteAll();
+        repositoryManager.reset();
         mongoTemplate.getDb().dropDatabase();
     }
 }

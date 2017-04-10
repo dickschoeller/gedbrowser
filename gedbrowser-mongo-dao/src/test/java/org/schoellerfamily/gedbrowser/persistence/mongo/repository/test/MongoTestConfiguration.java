@@ -9,6 +9,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumen
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryFinderMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmittorDocumentRepositoryMongo;
@@ -95,5 +96,13 @@ public class MongoTestConfiguration {
     @Bean
     public FinderStrategy finder() {
         return new RepositoryFinderMongo();
+    }
+
+    /**
+     * @return the repository manager
+     */
+    @Bean
+    public RepositoryManagerMongo repositoryManager() {
+        return new RepositoryManagerMongo();
     }
 }
