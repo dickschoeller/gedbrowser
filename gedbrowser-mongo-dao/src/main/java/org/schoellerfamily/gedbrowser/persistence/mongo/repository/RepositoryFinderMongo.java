@@ -80,11 +80,10 @@ public final class RepositoryFinderMongo implements FinderStrategy {
     }
 
     /**
-     * Constructor.
+     * Get the map that we need to go from class to repository.
+     *
+     * @return the map
      */
-    public RepositoryFinderMongo() {
-    }
-
     private Map<Class<? extends GedObject>,
     FindableDocument<? extends GedObject,
             ? extends GedDocument<?>>> getRepoMap() {
