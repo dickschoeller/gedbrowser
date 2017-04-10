@@ -1,5 +1,17 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.schoellerfamily.gedbrowser.datamodel.Family;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Head;
+import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.Source;
+import org.schoellerfamily.gedbrowser.datamodel.Submittor;
+import org.schoellerfamily.gedbrowser.datamodel.Trailer;
+import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
+import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -73,4 +85,28 @@ public class RepositoryManagerMongo {
     public TrailerDocumentRepositoryMongo getTrailerDocumentRepository() {
         return trailerDocumentRepository;
     }
+
+    /**
+     * Get the map that we need to go from class to repository.
+     *
+     * @return the map
+     */
+    protected Map<Class<? extends GedObject>,
+    FindableDocument<? extends GedObject,
+            ? extends GedDocument<?>>> getRepoMap() {
+        /**
+         * Holds the connections between ged classes and repositories.
+         */
+        final Map<Class<? extends GedObject>,
+            FindableDocument<? extends GedObject,
+                    ? extends GedDocument<?>>> repoMap = new HashMap<>();
+        repoMap.put(Family.class, familyDocumentRepository);
+        repoMap.put(Head.class, headDocumentRepository);
+        repoMap.put(Person.class, personDocumentRepository);
+        repoMap.put(Source.class, sourceDocumentRepository);
+        repoMap.put(Submittor.class, submittorDocumentRepository);
+        repoMap.put(Trailer.class, trailerDocumentRepository);
+        return repoMap;
+    }
+
 }

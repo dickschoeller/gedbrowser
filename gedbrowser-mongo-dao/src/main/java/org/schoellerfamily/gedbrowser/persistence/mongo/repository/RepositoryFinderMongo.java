@@ -2,9 +2,7 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -52,29 +50,6 @@ public final class RepositoryFinderMongo extends RepositoryManagerMongo
         CLASSES.add(Head.class);
         CLASSES.add(Submittor.class);
         CLASSES.add(Trailer.class);
-    }
-
-    /**
-     * Get the map that we need to go from class to repository.
-     *
-     * @return the map
-     */
-    private Map<Class<? extends GedObject>,
-    FindableDocument<? extends GedObject,
-            ? extends GedDocument<?>>> getRepoMap() {
-        /**
-         * Holds the connections between ged classes and repositories.
-         */
-        final Map<Class<? extends GedObject>,
-            FindableDocument<? extends GedObject,
-                    ? extends GedDocument<?>>> repoMap = new HashMap<>();
-        repoMap.put(Family.class, getFamilyDocumentRepository());
-        repoMap.put(Head.class, getHeadDocumentRepository());
-        repoMap.put(Person.class, getPersonDocumentRepository());
-        repoMap.put(Source.class, getSourceDocumentRepository());
-        repoMap.put(Submittor.class, getSubmittorDocumentRepository());
-        repoMap.put(Trailer.class, getTrailerDocumentRepository());
-        return repoMap;
     }
 
     /**
