@@ -16,6 +16,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     PersonDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     RepositoryFinderMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     RootDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
@@ -162,5 +163,13 @@ public class MongoConfiguration {
             return new CalendarProviderStub();
         }
         return new CalendarProviderImpl();
+    }
+
+    /**
+     * @return the repository manager
+     */
+    @Bean
+    public RepositoryManagerMongo repositoryManager() {
+        return new RepositoryManagerMongo();
     }
 }

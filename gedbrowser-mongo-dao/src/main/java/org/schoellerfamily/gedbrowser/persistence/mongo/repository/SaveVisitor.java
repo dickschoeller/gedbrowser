@@ -16,13 +16,13 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMo
  */
 public class SaveVisitor implements GedDocumentMongoVisitor {
     /** */
-    private final RepositoryFinderMongo finder;
+    private final RepositoryManagerMongo repositoryManager;
 
     /**
-     * @param finder the finder
+     * @param repositoryManager the repository manager
      */
-    public SaveVisitor(final RepositoryFinderMongo finder) {
-        this.finder = finder;
+    public SaveVisitor(final RepositoryManagerMongo repositoryManager) {
+        this.repositoryManager = repositoryManager;
     }
 
     /**
@@ -30,7 +30,7 @@ public class SaveVisitor implements GedDocumentMongoVisitor {
      */
     @Override
     public void visit(final PersonDocumentMongo document) {
-        finder.getPersonDocumentRepository().save(document);
+        repositoryManager.getPersonDocumentRepository().save(document);
     }
 
     /**
@@ -38,7 +38,7 @@ public class SaveVisitor implements GedDocumentMongoVisitor {
      */
     @Override
     public void visit(final FamilyDocumentMongo document) {
-        finder.getFamilyDocumentRepository().save(document);
+        repositoryManager.getFamilyDocumentRepository().save(document);
     }
 
     /**
@@ -46,7 +46,7 @@ public class SaveVisitor implements GedDocumentMongoVisitor {
      */
     @Override
     public void visit(final SourceDocumentMongo document) {
-        finder.getSourceDocumentRepository().save(document);
+        repositoryManager.getSourceDocumentRepository().save(document);
     }
 
     /**
@@ -54,7 +54,7 @@ public class SaveVisitor implements GedDocumentMongoVisitor {
      */
     @Override
     public void visit(final HeadDocumentMongo document) {
-        finder.getHeadDocumentRepository().save(document);
+        repositoryManager.getHeadDocumentRepository().save(document);
     }
 
     /**
@@ -62,7 +62,7 @@ public class SaveVisitor implements GedDocumentMongoVisitor {
      */
     @Override
     public void visit(final SubmittorDocumentMongo document) {
-        finder.getSubmittorDocumentRepository().save(document);
+        repositoryManager.getSubmittorDocumentRepository().save(document);
     }
 
     /**
@@ -70,7 +70,7 @@ public class SaveVisitor implements GedDocumentMongoVisitor {
      */
     @Override
     public void visit(final TrailerDocumentMongo document) {
-        finder.getTrailerDocumentRepository().save(document);
+        repositoryManager.getTrailerDocumentRepository().save(document);
     }
 
     /**

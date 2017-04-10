@@ -26,16 +26,21 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoV
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
 /**
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
-public final class RepositoryFinderMongo extends RepositoryManagerMongo
+public final class RepositoryFinderMongo
         implements FinderStrategy {
     /** Logger. */
     private final Log logger = LogFactory.getLog(getClass());
+
+    /** */
+    @Autowired
+    private transient RepositoryManagerMongo repositoryManager;
 
     /**
      * Ordered list of classes to process. This order represents the
@@ -76,7 +81,7 @@ public final class RepositoryFinderMongo extends RepositoryManagerMongo
             throw new IllegalArgumentException("Owner must be root");
         }
         final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
-            repo = getRepoMap().get(clazz);
+            repo = repositoryManager.getRepoMap().get(clazz);
         if (repo == null) {
             return null;
         }
@@ -124,7 +129,8 @@ public final class RepositoryFinderMongo extends RepositoryManagerMongo
             final GedDocumentMongo<?> gedDoc =
                     GedDocumentMongoFactory.getInstance().
                     createGedDocument(gob);
-            final GedDocumentMongoVisitor visitor = new SaveVisitor(this);
+            final GedDocumentMongoVisitor visitor =
+                    new SaveVisitor(repositoryManager);
             gedDoc.accept(visitor);
         } catch (DataAccessException e) {
             logger.error("Error saving: " + gob.getString(), e);
@@ -146,7 +152,7 @@ public final class RepositoryFinderMongo extends RepositoryManagerMongo
                     (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
                             .createGedDocument(root);
             final Collection<PersonDocument> personDocuments =
-                    getPersonDocumentRepository()
+                    repositoryManager.getPersonDocumentRepository()
                     .findByRootAndSurname(rootDocument, surname);
             for (final PersonDocument personDocument : personDocuments) {
                 persons.add(personDocument.getGedObject());
@@ -170,7 +176,7 @@ public final class RepositoryFinderMongo extends RepositoryManagerMongo
                     (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
                             .createGedDocument(root);
             final Collection<PersonDocument> personDocuments =
-                    getPersonDocumentRepository()
+                    repositoryManager.getPersonDocumentRepository()
                     .findByRootAndSurnameBeginsWith(rootDocument, beginsWith);
             for (final PersonDocument personDocument : personDocuments) {
                 surnames.add(personDocument.getSurname());
@@ -193,7 +199,8 @@ public final class RepositoryFinderMongo extends RepositoryManagerMongo
                     (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
                             .createGedDocument(root);
             final Iterable<PersonDocument> personDocuments =
-                    getPersonDocumentRepository().findByRoot(rootDocument);
+                    repositoryManager.getPersonDocumentRepository().
+                        findByRoot(rootDocument);
             for (final PersonDocument personDocument : personDocuments) {
                 final String firstLetter = personDocument.getSurname()
                         .substring(0, 1);

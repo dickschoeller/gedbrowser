@@ -20,6 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class RepositoryManagerMongo {
     /** */
     @Autowired
+    private transient RootDocumentRepositoryMongo rootDocumentRepository;
+
+    /** */
+    @Autowired
     private transient PersonDocumentRepositoryMongo personDocumentRepository;
 
     /** */
@@ -43,6 +47,12 @@ public class RepositoryManagerMongo {
     @Autowired
     private transient TrailerDocumentRepositoryMongo trailerDocumentRepository;
 
+    /**
+     * @return the repository
+     */
+    public final RootDocumentRepositoryMongo getRootDocumentRepository() {
+        return rootDocumentRepository;
+    }
 
     /**
      * @return the repository
@@ -92,7 +102,7 @@ public class RepositoryManagerMongo {
      *
      * @return the map
      */
-    protected final Map<Class<? extends GedObject>,
+    public final Map<Class<? extends GedObject>,
     FindableDocument<? extends GedObject,
             ? extends GedDocument<?>>> getRepoMap() {
         /**
@@ -110,4 +120,16 @@ public class RepositoryManagerMongo {
         return repoMap;
     }
 
+    /**
+     * Clear all of the repositories in the dataset.
+     */
+    public void reset() {
+        rootDocumentRepository.deleteAll();
+        personDocumentRepository.deleteAll();
+        familyDocumentRepository.deleteAll();
+        sourceDocumentRepository.deleteAll();
+        headDocumentRepository.deleteAll();
+        submittorDocumentRepository.deleteAll();
+        trailerDocumentRepository.deleteAll();
+    }
 }
