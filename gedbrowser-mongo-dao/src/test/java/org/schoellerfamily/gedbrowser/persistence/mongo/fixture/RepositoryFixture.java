@@ -54,7 +54,8 @@ public final class RepositoryFixture {
         repositoryManager.getRootDocumentRepository().save(rootdoc);
 
         final Map<String, GedObject> map = root.getObjects();
-        GedDocumentMongoVisitor visitor = new SaveVisitor(repositoryManager);
+        final GedDocumentMongoVisitor visitor =
+                new SaveVisitor(repositoryManager);
 
         for (final GedObject ged : map.values()) {
             final GedDocumentMongo<GedObject> gedDoc = GedDocumentMongoFactory
