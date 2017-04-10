@@ -2,9 +2,7 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -28,41 +26,16 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoV
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
 /**
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
-public final class RepositoryFinderMongo implements FinderStrategy {
+public final class RepositoryFinderMongo extends RepositoryManagerMongo
+        implements FinderStrategy {
     /** Logger. */
     private final Log logger = LogFactory.getLog(getClass());
-
-    /** */
-    @Autowired
-    private transient PersonDocumentRepositoryMongo personDocumentRepository;
-
-    /** */
-    @Autowired
-    private transient FamilyDocumentRepositoryMongo familyDocumentRepository;
-
-    /** */
-    @Autowired
-    private transient SourceDocumentRepositoryMongo sourceDocumentRepository;
-
-    /** */
-    @Autowired
-    private transient HeadDocumentRepositoryMongo headDocumentRepository;
-
-    /** */
-    @Autowired
-    private transient SubmittorDocumentRepositoryMongo
-        submittorDocumentRepository;
-
-    /** */
-    @Autowired
-    private transient TrailerDocumentRepositoryMongo trailerDocumentRepository;
 
     /**
      * Ordered list of classes to process. This order represents the
@@ -77,71 +50,6 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         CLASSES.add(Head.class);
         CLASSES.add(Submittor.class);
         CLASSES.add(Trailer.class);
-    }
-
-    /**
-     * Get the map that we need to go from class to repository.
-     *
-     * @return the map
-     */
-    private Map<Class<? extends GedObject>,
-    FindableDocument<? extends GedObject,
-            ? extends GedDocument<?>>> getRepoMap() {
-        /**
-         * Holds the connections between ged classes and repositories.
-         */
-        final Map<Class<? extends GedObject>,
-            FindableDocument<? extends GedObject,
-                    ? extends GedDocument<?>>> repoMap = new HashMap<>();
-        repoMap.put(Family.class, familyDocumentRepository);
-        repoMap.put(Head.class, headDocumentRepository);
-        repoMap.put(Person.class, personDocumentRepository);
-        repoMap.put(Source.class, sourceDocumentRepository);
-        repoMap.put(Submittor.class, submittorDocumentRepository);
-        repoMap.put(Trailer.class, trailerDocumentRepository);
-        return repoMap;
-    }
-
-    /**
-     * @return the repository
-     */
-    public PersonDocumentRepositoryMongo getPersonDocumentRepository() {
-        return personDocumentRepository;
-    }
-
-    /**
-     * @return the repository
-     */
-    public FamilyDocumentRepositoryMongo getFamilyDocumentRepository() {
-        return familyDocumentRepository;
-    }
-
-    /**
-     * @return the repository
-     */
-    public SourceDocumentRepositoryMongo getSourceDocumentRepository() {
-        return sourceDocumentRepository;
-    }
-
-    /**
-     * @return the repository
-     */
-    public HeadDocumentRepositoryMongo getHeadDocumentRepository() {
-        return headDocumentRepository;
-    }
-
-    /**
-     * @return the repository
-     */
-    public SubmittorDocumentRepositoryMongo getSubmittorDocumentRepository() {
-        return submittorDocumentRepository;
-    }
-
-    /**
-     * @return the repository
-     */
-    public TrailerDocumentRepositoryMongo getTrailerDocumentRepository() {
-        return trailerDocumentRepository;
     }
 
     /**
@@ -238,7 +146,7 @@ public final class RepositoryFinderMongo implements FinderStrategy {
                     (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
                             .createGedDocument(root);
             final Collection<PersonDocument> personDocuments =
-                    personDocumentRepository
+                    getPersonDocumentRepository()
                     .findByRootAndSurname(rootDocument, surname);
             for (final PersonDocument personDocument : personDocuments) {
                 persons.add(personDocument.getGedObject());
@@ -262,7 +170,7 @@ public final class RepositoryFinderMongo implements FinderStrategy {
                     (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
                             .createGedDocument(root);
             final Collection<PersonDocument> personDocuments =
-                    personDocumentRepository
+                    getPersonDocumentRepository()
                     .findByRootAndSurnameBeginsWith(rootDocument, beginsWith);
             for (final PersonDocument personDocument : personDocuments) {
                 surnames.add(personDocument.getSurname());
@@ -285,7 +193,7 @@ public final class RepositoryFinderMongo implements FinderStrategy {
                     (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
                             .createGedDocument(root);
             final Iterable<PersonDocument> personDocuments =
-                    personDocumentRepository.findByRoot(rootDocument);
+                    getPersonDocumentRepository().findByRoot(rootDocument);
             for (final PersonDocument personDocument : personDocuments) {
                 final String firstLetter = personDocument.getSurname()
                         .substring(0, 1);
