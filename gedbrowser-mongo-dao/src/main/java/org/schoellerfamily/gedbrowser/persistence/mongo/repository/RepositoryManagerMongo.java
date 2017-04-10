@@ -47,42 +47,43 @@ public class RepositoryManagerMongo {
     /**
      * @return the repository
      */
-    public PersonDocumentRepositoryMongo getPersonDocumentRepository() {
+    public final PersonDocumentRepositoryMongo getPersonDocumentRepository() {
         return personDocumentRepository;
     }
 
     /**
      * @return the repository
      */
-    public FamilyDocumentRepositoryMongo getFamilyDocumentRepository() {
+    public final FamilyDocumentRepositoryMongo getFamilyDocumentRepository() {
         return familyDocumentRepository;
     }
 
     /**
      * @return the repository
      */
-    public SourceDocumentRepositoryMongo getSourceDocumentRepository() {
+    public final SourceDocumentRepositoryMongo getSourceDocumentRepository() {
         return sourceDocumentRepository;
     }
 
     /**
      * @return the repository
      */
-    public HeadDocumentRepositoryMongo getHeadDocumentRepository() {
+    public final HeadDocumentRepositoryMongo getHeadDocumentRepository() {
         return headDocumentRepository;
     }
 
     /**
      * @return the repository
      */
-    public SubmittorDocumentRepositoryMongo getSubmittorDocumentRepository() {
+    public final SubmittorDocumentRepositoryMongo
+        getSubmittorDocumentRepository() {
         return submittorDocumentRepository;
     }
 
     /**
      * @return the repository
      */
-    public TrailerDocumentRepositoryMongo getTrailerDocumentRepository() {
+    public final TrailerDocumentRepositoryMongo getTrailerDocumentRepository() {
         return trailerDocumentRepository;
     }
 
@@ -91,7 +92,7 @@ public class RepositoryManagerMongo {
      *
      * @return the map
      */
-    protected Map<Class<? extends GedObject>,
+    protected final Map<Class<? extends GedObject>,
     FindableDocument<? extends GedObject,
             ? extends GedDocument<?>>> getRepoMap() {
         /**
