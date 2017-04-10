@@ -11,27 +11,12 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
  */
 @SuppressWarnings({ "PMD.AbstractClassWithoutAbstractMethod" })
 public abstract class GedRenderer<G extends GedObject>
-        extends RenderingContextRenderer {
+        extends SectionedRenderer {
     /** */
     private final transient G gedObject;
 
     /** */
     private final transient GedRendererFactory rendererFactory;
-
-    /** */
-    private NameHtmlRenderer nameHtmlRenderer;
-
-    /** */
-    private NameIndexRenderer nameIndexRenderer;
-
-    /** */
-    private ListItemRenderer listItemRenderer;
-
-    /** */
-    private PhraseRenderer phraseRenderer;
-
-    /** */
-    private AttributeListOpenRenderer attributeListOpenRenderer;
 
     /** */
     private final CalendarProvider provider;
@@ -50,11 +35,6 @@ public abstract class GedRenderer<G extends GedObject>
         super(renderingContext);
         this.gedObject = gedObject;
         this.rendererFactory = rendererFactory;
-        this.nameHtmlRenderer = new NullNameHtmlRenderer();
-        this.nameIndexRenderer = new NullNameIndexRenderer();
-        this.listItemRenderer = new NullListItemRenderer();
-        this.phraseRenderer = new NullPhraseRenderer();
-        this.attributeListOpenRenderer = new SimpleAttributeListOpenRenderer();
         this.provider = provider;
     }
 
@@ -62,14 +42,14 @@ public abstract class GedRenderer<G extends GedObject>
      * @return a name string cleaned for HTML usage.
      */
     public final String getNameHtml() {
-        return nameHtmlRenderer.getNameHtml();
+        return getNameHtmlRenderer().getNameHtml();
     }
 
     /**
      * @return a name string in index format.
      */
     public final String getIndexName() {
-        return nameIndexRenderer.getIndexName();
+        return getNameIndexRenderer().getIndexName();
     }
 
     /**
@@ -138,7 +118,7 @@ public abstract class GedRenderer<G extends GedObject>
      * @return this object as a phrase to be inserted in a sentence
      */
     public final String renderAsPhrase() {
-        return phraseRenderer.renderAsPhrase();
+        return getPhraseRenderer().renderAsPhrase();
     }
 
     /**
@@ -146,115 +126,6 @@ public abstract class GedRenderer<G extends GedObject>
      */
     protected final GedRendererFactory getRendererFactory() {
         return rendererFactory;
-    }
-
-    /**
-     * Set the renderer to something new.
-     *
-     * @param nameHtmlRenderer
-     *            the new renderer.
-     */
-    protected final void setNameHtmlRenderer(
-            final NameHtmlRenderer nameHtmlRenderer) {
-        this.nameHtmlRenderer = nameHtmlRenderer;
-    }
-
-    /**
-     * This method is public for testing purposes only. Do
-     * not try to call it outside of the context of the rendering
-     * engine.
-     *
-     * @return the renderer.
-     */
-    public final NameHtmlRenderer getNameHtmlRenderer() {
-        return this.nameHtmlRenderer;
-    }
-
-    /**
-     * Set the renderer to something new.
-     *
-     * @param listItemRenderer
-     *            the new renderer.
-     */
-    protected final void setListItemRenderer(
-            final ListItemRenderer listItemRenderer) {
-        this.listItemRenderer = listItemRenderer;
-    }
-
-    /**
-     * This method is public for testing purposes only. Do not try to call it
-     * outside of the context of the rendering engine.
-     *
-     * @return the renderer.
-     */
-    public final ListItemRenderer getListItemRenderer() {
-        return this.listItemRenderer;
-    }
-
-    /**
-     * Set the renderer to something new.
-     *
-     * @param phraseRenderer
-     *            the new renderer.
-     */
-    protected final void setPhraseRenderer(
-            final PhraseRenderer phraseRenderer) {
-        this.phraseRenderer = phraseRenderer;
-    }
-
-    /**
-     * This method is public for testing purposes only. Do not try to call it
-     * outside of the context of the rendering engine.
-     *
-     * @return the renderer.
-     */
-    public final PhraseRenderer getPhraseRenderer() {
-        return this.phraseRenderer;
-    }
-
-    /**
-     * Set the renderer to something new.
-     *
-     * @param attributeListOpenRenderer
-     *            the new renderer.
-     */
-    protected final void setAttributeListOpenRenderer(
-            final AttributeListOpenRenderer
-                attributeListOpenRenderer) {
-        this.attributeListOpenRenderer = attributeListOpenRenderer;
-    }
-
-    /**
-     * This method is public for testing purposes only. Do
-     * not try to call it outside of the context of the rendering
-     * engine.
-     *
-     * @return the renderer.
-     */
-    public final AttributeListOpenRenderer getAttributeListOpenRenderer() {
-        return this.attributeListOpenRenderer;
-    }
-
-    /**
-     * Set the renderer to something new.
-     *
-     * @param nameIndexRenderer
-     *            the new renderer.
-     */
-    protected final void setNameIndexRenderer(
-            final NameIndexRenderer nameIndexRenderer) {
-        this.nameIndexRenderer = nameIndexRenderer;
-    }
-
-    /**
-     * This method is public for testing purposes only. Do
-     * not try to call it outside of the context of the rendering
-     * engine.
-     *
-     * @return the renderer.
-     */
-    public final NameIndexRenderer getNameIndexRenderer() {
-        return this.nameIndexRenderer;
     }
 
     /**
@@ -268,7 +139,7 @@ public abstract class GedRenderer<G extends GedObject>
      * @return the inner part of the item as it would be in a list.
      */
     public final String getListItemContents() {
-        return listItemRenderer.getListItemContents();
+        return getListItemRenderer().getListItemContents();
     }
 
     /**
