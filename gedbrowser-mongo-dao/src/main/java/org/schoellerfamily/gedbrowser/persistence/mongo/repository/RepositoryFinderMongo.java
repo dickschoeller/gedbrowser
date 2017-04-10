@@ -65,13 +65,6 @@ public final class RepositoryFinderMongo implements FinderStrategy {
     private transient TrailerDocumentRepositoryMongo trailerDocumentRepository;
 
     /**
-     * Holds the connections between ged classes and repositories.
-     */
-    private final Map<Class<? extends GedObject>,
-        FindableDocument<? extends GedObject,
-                ? extends GedDocument<?>>> repoMap;
-
-    /**
      * Ordered list of classes to process. This order represents the
      * most likely search order.
      */
@@ -90,13 +83,24 @@ public final class RepositoryFinderMongo implements FinderStrategy {
      * Constructor.
      */
     public RepositoryFinderMongo() {
-        repoMap = new HashMap<>();
+    }
+
+    private Map<Class<? extends GedObject>,
+    FindableDocument<? extends GedObject,
+            ? extends GedDocument<?>>> getRepoMap() {
+        /**
+         * Holds the connections between ged classes and repositories.
+         */
+        final Map<Class<? extends GedObject>,
+            FindableDocument<? extends GedObject,
+                    ? extends GedDocument<?>>> repoMap = new HashMap<>();
         repoMap.put(Family.class, familyDocumentRepository);
         repoMap.put(Head.class, headDocumentRepository);
         repoMap.put(Person.class, personDocumentRepository);
         repoMap.put(Source.class, sourceDocumentRepository);
         repoMap.put(Submittor.class, submittorDocumentRepository);
         repoMap.put(Trailer.class, trailerDocumentRepository);
+        return repoMap;
     }
 
     /**
@@ -165,7 +169,7 @@ public final class RepositoryFinderMongo implements FinderStrategy {
             throw new IllegalArgumentException("Owner must be root");
         }
         final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
-            repo = repoMap.get(clazz);
+            repo = getRepoMap().get(clazz);
         if (repo == null) {
             return null;
         }
