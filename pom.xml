@@ -66,7 +66,7 @@
 
     <selenium.version>3.3.1</selenium.version>
     <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
-    <htmlunit-driver.version>2.25</htmlunit-driver.version>
+    <htmlunit-driver.version>2.26</htmlunit-driver.version>
 
     <pmd-version>5.5.5</pmd-version>
     <checkstyle-version>7.6.1</checkstyle-version>
