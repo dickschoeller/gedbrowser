@@ -72,21 +72,21 @@ public class ApplicationInfoTest {
     /** */
     @Test
     public void testGetInfoMapName() {
-        Map<String, Object> infoMap = appInfo.getInfoMap();
+        final Map<String, Object> infoMap = appInfo.getInfoMap();
         assertEquals("Name mismatch", infoMap.get("name"), "renderer");
     }
 
     /** */
     @Test
     public void testGetInfoMapVersion() {
-        Map<String, Object> infoMap = appInfo.getInfoMap();
+        final Map<String, Object> infoMap = appInfo.getInfoMap();
         assertEquals("Version mismatch", infoMap.get("version"), "1");
     }
 
     /** */
     @Test
     public void testGetInfoMapURL() {
-        Map<String, Object> infoMap = appInfo.getInfoMap();
+        final Map<String, Object> infoMap = appInfo.getInfoMap();
         assertEquals("URL mismatch",
                 infoMap.get("URL"), "https://www.schoellerfamily.org/");
     }
@@ -94,8 +94,8 @@ public class ApplicationInfoTest {
     /** */
     @Test
     public void testGetInfoMapMaintainerName() {
-        Map<String, Object> infoMap = appInfo.getInfoMap();
-        Map<?, ?> maintainerMap = (Map<?, ?>) infoMap.get("maintainer");
+        final Map<String, Object> infoMap = appInfo.getInfoMap();
+        final Map<?, ?> maintainerMap = (Map<?, ?>) infoMap.get("maintainer");
         assertEquals("Maintainer name mismatch",
                 maintainerMap.get("name"), "Richard Schoeller");
     }
@@ -103,8 +103,8 @@ public class ApplicationInfoTest {
     /** */
     @Test
     public void testGetInfoMap() {
-        Map<String, Object> infoMap = appInfo.getInfoMap();
-        Map<?, ?> maintainerMap = (Map<?, ?>) infoMap.get("maintainer");
+        final Map<String, Object> infoMap = appInfo.getInfoMap();
+        final Map<?, ?> maintainerMap = (Map<?, ?>) infoMap.get("maintainer");
         assertEquals("Maintainer email mismatch",
                 maintainerMap.get("email"), "schoeller@comcast.net");
     }
