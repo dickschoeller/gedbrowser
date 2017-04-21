@@ -274,6 +274,24 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>reserve-container-port</id>
+            <goals>
+              <goal>reserve-network-port</goal>
+            </goals>
+            <phase>process-resources</phase>
+            <configuration>
+              <portNames>
+                <portName>server.port</portName>
+              </portNames>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
         <configuration>
@@ -294,6 +312,9 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <skip>${skip.integration.tests}</skip>
+        </configuration>
         <executions>
           <execution>
             <goals>
@@ -307,7 +328,6 @@
             </goals>
             <configuration>
               <arguments>--server.port=${server.port}</arguments>
-              <skip>${skip.integration.tests}</skip>
             </configuration>
           </execution>
           <execution>
@@ -315,27 +335,6 @@
             <goals>
               <goal>stop</goal>
             </goals>
-            <configuration>
-              <skip>${skip.integration.tests}</skip>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>reserve-container-port</id>
-            <goals>
-              <goal>reserve-network-port</goal>
-            </goals>
-            <phase>process-resources</phase>
-            <configuration>
-              <portNames>
-                <portName>server.port</portName>
-              </portNames>
-            </configuration>
           </execution>
         </executions>
       </plugin>
