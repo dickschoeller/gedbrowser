@@ -40,7 +40,8 @@ before_install:
   - echo $GOOGLE_MAPPING_KEY >> /home/travis/gedbrowser/google-geocoding-key
   - docker run -v /home/travis/data:/data/db --name mongo -p 28001:27017 -d mongo
 
-install: mvn install --settings=config/settings.xml -Pinstall -Dskip.integration.tests=true -B -V > /dev/null 2>&1
+install: mvn install --settings=config/settings.xml -Pinstall -Dskip.integration.tests=true -B -V
+# > /dev/null 2>&1
 
 jdk:
   - oraclejdk8
