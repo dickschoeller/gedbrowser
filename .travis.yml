@@ -5,6 +5,10 @@ services:
 
 addons:
   firefox: "49.0.2"
+  sauce_connect:
+    username: dickschoeller
+  jwt:
+    secure: "SCAjXGKQ5p6fZj38LFzYBursOm8HSNwkEHhbMQa8uVmRoH9lSzjr6HdeZLUFRUgKlttoI5xH21bo7ysw2Tshn6fvIZHnoWid23OniZF87aUs3OnwCGB5/vwFgU4K48juoDgJXc0IpgfH7rj8t5yCUEpP1jst3LJGmyTbUfOBSbzROS4UufwsKZdKNKXJbGN21d8q7dpAjUjD8OUgK834Nkj/973DiOVUcFBpF1FFf02yFDj0XJJITFiABDLEhZ1SgolKXCWRoFTruZKO3+OnycaZUUsICmuOj/3L7Aq1qQcUczJYZq0kCEHY6tQlXQrjepSGCh21GmuBCHHnMso8YMiC9szqVeAbP8/aFXCitlvw5q6Zw1GpHuk0bBwWJsZU5n2HTpTUKpMwGFGcdg3AQ6dFjwCpig3+D1HZJkHYaJRLN3qVQmtNRyiLwcr9F2RQEqtqN9yOvj5iiohFE+7pLMgpy+6rj+36XTYaJlQRZLGbQPhaiznlpz/B4XrjbttNgZZPOfIy05L/rh6L/TpeaKkbrJReOuz0iut3qeoqPE6bIJ5FJ5Tu5MR2WiRf8CYkasxfA89kjCEvpqMt6ujBtil7A0ZO9f+koIJvjZlXHq02XvBKf34ZLj/yjf209FPe7Gdz6uVQzOTGMqiWOSs0G//9cC33cwQzk1mMnK3TckU="
 
 env:
   global:
@@ -26,6 +30,8 @@ env:
     - secure: "vVh1Gab3sJdoAh+RZrRYbz8XlGCPX3WVvVSuqyRsMdKt1HT2ZJsOzshLDdnUeOGlkwZp+NQcvR3oB1MyFwj6DO92hxETl2eW+AXRMR9ZV09Rhsvg/ZfnR7FZIuo/tV6XtNLHucLqKgGWuETzmsmTlObor4Ovr4nRpwibU7qCQJUinAlEDh5F9Nt1Nl2+2yqdPAzUdht56RlRMhdBR9vFjDK6cRj75QtrBt2r9GjCnM0fdCTX/5/zBiDQ0dsrhFl1sWNASmRjKJHuidGCmwjIa87Fn1I1CZXIutxQ3iGIKKKQYOJQ+kXqfUMaX76nE+LJqQtNle4HrkzYN/OO2xECiqN4boJjf0GsufscAurJG2eOWVhbfB0nxqPyMU7zg9MdJ46jm6mQ4vRwSfu6iuoBB944rhRO+JHcUAf08D5/F//tmus6H9RCOqneSGmkqpYFAWSPnm+I4aOLzxk2IXyoPDl45VPBXEMo+VSSveGJ2aEjdYbLm4hDxvhy/rvIhJwhp59NnNEJHV2AAtyriL4f4dDTfa6uw7TzjdA6qU0SxskH0YJ0Ixp0bauRwQf3r4Vs6BdGvp11gtJvvRM0eHUYKIRue/Nl0YOWhM2kJH+3BNufkqkxddTHZE/2T7rPFvk9dNmp+VOQAZWX+ceV757jxj9XyrHZO9BEeGs5DvI7clM="
     # GOOGLE_MAPPING_KEY
     - secure: "sMdtSxE1udkKi1DQOEnMW/WG5HCXEieHzVuyRwdA6dnTHb5IQEDkv/cVpBQ/m+ufEcg/mezNHK+P1kWbs/Nynv17CdxTxOZYTRCtLKeAMl7ev7B36eEwoqfmyCyPbjeVHbljatJKSYKBjKluzTMFbsSonrQosoHMF30ynFRRYoF5EVKt1FSc2K+RZR29u1fzSAsqFLPAl7hq8uO2BVspNUBj5vDL93WWidZ941Su1M1l+LDlj0ZYeHAdrsjRdO88l2ElPdbaQzHFewF+gjbC8Tm+OkKuio+Z9I9/6WJ4fZsnPQNtX2n8CysvxUDB6glk9RRZV5bfsJbE0Yig3ckY4IBWgBopk6IiGgiV7i3F9HxsSz1Vim6EEjar3BUVGc3D03K5bHxafIdxroq7x8e/8GzmojFREdcxKKbKCpvv8s5pVczIE5yNLVpatrKZOc7uMMuK6JqK1vzL4U5Cm1Xr4d4njy73+Fxt8iI4AyJZoHn11PTlkR9mPHT/0gb3IKFSvuLomKQXU/lE46tGTH/OephCJM+alIKBI+7ORoIKspfCL4Q2Gh4XbSnkO7eya9UqpLjqoFja1ms8Mxa2YMM5KL9WOmGJBbu8JRRYzQF/kQcOxrH3bOua8MYjXMNCGeGrDL6/X6KDLgkTiwEndOHzw+TDjid6dY3OHGPq8CwMkXk="
+    # SAUCE_ACCESS_KEY
+    - secure: "SCAjXGKQ5p6fZj38LFzYBursOm8HSNwkEHhbMQa8uVmRoH9lSzjr6HdeZLUFRUgKlttoI5xH21bo7ysw2Tshn6fvIZHnoWid23OniZF87aUs3OnwCGB5/vwFgU4K48juoDgJXc0IpgfH7rj8t5yCUEpP1jst3LJGmyTbUfOBSbzROS4UufwsKZdKNKXJbGN21d8q7dpAjUjD8OUgK834Nkj/973DiOVUcFBpF1FFf02yFDj0XJJITFiABDLEhZ1SgolKXCWRoFTruZKO3+OnycaZUUsICmuOj/3L7Aq1qQcUczJYZq0kCEHY6tQlXQrjepSGCh21GmuBCHHnMso8YMiC9szqVeAbP8/aFXCitlvw5q6Zw1GpHuk0bBwWJsZU5n2HTpTUKpMwGFGcdg3AQ6dFjwCpig3+D1HZJkHYaJRLN3qVQmtNRyiLwcr9F2RQEqtqN9yOvj5iiohFE+7pLMgpy+6rj+36XTYaJlQRZLGbQPhaiznlpz/B4XrjbttNgZZPOfIy05L/rh6L/TpeaKkbrJReOuz0iut3qeoqPE6bIJ5FJ5Tu5MR2WiRf8CYkasxfA89kjCEvpqMt6ujBtil7A0ZO9f+koIJvjZlXHq02XvBKf34ZLj/yjf209FPe7Gdz6uVQzOTGMqiWOSs0G//9cC33cwQzk1mMnK3TckU="
 
 before_install:
   - mkdir /home/travis/data
@@ -46,27 +52,35 @@ before_script:
 
 script:
   - mvn --batch-mode install jacoco:report coveralls:report -Dspring.data.mongodb.port=28001 -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -Dgedbrowser.home=/home/travis/gedbrowser -DrepoToken=${REPOTOKEN} --settings=config/settings.xml
-
-after_success:
   - ./config/docker-shakedown.sh
   - ./config/before-deploy.sh
   - ./config/deploy.sh
-  - wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
-  - mkdir -p /home/travis/bin
-  - unzip chromedriver_linux64.zip -d /home/travis/bin/
-  - sudo apt-get update
-  - sudo apt-get install -y libappindicator1 fonts-liberation
-  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-  - sudo dpkg -i google-chrome*.deb
-  - which google-chrome
-  - export CHROME_DRIVER=/home/travis/bin/chromedriver
-  - export CHROME_BIN=/usr/bin/google-chrome
-  # - export CHROME="-Dwebdriver.chrome.driver=${CHROME_DRIVER} -Dchrome.binary=${CHROME_BIN}"
-  - wget https://github.com/mozilla/geckodriver/releases/download/v0.14.0/geckodriver-v0.14.0-linux64.tar.gz
-  - tar -xzf geckodriver-v0.14.0-linux64.tar.gz -C /home/travis/bin
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3
-  - ps -ef | grep -i xvfb
-  - cd gedbrowser-selenium
-  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -Dselenium.port=8080 -DprintNavigation=true ${CHROME}
+  - cd gedbrowser
+  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dselenium.browser.name=htmlunit
+  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dselenium.browser.name=chrome
+  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dselenium.browser.name=firefox -Dselenium.platform=linux
+  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dselenium.browser.name=edge -Dselenium.platform=windows
+
+#after_success:
+#  - ./config/docker-shakedown.sh
+#  - ./config/before-deploy.sh
+#  - ./config/deploy.sh
+#  - wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
+#  - mkdir -p /home/travis/bin
+#  - unzip chromedriver_linux64.zip -d /home/travis/bin/
+#  - sudo apt-get update
+#  - sudo apt-get install -y libappindicator1 fonts-liberation
+#  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+#  - sudo dpkg -i google-chrome*.deb
+#  - which google-chrome
+#  - export CHROME_DRIVER=/home/travis/bin/chromedriver
+#  - export CHROME_BIN=/usr/bin/google-chrome
+#  # - export CHROME="-Dwebdriver.chrome.driver=${CHROME_DRIVER} -Dchrome.binary=${CHROME_BIN}"
+#  - wget https://github.com/mozilla/geckodriver/releases/download/v0.14.0/geckodriver-v0.14.0-linux64.tar.gz
+#  - tar -xzf geckodriver-v0.14.0-linux64.tar.gz -C /home/travis/bin
+#  - export DISPLAY=:99.0
+#  - sh -e /etc/init.d/xvfb start
+#  - sleep 3
+#  - ps -ef | grep -i xvfb
+#  - cd gedbrowser-selenium
+#  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -Dselenium.port=8080 -DprintNavigation=true ${CHROME}

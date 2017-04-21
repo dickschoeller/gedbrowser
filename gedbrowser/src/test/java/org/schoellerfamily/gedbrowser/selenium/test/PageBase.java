@@ -165,7 +165,7 @@ public class PageBase {
      * Wait for page load on real browser. Doesn't work for HTML driver.
      */
     public final void waitForPageLoaded() {
-        waiter.waitForPageLoaded();
+        waiter.waitForPageLoaded(driver);
     }
 
     /**
