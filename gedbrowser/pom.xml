@@ -327,7 +327,9 @@
               <goal>start</goal>
             </goals>
             <configuration>
-              <arguments>--server.port=${server.port}</arguments>
+              <arguments>
+                <argument>--server.port=${server.port}</argument>
+              </arguments>
             </configuration>
           </execution>
           <execution>
