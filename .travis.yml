@@ -65,9 +65,9 @@ after_success:
   - echo TRAVIS_JOB_NUMBER=${TRAVIS_JOB_NUMBER}
   - cd gedbrowser
   - mvn integration-test --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=chrome -Dselenium.platform=linux -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep -v org.apache.http
-  - mvn integration-test --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=chrome -Dselenium.platform=win10 2>&1 | grep -v org.apache.http
-  - mvn integration-test --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=MicrosoftEdge -Dselenium.platform=win10 2>&1 | grep -v org.apache.http
   - mvn integration-test --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=iexplore -Dselenium.platform=win8 2>&1 | grep -v org.apache.http
+#  - mvn integration-test --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=MicrosoftEdge -Dselenium.platform=win10 2>&1 | grep -v org.apache.http
+#  - mvn integration-test --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=chrome -Dselenium.platform=win10 2>&1 | grep -v org.apache.http
 #  - mvn integration-test --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=htmlunit 2>&1 | grep -v org.apache.http
 #  - mvn integration-test --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=firefox -Dselenium.platform=linux 2>&1 | grep -v org.apache.http
 

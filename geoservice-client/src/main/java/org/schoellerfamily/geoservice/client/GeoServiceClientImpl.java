@@ -40,8 +40,12 @@ public final class GeoServiceClientImpl implements GeoServiceClient {
         try {
             return restTemplate.getForObject(url, GeoServiceItem.class);
         } catch (RestClientException rce) {
-            logger.error(
+            if (logger.isDebugEnabled()) {
+                logger.debug(
                     "Unable to get geocode from geoservice at " + url, rce);
+            } else {
+                logger.error("Unable to get geocode from geoservice at " + url);
+            }
             return new GeoServiceItem(placeName, placeName, null);
         }
     }
