@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
@@ -222,5 +223,13 @@ public final class GedBrowserBasicIT {
         if (PRINT_NAVIGATION) {
             logger.info("");
         }
+    }
+
+    /**
+     * Tear down after test.
+     */
+    @After
+    public void done() {
+        driver.quit();
     }
 }

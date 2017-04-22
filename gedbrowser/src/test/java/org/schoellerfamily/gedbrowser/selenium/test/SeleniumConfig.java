@@ -43,6 +43,10 @@ public class SeleniumConfig {
     @Value("${selenium.platform:}")
     private String platform;
 
+    /** */
+    @Value("${selenium.timeout:30}")
+    private long timeout;
+
     /**
      * @return the webdriver
      * @throws MalformedURLException if there is a bogus URL
@@ -61,7 +65,7 @@ public class SeleniumConfig {
     @Bean
     public PageWaiter pageWaiter() {
         logger.info("Getting page waiter");
-        return new RemotePageWaiter();
+        return new RemotePageWaiter(timeout);
     }
 
     /**

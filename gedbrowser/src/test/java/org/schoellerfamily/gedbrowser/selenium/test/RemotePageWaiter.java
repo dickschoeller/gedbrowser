@@ -14,12 +14,23 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * @author Dick Schoeller
  */
 public class RemotePageWaiter implements PageWaiter {
+    /** */
+    private final long timeout;
+
+    /**
+     * Constructor.
+     *
+     * @param timeout timeout to use
+     */
+    public RemotePageWaiter(final long timeout) {
+        this.timeout = timeout;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void waitForPageLoaded(final WebDriver driver) {
-        final long timeout = 30;
         final ExpectedCondition<Boolean> expectation =
                 new ExpectedCondition<Boolean>() {
             /**
