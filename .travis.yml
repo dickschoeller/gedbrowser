@@ -51,14 +51,26 @@ before_script:
 
 script:
   - mvn install jacoco:report coveralls:report --settings=config/settings.xml -Ptravis-build -DrepoToken=${REPOTOKEN} -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser
-
   - cd gedbrowser
-  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -Dselenium.browser.name=chrome -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser 2>&1 | grep -v org.apache.http
-#  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -Dselenium.browser.name=htmlunit -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser 2>&1 | grep -v org.apache.http
-#  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -Dselenium.browser.name=firefox -Dselenium.platform=linux -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser 2>&1 | grep -v org.apache.http
-#  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -Dselenium.browser.name=edge -Dselenium.platform=windows -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser 2>&1 | grep -v org.apache.http
 
-#after_success:
+# browser choices -  android, chrome, firefox, MicrosoftEdge, iexplore, safari,
+#                    operablink, konqueror, "internet explorer", iPhone, iPad,
+#                    iehta
+# platform choices - xp, win7, win8, win8.1, win10, mac, "ox x 10.6",
+#                    "os x 10.8", "os x 10.9", "os x 10.10", "os x 10.11",
+#                    "macos 10.12", linux, android, ""
+# Don't know how to do chrome on iphone or ipad
+
+after_success:
+  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser -Dselenium.browser.name=chrome -Dselenium.platform=linux 2>&1 | grep -v org.apache.http
+#  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser -Dselenium.browser.name=chrome -Dselenium.platform=win10 2>&1 | grep -v org.apache.http
+#  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser -Dselenium.browser.name=htmlunit 2>&1 | grep -v org.apache.http
+#  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser -Dselenium.browser.name=firefox -Dselenium.platform=linux 2>&1 | grep -v org.apache.http
+#  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser -Dselenium.browser.name=MicrosoftEdge -Dselenium.platform=win10 2>&1 | grep -v org.apache.http
+
+
+#### old after_success stuff #####
+
 #  - ./config/docker-shakedown.sh
 #  - ./config/before-deploy.sh
 #  - ./config/deploy.sh
