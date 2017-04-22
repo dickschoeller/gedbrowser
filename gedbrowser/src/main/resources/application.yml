@@ -7,7 +7,7 @@ server:
 logging:
     level:
         org:
-            schoellerfamily: WARN
+            schoellerfamily: INFO
             springframework:
                 test: WARN
                 core: WARN

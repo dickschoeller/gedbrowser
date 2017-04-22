@@ -74,7 +74,7 @@
     <config-dir>${project.basedir}/config</config-dir>
     <server.port>8080</server.port>
     <skip.unit.tests>false</skip.unit.tests>
-    <skip.integration.tests>false</skip.integration.tests>
+    <skip.integration.tests>true</skip.integration.tests>
   </properties>
 
   <name>gedbrowser POM</name>
@@ -285,9 +285,9 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>2.10.4</version>
-	  <configuration>
-	    <quiet>true</quiet>
-	  </configuration>
+          <configuration>
+            <quiet>true</quiet>
+          </configuration>
           <executions>
             <execution>
               <id>attach-javadoc</id>
@@ -312,7 +312,7 @@
           <groupId>org.sonatype.plugins</groupId>
           <artifactId>nexus-staging-maven-plugin</artifactId>
           <version>1.6.8</version>
-	</plugin>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
