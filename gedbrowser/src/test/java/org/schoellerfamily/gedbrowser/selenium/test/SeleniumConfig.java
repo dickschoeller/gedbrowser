@@ -104,6 +104,9 @@ public class SeleniumConfig {
                     "seleniumVersion", env.getProperty("selenium.version"));
             capabilities.setCapability(
                     "build", env.getProperty("TRAVIS_BUILD_NUMBER"));
+            capabilities.setCapability("name",
+                    env.getProperty("TRAVIS_BUILD_NUMBER") + "-" + browserName
+                            + "-" + platform);
         }
         final LoggingPreferences prefs = new LoggingPreferences();
         prefs.enable(LogType.CLIENT, Level.OFF);
