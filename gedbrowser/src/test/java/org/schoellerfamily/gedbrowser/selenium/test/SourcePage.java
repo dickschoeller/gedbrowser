@@ -3,6 +3,8 @@ package org.schoellerfamily.gedbrowser.selenium.test;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,6 +13,9 @@ import org.openqa.selenium.WebElement;
  * @author Dick Schoeller
  */
 public final class SourcePage extends PageBase {
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
+
     /** */
     private static final boolean PRINT_NAVIGATION = "true"
             .equals(System.getProperty("printNavigation", "false"));
@@ -107,9 +112,9 @@ public final class SourcePage extends PageBase {
      *
      * @param string the string to print
      */
-    private static void println(final String string) {
+    private void println(final String string) {
         if (PRINT_NAVIGATION) {
-            System.out.println(string);
+            logger.info(string);
         }
     }
 }

@@ -4,7 +4,15 @@ gedbrowser:
 logging:
     level:
         org:
-            schoellerfamily: DEBUG
+            schoellerfamily: WARN
+            springframework:
+                test: WARN
+                core: WARN
+                beans: WARN
+                data:
+                    mongodb:
+                        core:
+                            index: OFF
 
 spring:
     jackson:

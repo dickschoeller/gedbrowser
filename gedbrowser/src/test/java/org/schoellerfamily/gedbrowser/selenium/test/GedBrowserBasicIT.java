@@ -3,6 +3,8 @@ package org.schoellerfamily.gedbrowser.selenium.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
@@ -17,6 +19,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SeleniumConfig.class)
 public final class GedBrowserBasicIT {
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
+
     /** */
     private static final boolean PRINT_NAVIGATION = "true"
             .equals(System.getProperty("printNavigation", "false"));
@@ -204,18 +209,18 @@ public final class GedBrowserBasicIT {
      *
      * @param string the string to print
      */
-    private static void println(final String string) {
+    private void println(final String string) {
         if (PRINT_NAVIGATION) {
-            System.out.println(string);
+            logger.info(string);
         }
     }
 
     /**
      * Print empty line.
      */
-    private static void println() {
+    private void println() {
         if (PRINT_NAVIGATION) {
-            System.out.println();
+            logger.info("");
         }
     }
 }

@@ -38,7 +38,8 @@ before_install:
   - cp $(find . -name 'testUserFile.csv' | head -n 1) /home/travis/gedbrowser
   - echo $GOOGLE_GEOCODING_KEY > /home/travis/gedbrowser/google-geocoding-key
   - echo $GOOGLE_MAPPING_KEY >> /home/travis/gedbrowser/google-geocoding-key
-  - docker run -v /home/travis/data:/data/db --name mongo -p 28001:27017 -d mongo
+  - docker run -v /home/travis/data:/data/db --name mongo -p 28001:27017 -d mongo 2>&1 | grep 'Status'
+  - docker pull java:8 2>&1 | grep 'Status'
 
 install: mvn install --settings=config/settings.xml -Pinstall -Dskip.integration.tests=true -Dskip.tests=true -B -V > /dev/null 2>&1
 
@@ -51,10 +52,10 @@ before_script:
 script:
   - mvn --batch-mode install jacoco:report coveralls:report -Dspring.data.mongodb.port=28001 -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -Dgedbrowser.home=/home/travis/gedbrowser -DrepoToken=${REPOTOKEN} -Dskip.integration.tests=true --settings=config/settings.xml
   - cd gedbrowser
-  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dselenium.browser.name=htmlunit 2>&1 | grep -v org.apache.http
-  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dselenium.browser.name=chrome 2>&1 | grep -v org.apache.http
-  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dselenium.browser.name=firefox -Dselenium.platform=linux 2>&1 | grep -v org.apache.http
-  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dselenium.browser.name=edge -Dselenium.platform=windows 2>&1 | grep -v org.apache.http
+  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dgedbrowser.home=/home/travis/gedbrowser -Dselenium.browser.name=htmlunit 2>&1 | grep -v org.apache.http
+  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dgedbrowser.home=/home/travis/gedbrowser -Dselenium.browser.name=chrome 2>&1 | grep -v org.apache.http
+  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dgedbrowser.home=/home/travis/gedbrowser -Dselenium.browser.name=firefox -Dselenium.platform=linux 2>&1 | grep -v org.apache.http
+  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dgedbrowser.home=/home/travis/gedbrowser -Dselenium.browser.name=edge -Dselenium.platform=windows 2>&1 | grep -v org.apache.http
 
 #after_success:
 #  - ./config/docker-shakedown.sh

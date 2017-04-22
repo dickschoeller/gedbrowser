@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -17,6 +19,9 @@ import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
  * @author Dick Schoeller
  */
 public final class GedFileTest {
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
+
     /**
      * Test GedLine with an array input.
      *
@@ -25,11 +30,10 @@ public final class GedFileTest {
     @Test
     public void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = readFileTestSource();
-        System.out.println(top);
-        System.out.println("--------");
+        logger.info(top.toString());
         final GedObject root = top.createGedObject((AbstractGedLine) null);
         final String out = root.toString();
-        System.out.println(out);
+        logger.info(out);
 
         final Person melissa = (Person) root.find("I1");
         final PersonNavigator meliNavigator = new PersonNavigator(melissa);
@@ -37,7 +41,7 @@ public final class GedFileTest {
         final PersonNavigator dickNavigator = new PersonNavigator(dick);
         final List<Person> spouses = dickNavigator.getSpouses();
         assertEquals("Dick only has one spouse", 1, spouses.size());
-        System.out.println(spouses.get(0));
+        logger.info(spouses.get(0));
     }
 
     /**
