@@ -52,10 +52,10 @@ before_script:
 script:
   - mvn --batch-mode install jacoco:report coveralls:report -Dspring.data.mongodb.port=28001 -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -Dgedbrowser.home=/home/travis/gedbrowser -DrepoToken=${REPOTOKEN} -Dskip.integration.tests=true --settings=config/settings.xml
   - cd gedbrowser
-  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dgedbrowser.home=/home/travis/gedbrowser -Dselenium.browser.name=htmlunit 2>&1 | grep -v org.apache.http
-  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dgedbrowser.home=/home/travis/gedbrowser -Dselenium.browser.name=chrome 2>&1 | grep -v org.apache.http
-  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dgedbrowser.home=/home/travis/gedbrowser -Dselenium.browser.name=firefox -Dselenium.platform=linux 2>&1 | grep -v org.apache.http
-  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dgedbrowser.home=/home/travis/gedbrowser -Dselenium.browser.name=edge -Dselenium.platform=windows 2>&1 | grep -v org.apache.http
+  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dgedbrowser.home=/home/travis/gedbrowser -Dspring.data.mongodb.port=28001 -Dselenium.browser.name=htmlunit 2>&1 | grep -v org.apache.http
+  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dgedbrowser.home=/home/travis/gedbrowser -Dspring.data.mongodb.port=28001 -Dselenium.browser.name=chrome 2>&1 | grep -v org.apache.http
+  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dgedbrowser.home=/home/travis/gedbrowser -Dspring.data.mongodb.port=28001 -Dselenium.browser.name=firefox -Dselenium.platform=linux 2>&1 | grep -v org.apache.http
+  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -DprintNavigation=true -Dgedbrowser.home=/home/travis/gedbrowser -Dspring.data.mongodb.port=28001 -Dselenium.browser.name=edge -Dselenium.platform=windows 2>&1 | grep -v org.apache.http
 
 #after_success:
 #  - ./config/docker-shakedown.sh
