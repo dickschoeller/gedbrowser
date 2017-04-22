@@ -82,7 +82,7 @@
         <pmd.skip>false</pmd.skip>
         <checkstyle.skip>false</checkstyle.skip>
         <jacoco.skip>false</jacoco.skip>
-        <maven.javadoc.skip>false</maven.javadoc.skip>'
+        <maven.javadoc.skip>false</maven.javadoc.skip>
         <skip.integration.tests>true</skip.integration.tests>
         <skip.unit.tests>false</skip.unit.tests>
         <spring.data.mongodb.port>28001</spring.data.mongodb.port>
@@ -102,7 +102,7 @@
         <pmd.skip>true</pmd.skip>
         <checkstyle.skip>true</checkstyle.skip>
         <jacoco.skip>true</jacoco.skip>
-        <maven.javadoc.skip>true</maven.javadoc.skip>'
+        <maven.javadoc.skip>true</maven.javadoc.skip>
         <skip.integration.tests>false</skip.integration.tests>
         <skip.unit.tests>true</skip.unit.tests>
         <printNavigation>true</printNavigation>
