@@ -50,12 +50,13 @@ before_script:
   - docker ps --all
 
 script:
-  - mvn install jacoco:report coveralls:report --settings=config/settings.xml -Ptravis-build -DrepoToken=${REPOTOKEN} -B
+  - mvn install jacoco:report coveralls:report --settings=config/settings.xml -Ptravis-build -DrepoToken=${REPOTOKEN} -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser
+
   - cd gedbrowser
-  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -Dselenium.browser.name=chrome -B 2>&1 | grep -v org.apache.http
-#  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -Dselenium.browser.name=htmlunit -B 2>&1 | grep -v org.apache.http
-#  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -Dselenium.browser.name=firefox -Dselenium.platform=linux -B 2>&1 | grep -v org.apache.http
-#  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -Dselenium.browser.name=edge -Dselenium.platform=windows -B 2>&1 | grep -v org.apache.http
+  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -Dselenium.browser.name=chrome -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser 2>&1 | grep -v org.apache.http
+#  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -Dselenium.browser.name=htmlunit -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser 2>&1 | grep -v org.apache.http
+#  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -Dselenium.browser.name=firefox -Dselenium.platform=linux -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser 2>&1 | grep -v org.apache.http
+#  - mvn integration-test --settings=../config/settings.xml -Ptravis-integration-test -Dselenium.browser.name=edge -Dselenium.platform=windows -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser 2>&1 | grep -v org.apache.http
 
 #after_success:
 #  - ./config/docker-shakedown.sh

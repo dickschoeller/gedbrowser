@@ -85,10 +85,8 @@
         <maven.javadoc.skip>false</maven.javadoc.skip>
         <skip.integration.tests>true</skip.integration.tests>
         <skip.unit.tests>false</skip.unit.tests>
-        <spring.data.mongodb.port>28001</spring.data.mongodb.port>
         <geoservice.keyfile>stub</geoservice.keyfile>
         <geoservice.backupfile>/home/travis/gedbrowser/geoservice-test-backup.json</geoservice.backupfile>
-        <gedbrowser.home>/home/travis/gedbrowser</gedbrowser.home>
       </properties>
     </profile>
     <profile>
@@ -106,8 +104,6 @@
         <skip.integration.tests>false</skip.integration.tests>
         <skip.unit.tests>true</skip.unit.tests>
         <printNavigation>true</printNavigation>
-        <gedbrowser.home>/home/travis/gedbrowser</gedbrowser.home>
-        <spring.data.mongodb.port>28001</spring.data.mongodb.port>
       </properties>
     </profile>
   </profiles>
