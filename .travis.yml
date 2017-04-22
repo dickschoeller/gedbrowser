@@ -41,7 +41,8 @@ before_install:
   - docker run -v /home/travis/data:/data/db --name mongo -p 28001:27017 -d mongo 2>&1 | grep 'Status'
   - docker pull java:8 2>&1 | grep 'Status'
 
-install: mvn install --settings=config/settings.xml -Pinstall -B > /dev/null 2>&1
+install: mvn install --settings=config/settings.xml -Pinstall -B
+#> /dev/null 2>&1
 
 jdk:
   - oraclejdk8
