@@ -85,8 +85,6 @@
         <maven.javadoc.skip>false</maven.javadoc.skip>
         <skip.integration.tests>true</skip.integration.tests>
         <skip.unit.tests>false</skip.unit.tests>
-        <geoservice.keyfile>stub</geoservice.keyfile>
-        <geoservice.backupfile>/home/travis/gedbrowser/geoservice-test-backup.json</geoservice.backupfile>
       </properties>
     </profile>
     <profile>
