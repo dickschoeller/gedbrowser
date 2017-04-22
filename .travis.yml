@@ -12,7 +12,7 @@ addons:
 
 env:
   global:
-    - INTEGRATION_TEST_ARGS=Ptravis-integration-test -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json
+    - INTEGRATION_TEST_ARGS="-Ptravis-integration-test -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json"
     # REPOTOKEN
     - secure: "nqpQ1c4b74dd15/eSZBb02QE3HS4Hq/3cPdzUAtKNWErHALkWjRXa6VvrjO9F30G+2TGm/cdK6tX2lp1PPYeUnR8eEwxbTSw1czw/Dzc/RvggbIek/fTn3O6ihUXESY+rbRhRMyGlQ7vPmQKo0f0dMjv33SsKfHxL3jtlbFUnJSFFxhGgDCe54akTMZyCGBiYYnQZKOWWhKAFTS1kT8Um+/l2fZo1LTmLSfr8aJF1irDLfvAbtV3DKsJwgnt7um/PqYOBXK+6XaZ7P6Zo7nd5qS+ZNm2WzgTnHETNSvDRAzAyUydJHorf52MsmNiLSb3qQdWluk+9vewWVs61qPMH9pZPTlS8wgCcyJ3jceTlG9HM1dREALhXXHFoCmKUX9DgWHxREuSy/88gTVKg5qiRTVo/UXE5BrsXb08AawXi8IM4yuQHJxfTcuIv05+CsbzHqyysUQkwSVXA7wYjEMJ3WhY2p0ss0Oxohu5JHQZ1YYByO0xg4Hrm0eTLWsnq9ZTnfoT4MpATX8h73grSWe4mSmIVmqcs2egEwLolmTBD5lFRaQum7N3+SZ66dVwT1H3fgqhne1wuMPWwAWVVdZY3l0fxZoR7qD6WbO7BUwo0F4fSIo9RFgcQUKtx+jWJ9Bgql5th9prc3wuJuSdUHOe6hmcDyfsSi8BMoB2jZP4Hcs="
     # GPG_PASSPHRASE
