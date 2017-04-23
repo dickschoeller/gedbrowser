@@ -48,10 +48,6 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
 
     /** */
     @Autowired
-    private Environment env;
-
-    /** */
-    @Autowired
     private WebDriverFactory driverFactory;
 
     /** */
@@ -66,8 +62,8 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
      */
     private final SauceOnDemandAuthentication authentication =
             new SauceOnDemandAuthentication(
-                    env.getProperty("SAUCE_USERNAME"),
-                    env.getProperty("SAUCE_ACCESS_KEY"));
+                    System.getenv("SAUCE_USERNAME"),
+                    System.getenv("SAUCE_ACCESS_KEY"));
 
     /**
      * JUnit Rule which will mark the Sauce Job as passed/failed when the test
