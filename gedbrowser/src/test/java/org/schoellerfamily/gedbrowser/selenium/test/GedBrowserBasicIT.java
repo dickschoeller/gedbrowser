@@ -3,10 +3,15 @@ package org.schoellerfamily.gedbrowser.selenium.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.net.MalformedURLException;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +42,25 @@ public final class GedBrowserBasicIT {
 
     /** */
     @Autowired
-    private WebDriver driver;
+    private WebDriverFactory driverFactory;
 
     /** */
     @Autowired
     private PageWaiter waiter;
+
+    /** */
+    public @Rule TestName testName = new TestName();
+
+    /** */
+    private WebDriver driver;
+
+    /**
+     * @throws MalformedURLException if something goes awry
+     */
+    @Before
+    public void setUp() throws MalformedURLException {
+        driver = driverFactory.webDriver(testName);
+    }
 
     /**
      * This test runs through the links by a partial of the text. This is done
@@ -229,7 +248,7 @@ public final class GedBrowserBasicIT {
      * Tear down after test.
      */
     @After
-    public void done() {
+    public void tearDown() {
         driver.quit();
     }
 }
