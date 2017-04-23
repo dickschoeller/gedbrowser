@@ -15,9 +15,9 @@ import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.SessionId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -78,14 +78,28 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     public TestName testName = new TestName();
 
     /** */
-    private WebDriver driver;
+    private RemoteWebDriver driver;
 
     /**
      * {@inheritDoc}
      */
     @Override
     public String getSessionId() {
-        return ((RemoteWebDriver) driver).getSessionId().toString();
+        if (driver == null) {
+            try {
+                driver = driverFactory.webDriver(testName);
+            } catch (MalformedURLException e) {
+                return "";
+            }
+        }
+        final SessionId sessionId = driver.getSessionId();
+        if (sessionId == null) {
+            logger.warn("********************** "
+                    + "SESSION ID IS NULL"
+                    + " *********************");
+            return "";
+        }
+        return sessionId.toString();
     }
 
     /**
@@ -93,7 +107,13 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
      */
     @Before
     public void setUp() throws MalformedURLException {
-        driver = driverFactory.webDriver(testName);
+        if (driver == null) {
+            driver = driverFactory.webDriver(testName);
+        } else {
+            logger.warn("********************** "
+                    + "DRIVER ALREADY SET UP"
+                    + " *********************");
+        }
     }
 
     /**

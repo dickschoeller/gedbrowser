@@ -8,7 +8,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.rules.TestName;
 import org.openqa.selenium.Platform;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
@@ -46,7 +45,7 @@ public class WebDriverFactory {
      * @return the webdriver
      * @throws MalformedURLException if there is a bogus URL
      */
-    public WebDriver webDriver(final TestName testName)
+    public RemoteWebDriver webDriver(final TestName testName)
             throws MalformedURLException {
         final RemoteWebDriver remoteWebDriver = new RemoteWebDriver(
                 getRemoteUrl(), getCapabilities(testName));
