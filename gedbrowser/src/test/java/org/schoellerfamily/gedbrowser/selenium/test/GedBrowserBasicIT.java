@@ -14,17 +14,23 @@ import org.junit.Test;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.saucelabs.common.SauceOnDemandAuthentication;
+import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.junit.SauceOnDemandTestWatcher;
 
 /**
  * @author Dick Schoeller
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SeleniumConfig.class)
-public final class GedBrowserBasicIT {
+public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -42,17 +48,49 @@ public final class GedBrowserBasicIT {
 
     /** */
     @Autowired
+    private Environment env;
+
+    /** */
+    @Autowired
     private WebDriverFactory driverFactory;
 
     /** */
     @Autowired
     private PageWaiter waiter;
 
+    /**
+     * Constructs a {@link SauceOnDemandAuthentication} instance using the
+     * supplied user name/access key. To use the authentication supplied by
+     * environment variables or from an external file, use the no-arg
+     * {@link SauceOnDemandAuthentication} constructor.
+     */
+    private final SauceOnDemandAuthentication authentication =
+            new SauceOnDemandAuthentication(
+                    env.getProperty("SAUCE_USERNAME"),
+                    env.getProperty("SAUCE_ACCESS_KEY"));
+
+    /**
+     * JUnit Rule which will mark the Sauce Job as passed/failed when the test
+     * succeeds or fails.
+     */
+    @Rule
+    public SauceOnDemandTestWatcher resultReportingTestWatcher =
+        new SauceOnDemandTestWatcher(this, authentication);
+
     /** */
-    public @Rule TestName testName = new TestName();
+    @Rule
+    public TestName testName = new TestName();
 
     /** */
     private WebDriver driver;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getSessionId() {
+        return ((RemoteWebDriver) driver).getSessionId().toString();
+    }
 
     /**
      * @throws MalformedURLException if something goes awry

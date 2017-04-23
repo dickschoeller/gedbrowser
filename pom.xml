@@ -457,6 +457,11 @@
         <artifactId>undertow-core</artifactId>
         <version>1.4.12.Final</version>
       </dependency>
+      <dependency>
+        <groupId>com.saucelabs</groupId>
+        <artifactId>sauce_junit</artifactId>
+        <version>2.1.23</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
