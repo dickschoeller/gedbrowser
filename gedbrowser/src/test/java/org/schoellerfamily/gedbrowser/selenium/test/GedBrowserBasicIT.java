@@ -110,6 +110,11 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
         if (sessionId == null) {
             sessionId = driver.getSessionId();
         }
+        if (sessionId == null) {
+            logger.warn("********************** "
+                    + "SESSION ID IS NULL IN SETUP"
+                    + " *********************");
+        }
     }
 
     /**
