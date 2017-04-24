@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.util.Collection;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -18,6 +20,9 @@ import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
  * @author Dick Schoeller
  */
 public class RootPlacesTest {
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
+
     /**
      * Right now, reads and dumps. Just checking for apparent
      * duplicates. Will take further eventually.
@@ -66,9 +71,9 @@ public class RootPlacesTest {
      * @param places the collection to dump
      */
     protected final void dump(final Collection<Place> places) {
-        System.out.println("A total of " + places.size() + " distinct places");
+        logger.info("A total of " + places.size() + " distinct places");
         for (final Place place : places) {
-            System.out.println("    " + place.getString());
+            logger.info("    " + place.getString());
         }
     }
 }

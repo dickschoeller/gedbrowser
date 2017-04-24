@@ -1,0 +1,12 @@
+logging:
+    level:
+        org:
+            schoellerfamily: WARN
+            springframework:
+                test: WARN
+                core: WARN
+                beans: WARN
+                data:
+                    mongodb:
+                        core:
+                            index: OFF

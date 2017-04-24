@@ -2,34 +2,35 @@ package org.schoellerfamily.gedbrowser.selenium.test;
 
 import static org.junit.Assert.fail;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * @author Dick Schoeller
  */
-public final class FirefoxPageWaiter implements PageWaiter {
+public class RemotePageWaiter implements PageWaiter {
     /** */
-    private final WebDriver driver;
+    private final long timeout;
 
     /**
      * Constructor.
      *
-     * @param driver the associated web driver
+     * @param timeout timeout to use
      */
-    public FirefoxPageWaiter(final WebDriver driver) {
-        this.driver = driver;
+    public RemotePageWaiter(final long timeout) {
+        this.timeout = timeout;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void waitForPageLoaded() {
-        final long timeout = 30;
+    public void waitForPageLoaded(final WebDriver driver) {
         final ExpectedCondition<Boolean> expectation =
                 new ExpectedCondition<Boolean>() {
             /**
@@ -37,8 +38,9 @@ public final class FirefoxPageWaiter implements PageWaiter {
              */
             @Override
             public Boolean apply(final WebDriver d) {
-                return ((JavascriptExecutor) d).executeScript(
+                final boolean done = ((JavascriptExecutor) d).executeScript(
                         "return document.readyState").equals("complete");
+                return done;
             }
         };
         final Wait<WebDriver> wait = new WebDriverWait(driver, timeout);
@@ -47,5 +49,13 @@ public final class FirefoxPageWaiter implements PageWaiter {
         } catch (Throwable error) {
             fail("Timeout waiting for Page Load Request to complete.");
         }
+        final Wait<WebDriver> wait2 = new WebDriverWait(driver, timeout);
+        try {
+            wait2.until(ExpectedConditions
+                    .presenceOfElementLocated(By.id("maintainerMail")));
+        } catch (Throwable error) {
+            fail("Timeout waiting for maintainerMail.");
+        }
     }
+
 }

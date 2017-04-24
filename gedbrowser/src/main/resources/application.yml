@@ -8,6 +8,14 @@ logging:
     level:
         org:
             schoellerfamily: INFO
+            springframework:
+                test: WARN
+                core: WARN
+                beans: WARN
+                data:
+                    mongodb:
+                        core:
+                            index: OFF
 
 spring:
     jackson:

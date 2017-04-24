@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.analytics.order.test;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.analytics.order.AbstractOrderAnalyzer;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzer;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzerResult;
@@ -9,6 +11,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
  * @author Dick Schoeller
  */
 public final class OrderAnalyzerTestHelper {
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
+
     /**
      * Analyze and dump the result.
      *
@@ -29,12 +34,9 @@ public final class OrderAnalyzerTestHelper {
      * @param result the result
      */
     public void dump(final Person person, final OrderAnalyzerResult result) {
-        System.out.println();
-        System.out.println("================================");
-        System.out.println(
-                person.getName().getString() + ": " + getOkString(result));
+        logger.info(person.getName().getString() + ": " + getOkString(result));
         for (final String message : result.getMismatches()) {
-            System.out.println("    " + message);
+            logger.info("    " + message);
         }
     }
 

@@ -3,89 +3,118 @@ package org.schoellerfamily.gedbrowser.selenium.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.net.MalformedURLException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.SessionId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.saucelabs.common.SauceOnDemandAuthentication;
+import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.junit.SauceOnDemandTestWatcher;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(Parameterized.class)
-public final class GedBrowserBasicTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SeleniumConfig.class)
+public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
+
     /** */
     private static final boolean PRINT_NAVIGATION = "true"
             .equals(System.getProperty("printNavigation", "false"));
 
     /** */
-    private final String host =
-            System.getProperty("selenium.host", "localhost");
+    @Value("${server.host:localhost}")
+    private String host;
 
     /** */
-    private final String port =
-            System.getProperty("selenium.port", "8080");
+    @Value("${server.port:8080}")
+    private String port;
 
     /** */
-    private final String drivername;
+    @Autowired
+    private WebDriverFactory driverFactory;
 
     /** */
-    private final WebDriver driver;
+    @Autowired
+    private PageWaiter waiter;
 
     /** */
-    private final PageWaiter waiter;
-
-    /** */
-    private final int timeout;
+    private SessionId sessionId;
 
     /**
-     * @param provider the driver provider to use
+     * Constructs a {@link SauceOnDemandAuthentication} instance using the
+     * supplied user name/access key. To use the authentication supplied by
+     * environment variables or from an external file, use the no-arg
+     * {@link SauceOnDemandAuthentication} constructor.
      */
-    public GedBrowserBasicTest(final DriverProvider provider) {
-        this.drivername = provider.getName();
-        this.driver = provider.getDriver();
-        this.waiter = provider.getWaiter(driver);
-        this.timeout = provider.getTimeout();
+    private final SauceOnDemandAuthentication authentication =
+            new SauceOnDemandAuthentication(
+                    System.getenv("SAUCE_USERNAME"),
+                    System.getenv("SAUCE_ACCESS_KEY"));
+
+    /**
+     * JUnit Rule which will mark the Sauce Job as passed/failed when the test
+     * succeeds or fails.
+     */
+    @Rule
+    public SauceOnDemandTestWatcher resultReportingTestWatcher =
+        new SauceOnDemandTestWatcher(this, authentication);
+
+    /** */
+    @Rule
+    public TestName testName = new TestName();
+
+    /** */
+    private RemoteWebDriver driver;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getSessionId() {
+        if (sessionId == null) {
+            logger.warn("SessionId is null");
+            return "";
+        }
+        return sessionId.toString();
     }
 
     /**
-     * @return collection of parameter arrays
+     * @throws MalformedURLException if something goes awry
      */
-    @Parameters
-    public static Collection<Object[]> params() {
-        final List<Object[]> list = new ArrayList<>();
-        println("Adding HtmlUnitDriver");
-        final Object[] html = {new HtmlUnitDriverProvider()};
-        list.add(html);
-        final String chromeDriver =
-                System.getProperty("webdriver.chrome.driver");
-        if (chromeDriver == null) {
-            println("Enable Chrome tests with:"
-                    + " -Dwebdriver.chrome.driver=/usr/bin/chromedriver"
-                    + " -Dchrome.binary=/opt/google/chrome/google-chrome");
+    @Before
+    public void setUp() throws MalformedURLException {
+        if (driver == null) {
+            driver = driverFactory.webDriver(testName);
         } else {
-            println("Adding ChromeDriver");
-            final Object[] chrome = {new ChromeDriverProvider()};
-            list.add(chrome);
+            logger.warn("********************** "
+                    + "DRIVER ALREADY SET UP"
+                    + " *********************");
         }
-        final String geckoDriver =
-                System.getProperty("webdriver.gecko.driver");
-        if (geckoDriver == null) {
-            println("Enable Firefox tests with:"
-                    + " -Dwebdriver.gecko.driver=/usr/local/bin/geckodriver");
-        } else {
-            println(
-                    "Adding FirefoxDriver");
-            final Object[] firefox = {new FirefoxDriverProvider()};
-            list.add(firefox);
+        if (sessionId == null) {
+            sessionId = driver.getSessionId();
         }
-        return list;
-        // FIXME IE driving, Safari driving, Mobile driving
+        if (sessionId == null) {
+            logger.warn("********************** "
+                    + "SESSION ID IS NULL IN SETUP"
+                    + " *********************");
+        }
     }
 
     /**
@@ -94,9 +123,9 @@ public final class GedBrowserBasicTest {
      */
     @Test
     public void testChildLinkNavigation() {
-        println(drivername + " child test");
+        println("child link navigation test");
         assertTrue("Navigation failed",
-                childNavigationExercise(driver, timeout, waiter));
+                childNavigationExercise(driver, waiter));
         println();
     }
 
@@ -106,9 +135,9 @@ public final class GedBrowserBasicTest {
      */
     @Test
     public void testFatherLinkNavigation() {
-        println(drivername + " father test");
+        println("father link navigation test");
         assertTrue("Navigation failed",
-                fathersNavigationExercise(driver, timeout, waiter));
+                fathersNavigationExercise(driver, waiter));
         println();
     }
 
@@ -118,24 +147,20 @@ public final class GedBrowserBasicTest {
      */
     @Test
     public void testMotherLinkNavigation() {
-        println(drivername + " mother test");
+        println("mother link navigation test");
         assertTrue("Navigation failed",
-                mothersNavigationExercise(driver, timeout, waiter));
+                mothersNavigationExercise(driver, waiter));
         println();
     }
 
     /**
      * @param wd the web driver to use for the test
-     * @param wait the implicit wait value for this run
      * @param pw handles driver specific waits
-     *
      * @return always returns true
      */
     private boolean childNavigationExercise(final WebDriver wd,
-            final long wait, final PageWaiter pw) {
+            final PageWaiter pw) {
         try {
-            wd.manage().timeouts().implicitlyWait(wait, TimeUnit.SECONDS);
-
             PersonPage currentPerson = new PersonPage(wd, "I22", null,
                     pw, baseUrl());
             currentPerson.open();
@@ -170,16 +195,12 @@ public final class GedBrowserBasicTest {
 
     /**
      * @param wd the web driver to use for the test
-     * @param wait the implicit wait value for this run
      * @param pw handles driver specific waits
-     *
      * @return always returns true
      */
     private boolean fathersNavigationExercise(final WebDriver wd,
-            final long wait, final PageWaiter pw) {
+            final PageWaiter pw) {
         try {
-            wd.manage().timeouts().implicitlyWait(wait, TimeUnit.SECONDS);
-
             PersonPage currentPerson = new PersonPage(wd, "I9", null,
                     pw, baseUrl());
             currentPerson.open();
@@ -217,16 +238,12 @@ public final class GedBrowserBasicTest {
 
     /**
      * @param wd the web driver to use for the test
-     * @param wait the implicit wait value for this run
      * @param pw handles driver specific waits
-     *
      * @return always returns true
      */
     private boolean mothersNavigationExercise(final WebDriver wd,
-            final long wait, final PageWaiter pw) {
+            final PageWaiter pw) {
         try {
-            wd.manage().timeouts().implicitlyWait(wait, TimeUnit.SECONDS);
-
             PersonPage currentPerson = new PersonPage(wd, "I15", null,
                     pw, baseUrl());
             currentPerson.open();
@@ -267,18 +284,26 @@ public final class GedBrowserBasicTest {
      *
      * @param string the string to print
      */
-    private static void println(final String string) {
+    private void println(final String string) {
         if (PRINT_NAVIGATION) {
-            System.out.println(string);
+            logger.info(string);
         }
     }
 
     /**
      * Print empty line.
      */
-    private static void println() {
+    private void println() {
         if (PRINT_NAVIGATION) {
-            System.out.println();
+            logger.info("");
         }
+    }
+
+    /**
+     * Tear down after test.
+     */
+    @After
+    public void tearDown() {
+        driver.quit();
     }
 }

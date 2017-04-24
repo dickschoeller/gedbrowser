@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzer;
@@ -23,6 +25,9 @@ import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
  * @author Dick Schoeller
  */
 public final class OrderAnalyzerTest implements AnalyzerTest {
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
+
     /** */
     private final OrderAnalyzerTestHelper helper =
             new OrderAnalyzerTestHelper();
@@ -341,9 +346,9 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
                 person);
         final OrderAnalyzerResult result = orderAnalyzer.analyze();
         if (!result.isCorrect()) {
-            System.out.println(indexName);
+            logger.info(indexName);
             for (final String message : result.getMismatches()) {
-                System.out.println("   " + message);
+                logger.info("   " + message);
                 assertFalse(
                         "If has today (" + today.toString()
                         + ") something is wrong",
