@@ -54,6 +54,9 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     @Autowired
     private PageWaiter waiter;
 
+    /** */
+    private SessionId sessionId;
+
     /**
      * Constructs a {@link SauceOnDemandAuthentication} instance using the
      * supplied user name/access key. To use the authentication supplied by
@@ -85,18 +88,8 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
      */
     @Override
     public String getSessionId() {
-        if (driver == null) {
-            try {
-                driver = driverFactory.webDriver(testName);
-            } catch (MalformedURLException e) {
-                return "";
-            }
-        }
-        final SessionId sessionId = driver.getSessionId();
         if (sessionId == null) {
-            logger.warn("********************** "
-                    + "SESSION ID IS NULL"
-                    + " *********************");
+            logger.warn("SessionId is null");
             return "";
         }
         return sessionId.toString();
@@ -113,6 +106,9 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
             logger.warn("********************** "
                     + "DRIVER ALREADY SET UP"
                     + " *********************");
+        }
+        if (sessionId == null) {
+            sessionId = driver.getSessionId();
         }
     }
 
