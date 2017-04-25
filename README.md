@@ -64,15 +64,21 @@ can be adjusted in the file application.yml.
 * ![](images/travis-ci-25.png)
   [Travis CI](https://travis-ci.org/dickschoeller/gedbrowser)
   builds
-* ![](images/coveralls-25.png)
-  [Coveralls](https://coveralls.io/github/dickschoeller/gedbrowser)
-  coverage analysis
-* ![](images/versioneye-25.png)
-  [VersionEye](https://www.versioneye.com/user/projects/58987dc1f55eb2003257f7bd?child=summary#tab-dependencies)
-  dependency analysis
 * ![](images/codeclimate-25.png)
   [Code Climate](https://codeclimate.com/github/dickschoeller/gedbrowser)
   static code analysis
+* ![](images/codebeat-25.png)
+  [Codebeat](https://codebeat.co/projects/github-com-dickschoeller-gedbrowser-development)
+  static code analysis
+* ![](images/coveralls-25.png)
+  [Coveralls](https://coveralls.io/github/dickschoeller/gedbrowser)
+  coverage analysis
+* ![](images/saucelabs-25.png)
+  [Sauce Labs](https://saucelabs.com/open_sauce/user/dickschoeller)
+  cross-browser testing
+* ![](images/versioneye-25.png)
+  [VersionEye](https://www.versioneye.com/user/projects/58987dc1f55eb2003257f7bd?child=summary#tab-dependencies)
+  dependency analysis
 
 ## Technology
 
