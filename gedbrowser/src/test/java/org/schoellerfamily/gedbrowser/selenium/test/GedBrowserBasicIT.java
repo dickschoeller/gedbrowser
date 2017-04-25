@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
+import org.junit.rules.TestWatcher;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -21,9 +22,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
-import com.saucelabs.junit.SauceOnDemandTestWatcher;
 
 /**
  * @author Dick Schoeller
@@ -55,33 +54,31 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     private PageWaiter waiter;
 
     /** */
+    private RemoteWebDriver driver;
+
+    /** */
     private SessionId sessionId;
 
     /**
-     * Constructs a {@link SauceOnDemandAuthentication} instance using the
-     * supplied user name/access key. To use the authentication supplied by
-     * environment variables or from an external file, use the no-arg
-     * {@link SauceOnDemandAuthentication} constructor.
+     * The factory that creates the appropriate test watcher based on current
+     * environment.
      */
-    private final SauceOnDemandAuthentication authentication =
-            new SauceOnDemandAuthentication(
-                    System.getenv("SAUCE_USERNAME"),
-                    System.getenv("SAUCE_ACCESS_KEY"));
+    private final TestWatcherFactory watcherFactory =
+            new SauceOnDemandWatcherFactory(this);
 
     /**
-     * JUnit Rule which will mark the Sauce Job as passed/failed when the test
-     * succeeds or fails.
+     * JUnit Rule which will watch test results. Depending on the environment,
+     * this could be watcher that marks the Sauce Job as passed/failed when the
+     * test completes.
      */
     @Rule
-    public SauceOnDemandTestWatcher resultReportingTestWatcher =
-        new SauceOnDemandTestWatcher(this, authentication);
+    public TestWatcher testWatcher = watcherFactory.createTestWatcher();
 
-    /** */
+    /**
+     * This rule makes the current test name available to various consumers.
+     */
     @Rule
     public TestName testName = new TestName();
-
-    /** */
-    private RemoteWebDriver driver;
 
     /**
      * {@inheritDoc}
@@ -89,7 +86,9 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     @Override
     public String getSessionId() {
         if (sessionId == null) {
-            logger.warn("SessionId is null");
+            logger.warn("********************** "
+                    + "SESSION ID IS NULL"
+                    + " *********************");
             return "";
         }
         return sessionId.toString();

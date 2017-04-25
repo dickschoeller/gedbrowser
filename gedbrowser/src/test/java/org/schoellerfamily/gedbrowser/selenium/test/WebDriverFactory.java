@@ -102,7 +102,6 @@ public class WebDriverFactory {
         return capabilities;
     }
 
-
     /**
      * @return true if SAUCE_USERNAME is defined in the environment
      */
