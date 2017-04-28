@@ -25,7 +25,8 @@ sed -i -e "s/$development_version/$release_version/" geoservice/src/main/resourc
 sed -i -e "s/$development_version/$release_version/" README.md
 
 # Fix published docker version
-sed -e "s/docker.image.tag.snapshot/docker.image.tag>$release_version/" pom.xml
+sed -i -e "s/docker.image.tag.snapshot/docker.image.tag>$release_version/" pom.xml
+sed -i -e 's/imageTag>snapshot/imageTag>latest/' gedbrowser/pom.xml geoservice/pom.xml
 
 # Sanity test. Exit on failure.
 mvn clean test
@@ -67,7 +68,8 @@ sed -i -e "s/$release_version/$new_development_version/" geoservice/src/main/res
 sed -i -e "s/$release_version/$new_development_version/" README.md
 
 # Fix published docker version
-sed -e "s/docker.image.tag.$release_version/docker.image.tag>snapshot/" pom.xml
+sed -i -e "s/docker.image.tag.$release_version/docker.image.tag>snapshot/" pom.xml
+sed -i -e 's/imageTag>snapshot/imageTag>latest/' gedbrowser/pom.xml geoservice/pom.xml
 
 git add -A
 git status
