@@ -1,3 +1,6 @@
+branches:
+  except: master
+
 language: java
 
 services:
@@ -68,31 +71,6 @@ after_success:
   - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=iexplore      -Dselenium.platform=win8  -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run'
   - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=MicrosoftEdge -Dselenium.platform=win10 -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run'
   - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=chrome        -Dselenium.platform=win10 -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run'
+  - ./config/before-deploy.sh
+  - ./config/deploy.sh
 #  - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=firefox       -Dselenium.platform=linux -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run'
-#  - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=htmlunit 2>&1 | grep -v org.apache.http
-
-
-#### old after_success stuff #####
-
-#  - ./config/docker-shakedown.sh
-#  - ./config/before-deploy.sh
-#  - ./config/deploy.sh
-#  - wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
-#  - mkdir -p /home/travis/bin
-#  - unzip chromedriver_linux64.zip -d /home/travis/bin/
-#  - sudo apt-get update
-#  - sudo apt-get install -y libappindicator1 fonts-liberation
-#  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-#  - sudo dpkg -i google-chrome*.deb
-#  - which google-chrome
-#  - export CHROME_DRIVER=/home/travis/bin/chromedriver
-#  - export CHROME_BIN=/usr/bin/google-chrome
-#  # - export CHROME="-Dwebdriver.chrome.driver=${CHROME_DRIVER} -Dchrome.binary=${CHROME_BIN}"
-#  - wget https://github.com/mozilla/geckodriver/releases/download/v0.14.0/geckodriver-v0.14.0-linux64.tar.gz
-#  - tar -xzf geckodriver-v0.14.0-linux64.tar.gz -C /home/travis/bin
-#  - export DISPLAY=:99.0
-#  - sh -e /etc/init.d/xvfb start
-#  - sleep 3
-#  - ps -ef | grep -i xvfb
-#  - cd gedbrowser-selenium
-#  - mvn integration-test --settings=../config/settings.xml -Pintegration-test -Dselenium.port=8080 -DprintNavigation=true ${CHROME}

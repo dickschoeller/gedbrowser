@@ -46,9 +46,6 @@
   </developers>
 
   <properties>
-    <docker.image.prefix>dickschoeller</docker.image.prefix>
-    <docker.image.tag>snapshot</docker.image.tag>
-
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -70,12 +67,21 @@
     <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
     <htmlunit-driver.version>2.26</htmlunit-driver.version>
 
+    <jxr-plugin.version>2.5</jxr-plugin.version>
+    <findbugs-plugin.version>3.0.4</findbugs-plugin.version>
+    <checkstyle-plugin.version>2.17</checkstyle-plugin.version>
+    <checkstyle-version>7.6.1</checkstyle-version>
+    <pmd-plugin.version>3.7</pmd-plugin.version>
     <!-- 5.6.0 has an incompatible API change. -->
     <!-- Can't upgrade until the maven-pmd-plugin is upgraded. -->
     <pmd-version>5.5.6</pmd-version>
-    <checkstyle-version>7.6.1</checkstyle-version>
+    <compiler-plugin.version>3.6.1</compiler-plugin.version>
     <failsafe.version>2.20</failsafe.version>
     <surefire.version>2.20</surefire.version>
+    <jacoco-plugin.version>0.7.9</jacoco-plugin.version>
+
+    <docker.image.prefix>dickschoeller</docker.image.prefix>
+    <docker.image.tag>snapshot</docker.image.tag>
 
     <config-dir>${project.basedir}/config</config-dir>
     <server.port>8080</server.port>
@@ -107,23 +113,23 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.5</version>
+        <version>${jxr-plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.4</version>
+        <version>${findbugs-plugin.version}</version>
       </plugin>
       <plugin>
         <!-- New vendor of checkstyle plugin out there. -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.17</version>
+        <version>${checkstyle-plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.7</version>
+        <version>${pmd-plugin.version}</version>
         <configuration>
           <linkXRef>true</linkXRef>
           <sourceEncoding>utf-8</sourceEncoding>
@@ -141,7 +147,7 @@
       <plugins>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.6.1</version>
+          <version>${compiler-plugin.version}</version>
           <configuration>
             <source>1.8</source>
             <target>1.8</target>
@@ -171,7 +177,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
-          <version>3.7</version>
+          <version>${pmd-plugin.version}</version>
           <dependencies>
             <dependency>
               <groupId>net.sourceforge.pmd</groupId>
@@ -233,7 +239,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>2.17</version>
+          <version>${checkstyle-plugin.version}</version>
           <dependencies>
             <dependency>
               <groupId>com.puppycrawl.tools</groupId>
@@ -254,7 +260,7 @@
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.7.9</version>
+          <version>${jacoco-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -477,6 +483,11 @@
         <groupId>com.saucelabs</groupId>
         <artifactId>sauce_junit</artifactId>
         <version>2.1.23</version>
+      </dependency>
+      <dependency>
+        <groupId>de.grundid.opendatalab</groupId>
+        <artifactId>geojson-jackson</artifactId>
+        <version>1.8</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
