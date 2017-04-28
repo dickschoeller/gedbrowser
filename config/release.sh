@@ -24,6 +24,9 @@ sed -i -e "s/$development_version/$release_version/" geoservice/src/main/java/or
 sed -i -e "s/$development_version/$release_version/" geoservice/src/main/resources/banner.txt
 sed -i -e "s/$development_version/$release_version/" README.md
 
+# Fix published docker version
+sed -e "s/docker.image.tag.snapshot/docker.image.tag>$release_version/" pom.xml
+
 # Sanity test. Exit on failure.
 mvn clean test
 rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
