@@ -54,7 +54,7 @@ before_script:
   - docker ps --all
 
 script:
-  - mvn install jacoco:report coveralls:report --settings=config/settings.xml -Ptravis-build -DrepoToken=${REPOTOKEN} -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json
+  - mvn install jacoco:report coveralls:report --settings=config/settings.xml -Ptravis-build -DrepoToken=${REPOTOKEN} -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -DpushImage -DpushImageTag
 
 # browser choices -  android, chrome, firefox, MicrosoftEdge, iexplore, safari,
 #                    operablink, konqueror, "internet explorer", iPhone, iPad,
@@ -71,6 +71,7 @@ after_success:
   - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=iexplore      -Dselenium.platform=win8  -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run'
   - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=MicrosoftEdge -Dselenium.platform=win10 -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run'
   - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=chrome        -Dselenium.platform=win10 -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run'
+  - cd ..
   - ./config/before-deploy.sh
   - ./config/deploy.sh
 #  - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=firefox       -Dselenium.platform=linux -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run'

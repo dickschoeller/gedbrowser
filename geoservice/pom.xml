@@ -155,6 +155,9 @@
               <goal>build</goal>
             </goals>
             <configuration>
+              <imageTags>
+                <imageTag>snapshot</imageTag>
+              </imageTags>
               <imageName>${docker.image.prefix}/${project.artifactId}:${docker.image.tag}</imageName>
               <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
               <skipDockerBuild>false</skipDockerBuild>
