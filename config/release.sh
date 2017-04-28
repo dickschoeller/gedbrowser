@@ -66,6 +66,9 @@ sed -i -e "s/$release_version/$new_development_version/" geoservice/src/main/jav
 sed -i -e "s/$release_version/$new_development_version/" geoservice/src/main/resources/banner.txt
 sed -i -e "s/$release_version/$new_development_version/" README.md
 
+# Fix published docker version
+sed -e "s/docker.image.tag.$release_version/docker.image.tag>snapshot/" pom.xml
+
 git add -A
 git status
 
