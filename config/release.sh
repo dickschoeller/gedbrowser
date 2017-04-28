@@ -12,8 +12,17 @@ new_development_version=${next_target}-SNAPSHOT
 git checkout master
 git merge development
 
-# Fix the pom files.
+# Fix the version numbers in files.
 sed -i -e "s/$development_version/$release_version/" pom.xml */pom.xml
+sed -i -e "s/$development_version/$release_version/" gedbrowser/src/test/java/org/schoellerfamily/gedbrowser/test/ApplicationInfoTest.java
+sed -i -e "s/$development_version/$release_version/" gedbrowser/src/main/docker/Dockerfile
+sed -i -e "s/$development_version/$release_version/" gedbrowser/src/main/resources/banner.txt
+sed -i -e "s/$development_version/$release_version/" gedbrowser-datamodel/src/main/java/org/schoellerfamily/gedbrowser/datamodel/GedObject.java
+sed -i -e "s/$development_version/$release_version/" geoservice/src/test/java/org/schoellerfamily/geoservice/test/ApplicationInfoTest.java
+sed -i -e "s/$development_version/$release_version/" geoservice/src/main/docker/Dockerfile
+sed -i -e "s/$development_version/$release_version/" geoservice/src/main/java/org/schoellerfamily/geoservice/controller/ApplicationInfo.java
+sed -i -e "s/$development_version/$release_version/" geoservice/src/main/resources/banner.txt
+sed -i -e "s/$development_version/$release_version/" README.md
 
 # Sanity test. Exit on failure.
 mvn clean test
@@ -44,6 +53,15 @@ git merge master
 
 # Fix up the pom files.
 sed -i -e "s/$release_version/$new_development_version/" pom.xml */pom.xml
+sed -i -e "s/$release_version/$new_development_version/" gedbrowser/src/test/java/org/schoellerfamily/gedbrowser/test/ApplicationInfoTest.java
+sed -i -e "s/$release_version/$new_development_version/" gedbrowser/src/main/docker/Dockerfile
+sed -i -e "s/$release_version/$new_development_version/" gedbrowser/src/main/resources/banner.txt
+sed -i -e "s/$release_version/$new_development_version/" gedbrowser-datamodel/src/main/java/org/schoellerfamily/gedbrowser/datamodel/GedObject.java
+sed -i -e "s/$release_version/$new_development_version/" geoservice/src/test/java/org/schoellerfamily/geoservice/test/ApplicationInfoTest.java
+sed -i -e "s/$release_version/$new_development_version/" geoservice/src/main/docker/Dockerfile
+sed -i -e "s/$release_version/$new_development_version/" geoservice/src/main/java/org/schoellerfamily/geoservice/controller/ApplicationInfo.java
+sed -i -e "s/$release_version/$new_development_version/" geoservice/src/main/resources/banner.txt
+sed -i -e "s/$release_version/$new_development_version/" README.md
 
 git add -A
 git status
