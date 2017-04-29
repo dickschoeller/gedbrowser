@@ -54,29 +54,19 @@ public class PersonController extends GeoDataController {
             final Model model) {
         logger.debug("Entering person");
 
-        final Root root = fetchRoot(dbName);
-        final Person person = fetchPerson(root, idString);
+        final Person person = fetchPerson(dbName, idString);
 
-        final RenderingContext renderingContext =
-                createRenderingContext();
+        final RenderingContext context = createRenderingContext();
 
-        final List<PlaceInfo> places = fetchPlaces(person, renderingContext);
-        final String key = getMapsKey();
+        final List<PlaceInfo> places = fetchPlaces(person, context);
         final Boolean showMap = !places.isEmpty();
-
-        final GedRenderer<?> nameRenderer =
-                new GedRendererFactory().create(
-                        person.getName(), renderingContext, calendarProvider());
-        final GedRenderer<?> personRenderer =
-                new GedRendererFactory().create(
-                        person, renderingContext, calendarProvider());
 
         final String filename = gedbrowserHome + "/" + dbName + ".ged";
         model.addAttribute("filename", filename);
-        model.addAttribute("name", nameRenderer.getNameHtml());
-        model.addAttribute("person", personRenderer);
+        model.addAttribute("name", nameHtml(context, person));
+        model.addAttribute("person", personRenderer(context, person));
         model.addAttribute("places", places);
-        model.addAttribute("key", key);
+        model.addAttribute("key", getMapsKey());
         model.addAttribute("showMap", showMap);
         model.addAttribute("appInfo", appInfo);
 
@@ -85,11 +75,12 @@ public class PersonController extends GeoDataController {
     }
 
     /**
-     * @param root the root object
+     * @param dbName the name of the database
      * @param idString the ID of the person
      * @return the person
      */
-    private Person fetchPerson(final Root root, final String idString) {
+    private Person fetchPerson(final String dbName, final String idString) {
+        final Root root = fetchRoot(dbName);
         final Person person = (Person) root.find(idString);
         if (person == null) {
             throw new PersonNotFoundException(
@@ -97,5 +88,43 @@ public class PersonController extends GeoDataController {
                     root.getDbName());
         }
         return person;
+    }
+
+    /**
+     * @param context the rendering context
+     * @param person the person being rendered
+     * @return the person renderer
+     */
+    private GedRenderer<?> personRenderer(final RenderingContext context,
+            final Person person) {
+        final GedRenderer<?> personRenderer =
+                new GedRendererFactory().create(
+                        person, context, calendarProvider());
+        return personRenderer;
+    }
+
+    /**
+     * Get the name string in an html fragment format.
+     *
+     * @param context the rendering context
+     * @param person the person being rendered
+     * @return the name string
+     */
+    private String nameHtml(final RenderingContext context,
+            final Person person) {
+        return nameRenderer(context, person).getNameHtml();
+    }
+
+    /**
+     * @param context the rendering context
+     * @param person the person being rendered
+     * @return the name renderer
+     */
+    private GedRenderer<?> nameRenderer(final RenderingContext context,
+            final Person person) {
+        final GedRenderer<?> nameRenderer =
+                new GedRendererFactory().create(
+                        person.getName(), context, calendarProvider());
+        return nameRenderer;
     }
 }
