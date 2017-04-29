@@ -300,7 +300,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
         <configuration>
-          <skip>${skip.integration.tests}</skip>
           <systemPropertyVariables>
             <server.port>${server.port}</server.port>
             <!-- selenium.version>${selenium.version}</selenium.version -->
@@ -330,6 +329,7 @@
               <goal>start</goal>
             </goals>
             <configuration>
+              <skip>${skip.integration.tests}</skip>
               <arguments>
                 <argument>--server.port=${server.port}</argument>
               </arguments>
@@ -340,6 +340,9 @@
             <goals>
               <goal>stop</goal>
             </goals>
+            <configuration>
+              <skip>${skip.integration.tests}</skip>
+            </configuration>
           </execution>
         </executions>
       </plugin>
