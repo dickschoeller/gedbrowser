@@ -2,10 +2,7 @@ package org.schoellerfamily.gedbrowser.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.LivingRenderer;
@@ -20,17 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Dick Schoeller
  */
 @Controller
-public class LivingController extends AbstractController {
+public class LivingController extends DatedDataController {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
-
-    /** */
-    @Autowired
-    private transient GedFileLoader loader;
-
-    /** */
-    @Autowired
-    private transient CalendarProvider provider;
 
     /** */
     @Autowired
@@ -55,14 +44,10 @@ public class LivingController extends AbstractController {
             final Model model) {
         logger.debug("Entering living");
 
-        final Root root = (Root) loader.load(dbName);
-        if (root == null) {
-            throw new DataSetNotFoundException(
-                    "Data set " + dbName + " not found", dbName);
-        }
+        final Root root = fetchRoot(dbName);
 
         final GedRenderer<?> gedRenderer = new LivingRenderer(root,
-                createRenderingContext(), provider);
+                createRenderingContext(), calendarProvider());
 
         model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
         model.addAttribute("living", gedRenderer);

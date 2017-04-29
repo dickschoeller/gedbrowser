@@ -4,20 +4,14 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
-import org.schoellerfamily.gedbrowser.renderer.PlaceListRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
-import org.schoellerfamily.geoservice.client.GeoServiceClient;
-import org.schoellerfamily.geoservice.keys.KeyManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -29,29 +23,13 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Dick Schoeller
  */
 @Controller
-public class PersonController extends AbstractController {
+public class PersonController extends GeoDataController {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
-    @Autowired
-    private transient GedFileLoader loader;
-
-    /** */
     @Value("${gedbrowser.home}")
     private transient String gedbrowserHome;
-
-    /** */
-    @Autowired
-    private transient GeoServiceClient client;
-
-    /** */
-    @Autowired
-    private transient KeyManager keyManager;
-
-    /** */
-    @Autowired
-    private transient CalendarProvider provider;
 
     /** */
     @Autowired
@@ -76,40 +54,27 @@ public class PersonController extends AbstractController {
             final Model model) {
         logger.debug("Entering person");
 
-        final Root root = (Root) loader.load(dbName);
-        if (root == null) {
-            throw new DataSetNotFoundException(
-                    "Data set " + dbName + " not found", dbName);
-        }
-        final Person person = (Person) root.find(idString);
-        if (person == null) {
-            throw new PersonNotFoundException(
-                    "Person " + idString + " not found", idString, dbName);
-        }
+        final Root root = fetchRoot(dbName);
+        final Person person = fetchPerson(root, idString);
 
         final RenderingContext renderingContext =
                 createRenderingContext();
 
-        final PlaceListRenderer pl = new PlaceListRenderer(person, client,
-                renderingContext, provider);
-        final List<PlaceInfo> places = pl.render();
-        for (final PlaceInfo place : places) {
-            this.logger.info(place);
-        }
-        final String key = keyManager.getMapsKey();
+        final List<PlaceInfo> places = fetchPlaces(person, renderingContext);
+        final String key = getMapsKey();
         final Boolean showMap = !places.isEmpty();
 
         final GedRenderer<?> nameRenderer =
                 new GedRendererFactory().create(
-                        person.getName(), renderingContext, provider);
-        final GedRenderer<?> gedRenderer =
+                        person.getName(), renderingContext, calendarProvider());
+        final GedRenderer<?> personRenderer =
                 new GedRendererFactory().create(
-                        person, renderingContext, provider);
+                        person, renderingContext, calendarProvider());
 
         final String filename = gedbrowserHome + "/" + dbName + ".ged";
         model.addAttribute("filename", filename);
         model.addAttribute("name", nameRenderer.getNameHtml());
-        model.addAttribute("person", gedRenderer);
+        model.addAttribute("person", personRenderer);
         model.addAttribute("places", places);
         model.addAttribute("key", key);
         model.addAttribute("showMap", showMap);
@@ -117,5 +82,20 @@ public class PersonController extends AbstractController {
 
         logger.debug("Exiting person");
         return "person";
+    }
+
+    /**
+     * @param root the root object
+     * @param idString the ID of the person
+     * @return the person
+     */
+    private Person fetchPerson(final Root root, final String idString) {
+        final Person person = (Person) root.find(idString);
+        if (person == null) {
+            throw new PersonNotFoundException(
+                    "Person " + idString + " not found", idString,
+                    root.getDbName());
+        }
+        return person;
     }
 }

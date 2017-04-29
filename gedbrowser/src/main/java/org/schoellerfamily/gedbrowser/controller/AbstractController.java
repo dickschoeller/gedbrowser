@@ -8,6 +8,8 @@ import org.schoellerfamily.gedbrowser.Users;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.SourceNotFoundException;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedResourceNotFoundRenderer;
 import org.schoellerfamily.gedbrowser.renderer.Renderer;
@@ -37,6 +39,10 @@ public abstract class AbstractController {
     @Autowired
     private transient Users users;
 
+    /** */
+    @Autowired
+    private transient GedFileLoader loader;
+
     /**
      * @return the rendering context
      */
@@ -49,6 +55,19 @@ public abstract class AbstractController {
                 new RenderingContextBuilder(
                         authentication, user, applicationInfo);
         return contextBuilder.build();
+    }
+
+    /**
+     * @param dbName the name of the database
+     * @return the root object
+     */
+    protected final Root fetchRoot(final String dbName) {
+        final Root root = (Root) loader.load(dbName);
+        if (root == null) {
+            throw new DataSetNotFoundException(
+                    "Data set " + dbName + " not found", dbName);
+        }
+        return root;
     }
 
     /**
