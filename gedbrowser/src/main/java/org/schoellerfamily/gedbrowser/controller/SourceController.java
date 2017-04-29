@@ -2,12 +2,9 @@ package org.schoellerfamily.gedbrowser.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.SourceNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
-import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -22,17 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Dick Schoeller
  */
 @Controller
-public class SourceController extends AbstractController {
+public class SourceController extends DatedDataController {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
-
-    /** */
-    @Autowired
-    private transient GedFileLoader loader;
-
-    /** */
-    @Autowired
-    private transient CalendarProvider provider;
 
     /** */
     @Autowired
@@ -61,11 +50,7 @@ public class SourceController extends AbstractController {
             final Model model) {
         logger.debug("Entering source");
 
-        final Root root = (Root) loader.load(dbName);
-        if (root == null) {
-            throw new DataSetNotFoundException(
-                    "Data set " + dbName + " not found", dbName);
-        }
+        final Root root = fetchRoot(dbName);
 
         final Source source = (Source) root.find(idString);
         if (source == null) {
@@ -73,12 +58,12 @@ public class SourceController extends AbstractController {
                     "Source " + idString + " not found", idString, dbName);
         }
 
-        final GedRenderer<?> gedRenderer = new GedRendererFactory()
-                .create(source, createRenderingContext(), provider);
+        final GedRenderer<?> sourceRenderer = new GedRendererFactory()
+                .create(source, createRenderingContext(), calendarProvider());
 
         model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
         model.addAttribute("sourceString", source.getString());
-        model.addAttribute("source", gedRenderer);
+        model.addAttribute("source", sourceRenderer);
         model.addAttribute("appInfo", appInfo);
         logger.debug("Exiting source");
         return "source";
