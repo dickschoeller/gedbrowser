@@ -87,8 +87,9 @@ public abstract class GedObject extends AbstractFinderObject {
     }
 
     /**
-     * @return the long version of the type string
+     * {@inheritDoc}
      */
+    @Override
     public final String getString() {
         return string;
     }
@@ -229,25 +230,6 @@ public abstract class GedObject extends AbstractFinderObject {
     @Override
     public final String toString() {
         return string;
-    }
-
-//    /**
-//     * @param gob the object to compare with this one
-//     * @return whether these are actually the same Java object
-//     */
-//    public final boolean sameAs(final GedObject gob) {
-//        return this == gob;
-//    }
-
-    /**
-     * @param gob object to insert
-     */
-    public final void insert(final GedObject gob) {
-        if (gob == null) {
-            return;
-        }
-        extraInsert(gob);
-        getFinder().insert(this, gob);
     }
 
     /**

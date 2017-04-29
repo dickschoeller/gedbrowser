@@ -66,11 +66,9 @@ public final class Root extends AbstractSpecialObject {
      * {@inheritDoc}
      */
     @Override
-    public void extraInsert(final FinderObject fob) {
-        // TODO without cast
-        final GedObject gob = (GedObject) fob;
-        objects.put(gob.getString(), gob);
-        addAttribute(gob);
+    public void extraInsert(final FinderObject gob) {
+        objects.put(gob.getString(), (GedObject) gob);
+        addAttribute((GedObject) gob);
     }
 
     /**

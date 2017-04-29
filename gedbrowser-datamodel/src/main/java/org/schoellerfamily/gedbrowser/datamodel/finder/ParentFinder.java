@@ -46,7 +46,6 @@ public final class ParentFinder implements FinderStrategy {
      */
     @Override
     public void insert(final FinderObject owner, final FinderObject gob) {
-        // TODO without cast?
         ((GedObject) owner).addAttribute((GedObject) gob);
     }
 

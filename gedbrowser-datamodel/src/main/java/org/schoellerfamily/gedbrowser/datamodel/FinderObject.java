@@ -8,7 +8,7 @@ import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
  * @author Dick Schoeller
  */
 public interface FinderObject
-    extends VisitableObject, ParentableObject, InsertableObject {
+    extends VisitableObject, ParentableObject, InsertableObject, StringObject {
     /**
      * @param <T> the type to return
      * @param str the ID string of the object you're looking for
