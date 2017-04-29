@@ -1,13 +1,10 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.appender.AppenderStrategy;
 import org.schoellerfamily.gedbrowser.datamodel.appender.GedAppender;
-import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
-import org.schoellerfamily.gedbrowser.datamodel.finder.ParentFinder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
@@ -15,7 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  */
 @SuppressWarnings({ "PMD.TooManyMethods",
     "PMD.GodClass" })
-public abstract class GedObject {
+public abstract class GedObject extends AbstractFinderObject {
 
     /** */
     protected static final String DEFAULT_IDX_NAME = "";
@@ -44,9 +41,6 @@ public abstract class GedObject {
     private final transient boolean set;
 
     /** */
-    private transient FinderStrategy finder;
-
-    /** */
     private transient AppenderStrategy appender;
 
     /** */
@@ -54,7 +48,6 @@ public abstract class GedObject {
         this.set = false;
         this.string = "";
         this.parent = null;
-        finder = new ParentFinder();
         appender = new GedAppender(this);
     }
 
@@ -66,7 +59,6 @@ public abstract class GedObject {
         this.string = "";
         this.parent = parent;
         this.set = true;
-        finder = new ParentFinder();
         appender = new GedAppender(this);
     }
 
@@ -84,7 +76,6 @@ public abstract class GedObject {
             this.string = string;
         }
         set = true;
-        finder = new ParentFinder();
         appender = new GedAppender(this);
     }
 
@@ -122,8 +113,9 @@ public abstract class GedObject {
     }
 
     /**
-     * @return the parent object of this object
+     * {@inheritDoc}
      */
+    @Override
     public final GedObject getParent() {
         return parent;
     }
@@ -218,59 +210,6 @@ public abstract class GedObject {
     }
 
     /**
-     * @param str the ID string of the object being sought
-     * @return the object found from the searching the top level object list
-     */
-    public final GedObject findInParent(final String str) {
-        if (parent == null) {
-            return null;
-        }
-        return parent.find(str);
-    }
-
-    /**
-     * @param <T> the type to return
-     * @param str the ID string of the object you're looking for
-     * @param clazz the class object of the type you're looking for
-     * @return the found object
-     */
-    public final <T extends GedObject> T findInParent(
-            final String str, final Class<T> clazz) {
-        return parent.find(str, clazz);
-    }
-
-    /**
-     * @param <T> the type to return
-     * @param str the ID string of the object you're looking for
-     * @param clazz the class object of the type you're looking for
-     * @return the found object
-     */
-    public final <T extends GedObject> T find(
-            final String str, final Class<T> clazz) {
-        return finder.find(this, str, clazz);
-    }
-
-    /**
-     * @return the filename provided by the parent
-     */
-    public final String getParentFilename() {
-        if (getParent() == null) {
-            return null;
-        }
-        return getParent().getFilename();
-    }
-
-    /**
-     * @return the filename provided by the parent
-     */
-    public final String getParentDbName() {
-        if (getParent() == null) {
-            return null;
-        }
-        return getParent().getDbName();
-    }
-
-    /**
      * @return the list of attributes and sub-objects for this object
      */
     public final List<GedObject> getAttributes() {
@@ -301,28 +240,6 @@ public abstract class GedObject {
 //    }
 
     /**
-     * @param str the ID string of the object being sought
-     * @return the object found from the searching the top level object list
-     */
-    public final GedObject find(final String str) {
-        return finder.find(this, str);
-    }
-
-    /**
-     * @return the filename associated with this data set
-     */
-    public final String getFilename() {
-        return finder.getFilename(this);
-    }
-
-    /**
-     * @return the filename associated with this data set
-     */
-    public final String getDbName() {
-        return finder.getDbName(this);
-    }
-
-    /**
      * @param gob object to insert
      */
     public final void insert(final GedObject gob) {
@@ -330,7 +247,7 @@ public abstract class GedObject {
             return;
         }
         extraInsert(gob);
-        finder.insert(this, gob);
+        getFinder().insert(this, gob);
     }
 
     /**
@@ -343,74 +260,12 @@ public abstract class GedObject {
     }
 
     /**
-     * Set the strategy that implements finding.
-     *
-     * @param finder the finder.
-     */
-    protected final void setFinder(final FinderStrategy finder) {
-        this.finder = finder;
-    }
-
-    /**
      * Set the strategy that implements appending.
      *
      * @param appender the appender.
      */
     protected final void setAppender(final AppenderStrategy appender) {
         this.appender = appender;
-    }
-
-    /**
-     * @param surname the surname of persons being sought.
-     * @return collection of matches.
-     */
-    public final Collection<Person> findInParentBySurname(
-            final String surname) {
-        if (parent == null) {
-            return null;
-        }
-
-        return parent.findBySurname(surname);
-    }
-
-    /**
-     * @param surname the surname of the persons being sought.
-     * @return collection of matches.
-     */
-    public final Collection<Person> findBySurname(final String surname) {
-        return finder.findBySurname(this, surname);
-    }
-
-    /**
-     * @param beginsWith the string that the surnames should beginWith.
-     * @return collection of matches.
-     */
-    public final Collection<String> findInParentBySurnamesBeginWith(
-            final String beginsWith) {
-        return parent.findBySurnamesBeginWith(beginsWith);
-    }
-
-    /**
-     * @param beginsWith the string that the surnames should beginWith.
-     * @return collection of matches.
-     */
-    public final Collection<String> findBySurnamesBeginWith(
-            final String beginsWith) {
-        return finder.findBySurnamesBeginWith(this, beginsWith);
-    }
-
-    /**
-     * @return the collection of initial letters
-     */
-    public final Collection<String> findInParentSurnameInitialLetters() {
-        return parent.findSurnameInitialLetters();
-    }
-
-    /**
-     * @return the collection of initial letters
-     */
-    public final Collection<String> findSurnameInitialLetters() {
-        return finder.findSurnameInitialLetters(this);
     }
 
     /**

@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.datamodel.finder;
 
 import java.util.Collection;
 
+import org.schoellerfamily.gedbrowser.datamodel.FinderObject;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
@@ -20,7 +21,7 @@ public final class ParentFinder implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public GedObject find(final GedObject owner, final String str) {
+    public GedObject find(final FinderObject owner, final String str) {
         return owner.findInParent(str);
     }
 
@@ -28,7 +29,7 @@ public final class ParentFinder implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public String getFilename(final GedObject owner) {
+    public String getFilename(final FinderObject owner) {
         return owner.getParentFilename();
     }
 
@@ -36,7 +37,7 @@ public final class ParentFinder implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public String getDbName(final GedObject owner) {
+    public String getDbName(final FinderObject owner) {
         return owner.getParentDbName();
     }
 
@@ -44,8 +45,9 @@ public final class ParentFinder implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public void insert(final GedObject owner, final GedObject gob) {
-        owner.addAttribute(gob);
+    public void insert(final FinderObject owner, final FinderObject gob) {
+        // TODO without cast?
+        ((GedObject) owner).addAttribute((GedObject) gob);
     }
 
     /**
@@ -53,7 +55,7 @@ public final class ParentFinder implements FinderStrategy {
      */
     @Override
     public <T extends GedObject> T find(
-            final GedObject owner, final String str, final Class<T> clazz) {
+            final FinderObject owner, final String str, final Class<T> clazz) {
         return owner.findInParent(str, clazz);
     }
 
@@ -61,7 +63,7 @@ public final class ParentFinder implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public Collection<Person> findBySurname(final GedObject owner,
+    public Collection<Person> findBySurname(final FinderObject owner,
             final String surname) {
         return owner.findInParentBySurname(surname);
     }
@@ -70,7 +72,7 @@ public final class ParentFinder implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public Collection<String> findBySurnamesBeginWith(final GedObject owner,
+    public Collection<String> findBySurnamesBeginWith(final FinderObject owner,
             final String beginsWith) {
         return owner.findInParentBySurnamesBeginWith(beginsWith);
     }
@@ -79,7 +81,8 @@ public final class ParentFinder implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public Collection<String> findSurnameInitialLetters(final GedObject owner) {
+    public Collection<String> findSurnameInitialLetters(
+            final FinderObject owner) {
         return owner.findInParentSurnameInitialLetters();
     }
 }

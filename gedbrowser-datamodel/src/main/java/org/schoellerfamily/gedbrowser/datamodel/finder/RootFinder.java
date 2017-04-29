@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.schoellerfamily.gedbrowser.datamodel.FinderObject;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -28,7 +29,7 @@ public final class RootFinder implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public GedObject find(final GedObject owner, final String str) {
+    public GedObject find(final FinderObject owner, final String str) {
         final Root root = (Root) owner;
         return root.getObjects().get(str);
     }
@@ -37,7 +38,7 @@ public final class RootFinder implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public void insert(final GedObject owner, final GedObject gob) {
+    public void insert(final FinderObject owner, final FinderObject gob) {
         final Root root = (Root) owner;
         root.extraInsert(gob);
     }
@@ -47,7 +48,7 @@ public final class RootFinder implements FinderStrategy {
      */
     @Override
     public <T extends GedObject> T find(
-            final GedObject owner, final String str, final Class<T> clazz) {
+            final FinderObject owner, final String str, final Class<T> clazz) {
         return clazz.cast(owner.find(str));
     }
 
@@ -55,7 +56,7 @@ public final class RootFinder implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public String getFilename(final GedObject owner) {
+    public String getFilename(final FinderObject owner) {
         final Root root = (Root) owner;
         return root.getTheFilename();
     }
@@ -64,7 +65,7 @@ public final class RootFinder implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public String getDbName(final GedObject owner) {
+    public String getDbName(final FinderObject owner) {
         final Root root = (Root) owner;
         return root.getTheDbName();
     }
@@ -73,7 +74,7 @@ public final class RootFinder implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public Collection<Person> findBySurname(final GedObject owner,
+    public Collection<Person> findBySurname(final FinderObject owner,
             final String surname) {
         final Root root = (Root) owner;
         final RootVisitor visitor = new RootVisitor();
@@ -95,7 +96,7 @@ public final class RootFinder implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public Collection<String> findBySurnamesBeginWith(final GedObject owner,
+    public Collection<String> findBySurnamesBeginWith(final FinderObject owner,
             final String beginsWith) {
         final Root root = (Root) owner;
         final RootVisitor visitor = new RootVisitor();
@@ -114,7 +115,8 @@ public final class RootFinder implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public Collection<String> findSurnameInitialLetters(final GedObject owner) {
+    public Collection<String> findSurnameInitialLetters(
+            final FinderObject owner) {
         final Root root = (Root) owner;
         final RootVisitor visitor = new RootVisitor();
         root.accept(visitor);
