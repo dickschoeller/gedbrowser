@@ -20,10 +20,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class HeadDocumentMongo extends GedDocumentMongo<Head>
         implements HeadDocument {
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public HeadDocumentMongo() {
-        setType("head");
+    @Override
+    public final String getType() {
+        return "head";
     }
 
     /**

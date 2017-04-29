@@ -11,10 +11,11 @@ import org.schoellerfamily.gedbrowser.persistence.domain.SourceLinkDocument;
 public class SourceLinkDocumentMongo extends GedDocumentMongo<SourceLink>
         implements SourceLinkDocument {
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public SourceLinkDocumentMongo() {
-        setType("sourcelink");
+    @Override
+    public final String getType() {
+        return "sourcelink";
     }
 
     /**

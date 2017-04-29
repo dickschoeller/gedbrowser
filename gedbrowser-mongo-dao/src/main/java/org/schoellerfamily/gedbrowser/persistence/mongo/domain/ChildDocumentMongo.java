@@ -11,10 +11,11 @@ import org.schoellerfamily.gedbrowser.persistence.domain.ChildDocument;
 public class ChildDocumentMongo extends GedDocumentMongo<Child>
         implements ChildDocument {
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public ChildDocumentMongo() {
-        setType("child");
+    @Override
+    public final String getType() {
+        return "child";
     }
 
     /**

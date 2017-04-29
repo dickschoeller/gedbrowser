@@ -11,10 +11,11 @@ import org.schoellerfamily.gedbrowser.persistence.domain.SubmittorLinkDocument;
 public class SubmittorLinkDocumentMongo extends GedDocumentMongo<SubmittorLink>
         implements SubmittorLinkDocument {
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public SubmittorLinkDocumentMongo() {
-        setType("submittorlink");
+    @Override
+    public final String getType() {
+        return "submittorlink";
     }
 
     /**

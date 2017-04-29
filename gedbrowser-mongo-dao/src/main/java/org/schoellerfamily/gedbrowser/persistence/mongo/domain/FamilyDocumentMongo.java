@@ -20,10 +20,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class FamilyDocumentMongo extends GedDocumentMongo<Family>
         implements FamilyDocument {
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public FamilyDocumentMongo() {
-        setType("family");
+    @Override
+    public final String getType() {
+        return "family";
     }
 
     /**

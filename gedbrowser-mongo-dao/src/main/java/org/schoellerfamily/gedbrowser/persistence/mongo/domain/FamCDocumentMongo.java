@@ -11,10 +11,11 @@ import org.schoellerfamily.gedbrowser.persistence.domain.FamCDocument;
 public class FamCDocumentMongo extends GedDocumentMongo<FamC>
         implements FamCDocument {
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public FamCDocumentMongo() {
-        setType("famc");
+    @Override
+    public final String getType() {
+        return "famc";
     }
 
     /**

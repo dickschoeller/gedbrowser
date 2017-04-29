@@ -20,10 +20,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class RootDocumentMongo extends GedDocumentMongo<Root>
         implements RootDocument {
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public RootDocumentMongo() {
-        setType("root");
+    @Override
+    public final String getType() {
+        return "root";
     }
 
     /**

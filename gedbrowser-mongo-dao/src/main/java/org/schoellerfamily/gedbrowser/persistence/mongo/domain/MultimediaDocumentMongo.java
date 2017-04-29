@@ -14,10 +14,11 @@ public class MultimediaDocumentMongo extends GedDocumentMongo<Multimedia>
     private String tail;
 
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public MultimediaDocumentMongo() {
-        this.setType("multimedia");
+    @Override
+    public final String getType() {
+        return "multimedia";
     }
 
     /**

@@ -300,6 +300,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
         <configuration>
+          <skip>${skip.integration.tests}</skip>
           <systemPropertyVariables>
             <server.port>${server.port}</server.port>
             <!-- selenium.version>${selenium.version}</selenium.version -->
@@ -317,9 +318,6 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <skip>${skip.integration.tests}</skip>
-        </configuration>
         <executions>
           <execution>
             <goals>

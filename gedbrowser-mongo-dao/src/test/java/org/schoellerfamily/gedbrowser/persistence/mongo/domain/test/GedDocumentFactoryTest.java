@@ -239,9 +239,14 @@ public final class GedDocumentFactoryTest {
     public void testCreateGed() {
         @SuppressWarnings("PMD.NonStaticInitializer")
         final GedDocument<?> gmd = new GedDocumentMongo<GedObject>() {
-            {
-                setType("foo");
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public String getType() {
+                return "foo";
             }
+
             /**
              * {@inheritDoc}
              */

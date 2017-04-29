@@ -11,10 +11,11 @@ import org.schoellerfamily.gedbrowser.persistence.domain.DateDocument;
 public class DateDocumentMongo extends GedDocumentMongo<Date>
         implements DateDocument {
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public DateDocumentMongo() {
-        setType("date");
+    @Override
+    public final String getType() {
+        return "date";
     }
 
     /**

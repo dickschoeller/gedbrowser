@@ -21,9 +21,6 @@ public abstract class GedDocumentMongo<G extends GedObject>
     private String idString;
 
     /** */
-    private String type;
-
-    /** */
     @Indexed
     private String string;
 
@@ -57,22 +54,6 @@ public abstract class GedDocumentMongo<G extends GedObject>
     @Override
     public final void setIdString(final String idString) {
         this.idString = idString;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final String getType() {
-        return type;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final void setType(final String type) {
-        this.type = type;
     }
 
     /**

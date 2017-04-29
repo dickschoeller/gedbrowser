@@ -9,10 +9,11 @@ import org.schoellerfamily.gedbrowser.persistence.PersistenceException;
  */
 public class NameDocumentMongo extends GedDocumentMongo<Name> {
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public NameDocumentMongo() {
-        setType("name");
+    @Override
+    public final String getType() {
+        return "name";
     }
 
     /**
