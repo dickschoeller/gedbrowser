@@ -20,10 +20,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class TrailerDocumentMongo extends GedDocumentMongo<Trailer>
         implements TrailerDocument {
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public TrailerDocumentMongo() {
-        setType("trailer");
+    @Override
+    public final String getType() {
+        return "trailer";
     }
 
     /**

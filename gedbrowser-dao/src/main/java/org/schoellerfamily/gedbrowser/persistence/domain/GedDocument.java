@@ -26,11 +26,6 @@ public interface GedDocument<G extends GedObject> {
     String getType();
 
     /**
-     * @param type the type to set
-     */
-    void setType(String type);
-
-    /**
      * @return the string
      */
     String getString();

@@ -11,10 +11,11 @@ import org.schoellerfamily.gedbrowser.persistence.domain.PlaceDocument;
 public class PlaceDocumentMongo extends GedDocumentMongo<Place>
         implements PlaceDocument {
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public PlaceDocumentMongo() {
-        setType("place");
+    @Override
+    public final String getType() {
+        return "place";
     }
 
     /**

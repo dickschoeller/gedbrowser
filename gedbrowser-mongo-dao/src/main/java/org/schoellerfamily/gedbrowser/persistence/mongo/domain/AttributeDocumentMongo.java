@@ -14,10 +14,11 @@ public class AttributeDocumentMongo extends GedDocumentMongo<Attribute>
     private String tail;
 
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public AttributeDocumentMongo() {
-        this.setType("attribute");
+    @Override
+    public final String getType() {
+        return "attribute";
     }
 
     /**

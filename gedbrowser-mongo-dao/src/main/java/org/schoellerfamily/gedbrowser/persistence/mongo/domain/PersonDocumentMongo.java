@@ -25,10 +25,11 @@ public class PersonDocumentMongo extends GedDocumentMongo<Person>
     private String surname;
 
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public PersonDocumentMongo() {
-        setType("person");
+    @Override
+    public final String getType() {
+        return "person";
     }
 
     /**

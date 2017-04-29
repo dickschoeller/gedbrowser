@@ -20,10 +20,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class SourceDocumentMongo extends GedDocumentMongo<Source>
         implements SourceDocument {
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public SourceDocumentMongo() {
-        setType("source");
+    @Override
+    public final String getType() {
+        return "source";
     }
 
     /**

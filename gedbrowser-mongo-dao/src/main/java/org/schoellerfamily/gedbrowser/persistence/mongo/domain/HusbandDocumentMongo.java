@@ -11,10 +11,11 @@ import org.schoellerfamily.gedbrowser.persistence.domain.HusbandDocument;
 public class HusbandDocumentMongo extends GedDocumentMongo<Husband>
         implements HusbandDocument {
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public HusbandDocumentMongo() {
-        setType("husband");
+    @Override
+    public final String getType() {
+        return "husband";
     }
 
     /**

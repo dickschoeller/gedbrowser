@@ -20,10 +20,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class SubmittorDocumentMongo extends GedDocumentMongo<Submittor>
         implements SubmittorDocument {
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public SubmittorDocumentMongo() {
-        setType("submittor");
+    @Override
+    public final String getType() {
+        return "submittor";
     }
 
     /**
