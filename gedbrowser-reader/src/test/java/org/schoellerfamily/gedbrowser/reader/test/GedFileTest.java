@@ -8,11 +8,12 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLine;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObject;
 import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 
 /**
@@ -23,6 +24,11 @@ public final class GedFileTest {
     private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
+     * Converts AbstractGedLine hierarchy to GedObject hierarchy.
+     */
+    private final transient GedLineToGedObject g2g = new GedLineToGedObject();
+
+    /**
      * Test GedLine with an array input.
      *
      * @throws IOException never.
@@ -31,7 +37,7 @@ public final class GedFileTest {
     public void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = readFileTestSource();
         logger.info(top.toString());
-        final GedObject root = top.createGedObject((AbstractGedLine) null);
+        final Root root = g2g.create(top);
         final String out = root.toString();
         logger.info(out);
 

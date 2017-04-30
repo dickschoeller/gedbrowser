@@ -14,6 +14,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.geographics.Places;
 import org.schoellerfamily.gedbrowser.geographics.RootPlaces;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObject;
 import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 
 /**
@@ -22,6 +23,11 @@ import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 public class RootPlacesTest {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
+
+    /**
+     * Converts AbstractGedLine hierarchy to GedObject hierarchy.
+     */
+    private final transient GedLineToGedObject g2g = new GedLineToGedObject();
 
     /**
      * Right now, reads and dumps. Just checking for apparent
@@ -33,7 +39,7 @@ public class RootPlacesTest {
     public final void testRootPlacesMini() throws IOException {
         final AbstractGedLine top =
                 ReaderHelper.readFileTestSource(this, "mini-schoeller.ged");
-        final Root root = (Root) top.createGedObject((AbstractGedLine) null);
+        final Root root = g2g.create(top);
         final Places rootPlaces = new RootPlaces(root);
         final Collection<Place> places = rootPlaces.getPlaces();
         final int expectedSize = 18;
@@ -51,7 +57,7 @@ public class RootPlacesTest {
     public final void testRootPlacesFull() throws IOException {
         final AbstractGedLine top =
                 ReaderHelper.readFileTestSource(this, "gl120368.ged");
-        final Root root = (Root) top.createGedObject((AbstractGedLine) null);
+        final Root root = g2g.create(top);
         final Places rootPlaces = new RootPlaces(root);
         final Collection<Place> places = rootPlaces.getPlaces();
         dump(places);

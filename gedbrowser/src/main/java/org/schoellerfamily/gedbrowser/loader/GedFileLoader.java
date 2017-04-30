@@ -20,8 +20,8 @@ import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedFile;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
@@ -34,13 +34,23 @@ public class GedFileLoader {
     /** Logger. */
     private final Log logger = LogFactory.getLog(getClass());
 
-    /** */
+    /**
+     * Manages the persistence repository.
+     */
     @Autowired
     private transient RepositoryManagerMongo repositoryManager;
 
-    /** */
+    /**
+     * Implements finding other objects.
+     */
     @Autowired
     private transient FinderStrategy finder;
+
+    /**
+     * Converts AbstractGedLine hierarchy to GedObject hierarchy.
+     */
+    @Autowired
+    private transient GedLineToGedObject g2g;
 
     /** */
     @Value("${gedbrowser.home}")
@@ -119,8 +129,7 @@ public class GedFileLoader {
      */
     private Root createRoot(final String dbName, final String filename,
             final GedFile gedFile) {
-        Root root;
-        root = (Root) gedFile.createGedObject((AbstractGedLine) null);
+        final Root root = g2g.create(gedFile);
         root.setString("Root");
         root.setFilename(filename);
         root.setDbName(dbName);

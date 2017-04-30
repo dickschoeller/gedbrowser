@@ -25,6 +25,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     SubmittorDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     TrailerDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObject;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.schoellerfamily.geoservice.client.GeoServiceClientImpl;
@@ -171,5 +172,13 @@ public class MongoConfiguration {
     @Bean
     public RepositoryManagerMongo repositoryManager() {
         return new RepositoryManagerMongo();
+    }
+
+    /**
+     * @return convert for AbstractGedLine hierarchy to GedObject hierarchy
+     */
+    @Bean
+    public GedLineToGedObject g2g() {
+        return new GedLineToGedObject();
     }
 }

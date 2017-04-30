@@ -9,7 +9,7 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
  *
  * @author Dick Schoeller
  */
-public abstract class AbstractSingleGedLine implements GedObjectCreator {
+public abstract class AbstractSingleGedLine implements GedObjectHolder {
     /** */
     private final transient int lineNumber;
     /** */
@@ -97,19 +97,17 @@ public abstract class AbstractSingleGedLine implements GedObjectCreator {
     }
 
     /**
-     * Sets the GedObject associated with this line.
-     *
-     * @param gedObject the GedObject
+     * {@inheritDoc}
      */
+    @Override
     public final void setGedObject(final GedObject gedObject) {
         this.gedObject = gedObject;
     }
 
     /**
-     * Gets the GedObject associated with this line.
-     *
-     * @return the GedObject
+     * {@inheritDoc}
      */
+    @Override
     public final GedObject getGedObject() {
         return gedObject;
     }

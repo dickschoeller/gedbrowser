@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLine;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObject;
 import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 
 /**
@@ -17,7 +18,6 @@ public final class TestDataReader {
      * Reader singleton.
      */
     private static final TestDataReader INSTANCE = new TestDataReader();
-
 
     /**
      * Embed some GEDCOM right here in the source. That allows us to test
@@ -358,6 +358,11 @@ public final class TestDataReader {
             "1 FAMC @F2@", "0 TRLR" };
 
     /**
+     * Converts AbstractGedLine hierarchy to GedObject hierarchy.
+     */
+    private final transient GedLineToGedObject g2g = new GedLineToGedObject();
+
+    /**
      * Private default constructor to prevent instantiation.
      */
     private TestDataReader() {
@@ -372,7 +377,7 @@ public final class TestDataReader {
     public GedObject readBigTestSource() throws IOException {
         final AbstractGedLine top = new GedLine(A_SOURCE);
         top.readToNext();
-        return top.createGedObject((AbstractGedLine) null);
+        return g2g.create(top);
     }
 
     /**
@@ -384,7 +389,7 @@ public final class TestDataReader {
     public GedObject readSmallTestSource() throws IOException {
         final AbstractGedLine top = new GedLine(A_SOURCE_SHORT);
         top.readToNext();
-        return top.createGedObject((AbstractGedLine) null);
+        return g2g.create(top);
     }
 
     /**
@@ -394,10 +399,10 @@ public final class TestDataReader {
      * @throws IOException because the file reader might throw.
      */
     public GedObject readFileTestSource() throws IOException {
-        final AbstractGedLine agl =
+        final AbstractGedLine top =
                 ReaderHelper.readFileTestSource(this, "gl120368.ged");
-        agl.readToNext();
-        return agl.createGedObject((AbstractGedLine) null);
+        top.readToNext();
+        return g2g.create(top);
     }
 
     /**

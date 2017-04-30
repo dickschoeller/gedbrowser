@@ -5,18 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
-import org.schoellerfamily.gedbrowser.reader.AbstractGedObjectFactory.GedObjectFactory;
-
 /**
  * Base of GedLine and GedFile.
  *
  * @author Dick Schoeller
  */
 public abstract class AbstractGedLine extends AbstractSingleGedLine {
-    /** */
-    private static final GedObjectFactory GOB_FACTORY = new GedObjectFactory();
-
     /** */
     private final transient GedLineSource source;
 
@@ -88,18 +82,6 @@ public abstract class AbstractGedLine extends AbstractSingleGedLine {
     }
 
     /**
-     * Create the GedObjects for the child lines.
-     *
-     * @param subObject the GedObject whose children are to be created.
-     */
-    public final void createChildren(final GedObject subObject) {
-        for (final AbstractGedLine child : getChildren()) {
-            final GedObject childGob = child.createGedObject(this);
-            subObject.insert(childGob);
-        }
-    }
-
-    /**
      * Read the source data until the a line is encountered at the same level as
      * this one. That allows the reading of children.
      *
@@ -148,9 +130,7 @@ public abstract class AbstractGedLine extends AbstractSingleGedLine {
     }
 
     /**
-     * @return the GedObjectFactory
+     * @param visitor the visiting object
      */
-    public static GedObjectFactory getGobFactory() {
-        return GOB_FACTORY;
-    }
+    public abstract void accept(GedLineVisitor visitor);
 }

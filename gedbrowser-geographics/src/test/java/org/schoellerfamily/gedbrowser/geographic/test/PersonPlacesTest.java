@@ -15,6 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.geographics.PersonPlaces;
 import org.schoellerfamily.gedbrowser.geographics.Places;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObject;
 import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 
 /**
@@ -23,6 +24,11 @@ import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 public final class PersonPlacesTest {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
+
+    /**
+     * Converts AbstractGedLine hierarchy to GedObject hierarchy.
+     */
+    private final transient GedLineToGedObject g2g = new GedLineToGedObject();
 
     /**
      * Test against the known data for Arnold Robinson.
@@ -35,7 +41,7 @@ public final class PersonPlacesTest {
         final AbstractGedLine top =
                 ReaderHelper.readFileTestSource(this,
                         "mini-schoeller.ged");
-        final Root root = (Root) top.createGedObject((AbstractGedLine) null);
+        final Root root = g2g.create(top);
         final Person person = (Person) root.find("I7");
         final PersonPlaces personPlaces = new PersonPlaces(person);
         final Collection<Place> places = personPlaces.getPlaces();
@@ -88,7 +94,7 @@ public final class PersonPlacesTest {
         final AbstractGedLine top =
                 ReaderHelper.readFileTestSource(this,
                         "mini-schoeller.ged");
-        final Root root = (Root) top.createGedObject((AbstractGedLine) null);
+        final Root root = g2g.create(top);
         final Person person = (Person) root.find("I2");
         final Places personPlaces = new PersonPlaces(person);
         final Collection<Place> places = personPlaces.getPlaces();

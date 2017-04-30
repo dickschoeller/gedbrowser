@@ -13,9 +13,10 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObject;
 import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 
 /**
@@ -26,8 +27,17 @@ public final class LivingEstimatorTest {
     private static final int AGE_BUCKET_SIZE = 10;
     /** Anybody estimated at over 100 is assumed dead. */
     private static final int AGE_CUTOFF_FOR_LIVING_CHECK = 100;
-    /** Provides the "today" for use in comparisons. */
-    private final CalendarProvider provider = new CalendarProviderStub();
+
+    /**
+     * Provides the "today" for use in comparisons.
+     */
+    private final transient CalendarProvider provider =
+            new CalendarProviderStub();
+
+    /**
+     * Converts AbstractGedLine hierarchy to GedObject hierarchy.
+     */
+    private final transient GedLineToGedObject g2g = new GedLineToGedObject();
 
     /**
      * Smoke test and dump the listing by bucket group.
@@ -38,7 +48,7 @@ public final class LivingEstimatorTest {
     public void testFactoryGedFile() throws IOException {
         final AbstractGedLine top =
                 ReaderHelper.readFileTestSource(this, "gl120368.ged");
-        final GedObject root = top.createGedObject((AbstractGedLine) null);
+        final Root root = g2g.create(top);
         final List<Person> living = new ArrayList<>();
         final Map<Integer, Set<Person>> buckets = new HashMap<>();
         final List<Person> dead = new ArrayList<>();
