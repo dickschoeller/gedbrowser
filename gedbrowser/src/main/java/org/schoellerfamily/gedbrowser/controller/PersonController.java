@@ -97,10 +97,8 @@ public class PersonController extends GeoDataController {
      */
     private GedRenderer<?> personRenderer(final RenderingContext context,
             final Person person) {
-        final GedRenderer<?> personRenderer =
-                new GedRendererFactory().create(
-                        person, context, calendarProvider());
-        return personRenderer;
+        return new GedRendererFactory().create(
+                person, context, calendarProvider());
     }
 
     /**
@@ -122,9 +120,7 @@ public class PersonController extends GeoDataController {
      */
     private GedRenderer<?> nameRenderer(final RenderingContext context,
             final Person person) {
-        final GedRenderer<?> nameRenderer =
-                new GedRendererFactory().create(
-                        person.getName(), context, calendarProvider());
-        return nameRenderer;
+        return new GedRendererFactory().create(
+                person.getName(), context, calendarProvider());
     }
 }
