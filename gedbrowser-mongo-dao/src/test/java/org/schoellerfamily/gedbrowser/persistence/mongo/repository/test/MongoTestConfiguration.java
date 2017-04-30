@@ -14,7 +14,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentR
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmittorDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.reader.GedLineToGedObject;
+import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -111,7 +111,7 @@ public class MongoTestConfiguration {
      * @return convert for AbstractGedLine hierarchy to GedObject hierarchy
      */
     @Bean
-    public GedLineToGedObject g2g() {
-        return new GedLineToGedObject();
+    public GedObjectCreator g2g() {
+        return new GedObjectCreator();
     }
 }

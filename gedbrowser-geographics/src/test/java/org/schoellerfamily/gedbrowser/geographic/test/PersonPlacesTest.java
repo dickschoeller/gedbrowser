@@ -9,26 +9,31 @@ import java.util.Collection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.geographics.PersonPlaces;
 import org.schoellerfamily.gedbrowser.geographics.Places;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
-import org.schoellerfamily.gedbrowser.reader.GedLineToGedObject;
+import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
 import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class PersonPlacesTest {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
-    /**
-     * Converts AbstractGedLine hierarchy to GedObject hierarchy.
-     */
-    private final transient GedLineToGedObject g2g = new GedLineToGedObject();
+    /** */
+    @Autowired
+    private transient GedObjectCreator g2g;
 
     /**
      * Test against the known data for Arnold Robinson.

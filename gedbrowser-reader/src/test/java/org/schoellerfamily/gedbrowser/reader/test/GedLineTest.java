@@ -8,18 +8,24 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLine;
-import org.schoellerfamily.gedbrowser.reader.GedLineToGedObject;
+import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Test GedLine.
  *
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class GedLineTest {
     /**
      * Embed some GEDCOM right here in the source. That allows us to test
@@ -333,10 +339,9 @@ public final class GedLineTest {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
-    /**
-     * Converts AbstractGedLine hierarchy to GedObject hierarchy.
-     */
-    private final transient GedLineToGedObject g2g = new GedLineToGedObject();
+    /** */
+    @Autowired
+    private transient GedObjectCreator g2g;
 
     /**
      * Test GedLine with an array input.

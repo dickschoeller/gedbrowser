@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLine;
-import org.schoellerfamily.gedbrowser.reader.GedLineToGedObject;
+import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
 import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 
 /**
@@ -360,7 +360,7 @@ public final class TestDataReader {
     /**
      * Converts AbstractGedLine hierarchy to GedObject hierarchy.
      */
-    private final transient GedLineToGedObject g2g = new GedLineToGedObject();
+    private final transient GedObjectCreator g2g = new GedObjectCreator();
 
     /**
      * Private default constructor to prevent instantiation.

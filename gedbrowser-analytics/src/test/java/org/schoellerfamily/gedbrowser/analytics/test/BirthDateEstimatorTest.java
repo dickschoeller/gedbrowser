@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.joda.time.LocalDate;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.analytics.BirthDateEstimator;
 import org.schoellerfamily.gedbrowser.analytics.order.test.AnalyzerTest;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -21,21 +22,25 @@ import org.schoellerfamily.gedbrowser.datamodel.util.FamilyBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
-import org.schoellerfamily.gedbrowser.reader.GedLineToGedObject;
+import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
 import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessiveClassLength" })
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class BirthDateEstimatorTest implements AnalyzerTest {
     /** */
-    private final GedObjectBuilder builder = new GedObjectBuilder();
-
-    /**
-     * Converts AbstractGedLine hierarchy to GedObject hierarchy.
-     */
-    private final transient GedLineToGedObject g2g = new GedLineToGedObject();
+    @Autowired
+    private GedObjectBuilder builder;
+    /** */
+    @Autowired
+    private transient GedObjectCreator g2g;
 
     /**
      * {@inheritDoc}

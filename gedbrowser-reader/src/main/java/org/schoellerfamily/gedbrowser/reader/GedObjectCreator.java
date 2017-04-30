@@ -7,7 +7,7 @@ import org.schoellerfamily.gedbrowser.reader.AbstractGedObjectFactory.GedObjectF
  * @author Dick Schoeller
  *
  */
-public final class GedLineToGedObject {
+public final class GedObjectCreator {
     /** */
     private final GedObjectFactory factory = new GedObjectFactory();
 

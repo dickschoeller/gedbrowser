@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.joda.time.LocalDate;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.analytics.BirthDateFromAncestorsEstimator;
 import org.schoellerfamily.gedbrowser.analytics.order.test.AnalyzerTest;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
@@ -11,13 +12,19 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.FamilyBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
     /** */
-    private final GedObjectBuilder builder = new GedObjectBuilder();
+    @Autowired
+    private GedObjectBuilder builder;
 
     /**
      * {@inheritDoc}
