@@ -10,7 +10,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.dao.mongo.TestDataReader;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -27,6 +26,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumen
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -66,6 +66,10 @@ public final class HeadRepositoryTest {
     private transient RepositoryFixture repositoryFixture;
 
     /** */
+    @Autowired
+    private transient TestDataReader reader;
+
+    /** */
     private transient Root root;
 
     /** */
@@ -78,7 +82,7 @@ public final class HeadRepositoryTest {
     public void setUp() throws IOException {
         repositoryFixture.clearRepository();
 
-        root = (Root) TestDataReader.getInstance().readBigTestSource();
+        root = reader.readBigTestSource();
         root.setFilename("bigtest");
         final Map<String, GedObject> map = root.getObjects();
         for (final GedObject ged : map.values()) {

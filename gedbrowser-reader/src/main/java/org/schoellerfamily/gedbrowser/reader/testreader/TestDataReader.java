@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.renderer.test;
+package org.schoellerfamily.gedbrowser.reader.testreader;
 
 import java.io.IOException;
 
@@ -7,15 +7,15 @@ import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLine;
 import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
 import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Dick Schoeller
  */
 public final class TestDataReader {
-    /**
-     * Reader singleton.
-     */
-    private static final TestDataReader INSTANCE = new TestDataReader();
+    /** */
+    @Autowired
+    private transient GedObjectCreator g2g;
 
     /**
      * Embed some GEDCOM right here in the source. That allows us to test
@@ -358,14 +358,10 @@ public final class TestDataReader {
             "1 FAMC @F2@", "0 TRLR" };
 
     /**
-     * Converts AbstractGedLine hierarchy to GedObject hierarchy.
-     */
-    private final transient GedObjectCreator g2g = new GedObjectCreator();
-
-    /**
      * Private default constructor to prevent instantiation.
      */
-    private TestDataReader() {
+    public TestDataReader() {
+        // Empty
     }
 
     /**
@@ -403,14 +399,5 @@ public final class TestDataReader {
                 ReaderHelper.readFileTestSource(this, "gl120368.ged");
         top.readToNext();
         return g2g.create(top);
-    }
-
-    /**
-     * Get the singleton.
-     *
-     * @return the singleton.
-     */
-    public static TestDataReader getInstance() {
-        return INSTANCE;
     }
 }

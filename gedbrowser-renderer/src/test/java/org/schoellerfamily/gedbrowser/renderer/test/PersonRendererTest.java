@@ -8,12 +8,13 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
+import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.CellRenderer;
 import org.schoellerfamily.gedbrowser.renderer.CellRow;
@@ -27,12 +28,28 @@ import org.schoellerfamily.gedbrowser.renderer.PersonNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.ExcessivePublicCount", "PMD.ExcessiveClassLength" })
+@SuppressWarnings({ "PMD.ExcessivePublicCount", "PMD.ExcessiveClassLength",
+        "PMD.ExcessiveImports" })
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class PersonRendererTest {
+    /** */
+    @Autowired
+    private transient TestDataReader reader;
+    /** */
+    @Autowired
+    private transient CalendarProvider provider;
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
+
     /** */
     private transient RenderingContext adminContext;
 
@@ -504,13 +521,8 @@ public final class PersonRendererTest {
     private transient RenderingContext userContext;
 
     /** */
-    private CalendarProvider provider;
-
-    /** */
     @Before
     public void init() {
-        provider = new CalendarProviderStub();
-        final ApplicationInfo appInfo = new ApplicationInfoStub();
         userContext = RenderingContext.user(appInfo);
         final User user = new User();
         user.setUsername("dick");
@@ -592,7 +604,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMelissaTree() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person george = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(george,
                 new GedRendererFactory(), userContext, provider);
@@ -614,7 +626,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderGeorgeTree() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person george = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(george,
                 new GedRendererFactory(), userContext, provider);
@@ -649,8 +661,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderNullFather() throws IOException {
-        final GedObject root =
-                TestDataReader.getInstance().readSmallTestSource();
+        final Root root = reader.readSmallTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -664,8 +675,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderFather() throws IOException {
-        final GedObject root =
-                TestDataReader.getInstance().readSmallTestSource();
+        final Root root = reader.readSmallTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -686,8 +696,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderNullMother() throws IOException {
-        final GedObject root =
-                TestDataReader.getInstance().readSmallTestSource();
+        final Root root = reader.readSmallTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -701,7 +710,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMelissaFather() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -726,8 +735,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMother() throws IOException {
-        final GedObject root =
-                TestDataReader.getInstance().readSmallTestSource();
+        final Root root = reader.readSmallTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -748,8 +756,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMotherConfidentialAdmin() throws IOException {
-        final GedObject root =
-                TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person sabino = (Person) root.find("I4248");
         final PersonRenderer personRenderer = new PersonRenderer(sabino,
                 new GedRendererFactory(), adminContext, provider);
@@ -770,8 +777,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMotherConfidentialUser() throws IOException {
-        final GedObject root =
-                TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person sabino = (Person) root.find("I4248");
         final PersonRenderer personRenderer = new PersonRenderer(sabino,
                 new GedRendererFactory(), userContext, provider);
@@ -793,7 +799,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMelissaMotherUser() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -818,7 +824,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderSabinoTitleAdmin() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I4248");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), adminContext, provider);
@@ -832,7 +838,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMelissaTitleUser() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I4248");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -846,7 +852,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderGeorgeTitle() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -860,7 +866,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMelissaWholeName() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -874,7 +880,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderSabinoWholeName() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I4248");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), adminContext, provider);
@@ -887,7 +893,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderSabinoWholeNameUser() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I4248");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -900,7 +906,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderGeorgeWholeNameUser() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -913,7 +919,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMelissaFatherNameHtml() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -930,7 +936,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderCiciFatherNameHtmlAdmin() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5266");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(),
@@ -947,7 +953,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderCiciFatherNameHtmlAnon() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5266");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -961,7 +967,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderVivianFatherNameHtmlAdmin() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(),
@@ -979,7 +985,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderVivianFatherNameHtmlAnon() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -992,7 +998,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderGeorgeFatherNameHtml() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1005,7 +1011,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMelissaMotherNameHtml() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1022,7 +1028,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderCiciMotherNameHtmlAdmin() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5266");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(),
@@ -1040,7 +1046,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderCiciMotherNameHtmlAnon() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5266");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1054,7 +1060,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderVivianMotherNameHtmlAdmin() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(),
@@ -1072,7 +1078,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderVivianMotherNameHtmlAnon() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1085,7 +1091,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderGeorgeMotherNameHtml() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1098,7 +1104,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMelissaFatherRendition() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1115,7 +1121,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderGeorgeFatherRendition() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1130,7 +1136,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMelissaMotherRendition() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1147,7 +1153,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderGeorgeMotherRendition() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1162,7 +1168,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderDickLifeSpan() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1176,7 +1182,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMelissaLifeSpan() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1190,7 +1196,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderDickFamilies() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1204,7 +1210,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMelissaFamilies() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1218,7 +1224,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderDickAttributes() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1232,7 +1238,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMelissaAttributes() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1246,7 +1252,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderDickIdString() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1259,7 +1265,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMelissaIdString() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1272,7 +1278,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testRenderMelissaIndexHref() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext, provider);
@@ -1286,7 +1292,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testVivianSurnameLetterAnon() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(), userContext, provider);
@@ -1299,7 +1305,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testVivianSurnameLetterAdmin() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(),
@@ -1313,7 +1319,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testVivianSurnameAnon() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(), userContext, provider);
@@ -1326,7 +1332,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testVivianSurnameAdmin() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(),
@@ -1340,7 +1346,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testVivianLifespanAnon() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(), userContext, provider);
@@ -1353,7 +1359,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testVivianLifespanAdmin() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(),
@@ -1367,7 +1373,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testVivianFamiliesAnon() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(), userContext, provider);
@@ -1380,7 +1386,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testVivianFamiliesAdmin() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(),
@@ -1394,7 +1400,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testVivianAttributesAnon() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(), userContext, provider);
@@ -1407,7 +1413,7 @@ public final class PersonRendererTest {
      */
     @Test
     public void testVivianAttributesAdmin() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(),

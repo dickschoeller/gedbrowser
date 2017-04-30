@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class TestConfiguration {
-
     /**
      * @return provides the "today" for use in comparisons
      */

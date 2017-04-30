@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
@@ -13,11 +13,23 @@ import org.schoellerfamily.gedbrowser.renderer.AttributeListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.AttributeRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class AttributeListItemRendererTest {
+    /** */
+    @Autowired
+    private transient CalendarProvider provider;
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
+
     /** */
     private transient Attribute attribute1;
 
@@ -26,9 +38,6 @@ public final class AttributeListItemRendererTest {
 
     /** */
     private transient Attribute attribute3;
-
-    /** */
-    private CalendarProvider provider;
 
     /** */
     private RenderingContext anonymousContext;
@@ -46,8 +55,6 @@ public final class AttributeListItemRendererTest {
         person.insert(attribute2);
         person.insert(attribute3);
         attribute3.insert(attribute4);
-        provider = new CalendarProviderStub();
-        final ApplicationInfo appInfo = new ApplicationInfoStub();
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 

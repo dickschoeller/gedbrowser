@@ -7,14 +7,25 @@ import java.util.Locale;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfoRenderer;
 import org.schoellerfamily.gedbrowser.renderer.Renderer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class ApplicationInfoRendererTest {
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
+
     /** */
     private String homeUrl;
 
@@ -27,7 +38,7 @@ public final class ApplicationInfoRendererTest {
     @Before
     public void init() {
         homeUrl = "http://www.schoellerfamily.org/";
-        renderer = new ApplicationInfoRenderer(new ApplicationInfoStub()) {
+        renderer = new ApplicationInfoRenderer(appInfo) {
         };
     }
 

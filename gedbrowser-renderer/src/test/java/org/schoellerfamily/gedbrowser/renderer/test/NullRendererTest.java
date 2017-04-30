@@ -8,8 +8,8 @@ import java.util.Locale;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
@@ -22,6 +22,9 @@ import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Other than the constructor, these tests are and should be identical to the
@@ -29,9 +32,15 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
  *
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class NullRendererTest {
     /** */
-    private CalendarProvider provider;
+    @Autowired
+    private transient CalendarProvider provider;
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
 
     /** */
     private RenderingContext anonymousContext;
@@ -42,8 +51,6 @@ public final class NullRendererTest {
     /** */
     @Before
     public void init() {
-        provider = new CalendarProviderStub();
-        final ApplicationInfo appInfo = new ApplicationInfoStub();
         anonymousContext = RenderingContext.anonymous(appInfo);
         homeUrl = "http://www.schoellerfamily.org/";
     }

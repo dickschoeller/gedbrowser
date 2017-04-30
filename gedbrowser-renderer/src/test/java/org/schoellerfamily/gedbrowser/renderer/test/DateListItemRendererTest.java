@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -14,19 +14,28 @@ import org.schoellerfamily.gedbrowser.renderer.DateListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.DateRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class DateListItemRendererTest {
+    /** */
+    @Autowired
+    private transient CalendarProvider provider;
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
+
     /** */
     private transient Attribute attribute;
 
     /** */
     private transient Date date;
-
-    /** */
-    private CalendarProvider provider;
 
     /** */
     private RenderingContext anonymousContext;
@@ -39,8 +48,6 @@ public final class DateListItemRendererTest {
         person.addAttribute(attribute);
         date = new Date(attribute, "14 December 1958");
         attribute.addAttribute(date);
-        provider = new CalendarProviderStub();
-        final ApplicationInfo appInfo = new ApplicationInfoStub();
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 

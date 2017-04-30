@@ -3,7 +3,6 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.fixture;
 import java.io.IOException;
 import java.util.Map;
 
-import org.schoellerfamily.gedbrowser.dao.mongo.TestDataReader;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
@@ -12,6 +11,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoV
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SaveVisitor;
+import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
@@ -26,6 +26,10 @@ public final class RepositoryFixture {
     /** */
     @Autowired
     private transient MongoTemplate mongoTemplate;
+
+    /** */
+    @Autowired
+    private transient TestDataReader reader;
 
     /**
      * This is private because this is a singleton.
@@ -43,8 +47,7 @@ public final class RepositoryFixture {
     public Root loadRepository() throws IOException {
         clearRepository();
 
-        final Root root = (Root) TestDataReader.getInstance().
-                readBigTestSource();
+        final Root root = reader.readBigTestSource();
         root.setFilename("bigtest.ged");
         root.setDbName("bigtest");
 

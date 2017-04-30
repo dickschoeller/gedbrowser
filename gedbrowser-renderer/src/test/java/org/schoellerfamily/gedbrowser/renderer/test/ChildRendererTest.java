@@ -4,8 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.ChildRenderer;
@@ -16,11 +16,23 @@ import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class ChildRendererTest {
+    /** */
+    @Autowired
+    private transient CalendarProvider provider;
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
+
     /** */
     private ChildRenderer renderer;
 
@@ -29,8 +41,6 @@ public final class ChildRendererTest {
      */
     @Before
     public void init() {
-        final CalendarProvider provider = new CalendarProviderStub();
-        final ApplicationInfo appInfo = new ApplicationInfoStub();
         renderer = new ChildRenderer(new Child(), new GedRendererFactory(),
                 RenderingContext.anonymous(appInfo), provider);
     }

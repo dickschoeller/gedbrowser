@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
@@ -17,16 +17,25 @@ import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkRenderer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class SubmittorLinkListItemRendererTest {
     /** */
-    private transient SubmittorLink submittorLink;
+    @Autowired
+    private transient CalendarProvider provider;
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
 
     /** */
-    private CalendarProvider provider;
+    private transient SubmittorLink submittorLink;
 
     /** */
     private RenderingContext anonymousContext;
@@ -45,8 +54,6 @@ public final class SubmittorLinkListItemRendererTest {
         submittor.insert(name);
 
         submittorLink = new SubmittorLink(head, "SUBM", new ObjectId("S1"));
-        provider = new CalendarProviderStub();
-        final ApplicationInfo appInfo = new ApplicationInfoStub();
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 

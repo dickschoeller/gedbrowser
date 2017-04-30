@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class TestConfiguration {
-
     /**
      * @return convert for AbstractGedLine hierarchy to GedObject hierarchy
      */
