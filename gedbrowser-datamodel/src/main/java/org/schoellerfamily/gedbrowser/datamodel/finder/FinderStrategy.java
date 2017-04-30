@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.datamodel.finder;
 
 import java.util.Collection;
 
+import org.schoellerfamily.gedbrowser.datamodel.FinderObject;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
@@ -14,7 +15,7 @@ public interface FinderStrategy {
      * @param str the ID string of the object being sought
      * @return the object found from the searching the top level object list
      */
-    GedObject find(GedObject owner, String str);
+    GedObject find(FinderObject owner, String str);
 
     /**
      * @param <T> the return type
@@ -23,44 +24,45 @@ public interface FinderStrategy {
      * @param clazz the class of the return type
      * @return the found object or null
      */
-    <T extends GedObject> T find(GedObject owner, String str, Class<T> clazz);
+    <T extends GedObject> T find(FinderObject owner, String str,
+            Class<T> clazz);
 
     /**
      * @param owner the GedObject in whose context we are searching
      * @param surname the surname string of the object being sought
      * @return a collection of matching persons.
      */
-    Collection<Person> findBySurname(GedObject owner, String surname);
+    Collection<Person> findBySurname(FinderObject owner, String surname);
 
     /**
      * @param owner the GedObject in whose context we are searching
      * @param beginsWith the beginning substring we are looking for
      * @return a collection of matching surnames.
      */
-    Collection<String> findBySurnamesBeginWith(GedObject owner,
+    Collection<String> findBySurnamesBeginWith(FinderObject owner,
             String beginsWith);
 
     /**
      * @param owner the GedObject in whose context we are searching
      * @return the filename associated with this data set.
      */
-    String getFilename(GedObject owner);
+    String getFilename(FinderObject owner);
 
     /**
      * @param owner the GedObject in whose context we are searching
      * @return the filename associated with this data set.
      */
-    String getDbName(GedObject owner);
+    String getDbName(FinderObject owner);
 
     /**
      * @param owner the GedObject in whose context we are searching
      * @param gob object to insert.
      */
-    void insert(GedObject owner, GedObject gob);
+    void insert(FinderObject owner, FinderObject gob);
 
     /**
      * @param owner the GedObject in whose context we are searching
      * @return a collection of initial letters
      */
-    Collection<String> findSurnameInitialLetters(GedObject owner);
+    Collection<String> findSurnameInitialLetters(FinderObject owner);
 }

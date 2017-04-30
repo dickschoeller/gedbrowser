@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
+import org.schoellerfamily.gedbrowser.datamodel.FinderObject;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -61,7 +62,7 @@ public final class RepositoryFinderMongo
      * {@inheritDoc}
      */
     @Override
-    public GedObject find(final GedObject owner, final String str) {
+    public GedObject find(final FinderObject owner, final String str) {
         for (final Class<? extends GedObject> clazz : CLASSES) {
             final GedObject ged = find(owner, str, clazz);
             if (ged != null) {
@@ -75,7 +76,7 @@ public final class RepositoryFinderMongo
      * {@inheritDoc}
      */
     @Override
-    public <T extends GedObject> T find(final GedObject owner,
+    public <T extends GedObject> T find(final FinderObject owner,
             final String str, final Class<T> clazz) {
         if (!(owner instanceof Root)) {
             throw new IllegalArgumentException("Owner must be root");
@@ -101,7 +102,7 @@ public final class RepositoryFinderMongo
      * {@inheritDoc}
      */
     @Override
-    public String getFilename(final GedObject owner) {
+    public String getFilename(final FinderObject owner) {
         if (owner instanceof Root) {
             return ((Root) owner).getTheFilename();
         }
@@ -112,7 +113,7 @@ public final class RepositoryFinderMongo
      * {@inheritDoc}
      */
     @Override
-    public String getDbName(final GedObject owner) {
+    public String getDbName(final FinderObject owner) {
         if (owner instanceof Root) {
             return ((Root) owner).getTheDbName();
         }
@@ -123,7 +124,8 @@ public final class RepositoryFinderMongo
      * {@inheritDoc}
      */
     @Override
-    public void insert(final GedObject owner, final GedObject gob) {
+    public void insert(final FinderObject owner, final FinderObject fob) {
+        final GedObject gob = (GedObject) fob;
         try {
             logger.debug("Starting insert: " + gob.getString());
             final GedDocumentMongo<?> gedDoc =
@@ -142,7 +144,7 @@ public final class RepositoryFinderMongo
      * {@inheritDoc}
      */
     @Override
-    public Collection<Person> findBySurname(final GedObject owner,
+    public Collection<Person> findBySurname(final FinderObject owner,
             final String surname) {
         logger.info("Starting findBySurname");
         final List<Person> persons = new ArrayList<>();
@@ -166,7 +168,7 @@ public final class RepositoryFinderMongo
      * {@inheritDoc}
      */
     @Override
-    public Collection<String> findBySurnamesBeginWith(final GedObject owner,
+    public Collection<String> findBySurnamesBeginWith(final FinderObject owner,
             final String beginsWith) {
         logger.info("Starting findBySurnamesBeginWith");
         final Set<String> surnames = new TreeSet<>();
@@ -190,7 +192,8 @@ public final class RepositoryFinderMongo
      * {@inheritDoc}
      */
     @Override
-    public Collection<String> findSurnameInitialLetters(final GedObject owner) {
+    public Collection<String> findSurnameInitialLetters(
+            final FinderObject owner) {
         logger.info("Starting findSurnameInitialLetters");
         final Set<String> matches = new TreeSet<>();
         if (owner instanceof Root) {
