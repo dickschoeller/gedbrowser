@@ -11,34 +11,40 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.LocalDate;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzer;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzerResult;
+import org.schoellerfamily.gedbrowser.analytics.test.TestConfiguration;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.FamilyBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
-import org.schoellerfamily.gedbrowser.reader.GedLineToGedObject;
+import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
 import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class OrderAnalyzerTest implements AnalyzerTest {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
-    private final OrderAnalyzerTestHelper helper =
-            new OrderAnalyzerTestHelper();
+    @Autowired
+    private OrderAnalyzerTestHelper helper;
     /** */
-    private final GedObjectBuilder builder = new GedObjectBuilder();
-
-    /**
-     * Converts AbstractGedLine hierarchy to GedObject hierarchy.
-     */
-    private final transient GedLineToGedObject g2g = new GedLineToGedObject();
+    @Autowired
+    private GedObjectBuilder builder;
+    /** */
+    @Autowired
+    private transient GedObjectCreator g2g;
 
     /**
      * {@inheritDoc}

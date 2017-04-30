@@ -2,24 +2,30 @@ package org.schoellerfamily.gedbrowser.analytics.test;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.analytics.AgeEstimator;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.analytics.order.test.AnalyzerTest;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.FamilyBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class AgeEstimatorTest implements AnalyzerTest {
-    /** The comparison calendar. */
+    /** */
+    @Autowired
     private CalendarProvider provider;
-    /** The builder to construct gedobjects for testing. */
+    /** */
+    @Autowired
     private GedObjectBuilder builder;
 
     /**
@@ -36,15 +42,6 @@ public final class AgeEstimatorTest implements AnalyzerTest {
     @Override
     public FamilyBuilder familyBuilder() {
         return builder.getFamilyBuilder();
-    }
-
-    /**
-     * Prepare a comparison calendar at a fixed date. Makes tests predictable.
-     */
-    @Before
-    public void before() {
-        provider = new CalendarProviderStub();
-        builder = new GedObjectBuilder();
     }
 
     /**

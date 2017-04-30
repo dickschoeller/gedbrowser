@@ -4,24 +4,31 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzer;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzerResult;
+import org.schoellerfamily.gedbrowser.analytics.test.TestConfiguration;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.FamilyBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class OrderAnalyzerDeathTest implements AnalyzerTest {
     /** */
-    private final OrderAnalyzerTestHelper helper =
-            new OrderAnalyzerTestHelper();
-
+    @Autowired
+    private OrderAnalyzerTestHelper helper;
     /** */
-    private final GedObjectBuilder builder = new GedObjectBuilder();
+    @Autowired
+    private GedObjectBuilder builder;
 
     /**
      * {@inheritDoc}
