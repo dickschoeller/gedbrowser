@@ -13,12 +13,13 @@ import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzer;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzerResult;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.FamilyBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObject;
 import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 
 /**
@@ -33,6 +34,11 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
             new OrderAnalyzerTestHelper();
     /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
+
+    /**
+     * Converts AbstractGedLine hierarchy to GedObject hierarchy.
+     */
+    private final transient GedLineToGedObject g2g = new GedLineToGedObject();
 
     /**
      * {@inheritDoc}
@@ -324,7 +330,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
     public void testFactoryGedFile() throws IOException {
         final AbstractGedLine top =
                 ReaderHelper.readFileTestSource(this, "gl120368.ged");
-        final GedObject root = top.createGedObject((AbstractGedLine) null);
+        final Root root = g2g.create(top);
         for (final String letter : root.findSurnameInitialLetters()) {
             for (final String surname : root.findBySurnamesBeginWith(letter)) {
                 for (final Person person : root.findBySurname(surname)) {

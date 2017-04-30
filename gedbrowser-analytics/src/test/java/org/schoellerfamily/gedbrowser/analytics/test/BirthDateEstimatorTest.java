@@ -15,12 +15,13 @@ import org.schoellerfamily.gedbrowser.analytics.order.test.AnalyzerTest;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.FamilyBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObject;
 import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 
 /**
@@ -30,6 +31,11 @@ import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 public final class BirthDateEstimatorTest implements AnalyzerTest {
     /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
+
+    /**
+     * Converts AbstractGedLine hierarchy to GedObject hierarchy.
+     */
+    private final transient GedLineToGedObject g2g = new GedLineToGedObject();
 
     /**
      * {@inheritDoc}
@@ -418,7 +424,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     @Test
     public void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = readFileTestSource();
-        final GedObject root = top.createGedObject((AbstractGedLine) null);
+        final Root root = g2g.create(top);
         final List<Person> unhandled = new ArrayList<>();
         for (final String letter : root.findSurnameInitialLetters()) {
             for (final String surname : root.findBySurnamesBeginWith(letter)) {
