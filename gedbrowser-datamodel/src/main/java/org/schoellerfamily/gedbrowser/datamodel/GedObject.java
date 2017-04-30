@@ -10,8 +10,6 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.TooManyMethods",
-    "PMD.GodClass" })
 public abstract class GedObject extends AbstractFinderObject {
 
     /** */
@@ -230,15 +228,6 @@ public abstract class GedObject extends AbstractFinderObject {
     @Override
     public final String toString() {
         return string;
-    }
-
-    /**
-     * @param gob object to insert
-     */
-    @SuppressWarnings("PMD.EmptyMethodInAbstractClassShouldBeAbstract")
-    public void extraInsert(final GedObject gob) {
-        // The default implementation is empty. Some derived
-        // classes implement this.
     }
 
     /**

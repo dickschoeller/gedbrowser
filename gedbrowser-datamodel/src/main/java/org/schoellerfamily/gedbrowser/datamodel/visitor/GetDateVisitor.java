@@ -10,7 +10,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.TooManyMethods")
 public final class GetDateVisitor implements GedObjectVisitor {
     /**
      * Accumulates the best date information.
