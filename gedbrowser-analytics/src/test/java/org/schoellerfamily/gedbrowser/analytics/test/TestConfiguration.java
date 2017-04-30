@@ -17,6 +17,7 @@ public class TestConfiguration {
     /**
      * @return provides the "today" for use in comparisons
      */
+    @Bean
     public CalendarProvider provider() {
         return new CalendarProviderStub();
     }
