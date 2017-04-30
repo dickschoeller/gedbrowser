@@ -372,7 +372,7 @@ public final class TestDataReader {
     public GedObject readBigTestSource() throws IOException {
         final AbstractGedLine top = new GedLine(A_SOURCE);
         top.readToNext();
-        return top.createGedObject(null);
+        return top.createGedObject((AbstractGedLine) null);
     }
 
     /**
@@ -384,7 +384,7 @@ public final class TestDataReader {
     public GedObject readSmallTestSource() throws IOException {
         final AbstractGedLine top = new GedLine(A_SOURCE_SHORT);
         top.readToNext();
-        return top.createGedObject(null);
+        return top.createGedObject((AbstractGedLine) null);
     }
 
     /**
@@ -397,7 +397,7 @@ public final class TestDataReader {
         final AbstractGedLine agl =
                 ReaderHelper.readFileTestSource(this, "gl120368.ged");
         agl.readToNext();
-        return agl.createGedObject(null);
+        return agl.createGedObject((AbstractGedLine) null);
     }
 
     /**

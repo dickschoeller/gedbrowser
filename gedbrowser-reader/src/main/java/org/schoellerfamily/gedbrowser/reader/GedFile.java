@@ -43,7 +43,7 @@ public final class GedFile extends AbstractGedLine {
      * {@inheritDoc}
      */
     @Override
-    protected GedObject createGedObject(final GedObject parent) {
+    public GedObject createGedObject(final GedObject parent) {
         Root gob;
         if (finder == null) {
             gob = new Root();

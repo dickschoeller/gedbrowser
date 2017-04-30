@@ -41,7 +41,7 @@ public final class GedLine extends AbstractGedLine {
      * @param parentGedObject the parent GedObject
      * @return the GedObject
      */
-    protected GedObject createGedObject(final GedObject parentGedObject) {
+    public GedObject createGedObject(final GedObject parentGedObject) {
         return getGobFactory().create(parentGedObject, getXref(), getTag(),
                 getTail());
     }
