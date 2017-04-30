@@ -15,6 +15,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumen
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmittorDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
+import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -113,5 +114,13 @@ public class MongoTestConfiguration {
     @Bean
     public GedObjectCreator g2g() {
         return new GedObjectCreator();
+    }
+
+    /**
+     * @return the data reader
+     */
+    @Bean
+    TestDataReader reader() {
+        return new TestDataReader();
     }
 }

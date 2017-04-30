@@ -8,12 +8,13 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
+import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.FamilyRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
@@ -25,13 +26,25 @@ import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class FamilyRendererTest {
     /** */
+    @Autowired
+    private transient TestDataReader reader;
+    /** */
+    @Autowired
     private transient CalendarProvider provider;
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
 
     /** */
     private transient RenderingContext anonymousContext;
@@ -42,8 +55,6 @@ public final class FamilyRendererTest {
     /** */
     @Before
     public void init() {
-        final ApplicationInfo appInfo = new ApplicationInfoStub();
-        provider = new CalendarProviderStub();
         anonymousContext = RenderingContext.anonymous(appInfo);
         userContext = RenderingContext.user(appInfo);
     }
@@ -119,7 +130,7 @@ public final class FamilyRendererTest {
     @Test
     public void testSpouseConstructUsedInPersonTemplate()
             throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person dick = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(dick,
                 new GedRendererFactory(), userContext,
@@ -141,7 +152,7 @@ public final class FamilyRendererTest {
     @Test
     public void testSpouseConstructUsedInPersonTemplateAnonymous()
             throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Person dick = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(dick,
                 new GedRendererFactory(), anonymousContext,
@@ -174,7 +185,7 @@ public final class FamilyRendererTest {
      */
     @Test
     public void testRenderF1Attributes() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Family fam = (Family) root.find("F1");
         final FamilyRenderer familyRenderer = new FamilyRenderer(fam,
                 new GedRendererFactory(),
@@ -198,7 +209,7 @@ public final class FamilyRendererTest {
      */
     @Test
     public void testRenderF1Children() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Family fam = (Family) root.find("F1");
         final FamilyRenderer familyRenderer = new FamilyRenderer(fam,
                 new GedRendererFactory(), userContext,
@@ -216,7 +227,7 @@ public final class FamilyRendererTest {
      */
     @Test
     public void testRenderF1ChildrenAnonymous() throws IOException {
-        final GedObject root = TestDataReader.getInstance().readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final Family fam = (Family) root.find("F1");
         final FamilyRenderer familyRenderer = new FamilyRenderer(fam,
                 new GedRendererFactory(), anonymousContext,

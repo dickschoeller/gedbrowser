@@ -4,8 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -50,27 +50,31 @@ import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorRenderer;
 import org.schoellerfamily.gedbrowser.renderer.TrailerRenderer;
 import org.schoellerfamily.gedbrowser.renderer.WifeRenderer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessiveImports" })
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class GedRendererFactoryTest {
     /** */
+    @Autowired
+    private transient CalendarProvider provider;
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
+
+    /** */
     private transient GedRendererFactory grf;
-
-    /** */
-    private CalendarProvider provider;
-
-    /** */
-    private ApplicationInfo appInfo;
 
     /** */
     @Before
     public void init() {
         grf = new GedRendererFactory();
-        provider = new CalendarProviderStub();
-        appInfo = new ApplicationInfoStub();
     }
 
     /** */

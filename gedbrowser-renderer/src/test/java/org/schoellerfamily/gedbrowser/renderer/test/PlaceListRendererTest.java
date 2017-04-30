@@ -8,7 +8,6 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -21,26 +20,22 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.User;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 /**
  * @author Dick Schoeller
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = TestConfiguration.class)
 public final class PlaceListRendererTest {
     /** */
     @Autowired
     private transient GeoServiceClient client;
-
     /** */
     @Autowired
     private CalendarProvider provider;
-
     /** */
     @Autowired
     private ApplicationInfo appInfo;
@@ -71,29 +66,6 @@ public final class PlaceListRendererTest {
      */
     @Configuration
     static class ContextConfiguration {
-        /**
-         * @return the persistence manager
-         */
-        @Bean
-        public GeoServiceClient geoServiceClient() {
-            return new GeoServiceClientStub();
-        }
-
-        /**
-         * @return the calendar provider
-         */
-        @Bean
-        public CalendarProvider getCalendarProvider() {
-            return new CalendarProviderStub();
-        }
-
-        /**
-         * @return the calendar provider
-         */
-        @Bean
-        public ApplicationInfo getApplicationInfo() {
-            return new ApplicationInfoStub();
-        }
     }
 
     /** */
