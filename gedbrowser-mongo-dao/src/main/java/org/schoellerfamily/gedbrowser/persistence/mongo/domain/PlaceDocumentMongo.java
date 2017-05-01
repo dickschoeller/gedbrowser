@@ -37,6 +37,14 @@ public class PlaceDocumentMongo extends GedDocumentMongo<Place>
      * {@inheritDoc}
      */
     @Override
+    public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }

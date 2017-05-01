@@ -14,7 +14,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
-import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -121,98 +120,21 @@ public final class GedDocumentMongoFactory {
      * @param document the document to transform
      * @return the transformation result
      */
-    @SuppressWarnings({ "PMD.CyclomaticComplexity",
-            "PMD.ModifiedCyclomaticComplexity", "PMD.StdCyclomaticComplexity",
-            "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     public GedObject createGedObject(final GedObject parent,
             final GedDocument<?> document) {
-        GedObject retval = null;
-        if (document instanceof AttributeDocumentMongo) {
-            final AttributeDocumentMongo attributeDocument =
-                    (AttributeDocumentMongo) document;
-            final Attribute attribute = new Attribute(parent);
-            attribute.setString(attributeDocument.getString());
-            attribute.setTail(attributeDocument.getTail());
-            retval = attribute;
-        } else if (document instanceof ChildDocumentMongo) {
-            final ChildDocumentMongo childDocument =
-                    (ChildDocumentMongo) document;
-            final Child child = new Child(parent, "Child",
-                    new ObjectId(childDocument.getString()));
-            child.setFromString(parent.getString());
-            retval = child;
-        } else if (document instanceof DateDocumentMongo) {
-            retval = new Date(parent, document.getString());
-        } else if (document instanceof MultimediaDocumentMongo) {
-            final MultimediaDocumentMongo multimediaDocument =
-                    (MultimediaDocumentMongo) document;
-            final Multimedia attribute = new Multimedia(parent,
-                    multimediaDocument.getString());
-            attribute.setTail(multimediaDocument.getTail());
-            retval = attribute;
-        } else if (document instanceof NameDocumentMongo) {
-            retval = new Name(parent, document.getString());
-        } else if (document instanceof FamilyDocumentMongo) {
-            retval = new Family(parent, new ObjectId(document.getString()));
-        } else if (document instanceof FamCDocumentMongo) {
-            final FamCDocumentMongo famcDocument = (FamCDocumentMongo) document;
-            final FamC famc = new FamC(parent, "Child of Family",
-                    new ObjectId(famcDocument.getString()));
-            famc.setFromString(parent.getString());
-            retval = famc;
-        } else if (document instanceof FamSDocumentMongo) {
-            final FamSDocumentMongo famsDocument = (FamSDocumentMongo) document;
-            final FamS fams = new FamS(parent, "Spouse of Family",
-                    new ObjectId(famsDocument.getString()));
-            fams.setFromString(parent.getString());
-            retval = fams;
-        } else if (document instanceof HeadDocumentMongo) {
-            retval = new Head(parent, "Header");
-        } else if (document instanceof HusbandDocumentMongo) {
-            final HusbandDocumentMongo husbandDocument =
-                    (HusbandDocumentMongo) document;
-            final Husband husband = new Husband(parent, "Husband",
-                    new ObjectId(husbandDocument.getString()));
-            husband.setFromString(parent.getString());
-            retval = husband;
-        } else if (document instanceof PersonDocumentMongo) {
-            retval = new Person(parent, new ObjectId(document.getString()));
-        } else if (document instanceof PlaceDocumentMongo) {
-            retval = new Place(parent, document.getString());
-        } else if (document instanceof SourceDocumentMongo) {
-            retval = new Source(parent, new ObjectId(document.getString()));
-        } else if (document instanceof SourceLinkDocumentMongo) {
-            final SourceLink slink = new SourceLink(parent, "Source",
-                    new ObjectId(document.getString()));
-            retval = slink;
-        } else if (document instanceof SubmittorDocumentMongo) {
-            retval = new Submittor(parent, new ObjectId(document.getString()));
-        } else if (document instanceof SubmittorLinkDocumentMongo) {
-            retval = new SubmittorLink(parent, "Submittor",
-                    new ObjectId(document.getString()));
-        } else if (document instanceof TrailerDocumentMongo) {
-            retval = new Trailer(parent, document.getString());
-        } else if (document instanceof WifeDocumentMongo) {
-            final WifeDocumentMongo wifeDocument = (WifeDocumentMongo) document;
-            final Wife wife = new Wife(parent, "Wife",
-                    new ObjectId(wifeDocument.getString()));
-            wife.setFromString(parent.getString());
-            retval = wife;
-        } else if (document instanceof RootDocumentMongo) {
-            final RootDocumentMongo rootDocument = (RootDocumentMongo) document;
-            final Root root = new Root("Root");
-            root.setFilename(rootDocument.getFilename());
-            root.setDbName(rootDocument.getDbName());
-            retval = root;
-        } else if (document == null) {
+        if (document == null) {
             throw new PersistenceException("whoops: null document");
-        } else {
-            throw new PersistenceException(
-                    "whoops: " + document.getClass().getSimpleName());
         }
+
+        final GedDocumentMongo<? extends GedObject> documentMongo =
+                (GedDocumentMongo<? extends GedObject>) document;
+        final GedObjectCreatorVisitor visitor =
+                new GedObjectCreatorVisitor(parent);
+        documentMongo.accept(visitor);
+        final GedObject retval = visitor.getGedObject();
+
         for (final GedDocument<?> subDocument : document.getAttributes()) {
-            final GedObject subGed = GedDocumentMongoFactory.getInstance()
-                    .createGedObject(retval, subDocument);
+            final GedObject subGed = createGedObject(retval, subDocument);
             retval.addAttribute(subGed);
         }
         return retval;

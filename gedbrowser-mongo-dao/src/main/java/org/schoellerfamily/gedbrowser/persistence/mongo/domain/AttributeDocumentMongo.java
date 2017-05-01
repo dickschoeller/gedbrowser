@@ -57,6 +57,14 @@ public class AttributeDocumentMongo extends GedDocumentMongo<Attribute>
      * {@inheritDoc}
      */
     @Override
+    public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }

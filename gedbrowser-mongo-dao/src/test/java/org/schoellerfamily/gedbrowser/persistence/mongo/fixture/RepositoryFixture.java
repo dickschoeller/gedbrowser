@@ -7,8 +7,8 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TopLevelGedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SaveVisitor;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
@@ -57,7 +57,7 @@ public final class RepositoryFixture {
         repositoryManager.getRootDocumentRepository().save(rootdoc);
 
         final Map<String, GedObject> map = root.getObjects();
-        final GedDocumentMongoVisitor visitor =
+        final TopLevelGedDocumentMongoVisitor visitor =
                 new SaveVisitor(repositoryManager);
 
         for (final GedObject ged : map.values()) {

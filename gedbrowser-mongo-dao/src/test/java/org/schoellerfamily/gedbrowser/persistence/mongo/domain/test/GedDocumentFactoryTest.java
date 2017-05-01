@@ -46,6 +46,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMon
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorLinkDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TopLevelGedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo;
 
@@ -253,6 +254,14 @@ public final class GedDocumentFactoryTest {
             @Override
             public void loadGedObject(final GedObject ged) {
                 // Intentionally empty
+            }
+
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
+                visitor.visit(this);
             }
 
             /**

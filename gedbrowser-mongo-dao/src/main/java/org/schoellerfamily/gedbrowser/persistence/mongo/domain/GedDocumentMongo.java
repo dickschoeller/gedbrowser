@@ -175,5 +175,12 @@ public abstract class GedDocumentMongo<G extends GedObject>
      *
      * @param visitor the visitor
      */
+    public abstract void accept(TopLevelGedDocumentMongoVisitor visitor);
+
+    /**
+     * Accept a visitor.
+     *
+     * @param visitor the visitor
+     */
     public abstract void accept(GedDocumentMongoVisitor visitor);
 }
