@@ -23,9 +23,9 @@ import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     RootDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TopLevelGedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -131,7 +131,7 @@ public final class RepositoryFinderMongo
             final GedDocumentMongo<?> gedDoc =
                     GedDocumentMongoFactory.getInstance().
                     createGedDocument(gob);
-            final GedDocumentMongoVisitor visitor =
+            final TopLevelGedDocumentMongoVisitor visitor =
                     new SaveVisitor(repositoryManager);
             gedDoc.accept(visitor);
         } catch (DataAccessException e) {
