@@ -17,8 +17,8 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.reader.GedFile;
 import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
@@ -51,6 +51,10 @@ public class GedFileLoader {
      */
     @Autowired
     private transient GedObjectCreator g2g;
+
+    /** */
+    private final GedObjectToGedDocumentMongoConverter toDocConverter =
+            GedObjectToGedDocumentMongoConverter.getInstance();
 
     /** */
     @Value("${gedbrowser.home}")
@@ -142,8 +146,7 @@ public class GedFileLoader {
      */
     private void save(final Root root) {
         final RootDocumentMongo rootdoc =
-                (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
-                    .createGedDocument(root);
+                (RootDocumentMongo) toDocConverter.createGedDocument(root);
         try {
             repositoryManager.getRootDocumentRepository().save(rootdoc);
         } catch (DataAccessException e) {

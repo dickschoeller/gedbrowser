@@ -16,12 +16,13 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamilyDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
@@ -48,26 +49,27 @@ public final class HeadRepositoryTest {
     /** */
     @Autowired
     private transient PersonDocumentRepositoryMongo personDocumentRepository;
-
     /** */
     @Autowired
     private transient FamilyDocumentRepositoryMongo familyDocumentRepository;
-
     /** */
     @Autowired
     private transient SourceDocumentRepositoryMongo sourceDocumentRepository;
-
     /** */
     @Autowired
     private transient HeadDocumentRepositoryMongo headDocumentRepository;
-
     /** */
     @Autowired
     private transient RepositoryFixture repositoryFixture;
-
     /** */
     @Autowired
     private transient TestDataReader reader;
+    /** */
+    @Autowired
+    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
+    /** */
+    private final GedObjectToGedDocumentMongoConverter toDocConverter =
+            GedObjectToGedDocumentMongoConverter.getInstance();
 
     /** */
     private transient Root root;
@@ -86,8 +88,7 @@ public final class HeadRepositoryTest {
         root.setFilename("bigtest");
         final Map<String, GedObject> map = root.getObjects();
         for (final GedObject ged : map.values()) {
-            final GedDocument<?> gedDoc = GedDocumentMongoFactory.getInstance().
-                    createGedDocument(ged);
+            final GedDocument<?> gedDoc = toDocConverter.createGedDocument(ged);
             if (gedDoc instanceof PersonDocumentMongo) {
                 personDocumentRepository.save((PersonDocumentMongo) gedDoc);
             } else if (gedDoc instanceof FamilyDocumentMongo) {
@@ -116,8 +117,7 @@ public final class HeadRepositoryTest {
     public void test() {
         final HeadDocument headdoc = headDocumentRepository.
                 findByFileAndString(root.getFilename(), HEADER_STRING);
-        final Head head = (Head) GedDocumentMongoFactory.getInstance().
-                createGedObject(root, headdoc);
+        final Head head = (Head) toObjConverter.createGedObject(root, headdoc);
         // TODO fails, should string be "Head" "Header" or blank?
         assertEquals("Expected header string",
                 HEADER_STRING, head.getString());
@@ -128,8 +128,7 @@ public final class HeadRepositoryTest {
     public void testRoot() {
         final HeadDocument headdoc = headDocumentRepository.
                 findByRootAndString(rootDocument, HEADER_STRING);
-        final Head head = (Head) GedDocumentMongoFactory.getInstance().
-                createGedObject(root, headdoc);
+        final Head head = (Head) toObjConverter.createGedObject(root, headdoc);
         // TODO fails, should string be "Head" "Header" or blank?
         assertEquals("Expected header string",
                 HEADER_STRING, head.getString());

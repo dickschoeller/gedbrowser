@@ -36,7 +36,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamCDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamSDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamilyDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HusbandDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.MultimediaDocumentMongo;
@@ -49,19 +48,23 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorDocument
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports" })
-public class GedDocumentFactoryCreateDocumentTest {
+@SuppressWarnings("PMD.ExcessiveImports")
+public class GedObjectToGedDocumentMongoConverterTest {
+    /** */
+    private final GedObjectToGedDocumentMongoConverter toDocConverter =
+            GedObjectToGedDocumentMongoConverter.getInstance();
+
     /** */
     @Test
     public void testCreateAttributeDocument() {
         final GedObject ged = new Attribute(null);
         final String typeString = "attribute";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<AttributeDocumentMongo> expectedClass =
                 AttributeDocumentMongo.class;
         assertTrue("Failed document check",
@@ -73,8 +76,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreateChildDocument() {
         final GedObject ged = new Child();
         final String typeString = "child";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<ChildDocumentMongo> expectedClass =
                 ChildDocumentMongo.class;
         assertTrue("Failed document check",
@@ -86,8 +88,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreateDateDocument() {
         final GedObject ged = new Date(null);
         final String typeString = "date";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<DateDocumentMongo> expectedClass =
                 DateDocumentMongo.class;
         assertTrue("Failed document check",
@@ -99,8 +100,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreateMultimediaDocument() {
         final GedObject ged = new Multimedia();
         final String typeString = "multimedia";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<MultimediaDocumentMongo> expectedClass =
                 MultimediaDocumentMongo.class;
         assertTrue("Failed document check",
@@ -112,8 +112,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreateNameDocument() {
         final GedObject ged = new Name(null);
         final String typeString = "name";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<NameDocumentMongo> expectedClass =
                 NameDocumentMongo.class;
         assertTrue("Failed document check",
@@ -125,8 +124,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreateFamilyDocument() {
         final GedObject ged = new Family();
         final String typeString = "family";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<FamilyDocumentMongo> expectedClass =
                 FamilyDocumentMongo.class;
         assertTrue("Failed document check",
@@ -138,8 +136,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreateFamCDocument() {
         final GedObject ged = new FamC();
         final String typeString = "famc";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<FamCDocumentMongo> expectedClass =
                 FamCDocumentMongo.class;
         assertTrue("Failed document check",
@@ -151,8 +148,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreateFamSDocument() {
         final GedObject ged = new FamS();
         final String typeString = "fams";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<FamSDocumentMongo> expectedClass =
                 FamSDocumentMongo.class;
         assertTrue("Failed document check",
@@ -164,8 +160,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreateHeadDocument() {
         final GedObject ged = new Head();
         final String typeString = "head";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<HeadDocumentMongo> expectedClass =
                 HeadDocumentMongo.class;
         assertTrue("Failed document check",
@@ -177,8 +172,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreateHusbandDocument() {
         final GedObject ged = new Husband();
         final String typeString = "husband";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<HusbandDocumentMongo> expectedClass =
                 HusbandDocumentMongo.class;
         assertTrue("Failed document check",
@@ -190,8 +184,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreatePersonDocument() {
         final GedObject ged = new Person(null, new ObjectId("I1"));
         final String typeString = "person";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<PersonDocumentMongo> expectedClass =
                 PersonDocumentMongo.class;
         assertTrue("Failed document check",
@@ -203,8 +196,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreatePlaceDocument() {
         final GedObject ged = new Place();
         final String typeString = "place";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<PlaceDocumentMongo> expectedClass =
                 PlaceDocumentMongo.class;
         assertTrue("Failed document check",
@@ -216,8 +208,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreateSourceDocument() {
         final GedObject ged = new Source(null, new ObjectId("S1"));
         final String typeString = "source";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<SourceDocumentMongo> expectedClass =
                 SourceDocumentMongo.class;
         assertTrue("Failed document check",
@@ -229,8 +220,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreateSourceLinkDocument() {
         final GedObject ged = new SourceLink();
         final String typeString = "sourcelink";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<SourceLinkDocumentMongo> expectedClass =
                 SourceLinkDocumentMongo.class;
         assertTrue("Failed document check",
@@ -242,8 +232,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreateSubmittorDocument() {
         final GedObject ged = new Submittor();
         final String typeString = "submittor";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<SubmittorDocumentMongo> expectedClass =
                 SubmittorDocumentMongo.class;
         assertTrue("Failed document check",
@@ -255,8 +244,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreateSubmittorLinkDocument() {
         final GedObject ged = new SubmittorLink();
         final String typeString = "submittorlink";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<SubmittorLinkDocumentMongo> expectedClass =
                 SubmittorLinkDocumentMongo.class;
         assertTrue("Failed document check",
@@ -268,8 +256,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreateTrailerDocument() {
         final GedObject ged = new Trailer();
         final String typeString = "trailer";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<TrailerDocumentMongo> expectedClass =
                 TrailerDocumentMongo.class;
         assertTrue("Failed document check",
@@ -281,8 +268,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testCreateWifeDocument() {
         final GedObject ged = new Wife();
         final String typeString = "wife";
-        final GedDocument<?> gmd = GedDocumentMongoFactory.getInstance()
-                .createGedDocument(ged);
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<WifeDocumentMongo> expectedClass =
                 WifeDocumentMongo.class;
         assertTrue("Failed document check",
@@ -294,8 +280,7 @@ public class GedDocumentFactoryCreateDocumentTest {
     public void testNullCreateDocument() {
         GedDocument<?> gmd = null;
         try {
-            gmd = GedDocumentMongoFactory.getInstance().
-                    createGedDocument(null);
+            gmd = toDocConverter.createGedDocument(null);
             fail("Should not get here");
         } catch (PersistenceException e) {
             assertNull("Should be null", gmd); // Expected
@@ -308,8 +293,7 @@ public class GedDocumentFactoryCreateDocumentTest {
         final GedObject ged = createGedObject();
         GedDocument<?> gmd = null;
         try {
-            gmd = GedDocumentMongoFactory.getInstance().
-                    createGedDocument(ged);
+            gmd = toDocConverter.createGedDocument(ged);
             fail("Should not get here");
         } catch (PersistenceException e) {
             assertNull("Should be null", gmd); // Expected

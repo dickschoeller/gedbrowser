@@ -7,9 +7,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmittorDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     SubmittorDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -24,6 +23,9 @@ public class SubmittorDocumentRepositoryMongoImpl implements
     /** */
     @Autowired
     private transient MongoTemplate mongoTemplate;
+    /** */
+    @Autowired
+    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /**
      * {@inheritDoc}
@@ -39,9 +41,8 @@ public class SubmittorDocumentRepositoryMongoImpl implements
         if (submittorDocument == null) {
             return null;
         }
-        final Submittor submittor =
-                (Submittor) GedDocumentMongoFactory.getInstance().
-                createGedObject(null, submittorDocument);
+        final Submittor submittor = (Submittor) toObjConverter.createGedObject(
+                null, submittorDocument);
         submittorDocument.setGedObject(submittor);
         return submittorDocument;
     }
@@ -77,9 +78,8 @@ public class SubmittorDocumentRepositoryMongoImpl implements
         final List<SubmittorDocument> submittorDocuments = new ArrayList<>();
         for (final SubmittorDocument submittorDocument
                 : submittorDocumentsMongo) {
-            final Submittor submittor =
-                    (Submittor) GedDocumentMongoFactory.getInstance()
-                        .createGedObject(null, submittorDocument);
+            final Submittor submittor = (Submittor) toObjConverter
+                    .createGedObject(null, submittorDocument);
             submittorDocument.setGedObject(submittor);
             submittorDocuments.add(submittorDocument);
         }

@@ -12,9 +12,9 @@ import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.persistence.domain.TrailerDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -32,10 +32,12 @@ public final class TrailerRepositoryTest {
     /** */
     @Autowired
     private transient TrailerDocumentRepositoryMongo trailerDocumentRepository;
-
     /** */
     @Autowired
     private transient RepositoryFixture repositoryFixture;
+    /** */
+    @Autowired
+    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /** */
     private transient Root root;
@@ -66,8 +68,8 @@ public final class TrailerRepositoryTest {
     public void testTrailer() {
         final TrailerDocument document = trailerDocumentRepository.
                 findByFileAndString(root.getFilename(), TRAILER_STRING);
-        final Trailer trailer = (Trailer) GedDocumentMongoFactory.getInstance().
-                createGedObject(root, document);
+        final Trailer trailer =
+                (Trailer) toObjConverter.createGedObject(root, document);
         assertEquals("Expected trailer string",
                 TRAILER_STRING, trailer.getString());
     }
@@ -77,8 +79,8 @@ public final class TrailerRepositoryTest {
     public void testTrailerRoot() {
         final TrailerDocument document = trailerDocumentRepository.
                 findByRootAndString(rootDocument, TRAILER_STRING);
-        final Trailer trailer = (Trailer) GedDocumentMongoFactory.getInstance().
-                createGedObject(root, document);
+        final Trailer trailer =
+                (Trailer) toObjConverter.createGedObject(root, document);
         assertEquals("Expected trailer string",
                 TRAILER_STRING, trailer.getString());
     }

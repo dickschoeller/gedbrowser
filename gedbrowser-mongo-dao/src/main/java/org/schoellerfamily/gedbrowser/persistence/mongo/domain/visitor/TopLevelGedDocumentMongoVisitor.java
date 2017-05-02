@@ -1,6 +1,13 @@
-package org.schoellerfamily.gedbrowser.persistence.mongo.domain;
+package org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamilyDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 
 /**
  * @author Dick Schoeller

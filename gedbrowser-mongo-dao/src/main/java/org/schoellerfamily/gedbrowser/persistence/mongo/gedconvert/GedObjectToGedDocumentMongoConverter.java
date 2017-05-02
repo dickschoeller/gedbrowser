@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.persistence.mongo.domain;
+package org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,19 +23,36 @@ import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
-import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.PersistenceException;
-import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
-import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.AttributeDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.ChildDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.DateDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamCDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamSDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamilyDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HusbandDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.MultimediaDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NameDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PlaceDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceLinkDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorLinkDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo;
 
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.CouplingBetweenObjects")
-public final class GedDocumentMongoFactory {
+@SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports" })
+public final class GedObjectToGedDocumentMongoConverter {
     /** */
-    private static final GedDocumentMongoFactory INSTANCE =
-            new GedDocumentMongoFactory();
+    private static final GedObjectToGedDocumentMongoConverter INSTANCE =
+            new GedObjectToGedDocumentMongoConverter();
 
     /**
      * Holds the mapping between GedObject and GedDocument.
@@ -68,13 +85,13 @@ public final class GedDocumentMongoFactory {
     /**
      * Constructor.
      */
-    private GedDocumentMongoFactory() {
+    private GedObjectToGedDocumentMongoConverter() {
     }
 
     /**
      * @return the singleton
      */
-    public static GedDocumentMongoFactory getInstance() {
+    public static GedObjectToGedDocumentMongoConverter getInstance() {
         return INSTANCE;
     }
 
@@ -113,43 +130,5 @@ public final class GedDocumentMongoFactory {
         final GedDocumentMongo<G> retval = (GedDocumentMongo<G>) create(ged);
         retval.setGedObject(ged);
         return retval;
-    }
-
-    /**
-     * @param parent the parent object
-     * @param document the document to transform
-     * @return the transformation result
-     */
-    public GedObject createGedObject(final GedObject parent,
-            final GedDocument<?> document) {
-        if (document == null) {
-            throw new PersistenceException("whoops: null document");
-        }
-
-        final GedDocumentMongo<? extends GedObject> documentMongo =
-                (GedDocumentMongo<? extends GedObject>) document;
-        final GedObjectCreatorVisitor visitor =
-                new GedObjectCreatorVisitor(parent);
-        documentMongo.accept(visitor);
-        final GedObject retval = visitor.getGedObject();
-
-        for (final GedDocument<?> subDocument : document.getAttributes()) {
-            final GedObject subGed = createGedObject(retval, subDocument);
-            retval.addAttribute(subGed);
-        }
-        return retval;
-    }
-
-    /**
-     * @param document the repository document for this root
-     * @param finder the repository finder instance
-     * @return the root object.
-     */
-    public Root createRoot(final RootDocument document,
-            final FinderStrategy finder) {
-        final Root root = new Root("Root", finder);
-        root.setFilename(document.getFilename());
-        root.setDbName(document.getDbName());
-        return root;
     }
 }

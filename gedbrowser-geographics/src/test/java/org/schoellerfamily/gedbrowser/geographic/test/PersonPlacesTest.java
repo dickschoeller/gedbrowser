@@ -17,7 +17,7 @@ import org.schoellerfamily.gedbrowser.geographics.PersonPlaces;
 import org.schoellerfamily.gedbrowser.geographics.Places;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
-import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
+import org.schoellerfamily.gedbrowser.reader.testreader.TestResourceReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -44,7 +44,7 @@ public final class PersonPlacesTest {
     @Test
     public void testArnold() throws IOException {
         final AbstractGedLine top =
-                ReaderHelper.readFileTestSource(this,
+                TestResourceReader.readFileTestSource(this,
                         "mini-schoeller.ged");
         final Root root = g2g.create(top);
         final Person person = (Person) root.find("I7");
@@ -97,7 +97,7 @@ public final class PersonPlacesTest {
     @Test
     public void testDick() throws IOException {
         final AbstractGedLine top =
-                ReaderHelper.readFileTestSource(this,
+                TestResourceReader.readFileTestSource(this,
                         "mini-schoeller.ged");
         final Root root = g2g.create(top);
         final Person person = (Person) root.find("I2");

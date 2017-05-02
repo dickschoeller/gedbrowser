@@ -14,9 +14,8 @@ import org.schoellerfamily.gedbrowser.datamodel.util.PersonComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     PersonDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.
     FindableByNameDocument;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +35,9 @@ public final class PersonDocumentRepositoryMongoImpl implements
     /** */
     @Autowired
     private transient MongoTemplate mongoTemplate;
+    /** */
+    @Autowired
+    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /**
      * {@inheritDoc}
@@ -50,8 +52,8 @@ public final class PersonDocumentRepositoryMongoImpl implements
         if (personDocument == null) {
             return null;
         }
-        final Person person = (Person) GedDocumentMongoFactory.getInstance()
-                .createGedObject(null, personDocument);
+        final Person person =
+                (Person) toObjConverter.createGedObject(null, personDocument);
         personDocument.setGedObject(person);
         return personDocument;
     }
@@ -211,8 +213,8 @@ public final class PersonDocumentRepositoryMongoImpl implements
     private void createGedObjects(
             final List<PersonDocumentMongo> personDocuments) {
         for (final PersonDocumentMongo personDocument : personDocuments) {
-            final Person person = (Person) GedDocumentMongoFactory.getInstance()
-                    .createGedObject(null, personDocument);
+            final Person person = (Person) toObjConverter.createGedObject(
+                    null, personDocument);
             personDocument.setGedObject(person);
         }
     }
@@ -269,9 +271,8 @@ public final class PersonDocumentRepositoryMongoImpl implements
         }
         final List<PersonDocument> personDocuments = new ArrayList<>();
         for (final PersonDocument personDocument : personDocumentsMongo) {
-            final Person person =
-                    (Person) GedDocumentMongoFactory.getInstance()
-                        .createGedObject(null, personDocument);
+            final Person person = (Person) toObjConverter.createGedObject(
+                    null, personDocument);
             personDocument.setGedObject(person);
             personDocuments.add(personDocument);
         }

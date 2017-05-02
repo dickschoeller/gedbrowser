@@ -6,9 +6,9 @@ import java.util.Map;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TopLevelGedDocumentMongoVisitor;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SaveVisitor;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
@@ -31,6 +31,10 @@ public final class RepositoryFixture {
     @Autowired
     private transient TestDataReader reader;
 
+    /** */
+    private final GedObjectToGedDocumentMongoConverter toDocConverter =
+            GedObjectToGedDocumentMongoConverter.getInstance();
+
     /**
      * This is private because this is a singleton.
      */
@@ -52,8 +56,7 @@ public final class RepositoryFixture {
         root.setDbName("bigtest");
 
         final RootDocumentMongo rootdoc =
-                (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
-                        .createGedDocument(root);
+                (RootDocumentMongo) toDocConverter.createGedDocument(root);
         repositoryManager.getRootDocumentRepository().save(rootdoc);
 
         final Map<String, GedObject> map = root.getObjects();
@@ -61,8 +64,8 @@ public final class RepositoryFixture {
                 new SaveVisitor(repositoryManager);
 
         for (final GedObject ged : map.values()) {
-            final GedDocumentMongo<GedObject> gedDoc = GedDocumentMongoFactory
-                    .getInstance().createGedDocument(ged);
+            final GedDocumentMongo<GedObject> gedDoc =
+                    toDocConverter.createGedDocument(ged);
             gedDoc.accept(visitor);
         }
         return root;

@@ -10,7 +10,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 /**
  * @author Dick Schoeller
  */
-public final class OrderAnalyzerTestHelper {
+public final class OrderAnalyzerTestWrapper {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -33,7 +33,7 @@ public final class OrderAnalyzerTestHelper {
      * @param person the person whose analysis was done
      * @param result the result
      */
-    public void dump(final Person person, final OrderAnalyzerResult result) {
+    private void dump(final Person person, final OrderAnalyzerResult result) {
         logger.info(person.getName().getString() + ": " + getOkString(result));
         for (final String message : result.getMismatches()) {
             logger.info("    " + message);
@@ -44,7 +44,7 @@ public final class OrderAnalyzerTestHelper {
      * @param result the result
      * @return appropriate string
      */
-    public String getOkString(final OrderAnalyzerResult result) {
+    private String getOkString(final OrderAnalyzerResult result) {
         if (result.isCorrect()) {
             return "OK";
         }

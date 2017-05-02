@@ -25,7 +25,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
     /** */
     @Autowired
-    private OrderAnalyzerTestHelper helper;
+    private OrderAnalyzerTestWrapper wrapper;
 
     /** */
     @Autowired
@@ -55,7 +55,7 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         final Family family = familyBuilder().createFamily("F1");
         familyBuilder().addHusbandToFamily(family, person1);
         familyBuilder().addWifeToFamily(family, person2);
-        final OrderAnalyzerResult result = helper.analyze(person1);
+        final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertTrue("Expected correct with one undated family",
                 result.isCorrect());
     }
@@ -72,7 +72,7 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         final Family family2 = familyBuilder().createFamily("F2");
         familyBuilder().addHusbandToFamily(family2, person1);
         familyBuilder().addWifeToFamily(family2, person3);
-        final OrderAnalyzerResult result = helper.analyze(person1);
+        final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertTrue("Expected correct with 2 undated families",
                 result.isCorrect());
     }
@@ -90,7 +90,7 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         final Family family2 = familyBuilder().createFamily("F2");
         familyBuilder().addHusbandToFamily(family2, person1);
         familyBuilder().addWifeToFamily(family2, person3);
-        final OrderAnalyzerResult result = helper.analyze(person1);
+        final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertTrue("Expected correct with 2 families only the 1st is dated",
                 result.isCorrect());
     }
@@ -108,7 +108,7 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         familyBuilder().addHusbandToFamily(family2, person1);
         familyBuilder().addWifeToFamily(family2, person3);
         familyBuilder().createFamilyEvent(family2, "Marriage", "8 JAN 2016");
-        final OrderAnalyzerResult result = helper.analyze(person1);
+        final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertTrue("Expected correct with 2 families only the 2nd is dated",
                 result.isCorrect());
     }
@@ -127,7 +127,7 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         familyBuilder().addHusbandToFamily(family2, person1);
         familyBuilder().addWifeToFamily(family2, person3);
         familyBuilder().createFamilyEvent(family2, "Marriage", "8 JAN 2016");
-        final OrderAnalyzerResult result = helper.analyze(person1);
+        final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertTrue("Expected correct with 2 families dates are in order",
                 result.isCorrect());
     }
@@ -146,7 +146,7 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         familyBuilder().addHusbandToFamily(family2, person1);
         familyBuilder().addWifeToFamily(family2, person3);
         familyBuilder().createFamilyEvent(family2, "Marriage", "7 JAN 2016");
-        final OrderAnalyzerResult result = helper.analyze(person1);
+        final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertFalse("Expected incorrect with 2 families dates are out of order",
                 result.isCorrect());
     }
@@ -171,7 +171,7 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         familyBuilder().addHusbandToFamily(family2, person1);
         familyBuilder().addWifeToFamily(family2, person3);
         familyBuilder().createFamilyEvent(family2, "Marriage", "8 JAN 2016");
-        final OrderAnalyzerResult result = helper.analyze(person1);
+        final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertTrue("Expected correct with 2 families dates are in order",
                 result.isCorrect());
     }
@@ -196,7 +196,7 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         familyBuilder().addHusbandToFamily(family2, person1);
         familyBuilder().addWifeToFamily(family2, person3);
         familyBuilder().createFamilyEvent(family2, "Marriage", "7 JAN 2016");
-        final OrderAnalyzerResult result = helper.analyze(person1);
+        final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertFalse("Expected incorrect with 2 families dates are out of order",
                 result.isCorrect());
     }
@@ -211,7 +211,7 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         familyBuilder().addWifeToFamily(family1, person2);
         familyBuilder().createFamilyEvent(family1, "Engaged", "7 JAN 2016");
         familyBuilder().createFamilyEvent(family1, "Marriage", "8 JAN 2016");
-        final OrderAnalyzerResult result = helper.analyze(person1);
+        final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertTrue("Expected correct with 2 events in order",
                 result.isCorrect());
     }
@@ -226,7 +226,7 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         familyBuilder().addWifeToFamily(family1, person2);
         familyBuilder().createFamilyEvent(family1, "Marriage", "8 JAN 2016");
         familyBuilder().createFamilyEvent(family1, "Engaged", "7 JAN 2016");
-        final OrderAnalyzerResult result = helper.analyze(person1);
+        final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertFalse("Expected incorrect with 2 events out of order",
                 result.isCorrect());
     }
@@ -248,7 +248,7 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         familyBuilder().addWifeToFamily(family2, person3);
         familyBuilder().createFamilyEvent(family2, "Marriage", "9 JAN 2016");
 
-        final OrderAnalyzerResult result = helper.analyze(person1);
+        final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertEquals("Expected incorrect with 2 events out of order",
                 1, result.getMismatches().size());
     }
@@ -270,7 +270,7 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         familyBuilder().addWifeToFamily(family2, person3);
         familyBuilder().createFamilyEvent(family2, "Marriage", "6 JAN 2016");
 
-        final OrderAnalyzerResult result = helper.analyze(person1);
+        final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertEquals("Expected incorrect with 2 events out of order",
                 2, result.getMismatches().size());
     }
@@ -294,7 +294,7 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person4, "Birth", "6 JAN 2016");
         familyBuilder().addChildToFamily(family2, person4);
 
-        final OrderAnalyzerResult result = helper.analyze(person1);
+        final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertEquals("Expected incorrect with 2 events out of order",
                 2, result.getMismatches().size());
     }

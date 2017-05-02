@@ -12,9 +12,9 @@ import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmittorDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmittorDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -30,10 +30,12 @@ public final class SubmittorRepositoryTest {
     @Autowired
     private transient SubmittorDocumentRepositoryMongo
         submittorDocumentRepository;
-
     /** */
     @Autowired
     private transient RepositoryFixture repositoryFixture;
+    /** */
+    @Autowired
+    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /** */
     private transient Root root;
@@ -65,8 +67,7 @@ public final class SubmittorRepositoryTest {
         final SubmittorDocument document = submittorDocumentRepository.
                 findByFileAndString(root.getFilename(), "SUB1");
         final Submittor submittor =
-                (Submittor) GedDocumentMongoFactory.getInstance().
-                createGedObject(root, document);
+                (Submittor) toObjConverter.createGedObject(root, document);
         assertEquals("Expected submittor string",
                 "SUB1", submittor.getString());
     }
@@ -77,8 +78,7 @@ public final class SubmittorRepositoryTest {
         final SubmittorDocument document = submittorDocumentRepository.
                 findByRootAndString(rootDocument, "SUB1");
         final Submittor submittor =
-                (Submittor) GedDocumentMongoFactory.getInstance().
-                createGedObject(root, document);
+                (Submittor) toObjConverter.createGedObject(root, document);
         assertEquals("Expected submittor string",
                 "SUB1", submittor.getString());
     }

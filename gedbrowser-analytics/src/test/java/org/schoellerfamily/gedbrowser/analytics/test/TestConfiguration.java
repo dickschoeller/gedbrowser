@@ -2,7 +2,7 @@ package org.schoellerfamily.gedbrowser.analytics.test;
 
 import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
-import org.schoellerfamily.gedbrowser.analytics.order.test.OrderAnalyzerTestHelper;
+import org.schoellerfamily.gedbrowser.analytics.order.test.OrderAnalyzerTestWrapper;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
 import org.springframework.context.annotation.Bean;
@@ -25,8 +25,8 @@ public class TestConfiguration {
      * @return the helper
      */
     @Bean
-    public OrderAnalyzerTestHelper helper() {
-        return new OrderAnalyzerTestHelper();
+    public OrderAnalyzerTestWrapper wrapper() {
+        return new OrderAnalyzerTestWrapper();
     }
 
     /**
