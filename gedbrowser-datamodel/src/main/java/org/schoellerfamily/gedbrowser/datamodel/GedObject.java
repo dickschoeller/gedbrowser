@@ -158,26 +158,13 @@ public abstract class GedObject extends AbstractFinderObject {
     @Override
     public final int hashCode() {
         int result = 1;
-        result = PRIME * result + parentHashCode();
-        result = PRIME * result + stringHashCode();
-        return result;
-    }
-
-    /**
-     * @return return the string's hashCode
-     */
-    private int stringHashCode() {
-        return string.hashCode();
-    }
-
-    /**
-     * @return the parent's hashCode
-     */
-    private int parentHashCode() {
         if (parent == null) {
-            return 0;
+            result = PRIME * result;
+        } else {
+            result = PRIME * result + parent.hashCode();
         }
-        return parent.hashCode();
+        result = PRIME * result + string.hashCode();
+        return result;
     }
 
     /**
