@@ -8,6 +8,7 @@ import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.controller.ApplicationInfoImpl;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     FamilyDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
@@ -180,5 +181,13 @@ public class MongoConfiguration {
     @Bean
     public GedObjectCreator g2g() {
         return new GedObjectCreator();
+    }
+
+    /**
+     * @return the converter
+     */
+    @Bean
+    public GedDocumentMongoToGedObjectConverter toGedObjectConverter() {
+        return new GedDocumentMongoToGedObjectConverter();
     }
 }

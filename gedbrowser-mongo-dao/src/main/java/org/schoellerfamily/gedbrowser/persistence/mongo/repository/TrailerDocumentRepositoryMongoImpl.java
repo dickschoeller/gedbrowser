@@ -7,9 +7,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.TrailerDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     TrailerDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -24,6 +23,9 @@ public class TrailerDocumentRepositoryMongoImpl implements
     /** */
     @Autowired
     private transient MongoTemplate mongoTemplate;
+    /** */
+    @Autowired
+    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /**
      * {@inheritDoc}
@@ -38,8 +40,8 @@ public class TrailerDocumentRepositoryMongoImpl implements
         if (trailerDocument == null) {
             return null;
         }
-        final Trailer trailer = (Trailer) GedDocumentMongoFactory.getInstance().
-                createGedObject(null, trailerDocument);
+        final Trailer trailer = (Trailer) toObjConverter.createGedObject(
+                null, trailerDocument);
         trailerDocument.setGedObject(trailer);
         return trailerDocument;
     }
@@ -74,9 +76,8 @@ public class TrailerDocumentRepositoryMongoImpl implements
         }
         final List<TrailerDocument> trailerDocuments = new ArrayList<>();
         for (final TrailerDocument trailerDocument : trailerDocumentsMongo) {
-            final Trailer trailer =
-                    (Trailer) GedDocumentMongoFactory.getInstance()
-                        .createGedObject(null, trailerDocument);
+            final Trailer trailer = (Trailer) toObjConverter.createGedObject(
+                    null, trailerDocument);
             trailerDocument.setGedObject(trailer);
             trailerDocuments.add(trailerDocument);
         }

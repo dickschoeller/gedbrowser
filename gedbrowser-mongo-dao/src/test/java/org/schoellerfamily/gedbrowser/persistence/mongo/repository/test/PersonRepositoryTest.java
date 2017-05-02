@@ -13,9 +13,9 @@ import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -35,10 +35,12 @@ public final class PersonRepositoryTest {
     /** */
     @Autowired
     private transient PersonDocumentRepositoryMongo personDocumentRepository;
-
     /** */
     @Autowired
     private transient RepositoryFixture repositoryFixture;
+    /** */
+    @Autowired
+    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /** */
     private transient Root root;
@@ -69,8 +71,8 @@ public final class PersonRepositoryTest {
     public void testMelissa() {
         final PersonDocument perdoc = personDocumentRepository.
                 findByFileAndString(root.getFilename(), "I1");
-        final Person person = (Person) GedDocumentMongoFactory.getInstance().
-                createGedObject(root, perdoc);
+        final Person person =
+                (Person) toObjConverter.createGedObject(root, perdoc);
         assertEquals("Name mistmatch",
                 "Melissa Robinson/Schoeller/", person.getName().getString());
     }
@@ -80,8 +82,8 @@ public final class PersonRepositoryTest {
     public void testMelissaRoot() {
         final PersonDocument perdoc = personDocumentRepository.
                 findByRootAndString(rootDocument, "I1");
-        final Person person = (Person) GedDocumentMongoFactory.getInstance().
-                createGedObject(root, perdoc);
+        final Person person =
+                (Person) toObjConverter.createGedObject(root, perdoc);
         assertEquals("Name mistmatch",
                 "Melissa Robinson/Schoeller/", person.getName().getString());
     }
@@ -91,8 +93,8 @@ public final class PersonRepositoryTest {
     public void testDick() {
         final PersonDocument perdoc = personDocumentRepository.
                 findByFileAndString(root.getFilename(), "I2");
-        final Person person = (Person) GedDocumentMongoFactory.getInstance().
-                createGedObject(root, perdoc);
+        final Person person =
+                (Person) toObjConverter.createGedObject(root, perdoc);
         assertEquals("Name mistmatch",
                 "Richard John/Schoeller/", person.getName().getString());
     }
@@ -102,8 +104,8 @@ public final class PersonRepositoryTest {
     public void testDickRoot() {
         final PersonDocument perdoc = personDocumentRepository.
                 findByRootAndString(rootDocument, "I2");
-        final Person person = (Person) GedDocumentMongoFactory.getInstance().
-                createGedObject(root, perdoc);
+        final Person person =
+                (Person) toObjConverter.createGedObject(root, perdoc);
         assertEquals("Name mistmatch",
                 "Richard John/Schoeller/", person.getName().getString());
     }

@@ -17,7 +17,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
-import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
+import org.schoellerfamily.gedbrowser.reader.testreader.TestResourceReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -48,7 +48,7 @@ public final class LivingEstimatorTest {
     @Test
     public void testFactoryGedFile() throws IOException {
         final AbstractGedLine top =
-                ReaderHelper.readFileTestSource(this, "gl120368.ged");
+                TestResourceReader.readFileTestSource(this, "gl120368.ged");
         final Root root = g2g.create(top);
         final List<Person> living = new ArrayList<>();
         final Map<Integer, Set<Person>> buckets = new HashMap<>();

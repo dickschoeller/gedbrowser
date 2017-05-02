@@ -12,9 +12,9 @@ import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.persistence.domain.FamilyDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -34,10 +34,12 @@ public final class FamilyRepositoryTest {
     /** */
     @Autowired
     private transient FamilyDocumentRepositoryMongo familyDocumentRepository;
-
     /** */
     @Autowired
     private transient RepositoryFixture repositoryFixture;
+    /** */
+    @Autowired
+    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /** */
     private transient Root root;
@@ -68,8 +70,8 @@ public final class FamilyRepositoryTest {
     public void testF1() {
         final FamilyDocument famdoc = familyDocumentRepository.
                 findByFileAndString(root.getFilename(), "F1");
-        final Family family = (Family) GedDocumentMongoFactory.getInstance().
-                createGedObject(root, famdoc);
+        final Family family =
+                (Family) toObjConverter.createGedObject(root, famdoc);
         assertEquals("Id mismatch", "F1", family.getString());
         // TODO test following husband, wife, children
     }
@@ -79,8 +81,8 @@ public final class FamilyRepositoryTest {
     public void testF1Root() {
         final FamilyDocument famdoc = familyDocumentRepository.
                 findByRootAndString(rootDocument, "F1");
-        final Family family = (Family) GedDocumentMongoFactory.getInstance().
-                createGedObject(root, famdoc);
+        final Family family =
+                (Family) toObjConverter.createGedObject(root, famdoc);
         assertEquals("Id mismatch", "F1", family.getString());
         // TODO test following husband, wife, children
     }

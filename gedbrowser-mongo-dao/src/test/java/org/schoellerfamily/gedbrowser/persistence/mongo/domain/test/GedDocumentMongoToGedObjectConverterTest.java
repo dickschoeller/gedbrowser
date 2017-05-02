@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -34,8 +35,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamCDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamSDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamilyDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HusbandDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.MultimediaDocumentMongo;
@@ -46,22 +45,33 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMon
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorLinkDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TopLevelGedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.test.MongoTestConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports" })
-public final class GedDocumentFactoryTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { MongoTestConfiguration.class })
+@SuppressWarnings("PMD.ExcessiveImports")
+public final class GedDocumentMongoToGedObjectConverterTest {
+    /** */
+    @Autowired
+    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
+
     /** */
     @Test
     public void testCreateAttribute() {
         final AttributeDocumentMongo gmd = new AttributeDocumentMongo();
         gmd.setString("Attribute");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", Attribute.class, ged.getClass());
     }
 
@@ -70,8 +80,7 @@ public final class GedDocumentFactoryTest {
     public void testCreateChild() {
         final ChildDocumentMongo gmd = new ChildDocumentMongo();
         gmd.setString("Child");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", Child.class, ged.getClass());
     }
 
@@ -80,8 +89,7 @@ public final class GedDocumentFactoryTest {
     public void testCreateDate() {
         final DateDocumentMongo gmd = new DateDocumentMongo();
         gmd.setString("Date");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", Date.class, ged.getClass());
     }
 
@@ -90,8 +98,7 @@ public final class GedDocumentFactoryTest {
     public void testCreateFamily() {
         final FamilyDocumentMongo gmd = new FamilyDocumentMongo();
         gmd.setString("Family");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", Family.class, ged.getClass());
     }
 
@@ -100,8 +107,7 @@ public final class GedDocumentFactoryTest {
     public void testCreateFamC() {
         final FamCDocumentMongo gmd = new FamCDocumentMongo();
         gmd.setString("FamC");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", FamC.class, ged.getClass());
     }
 
@@ -110,8 +116,7 @@ public final class GedDocumentFactoryTest {
     public void testCreateFamS() {
         final FamSDocumentMongo gmd = new FamSDocumentMongo();
         gmd.setString("FamS");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", FamS.class, ged.getClass());
     }
 
@@ -120,8 +125,7 @@ public final class GedDocumentFactoryTest {
     public void testCreateHead() {
         final HeadDocumentMongo gmd = new HeadDocumentMongo();
         gmd.setString("Head");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", Head.class, ged.getClass());
     }
 
@@ -130,8 +134,7 @@ public final class GedDocumentFactoryTest {
     public void testCreateHusband() {
         final HusbandDocumentMongo gmd = new HusbandDocumentMongo();
         gmd.setString("Husband");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", Husband.class, ged.getClass());
     }
 
@@ -140,8 +143,7 @@ public final class GedDocumentFactoryTest {
     public void testCreatePerson() {
         final PersonDocumentMongo gmd = new PersonDocumentMongo();
         gmd.setString("Person");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", Person.class, ged.getClass());
     }
 
@@ -150,8 +152,7 @@ public final class GedDocumentFactoryTest {
     public void testCreatePlace() {
         final PlaceDocumentMongo gmd = new PlaceDocumentMongo();
         gmd.setString("Place");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", Place.class, ged.getClass());
     }
 
@@ -160,8 +161,7 @@ public final class GedDocumentFactoryTest {
     public void testCreateSource() {
         final SourceDocumentMongo gmd = new SourceDocumentMongo();
         gmd.setString("Source");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", Source.class, ged.getClass());
     }
 
@@ -170,8 +170,7 @@ public final class GedDocumentFactoryTest {
     public void testCreateSourceLink() {
         final SourceLinkDocumentMongo gmd = new SourceLinkDocumentMongo();
         gmd.setString("SourceLink");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", SourceLink.class, ged.getClass());
     }
 
@@ -180,8 +179,7 @@ public final class GedDocumentFactoryTest {
     public void testCreateSubmittor() {
         final SubmittorDocumentMongo gmd = new SubmittorDocumentMongo();
         gmd.setString("Submittor");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", Submittor.class, ged.getClass());
     }
 
@@ -190,8 +188,7 @@ public final class GedDocumentFactoryTest {
     public void testCreateSubmittorLink() {
         final SubmittorLinkDocumentMongo gmd = new SubmittorLinkDocumentMongo();
         gmd.setString("SubmittorLink");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", SubmittorLink.class, ged.getClass());
     }
 
@@ -200,8 +197,7 @@ public final class GedDocumentFactoryTest {
     public void testCreateTrailer() {
         final TrailerDocumentMongo gmd = new TrailerDocumentMongo();
         gmd.setString("Trailer");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", Trailer.class, ged.getClass());
     }
 
@@ -210,8 +206,7 @@ public final class GedDocumentFactoryTest {
     public void testCreateWife() {
         final WifeDocumentMongo gmd = new WifeDocumentMongo();
         gmd.setString("Wife");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", Wife.class, ged.getClass());
     }
 
@@ -220,8 +215,7 @@ public final class GedDocumentFactoryTest {
     public void testCreateMultimedia() {
         final MultimediaDocumentMongo gmd = new MultimediaDocumentMongo();
         gmd.setString("Multimedia");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", Multimedia.class, ged.getClass());
     }
 
@@ -230,8 +224,7 @@ public final class GedDocumentFactoryTest {
     public void testCreateName() {
         final NameDocumentMongo gmd = new NameDocumentMongo();
         gmd.setString("Name");
-        final GedObject ged = GedDocumentMongoFactory.getInstance().
-                createGedObject(new Root(), gmd);
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", Name.class, ged.getClass());
     }
 
@@ -275,8 +268,7 @@ public final class GedDocumentFactoryTest {
         gmd.setString("Foo");
         GedObject ged = null;
         try {
-            ged = GedDocumentMongoFactory.getInstance().
-                    createGedObject(new Root(), gmd);
+            ged = toObjConverter.createGedObject(new Root(), gmd);
             fail("Should not get here");
         } catch (PersistenceException e) {
             assertNull("Result should be null", ged);

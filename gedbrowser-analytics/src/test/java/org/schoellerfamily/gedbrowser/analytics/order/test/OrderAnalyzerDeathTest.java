@@ -25,7 +25,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public final class OrderAnalyzerDeathTest implements AnalyzerTest {
     /** */
     @Autowired
-    private OrderAnalyzerTestHelper helper;
+    private OrderAnalyzerTestWrapper wrapper;
     /** */
     @Autowired
     private GedObjectBuilder builder;
@@ -51,7 +51,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
     public void testPersonWithOnlyDeathMatch() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Death");
-        final OrderAnalyzerResult result = helper.analyze(person);
+        final OrderAnalyzerResult result = wrapper.analyze(person);
         assertTrue("Expected correct with only death event",
                 result.isCorrect());
     }
@@ -62,7 +62,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Education");
         personBuilder().createPersonEvent(person, "Death");
-        final OrderAnalyzerResult result = helper.analyze(person);
+        final OrderAnalyzerResult result = wrapper.analyze(person);
         assertTrue("Expected correct with death events are after others",
                 result.isCorrect());
     }
@@ -73,7 +73,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Death");
         personBuilder().createPersonEvent(person, "Education");
-        final OrderAnalyzerResult result = helper.analyze(person);
+        final OrderAnalyzerResult result = wrapper.analyze(person);
         assertFalse("Expected incorrect with death events are before others",
                 result.isCorrect());
     }
@@ -84,7 +84,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Death");
         personBuilder().createPersonEvent(person, "Will");
-        final OrderAnalyzerResult result = helper.analyze(person);
+        final OrderAnalyzerResult result = wrapper.analyze(person);
         assertTrue("Expected correct with death before will",
                 result.isCorrect());
     }
@@ -95,7 +95,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Will");
         personBuilder().createPersonEvent(person, "Death");
-        final OrderAnalyzerResult result = helper.analyze(person);
+        final OrderAnalyzerResult result = wrapper.analyze(person);
         assertTrue("Expected correct with will before death",
                 result.isCorrect());
     }
@@ -107,7 +107,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Will");
         personBuilder().createPersonEvent(person, "Education");
         personBuilder().createPersonEvent(person, "Death");
-        final OrderAnalyzerResult result = helper.analyze(person);
+        final OrderAnalyzerResult result = wrapper.analyze(person);
         assertTrue("Expected correct with will, education, death",
                 result.isCorrect());
     }
@@ -119,7 +119,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Death");
         personBuilder().createPersonEvent(person, "Funeral");
         personBuilder().createPersonEvent(person, "Burial");
-        final OrderAnalyzerResult result = helper.analyze(person);
+        final OrderAnalyzerResult result = wrapper.analyze(person);
         assertTrue("Expected correct with death, funeral, burial",
                 result.isCorrect());
     }
@@ -130,7 +130,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Death");
         personBuilder().createPersonEvent(person, "Burial");
-        final OrderAnalyzerResult result = helper.analyze(person);
+        final OrderAnalyzerResult result = wrapper.analyze(person);
         assertTrue("Expected correct with death, burial",
                 result.isCorrect());
     }
@@ -142,7 +142,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Funeral");
         personBuilder().createPersonEvent(person, "Burial");
         personBuilder().createPersonEvent(person, "Death");
-        final OrderAnalyzerResult result = helper.analyze(person);
+        final OrderAnalyzerResult result = wrapper.analyze(person);
         assertFalse("Expected incorrect with funeral, burial, death",
                 result.isCorrect());
     }
@@ -154,7 +154,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Death");
         personBuilder().createPersonEvent(person, "Burial");
         personBuilder().createPersonEvent(person, "Death");
-        final OrderAnalyzerResult result = helper.analyze(person);
+        final OrderAnalyzerResult result = wrapper.analyze(person);
         assertFalse("Expected incorrect with death, burial, death",
                 result.isCorrect());
     }
@@ -166,7 +166,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Burial");
         personBuilder().createPersonEvent(person, "Burial");
         personBuilder().createPersonEvent(person, "Burial");
-        final OrderAnalyzerResult result = helper.analyze(person);
+        final OrderAnalyzerResult result = wrapper.analyze(person);
         assertTrue("Expected correct with burial, burial, burial",
                 result.isCorrect());
     }
@@ -178,7 +178,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Death");
         personBuilder().createPersonEvent(person, "Death");
         personBuilder().createPersonEvent(person, "Death");
-        final OrderAnalyzerResult result = helper.analyze(person);
+        final OrderAnalyzerResult result = wrapper.analyze(person);
         assertTrue("Expected correct with death, death, death",
                 result.isCorrect());
     }
@@ -190,7 +190,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Death");
         personBuilder().createPersonEvent(person, "Will");
         personBuilder().createPersonEvent(person, "Death");
-        final OrderAnalyzerResult result = helper.analyze(person);
+        final OrderAnalyzerResult result = wrapper.analyze(person);
         assertTrue("Expected correct with death, will, death",
                 result.isCorrect());
     }

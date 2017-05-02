@@ -7,9 +7,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     RootDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -24,10 +23,12 @@ public class RootDocumentRepositoryMongoImpl implements
     /** */
     @Autowired
     private transient MongoTemplate mongoTemplate;
-
     /** */
     @Autowired
     private transient FinderStrategy finder;
+    /** */
+    @Autowired
+    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /**
      * {@inheritDoc}
@@ -42,8 +43,8 @@ public class RootDocumentRepositoryMongoImpl implements
         if (rootDocument == null) {
             return null;
         }
-        final Root root = (Root) GedDocumentMongoFactory.getInstance().
-                createRoot(rootDocument, finder);
+        final Root root =
+                (Root) toObjConverter.createRoot(rootDocument, finder);
         rootDocument.setGedObject(root);
         return rootDocument;
     }
@@ -73,8 +74,7 @@ public class RootDocumentRepositoryMongoImpl implements
         final List<RootDocument> rootDocuments = new ArrayList<>();
         for (final RootDocument rootDocument : rootDocumentsMongo) {
             final Root root =
-                    (Root) GedDocumentMongoFactory.getInstance()
-                        .createGedObject(null, rootDocument);
+                    (Root) toObjConverter.createGedObject(null, rootDocument);
             rootDocument.setGedObject(root);
             rootDocuments.add(rootDocument);
         }

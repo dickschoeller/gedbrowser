@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
@@ -120,7 +121,15 @@ public class MongoTestConfiguration {
      * @return the data reader
      */
     @Bean
-    TestDataReader reader() {
+    public TestDataReader reader() {
         return new TestDataReader();
+    }
+
+    /**
+     * @return the converter
+     */
+    @Bean
+    public GedDocumentMongoToGedObjectConverter toGedObjectConverter() {
+        return new GedDocumentMongoToGedObjectConverter();
     }
 }

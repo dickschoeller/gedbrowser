@@ -6,7 +6,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLine;
 import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
-import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -396,7 +395,7 @@ public final class TestDataReader {
      */
     public Root readFileTestSource() throws IOException {
         final AbstractGedLine top =
-                ReaderHelper.readFileTestSource(this, "gl120368.ged");
+                TestResourceReader.readFileTestSource(this, "gl120368.ged");
         top.readToNext();
         return g2g.create(top);
     }

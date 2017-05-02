@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -39,6 +42,11 @@ public abstract class GedDocumentMongo<G extends GedObject>
     /** */
     @Transient
     private G gedObject;
+
+    /** */
+    @Transient
+    private final transient GedObjectToGedDocumentMongoConverter
+        toDocConverter = GedObjectToGedDocumentMongoConverter.getInstance();
 
     /**
      * {@inheritDoc}
@@ -158,8 +166,8 @@ public abstract class GedDocumentMongo<G extends GedObject>
             if (ged == null) {
                 continue;
             }
-            final GedDocument<?> documentAttribute = GedDocumentMongoFactory
-                    .getInstance().createGedDocument(ged);
+            final GedDocument<?> documentAttribute =
+                    toDocConverter.createGedDocument(ged);
             this.attributes.add(documentAttribute);
         }
     }

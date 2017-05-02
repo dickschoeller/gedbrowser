@@ -22,10 +22,9 @@ import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     RootDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TopLevelGedDocumentMongoVisitor;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -42,6 +41,10 @@ public final class RepositoryFinderMongo
     /** */
     @Autowired
     private transient RepositoryManagerMongo repositoryManager;
+
+    /** */
+    private final GedObjectToGedDocumentMongoConverter toDocConverter =
+            GedObjectToGedDocumentMongoConverter.getInstance();
 
     /**
      * Ordered list of classes to process. This order represents the
@@ -88,8 +91,7 @@ public final class RepositoryFinderMongo
         }
         final Root root = (Root) owner;
         final RootDocumentMongo rootDocument =
-                (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
-                .createGedDocument(root);
+                (RootDocumentMongo) toDocConverter.createGedDocument(root);
         final GedDocument<?> document =
                 repo.findByRootAndString(rootDocument, str);
         if (document == null) {
@@ -129,8 +131,7 @@ public final class RepositoryFinderMongo
         try {
             logger.debug("Starting insert: " + gob.getString());
             final GedDocumentMongo<?> gedDoc =
-                    GedDocumentMongoFactory.getInstance().
-                    createGedDocument(gob);
+                    toDocConverter.createGedDocument(gob);
             final TopLevelGedDocumentMongoVisitor visitor =
                     new SaveVisitor(repositoryManager);
             gedDoc.accept(visitor);
@@ -151,8 +152,7 @@ public final class RepositoryFinderMongo
         if (owner instanceof Root) {
             final Root root = (Root) owner;
             final RootDocumentMongo rootDocument =
-                    (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
-                            .createGedDocument(root);
+                    (RootDocumentMongo) toDocConverter.createGedDocument(root);
             final Collection<PersonDocument> personDocuments =
                     repositoryManager.getPersonDocumentRepository()
                     .findByRootAndSurname(rootDocument, surname);
@@ -175,8 +175,7 @@ public final class RepositoryFinderMongo
         if (owner instanceof Root) {
             final Root root = (Root) owner;
             final RootDocumentMongo rootDocument =
-                    (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
-                            .createGedDocument(root);
+                    (RootDocumentMongo) toDocConverter.createGedDocument(root);
             final Collection<PersonDocument> personDocuments =
                     repositoryManager.getPersonDocumentRepository()
                     .findByRootAndSurnameBeginsWith(rootDocument, beginsWith);
@@ -199,8 +198,7 @@ public final class RepositoryFinderMongo
         if (owner instanceof Root) {
             final Root root = (Root) owner;
             final RootDocumentMongo rootDocument =
-                    (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
-                            .createGedDocument(root);
+                    (RootDocumentMongo) toDocConverter.createGedDocument(root);
             final Iterable<PersonDocument> personDocuments =
                     repositoryManager.getPersonDocumentRepository().
                         findByRoot(rootDocument);

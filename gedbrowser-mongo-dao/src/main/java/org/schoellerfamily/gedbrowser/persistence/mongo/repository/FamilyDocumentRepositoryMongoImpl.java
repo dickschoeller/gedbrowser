@@ -8,8 +8,7 @@ import org.schoellerfamily.gedbrowser.persistence.domain.FamilyDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     FamilyDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    GedDocumentMongoFactory;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -26,6 +25,9 @@ public class FamilyDocumentRepositoryMongoImpl implements
     /** */
     @Autowired
     private transient MongoTemplate mongoTemplate;
+    /** */
+    @Autowired
+    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /**
      * {@inheritDoc}
@@ -40,8 +42,8 @@ public class FamilyDocumentRepositoryMongoImpl implements
         if (familyDocument == null) {
             return null;
         }
-        final Family family = (Family) GedDocumentMongoFactory.getInstance().
-                createGedObject(null, familyDocument);
+        final Family family =
+                (Family) toObjConverter.createGedObject(null, familyDocument);
         familyDocument.setGedObject(family);
         return familyDocument;
     }
@@ -76,9 +78,8 @@ public class FamilyDocumentRepositoryMongoImpl implements
         }
         final List<FamilyDocument> familyDocuments = new ArrayList<>();
         for (final FamilyDocument familyDocument : familyDocumentsMongo) {
-            final Family family =
-                    (Family) GedDocumentMongoFactory.getInstance()
-                        .createGedObject(null, familyDocument);
+            final Family family = (Family) toObjConverter.createGedObject(
+                    null, familyDocument);
             familyDocument.setGedObject(family);
             familyDocuments.add(familyDocument);
         }

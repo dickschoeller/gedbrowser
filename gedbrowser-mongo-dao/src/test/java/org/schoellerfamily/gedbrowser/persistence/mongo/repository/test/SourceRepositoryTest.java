@@ -12,9 +12,9 @@ import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -34,10 +34,12 @@ public final class SourceRepositoryTest {
     /** */
     @Autowired
     private transient SourceDocumentRepositoryMongo sourceDocumentRepository;
-
     /** */
     @Autowired
     private transient RepositoryFixture repositoryFixture;
+    /** */
+    @Autowired
+    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /** */
     private transient Root root;
@@ -68,8 +70,8 @@ public final class SourceRepositoryTest {
     public void testSource() {
         final SourceDocument document = sourceDocumentRepository.
                 findByFileAndString(root.getFilename(), "S2");
-        final Source source = (Source) GedDocumentMongoFactory.getInstance().
-                createGedObject(root, document);
+        final Source source =
+                (Source) toObjConverter.createGedObject(root, document);
         assertEquals("Id mismatch", "S2", source.getString());
     }
 
@@ -78,8 +80,8 @@ public final class SourceRepositoryTest {
     public void testSourceRoot() {
         final SourceDocument document = sourceDocumentRepository.
                 findByRootAndString(rootDocument, "S2");
-        final Source source = (Source) GedDocumentMongoFactory.getInstance().
-                createGedObject(root, document);
+        final Source source =
+                (Source) toObjConverter.createGedObject(root, document);
         assertEquals("Id mismatch", "S2", source.getString());
     }
 

@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.reader;
+package org.schoellerfamily.gedbrowser.reader.testreader;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -7,12 +7,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
+import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
+import org.schoellerfamily.gedbrowser.reader.GedFile;
+
 /**
  * This class provides a method to simplify reading test data files.
  *
  * @author Dick Schoeller
  */
-public final class ReaderHelper {
+public final class TestResourceReader {
     /**
      * Directory containing test data files.
      */
@@ -22,7 +25,7 @@ public final class ReaderHelper {
     /**
      * Constructor.
      */
-    private ReaderHelper() {
+    private TestResourceReader() {
     }
 
     /**

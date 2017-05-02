@@ -15,7 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLine;
 import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
-import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
+import org.schoellerfamily.gedbrowser.reader.testreader.TestResourceReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -62,7 +62,8 @@ public final class GedFileTest {
      * @throws IOException because reader might throw.
      */
     private AbstractGedLine readFileTestSource() throws IOException {
-        return ReaderHelper.readFileTestSource(this, "mini-schoeller.ged");
+        return TestResourceReader.readFileTestSource(
+                this, "mini-schoeller.ged");
     }
 
     /** */

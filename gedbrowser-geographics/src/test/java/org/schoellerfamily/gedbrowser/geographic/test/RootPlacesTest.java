@@ -16,7 +16,7 @@ import org.schoellerfamily.gedbrowser.geographics.Places;
 import org.schoellerfamily.gedbrowser.geographics.RootPlaces;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
-import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
+import org.schoellerfamily.gedbrowser.reader.testreader.TestResourceReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -42,8 +42,8 @@ public class RootPlacesTest {
      */
     @Test
     public final void testRootPlacesMini() throws IOException {
-        final AbstractGedLine top =
-                ReaderHelper.readFileTestSource(this, "mini-schoeller.ged");
+        final AbstractGedLine top = TestResourceReader.readFileTestSource(
+                this, "mini-schoeller.ged");
         final Root root = g2g.create(top);
         final Places rootPlaces = new RootPlaces(root);
         final Collection<Place> places = rootPlaces.getPlaces();
@@ -61,7 +61,7 @@ public class RootPlacesTest {
     @Test
     public final void testRootPlacesFull() throws IOException {
         final AbstractGedLine top =
-                ReaderHelper.readFileTestSource(this, "gl120368.ged");
+                TestResourceReader.readFileTestSource(this, "gl120368.ged");
         final Root root = g2g.create(top);
         final Places rootPlaces = new RootPlaces(root);
         final Collection<Place> places = rootPlaces.getPlaces();
