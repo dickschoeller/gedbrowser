@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -27,11 +28,23 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorDocument
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.test.MongoTestConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.ExcessiveImports")
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { MongoTestConfiguration.class })
 public final class BadLoadTest {
+    /** */
+    @Autowired
+    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
+
     /** */
     private final GedObject root = new Root();
     /** */
@@ -42,7 +55,7 @@ public final class BadLoadTest {
     public void testBadAttributeLoad() {
         final AttributeDocumentMongo ad = new AttributeDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -55,7 +68,7 @@ public final class BadLoadTest {
     public void testBadChildLoad() {
         final ChildDocumentMongo ad = new ChildDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -68,7 +81,7 @@ public final class BadLoadTest {
     public void testBadDateLoad() {
         final DateDocumentMongo ad = new DateDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -81,7 +94,7 @@ public final class BadLoadTest {
     public void testBadFamCLoad() {
         final FamCDocumentMongo ad = new FamCDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -94,7 +107,7 @@ public final class BadLoadTest {
     public void testBadFamilyLoad() {
         final FamilyDocumentMongo ad = new FamilyDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -107,7 +120,7 @@ public final class BadLoadTest {
     public void testBadFamSLoad() {
         final FamSDocumentMongo ad = new FamSDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -120,7 +133,7 @@ public final class BadLoadTest {
     public void testBadHeadLoad() {
         final HeadDocumentMongo ad = new HeadDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -133,7 +146,7 @@ public final class BadLoadTest {
     public void testBadHusbandLoad() {
         final HusbandDocumentMongo ad = new HusbandDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -146,7 +159,7 @@ public final class BadLoadTest {
     public void testBadMultimediaLoad() {
         final MultimediaDocumentMongo ad = new MultimediaDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -159,7 +172,7 @@ public final class BadLoadTest {
     public void testBadNameLoad() {
         final NameDocumentMongo ad = new NameDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -172,7 +185,7 @@ public final class BadLoadTest {
     public void testBadPersonLoad() {
         final PersonDocumentMongo ad = new PersonDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -185,7 +198,7 @@ public final class BadLoadTest {
     public void testBadPlaceLoad() {
         final PlaceDocumentMongo ad = new PlaceDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -198,7 +211,7 @@ public final class BadLoadTest {
     public void testBadRootLoad() {
         final RootDocumentMongo ad = new RootDocumentMongo();
         try {
-            ad.loadGedObject(attr);
+            ad.loadGedObject(toDocConverter, attr);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -211,7 +224,7 @@ public final class BadLoadTest {
     public void testBadSourceLoad() {
         final SourceDocumentMongo ad = new SourceDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -224,7 +237,7 @@ public final class BadLoadTest {
     public void testBadSourceLinkLoad() {
         final SourceLinkDocumentMongo ad = new SourceLinkDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -237,7 +250,7 @@ public final class BadLoadTest {
     public void testBadSubmittorLoad() {
         final SubmittorDocumentMongo ad = new SubmittorDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -250,7 +263,7 @@ public final class BadLoadTest {
     public void testBadSubmittorLinkLoad() {
         final SubmittorLinkDocumentMongo ad = new SubmittorLinkDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -263,7 +276,7 @@ public final class BadLoadTest {
     public void testBadTrailerLoad() {
         final TrailerDocumentMongo ad = new TrailerDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",
@@ -276,7 +289,7 @@ public final class BadLoadTest {
     public void testBadWifeLoad() {
         final WifeDocumentMongo ad = new WifeDocumentMongo();
         try {
-            ad.loadGedObject(root);
+            ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
             assertEquals("Expected a wrong type exception",

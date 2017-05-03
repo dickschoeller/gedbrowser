@@ -32,8 +32,8 @@ public final class RepositoryFixture {
     private transient TestDataReader reader;
 
     /** */
-    private final GedObjectToGedDocumentMongoConverter toDocConverter =
-            GedObjectToGedDocumentMongoConverter.getInstance();
+    @Autowired
+    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /**
      * This is private because this is a singleton.

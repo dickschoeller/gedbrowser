@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.domain;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
 import org.schoellerfamily.gedbrowser.persistence.PersistenceException;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
@@ -38,7 +39,8 @@ public class PersonDocumentMongo extends GedDocumentMongo<Person>
      * {@inheritDoc}
      */
     @Override
-    public final void loadGedObject(final GedObject ged) {
+    public final void loadGedObject(final GedDocumentLoader loader,
+            final GedObject ged) {
         if (!(ged instanceof Person)) {
             throw new PersistenceException("Wrong type");
         }
@@ -46,10 +48,9 @@ public class PersonDocumentMongo extends GedDocumentMongo<Person>
         this.setGedObject(gedObject);
         this.setString(gedObject.getString());
         this.setFilename(gedObject.getFilename());
-        this.loadAttributes(gedObject.getAttributes());
+        loader.loadAttributes(this, gedObject.getAttributes());
         indexName = gedObject.getIndexName();
         surname = gedObject.getSurname();
-        // TODO may want to put in birth date handling for duplicate names
     }
 
     /**

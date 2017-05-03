@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -23,7 +24,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
 import org.schoellerfamily.gedbrowser.persistence.PersistenceException;
+import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.AttributeDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.ChildDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.DateDocumentMongo;
@@ -49,11 +52,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports" })
-public final class GedObjectToGedDocumentMongoConverter {
-    /** */
-    private static final GedObjectToGedDocumentMongoConverter INSTANCE =
-            new GedObjectToGedDocumentMongoConverter();
-
+public final class GedObjectToGedDocumentMongoConverter
+        implements GedDocumentLoader {
     /**
      * Holds the mapping between GedObject and GedDocument.
      */
@@ -85,14 +85,8 @@ public final class GedObjectToGedDocumentMongoConverter {
     /**
      * Constructor.
      */
-    private GedObjectToGedDocumentMongoConverter() {
-    }
-
-    /**
-     * @return the singleton
-     */
-    public static GedObjectToGedDocumentMongoConverter getInstance() {
-        return INSTANCE;
+    public GedObjectToGedDocumentMongoConverter() {
+        // Empty
     }
 
     /**
@@ -111,11 +105,30 @@ public final class GedObjectToGedDocumentMongoConverter {
         }
         try {
             final GedDocumentMongo<?> retval = mongoClass.newInstance();
-            retval.loadGedObject(ged);
+            retval.loadGedObject(this, ged);
             return retval;
         } catch (InstantiationException | IllegalAccessException e) {
             throw new PersistenceException(
                     "Could not instantiate class", e);
+        }
+    }
+
+    /**
+     * @param document the document
+     * @param gedAttributes the attributes to add
+     */
+    public void loadAttributes(final GedDocument<?> document,
+            final List<GedObject> gedAttributes) {
+        document.clearAttributes();
+        for (final GedObject ged : gedAttributes) {
+            // This happens because appenders create a list entry when they
+            // are not retained.
+            if (ged == null) {
+                continue;
+            }
+            final GedDocument<?> documentAttribute =
+                    createGedDocument(ged);
+            document.addAttribute(documentAttribute);
         }
     }
 

@@ -9,6 +9,7 @@ import org.schoellerfamily.gedbrowser.controller.ApplicationInfoImpl;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     FamilyDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
@@ -189,5 +190,13 @@ public class MongoConfiguration {
     @Bean
     public GedDocumentMongoToGedObjectConverter toGedObjectConverter() {
         return new GedDocumentMongoToGedObjectConverter();
+    }
+
+    /**
+     * @return the converter
+     */
+    @Bean
+    public GedObjectToGedDocumentMongoConverter toGedDocumentConverter() {
+        return new GedObjectToGedDocumentMongoConverter();
     }
 }
