@@ -26,6 +26,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
 import org.schoellerfamily.gedbrowser.persistence.PersistenceException;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.AttributeDocumentMongo;
@@ -58,9 +59,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.ExcessiveImports")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-@SuppressWarnings("PMD.ExcessiveImports")
 public final class GedDocumentMongoToGedObjectConverterTest {
     /** */
     @Autowired
@@ -245,7 +246,8 @@ public final class GedDocumentMongoToGedObjectConverterTest {
              * {@inheritDoc}
              */
             @Override
-            public void loadGedObject(final GedObject ged) {
+            public void loadGedObject(final GedDocumentLoader loader,
+                    final GedObject ged) {
                 // Intentionally empty
             }
 

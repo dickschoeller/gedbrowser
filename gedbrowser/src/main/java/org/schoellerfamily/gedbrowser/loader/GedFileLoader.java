@@ -52,9 +52,11 @@ public class GedFileLoader {
     @Autowired
     private transient GedObjectCreator g2g;
 
-    /** */
-    private final GedObjectToGedDocumentMongoConverter toDocConverter =
-            GedObjectToGedDocumentMongoConverter.getInstance();
+    /**
+     * Implements conversion from GedObject to GedDocumentMongo.
+     */
+    @Autowired
+    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /** */
     @Value("${gedbrowser.home}")

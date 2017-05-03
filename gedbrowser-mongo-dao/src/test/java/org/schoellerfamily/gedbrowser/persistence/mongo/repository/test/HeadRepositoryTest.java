@@ -43,10 +43,6 @@ public final class HeadRepositoryTest {
     private static final String HEADER_STRING = "Header";
 
     /** */
-//    @Autowired
-//    private transient RootDocumentRepositoryMongo rootDocumentRepository;
-
-    /** */
     @Autowired
     private transient PersonDocumentRepositoryMongo personDocumentRepository;
     /** */
@@ -68,8 +64,8 @@ public final class HeadRepositoryTest {
     @Autowired
     private transient GedDocumentMongoToGedObjectConverter toObjConverter;
     /** */
-    private final GedObjectToGedDocumentMongoConverter toDocConverter =
-            GedObjectToGedDocumentMongoConverter.getInstance();
+    @Autowired
+    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /** */
     private transient Root root;
@@ -118,7 +114,6 @@ public final class HeadRepositoryTest {
         final HeadDocument headdoc = headDocumentRepository.
                 findByFileAndString(root.getFilename(), HEADER_STRING);
         final Head head = (Head) toObjConverter.createGedObject(root, headdoc);
-        // TODO fails, should string be "Head" "Header" or blank?
         assertEquals("Expected header string",
                 HEADER_STRING, head.getString());
     }
@@ -129,7 +124,6 @@ public final class HeadRepositoryTest {
         final HeadDocument headdoc = headDocumentRepository.
                 findByRootAndString(rootDocument, HEADER_STRING);
         final Head head = (Head) toObjConverter.createGedObject(root, headdoc);
-        // TODO fails, should string be "Head" "Header" or blank?
         assertEquals("Expected header string",
                 HEADER_STRING, head.getString());
     }

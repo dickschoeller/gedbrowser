@@ -43,8 +43,8 @@ public final class RepositoryFinderMongo
     private transient RepositoryManagerMongo repositoryManager;
 
     /** */
-    private final GedObjectToGedDocumentMongoConverter toDocConverter =
-            GedObjectToGedDocumentMongoConverter.getInstance();
+    @Autowired
+    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /**
      * Ordered list of classes to process. This order represents the

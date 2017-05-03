@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -49,15 +50,21 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorLinkDocu
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.test.MongoTestConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { MongoTestConfiguration.class })
 public class GedObjectToGedDocumentMongoConverterTest {
     /** */
-    private final GedObjectToGedDocumentMongoConverter toDocConverter =
-            GedObjectToGedDocumentMongoConverter.getInstance();
+    @Autowired
+    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /** */
     @Test

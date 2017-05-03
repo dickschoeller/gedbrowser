@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.domain;
 
 import org.schoellerfamily.gedbrowser.datamodel.FamC;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
 import org.schoellerfamily.gedbrowser.persistence.PersistenceException;
 import org.schoellerfamily.gedbrowser.persistence.domain.FamCDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
@@ -24,7 +25,8 @@ public class FamCDocumentMongo extends GedDocumentMongo<FamC>
      * {@inheritDoc}
      */
     @Override
-    public final void loadGedObject(final GedObject ged) {
+    public final void loadGedObject(final GedDocumentLoader loader,
+            final GedObject ged) {
         if (!(ged instanceof FamC)) {
             throw new PersistenceException("Wrong type");
         }
@@ -32,7 +34,7 @@ public class FamCDocumentMongo extends GedDocumentMongo<FamC>
         this.setGedObject(gedObject);
         this.setString(gedObject.getToString());
         this.setFilename(gedObject.getFilename());
-        this.loadAttributes(gedObject.getAttributes());
+        loader.loadAttributes(this, gedObject.getAttributes());
     }
 
     /**

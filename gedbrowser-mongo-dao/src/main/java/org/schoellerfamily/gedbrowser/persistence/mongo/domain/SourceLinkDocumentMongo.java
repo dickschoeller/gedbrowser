@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.domain;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
+import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
 import org.schoellerfamily.gedbrowser.persistence.PersistenceException;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceLinkDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
@@ -24,7 +25,8 @@ public class SourceLinkDocumentMongo extends GedDocumentMongo<SourceLink>
      * {@inheritDoc}
      */
     @Override
-    public final void loadGedObject(final GedObject ged) {
+    public final void loadGedObject(final GedDocumentLoader loader,
+            final GedObject ged) {
         if (!(ged instanceof SourceLink)) {
             throw new PersistenceException("Wrong type");
         }
@@ -32,7 +34,7 @@ public class SourceLinkDocumentMongo extends GedDocumentMongo<SourceLink>
         this.setGedObject(gedObject);
         this.setString(gedObject.getToString());
         this.setFilename(gedObject.getFilename());
-        this.loadAttributes(gedObject.getAttributes());
+        loader.loadAttributes(this, gedObject.getAttributes());
     }
 
     /**
