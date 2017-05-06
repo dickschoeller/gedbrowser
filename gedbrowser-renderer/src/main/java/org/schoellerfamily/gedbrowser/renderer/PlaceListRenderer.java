@@ -12,11 +12,10 @@ import org.geojson.FeatureCollection;
 import org.geojson.LngLatAlt;
 import org.geojson.Point;
 import org.geojson.Polygon;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.visitor.PlaceVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.PlaceVisitor;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
@@ -42,16 +41,14 @@ public final class PlaceListRenderer {
      * @param person the person
      * @param client the geoservice client
      * @param renderingContext the current rendering context
-     * @param provider the calendar provider we are using to determine now
      */
     public PlaceListRenderer(final Person person,
             final GeoServiceClient client,
-            final RenderingContext renderingContext,
-            final CalendarProvider provider) {
+            final RenderingContext renderingContext) {
         this.person = person;
         this.client = client;
         this.renderingContext = renderingContext;
-        this.le = new LivingEstimator(person, provider);
+        this.le = new LivingEstimator(person, renderingContext);
     }
 
     /**

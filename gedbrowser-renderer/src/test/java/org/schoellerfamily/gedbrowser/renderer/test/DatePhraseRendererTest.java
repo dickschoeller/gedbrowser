@@ -5,15 +5,14 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.DatePhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.DateRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,9 +23,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class DatePhraseRendererTest {
-    /** */
-    @Autowired
-    private transient CalendarProvider provider;
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -55,7 +51,7 @@ public final class DatePhraseRendererTest {
     @Test
     public void testGetRenderAsPhrase() {
         final DateRenderer dRenderer = new DateRenderer(date,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer
                 .getPhraseRenderer();
         final String string = dpRenderer.renderAsPhrase();
@@ -68,7 +64,7 @@ public final class DatePhraseRendererTest {
     public void testGetRenderAsPhraseEmpty() {
         final DateRenderer dRenderer = new DateRenderer(
                 new Date(attribute, ""), new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer
                 .getPhraseRenderer();
         final String string = dpRenderer.renderAsPhrase();
@@ -80,7 +76,7 @@ public final class DatePhraseRendererTest {
     public void testGetRenderAsPhraseNull() {
         final DateRenderer dRenderer = new DateRenderer(
                 new Date(attribute, null), new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer
                 .getPhraseRenderer();
         final String string = dpRenderer.renderAsPhrase();

@@ -5,11 +5,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.AbstractLink;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.renderer.AbstractLinkRenderer;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
@@ -17,6 +15,7 @@ import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -27,9 +26,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class AbstractLinkRendererTest {
-    /** */
-    @Autowired
-    private transient CalendarProvider provider;
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -110,7 +106,7 @@ public final class AbstractLinkRendererTest {
         final AbstractLinkRenderer<?> renderer =
                 new AbstractLinkRenderer<AbstractLink>(createAbstractLink(),
                         new GedRendererFactory(),
-                        anonymousContext, provider) {
+                        anonymousContext) {
         };
         return renderer;
     }

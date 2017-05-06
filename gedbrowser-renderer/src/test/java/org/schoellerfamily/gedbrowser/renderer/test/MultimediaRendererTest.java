@@ -5,9 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaPhraseRenderer;
@@ -15,6 +13,7 @@ import org.schoellerfamily.gedbrowser.renderer.MultimediaRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,9 +24,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class MultimediaRendererTest {
-    /** */
-    @Autowired
-    private transient CalendarProvider provider;
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -94,8 +90,7 @@ public final class MultimediaRendererTest {
      */
     private MultimediaRenderer createRenderer() {
         final MultimediaRenderer renderer = new MultimediaRenderer(
-                new Multimedia(), new GedRendererFactory(), anonymousContext,
-                provider);
+                new Multimedia(), new GedRendererFactory(), anonymousContext);
         return renderer;
     }
 

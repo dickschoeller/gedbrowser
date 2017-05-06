@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.analytics;
+package org.schoellerfamily.gedbrowser.analytics.calendar;
 
 import java.util.Calendar;
 

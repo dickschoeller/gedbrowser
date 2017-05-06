@@ -5,9 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.AttributeListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.AttributePhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.AttributeRenderer;
@@ -16,6 +14,7 @@ import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,9 +25,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class AttributeRendererTest {
-    /** */
-    @Autowired
-    private transient CalendarProvider provider;
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -50,7 +46,7 @@ public final class AttributeRendererTest {
     public void testAttributeListOpenRenderer() {
         final AttributeRenderer renderer = new AttributeRenderer(
                 new Attribute(null), new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -64,7 +60,7 @@ public final class AttributeRendererTest {
     public void testAttributeListItemRenderer() {
         final AttributeRenderer renderer = new AttributeRenderer(
                 new Attribute(null), new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof AttributeListItemRenderer);
@@ -78,7 +74,7 @@ public final class AttributeRendererTest {
     public void testNameHtmlRenderer() {
         final AttributeRenderer renderer = new AttributeRenderer(
                 new Attribute(null), new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -92,7 +88,7 @@ public final class AttributeRendererTest {
     public void testNameIndexRenderer() {
         final AttributeRenderer renderer = new AttributeRenderer(
                 new Attribute(null), new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -106,7 +102,7 @@ public final class AttributeRendererTest {
     public void testPhraseRenderer() {
         final AttributeRenderer renderer = new AttributeRenderer(
                 new Attribute(null), new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof AttributePhraseRenderer);

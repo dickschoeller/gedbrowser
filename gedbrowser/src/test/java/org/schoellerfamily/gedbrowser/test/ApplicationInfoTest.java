@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.controller.ApplicationInfoImpl;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -66,7 +66,7 @@ public final class ApplicationInfoTest {
     @Test
     public void testApplicationInfoName() {
         assertEquals("Application name mismatch",
-                "gedbrowser", appInfo.getName());
+                "gedbrowser", appInfo.getApplicationName());
     }
 
     /** */

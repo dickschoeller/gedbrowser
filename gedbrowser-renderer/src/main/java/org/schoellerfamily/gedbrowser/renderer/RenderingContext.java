@@ -1,11 +1,21 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderFacade;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderStub;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfoFacade;
+import org.schoellerfamily.gedbrowser.renderer.user.User;
+import org.schoellerfamily.gedbrowser.renderer.user.UserFacade;
+import org.schoellerfamily.gedbrowser.renderer.user.UserImpl;
+
 /**
  * Keep track of the user context that we are rendering under.
  *
  * @author Dick Schoeller
  */
-public final class RenderingContext {
+public final class RenderingContext
+        implements ApplicationInfoFacade, CalendarProviderFacade, UserFacade {
     /** Whether this is an identified user. */
     private final boolean isUser;
 
@@ -18,18 +28,34 @@ public final class RenderingContext {
     /** */
     private final ApplicationInfo appInfo;
 
+    /** */
+    private final CalendarProvider calendarProvider;
+
     /**
      * Special case anonymous context.
-     * @param appInfo the application info to use in the context
      *
+     * @param appInfo the application info to use in the context
      * @return the created context
      */
     public static RenderingContext anonymous(final ApplicationInfo appInfo) {
-        final User user2 = new User();
+        return anonymous(appInfo, new CalendarProviderStub());
+    }
+
+    /**
+     * Special case anonymous context.
+     *
+     * @param appInfo the application info to use in the context
+     * @param provider the calendar provider to use in this context
+     * @return the created context
+     */
+    public static RenderingContext anonymous(final ApplicationInfo appInfo,
+            final CalendarProvider provider) {
+        final UserImpl user2 = new UserImpl();
         user2.setUsername("Anonymous");
         user2.setFirstname("Al");
         user2.setLastname("Anonymous");
-        return new RenderingContext(user2, false, false, appInfo);
+        return new RenderingContext(user2, false, false, appInfo,
+                provider);
     }
 
     /**
@@ -39,11 +65,12 @@ public final class RenderingContext {
      * @return the created context
      */
     public static RenderingContext user(final ApplicationInfo appInfo) {
-        final User user2 = new User();
+        final UserImpl user2 = new UserImpl();
         user2.setUsername("User");
         user2.setFirstname("Ursula");
         user2.setLastname("User");
-        return new RenderingContext(user2, true, false, appInfo);
+        return new RenderingContext(user2, true, false, appInfo,
+                new CalendarProviderStub());
     }
 
     /**
@@ -52,20 +79,16 @@ public final class RenderingContext {
      * @param isUser whether it is an identified user
      * @param isAdmin whether this user is an administrator
      * @param appInfo provides common strings about the application
+     * @param calendarProvider the calendar provider to use
      */
     public RenderingContext(final User user, final boolean isUser,
-            final boolean isAdmin, final ApplicationInfo appInfo) {
+            final boolean isAdmin, final ApplicationInfo appInfo,
+            final CalendarProvider calendarProvider) {
         this.isUser = isUser;
         this.isAdmin = isAdmin;
         this.user = user;
         this.appInfo = appInfo;
-    }
-
-    /**
-     * @return the user's name
-     */
-    public String getName() {
-        return user.getUsername();
+        this.calendarProvider = calendarProvider;
     }
 
     /**
@@ -83,64 +106,26 @@ public final class RenderingContext {
     }
 
     /**
-     * @return user's first name
+     * {@inheritDoc}
      */
-    public String getFirstname() {
-        return user.getFirstname();
+    @Override
+    public User getUser() {
+        return user;
     }
 
     /**
-     * Check if the user has a particular role.
-     *
-     * @param role role that we are looking for
-     * @return true if the user has the role
+     * {@inheritDoc}
      */
-    public boolean hasRole(final String role) {
-        if (user == null) {
-            return false;
-        }
-        return user.hasRole(role);
+    @Override
+    public CalendarProvider getCalendarProvider() {
+        return calendarProvider;
     }
 
     /**
-     * @return the URL for the home link on the menu bar
+     * {@inheritDoc}
      */
-    public String getHomeURL() {
-        return appInfo.getHomeURL();
-    }
-
-    /**
-     * @return the maintainer's name
-     */
-    public String getMaintainerName() {
-        return appInfo.getMaintainerName();
-    }
-
-    /**
-     * @return the email for the product owner/maintainer
-     */
-    public String getMaintainerEmail() {
-        return appInfo.getMaintainerEmail();
-    }
-
-    /**
-     * @return the version string
-     */
-    public String getVersion() {
-        return appInfo.getVersion();
-    }
-
-    /**
-     * @return the application URL.
-     */
-    public String getApplicationURL() {
-        return appInfo.getApplicationURL();
-    }
-
-    /**
-     * @return the application name.
-     */
-    public String getApplicationName() {
-        return appInfo.getName();
+    @Override
+    public ApplicationInfo getApplicationInfo() {
+        return appInfo;
     }
 }

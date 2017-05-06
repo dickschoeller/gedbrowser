@@ -5,9 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Link;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.LinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
@@ -16,6 +14,7 @@ import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,9 +25,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class LinkRendererTest {
-    /** */
-    @Autowired
-    private transient CalendarProvider provider;
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -49,7 +45,7 @@ public final class LinkRendererTest {
     @Test
     public void testAttributeListOpenRenderer() {
         final LinkRenderer renderer = new LinkRenderer(new Link(null),
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -62,7 +58,7 @@ public final class LinkRendererTest {
     @Test
     public void testListItemRenderer() {
         final LinkRenderer renderer = new LinkRenderer(new Link(null),
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof NullListItemRenderer);
@@ -75,7 +71,7 @@ public final class LinkRendererTest {
     @Test
     public void testNameHtmlRenderer() {
         final LinkRenderer renderer = new LinkRenderer(new Link(null),
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -88,7 +84,7 @@ public final class LinkRendererTest {
     @Test
     public void testNameIndeRenderer() {
         final LinkRenderer renderer = new LinkRenderer(new Link(null),
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -101,7 +97,7 @@ public final class LinkRendererTest {
     @Test
     public void testPhraseRenderer() {
         final LinkRenderer renderer = new LinkRenderer(new Link(null),
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);

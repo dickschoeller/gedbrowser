@@ -8,12 +8,10 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
@@ -23,6 +21,7 @@ import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SourceRenderer;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -36,9 +35,6 @@ public final class SourceRendererTest {
     /** */
     @Autowired
     private transient TestDataReader reader;
-    /** */
-    @Autowired
-    private transient CalendarProvider provider;
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -118,7 +114,7 @@ public final class SourceRendererTest {
     private SourceRenderer createRenderer() {
         final SourceRenderer renderer = new SourceRenderer(
                 new Source(null, new ObjectId("S1")), new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         return renderer;
     }
 
@@ -131,7 +127,7 @@ public final class SourceRendererTest {
         final Source source = (Source) root.find("S3");
         final SourceRenderer renderer = new SourceRenderer(source,
                 new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertEquals("Mismatched title string",
                 "Schoeller, Richard John, birth certificate",
                 renderer.getTitleString());
@@ -146,7 +142,7 @@ public final class SourceRendererTest {
         final Source source = (Source) root.find("S3");
         final SourceRenderer renderer = new SourceRenderer(source,
                 new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertEquals("Mismatched source ID",
                 "S3",
                 renderer.getIdString());
@@ -167,7 +163,7 @@ public final class SourceRendererTest {
         final Source source = (Source) root.find("S3");
         final SourceRenderer renderer = new SourceRenderer(source,
                 new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         int i = 0;
         for (final GedRenderer<?> attribute : renderer.getAttributes()) {
             assertEquals("Rendered html doesn't match expectation",

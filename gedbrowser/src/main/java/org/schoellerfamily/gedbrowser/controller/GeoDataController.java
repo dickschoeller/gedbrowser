@@ -36,7 +36,7 @@ public abstract class GeoDataController extends DatedDataController {
     protected final List<PlaceInfo> fetchPlaces(final Person person,
             final RenderingContext renderingContext) {
         final PlaceListRenderer pl = new PlaceListRenderer(person, client,
-                renderingContext, calendarProvider());
+                renderingContext);
         final List<PlaceInfo> places = pl.render();
         logPlaces(places);
         return places;

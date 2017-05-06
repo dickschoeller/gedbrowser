@@ -8,12 +8,11 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.IndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -27,9 +26,6 @@ public final class IndexRendererTest {
     /** */
     @Autowired
     private transient TestDataReader reader;
-    /** */
-    @Autowired
-    private transient CalendarProvider provider;
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -69,7 +65,7 @@ public final class IndexRendererTest {
         };
         final Root root = reader.readBigTestSource();
         final IndexRenderer ir = new IndexRenderer(root, "S",
-                anonymousContext, provider);
+                anonymousContext);
         final Collection<String> letters = ir.getLetters();
         int i = 0;
         for (final String letter : letters) {
@@ -88,7 +84,7 @@ public final class IndexRendererTest {
         };
         final Root root = reader.readBigTestSource();
         final IndexRenderer ir = new IndexRenderer(root, "S",
-                anonymousContext, provider);
+                anonymousContext);
         final Collection<String> surnames = ir.getSurnames();
         int i = 0;
         for (final String surname : surnames) {
@@ -130,7 +126,7 @@ public final class IndexRendererTest {
         };
         final Root root = reader.readBigTestSource();
         final IndexRenderer ir = new IndexRenderer(root, "S",
-                anonymousContext, provider);
+                anonymousContext);
         final Collection<String> indexNames = ir.getIndexNameHtmls("Schoeller");
         int i = 0;
         for (final String indexName : indexNames) {
@@ -146,7 +142,7 @@ public final class IndexRendererTest {
     public void testIndexBase() throws IOException {
         final Root root = reader.readBigTestSource();
         final IndexRenderer ir = new IndexRenderer(root, "S",
-                anonymousContext, provider);
+                anonymousContext);
         assertEquals("Mismatch index letter", "S", ir.getBase());
     }
 }

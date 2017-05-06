@@ -5,15 +5,14 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,9 +23,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class MultimediaListItemRendererTest {
-    /** */
-    @Autowired
-    private transient CalendarProvider provider;
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -82,7 +78,7 @@ public final class MultimediaListItemRendererTest {
     @Test
     public void testRenderAsListItemEmpty() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia1,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr =
                 (MultimediaListItemRenderer) aRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -99,7 +95,7 @@ public final class MultimediaListItemRendererTest {
     @Test
     public void testRenderAsListItemString() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia2,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr =
                 (MultimediaListItemRenderer) aRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -114,7 +110,7 @@ public final class MultimediaListItemRendererTest {
     @Test
     public void testRenderAsListItem() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia3,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr =
                 (MultimediaListItemRenderer) aRenderer .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -129,7 +125,7 @@ public final class MultimediaListItemRendererTest {
     @Test
     public void testGetListItemContentsEmpty() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia1,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr =
                 (MultimediaListItemRenderer) aRenderer.getListItemRenderer();
         final String contents = apr.getListItemContents();
@@ -145,7 +141,7 @@ public final class MultimediaListItemRendererTest {
     @Test
     public void testGetListItemContentsString() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia2,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr =
                 (MultimediaListItemRenderer) aRenderer.getListItemRenderer();
         final String contents = apr.getListItemContents();
@@ -159,7 +155,7 @@ public final class MultimediaListItemRendererTest {
     @Test
     public void testGetListItemContents() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia3,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr =
                 (MultimediaListItemRenderer) aRenderer .getListItemRenderer();
         final String contents = apr.getListItemContents();

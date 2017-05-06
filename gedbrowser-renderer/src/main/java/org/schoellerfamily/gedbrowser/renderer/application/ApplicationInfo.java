@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.renderer;
+package org.schoellerfamily.gedbrowser.renderer.application;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,7 @@ public interface ApplicationInfo {
     /**
      * @return the application name.
      */
-    String getName();
+    String getApplicationName();
 
     /**
      * @return the version string.
@@ -46,7 +46,7 @@ public interface ApplicationInfo {
      */
     default Map<String, Object> getInfoMap() {
         final Map<String, Object> infoMap = new HashMap<>();
-        infoMap.put("name", getName());
+        infoMap.put("name", getApplicationName());
         infoMap.put("version", getVersion());
         infoMap.put("URL", getApplicationURL());
         final Map<String, Object> maintainerMap = getMaintainerMap();

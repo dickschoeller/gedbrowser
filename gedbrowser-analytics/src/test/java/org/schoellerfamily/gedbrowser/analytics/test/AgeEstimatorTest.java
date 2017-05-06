@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.analytics.AgeEstimator;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.order.test.AnalyzerTest;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.FamilyBuilder;

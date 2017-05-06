@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.controller;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.LivingRenderer;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -47,7 +47,7 @@ public class LivingController extends DatedDataController {
         final Root root = fetchRoot(dbName);
 
         final GedRenderer<?> gedRenderer = new LivingRenderer(root,
-                createRenderingContext(), calendarProvider());
+                createRenderingContext());
 
         model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
         model.addAttribute("living", gedRenderer);

@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+
 /**
  * @author Dick Schoeller
  */

@@ -7,17 +7,17 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
 import org.schoellerfamily.gedbrowser.renderer.PlaceListRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
-import org.schoellerfamily.gedbrowser.renderer.User;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.renderer.user.UserImpl;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -72,7 +72,7 @@ public final class PlaceListRendererTest {
     @Test
     public void testNullArgsUser() {
         final PlaceListRenderer plr = new PlaceListRenderer(null, null,
-                RenderingContext.user(appInfo), provider);
+                RenderingContext.user(appInfo));
         final List<PlaceInfo> list = plr.render();
         assertTrue("Should cleanly provide an empty list", list.isEmpty());
     }
@@ -81,7 +81,7 @@ public final class PlaceListRendererTest {
     @Test
     public void testNullArgsAdmin() {
         final PlaceListRenderer plr = new PlaceListRenderer(null, null,
-                createAdminContext(), provider);
+                createAdminContext());
         final List<PlaceInfo> list = plr.render();
         assertTrue("Should cleanly provide an empty list", list.isEmpty());
     }
@@ -91,7 +91,7 @@ public final class PlaceListRendererTest {
     public void testNullClient() {
         final Person person = createJRandom();
         final PlaceListRenderer plr = new PlaceListRenderer(person, null,
-                RenderingContext.user(appInfo), provider);
+                RenderingContext.user(appInfo));
         final List<PlaceInfo> list = plr.render();
         assertTrue("Should cleanly provide an empty list", list.isEmpty());
     }
@@ -101,7 +101,7 @@ public final class PlaceListRendererTest {
     public void testNullClientAdmin() {
         final Person person = createJRandom();
         final PlaceListRenderer plr = new PlaceListRenderer(person, null,
-                createAdminContext(), provider);
+                createAdminContext());
         final List<PlaceInfo> list = plr.render();
         assertTrue("Should cleanly provide an empty list", list.isEmpty());
     }
@@ -211,7 +211,7 @@ public final class PlaceListRendererTest {
         attr.setTail("confidential");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
-                createAdminContext(), provider);
+                createAdminContext());
         final List<PlaceInfo> list = plr.render();
         assertEquals("Should have one result", 1, list.size());
     }
@@ -227,7 +227,7 @@ public final class PlaceListRendererTest {
         attr.setTail("confidential");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
-                RenderingContext.user(appInfo), provider);
+                RenderingContext.user(appInfo));
         final List<PlaceInfo> list = plr.render();
         assertEquals("Should have one result", 0, list.size());
     }
@@ -243,7 +243,7 @@ public final class PlaceListRendererTest {
         attr.setTail("confidential");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
-                RenderingContext.user(appInfo), provider);
+                RenderingContext.user(appInfo));
         final List<PlaceInfo> list = plr.render();
         assertEquals("Should have one result", 0, list.size());
     }
@@ -255,7 +255,7 @@ public final class PlaceListRendererTest {
         createBirth(person, "Needham, Massachusetts, USA");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
-                RenderingContext.anonymous(appInfo), provider);
+                RenderingContext.anonymous(appInfo));
         final List<PlaceInfo> list = plr.render();
         assertEquals("Should have one result", 0, list.size());
     }
@@ -268,7 +268,7 @@ public final class PlaceListRendererTest {
         createDeath(person, "Needham, Massachusetts, USA");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
-                RenderingContext.anonymous(appInfo), provider);
+                RenderingContext.anonymous(appInfo));
         final List<PlaceInfo> list = plr.render();
         assertEquals("Should have one result", 1, list.size());
     }
@@ -281,7 +281,7 @@ public final class PlaceListRendererTest {
         createDeath(person, "Needham, MA, USA");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
-                RenderingContext.anonymous(appInfo), provider);
+                RenderingContext.anonymous(appInfo));
         final List<PlaceInfo> list = plr.render();
         assertEquals("Should have one result", 2, list.size());
     }
@@ -291,8 +291,7 @@ public final class PlaceListRendererTest {
      * @return the renderer
      */
     private PlaceListRenderer createAdminRenderer(final Person person) {
-        return new PlaceListRenderer(person, client, createAdminContext(),
-                provider);
+        return new PlaceListRenderer(person, client, createAdminContext());
     }
 
     /**
@@ -319,9 +318,9 @@ public final class PlaceListRendererTest {
      * @return a rendering context with admin privs
      */
     private RenderingContext createAdminContext() {
-        final User user = new User();
+        final UserImpl user = new UserImpl();
         user.setUsername("dick");
-        return new RenderingContext(user, true, true, appInfo);
+        return new RenderingContext(user, true, true, appInfo, provider);
     }
 
     /** */
@@ -341,7 +340,7 @@ public final class PlaceListRendererTest {
         builder.addPlaceToEvent(marriage, "Needham, Massachusetts, USA");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
-                RenderingContext.anonymous(appInfo), provider);
+                RenderingContext.anonymous(appInfo));
         final List<PlaceInfo> list = plr.render();
         assertEquals("Should have one result", 1, list.size());
     }

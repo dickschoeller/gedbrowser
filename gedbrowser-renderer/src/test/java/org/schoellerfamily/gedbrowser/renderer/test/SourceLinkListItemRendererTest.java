@@ -5,17 +5,16 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SourceLinkListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SourceLinkRenderer;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,9 +25,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class SourceLinkListItemRendererTest {
-    /** */
-    @Autowired
-    private transient CalendarProvider provider;
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -57,8 +53,7 @@ public final class SourceLinkListItemRendererTest {
                 new SourceLink(person, "SOUR", new ObjectId("S1"));
         person.addAttribute(sourceLink);
         final SourceLinkRenderer slRenderer = new SourceLinkRenderer(sourceLink,
-                new GedRendererFactory(), anonymousContext,
-                provider);
+                new GedRendererFactory(), anonymousContext);
         final SourceLinkListItemRenderer lir =
                 (SourceLinkListItemRenderer) slRenderer
                 .getListItemRenderer();

@@ -5,16 +5,15 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.PersonAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,9 +24,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class PersonAttributeListOpenRendererTest {
-    /** */
-    @Autowired
-    private transient CalendarProvider provider;
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -65,7 +61,7 @@ public final class PersonAttributeListOpenRendererTest {
         final Name name = new Name(person);
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final PersonAttributeListOpenRenderer pnhr =
                 (PersonAttributeListOpenRenderer) personRenderer
                 .getAttributeListOpenRenderer();
@@ -83,7 +79,7 @@ public final class PersonAttributeListOpenRendererTest {
         final Name name = new Name(person, "");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final PersonAttributeListOpenRenderer pnhr =
                 (PersonAttributeListOpenRenderer) personRenderer
                 .getAttributeListOpenRenderer();
@@ -101,7 +97,7 @@ public final class PersonAttributeListOpenRendererTest {
         final Name name = new Name(person, "/Schoeller/");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final PersonAttributeListOpenRenderer pnhr =
                 (PersonAttributeListOpenRenderer) personRenderer
                 .getAttributeListOpenRenderer();
@@ -119,7 +115,7 @@ public final class PersonAttributeListOpenRendererTest {
         final Name name = new Name(person, "Richard/Schoeller/");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final PersonAttributeListOpenRenderer pnhr =
                 (PersonAttributeListOpenRenderer) personRenderer
                 .getAttributeListOpenRenderer();
@@ -137,7 +133,7 @@ public final class PersonAttributeListOpenRendererTest {
         final Name name = new Name(person, "/Deng/Shao Ping");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final PersonAttributeListOpenRenderer pnhr =
                 (PersonAttributeListOpenRenderer) personRenderer
                 .getAttributeListOpenRenderer();
@@ -155,7 +151,7 @@ public final class PersonAttributeListOpenRendererTest {
         final Name name = new Name(person, "Karl Frederick/Schoeller/Sr.");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final PersonAttributeListOpenRenderer pnhr =
                 (PersonAttributeListOpenRenderer) personRenderer
                 .getAttributeListOpenRenderer();
@@ -171,7 +167,7 @@ public final class PersonAttributeListOpenRendererTest {
     @Test
     public void testGetAttributeListOpenPersonUnset() {
         final PersonRenderer personRenderer = new PersonRenderer(new Person(),
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final PersonAttributeListOpenRenderer pnhr =
                 (PersonAttributeListOpenRenderer) personRenderer
                 .getAttributeListOpenRenderer();

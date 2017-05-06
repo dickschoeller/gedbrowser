@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.controller;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
@@ -29,7 +29,7 @@ public final class ApplicationInfoImpl implements ApplicationInfo {
      * {@inheritDoc}
      */
     @Override
-    public String getName() {
+    public String getApplicationName() {
         return "gedbrowser";
     }
 
