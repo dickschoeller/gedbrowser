@@ -526,8 +526,9 @@ public final class PersonRendererTest {
         userContext = RenderingContext.user(appInfo);
         final UserImpl user = new UserImpl();
         user.setUsername("dick");
-        adminContext = new RenderingContext(user, true, true, appInfo,
-                provider);
+        user.addRole("USER");
+        user.addRole("ADMIN");
+        adminContext = new RenderingContext(user, appInfo, provider);
     }
 
     /**

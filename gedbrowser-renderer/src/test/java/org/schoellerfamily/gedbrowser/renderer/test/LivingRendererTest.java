@@ -58,13 +58,11 @@ public final class LivingRendererTest {
         admin.setUsername("admin");
         admin.addRole("USER");
         admin.addRole("ADMIN");
-        adminContext = new RenderingContext(admin, true, true, appInfo,
-                provider);
+        adminContext = new RenderingContext(admin, appInfo, provider);
         final UserImpl user = new UserImpl();
         user.setUsername("user");
         user.addRole("USER");
-        userContext = new RenderingContext(user, true, false, appInfo,
-                provider);
+        userContext = new RenderingContext(user, appInfo, provider);
     }
 
     /**
