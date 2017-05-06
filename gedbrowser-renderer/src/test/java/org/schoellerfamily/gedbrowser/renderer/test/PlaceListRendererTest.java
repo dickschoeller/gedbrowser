@@ -320,7 +320,9 @@ public final class PlaceListRendererTest {
     private RenderingContext createAdminContext() {
         final UserImpl user = new UserImpl();
         user.setUsername("dick");
-        return new RenderingContext(user, true, true, appInfo, provider);
+        user.addRole("USER");
+        user.addRole("ADMIN");
+        return new RenderingContext(user, appInfo, provider);
     }
 
     /** */

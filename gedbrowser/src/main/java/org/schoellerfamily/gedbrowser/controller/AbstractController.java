@@ -56,10 +56,7 @@ public abstract class AbstractController {
         final Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
         final User user = users.get(authentication.getName());
-        final RenderingContextBuilder contextBuilder =
-                new RenderingContextBuilder(
-                        authentication, user, applicationInfo, provider);
-        return contextBuilder.build();
+        return new RenderingContext(user, applicationInfo, provider);
     }
 
     /**

@@ -16,12 +16,6 @@ import org.schoellerfamily.gedbrowser.renderer.user.UserImpl;
  */
 public final class RenderingContext
         implements ApplicationInfoFacade, CalendarProviderFacade, UserFacade {
-    /** Whether this is an identified user. */
-    private final boolean isUser;
-
-    /** Whether this user is an administrator. */
-    private final boolean isAdmin;
-
     /** User detail object for use in rendering. */
     private final User user;
 
@@ -54,8 +48,8 @@ public final class RenderingContext
         user2.setUsername("Anonymous");
         user2.setFirstname("Al");
         user2.setLastname("Anonymous");
-        return new RenderingContext(user2, false, false, appInfo,
-                provider);
+        user2.clearRoles();
+        return new RenderingContext(user2, appInfo, provider);
     }
 
     /**
@@ -69,23 +63,19 @@ public final class RenderingContext
         user2.setUsername("User");
         user2.setFirstname("Ursula");
         user2.setLastname("User");
-        return new RenderingContext(user2, true, false, appInfo,
-                new CalendarProviderStub());
+        user2.clearRoles();
+        user2.addRole("USER");
+        return new RenderingContext(user2, appInfo, new CalendarProviderStub());
     }
 
     /**
      * Constructor with authorities.
      * @param user the user detail object
-     * @param isUser whether it is an identified user
-     * @param isAdmin whether this user is an administrator
      * @param appInfo provides common strings about the application
      * @param calendarProvider the calendar provider to use
      */
-    public RenderingContext(final User user, final boolean isUser,
-            final boolean isAdmin, final ApplicationInfo appInfo,
+    public RenderingContext(final User user, final ApplicationInfo appInfo,
             final CalendarProvider calendarProvider) {
-        this.isUser = isUser;
-        this.isAdmin = isAdmin;
         this.user = user;
         this.appInfo = appInfo;
         this.calendarProvider = calendarProvider;
@@ -95,14 +85,20 @@ public final class RenderingContext
      * @return true if it is an identified user
      */
     public boolean isUser() {
-        return isUser;
+        if (user == null) {
+            return false;
+        }
+        return user.hasRole("USER");
     }
 
     /**
      * @return true if the user is an administrator
      */
     public boolean isAdmin() {
-        return isAdmin;
+        if (user == null) {
+            return false;
+        }
+        return user.hasRole("ADMIN");
     }
 
     /**

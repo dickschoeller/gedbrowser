@@ -259,13 +259,14 @@ public final class GedRendererTest {
         user2.setUsername("User");
         user2.setFirstname("Ursula");
         user2.setLastname("User");
-        user2.addRole("User");
+        user2.clearRoles();
+        user2.addRole("USER");
         final RenderingContext context =
-                new RenderingContext(user2, true, false, appInfo1, provider);
+                new RenderingContext(user2, appInfo1, provider);
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 context);
-        assertTrue("Expected user to be true", renderer.hasRole("User"));
+        assertTrue("Expected user to be true", renderer.hasRole("USER"));
     }
 
     /** */
@@ -275,7 +276,7 @@ public final class GedRendererTest {
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 anonymousContext);
-        assertFalse("Expected user to be false", renderer.hasRole("User"));
+        assertFalse("Expected user to be false", renderer.hasRole("USER"));
     }
 
     /** */
