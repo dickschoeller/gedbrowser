@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-import org.schoellerfamily.gedbrowser.renderer.User;
+import org.schoellerfamily.gedbrowser.renderer.user.User;
+import org.schoellerfamily.gedbrowser.renderer.user.UserImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,7 +49,7 @@ public class UsersConfiguration {
                 users.add(user);
             }
         } catch (IOException e) {
-            final User user = new User();
+            final UserImpl user = new UserImpl();
             user.setUsername("guest");
             user.setPassword("guest");
             user.addRole("USER");
@@ -63,7 +64,7 @@ public class UsersConfiguration {
      */
     @SuppressWarnings("PMD.UseVarargs")
     private User buildUser(final String[] userFields) {
-        final User user = new User();
+        final UserImpl user = new UserImpl();
         int i = 0;
         user.setUsername(userFields[i++]);
         user.setFirstname(userFields[i++]);

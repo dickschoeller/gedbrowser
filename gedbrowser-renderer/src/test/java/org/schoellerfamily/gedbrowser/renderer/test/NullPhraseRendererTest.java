@@ -5,14 +5,13 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.DefaultRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,9 +24,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public final class NullPhraseRendererTest {
     /** */
     @Autowired
-    private transient CalendarProvider provider;
-    /** */
-    @Autowired
     private transient ApplicationInfo appInfo;
 
     /** */
@@ -37,8 +33,7 @@ public final class NullPhraseRendererTest {
     @Before
     public void init() {
         final DefaultRenderer renderer = new DefaultRenderer(createGedObject(),
-                new GedRendererFactory(), RenderingContext.anonymous(appInfo),
-                provider);
+                new GedRendererFactory(), RenderingContext.anonymous(appInfo));
         npr = (NullPhraseRenderer) renderer.getPhraseRenderer();
     }
 

@@ -2,9 +2,9 @@ package org.schoellerfamily.gedbrowser.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.ErrorRenderer;
 import org.schoellerfamily.gedbrowser.renderer.Renderer;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.stereotype.Controller;
@@ -40,7 +40,7 @@ public class MyErrorController implements ErrorController {
      * {@inheritDoc}
      */
     @Override
-    public String getErrorPath() {
+    public final String getErrorPath() {
         return "/error";
     }
 }

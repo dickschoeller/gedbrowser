@@ -25,7 +25,7 @@ public abstract class RenderingContextRenderer implements Renderer {
     /**
      * @return the user context we are rendering in
      */
-    protected final RenderingContext getRenderingContext() {
+    public final RenderingContext getRenderingContext() {
         return renderingContext;
     }
 
@@ -33,7 +33,7 @@ public abstract class RenderingContextRenderer implements Renderer {
      * {@inheritDoc}
      */
     @Override
-    public final String getName() {
+    public final String getApplicationName() {
         return renderingContext.getApplicationName();
     }
 

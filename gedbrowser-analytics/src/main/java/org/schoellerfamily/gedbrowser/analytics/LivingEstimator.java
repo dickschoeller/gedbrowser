@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;

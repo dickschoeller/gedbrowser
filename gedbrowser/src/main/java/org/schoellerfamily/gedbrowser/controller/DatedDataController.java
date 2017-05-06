@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

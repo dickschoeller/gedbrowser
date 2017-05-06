@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
@@ -18,24 +17,18 @@ public abstract class GedRenderer<G extends GedObject>
     /** */
     private final transient GedRendererFactory rendererFactory;
 
-    /** */
-    private final CalendarProvider provider;
-
     /**
      * @param gedObject the GedObject that we are going to render
      * @param rendererFactory the factory that creates the renderers for the
      *        attributes
      * @param renderingContext the context that we are rendering in
-     * @param provider provides information about today
      */
     public GedRenderer(final G gedObject,
             final GedRendererFactory rendererFactory,
-            final RenderingContext renderingContext,
-            final CalendarProvider provider) {
+            final RenderingContext renderingContext) {
         super(renderingContext);
         this.gedObject = gedObject;
         this.rendererFactory = rendererFactory;
-        this.provider = provider;
     }
 
     /**
@@ -109,9 +102,7 @@ public abstract class GedRenderer<G extends GedObject>
      */
     protected final GedRenderer<? extends GedObject> createGedRenderer(
             final GedObject attribute) {
-        return getRendererFactory().create(attribute,
-                getRenderingContext(),
-                provider);
+        return getRendererFactory().create(attribute, getRenderingContext());
     }
 
     /**
@@ -157,13 +148,6 @@ public abstract class GedRenderer<G extends GedObject>
      */
     private String getDbName(final G gedObj) {
         return gedObj.getDbName();
-    }
-
-    /**
-     * @return the calendar provider to inform us about "today"
-     */
-    public final CalendarProvider getCalendarProvider() {
-        return provider;
     }
 
     /**

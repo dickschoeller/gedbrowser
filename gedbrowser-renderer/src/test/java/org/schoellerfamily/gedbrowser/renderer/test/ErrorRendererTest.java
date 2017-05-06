@@ -9,9 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.ErrorRenderer;
 import org.schoellerfamily.gedbrowser.renderer.Renderer;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -186,7 +186,7 @@ public class ErrorRendererTest {
     @Test
     public void testGetName() {
         assertEquals("Application name does not match expectation",
-                "gedbrowser", renderer.getName());
+                "gedbrowser", renderer.getApplicationName());
     }
 
     /** */

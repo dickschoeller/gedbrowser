@@ -2,9 +2,10 @@ package org.schoellerfamily.gedbrowser.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
-import org.schoellerfamily.gedbrowser.renderer.User;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.renderer.user.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -24,18 +25,24 @@ public final class RenderingContextBuilder {
     /** */
     private final ApplicationInfo appInfo;
 
+    /** */
+    private final CalendarProvider calendarProvider;
+
     /**
      * Constructor.
      *
      * @param authentication the authentication object
      * @param user the associated user detail object
      * @param appInfo supports rendering information about the application
+     * @param calendarProvider the calendar provider to use
      */
     public RenderingContextBuilder(final Authentication authentication,
-            final User user, final ApplicationInfo appInfo) {
+            final User user, final ApplicationInfo appInfo,
+            final CalendarProvider calendarProvider) {
         this.authentication = authentication;
         this.user = user;
         this.appInfo = appInfo;
+        this.calendarProvider = calendarProvider;
     }
 
     /**
@@ -46,7 +53,8 @@ public final class RenderingContextBuilder {
     public RenderingContext build() {
         logger.debug("Entering build");
         if (authentication == null) {
-            return new RenderingContext(null, false, false, appInfo);
+            return new RenderingContext(null, false, false, appInfo,
+                    calendarProvider);
         }
         final String name = authentication.getName();
         boolean isUser = false;
@@ -66,6 +74,7 @@ public final class RenderingContextBuilder {
             }
         }
         logger.debug("Exiting build");
-        return new RenderingContext(user, isUser, isAdmin, appInfo);
+        return new RenderingContext(user, isUser, isAdmin, appInfo,
+                calendarProvider);
     }
 }

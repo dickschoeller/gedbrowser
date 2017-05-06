@@ -9,13 +9,12 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.CellRenderer;
 import org.schoellerfamily.gedbrowser.renderer.CellRow;
 import org.schoellerfamily.gedbrowser.renderer.FamilyRenderer;
@@ -27,7 +26,8 @@ import org.schoellerfamily.gedbrowser.renderer.PersonNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
-import org.schoellerfamily.gedbrowser.renderer.User;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.renderer.user.UserImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -524,9 +524,10 @@ public final class PersonRendererTest {
     @Before
     public void init() {
         userContext = RenderingContext.user(appInfo);
-        final User user = new User();
+        final UserImpl user = new UserImpl();
         user.setUsername("dick");
-        adminContext = new RenderingContext(user, true, true, appInfo);
+        adminContext = new RenderingContext(user, true, true, appInfo,
+                provider);
     }
 
     /**
@@ -595,7 +596,7 @@ public final class PersonRendererTest {
     private PersonRenderer createRenderer() {
         final PersonRenderer renderer = new PersonRenderer(
                 new Person(null, new ObjectId("I1")), new GedRendererFactory(),
-                userContext, provider);
+                userContext);
         return renderer;
     }
 
@@ -607,7 +608,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person george = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(george,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final CellRow[] cellRows = personRenderer.getTreeRows(5);
         int i = 0;
         for (final CellRow cellRow : cellRows) {
@@ -629,7 +630,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person george = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(george,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final CellRow[] cellRows = personRenderer.getTreeRows();
         int i = 0;
         for (final CellRow cellRow : cellRows) {
@@ -664,7 +665,7 @@ public final class PersonRendererTest {
         final Root root = reader.readSmallTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final StringBuilder builder = new StringBuilder();
         personRenderer.getParents().renderFather(builder, 2, null);
         assertEquals("Expected empty string", "", builder.toString());
@@ -678,7 +679,7 @@ public final class PersonRendererTest {
         final Root root = reader.readSmallTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(melissa);
         personRenderer.getParents().renderFather(builder, 2,
@@ -699,7 +700,7 @@ public final class PersonRendererTest {
         final Root root = reader.readSmallTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final StringBuilder builder = new StringBuilder();
         personRenderer.getParents().renderMother(builder, 2, null);
         assertEquals("Expected empty string", "", builder.toString());
@@ -713,7 +714,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(melissa);
         personRenderer.getParents().renderFather(builder, 2,
@@ -738,7 +739,7 @@ public final class PersonRendererTest {
         final Root root = reader.readSmallTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(melissa);
         personRenderer.getParents().renderMother(builder, 2,
@@ -759,7 +760,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person sabino = (Person) root.find("I4248");
         final PersonRenderer personRenderer = new PersonRenderer(sabino,
-                new GedRendererFactory(), adminContext, provider);
+                new GedRendererFactory(), adminContext);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(sabino);
         personRenderer.getParents().renderMother(builder, 2,
@@ -780,7 +781,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person sabino = (Person) root.find("I4248");
         final PersonRenderer personRenderer = new PersonRenderer(sabino,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(sabino);
         personRenderer.getParents().renderMother(builder, 2,
@@ -802,7 +803,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(melissa);
         personRenderer.getParents().renderMother(builder, 2,
@@ -827,7 +828,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I4248");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), adminContext, provider);
+                new GedRendererFactory(), adminContext);
         assertEquals("Rendered html doesn't match expectation",
                 "Sabino <span class=\"surname\">Figliuolo</span>",
                 personRenderer.getTitleName());
@@ -841,7 +842,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I4248");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered html doesn't match expectation",
                 "Confidential",
                 personRenderer.getTitleName());
@@ -855,7 +856,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered html doesn't match expectation",
                 "George Steven <span class=\"surname\">Sacerdote</span>",
                 personRenderer.getTitleName());
@@ -869,7 +870,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered html doesn't match expectation",
                 "Melissa Robinson Schoeller",
                 personRenderer.getWholeName());
@@ -883,7 +884,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I4248");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), adminContext, provider);
+                new GedRendererFactory(), adminContext);
         assertEquals("Rendered html doesn't match expectation",
                 "Sabino Figliuolo", personRenderer.getWholeName());
     }
@@ -896,7 +897,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I4248");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered html doesn't match expectation",
                 "Confidential", personRenderer.getWholeName());
     }
@@ -909,7 +910,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered html doesn't match expectation",
                 "George Steven Sacerdote", personRenderer.getWholeName());
     }
@@ -922,7 +923,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered html doesn't match expectation",
                 "<a href=\"person?db=null&amp;id=I2\" class=\"name\">"
                 + "Richard John"
@@ -940,7 +941,7 @@ public final class PersonRendererTest {
         final Person melissa = (Person) root.find("I5266");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(),
-                adminContext, provider);
+                adminContext);
         assertEquals("Rendered html doesn't match expectation",
                 "<a href=\"person?db=null&amp;id=I4248\" class=\"name\">"
                 + "Sabino"
@@ -956,7 +957,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5266");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered html doesn't match expectation",
                 "Confidential",
                 personRenderer.getParents().getFatherNameHtml());
@@ -971,7 +972,7 @@ public final class PersonRendererTest {
         final Person melissa = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(),
-                adminContext, provider);
+                adminContext);
         assertEquals("Rendered html doesn't match expectation",
                 "<a href=\"person?db=null&amp;id=I4\" class=\"name\">"
                 + "John Vincent"
@@ -988,7 +989,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Expected empty string",
                 "", personRenderer.getParents().getFatherNameHtml());
     }
@@ -1001,7 +1002,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Expected empty string",
                 "", personRenderer.getParents().getFatherNameHtml());
     }
@@ -1014,7 +1015,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered html doesn't match expectation",
                 "<a href=\"person?db=null&amp;id=I3\" class=\"name\">"
                 + "Lisa Hope"
@@ -1032,7 +1033,7 @@ public final class PersonRendererTest {
         final Person melissa = (Person) root.find("I5266");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(),
-                adminContext, provider);
+                adminContext);
         assertEquals("Rendered html doesn't match expectation",
                 "<a href=\"person?db=null&amp;id=I5\" class=\"name\">"
                 + "Vivian Grace"
@@ -1049,7 +1050,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5266");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered html doesn't match expectation",
                 "Confidential",
                 personRenderer.getParents().getMotherNameHtml());
@@ -1064,7 +1065,7 @@ public final class PersonRendererTest {
         final Person melissa = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(),
-                adminContext, provider);
+                adminContext);
         assertEquals("Rendered html doesn't match expectation",
                 "<a href=\"person?db=null&amp;id=I6\" class=\"name\">"
                 + "Patricia Ruth"
@@ -1081,7 +1082,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Expected empty string",
                 "", personRenderer.getParents().getMotherNameHtml());
     }
@@ -1094,7 +1095,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Expected empty string",
                 "", personRenderer.getParents().getMotherNameHtml());
     }
@@ -1107,7 +1108,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered html doesn't match expectation",
                 "\n<p class=\"parent\">\n <span class=\"parent label\">Father:"
                 + "</span> <a href=\"person?db=null&amp;id=I2\" class=\"name\">"
@@ -1124,7 +1125,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered html doesn't match expectation",
                 "\n<p class=\"parent\">\n <span class=\"parent label\">Father:"
                 + "</span> \n</p>",
@@ -1139,7 +1140,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered html doesn't match expectation",
                 "\n<p class=\"parent\">\n <span class=\"parent label\">Mother:"
                 + "</span> <a href=\"person?db=null&amp;id=I3\" class=\"name\">"
@@ -1156,7 +1157,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered html doesn't match expectation",
                 "\n<p class=\"parent\">\n <span class=\"parent label\">Mother:"
                 + "</span> \n</p>",
@@ -1171,7 +1172,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered html doesn't match expectation",
                 "(14 DEC 1958-)",
                 personRenderer.getLifeSpanString());
@@ -1185,7 +1186,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered html doesn't match expectation",
                 "(-)",
                 personRenderer.getLifeSpanString());
@@ -1199,7 +1200,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final List<FamilyRenderer> families = personRenderer.getFamilies();
         assertEquals("Expected family string F1",
                 "F1", families.get(0).getString());
@@ -1213,7 +1214,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Person should have 0 families",
                 0, personRenderer.getFamilies().size());
     }
@@ -1227,7 +1228,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final int expect = 8;
         assertEquals("Expected 8 attributes",
                 expect, personRenderer.getAttributes().size());
@@ -1241,7 +1242,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final int expect = 4;
         assertEquals("Expected 4 attributes",
                 expect, personRenderer.getAttributes().size());
@@ -1255,7 +1256,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Expected person ID string I2",
                 "I2", personRenderer.getIdString());
     }
@@ -1268,7 +1269,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Expected person ID string I1",
                 "I1", personRenderer.getIdString());
     }
@@ -1281,7 +1282,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered string mismatch",
                 "surnames?db=null&letter=S#Schoeller",
                 personRenderer.getIndexHref());
@@ -1295,7 +1296,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered string mismatch",
                 "?", personRenderer.getSurnameLetter());
     }
@@ -1309,7 +1310,7 @@ public final class PersonRendererTest {
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(),
-                adminContext, provider);
+                adminContext);
         assertEquals("Rendered string mismatch",
                 "S", personRenderer.getSurnameLetter());
     }
@@ -1322,7 +1323,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Rendered string mismatch",
                 "?", personRenderer.getSurname());
     }
@@ -1336,7 +1337,7 @@ public final class PersonRendererTest {
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(),
-                adminContext, provider);
+                adminContext);
         assertEquals("Rendered string mismatch",
                 "Schoeller", personRenderer.getSurname());
     }
@@ -1349,7 +1350,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Expected empty string",
                 "", personRenderer.getLifeSpanString());
     }
@@ -1363,7 +1364,7 @@ public final class PersonRendererTest {
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(),
-                adminContext, provider);
+                adminContext);
         assertEquals("Rendered html doesn't match expectation",
                 "(16 APR 1960-)", personRenderer.getLifeSpanString());
     }
@@ -1376,7 +1377,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Expected empty family list",
                 0, personRenderer.getFamilies().size());
     }
@@ -1390,7 +1391,7 @@ public final class PersonRendererTest {
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(),
-                adminContext, provider);
+                adminContext);
         assertEquals("Expected 1 family in family list",
                 1, personRenderer.getFamilies().size());
     }
@@ -1403,7 +1404,7 @@ public final class PersonRendererTest {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         assertEquals("Expected 0 attributes",
                 0, personRenderer.getAttributes().size());
     }
@@ -1417,7 +1418,7 @@ public final class PersonRendererTest {
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(),
-                adminContext, provider);
+                adminContext);
         final int expectedLength = 8;
         assertEquals("Attribute list size mismatch",
                 expectedLength, personRenderer.getAttributes().size());

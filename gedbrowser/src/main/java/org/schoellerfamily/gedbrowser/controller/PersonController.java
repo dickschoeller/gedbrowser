@@ -7,11 +7,11 @@ import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -98,7 +98,7 @@ public class PersonController extends GeoDataController {
     private GedRenderer<?> personRenderer(final RenderingContext context,
             final Person person) {
         return new GedRendererFactory().create(
-                person, context, calendarProvider());
+                person, context);
     }
 
     /**
@@ -121,6 +121,6 @@ public class PersonController extends GeoDataController {
     private GedRenderer<?> nameRenderer(final RenderingContext context,
             final Person person) {
         return new GedRendererFactory().create(
-                person.getName(), context, calendarProvider());
+                person.getName(), context);
     }
 }

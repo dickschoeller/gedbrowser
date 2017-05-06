@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.renderer;
+package org.schoellerfamily.gedbrowser.renderer.user;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,7 +8,7 @@ import java.util.Set;
  *
  * @author Dick Schoeller
  */
-public final class User {
+public final class UserImpl implements User {
     /** */
     private String username;
     /** */

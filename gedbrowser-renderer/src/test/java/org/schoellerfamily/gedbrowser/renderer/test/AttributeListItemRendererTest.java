@@ -5,14 +5,13 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.AttributeListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.AttributeRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,9 +22,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class AttributeListItemRendererTest {
-    /** */
-    @Autowired
-    private transient CalendarProvider provider;
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -62,7 +58,7 @@ public final class AttributeListItemRendererTest {
     @Test
     public void testRenderAsListItemEmpty() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute1,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final AttributeListItemRenderer apr =
                 (AttributeListItemRenderer) aRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -76,7 +72,7 @@ public final class AttributeListItemRendererTest {
     @Test
     public void testRenderAsListItemString() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute2,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final AttributeListItemRenderer apr =
                 (AttributeListItemRenderer) aRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
@@ -90,7 +86,7 @@ public final class AttributeListItemRendererTest {
     @Test
     public void testRenderAsListItem() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute3,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final AttributeListItemRenderer apr =
                 (AttributeListItemRenderer) aRenderer .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
