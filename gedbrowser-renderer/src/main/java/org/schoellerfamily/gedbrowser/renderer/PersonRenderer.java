@@ -85,14 +85,17 @@ public final class PersonRenderer extends GedRenderer<Person> {
             return "";
         }
 
-        // Get some of used strings.
-        final GetDateVisitor birthVisitor = new GetDateVisitor("Birth");
+        return String.format("(%s-%s)", date("Birth"), date("Death"));
+    }
+
+    /**
+     * @param type the event type to find a date for
+     * @return the date string
+     */
+    private String date(final String type) {
+        final GetDateVisitor birthVisitor = new GetDateVisitor(type);
         getGedObject().accept(birthVisitor);
-        final String birthDate = birthVisitor.getDate();
-        final GetDateVisitor deathVisitor = new GetDateVisitor("Death");
-        getGedObject().accept(deathVisitor);
-        final String deathDate = deathVisitor.getDate();
-        return "(" + birthDate + "-" + deathDate + ")";
+        return birthVisitor.getDate();
     }
 
     /**
@@ -113,18 +116,11 @@ public final class PersonRenderer extends GedRenderer<Person> {
         }
         final Name name = getGedObject().getName();
 
-        final String prefix = GedRenderer.escapeString(name.getPrefix());
-        final String surname = GedRenderer.escapeString(name.getSurname());
-        final String suffix = GedRenderer.escapeString(name.getSuffix());
+        final String prefix = escapeString(name.getPrefix());
+        final String surname = escapeString(name.getSurname());
+        final String suffix = escapeString(" ", name.getSuffix());
 
-        final StringBuilder builder = new StringBuilder();
-        builder.append(prefix).append(' ');
-        builder.append(surname);
-        if (!suffix.isEmpty()) {
-            builder.append(' ').append(suffix);
-        }
-
-        return builder.toString();
+        return String.format("%s %s%s", prefix, surname, suffix);
     }
 
     /**

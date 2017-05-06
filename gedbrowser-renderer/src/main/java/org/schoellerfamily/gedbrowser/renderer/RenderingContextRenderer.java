@@ -108,6 +108,22 @@ public abstract class RenderingContextRenderer implements Renderer {
     /**
      * Convert the string for use in HTML or URLs.
      *
+     * @param delimiter a spacer string to add
+     * @param input unescaped string.
+     * @return the escaped string.
+     */
+    protected static final String escapeString(final String delimiter,
+            final String input) {
+        final String escaped = escapeString(input);
+        if (escaped.isEmpty()) {
+            return escaped;
+        }
+        return delimiter + escaped;
+    }
+
+    /**
+     * Convert the string for use in HTML or URLs.
+     *
      * @param gedObject the object whose string we are going to escape.
      * @return the escaped string.
      */
