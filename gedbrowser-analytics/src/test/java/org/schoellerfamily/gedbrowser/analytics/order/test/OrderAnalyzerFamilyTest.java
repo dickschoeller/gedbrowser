@@ -36,7 +36,7 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
      */
     @Override
     public PersonBuilder personBuilder() {
-        return builder.getPersonBuilder();
+        return builder;
     }
 
     /**
@@ -44,7 +44,7 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
      */
     @Override
     public FamilyBuilder familyBuilder() {
-        return builder.getFamilyBuilder();
+        return builder;
     }
 
     /** */
@@ -52,9 +52,9 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
     public void testPersonWithOneUndatedFamilyMatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
-        final Family family = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family, person1);
-        familyBuilder().addWifeToFamily(family, person2);
+        final Family family = builder.createFamily("F1");
+        builder.addHusbandToFamily(family, person1);
+        builder.addWifeToFamily(family, person2);
         final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertTrue("Expected correct with one undated family",
                 result.isCorrect());
@@ -65,13 +65,13 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
     public void testPersonWithTwoUndatedFamiliesMatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
         final Person person3 = createAnonymousJones();
-        final Family family2 = familyBuilder().createFamily("F2");
-        familyBuilder().addHusbandToFamily(family2, person1);
-        familyBuilder().addWifeToFamily(family2, person3);
+        final Family family2 = builder.createFamily("F2");
+        builder.addHusbandToFamily(family2, person1);
+        builder.addWifeToFamily(family2, person3);
         final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertTrue("Expected correct with 2 undated families",
                 result.isCorrect());
@@ -82,14 +82,14 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
     public void testPersonWithTwoFamiliesFirstDatedMatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().createFamilyEvent(family1, "Marriage", "8 JAN 2016");
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.createFamilyEvent(family1, "Marriage", "8 JAN 2016");
         final Person person3 = createAnonymousJones();
-        final Family family2 = familyBuilder().createFamily("F2");
-        familyBuilder().addHusbandToFamily(family2, person1);
-        familyBuilder().addWifeToFamily(family2, person3);
+        final Family family2 = builder.createFamily("F2");
+        builder.addHusbandToFamily(family2, person1);
+        builder.addWifeToFamily(family2, person3);
         final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertTrue("Expected correct with 2 families only the 1st is dated",
                 result.isCorrect());
@@ -100,14 +100,14 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
     public void testPersonWithTwoFamiliesSecondDatedMatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
         final Person person3 = createAnonymousJones();
-        final Family family2 = familyBuilder().createFamily("F2");
-        familyBuilder().addHusbandToFamily(family2, person1);
-        familyBuilder().addWifeToFamily(family2, person3);
-        familyBuilder().createFamilyEvent(family2, "Marriage", "8 JAN 2016");
+        final Family family2 = builder.createFamily("F2");
+        builder.addHusbandToFamily(family2, person1);
+        builder.addWifeToFamily(family2, person3);
+        builder.createFamilyEvent(family2, "Marriage", "8 JAN 2016");
         final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertTrue("Expected correct with 2 families only the 2nd is dated",
                 result.isCorrect());
@@ -118,15 +118,15 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
     public void testPersonWithTwoFamiliesDatedInOrderMatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().createFamilyEvent(family1, "Marriage", "7 JAN 2016");
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.createFamilyEvent(family1, "Marriage", "7 JAN 2016");
         final Person person3 = createAnonymousJones();
-        final Family family2 = familyBuilder().createFamily("F2");
-        familyBuilder().addHusbandToFamily(family2, person1);
-        familyBuilder().addWifeToFamily(family2, person3);
-        familyBuilder().createFamilyEvent(family2, "Marriage", "8 JAN 2016");
+        final Family family2 = builder.createFamily("F2");
+        builder.addHusbandToFamily(family2, person1);
+        builder.addWifeToFamily(family2, person3);
+        builder.createFamilyEvent(family2, "Marriage", "8 JAN 2016");
         final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertTrue("Expected correct with 2 families dates are in order",
                 result.isCorrect());
@@ -137,15 +137,15 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
     public void testPersonWithTwoFamiliesDatedOutOfOrderMismatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().createFamilyEvent(family1, "Marriage", "8 JAN 2016");
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.createFamilyEvent(family1, "Marriage", "8 JAN 2016");
         final Person person3 = createAnonymousJones();
-        final Family family2 = familyBuilder().createFamily("F2");
-        familyBuilder().addHusbandToFamily(family2, person1);
-        familyBuilder().addWifeToFamily(family2, person3);
-        familyBuilder().createFamilyEvent(family2, "Marriage", "7 JAN 2016");
+        final Family family2 = builder.createFamily("F2");
+        builder.addHusbandToFamily(family2, person1);
+        builder.addWifeToFamily(family2, person3);
+        builder.createFamilyEvent(family2, "Marriage", "7 JAN 2016");
         final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertFalse("Expected incorrect with 2 families dates are out of order",
                 result.isCorrect());
@@ -156,21 +156,21 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
     public void testPersonWithTwoFamiliesDatedInOrderWithUndatedBtwnMatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().createFamilyEvent(family1, "Marriage", "7 JAN 2016");
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.createFamilyEvent(family1, "Marriage", "7 JAN 2016");
 
         final Person person4 = createTooTall();
-        final Family family3 = familyBuilder().createFamily("F3");
-        familyBuilder().addHusbandToFamily(family3, person1);
-        familyBuilder().addWifeToFamily(family3, person4);
+        final Family family3 = builder.createFamily("F3");
+        builder.addHusbandToFamily(family3, person1);
+        builder.addWifeToFamily(family3, person4);
 
         final Person person3 = createAnonymousJones();
-        final Family family2 = familyBuilder().createFamily("F2");
-        familyBuilder().addHusbandToFamily(family2, person1);
-        familyBuilder().addWifeToFamily(family2, person3);
-        familyBuilder().createFamilyEvent(family2, "Marriage", "8 JAN 2016");
+        final Family family2 = builder.createFamily("F2");
+        builder.addHusbandToFamily(family2, person1);
+        builder.addWifeToFamily(family2, person3);
+        builder.createFamilyEvent(family2, "Marriage", "8 JAN 2016");
         final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertTrue("Expected correct with 2 families dates are in order",
                 result.isCorrect());
@@ -181,21 +181,21 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
     public void testPersonWithTwoFamiliesDatedOutOfOrderUndatedBtwnMismatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().createFamilyEvent(family1, "Marriage", "8 JAN 2016");
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.createFamilyEvent(family1, "Marriage", "8 JAN 2016");
 
         final Person person4 = createTooTall();
-        final Family family3 = familyBuilder().createFamily("F3");
-        familyBuilder().addHusbandToFamily(family3, person1);
-        familyBuilder().addWifeToFamily(family3, person4);
+        final Family family3 = builder.createFamily("F3");
+        builder.addHusbandToFamily(family3, person1);
+        builder.addWifeToFamily(family3, person4);
 
         final Person person3 = createAnonymousJones();
-        final Family family2 = familyBuilder().createFamily("F2");
-        familyBuilder().addHusbandToFamily(family2, person1);
-        familyBuilder().addWifeToFamily(family2, person3);
-        familyBuilder().createFamilyEvent(family2, "Marriage", "7 JAN 2016");
+        final Family family2 = builder.createFamily("F2");
+        builder.addHusbandToFamily(family2, person1);
+        builder.addWifeToFamily(family2, person3);
+        builder.createFamilyEvent(family2, "Marriage", "7 JAN 2016");
         final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertFalse("Expected incorrect with 2 families dates are out of order",
                 result.isCorrect());
@@ -206,11 +206,11 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
     public void testPersonWithFamilyDatesInOrderMatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().createFamilyEvent(family1, "Engaged", "7 JAN 2016");
-        familyBuilder().createFamilyEvent(family1, "Marriage", "8 JAN 2016");
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.createFamilyEvent(family1, "Engaged", "7 JAN 2016");
+        builder.createFamilyEvent(family1, "Marriage", "8 JAN 2016");
         final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertTrue("Expected correct with 2 events in order",
                 result.isCorrect());
@@ -221,11 +221,11 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
     public void testPersonWithFamilyDatesOutOfOrderMismatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().createFamilyEvent(family1, "Marriage", "8 JAN 2016");
-        familyBuilder().createFamilyEvent(family1, "Engaged", "7 JAN 2016");
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.createFamilyEvent(family1, "Marriage", "8 JAN 2016");
+        builder.createFamilyEvent(family1, "Engaged", "7 JAN 2016");
         final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertFalse("Expected incorrect with 2 events out of order",
                 result.isCorrect());
@@ -236,17 +236,17 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
     public void testPersonWith1stFamilyDatesOutOfOrderMismatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().createFamilyEvent(family1, "Marriage", "8 JAN 2016");
-        familyBuilder().createFamilyEvent(family1, "Engaged", "7 JAN 2016");
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.createFamilyEvent(family1, "Marriage", "8 JAN 2016");
+        builder.createFamilyEvent(family1, "Engaged", "7 JAN 2016");
 
         final Person person3 = createAnonymousJones();
-        final Family family2 = familyBuilder().createFamily("F2");
-        familyBuilder().addHusbandToFamily(family2, person1);
-        familyBuilder().addWifeToFamily(family2, person3);
-        familyBuilder().createFamilyEvent(family2, "Marriage", "9 JAN 2016");
+        final Family family2 = builder.createFamily("F2");
+        builder.addHusbandToFamily(family2, person1);
+        builder.addWifeToFamily(family2, person3);
+        builder.createFamilyEvent(family2, "Marriage", "9 JAN 2016");
 
         final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertEquals("Expected incorrect with 2 events out of order",
@@ -258,17 +258,17 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
     public void testPersonWith2ndBefore1stAnd1stFamDatesOutOfOrderMismatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().createFamilyEvent(family1, "Marriage", "8 JAN 2016");
-        familyBuilder().createFamilyEvent(family1, "Engaged", "7 JAN 2016");
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.createFamilyEvent(family1, "Marriage", "8 JAN 2016");
+        builder.createFamilyEvent(family1, "Engaged", "7 JAN 2016");
 
         final Person person3 = createAnonymousJones();
-        final Family family2 = familyBuilder().createFamily("F2");
-        familyBuilder().addHusbandToFamily(family2, person1);
-        familyBuilder().addWifeToFamily(family2, person3);
-        familyBuilder().createFamilyEvent(family2, "Marriage", "6 JAN 2016");
+        final Family family2 = builder.createFamily("F2");
+        builder.addHusbandToFamily(family2, person1);
+        builder.addWifeToFamily(family2, person3);
+        builder.createFamilyEvent(family2, "Marriage", "6 JAN 2016");
 
         final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertEquals("Expected incorrect with 2 events out of order",
@@ -280,19 +280,19 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
     public void testPersonWithDateFromChildMismatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().createFamilyEvent(family1, "Marriage", "8 JAN 2016");
-        familyBuilder().createFamilyEvent(family1, "Engaged", "7 JAN 2016");
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.createFamilyEvent(family1, "Marriage", "8 JAN 2016");
+        builder.createFamilyEvent(family1, "Engaged", "7 JAN 2016");
 
         final Person person3 = createAnonymousJones();
-        final Family family2 = familyBuilder().createFamily("F2");
-        familyBuilder().addHusbandToFamily(family2, person1);
-        familyBuilder().addWifeToFamily(family2, person3);
+        final Family family2 = builder.createFamily("F2");
+        builder.addHusbandToFamily(family2, person1);
+        builder.addWifeToFamily(family2, person3);
         final Person person4 = createTooTall();
-        personBuilder().createPersonEvent(person4, "Birth", "6 JAN 2016");
-        familyBuilder().addChildToFamily(family2, person4);
+        builder.createPersonEvent(person4, "Birth", "6 JAN 2016");
+        builder.addChildToFamily(family2, person4);
 
         final OrderAnalyzerResult result = wrapper.analyze(person1);
         assertEquals("Expected incorrect with 2 events out of order",

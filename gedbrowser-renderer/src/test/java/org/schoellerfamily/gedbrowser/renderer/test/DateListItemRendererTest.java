@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.DateListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.DateRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -39,7 +40,8 @@ public final class DateListItemRendererTest {
     /** */
     @Before
     public void init() {
-        final Person person = new Person();
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson();
         attribute = new Attribute(person, "String", "");
         person.addAttribute(attribute);
         date = new Date(attribute, "14 December 1958");

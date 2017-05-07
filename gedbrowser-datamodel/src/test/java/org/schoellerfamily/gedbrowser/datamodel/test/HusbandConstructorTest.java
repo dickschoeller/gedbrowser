@@ -60,7 +60,7 @@ public class HusbandConstructorTest {
     @Parameters
     public static Collection<Object[]> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.getFamilyBuilder().createFamily("F1");
+        final Family family = builder.createFamily("F1");
 
         return Arrays.asList(new Object[][] {
             {null, null, new ObjectId("I2"), "", "I2", ""},

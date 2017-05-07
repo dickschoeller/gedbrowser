@@ -13,6 +13,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.schoellerfamily.gedbrowser.renderer.FamilyRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
@@ -49,6 +50,9 @@ public final class FamilyRendererTest {
     private transient RenderingContext userContext;
 
     /** */
+    private final transient GedObjectBuilder builder = new GedObjectBuilder();
+
+    /** */
     @Before
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
@@ -61,7 +65,8 @@ public final class FamilyRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final FamilyRenderer renderer = new FamilyRenderer(new Family(),
+        final Family family = builder.createFamily();
+        final FamilyRenderer renderer = new FamilyRenderer(family,
                 new GedRendererFactory(), anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
@@ -74,7 +79,8 @@ public final class FamilyRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        final FamilyRenderer renderer = new FamilyRenderer(new Family(),
+        final Family family = builder.createFamily();
+        final FamilyRenderer renderer = new FamilyRenderer(family,
                 new GedRendererFactory(), anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
@@ -87,7 +93,8 @@ public final class FamilyRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        final FamilyRenderer renderer = new FamilyRenderer(new Family(),
+        final Family family = builder.createFamily();
+        final FamilyRenderer renderer = new FamilyRenderer(family,
                 new GedRendererFactory(), anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
@@ -100,7 +107,8 @@ public final class FamilyRendererTest {
      */
     @Test
     public void testNameIndexRenderer() {
-        final FamilyRenderer renderer = new FamilyRenderer(new Family(),
+        final Family family = builder.createFamily();
+        final FamilyRenderer renderer = new FamilyRenderer(family,
                 new GedRendererFactory(), anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
@@ -113,7 +121,8 @@ public final class FamilyRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        final FamilyRenderer renderer = new FamilyRenderer(new Family(),
+        final Family family = builder.createFamily();
+        final FamilyRenderer renderer = new FamilyRenderer(family,
                 new GedRendererFactory(), anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()

@@ -6,9 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
-import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.PersonAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
@@ -48,10 +47,8 @@ public final class PersonAttributeListOpenRendererTest {
     /** */
     @Before
     public void init() {
-        Root root;
-        root = new Root("Root");
-        person = new Person(root, new ObjectId("I1"));
-        root.insert(person);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        person = builder.createPerson("I1");
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -166,14 +163,16 @@ public final class PersonAttributeListOpenRendererTest {
     /** */
     @Test
     public void testGetAttributeListOpenPersonUnset() {
-        final PersonRenderer personRenderer = new PersonRenderer(new Person(),
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final PersonRenderer personRenderer = new PersonRenderer(
+                builder.createPerson(),
                 new GedRendererFactory(), anonymousContext);
         final PersonAttributeListOpenRenderer pnhr =
                 (PersonAttributeListOpenRenderer) personRenderer
                 .getAttributeListOpenRenderer();
-        final StringBuilder builder = new StringBuilder();
-        pnhr.renderAttributeListOpen(builder, 0, person);
-        final String string = builder.toString();
+        final StringBuilder stringbuilder = new StringBuilder();
+        pnhr.renderAttributeListOpen(stringbuilder, 0, person);
+        final String string = stringbuilder.toString();
         assertEquals("Expected empty string", "", string);
     }
 }

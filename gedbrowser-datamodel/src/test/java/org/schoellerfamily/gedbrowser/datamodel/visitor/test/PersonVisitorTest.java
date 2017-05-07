@@ -26,7 +26,6 @@ import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
-import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 
@@ -37,18 +36,11 @@ public final class PersonVisitorTest {
     /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
-    /**
-     * @return get the person builder associated with this test
-     */
-    private PersonBuilder personBuilder() {
-        return builder.getPersonBuilder();
-    }
-
     /** */
     @Test
     public void testEmptyGetFamily() {
         final Person person =
-                personBuilder().createPerson("I1", "J. Random/Schoeller/");
+                builder.createPerson("I1", "J. Random/Schoeller/");
         final PersonVisitor visitor = new PersonVisitor();
         person.accept(visitor);
         assertFalse("Should be no family", visitor.getFamily().isSet());
@@ -58,9 +50,9 @@ public final class PersonVisitorTest {
     @Test
     public void testGetFamily() {
         final Person person =
-                personBuilder().createPerson("I1", "J. Random/Schoeller/");
-        final Family family = builder.getFamilyBuilder().createFamily("F1");
-        builder.getFamilyBuilder().addChildToFamily(family, person);
+                builder.createPerson("I1", "J. Random/Schoeller/");
+        final Family family = builder.createFamily("F1");
+        builder.addChildToFamily(family, person);
         final PersonVisitor visitor = new PersonVisitor();
         person.accept(visitor);
         assertSame("Unmatched family", family, visitor.getFamily());
@@ -70,11 +62,11 @@ public final class PersonVisitorTest {
     @Test
     public void testGetFirstFamily() {
         final Person person =
-                personBuilder().createPerson("I1", "J. Random/Schoeller/");
-        final Family family = builder.getFamilyBuilder().createFamily("F1");
-        final Family family2 = builder.getFamilyBuilder().createFamily("F2");
-        builder.getFamilyBuilder().addChildToFamily(family, person);
-        builder.getFamilyBuilder().addChildToFamily(family2, person);
+                builder.createPerson("I1", "J. Random/Schoeller/");
+        final Family family = builder.createFamily("F1");
+        final Family family2 = builder.createFamily("F2");
+        builder.addChildToFamily(family, person);
+        builder.addChildToFamily(family2, person);
         final PersonVisitor visitor = new PersonVisitor();
         person.accept(visitor);
         assertSame("Unmatched family", family, visitor.getFamily());
@@ -84,11 +76,11 @@ public final class PersonVisitorTest {
     @Test
     public void testGetFirstFamiliesC() {
         final Person person =
-                personBuilder().createPerson("I1", "J. Random/Schoeller/");
-        final Family family = builder.getFamilyBuilder().createFamily("F1");
-        final Family family2 = builder.getFamilyBuilder().createFamily("F2");
-        builder.getFamilyBuilder().addChildToFamily(family, person);
-        builder.getFamilyBuilder().addChildToFamily(family2, person);
+                builder.createPerson("I1", "J. Random/Schoeller/");
+        final Family family = builder.createFamily("F1");
+        final Family family2 = builder.createFamily("F2");
+        builder.addChildToFamily(family, person);
+        builder.addChildToFamily(family2, person);
         final PersonVisitor visitor = new PersonVisitor();
         person.accept(visitor);
         final List<Family> familiesC = visitor.getFamiliesC();

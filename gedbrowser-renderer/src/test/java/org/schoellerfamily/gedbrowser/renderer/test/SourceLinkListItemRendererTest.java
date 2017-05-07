@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SourceLinkListItemRenderer;
@@ -38,9 +39,9 @@ public final class SourceLinkListItemRendererTest {
     /** */
     @Before
     public void init() {
-        final Root root = new Root("Root");
-        person = new Person(root, new ObjectId("I1"));
-        root.insert(person);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        person = builder.createPerson("I1");
+        final Root root = builder.getRoot();
         final Source source = new Source(root, new ObjectId("S1"));
         root.insert(source);
         anonymousContext = RenderingContext.anonymous(appInfo);

@@ -6,9 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
-import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.PersonNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
@@ -37,9 +36,8 @@ public final class UserModePersonNameHtmlRendererTest {
     /** */
     @Before
     public void init() {
-        final Root root = new Root("Root");
-        person = new Person(root, new ObjectId("I1"));
-        root.insert(person);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        person = builder.createPerson("I1");
         renderingContext = RenderingContext.user(appInfo);
     }
 
@@ -138,7 +136,9 @@ public final class UserModePersonNameHtmlRendererTest {
     /** */
     @Test
     public void testGetNameHtmlPersonUnset() {
-        final PersonRenderer personRenderer = new PersonRenderer(new Person(),
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final PersonRenderer personRenderer = new PersonRenderer(
+                builder.createPerson(),
                 new GedRendererFactory(), renderingContext);
         final PersonNameHtmlRenderer pnhr =
                 (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();

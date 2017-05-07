@@ -47,7 +47,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
      */
     @Override
     public PersonBuilder personBuilder() {
-        return builder.getPersonBuilder();
+        return builder;
     }
 
     /**
@@ -55,14 +55,14 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
      */
     @Override
     public FamilyBuilder familyBuilder() {
-        return builder.getFamilyBuilder();
+        return builder;
     }
 
     /** */
     @Test
     public void testSimple() {
         final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Birth", "11 JUL 1960");
+        builder.createPersonEvent(person, "Birth", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1960;
@@ -89,13 +89,13 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     public void testFromYoungerSibling() {
         final Person person1 =
                 createJRandom();
-        personBuilder().createPersonEvent(person1, "Birth", "11 JUL 1960");
+        builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
         final Person person2 =
-                personBuilder().createPerson("I2", "Anon/Schoeller/");
-        final Family family = familyBuilder().createFamily("F1");
+                builder.createPerson("I2", "Anon/Schoeller/");
+        final Family family = builder.createFamily("F1");
 
-        familyBuilder().addChildToFamily(family, person1);
-        familyBuilder().addChildToFamily(family, person2);
+        builder.addChildToFamily(family, person1);
+        builder.addChildToFamily(family, person2);
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
         final int birthYear = 1962;
@@ -111,17 +111,17 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     @Test
     public void testFromYoungerSiblings() {
         final Person person1 = createJRandom();
-        personBuilder().createPersonEvent(person1, "Birth", "11 JUL 1960");
+        builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
 
         final Person person2 =
-                personBuilder().createPerson("I2", "Anon/Schoeller/");
+                builder.createPerson("I2", "Anon/Schoeller/");
         final Person person3 =
-                personBuilder().createPerson("I3", "Anonyma/Schoeller/");
+                builder.createPerson("I3", "Anonyma/Schoeller/");
 
-        final Family family = familyBuilder().createFamily("F1");
-        familyBuilder().addChildToFamily(family, person1);
-        familyBuilder().addChildToFamily(family, person2);
-        familyBuilder().addChildToFamily(family, person3);
+        final Family family = builder.createFamily("F1");
+        builder.addChildToFamily(family, person1);
+        builder.addChildToFamily(family, person2);
+        builder.addChildToFamily(family, person3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
         final int birthYear = 1964;
@@ -140,10 +140,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
 
-        final Family family = familyBuilder().createFamily("F1");
-        familyBuilder().addChildToFamily(family, person1);
-        familyBuilder().addChildToFamily(family, person2);
-        familyBuilder().addChildToFamily(family, person3);
+        final Family family = builder.createFamily("F1");
+        builder.addChildToFamily(family, person1);
+        builder.addChildToFamily(family, person2);
+        builder.addChildToFamily(family, person3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -156,11 +156,11 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
 
-        personBuilder().createPersonEvent(person1, "Birth", "11 JUL 1960");
+        builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
 
-        final Family family = familyBuilder().createFamily("F1");
-        familyBuilder().addChildToFamily(family, person1);
-        familyBuilder().addChildToFamily(family, person2);
+        final Family family = builder.createFamily("F1");
+        builder.addChildToFamily(family, person1);
+        builder.addChildToFamily(family, person2);
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
         final int birthYear = 1962;
@@ -179,12 +179,12 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
 
-        personBuilder().createPersonEvent(person1, "Birth", "11 JUL 1960");
+        builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
 
-        final Family family = familyBuilder().createFamily("F1");
-        familyBuilder().addChildToFamily(family, person1);
-        familyBuilder().addChildToFamily(family, person2);
-        familyBuilder().addChildToFamily(family, person3);
+        final Family family = builder.createFamily("F1");
+        builder.addChildToFamily(family, person1);
+        builder.addChildToFamily(family, person2);
+        builder.addChildToFamily(family, person3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
         final int birthYear = 1964;
@@ -203,10 +203,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
 
-        final Family family = familyBuilder().createFamily("F1");
-        familyBuilder().addChildToFamily(family, person1);
-        familyBuilder().addChildToFamily(family, person2);
-        familyBuilder().addChildToFamily(family, person3);
+        final Family family = builder.createFamily("F1");
+        builder.addChildToFamily(family, person1);
+        builder.addChildToFamily(family, person2);
+        builder.addChildToFamily(family, person3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -219,11 +219,11 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
 
-        final Family family = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family, person1);
-        familyBuilder().addWifeToFamily(family, person2);
+        final Family family = builder.createFamily("F1");
+        builder.addHusbandToFamily(family, person1);
+        builder.addWifeToFamily(family, person2);
 
-        familyBuilder().createFamilyEvent(family, "Marriage", "27 MAY 1984");
+        builder.createFamilyEvent(family, "Marriage", "27 MAY 1984");
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
         final int birthYear = 1959;
@@ -241,9 +241,9 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
 
-        final Family family = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family, person1);
-        familyBuilder().addWifeToFamily(family, person2);
+        final Family family = builder.createFamily("F1");
+        builder.addHusbandToFamily(family, person1);
+        builder.addWifeToFamily(family, person2);
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -257,16 +257,16 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
 
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
 
-        final Family family2 = familyBuilder().createFamily("F2");
-        familyBuilder().addHusbandToFamily(family2, person1);
-        familyBuilder().addWifeToFamily(family2, person3);
+        final Family family2 = builder.createFamily("F2");
+        builder.addHusbandToFamily(family2, person1);
+        builder.addWifeToFamily(family2, person3);
 
-        familyBuilder().createFamilyEvent(family1, "Marriage", "14 JUN 1980");
-        familyBuilder().createFamilyEvent(family2, "Marriage", "27 MAY 1984");
+        builder.createFamilyEvent(family1, "Marriage", "14 JUN 1980");
+        builder.createFamilyEvent(family2, "Marriage", "27 MAY 1984");
 
         final BirthDateEstimator estimator = createBirthEstimator(person1);
         final int birthYear = 1955;
@@ -282,15 +282,15 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     @Test
     public void testFromParentsMarriage() {
         final Person person1 = createJRandom();
-        personBuilder().createPersonEvent(person1, "Birth", "11 JUL 1960");
+        builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
 
         final Person person2 = createAnonymousSmith();
         final Person person3 = createAnonymousJones();
 
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().addChildToFamily(family1, person3);
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
 
         final Attribute marriage1 = new Attribute(family1, "Marriage");
         family1.insert(marriage1);
@@ -314,13 +314,13 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final Person person2 = createAnonymousSmith();
         final Person person3 = createAnonymousJones();
         final Person person4 =
-                personBuilder().createPerson("I4", "No Name/Johnson/");
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().addChildToFamily(family1, person3);
-        familyBuilder().addChildToFamily(family1, person4);
-        familyBuilder().createFamilyEvent(family1, "Marriage", "27 MAY 1984");
+                builder.createPerson("I4", "No Name/Johnson/");
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
+        builder.addChildToFamily(family1, person4);
+        builder.createFamilyEvent(family1, "Marriage", "27 MAY 1984");
 
         final BirthDateEstimator estimator = createBirthEstimator(person4);
         final int birthYear = 1988;
@@ -338,12 +338,12 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSmith();
         final Person person3 = createAnonymousJones();
-        personBuilder().createPersonEvent(person3, "Birth", "11 JUL 1960");
+        builder.createPersonEvent(person3, "Birth", "11 JUL 1960");
 
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addChildToFamily(family1, person2);
-        familyBuilder().addChildToFamily(family1, person3);
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addChildToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person1);
         final int birthYear = 1931;
@@ -360,11 +360,11 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     public void testFromChildren() {
         final Person person1 = createJRandom();
         final Person person3 = createAnonymousJones();
-        personBuilder().createPersonEvent(person3, "Birth", "11 JUL 1960");
+        builder.createPersonEvent(person3, "Birth", "11 JUL 1960");
 
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addChildToFamily(family1, person3);
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addChildToFamily(family1, person3);
 
         final BirthDateEstimator estimator = createBirthEstimator(person1);
         final int birthYear = 1933;
@@ -381,11 +381,11 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     public void testFromHusband() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSmith();
-        personBuilder().createPersonEvent(person1, "Birth", "11 JUL 1960");
+        builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
 
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
         final int birthYear = 1965;
@@ -402,11 +402,11 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     public void testFromWife() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSmith();
-        personBuilder().createPersonEvent(person2, "Birth", "11 JUL 1960");
+        builder.createPersonEvent(person2, "Birth", "11 JUL 1960");
 
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
 
         final BirthDateEstimator estimator = createBirthEstimator(person1);
         final int birthYear = 1955;
@@ -464,7 +464,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     @Test
     public void testFromBaptism() {
         final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Baptism", "11 JUL 1960");
+        builder.createPersonEvent(person, "Baptism", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1960;
@@ -480,7 +480,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     @Test
     public void testChristening() {
         final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Christening", "11 JUL 1960");
+        builder.createPersonEvent(person, "Christening", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1960;
@@ -496,7 +496,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     @Test
     public void testBarMitzah() {
         final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Bar Mitzvah", "11 JUL 1960");
+        builder.createPersonEvent(person, "Bar Mitzvah", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1947;
@@ -512,7 +512,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     @Test
     public void testBatMitzvah() {
         final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Bat Mitzvah", "11 JUL 1960");
+        builder.createPersonEvent(person, "Bat Mitzvah", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1947;
@@ -528,7 +528,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     @Test
     public void testDeath() {
         final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Death", "11 JUL 1960");
+        builder.createPersonEvent(person, "Death", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1885;
@@ -544,7 +544,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     @Test
     public void testBurial() {
         final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Burial", "11 JUL 1960");
+        builder.createPersonEvent(person, "Burial", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1885;
@@ -560,7 +560,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     @Test
     public void testChanged() {
         final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Changed", "11 JUL 1960");
+        builder.createPersonEvent(person, "Changed", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -571,7 +571,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     @Test
     public void testOtherEvent() {
         final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Occupation", "11 JUL 1960");
+        builder.createPersonEvent(person, "Occupation", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1935;
@@ -587,7 +587,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     @Test
     public void testNoDate() {
         final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Death");
+        builder.createPersonEvent(person, "Death");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -598,7 +598,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     @Test
     public void testBadDate() {
         final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Changed", "");
+        builder.createPersonEvent(person, "Changed", "");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
@@ -609,7 +609,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     @Test
     public void testEstimateBirthDate() {
         final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Birth", "11 JUL 1960");
+        builder.createPersonEvent(person, "Birth", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1960;
@@ -625,7 +625,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     @Test
     public void testEstimateMarriageDate() {
         final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Marriage", "11 JUL 1960");
+        builder.createPersonEvent(person, "Marriage", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1935;
@@ -641,7 +641,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     @Test
     public void testEstimateOtherDate() {
         final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Occupation", "11 JUL 1960");
+        builder.createPersonEvent(person, "Occupation", "11 JUL 1960");
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final int birthYear = 1935;

@@ -10,10 +10,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
-import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.schoellerfamily.gedbrowser.renderer.CellRenderer;
 import org.schoellerfamily.gedbrowser.renderer.CellRow;
@@ -595,8 +595,10 @@ public final class PersonRendererTest {
      * @return the renderer
      */
     private PersonRenderer createRenderer() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson("I1");
         final PersonRenderer renderer = new PersonRenderer(
-                new Person(null, new ObjectId("I1")), new GedRendererFactory(),
+                person, new GedRendererFactory(),
                 userContext);
         return renderer;
     }

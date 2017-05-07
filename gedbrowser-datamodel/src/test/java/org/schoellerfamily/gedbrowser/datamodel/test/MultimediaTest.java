@@ -32,17 +32,17 @@ public final class MultimediaTest {
     @Before
     public void setUp() {
         builder = new GedObjectBuilder();
-        person1 = builder.getPersonBuilder().createPerson(
+        person1 = builder.createPerson(
                 "I1", "J. Random/Schoeller/");
-        final Person person2 = builder.getPersonBuilder().createPerson(
+        final Person person2 = builder.createPerson(
                 "I2", "Anonymous/Schoeller/");
-        final Person person3 = builder.getPersonBuilder().createPerson(
+        final Person person3 = builder.createPerson(
                 "I3", "Anonymous/Jones/");
-        final Family family = builder.getFamilyBuilder().createFamily("F1");
+        final Family family = builder.createFamily("F1");
         final Person person = person1;
-        builder.getFamilyBuilder().addChildToFamily(family, person);
-        builder.getFamilyBuilder().addHusbandToFamily(family, person2);
-        builder.getFamilyBuilder().addWifeToFamily(family, person3);
+        builder.addChildToFamily(family, person);
+        builder.addHusbandToFamily(family, person2);
+        builder.addWifeToFamily(family, person3);
         homeUrl = "http://www.schoellerfamily.org/";
         filePathString = homeUrl + "images/genealogy/"
                 + "luckybag1924-john-a-hayes.jpg";
@@ -61,7 +61,7 @@ public final class MultimediaTest {
     @Test
     public void testAppendString() {
         final Multimedia mm =
-                builder.getPersonBuilder().addMultimediaToPerson(
+                builder.addMultimediaToPerson(
                         person1, homeUrl);
         mm.appendString("genealogy");
         assertEquals("Mismatched tail", homeUrl + "genealogy", mm.getTail());

@@ -22,6 +22,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -371,7 +372,8 @@ public final class RepositoryFinderTest {
     @Test
     public void testWithWrongGedObjectForRoot() {
         try {
-            finder.find(new Person(), "foo");
+            final GedObjectBuilder builder = new GedObjectBuilder();
+            finder.find(builder.createPerson(), "foo");
             fail("Expected an exception here");
         } catch (IllegalArgumentException e) {
             assertEquals("Message mismatch",

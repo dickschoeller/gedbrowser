@@ -32,7 +32,7 @@ public class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
      */
     @Override
     public PersonBuilder personBuilder() {
-        return builder.getPersonBuilder();
+        return builder;
     }
 
     /**
@@ -40,7 +40,7 @@ public class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
      */
     @Override
     public FamilyBuilder familyBuilder() {
-        return builder.getFamilyBuilder();
+        return builder;
     }
 
     /** */
@@ -49,12 +49,12 @@ public class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
         final Person person1 = createJRandom();
         final Person person3 = createAnonymousJones();
 
-        personBuilder().createPersonEvent(person3, "Birth", "11 JUL 1960");
+        builder.createPersonEvent(person3, "Birth", "11 JUL 1960");
 
-        final Family family1 = familyBuilder().createFamily("F1");
+        final Family family1 = builder.createFamily("F1");
 
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addChildToFamily(family1, person3);
+        builder.addHusbandToFamily(family1, person1);
+        builder.addChildToFamily(family1, person3);
 
         final BirthDateFromChildrenEstimator estimator =
                 new BirthDateFromChildrenEstimator(person1);
@@ -73,12 +73,12 @@ public class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
         final Person person1 = createJRandom();
         final Person person3 = createAnonymousJones();
 
-        personBuilder().createPersonEvent(person3, "Occupation", "11 JUL 1985");
+        builder.createPersonEvent(person3, "Occupation", "11 JUL 1985");
 
-        final Family family1 = familyBuilder().createFamily("F1");
+        final Family family1 = builder.createFamily("F1");
 
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addChildToFamily(family1, person3);
+        builder.addHusbandToFamily(family1, person1);
+        builder.addChildToFamily(family1, person3);
 
         final BirthDateFromChildrenEstimator estimator =
                 new BirthDateFromChildrenEstimator(person1);
@@ -98,13 +98,13 @@ public class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
 
-        personBuilder().createPersonEvent(person3, "Birth", "11 JUL 1962");
+        builder.createPersonEvent(person3, "Birth", "11 JUL 1962");
 
-        final Family family1 = familyBuilder().createFamily("F1");
+        final Family family1 = builder.createFamily("F1");
 
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addChildToFamily(family1, person2);
-        familyBuilder().addChildToFamily(family1, person3);
+        builder.addHusbandToFamily(family1, person1);
+        builder.addChildToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
 
         final BirthDateFromChildrenEstimator estimator =
                 new BirthDateFromChildrenEstimator(person1);
@@ -125,25 +125,25 @@ public class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
         final Person person3 = createAnonymousJones();
         final Person person4 = createTooTall();
         final Person person5 =
-                personBuilder().createPerson("I5", "Anonyma/Schoeller/");
+                builder.createPerson("I5", "Anonyma/Schoeller/");
 
-        personBuilder().createPersonEvent(person4, "Birth", "11 JUL 1960");
+        builder.createPersonEvent(person4, "Birth", "11 JUL 1960");
 
-        final Family family1 = familyBuilder().createFamily("F1");
+        final Family family1 = builder.createFamily("F1");
 
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addChildToFamily(family1, person5);
-        familyBuilder().addChildToFamily(family1, person2);
+        builder.addHusbandToFamily(family1, person1);
+        builder.addChildToFamily(family1, person5);
+        builder.addChildToFamily(family1, person2);
 
-        final Family family2 = familyBuilder().createFamily("F2");
+        final Family family2 = builder.createFamily("F2");
 
-        familyBuilder().addHusbandToFamily(family2, person4);
-        familyBuilder().addChildToFamily(family2, person3);
+        builder.addHusbandToFamily(family2, person4);
+        builder.addChildToFamily(family2, person3);
 
-        final Family family3 = familyBuilder().createFamily("F3");
+        final Family family3 = builder.createFamily("F3");
 
-        familyBuilder().addHusbandToFamily(family3, person2);
-        familyBuilder().addWifeToFamily(family3, person3);
+        builder.addHusbandToFamily(family3, person2);
+        builder.addWifeToFamily(family3, person3);
 
         final BirthDateFromChildrenEstimator estimator =
                 new BirthDateFromChildrenEstimator(person1);

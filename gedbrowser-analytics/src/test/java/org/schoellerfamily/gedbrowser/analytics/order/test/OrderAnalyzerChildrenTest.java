@@ -34,7 +34,7 @@ public final class OrderAnalyzerChildrenTest implements AnalyzerTest {
      */
     @Override
     public PersonBuilder personBuilder() {
-        return builder.getPersonBuilder();
+        return builder;
     }
 
     /**
@@ -42,7 +42,7 @@ public final class OrderAnalyzerChildrenTest implements AnalyzerTest {
      */
     @Override
     public FamilyBuilder familyBuilder() {
-        return builder.getFamilyBuilder();
+        return builder;
     }
 
     /** */
