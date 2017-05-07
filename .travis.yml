@@ -54,7 +54,7 @@ before_script:
   - docker ps --all
 
 script:
-  - mvn install jacoco:report coveralls:report --settings=config/settings.xml -Ptravis-build -DrepoToken=${REPOTOKEN} -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -DpushImage -DpushImageTag 2>&1 | grep -v DEBUG
+  - mvn install jacoco:report coveralls:report --settings=config/settings.xml -Ptravis-build -DrepoToken=${REPOTOKEN} -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -DpushImage -DpushImageTag
 
 # browser choices -  android, chrome, firefox, MicrosoftEdge, iexplore, safari,
 #                    operablink, konqueror, "internet explorer", iPhone, iPad,
