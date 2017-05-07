@@ -15,7 +15,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.TooManyMethods")
 public final class FamilyVisitor implements GedObjectVisitor {
     /** */
     private Wife wifeFound;

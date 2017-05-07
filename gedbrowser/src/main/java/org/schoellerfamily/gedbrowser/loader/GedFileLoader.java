@@ -17,11 +17,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedFile;
+import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
@@ -30,17 +30,33 @@ import org.springframework.dao.DataAccessException;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
-public class GedFileLoader {
+public final class GedFileLoader {
     /** Logger. */
     private final Log logger = LogFactory.getLog(getClass());
 
-    /** */
+    /**
+     * Manages the persistence repository.
+     */
     @Autowired
     private transient RepositoryManagerMongo repositoryManager;
 
-    /** */
+    /**
+     * Implements finding other objects.
+     */
     @Autowired
     private transient FinderStrategy finder;
+
+    /**
+     * Converts AbstractGedLine hierarchy to GedObject hierarchy.
+     */
+    @Autowired
+    private transient GedObjectCreator g2g;
+
+    /**
+     * Implements conversion from GedObject to GedDocumentMongo.
+     */
+    @Autowired
+    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /** */
     @Value("${gedbrowser.home}")
@@ -54,11 +70,10 @@ public class GedFileLoader {
     }
 
     /**
-     * @param dbName
-     *            the name of the database to load
+     * @param dbName the name of the database to load
      * @return the root object of the database
      */
-    public final GedObject load(final String dbName) {
+    public GedObject load(final String dbName) {
         final String filename = buildFileName(dbName);
         final RootDocument rootDocument =
                 repositoryManager.getRootDocumentRepository()
@@ -75,8 +90,7 @@ public class GedFileLoader {
     }
 
     /**
-     * @param dbName
-     *            the name of the DB
+     * @param dbName the name of the DB
      * @return the derived filename
      */
     private String buildFileName(final String dbName) {
@@ -84,8 +98,7 @@ public class GedFileLoader {
     }
 
     /**
-     * @param dbName
-     *            the name of the DB to load
+     * @param dbName the name of the DB to load
      * @return the root object loaded
      */
     private Root loadRepository(final String dbName) {
@@ -119,8 +132,7 @@ public class GedFileLoader {
      */
     private Root createRoot(final String dbName, final String filename,
             final GedFile gedFile) {
-        Root root;
-        root = (Root) gedFile.createGedObject((AbstractGedLine) null);
+        final Root root = g2g.create(gedFile);
         root.setString("Root");
         root.setFilename(filename);
         root.setDbName(dbName);
@@ -133,8 +145,7 @@ public class GedFileLoader {
      */
     private void save(final Root root) {
         final RootDocumentMongo rootdoc =
-                (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
-                    .createGedDocument(root);
+                (RootDocumentMongo) toDocConverter.createGedDocument(root);
         try {
             repositoryManager.getRootDocumentRepository().save(rootdoc);
         } catch (DataAccessException e) {
@@ -145,14 +156,14 @@ public class GedFileLoader {
     /**
      * Reset the data.
      */
-    public final void reset() {
+    public void reset() {
         repositoryManager.reset();
     }
 
     /**
      * Reload all of the data sets.
      */
-    public final void reloadAll() {
+    public void reloadAll() {
         final List<String> list = new ArrayList<>();
         for (final RootDocument mongo : repositoryManager
                 .getRootDocumentRepository().findAll()) {
@@ -167,7 +178,7 @@ public class GedFileLoader {
     /**
      * @return list of name value pairs for the data sets currently loaded
      */
-    public final List<Map<String, Object>> details() {
+    public List<Map<String, Object>> details() {
         final List<Map<String, Object>> list = new ArrayList<>();
         for (final RootDocument mongo : repositoryManager
                 .getRootDocumentRepository().findAll()) {
@@ -180,7 +191,7 @@ public class GedFileLoader {
      * @param dbname name of a dataset
      * @return the name value pairs describing this dataset
      */
-    public final Map<String, Object> details(final String dbname) {
+    public Map<String, Object> details(final String dbname) {
         final Map<String, Object> map = new HashMap<>();
         final RootDocument doc = repositoryManager.getRootDocumentRepository()
                 .findByFileAndString(buildFileName(dbname), "Root");

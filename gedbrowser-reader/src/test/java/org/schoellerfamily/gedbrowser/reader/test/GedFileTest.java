@@ -8,19 +8,30 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLine;
-import org.schoellerfamily.gedbrowser.reader.ReaderHelper;
+import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
+import org.schoellerfamily.gedbrowser.reader.testreader.TestResourceReader;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class GedFileTest {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
+
+    /** */
+    @Autowired
+    private transient GedObjectCreator g2g;
 
     /**
      * Test GedLine with an array input.
@@ -31,7 +42,7 @@ public final class GedFileTest {
     public void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = readFileTestSource();
         logger.info(top.toString());
-        final GedObject root = top.createGedObject((AbstractGedLine) null);
+        final Root root = g2g.create(top);
         final String out = root.toString();
         logger.info(out);
 
@@ -51,7 +62,8 @@ public final class GedFileTest {
      * @throws IOException because reader might throw.
      */
     private AbstractGedLine readFileTestSource() throws IOException {
-        return ReaderHelper.readFileTestSource(this, "mini-schoeller.ged");
+        return TestResourceReader.readFileTestSource(
+                this, "mini-schoeller.ged");
     }
 
     /** */

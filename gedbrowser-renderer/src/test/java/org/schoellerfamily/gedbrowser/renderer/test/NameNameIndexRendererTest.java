@@ -4,25 +4,30 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NameNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NameRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class NameNameIndexRendererTest {
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
+
     /** */
     private static final String UNEXPECTED_STRING =
             "Unexpected string returned";
-
-    /** */
-    private CalendarProvider provider;
 
     /** */
     private RenderingContext anonymousContext;
@@ -30,8 +35,6 @@ public final class NameNameIndexRendererTest {
     /** */
     @Before
     public void init() {
-        provider = new CalendarProviderStub();
-        final ApplicationInfo appInfo = new ApplicationInfoStub();
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -40,7 +43,7 @@ public final class NameNameIndexRendererTest {
     public void testRenderSimple() {
         final Name name = new Name(null, "Richard/Schoeller/");
         final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final NameNameIndexRenderer nnir = (NameNameIndexRenderer) nameRenderer
                 .getNameIndexRenderer();
         assertEquals(UNEXPECTED_STRING,
@@ -53,7 +56,7 @@ public final class NameNameIndexRendererTest {
     public void testRenderHarder() {
         final Name name = new Name(null, "Karl Frederick/Schoeller/Jr.");
         final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final NameNameIndexRenderer nnir = (NameNameIndexRenderer) nameRenderer
                 .getNameIndexRenderer();
         assertEquals(UNEXPECTED_STRING,
@@ -67,7 +70,7 @@ public final class NameNameIndexRendererTest {
     public void testRenderNoPrefix() {
         final Name name = new Name(null, "/Schoeller/");
         final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final NameNameIndexRenderer nnir = (NameNameIndexRenderer) nameRenderer
                 .getNameIndexRenderer();
         assertEquals(UNEXPECTED_STRING,
@@ -80,7 +83,7 @@ public final class NameNameIndexRendererTest {
     public void testRenderEmpty() {
         final Name name = new Name(null, "");
         final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final NameNameIndexRenderer nnir = (NameNameIndexRenderer) nameRenderer
                 .getNameIndexRenderer();
         assertEquals(UNEXPECTED_STRING,
@@ -93,7 +96,7 @@ public final class NameNameIndexRendererTest {
     public void testRenderNull() {
         final Name name = new Name(null);
         final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final NameNameIndexRenderer nnir = (NameNameIndexRenderer) nameRenderer
                 .getNameIndexRenderer();
         assertEquals(UNEXPECTED_STRING,
@@ -106,7 +109,7 @@ public final class NameNameIndexRendererTest {
     public void testRenderUnset() {
         final Name name = new Name();
         final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final NameNameIndexRenderer nnir = (NameNameIndexRenderer) nameRenderer
                 .getNameIndexRenderer();
         assertEquals(UNEXPECTED_STRING,
@@ -119,7 +122,7 @@ public final class NameNameIndexRendererTest {
     public void testRenderPrefixSuffix() {
         final Name name = new Name(null, "Foo//Bar");
         final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final NameNameIndexRenderer nnir = (NameNameIndexRenderer) nameRenderer
                 .getNameIndexRenderer();
         assertEquals(UNEXPECTED_STRING,

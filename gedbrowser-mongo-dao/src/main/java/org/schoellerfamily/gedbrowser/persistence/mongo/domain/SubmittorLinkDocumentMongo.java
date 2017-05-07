@@ -2,8 +2,11 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.domain;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
 import org.schoellerfamily.gedbrowser.persistence.PersistenceException;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmittorLinkDocument;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 
 /**
  * @author Dick Schoeller
@@ -11,17 +14,19 @@ import org.schoellerfamily.gedbrowser.persistence.domain.SubmittorLinkDocument;
 public class SubmittorLinkDocumentMongo extends GedDocumentMongo<SubmittorLink>
         implements SubmittorLinkDocument {
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public SubmittorLinkDocumentMongo() {
-        setType("submittorlink");
+    @Override
+    public final String getType() {
+        return "submittorlink";
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void loadGedObject(final GedObject ged) {
+    public final void loadGedObject(final GedDocumentLoader loader,
+            final GedObject ged) {
         if (!(ged instanceof SubmittorLink)) {
             throw new PersistenceException("Wrong type");
         }
@@ -29,7 +34,15 @@ public class SubmittorLinkDocumentMongo extends GedDocumentMongo<SubmittorLink>
         this.setGedObject(gedObject);
         this.setString(gedObject.getString());
         this.setFilename(gedObject.getFilename());
-        this.loadAttributes(gedObject.getAttributes());
+        loader.loadAttributes(this, gedObject.getAttributes());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
+        visitor.visit(this);
     }
 
     /**

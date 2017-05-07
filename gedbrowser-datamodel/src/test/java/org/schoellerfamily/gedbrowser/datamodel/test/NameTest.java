@@ -31,22 +31,17 @@ public final class NameTest {
     @Before
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        person = builder.getPersonBuilder().createPerson("I1");
+        person = builder.createPerson("I1");
         final Person person1 = person;
-        name1 = builder.getPersonBuilder().addNameToPerson(
-                person1, "Karl/Schoeller/Jr.");
+        name1 = builder.addNameToPerson(person1, "Karl/Schoeller/Jr.");
         final Person person2 = person;
-        name2 = builder.getPersonBuilder().addNameToPerson(
-                person2, "Karl/Schoeller/");
+        name2 = builder.addNameToPerson(person2, "Karl/Schoeller/");
         final Person person3 = person;
-        name3 = builder.getPersonBuilder().addNameToPerson(
-                person3, "Wingnut");
+        name3 = builder.addNameToPerson(person3, "Wingnut");
         final Person person4 = person;
-        name4 = builder.getPersonBuilder().addNameToPerson(
-                person4, "/Noodle/");
+        name4 = builder.addNameToPerson(person4, "/Noodle/");
         final Person person5 = person;
-        name5 = builder.getPersonBuilder().addNameToPerson(
-                person5, "/Wang/Foo");
+        name5 = builder.addNameToPerson(person5, "/Wang/Foo");
     }
 
     /** */

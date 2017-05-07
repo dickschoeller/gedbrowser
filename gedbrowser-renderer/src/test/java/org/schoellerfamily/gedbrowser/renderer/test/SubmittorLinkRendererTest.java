@@ -4,10 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
@@ -16,13 +14,20 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkRenderer;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class SubmittorLinkRendererTest {
     /** */
-    private CalendarProvider provider;
+    @Autowired
+    private transient ApplicationInfo appInfo;
 
     /** */
     private RenderingContext anonymousContext;
@@ -30,8 +35,6 @@ public final class SubmittorLinkRendererTest {
     /** */
     @Before
     public void init() {
-        provider = new CalendarProviderStub();
-        final ApplicationInfo appInfo = new ApplicationInfoStub();
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -43,7 +46,7 @@ public final class SubmittorLinkRendererTest {
     public void testAttributeListOpenRenderer() {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
                 new SubmittorLink(), new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -57,7 +60,7 @@ public final class SubmittorLinkRendererTest {
     public void testListItemRenderer() {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
                 new SubmittorLink(), new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof SubmittorLinkListItemRenderer);
@@ -71,7 +74,7 @@ public final class SubmittorLinkRendererTest {
     public void testNameHtmlRenderer() {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
                 new SubmittorLink(), new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -85,7 +88,7 @@ public final class SubmittorLinkRendererTest {
     public void testNameIndeRenderer() {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
                 new SubmittorLink(), new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -99,7 +102,7 @@ public final class SubmittorLinkRendererTest {
     public void testPhraseRenderer() {
         final SubmittorLinkRenderer renderer = new SubmittorLinkRenderer(
                 new SubmittorLink(), new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof SubmittorLinkPhraseRenderer);

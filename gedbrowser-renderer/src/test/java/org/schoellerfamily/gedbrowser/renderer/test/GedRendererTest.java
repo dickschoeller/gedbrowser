@@ -9,12 +9,11 @@ import java.util.Locale;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
+import org.junit.runner.RunWith;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.DefaultRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -24,30 +23,35 @@ import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
-import org.schoellerfamily.gedbrowser.renderer.User;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.renderer.user.UserImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class GedRendererTest {
     /** */
-    private String homeUrl;
+    @Autowired
+    private transient CalendarProvider provider;
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
 
     /** */
-    private CalendarProvider provider;
+    private String homeUrl;
 
     /** */
     private RenderingContext anonymousContext;
 
     /** */
-    private ApplicationInfo appInfo;
-
-    /** */
     @Before
     public void init() {
         homeUrl = "http://www.schoellerfamily.org/";
-        provider = new CalendarProviderStub();
-        appInfo = new ApplicationInfoStub();
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -116,7 +120,7 @@ public final class GedRendererTest {
      */
     private GedRenderer<GedObject> createRenderer() {
         return new GedRenderer<GedObject>(createGedObject(),
-                new GedRendererFactory(), anonymousContext, provider) {
+                new GedRendererFactory(), anonymousContext) {
         };
     }
 
@@ -125,7 +129,7 @@ public final class GedRendererTest {
     public void testGetTrailerHtmlEmpty() {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(root,
-                new GedRendererFactory(), anonymousContext, provider) {
+                new GedRendererFactory(), anonymousContext) {
         };
         assertEquals("Rendered string does not match expectation",
                 "\n"
@@ -167,7 +171,7 @@ public final class GedRendererTest {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
 
         final String keywords = "one two three";
         final String title = "title";
@@ -201,7 +205,7 @@ public final class GedRendererTest {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertEquals("Rendered string does not match expectation",
                 "\n"
                 + "    <hr class=\"final\"/>\n"
@@ -242,7 +246,7 @@ public final class GedRendererTest {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertFalse("Expected admin to be false", renderer.hasRole("Admin"));
     }
 
@@ -251,17 +255,18 @@ public final class GedRendererTest {
     public void testHasRoleUserTrue() {
         final Root root = new Root();
         final ApplicationInfo appInfo1 = appInfo;
-        final User user2 = new User();
+        final UserImpl user2 = new UserImpl();
         user2.setUsername("User");
         user2.setFirstname("Ursula");
         user2.setLastname("User");
-        user2.addRole("User");
+        user2.clearRoles();
+        user2.addRole("USER");
         final RenderingContext context =
-                new RenderingContext(user2, true, false, appInfo1);
+                new RenderingContext(user2, appInfo1, provider);
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
-                context, provider);
-        assertTrue("Expected user to be true", renderer.hasRole("User"));
+                context);
+        assertTrue("Expected user to be true", renderer.hasRole("USER"));
     }
 
     /** */
@@ -270,8 +275,8 @@ public final class GedRendererTest {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
-                anonymousContext, provider);
-        assertFalse("Expected user to be false", renderer.hasRole("User"));
+                anonymousContext);
+        assertFalse("Expected user to be false", renderer.hasRole("USER"));
     }
 
     /** */
@@ -280,7 +285,7 @@ public final class GedRendererTest {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
-                RenderingContext.user(appInfo), provider);
+                RenderingContext.user(appInfo));
         assertEquals("Expected user to be Ursula",
                 "Ursula", renderer.getUserFirstname());
     }
@@ -291,7 +296,7 @@ public final class GedRendererTest {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertEquals("Rendered string does not match expectation",
                 "\n"
                 + "    <hr class=\"final\"/>\n"
@@ -333,7 +338,7 @@ public final class GedRendererTest {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertEquals("Rendered string does not match expectation",
                 "\n"
                 + "    <hr class=\"final\"/>\n"
@@ -376,7 +381,7 @@ public final class GedRendererTest {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         assertEquals("Rendered string does not match expectation",
                 "\n"
                 + "    <hr class=\"final\"/>\n"
@@ -439,7 +444,7 @@ public final class GedRendererTest {
     @Test
     public void testGetCalendarProvider() {
         final GedRenderer<GedObject> renderer = createRenderer();
-        final CalendarProvider cp = renderer.getCalendarProvider();
+        final CalendarProvider cp = renderer.getRenderingContext();
         final String nowString = cp.nowDate().toString("YYYYMMdd");
         assertEquals("Should match fixed past date for testing",
                 "20151214", nowString);

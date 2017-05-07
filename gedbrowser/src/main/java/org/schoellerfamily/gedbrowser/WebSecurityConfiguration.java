@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser;
 
-import org.schoellerfamily.gedbrowser.renderer.User;
+import org.schoellerfamily.gedbrowser.renderer.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

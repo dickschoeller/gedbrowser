@@ -2,8 +2,11 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.domain;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
 import org.schoellerfamily.gedbrowser.persistence.PersistenceException;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,17 +23,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class RootDocumentMongo extends GedDocumentMongo<Root>
         implements RootDocument {
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public RootDocumentMongo() {
-        setType("root");
+    @Override
+    public final String getType() {
+        return "root";
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void loadGedObject(final GedObject ged) {
+    public final void loadGedObject(final GedDocumentLoader loader,
+            final GedObject ged) {
         if (!(ged instanceof Root)) {
             throw new PersistenceException("Wrong type");
         }
@@ -39,7 +44,15 @@ public class RootDocumentMongo extends GedDocumentMongo<Root>
         this.setString(gedObject.getString());
         this.setFilename(gedObject.getFilename());
         this.setDbName(gedObject.getDbName());
-//        this.loadAttributes(gedObject.getAttributes());
+        // Note that we don't load attributes on purpose here.
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
+        visitor.visit(this);
     }
 
     /**

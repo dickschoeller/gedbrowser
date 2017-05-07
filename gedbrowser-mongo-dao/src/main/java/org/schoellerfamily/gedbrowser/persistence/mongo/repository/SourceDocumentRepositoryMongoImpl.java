@@ -7,9 +7,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     SourceDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -24,6 +23,9 @@ public class SourceDocumentRepositoryMongoImpl implements
     /** */
     @Autowired
     private transient MongoTemplate mongoTemplate;
+    /** */
+    @Autowired
+    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /**
      * {@inheritDoc}
@@ -38,8 +40,8 @@ public class SourceDocumentRepositoryMongoImpl implements
         if (sourceDocument == null) {
             return null;
         }
-        final Source source = (Source) GedDocumentMongoFactory.getInstance().
-                createGedObject(null, sourceDocument);
+        final Source source =
+                (Source) toObjConverter.createGedObject(null, sourceDocument);
         sourceDocument.setGedObject(source);
         return sourceDocument;
     }
@@ -74,9 +76,8 @@ public class SourceDocumentRepositoryMongoImpl implements
         }
         final List<SourceDocument> sourceDocuments = new ArrayList<>();
         for (final SourceDocument sourceDocument : sourceDocumentsMongo) {
-            final Source source =
-                    (Source) GedDocumentMongoFactory.getInstance()
-                        .createGedObject(null, sourceDocument);
+            final Source source = (Source) toObjConverter.createGedObject(
+                    null, sourceDocument);
             sourceDocument.setGedObject(source);
             sourceDocuments.add(sourceDocument);
         }

@@ -4,21 +4,30 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class MultimediaPhraseRendererTest {
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
+
     /** */
     private transient Multimedia multimedia1;
 
@@ -29,15 +38,13 @@ public final class MultimediaPhraseRendererTest {
     private transient Multimedia multimedia3;
 
     /** */
-    private CalendarProvider provider;
-
-    /** */
     private RenderingContext anonymousContext;
 
     /** */
     @Before
     public void init() {
-        final Person person = new Person();
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson();
 
         multimedia1 = new Multimedia(person, "Multimedia", "");
         multimedia1.addAttribute(
@@ -66,8 +73,6 @@ public final class MultimediaPhraseRendererTest {
         person.insert(multimedia2);
         person.insert(multimedia3);
 
-        provider = new CalendarProviderStub();
-        final ApplicationInfo appInfo = new ApplicationInfoStub();
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -75,7 +80,7 @@ public final class MultimediaPhraseRendererTest {
     @Test
     public void testRenderAsPhraseEmpty() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia1,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final MultimediaPhraseRenderer apRenderer =
                 (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
@@ -87,7 +92,7 @@ public final class MultimediaPhraseRendererTest {
     @Test
     public void testRenderAsPhraseString() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia2,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final MultimediaPhraseRenderer apRenderer =
                 (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
@@ -99,7 +104,7 @@ public final class MultimediaPhraseRendererTest {
     @Test
     public void testRenderAsPhrase() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia3,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final MultimediaPhraseRenderer apRenderer =
                 (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();

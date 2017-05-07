@@ -1,23 +1,14 @@
 package org.schoellerfamily.gedbrowser.datamodel.util;
 
-import org.schoellerfamily.gedbrowser.datamodel.Attribute;
-import org.schoellerfamily.gedbrowser.datamodel.Date;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
-import org.schoellerfamily.gedbrowser.datamodel.Name;
-import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
-import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.Source;
-import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
-import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 
 /**
  * @author Dick Schoeller
  */
-public final class GedObjectBuilder {
+public final class GedObjectBuilder implements PersonBuilderFacade,
+        FamilyBuilderFacade, SourceBuilderFacade, AttributeBuilderFacade {
     /** */
     private final Root root;
 
@@ -26,6 +17,12 @@ public final class GedObjectBuilder {
 
     /** */
     private final FamilyBuilder familyBuilder;
+
+    /** */
+    private final SourceBuilder sourceBuilder;
+
+    /** */
+    private final AttributeBuilder attributeBuilder;
 
     /**
      * Constructor.
@@ -41,64 +38,50 @@ public final class GedObjectBuilder {
      */
     public GedObjectBuilder(final Root root) {
         this.root = root;
-        this.personBuilder = new PersonBuilder(this);
-        this.familyBuilder = new FamilyBuilder(this);
+        this.personBuilder = new PersonBuilderImpl(this);
+        this.familyBuilder = new FamilyBuilderImpl(this);
+        this.sourceBuilder = new SourceBuilderImpl(this);
+        this.attributeBuilder = new AttributeBuilderImpl(this);
     }
 
     /**
-     * @return the associated root object
+     * {@inheritDoc}
      */
+    @Override
     public Root getRoot() {
         return root;
     }
 
     /**
-     * @return the associated personBuilder
+     * {@inheritDoc}
      */
+    @Override
     public PersonBuilder getPersonBuilder() {
         return personBuilder;
     }
 
     /**
-     * @return the associated familyBuilder
+     * {@inheritDoc}
      */
+    @Override
     public FamilyBuilder getFamilyBuilder() {
         return familyBuilder;
     }
 
     /**
-     * Create a submittor with the ID and name provided.
-     *
-     * @param idString the ID
-     * @param name the name
-     * @return the submittor
+     * {@inheritDoc}
      */
-    public Submittor createSubmittor(final String idString, final String name) {
-        if (idString == null || name == null) {
-            return new Submittor(getRoot(), null);
-        }
-        final Submittor submittor =
-                new Submittor(getRoot(), new ObjectId(idString));
-        submittor.insert(new Name(submittor, name));
-        getRoot().insert(submittor);
-        return submittor;
+    @Override
+    public SourceBuilder getSourceBuilder() {
+        return sourceBuilder;
     }
 
-
     /**
-     * Create a submittor with the ID provided.
-     *
-     * @param idString the ID
-     * @return the submittor
+     * {@inheritDoc}
      */
-    public Submittor createSubmittor(final String idString) {
-        if (idString == null) {
-            return new Submittor(getRoot(), null);
-        }
-        final Submittor submittor =
-                new Submittor(getRoot(), new ObjectId(idString));
-        getRoot().insert(submittor);
-        return submittor;
+    @Override
+    public AttributeBuilder getAttributeBuilder() {
+        return attributeBuilder;
     }
 
     /**
@@ -121,102 +104,5 @@ public final class GedObjectBuilder {
         final Head head = new Head(getRoot(), "Head");
         getRoot().insert(head);
         return head;
-    }
-
-    /**
-     * Create a place with the given name and add it to the given event.
-     *
-     * @param event the event
-     * @param placeName the place name
-     * @return the place
-     */
-    public Place addPlaceToEvent(final Attribute event,
-            final String placeName) {
-        final Place place = new Place(event, placeName);
-        event.insert(place);
-        return place;
-    }
-
-    /**
-     * @param gob the GedObject to add the name to
-     * @param string the date string
-     * @return the new date object
-     */
-    public Date addDateToGedObject(final GedObject gob, final String string) {
-        final Date date = new Date(gob, string);
-        gob.insert(date);
-        return date;
-    }
-
-    /**
-     * @param string the source string
-     * @return the source
-     */
-    public Source createSource(final String string) {
-        final Source source = new Source(getRoot(), new ObjectId(string));
-        getRoot().insert(source);
-        return source;
-    }
-
-    /**
-     * @param ged link from ged object
-     * @param source link to source
-     * @return the new link
-     */
-    public SourceLink createSourceLink(final GedObject ged,
-            final Source source) {
-        if (ged == null || source == null) {
-            return new SourceLink();
-        }
-        final SourceLink sourceLink = new SourceLink(ged, "Source",
-                new ObjectId(source.getString()));
-        ged.insert(sourceLink);
-        return sourceLink;
-    }
-
-    /**
-     * @param ged link from ged object
-     * @param submittor link to submittor
-     * @return the new link
-     */
-    public SubmittorLink createSubmittorLink(final GedObject ged,
-            final Submittor submittor) {
-        if (ged == null || submittor == null) {
-            return new SubmittorLink();
-        }
-        final SubmittorLink submittorLink = new SubmittorLink(ged, "Submittor",
-                new ObjectId(submittor.getString()));
-        ged.insert(submittorLink);
-        return submittorLink;
-    }
-
-    /**
-     * @param ged parent
-     * @param string attribute type string
-     * @return the attribute
-     */
-    public Attribute createAttribute(final GedObject ged, final String string) {
-        if (ged == null || string == null) {
-            return new Attribute();
-        }
-        final Attribute attribute = new Attribute(ged, string);
-        ged.insert(attribute);
-        return attribute;
-    }
-
-    /**
-     * @param ged parent
-     * @param string attribute type string
-     * @param tail attribute details
-     * @return the attribute
-     */
-    public Attribute createAttribute(final GedObject ged, final String string,
-            final String tail) {
-        if (ged == null || string == null || tail == null) {
-            return new Attribute();
-        }
-        final Attribute attribute = new Attribute(ged, string, tail);
-        ged.insert(attribute);
-        return attribute;
     }
 }

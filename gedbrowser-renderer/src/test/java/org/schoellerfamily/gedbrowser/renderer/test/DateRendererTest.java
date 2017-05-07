@@ -4,10 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.DateListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.DatePhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.DateRenderer;
@@ -16,13 +14,20 @@ import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class DateRendererTest {
     /** */
-    private CalendarProvider provider;
+    @Autowired
+    private transient ApplicationInfo appInfo;
 
     /** */
     private RenderingContext anonymousContext;
@@ -30,8 +35,6 @@ public final class DateRendererTest {
     /** */
     @Before
     public void init() {
-        provider = new CalendarProviderStub();
-        final ApplicationInfo  appInfo = new ApplicationInfoStub();
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -42,7 +45,7 @@ public final class DateRendererTest {
     @Test
     public void testAttributeListOpenRenderer() {
         final DateRenderer renderer = new DateRenderer(new Date(null),
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getAttributeListOpenRenderer()
                 instanceof SimpleAttributeListOpenRenderer);
@@ -55,7 +58,7 @@ public final class DateRendererTest {
     @Test
     public void testListItemRenderer() {
         final DateRenderer renderer = new DateRenderer(new Date(null),
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getListItemRenderer()
                 instanceof DateListItemRenderer);
@@ -68,7 +71,7 @@ public final class DateRendererTest {
     @Test
     public void testNameHtmlRenderer() {
         final DateRenderer renderer = new DateRenderer(new Date(null),
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
                 instanceof NullNameHtmlRenderer);
@@ -81,7 +84,7 @@ public final class DateRendererTest {
     @Test
     public void testNameIndexRenderer() {
         final DateRenderer renderer = new DateRenderer(new Date(null),
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
                 instanceof NullNameIndexRenderer);
@@ -94,7 +97,7 @@ public final class DateRendererTest {
     @Test
     public void testPhraseRenderer() {
         final DateRenderer renderer = new DateRenderer(new Date(null),
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof DatePhraseRenderer);

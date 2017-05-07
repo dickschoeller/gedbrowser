@@ -5,7 +5,7 @@
 
   <parent>
     <artifactId>gedbrowser-top</artifactId>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
     <groupId>org.schoellerfamily.gedbrowser</groupId>
     <relativePath>..</relativePath>
   </parent>
@@ -317,9 +317,6 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <skip>${skip.integration.tests}</skip>
-        </configuration>
         <executions>
           <execution>
             <goals>
@@ -332,6 +329,7 @@
               <goal>start</goal>
             </goals>
             <configuration>
+              <skip>${skip.integration.tests}</skip>
               <arguments>
                 <argument>--server.port=${server.port}</argument>
               </arguments>
@@ -342,6 +340,9 @@
             <goals>
               <goal>stop</goal>
             </goals>
+            <configuration>
+              <skip>${skip.integration.tests}</skip>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -356,6 +357,9 @@
               <goal>build</goal>
             </goals>
             <configuration>
+              <imageTags>
+                <imageTag>latest</imageTag>
+              </imageTags>
               <imageName>${docker.image.prefix}/${project.artifactId}:${docker.image.tag}</imageName>
               <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
               <skipDockerBuild>false</skipDockerBuild>

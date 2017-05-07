@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.schoellerfamily.gedbrowser.renderer.User;
+import org.schoellerfamily.gedbrowser.renderer.user.User;
 
 /**
  * @author Dick Schoeller

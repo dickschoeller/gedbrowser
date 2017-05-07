@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 
 /**
  * @author Dick Schoeller
@@ -11,7 +11,7 @@ public final class ApplicationInfoStub implements ApplicationInfo {
      * {@inheritDoc}
      */
     @Override
-    public String getName() {
+    public String getApplicationName() {
         return "gedbrowser";
     }
 

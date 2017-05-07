@@ -4,20 +4,17 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
-import org.schoellerfamily.gedbrowser.datamodel.Attribute;
+import org.junit.runner.RunWith;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.FamC;
 import org.schoellerfamily.gedbrowser.datamodel.FamS;
-import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Link;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
-import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
@@ -26,8 +23,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.AttributeRenderer;
 import org.schoellerfamily.gedbrowser.renderer.ChildRenderer;
 import org.schoellerfamily.gedbrowser.renderer.DateRenderer;
@@ -50,27 +47,35 @@ import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorRenderer;
 import org.schoellerfamily.gedbrowser.renderer.TrailerRenderer;
 import org.schoellerfamily.gedbrowser.renderer.WifeRenderer;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessiveImports" })
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class GedRendererFactoryTest {
+    /** */
+    @Autowired
+    private transient CalendarProvider provider;
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
+
     /** */
     private transient GedRendererFactory grf;
 
     /** */
-    private CalendarProvider provider;
-
-    /** */
-    private ApplicationInfo appInfo;
+    private final GedObjectBuilder builder = new GedObjectBuilder();
 
     /** */
     @Before
     public void init() {
         grf = new GedRendererFactory();
-        provider = new CalendarProviderStub();
-        appInfo = new ApplicationInfoStub();
     }
 
     /** */
@@ -94,8 +99,8 @@ public final class GedRendererFactoryTest {
     /** */
     @Test
     public void testGetPersonRenderer() {
-        final GedRenderer<?> gedRenderer =
-                grf.create(new Person(), provider, appInfo);
+        final GedRenderer<?> gedRenderer = grf.create(
+                builder.createPerson(), provider, appInfo);
         assertTrue("Expected PersonRenderer",
                 gedRenderer instanceof PersonRenderer);
     }
@@ -122,7 +127,7 @@ public final class GedRendererFactoryTest {
     @Test
     public void testGetAttributeRenderer() {
         final GedRenderer<?> gedRenderer =
-                grf.create(new Attribute(null), provider, appInfo);
+                grf.create(builder.createAttribute(), provider, appInfo);
         assertTrue("Expected AttributeRenderer",
                 gedRenderer instanceof AttributeRenderer);
     }
@@ -157,8 +162,8 @@ public final class GedRendererFactoryTest {
     /** */
     @Test
     public void testGetFamilyRenderer() {
-        final GedRenderer<?> gedRenderer =
-                grf.create(new Family(), provider, appInfo);
+        final GedRenderer<?> gedRenderer = grf.create(
+                builder.createFamily(), provider, appInfo);
         assertTrue("Expected FamilyRenderer",
                 gedRenderer instanceof FamilyRenderer);
     }

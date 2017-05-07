@@ -4,20 +4,29 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.AttributePhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.AttributeRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class AttributePhraseRendererTest {
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
+
     /** */
     private transient Attribute attribute1;
 
@@ -28,15 +37,13 @@ public final class AttributePhraseRendererTest {
     private transient Attribute attribute3;
 
     /** */
-    private CalendarProvider provider;
-
-    /** */
     private RenderingContext anonymousContext;
 
     /** */
     @Before
     public void init() {
-        final Person person = new Person();
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson();
         attribute1 = new Attribute(person, "String", "");
         attribute2 = new Attribute(person, "String", "Strung");
         attribute3 = new Attribute(person, "Sproing", "Spring");
@@ -46,8 +53,6 @@ public final class AttributePhraseRendererTest {
         person.insert(attribute2);
         person.insert(attribute3);
         attribute3.insert(attribute4);
-        provider = new CalendarProviderStub();
-        final ApplicationInfo appInfo = new ApplicationInfoStub();
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -55,7 +60,7 @@ public final class AttributePhraseRendererTest {
     @Test
     public void testRenderAsPhraseEmpty() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute1,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final AttributePhraseRenderer apRenderer =
                 (AttributePhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
@@ -66,7 +71,7 @@ public final class AttributePhraseRendererTest {
     @Test
     public void testRenderAsPhraseString() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute2,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final AttributePhraseRenderer apRenderer =
                 (AttributePhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
@@ -78,7 +83,7 @@ public final class AttributePhraseRendererTest {
     @Test
     public void testRenderAsPhrase() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute3,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final AttributePhraseRenderer apRenderer =
                 (AttributePhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();

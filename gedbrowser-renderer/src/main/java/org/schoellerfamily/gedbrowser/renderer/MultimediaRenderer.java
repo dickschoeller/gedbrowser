@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 
 /**
@@ -12,13 +11,11 @@ public final class MultimediaRenderer extends GedRenderer<Multimedia> {
      * @param rendererFactory the factory that creates the renderers for the
      *        multimedia objects
      * @param renderingContext the context that we are rendering in
-     * @param provider calendar provider
      */
     public MultimediaRenderer(final Multimedia gedObject,
             final GedRendererFactory rendererFactory,
-            final RenderingContext renderingContext,
-            final CalendarProvider provider) {
-        super(gedObject, rendererFactory, renderingContext, provider);
+            final RenderingContext renderingContext) {
+        super(gedObject, rendererFactory, renderingContext);
         setListItemRenderer(new MultimediaListItemRenderer(this));
         setPhraseRenderer(new MultimediaPhraseRenderer(this));
     }

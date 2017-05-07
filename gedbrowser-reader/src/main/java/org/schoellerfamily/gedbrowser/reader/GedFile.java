@@ -3,8 +3,6 @@ package org.schoellerfamily.gedbrowser.reader;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
-import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 
 /**
@@ -40,19 +38,24 @@ public final class GedFile extends AbstractGedLine {
     }
 
     /**
-     * {@inheritDoc}
+     * @return the file name
      */
-    @Override
-    protected GedObject createGedObject(final GedObject parent) {
-        Root gob;
-        if (finder == null) {
-            gob = new Root();
-        } else {
-            gob = new Root(finder);
-        }
-        gob.setFilename(filename);
-        gob.setDbName(dbName);
-        return gob;
+    public String getFilename() {
+        return filename;
+    }
+
+    /**
+     * @return the name of the DB for queries
+     */
+    public String getDbName() {
+        return dbName;
+    }
+
+    /**
+     * @return the finder implementation
+     */
+    public FinderStrategy getFinder() {
+        return finder;
     }
 
     /**
@@ -61,5 +64,13 @@ public final class GedFile extends AbstractGedLine {
     @Override
     public String toString() {
         return childrenString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedLineVisitor visitor) {
+        visitor.visit(this);
     }
 }

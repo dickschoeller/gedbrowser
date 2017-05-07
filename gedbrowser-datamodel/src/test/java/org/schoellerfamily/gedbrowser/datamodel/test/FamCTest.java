@@ -28,18 +28,17 @@ public final class FamCTest {
     @Before
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.getPersonBuilder().createPerson(
+        final Person person1 = builder.createPerson(
                 "I1", "J. Random/Schoeller/");
-        person2 = builder.getPersonBuilder().createPerson(
+        person2 = builder.createPerson(
                 "I2", "Anonymous/Schoeller/");
-        person3 = builder.getPersonBuilder().createPerson(
-                "I3", "Anonymous/Jones/");
-        final Family family = builder.getFamilyBuilder().createFamily("F1");
+        person3 = builder.createPerson("I3", "Anonymous/Jones/");
+        final Family family = builder.createFamily("F1");
         buildChild(family, person1);
         final Person person = person2;
-        builder.getFamilyBuilder().addHusbandToFamily(family, person);
+        builder.addHusbandToFamily(family, person);
         final Person person4 = person3;
-        builder.getFamilyBuilder().addWifeToFamily(family, person4);
+        builder.addWifeToFamily(family, person4);
     }
 
     /**

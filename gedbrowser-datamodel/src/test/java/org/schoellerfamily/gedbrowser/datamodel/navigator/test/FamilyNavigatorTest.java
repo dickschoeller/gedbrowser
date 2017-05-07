@@ -31,22 +31,22 @@ public final class FamilyNavigatorTest {
     @Before
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        family1 = builder.getFamilyBuilder().createFamily("F1");
-        person1 = builder.getPersonBuilder().createPerson(
+        family1 = builder.createFamily("F1");
+        person1 = builder.createPerson(
                 "I1", "J. Random/Schoeller/");
-        person2 = builder.getPersonBuilder().createPerson(
+        person2 = builder.createPerson(
                 "I2", "Anonymous/Schoeller/");
-        person3 = builder.getPersonBuilder().createPerson(
+        person3 = builder.createPerson(
                 "I3", "Anonymous/Jones/");
         final Family family = family1;
         final Person person = person1;
-        builder.getFamilyBuilder().addHusbandToFamily(family, person);
+        builder.addHusbandToFamily(family, person);
         final Family family2 = family1;
         final Person person4 = person2;
-        builder.getFamilyBuilder().addWifeToFamily(family2, person4);
+        builder.addWifeToFamily(family2, person4);
         final Family family3 = family1;
         final Person person5 = person3;
-        builder.getFamilyBuilder().addChildToFamily(family3, person5);
+        builder.addChildToFamily(family3, person5);
     }
 
     /** */

@@ -3,15 +3,15 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.fixture;
 import java.io.IOException;
 import java.util.Map;
 
-import org.schoellerfamily.gedbrowser.dao.mongo.TestDataReader;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SaveVisitor;
+import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
@@ -26,6 +26,14 @@ public final class RepositoryFixture {
     /** */
     @Autowired
     private transient MongoTemplate mongoTemplate;
+
+    /** */
+    @Autowired
+    private transient TestDataReader reader;
+
+    /** */
+    @Autowired
+    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /**
      * This is private because this is a singleton.
@@ -43,23 +51,21 @@ public final class RepositoryFixture {
     public Root loadRepository() throws IOException {
         clearRepository();
 
-        final Root root = (Root) TestDataReader.getInstance().
-                readBigTestSource();
+        final Root root = reader.readBigTestSource();
         root.setFilename("bigtest.ged");
         root.setDbName("bigtest");
 
         final RootDocumentMongo rootdoc =
-                (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
-                        .createGedDocument(root);
+                (RootDocumentMongo) toDocConverter.createGedDocument(root);
         repositoryManager.getRootDocumentRepository().save(rootdoc);
 
         final Map<String, GedObject> map = root.getObjects();
-        final GedDocumentMongoVisitor visitor =
+        final TopLevelGedDocumentMongoVisitor visitor =
                 new SaveVisitor(repositoryManager);
 
         for (final GedObject ged : map.values()) {
-            final GedDocumentMongo<GedObject> gedDoc = GedDocumentMongoFactory
-                    .getInstance().createGedDocument(ged);
+            final GedDocumentMongo<GedObject> gedDoc =
+                    toDocConverter.createGedDocument(ged);
             gedDoc.accept(visitor);
         }
         return root;

@@ -5,14 +5,17 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.Users;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.SourceNotFoundException;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.renderer.GedResourceNotFoundRenderer;
 import org.schoellerfamily.gedbrowser.renderer.Renderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
-import org.schoellerfamily.gedbrowser.renderer.User;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.renderer.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -37,6 +40,14 @@ public abstract class AbstractController {
     @Autowired
     private transient Users users;
 
+    /** */
+    @Autowired
+    private transient GedFileLoader loader;
+
+    /** */
+    @Autowired
+    private transient CalendarProvider provider;
+
     /**
      * @return the rendering context
      */
@@ -45,10 +56,20 @@ public abstract class AbstractController {
         final Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
         final User user = users.get(authentication.getName());
-        final RenderingContextBuilder contextBuilder =
-                new RenderingContextBuilder(
-                        authentication, user, applicationInfo);
-        return contextBuilder.build();
+        return new RenderingContext(user, applicationInfo, provider);
+    }
+
+    /**
+     * @param dbName the name of the database
+     * @return the root object
+     */
+    protected final Root fetchRoot(final String dbName) {
+        final Root root = (Root) loader.load(dbName);
+        if (root == null) {
+            throw new DataSetNotFoundException(
+                    "Data set " + dbName + " not found", dbName);
+        }
+        return root;
     }
 
     /**

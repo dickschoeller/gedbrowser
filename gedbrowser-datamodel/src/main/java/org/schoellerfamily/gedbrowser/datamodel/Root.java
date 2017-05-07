@@ -63,12 +63,12 @@ public final class Root extends AbstractSpecialObject {
     }
 
     /**
-     * @param gob object to insert
+     * {@inheritDoc}
      */
     @Override
-    public void extraInsert(final GedObject gob) {
-        objects.put(gob.getString(), gob);
-        addAttribute(gob);
+    public void extraInsert(final FinderObject gob) {
+        objects.put(gob.getString(), (GedObject) gob);
+        addAttribute((GedObject) gob);
     }
 
     /**

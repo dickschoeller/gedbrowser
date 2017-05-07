@@ -7,19 +7,28 @@ import java.util.Collection;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.schoellerfamily.gedbrowser.renderer.IndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class IndexRendererTest {
     /** */
-    private CalendarProvider provider;
+    @Autowired
+    private transient TestDataReader reader;
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
 
     /** */
     private RenderingContext anonymousContext;
@@ -27,8 +36,6 @@ public final class IndexRendererTest {
     /** */
     @Before
     public void init() {
-        provider = new CalendarProviderStub();
-        final ApplicationInfo appInfo = new ApplicationInfoStub();
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -56,10 +63,9 @@ public final class IndexRendererTest {
                 letterExpectString("R"),
                 letterExpectString("S"),
         };
-        final Root root = (Root) TestDataReader.getInstance()
-                .readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final IndexRenderer ir = new IndexRenderer(root, "S",
-                anonymousContext, provider);
+                anonymousContext);
         final Collection<String> letters = ir.getLetters();
         int i = 0;
         for (final String letter : letters) {
@@ -76,10 +82,9 @@ public final class IndexRendererTest {
                 "Sacerdote",
                 "Schoeller",
         };
-        final Root root = (Root) TestDataReader.getInstance()
-                .readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final IndexRenderer ir = new IndexRenderer(root, "S",
-                anonymousContext, provider);
+                anonymousContext);
         final Collection<String> surnames = ir.getSurnames();
         int i = 0;
         for (final String surname : surnames) {
@@ -119,10 +124,9 @@ public final class IndexRendererTest {
                 indexExpectString(
                         "I5", "Schoeller", "Vivian Grace", " (1960-)"),
         };
-        final Root root = (Root) TestDataReader.getInstance()
-                .readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final IndexRenderer ir = new IndexRenderer(root, "S",
-                anonymousContext, provider);
+                anonymousContext);
         final Collection<String> indexNames = ir.getIndexNameHtmls("Schoeller");
         int i = 0;
         for (final String indexName : indexNames) {
@@ -136,10 +140,9 @@ public final class IndexRendererTest {
      */
     @Test
     public void testIndexBase() throws IOException {
-        final Root root = (Root) TestDataReader.getInstance()
-                .readBigTestSource();
+        final Root root = reader.readBigTestSource();
         final IndexRenderer ir = new IndexRenderer(root, "S",
-                anonymousContext, provider);
+                anonymousContext);
         assertEquals("Mismatch index letter", "S", ir.getBase());
     }
 }

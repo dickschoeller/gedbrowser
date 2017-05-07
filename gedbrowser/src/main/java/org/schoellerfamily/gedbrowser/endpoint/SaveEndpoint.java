@@ -20,7 +20,7 @@ public class SaveEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public String getId() {
+    public final String getId() {
         return "save";
     }
 
@@ -28,7 +28,7 @@ public class SaveEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public List<String> invoke() {
+    public final List<String> invoke() {
         logger.info("Invoke save");
         final List<String> messages = new ArrayList<>();
         messages.add("Currently a NO-OP");
@@ -39,7 +39,7 @@ public class SaveEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public boolean isEnabled() {
+    public final boolean isEnabled() {
         return true;
     }
 
@@ -47,7 +47,7 @@ public class SaveEndpoint implements Endpoint<List<String>> {
      * {@inheritDoc}
      */
     @Override
-    public boolean isSensitive() {
+    public final boolean isSensitive() {
         return true;
     }
 }

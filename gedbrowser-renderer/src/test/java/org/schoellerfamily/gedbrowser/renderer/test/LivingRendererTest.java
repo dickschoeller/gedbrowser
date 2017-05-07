@@ -9,20 +9,36 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
+import org.junit.runner.RunWith;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.schoellerfamily.gedbrowser.renderer.LivingRenderer;
 import org.schoellerfamily.gedbrowser.renderer.LivingRenderer.Bucket;
 import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
-import org.schoellerfamily.gedbrowser.renderer.User;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.renderer.user.UserImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class LivingRendererTest {
+    /** */
+    @Autowired
+    private transient TestDataReader reader;
+    /** */
+    @Autowired
+    private transient CalendarProvider provider;
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
+
     /** */
     private transient RenderingContext adminContext;
 
@@ -32,26 +48,21 @@ public final class LivingRendererTest {
     /** */
     private transient Root root;
 
-    /** */
-    private CalendarProvider provider;
-
     /**
      * @throws IOException if there is a problem reading the test data
      */
     @Before
     public void init() throws IOException {
-        root = (Root) TestDataReader.getInstance().readBigTestSource();
-        provider = new CalendarProviderStub();
-        final ApplicationInfo appInfo = new ApplicationInfoStub();
-        final User admin = new User();
+        root = reader.readBigTestSource();
+        final UserImpl admin = new UserImpl();
         admin.setUsername("admin");
         admin.addRole("USER");
         admin.addRole("ADMIN");
-        adminContext = new RenderingContext(admin, true, true, appInfo);
-        final User user = new User();
+        adminContext = new RenderingContext(admin, appInfo, provider);
+        final UserImpl user = new UserImpl();
         user.setUsername("user");
         user.addRole("USER");
-        userContext = new RenderingContext(user, true, false, appInfo);
+        userContext = new RenderingContext(user, appInfo, provider);
     }
 
     /**
@@ -59,8 +70,7 @@ public final class LivingRendererTest {
      */
     @Test
     public void testRenderUserIndexHref() {
-        final LivingRenderer renderer = new LivingRenderer(root, userContext,
-                provider);
+        final LivingRenderer renderer = new LivingRenderer(root, userContext);
         assertEquals("The index link should refer to the letter A",
                 "surnames?db=null&letter=A", renderer.getIndexHref());
     }
@@ -68,8 +78,7 @@ public final class LivingRendererTest {
     /** */
     @Test
     public void testRenderAdminIndexHref() {
-        final LivingRenderer renderer = new LivingRenderer(root, adminContext,
-                provider);
+        final LivingRenderer renderer = new LivingRenderer(root, adminContext);
         assertEquals("The index link should refer to the letter A",
                 "surnames?db=null&letter=A", renderer.getIndexHref());
     }
@@ -79,8 +88,7 @@ public final class LivingRendererTest {
      */
     @Test
     public void testRenderUserBuckets() {
-        final LivingRenderer renderer = new LivingRenderer(root, userContext,
-                provider);
+        final LivingRenderer renderer = new LivingRenderer(root, userContext);
         assertTrue("In user context, this is always empty",
                 renderer.getBuckets().isEmpty());
     }
@@ -90,8 +98,7 @@ public final class LivingRendererTest {
      */
     @Test
     public void testRenderAdminBuckets() {
-        final LivingRenderer renderer = new LivingRenderer(root, adminContext,
-                provider);
+        final LivingRenderer renderer = new LivingRenderer(root, adminContext);
         assertFalse("In admin context, there should be some buckets",
                 renderer.getBuckets().isEmpty());
     }
@@ -99,8 +106,7 @@ public final class LivingRendererTest {
     /** */
     @Test
     public void testRenderAdminBucket() {
-        final LivingRenderer renderer = new LivingRenderer(root, adminContext,
-                provider);
+        final LivingRenderer renderer = new LivingRenderer(root, adminContext);
         final int twentyToTwentyNine = 2;
         final List<PersonRenderer> persons = renderer.getBuckets()
                 .get(twentyToTwentyNine).getPersons();
@@ -113,8 +119,7 @@ public final class LivingRendererTest {
      */
     @Test
     public void testRenderBucketSizes() {
-        final LivingRenderer renderer = new LivingRenderer(root, adminContext,
-                provider);
+        final LivingRenderer renderer = new LivingRenderer(root, adminContext);
         final List<Bucket> buckets = renderer.getBuckets();
         final int increment = 10;
         final int limit = 100;

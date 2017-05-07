@@ -8,7 +8,7 @@
 
   <groupId>org.schoellerfamily.gedbrowser</groupId>
   <artifactId>gedbrowser-top</artifactId>
-  <version>1.1.2</version>
+  <version>1.1.3</version>
   <packaging>pom</packaging>
 
   <organization>
@@ -62,12 +62,17 @@
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.9.9</joda-time.version>
     <undertow.version>1.4.13.Final</undertow.version>
+    <sauce_junit.version>2.1.23</sauce_junit.version>
+    <geojson-jackson.version>1.8</geojson-jackson.version>
+    <log4j-over-slf4j.version>1.7.25</log4j-over-slf4j.version>
+    <logback-classic.version>1.2.3</logback-classic.version>
 
     <selenium.version>3.4.0</selenium.version>
     <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
     <htmlunit-driver.version>2.26</htmlunit-driver.version>
 
-    <jxr-plugin.version>2.5</jxr-plugin.version>
+    <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
+    <jacoco-plugin.version>0.7.9</jacoco-plugin.version>
     <findbugs-plugin.version>3.0.4</findbugs-plugin.version>
     <checkstyle-plugin.version>2.17</checkstyle-plugin.version>
     <checkstyle-version>7.6.1</checkstyle-version>
@@ -75,13 +80,20 @@
     <!-- 5.6.0 has an incompatible API change. -->
     <!-- Can't upgrade until the maven-pmd-plugin is upgraded. -->
     <pmd-version>5.5.6</pmd-version>
+    <build-helper-plugin.version>3.0.0</build-helper-plugin.version>
+    <jxr-plugin.version>2.5</jxr-plugin.version>
     <compiler-plugin.version>3.6.1</compiler-plugin.version>
+    <war-plugin.version>3.1.0</war-plugin.version>
+    <source-plugin.version>3.0.1</source-plugin.version>
     <failsafe.version>2.20</failsafe.version>
     <surefire.version>2.20</surefire.version>
-    <jacoco-plugin.version>0.7.9</jacoco-plugin.version>
+    <javadoc-plugin.version>2.10.4</javadoc-plugin.version>
+    <gpg-plugin.version>1.6</gpg-plugin.version>
+    <nexus-staging-plugin.version>1.6.8</nexus-staging-plugin.version>
 
+    <docker-plugin.version>0.4.13</docker-plugin.version>
     <docker.image.prefix>dickschoeller</docker.image.prefix>
-    <docker.image.tag>snapshot</docker.image.tag>
+    <docker.image.tag>1.1.3</docker.image.tag>
 
     <config-dir>${project.basedir}/config</config-dir>
     <server.port>8080</server.port>
@@ -164,7 +176,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>build-helper-maven-plugin</artifactId>
-          <version>3.0.0</version>
+          <version>${build-helper-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -225,7 +237,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>findbugs-maven-plugin</artifactId>
-          <version>3.0.4</version>
+          <version>${findbugs-plugin.version}</version>
           <executions>
             <execution>
               <id>findbugs</id>
@@ -265,7 +277,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-war-plugin</artifactId>
-          <version>3.0.0</version>
+          <version>${war-plugin.version}</version>
         </plugin>
          <plugin>
           <groupId>org.springframework.boot</groupId>
@@ -275,14 +287,14 @@
         <plugin>
           <groupId>com.spotify</groupId>
           <artifactId>docker-maven-plugin</artifactId>
-          <version>0.4.13</version>
+          <version>${docker-plugin.version}</version>
           <executions>
           </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
-          <version>3.0.1</version>
+          <version>${source-plugin.version}</version>
           <executions>
             <execution>
               <id>attach-sources</id>
@@ -296,7 +308,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>2.10.4</version>
+          <version>${javadoc-plugin.version}</version>
           <configuration>
             <quiet>true</quiet>
           </configuration>
@@ -313,17 +325,17 @@
         <plugin>
           <groupId>org.eluder.coveralls</groupId>
           <artifactId>coveralls-maven-plugin</artifactId>
-          <version>4.3.0</version>
+          <version>${coveralls-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-gpg-plugin</artifactId>
-          <version>1.6</version>
+          <version>${gpg-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>org.sonatype.plugins</groupId>
           <artifactId>nexus-staging-maven-plugin</artifactId>
-          <version>1.6.8</version>
+          <version>${nexus-staging-plugin.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -482,12 +494,22 @@
       <dependency>
         <groupId>com.saucelabs</groupId>
         <artifactId>sauce_junit</artifactId>
-        <version>2.1.23</version>
+        <version>${sauce_junit.version}</version>
       </dependency>
       <dependency>
         <groupId>de.grundid.opendatalab</groupId>
         <artifactId>geojson-jackson</artifactId>
-        <version>1.8</version>
+        <version>${geojson-jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>log4j-over-slf4j</artifactId>
+        <version>${log4j-over-slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${logback-classic.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

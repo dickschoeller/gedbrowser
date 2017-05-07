@@ -59,7 +59,7 @@ public final class MultimediaConstructorTest {
     @Parameters
     public static Collection<Object[]> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.getPersonBuilder().createPerson(
+        final Person person1 = builder.createPerson(
                 "I1", "J. Random/Schoeller/");
 
         return Arrays.asList(new Object[][] {

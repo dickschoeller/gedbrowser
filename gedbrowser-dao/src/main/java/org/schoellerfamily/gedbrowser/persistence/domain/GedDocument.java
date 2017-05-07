@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.persistence.domain;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
 
 /**
  * @author Dick Schoeller
@@ -24,11 +25,6 @@ public interface GedDocument<G extends GedObject> {
      * @return the type
      */
     String getType();
-
-    /**
-     * @param type the type to set
-     */
-    void setType(String type);
 
     /**
      * @return the string
@@ -81,20 +77,23 @@ public interface GedDocument<G extends GedObject> {
     void setAttributes(List<GedDocument<? extends GedObject>> attributes);
 
     /**
+     * Add a single attribute to the set of attributes.
+     *
+     * @param attribute the attribute
+     */
+    void addAttribute(GedDocument<?> attribute);
+
+    /**
      * Empty out the attributes list.
      */
     void clearAttributes();
 
     /**
-     * @param gedAttributes load in all of the attributes (sub-objects)
-     */
-    void loadAttributes(List<GedObject> gedAttributes);
-
-    /**
      * This method is used to assign the GedObject and to pass its values along
      * to the fields for persistence.
      *
+     * @param loader load the document attributes
      * @param ged the associated gedObject
      */
-    void loadGedObject(GedObject ged);
+    void loadGedObject(GedDocumentLoader loader, GedObject ged);
 }

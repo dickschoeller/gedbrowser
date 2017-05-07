@@ -1,35 +1,55 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderFacade;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderStub;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfoFacade;
+import org.schoellerfamily.gedbrowser.renderer.user.User;
+import org.schoellerfamily.gedbrowser.renderer.user.UserFacade;
+import org.schoellerfamily.gedbrowser.renderer.user.UserImpl;
+
 /**
  * Keep track of the user context that we are rendering under.
  *
  * @author Dick Schoeller
  */
-public final class RenderingContext {
-    /** Whether this is an identified user. */
-    private final boolean isUser;
-
-    /** Whether this user is an administrator. */
-    private final boolean isAdmin;
-
+public final class RenderingContext
+        implements ApplicationInfoFacade, CalendarProviderFacade, UserFacade {
     /** User detail object for use in rendering. */
     private final User user;
 
     /** */
     private final ApplicationInfo appInfo;
 
+    /** */
+    private final CalendarProvider calendarProvider;
+
     /**
      * Special case anonymous context.
-     * @param appInfo the application info to use in the context
      *
+     * @param appInfo the application info to use in the context
      * @return the created context
      */
     public static RenderingContext anonymous(final ApplicationInfo appInfo) {
-        final User user2 = new User();
+        return anonymous(appInfo, new CalendarProviderStub());
+    }
+
+    /**
+     * Special case anonymous context.
+     *
+     * @param appInfo the application info to use in the context
+     * @param provider the calendar provider to use in this context
+     * @return the created context
+     */
+    public static RenderingContext anonymous(final ApplicationInfo appInfo,
+            final CalendarProvider provider) {
+        final UserImpl user2 = new UserImpl();
         user2.setUsername("Anonymous");
         user2.setFirstname("Al");
         user2.setLastname("Anonymous");
-        return new RenderingContext(user2, false, false, appInfo);
+        user2.clearRoles();
+        return new RenderingContext(user2, appInfo, provider);
     }
 
     /**
@@ -39,108 +59,69 @@ public final class RenderingContext {
      * @return the created context
      */
     public static RenderingContext user(final ApplicationInfo appInfo) {
-        final User user2 = new User();
+        final UserImpl user2 = new UserImpl();
         user2.setUsername("User");
         user2.setFirstname("Ursula");
         user2.setLastname("User");
-        return new RenderingContext(user2, true, false, appInfo);
+        user2.clearRoles();
+        user2.addRole("USER");
+        return new RenderingContext(user2, appInfo, new CalendarProviderStub());
     }
 
     /**
      * Constructor with authorities.
      * @param user the user detail object
-     * @param isUser whether it is an identified user
-     * @param isAdmin whether this user is an administrator
      * @param appInfo provides common strings about the application
+     * @param calendarProvider the calendar provider to use
      */
-    public RenderingContext(final User user, final boolean isUser,
-            final boolean isAdmin, final ApplicationInfo appInfo) {
-        this.isUser = isUser;
-        this.isAdmin = isAdmin;
+    public RenderingContext(final User user, final ApplicationInfo appInfo,
+            final CalendarProvider calendarProvider) {
         this.user = user;
         this.appInfo = appInfo;
-    }
-
-    /**
-     * @return the user's name
-     */
-    public String getName() {
-        return user.getUsername();
+        this.calendarProvider = calendarProvider;
     }
 
     /**
      * @return true if it is an identified user
      */
     public boolean isUser() {
-        return isUser;
+        if (user == null) {
+            return false;
+        }
+        return user.hasRole("USER");
     }
 
     /**
      * @return true if the user is an administrator
      */
     public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    /**
-     * @return user's first name
-     */
-    public String getFirstname() {
-        return user.getFirstname();
-    }
-
-    /**
-     * Check if the user has a particular role.
-     *
-     * @param role role that we are looking for
-     * @return true if the user has the role
-     */
-    public boolean hasRole(final String role) {
         if (user == null) {
             return false;
         }
-        return user.hasRole(role);
+        return user.hasRole("ADMIN");
     }
 
     /**
-     * @return the URL for the home link on the menu bar
+     * {@inheritDoc}
      */
-    public String getHomeURL() {
-        return appInfo.getHomeURL();
+    @Override
+    public User getUser() {
+        return user;
     }
 
     /**
-     * @return the maintainer's name
+     * {@inheritDoc}
      */
-    public String getMaintainerName() {
-        return appInfo.getMaintainerName();
+    @Override
+    public CalendarProvider getCalendarProvider() {
+        return calendarProvider;
     }
 
     /**
-     * @return the email for the product owner/maintainer
+     * {@inheritDoc}
      */
-    public String getMaintainerEmail() {
-        return appInfo.getMaintainerEmail();
-    }
-
-    /**
-     * @return the version string
-     */
-    public String getVersion() {
-        return appInfo.getVersion();
-    }
-
-    /**
-     * @return the application URL.
-     */
-    public String getApplicationURL() {
-        return appInfo.getApplicationURL();
-    }
-
-    /**
-     * @return the application name.
-     */
-    public String getApplicationName() {
-        return appInfo.getName();
+    @Override
+    public ApplicationInfo getApplicationInfo() {
+        return appInfo;
     }
 }

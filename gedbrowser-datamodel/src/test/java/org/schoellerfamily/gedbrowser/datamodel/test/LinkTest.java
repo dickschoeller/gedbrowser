@@ -9,7 +9,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Link;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
-import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
 
 /**
  * @author Dick Schoeller
@@ -23,26 +22,19 @@ public final class LinkTest {
     /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
-    /**
-     * @return get the person builder associated with this test
-     */
-    private PersonBuilder personBuilder() {
-        return builder.getPersonBuilder();
-    }
-
     /** */
     @Before
     public void setUp() {
-        person1 = personBuilder().createPerson("I1", "J. Random/Schoeller/");
+        person1 = builder.createPerson("I1", "J. Random/Schoeller/");
         final Person person2 =
-                personBuilder().createPerson("I2", "Anonymous/Schoeller/");
+                builder.createPerson("I2", "Anonymous/Schoeller/");
         final Person person3 =
-                personBuilder().createPerson("I3", "Anonymous/Jones/");
-        final Family family = builder.getFamilyBuilder().createFamily("F1");
+                builder.createPerson("I3", "Anonymous/Jones/");
+        final Family family = builder.createFamily("F1");
         final Person person = person1;
-        builder.getFamilyBuilder().addChildToFamily(family, person);
-        builder.getFamilyBuilder().addHusbandToFamily(family, person2);
-        builder.getFamilyBuilder().addWifeToFamily(family, person3);
+        builder.addChildToFamily(family, person);
+        builder.addHusbandToFamily(family, person2);
+        builder.addWifeToFamily(family, person3);
     }
 
     /** */

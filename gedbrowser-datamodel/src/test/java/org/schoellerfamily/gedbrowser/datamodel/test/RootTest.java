@@ -41,22 +41,19 @@ public final class RootTest {
     public void setUp() {
         root = new Root("Root");
         final GedObjectBuilder builder = new GedObjectBuilder(root);
-        person1 = builder.getPersonBuilder().createPerson("I1",
-                "Richard/Schoeller/");
-        person2 = builder.getPersonBuilder().createPerson("I2",
-                "John/Schoeller/");
-        person3 = builder.getPersonBuilder().createPerson("I3",
-                "Patricia/Hayes/");
-        family = builder.getFamilyBuilder().createFamily("F1");
+        person1 = builder.createPerson("I1", "Richard/Schoeller/");
+        person2 = builder.createPerson("I2", "John/Schoeller/");
+        person3 = builder.createPerson("I3", "Patricia/Hayes/");
+        family = builder.createFamily("F1");
         final Family family3 = family;
         final Person person5 = person1;
-        builder.getFamilyBuilder().addChildToFamily(family3, person5);
+        builder.addChildToFamily(family3, person5);
         final Family family1 = family;
         final Person person = person2;
-        builder.getFamilyBuilder().addHusbandToFamily(family1, person);
+        builder.addHusbandToFamily(family1, person);
         final Family family2 = family;
         final Person person4 = person2;
-        builder.getFamilyBuilder().addWifeToFamily(family2, person4);
+        builder.addWifeToFamily(family2, person4);
     }
 
     /** */

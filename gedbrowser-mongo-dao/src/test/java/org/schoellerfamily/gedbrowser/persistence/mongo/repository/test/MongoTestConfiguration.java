@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
@@ -14,6 +16,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentR
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmittorDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
+import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -104,5 +108,37 @@ public class MongoTestConfiguration {
     @Bean
     public RepositoryManagerMongo repositoryManager() {
         return new RepositoryManagerMongo();
+    }
+
+    /**
+     * @return convert for AbstractGedLine hierarchy to GedObject hierarchy
+     */
+    @Bean
+    public GedObjectCreator g2g() {
+        return new GedObjectCreator();
+    }
+
+    /**
+     * @return the data reader
+     */
+    @Bean
+    public TestDataReader reader() {
+        return new TestDataReader();
+    }
+
+    /**
+     * @return the converter
+     */
+    @Bean
+    public GedDocumentMongoToGedObjectConverter toGedObjectConverter() {
+        return new GedDocumentMongoToGedObjectConverter();
+    }
+
+    /**
+     * @return the converter
+     */
+    @Bean
+    public GedObjectToGedDocumentMongoConverter toGedDocumentConverter() {
+        return new GedObjectToGedDocumentMongoConverter();
     }
 }

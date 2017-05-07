@@ -7,9 +7,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     HeadDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -24,6 +23,9 @@ public class HeadDocumentRepositoryMongoImpl implements
     /** */
     @Autowired
     private transient MongoTemplate mongoTemplate;
+    /** */
+    @Autowired
+    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /**
      * {@inheritDoc}
@@ -38,8 +40,8 @@ public class HeadDocumentRepositoryMongoImpl implements
         if (headDocument == null) {
             return null;
         }
-        final Head head = (Head) GedDocumentMongoFactory.getInstance().
-                createGedObject(null, headDocument);
+        final Head head =
+                (Head) toObjConverter.createGedObject(null, headDocument);
         headDocument.setGedObject(head);
         return headDocument;
     }
@@ -75,8 +77,7 @@ public class HeadDocumentRepositoryMongoImpl implements
         final List<HeadDocument> headDocuments = new ArrayList<>();
         for (final HeadDocument headDocument : headDocumentsMongo) {
             final Head head =
-                    (Head) GedDocumentMongoFactory.getInstance()
-                        .createGedObject(null, headDocument);
+                    (Head) toObjConverter.createGedObject(null, headDocument);
             headDocument.setGedObject(head);
             headDocuments.add(headDocument);
         }

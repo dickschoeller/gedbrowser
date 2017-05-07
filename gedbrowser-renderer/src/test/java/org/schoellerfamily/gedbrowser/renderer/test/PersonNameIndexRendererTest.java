@@ -4,27 +4,31 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
-import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.PersonNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class PersonNameIndexRendererTest {
     /** */
-    private transient Person person;
+    @Autowired
+    private transient ApplicationInfo appInfo;
 
     /** */
-    private CalendarProvider provider;
+    private transient Person person;
 
     /** */
     private transient RenderingContext userContext;
@@ -32,11 +36,8 @@ public final class PersonNameIndexRendererTest {
     /** */
     @Before
     public void init() {
-        final Root root = new Root("Root");
-        person = new Person(root, new ObjectId("I1"));
-        root.insert(person);
-        provider = new CalendarProviderStub();
-        final ApplicationInfo appInfo = new ApplicationInfoStub();
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        person = builder.createPerson("I1");
         userContext = RenderingContext.user(appInfo);
     }
 
@@ -46,7 +47,7 @@ public final class PersonNameIndexRendererTest {
         final Name name = new Name(person);
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
         assertEquals("Rendered html doesn't match expectation",
@@ -61,7 +62,7 @@ public final class PersonNameIndexRendererTest {
         final Name name = new Name(person, "");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
         assertEquals("Rendered html doesn't match expectation",
@@ -76,7 +77,7 @@ public final class PersonNameIndexRendererTest {
         final Name name = new Name(person, "/Schoeller/");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
         assertEquals("Rendered html doesn't match expectation",
@@ -91,7 +92,7 @@ public final class PersonNameIndexRendererTest {
         final Name name = new Name(person, "Richard/Schoeller/");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
         assertEquals("Rendered html doesn't match expectation",
@@ -106,7 +107,7 @@ public final class PersonNameIndexRendererTest {
         final Name name = new Name(person, "/Deng/Shao Ping");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
         assertEquals("Rendered html doesn't match expectation",
@@ -121,7 +122,7 @@ public final class PersonNameIndexRendererTest {
         final Name name = new Name(person, "Karl Frederick/Schoeller/Sr.");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), userContext, provider);
+                new GedRendererFactory(), userContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
         assertEquals("Rendered html doesn't match expectation",
@@ -134,8 +135,10 @@ public final class PersonNameIndexRendererTest {
     /** */
     @Test
     public void testGetNameHtmlPersonUnset() {
-        final PersonRenderer personRenderer = new PersonRenderer(new Person(),
-                new GedRendererFactory(), userContext, provider);
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final PersonRenderer personRenderer = new PersonRenderer(
+                builder.createPerson(),
+                new GedRendererFactory(), userContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
         assertEquals("Expected empty string", "", pnhr.getIndexName());

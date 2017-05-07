@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -19,9 +22,6 @@ public abstract class GedDocumentMongo<G extends GedObject>
     /** */
     @Id
     private String idString;
-
-    /** */
-    private String type;
 
     /** */
     @Indexed
@@ -57,22 +57,6 @@ public abstract class GedDocumentMongo<G extends GedObject>
     @Override
     public final void setIdString(final String idString) {
         this.idString = idString;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final String getType() {
-        return type;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final void setType(final String type) {
-        this.type = type;
     }
 
     /**
@@ -161,6 +145,14 @@ public abstract class GedDocumentMongo<G extends GedObject>
      * {@inheritDoc}
      */
     @Override
+    public final void addAttribute(final GedDocument<?> attribute) {
+        attributes.add(attribute);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public final void clearAttributes() {
         attributes.clear();
     }
@@ -169,25 +161,14 @@ public abstract class GedDocumentMongo<G extends GedObject>
      * {@inheritDoc}
      */
     @Override
-    public final void loadAttributes(final List<GedObject> gedAttributes) {
-        this.attributes.clear();
-        for (final GedObject ged : gedAttributes) {
-            // TODO this happens because appenders create a list entry when they
-            // are not retained.
-            if (ged == null) {
-                continue;
-            }
-            final GedDocument<?> documentAttribute = GedDocumentMongoFactory
-                    .getInstance().createGedDocument(ged);
-            this.attributes.add(documentAttribute);
-        }
-    }
+    public abstract void loadGedObject(GedDocumentLoader loader, GedObject ged);
 
     /**
-     * {@inheritDoc}
+     * Accept a visitor.
+     *
+     * @param visitor the visitor
      */
-    @Override
-    public abstract void loadGedObject(GedObject ged);
+    public abstract void accept(TopLevelGedDocumentMongoVisitor visitor);
 
     /**
      * Accept a visitor.

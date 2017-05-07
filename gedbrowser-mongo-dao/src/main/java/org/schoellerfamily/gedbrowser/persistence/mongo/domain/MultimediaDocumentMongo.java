@@ -2,8 +2,11 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.domain;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
+import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
 import org.schoellerfamily.gedbrowser.persistence.PersistenceException;
 import org.schoellerfamily.gedbrowser.persistence.domain.MultimediaDocument;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 
 /**
  * @author Dick Schoeller
@@ -14,17 +17,19 @@ public class MultimediaDocumentMongo extends GedDocumentMongo<Multimedia>
     private String tail;
 
     /**
-     * Constructor.
+     * {@inheritDoc}
      */
-    public MultimediaDocumentMongo() {
-        this.setType("multimedia");
+    @Override
+    public final String getType() {
+        return "multimedia";
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void loadGedObject(final GedObject ged) {
+    public final void loadGedObject(final GedDocumentLoader loader,
+            final GedObject ged) {
         if (!(ged instanceof Multimedia)) {
             throw new PersistenceException("Wrong type");
         }
@@ -33,7 +38,7 @@ public class MultimediaDocumentMongo extends GedDocumentMongo<Multimedia>
         this.setGedObject(gedObject);
         this.setString(gedObject.getString());
         this.setFilename(gedObject.getFilename());
-        this.loadAttributes(gedObject.getAttributes());
+        loader.loadAttributes(this, gedObject.getAttributes());
     }
 
     /**
@@ -50,6 +55,14 @@ public class MultimediaDocumentMongo extends GedDocumentMongo<Multimedia>
     @Override
     public final void setTail(final String tail) {
         this.tail = tail;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
+        visitor.visit(this);
     }
 
     /**

@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -21,8 +20,6 @@ public final class IndexRenderer extends GedRenderer<Root> {
 
     /** */
     private final String base;
-    /** Provides the "today" for use in comparisons. */
-    private final CalendarProvider provider;
 
     /**
      * Constructor.
@@ -30,14 +27,11 @@ public final class IndexRenderer extends GedRenderer<Root> {
      * @param root root of data set
      * @param base base string for page
      * @param renderingContext the context that we are rendering in
-     * @param provider the calendar provider we are using to determine now
      */
     public IndexRenderer(final Root root, final String base,
-            final RenderingContext renderingContext,
-            final CalendarProvider provider) {
-        super(root, new GedRendererFactory(), renderingContext, provider);
+            final RenderingContext renderingContext) {
+        super(root, new GedRendererFactory(), renderingContext);
         this.base = base;
-        this.provider = provider;
     }
 
     /**
@@ -83,7 +77,8 @@ public final class IndexRenderer extends GedRenderer<Root> {
         if (getRenderingContext().isUser()) {
             return false;
         }
-        final LivingEstimator le = new LivingEstimator(person, provider);
+        final LivingEstimator le = new LivingEstimator(person,
+                getRenderingContext());
         return le.estimate();
     }
 

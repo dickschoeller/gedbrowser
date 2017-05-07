@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 
 /**
@@ -14,13 +13,11 @@ public final class NameRenderer extends GedRenderer<Name> {
      * @param rendererFactory the factory that creates the renderers for the
      *        attributes
      * @param renderingContext the context that we are rendering in
-     * @param provider the calendar provider
      */
     public NameRenderer(final Name gedObject,
             final GedRendererFactory rendererFactory,
-            final RenderingContext renderingContext,
-            final CalendarProvider provider) {
-        super(gedObject, rendererFactory, renderingContext, provider);
+            final RenderingContext renderingContext) {
+        super(gedObject, rendererFactory, renderingContext);
         setNameHtmlRenderer(new NameNameHtmlRenderer(this));
         setListItemRenderer(new NameListItemRenderer(this));
         setPhraseRenderer(new NamePhraseRenderer(this));

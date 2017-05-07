@@ -4,21 +4,30 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.PlacePhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PlaceRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public final class PlacePhraseRendererTest {
+    /** */
+    @Autowired
+    private transient ApplicationInfo appInfo;
+
     /** */
     private transient Attribute attribute;
 
@@ -26,21 +35,17 @@ public final class PlacePhraseRendererTest {
     private transient Place place;
 
     /** */
-    private CalendarProvider provider;
-
-    /** */
     private RenderingContext anonymousContext;
 
     /** */
     @Before
     public void init() {
-        final Person person = new Person();
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson();
         attribute = new Attribute(person, "String", "");
         person.addAttribute(attribute);
         place = new Place(attribute, "Fayetteville, NC");
         attribute.addAttribute(place);
-        provider = new CalendarProviderStub();
-        final ApplicationInfo appInfo = new ApplicationInfoStub();
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -48,7 +53,7 @@ public final class PlacePhraseRendererTest {
     @Test
     public void testGetRenderAsPhrase() {
         final PlaceRenderer dRenderer = new PlaceRenderer(place,
-                new GedRendererFactory(), anonymousContext, provider);
+                new GedRendererFactory(), anonymousContext);
         final PlacePhraseRenderer ppRenderer =
                 (PlacePhraseRenderer) dRenderer.getPhraseRenderer();
         final String string = ppRenderer.renderAsPhrase();
@@ -61,7 +66,7 @@ public final class PlacePhraseRendererTest {
     public void testGetRenderAsListItemEmpty() {
         final PlaceRenderer dRenderer = new PlaceRenderer(
                 new Place(attribute, ""), new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         final PlacePhraseRenderer ppRenderer =
                 (PlacePhraseRenderer) dRenderer.getPhraseRenderer();
         final String string = ppRenderer.renderAsPhrase();
@@ -73,7 +78,7 @@ public final class PlacePhraseRendererTest {
     public void testGetRenderAsListItemNull() {
         final PlaceRenderer dRenderer = new PlaceRenderer(
                 new Place(attribute, null), new GedRendererFactory(),
-                anonymousContext, provider);
+                anonymousContext);
         final PlacePhraseRenderer ppRenderer =
                 (PlacePhraseRenderer) dRenderer.getPhraseRenderer();
         final String string = ppRenderer.renderAsPhrase();

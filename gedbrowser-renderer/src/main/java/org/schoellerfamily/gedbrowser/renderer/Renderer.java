@@ -10,7 +10,7 @@ public interface Renderer {
     /**
      * @return the application name.
      */
-    String getName();
+    String getApplicationName();
 
     /**
      * @return the application URL.

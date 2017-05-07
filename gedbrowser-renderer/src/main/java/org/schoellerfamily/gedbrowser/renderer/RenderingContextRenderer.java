@@ -25,7 +25,7 @@ public abstract class RenderingContextRenderer implements Renderer {
     /**
      * @return the user context we are rendering in
      */
-    protected final RenderingContext getRenderingContext() {
+    public final RenderingContext getRenderingContext() {
         return renderingContext;
     }
 
@@ -33,7 +33,7 @@ public abstract class RenderingContextRenderer implements Renderer {
      * {@inheritDoc}
      */
     @Override
-    public final String getName() {
+    public final String getApplicationName() {
         return renderingContext.getApplicationName();
     }
 
@@ -103,6 +103,22 @@ public abstract class RenderingContextRenderer implements Renderer {
     protected static final String escapeString(final String input) {
         return input.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
                 .replaceAll(">", "&gt;").replaceAll("\n", "<br/>\n");
+    }
+
+    /**
+     * Convert the string for use in HTML or URLs.
+     *
+     * @param delimiter a spacer string to add
+     * @param input unescaped string.
+     * @return the escaped string.
+     */
+    protected static final String escapeString(final String delimiter,
+            final String input) {
+        final String escaped = escapeString(input);
+        if (escaped.isEmpty()) {
+            return escaped;
+        }
+        return delimiter + escaped;
     }
 
     /**

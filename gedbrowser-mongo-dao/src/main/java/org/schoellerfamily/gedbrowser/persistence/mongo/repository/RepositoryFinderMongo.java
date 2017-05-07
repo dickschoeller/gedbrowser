@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
+import org.schoellerfamily.gedbrowser.datamodel.FinderObject;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -21,10 +22,9 @@ import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    GedDocumentMongoFactory;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoVisitor;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     RootDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -41,6 +41,10 @@ public final class RepositoryFinderMongo
     /** */
     @Autowired
     private transient RepositoryManagerMongo repositoryManager;
+
+    /** */
+    @Autowired
+    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /**
      * Ordered list of classes to process. This order represents the
@@ -61,7 +65,7 @@ public final class RepositoryFinderMongo
      * {@inheritDoc}
      */
     @Override
-    public GedObject find(final GedObject owner, final String str) {
+    public GedObject find(final FinderObject owner, final String str) {
         for (final Class<? extends GedObject> clazz : CLASSES) {
             final GedObject ged = find(owner, str, clazz);
             if (ged != null) {
@@ -75,7 +79,7 @@ public final class RepositoryFinderMongo
      * {@inheritDoc}
      */
     @Override
-    public <T extends GedObject> T find(final GedObject owner,
+    public <T extends GedObject> T find(final FinderObject owner,
             final String str, final Class<T> clazz) {
         if (!(owner instanceof Root)) {
             throw new IllegalArgumentException("Owner must be root");
@@ -87,8 +91,7 @@ public final class RepositoryFinderMongo
         }
         final Root root = (Root) owner;
         final RootDocumentMongo rootDocument =
-                (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
-                .createGedDocument(root);
+                (RootDocumentMongo) toDocConverter.createGedDocument(root);
         final GedDocument<?> document =
                 repo.findByRootAndString(rootDocument, str);
         if (document == null) {
@@ -101,7 +104,7 @@ public final class RepositoryFinderMongo
      * {@inheritDoc}
      */
     @Override
-    public String getFilename(final GedObject owner) {
+    public String getFilename(final FinderObject owner) {
         if (owner instanceof Root) {
             return ((Root) owner).getTheFilename();
         }
@@ -112,7 +115,7 @@ public final class RepositoryFinderMongo
      * {@inheritDoc}
      */
     @Override
-    public String getDbName(final GedObject owner) {
+    public String getDbName(final FinderObject owner) {
         if (owner instanceof Root) {
             return ((Root) owner).getTheDbName();
         }
@@ -123,13 +126,13 @@ public final class RepositoryFinderMongo
      * {@inheritDoc}
      */
     @Override
-    public void insert(final GedObject owner, final GedObject gob) {
+    public void insert(final FinderObject owner, final FinderObject fob) {
+        final GedObject gob = (GedObject) fob;
         try {
             logger.debug("Starting insert: " + gob.getString());
             final GedDocumentMongo<?> gedDoc =
-                    GedDocumentMongoFactory.getInstance().
-                    createGedDocument(gob);
-            final GedDocumentMongoVisitor visitor =
+                    toDocConverter.createGedDocument(gob);
+            final TopLevelGedDocumentMongoVisitor visitor =
                     new SaveVisitor(repositoryManager);
             gedDoc.accept(visitor);
         } catch (DataAccessException e) {
@@ -142,15 +145,14 @@ public final class RepositoryFinderMongo
      * {@inheritDoc}
      */
     @Override
-    public Collection<Person> findBySurname(final GedObject owner,
+    public Collection<Person> findBySurname(final FinderObject owner,
             final String surname) {
         logger.info("Starting findBySurname");
         final List<Person> persons = new ArrayList<>();
         if (owner instanceof Root) {
             final Root root = (Root) owner;
             final RootDocumentMongo rootDocument =
-                    (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
-                            .createGedDocument(root);
+                    (RootDocumentMongo) toDocConverter.createGedDocument(root);
             final Collection<PersonDocument> personDocuments =
                     repositoryManager.getPersonDocumentRepository()
                     .findByRootAndSurname(rootDocument, surname);
@@ -166,15 +168,14 @@ public final class RepositoryFinderMongo
      * {@inheritDoc}
      */
     @Override
-    public Collection<String> findBySurnamesBeginWith(final GedObject owner,
+    public Collection<String> findBySurnamesBeginWith(final FinderObject owner,
             final String beginsWith) {
         logger.info("Starting findBySurnamesBeginWith");
         final Set<String> surnames = new TreeSet<>();
         if (owner instanceof Root) {
             final Root root = (Root) owner;
             final RootDocumentMongo rootDocument =
-                    (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
-                            .createGedDocument(root);
+                    (RootDocumentMongo) toDocConverter.createGedDocument(root);
             final Collection<PersonDocument> personDocuments =
                     repositoryManager.getPersonDocumentRepository()
                     .findByRootAndSurnameBeginsWith(rootDocument, beginsWith);
@@ -190,14 +191,14 @@ public final class RepositoryFinderMongo
      * {@inheritDoc}
      */
     @Override
-    public Collection<String> findSurnameInitialLetters(final GedObject owner) {
+    public Collection<String> findSurnameInitialLetters(
+            final FinderObject owner) {
         logger.info("Starting findSurnameInitialLetters");
         final Set<String> matches = new TreeSet<>();
         if (owner instanceof Root) {
             final Root root = (Root) owner;
             final RootDocumentMongo rootDocument =
-                    (RootDocumentMongo) GedDocumentMongoFactory.getInstance()
-                            .createGedDocument(root);
+                    (RootDocumentMongo) toDocConverter.createGedDocument(root);
             final Iterable<PersonDocument> personDocuments =
                     repositoryManager.getPersonDocumentRepository().
                         findByRoot(rootDocument);

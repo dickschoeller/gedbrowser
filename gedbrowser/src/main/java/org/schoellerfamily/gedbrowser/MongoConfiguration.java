@@ -2,12 +2,14 @@ package org.schoellerfamily.gedbrowser;
 
 import java.net.UnknownHostException;
 
-import org.schoellerfamily.gedbrowser.analytics.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderImpl;
-import org.schoellerfamily.gedbrowser.analytics.CalendarProviderStub;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.controller.ApplicationInfoImpl;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     FamilyDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
@@ -25,7 +27,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     SubmittorDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     TrailerDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.schoellerfamily.geoservice.client.GeoServiceClientImpl;
 import org.schoellerfamily.geoservice.keys.KeyManager;
@@ -171,5 +174,29 @@ public class MongoConfiguration {
     @Bean
     public RepositoryManagerMongo repositoryManager() {
         return new RepositoryManagerMongo();
+    }
+
+    /**
+     * @return convert for AbstractGedLine hierarchy to GedObject hierarchy
+     */
+    @Bean
+    public GedObjectCreator g2g() {
+        return new GedObjectCreator();
+    }
+
+    /**
+     * @return the converter
+     */
+    @Bean
+    public GedDocumentMongoToGedObjectConverter toGedObjectConverter() {
+        return new GedDocumentMongoToGedObjectConverter();
+    }
+
+    /**
+     * @return the converter
+     */
+    @Bean
+    public GedObjectToGedDocumentMongoConverter toGedDocumentConverter() {
+        return new GedObjectToGedDocumentMongoConverter();
     }
 }

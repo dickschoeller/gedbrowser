@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+
 /**
  * @author Dick Schoeller
  */
@@ -20,8 +22,8 @@ public abstract class ApplicationInfoRenderer implements Renderer {
      * {@inheritDoc}
      */
     @Override
-    public final String getName() {
-        return applicationInfo.getName();
+    public final String getApplicationName() {
+        return applicationInfo.getApplicationName();
     }
 
     /**

@@ -2,8 +2,6 @@ package org.schoellerfamily.gedbrowser.reader;
 
 import java.io.BufferedReader;
 
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
-
 
 /**
  * Models one read line from a GEDCOM file.  Connects that up with
@@ -36,17 +34,6 @@ public final class GedLine extends AbstractGedLine {
     }
 
     /**
-     * Create a GedObject for this line.
-     *
-     * @param parentGedObject the parent GedObject
-     * @return the GedObject
-     */
-    protected GedObject createGedObject(final GedObject parentGedObject) {
-        return getGobFactory().create(parentGedObject, getXref(), getTag(),
-                getTail());
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -74,5 +61,13 @@ public final class GedLine extends AbstractGedLine {
         builder.append(childrenString());
 
         return builder.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final GedLineVisitor visitor) {
+        visitor.visit(this);
     }
 }

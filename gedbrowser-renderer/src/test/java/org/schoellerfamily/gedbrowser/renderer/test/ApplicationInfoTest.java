@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.renderer.ApplicationInfo;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 
 /**
  * @author Dick Schoeller
@@ -23,7 +23,7 @@ public class ApplicationInfoTest {
              * {@inheritDoc}
              */
             @Override
-            public String getName() {
+            public String getApplicationName() {
                 return "renderer";
             }
 

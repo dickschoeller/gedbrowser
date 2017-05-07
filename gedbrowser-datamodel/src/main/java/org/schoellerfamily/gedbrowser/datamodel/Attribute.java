@@ -19,8 +19,7 @@ public final class Attribute extends AbstractAttribute {
     }
 
     /**
-     * @param parent
-     *            parent object of this attribute
+     * @param parent parent object of this attribute
      */
     public Attribute(final GedObject parent) {
         super(parent);
@@ -29,10 +28,8 @@ public final class Attribute extends AbstractAttribute {
     }
 
     /**
-     * @param parent
-     *            parent object of this attribute
-     * @param string
-     *            long version of type string
+     * @param parent parent object of this attribute
+     * @param string long version of type string
      */
     public Attribute(final GedObject parent, final String string) {
         super(parent, string);
@@ -41,12 +38,9 @@ public final class Attribute extends AbstractAttribute {
     }
 
     /**
-     * @param parent
-     *            parent object of this attribute
-     * @param string
-     *            long version of type string
-     * @param tail
-     *            additional data
+     * @param parent parent object of this attribute
+     * @param string long version of type string
+     * @param tail additional data
      */
     public Attribute(final GedObject parent, final String string,
             final String tail) {
@@ -67,8 +61,7 @@ public final class Attribute extends AbstractAttribute {
     }
 
     /**
-     * @param tail
-     *            additional data
+     * @param tail additional data
      */
     public void setTail(final String tail) {
         if (tail == null) {

@@ -29,9 +29,9 @@ import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmittorDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.TrailerDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongoFactory;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
@@ -53,35 +53,31 @@ public final class RootRepositoryTest {
     /** */
     @Autowired
     private transient RootDocumentRepositoryMongo rootDocumentRepository;
-
     /** */
     @Autowired
     private transient PersonDocumentRepositoryMongo personDocumentRepository;
-
     /** */
     @Autowired
     private transient FamilyDocumentRepositoryMongo familyDocumentRepository;
-
     /** */
     @Autowired
     private transient SourceDocumentRepositoryMongo sourceDocumentRepository;
-
     /** */
     @Autowired
     private transient HeadDocumentRepositoryMongo headDocumentRepository;
-
     /** */
     @Autowired
     private transient SubmittorDocumentRepositoryMongo
         submittorDocumentRepository;
-
     /** */
     @Autowired
     private transient TrailerDocumentRepositoryMongo trailerDocumentRepository;
-
     /** */
     @Autowired
     private transient RepositoryFixture repositoryFixture;
+    /** */
+    @Autowired
+    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /** */
     private transient Root root;
@@ -120,7 +116,7 @@ public final class RootRepositoryTest {
     public void testPerson() {
         final PersonDocument perdoc = personDocumentRepository.
                 findByFileAndString(root.getFilename(), "I1");
-        final Person person = (Person) GedDocumentMongoFactory.getInstance().
+        final Person person = (Person) toObjConverter.
                 createGedObject(root, perdoc);
         assertEquals("Name mismatch",
                 "Melissa Robinson/Schoeller/", person.getName().getString());
@@ -140,7 +136,7 @@ public final class RootRepositoryTest {
         final String filename = root.getFilename();
         final FamilyDocument famdoc = familyDocumentRepository.
                 findByFileAndString(filename, "F1");
-        final Family family = (Family) GedDocumentMongoFactory.getInstance().
+        final Family family = (Family) toObjConverter.
                 createGedObject(root, famdoc);
         final FamilyNavigator navigator = new FamilyNavigator(family);
         final Husband h = navigator.getHusband();
@@ -153,7 +149,7 @@ public final class RootRepositoryTest {
         final String filename = root.getFilename();
         final FamilyDocument famdoc = familyDocumentRepository.
                 findByFileAndString(filename, "F1");
-        final Family family = (Family) GedDocumentMongoFactory.getInstance().
+        final Family family = (Family) toObjConverter.
                 createGedObject(root, famdoc);
         final FamilyNavigator navigator = new FamilyNavigator(family);
         final Wife w = navigator.getWife();
@@ -173,7 +169,7 @@ public final class RootRepositoryTest {
     public void testSource() {
         final SourceDocument soudoc = sourceDocumentRepository.
                 findByFileAndString(root.getFilename(), "S2");
-        final Source source = (Source) GedDocumentMongoFactory.getInstance().
+        final Source source = (Source) toObjConverter.
                 createGedObject(root, soudoc);
         assertEquals("ID mismatch", "S2", source.getString());
     }
@@ -185,8 +181,7 @@ public final class RootRepositoryTest {
                 rootDocumentRepository.findByFileAndString(
                         root.getFilename(), root.getString());
         final Root newRoot =
-                (Root) GedDocumentMongoFactory.getInstance().createGedObject(
-                        null, rootdoc);
+                (Root) toObjConverter.createGedObject(null, rootdoc);
         assertEquals("Should return same root", newRoot, root);
     }
 
@@ -227,8 +222,7 @@ public final class RootRepositoryTest {
                 .findByFileAndString(root.getFilename(),
                         ged.getString());
         final Person person =
-                (Person) GedDocumentMongoFactory.getInstance()
-                        .createGedObject(root, perdoc);
+                (Person) toObjConverter.createGedObject(root, perdoc);
         assertEquals("wrong type", person, ged);
     }
 
@@ -240,8 +234,7 @@ public final class RootRepositoryTest {
                 .findByFileAndString(root.getFilename(),
                         ged.getString());
         final Source source =
-                (Source) GedDocumentMongoFactory.getInstance()
-                        .createGedObject(root, soudoc);
+                (Source) toObjConverter.createGedObject(root, soudoc);
         assertEquals("wrong type", source, ged);
     }
 
@@ -253,8 +246,7 @@ public final class RootRepositoryTest {
                 .findByFileAndString(root.getFilename(),
                         ged.getString());
         final Family family =
-                (Family) GedDocumentMongoFactory.getInstance()
-                        .createGedObject(root, famdoc);
+                (Family) toObjConverter.createGedObject(root, famdoc);
         assertEquals("wrong type", family, ged);
     }
 
@@ -265,8 +257,8 @@ public final class RootRepositoryTest {
         final HeadDocument headoc = headDocumentRepository
                 .findByFileAndString(root.getFilename(),
                         ged.getString());
-        final Head head = (Head) GedDocumentMongoFactory.getInstance()
-                .createGedObject(root, headoc);
+        final Head head =
+                (Head) toObjConverter.createGedObject(root, headoc);
         assertEquals("wrong type", head, ged);
     }
 
@@ -277,8 +269,8 @@ public final class RootRepositoryTest {
         final TrailerDocument tradoc = trailerDocumentRepository
                 .findByFileAndString(root.getFilename(),
                         ged.getString());
-        final Trailer person = (Trailer) GedDocumentMongoFactory.
-                getInstance().createGedObject(root, tradoc);
+        final Trailer person =
+                (Trailer) toObjConverter.createGedObject(root, tradoc);
         assertEquals("wrong type", person, ged);
     }
 
@@ -289,8 +281,8 @@ public final class RootRepositoryTest {
         final SubmittorDocument subdoc = submittorDocumentRepository
                 .findByFileAndString(root.getFilename(),
                         ged.getString());
-        final Submittor person = (Submittor) GedDocumentMongoFactory.
-                getInstance().createGedObject(root, subdoc);
+        final Submittor person =
+                (Submittor) toObjConverter.createGedObject(root, subdoc);
         assertEquals("wrong type", person, ged);
     }
 
