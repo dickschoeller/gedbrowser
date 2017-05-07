@@ -10,6 +10,7 @@
   <artifactId>gedbrowser-top</artifactId>
   <version>1.2.0-SNAPSHOT</version>
   <packaging>pom</packaging>
+  <url>http://www.schoellerfamily.org</url>
 
   <organization>
      <name>Schoeller Family Software</name>
