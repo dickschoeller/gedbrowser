@@ -12,7 +12,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
-import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
 import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
 import org.schoellerfamily.gedbrowser.renderer.PlaceListRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
@@ -44,19 +43,12 @@ public final class PlaceListRendererTest {
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
     /**
-     * @return get the person builder associated with this test
-     */
-    private PersonBuilder personBuilder() {
-        return builder.getPersonBuilder();
-    }
-
-    /**
      * A common person creator.
      *
      * @return the person
      */
     private Person createJRandom() {
-        return personBuilder().createPerson("I1", "J. Random/Schoeller/");
+        return builder.createPerson("I1", "J. Random/Schoeller/");
     }
 
     /**
@@ -127,7 +119,7 @@ public final class PlaceListRendererTest {
     @Test
     public void testNoPlaces() {
         final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Birth", "20 JAN 2017");
+        builder.createPersonEvent(person, "Birth", "20 JAN 2017");
         final PlaceListRenderer plr = createAdminRenderer(person);
         final List<PlaceInfo> list = plr.render();
         assertTrue("Should cleanly provide an empty list", list.isEmpty());
@@ -207,7 +199,7 @@ public final class PlaceListRendererTest {
         createBirth(person, "PLUGH");
         createDeath(person, "Needham, Massachusetts, USA");
         final Attribute attr =
-                personBuilder().createPersonEvent(person, "Restriction");
+                builder.createPersonEvent(person, "Restriction");
         attr.setTail("confidential");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
@@ -223,7 +215,7 @@ public final class PlaceListRendererTest {
         createBirth(person, "PLUGH");
         createDeath(person, "Needham, Massachusetts, USA");
         final Attribute attr =
-                personBuilder().createPersonEvent(person, "Restriction");
+                builder.createPersonEvent(person, "Restriction");
         attr.setTail("confidential");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
@@ -239,7 +231,7 @@ public final class PlaceListRendererTest {
         createBirth(person, "PLUGH");
         createDeath(person, "Needham, Massachusetts, USA");
         final Attribute attr =
-                personBuilder().createPersonEvent(person, "Restriction");
+                builder.createPersonEvent(person, "Restriction");
         attr.setTail("confidential");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
@@ -299,7 +291,7 @@ public final class PlaceListRendererTest {
      * @param placeName the place of birth
      */
     private void createBirth(final Person person, final String placeName) {
-        final Attribute birth = personBuilder().createPersonEvent(
+        final Attribute birth = builder.createPersonEvent(
                 person, "Birth", "20 JAN 2017");
         builder.addPlaceToEvent(birth, placeName);
     }
@@ -309,7 +301,7 @@ public final class PlaceListRendererTest {
      * @param placeName the place of death
      */
     private void createDeath(final Person person, final String placeName) {
-        final Attribute death = personBuilder().createPersonEvent(
+        final Attribute death = builder.createPersonEvent(
                 person, "Death", "20 JAN 2017");
         builder.addPlaceToEvent(death, placeName);
     }
@@ -329,16 +321,15 @@ public final class PlaceListRendererTest {
     @Test
     public void testAnonCanSeeDeadMarriage() {
         final Person person = createJRandom();
-        builder.getPersonBuilder().createPersonEvent(
+        builder.createPersonEvent(
                 person, "Death", "20 JAN 2017");
         final Person person2 =
-                personBuilder().createPerson("I2", "Anonymous/Schoeller/");
-        final Family family = builder.getFamilyBuilder().createFamily("F1");
-        builder.getFamilyBuilder().addHusbandToFamily(family, person);
-        builder.getFamilyBuilder().addWifeToFamily(family, person2);
-        final Attribute marriage =
-                builder.getFamilyBuilder().createFamilyEvent(
-                        family, "Marriage", "21 DEC 2016");
+                builder.createPerson("I2", "Anonymous/Schoeller/");
+        final Family family = builder.createFamily("F1");
+        builder.addHusbandToFamily(family, person);
+        builder.addWifeToFamily(family, person2);
+        final Attribute marriage = builder.createFamilyEvent(
+                family, "Marriage", "21 DEC 2016");
         builder.addPlaceToEvent(marriage, "Needham, Massachusetts, USA");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,

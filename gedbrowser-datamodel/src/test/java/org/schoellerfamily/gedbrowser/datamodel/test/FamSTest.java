@@ -39,16 +39,16 @@ public final class FamSTest {
     @Before
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        person1 = builder.getPersonBuilder().createPerson(
+        person1 = builder.createPerson(
                 "I1", "J. Random/Schoeller/");
-        person2 = builder.getPersonBuilder().createPerson(
+        person2 = builder.createPerson(
                 "I2", "Anonymous/Schoeller/");
-        person3 = builder.getPersonBuilder().createPerson(
+        person3 = builder.createPerson(
                 "I3", "Anonymous/Jones/");
-        family = builder.getFamilyBuilder().createFamily("F1");
+        family = builder.createFamily("F1");
         final Family family1 = family;
         final Person person = person1;
-        builder.getFamilyBuilder().addChildToFamily(family1, person);
+        builder.addChildToFamily(family1, person);
 
         // Because we are working directly with FamS can't use builder.
         famS2 = new FamS(person2, "FAMS", new ObjectId("F1"));

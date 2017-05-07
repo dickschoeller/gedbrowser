@@ -31,7 +31,7 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
      */
     @Override
     public PersonBuilder personBuilder() {
-        return builder.getPersonBuilder();
+        return builder;
     }
 
     /**
@@ -39,7 +39,7 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
      */
     @Override
     public FamilyBuilder familyBuilder() {
-        return builder.getFamilyBuilder();
+        return builder;
     }
 
     /** */
@@ -49,13 +49,13 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
 
-        final Family family1 = builder.getFamilyBuilder().createFamily("F1");
+        final Family family1 = builder.createFamily("F1");
 
-        builder.getFamilyBuilder().addHusbandToFamily(family1, person1);
-        builder.getFamilyBuilder().addWifeToFamily(family1, person2);
-        builder.getFamilyBuilder().addChildToFamily(family1, person3);
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
 
-        familyBuilder().createFamilyEvent(family1, "Marriage", "27 MAY 1984");
+        builder.createFamilyEvent(family1, "Marriage", "27 MAY 1984");
 
         final BirthDateFromAncestorsEstimator estimator =
                 new BirthDateFromAncestorsEstimator(person3);
@@ -75,13 +75,13 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
 
-        final Family family1 = familyBuilder().createFamily("F1");
+        final Family family1 = builder.createFamily("F1");
 
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().addChildToFamily(family1, person3);
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
 
-        familyBuilder().createFamilyEvent(family1, "Marriage", "27 MAY 1984");
+        builder.createFamilyEvent(family1, "Marriage", "27 MAY 1984");
 
         final BirthDateFromAncestorsEstimator estimator =
                 new BirthDateFromAncestorsEstimator(person3);
@@ -102,15 +102,15 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         final Person person3 = createAnonymousJones();
         final Person person4 = createTooTall();
 
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().addChildToFamily(family1, person3);
-        familyBuilder().createFamilyEvent(family1, "Marriage", "27 MAY 1984");
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
+        builder.createFamilyEvent(family1, "Marriage", "27 MAY 1984");
 
-        final Family family2 = familyBuilder().createFamily("F2");
-        familyBuilder().addHusbandToFamily(family2, person3);
-        familyBuilder().addChildToFamily(family2, person4);
+        final Family family2 = builder.createFamily("F2");
+        builder.addHusbandToFamily(family2, person3);
+        builder.addChildToFamily(family2, person4);
 
         final BirthDateFromAncestorsEstimator estimator =
                 new BirthDateFromAncestorsEstimator(person4);
@@ -130,12 +130,12 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
 
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().addChildToFamily(family1, person3);
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
 
-        personBuilder().createPersonEvent(person1, "Birth", "2 MAY 1950");
+        builder.createPersonEvent(person1, "Birth", "2 MAY 1950");
 
         final BirthDateFromAncestorsEstimator estimator =
                 new BirthDateFromAncestorsEstimator(person3);
@@ -155,12 +155,12 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
 
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().addChildToFamily(family1, person3);
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
 
-        personBuilder().createPersonEvent(person1, "Birth", "2 MAY 1950");
+        builder.createPersonEvent(person1, "Birth", "2 MAY 1950");
 
         final BirthDateFromAncestorsEstimator estimator =
                 new BirthDateFromAncestorsEstimator(person3);
@@ -179,11 +179,11 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
 
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().addChildToFamily(family1, person3);
+        final Family family1 = builder.createFamily("F1");
+        builder.addWifeToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
 
-        personBuilder().createPersonEvent(person2, "Birth", "2 MAY 1950");
+        builder.createPersonEvent(person2, "Birth", "2 MAY 1950");
 
         final BirthDateFromAncestorsEstimator estimator =
                 new BirthDateFromAncestorsEstimator(person3);
@@ -202,11 +202,11 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
 
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().addChildToFamily(family1, person3);
+        final Family family1 = builder.createFamily("F1");
+        builder.addWifeToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
 
-        personBuilder().createPersonEvent(person2, "Birth", "2 MAY 1950");
+        builder.createPersonEvent(person2, "Birth", "2 MAY 1950");
 
         final BirthDateFromAncestorsEstimator estimator =
                 new BirthDateFromAncestorsEstimator(person3);
@@ -225,11 +225,11 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         final Person person1 = createJRandom();
         final Person person3 = createAnonymousJones();
 
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addChildToFamily(family1, person3);
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addChildToFamily(family1, person3);
 
-        personBuilder().createPersonEvent(person1, "Birth", "2 MAY 1950");
+        builder.createPersonEvent(person1, "Birth", "2 MAY 1950");
 
         final BirthDateFromAncestorsEstimator estimator =
                 new BirthDateFromAncestorsEstimator(person3);
@@ -248,11 +248,11 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         final Person person1 = createJRandom();
         final Person person3 = createAnonymousJones();
 
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addChildToFamily(family1, person3);
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addChildToFamily(family1, person3);
 
-        personBuilder().createPersonEvent(person1, "Birth", "2 MAY 1950");
+        builder.createPersonEvent(person1, "Birth", "2 MAY 1950");
 
         final BirthDateFromAncestorsEstimator estimator =
                 new BirthDateFromAncestorsEstimator(person3);
@@ -272,12 +272,12 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
 
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().addChildToFamily(family1, person3);
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
 
-        personBuilder().createPersonEvent(person1, "Occupation", "27 MAY 1984");
+        builder.createPersonEvent(person1, "Occupation", "27 MAY 1984");
 
         final BirthDateFromAncestorsEstimator estimator =
                 new BirthDateFromAncestorsEstimator(person3);
@@ -297,12 +297,12 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
 
-        final Family family1 = familyBuilder().createFamily("F1");
-        familyBuilder().addHusbandToFamily(family1, person1);
-        familyBuilder().addWifeToFamily(family1, person2);
-        familyBuilder().addChildToFamily(family1, person3);
+        final Family family1 = builder.createFamily("F1");
+        builder.addHusbandToFamily(family1, person1);
+        builder.addWifeToFamily(family1, person2);
+        builder.addChildToFamily(family1, person3);
 
-        personBuilder().createPersonEvent(person1, "Occupation", "27 MAY 1984");
+        builder.createPersonEvent(person1, "Occupation", "27 MAY 1984");
 
         final BirthDateFromAncestorsEstimator estimator =
                 new BirthDateFromAncestorsEstimator(person3);

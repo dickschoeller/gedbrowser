@@ -51,7 +51,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
      */
     @Override
     public PersonBuilder personBuilder() {
-        return builder.getPersonBuilder();
+        return builder;
     }
 
     /**
@@ -59,13 +59,13 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
      */
     @Override
     public FamilyBuilder familyBuilder() {
-        return builder.getFamilyBuilder();
+        return builder;
     }
 
     /** */
     @Test
     public void testEmptyPersonIsOK() {
-        final Person person = new Person();
+        final Person person = personBuilder().createPerson();
         final OrderAnalyzerResult result = wrapper.analyze(person);
         assertTrue("Expected good order when there are no events",
                 result.isCorrect());

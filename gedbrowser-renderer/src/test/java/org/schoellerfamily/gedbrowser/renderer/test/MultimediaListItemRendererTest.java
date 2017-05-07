@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaRenderer;
@@ -42,7 +43,8 @@ public final class MultimediaListItemRendererTest {
     /** */
     @Before
     public void init() {
-        final Person person = new Person();
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson();
 
         multimedia1 = new Multimedia(person, "Multimedia", "");
         multimedia1.addAttribute(

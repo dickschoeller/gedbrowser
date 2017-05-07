@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.PlaceListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PlaceRenderer;
@@ -39,7 +40,8 @@ public final class PlaceListItemRendererTest {
     /** */
     @Before
     public void init() {
-        final Person person = new Person();
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson();
         attribute = new Attribute(person, "String", "");
         person.addAttribute(attribute);
         place = new Place(attribute, "Fayetteville, NC");

@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.AttributePhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.AttributeRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -41,7 +42,8 @@ public final class AttributePhraseRendererTest {
     /** */
     @Before
     public void init() {
-        final Person person = new Person();
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson();
         attribute1 = new Attribute(person, "String", "");
         attribute2 = new Attribute(person, "String", "Strung");
         attribute3 = new Attribute(person, "Sproing", "Spring");

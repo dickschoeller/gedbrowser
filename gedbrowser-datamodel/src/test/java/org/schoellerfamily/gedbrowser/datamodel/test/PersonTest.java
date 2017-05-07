@@ -16,7 +16,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
-import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 
@@ -48,71 +47,64 @@ public final class PersonTest {
     /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
-    /**
-     * @return get the person builder associated with this test
-     */
-    private PersonBuilder personBuilder() {
-        return builder.getPersonBuilder();
-    }
-
     /** */
     @Before
     public void setUp() {
-        person1 = personBuilder().createPerson("I1", "Richard John/Schoeller/");
+        person1 = builder.createPerson("I1", "Richard John/Schoeller/");
         final Attribute attr =
                 new Attribute(person1, "Restriction", "confidential");
         person1.insert(attr);
 
         person2 =
-                personBuilder().createPerson("I2", "Lisa Hope/Robinson/");
+                builder.createPerson("I2", "Lisa Hope/Robinson/");
         person3 =
-                personBuilder().createPerson(
+                builder.createPerson(
                         "I3", "Karl Frederick/Schoeller/Jr.");
         person4 =
-                personBuilder().createPerson("I4");
+                builder.createPerson("I4");
 
         final Person person13 = person4;
-        personBuilder().createPersonEvent(person13, "Birth");
+        builder.createPersonEvent(person13, "Birth");
 
         final Person person14 = person4;
-        personBuilder().createPersonEvent(person14, "Death");
+        builder.createPersonEvent(person14, "Death");
 
         person5 =
-                personBuilder().createPerson("I5", "Whosis/Schoeller/Jr./Huh?");
+                builder.createPerson("I5", "Whosis/Schoeller/Jr./Huh?");
 
         final Person person = person5;
-        personBuilder().createPersonEvent(person, "Birth", "1 JAN 1900");
+        builder.createPersonEvent(person, "Birth", "1 JAN 1900");
 
         final Person person12 = person5;
-        personBuilder().createPersonEvent(person12, "Death", "1 JAN 1950");
+        builder.createPersonEvent(person12, "Death", "1 JAN 1950");
 
-        final Family family6 = builder.getFamilyBuilder().createFamily("F6");
+        final Family family6 = builder.createFamily("F6");
         final Person person17 = person3;
-        builder.getFamilyBuilder().addChildToFamily(family6, person17);
+        builder.addChildToFamily(family6, person17);
 
-        person6 = personBuilder().createPerson("I6");
-        person7 = personBuilder().createPerson("I7");
+        person6 = builder.createPerson("I6");
+        person7 = builder.createPerson("I7");
         final Person person15 = person6;
 
-        builder.getFamilyBuilder().addHusbandToFamily(family6, person15);
+        builder.addHusbandToFamily(family6, person15);
         final Person person16 = person7;
-        builder.getFamilyBuilder().addWifeToFamily(family6, person16);
+        builder.addWifeToFamily(family6, person16);
 
         final Person person8 =
-                personBuilder().createPerson("I8", "Same/Name/");
-        personBuilder().createPersonEvent(person8, "Birth", "1 JAN 1950");
+                builder.createPerson("I8", "Same/Name/");
+        builder.createPersonEvent(person8, "Birth", "1 JAN 1950");
 
         final Person person9 =
-                personBuilder().createPerson("I9", "Same/Name/");
-        personBuilder().createPersonEvent(person9, "Birth", "1 JAN 1940");
+                builder.createPerson("I9", "Same/Name/");
+        builder.createPersonEvent(person9, "Birth", "1 JAN 1940");
 
         final Person person10 =
-                personBuilder().createPerson("I10", "Same/Name/");
-        personBuilder().createPersonEvent(person10, "Birth", "1 JAN 1950");
+                builder.createPerson("I10", "Same/Name/");
+        builder.createPersonEvent(person10, "Birth", "1 JAN 1950");
 
         final Person person11 =
-                personBuilder().createPerson("I11", "Different/Name/");
-        personBuilder().createPersonEvent(person11, "Birth", "1 JAN 1930");
+                builder.createPerson("I11", "Different/Name/");
+        builder.createPersonEvent(person11, "Birth", "1 JAN 1930");
     }
 
     /** */
