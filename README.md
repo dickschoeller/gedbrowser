@@ -81,7 +81,10 @@ can be adjusted in the file application.yml.
   dependency analysis
 * ![](images/docker-25.png)
   [Docker Hub](https://hub.docker.com/r/dickschoeller/)
-  docker repository
+  docker image repository
+* ![](images/nexus-25.png)
+  [OSS Nexus Repository](https://oss.sonatype.org/)
+  Java build artifact repository
 
 ## Technology
 
