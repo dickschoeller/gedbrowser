@@ -79,6 +79,12 @@ can be adjusted in the file application.yml.
 * ![](images/versioneye-25.png)
   [VersionEye](https://www.versioneye.com/user/projects/58987dc1f55eb2003257f7bd?child=summary#tab-dependencies)
   dependency analysis
+* ![](images/docker-25.png)
+  [Docker Hub](https://hub.docker.com/r/dickschoeller/)
+  docker image repository
+* ![](images/nexus-25.png)
+  [OSS Nexus Repository](https://oss.sonatype.org/)
+  Java build artifact repository
 
 ## Technology
 
