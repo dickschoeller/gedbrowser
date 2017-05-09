@@ -831,7 +831,7 @@ public class Foo {
     </example>
 	</rule>
 
-	<rule name="UnusedModifier" language="java" since="1.02"
+	<!-- rule name="UnusedModifier" language="java" since="1.02"
 		message="Avoid modifiers which are implied by the context"
 		class="net.sourceforge.pmd.lang.java.rule.unusedcode.UnusedModifierRule"
 		externalInfoUrl="https://pmd.github.io/pmd-5.5.1/pmd-java/rules/java/unusedcode.html#UnusedModifier">
@@ -854,7 +854,7 @@ public class Bar {
 }
  ]]>
      </example>
-	</rule>
+	</rule -->
 	<!-- imports -->
 	<rule name="DuplicateImports" since="0.5"
 		message="Avoid duplicate imports such as ''{0}''"
