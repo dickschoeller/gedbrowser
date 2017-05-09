@@ -79,6 +79,9 @@ can be adjusted in the file application.yml.
 * ![](images/versioneye-25.png)
   [VersionEye](https://www.versioneye.com/user/projects/58987dc1f55eb2003257f7bd?child=summary#tab-dependencies)
   dependency analysis
+* ![](images/docker-25.png)
+  [Docker Hub](https://hub.docker.com/r/dickschoeller/)
+  docker repository
 
 ## Technology
 
