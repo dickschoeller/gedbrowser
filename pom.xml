@@ -364,6 +364,71 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>gedbrowser</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>gedbrowser-analytics</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>gedbrowser-datamodel</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>gedbrowser-dao</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>gedbrowser-geographics</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>gedbrowser-mongo-dao</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>gedbrowser-reader</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>gedbrowser-renderer</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>geoservice</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>geoservice-client</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>geoservice-common</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>geoservice-persistence</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>geoservice-persistence-mongo</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-core</artifactId>
         <version>${spring.version}</version>
