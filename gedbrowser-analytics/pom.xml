@@ -40,12 +40,12 @@
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-datamodel</artifactId>
-      <version>${project.parent.version}</version>
+      <version>${gedbrowser.version}</version>
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-reader</artifactId>
-      <version>${project.parent.version}</version>
+      <version>${gedbrowser.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>

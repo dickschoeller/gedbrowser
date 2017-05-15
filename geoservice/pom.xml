@@ -55,12 +55,12 @@
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>geoservice-persistence</artifactId>
-      <version>${project.parent.version}</version>
+      <version>${gedbrowser.version}</version>
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>geoservice-persistence-mongo</artifactId>
-      <version>${project.parent.version}</version>
+      <version>${gedbrowser.version}</version>
     </dependency>
 
     <dependency>
