@@ -55,37 +55,37 @@
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-datamodel</artifactId>
-      <version>${project.parent.version}</version>
+      <version>${gedbrowser.version}</version>
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-reader</artifactId>
-      <version>${project.parent.version}</version>
+      <version>${gedbrowser.version}</version>
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-renderer</artifactId>
-      <version>${project.parent.version}</version>
+      <version>${gedbrowser.version}</version>
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-mongo-dao</artifactId>
-      <version>${project.parent.version}</version>
+      <version>${gedbrowser.version}</version>
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-analytics</artifactId>
-      <version>${project.parent.version}</version>
+      <version>${gedbrowser.version}</version>
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-geographics</artifactId>
-      <version>${project.parent.version}</version>
+      <version>${gedbrowser.version}</version>
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>geoservice-client</artifactId>
-      <version>${project.parent.version}</version>
+      <version>${gedbrowser.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>

@@ -133,7 +133,7 @@
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>geoservice-common</artifactId>
-      <version>${project.parent.version}</version>
+      <version>${gedbrowser.version}</version>
     </dependency>
     <dependency>
       <groupId>de.grundid.opendatalab</groupId>

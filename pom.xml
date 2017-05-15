@@ -50,6 +50,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+    <gedbrowser.version>1.2.0-SNAPSHOT</gedbrowser.version>
+
     <spring-boot.version>1.5.3.RELEASE</spring-boot.version>
     <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
     <spring.version>4.3.8.RELEASE</spring.version>
