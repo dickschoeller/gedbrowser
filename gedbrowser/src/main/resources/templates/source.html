@@ -1,48 +1,28 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="'Source: ' + ${source.idString} + ' - ' + ${source.titleString}">GedBrowser Source</title>
+    <title th:text="'Source: ' + ${model.idString} + ' - ' + ${model.titleString}">GedBrowser Source</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="menubar">
-        <span class="left">
-            <span><a th:href="${source.homeUrl}">Home</a></span>
-            <span><a th:href="${source.indexHref}">Index</a></span>
-            <span><a th:if="${source.hasRole('ADMIN')}" th:href="${source.livingHref}">Living</a></span>
-            <!-- span><a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Living</a></span -->
-        </span>
-        <div  th:if="${#httpServletRequest.remoteUser} != null" class="right">
-            <form th:action="@{logout}" method="post">
-                <input class="menubar" type="submit" th:value="'Logout ' + ${source.userFirstname}"/>
-            </form>
-        </div>
-        <span th:if="${#httpServletRequest.remoteUser} == null" class="right" th:inline="text"><a th:href="@{login}">Login</a></span>
-    </div>
+    <div th:replace="fragments/header :: menubar">&nbsp;</div>
+
     <div class="outer">
     <div class="middle">
     <div class="inner">
 
-    <div th:if="${not source.getAttributes().isEmpty()}">
+    <div th:if="${not model.getAttributes().isEmpty()}">
         <hr class="attributes"/>
-        <h3 class="attributes" th:text="'Source: ' + ${source.idString} + ' - ' + ${source.titleString}"></h3>
+        <h3 class="attributes" th:text="'Source: ' + ${model.idString} + ' - ' + ${model.titleString}"></h3>
         <ul>
             <!-- FIXME utext is necessary because many listItemContents variants contain HTML formatting -->
-            <li th:each="attribute : ${source.getAttributes()}" th:utext="${attribute.listItemContents}"></li>
+            <li th:each="attribute : ${model.getAttributes()}" th:utext="${attribute.listItemContents}"></li>
         </ul>
     </div>
 
-    <hr class="final"/>
-    <table class="buttonrow">
-        <tr class="buttonrow">
-            <td class="brleft">
-                <p class="maintainer">Maintained by <a id="maintainerMail" th:href="'mailto:' + ${appInfo.maintainerEmail}" th:text="${appInfo.maintainerName}"></a>.<br/>
-                Created with <a th:href="${appInfo.applicationURL}" th:text="${appInfo.applicationName}"></a>, version <span th:text="${appInfo.version}">2.0</span> on <span th:text="${#dates.format(#dates.createToday(),'MMMMM dd, yyyy')}"></span>.<br/>
-                Get the sources on <a th:href="${appInfo.applicationURL}">GitHub</a> <a th:href="${appInfo.applicationURL}"><img src="images/github-25.png" style="vertical-align:top"/></a></p>
-            </td>
-        </tr>
-    </table>
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+
     </div>
     </div>
     </div>

@@ -14,7 +14,8 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 /**
  * @author Dick Schoeller
  */
-public final class IndexRenderer extends GedRenderer<Root> {
+public final class IndexRenderer extends GedRenderer<Root>
+        implements IndexHrefRenderer<Root> {
     /** Logger. */
     private final Log logger = LogFactory.getLog(getClass());
 

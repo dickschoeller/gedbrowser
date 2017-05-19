@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <!--/*  Multiple fragments may be defined in one file */-->
+    <div th:fragment="footer-admin" th:align="center">
+        &copy; <span th:text="${#temporals.format(#temporals.createNow(), 'yyyy')}">2017</span>
+        <span>My Awesome App </span><span th:text="${@environment.getProperty('app.version')}"></span>
+    </div>
+
+<div th:fragment="footer">
+    <hr class="final"/>
+    <table class="buttonrow">
+        <tr class="buttonrow">
+            <td class="brleft">
+                <p class="maintainer">Maintained by <a id="maintainerMail" th:href="'mailto:' + ${appInfo.maintainerEmail}" th:text="${appInfo.maintainerName}"></a>.<br/>
+                Created with <a th:href="${appInfo.applicationURL}" th:text="${appInfo.applicationName}"></a>, version <span th:text="${appInfo.version}">2.0</span> on <span th:text="${#dates.format(#dates.createToday(),'MMMMM dd, yyyy')}"></span>.<br/>
+                Get the sources on <a th:href="${appInfo.applicationURL}">GitHub</a> <a th:href="${appInfo.applicationURL}"><img src="images/github-25.png" style="vertical-align:top"/></a></p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div th:fragment="footer-error">
+    <hr class="final"/>
+    <table class="buttonrow">
+        <tr class="buttonrow">
+            <td class="brleft">
+                <p class="maintainer">Maintained by <a id="maintainerMail" th:href="'mailto:' + ${error.maintainerEmail}" th:text="${error.maintainerName}"></a>.<br/>
+                Created with <a th:href="${error.applicationURL}" th:text="${error.applicationName}"></a>, version <span th:text="${error.version}">2.0</span> on <span th:text="${#dates.format(#dates.createToday(),'MMMMM dd, yyyy')}"></span>.<br/>
+                Get the sources on <a th:href="${error.applicationURL}">GitHub</a> <a th:href="${error.applicationURL}"><img src="images/github-25.png" style="vertical-align:top"/></a></p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+</body>
+</html>

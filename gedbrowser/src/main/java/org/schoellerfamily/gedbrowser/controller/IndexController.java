@@ -56,7 +56,7 @@ public class IndexController extends DatedDataController {
                 createRenderingContext());
 
         model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
-        model.addAttribute("index", gedRenderer);
+        model.addAttribute("model", gedRenderer);
         model.addAttribute("appInfo", appInfo);
 
         logger.debug("Exiting surnames");

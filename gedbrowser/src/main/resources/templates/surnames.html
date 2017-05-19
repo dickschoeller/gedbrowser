@@ -6,46 +6,26 @@
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="menubar">
-        <span class="left">
-            <span><a th:href="${index.homeUrl}">Home</a></span>
-            <span><a href="">Index</a></span>
-            <span><a th:if="${index.hasRole('ADMIN')}" th:href="${index.livingHref}">Living</a></span>
-            <!-- span><a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Living</a></span -->
-        </span>
-        <div  th:if="${#httpServletRequest.remoteUser} != null" class="right">
-            <form th:action="@{logout}" method="post">
-                <input class="menubar" type="submit" th:value="'Logout ' + ${index.userFirstname}"/>
-            </form>
-        </div>
-        <span th:if="${#httpServletRequest.remoteUser} == null" class="right" th:inline="text"><a th:href="@{login}">Login</a></span>
-    </div>
+    <div th:replace="fragments/header :: menubar">&nbsp;</div>
+
     <div class="outer">
     <div class="middle">
     <div class="inner">
 
     <h2>Index</h2>
     <h3>Pick an initial letter</h3>
-    <span th:each="letter : ${index.letters}" th:utext="${letter} + ' &nbsp; '">[ A ]</span>
-    <h3 th:utext="'Index of names beginning with ' + ${index.base}">Index of names beginning with ${index.base}</h3>
+    <span th:each="letter : ${model.letters}" th:utext="${letter} + ' &nbsp; '">[ A ]</span>
+    <h3 th:utext="'Index of names beginning with ' + ${model.base}">Index of names beginning with ${model.base}</h3>
     <ul>
-        <li th:each="surname : ${index.surnames}"><a th:name="${surname}"></a><span th:utext="${surname}" class="label">surname</span>
+        <li th:each="surname : ${model.surnames}"><a th:name="${surname}"></a><span th:utext="${surname}" class="label">surname</span>
             <ul>
-                <li th:each="name : ${index.getIndexNameHtmls(surname)}" th:utext="${name}">name</li>
+                <li th:each="name : ${model.getIndexNameHtmls(surname)}" th:utext="${name}">name</li>
             </ul>
         </li>
     </ul>
 
-    <hr class="final"/>
-    <table class="buttonrow">
-        <tr class="buttonrow">
-            <td class="brleft">
-                <p class="maintainer">Maintained by <a id="maintainerMail" th:href="'mailto:' + ${appInfo.maintainerEmail}" th:text="${appInfo.maintainerName}"></a>.<br/>
-                Created with <a th:href="${appInfo.applicationURL}" th:text="${appInfo.applicationName}"></a>, version <span th:text="${appInfo.version}">2.0</span> on <span th:text="${#dates.format(#dates.createToday(),'MMMMM dd, yyyy')}"></span>.<br/>
-                Get the sources on <a th:href="${appInfo.applicationURL}">GitHub</a> <a th:href="${appInfo.applicationURL}"><img src="images/github-25.png" style="vertical-align:top"/></a></p>
-            </td>
-        </tr>
-    </table>
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+
     </div>
     </div>
     </div>

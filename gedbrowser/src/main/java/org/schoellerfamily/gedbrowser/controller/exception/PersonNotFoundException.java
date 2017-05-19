@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller.exception;
 
+import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -7,26 +8,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author Dick Schoeller
  */
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Person not found")
-public final class PersonNotFoundException extends RuntimeException {
+public final class PersonNotFoundException extends ObjectNotFoundException {
     /** */
-    private static final long serialVersionUID = 2L;
-
-    /** */
-    private final String personId;
-
-    /** */
-    private final String datasetName;
+    private static final long serialVersionUID = 3L;
 
     /**
      * @param message the message to display
      * @param personId the ID of the person not found
      * @param datasetName the name of the dataset being searched
+     * @param context the rendering context
      */
     public PersonNotFoundException(final String message, final String personId,
-            final String datasetName) {
-        super(message);
-        this.personId = personId;
-        this.datasetName = datasetName;
+            final String datasetName, final RenderingContext context) {
+        super(message, personId, datasetName, context);
     }
 
     /**
@@ -35,13 +29,6 @@ public final class PersonNotFoundException extends RuntimeException {
      * @return the ID
      */
     public String getPersonId() {
-        return personId;
-    }
-
-    /**
-     * @return get the name of the dataset being searched
-     */
-    public String getDatasetName() {
-        return datasetName;
+        return super.getId();
     }
 }

@@ -7,6 +7,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
+import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,18 +53,20 @@ public class SourceController extends DatedDataController {
 
         final Root root = fetchRoot(dbName);
 
+        final RenderingContext context = createRenderingContext();
         final Source source = (Source) root.find(idString);
         if (source == null) {
             throw new SourceNotFoundException(
-                    "Source " + idString + " not found", idString, dbName);
+                    "Source " + idString + " not found", idString, dbName,
+                    context);
         }
 
         final GedRenderer<?> sourceRenderer = new GedRendererFactory()
-                .create(source, createRenderingContext());
+                .create(source, context);
 
         model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
         model.addAttribute("sourceString", source.getString());
-        model.addAttribute("source", sourceRenderer);
+        model.addAttribute("model", sourceRenderer);
         model.addAttribute("appInfo", appInfo);
         logger.debug("Exiting source");
         return "source";

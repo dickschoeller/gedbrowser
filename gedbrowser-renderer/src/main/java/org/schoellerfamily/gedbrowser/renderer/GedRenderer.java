@@ -48,7 +48,7 @@ public abstract class GedRenderer<G extends GedObject>
     /**
      * @return the GedObject
      */
-    protected final G getGedObject() {
+    public final G getGedObject() {
         return gedObject;
     }
 //
