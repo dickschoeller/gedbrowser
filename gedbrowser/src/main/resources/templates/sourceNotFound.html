@@ -5,37 +5,16 @@
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="menubar">
-        <span class="left">
-            <span><a th:href="${error.homeUrl}">Home</a></span>
-            <!--
-            <span><a th:href="${source.indexHref}">Index</a></span>
-            <span><a th:if="${source.hasRole('ADMIN')}" th:href="${source.livingHref}">Living</a></span>
-            < ! - - span><a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Living</a></span - - >
-            -->
-        </span>
-        <div  th:if="${#httpServletRequest.remoteUser} != null" class="right">
-            <form th:action="@{logout}" method="post">
-                <input class="menubar" type="submit" th:value="'Logout ' + ${error.userFirstname}"/>
-            </form>
-        </div>
-        <span th:if="${#httpServletRequest.remoteUser} == null" class="right" th:inline="text"><a th:href="@{login}">Login</a></span>
-    </div>
+    <div th:replace="fragments/header :: menubar-notfound">&nbsp;</div>
+
     <div class="outer">
     <div class="middle">
     <div class="inner">
     <h1 th:utext="${error.message}">Source</h1>
     <h2 class="name"><span th:utext="${error.exception.sourceId}">S1</span> not found in dataset <span  th:utext="${error.exception.datasetName}"></span></h2>
-    <hr class="final"/>
-    <table class="buttonrow">
-        <tr class="buttonrow">
-            <td class="brleft">
-                <p class="maintainer">Maintained by <a id="maintainerMail" th:href="'mailto:' + ${error.maintainerEmail}" th:text="${error.maintainerName}"></a>.<br/>
-                Created with <a th:href="${error.applicationURL}" th:text="${error.applicationName}"></a>, version <span th:text="${error.version}">2.0</span> on <span th:text="${#dates.format(#dates.createToday(),'MMMMM dd, yyyy')}"></span>.<br/>
-                Get the sources on <a th:href="${error.applicationURL}">GitHub</a> <a th:href="${error.applicationURL}"><img src="images/github-25.png" style="vertical-align:top"/></a></p>
-            </td>
-        </tr>
-    </table>
+
+    <div th:replace="fragments/footer :: footer-error">&nbsp;</div>
+
     </div>
     </div>
     </div>

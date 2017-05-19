@@ -18,7 +18,8 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
  *
  * @author Dick Schoeller
  */
-public final class PersonRenderer extends GedRenderer<Person> {
+public final class PersonRenderer extends GedRenderer<Person>
+        implements IndexHrefRenderer<Person> {
     /**
      * Number of generations, including the root when rendering the tree.
      */

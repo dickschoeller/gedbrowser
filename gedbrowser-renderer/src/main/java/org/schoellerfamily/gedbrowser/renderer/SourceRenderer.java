@@ -12,7 +12,8 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.SourceVisitor;
  *
  * @author Dick Schoeller
  */
-public final class SourceRenderer extends GedRenderer<Source> {
+public final class SourceRenderer extends GedRenderer<Source>
+        implements IndexHrefRenderer<Source> {
     /**
      * @param gedObject the Source that we are going to render
      * @param rendererFactory the factory that creates the renderers for the
@@ -60,13 +61,5 @@ public final class SourceRenderer extends GedRenderer<Source> {
             }
         }
         return list;
-    }
-
-    /**
-     * @return the href string to the index page containing this person.
-     */
-    public String getIndexHref() {
-        final Source source = getGedObject();
-        return "surnames?db=" + source.getDbName() + "&letter=A";
     }
 }

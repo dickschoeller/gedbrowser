@@ -54,9 +54,9 @@ public class PersonController extends GeoDataController {
             final Model model) {
         logger.debug("Entering person");
 
-        final Person person = fetchPerson(dbName, idString);
-
         final RenderingContext context = createRenderingContext();
+
+        final Person person = fetchPerson(dbName, idString, context);
 
         final List<PlaceInfo> places = fetchPlaces(person, context);
         final Boolean showMap = !places.isEmpty();
@@ -64,7 +64,7 @@ public class PersonController extends GeoDataController {
         final String filename = gedbrowserHome + "/" + dbName + ".ged";
         model.addAttribute("filename", filename);
         model.addAttribute("name", nameHtml(context, person));
-        model.addAttribute("person", personRenderer(context, person));
+        model.addAttribute("model", personRenderer(context, person));
         model.addAttribute("places", places);
         model.addAttribute("key", getMapsKey());
         model.addAttribute("showMap", showMap);
@@ -77,15 +77,17 @@ public class PersonController extends GeoDataController {
     /**
      * @param dbName the name of the database
      * @param idString the ID of the person
+     * @param context the rendering context
      * @return the person
      */
-    private Person fetchPerson(final String dbName, final String idString) {
+    private Person fetchPerson(final String dbName, final String idString,
+            final RenderingContext context) {
         final Root root = fetchRoot(dbName);
         final Person person = (Person) root.find(idString);
         if (person == null) {
             throw new PersonNotFoundException(
                     "Person " + idString + " not found", idString,
-                    root.getDbName());
+                    root.getDbName(), context);
         }
         return person;
     }

@@ -50,7 +50,7 @@ public class LivingController extends DatedDataController {
                 createRenderingContext());
 
         model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
-        model.addAttribute("living", gedRenderer);
+        model.addAttribute("model", gedRenderer);
         model.addAttribute("appInfo", appInfo);
 
         logger.debug("Exiting living");
