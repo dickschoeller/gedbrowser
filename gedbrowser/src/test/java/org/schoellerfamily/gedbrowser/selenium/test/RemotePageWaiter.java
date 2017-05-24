@@ -2,6 +2,8 @@ package org.schoellerfamily.gedbrowser.selenium.test;
 
 import static org.junit.Assert.fail;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +16,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * @author Dick Schoeller
  */
 public class RemotePageWaiter implements PageWaiter {
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
+
     /** */
     private final long timeout;
 
@@ -31,6 +36,7 @@ public class RemotePageWaiter implements PageWaiter {
      */
     @Override
     public void waitForPageLoaded(final WebDriver driver) {
+        logger.debug("Waiting for readState");
         final ExpectedCondition<Boolean> expectation =
                 new ExpectedCondition<Boolean>() {
             /**
@@ -49,6 +55,7 @@ public class RemotePageWaiter implements PageWaiter {
         } catch (Throwable error) {
             fail("Timeout waiting for Page Load Request to complete.");
         }
+        logger.debug("Waiting for maintainerMail");
         final Wait<WebDriver> wait2 = new WebDriverWait(driver, timeout);
         try {
             wait2.until(ExpectedConditions
@@ -58,4 +65,18 @@ public class RemotePageWaiter implements PageWaiter {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void waitForPageLoaded(final WebDriver driver, final String newUrl) {
+        logger.debug("Waiting for new URL");
+        final Wait<WebDriver> wait3 = new WebDriverWait(driver, timeout);
+        try {
+            wait3.until(ExpectedConditions.urlToBe(newUrl));
+        } catch (Throwable error) {
+            fail("Timeout waiting for url.");
+        }
+        waitForPageLoaded(driver);
+    }
 }
