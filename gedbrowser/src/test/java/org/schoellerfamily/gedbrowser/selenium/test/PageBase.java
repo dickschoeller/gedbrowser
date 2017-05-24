@@ -13,7 +13,6 @@ import org.openqa.selenium.WebElement;
  * @author Dick Schoeller
  */
 public class PageBase {
-
     /** Associated Selenium driver. */
     private final WebDriver driver;
 
@@ -166,6 +165,16 @@ public class PageBase {
      */
     public final void waitForPageLoaded() {
         waiter.waitForPageLoaded(driver);
+    }
+
+
+    /**
+     * Wait for page load on real browser. Doesn't work for HTML driver.
+     *
+     * @param newUrl the target URL of the load
+     */
+    public void waitForPageLoaded(final String newUrl) {
+        waiter.waitForPageLoaded(driver, newUrl);
     }
 
     /**

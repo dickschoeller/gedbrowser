@@ -54,7 +54,10 @@ public final class SourcePage extends PageBase {
         this.baseUrl = baseUrl;
         final WebElement source = driver.findElements(By.linkText(id))
                 .get(0);
+
+        final String newUrl = source.getAttribute("href");
         source.click();
+        waitForPageLoaded(newUrl);
     }
 
     /**
