@@ -83,10 +83,7 @@ public class MongoTestConfiguration {
      */
     @Bean
     public MongoTemplate mongoTemplate() throws UnknownHostException {
-        final MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory());
-
-        return mongoTemplate;
-
+        return new MongoTemplate(mongoDbFactory());
     }
 
     /**
