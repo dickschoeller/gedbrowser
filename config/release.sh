@@ -56,7 +56,7 @@ git push
 # Merge back to development
 git checkout development
 ##### this next step doesn't work ####
-git merge master
+git merge --squash master
 
 # Fix up the pom files.
 sed -i -e "s/$release_version/$new_development_version/" pom.xml */pom.xml
