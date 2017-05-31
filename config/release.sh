@@ -1,16 +1,18 @@
 #!/bin/bash
 
 # Announce the current version. Get the next
-development_version=$(grep SNAPSHOT pom.xml | sed -e 's/.*[<]version[>]//' -e 's@[<]/version[>]@@')
+development_version=$(grep '[<]version[>].*SNAPSHOT' pom.xml | head -n 1 | sed -e 's/.*[<]version[>]//' -e 's@[<]/version[>]@@')
 release_version=$(echo $development_version | sed -e 's/-SNAPSHOT//');
 echo "Current development version is: $development_version"
 echo "Release version will be $release_version"
 read -p "Enter next release target: " next_target
 new_development_version=${next_target}-SNAPSHOT
+echo "New development version will be $new_development_version"
 
 # Merge to master
 git checkout master
-git merge development
+git pull
+git merge --squash development
 
 # Fix the version numbers in files.
 sed -i -e "s/$development_version/$release_version/" pom.xml */pom.xml
@@ -38,7 +40,7 @@ git status
 while true; do
     read -p "Proceed?" yn
     case $yn in
-        [Yy]* ) make install; break;;
+        [Yy]* ) mvn install; break;;
         [Nn]* ) exit;;
         * ) echo "Please answer yes or no.";;
     esac
@@ -53,7 +55,8 @@ git push
 
 # Merge back to development
 git checkout development
-git merge master
+##### this next step doesn't work ####
+git merge --squash master
 
 # Fix up the pom files.
 sed -i -e "s/$release_version/$new_development_version/" pom.xml */pom.xml
@@ -67,9 +70,8 @@ sed -i -e "s/$release_version/$new_development_version/" geoservice/src/main/jav
 sed -i -e "s/$release_version/$new_development_version/" geoservice/src/main/resources/banner.txt
 sed -i -e "s/$release_version/$new_development_version/" README.md
 
-# Fix published docker version
 sed -i -e "s/docker.image.tag.$release_version/docker.image.tag>snapshot/" pom.xml
-sed -i -e 's/imageTag>snapshot/imageTag>latest/' gedbrowser/pom.xml geoservice/pom.xml
+sed -i -e 's/imageTag>latest/imageTag>snapshot/' gedbrowser/pom.xml geoservice/pom.xml
 
 git add -A
 git status

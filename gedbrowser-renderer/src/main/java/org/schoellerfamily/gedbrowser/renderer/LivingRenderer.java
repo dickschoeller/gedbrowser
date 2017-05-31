@@ -16,7 +16,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 /**
  * @author Dick Schoeller
  */
-public final class LivingRenderer extends GedRenderer<Root> {
+public final class LivingRenderer extends GedRenderer<Root>
+        implements IndexHrefRenderer<Root> {
     /** Logger. */
     private final Log logger = LogFactory.getLog(getClass());
 
@@ -134,12 +135,5 @@ public final class LivingRenderer extends GedRenderer<Root> {
         public List<PersonRenderer> getPersons() {
             return persons;
         }
-    }
-
-    /**
-     * @return the href string to the index page containing this person.
-     */
-    public String getIndexHref() {
-        return "surnames?db=" + getGedObject().getDbName() + "&letter=" + "A";
     }
 }

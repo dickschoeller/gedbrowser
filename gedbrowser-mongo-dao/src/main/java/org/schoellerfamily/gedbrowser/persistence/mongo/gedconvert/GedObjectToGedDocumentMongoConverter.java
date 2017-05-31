@@ -121,11 +121,6 @@ public final class GedObjectToGedDocumentMongoConverter
             final List<GedObject> gedAttributes) {
         document.clearAttributes();
         for (final GedObject ged : gedAttributes) {
-            // This happens because appenders create a list entry when they
-            // are not retained.
-            if (ged == null) {
-                continue;
-            }
             final GedDocument<?> documentAttribute =
                     createGedDocument(ged);
             document.addAttribute(documentAttribute);

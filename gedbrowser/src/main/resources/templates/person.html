@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="'Person: ' + ${person.idString} + ' - ' + ${person.wholeName} + ' ' + ${person.lifeSpanString}"></title>
+    <title th:text="'Person: ' + ${model.idString} + ' - ' + ${model.wholeName} + ' ' + ${model.lifeSpanString}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
 
@@ -38,50 +38,39 @@
 </script>
 </head>
 <body>
-    <div class="menubar">
-        <span class="left">
-            <span><a th:href="${person.homeUrl}">Home</a></span>
-            <span><a th:href="${person.indexHref}">Index</a></span>
-            <span><a th:if="${person.hasRole('ADMIN')}" th:href="${person.livingHref}">Living</a></span>
-            <!-- span><a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Living</a></span -->
-        </span>
-        <div  th:if="${#httpServletRequest.remoteUser} != null" class="right">
-            <form th:action="@{logout}" method="post">
-                <input class="menubar" type="submit" th:value="'Logout ' + ${person.userFirstname}"/>
-            </form>
-        </div>
-        <span th:if="${#httpServletRequest.remoteUser} == null" class="right" th:inline="text"><a th:href="@{login}">Login</a></span>
-    </div>
+
+    <div th:replace="fragments/header :: menubar">&nbsp;</div>
+
     <div class="outer">
     <div class="middle">
     <div class="inner">
 
     <!-- FIXME utext is necessary because titleName contains HTML formatting -->
     <h2 class="name"
-        th:utext="${person.idString} + ': ' + ${person.wholeName} + ' ' + ${person.lifeSpanString}">I0:
+        th:utext="${model.idString} + ': ' + ${model.wholeName} + ' ' + ${model.lifeSpanString}">I0:
         John <span class="surname">Doe</span> (1000-1070)</h2>
 
     <div id="map_container" th:if="${showMap}"></div>
 
-    <p class="parent" th:if="${not person.parents.fatherNameHtml.isEmpty()}">
+    <p class="parent" th:if="${not model.parents.fatherNameHtml.isEmpty()}">
         <span class="parent label">Father:</span>
         <!-- FIXME utext is necessary because all nameHtml variants contain HTML formatting -->
-        <span id="father" th:utext="${person.parents.fatherNameHtml}">Joe Doe</span>
+        <span id="father" th:utext="${model.parents.fatherNameHtml}">Joe Doe</span>
     </p>
-    <p class="parent" th:if="${not person.parents.motherNameHtml.isEmpty()}">
+    <p class="parent" th:if="${not model.parents.motherNameHtml.isEmpty()}">
         <span class="parent label">Mother:</span>
         <!-- FIXME utext is necessary because all nameHtml variants contain HTML formatting -->
-        <span id="mother" th:utext="${person.parents.motherNameHtml}">Rhonda Roe</span>
+        <span id="mother" th:utext="${model.parents.motherNameHtml}">Rhonda Roe</span>
     </p>
 
-    <div th:each="family,iterStat : ${person.families}" class="family">
+    <div th:each="family,iterStat : ${model.families}" class="family">
         <hr class="family"/>
         <h3 class="family">Family <span th:text="${iterStat.count}">1</span></h3>
         <p th:id="'family-' + ${iterStat.count} + '-spouse'"
            class="spouse"
-           th:if="${not family.getSpouse(person).nameHtml.isEmpty()}">
+           th:if="${not family.getSpouse(model).nameHtml.isEmpty()}">
             <!-- FIXME utext is necessary because all nameHtml variants contain HTML formatting -->
-            <span class="spouse label">Spouse:</span><span th:utext="${family.getSpouse(person).nameHtml}"></span>
+            <span class="spouse label">Spouse:</span><span th:utext="${family.getSpouse(model).nameHtml}"></span>
         </p>
         <ul th:id="'family-' + ${iterStat.count} + '-attributes'"  th:if="${not family.getAttributes().isEmpty()}">
             <!-- FIXME utext is necessary because many listItemContents variants contain HTML formatting -->
@@ -101,22 +90,22 @@
         </div>
     </div>
 
-    <div th:if="${not person.getAttributes().isEmpty()}">
+    <div th:if="${not model.getAttributes().isEmpty()}">
         <hr class="attributes"/>
         <h3 class="attributes">Attributes</h3>
         <ul>
             <!-- FIXME utext is necessary because many listItemContents variants contain HTML formatting -->
             <li th:id="'attribute-' + ${attrStat.count}"
-                th:each="attribute,attrStat : ${person.getAttributes()}"
+                th:each="attribute,attrStat : ${model.getAttributes()}"
                 th:utext="${attribute.listItemContents}"></li>
         </ul>
     </div>
 
-    <div th:if="${not person.isConfidential()}">
+    <div th:if="${not model.isConfidential()}">
         <hr class="tree"/>
         <h3 class="tree">Ancestor tree</h3>
         <table class="tree">
-            <tr th:each="row,rowStat : ${person.getTreeRows(5)}" class="tree">
+            <tr th:each="row,rowStat : ${model.getTreeRows(5)}" class="tree">
                 <td class="tree">&nbsp;&nbsp;&nbsp;</td>
                 <td th:id="'tree-' + ${rowStat.count} + 'x' + ${cellStat.count}"
                     th:each="cell,cellStat : ${row.cells}"
@@ -126,16 +115,8 @@
         </table>
     </div>
 
-    <hr class="final"/>
-    <table class="buttonrow">
-        <tr class="buttonrow">
-            <td class="brleft">
-                <p class="maintainer">Maintained by <a id="maintainerMail" th:href="'mailto:' + ${appInfo.maintainerEmail}" th:text="${appInfo.maintainerName}"></a>.<br/>
-                Created with <a th:href="${appInfo.applicationURL}" th:text="${appInfo.applicationName}"></a>, version <span th:text="${appInfo.version}">2.0</span> on <span th:text="${#dates.format(#dates.createToday(),'MMMMM dd, yyyy')}"></span>.<br/>
-                Get the sources on <a th:href="${appInfo.applicationURL}">GitHub</a> <a th:href="${appInfo.applicationURL}"><img src="images/github-25.png" style="vertical-align:top"/></a></p>
-            </td>
-        </tr>
-    </table>
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+
     </div>
     </div>
     </div>

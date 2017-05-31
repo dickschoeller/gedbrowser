@@ -456,8 +456,9 @@ public final class PersonPage extends PageBase {
      * @return the newly created page object
      */
     private PersonPage navigate(final WebElement element) {
+        final String newUrl = element.getAttribute("href");
         element.click();
-        waitForPageLoaded();
+        waitForPageLoaded(newUrl);
         final String url = getCurrentUrl();
         final int index = url.indexOf("id=") + "id=".length();
         final String idText = url.substring(index);

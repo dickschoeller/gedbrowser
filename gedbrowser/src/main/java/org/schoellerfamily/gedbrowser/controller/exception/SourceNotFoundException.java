@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller.exception;
 
+import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -7,26 +8,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author Dick Schoeller
  */
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Source not found")
-public final class SourceNotFoundException extends RuntimeException {
+public final class SourceNotFoundException extends ObjectNotFoundException {
     /** */
     private static final long serialVersionUID = 1L;
-
-    /** */
-    private final String sourceId;
-
-    /** */
-    private final String datasetName;
 
     /**
      * @param message the message to display
      * @param sourceId the ID of the source not found
      * @param datasetName the name of the dataset being searched
+     * @param context the rendering context
      */
     public SourceNotFoundException(final String message, final String sourceId,
-            final String datasetName) {
-        super(message);
-        this.sourceId = sourceId;
-        this.datasetName = datasetName;
+            final String datasetName, final RenderingContext context) {
+        super(message, sourceId, datasetName, context);
     }
 
     /**
@@ -35,13 +29,6 @@ public final class SourceNotFoundException extends RuntimeException {
      * @return the ID
      */
     public String getSourceId() {
-        return sourceId;
-    }
-
-    /**
-     * @return get the name of the dataset being searched
-     */
-    public String getDatasetName() {
-        return datasetName;
+        return super.getId();
     }
 }
