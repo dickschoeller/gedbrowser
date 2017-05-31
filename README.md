@@ -24,7 +24,7 @@ role to see living people.
 * Place GEDCOM files in /var/lib/gedbrowser
 * Create /var/lib/gedbrowser/userFile.csv rows are:
   username,firstname,lastname,email,password,role,role...
-* java -jar gedbrowser/target/gedbrowser-1.2.0-SNAPSHOT.jar
+* java -jar gedbrowser/target/gedbrowser-1.2.1-SNAPSHOT.jar
 
 Running with Docker requires running the MongoDB with Docker. The following
 commands allow you to do this without conflicting ports with a native mongod
@@ -40,7 +40,7 @@ server.
     name,email,password,role,role,... - supported roles are USER and ADMIN
 * export DATA_DIR=&lt;your data directory&gt;
 * export GEDBROWSER_HOME=&lt;your gedbrowser home&gt;
-* docker run --rm -v ${DATA_DIR}:/data/db --name mongo -p 28001:27017 -d mongo
+* docker run --rm -v ${DATA_DIR}:/data/db --name mongo -p 28001.2.1-SNAPSHOT17 -d mongo
 * docker run --link mongo:mongo -v ${GEDBROWSER_HOME}:/var/lib/gedbrowser -p
   8086:8080 -p 8087:8081 --name geoservice -d dickschoeller/geoservice
 * docker run --link geoservice:geoservice --link mongo:mongo -v
