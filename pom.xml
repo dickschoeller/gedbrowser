@@ -92,7 +92,7 @@
     <gpg-plugin.version>1.6</gpg-plugin.version>
     <nexus-staging-plugin.version>1.6.8</nexus-staging-plugin.version>
 
-    <docker-plugin.version>0.4.13</docker-plugin.version>
+    <docker-plugin.version>0.4.14</docker-plugin.version>
     <docker.image.prefix>dickschoeller</docker.image.prefix>
     <docker.image.tag>snapshot</docker.image.tag>
 
