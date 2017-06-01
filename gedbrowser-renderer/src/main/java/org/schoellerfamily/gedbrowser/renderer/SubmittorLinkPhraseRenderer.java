@@ -35,7 +35,7 @@ public class SubmittorLinkPhraseRenderer implements PhraseRenderer {
         // FIXME this will have to change
         // to match the way that URLs are formed here.
         final StringBuilder builder = new StringBuilder(60);
-        builder.append("<a class=\"name\" href=\"source?db=");
+        builder.append("<a class=\"name\" href=\"submittor?db=");
         builder.append(submittorLink.getDbName());
         builder.append("&amp;id=");
         builder.append(submittorLink.getToString());

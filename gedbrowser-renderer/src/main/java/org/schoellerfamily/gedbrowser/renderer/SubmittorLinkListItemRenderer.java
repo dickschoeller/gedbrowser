@@ -36,13 +36,14 @@ public class SubmittorLinkListItemRenderer implements ListItemRenderer {
      */
     private void renderListItemContents(final StringBuilder builder) {
         final SubmittorLink submittorLink = slRenderer.getGedObject();
-        builder.append("[<a href=\"source?db=");
+        builder.append("<span class=\"label\">Submittor:</span> ");
+        builder.append("<a href=\"submittor?db=");
         builder.append(submittorLink.getDbName());
         builder.append("&amp;id=");
         builder.append(submittorLink.getToString());
         builder.append("\">");
         builder.append(submittorLink.getToString());
-        builder.append("</a>]");
+        builder.append("</a>");
     }
 
     /**
