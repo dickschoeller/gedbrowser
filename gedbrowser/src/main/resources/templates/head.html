@@ -19,7 +19,6 @@
         <hr class="attributes"/>
         <h3 class="attributes">Attributes</h3>
         <ul>
-            <!-- FIXME utext is necessary because many listItemContents variants contain HTML formatting -->
             <li th:id="'attribute-' + ${attrStat.count}"
                 th:each="attribute,attrStat : ${model.getAttributes()}"
                 th:utext="${attribute.listItemContents}"></li>
