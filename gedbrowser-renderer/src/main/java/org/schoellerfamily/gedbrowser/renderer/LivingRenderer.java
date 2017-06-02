@@ -17,7 +17,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
  * @author Dick Schoeller
  */
 public final class LivingRenderer extends GedRenderer<Root>
-        implements IndexHrefRenderer<Root> {
+        implements IndexHrefRenderer<Root>, HeaderHrefRenderer<Root> {
     /** Logger. */
     private final Log logger = LogFactory.getLog(getClass());
 
