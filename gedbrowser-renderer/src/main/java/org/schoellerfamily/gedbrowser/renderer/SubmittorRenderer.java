@@ -7,7 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Submittor;
  *
  * @author Dick Schoeller
  */
-public final class SubmittorRenderer extends GedRenderer<Submittor> {
+public final class SubmittorRenderer extends GedRenderer<Submittor> implements
+        IndexHrefRenderer<Submittor>, AttributesRenderer<Submittor>,
+        HeaderHrefRenderer<Submittor> {
     /**
      * @param gedObject the Submittor that we are going to render
      * @param rendererFactory the factory that creates the renderers for the
@@ -18,5 +20,12 @@ public final class SubmittorRenderer extends GedRenderer<Submittor> {
             final GedRendererFactory rendererFactory,
             final RenderingContext renderingContext) {
         super(gedObject, rendererFactory, renderingContext);
+    }
+
+    /**
+     * @return the ID string of the person.
+     */
+    public String getIdString() {
+        return getGedObject().getString();
     }
 }

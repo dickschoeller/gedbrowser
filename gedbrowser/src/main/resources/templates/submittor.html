@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="'Submittor: ' + ${model.idString} + ' - ' + ${model.gedObject.name}">GedBrowser Source</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
+</head>
+<body>
+    <div th:replace="fragments/header :: menubar">&nbsp;</div>
+
+    <div class="outer">
+    <div class="middle">
+    <div class="inner">
+
+    <div th:if="${not model.getAttributes().isEmpty()}">
+        <hr class="attributes"/>
+        <h3 class="attributes" th:text="'Submittor: ' + ${model.idString}"></h3>
+        <ul>
+            <li th:each="attribute : ${model.getAttributes()}" th:utext="${attribute.listItemContents}"></li>
+        </ul>
+    </div>
+
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+
+    </div>
+    </div>
+    </div>
+
+<!-- anywhere in your document: -->
+<form th:action="@{logout}" id="logoutForm">
+  <!-- csrf hidden input included automagically -->
+</form>
+
+</body>
+</html>

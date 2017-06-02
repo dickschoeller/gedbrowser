@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-public class SourceControllerTest {
+public class SubmittorControllerTest {
     /**
      * Not sure what this is good for.
      */
@@ -37,39 +37,13 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testSourceControllerS33750() {
+    public final void testSubmittorControllerU1() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser/source?db=gl120368&id=S33750";
+                + "/gedbrowser/submittor?db=gl120368&id=U1";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Source: S33750 - ");
-    }
-
-    /** */
-    @Test
-    public final void testSourceControllerBadDataSet() {
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(
-                        "http://localhost:" + port
-                                + "/gedbrowser/source?db=XYZZY&id=S33750",
-                        String.class);
-
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        then(entity.getBody()).contains("Data set not found");
-    }
-
-    /** */
-    @Test
-    public final void testSourceControllerBadSource() {
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(
-                        "http://localhost:" + port
-                                + "/gedbrowser/source?db=gl120368&id=XYZZY",
-                        String.class);
-
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        then(entity.getBody()).contains("Source not found");
+        then(entity.getBody()).contains("<title>Submittor: U1 - Phil Williams");
     }
 }
