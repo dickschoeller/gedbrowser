@@ -28,17 +28,15 @@ public interface AttributesRenderer<T extends GedObject> {
      * @return the list of attribute renderers.
      */
     default List<GedRenderer<?>> getAttributes() {
-        final List<GedRenderer<?>> rendererList =
-                new ArrayList<GedRenderer<?>>();
-        final T head = getGedObject();
-        for (final GedObject attribute : head.getAttributes()) {
-            final GedRenderer<?> attributeRenderer =
-                    createGedRenderer(attribute);
-            if (!attributeRenderer.getListItemContents().isEmpty()) {
-                rendererList.add(attributeRenderer);
+        final List<GedRenderer<?>> list = new ArrayList<GedRenderer<?>>();
+        final T gob = getGedObject();
+        for (final GedObject attribute : gob.getAttributes()) {
+            final GedRenderer<?> renderer = createGedRenderer(attribute);
+            if (!renderer.getListItemContents().isEmpty()) {
+                list.add(renderer);
             }
         }
-        return rendererList;
+        return list;
     }
 
 }
