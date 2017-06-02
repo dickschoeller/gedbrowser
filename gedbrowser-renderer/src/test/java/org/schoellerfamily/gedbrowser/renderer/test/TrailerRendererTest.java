@@ -98,9 +98,7 @@ public final class TrailerRendererTest {
      * @return the renderer
      */
     private TrailerRenderer createRenderer() {
-        final TrailerRenderer renderer = new TrailerRenderer(
-                new Trailer(null, "Trailer"), new GedRendererFactory(),
-                anonymousContext);
-        return renderer;
+        return new TrailerRenderer(new Trailer(null, "Trailer"),
+                new GedRendererFactory(), anonymousContext);
     }
 }

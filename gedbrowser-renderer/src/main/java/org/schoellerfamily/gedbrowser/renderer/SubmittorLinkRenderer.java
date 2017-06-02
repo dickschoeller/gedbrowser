@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 
 /**
@@ -22,21 +21,15 @@ public final class SubmittorLinkRenderer extends
         super(gedObject, rendererFactory, renderingContext);
         setListItemRenderer(new SubmittorLinkListItemRenderer(this));
         setPhraseRenderer(new SubmittorLinkPhraseRenderer(this));
+        setNameHtmlRenderer(new SubmittorLinkNameHtmlRenderer(this));
     }
 
     /**
      * Build the name string.
      *
-     * @param toLink
-     *            The Submittor that the link points to
      * @return The name of the linked submittor
      */
-    String getNameString(final Submittor toLink) {
-        final SubmittorLink submittorLink = getGedObject();
-        if (toLink == null || toLink.getName() == null
-                || !toLink.getName().isSet()) {
-            return GedRenderer.escapeString(submittorLink.getToString());
-        }
-        return GedRenderer.escapeString(toLink.getName().getString());
+    String getNameString() {
+        return this.getNameHtml();
     }
 }
