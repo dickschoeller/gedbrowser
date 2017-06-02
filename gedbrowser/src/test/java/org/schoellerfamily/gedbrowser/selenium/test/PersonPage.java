@@ -638,9 +638,8 @@ public final class PersonPage extends PageBase {
      * @return the web element for the a tag inside the mother element
      */
     private WebElement getChild(final int familyIndex, final int childIndex) {
-        final WebElement childId = getWebElement(
+        return getWebElement(
                 By.id("family-" + familyIndex + "-child-" + childIndex));
-        return childId;
     }
 
     /**
