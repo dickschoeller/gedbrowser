@@ -16,7 +16,6 @@
         <hr class="attributes"/>
         <h3 class="attributes" th:text="'Submittor: ' + ${model.idString}"></h3>
         <ul>
-            <!-- FIXME utext is necessary because many listItemContents variants contain HTML formatting -->
             <li th:each="attribute : ${model.getAttributes()}" th:utext="${attribute.listItemContents}"></li>
         </ul>
     </div>
