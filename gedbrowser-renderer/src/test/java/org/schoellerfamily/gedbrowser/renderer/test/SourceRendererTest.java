@@ -112,10 +112,8 @@ public final class SourceRendererTest {
      * @return the renderer
      */
     private SourceRenderer createRenderer() {
-        final SourceRenderer renderer = new SourceRenderer(
-                new Source(null, new ObjectId("S1")), new GedRendererFactory(),
-                anonymousContext);
-        return renderer;
+        return new SourceRenderer(new Source(null, new ObjectId("S1")),
+                new GedRendererFactory(), anonymousContext);
     }
 
     /**

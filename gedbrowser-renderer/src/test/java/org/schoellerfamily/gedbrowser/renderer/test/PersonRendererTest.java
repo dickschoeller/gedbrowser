@@ -597,10 +597,8 @@ public final class PersonRendererTest {
     private PersonRenderer createRenderer() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I1");
-        final PersonRenderer renderer = new PersonRenderer(
-                person, new GedRendererFactory(),
+        return new PersonRenderer(person, new GedRendererFactory(),
                 userContext);
-        return renderer;
     }
 
     /**

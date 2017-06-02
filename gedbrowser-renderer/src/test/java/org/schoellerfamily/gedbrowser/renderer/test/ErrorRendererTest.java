@@ -225,8 +225,7 @@ public class ErrorRendererTest {
      */
     private static String getDateString() {
         final java.util.Date javaDate = new java.util.Date();
-        final String timeString = DateFormat.getDateInstance(DateFormat.LONG,
-                Locale.getDefault()).format(javaDate);
-        return timeString;
+        return DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault())
+                .format(javaDate);
     }
 }

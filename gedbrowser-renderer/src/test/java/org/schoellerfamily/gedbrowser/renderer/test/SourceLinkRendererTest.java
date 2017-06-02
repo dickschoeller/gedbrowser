@@ -102,9 +102,7 @@ public final class SourceLinkRendererTest {
      * @return the renderer
      */
     private SourceLinkRenderer createRenderer() {
-        final SourceLinkRenderer renderer = new SourceLinkRenderer(
-                new SourceLink(), new GedRendererFactory(),
-                anonymousContext);
-        return renderer;
+        return new SourceLinkRenderer(new SourceLink(),
+                new GedRendererFactory(), anonymousContext);
     }
 }

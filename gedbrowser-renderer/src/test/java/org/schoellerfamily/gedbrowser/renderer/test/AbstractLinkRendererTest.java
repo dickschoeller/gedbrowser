@@ -103,12 +103,9 @@ public final class AbstractLinkRendererTest {
      * @return the renderer
      */
     private AbstractLinkRenderer<?> createRenderer() {
-        final AbstractLinkRenderer<?> renderer =
-                new AbstractLinkRenderer<AbstractLink>(createAbstractLink(),
-                        new GedRendererFactory(),
-                        anonymousContext) {
+        return new AbstractLinkRenderer<AbstractLink>(createAbstractLink(),
+                new GedRendererFactory(), anonymousContext) {
         };
-        return renderer;
     }
 
     /**
