@@ -1,9 +1,5 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 
 /**
@@ -23,25 +19,5 @@ public final class HeadRenderer extends GedRenderer<Head>
             final GedRendererFactory rendererFactory,
             final RenderingContext renderingContext) {
         super(gedObject, rendererFactory, renderingContext);
-    }
-
-
-    /**
-     * Return the list of renderers that can be rendered in a list format.
-     *
-     * @return the list of attribute renderers.
-     */
-    public List<GedRenderer<?>> getAttributes() {
-        final List<GedRenderer<?>> rendererList =
-                new ArrayList<GedRenderer<?>>();
-        final Head head = getGedObject();
-        for (final GedObject attribute : head.getAttributes()) {
-            final GedRenderer<?> attributeRenderer =
-                    createGedRenderer(attribute);
-            if (!attributeRenderer.getListItemContents().isEmpty()) {
-                rendererList.add(attributeRenderer);
-            }
-        }
-        return rendererList;
     }
 }
