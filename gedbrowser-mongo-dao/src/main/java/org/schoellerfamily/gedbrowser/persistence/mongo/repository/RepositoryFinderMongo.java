@@ -228,13 +228,10 @@ public final class RepositoryFinderMongo
         if (repo == null) {
             return null;
         }
-        final Root root = (Root) owner;
-        final RootDocumentMongo rootDocument =
-                (RootDocumentMongo) toDocConverter.createGedDocument(root);
-        final Iterable<? extends GedDocument<?>> iterable =
-                repo.findAll(rootDocument);
+        final RootDocumentMongo rootDocument = (RootDocumentMongo)
+                toDocConverter.createGedDocument((Root) owner);
         final Collection<T> matches = new ArrayList<>();
-        for (final GedDocument<?> document : iterable) {
+        for (final GedDocument<?> document : repo.findAll(rootDocument)) {
             matches.add((T) document.getGedObject());
         }
         logger.info("Ending find all of type");
