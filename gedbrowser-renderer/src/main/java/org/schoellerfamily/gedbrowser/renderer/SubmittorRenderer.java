@@ -9,7 +9,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Submittor;
  */
 public final class SubmittorRenderer extends GedRenderer<Submittor> implements
         IndexHrefRenderer<Submittor>, AttributesRenderer<Submittor>,
-        HeaderHrefRenderer<Submittor> {
+        HeaderHrefRenderer<Submittor>, SubmittorsHrefRenderer<Submittor> {
     /**
      * @param gedObject the Submittor that we are going to render
      * @param rendererFactory the factory that creates the renderers for the
@@ -20,6 +20,8 @@ public final class SubmittorRenderer extends GedRenderer<Submittor> implements
             final GedRendererFactory rendererFactory,
             final RenderingContext renderingContext) {
         super(gedObject, rendererFactory, renderingContext);
+        setNameHtmlRenderer(new SubmittorNameHtmlRenderer(this));
+        setNameIndexRenderer(new SubmittorNameIndexRenderer(this));
     }
 
     /**

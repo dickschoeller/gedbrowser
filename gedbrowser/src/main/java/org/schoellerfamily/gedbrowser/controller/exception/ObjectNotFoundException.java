@@ -64,6 +64,13 @@ public class ObjectNotFoundException extends RuntimeException {
     }
 
     /**
+     * @return href string to the index page for surnames beginning with A.
+     */
+    public String getSubmittorsHref() {
+        return "submittors?db=" + datasetName;
+    }
+
+    /**
      * Check if the user has a particular role.
      *
      * @param role role that we are looking for

@@ -127,4 +127,20 @@ public final class RootFinder implements FinderStrategy {
         }
         return matches;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public <T extends GedObject> Collection<T> find(final FinderObject owner,
+            final Class<T> clazz) {
+        final Root root = (Root) owner;
+        final Collection<T> results = new ArrayList<>();
+        for (final GedObject gob : root.getObjects().values()) {
+            if (gob.getClass().equals(clazz)) {
+                results.add(clazz.cast(gob));
+            }
+        }
+        return results;
+    }
 }

@@ -211,4 +211,33 @@ public final class RepositoryFinderMongo
         logger.info("Ending findSurnameInitialLetters");
         return matches;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T extends GedObject> Collection<T> find(final FinderObject owner,
+            final Class<T> clazz) {
+        logger.info("Starting find all of type");
+        if (!(owner instanceof Root)) {
+            throw new IllegalArgumentException("Owner must be root");
+        }
+        final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
+            repo = repositoryManager.getRepoMap().get(clazz);
+        if (repo == null) {
+            return null;
+        }
+        final Root root = (Root) owner;
+        final RootDocumentMongo rootDocument =
+                (RootDocumentMongo) toDocConverter.createGedDocument(root);
+        final Iterable<? extends GedDocument<?>> iterable =
+                repo.findAll(rootDocument);
+        final Collection<T> matches = new ArrayList<>();
+        for (final GedDocument<?> document : iterable) {
+            matches.add((T) document.getGedObject());
+        }
+        logger.info("Ending find all of type");
+        return matches;
+    }
 }
