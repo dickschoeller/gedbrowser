@@ -65,4 +65,15 @@ public interface FinderStrategy {
      * @return a collection of initial letters
      */
     Collection<String> findSurnameInitialLetters(FinderObject owner);
+
+    /**
+     * Find all of the objects of a given type in the context.
+     *
+     * @param <T> the type of object that we are searching for
+     * @param owner the GedObject in whose context we are searching
+     * @param clazz class object of the type we are searching for
+     * @return a collection of objects of that type
+     */
+    <T extends GedObject> Collection<T> find(FinderObject owner,
+            Class<T> clazz);
 }

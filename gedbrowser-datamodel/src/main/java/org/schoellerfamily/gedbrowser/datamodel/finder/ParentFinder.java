@@ -84,4 +84,13 @@ public final class ParentFinder implements FinderStrategy {
             final FinderObject owner) {
         return owner.findInParentSurnameInitialLetters();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public <T extends GedObject> Collection<T> find(final FinderObject owner,
+            final Class<T> clazz) {
+        return owner.findInParent(clazz);
+    }
 }

@@ -8,11 +8,11 @@ import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
-import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
-import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
+import org.schoellerfamily.gedbrowser.renderer.SubmittorNameHtmlRenderer;
+import org.schoellerfamily.gedbrowser.renderer.SubmittorNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +71,7 @@ public final class SubmittorRendererTest {
         final SubmittorRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
-                instanceof NullNameHtmlRenderer);
+                instanceof SubmittorNameHtmlRenderer);
     }
 
     /**
@@ -83,7 +83,7 @@ public final class SubmittorRendererTest {
         final SubmittorRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
-                instanceof NullNameIndexRenderer);
+                instanceof SubmittorNameIndexRenderer);
     }
 
     /**

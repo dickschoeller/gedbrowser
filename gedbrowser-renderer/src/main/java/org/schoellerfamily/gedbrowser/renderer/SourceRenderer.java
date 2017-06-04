@@ -13,7 +13,8 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.SourceVisitor;
  * @author Dick Schoeller
  */
 public final class SourceRenderer extends GedRenderer<Source>
-        implements IndexHrefRenderer<Source>, HeaderHrefRenderer<Source> {
+        implements IndexHrefRenderer<Source>, HeaderHrefRenderer<Source>,
+        SubmittorsHrefRenderer<Source> {
     /**
      * @param gedObject the Source that we are going to render
      * @param rendererFactory the factory that creates the renderers for the
