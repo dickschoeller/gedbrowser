@@ -49,6 +49,7 @@ public final class RenderingContext
         user2.setFirstname("Al");
         user2.setLastname("Anonymous");
         user2.clearRoles();
+        user2.setEmail("anon@gmail.com");
         return new RenderingContext(user2, appInfo, provider);
     }
 
