@@ -15,43 +15,71 @@ role to see living people.
 | Master | [![Build Status](https://api.travis-ci.org/dickschoeller/gedbrowser.svg?branch=master)](https://travis-ci.org/dickschoeller/gedbrowser) | [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=master)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=master) |
 | Development | [![Build Status](https://api.travis-ci.org/dickschoeller/gedbrowser.svg?branch=development)](https://travis-ci.org/dickschoeller/gedbrowser) | [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=development)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=development) | [![Code Climate](https://codeclimate.com/github/dickschoeller/gedbrowser/badges/gpa.svg)](https://codeclimate.com/github/dickschoeller/gedbrowser) | [![codebeat badge](https://codebeat.co/badges/0a10c645-cc88-4f2f-9058-df89e8dc408f)](https://codebeat.co/projects/github-com-dickschoeller-gedbrowser-development) | [![Dependency Status](https://www.versioneye.com/user/projects/58987dc1f55eb2003257f7bd/badge.svg)](https://www.versioneye.com/user/projects/58987dc1f55eb2003257f7bd) | [![Build Status](https://saucelabs.com/buildstatus/dickschoeller)](https://saucelabs.com/open_sauce/user/dickschoeller) |
 
-## Getting started
+## Installing
+
+The easist way to run is to directly run the Docker images.
+
+Running with Docker requires running the MongoDB with Docker. The following commands allow you to do this without conflicting ports with a native MongoDB service. Note that these commands will conflict with a running native Tomcat server. Naturally, in order to this you have to install Docker.
+
+The following steps follow after installing Docker and verifying that the service is running.
+
+### Create data directory for mongodb
+```
+mkdir ~/data
+```
+### Create home directory for gedbrowser
+```
+mkdir /var/lib/gedbrowser
+```
+### Put data files in home directory
+```
+cp *.ged /var/lib/gedbrowser
+```
+### Prepare Google Geocoding and Google Maps Keys
+
+You will have to go over to Google's developer site and get your own keys.
+```
+cat YOURGEOCODINGKEY > /var/lib/gedbrowser/google-geocoding-key
+cat YOURGOOGLEMAPKEY >> /var/lib/gedbrowser/google-geocoding-key
+```
+### Prepare your user file
+
+The file sits in the gedbrowser home directory and is called userFile.csv. The format is:<br/>
+username,first name,last name,email,password,role,role,...<br/>
+The supported roles are USER and ADMIN.
+```
+emacs /var/lib/gedbrowser/userFile.csv
+```
+### Assign environment variables
+```
+export DATA_DIR=~/data
+export GEDBROWSER_HOME=/var/lib/gedbrowser
+```
+### Run the 3 required applications
+
+You start with MongoDB, then geoservice and then gedbrowser.
+```
+docker run --rm -v ${DATA_DIR}:/data/db --name mongo -p 28001.2.1-SNAPSHOT17 -d mongo
+docker run --link mongo:mongo -v ${GEDBROWSER_HOME}:/var/lib/gedbrowser -p  8086:8080 -p 8087:8081 --name geoservice -d dickschoeller/geoservice
+docker run --link geoservice:geoservice --link mongo:mongo -v ${GEDBROWSER_HOME}:/var/lib/gedbrowser -p 8080:8080 -p 8081:8081 --name gedbrowser -d dickschoeller/gedbrowser
+```
+Once this is complete, gedbrowser should be up and running and reachable at port 8080 from your browser. See Docker documentation to change ports or to distribute the services across different hosts. See your webrowser documentation if you intend to run this behind a webserver.
+
+As users refer to each of the GEDCOM files, they will be loaded into your instance of MongoDB. Subsequent access will be from the database and not from the GEDCOM file. There is a reload function on the management port if you wish to reset the database from the files.
+
+## Getting started developing
 
 * Prerequisistes are a JDK, Maven, Git, and MongoDB
-  * Optional Docker, which can be used to get MongoDB
-* Clone this repository
+  * Optional Docker, which can be used to get MongoDB as well as to run gedbrowsser
+  * IDE of your choice. We prefer [Eclipse](https://eclipse.org).
+* Follow the installation instruction regarding preparing the gedbrowser home directory
+* Clone this repository and cd into it
 * From the top 'mvn clean install'
-* Place GEDCOM files in /var/lib/gedbrowser
-* Create /var/lib/gedbrowser/userFile.csv rows are:
-  username,firstname,lastname,email,password,role,role...
-* java -jar gedbrowser/target/gedbrowser-1.2.1-SNAPSHOT.jar
+* java -jar gedbrowser/target/gedbrowser-1.2.1-SNAPSHOT.jar or run from your IDE
 
-Running with Docker requires running the MongoDB with Docker. The following
-commands allow you to do this without conflicting ports with a native mongod
-service. Note that these commands will conflict with a running native Tomcat
-server.
+The location of gedbrowser.home defaults to /var/lib/gedbrowser. However that can be adjusted in the file application.yml. When running in Docker the data file can be redirected where you want from the run command.
 
-* Create data directory for mongodb and home directory for gedbrowser
-* Put data files in home directory
-  * Any GEDCOM files that you want to display
-  * google-geocoding-key - file should contain your geocoding and mapping keys
-    on 2 separate lines
-  * userFile.csv - format is: username,first name,last
-    name,email,password,role,role,... - supported roles are USER and ADMIN
-* export DATA_DIR=&lt;your data directory&gt;
-* export GEDBROWSER_HOME=&lt;your gedbrowser home&gt;
-* docker run --rm -v ${DATA_DIR}:/data/db --name mongo -p 28001.2.1-SNAPSHOT17 -d mongo
-* docker run --link mongo:mongo -v ${GEDBROWSER_HOME}:/var/lib/gedbrowser -p
-  8086:8080 -p 8087:8081 --name geoservice -d dickschoeller/geoservice
-* docker run --link geoservice:geoservice --link mongo:mongo -v
-  ${GEDBROWSER_HOME}:/var/lib/gedbrowser -p 8080:8080 -p 8081:8081 --name
-  gedbrowser -d dickschoeller/gedbrowser
-
-As each GEDCOM file is referred to, it will be loaded into your instance of
-MongoDB. More explicit management of data loading is planned for the future.
-
-The location of gedbrowser.home defaults to /var/lib/gedbrowser. However that
-can be adjusted in the file application.yml.
+You are now ready to try making changes and pull requests. :smile:
 
 ## Tooling and Development Operations
 
