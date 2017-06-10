@@ -100,7 +100,7 @@ public abstract class RenderingContextRenderer implements Renderer {
      * @param input unescaped string.
      * @return the escaped string.
      */
-    protected static final String escapeString(final String input) {
+    public static final String escapeString(final String input) {
         return input.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
                 .replaceAll(">", "&gt;").replaceAll("\n", "<br/>\n");
     }
@@ -112,7 +112,7 @@ public abstract class RenderingContextRenderer implements Renderer {
      * @param input unescaped string.
      * @return the escaped string.
      */
-    protected static final String escapeString(final String delimiter,
+    public static final String escapeString(final String delimiter,
             final String input) {
         final String escaped = escapeString(input);
         if (escaped.isEmpty()) {
@@ -127,7 +127,7 @@ public abstract class RenderingContextRenderer implements Renderer {
      * @param gedObject the object whose string we are going to escape.
      * @return the escaped string.
      */
-    protected static final String escapeString(final GedObject gedObject) {
+    public static final String escapeString(final GedObject gedObject) {
         return escapeString(gedObject.getString());
     }
 }
