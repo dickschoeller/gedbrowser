@@ -69,7 +69,7 @@ As users refer to each of the GEDCOM files, they will be loaded into your instan
 
 ## Getting started developing
 
-* Prerequisistes are a JDK, Maven, Git, and MongoDB
+* Prerequisites are a JDK, Maven, Git, and MongoDB
   * Optional Docker, which can be used to get MongoDB as well as to run gedbrowsser
   * IDE of your choice. We prefer [Eclipse](https://eclipse.org).
 * Follow the installation instruction regarding preparing the gedbrowser home directory
