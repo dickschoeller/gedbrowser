@@ -33,7 +33,7 @@ public final class TestDataReader {
             "2 TIME 22:04",
             "1 CHAR ANSI",
             "0 @SUB1@ SUBM",
-            "1 NAME Richard Schoeller",
+            "1 NAME Richard/Schoeller/",
             "1 ADDR 242 Marked Tree Road",
             "2 CONT Needham, MA 02492",
             "1 PHON 781.449.5476",
