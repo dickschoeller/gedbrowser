@@ -53,38 +53,9 @@ MongoDB. More explicit management of data loading is planned for the future.
 The location of gedbrowser.home defaults to /var/lib/gedbrowser. However that
 can be adjusted in the file application.yml.
 
-## Tooling
+## Tooling and Development Operations
 
-* ![](images/overvio.png)
-  [Overv.io](https://overv.io/dickschoeller/gedbrowser/)
-  task board
-* ![](images/jenkins-25.png)
-  [Jenkins](http://www.schoellerfamily.org/jenkins/)
-  builds
-* ![](images/travis-ci-25.png)
-  [Travis CI](https://travis-ci.org/dickschoeller/gedbrowser)
-  builds
-* ![](images/codeclimate-25.png)
-  [Code Climate](https://codeclimate.com/github/dickschoeller/gedbrowser)
-  static code analysis
-* ![](images/codebeat-25.png)
-  [Codebeat](https://codebeat.co/projects/github-com-dickschoeller-gedbrowser-development)
-  static code analysis
-* ![](images/coveralls-25.png)
-  [Coveralls](https://coveralls.io/github/dickschoeller/gedbrowser)
-  coverage analysis
-* ![](images/saucelabs-25.png)
-  [Sauce Labs](https://saucelabs.com/open_sauce/user/dickschoeller)
-  cross-browser testing
-* ![](images/versioneye-25.png)
-  [VersionEye](https://www.versioneye.com/user/projects/58987dc1f55eb2003257f7bd?child=summary#tab-dependencies)
-  dependency analysis
-* ![](images/docker-25.png)
-  [Docker Hub](https://hub.docker.com/r/dickschoeller/)
-  docker image repository
-* ![](images/nexus-25.png)
-  [OSS Nexus Repository](https://oss.sonatype.org/)
-  Java build artifact repository
+We are big fans of DevOps, tooling to automate as many processes as can be done. Take a look at our [Development Operations](https://github.com/dickschoeller/gedbrowser/wiki/Development-Operations) wiki page to get an idea of what tools we are using, where we stand on their use and some ideas of how much further we have to go.
 
 ## Technology
 
