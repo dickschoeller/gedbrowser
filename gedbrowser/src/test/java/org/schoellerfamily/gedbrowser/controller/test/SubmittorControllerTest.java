@@ -44,6 +44,38 @@ public class SubmittorControllerTest {
                 testRestTemplate.getForEntity(url, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Submittor: U1 - Phil Williams");
+        then(entity.getBody()).contains("<title>Submittor: U1"
+                + " - Phil Williams");
+    }
+
+    /** */
+    @Test
+    public final void testSubmittorControllerU2() {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser/submittor?db=gl120368&id=U2";
+        final ResponseEntity<String> entity =
+                testRestTemplate.getForEntity(url, String.class);
+
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(entity.getBody()).contains("<title>Submittor: U2"
+                + " - Arthur /PUNCHARD/")
+            .contains("Name:</span> Arthur  PUNCHARD")
+            .contains("Changed:</span> 24 MAR 2007");
+    }
+
+    /** */
+    @Test
+    public final void testSubmittorControllerU4() {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser/submittor?db=gl120368&id=U4";
+        final ResponseEntity<String> entity =
+                testRestTemplate.getForEntity(url, String.class);
+
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(entity.getBody()).contains("<title>Submittor: U4"
+                + " - Created by FamilySearch")
+            .contains("Name:</span> Created by FamilySearch")
+            .contains("Address:</span> 50 East North Temple Street<br/>")
+            .contains("Salt Lake City, Utah 84150");
     }
 }
