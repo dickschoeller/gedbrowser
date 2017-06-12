@@ -59,7 +59,7 @@ public class HeadControllerTest {
     @Test
     public final void testHeadControllerSchoeller() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser/head?db=schoeller";
+                + "/gedbrowser/head?db=mini-schoeller";
         final ResponseEntity<String> entity = testRestTemplate.getForEntity(url,
                 String.class);
 
@@ -67,9 +67,10 @@ public class HeadControllerTest {
         then(entity.getBody())
             .contains("<title>Header</title>")
             .contains("Submittor:</span> <a class=\"name\""
-                    + " href=\"submittor?db=schoeller&amp;id=SUB1\">Richard"
-                    + " <span class=\"surname\">Schoeller</span> [SUB1]</a>")
-            .contains("GEDCOM:</span> 5.5.1, LINEAGE-LINKED")
+                    + " href=\"submittor?db=mini-schoeller&amp;"
+                    + "id=SUB1\">Richard <span class=\"surname\">"
+                    + "Schoeller</span> [SUB1]</a>")
+            .contains("GEDCOM:</span> 5.5, LINEAGE-LINKED")
             .contains("Destination:</span> GED55")
             .contains("Character Set:</span> ANSI");
     }
