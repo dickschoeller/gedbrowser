@@ -40,8 +40,8 @@ public class HeadControllerTest {
     public final void testHeadController() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser/head?db=gl120368";
-        final ResponseEntity<String> entity = testRestTemplate.getForEntity(url,
-                String.class);
+        final ResponseEntity<String> entity =
+                testRestTemplate.getForEntity(url, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody())
@@ -60,8 +60,8 @@ public class HeadControllerTest {
     public final void testHeadControllerSchoeller() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser/head?db=mini-schoeller";
-        final ResponseEntity<String> entity = testRestTemplate.getForEntity(url,
-                String.class);
+        final ResponseEntity<String> entity =
+                testRestTemplate.getForEntity(url, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody())
