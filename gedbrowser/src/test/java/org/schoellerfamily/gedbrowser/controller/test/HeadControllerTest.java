@@ -70,8 +70,8 @@ public class HeadControllerTest {
                     + " href=\"submittor?db=mini-schoeller&amp;"
                     + "id=SUB1\">Richard <span class=\"surname\">"
                     + "Schoeller</span> [SUB1]</a>")
-            .contains("GEDCOM:</span> 5.5, LINEAGE-LINKED")
+            .contains("GEDCOM:</span> 5.5.1, LINEAGE-LINKED")
             .contains("Destination:</span> GED55")
-            .contains("Character Set:</span> ANSI");
+            .contains("Character Set:</span> UTF-8");
     }
 }
