@@ -39,6 +39,7 @@ before_install:
   - mkdir /home/travis/data
   - mkdir /home/travis/gedbrowser
   - cp $(find . -name 'gl120368.ged' | head -n 1) /home/travis/gedbrowser
+  - cp $(find . -name 'mini-schoeller.ged' | head -n 1) /home/travis/gedbrowser
   - cp $(find . -name 'testUserFile.csv' | head -n 1) /home/travis/gedbrowser
   - echo $GOOGLE_GEOCODING_KEY > /home/travis/gedbrowser/google-geocoding-key
   - echo $GOOGLE_MAPPING_KEY >> /home/travis/gedbrowser/google-geocoding-key

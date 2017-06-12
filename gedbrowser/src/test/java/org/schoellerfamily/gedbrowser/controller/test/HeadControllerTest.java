@@ -40,11 +40,38 @@ public class HeadControllerTest {
     public final void testHeadController() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser/head?db=gl120368";
-        final ResponseEntity<String> entity = testRestTemplate.getForEntity(url,
-                String.class);
+        final ResponseEntity<String> entity =
+                testRestTemplate.getForEntity(url, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-//        then(entity.getBody()).contains(
-//                "<title>Person: I4 - Living </title>");
+        then(entity.getBody())
+            .contains("<title>Header</title>")
+            .contains("File:</span> C:\\Users\\Phil\\Documents\\W0803.GED")
+            .contains("GEDCOM:</span> 5.5, LINEAGE-LINKED")
+            .contains("Character Set:</span> ANSI")
+            .contains("Destination:</span> FTM")
+            .contains("Submittor:</span> <a class=\"name\""
+                    + " href=\"submittor?db=gl120368&amp;id=U1\">Phil Williams"
+                    + " <span class=\"surname\">?</span> [U1]</a>");
+    }
+
+    /** */
+    @Test
+    public final void testHeadControllerSchoeller() {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser/head?db=mini-schoeller";
+        final ResponseEntity<String> entity =
+                testRestTemplate.getForEntity(url, String.class);
+
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(entity.getBody())
+            .contains("<title>Header</title>")
+            .contains("Submittor:</span> <a class=\"name\""
+                    + " href=\"submittor?db=mini-schoeller&amp;"
+                    + "id=SUB1\">Richard <span class=\"surname\">"
+                    + "Schoeller</span> [SUB1]</a>")
+            .contains("GEDCOM:</span> 5.5.1, LINEAGE-LINKED")
+            .contains("Destination:</span> GED55")
+            .contains("Character Set:</span> UTF-8");
     }
 }
