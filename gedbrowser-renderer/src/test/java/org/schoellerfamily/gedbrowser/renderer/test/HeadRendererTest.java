@@ -1,11 +1,18 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
+import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.HeadRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
@@ -25,6 +32,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class HeadRendererTest {
+    /** */
+    @Autowired
+    private transient TestDataReader reader;
+
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -101,5 +112,21 @@ public final class HeadRendererTest {
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
+    }
+
+    /**
+     * Simple test from a data file.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testHeadRenderer() throws IOException {
+        final Root root = reader.readBigTestSource();
+        final Head head = root.find("Header", Head.class);
+        final HeadRenderer renderer = new HeadRenderer(head,
+                new GedRendererFactory(), anonymousContext);
+        final List<GedRenderer<?>> attrRenderers = renderer.getAttributes();
+        final int expected = 6;
+        assertEquals("should not be empty", expected, attrRenderers.size());
     }
 }
