@@ -1,11 +1,13 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
@@ -96,6 +98,30 @@ public final class SubmittorRendererTest {
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof NullPhraseRenderer);
+    }
+
+    /**
+     * Test that we are using the appropriate sub-renderers.
+     * We will test the sub-renderers directly.
+     */
+    @Test
+    public void testIdString() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Submittor submittor = builder.createSubmittor("S1",
+                "Richard John/Schoeller/");
+        final SubmittorRenderer renderer = new SubmittorRenderer(submittor,
+                new GedRendererFactory(), anonymousContext);
+        assertEquals("Submittor ID mismatch", "S1", renderer.getIdString());
+    }
+
+    /**
+     * Test that we are using the appropriate sub-renderers.
+     * We will test the sub-renderers directly.
+     */
+    @Test
+    public void testNullIdString() {
+        final SubmittorRenderer renderer = createRenderer();
+        assertEquals("Expected empty submittor ID", "", renderer.getIdString());
     }
 
     /**
