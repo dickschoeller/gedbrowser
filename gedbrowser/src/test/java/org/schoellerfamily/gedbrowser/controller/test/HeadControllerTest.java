@@ -45,7 +45,7 @@ public class HeadControllerTest {
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody())
-            .contains("<title>Header</title>")
+            .contains("<title>Header - gl120368</title>")
             .contains("File:</span> C:\\Users\\Phil\\Documents\\W0803.GED")
             .contains("GEDCOM:</span> 5.5, LINEAGE-LINKED")
             .contains("Character Set:</span> ANSI")
@@ -65,7 +65,7 @@ public class HeadControllerTest {
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody())
-            .contains("<title>Header</title>")
+            .contains("<title>Header - mini-schoeller</title>")
             .contains("Submittor:</span> <a class=\"name\""
                     + " href=\"submittor?db=mini-schoeller&amp;"
                     + "id=SUB1\">Richard <span class=\"surname\">"

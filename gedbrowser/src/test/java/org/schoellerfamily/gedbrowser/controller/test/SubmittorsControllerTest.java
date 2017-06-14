@@ -44,7 +44,7 @@ public class SubmittorsControllerTest {
                 String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Submittors</title>")
+        then(entity.getBody()).contains("<title>Submittors - gl120368</title>")
             .contains("Submittors for dataset: gl120368</h2>")
             .contains("href=\"submittor?db=gl120368&amp;id=U1\">Phil Williams")
             .contains("href=\"submittor?db=gl120368&amp;id=U3\"> ")

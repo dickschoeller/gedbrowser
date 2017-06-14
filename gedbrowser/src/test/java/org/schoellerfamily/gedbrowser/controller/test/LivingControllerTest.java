@@ -45,7 +45,7 @@ public class LivingControllerTest {
                 String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Living</title>");
+        then(entity.getBody()).contains("<title>Living - gl120368</title>");
     }
 
     /** */

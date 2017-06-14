@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Submittors</title>
+    <title
+     th:utext="'Submittors - ' + ${model.gedObject.dbName}">Submittors
+     - schoeller</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
 </head>
@@ -13,8 +15,8 @@
     <div class="inner">
 
     <h2 class="name"
-     th:utext="'Submittors for dataset: ' + ${model.gedObject.dbName}">
-     Submittors for dataset: schoeller</h2>
+     th:utext="'Submittors for dataset: ' + ${model.gedObject.dbName}">Submittors
+     for dataset: schoeller</h2>
 
     <ul>
         <li th:each="submittor : ${model.submittors}"

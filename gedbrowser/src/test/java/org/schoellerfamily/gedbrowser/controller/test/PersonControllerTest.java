@@ -45,7 +45,8 @@ public class PersonControllerTest {
                 String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Person: I4 - Living </title>");
+        then(entity.getBody())
+            .contains("<title>Living  - I4 - gl120368</title>");
     }
 
     /** */
@@ -57,8 +58,9 @@ public class PersonControllerTest {
                 String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Person: I9 -"
-                + " Edwin Elijah A  Williams");
+        then(entity.getBody())
+            .contains("<title>Edwin Elijah A  Williams (13 DEC 1883-ABT AUG "
+                    + "1951) - I9 - gl120368</title>");
     }
 
     /** */

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Surnames</title>
+    <title
+     th:utext="'Index - ' + ${model.base} + ' - ' + ${model.gedObject.dbName}">Index
+     - A - schoeller</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
 </head>
