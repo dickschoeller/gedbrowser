@@ -74,4 +74,15 @@ public class HeadControllerTest {
             .contains("Destination:</span> GED55")
             .contains("Character Set:</span> UTF-8");
     }
+
+    /** */
+    @Test
+    public final void testHeadControllerBadDataSet() {
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port + "/gedbrowser/head?db=XYZZY",
+                String.class);
+
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        then(entity.getBody()).contains("Data set not found");
+    }
 }
