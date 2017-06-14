@@ -28,8 +28,8 @@ public final class PersonPage extends PageBase {
     static {
         EXPECTATIONS_MAP.put("I6",
                 new Expectations(
-                        "Person: I6 - Reginald Amass Williams (25 JAN 1918-2 "
-                        + "FEB 1996)",
+                        "Reginald Amass Williams (25 JAN 1918-2 FEB 1996)"
+                        + " - I6 - gl120368",
                         "I9",
                         "Edwin Elijah A Williams (1883-1951) [I9]",
                         "I15",
@@ -61,8 +61,8 @@ public final class PersonPage extends PageBase {
                 );
         EXPECTATIONS_MAP.put("I9",
                 new Expectations(
-                        "Person: I9 - Edwin Elijah A Williams (13 DEC 1883-AB"
-                        + "T AUG 1951)",
+                        "Edwin Elijah A Williams (13 DEC 1883-ABT AUG 1951)"
+                        + " - I9 - gl120368",
                         "I10",
                         "Thomas Harris Williams (1826-1903) [I10]",
                         "I11",
@@ -95,8 +95,8 @@ public final class PersonPage extends PageBase {
         // "I10"
         EXPECTATIONS_MAP.put("I10",
                 new Expectations(
-                        "Person: I10 - Thomas Harris Williams (1826-5 NOV 190"
-                        + "3)",
+                        "Thomas Harris Williams (1826-5 NOV 1903) - I10 -"
+                        + " gl120368",
                         "I193",
                         "Thomas Williams (1802-1886) [I193]",
                         "I21",
@@ -107,8 +107,8 @@ public final class PersonPage extends PageBase {
         // "I15"
         EXPECTATIONS_MAP.put("I15",
                 new Expectations(
-                        "Person: I15 - Ethel Ruth Moore (7 DEC 1893-9 JUL 196"
-                        + "8)",
+                        "Ethel Ruth Moore (7 DEC 1893-9 JUL 1968) - I15 -"
+                        + " gl120368",
                         "I538",
                         "William Moore (1842-1915) [I538]",
                         "I539",
@@ -119,7 +119,8 @@ public final class PersonPage extends PageBase {
         // "I22"
         EXPECTATIONS_MAP.put("I22",
                 new Expectations(
-                        "Person: I22 - John Williams (ABT 1778-ABT AUG 1840)",
+                        "John Williams (ABT 1778-ABT AUG 1840) - I22 -"
+                        + " gl120368",
                         "I372",
                         "George Williams (1751-1810) [I372]",
                         "I373",
@@ -130,8 +131,8 @@ public final class PersonPage extends PageBase {
         // "I193"
         EXPECTATIONS_MAP.put("I193",
                 new Expectations(
-                        "Person: I193 - Thomas Williams (27 MAR 1802-17 JUN 1"
-                        + "886)",
+                        "Thomas Williams (27 MAR 1802-17 JUN 1886) - I193 -"
+                        + " gl120368",
                         "I22",
                         "John Williams (1778-1840) [I22]",
                         "I33",
@@ -164,7 +165,7 @@ public final class PersonPage extends PageBase {
         // "I237"
         EXPECTATIONS_MAP.put("I237",
                 new Expectations(
-                        "Person: I237 - Priscilla COOK (1821-ABT NOV 1886)",
+                        "Priscilla COOK (1821-ABT NOV 1886) - I237 - gl120368",
                         "I617",
                         "James Cook (1801-1877) [I617]",
                         "I616",
@@ -197,7 +198,7 @@ public final class PersonPage extends PageBase {
         // "I539"
         EXPECTATIONS_MAP.put("I539",
                 new Expectations(
-                        "Person: I539 - Emily Francis Hunt (ABT JUN 1860-)",
+                        "Emily Francis Hunt (ABT JUN 1860-) - I539 - gl120368",
                         "I385",
                         "Stephen HUNT (1813-1884) [I385]",
                         "I237",
@@ -230,7 +231,7 @@ public final class PersonPage extends PageBase {
         // "I616"
         EXPECTATIONS_MAP.put("I616",
                 new Expectations(
-                        "Person: I616 - Priscilla DARKINGS (1799-ABT 1856)",
+                        "Priscilla DARKINGS (1799-ABT 1856) - I616 - gl120368",
                         "",
                         "",
                         "",
