@@ -28,7 +28,8 @@ public final class PersonPage extends PageBase {
     static {
         EXPECTATIONS_MAP.put("I6",
                 new Expectations(
-                        "Reginald Amass Williams (25 JAN 1918-2 FEB 1996) - I6 - gl120368",
+                        "Reginald Amass Williams (25 JAN 1918-2 FEB 1996)"
+                        + " - I6 - gl120368",
                         "I9",
                         "Edwin Elijah A Williams (1883-1951) [I9]",
                         "I15",
@@ -60,7 +61,8 @@ public final class PersonPage extends PageBase {
                 );
         EXPECTATIONS_MAP.put("I9",
                 new Expectations(
-                        "Edwin Elijah A Williams (13 DEC 1883-ABT AUG 1951) - I9 - gl120368",
+                        "Edwin Elijah A Williams (13 DEC 1883-ABT AUG 1951)"
+                        + " - I9 - gl120368",
                         "I10",
                         "Thomas Harris Williams (1826-1903) [I10]",
                         "I11",
@@ -93,7 +95,8 @@ public final class PersonPage extends PageBase {
         // "I10"
         EXPECTATIONS_MAP.put("I10",
                 new Expectations(
-                        "Thomas Harris Williams (1826-5 NOV 1903) - I10 - gl120368",
+                        "Thomas Harris Williams (1826-5 NOV 1903) - I10 -"
+                        + " gl120368",
                         "I193",
                         "Thomas Williams (1802-1886) [I193]",
                         "I21",
@@ -104,7 +107,8 @@ public final class PersonPage extends PageBase {
         // "I15"
         EXPECTATIONS_MAP.put("I15",
                 new Expectations(
-                        "Ethel Ruth Moore (7 DEC 1893-9 JUL 1968) - I15 - gl120368",
+                        "Ethel Ruth Moore (7 DEC 1893-9 JUL 1968) - I15 -"
+                        + " gl120368",
                         "I538",
                         "William Moore (1842-1915) [I538]",
                         "I539",
@@ -115,7 +119,8 @@ public final class PersonPage extends PageBase {
         // "I22"
         EXPECTATIONS_MAP.put("I22",
                 new Expectations(
-                        "John Williams (ABT 1778-ABT AUG 1840) - I22 - gl120368",
+                        "John Williams (ABT 1778-ABT AUG 1840) - I22 -"
+                        + " gl120368",
                         "I372",
                         "George Williams (1751-1810) [I372]",
                         "I373",
@@ -126,7 +131,8 @@ public final class PersonPage extends PageBase {
         // "I193"
         EXPECTATIONS_MAP.put("I193",
                 new Expectations(
-                        "Thomas Williams (27 MAR 1802-17 JUN 1886) - I193 - gl120368",
+                        "Thomas Williams (27 MAR 1802-17 JUN 1886) - I193 -"
+                        + " gl120368",
                         "I22",
                         "John Williams (1778-1840) [I22]",
                         "I33",
