@@ -44,8 +44,8 @@ public class SubmittorControllerTest {
                 testRestTemplate.getForEntity(url, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Submittor: U1"
-                + " - Phil Williams");
+        then(entity.getBody())
+            .contains("<title>Phil Williams - U1 - gl120368</title>");
     }
 
     /** */
@@ -57,8 +57,8 @@ public class SubmittorControllerTest {
                 testRestTemplate.getForEntity(url, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Submittor: U2"
-                + " - Arthur /PUNCHARD/")
+        then(entity.getBody())
+            .contains("<title>Arthur /PUNCHARD/ - U2 - gl120368</title>")
             .contains("Name:</span> Arthur  PUNCHARD")
             .contains("Changed:</span> 24 MAR 2007");
     }
@@ -72,8 +72,9 @@ public class SubmittorControllerTest {
                 testRestTemplate.getForEntity(url, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Submittor: U4"
-                + " - Created by FamilySearch")
+        then(entity.getBody())
+            .contains("<title>Created by FamilySearch (TM) Internet"
+                    + " Genealogy Service - U4 - gl120368</title>")
             .contains("Name:</span> Created by FamilySearch")
             .contains("Address:</span> 50 East North Temple Street<br/>")
             .contains("Salt Lake City, Utah 84150");

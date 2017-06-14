@@ -44,7 +44,10 @@ public class SourceControllerTest {
                 testRestTemplate.getForEntity(url, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Source: S33750 - ");
+        then(entity.getBody())
+            .contains("<title>File (merged):"
+                    + " C:\\Users\\Phil\\Downloads\\butcher\\butcher.GED"
+                    + " - S33750 - gl120368");
     }
 
     /** */

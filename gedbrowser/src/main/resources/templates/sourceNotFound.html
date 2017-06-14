@@ -1,6 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Source not found</title>
+    <title
+     th:text="'Source not found - ' + ${error.exception.sourceId} + ' - ' + ${error.exception.datasetName}">Source
+     not found - S99999 - schoeller</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
 </head>

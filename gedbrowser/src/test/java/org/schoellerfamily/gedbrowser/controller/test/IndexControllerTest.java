@@ -44,7 +44,7 @@ public class IndexControllerTest {
                 String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Surnames</title>")
+        then(entity.getBody()).contains("<title>Index - A - gl120368</title>")
             .contains("<span><a href=\"surnames?db=gl120368&amp;letter=?\" cl"
                     + "ass=\"name\">[?]</a>   </span>")
             .contains("<li><a href=\"person?db=gl120368&amp;id=");
@@ -72,7 +72,7 @@ public class IndexControllerTest {
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody())
-            .contains("<title>Surnames</title>")
+            .contains("<title>Index - q - gl120368</title>")
             .contains("<span><a href=\"surnames?db=gl120368&amp;letter=?\" cl"
                     + "ass=\"name\">[?]</a>   </span>")
             .doesNotContain("<li><a href=\"person?db=gl120368&amp;id=");
