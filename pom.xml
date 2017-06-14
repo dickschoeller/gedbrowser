@@ -52,13 +52,13 @@
 
     <gedbrowser.version>1.2.1-SNAPSHOT</gedbrowser.version>
 
-    <spring-boot.version>1.5.3.RELEASE</spring-boot.version>
+    <spring-boot.version>1.5.4.RELEASE</spring-boot.version>
     <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
-    <spring.version>4.3.8.RELEASE</spring.version>
+    <spring.version>4.3.9.RELEASE</spring.version>
     <junit.version>4.12</junit.version>
     <cglib.version>3.2.5</cglib.version>
-    <spring-data-mongodb.version>1.10.3.RELEASE</spring-data-mongodb.version>
-    <spring-data-commons.version>1.13.3.RELEASE</spring-data-commons.version>
+    <spring-data-mongodb.version>1.10.4.RELEASE</spring-data-mongodb.version>
+    <spring-data-commons.version>1.13.4.RELEASE</spring-data-commons.version>
     <google-maps-services.version>0.1.20</google-maps-services.version>
     <jackson-core.version>2.8.8</jackson-core.version>
     <jackson-databind.version>2.8.8.1</jackson-databind.version>
@@ -92,7 +92,7 @@
     <gpg-plugin.version>1.6</gpg-plugin.version>
     <nexus-staging-plugin.version>1.6.8</nexus-staging-plugin.version>
 
-    <docker-plugin.version>0.4.14</docker-plugin.version>
+    <docker-plugin.version>1.0.0</docker-plugin.version>
     <docker.image.prefix>dickschoeller</docker.image.prefix>
     <docker.image.tag>snapshot</docker.image.tag>
 
