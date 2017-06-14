@@ -79,4 +79,28 @@ public class SubmittorControllerTest {
             .contains("Address:</span> 50 East North Temple Street<br/>")
             .contains("Salt Lake City, Utah 84150");
     }
+
+    /** */
+    @Test
+    public final void testSubmittorControllerBadDataSet() {
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port
+                        + "/gedbrowser/submittor?db=XYZZY&id=U4",
+                String.class);
+
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        then(entity.getBody()).contains("Data set not found");
+    }
+
+    /** */
+    @Test
+    public final void testSubmittorControllerBadSubmittor() {
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port
+                        + "/gedbrowser/submittor?db=gl120368&id=U99999",
+                String.class);
+
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        then(entity.getBody()).contains("Submittor not found");
+    }
 }

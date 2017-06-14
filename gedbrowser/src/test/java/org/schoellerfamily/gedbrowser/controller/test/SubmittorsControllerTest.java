@@ -61,6 +61,16 @@ public class SubmittorsControllerTest {
             .contains("href=\"submittor?db=gl120368&amp;id=U11\">Lester LeMay")
             .contains("href=\"submittor?db=gl120368&amp;id=U12\">David A. Blo")
             .contains("href=\"submittor?db=gl120368&amp;id=U13\">Dave Morris");
-        }
+    }
 
+    /** */
+    @Test
+    public final void testSubmittorsControllerBadDataSet() {
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
+                "http://localhost:" + port + "/gedbrowser/submittors?db=XYZZY",
+                String.class);
+
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        then(entity.getBody()).contains("Data set not found");
+    }
 }
