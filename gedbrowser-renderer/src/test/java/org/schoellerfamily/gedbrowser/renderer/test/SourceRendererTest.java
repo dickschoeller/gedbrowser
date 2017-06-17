@@ -16,10 +16,10 @@ import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
-import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
+import org.schoellerfamily.gedbrowser.renderer.SourceNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SourceRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,7 +93,7 @@ public final class SourceRendererTest {
         final SourceRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameIndexRenderer()
-                instanceof NullNameIndexRenderer);
+                instanceof SourceNameIndexRenderer);
     }
 
     /**
@@ -167,5 +167,24 @@ public final class SourceRendererTest {
             assertEquals("Rendered html doesn't match expectation",
                     expects[i++], attribute.getListItemContents());
         }
+    }
+
+    /**
+     * Test the generating of an HTML name for inclusion in an index.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testIndexName() throws IOException {
+        final Root root = reader.readBigTestSource();
+        final Source source = (Source) root.find("S3");
+        final SourceRenderer renderer = new SourceRenderer(source,
+                new GedRendererFactory(),
+                anonymousContext);
+        assertEquals("Mismatched index html string",
+                "<a href=\"source?db=null&amp;id=S3\" class=\"name\""
+                + " id=\"source-S3\">Schoeller, Richard John, birth"
+                + " certificate (S3)</a>",
+                renderer.getIndexNameHtml());
     }
 }

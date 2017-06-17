@@ -64,7 +64,14 @@ public class ObjectNotFoundException extends RuntimeException {
     }
 
     /**
-     * @return href string to the index page for surnames beginning with A.
+     * @return href string to the index page for sources.
+     */
+    public String getSourcesHref() {
+        return "sources?db=" + datasetName;
+    }
+
+    /**
+     * @return href string to the index page for submittors.
      */
     public String getSubmittorsHref() {
         return "submittors?db=" + datasetName;
