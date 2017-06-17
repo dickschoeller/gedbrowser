@@ -34,9 +34,13 @@ public final class IndexRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
+    private RenderingContext userContext;
+
+    /** */
     @Before
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
+        userContext = RenderingContext.user(appInfo);
     }
 
     /**
@@ -126,13 +130,25 @@ public final class IndexRendererTest {
         };
         final Root root = reader.readBigTestSource();
         final IndexRenderer ir = new IndexRenderer(root, "S",
-                anonymousContext);
+                userContext);
         final Collection<String> indexNames = ir.getIndexNameHtmls("Schoeller");
         int i = 0;
         for (final String indexName : indexNames) {
             assertEquals("Mismatch index name",
                     expects[i++], indexName);
         }
+    }
+
+    /**
+     * @throws IOException because the reader can
+     */
+    @Test
+    public void testIndexNameHtmlSchoellerAnonymous() throws IOException {
+        final Root root = reader.readBigTestSource();
+        final IndexRenderer ir = new IndexRenderer(root, "S",
+                anonymousContext);
+        final Collection<String> indexNames = ir.getIndexNameHtmls("Schoeller");
+        assertEquals("Expect empty", 0, indexNames.size());
     }
 
     /**

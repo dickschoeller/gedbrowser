@@ -7,9 +7,10 @@ import org.schoellerfamily.gedbrowser.datamodel.Head;
  *
  * @author Dick Schoeller
  */
-public final class HeadRenderer extends GedRenderer<Head> implements
-        IndexHrefRenderer<Head>, AttributesRenderer<Head>,
-        HeaderHrefRenderer<Head>, SubmittorsHrefRenderer<Head> {
+public final class HeadRenderer extends GedRenderer<Head>
+        implements IndexHrefRenderer<Head>, AttributesRenderer<Head>,
+        HeaderHrefRenderer<Head>, SubmittorsHrefRenderer<Head>,
+        SourcesHrefRenderer<Head> {
     /**
      * @param gedObject the Head that we are going to render.
      * @param rendererFactory the factory that creates the renderers for the

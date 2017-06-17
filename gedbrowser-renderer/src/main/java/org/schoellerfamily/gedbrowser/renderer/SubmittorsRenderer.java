@@ -13,7 +13,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Submittor;
  */
 public class SubmittorsRenderer extends GedRenderer<Root>
         implements IndexHrefRenderer<Root>, HeaderHrefRenderer<Root>,
-            SubmittorsHrefRenderer<Root> {
+            SubmittorsHrefRenderer<Root>, SourcesHrefRenderer<Root> {
     /** Logger. */
     private final Log logger = LogFactory.getLog(getClass());
 
