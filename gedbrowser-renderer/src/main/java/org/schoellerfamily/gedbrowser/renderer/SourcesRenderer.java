@@ -20,6 +20,24 @@ public class SourcesRenderer extends GedRenderer<Root>
     private final Log logger = LogFactory.getLog(getClass());
 
     /**
+     * Compares source renderers for sorting by title string.
+     *
+     * @author Dick Schoeller
+     */
+    private static class SourceRendererComparator
+            implements Comparator<SourceRenderer> {
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public int compare(final SourceRenderer renderer0,
+                final SourceRenderer renderer1) {
+            return renderer0.getTitleString()
+                    .compareToIgnoreCase(renderer1.getTitleString());
+        }
+    }
+
+    /**
      * Constructor.
      *
      * @param root root of data set
@@ -41,17 +59,7 @@ public class SourcesRenderer extends GedRenderer<Root>
         for (final Source source : sources) {
             renderers.add((SourceRenderer) createGedRenderer(source));
         }
-        renderers.sort(new Comparator<SourceRenderer>() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public int compare(final SourceRenderer renderer0,
-                    final SourceRenderer renderer1) {
-                return renderer0.getTitleString()
-                        .compareToIgnoreCase(renderer1.getTitleString());
-            }
-        });
+        renderers.sort(new SourceRendererComparator());
         return renderers;
     }
 }
