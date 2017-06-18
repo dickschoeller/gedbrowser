@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-public class HeadControllerTest {
+public class HeadControllerTest implements MenuTestHelper {
     /**
      * Not sure what this is good for.
      */
@@ -52,7 +52,8 @@ public class HeadControllerTest {
             .contains("Destination:</span> FTM")
             .contains("Submittor:</span> <a class=\"name\""
                     + " href=\"submittor?db=gl120368&amp;id=U1\">Phil Williams"
-                    + " <span class=\"surname\">?</span> [U1]</a>");
+                    + " <span class=\"surname\">?</span> [U1]</a>")
+            .contains(getMenu("A"));
     }
 
     /** */
@@ -72,7 +73,8 @@ public class HeadControllerTest {
                     + "Schoeller</span> [SUB1]</a>")
             .contains("GEDCOM:</span> 5.5.1, LINEAGE-LINKED")
             .contains("Destination:</span> GED55")
-            .contains("Character Set:</span> UTF-8");
+            .contains("Character Set:</span> UTF-8")
+            .contains(getMenu("mini-schoeller", "A"));
     }
 
     /** */

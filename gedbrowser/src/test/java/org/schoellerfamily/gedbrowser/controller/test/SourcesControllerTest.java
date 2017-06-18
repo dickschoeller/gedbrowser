@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-public class SourcesControllerTest {
+public class SourcesControllerTest implements MenuTestHelper {
     /**
      * Not sure what this is good for.
      */
@@ -51,7 +51,8 @@ public class SourcesControllerTest {
             .contains("href=\"source?db=gl120368&amp;id=S2124\" class=\"name\""
                     + " id=\"source-S2124\">Www.peake.net (S2124)")
             .contains("href=\"source?db=gl120368&amp;id=S2122\" class=\"name\""
-                    + " id=\"source-S2122\">Will of R Harris (S2122)");
+                    + " id=\"source-S2122\">Will of R Harris (S2122)")
+            .contains(getMenu("A"));
     }
 
     /** */
