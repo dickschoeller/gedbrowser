@@ -27,7 +27,8 @@ public abstract class BaseBackupEndpoint implements Endpoint<List<String>> {
     private GeoCode gcc;
 
     /** */
-    @Value("${geoservice.backupfile:/var/lib/gedbrowser/geoservice}")
+    @Value("${geoservice.backupfile:"
+            + "/var/lib/gedbrowser/geoservice-backup.json}")
     private transient String backupFileName;
 
     /**
