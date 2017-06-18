@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-public class SubmittorControllerTest {
+public class SubmittorControllerTest implements MenuTestHelper {
     /**
      * Not sure what this is good for.
      */
@@ -45,7 +45,8 @@ public class SubmittorControllerTest {
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody())
-            .contains("<title>Phil Williams - U1 - gl120368</title>");
+            .contains("<title>Phil Williams - U1 - gl120368</title>")
+            .contains(getMenu("A"));
     }
 
     /** */
@@ -60,7 +61,8 @@ public class SubmittorControllerTest {
         then(entity.getBody())
             .contains("<title>Arthur /PUNCHARD/ - U2 - gl120368</title>")
             .contains("Name:</span> Arthur  PUNCHARD")
-            .contains("Changed:</span> 24 MAR 2007");
+            .contains("Changed:</span> 24 MAR 2007")
+            .contains(getMenu("A"));
     }
 
     /** */
@@ -77,7 +79,8 @@ public class SubmittorControllerTest {
                     + " Genealogy Service - U4 - gl120368</title>")
             .contains("Name:</span> Created by FamilySearch")
             .contains("Address:</span> 50 East North Temple Street<br/>")
-            .contains("Salt Lake City, Utah 84150");
+            .contains("Salt Lake City, Utah 84150")
+            .contains(getMenu("A"));
     }
 
     /** */
@@ -101,6 +104,7 @@ public class SubmittorControllerTest {
                 String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        then(entity.getBody()).contains("Submittor not found");
+        then(entity.getBody()).contains("Submittor not found")
+        .contains(getMenu("A"));
     }
 }

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -186,5 +187,94 @@ public final class SourceRendererTest {
                 + " id=\"source-S3\">Schoeller, Richard John, birth"
                 + " certificate (S3)</a>",
                 renderer.getIndexNameHtml());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testHeaderMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Source> sources = root.find(Source.class);
+        for (final Source source : sources) {
+            final SourceRenderer renderer = createRenderer(source);
+            assertEquals("head href mismatch",
+                    "head?db=gl120368", renderer.getHeaderHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testIndexMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Source> sources = root.find(Source.class);
+        for (final Source source : sources) {
+            final SourceRenderer renderer = createRenderer(source);
+            assertEquals("index href mismatch",
+                    "surnames?db=gl120368&letter=A", renderer.getIndexHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testLivingMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Source> sources = root.find(Source.class);
+        for (final Source source : sources) {
+            final SourceRenderer renderer = createRenderer(source);
+            assertEquals("living href mismatch",
+                    "living?db=gl120368", renderer.getLivingHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSourcesMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Source> sources = root.find(Source.class);
+        for (final Source source : sources) {
+            final SourceRenderer renderer = createRenderer(source);
+            assertEquals("sources href mismatch",
+                    "sources?db=gl120368", renderer.getSourcesHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSubmittorsMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Source> sources = root.find(Source.class);
+        for (final Source source : sources) {
+            final SourceRenderer renderer = createRenderer(source);
+            assertEquals("submittors href mismatch",
+                    "submittors?db=gl120368", renderer.getSubmittorsHref());
+        }
+    }
+
+    /**
+     * @param source the source
+     * @return the renderer
+     */
+    private SourceRenderer createRenderer(final Source source) {
+        return new SourceRenderer(source,
+                new GedRendererFactory(), anonymousContext);
     }
 }

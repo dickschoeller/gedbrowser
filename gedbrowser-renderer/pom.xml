@@ -89,7 +89,7 @@
   <build>
     <testResources>
       <testResource>
-        <directory>src/test/java</directory>
+        <directory>src/test/resources</directory>
         <filtering>false</filtering>
         <includes>
           <include>**/*.ged</include>

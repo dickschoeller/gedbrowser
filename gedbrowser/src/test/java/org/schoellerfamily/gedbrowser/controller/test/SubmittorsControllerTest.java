@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-public class SubmittorsControllerTest {
+public class SubmittorsControllerTest implements MenuTestHelper {
     /**
      * Not sure what this is good for.
      */
@@ -60,7 +60,8 @@ public class SubmittorsControllerTest {
             .contains("href=\"submittor?db=gl120368&amp;id=U10\">Hirt-Klooze")
             .contains("href=\"submittor?db=gl120368&amp;id=U11\">Lester LeMay")
             .contains("href=\"submittor?db=gl120368&amp;id=U12\">David A. Blo")
-            .contains("href=\"submittor?db=gl120368&amp;id=U13\">Dave Morris");
+            .contains("href=\"submittor?db=gl120368&amp;id=U13\">Dave Morris")
+            .contains(getMenu("A"));
     }
 
     /** */

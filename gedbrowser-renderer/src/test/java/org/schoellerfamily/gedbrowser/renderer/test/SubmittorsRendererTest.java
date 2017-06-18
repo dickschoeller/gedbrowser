@@ -71,4 +71,74 @@ public final class SubmittorsRendererTest {
                     subRenderer.getNameHtml());
         }
     }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testHeaderMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final SubmittorsRenderer renderer = new SubmittorsRenderer(root,
+                anonymousContext);
+        assertEquals("head href mismatch",
+                "head?db=gl120368", renderer.getHeaderHref());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testIndexMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final SubmittorsRenderer renderer = new SubmittorsRenderer(root,
+                anonymousContext);
+        assertEquals("index href mismatch",
+                "surnames?db=gl120368&letter=A", renderer.getIndexHref());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testLivingMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final SubmittorsRenderer renderer = new SubmittorsRenderer(root,
+                anonymousContext);
+        assertEquals("living href mismatch",
+                "living?db=gl120368", renderer.getLivingHref());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSourcesMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final SubmittorsRenderer renderer = new SubmittorsRenderer(root,
+                anonymousContext);
+        assertEquals("submittors href mismatch",
+                "sources?db=gl120368", renderer.getSourcesHref());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSubmittorsMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final SubmittorsRenderer renderer = new SubmittorsRenderer(root,
+                anonymousContext);
+        assertEquals("sources href mismatch",
+                "submittors?db=gl120368", renderer.getSubmittorsHref());
+    }
 }

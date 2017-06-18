@@ -107,4 +107,11 @@ public final class IndexRenderer extends GedRenderer<Root>
         logger.info("Ending getLetters");
         return indexLetters;
     }
+
+    /**
+     * @return the href string to the same page were we are now
+     */
+    public String getIndexHref() {
+        return "surnames?db=" + getGedObject().getDbName() + "&letter=" + base;
+    }
 }

@@ -15,7 +15,6 @@ public interface IndexHrefRenderer<T extends GedObject> {
      */
     T getGedObject();
 
-
     /**
      * @return the href string to the index page containing this person.
      */

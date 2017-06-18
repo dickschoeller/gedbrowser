@@ -3,11 +3,16 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+import java.util.Collection;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
+import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
@@ -27,6 +32,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class SubmittorRendererTest {
+    /** */
+    @Autowired
+    private transient TestDataReader reader;
+
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -109,8 +118,7 @@ public final class SubmittorRendererTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submittor submittor = builder.createSubmittor("S1",
                 "Richard John/Schoeller/");
-        final SubmittorRenderer renderer = new SubmittorRenderer(submittor,
-                new GedRendererFactory(), anonymousContext);
+        final SubmittorRenderer renderer = createRenderer(submittor);
         assertEquals("Submittor ID mismatch", "S1", renderer.getIdString());
     }
 
@@ -130,5 +138,94 @@ public final class SubmittorRendererTest {
     private SubmittorRenderer createRenderer() {
         return new SubmittorRenderer(new Submittor(), new GedRendererFactory(),
                 anonymousContext);
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testHeaderMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Submittor> submittors = root.find(Submittor.class);
+        for (final Submittor submittor : submittors) {
+            final SubmittorRenderer renderer = createRenderer(submittor);
+            assertEquals("head href mismatch",
+                    "head?db=gl120368", renderer.getHeaderHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testIndexMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Submittor> submittors = root.find(Submittor.class);
+        for (final Submittor submittor : submittors) {
+            final SubmittorRenderer renderer = createRenderer(submittor);
+            assertEquals("index href mismatch",
+                    "surnames?db=gl120368&letter=A", renderer.getIndexHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testLivingMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Submittor> submittors = root.find(Submittor.class);
+        for (final Submittor submittor : submittors) {
+            final SubmittorRenderer renderer = createRenderer(submittor);
+            assertEquals("living href mismatch",
+                    "living?db=gl120368", renderer.getLivingHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSourcesMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Submittor> submittors = root.find(Submittor.class);
+        for (final Submittor submittor : submittors) {
+            final SubmittorRenderer renderer = createRenderer(submittor);
+            assertEquals("sources href mismatch",
+                    "sources?db=gl120368", renderer.getSourcesHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSubmittorsMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Submittor> submittors = root.find(Submittor.class);
+        for (final Submittor submittor : submittors) {
+            final SubmittorRenderer renderer = createRenderer(submittor);
+            assertEquals("submittors href mismatch",
+                    "submittors?db=gl120368", renderer.getSubmittorsHref());
+        }
+    }
+
+    /**
+     * @param submittor the submittor
+     * @return the renderer
+     */
+    private SubmittorRenderer createRenderer(final Submittor submittor) {
+        return new SubmittorRenderer(submittor,
+                new GedRendererFactory(), anonymousContext);
     }
 }
