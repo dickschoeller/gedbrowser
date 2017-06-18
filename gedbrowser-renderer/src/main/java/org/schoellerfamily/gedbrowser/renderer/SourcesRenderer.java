@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -25,7 +26,10 @@ public class SourcesRenderer extends GedRenderer<Root>
      * @author Dick Schoeller
      */
     private static class SourceRendererComparator
-            implements Comparator<SourceRenderer> {
+            implements Comparator<SourceRenderer>, Serializable {
+        /** */
+        private static final long serialVersionUID = 1L;
+
         /**
          * {@inheritDoc}
          */

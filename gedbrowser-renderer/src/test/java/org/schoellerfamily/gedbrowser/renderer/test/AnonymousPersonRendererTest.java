@@ -434,7 +434,7 @@ public final class AnonymousPersonRendererTest {
         final Person george = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(george,
                 new GedRendererFactory(), anonymousContext);
-        final CellRow[] cellRows = personRenderer.getTreeRows();
+        final CellRow[] cellRows = personRenderer.getTreeRows(5);
         int i = 0;
         for (final CellRow cellRow : cellRows) {
             final CellRenderer[] cellRenderers = cellRow.getCells();
@@ -456,7 +456,7 @@ public final class AnonymousPersonRendererTest {
         final Person arnold = (Person) root.find("I7");
         final PersonRenderer personRenderer = new PersonRenderer(arnold,
                 new GedRendererFactory(), anonymousContext);
-        final CellRow[] cellRows = personRenderer.getTreeRows();
+        final CellRow[] cellRows = personRenderer.getTreeRows(5);
         int i = 0;
         for (final CellRow cellRow : cellRows) {
             final CellRenderer[] cellRenderers = cellRow.getCells();

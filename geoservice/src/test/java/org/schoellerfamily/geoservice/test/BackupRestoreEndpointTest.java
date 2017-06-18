@@ -59,6 +59,8 @@ public class BackupRestoreEndpointTest {
                 String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(entity.getBody()).contains("backup succeeded to/from")
+            .contains("locations in the cache");
     }
 
     /** */
@@ -74,7 +76,7 @@ public class BackupRestoreEndpointTest {
                 "http://localhost:" + this.mgt + "/restore", String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("Restore succeed from")
-        .contains("locations in the cache");
+        then(entity.getBody()).contains("restore succeeded to/from")
+            .contains("locations in the cache");
     }
 }
