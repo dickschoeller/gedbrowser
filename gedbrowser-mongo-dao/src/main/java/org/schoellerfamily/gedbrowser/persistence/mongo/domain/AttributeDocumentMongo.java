@@ -45,16 +45,16 @@ public class AttributeDocumentMongo extends GedDocumentMongo<Attribute>
      * {@inheritDoc}
      */
     @Override
-    public final String getTail() {
-        return this.tail;
+    public final void setTail(final String tail) {
+        this.tail = tail;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void setTail(final String tail) {
-        this.tail = tail;
+    public final String getTail() {
+        return this.tail;
     }
 
     /**

@@ -633,7 +633,7 @@ public final class PersonRendererTest {
         final Person george = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(george,
                 new GedRendererFactory(), userContext);
-        final CellRow[] cellRows = personRenderer.getTreeRows();
+        final CellRow[] cellRows = personRenderer.getTreeRows(5);
         int i = 0;
         for (final CellRow cellRow : cellRows) {
             final CellRenderer[] cellRenderers = cellRow.getCells();
