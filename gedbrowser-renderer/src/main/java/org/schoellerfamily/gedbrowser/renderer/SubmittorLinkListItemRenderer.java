@@ -7,7 +7,7 @@ public class SubmittorLinkListItemRenderer implements ListItemRenderer {
     /**
      * Holder for the SubmittorLinkRenderer that is using this helper.
      */
-    private final transient SubmittorLinkRenderer slRenderer;
+    private final transient SubmittorLinkRenderer submittorLinkRenderer;
 
     /**
      * Constructor.
@@ -16,7 +16,7 @@ public class SubmittorLinkListItemRenderer implements ListItemRenderer {
      */
     protected SubmittorLinkListItemRenderer(
             final SubmittorLinkRenderer renderer) {
-        this.slRenderer = renderer;
+        this.submittorLinkRenderer = renderer;
     }
 
     /**
@@ -34,7 +34,7 @@ public class SubmittorLinkListItemRenderer implements ListItemRenderer {
      */
     private void renderListItemContents(final StringBuilder builder) {
         builder.append("<span class=\"label\">Submittor:</span> ");
-        builder.append(slRenderer.getNameHtml());
+        builder.append(submittorLinkRenderer.getNameHtml());
     }
 
     /**
