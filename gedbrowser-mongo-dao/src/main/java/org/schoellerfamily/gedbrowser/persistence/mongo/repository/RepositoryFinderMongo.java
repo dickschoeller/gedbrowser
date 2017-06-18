@@ -85,7 +85,7 @@ public final class RepositoryFinderMongo
             throw new IllegalArgumentException("Owner must be root");
         }
         final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
-            repo = repositoryManager.getRepoMap().get(clazz);
+            repo = repositoryManager.get(clazz);
         if (repo == null) {
             return null;
         }
@@ -224,7 +224,7 @@ public final class RepositoryFinderMongo
             throw new IllegalArgumentException("Owner must be root");
         }
         final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
-            repo = repositoryManager.getRepoMap().get(clazz);
+            repo = repositoryManager.get(clazz);
         if (repo == null) {
             return null;
         }
