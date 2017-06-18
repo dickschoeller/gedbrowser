@@ -9,15 +9,14 @@ import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
  */
 public final class SubmittorLinkNameHtmlRenderer implements NameHtmlRenderer {
     /**
-     * Holder for the SubmittorRenderer that is using this helper.
+     * Holder for the SubmittorLinkRenderer that is using this helper.
      */
     private final transient SubmittorLinkRenderer submittorLinkRenderer;
 
     /**
      * Constructor.
      *
-     * @param submittorLinkRenderer
-     *            the SubmittorLinkRenderer that is using this helper.
+     * @param submittorLinkRenderer the renderer that is using this helper.
      */
     protected SubmittorLinkNameHtmlRenderer(
             final SubmittorLinkRenderer submittorLinkRenderer) {

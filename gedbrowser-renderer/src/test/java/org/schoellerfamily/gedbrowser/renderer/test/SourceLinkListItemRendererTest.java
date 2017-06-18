@@ -42,8 +42,12 @@ public final class SourceLinkListItemRendererTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person = builder.createPerson("I1");
         final Root root = builder.getRoot();
-        final Source source = new Source(root, new ObjectId("S1"));
-        root.insert(source);
+        final Source source1 = new Source(root, new ObjectId("S1"));
+        root.insert(source1);
+        final Source source2 = new Source(root, new ObjectId("S2"));
+        builder.createAttribute(source2, "Title", "The title of S2");
+
+        root.insert(source2);
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -61,7 +65,28 @@ public final class SourceLinkListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, false, 0);
         assertEquals("Rendered html doesn't match expectation",
-                " [<a href=\"source?db=null&amp;id=S1\">S1</a>]",
+                "<span class=\"label\">Source:</span> <a href=\"source?db=null"
+                + "&amp;id=S1\" class=\"name\" id=\"source-S1\">S1 (S1)</a>",
+                builder.toString());
+    }
+
+    /** */
+    @Test
+    public void testRenderAsListItemWithTitle() {
+        final SourceLink sourceLink =
+                new SourceLink(person, "SOUR", new ObjectId("S2"));
+        person.addAttribute(sourceLink);
+        final SourceLinkRenderer slRenderer = new SourceLinkRenderer(sourceLink,
+                new GedRendererFactory(), anonymousContext);
+        final SourceLinkListItemRenderer lir =
+                (SourceLinkListItemRenderer) slRenderer
+                .getListItemRenderer();
+        final StringBuilder builder = new StringBuilder();
+        lir.renderAsListItem(builder, false, 0);
+        assertEquals("Rendered html doesn't match expectation",
+                "<span class=\"label\">Source:</span>"
+                + " <a href=\"source?db=null&amp;id=S2\""
+                + " class=\"name\" id=\"source-S2\">The title of S2 (S2)</a>",
                 builder.toString());
     }
 }
