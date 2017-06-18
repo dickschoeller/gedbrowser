@@ -14,6 +14,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * @author Dick Schoeller
@@ -166,12 +167,8 @@ public class RepositoryManagerMongo {
      * Clear all of the repositories in the dataset.
      */
     public void reset() {
-        getRootDocumentRepository().deleteAll();
-        getPersonDocumentRepository().deleteAll();
-        getFamilyDocumentRepository().deleteAll();
-        getSourceDocumentRepository().deleteAll();
-        getHeadDocumentRepository().deleteAll();
-        getSubmittorDocumentRepository().deleteAll();
-        getTrailerDocumentRepository().deleteAll();
+        for (final Object repo : classToRepoMap.values()) {
+            ((CrudRepository<?, ?>) repo).deleteAll();
+        }
     }
 }
