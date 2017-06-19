@@ -55,6 +55,7 @@ public final class GedLineTest {
             "1 SEX F",
             "1 CHAN",
             "2 DATE 29 DEC 1996",
+            "3 TIME 13:00:00",
             "1 FAMC @F1@",
             "0 @I2@ INDI",
             "1 REFN 2",
