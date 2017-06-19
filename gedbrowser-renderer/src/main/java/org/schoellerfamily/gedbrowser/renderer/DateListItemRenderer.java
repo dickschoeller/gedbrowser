@@ -1,5 +1,8 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import org.schoellerfamily.gedbrowser.datamodel.Date;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
+
 /**
  * @author Dick Schoeller
  */
@@ -34,6 +37,9 @@ public final class DateListItemRenderer implements ListItemRenderer {
      */
     @Override
     public String getListItemContents() {
-        return dateRenderer.renderAsPhrase();
+        final GetDateVisitor visitor = new GetDateVisitor();
+        final Date date = dateRenderer.getGedObject();
+        date.accept(visitor);
+        return visitor.getDate();
     }
 }

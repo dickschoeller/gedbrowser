@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.datamodel.Date;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
  * @author Dick Schoeller
@@ -25,7 +26,9 @@ public class DatePhraseRenderer implements PhraseRenderer {
      */
     @Override
     public final String renderAsPhrase() {
-        final Date date = dateRenderer.getGedObject();
-        return GedRenderer.escapeString(date.getString());
+        final GetDateVisitor visitor = new GetDateVisitor();
+        final Date date1 = dateRenderer.getGedObject();
+        date1.accept(visitor);
+        return GedRenderer.escapeString(visitor.getDate());
     }
 }

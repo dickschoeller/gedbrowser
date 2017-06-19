@@ -96,6 +96,14 @@ public final class GetDateVisitor implements GedObjectVisitor {
         dateString = date.getDate();
         yearString = date.getYear();
         sortDateString = date.getSortDate();
+        final GetTimeVisitor timeVisitor = new GetTimeVisitor();
+        for (final GedObject gob : date.getAttributes()) {
+            gob.accept(timeVisitor);
+            if (!timeVisitor.getTimeString().isEmpty()) {
+                dateString += " " + timeVisitor.getTimeString();
+                break;
+            }
+        }
     }
 
     /**
