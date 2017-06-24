@@ -73,6 +73,7 @@ public class HeadControllerTest implements MenuTestHelper {
                     + "Schoeller</span> [SUB1]</a>")
             .contains("GEDCOM:</span> 5.5.1, LINEAGE-LINKED")
             .contains("Destination:</span> GED55")
+            .contains("Date:</span> 16 FEB 2001 22:04</li>")
             .contains("Character Set:</span> UTF-8")
             .contains(getMenu("mini-schoeller", "A"));
     }
