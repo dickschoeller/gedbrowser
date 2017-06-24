@@ -29,14 +29,24 @@ public class SubmittorNameIndexRenderer implements NameIndexRenderer {
         if (!submittor.isSet()) {
             return "";
         }
-        final GedRenderer<? extends GedObject> renderer =
-                new SimpleNameRenderer(submittor.getName(),
-                        submittorRenderer.getRendererFactory(),
-                        submittorRenderer.getRenderingContext());
-        final String nameHtml = renderer.getNameHtml();
+        final String nameHtml = getNameHtml(submittor);
 
         return "<a class=\"name\" href=\"submittor?db=" + submittor.getDbName()
                 + "&amp;id=" + submittor.getString() + "\">" + nameHtml + " ["
                 + submittor.getString() + "]" + "</a>";
+    }
+
+    /**
+     * Handle the messy getting of the name ready for HTML formatting.
+     *
+     * @param submittor the submittor whose name we are doing
+     * @return the string
+     */
+    private String getNameHtml(final Submittor submittor) {
+        final GedRenderer<? extends GedObject> renderer =
+                new SimpleNameRenderer(submittor.getName(),
+                        submittorRenderer.getRendererFactory(),
+                        submittorRenderer.getRenderingContext());
+        return renderer.getNameHtml();
     }
 }
