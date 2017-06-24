@@ -30,7 +30,9 @@ public class SubmittorNameHtmlRenderer implements NameHtmlRenderer {
             return "";
         }
         final GedRenderer<? extends GedObject> renderer =
-                submittorRenderer.createGedRenderer(submittor.getName());
+                new SimpleNameRenderer(submittor.getName(),
+                        submittorRenderer.getRendererFactory(),
+                        submittorRenderer.getRenderingContext());
         return renderer.getNameHtml();
     }
 

@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Submittor;
 
 /**
@@ -30,5 +31,15 @@ public final class SubmittorRenderer extends GedRenderer<Submittor>
      */
     public String getIdString() {
         return getGedObject().getString();
+    }
+
+    /**
+     * @return a nicely string string for the title
+     */
+    public String getTitleString() {
+        final Submittor gob = getGedObject();
+        final Name name = gob.getName();
+        final String nameString = name.getString();
+        return nameString.replace("/", " ").replace("  ", " ").trim();
     }
 }

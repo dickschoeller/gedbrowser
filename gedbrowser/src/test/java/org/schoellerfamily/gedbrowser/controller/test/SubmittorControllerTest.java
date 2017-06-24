@@ -46,6 +46,7 @@ public class SubmittorControllerTest implements MenuTestHelper {
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody())
             .contains("<title>Phil Williams - U1 - gl120368</title>")
+            .contains("Name:</span> Phil Williams")
             .contains(getMenu("A"));
     }
 
@@ -59,8 +60,8 @@ public class SubmittorControllerTest implements MenuTestHelper {
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody())
-            .contains("<title>Arthur /PUNCHARD/ - U2 - gl120368</title>")
-            .contains("Name:</span> Arthur  PUNCHARD")
+            .contains("<title>Arthur PUNCHARD - U2 - gl120368</title>")
+            .contains("Name:</span> Arthur PUNCHARD")
             .contains("Changed:</span> 24 MAR 2007")
             .contains(getMenu("A"));
     }

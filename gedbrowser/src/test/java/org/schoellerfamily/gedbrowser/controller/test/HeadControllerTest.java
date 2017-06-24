@@ -52,7 +52,7 @@ public class HeadControllerTest implements MenuTestHelper {
             .contains("Destination:</span> FTM")
             .contains("Submittor:</span> <a class=\"name\""
                     + " href=\"submittor?db=gl120368&amp;id=U1\">Phil Williams"
-                    + " <span class=\"surname\">?</span> [U1]</a>")
+                    + " [U1]</a>")
             .contains(getMenu("A"));
     }
 
@@ -69,8 +69,7 @@ public class HeadControllerTest implements MenuTestHelper {
             .contains("<title>Header - mini-schoeller</title>")
             .contains("Submittor:</span> <a class=\"name\""
                     + " href=\"submittor?db=mini-schoeller&amp;"
-                    + "id=SUB1\">Richard <span class=\"surname\">"
-                    + "Schoeller</span> [SUB1]</a>")
+                    + "id=SUB1\">Richard Schoeller [SUB1]</a>")
             .contains("GEDCOM:</span> 5.5.1, LINEAGE-LINKED")
             .contains("Destination:</span> GED55")
             .contains("Date:</span> 16 FEB 2001 22:04</li>")

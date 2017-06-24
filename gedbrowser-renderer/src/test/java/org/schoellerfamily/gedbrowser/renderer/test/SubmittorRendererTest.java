@@ -127,6 +127,20 @@ public final class SubmittorRendererTest {
      * We will test the sub-renderers directly.
      */
     @Test
+    public void testTitleString() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Submittor submittor = builder.createSubmittor("S1",
+                "Richard John/Schoeller/");
+        final SubmittorRenderer renderer = createRenderer(submittor);
+        assertEquals("Submittor ID mismatch", "Richard John Schoeller",
+                renderer.getTitleString());
+    }
+
+    /**
+     * Test that we are using the appropriate sub-renderers.
+     * We will test the sub-renderers directly.
+     */
+    @Test
     public void testNullIdString() {
         final SubmittorRenderer renderer = createRenderer();
         assertEquals("Expected empty submittor ID", "", renderer.getIdString());
