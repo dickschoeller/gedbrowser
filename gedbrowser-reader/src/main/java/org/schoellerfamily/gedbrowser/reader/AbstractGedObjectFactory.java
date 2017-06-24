@@ -552,7 +552,11 @@ public abstract class AbstractGedObjectFactory {
             if (parent.getParent() == null) {
                 return new Source(parent, xref);
             } else {
-                return SOURLINK_FACTORY.create(parent, xref, tag, tail);
+                if (tail.contains("@")) {
+                    return SOURLINK_FACTORY.create(parent, xref, tag, tail);
+                } else {
+                    return ATTR_FACTORY.create(parent, xref, tag, tail);
+                }
             }
         }
     }
