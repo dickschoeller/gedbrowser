@@ -64,7 +64,8 @@ public final class DateListItemRendererTest {
         dlir.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
         assertEquals("Rendered string doesn't match expectation",
-                "14 December 1958 12:00", string);
+                "<li><span class=\"label\">Date:</span>"
+                + " 14 December 1958 12:00</li>\n", string);
     }
 
     /** */
@@ -78,7 +79,9 @@ public final class DateListItemRendererTest {
         dlir.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
         assertEquals("Rendered string doesn't match expectation",
-                "14 December 1958", string);
+                "<li><span class=\"label\">Date:</span>"
+                + " 14 December 1958</li>\n",
+                string);
     }
 
     /** */
