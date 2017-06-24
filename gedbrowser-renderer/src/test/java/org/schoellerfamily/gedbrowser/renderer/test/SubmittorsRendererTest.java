@@ -63,11 +63,11 @@ public final class SubmittorsRendererTest {
         for (final SubmittorRenderer subRenderer : renderers) {
             assertEquals("Index name mismatch",
                     "<a class=\"name\" href=\"submittor?db=null&amp;id=SUB1\">"
-                    + "Richard <span class=\"surname\">Schoeller</span>"
+                    + "Richard Schoeller"
                     + " [SUB1]</a>",
                     subRenderer.getIndexName());
             assertEquals("HTML name mismatch",
-                    "Richard <span class=\"surname\">Schoeller</span>",
+                    "Richard Schoeller",
                     subRenderer.getNameHtml());
         }
     }

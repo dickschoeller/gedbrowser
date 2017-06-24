@@ -36,7 +36,9 @@ public final class SubmittorLinkNameHtmlRenderer implements NameHtmlRenderer {
         final Submittor submittor =
                 (Submittor) submittorLink.find(submittorLink.getToString());
         final GedRenderer<? extends GedObject> renderer =
-                submittorLinkRenderer.createGedRenderer(submittor.getName());
+                new SimpleNameRenderer(submittor.getName(),
+                        submittorLinkRenderer.getRendererFactory(),
+                        submittorLinkRenderer.getRenderingContext());
         final String nameHtml = renderer.getNameHtml();
 
         return "<a class=\"name\" href=\"submittor?db="

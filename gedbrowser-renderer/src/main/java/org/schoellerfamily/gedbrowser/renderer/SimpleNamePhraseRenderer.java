@@ -5,19 +5,21 @@ import org.schoellerfamily.gedbrowser.datamodel.Name;
 /**
  * @author Dick Schoeller
  */
-public class NamePhraseRenderer implements PhraseRenderer, ComplexRenderer {
+public class SimpleNamePhraseRenderer
+    implements PhraseRenderer, SimpleRenderer {
     /**
      * The renderer that we are associated with.
      */
-    private final transient NameRenderer nameRenderer;
+    private final transient SimpleNameRenderer simpleNameRenderer;
 
     /**
      * Constructor.
      *
-     * @param nameRenderer the renderer that we are associated with.
+     * @param simpleNameRenderer the renderer that we are associated with.
      */
-    public NamePhraseRenderer(final NameRenderer nameRenderer) {
-        this.nameRenderer = nameRenderer;
+    public SimpleNamePhraseRenderer(
+            final SimpleNameRenderer simpleNameRenderer) {
+        this.simpleNameRenderer = simpleNameRenderer;
     }
 
     /**
@@ -25,7 +27,7 @@ public class NamePhraseRenderer implements PhraseRenderer, ComplexRenderer {
      */
     @Override
     public final String renderAsPhrase() {
-        final Name name = nameRenderer.getGedObject();
+        final Name name = simpleNameRenderer.getGedObject();
         final String prefix = escapeString(name.getPrefix());
         final String surname = escapeString(name.getSurname());
         final String suffix = escapeString(name.getSuffix());

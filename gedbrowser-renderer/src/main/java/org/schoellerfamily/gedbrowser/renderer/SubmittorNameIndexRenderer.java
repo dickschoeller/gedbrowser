@@ -30,7 +30,9 @@ public class SubmittorNameIndexRenderer implements NameIndexRenderer {
             return "";
         }
         final GedRenderer<? extends GedObject> renderer =
-                submittorRenderer.createGedRenderer(submittor.getName());
+                new SimpleNameRenderer(submittor.getName(),
+                        submittorRenderer.getRendererFactory(),
+                        submittorRenderer.getRenderingContext());
         final String nameHtml = renderer.getNameHtml();
 
         return "<a class=\"name\" href=\"submittor?db=" + submittor.getDbName()
