@@ -3,12 +3,16 @@ package org.schoellerfamily.gedbrowser.reader.test;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.schoellerfamily.gedbrowser.datamodel.Date;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
@@ -53,6 +57,78 @@ public final class GedFileTest {
         final List<Person> spouses = dickNavigator.getSpouses();
         assertEquals("Dick only has one spouse", 1, spouses.size());
         logger.info(spouses.get(0));
+    }
+
+    /**
+     * Test GedLine with an array input.
+     *
+     * @throws IOException never.
+     */
+    @Test
+    public void testFactoryGedFileHead() throws IOException {
+        final AbstractGedLine top = readFileTestSource();
+        final Root root = g2g.create(top);
+        final Head head = (Head) root.find("Header");
+        final List<String> headsCheckResults = checkHeads(head);
+        assertEquals(
+                "Problems in head:\n" + formatResult(headsCheckResults),
+                0, headsCheckResults.size());
+    }
+
+    /**
+     * @param head the header to check
+     * @return list of problem descriptions
+     */
+    private List<String> checkHeads(final Head head) {
+        final List<String> errors = new ArrayList<>();
+        if (head == null) {
+            errors.add("No header found");
+            return errors;
+        }
+        final int expectedSize = 6;
+        final List<GedObject> attributes = head.getAttributes();
+        if (attributes.size() < expectedSize) {
+            errors.add("Wrong number of attributes: expected 6, found "
+                    + attributes.size());
+        }
+        final String[] expectedAttributes = {
+                "Source",
+                "Submittor",
+                "GEDCOM",
+                "Destination",
+                "Date",
+                "Character Set"
+        };
+        for (int i = 0; i < expectedSize; i++) {
+            final GedObject attribute = attributes.get(i);
+            final String expectedType = expectedAttributes[i];
+            final String actualType = attribute.getString();
+            if ("Date".equals(expectedType)) {
+                if (!attribute.getClass().equals(Date.class)) {
+                    errors.add("attribute[" + i + "], expected type "
+                            + expectedType + ", actual type " + actualType);
+                }
+            } else {
+                if (!expectedType.equals(actualType)) {
+                    errors.add("attribute[" + i + "], expected type "
+                            + expectedType + ", actual type " + actualType);
+                }
+            }
+        }
+        return errors;
+    }
+
+    /**
+     * @param checkResults array
+     * @return a nicely build up string
+     */
+    @SuppressWarnings("PMD.UseStringBufferForStringAppends")
+    private String formatResult(final List<String> checkResults) {
+        String output = "";
+        for (final String result : checkResults) {
+            output += "    " + result + "\n";
+        }
+        return output;
     }
 
     /**
