@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -15,6 +14,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonConfidentialVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PlaceVisitor;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
+import org.schoellerfamily.geoservice.model.GeoServiceItemComparator;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 
 /**
@@ -113,23 +113,24 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
      */
     private void placePerson(final Map<String, Set<PersonRenderer>> aMap,
             final PersonRenderer renderer, final String place) {
+        final Set<PersonRenderer> locatedPersons =
+                personRendererSet(aMap, place);
+        locatedPersons.add(renderer);
+    }
+
+    /**
+     * @param aMap the map
+     * @param place the place
+     * @return the set for the place from the map
+     */
+    private Set<PersonRenderer> personRendererSet(
+            final Map<String, Set<PersonRenderer>> aMap, final String place) {
         Set<PersonRenderer> locatedPersons = aMap.get(place);
         if (locatedPersons == null) {
-            locatedPersons = new TreeSet<>(new Comparator<PersonRenderer>() {
-                /**
-                 * {@inheritDoc}
-                 */
-                @Override
-                public int compare(final PersonRenderer arg0,
-                        final PersonRenderer arg1) {
-                    final String iName0 = arg0.getGedObject().getIndexName();
-                    final String iName1 = arg1.getGedObject().getIndexName();
-                    return iName0.compareTo(iName1);
-                }
-            });
+            locatedPersons = new TreeSet<>(new PersonRendererComparator());
             aMap.put(place, locatedPersons);
         }
-        locatedPersons.add(renderer);
+        return locatedPersons;
     }
 
     /**
@@ -177,17 +178,7 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
      */
     public Map<GeoServiceItem, Set<PersonRenderer>> render() {
         final Map<GeoServiceItem, Set<PersonRenderer>> aMap = new TreeMap<>(
-                new Comparator<GeoServiceItem>() {
-                    /**
-                     * {@inheritDoc}
-                     */
-                    @Override
-                    public int compare(final GeoServiceItem o1,
-                            final GeoServiceItem o2) {
-                        return o1.getModernPlaceName()
-                                .compareTo(o2.getModernPlaceName());
-                    }
-                });
+                new GeoServiceItemComparator());
         final Map<String, Set<PersonRenderer>> map = getWholeIndex();
         for (final Map.Entry<String, Set<PersonRenderer>> entry
                 : map.entrySet()) {
