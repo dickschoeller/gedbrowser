@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title
+     th:utext="'Places - ' + ${model.gedObject.dbName}">Places - schoeller</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
+</head>
+<body>
+    <div th:replace="fragments/header :: menubar">&nbsp;</div>
+
+    <div class="outer">
+    <div class="middle">
+    <div class="inner">
+
+    <h2>Places</h2>
+    <ul>
+        <li th:each="place : ${model.places}"><a th:name="${place}"></a><span th:utext="${place}" class="label">surname</span>
+            <ul>
+                <li th:each="person : ${model.getPersonsAtPlace(place)}" th:utext="${person.indexName}">name</li>
+            </ul>
+        </li>
+    </ul>
+
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+
+    </div>
+    </div>
+    </div>
+
+<!-- anywhere in your document: -->
+<form th:action="@{logout}" id="logoutForm">
+  <!-- csrf hidden input included automagically -->
+</form>
+
+</body>
+</html>

@@ -402,8 +402,17 @@ public final class TestDataReader {
      * @throws IOException because the file reader might throw.
      */
     public Root readFileTestSource() throws IOException {
+        return readFileTestSource("gl120368.ged");
+    }
+
+    /**
+     * @param filename the filename
+     * @return the GedLine hierarchy from parsing this file.
+     * @throws IOException because the file reader might throw.
+     */
+    public Root readFileTestSource(final String filename) throws IOException {
         final AbstractGedLine top =
-                TestResourceReader.readFileTestSource(this, "gl120368.ged");
+                TestResourceReader.readFileTestSource(this, filename);
         top.readToNext();
         return g2g.create(top);
     }
