@@ -20,7 +20,9 @@ public interface MenuTestHelper {
             + "a></span>\n"
             + "            <span><a href=\"submittors?db=%s\">Submit"
             + "tors</a></span>\n"
-            + "            <span></span>\n" + "        </span>";
+            + "            <span></span>\n"
+            + "            <span></span>\n"
+            + "        </span>";
 
     /**
      * @param indexParameter expected index URL parameter

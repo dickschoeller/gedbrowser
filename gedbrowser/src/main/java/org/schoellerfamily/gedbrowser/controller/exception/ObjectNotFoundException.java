@@ -93,4 +93,11 @@ public class ObjectNotFoundException extends RuntimeException {
     public String getLivingHref() {
         return "living?db=" + datasetName;
     }
+
+    /**
+     * @return the href string to the living estimator.
+     */
+    public String getPlacesHref() {
+        return "places?db=" + datasetName;
+    }
 }

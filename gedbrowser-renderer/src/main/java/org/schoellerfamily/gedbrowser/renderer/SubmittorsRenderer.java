@@ -12,8 +12,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Submittor;
  * @author Dick Schoeller
  */
 public class SubmittorsRenderer extends GedRenderer<Root>
-        implements IndexHrefRenderer<Root>, HeaderHrefRenderer<Root>,
-            SubmittorsHrefRenderer<Root>, SourcesHrefRenderer<Root> {
+        implements HeaderHrefRenderer<Root>, IndexHrefRenderer<Root>,
+        PlacesHrefRenderer<Root>, SourcesHrefRenderer<Root>,
+        SubmittorsHrefRenderer<Root> {
     /** Logger. */
     private final Log logger = LogFactory.getLog(getClass());
 
