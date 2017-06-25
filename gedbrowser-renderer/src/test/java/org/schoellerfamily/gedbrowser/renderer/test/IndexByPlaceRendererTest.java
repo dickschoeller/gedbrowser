@@ -30,7 +30,6 @@ import org.schoellerfamily.gedbrowser.renderer.user.UserImpl;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -39,6 +38,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
+@SuppressWarnings("PMD.ExcessiveImports")
 public class IndexByPlaceRendererTest {
     /** Logger. */
     private final Log logger = LogFactory.getLog(getClass());
@@ -70,10 +70,6 @@ public class IndexByPlaceRendererTest {
 
     /** */
     private RenderingContext adminContext;
-
-    /** */
-    @Value("${geoservice.keyfile:/var/lib/gedbrowser/google-geocoding-key}")
-    private transient String keyfile;
 
     /** */
     @Before
