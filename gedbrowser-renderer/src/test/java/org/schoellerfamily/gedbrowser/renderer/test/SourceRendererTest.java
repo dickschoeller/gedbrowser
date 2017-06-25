@@ -270,6 +270,22 @@ public final class SourceRendererTest {
     }
 
     /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testPlacesMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Source> sources = root.find(Source.class);
+        for (final Source source : sources) {
+            final SourceRenderer renderer = createRenderer(source);
+            assertEquals("places href mismatch", "places?db=gl120368",
+                renderer.getPlacesHref());
+        }
+    }
+
+    /**
      * @param source the source
      * @return the renderer
      */
