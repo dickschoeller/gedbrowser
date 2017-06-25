@@ -18,10 +18,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
-import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
-import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
-import org.schoellerfamily.gedbrowser.reader.testreader.TestResourceReader;
 import org.schoellerfamily.gedbrowser.renderer.IndexByPlaceRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
@@ -38,7 +35,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-@SuppressWarnings("PMD.ExcessiveImports")
 public class IndexByPlaceRendererTest {
     /** Logger. */
     private final Log logger = LogFactory.getLog(getClass());
@@ -52,9 +48,6 @@ public class IndexByPlaceRendererTest {
     /** */
     @Autowired
     private transient CalendarProvider provider;
-    /** */
-    @Autowired
-    private transient GedObjectCreator g2g;
     /** */
     @Autowired
     private transient GeoServiceClient client;
@@ -126,7 +119,7 @@ public class IndexByPlaceRendererTest {
     public void testIndexAsAdminSchoeller() throws IOException {
         // Test can only be run with my data.
         // Takes about .4 seconds
-        final Root root = readFileTestSource(
+        final Root root = reader.readFileTestSource(
                 "/var/lib/gedbrowser/schoeller.ged");
         logger.info("starting testIndexAsAdminSchoeller");
         final IndexByPlaceRenderer ir = new IndexByPlaceRenderer(root,
@@ -214,17 +207,5 @@ public class IndexByPlaceRendererTest {
                     "Person count for place: " + entry.getKey() + " mismatch",
                     sizes[i++], entry.getValue().size());
         }
-    }
-
-    /**
-     * @param filename the filename
-     * @return the GedLine hierarchy from parsing this file.
-     * @throws IOException because the file reader might throw.
-     */
-    private Root readFileTestSource(final String filename) throws IOException {
-        final AbstractGedLine top =
-                TestResourceReader.readFileTestSource(this, filename);
-        top.readToNext();
-        return g2g.create(top);
     }
 }
