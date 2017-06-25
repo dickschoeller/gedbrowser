@@ -1,5 +1,6 @@
 package org.schoellerfamily.geoservice.model;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -8,7 +9,11 @@ import java.util.Comparator;
  *
  * @author Dick Schoeller
  */
-public class GeoServiceItemComparator implements Comparator<GeoServiceItem> {
+public class GeoServiceItemComparator
+        implements Comparator<GeoServiceItem>, Serializable {
+    /** */
+    private static final long serialVersionUID = 1L;
+
     /**
      * {@inheritDoc}
      */

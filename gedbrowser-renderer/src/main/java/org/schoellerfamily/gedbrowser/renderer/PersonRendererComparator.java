@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -7,7 +8,11 @@ import java.util.Comparator;
  *
  * @author Dick Schoeller
  */
-public class PersonRendererComparator implements Comparator<PersonRenderer> {
+public class PersonRendererComparator
+        implements Comparator<PersonRenderer>, Serializable {
+    /** */
+    private static final long serialVersionUID = 1L;
+
     /**
      * {@inheritDoc}
      */
