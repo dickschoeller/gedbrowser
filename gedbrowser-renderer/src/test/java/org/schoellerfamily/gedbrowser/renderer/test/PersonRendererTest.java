@@ -1510,6 +1510,22 @@ public final class PersonRendererTest {
     }
 
     /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testPlacesMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Person> persons = root.find(Person.class);
+        for (final Person person : persons) {
+            final PersonRenderer renderer = createRenderer(person);
+            assertEquals("places href mismatch",
+                    "places?db=gl120368", renderer.getPlacesHref());
+        }
+    }
+
+    /**
      * @param person the person
      * @return the renderer
      */

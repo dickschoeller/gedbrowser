@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
+import org.schoellerfamily.gedbrowser.renderer.LivingRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SourceRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SourcesRenderer;
@@ -154,5 +155,19 @@ public class SourcesRendererTest {
                 anonymousContext);
         assertEquals("sources href mismatch",
                 "submittors?db=gl120368", renderer.getSubmittorsHref());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testPlacesMenuItem() throws IOException {
+        final Root root1 = reader.readFileTestSource();
+        final SourcesRenderer renderer = new SourcesRenderer(root1,
+                anonymousContext);
+        assertEquals("places href mismatch", "places?db=gl120368",
+                renderer.getPlacesHref());
     }
 }

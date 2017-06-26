@@ -231,4 +231,18 @@ public final class IndexRendererTest {
         assertEquals("sources href mismatch",
                 "submittors?db=gl120368", renderer.getSubmittorsHref());
     }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testPlacesMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final IndexRenderer renderer = new IndexRenderer(root, "A",
+                anonymousContext);
+        assertEquals("places href mismatch", "places?db=gl120368",
+                renderer.getPlacesHref());
+    }
 }
