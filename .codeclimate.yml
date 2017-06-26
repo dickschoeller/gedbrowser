@@ -4,13 +4,6 @@ engines:
   markdownlint:
     enabled: true
     checks:
-      MD009:
-        enabled: true
-        br_spaces: 3
-      MD013:
-        enabled: true
-        code_blocks: false
-        tables: false
   fixme:
     enabled: true
     config:
