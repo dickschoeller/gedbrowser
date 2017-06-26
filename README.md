@@ -52,6 +52,7 @@ You will have to go over to Google's developer site and get your own keys.
 cat YOURGEOCODINGKEY > /var/lib/gedbrowser/google-geocoding-key
 cat YOURGOOGLEMAPKEY >> /var/lib/gedbrowser/google-geocoding-key
 ```
+
 ### Prepare your user file
 
 The file sits in the gedbrowser home directory and is called userFile.csv. The
