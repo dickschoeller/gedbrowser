@@ -55,8 +55,8 @@ cat YOURGOOGLEMAPKEY >> /var/lib/gedbrowser/google-geocoding-key
 ### Prepare your user file
 
 The file sits in the gedbrowser home directory and is called userFile.csv. The
-format is:    
-username,first name,last name,email,password,role,role,...    
+format is:   
+username,first name,last name,email,password,role,role,...   
 The supported roles are USER and ADMIN.
 
 ```
