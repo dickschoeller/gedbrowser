@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
-import org.schoellerfamily.gedbrowser.renderer.LivingRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SourceRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SourcesRenderer;
