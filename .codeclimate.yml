@@ -3,6 +3,9 @@ engines:
 #    enabled: true
   markdownlint:
     enabled: true
+    code_blocks: false
+    tables: false
+    br_spaces: 3
   fixme:
     enabled: true
     config:
