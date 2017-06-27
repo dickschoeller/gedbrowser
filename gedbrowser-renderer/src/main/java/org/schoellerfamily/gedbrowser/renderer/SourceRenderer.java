@@ -13,7 +13,9 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.SourceVisitor;
  * @author Dick Schoeller
  */
 public final class SourceRenderer extends GedRenderer<Source>
-        implements IndexHrefRenderer<Source> {
+        implements HeaderHrefRenderer<Source>, IndexHrefRenderer<Source>,
+            PlacesHrefRenderer<Source>, SourcesHrefRenderer<Source>,
+            SubmittorsHrefRenderer<Source> {
     /**
      * @param gedObject the Source that we are going to render
      * @param rendererFactory the factory that creates the renderers for the
@@ -24,6 +26,7 @@ public final class SourceRenderer extends GedRenderer<Source>
             final GedRendererFactory rendererFactory,
             final RenderingContext renderingContext) {
         super(gedObject, rendererFactory, renderingContext);
+        setNameIndexRenderer(new SourceNameIndexRenderer(this));
     }
 
     /**
@@ -61,5 +64,12 @@ public final class SourceRenderer extends GedRenderer<Source>
             }
         }
         return list;
+    }
+
+    /**
+     * @return the &lt;a href&gt; string for this source
+     */
+    public String getIndexNameHtml() {
+        return this.getNameIndexRenderer().getIndexName();
     }
 }

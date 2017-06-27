@@ -7,11 +7,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
-import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkListItemRenderer;
+import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
@@ -77,7 +77,7 @@ public final class SubmittorLinkRendererTest {
                 anonymousContext);
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
-                instanceof NullNameHtmlRenderer);
+                instanceof SubmittorLinkNameHtmlRenderer);
     }
 
     /**

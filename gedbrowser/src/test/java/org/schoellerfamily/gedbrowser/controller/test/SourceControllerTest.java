@@ -22,8 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-public class SourceControllerTest {
-
+public class SourceControllerTest implements MenuTestHelper {
     /**
      * Not sure what this is good for.
      */
@@ -45,7 +44,11 @@ public class SourceControllerTest {
                 testRestTemplate.getForEntity(url, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Source: S33750 - ");
+        then(entity.getBody())
+            .contains("<title>File (merged):"
+                    + " C:\\Users\\Phil\\Downloads\\butcher\\butcher.GED"
+                    + " - S33750 - gl120368")
+            .contains(getMenu("A"));
     }
 
     /** */
@@ -71,6 +74,7 @@ public class SourceControllerTest {
                         String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        then(entity.getBody()).contains("Source not found");
+        then(entity.getBody()).contains("Source not found")
+        .contains(getMenu("A"));
     }
 }

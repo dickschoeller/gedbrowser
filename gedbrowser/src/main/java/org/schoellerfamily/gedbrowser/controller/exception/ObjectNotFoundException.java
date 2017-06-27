@@ -57,6 +57,27 @@ public class ObjectNotFoundException extends RuntimeException {
     }
 
     /**
+     * @return href string to the index page for surnames beginning with A.
+     */
+    public String getHeaderHref() {
+        return "head?db=" + datasetName;
+    }
+
+    /**
+     * @return href string to the index page for sources.
+     */
+    public String getSourcesHref() {
+        return "sources?db=" + datasetName;
+    }
+
+    /**
+     * @return href string to the index page for submittors.
+     */
+    public String getSubmittorsHref() {
+        return "submittors?db=" + datasetName;
+    }
+
+    /**
      * Check if the user has a particular role.
      *
      * @param role role that we are looking for
@@ -71,5 +92,12 @@ public class ObjectNotFoundException extends RuntimeException {
      */
     public String getLivingHref() {
         return "living?db=" + datasetName;
+    }
+
+    /**
+     * @return the href string to the living estimator.
+     */
+    public String getPlacesHref() {
+        return "places?db=" + datasetName;
     }
 }

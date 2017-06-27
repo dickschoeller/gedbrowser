@@ -1,6 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Data set not found</title>
+    <title
+    th:utext="'Data set not found - ' + ${error.exception.datasetName}">Dataset not found - xyzzy</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
 </head>
@@ -9,8 +10,8 @@
     <div class="outer">
     <div class="middle">
     <div class="inner">
-    <h1 th:utext="${error.message}">Dataset not found</h1>
-    <h2 class="name">Dataset <span  th:utext="${error.exception.datasetName}"></span> not found</h2>
+    <h1 th:utext="${error.message}">Data set not found - xyzzy</h1>
+    <h2 class="name">Data set not found - <span th:utext="${error.exception.datasetName}"></span></h2>
 
     <div th:replace="fragments/footer :: footer-error">&nbsp;</div>
 

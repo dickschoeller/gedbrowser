@@ -1,7 +1,5 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
-
 /**
  * @author Dick Schoeller
  */
@@ -9,7 +7,7 @@ public class SubmittorLinkListItemRenderer implements ListItemRenderer {
     /**
      * Holder for the SubmittorLinkRenderer that is using this helper.
      */
-    private final transient SubmittorLinkRenderer slRenderer;
+    private final transient SubmittorLinkRenderer submittorLinkRenderer;
 
     /**
      * Constructor.
@@ -18,7 +16,7 @@ public class SubmittorLinkListItemRenderer implements ListItemRenderer {
      */
     protected SubmittorLinkListItemRenderer(
             final SubmittorLinkRenderer renderer) {
-        this.slRenderer = renderer;
+        this.submittorLinkRenderer = renderer;
     }
 
     /**
@@ -35,14 +33,8 @@ public class SubmittorLinkListItemRenderer implements ListItemRenderer {
      * @param builder the string builder that we will be appending to.
      */
     private void renderListItemContents(final StringBuilder builder) {
-        final SubmittorLink submittorLink = slRenderer.getGedObject();
-        builder.append("[<a href=\"source?db=");
-        builder.append(submittorLink.getDbName());
-        builder.append("&amp;id=");
-        builder.append(submittorLink.getToString());
-        builder.append("\">");
-        builder.append(submittorLink.getToString());
-        builder.append("</a>]");
+        builder.append("<span class=\"label\">Submittor:</span> ");
+        builder.append(submittorLinkRenderer.getNameHtml());
     }
 
     /**

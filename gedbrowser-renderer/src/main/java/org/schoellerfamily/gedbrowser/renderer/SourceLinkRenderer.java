@@ -20,5 +20,6 @@ public final class SourceLinkRenderer extends AbstractLinkRenderer<SourceLink> {
         super(gedObject, rendererFactory, renderingContext);
         setListItemRenderer(new SourceLinkListItemRenderer(this));
         setPhraseRenderer(new SourceLinkPhraseRenderer(this));
+        setNameHtmlRenderer(new SourceLinkNameHtmlRenderer(this));
     }
 }

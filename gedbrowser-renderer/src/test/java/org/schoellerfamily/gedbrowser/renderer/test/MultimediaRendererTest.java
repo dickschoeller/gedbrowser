@@ -89,9 +89,8 @@ public final class MultimediaRendererTest {
      * @return the renderer
      */
     private MultimediaRenderer createRenderer() {
-        final MultimediaRenderer renderer = new MultimediaRenderer(
-                new Multimedia(), new GedRendererFactory(), anonymousContext);
-        return renderer;
+        return new MultimediaRenderer(new Multimedia(),
+                new GedRendererFactory(), anonymousContext);
     }
 
     // TODO test render as page and renderAsListItem

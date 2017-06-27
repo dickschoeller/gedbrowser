@@ -34,9 +34,13 @@ public final class IndexRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
+    private RenderingContext userContext;
+
+    /** */
     @Before
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
+        userContext = RenderingContext.user(appInfo);
     }
 
     /**
@@ -126,7 +130,7 @@ public final class IndexRendererTest {
         };
         final Root root = reader.readBigTestSource();
         final IndexRenderer ir = new IndexRenderer(root, "S",
-                anonymousContext);
+                userContext);
         final Collection<String> indexNames = ir.getIndexNameHtmls("Schoeller");
         int i = 0;
         for (final String indexName : indexNames) {
@@ -139,10 +143,106 @@ public final class IndexRendererTest {
      * @throws IOException because the reader can
      */
     @Test
+    public void testIndexNameHtmlSchoellerAnonymous() throws IOException {
+        final Root root = reader.readBigTestSource();
+        final IndexRenderer ir = new IndexRenderer(root, "S",
+                anonymousContext);
+        final Collection<String> indexNames = ir.getIndexNameHtmls("Schoeller");
+        assertEquals("Expect empty", 0, indexNames.size());
+    }
+
+    /**
+     * @throws IOException because the reader can
+     */
+    @Test
     public void testIndexBase() throws IOException {
         final Root root = reader.readBigTestSource();
         final IndexRenderer ir = new IndexRenderer(root, "S",
                 anonymousContext);
         assertEquals("Mismatch index letter", "S", ir.getBase());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testHeaderMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final IndexRenderer renderer = new IndexRenderer(root, "A",
+                anonymousContext);
+        assertEquals("head href mismatch",
+                "head?db=gl120368", renderer.getHeaderHref());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testIndexMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final IndexRenderer renderer = new IndexRenderer(root, "A",
+                anonymousContext);
+        assertEquals("index href mismatch",
+                "surnames?db=gl120368&letter=A", renderer.getIndexHref());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testLivingMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final IndexRenderer renderer = new IndexRenderer(root, "A",
+                anonymousContext);
+        assertEquals("living href mismatch",
+                "living?db=gl120368", renderer.getLivingHref());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSourcesMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final IndexRenderer renderer = new IndexRenderer(root, "A",
+                anonymousContext);
+        assertEquals("submittors href mismatch",
+                "sources?db=gl120368", renderer.getSourcesHref());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSubmittorsMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final IndexRenderer renderer = new IndexRenderer(root, "A",
+                anonymousContext);
+        assertEquals("sources href mismatch",
+                "submittors?db=gl120368", renderer.getSubmittorsHref());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testPlacesMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final IndexRenderer renderer = new IndexRenderer(root, "A",
+                anonymousContext);
+        assertEquals("places href mismatch", "places?db=gl120368",
+                renderer.getPlacesHref());
     }
 }

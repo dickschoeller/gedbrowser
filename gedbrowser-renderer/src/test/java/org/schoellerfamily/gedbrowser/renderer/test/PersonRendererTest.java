@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.Before;
@@ -597,10 +598,8 @@ public final class PersonRendererTest {
     private PersonRenderer createRenderer() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I1");
-        final PersonRenderer renderer = new PersonRenderer(
-                person, new GedRendererFactory(),
+        return new PersonRenderer(person, new GedRendererFactory(),
                 userContext);
-        return renderer;
     }
 
     /**
@@ -634,7 +633,7 @@ public final class PersonRendererTest {
         final Person george = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(george,
                 new GedRendererFactory(), userContext);
-        final CellRow[] cellRows = personRenderer.getTreeRows();
+        final CellRow[] cellRows = personRenderer.getTreeRows(5);
         int i = 0;
         for (final CellRow cellRow : cellRows) {
             final CellRenderer[] cellRenderers = cellRow.getCells();
@@ -1425,6 +1424,114 @@ public final class PersonRendererTest {
         final int expectedLength = 8;
         assertEquals("Attribute list size mismatch",
                 expectedLength, personRenderer.getAttributes().size());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testHeaderMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Person> persons = root.find(Person.class);
+        for (final Person person : persons) {
+            final PersonRenderer renderer = createRenderer(person);
+            assertEquals("head href mismatch",
+                    "head?db=gl120368", renderer.getHeaderHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testIndexMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Person> persons = root.find(Person.class);
+        for (final Person person : persons) {
+            final PersonRenderer renderer = createRenderer(person);
+            final String expected = "surnames?db=gl120368&letter=";
+            final int expectedLength = expected.length();
+            assertEquals("index href mismatch",
+                    expected,
+                    renderer.getIndexHref().substring(0, expectedLength));
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testLivingMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Person> persons = root.find(Person.class);
+        for (final Person person : persons) {
+            final PersonRenderer renderer = createRenderer(person);
+            assertEquals("living href mismatch",
+                    "living?db=gl120368", renderer.getLivingHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSourcesMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Person> persons = root.find(Person.class);
+        for (final Person person : persons) {
+            final PersonRenderer renderer = createRenderer(person);
+            assertEquals("sources href mismatch",
+                    "sources?db=gl120368", renderer.getSourcesHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSubmittorsMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Person> persons = root.find(Person.class);
+        for (final Person person : persons) {
+            final PersonRenderer renderer = createRenderer(person);
+            assertEquals("submittors href mismatch",
+                    "submittors?db=gl120368", renderer.getSubmittorsHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testPlacesMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Person> persons = root.find(Person.class);
+        for (final Person person : persons) {
+            final PersonRenderer renderer = createRenderer(person);
+            assertEquals("places href mismatch",
+                    "places?db=gl120368", renderer.getPlacesHref());
+        }
+    }
+
+    /**
+     * @param person the person
+     * @return the renderer
+     */
+    private PersonRenderer createRenderer(final Person person) {
+        return new PersonRenderer(person,
+                new GedRendererFactory(), userContext);
     }
     // TODO test tree rendering for Vivian both Admin and Anon
 

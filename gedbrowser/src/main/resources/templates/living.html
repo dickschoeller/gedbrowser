@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Living</title>
+    <title
+     th:utext="'Living - ' + ${model.gedObject.dbName}">Living
+     - schoeller</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
 </head>

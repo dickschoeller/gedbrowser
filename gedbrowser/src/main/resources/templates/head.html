@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title
+     th:utext="'Header - ' + ${model.gedObject.dbName}">Header
+     - schoeller</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
+</head>
+<body>
+    <div th:replace="fragments/header :: menubar">&nbsp;</div>
+
+    <div class="outer">
+    <div class="middle">
+    <div class="inner">
+
+    <h2 class="name"
+     th:utext="'Header for dataset: ' + ${model.gedObject.dbName}">
+     Header dataset: schoeller</h2>
+
+    <div th:if="${not model.getAttributes().isEmpty()}">
+        <hr class="attributes"/>
+        <h3 class="attributes">Attributes</h3>
+        <ul>
+            <li th:id="'attribute-' + ${attrStat.count}"
+             th:each="attribute,attrStat : ${model.getAttributes()}"
+             th:utext="${attribute.listItemContents}"></li>
+        </ul>
+    </div>
+
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+
+    </div>
+    </div>
+    </div>
+
+<!-- anywhere in your document: -->
+<form th:action="@{logout}" id="logoutForm">
+  <!-- csrf hidden input included automagically -->
+</form>
+
+</body>
+</html>

@@ -33,7 +33,7 @@ public final class TestDataReader {
             "2 TIME 22:04",
             "1 CHAR ANSI",
             "0 @SUB1@ SUBM",
-            "1 NAME Richard Schoeller",
+            "1 NAME Richard/Schoeller/",
             "1 ADDR 242 Marked Tree Road",
             "2 CONT Needham, MA 02492",
             "1 PHON 781.449.5476",
@@ -323,7 +323,15 @@ public final class TestDataReader {
     private static final String[] A_SOURCE_SHORT = {
             "0 HEAD",
             "1 SOUR TMG",
+            "2 VERS 4.0",
             "1 SUBM @SUB1@",
+            "1 GEDC",
+            "2 VERS 5.5",
+            "2 FORM LINEAGE-LINKED",
+            "1 DEST GED55",
+            "1 DATE 16 FEB 2001",
+            "2 TIME 22:04",
+            "1 CHAR ANSI",
             "0 @SUB1@ SUBM",
             "1 NAME Richard Schoeller",
             "1 ADDR 242 Marked Tree Road",
@@ -394,8 +402,17 @@ public final class TestDataReader {
      * @throws IOException because the file reader might throw.
      */
     public Root readFileTestSource() throws IOException {
+        return readFileTestSource("gl120368.ged");
+    }
+
+    /**
+     * @param filename the filename
+     * @return the GedLine hierarchy from parsing this file.
+     * @throws IOException because the file reader might throw.
+     */
+    public Root readFileTestSource(final String filename) throws IOException {
         final AbstractGedLine top =
-                TestResourceReader.readFileTestSource(this, "gl120368.ged");
+                TestResourceReader.readFileTestSource(this, filename);
         top.readToNext();
         return g2g.create(top);
     }

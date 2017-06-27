@@ -104,4 +104,15 @@ public abstract class AbstractFinderObject implements FinderObject {
     public final Collection<String> findSurnameInitialLetters() {
         return finder.findSurnameInitialLetters(this);
     }
+
+
+    /**
+     * @param <T> the type to look for
+     * @param clazz the class object of the type to look for
+     * @return the collection of objects of the class provided
+     */
+    public final <T extends GedObject> Collection<T> find(
+            final Class<T> clazz) {
+        return finder.find(this, clazz);
+    }
 }

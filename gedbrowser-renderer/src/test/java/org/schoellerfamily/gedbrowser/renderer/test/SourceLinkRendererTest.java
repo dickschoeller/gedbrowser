@@ -7,11 +7,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
-import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SourceLinkListItemRenderer;
+import org.schoellerfamily.gedbrowser.renderer.SourceLinkNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SourceLinkPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SourceLinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
@@ -71,7 +71,7 @@ public final class SourceLinkRendererTest {
         final SourceLinkRenderer renderer = createRenderer();
         assertTrue("Wrong renderer type",
                 renderer.getNameHtmlRenderer()
-                instanceof NullNameHtmlRenderer);
+                instanceof SourceLinkNameHtmlRenderer);
     }
 
     /**
@@ -102,9 +102,7 @@ public final class SourceLinkRendererTest {
      * @return the renderer
      */
     private SourceLinkRenderer createRenderer() {
-        final SourceLinkRenderer renderer = new SourceLinkRenderer(
-                new SourceLink(), new GedRendererFactory(),
-                anonymousContext);
-        return renderer;
+        return new SourceLinkRenderer(new SourceLink(),
+                new GedRendererFactory(), anonymousContext);
     }
 }

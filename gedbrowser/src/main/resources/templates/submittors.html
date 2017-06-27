@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title
+     th:utext="'Submittors - ' + ${model.gedObject.dbName}">Submittors
+     - schoeller</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
+</head>
+<body>
+    <div th:replace="fragments/header :: menubar">&nbsp;</div>
+
+    <div class="outer">
+    <div class="middle">
+    <div class="inner">
+
+    <h2 class="name"
+     th:utext="'Submittors for dataset: ' + ${model.gedObject.dbName}">Submittors
+     for dataset: schoeller</h2>
+
+    <ul>
+        <li th:each="submittor : ${model.submittors}"
+         th:utext="${submittor.indexName}">submittor id</li>
+    </ul>
+
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+
+    </div>
+    </div>
+    </div>
+
+<!-- anywhere in your document: -->
+<form th:action="@{logout}" id="logoutForm">
+  <!-- csrf hidden input included automagically -->
+</form>
+
+</body>
+</html>

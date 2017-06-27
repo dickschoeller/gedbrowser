@@ -1,6 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Person not found</title>
+    <title
+     th:text="'Person not found - ' + ${error.exception.personId} + ' - ' + ${error.exception.datasetName}">Person
+     not found - I9999 - schoeller</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
 </head>

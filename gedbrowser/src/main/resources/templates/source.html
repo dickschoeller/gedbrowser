@@ -1,7 +1,9 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="'Source: ' + ${model.idString} + ' - ' + ${model.titleString}">GedBrowser Source</title>
+    <title
+     th:text="${model.titleString} + ' - ' + ${model.idString} + ' - ' + ${model.gedObject.dbName}">Church
+     Record - S9999 - schoeller</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
 </head>

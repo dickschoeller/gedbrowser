@@ -8,8 +8,12 @@
     <div class="menubar" th:fragment="menubar">
         <span class="left">
             <span><a th:href="${model.homeUrl}">Home</a></span>
+            <span><a th:href="${model.headerHref}">Header</a></span>
             <span><a th:href="${model.indexHref}">Index</a></span>
+            <span><a th:href="${model.sourcesHref}">Sources</a></span>
+            <span><a th:href="${model.submittorsHref}">Submittors</a></span>
             <span><a th:if="${model.hasRole('ADMIN')}" th:href="${model.livingHref}">Living</a></span>
+            <span><a th:if="${model.hasRole('ADMIN')}" th:href="${model.placesHref}">Places</a></span>
         </span>
         <div  th:if="${#httpServletRequest.remoteUser} != null" class="right">
             <form th:action="@{logout}" method="post">
@@ -37,8 +41,12 @@
     <div class="menubar" th:fragment="menubar-notfound">
         <span class="left">
             <span><a th:href="${error.homeUrl}">Home</a></span>
+            <span><a th:href="${error.exception.headerHref}">Header</a></span>
             <span><a th:href="${error.exception.indexHref}">Index</a></span>
+            <span><a th:href="${error.exception.sourcesHref}">Sources</a></span>
+            <span><a th:href="${error.exception.submittorsHref}">Submittors</a></span>
             <span><a th:if="${error.exception.hasRole('ADMIN')}" th:href="${error.exception.livingHref}">Living</a></span>
+            <span><a th:if="${error.exception.hasRole('ADMIN')}" th:href="${error.exception.placesHref}">Places</a></span>
         </span>
         <div  th:if="${#httpServletRequest.remoteUser} != null" class="right">
             <form th:action="@{logout}" method="post">

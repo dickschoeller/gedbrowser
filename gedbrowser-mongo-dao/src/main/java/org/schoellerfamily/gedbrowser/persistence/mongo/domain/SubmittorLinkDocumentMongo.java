@@ -32,7 +32,7 @@ public class SubmittorLinkDocumentMongo extends GedDocumentMongo<SubmittorLink>
         }
         final SubmittorLink gedObject = (SubmittorLink) ged;
         this.setGedObject(gedObject);
-        this.setString(gedObject.getString());
+        this.setString(gedObject.getToString());
         this.setFilename(gedObject.getFilename());
         loader.loadAttributes(this, gedObject.getAttributes());
     }

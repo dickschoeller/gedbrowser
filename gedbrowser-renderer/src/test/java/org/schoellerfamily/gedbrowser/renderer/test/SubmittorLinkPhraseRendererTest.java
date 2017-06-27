@@ -63,7 +63,8 @@ public final class SubmittorLinkPhraseRendererTest {
                 (SubmittorLinkPhraseRenderer) slr.getPhraseRenderer();
         assertEquals("Rendered html doesn't match expectation",
                 "<a class=\"name\" "
-                + "href=\"source?db=null&amp;id=S1\">Richard/Schoeller/</a>",
+                + "href=\"submittor?db=null&amp;id=S1\">"
+                + "Richard Schoeller [S1]</a>",
                 slpr.renderAsPhrase());
     }
 }

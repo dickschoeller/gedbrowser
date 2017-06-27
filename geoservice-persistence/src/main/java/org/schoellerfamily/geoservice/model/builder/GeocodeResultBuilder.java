@@ -1,21 +1,16 @@
 package org.schoellerfamily.geoservice.model.builder;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
-import org.geojson.LngLatAlt;
 import org.geojson.Point;
-import org.geojson.Polygon;
-import org.schoellerfamily.geoservice.model.GeoServiceBounds;
 import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceGeometry;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 
 import com.google.maps.model.AddressComponent;
-import com.google.maps.model.Bounds;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.Geometry;
 import com.google.maps.model.LatLng;
@@ -27,8 +22,8 @@ import com.google.maps.model.LocationType;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.TooManyMethods", "PMD.GodClass" })
-public final class GeocodeResultBuilder {
+public final class GeocodeResultBuilder
+        implements BoundsBuilder, BoxBuilder, PointBuilder, FeatureBuilder {
     /**
      * Create a GeoCodeItem from a GeoServiceItem.
      *
@@ -104,6 +99,19 @@ public final class GeocodeResultBuilder {
             return null;
         }
         final Geometry geometry = new Geometry();
+        final Feature location =
+                populateBoundaries(geometry, featureCollection);
+        populateLocation(geometry, location);
+        return geometry;
+    }
+
+    /**
+     * @param geometry the geometry to populate
+     * @param featureCollection the feature collection to get bounds from
+     * @return the populated location
+     */
+    private Feature populateBoundaries(final Geometry geometry,
+            final FeatureCollection featureCollection) {
         Feature location;
         if (featureCollection.getFeatures().isEmpty()) {
             location = null;
@@ -115,6 +123,15 @@ public final class GeocodeResultBuilder {
             geometry.viewport =
                     toBounds(featureCollection.getFeatures().get(2));
         }
+        return location;
+    }
+
+    /**
+     * @param geometry geometry object to  fill in
+     * @param location the location to fill it with
+     */
+    private void populateLocation(final Geometry geometry,
+            final Feature location) {
         if (location == null) {
             geometry.location = null;
             geometry.locationType = null;
@@ -123,7 +140,6 @@ public final class GeocodeResultBuilder {
             geometry.locationType =
                     toLocationType(location.getProperty("locationType"));
         }
-        return geometry;
     }
 
     /**
@@ -137,56 +153,6 @@ public final class GeocodeResultBuilder {
             return null;
         }
         return LocationType.valueOf(property.toString());
-    }
-
-    /**
-     * Create a Bounds from a GeoServiceBounds.
-     *
-     * @param feature the bounding box feature
-     * @return the Bounds
-     */
-    public Bounds toBounds(final Feature feature) {
-        if (feature == null) {
-            return null;
-        }
-        final Polygon polygon = (Polygon) feature.getGeometry();
-        final List<List<LngLatAlt>> coordinates = polygon.getCoordinates();
-        if (coordinates == null || coordinates.isEmpty()) {
-            return new Bounds();
-        }
-        final List<LngLatAlt> list = coordinates.get(0);
-        final LngLatAlt northeast = list.get(2);
-        final LngLatAlt southwest = list.get(0);
-        final Bounds bounds = new Bounds();
-        bounds.northeast = toLatLng(northeast);
-        bounds.southwest = toLatLng(southwest);
-        return bounds;
-    }
-
-    /**
-     * Create a LatLng from a GeoJSON Point.
-     *
-     * @param point the Point
-     * @return the LatLng
-     */
-    public LatLng toLatLng(final Point point) {
-        if (point == null) {
-            return null;
-        }
-        return toLatLng(point.getCoordinates());
-    }
-
-    /**
-     * Create a LatLng from a GeoJSON LngLatAlt.
-     *
-     * @param lla the LngLatAlt
-     * @return the LatLng
-     */
-    public LatLng toLatLng(final LngLatAlt lla) {
-        if (lla == null) {
-            return null;
-        }
-        return new LatLng(lla.getLatitude(), lla.getLongitude());
     }
 
     /**
@@ -234,83 +200,13 @@ public final class GeocodeResultBuilder {
     public FeatureCollection toGeoServiceGeometry(final Geometry geometry) {
         if (geometry == null) {
             return GeoServiceGeometry.createFeatureCollection(
-                    toLocation(new LatLng(Double.NaN, Double.NaN),
+                    toLocationFeature(new LatLng(Double.NaN, Double.NaN),
                             LocationType.UNKNOWN),
                     null, null);
         }
         return GeoServiceGeometry.createFeatureCollection(
-                toLocation(geometry.location, geometry.locationType),
+                toLocationFeature(geometry.location, geometry.locationType),
                 toBox("bounds", geometry.bounds),
                 toBox("viewport", geometry.viewport));
-    }
-
-    /**
-     * Create a Feature containing a single Polygon describing the bounding box
-     * from the provided Bounds.
-     *
-     * @param id the ID string
-     * @param bounds the Bounds
-     * @return the Feature
-     */
-    public Feature toBox(final String id, final Bounds bounds) {
-        if (bounds == null) {
-            return null;
-        }
-        if (bounds.southwest == null || bounds.northeast == null) {
-            throw new IllegalArgumentException(
-                    "Must have legitimate bounding box");
-        }
-        return GeoServiceBounds.createBounds(id,
-                toLngLatAlt(bounds.southwest),
-                toLngLatAlt(bounds.northeast));
-    }
-
-    /**
-     * Create a GeoJSON Point from a LatLng.
-     *
-     * @param latLng the LatLng
-     * @return the GeoServiceLatLng
-     */
-    public Point toPoint(final LatLng latLng) {
-        if (latLng == null) {
-            return null;
-        }
-        return new Point(latLng.lng, latLng.lat);
-    }
-
-    /**
-     * Create a GeoJSON Point from a LatLng.
-     *
-     * @param latLng the LatLng
-     * @param locationType the location type
-     * @return the GeoServiceLatLng
-     */
-    public Feature toLocation(final LatLng latLng,
-            final LocationType locationType) {
-        if (latLng == null) {
-            final Feature feature = new Feature();
-            feature.setProperty("locationType", locationType);
-            feature.setId("location");
-            return feature;
-        }
-        final Point point = new Point(latLng.lng, latLng.lat);
-        final Feature feature = new Feature();
-        feature.setGeometry(point);
-        feature.setProperty("locationType", locationType);
-        feature.setId("location");
-        return feature;
-    }
-
-    /**
-     * Create a GeoJSON Point from a LatLng.
-     *
-     * @param latLng the LatLng
-     * @return the GeoServiceLatLng
-     */
-    public LngLatAlt toLngLatAlt(final LatLng latLng) {
-        if (latLng == null) {
-            return null;
-        }
-        return new LngLatAlt(latLng.lng, latLng.lat);
     }
 }

@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.schoellerfamily.gedbrowser</groupId>
     <artifactId>gedbrowser-top</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <relativePath>..</relativePath>
   </parent>
 
@@ -89,7 +89,7 @@
   <build>
     <testResources>
       <testResource>
-        <directory>src/test/java</directory>
+        <directory>src/test/resources</directory>
         <filtering>false</filtering>
         <includes>
           <include>**/*.ged</include>

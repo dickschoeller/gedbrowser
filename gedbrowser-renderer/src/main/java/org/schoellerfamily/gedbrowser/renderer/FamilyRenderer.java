@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.Family;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 
@@ -13,7 +12,8 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
  *
  * @author Dick Schoeller
  */
-public final class FamilyRenderer extends GedRenderer<Family> {
+public final class FamilyRenderer extends GedRenderer<Family>
+        implements AttributesRenderer<Family> {
     /** */
     private static final int INDENT_INCREMENT = 2;
 
@@ -39,25 +39,6 @@ public final class FamilyRenderer extends GedRenderer<Family> {
         final Person person = personRenderer.getGedObject();
         final Person spouse = (new FamilyNavigator(family)).getSpouse(person);
         return (PersonRenderer) createGedRenderer(spouse);
-    }
-
-    /**
-     * Return the list of renderers that can be rendered in a list format.
-     *
-     * @return the list of attribute renderers.
-     */
-    public List<GedRenderer<?>> getAttributes() {
-        final Family family = getGedObject();
-        final List<GedRenderer<?>> rendererList =
-                new ArrayList<GedRenderer<?>>();
-        for (final GedObject attribute : family.getAttributes()) {
-            final GedRenderer<?> attributeRenderer =
-                    createGedRenderer(attribute);
-            if (!attributeRenderer.getListItemContents().isEmpty()) {
-                rendererList.add(attributeRenderer);
-            }
-        }
-        return rendererList;
     }
 
     /**

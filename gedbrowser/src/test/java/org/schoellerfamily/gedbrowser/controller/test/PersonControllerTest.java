@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-public class PersonControllerTest {
+public class PersonControllerTest implements MenuTestHelper {
 
     /**
      * Not sure what this is good for.
@@ -45,7 +45,9 @@ public class PersonControllerTest {
                 String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Person: I4 - Living </title>");
+        then(entity.getBody())
+            .contains("<title>Living  - I4 - gl120368</title>")
+            .contains(getMenu("?#?"));
     }
 
     /** */
@@ -57,8 +59,10 @@ public class PersonControllerTest {
                 String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Person: I9 -"
-                + " Edwin Elijah A  Williams");
+        then(entity.getBody())
+            .contains("<title>Edwin Elijah A  Williams (13 DEC 1883-ABT AUG "
+                    + "1951) - I9 - gl120368</title>")
+            .contains(getMenu("W#Williams"));
     }
 
     /** */
@@ -82,6 +86,7 @@ public class PersonControllerTest {
                 String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        then(entity.getBody()).contains("Person not found");
+        then(entity.getBody()).contains("Person not found")
+            .contains(getMenu("A"));
     }
 }

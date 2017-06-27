@@ -25,8 +25,16 @@ public class SourceLinkListItemRenderer implements ListItemRenderer {
     @Override
     public final StringBuilder renderAsListItem(final StringBuilder builder,
             final boolean newLine, final int pad) {
-        builder.append(sourceLinkRenderer.renderAsPhrase());
+        renderListItemContents(builder);
         return builder;
+    }
+
+    /**
+     * @param builder the string builder that we will be appending to.
+     */
+    private void renderListItemContents(final StringBuilder builder) {
+        builder.append("<span class=\"label\">Source:</span> ");
+        builder.append(sourceLinkRenderer.getNameHtml());
     }
 
     /**
@@ -34,6 +42,8 @@ public class SourceLinkListItemRenderer implements ListItemRenderer {
      */
     @Override
     public final String getListItemContents() {
-        return sourceLinkRenderer.renderAsPhrase();
+        final StringBuilder builder = new StringBuilder();
+        renderListItemContents(builder);
+        return builder.toString();
     }
 }

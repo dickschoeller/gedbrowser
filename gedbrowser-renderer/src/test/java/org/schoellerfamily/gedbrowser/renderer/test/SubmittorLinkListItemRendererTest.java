@@ -64,7 +64,9 @@ public final class SubmittorLinkListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, false, 0);
         assertEquals("Rendered html doesn't match expectation",
-                "[<a href=\"source?db=null&amp;id=S1\">S1</a>]",
+                "<span class=\"label\">Submittor:</span> <a class=\"name\""
+                + " href=\"submittor?db=null&amp;id=S1\">"
+                + "Richard Schoeller [S1]</a>",
                 builder.toString());
     }
 
@@ -79,7 +81,9 @@ public final class SubmittorLinkListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, true, 0);
         assertEquals("Rendered html doesn't match expectation",
-                "[<a href=\"source?db=null&amp;id=S1\">S1</a>]",
+                "<span class=\"label\">Submittor:</span> <a class=\"name\""
+                + " href=\"submittor?db=null&amp;id=S1\">"
+                + "Richard Schoeller [S1]</a>",
                 builder.toString());
     }
 
@@ -94,7 +98,9 @@ public final class SubmittorLinkListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, false, 2);
         assertEquals("Rendered html doesn't match expectation",
-                "[<a href=\"source?db=null&amp;id=S1\">S1</a>]",
+                "<span class=\"label\">Submittor:</span> <a class=\"name\""
+                + " href=\"submittor?db=null&amp;id=S1\">"
+                + "Richard Schoeller [S1]</a>",
                 builder.toString());
     }
 }

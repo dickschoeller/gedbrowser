@@ -34,7 +34,7 @@ public final class SourcePage extends PageBase {
     private static final Map<String, String> TITLE_MAP = new HashMap<>();
     static {
         TITLE_MAP.put("S33651",
-                "Source: S33651 - Births, Marriages & Deaths Register");
+                "Births, Marriages & Deaths Register - S33651 - gl120368");
     };
 
     /**

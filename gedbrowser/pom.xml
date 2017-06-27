@@ -5,7 +5,7 @@
 
   <parent>
     <artifactId>gedbrowser-top</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <groupId>org.schoellerfamily.gedbrowser</groupId>
     <relativePath>..</relativePath>
   </parent>
@@ -44,7 +44,7 @@
         <!-- Import dependency management from Spring Boot -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>1.5.3.RELEASE</version>
+        <version>1.5.4.RELEASE</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -352,7 +352,7 @@
             </goals>
             <configuration>
               <imageTags>
-                <imageTag>latest</imageTag>
+                <imageTag>snapshot</imageTag>
               </imageTags>
               <imageName>${docker.image.prefix}/${project.artifactId}:${docker.image.tag}</imageName>
               <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>

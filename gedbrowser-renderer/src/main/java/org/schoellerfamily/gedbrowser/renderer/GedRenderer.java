@@ -100,7 +100,7 @@ public abstract class GedRenderer<G extends GedObject>
      *            The sub-object to render.
      * @return The renderer.
      */
-    protected final GedRenderer<? extends GedObject> createGedRenderer(
+    public final GedRenderer<? extends GedObject> createGedRenderer(
             final GedObject attribute) {
         return getRendererFactory().create(attribute, getRenderingContext());
     }

@@ -9,6 +9,7 @@ import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.SourceNotFoundException;
+import org.schoellerfamily.gedbrowser.controller.exception.SubmittorNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.renderer.GedResourceNotFoundRenderer;
@@ -100,6 +101,21 @@ public abstract class AbstractController {
         logger.info("Handling exception: " + exception.getMessage());
         return createModelAndViewForException(request, exception,
                 "sourceNotFound", HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * @param request the request we're processing
+     * @param exception the exception caught
+     * @return the model and view
+     */
+    @ExceptionHandler({ SubmittorNotFoundException.class })
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public final ModelAndView submittorNotFoundError(
+            final HttpServletRequest request,
+            final SubmittorNotFoundException exception) {
+        logger.info("Handling exception: " + exception.getMessage());
+        return createModelAndViewForException(request, exception,
+                "submittorNotFound", HttpStatus.NOT_FOUND);
     }
 
     /**

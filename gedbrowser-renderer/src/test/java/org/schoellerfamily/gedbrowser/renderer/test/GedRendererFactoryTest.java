@@ -41,6 +41,7 @@ import org.schoellerfamily.gedbrowser.renderer.NameRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PlaceRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RootRenderer;
+import org.schoellerfamily.gedbrowser.renderer.SimpleNameRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SourceLinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SourceRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkRenderer;
@@ -121,6 +122,15 @@ public final class GedRendererFactoryTest {
                 grf.create(new Name(null), provider, appInfo);
         assertTrue("Expected NameRenderer",
                 gedRenderer instanceof NameRenderer);
+    }
+
+    /** */
+    @Test
+    public void testGetSubmittorNameRenderer() {
+        final GedRenderer<?> gedRenderer =
+                grf.create(new Name(new Submittor()), provider, appInfo);
+        assertTrue("Expected SimpleNameRenderer",
+                gedRenderer instanceof SimpleNameRenderer);
     }
 
     /** */

@@ -5,7 +5,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Name;
 /**
  * @author Dick Schoeller
  */
-public final class NameNameIndexRenderer implements NameIndexRenderer {
+public final class NameNameIndexRenderer
+    implements NameIndexRenderer, ComplexRenderer {
     /** */
     private final transient NameRenderer nameRenderer;
 
@@ -30,9 +31,9 @@ public final class NameNameIndexRenderer implements NameIndexRenderer {
 
         final StringBuilder builder = new StringBuilder(40);
 
-        final String prefix = GedRenderer.escapeString(name.getPrefix());
-        final String surname = GedRenderer.escapeString(name.getSurname());
-        final String suffix = GedRenderer.escapeString(name.getSuffix());
+        final String prefix = escapeString(name.getPrefix());
+        final String surname = escapeString(name.getSurname());
+        final String suffix = escapeString(name.getSuffix());
 
         builder.append(" <span class=\"surname\">");
         builder.append(surname);

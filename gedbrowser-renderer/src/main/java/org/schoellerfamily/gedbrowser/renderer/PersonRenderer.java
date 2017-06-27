@@ -7,10 +7,8 @@ import java.util.List;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
-import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
-import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 
 /**
@@ -19,12 +17,9 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
  * @author Dick Schoeller
  */
 public final class PersonRenderer extends GedRenderer<Person>
-        implements IndexHrefRenderer<Person> {
-    /**
-     * Number of generations, including the root when rendering the tree.
-     */
-    private static final int TREE_GENERATIONS = 5;
-
+        implements HeaderHrefRenderer<Person>, IndexHrefRenderer<Person>,
+        PlacesHrefRenderer<Person>, PersonLifeSpanRenderer, PersonNameRenderer,
+        SourcesHrefRenderer<Person>, SubmittorsHrefRenderer<Person> {
     /**
      * Connection to helper to estimate whether this person is living.
      */
@@ -64,64 +59,10 @@ public final class PersonRenderer extends GedRenderer<Person>
     }
 
     /**
-     * @return the name string in title format.
-     */
-    public String getTitleName() {
-        final Name name = getGedObject().getName();
-        if (isConfidential()) {
-            return "Confidential";
-        } else if (isHiddenLiving()) {
-            return "Living";
-        } else {
-            final GedRenderer<?> nameRenderer = createGedRenderer(name);
-            return nameRenderer.getNameHtml();
-        }
-    }
-
-    /**
-     * @return lifespan string.
-     */
-    public String getLifeSpanString() {
-        if (isConfidential() || isHiddenLiving()) {
-            return "";
-        }
-
-        return String.format("(%s-%s)", date("Birth"), date("Death"));
-    }
-
-    /**
-     * @param type the event type to find a date for
-     * @return the date string
-     */
-    private String date(final String type) {
-        final GetDateVisitor birthVisitor = new GetDateVisitor(type);
-        getGedObject().accept(birthVisitor);
-        return birthVisitor.getDate();
-    }
-
-    /**
      * @return the ID string of the person.
      */
     public String getIdString() {
         return getGedObject().getString();
-    }
-
-    /**
-     * @return Get the whole name without markup.
-     */
-    public String getWholeName() {
-        if (isConfidential()) {
-            return "Confidential";
-        } else if (isHiddenLiving()) {
-            return "Living";
-        }
-        final Name name = getGedObject().getName();
-
-        final String prefix = escapeString(name.getPrefix());
-        final String surname = escapeString(name.getSurname());
-        final String suffix = escapeString(" ", name.getSuffix());
-
-        return String.format("%s %s%s", prefix, surname, suffix);
     }
 
     /**
@@ -167,20 +108,10 @@ public final class PersonRenderer extends GedRenderer<Person>
     }
 
     /**
-     * @return the 2D array of cells.
-     */
-    public CellRow[] getTreeRows() {
-        final TreeTableRenderer ttr = new TreeTableRenderer(this,
-                confidentialGenCount(TREE_GENERATIONS));
-        return ttr.getTreeRows();
-    }
-
-    /**
-     * @param generations the number of generations to diplay.
+     * @param generations the number of generations to display.
      * @return the 2D array of cells.
      */
     public CellRow[] getTreeRows(final int generations) {
-        // TODO this is the one that is actually used.
         final TreeTableRenderer ttr = new TreeTableRenderer(this,
                 confidentialGenCount(generations));
         return ttr.getTreeRows();
@@ -228,27 +159,5 @@ public final class PersonRenderer extends GedRenderer<Person>
         final String surname = getSurname();
         return "surnames?db=" + getGedObject().getDbName() + "&letter="
                 + surnameLetter + "#" + surname;
-    }
-
-    /**
-     * @return surname if not confidential
-     */
-    public String getSurname() {
-        if (isConfidential() || isHiddenLiving()) {
-            return "?";
-        } else {
-            return getGedObject().getSurname();
-        }
-    }
-
-    /**
-     * @return surname first letter if not confidential
-     */
-    public String getSurnameLetter() {
-        if (isConfidential() || isHiddenLiving()) {
-            return "?";
-        } else {
-            return getGedObject().getSurnameLetter();
-        }
     }
 }

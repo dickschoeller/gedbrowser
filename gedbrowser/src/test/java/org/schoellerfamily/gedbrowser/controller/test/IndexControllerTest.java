@@ -22,8 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-public class IndexControllerTest {
-
+public class IndexControllerTest implements MenuTestHelper {
     /**
      * Not sure what this is good for.
      */
@@ -38,17 +37,34 @@ public class IndexControllerTest {
 
     /** */
     @Test
-    public final void testIndexControllerOK() {
+    public final void testIndexControllerA() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser/surnames?db=gl120368&letter=A";
         final ResponseEntity<String> entity = testRestTemplate.getForEntity(url,
                 String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Surnames</title>")
+        then(entity.getBody()).contains("<title>Index - A - gl120368</title>")
             .contains("<span><a href=\"surnames?db=gl120368&amp;letter=?\" cl"
                     + "ass=\"name\">[?]</a>   </span>")
-            .contains("<li><a href=\"person?db=gl120368&amp;id=");
+            .contains("<li><a href=\"person?db=gl120368&amp;id=")
+            .contains(getMenu("A"));
+    }
+
+    /** */
+    @Test
+    public final void testIndexControllerB() {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser/surnames?db=gl120368&letter=B";
+        final ResponseEntity<String> entity = testRestTemplate.getForEntity(url,
+                String.class);
+
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(entity.getBody()).contains("<title>Index - B - gl120368</title>")
+            .contains("<span><a href=\"surnames?db=gl120368&amp;letter=?\" cl"
+                    + "ass=\"name\">[?]</a>   </span>")
+            .contains("<li><a href=\"person?db=gl120368&amp;id=")
+            .contains(getMenu("B"));
     }
 
     /** */
@@ -73,9 +89,10 @@ public class IndexControllerTest {
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody())
-            .contains("<title>Surnames</title>")
+            .contains("<title>Index - q - gl120368</title>")
             .contains("<span><a href=\"surnames?db=gl120368&amp;letter=?\" cl"
                     + "ass=\"name\">[?]</a>   </span>")
-            .doesNotContain("<li><a href=\"person?db=gl120368&amp;id=");
+            .doesNotContain("<li><a href=\"person?db=gl120368&amp;id=")
+            .contains(getMenu("q"));
     }
 }

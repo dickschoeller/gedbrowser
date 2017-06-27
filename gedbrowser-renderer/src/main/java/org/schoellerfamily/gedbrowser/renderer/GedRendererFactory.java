@@ -53,6 +53,10 @@ public final class GedRendererFactory {
             return new PlaceRenderer((Place) g, f, r);
         });
         builders.put(Name.class, (g, f, r) -> {
+            if (g.getParent() != null
+                    && g.getParent().getClass().equals(Submittor.class)) {
+                return new SimpleNameRenderer((Name) g, f, r);
+            }
             return new NameRenderer((Name) g, f, r);
         });
         builders.put(Attribute.class, (g, f, r) -> {

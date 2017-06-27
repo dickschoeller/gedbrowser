@@ -50,7 +50,7 @@ public final class NameListItemRendererTest {
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, false, 0);
-        assertEquals(UNEXPECTED_STRING, "Richard  Schoeller",
+        assertEquals(UNEXPECTED_STRING, "Richard Schoeller",
                 builder.toString());
     }
 
@@ -64,7 +64,7 @@ public final class NameListItemRendererTest {
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, false, 0);
-        assertEquals(UNEXPECTED_STRING, "Karl Frederick  Schoeller Jr.",
+        assertEquals(UNEXPECTED_STRING, "Karl Frederick Schoeller Jr.",
                 builder.toString());
     }
 
@@ -91,7 +91,7 @@ public final class NameListItemRendererTest {
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, true, 0);
-        assertEquals(UNEXPECTED_STRING, "\nKarl Frederick  Schoeller Jr.",
+        assertEquals(UNEXPECTED_STRING, "\nKarl Frederick Schoeller Jr.",
                 builder.toString());
     }
 

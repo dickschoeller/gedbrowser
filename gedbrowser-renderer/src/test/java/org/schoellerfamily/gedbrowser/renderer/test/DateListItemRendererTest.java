@@ -35,6 +35,9 @@ public final class DateListItemRendererTest {
     private transient Date date;
 
     /** */
+    private transient Date date2;
+
+    /** */
     private RenderingContext anonymousContext;
 
     /** */
@@ -42,10 +45,11 @@ public final class DateListItemRendererTest {
     public void init() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
-        attribute = new Attribute(person, "String", "");
-        person.addAttribute(attribute);
-        date = new Date(attribute, "14 December 1958");
-        attribute.addAttribute(date);
+        attribute = builder.createPersonEvent(person, "String");
+        date = builder.addDateToGedObject(attribute, "14 December 1958");
+        builder.createAttribute(date, "Time", "12:00");
+        final Attribute a2 = builder.createPersonEvent(person, "String2");
+        date2 = builder.addDateToGedObject(a2, "14 December 1958");
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -60,7 +64,24 @@ public final class DateListItemRendererTest {
         dlir.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
         assertEquals("Rendered string doesn't match expectation",
-                "14 December 1958", string);
+                "<li><span class=\"label\">Date:</span>"
+                + " 14 December 1958 12:00</li>\n", string);
+    }
+
+    /** */
+    @Test
+    public void testGetRenderAsListItem2() {
+        final DateRenderer dRenderer = new DateRenderer(date2,
+                new GedRendererFactory(), anonymousContext);
+        final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer
+                .getListItemRenderer();
+        final StringBuilder builder = new StringBuilder();
+        dlir.renderAsListItem(builder, false, 0);
+        final String string = builder.toString();
+        assertEquals("Rendered string doesn't match expectation",
+                "<li><span class=\"label\">Date:</span>"
+                + " 14 December 1958</li>\n",
+                string);
     }
 
     /** */

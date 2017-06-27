@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-public class LivingControllerTest {
+public class LivingControllerTest implements MenuTestHelper {
 
     /**
      * Not sure what this is good for.
@@ -45,7 +45,8 @@ public class LivingControllerTest {
                 String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Living</title>");
+        then(entity.getBody()).contains("<title>Living - gl120368</title>")
+        .contains(getMenu("A"));
     }
 
     /** */
