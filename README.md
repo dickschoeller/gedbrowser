@@ -76,7 +76,7 @@ export GEDBROWSER_HOME=/var/lib/gedbrowser
 You start with MongoDB, then geoservice and then gedbrowser.
 
 ```
-docker run --rm -v ${DATA_DIR}:/data/db --name mongo -p 28001.2.1-SNAPSHOT17 -d mongo
+docker run --rm -v ${DATA_DIR}:/data/db --name mongo -p 28001:27017 -d mongo
 docker run --link mongo:mongo -v ${GEDBROWSER_HOME}:/var/lib/gedbrowser -p  8086:8080 -p 8087:8081 --name geoservice -d dickschoeller/geoservice
 docker run --link geoservice:geoservice --link mongo:mongo -v ${GEDBROWSER_HOME}:/var/lib/gedbrowser -p 8080:8080 -p 8081:8081 --name gedbrowser -d dickschoeller/gedbrowser
 ```
@@ -101,7 +101,7 @@ to reset the database from the files.
   directory
 * Clone this repository and cd into it
 * From the top 'mvn clean install'
-* java -jar gedbrowser/target/gedbrowser-1.2.1-SNAPSHOT.jar or run from your IDE
+* java -jar gedbrowser/target/gedbrowser-1.2.2-SNAPSHOT.jar or run from your IDE
 
 The location of gedbrowser.home defaults to /var/lib/gedbrowser. However that
 can be adjusted in the file application.yml. When running in Docker the data

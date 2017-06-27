@@ -5,7 +5,7 @@
 
   <parent>
     <artifactId>gedbrowser-top</artifactId>
-    <version>1.2.1-SNAPSHOT</version>
+    <version>1.2.2-SNAPSHOT</version>
     <groupId>org.schoellerfamily.gedbrowser</groupId>
     <relativePath>..</relativePath>
   </parent>
