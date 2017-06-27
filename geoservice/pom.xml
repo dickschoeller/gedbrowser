@@ -154,7 +154,7 @@
             </goals>
             <configuration>
               <imageTags>
-                <imageTag>snapshot</imageTag>
+                <imageTag>latest</imageTag>
               </imageTags>
               <imageName>${docker.image.prefix}/${project.artifactId}:${docker.image.tag}</imageName>
               <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
