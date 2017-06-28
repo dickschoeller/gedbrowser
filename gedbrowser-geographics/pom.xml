@@ -46,6 +46,13 @@
       <artifactId>gedbrowser-reader</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.schoellerfamily.gedbrowser</groupId>
+      <artifactId>gedbrowser-reader</artifactId>
+      <version>${gedbrowser.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>junit</groupId>
