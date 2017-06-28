@@ -28,19 +28,19 @@ is running.
 
 ### Create data directory for mongodb
 
-```
+```bash
 mkdir ~/data
 ```
 
 ### Create home directory for gedbrowser
 
-```
+```bash
 mkdir /var/lib/gedbrowser
 ```
 
 ### Put data files in home directory
 
-```
+```bash
 cp *.ged /var/lib/gedbrowser
 ```
 
@@ -48,7 +48,7 @@ cp *.ged /var/lib/gedbrowser
 
 You will have to go over to Google's developer site and get your own keys.
 
-```
+```bash
 cat YOURGEOCODINGKEY > /var/lib/gedbrowser/google-geocoding-key
 cat YOURGOOGLEMAPKEY >> /var/lib/gedbrowser/google-geocoding-key
 ```
@@ -60,13 +60,13 @@ format is:
 username,first name,last name,email,password,role,role,...   
 The supported roles are USER and ADMIN.
 
-```
+```bash
 emacs /var/lib/gedbrowser/userFile.csv
 ```
 
 ### Assign environment variables
 
-```
+```bash
 export DATA_DIR=~/data
 export GEDBROWSER_HOME=/var/lib/gedbrowser
 ```
@@ -75,7 +75,7 @@ export GEDBROWSER_HOME=/var/lib/gedbrowser
 
 You start with MongoDB, then geoservice and then gedbrowser.
 
-```
+```bash
 docker run --rm -v ${DATA_DIR}:/data/db --name mongo -p 28001:27017 -d mongo
 docker run --link mongo:mongo -v ${GEDBROWSER_HOME}:/var/lib/gedbrowser -p  8086:8080 -p 8087:8081 --name geoservice -d dickschoeller/geoservice
 docker run --link geoservice:geoservice --link mongo:mongo -v ${GEDBROWSER_HOME}:/var/lib/gedbrowser -p 8080:8080 -p 8081:8081 --name gedbrowser -d dickschoeller/gedbrowser
