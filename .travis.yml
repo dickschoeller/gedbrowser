@@ -68,16 +68,16 @@ after_success:
   - echo TRAVIS_BUILD_NUMBER=${TRAVIS_BUILD_NUMBER}
   - echo TRAVIS_JOB_NUMBER=${TRAVIS_JOB_NUMBER}
   - cd gedbrowser
-  - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=chrome        -Dselenium.platform=linux -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run' &
-  - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=iexplore      -Dselenium.platform=win8  -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run' &
-  - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=MicrosoftEdge -Dselenium.platform=win10 -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run' &
-  - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=chrome        -Dselenium.platform=win10 -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run' &
-  - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=firefox       -Dselenium.platform=win8  -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run' &
-  - FOO="$(jobs -p)"
-  - (while true ; do echo " " ; sleep 300; done) &
-  - wait $(echo $FOO)
+  - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=chrome        -Dselenium.platform=linux -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run'
+  - date
+  - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=iexplore      -Dselenium.platform=win8  -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run'
+  - date
+  - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=MicrosoftEdge -Dselenium.platform=win10 -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run'
+  - date
+  - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=chrome        -Dselenium.platform=win10 -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run'
+  - date
+  - mvn integration-test verify --settings=../config/settings.xml -B ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=firefox       -Dselenium.platform=win8  -Dselenium.timeout=45 -Dselenium.version=3.3.1 2>&1 | grep 'Tests run'
+  - date
   - cd ..
   - ./config/before-deploy.sh
   - ./config/deploy.sh
-
-# 
