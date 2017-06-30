@@ -38,6 +38,10 @@ env:
 jdk:
   - oraclejdk8
 
+cache:
+  directories:
+  - $HOME/.m2
+
 jobs:
   include:
     - stage: build
