@@ -35,28 +35,40 @@ env:
     # GOOGLE_MAPPING_KEY
     - secure: "sMdtSxE1udkKi1DQOEnMW/WG5HCXEieHzVuyRwdA6dnTHb5IQEDkv/cVpBQ/m+ufEcg/mezNHK+P1kWbs/Nynv17CdxTxOZYTRCtLKeAMl7ev7B36eEwoqfmyCyPbjeVHbljatJKSYKBjKluzTMFbsSonrQosoHMF30ynFRRYoF5EVKt1FSc2K+RZR29u1fzSAsqFLPAl7hq8uO2BVspNUBj5vDL93WWidZ941Su1M1l+LDlj0ZYeHAdrsjRdO88l2ElPdbaQzHFewF+gjbC8Tm+OkKuio+Z9I9/6WJ4fZsnPQNtX2n8CysvxUDB6glk9RRZV5bfsJbE0Yig3ckY4IBWgBopk6IiGgiV7i3F9HxsSz1Vim6EEjar3BUVGc3D03K5bHxafIdxroq7x8e/8GzmojFREdcxKKbKCpvv8s5pVczIE5yNLVpatrKZOc7uMMuK6JqK1vzL4U5Cm1Xr4d4njy73+Fxt8iI4AyJZoHn11PTlkR9mPHT/0gb3IKFSvuLomKQXU/lE46tGTH/OephCJM+alIKBI+7ORoIKspfCL4Q2Gh4XbSnkO7eya9UqpLjqoFja1ms8Mxa2YMM5KL9WOmGJBbu8JRRYzQF/kQcOxrH3bOua8MYjXMNCGeGrDL6/X6KDLgkTiwEndOHzw+TDjid6dY3OHGPq8CwMkXk="
 
-before_install:
-  - mkdir /home/travis/data
-  - mkdir /home/travis/gedbrowser
-  - cp $(find . -name 'gl120368.ged' | head -n 1) /home/travis/gedbrowser
-  - cp $(find . -name 'mini-schoeller.ged' | head -n 1) /home/travis/gedbrowser
-  - cp $(find . -name 'testUserFile.csv' | head -n 1) /home/travis/gedbrowser
-  - echo $GOOGLE_GEOCODING_KEY > /home/travis/gedbrowser/google-geocoding-key
-  - echo $GOOGLE_MAPPING_KEY >> /home/travis/gedbrowser/google-geocoding-key
-  - docker run -v /home/travis/data:/data/db --name mongo -p 28001:27017 -d mongo 2>&1 | grep 'Status'
-  - docker pull java:8 2>&1 | grep 'Status'
-
-install: mvn install --settings=config/settings.xml -Pinstall -B > /dev/null 2>&1
-
 jdk:
   - oraclejdk8
 
-before_script:
-  - docker ps --all
-
-script:
-  - mvn install jacoco:report coveralls:report --settings=config/settings.xml -Ptravis-build -DrepoToken=${REPOTOKEN} -B -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -DpushImage -DpushImageTag
-
+jobs:
+  include:
+    - stage: build
+      before_install: ./config/before-install.sh
+      install: ./config/install.sh
+      before_script: ./config/before-script.sh
+      script:
+      - ./config/script.sh
+      - ./config/before-deploy.sh
+      - ./config/deploy.sh
+    - stage: selenium test
+      before_install: ./config/before-install.sh
+      install: ./config/install.sh
+      before_script: ./config/before-script.sh
+      script: ./config/selenium-script.sh chrome linux
+    - before_install: ./config/before-install.sh
+      install: ./config/install.sh
+      before_script: ./config/before-script.sh
+      script: ./config/selenium-script.sh iexplore win8
+    - before_install: ./config/before-install.sh
+      install: ./config/install.sh
+      before_script: ./config/before-script.sh
+      script: ./config/selenium-script.sh MicrosoftEdge win10
+    - before_install: ./config/before-install.sh
+      install: ./config/install.sh
+      before_script: ./config/before-script.sh
+      script: ./config/selenium-script.sh chrome win10
+    - before_install: ./config/before-install.sh
+      install: ./config/install.sh
+      before_script: ./config/before-script.sh
+      script: ./config/selenium-script.sh firefox win8
 # browser choices -  android, chrome, firefox, MicrosoftEdge, iexplore, safari,
 #                    operablink, konqueror, "internet explorer", iPhone, iPad,
 #                    iehta
@@ -64,20 +76,3 @@ script:
 #                    "os x 10.8", "os x 10.9", "os x 10.10", "os x 10.11",
 #                    "macos 10.12", linux, android, ""
 # Don't know how to do chrome on iphone or ipad
-after_success:
-  - echo TRAVIS_BUILD_NUMBER=${TRAVIS_BUILD_NUMBER}
-  - echo TRAVIS_JOB_NUMBER=${TRAVIS_JOB_NUMBER}
-  - cd gedbrowser
-  - mvn integration-test verify ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=chrome        -Dselenium.platform=linux 2>&1 | grep 'Tests run'
-  - date
-  - mvn integration-test verify ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=iexplore      -Dselenium.platform=win8  2>&1 | grep 'Tests run'
-  - date
-  - mvn integration-test verify ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=MicrosoftEdge -Dselenium.platform=win10 2>&1 | grep 'Tests run'
-  - date
-  - mvn integration-test verify ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=chrome        -Dselenium.platform=win10 2>&1 | grep 'Tests run'
-  - date
-  - mvn integration-test verify ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=firefox       -Dselenium.platform=win8  2>&1 | grep 'Tests run'
-  - date
-  - cd ..
-  - ./config/before-deploy.sh
-  - ./config/deploy.sh
