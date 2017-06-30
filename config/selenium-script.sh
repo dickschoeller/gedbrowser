@@ -6,4 +6,3 @@ echo TRAVIS_JOB_NUMBER=${TRAVIS_JOB_NUMBER}
 echo browser=${browser}
 echo platform=${platform}
 mvn integration-test verify ${INTEGRATION_TEST_ARGS} -Dselenium.browser.name=${browser} -Dselenium.platform=${platform}
-# 2>&1 | grep 'Tests run'
