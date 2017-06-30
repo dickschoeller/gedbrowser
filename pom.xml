@@ -429,6 +429,13 @@
         <version>${gedbrowser.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>gedbrowser-reader</artifactId>
+        <version>${gedbrowser.version}</version>
+        <type>test-jar</type>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-core</artifactId>
         <version>${spring.version}</version>
