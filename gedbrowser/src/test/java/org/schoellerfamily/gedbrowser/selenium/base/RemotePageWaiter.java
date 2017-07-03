@@ -36,7 +36,16 @@ public class RemotePageWaiter implements PageWaiter {
      */
     @Override
     public void waitForPageLoaded(final WebDriver driver) {
-        logger.debug("Waiting for readState");
+        waitForPageLoaded(driver, 1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void waitForPageLoaded(final WebDriver driver,
+            final int multiplier) {
+        logger.debug("Waiting for readyState");
         final ExpectedCondition<Boolean> expectation =
                 new ExpectedCondition<Boolean>() {
             /**
@@ -49,14 +58,16 @@ public class RemotePageWaiter implements PageWaiter {
                 return done;
             }
         };
-        final Wait<WebDriver> wait = new WebDriverWait(driver, timeout);
+        final Wait<WebDriver> wait =
+                new WebDriverWait(driver, timeout * multiplier);
         try {
             wait.until(expectation);
         } catch (Throwable error) {
             fail("Timeout waiting for Page Load Request to complete.");
         }
         logger.debug("Waiting for maintainerMail");
-        final Wait<WebDriver> wait2 = new WebDriverWait(driver, timeout);
+        final Wait<WebDriver> wait2 =
+                new WebDriverWait(driver, timeout * multiplier);
         try {
             wait2.until(ExpectedConditions
                     .presenceOfElementLocated(By.id("maintainerMail")));
@@ -70,8 +81,18 @@ public class RemotePageWaiter implements PageWaiter {
      */
     @Override
     public void waitForPageLoaded(final WebDriver driver, final String newUrl) {
+        waitForPageLoaded(driver, newUrl, 1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void waitForPageLoaded(final WebDriver driver, final String newUrl,
+            final int multiplier) {
         logger.debug("Waiting for new URL");
-        final Wait<WebDriver> wait3 = new WebDriverWait(driver, timeout);
+        final Wait<WebDriver> wait3 = new WebDriverWait(driver,
+                timeout * multiplier);
         try {
             wait3.until(ExpectedConditions.urlToBe(newUrl));
         } catch (Throwable error) {
