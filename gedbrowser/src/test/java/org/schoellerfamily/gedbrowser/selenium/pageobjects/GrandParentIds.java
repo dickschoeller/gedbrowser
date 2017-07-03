@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.selenium.test;
+package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 
 /**
  * Class represents the ID strings for a quad of grandparents.

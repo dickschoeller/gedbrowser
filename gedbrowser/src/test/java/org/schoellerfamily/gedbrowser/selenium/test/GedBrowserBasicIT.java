@@ -17,6 +17,17 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
+import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
+import org.schoellerfamily.gedbrowser.selenium.base.SauceOnDemandWatcherFactory;
+import org.schoellerfamily.gedbrowser.selenium.base.TestWatcherFactory;
+import org.schoellerfamily.gedbrowser.selenium.base.WebDriverFactory;
+import org.schoellerfamily.gedbrowser.selenium.config.SeleniumConfig;
+import org.schoellerfamily.gedbrowser.selenium.pageobjects.IndexPage;
+import org.schoellerfamily.gedbrowser.selenium.pageobjects.PersonPage;
+import org.schoellerfamily.gedbrowser.selenium.pageobjects.SourcePage;
+import org.schoellerfamily.gedbrowser.selenium.pageobjects.SourcesPage;
+import org.schoellerfamily.gedbrowser.selenium.pageobjects.SubmittorPage;
+import org.schoellerfamily.gedbrowser.selenium.pageobjects.SubmittorsPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
@@ -153,6 +164,68 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     }
 
     /**
+     * Test navigation through index from one person to another.
+     */
+    @Test
+    public void testIndexLinkNavigation() {
+        PersonPage currentPerson = new PersonPage(driver, waiter, null,
+                baseUrl(), "I15");
+        currentPerson.open();
+        final IndexPage indexPageM = currentPerson.clickIndex();
+        final String currentUrlM = indexPageM.getCurrentUrl();
+        assertEquals("URL mismatch",
+                baseUrl() + "surnames?db=gl120368&letter=M#Moore",
+                currentUrlM);
+        final IndexPage indexPageB = indexPageM.clickLetter("B");
+        final String currentUrlB = indexPageB.getCurrentUrl();
+        assertEquals("URL mismatch",
+                baseUrl() + "surnames?db=gl120368&letter=B",
+                currentUrlB);
+        final PersonPage personPageBagley = indexPageB.clickPerson("I2561");
+        assertTrue("Wrong person",
+                personPageBagley.getTitle().contains("James BAGLEY"));
+    }
+
+    /**
+     * Test navigation through index from one person to another.
+     */
+    @Test
+    public void testMenuWandering() {
+        PersonPage currentPerson = new PersonPage(driver, waiter, null,
+                baseUrl(), "I15");
+        currentPerson.open();
+        final IndexPage indexPageM = currentPerson.clickIndex();
+        final String currentUrlM = indexPageM.getCurrentUrl();
+        assertEquals("Index M URL mismatch",
+                baseUrl() + "surnames?db=gl120368&letter=M#Moore",
+                currentUrlM);
+
+        final IndexPage indexPageB = indexPageM.clickLetter("B");
+        final String currentUrlB = indexPageB.getCurrentUrl();
+        assertEquals("Index B URL mismatch",
+                baseUrl() + "surnames?db=gl120368&letter=B",
+                currentUrlB);
+
+        final SourcesPage sourcesPage = indexPageB.clickSources();
+        final String sourcesUrl = sourcesPage.getCurrentUrl();
+        assertEquals("Sources URL mismatch",
+                baseUrl() + "sources?db=gl120368",
+                sourcesUrl);
+
+        final SubmittorsPage submittorsPage = sourcesPage.clickSubmittors();
+        final String submittorsUrl = submittorsPage.getCurrentUrl();
+        assertEquals("Submittors URL mismatch",
+                baseUrl() + "submittors?db=gl120368",
+                submittorsUrl);
+
+        final SubmittorPage submittorPage = submittorsPage.clickSubmittor("U1");
+        final String submittorUrl = submittorPage.getCurrentUrl();
+        assertEquals("Submittor URL mismatch",
+                baseUrl() + "submittor?db=gl120368&id=U1",
+                submittorUrl);
+    }
+
+    /**
      * @param wd the web driver to use for the test
      * @param pw handles driver specific waits
      * @return always returns true
@@ -160,8 +233,8 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     private boolean childNavigationExercise(final WebDriver wd,
             final PageWaiter pw) {
         try {
-            PersonPage currentPerson = new PersonPage(wd, "I22", null,
-                    pw, baseUrl());
+            PersonPage currentPerson = new PersonPage(wd, pw, null,
+                    baseUrl(), "I22");
             currentPerson.open();
             println("    Person is: I22");
             assertEquals("Person ID mismatch", "I22", currentPerson.getId());
@@ -200,8 +273,8 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     private boolean fathersNavigationExercise(final WebDriver wd,
             final PageWaiter pw) {
         try {
-            PersonPage currentPerson = new PersonPage(wd, "I9", null,
-                    pw, baseUrl());
+            PersonPage currentPerson = new PersonPage(wd, pw, null,
+                    baseUrl(), "I9");
             currentPerson.open();
             println("    Person is: I9");
             assertEquals("Person ID mismatch", "I9", currentPerson.getId());
@@ -211,7 +284,7 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
                     currentPerson, pw, baseUrl());
             assertTrue("Title mismatch", currentSource.titleCheck());
 
-            currentPerson = currentSource.back();
+            currentPerson = (PersonPage) currentSource.back();
             assertEquals("Person ID mismatch", "I9", currentPerson.getId());
 
             println("    Navigating to father: I10");
@@ -243,8 +316,8 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     private boolean mothersNavigationExercise(final WebDriver wd,
             final PageWaiter pw) {
         try {
-            PersonPage currentPerson = new PersonPage(wd, "I15", null,
-                    pw, baseUrl());
+            PersonPage currentPerson = new PersonPage(wd, pw, null,
+                    baseUrl(), "I15");
             currentPerson.open();
             println("    Person is: I15");
             assertEquals("Person ID mismatch", "I15", currentPerson.getId());

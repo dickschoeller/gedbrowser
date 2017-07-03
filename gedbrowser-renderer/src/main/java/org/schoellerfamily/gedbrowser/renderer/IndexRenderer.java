@@ -58,7 +58,9 @@ public final class IndexRenderer extends GedRenderer<Root>
                 continue;
             }
             final String html = createGedRenderer(person).getIndexName();
-            names.add(html);
+            final String liHtml = "<li id=\"" + person.getString() + "\">"
+                    + html + "</li>";
+            names.add(liHtml);
         }
         logger.info("Ending getIndexNameHtmls");
         return names;
@@ -100,7 +102,8 @@ public final class IndexRenderer extends GedRenderer<Root>
         logger.info("Starting getLetters");
         final List<String> indexLetters = new ArrayList<>();
         for (final String letter : getGedObject().findSurnameInitialLetters()) {
-            final String link = "<a href=\"surnames?db="
+            final String link = "<a id=\"letter-" + letter
+                    + "\" href=\"surnames?db="
                     + getGedObject().getDbName() + "&amp;letter=" + letter
                     + "\" class=\"name\">" + "[" + letter + "]" + "</a>";
             indexLetters.add(link);

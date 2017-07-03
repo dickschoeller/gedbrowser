@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.selenium.test;
+package org.schoellerfamily.gedbrowser.selenium.base;
 
 import java.net.MalformedURLException;
 import java.net.URL;

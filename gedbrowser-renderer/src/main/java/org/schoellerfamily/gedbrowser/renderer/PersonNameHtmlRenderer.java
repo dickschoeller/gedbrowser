@@ -43,11 +43,10 @@ public class PersonNameHtmlRenderer implements NameHtmlRenderer {
 
         final String spanString = spanString(person);
 
-        return "<a href=\"person?db=" + person.getDbName() + "&amp;id="
-                + person.getString() + "\" class=\"name\">" + nameHtml
-                + spanString
-                + " [" + person.getString() + "]"
-                + "</a>";
+        return "<a href=\"person?db="
+                + person.getDbName() + "&amp;id=" + person.getString()
+                + "\" class=\"name\">" + nameHtml + spanString + " ["
+                + person.getString() + "]" + "</a>";
     }
 
     /**

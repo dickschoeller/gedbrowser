@@ -21,7 +21,7 @@
     <ul>
         <li th:each="surname : ${model.surnames}"><a th:name="${surname}"></a><span th:utext="${surname}" class="label">surname</span>
             <ul>
-                <li th:each="name : ${model.getIndexNameHtmls(surname)}" th:utext="${name}">name</li>
+                <li th:each="name : ${model.getIndexNameHtmls(surname)}" th:utext="${name}" th:remove="tag">name</li>
             </ul>
         </li>
     </ul>

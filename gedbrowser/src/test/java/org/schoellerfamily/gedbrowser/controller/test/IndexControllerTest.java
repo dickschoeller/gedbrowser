@@ -45,9 +45,10 @@ public class IndexControllerTest implements MenuTestHelper {
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("<title>Index - A - gl120368</title>")
-            .contains("<span><a href=\"surnames?db=gl120368&amp;letter=?\" cl"
-                    + "ass=\"name\">[?]</a>   </span>")
-            .contains("<li><a href=\"person?db=gl120368&amp;id=")
+            .contains("<span><a id=\"letter-?\""
+                    + " href=\"surnames?db=gl120368&amp;letter=?\""
+                    + " class=\"name\">[?]</a>   </span>")
+            .contains("<li id=\"I1983\"><a href=\"person?db=gl120368&amp;id=")
             .contains(getMenu("A"));
     }
 
@@ -61,9 +62,10 @@ public class IndexControllerTest implements MenuTestHelper {
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("<title>Index - B - gl120368</title>")
-            .contains("<span><a href=\"surnames?db=gl120368&amp;letter=?\" cl"
-                    + "ass=\"name\">[?]</a>   </span>")
-            .contains("<li><a href=\"person?db=gl120368&amp;id=")
+            .contains("<span><a id=\"letter-?\""
+                    + " href=\"surnames?db=gl120368&amp;letter=?\""
+                    + " class=\"name\">[?]</a>   </span>")
+            .contains("<li id=\"I2561\"><a href=\"person?db=gl120368&amp;id=")
             .contains(getMenu("B"));
     }
 
@@ -90,8 +92,9 @@ public class IndexControllerTest implements MenuTestHelper {
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody())
             .contains("<title>Index - q - gl120368</title>")
-            .contains("<span><a href=\"surnames?db=gl120368&amp;letter=?\" cl"
-                    + "ass=\"name\">[?]</a>   </span>")
+            .contains("<span><a id=\"letter-?\""
+                    + " href=\"surnames?db=gl120368&amp;letter=?\""
+                    + " class=\"name\">[?]</a>   </span>")
             .doesNotContain("<li><a href=\"person?db=gl120368&amp;id=")
             .contains(getMenu("q"));
     }
