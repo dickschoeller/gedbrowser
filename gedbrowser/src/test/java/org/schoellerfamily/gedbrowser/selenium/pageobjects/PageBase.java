@@ -226,13 +226,20 @@ public class PageBase {
         final WebElement element = getMenu("index");
         element.click();
         waitForPageLoaded();
+        sleep();
+        return new IndexPage(getDriver(), getPageWaiter(), this, getBaseUrl(),
+                getIndexLetter());
+    }
+
+    /**
+     * Sleep for a bit to allow slow stuff to happen.
+     */
+    protected void sleep() {
         try {
             Thread.sleep(MEDIUM_SLEEP);
         } catch (InterruptedException e) {
             // Do nothing
         }
-        return new IndexPage(getDriver(), getPageWaiter(), this, getBaseUrl(),
-                getIndexLetter());
     }
 
     /**
