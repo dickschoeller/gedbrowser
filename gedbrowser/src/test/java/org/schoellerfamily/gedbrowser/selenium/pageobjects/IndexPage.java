@@ -84,8 +84,8 @@ public final class IndexPage extends PageBase {
         final WebElement element = getLetter(newLetter);
         element.click();
         final int multiplier = 4;
-        sleep(multiplier);
-        waitForPageLoaded();
+//        sleep(multiplier);
+        waitForPageLoaded(multiplier);
         return new IndexPage(getDriver(), getPageWaiter(), this, getBaseUrl(),
                 newLetter);
     }

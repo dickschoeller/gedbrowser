@@ -34,7 +34,7 @@ public class SeleniumConfig {
      */
     @Bean
     public PageWaiter pageWaiter() {
-        logger.info("Getting page waiter");
+        logger.info("Getting page waiter with timeout: " + timeout);
         return new RemotePageWaiter(timeout);
     }
 }

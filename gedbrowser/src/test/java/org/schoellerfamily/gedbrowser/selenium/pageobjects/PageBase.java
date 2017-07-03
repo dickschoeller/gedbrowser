@@ -194,10 +194,30 @@ public class PageBase {
     /**
      * Wait for page load on real browser. Doesn't work for HTML driver.
      *
+     * @param multiplier timeout multiplier
+     */
+    public final void waitForPageLoaded(final int multiplier) {
+        waiter.waitForPageLoaded(driver, multiplier);
+    }
+
+    /**
+     * Wait for page load on real browser. Doesn't work for HTML driver.
+     *
      * @param newUrl the target URL of the load
      */
     public final void waitForPageLoaded(final String newUrl) {
         waiter.waitForPageLoaded(driver, newUrl);
+    }
+
+    /**
+     * Wait for page load on real browser. Doesn't work for HTML driver.
+     *
+     * @param newUrl the target URL of the load
+     * @param multiplier timeout multiplier
+     */
+    public final void waitForPageLoaded(final String newUrl,
+            final int multiplier) {
+        waiter.waitForPageLoaded(driver, newUrl, multiplier);
     }
 
     /**
@@ -226,8 +246,8 @@ public class PageBase {
         final WebElement element = getMenu("index");
         element.click();
         final int multiplier = 4;
-        sleep(multiplier);
-        waitForPageLoaded();
+//        sleep(multiplier);
+        waitForPageLoaded(multiplier);
         return new IndexPage(getDriver(), getPageWaiter(), this, getBaseUrl(),
                 getIndexLetter());
     }
