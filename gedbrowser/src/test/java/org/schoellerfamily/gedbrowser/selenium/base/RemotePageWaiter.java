@@ -45,7 +45,7 @@ public class RemotePageWaiter implements PageWaiter {
     @Override
     public void waitForPageLoaded(final WebDriver driver,
             final int multiplier) {
-        logger.debug("Waiting for readState");
+        logger.debug("Waiting for readyState");
         final ExpectedCondition<Boolean> expectation =
                 new ExpectedCondition<Boolean>() {
             /**

@@ -245,8 +245,8 @@ public class PageBase {
     public IndexPage clickIndex() {
         final WebElement element = getMenu("index");
         element.click();
-        final int multiplier = 6;
-//        sleep(multiplier);
+        final int multiplier = 4;
+        sleep(multiplier);
         waitForPageLoaded(multiplier);
         return new IndexPage(getDriver(), getPageWaiter(), this, getBaseUrl(),
                 getIndexLetter());
