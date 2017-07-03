@@ -19,7 +19,7 @@ public class Application {
     public static void main(final String[] args) {
         SpringApplication.run(
                 org.schoellerfamily.gedbrowser.Application.class,
-                args).close();
+                args);
     }
 
     /**
