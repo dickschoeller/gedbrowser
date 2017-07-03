@@ -14,8 +14,8 @@ import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
  * @author Dick Schoeller
  */
 public class PageBase {
-    /** Twenty seconds for passing to sleep for some known longish waits. */
-    private static final int MEDIUM_SLEEP = 20000;
+    /** Ten seconds for passing to sleep for some known longish waits. */
+    private static final int MEDIUM_SLEEP = 10000;
 
     /** Associated Selenium driver. */
     private final WebDriver driver;
@@ -225,7 +225,8 @@ public class PageBase {
     public IndexPage clickIndex() {
         final WebElement element = getMenu("index");
         element.click();
-        sleep();
+        final int multiplier = 4;
+        sleep(multiplier);
         waitForPageLoaded();
         return new IndexPage(getDriver(), getPageWaiter(), this, getBaseUrl(),
                 getIndexLetter());
@@ -235,13 +236,21 @@ public class PageBase {
      * Sleep for a bit to allow slow stuff to happen.
      */
     protected void sleep() {
+        sleep(1);
+    }
+
+    /**
+     * Sleep for a bit to allow slow stuff to happen.
+     *
+     * @param multiplier number of times the basic amount to sleep
+     */
+    protected void sleep(final int multiplier) {
         try {
-            Thread.sleep(MEDIUM_SLEEP);
+            Thread.sleep(MEDIUM_SLEEP * multiplier);
         } catch (InterruptedException e) {
             // Do nothing
         }
     }
-
     /**
      * @return the letter we expect to go to when we click index in the menu
      */
