@@ -20,6 +20,7 @@
 
     <ul>
         <li th:each="submittor : ${model.submittors}"
+         th:id="${submittor.idString}"
          th:utext="${submittor.indexName}">submittor id</li>
     </ul>
 

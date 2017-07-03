@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.selenium.test;
+package org.schoellerfamily.gedbrowser.selenium.base;
 
 import static org.junit.Assert.fail;
 

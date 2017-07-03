@@ -17,6 +17,13 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
+import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
+import org.schoellerfamily.gedbrowser.selenium.base.SauceOnDemandWatcherFactory;
+import org.schoellerfamily.gedbrowser.selenium.base.TestWatcherFactory;
+import org.schoellerfamily.gedbrowser.selenium.base.WebDriverFactory;
+import org.schoellerfamily.gedbrowser.selenium.config.SeleniumConfig;
+import org.schoellerfamily.gedbrowser.selenium.pageobjects.PersonPage;
+import org.schoellerfamily.gedbrowser.selenium.pageobjects.SourcePage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
@@ -160,30 +167,30 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     private boolean childNavigationExercise(final WebDriver wd,
             final PageWaiter pw) {
         try {
-            PersonPage currentPerson = new PersonPage(wd, "I22", null,
-                    pw, baseUrl());
+            PersonPage currentPerson = new PersonPage(wd, pw, null,
+                    baseUrl(), "I22");
             currentPerson.open();
             println("    Person is: I22");
-            assertEquals("Person ID mismatch", "I22", currentPerson.getId());
-            assertEquals("Person failed check", "", currentPerson.check());
+            check("Person ID mismatch", "I22", currentPerson.getId());
+            check("Person failed check", "", currentPerson.check());
 
             println("    Navigating to child: I193");
             final int thomasChildIndex = 5;
             currentPerson = currentPerson.navigateChild(1, thomasChildIndex);
-            assertEquals("Person ID mismatch", "I193", currentPerson.getId());
-            assertEquals("Person failed check", "", currentPerson.check());
+            check("Person ID mismatch", "I193", currentPerson.getId());
+            check("Person failed check", "", currentPerson.check());
 
             println("    Navigating to child: I10");
             currentPerson = currentPerson.navigateChild(1, 1);
-            assertEquals("Person ID mismatch", "I10", currentPerson.getId());
-            assertEquals("Person failed check", "", currentPerson.check());
+            check("Person ID mismatch", "I10", currentPerson.getId());
+            check("Person failed check", "", currentPerson.check());
 
             println("    Navigating to child: I9");
             final int maryAmassFamilyIndex = 3;
             final int edwinChildIndex = 2;
             currentPerson = currentPerson.navigateChild(maryAmassFamilyIndex,
                     edwinChildIndex);
-            assertEquals("Person ID mismatch", "I9", currentPerson.getId());
+            check("Person ID mismatch", "I9", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
         } finally {
             // Close the browser
@@ -200,33 +207,33 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     private boolean fathersNavigationExercise(final WebDriver wd,
             final PageWaiter pw) {
         try {
-            PersonPage currentPerson = new PersonPage(wd, "I9", null,
-                    pw, baseUrl());
+            PersonPage currentPerson = new PersonPage(wd, pw, null,
+                    baseUrl(), "I9");
             currentPerson.open();
             println("    Person is: I9");
-            assertEquals("Person ID mismatch", "I9", currentPerson.getId());
-            assertEquals("Person failed check", "", currentPerson.check());
+            check("Person ID mismatch", "I9", currentPerson.getId());
+            check("Person failed check", "", currentPerson.check());
 
             final SourcePage currentSource = new SourcePage(wd, "S33651",
                     currentPerson, pw, baseUrl());
-            assertTrue("Title mismatch", currentSource.titleCheck());
+            check("Title mismatch", currentSource.titleCheck());
 
-            currentPerson = currentSource.back();
-            assertEquals("Person ID mismatch", "I9", currentPerson.getId());
+            currentPerson = (PersonPage) currentSource.back();
+            check("Person ID mismatch", "I9", currentPerson.getId());
 
             println("    Navigating to father: I10");
             currentPerson = currentPerson.navigateFather();
-            assertEquals("Person ID mismatch", "I10", currentPerson.getId());
-            assertEquals("Person failed check", "", currentPerson.check());
+            check("Person ID mismatch", "I10", currentPerson.getId());
+            check("Person failed check", "", currentPerson.check());
 
             println("    Navigating to father: I193");
             currentPerson = currentPerson.navigateFather();
-            assertEquals("Person ID mismatch", "I193", currentPerson.getId());
-            assertEquals("Person failed check", "", currentPerson.check());
+            check("Person ID mismatch", "I193", currentPerson.getId());
+            check("Person failed check", "", currentPerson.check());
 
             println("    Navigating to father: I22");
             currentPerson = currentPerson.navigateFather();
-            assertEquals("Person ID mismatch", "I22", currentPerson.getId());
+            check("Person ID mismatch", "I22", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
         } finally {
             // Close the browser
@@ -243,26 +250,26 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     private boolean mothersNavigationExercise(final WebDriver wd,
             final PageWaiter pw) {
         try {
-            PersonPage currentPerson = new PersonPage(wd, "I15", null,
-                    pw, baseUrl());
+            PersonPage currentPerson = new PersonPage(wd, pw, null,
+                    baseUrl(), "I15");
             currentPerson.open();
             println("    Person is: I15");
-            assertEquals("Person ID mismatch", "I15", currentPerson.getId());
-            assertEquals("Person failed check", "", currentPerson.check());
+            check("Person ID mismatch", "I15", currentPerson.getId());
+            check("Person failed check", "", currentPerson.check());
 
             println("    Navigating to mother: I539");
             currentPerson = currentPerson.navigateMother();
-            assertEquals("Person ID mismatch", "I539", currentPerson.getId());
-            assertEquals("Person failed check", "", currentPerson.check());
+            check("Person ID mismatch", "I539", currentPerson.getId());
+            check("Person failed check", "", currentPerson.check());
 
             println("    Navigating to mother: I237");
             currentPerson = currentPerson.navigateMother();
-            assertEquals("Person ID mismatch", "I237", currentPerson.getId());
-            assertEquals("Person failed check", "", currentPerson.check());
+            check("Person ID mismatch", "I237", currentPerson.getId());
+            check("Person failed check", "", currentPerson.check());
 
             println("    Navigating to mother: I616");
             currentPerson = currentPerson.navigateMother();
-            assertEquals("Person ID mismatch", "I616", currentPerson.getId());
+            check("Person ID mismatch", "I616", currentPerson.getId());
             assertEquals("Person failed check", "", currentPerson.check());
         } finally {
             // Close the browser
@@ -296,6 +303,29 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
         if (PRINT_NAVIGATION) {
             logger.info("");
         }
+    }
+
+    /**
+     * Use this for mid-test checks.
+     *
+     * @param message message to display on failure
+     * @param expected expected value
+     * @param actual actual value
+     */
+    private void check(final String message, final String expected,
+            final String actual) {
+        assertEquals(message, expected, actual);
+    }
+
+    /**
+     * Use this for mid-test checks.
+     *
+     * @param message message to display on failure
+     * @param actual actual value
+     */
+    private void check(final String message,
+            final boolean actual) {
+        assertTrue(message, actual);
     }
 
     /**

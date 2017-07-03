@@ -1,7 +1,10 @@
-package org.schoellerfamily.gedbrowser.selenium.test;
+package org.schoellerfamily.gedbrowser.selenium.config;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
+import org.schoellerfamily.gedbrowser.selenium.base.RemotePageWaiter;
+import org.schoellerfamily.gedbrowser.selenium.base.WebDriverFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

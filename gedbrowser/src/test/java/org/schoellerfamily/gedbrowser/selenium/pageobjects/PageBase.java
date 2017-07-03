@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.selenium.test;
+package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 
 import java.util.NoSuchElementException;
 
@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriver.Navigation;
 import org.openqa.selenium.WebElement;
+import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
 
 /**
  * Base class for various page object classes.
@@ -13,27 +14,40 @@ import org.openqa.selenium.WebElement;
  * @author Dick Schoeller
  */
 public class PageBase {
+    /** Twenty seconds for passing to sleep for some known longish waits. */
+    private static final int MEDIUM_SLEEP = 20000;
+
     /** Associated Selenium driver. */
     private final WebDriver driver;
 
-    /** Page URL. */
-    private final String url;
+    /** The base page URL. */
+    private final String baseUrl;
+
+    /** The rest of the page URL. */
+    private final String location;
 
     /** Handles driver specific waits. */
     private final PageWaiter waiter;
 
+    /** */
+    private final PageBase previous;
+
     /**
      * Constructor.
-     *
      * @param driver the web driver that we are using
-     * @param url the URL of the page
      * @param waiter handles driver specific waits
+     * @param previous the page we are coming here from
+     * @param baseUrl the URL of the page
+     * @param location the location part of the URL
      */
-    public PageBase(final WebDriver driver, final String url,
-            final PageWaiter waiter) {
+    public PageBase(final WebDriver driver, final PageWaiter waiter,
+            final PageBase previous, final String baseUrl,
+            final String location) {
         this.driver = driver;
-        this.url = url;
+        this.baseUrl = baseUrl;
         this.waiter = waiter;
+        this.previous = previous;
+        this.location = location;
     }
 
     /**
@@ -47,7 +61,7 @@ public class PageBase {
      * Open the page.
      */
     public final void open() {
-        driver.get(url);
+        driver.get(baseUrl + location);
     }
 
     /**
@@ -140,8 +154,17 @@ public class PageBase {
      *
      * @return the URL string for this page
      */
-    public final String getURL() {
-      return url;
+    public final String getBaseUrl() {
+      return baseUrl;
+    }
+
+    /**
+     * Returns the location part of the URL.
+     *
+     * @return the URL string for this page
+     */
+    public final String getLocation() {
+      return location;
     }
 
     /**
@@ -173,7 +196,7 @@ public class PageBase {
      *
      * @param newUrl the target URL of the load
      */
-    public void waitForPageLoaded(final String newUrl) {
+    public final void waitForPageLoaded(final String newUrl) {
         waiter.waitForPageLoaded(driver, newUrl);
     }
 
@@ -182,5 +205,77 @@ public class PageBase {
      */
     public final String getCurrentUrl() {
         return driver.getCurrentUrl();
+    }
+
+    /**
+     * Go back to the previous person.
+     *
+     * @return the associated page object.
+     */
+    public final PageBase back() {
+        if (previous != null) {
+            navigateBack();
+        }
+        return previous;
+    }
+
+    /**
+     * @return the page for the newly reached page
+     */
+    public IndexPage clickIndex() {
+        final WebElement element = getMenu("index");
+        element.click();
+        sleep();
+        waitForPageLoaded();
+        return new IndexPage(getDriver(), getPageWaiter(), this, getBaseUrl(),
+                getIndexLetter());
+    }
+
+    /**
+     * Sleep for a bit to allow slow stuff to happen.
+     */
+    protected void sleep() {
+        try {
+            Thread.sleep(MEDIUM_SLEEP);
+        } catch (InterruptedException e) {
+            // Do nothing
+        }
+    }
+
+    /**
+     * @return the letter we expect to go to when we click index in the menu
+     */
+    protected String getIndexLetter() {
+        return "A";
+    }
+
+    /**
+     * @return the page for the newly reached page
+     */
+    public SourcesPage clickSources() {
+        final WebElement element = getMenu("sources");
+        element.click();
+        waitForPageLoaded();
+        return new SourcesPage(getDriver(), getPageWaiter(), this,
+                getBaseUrl());
+    }
+
+    /**
+     * @return the page for the newly reached page
+     */
+    public SubmittorsPage clickSubmittors() {
+        final WebElement element = getMenu("submittors");
+        element.click();
+        waitForPageLoaded();
+        return new SubmittorsPage(getDriver(), getPageWaiter(), this,
+                getBaseUrl());
+    }
+
+    /**
+     * @param name the name of the menu item
+     * @return the element for that menu item
+     */
+    protected WebElement getMenu(final String name) {
+        return getWebElement(By.id(name + "-menu"));
     }
 }

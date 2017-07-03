@@ -50,8 +50,9 @@ public final class IndexRendererTest {
      * @return the formatted string.
      */
     private String letterExpectString(final String letter) {
-        return "<a href=\"surnames?db=null&amp;letter="
-                + letter + "\" class=\"name\">[" + letter + "]</a>";
+        return "<a id=\"letter-" + letter
+                + "\" href=\"surnames?db=null&amp;letter=" + letter
+                + "\" class=\"name\">[" + letter + "]</a>";
     }
 
     /**
@@ -106,11 +107,12 @@ public final class IndexRendererTest {
      */
     private String indexExpectString(final String id, final String surname,
             final String prefix, final String dateRange) {
-        return "<a href=\"person?db=null&amp;id="
+        return "<li id=\""
+                + id + "\"><a href=\"person?db=null&amp;id="
                 + id + "\" class=\"name\"> <span class=\"surname\">"
                 + surname + "</span>, "
                 + prefix + dateRange + " ("
-                + id + ")</a>";
+                + id + ")</a></li>";
     }
 
     /**

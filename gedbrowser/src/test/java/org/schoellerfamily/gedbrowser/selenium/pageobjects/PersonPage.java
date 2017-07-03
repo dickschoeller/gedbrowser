@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.selenium.test;
+package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
 
 /**
  * @author Dick Schoeller
@@ -263,12 +264,8 @@ public final class PersonPage extends PageBase {
                 );
     }
 
-    /** Database ID associated with this page. */
-    private final String id;
-    /** Previous page. */
-    private final PersonPage previous;
     /** */
-    private final String baseUrl;
+    private final String id;
 
     /**
      * This class holds the expected values for a number of different
@@ -368,33 +365,42 @@ public final class PersonPage extends PageBase {
     /**
      * PageObject pattern for a page representing a person.
      * @param driver this is the basic web driver
-     * @param id this is the ID of the person page being tested
-     * @param previous where we came from. Can be null
      * @param waiter handles driver specific waits
+     * @param previous where we came from. Can be null
      * @param baseUrl the base URL from which all others derive
+     * @param id this is the ID of the person page being tested
      */
-    public PersonPage(final WebDriver driver, final String id,
-            final PersonPage previous, final PageWaiter waiter,
-            final String baseUrl) {
-        super(driver, url(baseUrl, id), waiter);
+    public PersonPage(final WebDriver driver, final PageWaiter waiter,
+            final PageBase previous, final String baseUrl,
+            final String id) {
+        super(driver, waiter, previous, baseUrl, "person?db=gl120368&id=" + id);
         this.id = id;
-        this.previous = previous;
-        this.baseUrl = baseUrl;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String getIndexLetter() {
+        final String title = EXPECTATIONS_MAP.get(this.id).getTitle();
+        final String name = title.substring(0, title.indexOf(" ("));
+        final String surname = name.substring(name.lastIndexOf(" ")).trim();
+        return surname.substring(0, 1);
     }
 
     /**
      * Build the URL string for this page.
      *
      * @param baseUrl the base from which all URLs are derived
-     * @param id the ID of the person on the page
+     * @param iD the ID of the person on the page
      * @return the built url string
      */
-    private static String url(final String baseUrl, final String id) {
-        if (baseUrl == null || baseUrl.isEmpty() || id == null
-                || id.isEmpty()) {
+    private String url(final String baseUrl, final String iD) {
+        if (baseUrl == null || baseUrl.isEmpty() || iD == null
+                || iD.isEmpty()) {
             return "";
         }
-        return baseUrl + "person?db=gl120368&id=" + id;
+        return getBaseUrl() + "person?db=gl120368&id=" + iD;
     }
 
     /**
@@ -404,14 +410,7 @@ public final class PersonPage extends PageBase {
      * @return the built url string
      */
     private String url(final String iD) {
-        return url(baseUrl(), iD);
-    }
-
-    /**
-     * @return the base URL
-     */
-    private String baseUrl() {
-        return baseUrl;
+        return url(getBaseUrl(), iD);
     }
 
     /**
@@ -463,20 +462,8 @@ public final class PersonPage extends PageBase {
         final String url = getCurrentUrl();
         final int index = url.indexOf("id=") + "id=".length();
         final String idText = url.substring(index);
-        return new PersonPage(getDriver(), idText, this, getPageWaiter(),
-                baseUrl());
-    }
-
-    /**
-     * Go back to the previous person.
-     *
-     * @return the associated page object.
-     */
-    public PersonPage back() {
-        if (previous != null) {
-            navigateBack();
-        }
-        return previous;
+        return new PersonPage(getDriver(), getPageWaiter(), this, getBaseUrl(),
+                idText);
     }
 
     /**
