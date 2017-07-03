@@ -83,7 +83,7 @@ public final class IndexPage extends PageBase {
     public IndexPage clickLetter(final String newLetter) {
         final WebElement element = getLetter(newLetter);
         element.click();
-        final int multiplier = 4;
+        final int multiplier = 6;
 //        sleep(multiplier);
         waitForPageLoaded(multiplier);
         return new IndexPage(getDriver(), getPageWaiter(), this, getBaseUrl(),
