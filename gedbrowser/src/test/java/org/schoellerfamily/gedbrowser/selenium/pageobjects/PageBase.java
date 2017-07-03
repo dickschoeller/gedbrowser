@@ -14,8 +14,8 @@ import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
  * @author Dick Schoeller
  */
 public class PageBase {
-    /** Ten seconds for passing to sleep for some known longish waits. */
-    private static final int MEDIUM_SLEEP = 100;
+    /** Twenty seconds for passing to sleep for some known longish waits. */
+    private static final int MEDIUM_SLEEP = 20000;
 
     /** Associated Selenium driver. */
     private final WebDriver driver;
