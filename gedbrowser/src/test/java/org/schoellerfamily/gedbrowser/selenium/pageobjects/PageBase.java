@@ -5,8 +5,8 @@ import java.util.NoSuchElementException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriver.Navigation;
-import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
 import org.openqa.selenium.WebElement;
+import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
 
 /**
  * Base class for various page object classes.
@@ -14,6 +14,9 @@ import org.openqa.selenium.WebElement;
  * @author Dick Schoeller
  */
 public class PageBase {
+    /** Ten seconds for passing to sleep for some known longish waits. */
+    private static final int MEDIUM_SLEEP = 10000;
+
     /** Associated Selenium driver. */
     private final WebDriver driver;
 
@@ -223,6 +226,11 @@ public class PageBase {
         final WebElement element = getMenu("index");
         element.click();
         waitForPageLoaded();
+        try {
+            Thread.sleep(MEDIUM_SLEEP);
+        } catch (InterruptedException e) {
+            // Do nothing
+        }
         return new IndexPage(getDriver(), getPageWaiter(), this, getBaseUrl(),
                 getIndexLetter());
     }
