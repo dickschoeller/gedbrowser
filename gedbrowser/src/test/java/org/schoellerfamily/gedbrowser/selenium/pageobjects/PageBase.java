@@ -15,7 +15,7 @@ import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
  */
 public class PageBase {
     /** Ten seconds for passing to sleep for some known longish waits. */
-    private static final int MEDIUM_SLEEP = 10000;
+    private static final int MEDIUM_SLEEP = 100;
 
     /** Associated Selenium driver. */
     private final WebDriver driver;
@@ -225,8 +225,8 @@ public class PageBase {
     public IndexPage clickIndex() {
         final WebElement element = getMenu("index");
         element.click();
-        waitForPageLoaded();
         sleep();
+        waitForPageLoaded();
         return new IndexPage(getDriver(), getPageWaiter(), this, getBaseUrl(),
                 getIndexLetter());
     }
