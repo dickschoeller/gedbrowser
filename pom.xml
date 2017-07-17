@@ -59,9 +59,9 @@
     <cglib.version>3.2.5</cglib.version>
     <spring-data-mongodb.version>1.10.4.RELEASE</spring-data-mongodb.version>
     <spring-data-commons.version>1.13.4.RELEASE</spring-data-commons.version>
-    <google-maps-services.version>0.1.20</google-maps-services.version>
-    <jackson-core.version>2.8.8</jackson-core.version>
-    <jackson-databind.version>2.8.8.1</jackson-databind.version>
+    <google-maps-services.version>0.1.21</google-maps-services.version>
+    <jackson-core.version>2.8.9</jackson-core.version>
+    <jackson-databind.version>2.8.9</jackson-databind.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.9.9</joda-time.version>
     <undertow.version>1.4.18.Final</undertow.version>
