@@ -9,7 +9,8 @@ import org.openqa.selenium.WebElement;
 public class SubmittorsPage extends PageBase {
     /**
      * PageObject pattern for the sources page.
-     * @param factory TODO
+     *
+     * @param factory the factory for creating more page objects
      * @param previous where we came from. Can be null
      * @param baseUrl the base URL from which all others derive
      */

@@ -8,7 +8,7 @@ public class SubmittorPage extends PageBase {
     private final String id;
 
     /**
-     * @param factory the factory for creating new page objects
+     * @param factory the factory for creating more page objects
      * @param previous the previous page object
      * @param baseUrl the base URL for this test
      * @param id the ID of the current submittor

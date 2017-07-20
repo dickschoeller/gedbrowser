@@ -33,7 +33,7 @@ public class PageBase {
     /**
      * Constructor.
      *
-     * @param factory the page factory that assists in creating all these pages
+     * @param factory the factory for creating more page objects
      * @param previous the page we are coming here from
      * @param baseUrl the URL of the page
      * @param location the location part of the URL

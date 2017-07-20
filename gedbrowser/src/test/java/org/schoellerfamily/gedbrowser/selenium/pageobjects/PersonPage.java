@@ -26,7 +26,7 @@ public final class PersonPage extends PageBase {
     /**
      * PageObject pattern for a page representing a person.
      *
-     * @param factory the factory for creating new page objects
+     * @param factory the factory for creating more page objects
      * @param previous where we came from. Can be null
      * @param baseUrl the base URL from which all others derive
      * @param id this is the ID of the person page being tested

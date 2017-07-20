@@ -12,7 +12,8 @@ public final class IndexPage extends PageBase {
 
     /**
      * PageObject pattern for a page representing a person.
-     * @param factory TODO
+     *
+     * @param factory the factory for creating more page objects
      * @param previous where we came from. Can be null
      * @param baseUrl the base URL from which all others derive
      */
@@ -23,7 +24,8 @@ public final class IndexPage extends PageBase {
 
     /**
      * PageObject pattern for the index page for a particular letter.
-     * @param factory TODO
+     *
+     * @param factory the factory for creating more page objects
      * @param previous where we came from. Can be null
      * @param baseUrl the base URL from which all others derive
      * @param letter the letter whose index is shown

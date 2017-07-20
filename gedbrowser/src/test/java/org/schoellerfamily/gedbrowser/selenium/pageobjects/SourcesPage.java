@@ -7,7 +7,7 @@ public class SourcesPage extends PageBase {
     /**
      * PageObject pattern for the sources page.
      *
-     * @param factory the factory for creating new page objects
+     * @param factory the factory for creating more page objects
      * @param previous where we came from. Can be null
      * @param baseUrl the base URL from which all others derive
      */
