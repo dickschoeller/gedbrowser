@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.junit.rules.TestName;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
 import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
@@ -22,6 +21,7 @@ import org.schoellerfamily.gedbrowser.selenium.base.SauceOnDemandWatcherFactory;
 import org.schoellerfamily.gedbrowser.selenium.base.TestWatcherFactory;
 import org.schoellerfamily.gedbrowser.selenium.base.WebDriverFactory;
 import org.schoellerfamily.gedbrowser.selenium.config.SeleniumConfig;
+import org.schoellerfamily.gedbrowser.selenium.pageobjects.PageFactory;
 import org.schoellerfamily.gedbrowser.selenium.pageobjects.PersonPage;
 import org.schoellerfamily.gedbrowser.selenium.pageobjects.SourcePage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +36,7 @@ import com.saucelabs.common.SauceOnDemandSessionIdProvider;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SeleniumConfig.class)
+@SuppressWarnings("PMD.ExcessiveImports")
 public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
@@ -65,6 +66,9 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
 
     /** */
     private SessionId sessionId;
+
+    /** */
+    private PageFactory factory;
 
     /**
      * The factory that creates the appropriate test watcher based on current
@@ -121,6 +125,9 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
                     + "SESSION ID IS NULL IN SETUP"
                     + " *********************");
         }
+        final DefaultExpectations expectationsUtil = new DefaultExpectations();
+        factory = new PageFactory(driver, waiter,
+                expectationsUtil.create());
     }
 
     /**
@@ -131,7 +138,7 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     public void testChildLinkNavigation() {
         println("child link navigation test");
         assertTrue("Navigation failed",
-                childNavigationExercise(driver, waiter));
+                childNavigationExercise());
         println();
     }
 
@@ -143,7 +150,7 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     public void testFatherLinkNavigation() {
         println("father link navigation test");
         assertTrue("Navigation failed",
-                fathersNavigationExercise(driver, waiter));
+                fathersNavigationExercise());
         println();
     }
 
@@ -155,20 +162,17 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     public void testMotherLinkNavigation() {
         println("mother link navigation test");
         assertTrue("Navigation failed",
-                mothersNavigationExercise(driver, waiter));
+                mothersNavigationExercise());
         println();
     }
 
     /**
-     * @param wd the web driver to use for the test
-     * @param pw handles driver specific waits
      * @return always returns true
      */
-    private boolean childNavigationExercise(final WebDriver wd,
-            final PageWaiter pw) {
+    private boolean childNavigationExercise() {
         try {
-            PersonPage currentPerson = new PersonPage(wd, pw, null,
-                    baseUrl(), "I22");
+            PersonPage currentPerson =
+                    factory.createPersonPage(null, baseUrl(), "I22");
             currentPerson.open();
             println("    Person is: I22");
             check("Person ID mismatch", "I22", currentPerson.getId());
@@ -194,28 +198,25 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
             assertEquals("Person failed check", "", currentPerson.check());
         } finally {
             // Close the browser
-            wd.quit();
+            factory.getDriver().quit();
         }
         return true;
     }
 
     /**
-     * @param wd the web driver to use for the test
-     * @param pw handles driver specific waits
      * @return always returns true
      */
-    private boolean fathersNavigationExercise(final WebDriver wd,
-            final PageWaiter pw) {
+    private boolean fathersNavigationExercise() {
         try {
-            PersonPage currentPerson = new PersonPage(wd, pw, null,
-                    baseUrl(), "I9");
+            PersonPage currentPerson =
+                    factory.createPersonPage(null, baseUrl(), "I9");
             currentPerson.open();
             println("    Person is: I9");
             check("Person ID mismatch", "I9", currentPerson.getId());
             check("Person failed check", "", currentPerson.check());
 
-            final SourcePage currentSource = new SourcePage(wd, "S33651",
-                    currentPerson, pw, baseUrl());
+            final SourcePage currentSource = factory
+                    .createSourcePage(currentPerson, baseUrl(), "S33651");
             check("Title mismatch", currentSource.titleCheck());
 
             currentPerson = (PersonPage) currentSource.back();
@@ -237,21 +238,18 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
             assertEquals("Person failed check", "", currentPerson.check());
         } finally {
             // Close the browser
-            wd.quit();
+            factory.getDriver().quit();
         }
         return true;
     }
 
     /**
-     * @param wd the web driver to use for the test
-     * @param pw handles driver specific waits
      * @return always returns true
      */
-    private boolean mothersNavigationExercise(final WebDriver wd,
-            final PageWaiter pw) {
+    private boolean mothersNavigationExercise() {
         try {
-            PersonPage currentPerson = new PersonPage(wd, pw, null,
-                    baseUrl(), "I15");
+            PersonPage currentPerson =
+                    factory.createPersonPage(null, baseUrl(), "I15");
             currentPerson.open();
             println("    Person is: I15");
             check("Person ID mismatch", "I15", currentPerson.getId());
@@ -273,7 +271,7 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
             assertEquals("Person failed check", "", currentPerson.check());
         } finally {
             // Close the browser
-            wd.quit();
+            factory.getDriver().quit();
         }
         return true;
     }

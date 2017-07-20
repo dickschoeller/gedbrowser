@@ -17,7 +17,7 @@ public final class ParentIds {
      * @param father father's id
      * @param mother mother's id
      */
-    ParentIds(final String father, final String mother) {
+    public ParentIds(final String father, final String mother) {
         this.father = father;
         this.mother = mother;
     }
