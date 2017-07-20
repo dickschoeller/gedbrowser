@@ -17,58 +17,61 @@ public class PageBase {
     /** Ten seconds for passing to sleep for some known longish waits. */
     private static final int MEDIUM_SLEEP = 10000;
 
-    /** Associated Selenium driver. */
-    private final WebDriver driver;
-
     /** The base page URL. */
     private final String baseUrl;
 
     /** The rest of the page URL. */
     private final String location;
 
-    /** Handles driver specific waits. */
-    private final PageWaiter waiter;
-
     /** */
     private final PageBase previous;
 
+    /** */
+    private final PageFactory factory;
+
+
     /**
      * Constructor.
-     * @param driver the web driver that we are using
-     * @param waiter handles driver specific waits
+     *
+     * @param factory the factory for creating more page objects
      * @param previous the page we are coming here from
      * @param baseUrl the URL of the page
      * @param location the location part of the URL
      */
-    public PageBase(final WebDriver driver, final PageWaiter waiter,
-            final PageBase previous, final String baseUrl,
-            final String location) {
-        this.driver = driver;
+    public PageBase(final PageFactory factory, final PageBase previous,
+            final String baseUrl, final String location) {
+        this.factory = factory;
         this.baseUrl = baseUrl;
-        this.waiter = waiter;
         this.previous = previous;
         this.location = location;
+    }
+
+    /**
+     * @return the factory for creating more pages
+     */
+    protected PageFactory getFactory() {
+        return factory;
     }
 
     /**
      * @return the title string for this page.
      */
     public final String getTitle() {
-        return driver.getTitle();
+        return getDriver().getTitle();
     }
 
     /**
      * Open the page.
      */
     public final void open() {
-        driver.get(baseUrl + location);
+        getDriver().get(baseUrl + location);
     }
 
     /**
      * Like hitting the back button.
      */
     public final void navigateBack() {
-        final Navigation navigate = driver.navigate();
+        final Navigation navigate = getDriver().navigate();
         navigate.back();
         waitForPageLoaded();
     }
@@ -78,7 +81,7 @@ public class PageBase {
      * @return the web element
      */
     public final WebElement getWebElement(final By by) {
-        return driver.findElement(by);
+        return getDriver().findElement(by);
     }
 
     /**
@@ -107,7 +110,7 @@ public class PageBase {
      * @return true if the text is found
      */
     public final boolean isTextPresent(final String text) {
-        return driver.getPageSource().contains(text);
+        return getDriver().getPageSource().contains(text);
     }
 
     /**
@@ -173,21 +176,21 @@ public class PageBase {
      * @return the web driver
      */
     public final WebDriver getDriver() {
-        return driver;
+        return factory.getDriver();
     }
 
     /**
      * @return this pages waiter
      */
     public final PageWaiter getPageWaiter() {
-        return waiter;
+        return factory.getWaiter();
     }
 
     /**
      * Wait for page load on real browser. Doesn't work for HTML driver.
      */
     public final void waitForPageLoaded() {
-        waiter.waitForPageLoaded(driver);
+        getPageWaiter().waitForPageLoaded(getDriver());
     }
 
 
@@ -197,7 +200,7 @@ public class PageBase {
      * @param multiplier timeout multiplier
      */
     public final void waitForPageLoaded(final int multiplier) {
-        waiter.waitForPageLoaded(driver, multiplier);
+        getPageWaiter().waitForPageLoaded(getDriver(), multiplier);
     }
 
     /**
@@ -206,7 +209,7 @@ public class PageBase {
      * @param newUrl the target URL of the load
      */
     public final void waitForPageLoaded(final String newUrl) {
-        waiter.waitForPageLoaded(driver, newUrl);
+        getPageWaiter().waitForPageLoaded(getDriver(), newUrl);
     }
 
     /**
@@ -217,14 +220,14 @@ public class PageBase {
      */
     public final void waitForPageLoaded(final String newUrl,
             final int multiplier) {
-        waiter.waitForPageLoaded(driver, newUrl, multiplier);
+        getPageWaiter().waitForPageLoaded(getDriver(), newUrl, multiplier);
     }
 
     /**
      * @return the URL the driver thinks we are at
      */
     public final String getCurrentUrl() {
-        return driver.getCurrentUrl();
+        return getDriver().getCurrentUrl();
     }
 
     /**
@@ -248,8 +251,7 @@ public class PageBase {
         final int multiplier = 4;
         sleep(multiplier);
         waitForPageLoaded(multiplier);
-        return new IndexPage(getDriver(), getPageWaiter(), this, getBaseUrl(),
-                getIndexLetter());
+        return factory.createIndexPage(this, getBaseUrl(), getIndexLetter());
     }
 
     /**
@@ -285,8 +287,7 @@ public class PageBase {
         final WebElement element = getMenu("sources");
         element.click();
         waitForPageLoaded();
-        return new SourcesPage(getDriver(), getPageWaiter(), this,
-                getBaseUrl());
+        return factory.createSourcesPage(this, getBaseUrl());
     }
 
     /**
@@ -296,8 +297,7 @@ public class PageBase {
         final WebElement element = getMenu("submittors");
         element.click();
         waitForPageLoaded();
-        return new SubmittorsPage(getDriver(), getPageWaiter(), this,
-                getBaseUrl());
+        return factory.createSubmittorsPage(this, getBaseUrl());
     }
 
     /**

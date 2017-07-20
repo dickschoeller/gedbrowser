@@ -22,6 +22,7 @@ import org.schoellerfamily.gedbrowser.selenium.base.TestWatcherFactory;
 import org.schoellerfamily.gedbrowser.selenium.base.WebDriverFactory;
 import org.schoellerfamily.gedbrowser.selenium.config.SeleniumConfig;
 import org.schoellerfamily.gedbrowser.selenium.pageobjects.IndexPage;
+import org.schoellerfamily.gedbrowser.selenium.pageobjects.PageFactory;
 import org.schoellerfamily.gedbrowser.selenium.pageobjects.PersonPage;
 import org.schoellerfamily.gedbrowser.selenium.pageobjects.SourcesPage;
 import org.schoellerfamily.gedbrowser.selenium.pageobjects.SubmittorPage;
@@ -38,6 +39,7 @@ import com.saucelabs.common.SauceOnDemandSessionIdProvider;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SeleniumConfig.class)
+@SuppressWarnings("PMD.ExcessiveImports")
 public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
@@ -63,6 +65,9 @@ public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
 
     /** */
     private SessionId sessionId;
+
+    /** */
+    private PageFactory factory;
 
     /**
      * The factory that creates the appropriate test watcher based on current
@@ -104,8 +109,8 @@ public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
      */
     @Test
     public void testIndexLinkNavigation() {
-        final PersonPage currentPerson = new PersonPage(driver, waiter, null,
-                baseUrl(), "I15");
+        final PersonPage currentPerson =
+                factory.createPersonPage(null, baseUrl(), "I15");
         currentPerson.open();
         final IndexPage indexPageM = currentPerson.clickIndex();
         final String currentUrlM = indexPageM.getCurrentUrl();
@@ -127,8 +132,8 @@ public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
      */
     @Test
     public void testMenuWandering() {
-        final PersonPage currentPerson = new PersonPage(driver, waiter, null,
-                baseUrl(), "I15");
+        final PersonPage currentPerson =
+                factory.createPersonPage(null, baseUrl(), "I15");
         currentPerson.open();
         final IndexPage indexPageM = currentPerson.clickIndex();
         final String currentUrlM = indexPageM.getCurrentUrl();
@@ -181,6 +186,9 @@ public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
                     + "SESSION ID IS NULL IN SETUP"
                     + " *********************");
         }
+        final DefaultExpectations expectationsUtil = new DefaultExpectations();
+        factory = new PageFactory(driver, waiter,
+                expectationsUtil.create());
     }
 
     /**

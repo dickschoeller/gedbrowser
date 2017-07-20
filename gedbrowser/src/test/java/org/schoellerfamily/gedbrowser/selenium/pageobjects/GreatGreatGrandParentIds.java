@@ -16,7 +16,7 @@ public final class GreatGreatGrandParentIds {
      * @param fathers father's great grand parents
      * @param mothers mother's great grand parents
      */
-    GreatGreatGrandParentIds(final GreatGrandParentIds fathers,
+    public GreatGreatGrandParentIds(final GreatGrandParentIds fathers,
             final GreatGrandParentIds mothers) {
         this.fathers = fathers;
         this.mothers = mothers;

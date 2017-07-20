@@ -6,9 +6,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
 
 /**
  * @author Dick Schoeller
@@ -35,18 +33,17 @@ public final class SourcePage extends PageBase {
 
     /**
      * PageObject pattern for a page representing a person.
-     * @param driver this is the basic web driver
-     * @param id this is the ID of the person page being tested
-     * @param previous where we came from. Can be null.
-     * @param waiter handles driver specific waits
+     *
+     * @param factory the factory for creating more page objects
+     * @param previous where we came from. Can be null
      * @param baseUrl the base URL from which all others derive
+     * @param id this is the ID of the person page being tested
      */
-    public SourcePage(final WebDriver driver, final String id,
-            final PersonPage previous, final PageWaiter waiter,
-            final String baseUrl) {
-        super(driver, waiter, previous, baseUrl, location(id));
+    public SourcePage(final PageFactory factory, final PageBase previous,
+            final String baseUrl, final String id) {
+        super(factory, previous, baseUrl, location(id));
         this.id = id;
-        final WebElement source = driver.findElements(By.linkText(id))
+        final WebElement source = getDriver().findElements(By.linkText(id))
                 .get(0);
 
         final String newUrl = source.getAttribute("href");
