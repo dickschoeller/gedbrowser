@@ -40,9 +40,8 @@ import com.google.maps.model.LatLng;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-@SuppressWarnings({ "PMD.ExcessiveImports",
-        "PMD.GodClass",
-        "PMD.TooManyStaticImports" })
+@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.GodClass",
+        "PMD.TooManyStaticImports", "PMD.ExcessivePublicCount" })
 public final class GeoCodeTest {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
@@ -50,6 +49,10 @@ public final class GeoCodeTest {
     /** */
     @Value("${geoservice.dummyfile:/foo}")
     private transient String dummyFileName;
+
+    /** */
+    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
+    private transient String gedbrowserHome;
 
     /** */
     @Autowired
@@ -386,11 +389,10 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testNotFoundsFromFile() {
+    public void testNotFoundsFromStream() {
         logger.info("Entering testNotFounds");
         gcc.clear();
-        final InputStream fis = getTestFileAsStream();
-        loader.load(fis);
+        loader.load(getTestFileAsStream());
         final List<String> expectList = Arrays
                 .asList(testFixture.expectedNotFound());
         final Collection<String> expected = new HashSet<>(expectList);
@@ -401,11 +403,35 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testNotParsing() {
+    public void testNotFoundsFromFile() {
         logger.info("Entering testNotFounds");
         gcc.clear();
-        final InputStream fis = getTestFileAsStream();
-        loader.load(fis);
+        loader.load(getTestFileName());
+        final List<String> expectList = Arrays
+                .asList(testFixture.expectedNotFound());
+        final Collection<String> expected = new HashSet<>(expectList);
+        final Collection<String> actual = gcc.notFoundKeys();
+        assertTrue("Some differences in not found sets",
+                compareNotFound(expected, actual));
+    }
+
+    /** */
+    @Test
+    public void testNotParsingFromStream() {
+        logger.info("Entering testNotFounds");
+        gcc.clear();
+        loader.load(getTestFileAsStream());
+        final GeoCodeItem item = gcc.get("At Sea");
+        assertEquals("Failure indicates a parsing problem",
+                "Atlantic Ocean", item.getModernPlaceName());
+    }
+
+    /** */
+    @Test
+    public void testNotParsingFromFile() {
+        logger.info("Entering testNotFounds");
+        gcc.clear();
+        loader.load(getTestFileName());
         final GeoCodeItem item = gcc.get("At Sea");
         assertEquals("Failure indicates a parsing problem",
                 "Atlantic Ocean", item.getModernPlaceName());
@@ -437,11 +463,10 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCountNotFoundsFromFileLowBound() {
+    public void testCountNotFoundsFromStreamLowBound() {
         logger.info("Entering testCountNotFounds");
         gcc.clear();
-        final InputStream fis = getTestFileAsStream();
-        loader.load(fis);
+        loader.load(getTestFileAsStream());
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
         assertTrue("Count too low at: " + count,
@@ -450,11 +475,34 @@ public final class GeoCodeTest {
 
     /** */
     @Test
+    public void testCountNotFoundsFromFileLowBound() {
+        logger.info("Entering testCountNotFounds");
+        gcc.clear();
+        loader.load(getTestFileName());
+        final int count = gcc.countNotFound();
+        // Count does not seem to be deterministic with Google's APIs.
+        assertTrue("Count too low at: " + count,
+                count >= testFixture.expectedLowBound());
+    }
+
+    /** */
+    @Test
+    public void testCountNotFoundsFromStreamHighBound() {
+        logger.info("Entering testCountNotFounds");
+        gcc.clear();
+        loader.load(getTestFileAsStream());
+        final int count = gcc.countNotFound();
+        // Count does not seem to be deterministic with Google's APIs.
+        assertTrue("Count too high at: " + count,
+                count <= testFixture.expectedHighBound());
+    }
+
+    /** */
+    @Test
     public void testCountNotFoundsFromFileHighBound() {
         logger.info("Entering testCountNotFounds");
         gcc.clear();
-        final InputStream fis = getTestFileAsStream();
-        loader.load(fis);
+        loader.load(getTestFileName());
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
         assertTrue("Count too high at: " + count,
@@ -474,11 +522,21 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testSizeFromResource() {
+    public void testSizeFromStream() {
         logger.info("Entering testSizeFromFile");
         gcc.clear();
-        final InputStream fis = getTestFileAsStream();
-        loader.load(fis);
+        loader.load(getTestFileAsStream());
+        final int expected = 19;
+        assertEquals("Should match known file size of 19",
+                expected, gcc.size());
+    }
+
+    /** */
+    @Test
+    public void testSizeFromFile() {
+        logger.info("Entering testSizeFromFile");
+        gcc.clear();
+        loader.load(getTestFileName());
         final int expected = 19;
         assertEquals("Should match known file size of 19",
                 expected, gcc.size());
@@ -522,11 +580,34 @@ public final class GeoCodeTest {
 
     /** */
     @Test
+    public void testDumpFromStream() {
+        logger.info("Entering testDumpFile");
+        gcc.clear();
+        loader.load(getTestFileAsStream());
+        gcc.dump();
+        final int expected = 19;
+        assertEquals("Should match known file size of 19",
+                expected, gcc.size());
+    }
+
+    /** */
+    @Test
     public void testDumpFromFile() {
         logger.info("Entering testDumpFile");
         gcc.clear();
-        final InputStream fis = getTestFileAsStream();
-        loader.load(fis);
+        loader.load(getTestFileName());
+        gcc.dump();
+        final int expected = 19;
+        assertEquals("Should match known file size of 19",
+                expected, gcc.size());
+    }
+
+    /** */
+    @Test
+    public void testDumpFromStreamAfterFind() {
+        logger.info("Entering testDumpFile");
+        gcc.clear();
+        loader.loadAndFind(getTestFileAsStream());
         gcc.dump();
         final int expected = 19;
         assertEquals("Should match known file size of 19",
@@ -538,8 +619,7 @@ public final class GeoCodeTest {
     public void testDumpFromFileAfterFind() {
         logger.info("Entering testDumpFile");
         gcc.clear();
-        final InputStream fis = getTestFileAsStream();
-        loader.loadAndFind(fis);
+        loader.loadAndFind(getTestFileName());
         gcc.dump();
         final int expected = 19;
         assertEquals("Should match known file size of 19",
@@ -571,5 +651,12 @@ public final class GeoCodeTest {
      */
     private InputStream getTestFileAsStream() {
         return getClass().getResourceAsStream("/test.txt");
+    }
+
+    /**
+     * @return test file opened in an input stream
+     */
+    private String getTestFileName() {
+        return gedbrowserHome + "/test.txt";
     }
 }
