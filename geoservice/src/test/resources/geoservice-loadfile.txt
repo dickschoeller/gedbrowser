@@ -661,7 +661,7 @@ Randolph, Norfolk County, Massachusetts, USA|Randolph, MA 02368, USA
 Rapid City, Pennington County, South Dakota, USA|Rapid City, SD, USA
 Rauschenberg, Hessen|Rauschenberg, Germany
 Reading, Berks County, Pennsylvania, USA|Reading, PA, USA
-Reed Machinery Co., York County, Pennsylvania, USA|151 North Washington St, Greencastle, PA 17225 
+Reed Machinery Co., York County, Pennsylvania, USA|151 North Washington St, Greencastle, PA 17225
 Reformed Church of Willow Grove, Willow Grove, Montgomery County, Pennsylvania, USA|1404 N Hills Ave, Willow Grove, PA 19090, USA
 Rehrersburg, Berks County, Pennsylvania, USA|Rehrersburg, PA, USA
 Reliance High School, Reliance, Sweetwater County, Wyoming, USA|1321 Main, Reliance, WY 82943, USA
