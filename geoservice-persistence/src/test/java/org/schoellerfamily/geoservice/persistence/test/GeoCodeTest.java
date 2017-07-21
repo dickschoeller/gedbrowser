@@ -40,8 +40,8 @@ import com.google.maps.model.LatLng;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.GodClass",
-        "PMD.TooManyStaticImports", "PMD.ExcessivePublicCount" })
+@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.ExcessivePublicCount",
+        "PMD.GodClass", "PMD.TooManyStaticImports" })
 public final class GeoCodeTest {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
