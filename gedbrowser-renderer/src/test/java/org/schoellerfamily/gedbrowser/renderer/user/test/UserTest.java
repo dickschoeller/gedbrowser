@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.renderer.test;
+package org.schoellerfamily.gedbrowser.renderer.user.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
