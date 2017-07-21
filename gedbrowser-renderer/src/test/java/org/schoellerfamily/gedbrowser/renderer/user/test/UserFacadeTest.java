@@ -33,7 +33,6 @@ public class UserFacadeTest {
          */
         @Override
         public User getUser() {
-            // TODO Auto-generated method stub
             return user;
         }
     }

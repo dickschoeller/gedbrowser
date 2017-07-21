@@ -115,8 +115,11 @@ public class CalendarProviderFacadeTest {
         final Calendar actual = implProvider.now();
         final long difference =
                 actual.getTimeInMillis() - calendar.getTimeInMillis();
-        assertLessThan("Difference should be less than 2 milliseconds",
-                2, difference);
+        final long expected = 3;
+        assertLessThan(
+                "Difference should be less than " + expected
+                        + " milliseconds, is: " + difference,
+                expected, difference);
     }
 
     /**
