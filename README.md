@@ -1,5 +1,13 @@
 # gedbrowser
 
+[![Overv.io Issues](https://img.shields.io/badge/Overv.io-issues-blue.svg)](https://overv.io/dickschoeller/gedbrowser/)
+[![Build Status](https://api.travis-ci.org/dickschoeller/gedbrowser.svg?branch=development)](https://travis-ci.org/dickschoeller/gedbrowser)
+[![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=development)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=development)
+[![Code Climate](https://codeclimate.com/github/dickschoeller/gedbrowser/badges/gpa.svg)](https://codeclimate.com/github/dickschoeller/gedbrowser)
+[![codebeat badge](https://codebeat.co/badges/0a10c645-cc88-4f2f-9058-df89e8dc408f)](https://codebeat.co/projects/github-com-dickschoeller-gedbrowser-development)
+[![Dependency Status](https://www.versioneye.com/user/projects/58987dc1f55eb2003257f7bd/badge.svg)](https://www.versioneye.com/user/projects/58987dc1f55eb2003257f7bd)
+[![Build Status](https://saucelabs.com/buildstatus/dickschoeller)](https://saucelabs.com/open_sauce/user/dickschoeller)
+
 Spring Boot application to display the genealogy data from a
 [GEDCOM](http://wiki-en.genealogy.net/GEDCOM) file. Once loaded, the data is
 managed in a [MongoDB](https://www.mongodb.org/) database.
@@ -8,11 +16,6 @@ Check it out by perusing [my genealogy
 database](http://www.schoellerfamily.org/gedbrowser/surnames?db=schoeller). You can
 browse the database anonymously, but you will need a login with the appropriate
 role to see living people.
-
-| Branch | Travis | Coverage | Code Climate | Codebeat | Dependencies | Sauce |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Master | [![Build Status](https://api.travis-ci.org/dickschoeller/gedbrowser.svg?branch=master)](https://travis-ci.org/dickschoeller/gedbrowser) | [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=master)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=master) |
-| Development | [![Build Status](https://api.travis-ci.org/dickschoeller/gedbrowser.svg?branch=development)](https://travis-ci.org/dickschoeller/gedbrowser) | [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=development)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=development) | [![Code Climate](https://codeclimate.com/github/dickschoeller/gedbrowser/badges/gpa.svg)](https://codeclimate.com/github/dickschoeller/gedbrowser) | [![codebeat badge](https://codebeat.co/badges/0a10c645-cc88-4f2f-9058-df89e8dc408f)](https://codebeat.co/projects/github-com-dickschoeller-gedbrowser-development) | [![Dependency Status](https://www.versioneye.com/user/projects/58987dc1f55eb2003257f7bd/badge.svg)](https://www.versioneye.com/user/projects/58987dc1f55eb2003257f7bd) | [![Build Status](https://saucelabs.com/buildstatus/dickschoeller)](https://saucelabs.com/open_sauce/user/dickschoeller) |
 
 ## Installing
 
