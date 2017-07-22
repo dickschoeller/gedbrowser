@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
 
@@ -82,5 +83,13 @@ public class ApplicationTest {
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("Reloaded");
+    }
+
+    /** */
+    @Test
+    public final void testApplicationName() {
+        final Application a = new Application();
+        assertEquals("Application name mismatch", "gedbrowser",
+                a.getApplicationName());
     }
 }
