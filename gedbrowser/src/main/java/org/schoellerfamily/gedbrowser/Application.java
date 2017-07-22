@@ -22,8 +22,7 @@ public class Application {
      */
     public static void main(final String[] args) throws InterruptedException {
         SpringApplication.run(
-                org.schoellerfamily.gedbrowser.Application.class,
-                args);
+                org.schoellerfamily.gedbrowser.Application.class, args);
         Thread.sleep(TWENTY_SECONDS);
     }
 
