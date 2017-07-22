@@ -3,10 +3,13 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -386,5 +389,49 @@ public final class RepositoryFinderTest {
     public void testWithWrongClassForClazz() {
         assertNull("Should not have found anything",
                 finder.find(root, BOGUS_ID, GedObject.class));
+    }
+
+    /** */
+    @Test
+    public void testFinderFindAllPersonsCount() {
+        final Collection<Person> persons = finder.find(root, Person.class);
+        final int expected = 16;
+        final int actual = persons.size();
+        assertEquals("Expected to find 16 people", expected, actual);
+    }
+
+    /** */
+    @Test
+    public void testFinderFindAllPersonsNotRoot() {
+        try {
+            final GedObjectBuilder builder = new GedObjectBuilder(root);
+            final Person person = builder.createPerson();
+            finder.find(person, Person.class);
+            fail("Should ahve thrown an exception");
+        } catch (IllegalArgumentException e) {
+            // This is a pass.
+        }
+    }
+
+    /** */
+    @Test
+    public void testFinderFindAllBadClass() {
+        final Collection<GedObject> find = finder.find(root, GedObject.class);
+        assertNull("Should be null because asking for bogus class", find);
+    }
+
+    /** */
+    @Test
+    public void testFinderFindAllPersons() {
+        final String[] names = {
+                "I1", "I2", "I752", "I3", "I4", "I5", "I755", "I753",
+                "I6", "I7", "I8", "I754", "I9", "I4248", "I10", "I5266" };
+        final List<String> nameList = Arrays.asList(names);
+        final Collection<Person> persons = finder.find(root, Person.class);
+        for (final Person person : persons) {
+            final String id = person.getString();
+            assertTrue("Person ID (" + id + ") not found in expectations",
+                    nameList.contains(id));
+        }
     }
 }
