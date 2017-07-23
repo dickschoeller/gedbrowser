@@ -126,4 +126,14 @@ public final class PageFactory {
             final String baseUrl) {
         return new SubmittorsPage(this, previous, baseUrl);
     }
+
+    /**
+     * @param previous the previous page object
+     * @param baseUrl the base URL string
+     * @return the new page object
+     */
+    public LoginPage createLoginPage(final PageBase previous,
+            final String baseUrl) {
+        return new LoginPage(this, previous, baseUrl);
+    }
 }

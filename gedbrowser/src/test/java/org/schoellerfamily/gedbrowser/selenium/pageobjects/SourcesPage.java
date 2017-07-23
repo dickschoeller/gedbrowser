@@ -6,7 +6,10 @@ import org.openqa.selenium.WebElement;
 /**
  * @author Dick Schoeller
  */
-public class SourcesPage extends PageBase {
+public class SourcesPage extends PageBase implements MenuPageFacade {
+    /** */
+    private final MenuPage menuPage = new MenuPageImpl(this);
+
     /**
      * PageObject pattern for the sources page.
      *
@@ -17,6 +20,14 @@ public class SourcesPage extends PageBase {
     public SourcesPage(final PageFactory factory,
             final PageBase previous, final String baseUrl) {
         super(factory, previous, baseUrl, "sources?db=schoeller");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public MenuPage getMenuPage() {
+        return menuPage;
     }
 
     /**

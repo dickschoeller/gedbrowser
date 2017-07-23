@@ -6,9 +6,12 @@ import org.openqa.selenium.WebElement;
 /**
  * @author Dick Schoeller
  */
-public final class IndexPage extends PageBase {
+public final class IndexPage extends PageBase implements MenuPageFacade {
     /** */
     private final String letter;
+
+    /** */
+    private final MenuPage menuPage = new MenuPageImpl(this);
 
     /**
      * PageObject pattern for a page representing a person.
@@ -44,6 +47,14 @@ public final class IndexPage extends PageBase {
     @Override
     protected String getIndexLetter() {
         return letter;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public MenuPage getMenuPage() {
+        return menuPage;
     }
 
     /**

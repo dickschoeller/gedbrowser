@@ -3,9 +3,12 @@ package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 /**
  * @author Dick Schoeller
  */
-public class SubmittorPage extends PageBase {
+public class SubmittorPage extends PageBase implements MenuPageFacade {
     /** */
     private final String id;
+
+    /** */
+    private final MenuPage menuPage = new MenuPageImpl(this);
 
     /**
      * @param factory the factory for creating more page objects
@@ -17,6 +20,14 @@ public class SubmittorPage extends PageBase {
             final String baseUrl, final String id) {
         super(factory, previous, baseUrl, "submittor?db=gl120368&id=" + id);
         this.id = id;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public MenuPage getMenuPage() {
+        return menuPage;
     }
 
     /**

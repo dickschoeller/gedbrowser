@@ -11,7 +11,7 @@ import org.openqa.selenium.WebElement;
 /**
  * @author Dick Schoeller
  */
-public final class SourcePage extends PageBase {
+public final class SourcePage extends PageBase implements MenuPageFacade {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -21,6 +21,9 @@ public final class SourcePage extends PageBase {
 
     /** Database ID associated with this page. */
     private final String id;
+
+    /** */
+    private final MenuPage menuPage = new MenuPageImpl(this);
 
     /**
      * Relationship between ID and validation data.
@@ -49,6 +52,14 @@ public final class SourcePage extends PageBase {
         final String newUrl = source.getAttribute("href");
         source.click();
         waitForPageLoaded(newUrl);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public MenuPage getMenuPage() {
+        return menuPage;
     }
 
     /**

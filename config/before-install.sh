@@ -4,6 +4,7 @@ mkdir /home/travis/gedbrowser
 cp $(find . -name 'gl120368.ged' | head -n 1) /home/travis/gedbrowser
 cp $(find . -name 'mini-schoeller.ged' | head -n 1) /home/travis/gedbrowser
 cp $(find . -name 'testUserFile.csv' | head -n 1) /home/travis/gedbrowser
+cp $(find . -name 'testUserFile.csv' | head -n 1) /home/travis/gedbrowser/userFile.csv
 cp $(find . -name 'test.txt' | head -n 1) /home/travis/gedbrowser
 cp $(find . -name 'geoservice-loadfile.txt' | head -n 1) /home/travis/gedbrowser
 echo $GOOGLE_GEOCODING_KEY > /home/travis/gedbrowser/google-geocoding-key

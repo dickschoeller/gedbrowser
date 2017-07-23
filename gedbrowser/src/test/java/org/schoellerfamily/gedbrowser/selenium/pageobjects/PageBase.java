@@ -29,7 +29,6 @@ public class PageBase {
     /** */
     private final PageFactory factory;
 
-
     /**
      * Constructor.
      *
@@ -100,7 +99,7 @@ public class PageBase {
      * @param text the text to send to the Element
      */
     protected final void sendText(final String cssSelector, final String text) {
-        getWebElement(By.cssSelector(cssSelector)).sendKeys(text);
+        getWebElement(cssSelector).sendKeys(text);
     }
 
     /**
@@ -243,18 +242,6 @@ public class PageBase {
     }
 
     /**
-     * @return the page for the newly reached page
-     */
-    public IndexPage clickIndex() {
-        final WebElement element = getMenu("index");
-        element.click();
-        final int multiplier = 4;
-        sleep(multiplier);
-        waitForPageLoaded(multiplier);
-        return factory.createIndexPage(this, getBaseUrl(), getIndexLetter());
-    }
-
-    /**
      * Sleep for a bit to allow slow stuff to happen.
      */
     protected void sleep() {
@@ -281,30 +268,9 @@ public class PageBase {
     }
 
     /**
-     * @return the page for the newly reached page
+     * @return the page that we came from.
      */
-    public SourcesPage clickSources() {
-        final WebElement element = getMenu("sources");
-        element.click();
-        waitForPageLoaded();
-        return factory.createSourcesPage(this, getBaseUrl());
-    }
-
-    /**
-     * @return the page for the newly reached page
-     */
-    public SubmittorsPage clickSubmittors() {
-        final WebElement element = getMenu("submittors");
-        element.click();
-        waitForPageLoaded();
-        return factory.createSubmittorsPage(this, getBaseUrl());
-    }
-
-    /**
-     * @param name the name of the menu item
-     * @return the element for that menu item
-     */
-    protected WebElement getMenu(final String name) {
-        return getWebElement(By.id(name + "-menu"));
+    protected PageBase getPrevious() {
+        return previous;
     }
 }

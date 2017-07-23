@@ -12,9 +12,12 @@ import org.openqa.selenium.WebElement;
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyMethods", "PMD.CommentSize", "PMD.GodClass" })
-public final class PersonPage extends PageBase {
+public final class PersonPage extends PageBase implements MenuPageFacade {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
+
+    /** The menu item handler. */
+    private final MenuPage menuPage = new MenuPageImpl(this);
 
     /** */
     private static final boolean PRINT_NAVIGATION = "true"
@@ -46,6 +49,14 @@ public final class PersonPage extends PageBase {
         final String name = title.substring(0, title.indexOf(" ("));
         final String surname = name.substring(name.lastIndexOf(" ")).trim();
         return surname.substring(0, 1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public MenuPage getMenuPage() {
+        return menuPage;
     }
 
     /**
