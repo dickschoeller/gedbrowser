@@ -27,6 +27,7 @@ public class SubmittorsPage extends PageBase {
         final WebElement element = getWebElement(By.id(id));
         final WebElement link = element.findElement(By.tagName("a"));
         link.click();
+        waitForPageLoaded();
         return getFactory().createSubmittorPage(this, getBaseUrl(), id);
     }
 }
