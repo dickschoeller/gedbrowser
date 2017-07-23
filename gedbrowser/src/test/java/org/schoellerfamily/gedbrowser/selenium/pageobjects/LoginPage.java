@@ -32,12 +32,32 @@ public class LoginPage extends PageBase {
         logger.info("username: " + username + " password: " + password);
         logger.info("++++++++++++++++++++++++++++++++++++++++++++++++++++");
         logger.info("++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        sendText("input[name='username']", username);
-        sendText("input[name='password']", password);
-        final WebElement webElement = getWebElement("input[value='Login']");
-        logger.info("webelement: " + webElement);
-        webElement.click();
-        waitForPageLoaded();
+        try {
+            sendText("input[name='username']", username);
+        } catch (Exception e) {
+            logger.error("username", e);
+            throw e;
+        }
+        try {
+            sendText("input[name='password']", password);
+        } catch (Exception e) {
+            logger.error("password", e);
+            throw e;
+        }
+        try {
+            final WebElement webElement = getWebElement("input[value='Login']");
+            logger.info("webelement: " + webElement);
+            webElement.click();
+        } catch (Exception e) {
+            logger.error("click button", e);
+            throw e;
+        }
+        try {
+            waitForPageLoaded();
+        } catch (Exception e) {
+            logger.error("page load", e);
+            throw e;
+        }
         return getPrevious();
     }
 }
