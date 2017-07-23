@@ -23,6 +23,7 @@ public class LoginPage extends PageBase {
         sendText("input[name='username']", username);
         sendText("input[name='password']", password);
         getWebElement("input[value='Login']").click();
+        waitForPageLoaded();
         return getPrevious();
     }
 }
