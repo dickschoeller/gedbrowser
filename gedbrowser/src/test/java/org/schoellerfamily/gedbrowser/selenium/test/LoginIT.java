@@ -1,6 +1,8 @@
 package org.schoellerfamily.gedbrowser.selenium.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.net.MalformedURLException;
@@ -21,12 +23,10 @@ import org.schoellerfamily.gedbrowser.selenium.base.SauceOnDemandWatcherFactory;
 import org.schoellerfamily.gedbrowser.selenium.base.TestWatcherFactory;
 import org.schoellerfamily.gedbrowser.selenium.base.WebDriverFactory;
 import org.schoellerfamily.gedbrowser.selenium.config.SeleniumConfig;
-import org.schoellerfamily.gedbrowser.selenium.pageobjects.IndexPage;
+import org.schoellerfamily.gedbrowser.selenium.pageobjects.LoginPage;
+import org.schoellerfamily.gedbrowser.selenium.pageobjects.MenuPage;
 import org.schoellerfamily.gedbrowser.selenium.pageobjects.PageFactory;
 import org.schoellerfamily.gedbrowser.selenium.pageobjects.PersonPage;
-import org.schoellerfamily.gedbrowser.selenium.pageobjects.SourcesPage;
-import org.schoellerfamily.gedbrowser.selenium.pageobjects.SubmittorPage;
-import org.schoellerfamily.gedbrowser.selenium.pageobjects.SubmittorsPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
@@ -35,12 +35,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 
 /**
+ * Tests for the basic presentation of guest, user login, and admin login.
+ *
  * @author Dick Schoeller
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SeleniumConfig.class)
 @SuppressWarnings("PMD.ExcessiveImports")
-public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
+public class LoginIT implements SauceOnDemandSessionIdProvider {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -51,6 +53,22 @@ public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
     /** */
     @Value("${server.port:8080}")
     private String port;
+
+    /** */
+    @Value("${test.adminUsername:schoeller@comcast.net}")
+    private String adminUsername;
+
+    /** */
+    @Value("${test.adminPassword:HAHANOWAY}")
+    private String adminPassword;
+
+    /** */
+    @Value("${test.username:guest}")
+    private String username;
+
+    /** */
+    @Value("${test.password:guest}")
+    private String password;
 
     /** */
     @Autowired
@@ -133,62 +151,79 @@ public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
      * Test navigation through index from one person to another.
      */
     @Test
-    public void testIndexLinkNavigation() {
+    public void testBasicAdminLogin() {
         final PersonPage currentPerson =
                 factory.createPersonPage(null, baseUrl(), "I15");
         currentPerson.open();
-        final IndexPage indexPageM = currentPerson.clickIndex();
-        final String currentUrlM = indexPageM.getCurrentUrl();
-        check("URL mismatch",
-                baseUrl() + "surnames?db=gl120368&letter=M#Moore",
-                currentUrlM);
-        final IndexPage indexPageB = indexPageM.clickLetter("B");
-        final String currentUrlB = indexPageB.getCurrentUrl();
-        check("URL mismatch",
-                baseUrl() + "surnames?db=gl120368&letter=B",
-                currentUrlB);
-        final PersonPage personPageBagley = indexPageB.clickPerson("I2561");
-        assertTrue("Wrong person",
-                personPageBagley.getTitle().contains("James BAGLEY"));
+        final String currentUrl = currentPerson.getCurrentUrl();
+        checkMenuAbsent(currentPerson, "living");
+        checkMenuAbsent(currentPerson, "places");
+        final LoginPage loginPage = currentPerson.clickLogin();
+        final PersonPage newPerson =
+                (PersonPage) loginPage.login(adminUsername, adminPassword);
+        checkSame("should give the same object", currentPerson, newPerson);
+        final String newUrl = newPerson.getCurrentUrl();
+        checkEquals("Should be the same URL", currentUrl, newUrl);
+        checkMenuPresent(newPerson, "living");
+        checkMenuPresent(newPerson, "places");
+        assertTrue("Logout should be present",
+                currentPerson.isTextPresent("Logout"));
+        currentPerson.clickLogout();
     }
 
     /**
      * Test navigation through index from one person to another.
      */
     @Test
-    public void testMenuWandering() {
+    public void testBasicUserLogin() {
         final PersonPage currentPerson =
                 factory.createPersonPage(null, baseUrl(), "I15");
         currentPerson.open();
-        final IndexPage indexPageM = currentPerson.clickIndex();
-        final String currentUrlM = indexPageM.getCurrentUrl();
-        check("Index M URL mismatch",
-                baseUrl() + "surnames?db=gl120368&letter=M#Moore",
-                currentUrlM);
+        final String currentUrl = currentPerson.getCurrentUrl();
+        checkMenuAbsent(currentPerson, "living");
+        checkMenuAbsent(currentPerson, "places");
+        final LoginPage loginPage = currentPerson.clickLogin();
+        final PersonPage newPerson =
+                (PersonPage) loginPage.login(username, password);
+        checkSame("should give the same object", currentPerson, newPerson);
+        final String newUrl = newPerson.getCurrentUrl();
+        checkEquals("Should be the same URL", currentUrl, newUrl);
+        // Only for admin
+        checkMenuAbsent(newPerson, "living");
+        checkMenuAbsent(newPerson, "places");
+        assertTrue("Logout should be present",
+                currentPerson.isTextPresent("Logout"));
+        currentPerson.clickLogout();
+    }
 
-        final IndexPage indexPageB = indexPageM.clickLetter("B");
-        final String currentUrlB = indexPageB.getCurrentUrl();
-        check("Index B URL mismatch",
-                baseUrl() + "surnames?db=gl120368&letter=B",
-                currentUrlB);
-
-        final SourcesPage sourcesPage = indexPageB.clickSources();
-        final String sourcesUrl = sourcesPage.getCurrentUrl();
-        check("Sources URL mismatch",
-                baseUrl() + "sources?db=gl120368",
-                sourcesUrl);
-
-        final SubmittorsPage submittorsPage = sourcesPage.clickSubmittors();
-        final String submittorsUrl = submittorsPage.getCurrentUrl();
-        check("Submittors URL mismatch",
-                baseUrl() + "submittors?db=gl120368",
-                submittorsUrl);
-
-        final SubmittorPage submittorPage = submittorsPage.clickSubmittor("U1");
-        final String submittorUrl = submittorPage.getCurrentUrl();
-        assertEquals("Submittor URL mismatch",
-                baseUrl() + "submittor?db=gl120368&id=U1",
-                submittorUrl);
+    /**
+     * Test navigation through index from one person to another.
+     */
+    @Test
+    public void testBasicUserLivingPerson() {
+        final PersonPage currentPerson =
+                factory.createPersonPage(null, baseUrl(), "I1");
+        currentPerson.open();
+        checkEquals("Title mismatch",
+                "Living - I1 - gl120368", currentPerson.getTitle());
+        final String currentUrl = currentPerson.getCurrentUrl();
+        checkMenuAbsent(currentPerson, "living");
+        checkMenuAbsent(currentPerson, "places");
+        final LoginPage loginPage = currentPerson.clickLogin();
+        final PersonPage newPerson =
+                (PersonPage) loginPage.login(username, password);
+        checkSame("should give the same object", currentPerson, newPerson);
+        final String newUrl = newPerson.getCurrentUrl();
+        checkEquals("Should be the same URL", currentUrl, newUrl);
+        // Only for admin
+        checkMenuAbsent(newPerson, "living");
+        checkMenuAbsent(newPerson, "places");
+        checkEquals("Title mismatch",
+                "Living Williams (1950-) - I1 - gl120368",
+                newPerson.getTitle());
+        assertTrue("Logout should be present",
+                currentPerson.isTextPresent("Logout"));
+        currentPerson.clickLogout();
     }
 
     /**
@@ -206,9 +241,39 @@ public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
      * @param expected expected value
      * @param actual actual value
      */
-    private void check(final String message, final String expected,
+    private void checkEquals(final String message, final String expected,
             final String actual) {
         assertEquals(message, expected, actual);
+    }
+
+    /**
+     * Use this for mid-test checks.
+     *
+     * @param message message to display on failure
+     * @param expected expected value
+     * @param actual actual value
+     */
+    private void checkSame(final String message, final Object expected,
+            final Object actual) {
+        assertSame(message, expected, actual);
+    }
+
+    /**
+     * @param page the page being checked
+     * @param name the name of the menu item
+     */
+    private void checkMenuPresent(final MenuPage page, final String name) {
+        assertTrue("Menu " + name + " should be present",
+                page.isMenuPresent(name));
+    }
+
+    /**
+     * @param page the page being checked
+     * @param name the name of the menu item
+     */
+    private void checkMenuAbsent(final MenuPage page, final String name) {
+        assertFalse("Menu " + name + " should not be present",
+                page.isMenuPresent(name));
     }
 
     /**

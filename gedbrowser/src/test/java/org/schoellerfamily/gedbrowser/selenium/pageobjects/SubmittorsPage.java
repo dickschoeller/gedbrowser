@@ -6,7 +6,10 @@ import org.openqa.selenium.WebElement;
 /**
  * @author Dick Schoeller
  */
-public class SubmittorsPage extends PageBase {
+public class SubmittorsPage extends PageBase implements MenuPageFacade {
+    /** */
+    private final MenuPage menuPage = new MenuPageImpl(this);
+
     /**
      * PageObject pattern for the sources page.
      *
@@ -17,6 +20,14 @@ public class SubmittorsPage extends PageBase {
     public SubmittorsPage(final PageFactory factory,
             final PageBase previous, final String baseUrl) {
         super(factory, previous, baseUrl, "submittors?db=gl120368");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public MenuPage getMenuPage() {
+        return menuPage;
     }
 
     /**
