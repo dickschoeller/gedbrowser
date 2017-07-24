@@ -30,7 +30,7 @@ public class LoginPage extends PageBase {
         sendText("input[name='password']", password);
         final WebElement webElement = getWebElement("input[value='Login']");
         webElement.click();
-        PageBase previous = getPrevious();
+        final PageBase previous = getPrevious();
         final String expectedURL =
                 previous.getBaseUrl() + previous.getLocation();
         waitForPageLoaded(expectedURL);
