@@ -30,6 +30,15 @@ public class LoginPage extends PageBase {
         sendText("input[name='password']", password);
         final WebElement webElement = getWebElement("input[value='Login']");
         webElement.click();
+        final String temp =
+                getPrevious().getBaseUrl() + getPrevious().getLocation();
+        System.out.println("+++++++++++++++++++++++++++++");
+        System.out.println("+++++++++++++++++++++++++++++");
+        System.out.println("+++++++++++++++++++++++++++++");
+        System.out.println(temp);
+        System.out.println("+++++++++++++++++++++++++++++");
+        System.out.println("+++++++++++++++++++++++++++++");
+        System.out.println("+++++++++++++++++++++++++++++");
         waitForPageLoaded();
         return getPrevious();
     }
