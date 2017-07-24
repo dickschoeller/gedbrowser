@@ -72,7 +72,7 @@ jobs:
     - before_install: ./config/before-install.sh
       install: ./config/install.sh
       before_script: ./config/before-script.sh
-      script: ./config/selenium-script.sh firefox win8
+      script: ./config/selenium-script.sh firefox win8 52.0.2
 # browser choices -  android, chrome, firefox, MicrosoftEdge, iexplore, safari,
 #                    operablink, konqueror, "internet explorer", iPhone, iPad,
 #                    iehta
