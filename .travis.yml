@@ -15,7 +15,7 @@ addons:
 
 env:
   global:
-    - INTEGRATION_TEST_ARGS="--settings=./config/settings.xml -B -Ptravis-integration-test -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -Dselenium.timeout=45 -Dselenium.version=3.3.1"
+    - INTEGRATION_TEST_ARGS="--settings=./config/settings.xml -B -Ptravis-integration-test -Dspring.data.mongodb.port=28001 -Dgedbrowser.home=/home/travis/gedbrowser -Dgeoservice.keyfile=stub -Dgeoservice.backupfile=/home/travis/gedbrowser/geoservice-test-backup.json -Dselenium.timeout=45 -Dselenium.version=3.4.0"
     # REPOTOKEN
     - secure: "cSqCmrTZ20xqVkiG7sC3XR3JQxWAayaoQQe8zfc5nhf5oy3zOWxNU7KrpWVCfMVHIQcC50qqHyfXH1Z4qIs6T4+GgVpiUxLv6zLYSAk+TtX/5eJ1ER7ZHDrtrFTHB9NAEW95RfAp0Ee/7OjuwP8GLTPQ0F05TWrbY8RPZ8ecZcmgzNKFTjMuHPnQhVGkYdgU8UlYr3Y/+1/yox+e4wNzoA84HTh4Cmld3g7Yx5jOx5vg/uVNgYqbvQ3oCYB0nAQNc6vF8IX5XwIS7EKdzJXrzuvMWcDs5IQki2MmAoVHXuvYB6UB6GuZ2MvO6PFQUwaXY02hZ1W+2XeGB+jGhE3cam34riFAQVW1OnhiTArKMQK8SOLKPSHHsI3vjIHQLAhRKC2kRWShIq/i0pnUevgkN0etub/Jc1uUCvusLqYIR/NFvuauz7ywFqaXejvstVnYOXrx/hZQ10dE6Aha5W2uKCRfJlGsb7Iln5OAGsIfoZk/8tn2m8MebsBsUdutAjudFOKJz6e+0Sv0RpJgZCTtM/Fo7Bx+YldDQ7M/ofCqDnrocIhXFnma8d1qdZM/qmj+6kpnoNEGBTK8+Z+bXXKMOZcbPBkVVWcKiVPM0cES8ZDetkI3RoITPPlUiQIziX9FXCiWqiAqTRsDzpVUaDdPND/ZQgyU/ySpdoy4tOilNXI="
     # GPG_PASSPHRASE
