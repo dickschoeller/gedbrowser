@@ -54,7 +54,7 @@
 
     <spring-boot.version>1.5.4.RELEASE</spring-boot.version>
     <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
-    <spring.version>4.3.9.RELEASE</spring.version>
+    <spring.version>4.3.10.RELEASE</spring.version>
     <junit.version>4.12</junit.version>
     <cglib.version>3.2.5</cglib.version>
     <spring-data-mongodb.version>1.10.4.RELEASE</spring-data-mongodb.version>
