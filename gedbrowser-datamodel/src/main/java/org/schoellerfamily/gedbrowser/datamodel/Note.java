@@ -69,7 +69,6 @@ public class Note extends GedObject implements Tail {
      */
     @Override
     public void accept(final GedObjectVisitor visitor) {
-        // TODO, visitor needs to know about note
         visitor.visit(this);
     }
 }

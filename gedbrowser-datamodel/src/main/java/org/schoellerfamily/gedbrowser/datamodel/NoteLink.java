@@ -36,7 +36,6 @@ public class NoteLink extends AbstractLink {
      */
     @Override
     public void accept(final GedObjectVisitor visitor) {
-        // TODO!!!
         visitor.visit(this);
     }
 }
