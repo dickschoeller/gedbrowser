@@ -1,10 +1,12 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
@@ -96,6 +98,35 @@ public final class SourceLinkRendererTest {
         assertTrue("Wrong renderer type",
                 renderer.getPhraseRenderer()
                 instanceof SourceLinkPhraseRenderer);
+    }
+
+    /**
+     * Test empty rendering.
+     */
+    @Test
+    public void testUnsetSourceLink() {
+        final SourceLinkRenderer renderer = createRenderer();
+        assertEquals("Index name should be empty", "", renderer.getIndexName());
+    }
+
+    /**
+     * Test empty rendering.
+     */
+    @Test
+    public void testUnsetSourceHtmlLink() {
+        final SourceLinkRenderer renderer = createRenderer();
+        assertEquals("Index name should be empty", "", renderer.getNameHtml());
+    }
+
+    /**
+     * Test empty rendering.
+     */
+    @Test
+    public void testSourceLinkCobweb() {
+        final SourceLinkRenderer renderer = new SourceLinkRenderer(
+                new SourceLink(null, "sourceLink", new ObjectId("S1")),
+                new GedRendererFactory(), anonymousContext);
+        assertEquals("Index name mismatch", "S1", renderer.getNameHtml());
     }
 
     /**

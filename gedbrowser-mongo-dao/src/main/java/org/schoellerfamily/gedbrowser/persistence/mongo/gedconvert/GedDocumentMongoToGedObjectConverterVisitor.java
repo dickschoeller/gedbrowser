@@ -9,6 +9,7 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
+import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -23,6 +24,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamSDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HusbandDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.MultimediaDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NameDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NoteLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PlaceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceLinkDocumentMongo;
@@ -33,6 +35,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocume
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.ExcessiveImports")
 public final class GedDocumentMongoToGedObjectConverterVisitor
         extends TopLevelGedDocumentMongoToGedObjectVisitor
         implements GedDocumentMongoVisitor {
@@ -173,5 +176,14 @@ public final class GedDocumentMongoToGedObjectConverterVisitor
         root.setFilename(document.getFilename());
         root.setDbName(document.getDbName());
         setGedObject(root);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void visit(final NoteLinkDocumentMongo document) {
+        setGedObject(new NoteLink(getParent(), "Note",
+                new ObjectId(document.getString())));
     }
 }

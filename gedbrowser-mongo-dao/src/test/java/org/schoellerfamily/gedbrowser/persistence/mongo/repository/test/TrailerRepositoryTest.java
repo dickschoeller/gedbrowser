@@ -123,7 +123,7 @@ public final class TrailerRepositoryTest {
                 trailerDocumentRepository.findAll(rootDocument);
         int count = 0;
         for (final TrailerDocument trailer : list) {
-            trailer.getType();
+            checkEquals("Type string mismatch", "trailer", trailer.getType());
             count++;
         }
         assertEquals("Should only be one trailer", 1, count);
@@ -136,9 +136,21 @@ public final class TrailerRepositoryTest {
                 trailerDocumentRepository.findAll(rootDocument.getFilename());
         int count = 0;
         for (final TrailerDocument trailer : list) {
-            trailer.getType();
+            checkEquals("Type string mismatch", "trailer", trailer.getType());
             count++;
         }
         assertEquals("Should only be one trailer", 1, count);
+    }
+
+    /**
+     * Wrapper for assertion to bypass PMD check.
+     *
+     * @param message the identifying message for the AssertionError (null okay)
+     * @param expected expected value
+     * @param actual actual value
+     */
+    private void checkEquals(final String message, final Object expected,
+            final Object actual) {
+        assertEquals(message, expected, actual);
     }
 }

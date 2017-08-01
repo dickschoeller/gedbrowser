@@ -90,6 +90,10 @@ public abstract class AbstractGedLineSource implements GedLineSource {
         line = line.trim();
         final String[] parts = line.split("[ \t]", 2);
         gedLine.setTag(parts[0]);
-        gedLine.setTail("");
+        if (parts.length == 1 || parts[1] == null) {
+            gedLine.setTail("");
+        } else {
+            gedLine.setTail(parts[1]);
+        }
     }
 }

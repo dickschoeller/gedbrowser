@@ -122,8 +122,9 @@ public final class SubmittorRepositoryTest {
         final Iterable<SubmittorDocument> list =
                 submittorDocumentRepository.findAll(rootDocument);
         int count = 0;
-        for (final SubmittorDocument trailer : list) {
-            trailer.getType();
+        for (final SubmittorDocument submittor : list) {
+            checkEquals("Type string mismatch",
+                    "submittor", submittor.getType());
             count++;
         }
         final long expected = 1;
@@ -136,11 +137,24 @@ public final class SubmittorRepositoryTest {
         final Iterable<SubmittorDocument> list =
                 submittorDocumentRepository.findAll(rootDocument.getFilename());
         int count = 0;
-        for (final SubmittorDocument trailer : list) {
-            trailer.getType();
+        for (final SubmittorDocument submittor : list) {
+            checkEquals("Type string mismatch",
+                    "submittor", submittor.getType());
             count++;
         }
         final long expected = 1;
         assertEquals("Should be 1 submittor", expected, count);
+    }
+
+    /**
+     * Wrapper for assertion to bypass PMD check.
+     *
+     * @param message the identifying message for the AssertionError (null okay)
+     * @param expected expected value
+     * @param actual actual value
+     */
+    private void checkEquals(final String message, final Object expected,
+            final Object actual) {
+        assertEquals(message, expected, actual);
     }
 }

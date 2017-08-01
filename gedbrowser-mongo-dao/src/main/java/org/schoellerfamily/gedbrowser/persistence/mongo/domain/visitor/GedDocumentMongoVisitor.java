@@ -8,6 +8,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamSDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HusbandDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.MultimediaDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NameDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NoteLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PlaceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceLinkDocumentMongo;
@@ -53,6 +54,13 @@ public interface GedDocumentMongoVisitor
      * @param document the document
      */
     void visit(NameDocumentMongo document);
+
+    /**
+     * Visit and process on a name document.
+     *
+     * @param document the document
+     */
+    void visit(NoteLinkDocumentMongo document);
 
     /**
      * Visit and process on a FamC document.

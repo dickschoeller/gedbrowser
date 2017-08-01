@@ -6,6 +6,7 @@ import java.util.Map;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
+import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
@@ -132,8 +133,7 @@ public class RepositoryManagerMongo {
     }
 
     /**
-     * @param repository
-     *            the repository
+     * @param repository the repository
      */
     @Autowired
     public void setTrailerDocumentRepository(
@@ -150,10 +150,26 @@ public class RepositoryManagerMongo {
     }
 
     /**
+     * @param repository the repository
+     */
+    @Autowired
+    public void setNoteDocumentRepository(
+            final NoteDocumentRepositoryMongo repository) {
+        classToRepoMap.put(Note.class, repository);
+    }
+
+    /**
+     * @return the repository
+     */
+    public NoteDocumentRepositoryMongo getNoteDocumentRepository() {
+        return (NoteDocumentRepositoryMongo) classToRepoMap
+                .get(Note.class);
+    }
+
+    /**
      * Get a repository based on the class of ged object we are working with.
      *
-     * @param clazz
-     *            the class of ged object
+     * @param clazz the class of ged object
      * @return the repository
      */
     @SuppressWarnings("unchecked")

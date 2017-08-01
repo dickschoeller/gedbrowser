@@ -121,8 +121,8 @@ public final class SourceRepositoryTest {
         final Iterable<SourceDocument> list =
                 sourceDocumentRepository.findAll(rootDocument);
         int count = 0;
-        for (final SourceDocument trailer : list) {
-            trailer.getType();
+        for (final SourceDocument source : list) {
+            checkEquals("Type string mismatch", "source", source.getType());
             count++;
         }
         assertEquals("Should be 9 sources", SOURCE_COUNT, count);
@@ -134,10 +134,22 @@ public final class SourceRepositoryTest {
         final Iterable<SourceDocument> list =
                 sourceDocumentRepository.findAll(rootDocument.getFilename());
         int count = 0;
-        for (final SourceDocument trailer : list) {
-            trailer.getType();
+        for (final SourceDocument source : list) {
+            checkEquals("Type string mismatch", "source", source.getType());
             count++;
         }
         assertEquals("Should be 9 sources", SOURCE_COUNT, count);
+    }
+
+    /**
+     * Wrapper for assertion to bypass PMD check.
+     *
+     * @param message the identifying message for the AssertionError (null okay)
+     * @param expected expected value
+     * @param actual actual value
+     */
+    private void checkEquals(final String message, final Object expected,
+            final Object actual) {
+        assertEquals(message, expected, actual);
     }
 }
