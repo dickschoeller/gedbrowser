@@ -9,6 +9,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Note;
+import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
@@ -51,6 +54,7 @@ public final class GedLineTest {
             "0 @I1@ INDI",
             "1 REFN 1",
             "1 NAME Melissa Robinson/Schoeller/",
+            "1 NOTE @N1@",
             "2 SOUR @S2@",
             "1 SEX F",
             "1 CHAN",
@@ -293,6 +297,7 @@ public final class GedLineTest {
             "1 MARR",
             "2 DATE 08 JAN 1977",
             "2 PLAC Providence, Providence County, Rhode Island, USA",
+            "0 @N1@ NOTE This is a note",
             "0 @S2@ SOUR",
             "1 TITL Schoeller, Melissa Robinson, birth certificate",
             "1 ABBR SchoellerMelissaBirthCert",
@@ -364,6 +369,41 @@ public final class GedLineTest {
         final List<Person> spouses = dickNavigator.getSpouses();
         logger.info(spouses.get(0).toString());
         assertEquals("Dick only has one spouse", 1, spouses.size());
+    }
+
+    /**
+     * Test GedLine with an array input.
+     *
+     * @throws IOException never.
+     */
+    @Test
+    public void testFactoryGedLineArrayNote() throws IOException {
+        final AbstractGedLine top = readArrayTestSource();
+        final Root root = g2g.create(top);
+        final Person melissa = (Person) root.find("I1");
+        final Note note = (Note) root.find("N1");
+        for (final GedObject gob : melissa.getAttributes()) {
+            if (gob instanceof NoteLink) {
+                final NoteLink noteLink = (NoteLink) gob;
+                checkEquals("person should have a link from person I1", "I1",
+                        noteLink.getFromString());
+                checkEquals("person should have a link to note N1", "N1",
+                        noteLink.getToString());
+            }
+        }
+        assertEquals("Note body mismatch", "This is a note", note.getTail());
+    }
+
+    /**
+     * Compare expected and actual and throw if not equal.
+     *
+     * @param message the message when fails
+     * @param expected expected value
+     * @param actual actual value
+     */
+    private void checkEquals(final String message, final String expected,
+            final String actual) {
+        assertEquals(message, expected, actual);
     }
 
     /**

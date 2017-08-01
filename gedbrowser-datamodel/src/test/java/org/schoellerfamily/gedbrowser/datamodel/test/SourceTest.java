@@ -33,16 +33,6 @@ public final class SourceTest {
 
     /** */
     @Test
-    public void testSourceGedObjectStringCompare() {
-        final Root root = new Root("Root");
-        final Source source = new Source(root, new ObjectId("S1"));
-        root.insert(source);
-        final GedObject gob = root.find("S1");
-        assertEquals("Found wrong source", source, gob);
-    }
-
-    /** */
-    @Test
     public void testSourceGedObjectStringGetString() {
         final Root root = new Root("Root");
         final Source source = new Source(root, new ObjectId("S1"));

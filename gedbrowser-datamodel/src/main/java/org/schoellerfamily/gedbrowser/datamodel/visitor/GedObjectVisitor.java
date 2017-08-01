@@ -12,6 +12,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Link;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
+import org.schoellerfamily.gedbrowser.datamodel.Note;
+import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -139,6 +141,26 @@ public interface GedObjectVisitor {
      * @param name the name to visit
      */
     default void visit(Name name) {
+        // If not overridden, does not contribute to algorithm.
+    }
+
+    /**
+     * Visit a note.
+     * Override the default method if this type contributes to your algorithm.
+     *
+     * @param note the note to visit
+     */
+    default void visit(Note note) {
+        // If not overridden, does not contribute to algorithm.
+    }
+
+    /**
+     * Visit a note.
+     * Override the default method if this type contributes to your algorithm.
+     *
+     * @param noteLink the noteLink to visit
+     */
+    default void visit(NoteLink noteLink) {
         // If not overridden, does not contribute to algorithm.
     }
 

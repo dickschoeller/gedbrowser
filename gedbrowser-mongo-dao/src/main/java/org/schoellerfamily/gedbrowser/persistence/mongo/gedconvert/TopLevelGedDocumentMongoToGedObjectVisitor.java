@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
+import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
@@ -12,6 +13,7 @@ import org.schoellerfamily.gedbrowser.persistence.PersistenceException;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamilyDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NoteDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorDocumentMongo;
@@ -108,6 +110,15 @@ public class TopLevelGedDocumentMongoToGedObjectVisitor
     @Override
     public void visit(final TrailerDocumentMongo document) {
         gedObject = new Trailer(parent, document.getString());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void visit(final NoteDocumentMongo document) {
+        gedObject = new Note(parent, new ObjectId(document.getString()),
+                document.getTail());
     }
 
     /**

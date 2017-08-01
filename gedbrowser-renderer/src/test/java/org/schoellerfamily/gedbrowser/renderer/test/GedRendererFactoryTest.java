@@ -15,6 +15,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Link;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
+import org.schoellerfamily.gedbrowser.datamodel.Note;
+import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
@@ -38,6 +40,8 @@ import org.schoellerfamily.gedbrowser.renderer.HeadRenderer;
 import org.schoellerfamily.gedbrowser.renderer.HusbandRenderer;
 import org.schoellerfamily.gedbrowser.renderer.LinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NameRenderer;
+import org.schoellerfamily.gedbrowser.renderer.NoteLinkRenderer;
+import org.schoellerfamily.gedbrowser.renderer.NoteRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PlaceRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RootRenderer;
@@ -266,6 +270,24 @@ public final class GedRendererFactoryTest {
                 grf.create(createGedObject(), provider, appInfo);
         assertTrue("Expected DefaultRenderer",
                 gedRenderer instanceof DefaultRenderer);
+    }
+
+    /** */
+    @Test
+    public void testGetNoteRenderer() {
+        final GedRenderer<?> gedRenderer =
+                grf.create(new Note(), provider, appInfo);
+        assertTrue("Expected NoteRenderer",
+                gedRenderer instanceof NoteRenderer);
+    }
+
+    /** */
+    @Test
+    public void testGetNoteLinkRenderer() {
+        final GedRenderer<?> gedRenderer =
+                grf.create(new NoteLink(), provider, appInfo);
+        assertTrue("Expected NoteLinkRenderer",
+                gedRenderer instanceof NoteLinkRenderer);
     }
 
     /**

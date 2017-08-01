@@ -14,6 +14,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     FamilyDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     HeadDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.NoteDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     PersonDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
@@ -60,6 +61,7 @@ import com.mongodb.MongoClient;
                 value = {
                         FamilyDocumentRepositoryMongo.class,
                         HeadDocumentRepositoryMongo.class,
+                        NoteDocumentRepositoryMongo.class,
                         PersonDocumentRepositoryMongo.class,
                         RootDocumentRepositoryMongo.class,
                         SourceDocumentRepositoryMongo.class,

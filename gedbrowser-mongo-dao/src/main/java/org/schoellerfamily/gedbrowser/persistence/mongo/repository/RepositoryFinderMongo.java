@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.FinderObject;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
+import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
@@ -57,6 +58,7 @@ public final class RepositoryFinderMongo
         CLASSES.add(Family.class);
         CLASSES.add(Source.class);
         CLASSES.add(Head.class);
+        CLASSES.add(Note.class);
         CLASSES.add(Submittor.class);
         CLASSES.add(Trailer.class);
     }
