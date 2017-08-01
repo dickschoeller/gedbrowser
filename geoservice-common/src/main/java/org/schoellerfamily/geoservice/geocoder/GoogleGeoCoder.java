@@ -32,7 +32,8 @@ public final class GoogleGeoCoder implements GeoCoder {
     @Override
     public GeocodingResult[] geocode(final String placeName) {
         logger.debug("Querying Google APIs for place: " + placeName);
-        final GeoApiContext context = new GeoApiContext().setApiKey(key);
+        final GeoApiContext context =
+            new GeoApiContext.Builder().apiKey(key).build();
         GeocodingResult[] results;
         try {
             results = GeocodingApi.geocode(context, placeName).await();
