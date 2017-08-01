@@ -14,7 +14,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.OkHttpClientHttpRequestFactory;
+import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -49,8 +49,8 @@ public class BackupRestoreEndpointTest {
     /** */
     @Test
     public final void shouldReturn200WhenSendingRequestToBackupEndpoint() {
-        final OkHttpClientHttpRequestFactory rf =
-                (OkHttpClientHttpRequestFactory) testRestTemplate
+        final OkHttp3ClientHttpRequestFactory rf =
+                (OkHttp3ClientHttpRequestFactory) testRestTemplate
                         .getRestTemplate().getRequestFactory();
         rf.setConnectTimeout(TWO_SECONDS);
         rf.setReadTimeout(THIRTY_SECONDS);
@@ -68,8 +68,8 @@ public class BackupRestoreEndpointTest {
     public final void shouldReturn200WhenSendingRequestToRestoreEndpoint() {
         final ClientHttpRequestFactory requestFactory = testRestTemplate
                 .getRestTemplate().getRequestFactory();
-        final OkHttpClientHttpRequestFactory rf =
-                (OkHttpClientHttpRequestFactory) requestFactory;
+        final OkHttp3ClientHttpRequestFactory rf =
+                (OkHttp3ClientHttpRequestFactory) requestFactory;
         rf.setConnectTimeout(TWO_SECONDS);
         rf.setReadTimeout(THIRTY_SECONDS);
         final ResponseEntity<String> entity = testRestTemplate.getForEntity(

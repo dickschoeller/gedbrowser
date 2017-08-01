@@ -14,7 +14,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.OkHttpClientHttpRequestFactory;
+import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -56,8 +56,8 @@ public class LoadEndpointTest {
     public final void testAReturn200WhenSendingRequestToClearEndpoint() {
         final ClientHttpRequestFactory requestFactory = testRestTemplate
                 .getRestTemplate().getRequestFactory();
-        final OkHttpClientHttpRequestFactory rf =
-                (OkHttpClientHttpRequestFactory) requestFactory;
+        final OkHttp3ClientHttpRequestFactory rf =
+                (OkHttp3ClientHttpRequestFactory) requestFactory;
         rf.setConnectTimeout(TWO_SECONDS);
         rf.setReadTimeout(THIRTY_SECONDS);
         final ResponseEntity<String> entity = testRestTemplate.getForEntity(
@@ -73,8 +73,8 @@ public class LoadEndpointTest {
     public final void testBReturn200WhenSendingRequestToLoadEndpoint() {
         final ClientHttpRequestFactory requestFactory = testRestTemplate
                 .getRestTemplate().getRequestFactory();
-        final OkHttpClientHttpRequestFactory rf =
-                (OkHttpClientHttpRequestFactory) requestFactory;
+        final OkHttp3ClientHttpRequestFactory rf =
+                (OkHttp3ClientHttpRequestFactory) requestFactory;
         rf.setConnectTimeout(TWO_SECONDS);
         rf.setReadTimeout(THIRTY_SECONDS);
         final ResponseEntity<String> entity = testRestTemplate.getForEntity(
@@ -90,8 +90,8 @@ public class LoadEndpointTest {
     public final void testCReturn200WhenSendingRequestToClearEndpoint() {
         final ClientHttpRequestFactory requestFactory = testRestTemplate
                 .getRestTemplate().getRequestFactory();
-        final OkHttpClientHttpRequestFactory rf =
-                (OkHttpClientHttpRequestFactory) requestFactory;
+        final OkHttp3ClientHttpRequestFactory rf =
+                (OkHttp3ClientHttpRequestFactory) requestFactory;
         rf.setConnectTimeout(TWO_SECONDS);
         rf.setReadTimeout(THIRTY_SECONDS);
         final ResponseEntity<String> entity = testRestTemplate.getForEntity(
@@ -107,8 +107,8 @@ public class LoadEndpointTest {
     public final void testDReturn200WhenSendingRequestToLoadAndFindEndpoint() {
         final ClientHttpRequestFactory requestFactory = testRestTemplate
                 .getRestTemplate().getRequestFactory();
-        final OkHttpClientHttpRequestFactory rf =
-                (OkHttpClientHttpRequestFactory) requestFactory;
+        final OkHttp3ClientHttpRequestFactory rf =
+                (OkHttp3ClientHttpRequestFactory) requestFactory;
         rf.setConnectTimeout(TWO_SECONDS);
         rf.setReadTimeout(FIFTEEN_MINUTES);
         final ResponseEntity<String> entity = testRestTemplate.getForEntity(
