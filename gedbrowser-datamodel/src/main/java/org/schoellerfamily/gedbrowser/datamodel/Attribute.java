@@ -1,12 +1,12 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
-import org.schoellerfamily.gedbrowser.datamodel.appender.AttributeAppender;
+import org.schoellerfamily.gedbrowser.datamodel.appender.TailAppender;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
  * @author Dick Schoeller
  */
-public final class Attribute extends AbstractAttribute {
+public final class Attribute extends AbstractAttribute implements Tail {
     /** */
     private String tail;
 
@@ -24,7 +24,7 @@ public final class Attribute extends AbstractAttribute {
     public Attribute(final GedObject parent) {
         super(parent);
         this.tail = "";
-        this.setAppender(new AttributeAppender(this));
+        this.setAppender(new TailAppender(this));
     }
 
     /**
@@ -34,7 +34,7 @@ public final class Attribute extends AbstractAttribute {
     public Attribute(final GedObject parent, final String string) {
         super(parent, string);
         tail = "";
-        this.setAppender(new AttributeAppender(this));
+        this.setAppender(new TailAppender(this));
     }
 
     /**
@@ -46,12 +46,13 @@ public final class Attribute extends AbstractAttribute {
             final String tail) {
         super(parent, string);
         this.tail = tail;
-        this.setAppender(new AttributeAppender(this));
+        this.setAppender(new TailAppender(this));
     }
 
     /**
-     * @return tail string
+     * {@inheritDoc}
      */
+    @Override
     public String getTail() {
         if (tail == null) {
             return "";
@@ -61,8 +62,9 @@ public final class Attribute extends AbstractAttribute {
     }
 
     /**
-     * @param tail additional data
+     * {@inheritDoc}
      */
+    @Override
     public void setTail(final String tail) {
         if (tail == null) {
             this.tail = "";

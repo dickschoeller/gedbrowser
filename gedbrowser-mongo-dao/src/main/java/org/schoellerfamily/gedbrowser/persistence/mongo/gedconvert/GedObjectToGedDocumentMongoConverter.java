@@ -15,6 +15,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
+import org.schoellerfamily.gedbrowser.datamodel.Note;
+import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -38,6 +40,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HusbandDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.MultimediaDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NameDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NoteDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NoteLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PlaceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
@@ -71,6 +75,8 @@ public final class GedObjectToGedDocumentMongoConverter
         CLASS_MAP.put(Head.class, HeadDocumentMongo.class);
         CLASS_MAP.put(Husband.class, HusbandDocumentMongo.class);
         CLASS_MAP.put(Multimedia.class, MultimediaDocumentMongo.class);
+        CLASS_MAP.put(Note.class, NoteDocumentMongo.class);
+        CLASS_MAP.put(NoteLink.class, NoteLinkDocumentMongo.class);
         CLASS_MAP.put(Person.class, PersonDocumentMongo.class);
         CLASS_MAP.put(Place.class, PlaceDocumentMongo.class);
         CLASS_MAP.put(Root.class, RootDocumentMongo.class);

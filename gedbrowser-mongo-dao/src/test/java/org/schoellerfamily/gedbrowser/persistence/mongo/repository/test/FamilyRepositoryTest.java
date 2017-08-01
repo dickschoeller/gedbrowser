@@ -123,8 +123,8 @@ public final class FamilyRepositoryTest {
         final Iterable<FamilyDocument> list =
                 familyDocumentRepository.findAll(rootDocument);
         int count = 0;
-        for (final FamilyDocument trailer : list) {
-            trailer.getType();
+        for (final FamilyDocument family : list) {
+            checkEquals("Type string mismatch", "family", family.getType());
             count++;
         }
         assertEquals("Should be 6 families", FAMILY_COUNT, count);
@@ -136,10 +136,22 @@ public final class FamilyRepositoryTest {
         final Iterable<FamilyDocument> list =
                 familyDocumentRepository.findAll(rootDocument.getFilename());
         int count = 0;
-        for (final FamilyDocument trailer : list) {
-            trailer.getType();
+        for (final FamilyDocument family : list) {
+            checkEquals("Type string mismatch", "family", family.getType());
             count++;
         }
         assertEquals("Should be 6 families", FAMILY_COUNT, count);
+    }
+
+    /**
+     * Wrapper for assertion to bypass PMD check.
+     *
+     * @param message the identifying message for the AssertionError (null okay)
+     * @param expected expected value
+     * @param actual actual value
+     */
+    private void checkEquals(final String message, final Object expected,
+            final Object actual) {
+        assertEquals(message, expected, actual);
     }
 }

@@ -16,6 +16,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Link;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
+import org.schoellerfamily.gedbrowser.datamodel.Note;
+import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -58,6 +60,12 @@ public final class GedRendererFactory {
                 return new SimpleNameRenderer((Name) g, f, r);
             }
             return new NameRenderer((Name) g, f, r);
+        });
+        builders.put(Note.class, (g, f, r) -> {
+            return new NoteRenderer((Note) g, f, r);
+        });
+        builders.put(NoteLink.class, (g, f, r) -> {
+            return new NoteLinkRenderer((NoteLink) g, f, r);
         });
         builders.put(Attribute.class, (g, f, r) -> {
             return new AttributeRenderer((Attribute) g, f, r);

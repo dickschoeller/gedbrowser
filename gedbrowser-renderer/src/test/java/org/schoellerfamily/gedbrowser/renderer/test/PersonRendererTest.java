@@ -1245,8 +1245,8 @@ public final class PersonRendererTest {
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa,
                 new GedRendererFactory(), userContext);
-        final int expect = 4;
-        assertEquals("Expected 4 attributes",
+        final int expect = 7;
+        assertEquals("Expected 7 attributes",
                 expect, personRenderer.getAttributes().size());
     }
 

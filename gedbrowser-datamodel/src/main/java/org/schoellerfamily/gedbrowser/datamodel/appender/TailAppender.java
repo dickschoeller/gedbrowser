@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.datamodel.appender;
 
-import org.schoellerfamily.gedbrowser.datamodel.Attribute;
+import org.schoellerfamily.gedbrowser.datamodel.Tail;
 
 /**
  * Implements the means by which string are appended in attributes, which is to
@@ -8,18 +8,18 @@ import org.schoellerfamily.gedbrowser.datamodel.Attribute;
  *
  * @author Dick Schoeller
  */
-public final class AttributeAppender implements AppenderStrategy {
+public final class TailAppender implements AppenderStrategy {
     /**
      * The Attribute that owns this appender.
      */
-    private final transient Attribute owner;
+    private final transient Tail owner;
 
     /**
      * Constructor.
      *
      * @param owner the Attribute that owns this appender.
      */
-    public AttributeAppender(final Attribute owner) {
+    public TailAppender(final Tail owner) {
         this.owner = owner;
     }
 

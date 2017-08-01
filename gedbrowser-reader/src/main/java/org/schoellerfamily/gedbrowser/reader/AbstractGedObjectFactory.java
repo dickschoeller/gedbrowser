@@ -15,6 +15,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Link;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
+import org.schoellerfamily.gedbrowser.datamodel.Note;
+import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
@@ -63,6 +65,11 @@ public abstract class AbstractGedObjectFactory {
             new MultimediaFactory();
     /** */
     private static final NameFactory NAME_FACTORY = new NameFactory();
+    /** */
+    private static final NoteFactory NOTE_FACTORY = new NoteFactory();
+    /** */
+    private static final NoteLinkFactory NOTELINK_FACTORY =
+            new NoteLinkFactory();
     /** */
     private static final PersonFactory PERSON_FACTORY = new PersonFactory();
     /** */
@@ -206,7 +213,7 @@ public abstract class AbstractGedObjectFactory {
         tokens.put("NEWLINE", new GedToken("Newline", ATTR_FACTORY));
         tokens.put("NEWSPAPER", new GedToken("Newspaper", ATTR_FACTORY));
         tokens.put("NMR", new GedToken("Not Married", ATTR_FACTORY));
-        tokens.put("NOTE", new GedToken("Note", ATTR_FACTORY));
+        tokens.put("NOTE", new GedToken("Note", NOTE_FACTORY));
         tokens.put("NUMBER", new GedToken("Number", ATTR_FACTORY));
         tokens.put("OBJE", new GedToken("Multimedia", MULTIMEDIA_FACTORY));
         tokens.put("OCCU", new GedToken("Occupation", ATTR_FACTORY));
@@ -485,6 +492,46 @@ public abstract class AbstractGedObjectFactory {
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
             return new Name(parent, tail);
+        }
+    }
+
+    /**
+     * Factory for creating Note.
+     *
+     * @author Dick Schoeller
+     */
+    private static class NoteFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public final GedObject create(final GedObject parent,
+                final ObjectId xref, final String tag, final String tail) {
+            if (parent.getParent() == null) {
+                return new Note(parent, xref, tail);
+            } else {
+                if (tail.contains("@")) {
+                    return NOTELINK_FACTORY.create(parent, xref, tag, tail);
+                } else {
+                    return ATTR_FACTORY.create(parent, xref, tag, tail);
+                }
+            }
+        }
+    }
+
+    /**
+     * Factory for creating Note.
+     *
+     * @author Dick Schoeller
+     */
+    private static class NoteLinkFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public final GedObject create(final GedObject parent,
+                final ObjectId xref, final String tag, final String tail) {
+            return new NoteLink(parent, tag, new ObjectId(tail));
         }
     }
 

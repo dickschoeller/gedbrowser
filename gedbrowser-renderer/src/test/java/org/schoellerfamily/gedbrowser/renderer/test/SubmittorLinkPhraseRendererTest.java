@@ -45,12 +45,12 @@ public final class SubmittorLinkPhraseRendererTest {
         final Head head = new Head(root, "Head");
         root.insert(head);
 
-        final Submittor submittor = new Submittor(root, new ObjectId("S1"));
+        final Submittor submittor = new Submittor(root, new ObjectId("SUBM1"));
         final Name name = new Name(submittor, "Richard/Schoeller/");
         root.insert(submittor);
         submittor.insert(name);
 
-        submittorLink = new SubmittorLink(head, "SUBM", new ObjectId("S1"));
+        submittorLink = new SubmittorLink(head, "SUBM", new ObjectId("SUBM1"));
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -63,8 +63,8 @@ public final class SubmittorLinkPhraseRendererTest {
                 (SubmittorLinkPhraseRenderer) slr.getPhraseRenderer();
         assertEquals("Rendered html doesn't match expectation",
                 "<a class=\"name\" "
-                + "href=\"submittor?db=null&amp;id=S1\">"
-                + "Richard Schoeller [S1]</a>",
+                + "href=\"submittor?db=null&amp;id=SUBM1\">"
+                + "Richard Schoeller [SUBM1]</a>",
                 slpr.renderAsPhrase());
     }
 }

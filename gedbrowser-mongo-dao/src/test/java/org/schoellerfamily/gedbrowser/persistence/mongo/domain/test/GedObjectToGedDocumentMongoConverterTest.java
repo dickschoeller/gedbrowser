@@ -18,6 +18,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
+import org.schoellerfamily.gedbrowser.datamodel.Note;
+import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
@@ -41,6 +43,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HusbandDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.MultimediaDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NameDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NoteDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NoteLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PlaceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
@@ -58,7 +62,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.ExcessiveImports")
+@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.CouplingBetweenObjects" })
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 public class GedObjectToGedDocumentMongoConverterTest {
@@ -122,6 +126,30 @@ public class GedObjectToGedDocumentMongoConverterTest {
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<NameDocumentMongo> expectedClass =
                 NameDocumentMongo.class;
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
+    }
+
+    /** */
+    @Test
+    public void testCreateNoteDocument() {
+        final GedObject ged = new Note();
+        final String typeString = "note";
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
+        final Class<NoteDocumentMongo> expectedClass =
+                NoteDocumentMongo.class;
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
+    }
+
+    /** */
+    @Test
+    public void testCreateNoteLinkDocument() {
+        final GedObject ged = new NoteLink();
+        final String typeString = "noteLink";
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
+        final Class<NoteLinkDocumentMongo> expectedClass =
+                NoteLinkDocumentMongo.class;
         assertTrue("Failed document check",
                 checkGedDocument(ged, gmd, typeString, expectedClass));
     }

@@ -16,6 +16,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Link;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
+import org.schoellerfamily.gedbrowser.datamodel.Note;
+import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -100,6 +102,8 @@ public final class PersonVisitorTest {
         new Link(null).accept(visitor);
         new Multimedia().accept(visitor);
         new Name().accept(visitor);
+        new Note().accept(visitor);
+        new NoteLink().accept(visitor);
         new Place().accept(visitor);
         new Root().accept(visitor);
         new Source().accept(visitor);

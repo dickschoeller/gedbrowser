@@ -17,6 +17,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
+import org.schoellerfamily.gedbrowser.datamodel.Note;
+import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -40,6 +42,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HusbandDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.MultimediaDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NameDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NoteDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NoteLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PlaceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
@@ -59,7 +63,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.ExcessiveImports")
+@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.CouplingBetweenObjects" })
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 public final class GedDocumentMongoToGedObjectConverterTest {
@@ -137,6 +141,24 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         gmd.setString("Husband");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", Husband.class, ged.getClass());
+    }
+
+    /** */
+    @Test
+    public void testCreateNote() {
+        final NoteDocumentMongo gmd = new NoteDocumentMongo();
+        gmd.setString("Note");
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
+        assertEquals("Wrong class", Note.class, ged.getClass());
+    }
+
+    /** */
+    @Test
+    public void testCreateNoteLink() {
+        final NoteLinkDocumentMongo gmd = new NoteLinkDocumentMongo();
+        gmd.setString("NoteLink");
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
+        assertEquals("Wrong class", NoteLink.class, ged.getClass());
     }
 
     /** */
