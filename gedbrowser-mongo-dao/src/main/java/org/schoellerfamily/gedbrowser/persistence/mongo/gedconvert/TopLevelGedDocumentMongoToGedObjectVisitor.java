@@ -23,7 +23,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
 /**
  * @author Dick Schoeller
  */
-public class TopLevelGedDocumentMongoToGedObjectVisitor
+public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
         implements TopLevelGedDocumentMongoVisitor {
     /**
      * The parent of the object we are going to create.
@@ -68,7 +68,7 @@ public class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public void visit(final PersonDocumentMongo document) {
+    public final void visit(final PersonDocumentMongo document) {
         gedObject = new Person(parent, new ObjectId(document.getString()));
     }
 
@@ -76,7 +76,7 @@ public class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public void visit(final FamilyDocumentMongo document) {
+    public final void visit(final FamilyDocumentMongo document) {
         gedObject = new Family(parent, new ObjectId(document.getString()));
     }
 
@@ -84,7 +84,7 @@ public class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public void visit(final SourceDocumentMongo document) {
+    public final void visit(final SourceDocumentMongo document) {
         gedObject = new Source(parent, new ObjectId(document.getString()));
     }
 
@@ -92,7 +92,7 @@ public class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public void visit(final HeadDocumentMongo document) {
+    public final void visit(final HeadDocumentMongo document) {
         gedObject = new Head(parent, "Header");
     }
 
@@ -100,7 +100,7 @@ public class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public void visit(final SubmittorDocumentMongo document) {
+    public final void visit(final SubmittorDocumentMongo document) {
         gedObject = new Submittor(parent, new ObjectId(document.getString()));
     }
 
@@ -108,7 +108,7 @@ public class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public void visit(final TrailerDocumentMongo document) {
+    public final void visit(final TrailerDocumentMongo document) {
         gedObject = new Trailer(parent, document.getString());
     }
 
@@ -116,7 +116,7 @@ public class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public void visit(final NoteDocumentMongo document) {
+    public final void visit(final NoteDocumentMongo document) {
         gedObject = new Note(parent, new ObjectId(document.getString()),
                 document.getTail());
     }
@@ -125,7 +125,8 @@ public class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public void visit(final GedDocumentMongo<? extends GedObject> document) {
+    public final void visit(
+            final GedDocumentMongo<? extends GedObject> document) {
         throw new PersistenceException(
                 "whoops: " + document.getClass().getSimpleName());
     }
