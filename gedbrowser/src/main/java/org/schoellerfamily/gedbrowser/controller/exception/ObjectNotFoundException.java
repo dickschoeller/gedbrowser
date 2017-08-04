@@ -71,10 +71,10 @@ public class ObjectNotFoundException extends RuntimeException {
     }
 
     /**
-     * @return href string to the index page for submittors.
+     * @return href string to the index page for submitters.
      */
-    public String getSubmittorsHref() {
-        return "submittors?db=" + datasetName;
+    public String getSubmittersHref() {
+        return "submitters?db=" + datasetName;
     }
 
     /**

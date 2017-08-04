@@ -25,8 +25,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
-import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
@@ -49,8 +49,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMon
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PlaceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceLinkDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorLinkDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
@@ -264,24 +264,24 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateSubmittorDocument() {
-        final GedObject ged = new Submittor();
-        final String typeString = "submittor";
+    public void testCreateSubmitterDocument() {
+        final GedObject ged = new Submitter();
+        final String typeString = "submitter";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
-        final Class<SubmittorDocumentMongo> expectedClass =
-                SubmittorDocumentMongo.class;
+        final Class<SubmitterDocumentMongo> expectedClass =
+                SubmitterDocumentMongo.class;
         assertTrue("Failed document check",
                 checkGedDocument(ged, gmd, typeString, expectedClass));
     }
 
     /** */
     @Test
-    public void testCreateSubmittorLinkDocument() {
-        final GedObject ged = new SubmittorLink();
-        final String typeString = "submittorlink";
+    public void testCreateSubmitterLinkDocument() {
+        final GedObject ged = new SubmitterLink();
+        final String typeString = "submitterlink";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
-        final Class<SubmittorLinkDocumentMongo> expectedClass =
-                SubmittorLinkDocumentMongo.class;
+        final Class<SubmitterLinkDocumentMongo> expectedClass =
+                SubmitterLinkDocumentMongo.class;
         assertTrue("Failed document check",
                 checkGedDocument(ged, gmd, typeString, expectedClass));
     }

@@ -205,7 +205,7 @@ public final class LivingRendererTest {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1,
                 userContext);
-        assertEquals("submittors href mismatch",
+        assertEquals("submitters href mismatch",
                 "sources?db=gl120368", renderer.getSourcesHref());
     }
 
@@ -215,12 +215,12 @@ public final class LivingRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSubmittorsMenuItem() throws IOException {
+    public void testSubmittersMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1,
                 userContext);
         assertEquals("sources href mismatch",
-                "submittors?db=gl120368", renderer.getSubmittorsHref());
+                "submitters?db=gl120368", renderer.getSubmittersHref());
     }
 
     /**

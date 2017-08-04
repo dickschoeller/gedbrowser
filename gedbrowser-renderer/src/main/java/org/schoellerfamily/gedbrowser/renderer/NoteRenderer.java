@@ -14,7 +14,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Note;
 public final class NoteRenderer extends GedRenderer<Note>
         implements HeaderHrefRenderer<Note>, IndexHrefRenderer<Note>,
             PlacesHrefRenderer<Note>, SourcesHrefRenderer<Note>,
-            SubmittorsHrefRenderer<Note> {
+            SubmittersHrefRenderer<Note> {
     /**
      * @param gedObject the Note that we are going to render
      * @param rendererFactory the factory that creates the renderers for the

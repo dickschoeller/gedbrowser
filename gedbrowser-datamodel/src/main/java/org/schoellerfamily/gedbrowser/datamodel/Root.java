@@ -19,7 +19,7 @@ public final class Root extends AbstractSpecialObject {
 
     /**
      * Map of ID strings to GedObjects. This is the complete set of top level
-     * objects, Persons, Families, Sources and Submittors.
+     * objects, Persons, Families, Sources and Submitters.
      */
     private final transient Map<String, GedObject> objects =
             new HashMap<String, GedObject>();

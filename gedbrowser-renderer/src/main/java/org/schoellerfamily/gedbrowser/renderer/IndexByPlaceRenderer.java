@@ -23,7 +23,7 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
 public final class IndexByPlaceRenderer extends GedRenderer<Root>
     implements HeaderHrefRenderer<Root>, IndexHrefRenderer<Root>,
         PlacesHrefRenderer<Root>, SourcesHrefRenderer<Root>,
-        SubmittorsHrefRenderer<Root> {
+        SubmittersHrefRenderer<Root> {
     /** Logger. */
     private final Log logger = LogFactory.getLog(getClass());
 

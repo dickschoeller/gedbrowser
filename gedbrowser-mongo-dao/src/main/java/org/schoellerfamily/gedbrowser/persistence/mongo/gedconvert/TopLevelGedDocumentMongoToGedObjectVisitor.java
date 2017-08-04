@@ -7,7 +7,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.persistence.PersistenceException;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamilyDocumentMongo;
@@ -16,7 +16,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NoteDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 
@@ -100,8 +100,8 @@ public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public final void visit(final SubmittorDocumentMongo document) {
-        gedObject = new Submittor(parent, new ObjectId(document.getString()));
+    public final void visit(final SubmitterDocumentMongo document) {
+        gedObject = new Submitter(parent, new ObjectId(document.getString()));
     }
 
     /**

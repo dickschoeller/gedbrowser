@@ -22,8 +22,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
-import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
@@ -460,79 +460,79 @@ public final class GedObjectBuilderTest {
 
     /** */
     @Test
-    public void testSubmittorWithNulls() {
-        final Submittor submittor = builder.createSubmittor(null, null);
-        assertTrue("Should create empty submittor",
-                submittor.getString().isEmpty()
-                        && submittor.getName().getString().isEmpty());
+    public void testSubmitterWithNulls() {
+        final Submitter submitter = builder.createSubmitter(null, null);
+        assertTrue("Should create empty submitter",
+                submitter.getString().isEmpty()
+                        && submitter.getName().getString().isEmpty());
     }
 
     /** */
     @Test
-    public void testSubmittorWithNullId() {
-        final Submittor submittor = builder.createSubmittor(null, "Name/Me/");
-        assertTrue("Should create empty submittor",
-                submittor.getString().isEmpty()
-                        && submittor.getName().getString().isEmpty());
+    public void testSubmitterWithNullId() {
+        final Submitter submitter = builder.createSubmitter(null, "Name/Me/");
+        assertTrue("Should create empty submitter",
+                submitter.getString().isEmpty()
+                        && submitter.getName().getString().isEmpty());
     }
 
     /** */
     @Test
-    public void testSubmittorWithNullName() {
-        final Submittor submittor = builder.createSubmittor("SUBM1", null);
-        assertTrue("Should create empty submittor",
-                submittor.getString().isEmpty()
-                        && submittor.getName().getString().isEmpty());
+    public void testSubmitterWithNullName() {
+        final Submitter submitter = builder.createSubmitter("SUBM1", null);
+        assertTrue("Should create empty submitter",
+                submitter.getString().isEmpty()
+                        && submitter.getName().getString().isEmpty());
     }
 
     /** */
     @Test
-    public void testSubmittorWithBothGetString() {
-        final Submittor submittor = builder.createSubmittor("SUBM1",
+    public void testSubmitterWithBothGetString() {
+        final Submitter submitter = builder.createSubmitter("SUBM1",
                 "Name/Me/");
-        assertEquals("Should create real submittor", "SUBM1",
-                submittor.getString());
+        assertEquals("Should create real submitter", "SUBM1",
+                submitter.getString());
     }
 
     /** */
     @Test
-    public void testSubmittorWithBothGetName() {
-        final Submittor submittor = builder.createSubmittor("SUBM1",
+    public void testSubmitterWithBothGetName() {
+        final Submitter submitter = builder.createSubmitter("SUBM1",
                 "Name/Me/");
-        assertEquals("Should create real submittor", "Name/Me/",
-                submittor.getName().getString());
+        assertEquals("Should create real submitter", "Name/Me/",
+                submitter.getName().getString());
     }
 
     /** */
     @Test
-    public void testOneArgSubmittorGetString() {
-        final Submittor submittor = builder.createSubmittor("SUBM1");
-        assertEquals("Should create submittor with ID", "SUBM1",
-                submittor.getString());
+    public void testOneArgSubmitterGetString() {
+        final Submitter submitter = builder.createSubmitter("SUBM1");
+        assertEquals("Should create submitter with ID", "SUBM1",
+                submitter.getString());
     }
 
     /** */
     @Test
-    public void testOneArgSubmittorGetName() {
-        final Submittor submittor = builder.createSubmittor("SUBM1");
-        assertTrue("Should create submittor without name",
-                submittor.getName().getString().isEmpty());
+    public void testOneArgSubmitterGetName() {
+        final Submitter submitter = builder.createSubmitter("SUBM1");
+        assertTrue("Should create submitter without name",
+                submitter.getName().getString().isEmpty());
     }
 
     /** */
     @Test
-    public void testOneArgSubmittorNullGetString() {
-        final Submittor submittor = builder.createSubmittor(null);
-        assertTrue("Should create empty submittor",
-                submittor.getString().isEmpty());
+    public void testOneArgSubmitterNullGetString() {
+        final Submitter submitter = builder.createSubmitter(null);
+        assertTrue("Should create empty submitter",
+                submitter.getString().isEmpty());
     }
 
     /** */
     @Test
-    public void testOneArgSubmittorEmptyStringGetString() {
-        final Submittor submittor = builder.createSubmittor(null);
-        assertTrue("Should create empty submittor",
-                submittor.getString().isEmpty());
+    public void testOneArgSubmitterEmptyStringGetString() {
+        final Submitter submitter = builder.createSubmitter(null);
+        assertTrue("Should create empty submitter",
+                submitter.getString().isEmpty());
     }
 
     /** */
@@ -782,8 +782,8 @@ public final class GedObjectBuilderTest {
 
     /** */
     @Test
-    public void testCreateSubmittorLinkWithNulls() {
-        final SubmittorLink sl = builder.createSubmittorLink(null, null);
+    public void testCreateSubmitterLinkWithNulls() {
+        final SubmitterLink sl = builder.createSubmitterLink(null, null);
         assertTrue("Should be empty",
                 sl.getParent() == null && sl.getString().isEmpty()
                         && sl.getFromString().isEmpty()
@@ -792,9 +792,9 @@ public final class GedObjectBuilderTest {
 
     /** */
     @Test
-    public void testCreateSubmittorLinkWithNullGedObject() {
-        final Submittor submittor = builder.createSubmittor("SUBM1");
-        final SubmittorLink sl = builder.createSubmittorLink(null, submittor);
+    public void testCreateSubmitterLinkWithNullGedObject() {
+        final Submitter submitter = builder.createSubmitter("SUBM1");
+        final SubmitterLink sl = builder.createSubmitterLink(null, submitter);
         assertTrue("Should be empty",
                 sl.getParent() == null && sl.getString().isEmpty()
                         && sl.getFromString().isEmpty()
@@ -803,9 +803,9 @@ public final class GedObjectBuilderTest {
 
     /** */
     @Test
-    public void testCreateSubmittorLinkWithNullSubmittor() {
+    public void testCreateSubmitterLinkWithNullSubmitter() {
         final Head head = builder.createHead();
-        final SubmittorLink sl = builder.createSubmittorLink(head, null);
+        final SubmitterLink sl = builder.createSubmitterLink(head, null);
         assertTrue("Should be empty",
                 sl.getParent() == null && sl.getString().isEmpty()
                         && sl.getFromString().isEmpty()
@@ -814,14 +814,14 @@ public final class GedObjectBuilderTest {
 
     /** */
     @Test
-    public void testCreateSubmittorLink() {
+    public void testCreateSubmitterLink() {
         final Head head = builder.createHead();
-        final Submittor submittor = builder.createSubmittor("SUBM1");
-        final SubmittorLink sl = builder.createSubmittorLink(head, submittor);
+        final Submitter submitter = builder.createSubmitter("SUBM1");
+        final SubmitterLink sl = builder.createSubmitterLink(head, submitter);
         assertTrue(
-                "Should be filled in with Submittor, S1 and Head as string,"
+                "Should be filled in with Submitter, S1 and Head as string,"
                         + " toString and fromString",
-                sl.getParent() == head && "Submittor".equals(sl.getString())
+                sl.getParent() == head && "Submitter".equals(sl.getString())
                         && "SUBM1".equals(sl.getToString())
                         && "Head".equals(sl.getFromString()));
     }

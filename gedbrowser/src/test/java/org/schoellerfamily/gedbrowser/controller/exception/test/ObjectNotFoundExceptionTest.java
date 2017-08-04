@@ -69,9 +69,9 @@ public class ObjectNotFoundExceptionTest {
 
     /** */
     @Test
-    public void testSubmittorsHref() {
-        assertEquals("Submittors href doesn't match", "submittors?db=xyzzy",
-                exception.getSubmittorsHref());
+    public void testSubmittersHref() {
+        assertEquals("Submitters href doesn't match", "submitters?db=xyzzy",
+                exception.getSubmittersHref());
     }
 
     /** */

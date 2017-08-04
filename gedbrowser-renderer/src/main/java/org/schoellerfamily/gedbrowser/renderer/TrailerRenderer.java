@@ -3,7 +3,7 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 
 /**
- * Render a Submittor.
+ * Render a Trailer.
  *
  * @author Dick Schoeller
  */

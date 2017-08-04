@@ -3,7 +3,7 @@ package org.schoellerfamily.gedbrowser.datamodel.visitor;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 
 /**
  * @author Dick Schoeller
@@ -73,15 +73,15 @@ public final class NameableVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Submittor. This is could be primary focus of the visitation.
+     * Visit a Submitter. This is could be primary focus of the visitation.
      * From here, interesting information is gathered from the attributes.
      *
-     * @see GedObjectVisitor#visit(Submittor)
+     * @see GedObjectVisitor#visit(Submitter)
      */
     @Override
-    public void visit(final Submittor submittor) {
-        visitedNameable = submittor;
-        for (final GedObject gob : submittor.getAttributes()) {
+    public void visit(final Submitter submitter) {
+        visitedNameable = submitter;
+        for (final GedObject gob : submitter.getAttributes()) {
             gob.accept(this);
         }
     }

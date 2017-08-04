@@ -19,7 +19,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 public final class PersonRenderer extends GedRenderer<Person>
         implements HeaderHrefRenderer<Person>, IndexHrefRenderer<Person>,
         PlacesHrefRenderer<Person>, PersonLifeSpanRenderer, PersonNameRenderer,
-        SourcesHrefRenderer<Person>, SubmittorsHrefRenderer<Person> {
+        SourcesHrefRenderer<Person>, SubmittersHrefRenderer<Person> {
     /**
      * Connection to helper to estimate whether this person is living.
      */

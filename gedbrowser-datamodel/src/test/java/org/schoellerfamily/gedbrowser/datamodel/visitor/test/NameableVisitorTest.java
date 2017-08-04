@@ -20,7 +20,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
-import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
@@ -58,7 +58,7 @@ public final class NameableVisitorTest {
         new Root().accept(visitor);
         new Source().accept(visitor);
         new SourceLink().accept(visitor);
-        new SubmittorLink().accept(visitor);
+        new SubmitterLink().accept(visitor);
         new Trailer().accept(visitor);
         new Wife().accept(visitor);
         final GedObject gob = new GedObject() {

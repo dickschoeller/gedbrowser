@@ -4,8 +4,8 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
-import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 
 /**
  * @author Dick Schoeller
@@ -50,36 +50,36 @@ public interface SourceBuilder {
     SourceLink createSourceLink(GedObject ged, Source source);
 
     /**
-     * Create empty submittor.
+     * Create empty submitter.
      *
-     * @return the submittor
+     * @return the submitter
      */
-    Submittor createSubmittor();
+    Submitter createSubmitter();
 
     /**
-     * Create a submittor with the ID provided.
+     * Create a submitter with the ID provided.
      *
      * @param idString the ID
-     * @return the submittor
+     * @return the submitter
      */
-    Submittor createSubmittor(String idString);
+    Submitter createSubmitter(String idString);
 
     /**
-     * Create a submittor with the ID and name provided.
+     * Create a submitter with the ID and name provided.
      *
      * @param idString the ID
      * @param name the name
-     * @return the submittor
+     * @return the submitter
      */
-    Submittor createSubmittor(String idString, String name);
+    Submitter createSubmitter(String idString, String name);
 
 
     /**
-     * Create a link from the ged object to the submittor.
+     * Create a link from the ged object to the submitter.
      *
      * @param ged link from ged object
-     * @param submittor link to submittor
+     * @param submitter link to submitter
      * @return the new link
      */
-    SubmittorLink createSubmittorLink(GedObject ged, Submittor submittor);
+    SubmitterLink createSubmitterLink(GedObject ged, Submitter submitter);
 }

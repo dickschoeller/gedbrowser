@@ -25,8 +25,8 @@ import org.schoellerfamily.gedbrowser.selenium.pageobjects.IndexPage;
 import org.schoellerfamily.gedbrowser.selenium.pageobjects.PageFactory;
 import org.schoellerfamily.gedbrowser.selenium.pageobjects.PersonPage;
 import org.schoellerfamily.gedbrowser.selenium.pageobjects.SourcesPage;
-import org.schoellerfamily.gedbrowser.selenium.pageobjects.SubmittorPage;
-import org.schoellerfamily.gedbrowser.selenium.pageobjects.SubmittorsPage;
+import org.schoellerfamily.gedbrowser.selenium.pageobjects.SubmitterPage;
+import org.schoellerfamily.gedbrowser.selenium.pageobjects.SubmittersPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
@@ -178,17 +178,17 @@ public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
                 baseUrl() + "sources?db=gl120368",
                 sourcesUrl);
 
-        final SubmittorsPage submittorsPage = sourcesPage.clickSubmittors();
-        final String submittorsUrl = submittorsPage.getCurrentUrl();
-        check("Submittors URL mismatch",
-                baseUrl() + "submittors?db=gl120368",
-                submittorsUrl);
+        final SubmittersPage submittersPage = sourcesPage.clickSubmitters();
+        final String submittersUrl = submittersPage.getCurrentUrl();
+        check("Submitters URL mismatch",
+                baseUrl() + "submitters?db=gl120368",
+                submittersUrl);
 
-        final SubmittorPage submittorPage = submittorsPage.clickSubmittor("U1");
-        final String submittorUrl = submittorPage.getCurrentUrl();
-        assertEquals("Submittor URL mismatch",
-                baseUrl() + "submittor?db=gl120368&id=U1",
-                submittorUrl);
+        final SubmitterPage submitterPage = submittersPage.clickSubmitter("U1");
+        final String submitterUrl = submitterPage.getCurrentUrl();
+        assertEquals("Submitter URL mismatch",
+                baseUrl() + "submitter?db=gl120368&id=U1",
+                submitterUrl);
     }
 
     /**

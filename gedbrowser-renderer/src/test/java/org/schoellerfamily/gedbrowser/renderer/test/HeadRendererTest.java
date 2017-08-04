@@ -196,12 +196,12 @@ public final class HeadRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSubmittorsMenuItem() throws IOException {
+    public void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         for (final Head head : root.find(Head.class)) {
             final HeadRenderer renderer = createRenderer(head);
-            assertEquals("submittors href mismatch",
-                    "submittors?db=gl120368", renderer.getSubmittorsHref());
+            assertEquals("submitters href mismatch",
+                    "submitters?db=gl120368", renderer.getSubmittersHref());
         }
     }
 

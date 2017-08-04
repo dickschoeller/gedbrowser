@@ -25,7 +25,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     SourceDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    SubmittorDocumentRepositoryMongo;
+    SubmitterDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     TrailerDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
@@ -65,7 +65,7 @@ import com.mongodb.MongoClient;
                         PersonDocumentRepositoryMongo.class,
                         RootDocumentRepositoryMongo.class,
                         SourceDocumentRepositoryMongo.class,
-                        SubmittorDocumentRepositoryMongo.class,
+                        SubmitterDocumentRepositoryMongo.class,
                         TrailerDocumentRepositoryMongo.class
                 },
                 type = FilterType.ASSIGNABLE_TYPE))
@@ -92,7 +92,7 @@ public class MongoConfiguration {
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
         return new SimpleMongoDbFactory(new MongoClient(host, port),
-                "gedbrowser");
+                "gedbrowser-1_2_2");
     }
 
     /**

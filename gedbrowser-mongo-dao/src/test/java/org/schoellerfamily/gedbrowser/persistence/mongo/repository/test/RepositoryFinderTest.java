@@ -22,7 +22,7 @@ import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
@@ -94,11 +94,11 @@ public final class RepositoryFinderTest {
 
     /** */
     @Test
-    public void testUntypedSubmittor() {
-        final Submittor submittor =
-                (Submittor) finder.find(root, "SUB1");
+    public void testUntypedSubmitter() {
+        final Submitter submitter =
+                (Submitter) finder.find(root, "SUB1");
         assertEquals("Mismatched tag string",
-                "SUB1", submittor.getString());
+                "SUB1", submitter.getString());
     }
 
     /** */
@@ -147,10 +147,10 @@ public final class RepositoryFinderTest {
 
     /** */
     @Test
-    public void testTypedSubmittor() {
-        final Submittor submittor =
-                (Submittor) finder.find(root, "SUB1", Submittor.class);
-        assertEquals("Mismatched tag string", "SUB1", submittor.getString());
+    public void testTypedSubmitter() {
+        final Submitter submitter =
+                (Submitter) finder.find(root, "SUB1", Submitter.class);
+        assertEquals("Mismatched tag string", "SUB1", submitter.getString());
     }
 
     /** */
@@ -193,9 +193,9 @@ public final class RepositoryFinderTest {
 
     /** */
     @Test
-    public void testTypedNotFoundSubmittor() {
-        final Submittor submittor = finder.find(root, "SUB2", Submittor.class);
-        assertNull("Should not have found anything", submittor);
+    public void testTypedNotFoundSubmitter() {
+        final Submitter submitter = finder.find(root, "SUB2", Submitter.class);
+        assertNull("Should not have found anything", submitter);
     }
 
     /** */
@@ -271,11 +271,11 @@ public final class RepositoryFinderTest {
 
     /** */
     @Test
-    public void testInsertSubmittor() {
-        final Submittor submittor = new Submittor(root, new ObjectId(BOGUS_ID));
-        finder.insert(root, submittor);
-        assertEquals("Submittor mismatch",
-                submittor, finder.find(root, BOGUS_ID, Submittor.class));
+    public void testInsertSubmitter() {
+        final Submitter submitter = new Submitter(root, new ObjectId(BOGUS_ID));
+        finder.insert(root, submitter);
+        assertEquals("Submitter mismatch",
+                submitter, finder.find(root, BOGUS_ID, Submitter.class));
     }
 
     /** */

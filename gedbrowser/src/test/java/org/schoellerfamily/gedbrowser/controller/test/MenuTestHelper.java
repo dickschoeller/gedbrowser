@@ -27,9 +27,9 @@ public interface MenuTestHelper {
             + " href=\"sources?db=%s\""
             + ">Sources</a></span>\n"
             + "            <span><a"
-            + " id=\"submittors-menu\""
-            + " href=\"submittors?db=%s\""
-            + ">Submittors</a></span>\n"
+            + " id=\"submitters-menu\""
+            + " href=\"submitters?db=%s\""
+            + ">Submitters</a></span>\n"
             + "            <span></span>\n"
             + "            <span></span>\n"
             + "        </span>";

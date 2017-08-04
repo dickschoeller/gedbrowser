@@ -22,8 +22,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
-import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
@@ -47,8 +47,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PlaceDocumentMong
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceLinkDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorLinkDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo;
 
@@ -82,8 +82,8 @@ public final class GedObjectToGedDocumentMongoConverter
         CLASS_MAP.put(Root.class, RootDocumentMongo.class);
         CLASS_MAP.put(Source.class, SourceDocumentMongo.class);
         CLASS_MAP.put(SourceLink.class, SourceLinkDocumentMongo.class);
-        CLASS_MAP.put(Submittor.class, SubmittorDocumentMongo.class);
-        CLASS_MAP.put(SubmittorLink.class, SubmittorLinkDocumentMongo.class);
+        CLASS_MAP.put(Submitter.class, SubmitterDocumentMongo.class);
+        CLASS_MAP.put(SubmitterLink.class, SubmitterLinkDocumentMongo.class);
         CLASS_MAP.put(Trailer.class, TrailerDocumentMongo.class);
         CLASS_MAP.put(Wife.class, WifeDocumentMongo.class);
     }

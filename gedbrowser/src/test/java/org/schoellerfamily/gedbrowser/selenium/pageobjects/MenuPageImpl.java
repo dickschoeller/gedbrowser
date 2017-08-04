@@ -52,11 +52,11 @@ public final class MenuPageImpl implements MenuPage {
      * {@inheritDoc}
      */
     @Override
-    public SubmittorsPage clickSubmittors() {
-        final WebElement element = getMenu("submittors");
+    public SubmittersPage clickSubmitters() {
+        final WebElement element = getMenu("submitters");
         element.click();
         page.waitForPageLoaded();
-        return page.getFactory().createSubmittorsPage(page, page.getBaseUrl());
+        return page.getFactory().createSubmittersPage(page, page.getBaseUrl());
     }
 
     /**

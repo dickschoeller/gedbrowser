@@ -21,7 +21,7 @@ public interface MenuPage {
     /**
      * @return the page for the newly reached page
      */
-    SubmittorsPage clickSubmittors();
+    SubmittersPage clickSubmitters();
 
     /**
      * @return the page for the newly reached page

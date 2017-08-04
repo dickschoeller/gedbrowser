@@ -32,8 +32,8 @@ public interface MenuPageFacade extends MenuPage {
      * {@inheritDoc}
      */
     @Override
-    default SubmittorsPage clickSubmittors() {
-        return getMenuPage().clickSubmittors();
+    default SubmittersPage clickSubmitters() {
+        return getMenuPage().clickSubmitters();
     }
 
     /**
