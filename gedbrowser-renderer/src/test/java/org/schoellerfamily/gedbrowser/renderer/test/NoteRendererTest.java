@@ -303,13 +303,13 @@ public final class NoteRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSubmittorsMenuItem() throws IOException {
+    public void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
             final NoteRenderer renderer = createRenderer(note);
-            assertEquals("submittors href mismatch",
-                    "submittors?db=gl120368", renderer.getSubmittorsHref());
+            assertEquals("submitters href mismatch",
+                    "submitters?db=gl120368", renderer.getSubmittersHref());
         }
     }
 

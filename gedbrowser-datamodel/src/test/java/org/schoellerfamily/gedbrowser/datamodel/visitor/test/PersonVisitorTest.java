@@ -23,8 +23,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
-import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
@@ -108,8 +108,8 @@ public final class PersonVisitorTest {
         new Root().accept(visitor);
         new Source().accept(visitor);
         new SourceLink().accept(visitor);
-        new Submittor().accept(visitor);
-        new SubmittorLink().accept(visitor);
+        new Submitter().accept(visitor);
+        new SubmitterLink().accept(visitor);
         new Trailer().accept(visitor);
         new Wife().accept(visitor);
         final GedObject gob = new GedObject() {

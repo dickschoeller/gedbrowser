@@ -216,7 +216,7 @@ public final class IndexRendererTest {
         final Root root = reader.readFileTestSource();
         final IndexRenderer renderer = new IndexRenderer(root, "A",
                 anonymousContext);
-        assertEquals("submittors href mismatch",
+        assertEquals("submitters href mismatch",
                 "sources?db=gl120368", renderer.getSourcesHref());
     }
 
@@ -226,12 +226,12 @@ public final class IndexRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSubmittorsMenuItem() throws IOException {
+    public void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final IndexRenderer renderer = new IndexRenderer(root, "A",
                 anonymousContext);
         assertEquals("sources href mismatch",
-                "submittors?db=gl120368", renderer.getSubmittorsHref());
+                "submitters?db=gl120368", renderer.getSubmittersHref());
     }
 
     /**

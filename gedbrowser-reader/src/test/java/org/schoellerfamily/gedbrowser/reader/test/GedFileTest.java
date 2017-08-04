@@ -93,7 +93,7 @@ public final class GedFileTest {
         }
         final String[] expectedAttributes = {
                 "Source",
-                "Submittor",
+                "Submitter",
                 "GEDCOM",
                 "Destination",
                 "Date",

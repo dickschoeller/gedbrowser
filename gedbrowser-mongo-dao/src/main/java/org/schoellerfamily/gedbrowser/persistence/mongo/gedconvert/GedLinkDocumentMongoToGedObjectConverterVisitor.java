@@ -8,7 +8,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
-import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.ChildDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamCDocumentMongo;
@@ -16,7 +16,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.FamSDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HusbandDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NoteLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceLinkDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorLinkDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
 
@@ -99,8 +99,8 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
      * {@inheritDoc}
      */
     @Override
-    public final void visit(final SubmittorLinkDocumentMongo document) {
-        setGedObject(new SubmittorLink(getParent(), "Submittor",
+    public final void visit(final SubmitterLinkDocumentMongo document) {
+        setGedObject(new SubmitterLink(getParent(), "Submitter",
                 new ObjectId(document.getString())));
     }
 

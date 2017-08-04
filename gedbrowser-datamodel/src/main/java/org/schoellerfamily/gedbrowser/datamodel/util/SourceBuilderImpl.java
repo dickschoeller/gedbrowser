@@ -6,8 +6,8 @@ import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
-import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 
 /**
  * @author Dick Schoeller
@@ -79,51 +79,51 @@ public final class SourceBuilderImpl implements SourceBuilder {
      * {@inheritDoc}
      */
     @Override
-    public Submittor createSubmittor() {
-        return new Submittor(getRoot(), null);
+    public Submitter createSubmitter() {
+        return new Submitter(getRoot(), null);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Submittor createSubmittor(final String idString) {
+    public Submitter createSubmitter(final String idString) {
         if (idString == null) {
-            return new Submittor(getRoot(), null);
+            return new Submitter(getRoot(), null);
         }
-        final Submittor submittor =
-                new Submittor(getRoot(), new ObjectId(idString));
-        getRoot().insert(submittor);
-        return submittor;
+        final Submitter submitter =
+                new Submitter(getRoot(), new ObjectId(idString));
+        getRoot().insert(submitter);
+        return submitter;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Submittor createSubmittor(final String idString, final String name) {
+    public Submitter createSubmitter(final String idString, final String name) {
         if (idString == null || name == null) {
-            return new Submittor(getRoot(), null);
+            return new Submitter(getRoot(), null);
         }
-        final Submittor submittor =
-                new Submittor(getRoot(), new ObjectId(idString));
-        submittor.insert(new Name(submittor, name));
-        getRoot().insert(submittor);
-        return submittor;
+        final Submitter submitter =
+                new Submitter(getRoot(), new ObjectId(idString));
+        submitter.insert(new Name(submitter, name));
+        getRoot().insert(submitter);
+        return submitter;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public SubmittorLink createSubmittorLink(final GedObject ged,
-            final Submittor submittor) {
-        if (ged == null || submittor == null) {
-            return new SubmittorLink();
+    public SubmitterLink createSubmitterLink(final GedObject ged,
+            final Submitter submitter) {
+        if (ged == null || submitter == null) {
+            return new SubmitterLink();
         }
-        final SubmittorLink submittorLink = new SubmittorLink(ged, "Submittor",
-                new ObjectId(submittor.getString()));
-        ged.insert(submittorLink);
-        return submittorLink;
+        final SubmitterLink submitterLink = new SubmitterLink(ged, "Submitter",
+                new ObjectId(submitter.getString()));
+        ged.insert(submitterLink);
+        return submitterLink;
     }
 }

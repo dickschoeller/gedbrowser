@@ -24,8 +24,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PlaceDocumentMong
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceLinkDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorLinkDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
@@ -247,8 +247,8 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadSubmittorLoad() {
-        final SubmittorDocumentMongo ad = new SubmittorDocumentMongo();
+    public void testBadSubmitterLoad() {
+        final SubmitterDocumentMongo ad = new SubmitterDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
@@ -260,8 +260,8 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadSubmittorLinkLoad() {
-        final SubmittorLinkDocumentMongo ad = new SubmittorLinkDocumentMongo();
+    public void testBadSubmitterLinkLoad() {
+        final SubmitterLinkDocumentMongo ad = new SubmitterLinkDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");

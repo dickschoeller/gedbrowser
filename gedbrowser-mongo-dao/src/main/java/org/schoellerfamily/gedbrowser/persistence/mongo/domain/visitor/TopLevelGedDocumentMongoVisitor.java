@@ -7,7 +7,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NoteDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmittorDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 
 /**
@@ -43,11 +43,11 @@ public interface TopLevelGedDocumentMongoVisitor {
     void visit(HeadDocumentMongo document);
 
     /**
-     * Visit and process on a submittor document.
+     * Visit and process on a submitter document.
      *
      * @param document the document
      */
-    void visit(SubmittorDocumentMongo document);
+    void visit(SubmitterDocumentMongo document);
 
     /**
      * Visit and process on a trailer document.

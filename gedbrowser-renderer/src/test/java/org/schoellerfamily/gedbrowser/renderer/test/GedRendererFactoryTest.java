@@ -21,8 +21,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
-import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
@@ -48,8 +48,8 @@ import org.schoellerfamily.gedbrowser.renderer.RootRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SimpleNameRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SourceLinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SourceRenderer;
-import org.schoellerfamily.gedbrowser.renderer.SubmittorLinkRenderer;
-import org.schoellerfamily.gedbrowser.renderer.SubmittorRenderer;
+import org.schoellerfamily.gedbrowser.renderer.SubmitterLinkRenderer;
+import org.schoellerfamily.gedbrowser.renderer.SubmitterRenderer;
 import org.schoellerfamily.gedbrowser.renderer.TrailerRenderer;
 import org.schoellerfamily.gedbrowser.renderer.WifeRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
@@ -130,9 +130,9 @@ public final class GedRendererFactoryTest {
 
     /** */
     @Test
-    public void testGetSubmittorNameRenderer() {
+    public void testGetSubmitterNameRenderer() {
         final GedRenderer<?> gedRenderer =
-                grf.create(new Name(new Submittor()), provider, appInfo);
+                grf.create(new Name(new Submitter()), provider, appInfo);
         assertTrue("Expected SimpleNameRenderer",
                 gedRenderer instanceof SimpleNameRenderer);
     }
@@ -229,20 +229,20 @@ public final class GedRendererFactoryTest {
 
     /** */
     @Test
-    public void testGetSubmittorRenderer() {
+    public void testGetSubmitterRenderer() {
         final GedRenderer<?> gedRenderer =
-                grf.create(new Submittor(), provider, appInfo);
-        assertTrue("Expected SubmittorRenderer",
-                gedRenderer instanceof SubmittorRenderer);
+                grf.create(new Submitter(), provider, appInfo);
+        assertTrue("Expected SubmitterRenderer",
+                gedRenderer instanceof SubmitterRenderer);
     }
 
     /** */
     @Test
-    public void testGetSubmittorLinkRenderer() {
+    public void testGetSubmitterLinkRenderer() {
         final GedRenderer<?> gedRenderer =
-                grf.create(new SubmittorLink(), provider, appInfo);
-        assertTrue("Expected SubmittorLinkRenderer",
-                gedRenderer instanceof SubmittorLinkRenderer);
+                grf.create(new SubmitterLink(), provider, appInfo);
+        assertTrue("Expected SubmitterLinkRenderer",
+                gedRenderer instanceof SubmitterLinkRenderer);
     }
 
     /** */

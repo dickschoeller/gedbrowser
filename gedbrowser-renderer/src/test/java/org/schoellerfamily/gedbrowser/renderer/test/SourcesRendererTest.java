@@ -138,7 +138,7 @@ public class SourcesRendererTest {
         final Root root = reader.readFileTestSource();
         final SourcesRenderer renderer = new SourcesRenderer(root,
                 anonymousContext);
-        assertEquals("submittors href mismatch",
+        assertEquals("submitters href mismatch",
                 "sources?db=gl120368", renderer.getSourcesHref());
     }
 
@@ -148,12 +148,12 @@ public class SourcesRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSubmittorsMenuItem() throws IOException {
+    public void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final SourcesRenderer renderer = new SourcesRenderer(root,
                 anonymousContext);
         assertEquals("sources href mismatch",
-                "submittors?db=gl120368", renderer.getSubmittorsHref());
+                "submitters?db=gl120368", renderer.getSubmittersHref());
     }
 
     /**

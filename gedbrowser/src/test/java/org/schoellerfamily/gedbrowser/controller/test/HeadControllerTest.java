@@ -50,8 +50,8 @@ public class HeadControllerTest implements MenuTestHelper {
             .contains("GEDCOM:</span> 5.5, LINEAGE-LINKED")
             .contains("Character Set:</span> ANSI")
             .contains("Destination:</span> FTM")
-            .contains("Submittor:</span> <a class=\"name\""
-                    + " href=\"submittor?db=gl120368&amp;id=U1\">Phil Williams"
+            .contains("Submitter:</span> <a class=\"name\""
+                    + " href=\"submitter?db=gl120368&amp;id=U1\">Phil Williams"
                     + " [U1]</a>")
             .contains(getMenu("A"));
     }
@@ -67,8 +67,8 @@ public class HeadControllerTest implements MenuTestHelper {
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody())
             .contains("<title>Header - mini-schoeller</title>")
-            .contains("Submittor:</span> <a class=\"name\""
-                    + " href=\"submittor?db=mini-schoeller&amp;"
+            .contains("Submitter:</span> <a class=\"name\""
+                    + " href=\"submitter?db=mini-schoeller&amp;"
                     + "id=SUB1\">Richard Schoeller [SUB1]</a>")
             .contains("GEDCOM:</span> 5.5.1, LINEAGE-LINKED")
             .contains("Destination:</span> GED55")

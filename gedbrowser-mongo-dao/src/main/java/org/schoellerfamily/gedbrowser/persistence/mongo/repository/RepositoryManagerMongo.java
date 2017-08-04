@@ -10,7 +10,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
@@ -118,18 +118,18 @@ public class RepositoryManagerMongo {
      *            the repository
      */
     @Autowired
-    public void setSubmittorDocumentRepository(
-            final SubmittorDocumentRepositoryMongo repository) {
-        classToRepoMap.put(Submittor.class, repository);
+    public void setSubmitterDocumentRepository(
+            final SubmitterDocumentRepositoryMongo repository) {
+        classToRepoMap.put(Submitter.class, repository);
     }
 
     /**
      * @return the repository
      */
-    public final SubmittorDocumentRepositoryMongo
-        getSubmittorDocumentRepository() {
-        return (SubmittorDocumentRepositoryMongo) classToRepoMap
-                .get(Submittor.class);
+    public final SubmitterDocumentRepositoryMongo
+        getSubmitterDocumentRepository() {
+        return (SubmitterDocumentRepositoryMongo) classToRepoMap
+                .get(Submitter.class);
     }
 
     /**

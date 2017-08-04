@@ -11,8 +11,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
-import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
@@ -32,9 +32,9 @@ public final class HeadTest {
 
         final Attribute vers = builder.createAttribute(head, "VERS", "4.0");
 
-        final Submittor submittor = builder.createSubmittor("SUB1");
-        final SubmittorLink suLink = builder.createSubmittorLink(head,
-                submittor);
+        final Submitter submitter = builder.createSubmitter("SUB1");
+        final SubmitterLink suLink = builder.createSubmitterLink(head,
+                submitter);
 
         final Attribute gedc = builder.createAttribute(head, "GEDC");
         builder.createAttribute(gedc, "VERS", "5.5");
@@ -53,7 +53,7 @@ public final class HeadTest {
      * @param head the head we're checking
      * @param sourceLink the expected source link
      * @param version the expected version
-     * @param submittorLink the expected submittor link
+     * @param submitterLink the expected submitter link
      * @param gedc the expected gedc descriptor
      * @param dest the expected destination
      * @param date the expected date
@@ -61,7 +61,7 @@ public final class HeadTest {
      */
     // CHECKSTYLE:OFF
     private void assertHeadValid(final Head head, final SourceLink sourceLink,
-            final Attribute version, final SubmittorLink submittorLink,
+            final Attribute version, final SubmitterLink submitterLink,
             final Attribute gedc, final Attribute dest, final Date date,
             final Attribute charset) {
         // CHECKSTYLE:ON
@@ -71,8 +71,8 @@ public final class HeadTest {
                 head.getAttributes().contains(sourceLink));
         assertTrue("Should contain version",
                 head.getAttributes().contains(version));
-        assertTrue("Should contain submittorLink",
-                head.getAttributes().contains(submittorLink));
+        assertTrue("Should contain submitterLink",
+                head.getAttributes().contains(submitterLink));
         assertTrue("Should contain gedc item",
                 head.getAttributes().contains(gedc));
         assertTrue("Should contain dest", head.getAttributes().contains(dest));

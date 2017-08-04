@@ -109,12 +109,12 @@ public final class PageFactory {
     /**
      * @param previous the previous page object
      * @param baseUrl the base URL string
-     * @param id the ID of the submittor
+     * @param id the ID of the submitter
      * @return the new page object
      */
-    public SubmittorPage createSubmittorPage(final PageBase previous,
+    public SubmitterPage createSubmitterPage(final PageBase previous,
             final String baseUrl, final String id) {
-        return new SubmittorPage(this, previous, baseUrl, id);
+        return new SubmitterPage(this, previous, baseUrl, id);
     }
 
     /**
@@ -122,9 +122,9 @@ public final class PageFactory {
      * @param baseUrl the base URL string
      * @return the new page object
      */
-    public SubmittorsPage createSubmittorsPage(final PageBase previous,
+    public SubmittersPage createSubmittersPage(final PageBase previous,
             final String baseUrl) {
-        return new SubmittorsPage(this, previous, baseUrl);
+        return new SubmittersPage(this, previous, baseUrl);
     }
 
     /**

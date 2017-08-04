@@ -3,8 +3,8 @@ package org.schoellerfamily.gedbrowser.datamodel.util;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
-import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 
 /**
  * @author Dick Schoeller
@@ -52,33 +52,33 @@ public interface SourceBuilderFacade extends SourceBuilder {
      * {@inheritDoc}
      */
     @Override
-    default Submittor createSubmittor() {
-        return getSourceBuilder().createSubmittor();
+    default Submitter createSubmitter() {
+        return getSourceBuilder().createSubmitter();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    default Submittor createSubmittor(final String idString) {
-        return getSourceBuilder().createSubmittor(idString);
+    default Submitter createSubmitter(final String idString) {
+        return getSourceBuilder().createSubmitter(idString);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    default Submittor createSubmittor(final String idString,
+    default Submitter createSubmitter(final String idString,
             final String name) {
-        return getSourceBuilder().createSubmittor(idString, name);
+        return getSourceBuilder().createSubmitter(idString, name);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    default SubmittorLink createSubmittorLink(final GedObject ged,
-            final Submittor submittor) {
-        return getSourceBuilder().createSubmittorLink(ged, submittor);
+    default SubmitterLink createSubmitterLink(final GedObject ged,
+            final Submitter submitter) {
+        return getSourceBuilder().createSubmitterLink(ged, submitter);
     }
 }

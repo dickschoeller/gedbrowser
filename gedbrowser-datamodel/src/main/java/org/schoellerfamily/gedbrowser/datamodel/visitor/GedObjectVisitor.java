@@ -19,8 +19,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
-import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
@@ -215,22 +215,22 @@ public interface GedObjectVisitor {
     }
 
     /**
-     * Visit a submittor.
+     * Visit a submitter.
      * Override the default method if this type contributes to your algorithm.
      *
-     * @param submittor the submittor to visit
+     * @param submitter the submitter to visit
      */
-    default void visit(Submittor submittor) {
+    default void visit(Submitter submitter) {
         // If not overridden, does not contribute to algorithm.
     }
 
     /**
-     * Visit a link to a submittor.
+     * Visit a link to a submitter.
      * Override the default method if this type contributes to your algorithm.
      *
-     * @param submittorLink the link to visit
+     * @param submitterLink the link to visit
      */
-    default void visit(SubmittorLink submittorLink) {
+    default void visit(SubmitterLink submitterLink) {
         // If not overridden, does not contribute to algorithm.
     }
 

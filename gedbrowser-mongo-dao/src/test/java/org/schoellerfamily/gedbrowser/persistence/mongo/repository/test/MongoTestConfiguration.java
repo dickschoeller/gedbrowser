@@ -15,7 +15,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryFin
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmittorDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmitterDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
@@ -47,7 +47,7 @@ import com.mongodb.MongoClient;
                         PersonDocumentRepositoryMongo.class,
                         RootDocumentRepositoryMongo.class,
                         SourceDocumentRepositoryMongo.class,
-                        SubmittorDocumentRepositoryMongo.class,
+                        SubmitterDocumentRepositoryMongo.class,
                         TrailerDocumentRepositoryMongo.class
                 },
                 type = FilterType.ASSIGNABLE_TYPE))

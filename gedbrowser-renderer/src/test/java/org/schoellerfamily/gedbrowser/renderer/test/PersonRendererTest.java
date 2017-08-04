@@ -1499,13 +1499,13 @@ public final class PersonRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSubmittorsMenuItem() throws IOException {
+    public void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Person> persons = root.find(Person.class);
         for (final Person person : persons) {
             final PersonRenderer renderer = createRenderer(person);
-            assertEquals("submittors href mismatch",
-                    "submittors?db=gl120368", renderer.getSubmittorsHref());
+            assertEquals("submitters href mismatch",
+                    "submitters?db=gl120368", renderer.getSubmittersHref());
         }
     }
 

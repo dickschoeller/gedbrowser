@@ -16,7 +16,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
@@ -59,7 +59,7 @@ public final class RepositoryFinderMongo
         CLASSES.add(Source.class);
         CLASSES.add(Head.class);
         CLASSES.add(Note.class);
-        CLASSES.add(Submittor.class);
+        CLASSES.add(Submitter.class);
         CLASSES.add(Trailer.class);
     }
 

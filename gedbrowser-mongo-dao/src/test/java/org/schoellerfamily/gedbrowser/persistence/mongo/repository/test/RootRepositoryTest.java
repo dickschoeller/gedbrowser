@@ -18,7 +18,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
@@ -27,7 +27,7 @@ import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
-import org.schoellerfamily.gedbrowser.persistence.domain.SubmittorDocument;
+import org.schoellerfamily.gedbrowser.persistence.domain.SubmitterDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.TrailerDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
@@ -37,7 +37,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentR
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmittorDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmitterDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -67,8 +67,8 @@ public final class RootRepositoryTest {
     private transient HeadDocumentRepositoryMongo headDocumentRepository;
     /** */
     @Autowired
-    private transient SubmittorDocumentRepositoryMongo
-        submittorDocumentRepository;
+    private transient SubmitterDocumentRepositoryMongo
+        submitterDocumentRepository;
     /** */
     @Autowired
     private transient TrailerDocumentRepositoryMongo trailerDocumentRepository;
@@ -209,8 +209,8 @@ public final class RootRepositoryTest {
             assertHeadMatch(ged);
         } else if (ged instanceof Trailer) {
             assertTrailerMatch(ged);
-        } else if (ged instanceof Submittor) {
-            assertSubmittorMatch(ged);
+        } else if (ged instanceof Submitter) {
+            assertSubmitterMatch(ged);
         }
     }
 
@@ -277,12 +277,12 @@ public final class RootRepositoryTest {
     /**
      * @param ged the item to check
      */
-    private void assertSubmittorMatch(final GedObject ged) {
-        final SubmittorDocument subdoc = submittorDocumentRepository
+    private void assertSubmitterMatch(final GedObject ged) {
+        final SubmitterDocument subdoc = submitterDocumentRepository
                 .findByFileAndString(root.getFilename(),
                         ged.getString());
-        final Submittor person =
-                (Submittor) toObjConverter.createGedObject(root, subdoc);
+        final Submitter person =
+                (Submitter) toObjConverter.createGedObject(root, subdoc);
         assertEquals("wrong type", person, ged);
     }
 

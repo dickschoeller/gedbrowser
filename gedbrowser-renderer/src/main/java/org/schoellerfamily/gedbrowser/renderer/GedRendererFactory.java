@@ -23,8 +23,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
-import org.schoellerfamily.gedbrowser.datamodel.Submittor;
-import org.schoellerfamily.gedbrowser.datamodel.SubmittorLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
@@ -56,7 +56,7 @@ public final class GedRendererFactory {
         });
         builders.put(Name.class, (g, f, r) -> {
             if (g.getParent() != null
-                    && g.getParent().getClass().equals(Submittor.class)) {
+                    && g.getParent().getClass().equals(Submitter.class)) {
                 return new SimpleNameRenderer((Name) g, f, r);
             }
             return new NameRenderer((Name) g, f, r);
@@ -100,11 +100,11 @@ public final class GedRendererFactory {
         builders.put(SourceLink.class, (g, f, r) -> {
             return new SourceLinkRenderer((SourceLink) g, f, r);
         });
-        builders.put(Submittor.class, (g, f, r) -> {
-            return new SubmittorRenderer((Submittor) g, f, r);
+        builders.put(Submitter.class, (g, f, r) -> {
+            return new SubmitterRenderer((Submitter) g, f, r);
         });
-        builders.put(SubmittorLink.class, (g, f, r) -> {
-            return new SubmittorLinkRenderer((SubmittorLink) g, f, r);
+        builders.put(SubmitterLink.class, (g, f, r) -> {
+            return new SubmitterLinkRenderer((SubmitterLink) g, f, r);
         });
         builders.put(Trailer.class, (g, f, r) -> {
             return new TrailerRenderer((Trailer) g, f, r);
