@@ -60,7 +60,7 @@
     <cglib.version>3.2.5</cglib.version>
     <spring-data-mongodb.version>1.10.6.RELEASE</spring-data-mongodb.version>
     <spring-data-commons.version>1.13.6.RELEASE</spring-data-commons.version>
-    <google-maps-services.version>0.2.0</google-maps-services.version>
+    <google-maps-services.version>0.2.1</google-maps-services.version>
     <jackson-core.version>2.8.9</jackson-core.version>
     <jackson-databind.version>2.8.9</jackson-databind.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
@@ -84,7 +84,7 @@
     <pmd-version>5.8.1</pmd-version>
     <build-helper-plugin.version>3.0.0</build-helper-plugin.version>
     <jxr-plugin.version>2.5</jxr-plugin.version>
-    <compiler-plugin.version>3.6.1</compiler-plugin.version>
+    <compiler-plugin.version>3.6.2</compiler-plugin.version>
     <war-plugin.version>3.1.0</war-plugin.version>
     <source-plugin.version>3.0.1</source-plugin.version>
     <failsafe.version>2.20</failsafe.version>
