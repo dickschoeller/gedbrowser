@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundExcept
 import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.NoteNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.SourceNotFoundException;
+import org.schoellerfamily.gedbrowser.controller.exception.SubmissionNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.SubmitterNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
@@ -117,6 +118,21 @@ public abstract class AbstractController {
         logger.info("Handling exception: " + exception.getMessage());
         return createModelAndViewForException(request, exception,
                 "sourceNotFound", HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * @param request the request we're processing
+     * @param exception the exception caught
+     * @return the model and view
+     */
+    @ExceptionHandler({ SubmissionNotFoundException.class })
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public final ModelAndView submissionNotFoundError(
+            final HttpServletRequest request,
+            final SubmissionNotFoundException exception) {
+        logger.info("Handling exception: " + exception.getMessage());
+        return createModelAndViewForException(request, exception,
+                "submissionNotFound", HttpStatus.NOT_FOUND);
     }
 
     /**

@@ -24,6 +24,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     RootDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     SourceDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmissionDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     SubmitterDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
@@ -65,6 +66,7 @@ import com.mongodb.MongoClient;
                         PersonDocumentRepositoryMongo.class,
                         RootDocumentRepositoryMongo.class,
                         SourceDocumentRepositoryMongo.class,
+                        SubmissionDocumentRepositoryMongo.class,
                         SubmitterDocumentRepositoryMongo.class,
                         TrailerDocumentRepositoryMongo.class
                 },

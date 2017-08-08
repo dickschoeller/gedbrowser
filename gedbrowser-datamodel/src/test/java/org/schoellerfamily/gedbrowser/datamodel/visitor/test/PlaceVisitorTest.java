@@ -26,6 +26,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submission;
+import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
@@ -155,6 +157,8 @@ public final class PlaceVisitorTest {
         new NoteLink().accept(visitor);
         new Source().accept(visitor);
         new SourceLink().accept(visitor);
+        new Submission().accept(visitor);
+        new SubmissionLink().accept(visitor);
         new Submitter().accept(visitor);
         new SubmitterLink().accept(visitor);
         new Trailer().accept(visitor);

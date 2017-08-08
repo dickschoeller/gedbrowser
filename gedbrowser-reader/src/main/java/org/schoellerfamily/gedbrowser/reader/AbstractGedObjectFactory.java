@@ -23,6 +23,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submission;
+import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
@@ -81,6 +83,12 @@ public abstract class AbstractGedObjectFactory {
     /** */
     private static final SourceLinkFactory SOURLINK_FACTORY =
             new SourceLinkFactory();
+    /** */
+    private static final SubmissionFactory SUBMISSION_FACTORY =
+            new SubmissionFactory();
+    /** */
+    private static final SubmissionLinkFactory SUBNLINK_FACTORY =
+            new SubmissionLinkFactory();
     /** */
     private static final SubmitterFactory SUBMITTER_FACTORY =
             new SubmitterFactory();
@@ -254,6 +262,7 @@ public abstract class AbstractGedObjectFactory {
         tokens.put("STILLBORN", new GedToken("Stillborn", ATTR_FACTORY));
         tokens.put("SUBM", new GedToken("Submitter", SUBMITTER_FACTORY));
         tokens.put("SUBMITTED", new GedToken("Submitted", ATTR_FACTORY));
+        tokens.put("SUBN", new GedToken("Submission", SUBMISSION_FACTORY));
         tokens.put("TEXT", new GedToken("Text", ATTR_FACTORY));
         tokens.put("TIME", new GedToken("Time", ATTR_FACTORY));
         tokens.put("TITL", new GedToken("Title", ATTR_FACTORY));
@@ -621,6 +630,42 @@ public abstract class AbstractGedObjectFactory {
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
             return new SourceLink(parent, tag, new ObjectId(tail));
+        }
+    }
+
+    /**
+     * Factory for creating Submission.
+     *
+     * @author Dick Schoeller
+     */
+    private static class SubmissionFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public final GedObject create(final GedObject parent,
+                final ObjectId xref, final String tag, final String tail) {
+            if (parent.getParent() == null) {
+                return new Submission(parent, xref);
+            } else {
+                return SUBNLINK_FACTORY.create(parent, xref, tag, tail);
+            }
+        }
+    }
+
+    /**
+     * Factory for creating SubmissionLink.
+     *
+     * @author Dick Schoeller
+     */
+    private static class SubmissionLinkFactory extends AbstractGedObjectFactory {
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public final GedObject create(final GedObject parent,
+                final ObjectId xref, final String tag, final String tail) {
+            return new SubmissionLink(parent, tag, new ObjectId(tail));
         }
     }
 

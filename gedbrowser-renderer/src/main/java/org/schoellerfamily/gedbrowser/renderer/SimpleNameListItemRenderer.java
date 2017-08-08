@@ -36,20 +36,13 @@ public class SimpleNameListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * @param builder the string builder that we will be appending to.
-     */
-    private void renderListItemContents(final StringBuilder builder) {
-        builder.append("<span class=\"label\">Name:</span> ");
-        builder.append(simpleNameRenderer.renderAsPhrase());
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
     public final String getListItemContents() {
         final StringBuilder builder = new StringBuilder();
-        renderListItemContents(builder);
+        builder.append("<span class=\"label\">Name:</span> ");
+        builder.append(simpleNameRenderer.renderAsPhrase());
         return builder.toString();
     }
 }

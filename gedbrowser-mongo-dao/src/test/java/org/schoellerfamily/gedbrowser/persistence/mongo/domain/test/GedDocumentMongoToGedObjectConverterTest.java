@@ -24,6 +24,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submission;
+import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
@@ -48,6 +50,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMon
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PlaceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceLinkDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmissionDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmissionLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
@@ -195,6 +199,24 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         gmd.setString("SourceLink");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", SourceLink.class, ged.getClass());
+    }
+
+    /** */
+    @Test
+    public void testCreateSubmission() {
+        final SubmissionDocumentMongo gmd = new SubmissionDocumentMongo();
+        gmd.setString("Submission");
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
+        assertEquals("Wrong class", Submission.class, ged.getClass());
+    }
+
+    /** */
+    @Test
+    public void testCreateSubmissionLink() {
+        final SubmissionLinkDocumentMongo gmd = new SubmissionLinkDocumentMongo();
+        gmd.setString("SubmissionLink");
+        final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
+        assertEquals("Wrong class", SubmissionLink.class, ged.getClass());
     }
 
     /** */

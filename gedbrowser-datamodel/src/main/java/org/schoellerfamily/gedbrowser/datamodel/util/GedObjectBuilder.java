@@ -1,7 +1,10 @@
 package org.schoellerfamily.gedbrowser.datamodel.util;
 
 import org.schoellerfamily.gedbrowser.datamodel.Head;
+import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.Submission;
+import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 
 /**
@@ -104,5 +107,36 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
         final Head head = new Head(getRoot(), "Head");
         getRoot().insert(head);
         return head;
+    }
+
+    /**
+     * @param string the ID for the submission
+     * @return the submission
+     */
+    public Submission createSubmission(final String string) {
+        final Submission submission =
+                new Submission(getRoot(), new ObjectId(string));
+        getRoot().insert(submission);
+        return submission;
+    }
+
+    /**
+     * Create a link to the submission in the head. If head doesn't already
+     * exist create it.
+     *
+     * @param submission
+     *            the submission to link
+     * @return the submission link
+     */
+    public SubmissionLink createSubmissionLink(final Submission submission) {
+        Head head = getRoot().find("Head", Head.class);
+        if (head == null) {
+            head = createHead();
+        }
+        final SubmissionLink submissionLink =
+                new SubmissionLink(head, "Submission",
+                        new ObjectId(submission.getString()));
+        head.insert(submissionLink);
+        return submissionLink;
     }
 }

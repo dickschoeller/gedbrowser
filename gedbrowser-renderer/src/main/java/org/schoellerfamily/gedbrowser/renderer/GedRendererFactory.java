@@ -23,6 +23,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submission;
+import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
@@ -99,6 +101,12 @@ public final class GedRendererFactory {
         });
         builders.put(SourceLink.class, (g, f, r) -> {
             return new SourceLinkRenderer((SourceLink) g, f, r);
+        });
+        builders.put(Submission.class, (g, f, r) -> {
+            return new SubmissionRenderer((Submission) g, f, r);
+        });
+        builders.put(SubmissionLink.class, (g, f, r) -> {
+            return new SubmissionLinkRenderer((SubmissionLink) g, f, r);
         });
         builders.put(Submitter.class, (g, f, r) -> {
             return new SubmitterRenderer((Submitter) g, f, r);

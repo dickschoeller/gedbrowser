@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.reader.test;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -10,10 +11,13 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.Submission;
+import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLine;
@@ -46,6 +50,15 @@ public final class GedLineTest {
             "1 DATE 16 FEB 2001",
             "2 TIME 22:04",
             "1 CHAR ANSI",
+            "1 SUBN @SUBMISSION@",
+            "0 @SUBMISSION@ SUBN",
+            "1 SUBM @SUB1@",
+            "1 FAMF NameOfFamilyFile",
+            "1 TEMP Abbreviated Temple Code",
+            "1 ANCE 1",
+            "1 DESC 1",
+            "1 ORDI yes",
+            "1 RIN 1",
             "0 @SUB1@ SUBM",
             "1 NAME Richard Schoeller",
             "1 ADDR 242 Marked Tree Road",
@@ -392,6 +405,30 @@ public final class GedLineTest {
             }
         }
         assertEquals("Note body mismatch", "This is a note", note.getTail());
+    }
+
+    /**
+     * Test GedLine with an array input.
+     *
+     * @throws IOException never.
+     */
+    @Test
+    public void testFactoryGedLineArraySubmission() throws IOException {
+        final AbstractGedLine top = readArrayTestSource();
+        final Root root = g2g.create(top);
+        final Collection<Head> heads = root.find(Head.class);
+        final Submission submission = root.find("SUBMISSION", Submission.class);
+        for (final Head head : heads) {
+            for (final GedObject gob : head.getAttributes()) {
+                if (gob instanceof SubmissionLink) {
+                    final SubmissionLink submissionLink = (SubmissionLink) gob;
+                    checkEquals("getFromString mismatch", "Header", submissionLink.getFromString());
+                    checkEquals("getToString mismatch", "SUBMISSION", submissionLink.getToString());
+                    checkEquals("toString mismatch", "Submission", submissionLink.toString());
+                }
+            }
+        }
+        assertEquals("getString mismatch", "SUBMISSION", submission.getString());
     }
 
     /**

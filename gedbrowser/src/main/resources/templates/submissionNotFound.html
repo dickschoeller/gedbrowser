@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title
+     th:text="'Submission not found - ' + ${error.exception.submissionId} + ' - ' + ${error.exception.datasetName}">Submitter
+     not found - SUB99999 - schoeller</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
+</head>
+<body>
+    <div th:replace="fragments/header :: menubar-notfound">&nbsp;</div>
+
+    <div class="outer">
+    <div class="middle">
+    <div class="inner">
+    <h1 th:utext="${error.message}">Submission</h1>
+    <h2 class="name"><span th:utext="${error.exception.submissionId}">I1</span> not found in dataset <span  th:utext="${error.exception.datasetName}"></span></h2>
+
+    <div th:replace="fragments/footer :: footer-error">&nbsp;</div>
+
+    </div>
+    </div>
+    </div>
+
+<!-- anywhere in your document: -->
+<form th:action="@{logout}" id="logoutForm">
+  <!-- csrf hidden input included automagically -->
+</form>
+</body>
+</html>

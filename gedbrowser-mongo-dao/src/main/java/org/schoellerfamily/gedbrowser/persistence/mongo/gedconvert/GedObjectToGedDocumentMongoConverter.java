@@ -22,6 +22,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submission;
+import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
@@ -47,6 +49,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PlaceDocumentMong
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceLinkDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmissionDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmissionLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
@@ -82,6 +86,8 @@ public final class GedObjectToGedDocumentMongoConverter
         CLASS_MAP.put(Root.class, RootDocumentMongo.class);
         CLASS_MAP.put(Source.class, SourceDocumentMongo.class);
         CLASS_MAP.put(SourceLink.class, SourceLinkDocumentMongo.class);
+        CLASS_MAP.put(Submission.class, SubmissionDocumentMongo.class);
+        CLASS_MAP.put(SubmissionLink.class, SubmissionLinkDocumentMongo.class);
         CLASS_MAP.put(Submitter.class, SubmitterDocumentMongo.class);
         CLASS_MAP.put(SubmitterLink.class, SubmitterLinkDocumentMongo.class);
         CLASS_MAP.put(Trailer.class, TrailerDocumentMongo.class);

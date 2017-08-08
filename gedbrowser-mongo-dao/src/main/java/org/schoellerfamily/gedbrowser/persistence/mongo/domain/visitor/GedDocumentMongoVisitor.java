@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NoteLinkDocumentM
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PlaceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceLinkDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmissionLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo;
 
@@ -96,6 +97,13 @@ public interface GedDocumentMongoVisitor
      * @param document the document
      */
     void visit(SourceLinkDocumentMongo document);
+
+    /**
+     * Visit and process on a submission link document.
+     *
+     * @param document the document
+     */
+    void visit(SubmissionLinkDocumentMongo document);
 
     /**
      * Visit and process on a submitter link document.
