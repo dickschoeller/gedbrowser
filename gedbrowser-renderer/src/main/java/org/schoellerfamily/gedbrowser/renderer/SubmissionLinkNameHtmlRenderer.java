@@ -9,10 +9,10 @@ public class SubmissionLinkNameHtmlRenderer implements NameHtmlRenderer {
     /**
      * Constructor.
      *
-     * @param submissionRender the parent renderer
+     * @param submissionLinkRenderer the parent renderer
      */
-    public SubmissionLinkNameHtmlRenderer(final SubmissionLinkRenderer submissionLinkRender) {
-        this.submissionLinkRenderer = submissionLinkRender;
+    public SubmissionLinkNameHtmlRenderer(final SubmissionLinkRenderer submissionLinkRenderer) {
+        this.submissionLinkRenderer = submissionLinkRenderer;
     }
 
     /**
