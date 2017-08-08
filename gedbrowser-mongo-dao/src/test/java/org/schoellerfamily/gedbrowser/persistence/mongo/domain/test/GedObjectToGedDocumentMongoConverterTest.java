@@ -25,6 +25,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submission;
+import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
@@ -49,6 +51,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMon
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PlaceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceLinkDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmissionDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmissionLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
@@ -258,6 +262,30 @@ public class GedObjectToGedDocumentMongoConverterTest {
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<SourceLinkDocumentMongo> expectedClass =
                 SourceLinkDocumentMongo.class;
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
+    }
+
+    /** */
+    @Test
+    public void testCreateSubmissionDocument() {
+        final GedObject ged = new Submission();
+        final String typeString = "submission";
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
+        final Class<SubmissionDocumentMongo> expectedClass =
+                SubmissionDocumentMongo.class;
+        assertTrue("Failed document check",
+                checkGedDocument(ged, gmd, typeString, expectedClass));
+    }
+
+    /** */
+    @Test
+    public void testCreateSubmissionLinkDocument() {
+        final GedObject ged = new SubmissionLink();
+        final String typeString = "submissionlink";
+        final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
+        final Class<SubmissionLinkDocumentMongo> expectedClass =
+                SubmissionLinkDocumentMongo.class;
         assertTrue("Failed document check",
                 checkGedDocument(ged, gmd, typeString, expectedClass));
     }

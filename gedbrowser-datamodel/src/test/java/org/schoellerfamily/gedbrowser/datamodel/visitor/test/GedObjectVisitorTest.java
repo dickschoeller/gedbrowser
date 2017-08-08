@@ -29,6 +29,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submission;
+import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
@@ -240,6 +242,24 @@ public class GedObjectVisitorTest {
          * {@inheritDoc}
          */
         @Override
+        public void visit(final Submission submission) {
+            gob = submission;
+            type = "submission";
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void visit(final SubmissionLink submissionLink) {
+            gob = submissionLink;
+            type = "submissionLink";
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
         public void visit(final Submitter submitter) {
             gob = submitter;
             type = "submitter";
@@ -324,6 +344,8 @@ public class GedObjectVisitorTest {
             {new Root(), "root"},
             {new Source(), "source"},
             {new SourceLink(), "sourceLink"},
+            {new Submission(), "submission"},
+            {new SubmissionLink(), "submissionLink"},
             {new Submitter(), "submitter"},
             {new SubmitterLink(), "submitterLink"},
             {new Trailer(), "trailer"},

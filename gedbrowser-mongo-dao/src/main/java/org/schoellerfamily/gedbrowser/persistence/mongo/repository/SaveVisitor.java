@@ -7,6 +7,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.HeadDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NoteDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmissionDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
@@ -56,6 +57,14 @@ public class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
     @Override
     public void visit(final HeadDocumentMongo document) {
         repositoryManager.getHeadDocumentRepository().save(document);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void visit(final SubmissionDocumentMongo document) {
+        repositoryManager.getSubmissionDocumentRepository().save(document);
     }
 
     /**

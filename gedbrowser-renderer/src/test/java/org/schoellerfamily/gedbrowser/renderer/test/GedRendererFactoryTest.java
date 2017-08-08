@@ -21,6 +21,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
+import org.schoellerfamily.gedbrowser.datamodel.Submission;
+import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
@@ -48,6 +50,8 @@ import org.schoellerfamily.gedbrowser.renderer.RootRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SimpleNameRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SourceLinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SourceRenderer;
+import org.schoellerfamily.gedbrowser.renderer.SubmissionLinkRenderer;
+import org.schoellerfamily.gedbrowser.renderer.SubmissionRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmitterLinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SubmitterRenderer;
 import org.schoellerfamily.gedbrowser.renderer.TrailerRenderer;
@@ -225,6 +229,24 @@ public final class GedRendererFactoryTest {
                 grf.create(new SourceLink(), provider, appInfo);
         assertTrue("Expected SourceLinkRenderer",
                 gedRenderer instanceof SourceLinkRenderer);
+    }
+
+    /** */
+    @Test
+    public void testGetSubmissionRenderer() {
+        final GedRenderer<?> gedRenderer =
+                grf.create(new Submission(), provider, appInfo);
+        assertTrue("Expected SubmissionRenderer",
+                gedRenderer instanceof SubmissionRenderer);
+    }
+
+    /** */
+    @Test
+    public void testGetSubmissionLinkRenderer() {
+        final GedRenderer<?> gedRenderer =
+                grf.create(new SubmissionLink(), provider, appInfo);
+        assertTrue("Expected SubmissionLinkRenderer",
+                gedRenderer instanceof SubmissionLinkRenderer);
     }
 
     /** */
