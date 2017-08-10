@@ -12,7 +12,7 @@ echo "New development version will be $new_development_version"
 # Merge to master
 git checkout master
 git pull
-git merge --squash development
+git merge --strategy-option=theirs development
 
 # Fix the version numbers in files.
 sed -i -e "s/$development_version/$release_version/" pom.xml */pom.xml
@@ -56,7 +56,7 @@ git push
 # Merge back to development
 git checkout development
 ##### this next step doesn't work ####
-git merge --squash master
+git merge --strategy-option=theirs master
 
 # Fix up the pom files.
 sed -i -e "s/$release_version/$new_development_version/" pom.xml */pom.xml
