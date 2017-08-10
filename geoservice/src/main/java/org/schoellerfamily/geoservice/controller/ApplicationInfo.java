@@ -10,7 +10,7 @@ public final class ApplicationInfo {
     /** */
     private static final String NAME = "gedbrowser-geoservice";
     /** */
-    private static final String VERSION = "1.2.2";
+    private static final String VERSION = "1.2.3-SNAPSHOT";
     /** */
     private static final String APPLICATION_URL =
             "https://github.com/dickschoeller/gedbrowser";
