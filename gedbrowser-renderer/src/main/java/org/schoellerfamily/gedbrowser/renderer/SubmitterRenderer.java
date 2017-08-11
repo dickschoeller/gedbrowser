@@ -10,8 +10,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
  */
 public final class SubmitterRenderer extends GedRenderer<Submitter>
         implements IndexHrefRenderer<Submitter>, AttributesRenderer<Submitter>,
-        HeaderHrefRenderer<Submitter>, SubmittersHrefRenderer<Submitter>,
-        SourcesHrefRenderer<Submitter> {
+        HeaderHrefRenderer<Submitter>, PlacesHrefRenderer<Submitter>,
+        SubmittersHrefRenderer<Submitter>, SourcesHrefRenderer<Submitter> {
     /**
      * @param gedObject the Submitter that we are going to render
      * @param rendererFactory the factory that creates the renderers for the
