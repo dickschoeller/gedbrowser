@@ -119,6 +119,7 @@ public abstract class AbstractGedObjectFactory {
         tokens.put("AFT", new GedToken("After", ATTR_FACTORY));
         tokens.put("AGE", new GedToken("Age", ATTR_FACTORY));
         tokens.put("ALIA", new GedToken("Alias", ATTR_FACTORY));
+        tokens.put("ANCE", new GedToken("Generations of ancestors", ATTR_FACTORY));
         tokens.put("ANUL", new GedToken("Anullment", ATTR_FACTORY));
         tokens.put("AUDIO", new GedToken("Audio", ATTR_FACTORY));
         tokens.put("AUTH", new GedToken("Author", ATTR_FACTORY));
@@ -155,6 +156,7 @@ public abstract class AbstractGedObjectFactory {
         tokens.put("COURT", new GedToken("Court", ATTR_FACTORY));
         tokens.put("DATE", new GedToken("Date", DATE_FACTORY));
         tokens.put("DEAT", new GedToken("Death", ATTR_FACTORY));
+        tokens.put("DESC", new GedToken("Generations of descendants", ATTR_FACTORY));
         tokens.put("DEST", new GedToken("Destination", ATTR_FACTORY));
         tokens.put("DIV", new GedToken("Divorce", ATTR_FACTORY));
         tokens.put("DIVF", new GedToken("Divorce Final", ATTR_FACTORY));
@@ -169,6 +171,7 @@ public abstract class AbstractGedObjectFactory {
         tokens.put("EXTRACT", new GedToken("Extract", ATTR_FACTORY));
         tokens.put("FAM", new GedToken("Family", FAMILY_FACTORY));
         tokens.put("FAMC", new GedToken("Child of Family", FAMC_FACTORY));
+        tokens.put("FAMF", new GedToken("Family file", ATTR_FACTORY));
         tokens.put("FAMS", new GedToken("Spouse of Family", FAMS_FACTORY));
         tokens.put("FATH", new GedToken("Father", ATTR_FACTORY));
         tokens.put("FEMALE", new GedToken("Female", ATTR_FACTORY));
@@ -225,6 +228,7 @@ public abstract class AbstractGedObjectFactory {
         tokens.put("NUMBER", new GedToken("Number", ATTR_FACTORY));
         tokens.put("OBJE", new GedToken("Multimedia", MULTIMEDIA_FACTORY));
         tokens.put("OCCU", new GedToken("Occupation", ATTR_FACTORY));
+        tokens.put("ORDI", new GedToken("Ordinance process flag", ATTR_FACTORY));
         tokens.put("ORDERED", new GedToken("Ordered", ATTR_FACTORY));
         tokens.put("ORGANIZATION", new GedToken("Organization", ATTR_FACTORY));
         tokens.put("ORIGINAL", new GedToken("Original", ATTR_FACTORY));
@@ -263,6 +267,7 @@ public abstract class AbstractGedObjectFactory {
         tokens.put("SUBM", new GedToken("Submitter", SUBMITTER_FACTORY));
         tokens.put("SUBMITTED", new GedToken("Submitted", ATTR_FACTORY));
         tokens.put("SUBN", new GedToken("Submission", SUBMISSION_FACTORY));
+        tokens.put("TEMP", new GedToken("Temple code", ATTR_FACTORY));
         tokens.put("TEXT", new GedToken("Text", ATTR_FACTORY));
         tokens.put("TIME", new GedToken("Time", ATTR_FACTORY));
         tokens.put("TITL", new GedToken("Title", ATTR_FACTORY));
@@ -819,7 +824,8 @@ public abstract class AbstractGedObjectFactory {
     private GedToken getToken(final String tag) {
         GedToken gedToken = tokens.get(tag);
         if (gedToken == null) {
-            gedToken = tokens.get("ATTRIBUTE");
+            // Any unknown token is an attribute, retaining its tag.
+            gedToken = new GedToken(tag, ATTR_FACTORY);
         }
         return gedToken;
     }
