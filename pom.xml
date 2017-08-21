@@ -60,7 +60,7 @@
     <cglib.version>3.2.5</cglib.version>
     <spring-data-mongodb.version>1.10.6.RELEASE</spring-data-mongodb.version>
     <spring-data-commons.version>1.13.6.RELEASE</spring-data-commons.version>
-    <google-maps-services.version>0.2.1</google-maps-services.version>
+    <google-maps-services.version>0.2.2</google-maps-services.version>
     <jackson-core.version>2.8.9</jackson-core.version>
     <jackson-databind.version>2.8.9</jackson-databind.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
@@ -71,7 +71,7 @@
     <log4j-over-slf4j.version>1.7.25</log4j-over-slf4j.version>
     <logback-classic.version>1.2.3</logback-classic.version>
 
-    <selenium.version>3.4.0</selenium.version>
+    <selenium.version>3.5.1</selenium.version>
     <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
     <htmlunit-driver.version>2.27</htmlunit-driver.version>
 
