@@ -77,7 +77,7 @@
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
     <jacoco-plugin.version>0.7.9</jacoco-plugin.version>
-    <findbugs-plugin.version>3.0.4</findbugs-plugin.version>
+    <findbugs-plugin.version>3.0.5</findbugs-plugin.version>
     <checkstyle-plugin.version>2.17</checkstyle-plugin.version>
     <checkstyle-version>8.1</checkstyle-version>
     <pmd-plugin.version>3.8</pmd-plugin.version>
