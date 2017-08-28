@@ -116,6 +116,7 @@
     <module>gedbrowser-mongo-dao</module>
     <module>gedbrowser-reader</module>
     <module>gedbrowser-renderer</module>
+    <module>gedbrowser-writer</module>
     <module>geoservice</module>
     <module>geoservice-client</module>
     <module>geoservice-common</module>
