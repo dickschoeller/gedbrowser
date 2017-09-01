@@ -42,6 +42,8 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  *
  */
 public class GedWriterLineCreator implements GedObjectVisitor {
+    private static final int MAX_LINE_LENGTH = 200;
+
     /** */
     private int level;
 
@@ -67,7 +69,6 @@ public class GedWriterLineCreator implements GedObjectVisitor {
         map.put("Anullment", "ANUL");
         map.put("Audio", "AUDIO");
         map.put("Author", "AUTH");
-        map.put("Author", "AUTHOR");
         map.put("Baptism", "BAPM");
         map.put("Bar Mitzvah", "BARM");
         map.put("Bat Mitzvah", "BASM");
@@ -85,7 +86,6 @@ public class GedWriterLineCreator implements GedObjectVisitor {
         map.put("Cause", "CAUS");
         map.put("Cemetery", "CEME");
         map.put("Census", "CENS");
-        map.put("Census", "CENSUS");
         map.put("Changed", "CHAN");
         map.put("Character Set", "CHAR");
         map.put("Child", "CHIL");
@@ -244,6 +244,7 @@ public class GedWriterLineCreator implements GedObjectVisitor {
         final GedWriterLine line = new GedWriterLine(level, attribute,
                 level + " " + mapTag(attribute.getString()) + tail(attribute));
         lines.add(line);
+        contAndConc(attribute);
         handleChildren(attribute);
     }
 
@@ -344,9 +345,16 @@ public class GedWriterLineCreator implements GedObjectVisitor {
      */
     @Override
     public void visit(final Note note) {
-        final GedWriterLine line = new GedWriterLine(level, note,
-                level + " @" + note.getString() + "@ NOTE" + tail(note));
-        lines.add(line);
+        if (level == 0) {
+            final GedWriterLine line = new GedWriterLine(level, note,
+                    level + " @" + note.getString() + "@ NOTE" + tail(note));
+            lines.add(line);
+        } else {
+            final GedWriterLine line = new GedWriterLine(level, note,
+                    level + " NOTE" + tail(note));
+            lines.add(line);
+        }
+        contAndConc(note);
         handleChildren(note);
     }
 
@@ -388,6 +396,10 @@ public class GedWriterLineCreator implements GedObjectVisitor {
         for (final Head head : find(root, Head.class)) {
             head.accept(this);
         }
+        final Collection<Submitter> submitters = find(root, Submitter.class);
+        for (final Submitter submitter : submitters) {
+            submitter.accept(this);
+        }
         final Collection<Person> persons = find(root, Person.class);
         for (final Person person : persons) {
             person.accept(this);
@@ -403,10 +415,6 @@ public class GedWriterLineCreator implements GedObjectVisitor {
         final Collection<Note> notes = find(root, Note.class);
         for (final Note note : notes) {
             note.accept(this);
-        }
-        final Collection<Submitter> submitters = find(root, Submitter.class);
-        for (final Submitter submitter : submitters) {
-            submitter.accept(this);
         }
         final Collection<Submission> submissions = find(root, Submission.class);
         for (final Submission submission : submissions) {
@@ -540,16 +548,73 @@ public class GedWriterLineCreator implements GedObjectVisitor {
     }
 
     /**
+     * Break up the input into continuations and concatenations.
+     *
+     * @param note the tail item we are processing
+     */
+    private void contAndConc(final Tail note) {
+        String tailString = note.getTail();
+        level++;
+        final String[] continuations = tailString.split("\n");
+        concatenation(note, continuations[0]);
+        for (int i = 1; i < continuations.length; i++) {
+            final GedWriterLine line = new GedWriterLine(level, (GedObject) note,
+                    level + " CONT " + trimToMaxLength(continuations[i]));
+            lines.add(line);
+            concatenation(note, continuations[i]);
+        }
+        level--;
+    }
+
+    /**
+     * Break up with content at or less than 80 characters.
+     *
+     * @param note the tail item we are processing
+     * @param instring the input string
+     */
+    private void concatenation(final Tail note, final String instring) {
+        String string = instring.substring(trimToMaxLength(instring).length());
+        while (!string.isEmpty()) {
+            final String firstStringSegment = trimToMaxLength(string);
+            final GedWriterLine line = new GedWriterLine(level, (GedObject) note,
+                    level + " CONC " + firstStringSegment);
+            lines.add(line);
+            string = string.substring(firstStringSegment.length());
+        }
+    }
+
+    /**
      * Avoid trailing space.
      *
      * @param tail the object that has a tail of
      * @return the tail string, prepended with space if not empty
      */
     private String tail(final Tail tail) {
-        if (tail.getTail().isEmpty()) {
+        final String tailString = tail.getTail();
+        if (tailString.isEmpty()) {
             return "";
         }
-        return " " + tail.getTail();
+        final int lineBreakIndex = tailString.indexOf("\n");
+        if (lineBreakIndex >= 0) {
+            return " " + trimToMaxLength(tailString.substring(0, lineBreakIndex));
+        }
+        return " " + trimToMaxLength(tailString);
+    }
+
+    /**
+     * @param string
+     * @return
+     */
+    private String trimToMaxLength(String string) {
+        if (string.length() > MAX_LINE_LENGTH) {
+            for (int length = MAX_LINE_LENGTH; length > 0; length--) {
+                if (string.charAt(length) != ' ' && string.charAt(length - 1) != ' ') {
+                    return string.substring(0, length);
+                }
+            }
+            return "";
+        }
+        return string;
     }
 
     /**

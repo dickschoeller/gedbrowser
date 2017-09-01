@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -34,6 +36,9 @@ import org.schoellerfamily.gedbrowser.writer.GedWriterLineCreator;
  */
 @RunWith(Parameterized.class)
 public class GedLineCreatorLinesTest {
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
+
     /**
      * This array contains the expected output and messages to go along with.
      */
@@ -42,6 +47,8 @@ public class GedLineCreatorLinesTest {
             { "Should be an HEAD", "0 HEAD" },
             { "Should be an SUBM", "1 SUBM @SUB1@" },
             { "Should be an SUBN", "1 SUBN @SUBN@" },
+            { "Should be a SUBM", "0 @SUB1@ SUBM" },
+            { "Should be a NAME", "1 NAME Richard/Schoeller/" },
             { "Should be an INDI", "0 @I1@ INDI" },
             { "Should be a NAME", "1 NAME John/Doe/" },
             { "Should be a BIRT", "1 BIRT" },
@@ -49,6 +56,21 @@ public class GedLineCreatorLinesTest {
             { "Should be a PLAC", "2 PLAC Springfield, USA" },
             { "Should be a SOUR", "2 SOUR @S1@" },
             { "Should be a NOTE", "1 NOTE @N1@" },
+            { "Should be a NOTE", "1 NOTE This is an embedded note" },
+            { "Should be a NOTE", "1 NOTE This is an embedded note" },
+            { "Should be a CONT", "2 CONT with continuation" },
+            { "Should be a NOTE", "1 NOTE This is an embedded note with"
+                    + " really, really, really long content, long enough"
+                    + " content to require that a concatentation be used. XXXX"
+                    + " XXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX"
+                    + " XXXXXXXXX X" },
+            { "Should be a CONC", "2 CONC XXXXXXXX XXXXXXXXX XXXXXXXXX"
+                    + " XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX"
+                    + " XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX"
+                    + " XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX"
+                    + " XXXXXXX, XXXX XXXXX" },
+            { "Should be a CONC", "2 CONC X should have broken before the last"
+                    + " X" },
             { "Should be a FAMS", "1 FAMS @F1@" },
             { "Should be an INDI", "0 @I2@ INDI" },
             { "Should be a NAME", "1 NAME Mary/Roe/" },
@@ -68,10 +90,13 @@ public class GedLineCreatorLinesTest {
             { "Should be a CHIL", "1 CHIL @I3@" },
             { "Should be a SOUR", "0 @S1@ SOUR" },
             { "Should be a NOTE", "0 @N1@ NOTE This is a note" },
-            { "Should be a SUBM", "0 @SUB1@ SUBM" },
-            { "Should be a NAME", "1 NAME Richard/Schoeller/" },
             { "Should be a SUBN", "0 @SUBN@ SUBN" },
             { "Should be a TRLR", "0 TRLR" },
+            { "Should not be here", "XXXXX" },
+            { "Should not be here", "XXXXX" },
+            { "Should not be here", "XXXXX" },
+            { "Should not be here", "XXXXX" },
+            { "Should not be here", "XXXXX" },
     };
 
     /**
@@ -80,7 +105,6 @@ public class GedLineCreatorLinesTest {
     @Parameters
     public static Collection<String[]> data() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final GedWriterLineCreator gedLineCreator = new GedWriterLineCreator();
         final Root root = builder.getRoot();
         root.setFilename("huh.ged");
         root.setDbName("huh");
@@ -101,6 +125,25 @@ public class GedLineCreatorLinesTest {
         root.insert(note);
         final NoteLink noteLink1 = new NoteLink(p1, "Note", new ObjectId("N1"));
         p1.addAttribute(noteLink1);
+        final Note note2 = new Note();
+        note2.setParent(p1);
+        note2.appendString("This is an embedded note");
+        p1.addAttribute(note2);
+        final Note note3 = new Note();
+        note3.setParent(p1);
+        note3.appendString("This is an embedded note\nwith continuation");
+        p1.addAttribute(note3);
+
+        final Note note4 = new Note();
+        note4.setParent(p1);
+        note4.appendString("This is an embedded note with"
+        + " really, really, really long content, long enough"
+        + " content to require that a concatentation be used. XXXX XXXX"
+        + " XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX"
+        + " XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX"
+        + " XXXXXXX, XXXX XXXXXX should have broken before the last X");
+        p1.addAttribute(note4);
+
         builder.createSourceLink(birth, source);
         final Person p2 = builder.createPerson("I2", "Mary/Roe/");
         // These are inserted out of order to check that the results are
@@ -117,6 +160,7 @@ public class GedLineCreatorLinesTest {
         final Multimedia multimedia = builder.addMultimediaToPerson(p4, "");
         builder.createAttribute(multimedia, "FILE",
                 "https://archive.org/details/luckybag1924unse");
+        final GedWriterLineCreator gedLineCreator = new GedWriterLineCreator();
         root.accept(gedLineCreator);
         final List<GedWriterLine> lines = gedLineCreator.getLines();
         final List<String[]> parameters = new ArrayList<>();
@@ -152,6 +196,7 @@ public class GedLineCreatorLinesTest {
     /** */
     @Test
     public void testLine() {
+        logger.info("Actual line: " + actual);
         assertEquals(message, expected, actual);
     }
 }
