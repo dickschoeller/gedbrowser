@@ -26,6 +26,9 @@ import org.schoellerfamily.gedbrowser.writer.GedWriterLineCreator;
  */
 @RunWith(Parameterized.class)
 public class ReaderCreatorTest {
+    /**
+     * The file name to use in the test.
+     */
     private static final String FILE_NAME =
             "mini-schoeller.ged";
 // Tests can be done with these others.
@@ -61,7 +64,7 @@ public class ReaderCreatorTest {
     @Parameters
     public static Collection<String[]> data() throws IOException {
         final AbstractGedLine top = readFileTestSource();
-        GedObjectCreator g2g = new GedObjectCreator();
+        final GedObjectCreator g2g = new GedObjectCreator();
         final Root root = g2g.create(top);
         final GedWriterLineCreator gedLineCreator = new GedWriterLineCreator();
         root.accept(gedLineCreator);
@@ -69,15 +72,20 @@ public class ReaderCreatorTest {
         final List<String[]> parameters = new ArrayList<>();
         final Object[] strings = readFileTestSourceAsStrings().toArray();
         for (int i = 0; i < lines.size(); i++) {
-            String expected = expected(strings, i);
-            String actual = lines.get(i).getLine();
-            String[] array = { expected, actual };
+            final String expected = expected(strings, i);
+            final String actual = lines.get(i).getLine();
+            final String[] array = { expected, actual };
             parameters.add(array);
         }
         return parameters;
     }
 
-    private static String expected(final Object[] strings, int i) {
+    /**
+     * @param strings the string array
+     * @param i index into the string array
+     * @return the value at the index or a dummy if overflowed
+     */
+    private static String expected(final Object[] strings, final int i) {
         if (i == 0) {
             return "";
         }

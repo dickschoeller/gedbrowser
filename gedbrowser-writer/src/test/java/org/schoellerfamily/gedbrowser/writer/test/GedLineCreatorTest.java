@@ -36,7 +36,7 @@ public class GedLineCreatorTest {
 
     /** */
     @Before
-    public void setup() {
+    public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         gedLineCreator = new GedWriterLineCreator();
         final Root root = builder.getRoot();

@@ -14,7 +14,7 @@ public class GedWriterFile extends GedWriterLine {
     /**
      * @param root the root object of this structure
      */
-    public GedWriterFile(Root root) {
+    public GedWriterFile(final Root root) {
         super(-1, root, "");
         this.filename = root.getFilename();
         this.dbName = root.getDbName();

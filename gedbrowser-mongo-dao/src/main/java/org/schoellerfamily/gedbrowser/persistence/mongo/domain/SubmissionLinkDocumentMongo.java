@@ -11,8 +11,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
 /**
  * @author Dick Schoeller
  */
-public class SubmissionLinkDocumentMongo extends GedDocumentMongo<SubmissionLink>
-        implements SubmissionLinkDocument {
+public class SubmissionLinkDocumentMongo
+    extends GedDocumentMongo<SubmissionLink>
+    implements SubmissionLinkDocument {
     /**
      * {@inheritDoc}
      */

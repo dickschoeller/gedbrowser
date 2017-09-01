@@ -39,9 +39,11 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
  * @author Dick Schoeller
- *
  */
+@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.GodClass",
+        "PMD.TooManyMethods" })
 public class GedWriterLineCreator implements GedObjectVisitor {
+    /** The maximum length of line content. */
     private static final int MAX_LINE_LENGTH = 200;
 
     /** */
@@ -51,191 +53,191 @@ public class GedWriterLineCreator implements GedObjectVisitor {
     private final List<GedWriterLine> lines = new ArrayList<>();
 
     /** */
-    private static final Map<String, String> map = new HashMap<>();
+    private static final Map<String, String> MAP = new HashMap<>();
     static {
-        map.put("Attribute", "ATTRIBUTE");
-        map.put("Abbreviation", "ABBR");
-        map.put("Abstractor", "ABSTRACTOR");
-        map.put("About", "ABT");
-        map.put("Active", "ACTIVE");
-        map.put("Address", "ADDR");
-        map.put("Adopted", "ADOP");
-        map.put("Adult Baptism", "ADBAP");
-        map.put("Ancestral File Number", "AFN");
-        map.put("After", "AFT");
-        map.put("Age", "AGE");
-        map.put("Alias", "ALIA");
-        map.put("Generations of ancestors", "ANCE");
-        map.put("Anullment", "ANUL");
-        map.put("Audio", "AUDIO");
-        map.put("Author", "AUTH");
-        map.put("Baptism", "BAPM");
-        map.put("Bar Mitzvah", "BARM");
-        map.put("Bat Mitzvah", "BASM");
-        map.put("Before", "BEF");
-        map.put("Begin", "BEGIN");
-        map.put("Between", "BET");
-        map.put("Birth", "BIRT");
-        map.put("Book", "BOOK");
-        map.put("Bris Milah", "BRIS");
-        map.put("Burial", "BURI");
-        map.put("Business", "BUSINESS");
-        map.put("Canceled", "CANCELED");
-        map.put("Card", "CARD");
-        map.put("Caste", "CAST");
-        map.put("Cause", "CAUS");
-        map.put("Cemetery", "CEME");
-        map.put("Census", "CENS");
-        map.put("Changed", "CHAN");
-        map.put("Character Set", "CHAR");
-        map.put("Child", "CHIL");
-        map.put("Christening", "CHR");
-        map.put("Church", "CHURCH");
-        map.put("Compiler", "COMPILER");
-        map.put("Completed", "COMPLETED");
-        map.put("Concatenate", "CONC");
-        map.put("Confirmation", "CONF");
-        map.put("Continuation", "CONT");
-        map.put("Copy", "COPY");
-        map.put("Court", "COURT");
-        map.put("Date", "DATE");
-        map.put("Death", "DEAT");
-        map.put("Generations of descendants", "DESC");
-        map.put("Destination", "DEST");
-        map.put("Divorce", "DIV");
-        map.put("Divorce Final", "DIVF");
-        map.put("Divorced", "DIVORCED");
-        map.put("Done", "DONE");
-        map.put("Editor", "EDITOR");
-        map.put("Education", "EDUC");
-        map.put("Electronic", "ELECTRONIC");
-        map.put("Emigration", "EMIG");
-        map.put("Engaged", "ENGA");
-        map.put("Event", "EVEN");
-        map.put("Extract", "EXTRACT");
-        map.put("Family", "FAM");
-        map.put("Child of Family", "FAMC");
-        map.put("Family file", "FAMF");
-        map.put("Spouse of Family", "FAMS");
-        map.put("Father", "FATH");
-        map.put("Female", "FEMALE");
-        map.put("Fiche", "FICHE");
-        map.put("File", "FILE");
-        map.put("Film", "FILM");
-        map.put("Format", "FORM");
-        map.put("Found", "FOUND");
-        map.put("From", "FROM");
-        map.put("GEDCOM", "GEDC");
-        map.put("Godparent", "GODP");
-        map.put("Government", "GOVERNMENT");
-        map.put("Graduation", "GRAD");
-        map.put("Header", "HEAD");
-        map.put("Heir", "HEIR");
-        map.put("History", "HISTORY");
-        map.put("Husband", "HUSB");
-        map.put("Immigration", "IMMI");
-        map.put("Person", "INDI");
-        map.put("Infant", "INFANT");
-        map.put("Informant", "INFORMANT");
-        map.put("Interview", "INTERVIEW");
-        map.put("Interviewer", "INTERVIEWER");
-        map.put("Issue", "ISSUE");
-        map.put("Item", "ITEM");
-        map.put("Journal", "JOURNAL");
-        map.put("Language", "LANG");
-        map.put("Letter", "LETTER");
-        map.put("Line", "LINE");
-        map.put("Lineage", "LINEAGE");
-        map.put("Link", "LINK");
-        map.put("Magazine", "MAGAZINE");
-        map.put("Male", "MALE");
-        map.put("Manuscript", "MANUSCRIPT");
-        map.put("Map", "MAP");
-        map.put("Marriage Bans", "MARB");
-        map.put("Marriage License", "MARL");
-        map.put("Marriage", "MARR");
-        map.put("Married", "MARRIED");
-        map.put("Media", "MEDI");
-        map.put("Member", "MEMBER");
-        map.put("Military", "MILITARY");
-        map.put("Mother", "MOTH");
-        map.put("Name", "NAME");
-        map.put("Name (religious)", "NAMR");
-        map.put("Naming", "NAMING");
-        map.put("NAMS", "NAMS");
-        map.put("Naturalized", "NATU");
-        map.put("Number of Children", "NCHI");
-        map.put("Newline", "NEWLINE");
-        map.put("Newspaper", "NEWSPAPER");
-        map.put("Not Married", "NMR");
-        map.put("Note", "NOTE");
-        map.put("Number", "NUMBER");
-        map.put("Multimedia", "OBJE");
-        map.put("Occupation", "OCCU");
-        map.put("Ordinance process flag", "ORDI");
-        map.put("Ordered", "ORDERED");
-        map.put("Organization", "ORGANIZATION");
-        map.put("Original", "ORIGINAL");
-        map.put("Other", "OTHER");
-        map.put("Page", "PAGE");
-        map.put("Periodical", "PERIODICAL");
-        map.put("Personal", "PERSONAL");
-        map.put("Phone Number", "PHON");
-        map.put("Photograph", "PHOTO");
-        map.put("Photocopy", "PHOTOCOPY");
-        map.put("Place", "PLAC");
-        map.put("Planned", "PLANNED");
-        map.put("Plot", "PLOT");
-        map.put("Probate", "PROB");
-        map.put("Proved", "PROVED");
-        map.put("Published", "PUBL");
-        map.put("Surety", "QUAY");
-        map.put("Recited", "RECITED");
-        map.put("Reference Number", "REFN");
-        map.put("Religion", "RELI");
-        map.put("Repository", "REPO");
-        map.put("Residence", "RESI");
-        map.put("Restriction", "RESN");
-        map.put("Retired", "RETI");
-        map.put("Role", "ROLE");
-        map.put("Root", "ROOT");
-        map.put("Sex", "SEX");
-        map.put("Single", "SINGLE");
-        map.put("Site", "SITE");
-        map.put("Sound", "SOUND");
-        map.put("Source", "SOUR");
-        map.put("Spouse", "SPOU");
-        map.put("Social Security Number", "SSN");
-        map.put("Stillborn", "STILLBORN");
-        map.put("Submitter", "SUBM");
-        map.put("Submitted", "SUBMITTED");
-        map.put("Submission", "SUBN");
-        map.put("Temple code", "TEMP");
-        map.put("Text", "TEXT");
-        map.put("Time", "TIME");
-        map.put("Title", "TITL");
-        map.put("To", "TO");
-        map.put("Token", "TOKEN");
-        map.put("Tombstone", "TOMBSTONE");
-        map.put("Tradition", "TRADITION");
-        map.put("Transcriber", "TRANSCRIBER");
-        map.put("Transcript", "TRANSCRIPT");
-        map.put("Trailer", "TRLR");
-        map.put("Type", "TYPE");
-        map.put("Underscore", "UNDERSCORE");
-        map.put("Unicode", "UNICODE");
-        map.put("Unpublished", "UNPUBLISHED");
-        map.put("Headstone unveiled", "UNVEIL");
-        map.put("Version", "VERS");
-        map.put("Video", "VIDEO");
-        map.put("Vital", "VITAL");
-        map.put("Widowed", "WIDOWED");
-        map.put("Wife", "WIFE");
-        map.put("Will", "WILL");
-        map.put("Witness", "WITN");
-        map.put("Cross Reference", "XREF");
+        MAP.put("Attribute", "ATTRIBUTE");
+        MAP.put("Abbreviation", "ABBR");
+        MAP.put("Abstractor", "ABSTRACTOR");
+        MAP.put("About", "ABT");
+        MAP.put("Active", "ACTIVE");
+        MAP.put("Address", "ADDR");
+        MAP.put("Adopted", "ADOP");
+        MAP.put("Adult Baptism", "ADBAP");
+        MAP.put("Ancestral File Number", "AFN");
+        MAP.put("After", "AFT");
+        MAP.put("Age", "AGE");
+        MAP.put("Alias", "ALIA");
+        MAP.put("Generations of ancestors", "ANCE");
+        MAP.put("Anullment", "ANUL");
+        MAP.put("Audio", "AUDIO");
+        MAP.put("Author", "AUTH");
+        MAP.put("Baptism", "BAPM");
+        MAP.put("Bar Mitzvah", "BARM");
+        MAP.put("Bat Mitzvah", "BASM");
+        MAP.put("Before", "BEF");
+        MAP.put("Begin", "BEGIN");
+        MAP.put("Between", "BET");
+        MAP.put("Birth", "BIRT");
+        MAP.put("Book", "BOOK");
+        MAP.put("Bris Milah", "BRIS");
+        MAP.put("Burial", "BURI");
+        MAP.put("Business", "BUSINESS");
+        MAP.put("Canceled", "CANCELED");
+        MAP.put("Card", "CARD");
+        MAP.put("Caste", "CAST");
+        MAP.put("Cause", "CAUS");
+        MAP.put("Cemetery", "CEME");
+        MAP.put("Census", "CENS");
+        MAP.put("Changed", "CHAN");
+        MAP.put("Character Set", "CHAR");
+        MAP.put("Child", "CHIL");
+        MAP.put("Christening", "CHR");
+        MAP.put("Church", "CHURCH");
+        MAP.put("Compiler", "COMPILER");
+        MAP.put("Completed", "COMPLETED");
+        MAP.put("Concatenate", "CONC");
+        MAP.put("Confirmation", "CONF");
+        MAP.put("Continuation", "CONT");
+        MAP.put("Copy", "COPY");
+        MAP.put("Court", "COURT");
+        MAP.put("Date", "DATE");
+        MAP.put("Death", "DEAT");
+        MAP.put("Generations of descendants", "DESC");
+        MAP.put("Destination", "DEST");
+        MAP.put("Divorce", "DIV");
+        MAP.put("Divorce Final", "DIVF");
+        MAP.put("Divorced", "DIVORCED");
+        MAP.put("Done", "DONE");
+        MAP.put("Editor", "EDITOR");
+        MAP.put("Education", "EDUC");
+        MAP.put("Electronic", "ELECTRONIC");
+        MAP.put("Emigration", "EMIG");
+        MAP.put("Engaged", "ENGA");
+        MAP.put("Event", "EVEN");
+        MAP.put("Extract", "EXTRACT");
+        MAP.put("Family", "FAM");
+        MAP.put("Child of Family", "FAMC");
+        MAP.put("Family file", "FAMF");
+        MAP.put("Spouse of Family", "FAMS");
+        MAP.put("Father", "FATH");
+        MAP.put("Female", "FEMALE");
+        MAP.put("Fiche", "FICHE");
+        MAP.put("File", "FILE");
+        MAP.put("Film", "FILM");
+        MAP.put("Format", "FORM");
+        MAP.put("Found", "FOUND");
+        MAP.put("From", "FROM");
+        MAP.put("GEDCOM", "GEDC");
+        MAP.put("Godparent", "GODP");
+        MAP.put("Government", "GOVERNMENT");
+        MAP.put("Graduation", "GRAD");
+        MAP.put("Header", "HEAD");
+        MAP.put("Heir", "HEIR");
+        MAP.put("History", "HISTORY");
+        MAP.put("Husband", "HUSB");
+        MAP.put("Immigration", "IMMI");
+        MAP.put("Person", "INDI");
+        MAP.put("Infant", "INFANT");
+        MAP.put("Informant", "INFORMANT");
+        MAP.put("Interview", "INTERVIEW");
+        MAP.put("Interviewer", "INTERVIEWER");
+        MAP.put("Issue", "ISSUE");
+        MAP.put("Item", "ITEM");
+        MAP.put("Journal", "JOURNAL");
+        MAP.put("Language", "LANG");
+        MAP.put("Letter", "LETTER");
+        MAP.put("Line", "LINE");
+        MAP.put("Lineage", "LINEAGE");
+        MAP.put("Link", "LINK");
+        MAP.put("Magazine", "MAGAZINE");
+        MAP.put("Male", "MALE");
+        MAP.put("Manuscript", "MANUSCRIPT");
+        MAP.put("Map", "MAP");
+        MAP.put("Marriage Bans", "MARB");
+        MAP.put("Marriage License", "MARL");
+        MAP.put("Marriage", "MARR");
+        MAP.put("Married", "MARRIED");
+        MAP.put("Media", "MEDI");
+        MAP.put("Member", "MEMBER");
+        MAP.put("Military", "MILITARY");
+        MAP.put("Mother", "MOTH");
+        MAP.put("Name", "NAME");
+        MAP.put("Name (religious)", "NAMR");
+        MAP.put("Naming", "NAMING");
+        MAP.put("NAMS", "NAMS");
+        MAP.put("Naturalized", "NATU");
+        MAP.put("Number of Children", "NCHI");
+        MAP.put("Newline", "NEWLINE");
+        MAP.put("Newspaper", "NEWSPAPER");
+        MAP.put("Not Married", "NMR");
+        MAP.put("Note", "NOTE");
+        MAP.put("Number", "NUMBER");
+        MAP.put("Multimedia", "OBJE");
+        MAP.put("Occupation", "OCCU");
+        MAP.put("Ordinance process flag", "ORDI");
+        MAP.put("Ordered", "ORDERED");
+        MAP.put("Organization", "ORGANIZATION");
+        MAP.put("Original", "ORIGINAL");
+        MAP.put("Other", "OTHER");
+        MAP.put("Page", "PAGE");
+        MAP.put("Periodical", "PERIODICAL");
+        MAP.put("Personal", "PERSONAL");
+        MAP.put("Phone Number", "PHON");
+        MAP.put("Photograph", "PHOTO");
+        MAP.put("Photocopy", "PHOTOCOPY");
+        MAP.put("Place", "PLAC");
+        MAP.put("Planned", "PLANNED");
+        MAP.put("Plot", "PLOT");
+        MAP.put("Probate", "PROB");
+        MAP.put("Proved", "PROVED");
+        MAP.put("Published", "PUBL");
+        MAP.put("Surety", "QUAY");
+        MAP.put("Recited", "RECITED");
+        MAP.put("Reference Number", "REFN");
+        MAP.put("Religion", "RELI");
+        MAP.put("Repository", "REPO");
+        MAP.put("Residence", "RESI");
+        MAP.put("Restriction", "RESN");
+        MAP.put("Retired", "RETI");
+        MAP.put("Role", "ROLE");
+        MAP.put("Root", "ROOT");
+        MAP.put("Sex", "SEX");
+        MAP.put("Single", "SINGLE");
+        MAP.put("Site", "SITE");
+        MAP.put("Sound", "SOUND");
+        MAP.put("Source", "SOUR");
+        MAP.put("Spouse", "SPOU");
+        MAP.put("Social Security Number", "SSN");
+        MAP.put("Stillborn", "STILLBORN");
+        MAP.put("Submitter", "SUBM");
+        MAP.put("Submitted", "SUBMITTED");
+        MAP.put("Submission", "SUBN");
+        MAP.put("Temple code", "TEMP");
+        MAP.put("Text", "TEXT");
+        MAP.put("Time", "TIME");
+        MAP.put("Title", "TITL");
+        MAP.put("To", "TO");
+        MAP.put("Token", "TOKEN");
+        MAP.put("Tombstone", "TOMBSTONE");
+        MAP.put("Tradition", "TRADITION");
+        MAP.put("Transcriber", "TRANSCRIBER");
+        MAP.put("Transcript", "TRANSCRIPT");
+        MAP.put("Trailer", "TRLR");
+        MAP.put("Type", "TYPE");
+        MAP.put("Underscore", "UNDERSCORE");
+        MAP.put("Unicode", "UNICODE");
+        MAP.put("Unpublished", "UNPUBLISHED");
+        MAP.put("Headstone unveiled", "UNVEIL");
+        MAP.put("Version", "VERS");
+        MAP.put("Video", "VIDEO");
+        MAP.put("Vital", "VITAL");
+        MAP.put("Widowed", "WIDOWED");
+        MAP.put("Wife", "WIFE");
+        MAP.put("Will", "WILL");
+        MAP.put("Witness", "WITN");
+        MAP.put("Cross Reference", "XREF");
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -393,40 +395,106 @@ public class GedWriterLineCreator implements GedObjectVisitor {
         final GedWriterFile file = new GedWriterFile(root);
         lines.add(file);
         level = 0;
+        processHead(root);
+        processSubmitters(root);
+        processPersons(root);
+        processFamilies(root);
+        processSources(root);
+        processNotes(root);
+        processSubmissions(root);
+        processTrailers(root);
+    }
+
+    /**
+     * @param root the root of the data set
+     */
+    private void processHead(final Root root) {
         for (final Head head : find(root, Head.class)) {
             head.accept(this);
         }
+    }
+
+    /**
+     * @param root the root of the data set
+     */
+    private void processSubmitters(final Root root) {
         final Collection<Submitter> submitters = find(root, Submitter.class);
         for (final Submitter submitter : submitters) {
             submitter.accept(this);
         }
+    }
+
+    /**
+     * @param root the root of the data set
+     */
+    private void processPersons(final Root root) {
         final Collection<Person> persons = find(root, Person.class);
         for (final Person person : persons) {
             person.accept(this);
         }
+    }
+
+    /**
+     * @param root the root of the data set
+     */
+    private void processFamilies(final Root root) {
         final Collection<Family> families = find(root, Family.class);
         for (final Family family : families) {
             family.accept(this);
         }
+    }
+
+    /**
+     * @param root the root of the data set
+     */
+    private void processSources(final Root root) {
         final Collection<Source> sources = find(root, Source.class);
         for (final Source source : sources) {
             source.accept(this);
         }
+    }
+
+    /**
+     * @param root the root of the data set
+     */
+    private void processNotes(final Root root) {
         final Collection<Note> notes = find(root, Note.class);
         for (final Note note : notes) {
             note.accept(this);
         }
-        final Collection<Submission> submissions = find(root, Submission.class);
+    }
+
+    /**
+     * @param root the root of the data set
+     */
+    private void processSubmissions(final Root root) {
+        final Collection<Submission> submissions =
+                find(root, Submission.class);
         for (final Submission submission : submissions) {
             submission.accept(this);
         }
+    }
+
+    /**
+     * @param root the root of the data set
+     */
+    private void processTrailers(final Root root) {
         final Collection<Trailer> trailers = find(root, Trailer.class);
         for (final Trailer trailer : trailers) {
             trailer.accept(this);
         }
     }
 
-    private <T extends GedObject> Collection<T> find(final Root root, final Class<T> clazz) {
+    /**
+     * Find all of the items of a particular type in this data set and sort by
+     * ID.
+     * @param root the root that identifies the data set
+     * @param clazz the class
+     * @param <T> the data type to be compared
+     * @return the collection of matching items
+     */
+    private <T extends GedObject> Collection<T> find(final Root root,
+            final Class<T> clazz) {
         final Collection<T> collection = root.find(clazz);
         final Set<T> set = new TreeSet<>(new IdComparator<>());
         set.addAll(collection);
@@ -513,7 +581,8 @@ public class GedWriterLineCreator implements GedObjectVisitor {
      * @param gedObject the ged object
      * @param tag its tag
      */
-    private void createIdentifiedRecordLine(final GedObject gedObject, final String tag) {
+    private void createIdentifiedRecordLine(final GedObject gedObject,
+            final String tag) {
         final GedWriterLine line = new GedWriterLine(level, gedObject,
                 level + " @" + gedObject.getString() + "@ " + tag);
         lines.add(line);
@@ -524,23 +593,24 @@ public class GedWriterLineCreator implements GedObjectVisitor {
      * Create a line representing a link to another object.
      *
      * @param link the object defining in the link
-     * @return the line
      */
     private void createLinkLine(final AbstractLink link) {
         final GedWriterLine line = new GedWriterLine(level, link,
-                level + " " + mapTag(link.getString()) + " @" + link.getToString() + "@");
+                level + " " + mapTag(link.getString())
+                + " @" + link.getToString() + "@");
         lines.add(line);
         handleChildren(link);
     }
 
     /**
-     * Sometimes a tag is used that isn't in the list.
+     * Get the tag that goes with this long string. Sometimes a tag is used
+     * that isn't in the list. Then we just return the tag.
      *
-     * @param tag
-     * @return
+     * @param tag the long string
+     * @return the tag
      */
     private String mapTag(final String tag) {
-        final String mappedTag = map.get(tag);
+        final String mappedTag = MAP.get(tag);
         if (mappedTag != null) {
             return mappedTag;
         }
@@ -550,37 +620,62 @@ public class GedWriterLineCreator implements GedObjectVisitor {
     /**
      * Break up the input into continuations and concatenations.
      *
-     * @param note the tail item we are processing
+     * @param tail the tail item we are processing
      */
-    private void contAndConc(final Tail note) {
-        String tailString = note.getTail();
+    private void contAndConc(final Tail tail) {
+        final String tailString = tail.getTail();
         level++;
         final String[] continuations = tailString.split("\n");
-        concatenation(note, continuations[0]);
+        concatenation(tail, continuations[0]);
         for (int i = 1; i < continuations.length; i++) {
-            final GedWriterLine line = new GedWriterLine(level, (GedObject) note,
-                    level + " CONT " + trimToMaxLength(continuations[i]));
+            final GedWriterLine line =
+                    createContinuationLine(tail, continuations, i);
             lines.add(line);
-            concatenation(note, continuations[i]);
+            concatenation(tail, continuations[i]);
         }
         level--;
     }
 
     /**
+     * @param tail the tail object being processed
+     * @param continuations the array of continuations
+     * @param i the index
+     * @return the line
+     */
+    private GedWriterLine createContinuationLine(final Tail tail,
+            final String[] continuations, final int i) {
+        return new GedWriterLine(level, (GedObject) tail,
+                level
+                + " CONT "
+                + trimToMaxLength(continuations[i]));
+    }
+
+    /**
      * Break up with content at or less than 80 characters.
      *
-     * @param note the tail item we are processing
+     * @param tail the tail item we are processing
      * @param instring the input string
      */
-    private void concatenation(final Tail note, final String instring) {
+    private void concatenation(final Tail tail, final String instring) {
         String string = instring.substring(trimToMaxLength(instring).length());
         while (!string.isEmpty()) {
             final String firstStringSegment = trimToMaxLength(string);
-            final GedWriterLine line = new GedWriterLine(level, (GedObject) note,
-                    level + " CONC " + firstStringSegment);
+            final GedWriterLine line =
+                    createConcatenationLine(tail, firstStringSegment);
             lines.add(line);
             string = string.substring(firstStringSegment.length());
         }
+    }
+
+    /**
+     * @param tail the tail we are processing
+     * @param firstStringSegment the line segment for this CONT line
+     * @return the writer line
+     */
+    private GedWriterLine createConcatenationLine(final Tail tail,
+            final String firstStringSegment) {
+        return new GedWriterLine(level, (GedObject) tail,
+                level + " CONC " + firstStringSegment);
     }
 
     /**
@@ -596,19 +691,24 @@ public class GedWriterLineCreator implements GedObjectVisitor {
         }
         final int lineBreakIndex = tailString.indexOf("\n");
         if (lineBreakIndex >= 0) {
-            return " " + trimToMaxLength(tailString.substring(0, lineBreakIndex));
+            return " "
+                    + trimToMaxLength(tailString.substring(0, lineBreakIndex));
         }
         return " " + trimToMaxLength(tailString);
     }
 
     /**
-     * @param string
-     * @return
+     * Return a string trimmed to the max length. Trimmed string may not end
+     * space. Remainder may not start with space.
+     *
+     * @param string the string to trim
+     * @return the trimmed string
      */
-    private String trimToMaxLength(String string) {
+    private String trimToMaxLength(final String string) {
         if (string.length() > MAX_LINE_LENGTH) {
             for (int length = MAX_LINE_LENGTH; length > 0; length--) {
-                if (string.charAt(length) != ' ' && string.charAt(length - 1) != ' ') {
+                if (string.charAt(length) != ' '
+                        && string.charAt(length - 1) != ' ') {
                     return string.substring(0, length);
                 }
             }

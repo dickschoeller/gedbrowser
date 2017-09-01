@@ -39,6 +39,13 @@ public class GedLineCreatorLinesTest {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
+    /** */
+    private final String message;
+    /** */
+    private final String expected;
+    /** */
+    private final String actual;
+
     /**
      * This array contains the expected output and messages to go along with.
      */
@@ -165,21 +172,14 @@ public class GedLineCreatorLinesTest {
         final List<GedWriterLine> lines = gedLineCreator.getLines();
         final List<String[]> parameters = new ArrayList<>();
         for (int i = 0; i < lines.size(); i++) {
-            String message = output[i][0];
-            String expected = output[i][1];
-            String actual = lines.get(i).getLine();
-            String[] array = { message, expected, actual };
+            final String message = output[i][0];
+            final String expected = output[i][1];
+            final String actual = lines.get(i).getLine();
+            final String[] array = { message, expected, actual };
             parameters.add(array);
         }
         return parameters;
     }
-
-    /** */
-    private final String message;
-    /** */
-    private final String expected;
-    /** */
-    private final String actual;
 
     /**
      * @param message the message string

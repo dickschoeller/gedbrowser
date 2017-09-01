@@ -16,9 +16,10 @@ public class GedWriterLine {
     /**
      * @param level the GEDCOM object level
      * @param gedObject the GEDCOM object that this line represents
-     * @param line the line 
+     * @param line the line
      */
-    public GedWriterLine(final int level, final GedObject gedObject, final String line) {
+    public GedWriterLine(final int level, final GedObject gedObject,
+            final String line) {
         this.level = level;
         this.gedObject = gedObject;
         this.line = line;

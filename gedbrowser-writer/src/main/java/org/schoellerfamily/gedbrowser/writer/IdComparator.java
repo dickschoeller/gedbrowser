@@ -8,7 +8,9 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
  * Trying to sort IDs naturally. That is, I1, I2, I3... I10, I11, etc.
  *
  * @author Dick Schoeller
+ * @param <T> the data type to be compared
  */
+@SuppressWarnings("PMD.CyclomaticComplexity")
 public class IdComparator<T extends GedObject> implements Comparator<T> {
     /**
      * {@inheritDoc}
@@ -21,21 +23,20 @@ public class IdComparator<T extends GedObject> implements Comparator<T> {
 
         final String s1 = arg0.getString();
         final String s2 = arg1.getString();
-        if ((s1 == null) || (s2 == null)) 
-        {
+        if ((s1 == null) || (s2 == null)) {
             return 0;
         }
 
         int thisMarker = 0;
         int thatMarker = 0;
-        int s1Length = s1.length();
-        int s2Length = s2.length();
+        final int s1Length = s1.length();
+        final int s2Length = s2.length();
 
         while (thisMarker < s1Length && thatMarker < s2Length) {
-            String thisChunk = getChunk(s1, s1Length, thisMarker);
+            final String thisChunk = getChunk(s1, s1Length, thisMarker);
             thisMarker += thisChunk.length();
 
-            String thatChunk = getChunk(s2, s2Length, thatMarker);
+            final String thatChunk = getChunk(s2, s2Length, thatMarker);
             thatMarker += thatChunk.length();
 
             int result = 0;
@@ -78,11 +79,11 @@ public class IdComparator<T extends GedObject> implements Comparator<T> {
     }
 
     /**
-     * Compare two chunks based on assumed same length.
+     * Compare two chunks based on assumed same length. 0 if the same.
      *
-     * @param thisChunk
-     * @param thatChunk
-     * @return
+     * @param thisChunk chunk 0
+     * @param thatChunk chunk 1
+     * @return the comparison result
      */
     private int compareChunks(final String thisChunk, final String thatChunk) {
         final int thisChunkLength = thisChunk.length();
@@ -96,16 +97,14 @@ public class IdComparator<T extends GedObject> implements Comparator<T> {
     }
 
     /**
-     * Get a chunk of the string that is consistent about being either a number
-     * or not a number. Length of string is passed in for improved efficiency
-     * (only need to calculate it once).
-     *
+     * Get a chunk of the string that is all digits or all not digits. Length
+     * of string is passed in for improved efficiency (calculate once).
      * @param string the string being chunked
      * @param slength the length of the string
      * @param marker the starting point for processing
      * @return the chunk
      */
-    private final String getChunk(final String string, final int slength,
+    private String getChunk(final String string, final int slength,
             final int marker) {
         if (isDigit(string.charAt(marker))) {
             return getNumericChunk(string, slength, marker);
@@ -120,15 +119,13 @@ public class IdComparator<T extends GedObject> implements Comparator<T> {
      * @param ch the character to check
      * @return true if it's a digit
      */
-    private final boolean isDigit(final char ch) {
+    private boolean isDigit(final char ch) {
         return ((ch >= '0') && (ch <= '9'));
     }
 
     /**
-     * Get a chunk of the string that is consistent about being not a number.
-     * Length of string is passed in for improved efficiency (only need to
-     * calculate it once).
-     *
+     * Get a chunk of the string that is consistently not digits. Length of
+     * string is passed in for improved efficiency (calculate once).
      * @param string the string being chunked
      * @param slength the length of the string
      * @param marker the starting point for processing
@@ -139,18 +136,17 @@ public class IdComparator<T extends GedObject> implements Comparator<T> {
         final StringBuilder chunk = new StringBuilder();
         for (int index = marker; index < slength; index++) {
             final char c = string.charAt(index);
-            if (isDigit(c))
+            if (isDigit(c)) {
                 break;
+            }
             chunk.append(c);
         }
         return chunk.toString();
     }
 
     /**
-     * Get a chunk of the string that is consistent about being either a number.
-     * Length of string is passed in for improved efficiency (only need to
-     * calculate it once).
-     *
+     * Get a chunk of the string that is consistently digits. Length of
+     * string is passed in for improved efficiency (calculate once).
      * @param string the string being chunked
      * @param slength the length of the string
      * @param marker the starting point for processing
@@ -161,8 +157,9 @@ public class IdComparator<T extends GedObject> implements Comparator<T> {
         final StringBuilder chunk = new StringBuilder();
         for (int index = marker; index < slength; index++) {
             final char c = string.charAt(index);
-            if (!isDigit(c))
+            if (!isDigit(c)) {
                 break;
+            }
             chunk.append(c);
         }
         return chunk.toString();
