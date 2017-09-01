@@ -18,8 +18,9 @@ public final class SubmissionNotFoundException extends ObjectNotFoundException {
      * @param datasetName the name of the dataset being searched
      * @param context the rendering context
      */
-    public SubmissionNotFoundException(final String message, final String sourceId,
-            final String datasetName, final RenderingContext context) {
+    public SubmissionNotFoundException(final String message,
+            final String sourceId, final String datasetName,
+            final RenderingContext context) {
         super(message, sourceId, datasetName, context);
     }
 

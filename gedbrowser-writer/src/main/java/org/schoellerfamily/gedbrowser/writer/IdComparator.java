@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.schoellerfamily.gedbrowser.writer;
 
 import java.util.Comparator;
@@ -17,7 +14,7 @@ public class IdComparator<T extends GedObject> implements Comparator<T> {
      * {@inheritDoc}
      */
     @Override
-    public int compare(T arg0, T arg1) {
+    public int compare(final T arg0, final T arg1) {
         if (arg0 == null || arg1 == null) {
             return 0;
         }
@@ -61,7 +58,8 @@ public class IdComparator<T extends GedObject> implements Comparator<T> {
      * @param thatChunk string 2
      * @return the difference (0 if the same)
      */
-    private int compareNumericChunks(String thisChunk, String thatChunk) {
+    private int compareNumericChunks(final String thisChunk,
+            final String thatChunk) {
         final int diff = lengthDifference(thisChunk, thatChunk);
         if (diff != 0) {
             return diff;
@@ -74,7 +72,8 @@ public class IdComparator<T extends GedObject> implements Comparator<T> {
      * @param thatChunk string two
      * @return the difference in length (l1 - l2)
      */
-    private int lengthDifference(String thisChunk, String thatChunk) {
+    private int lengthDifference(final String thisChunk,
+            final String thatChunk) {
         return thisChunk.length() - thatChunk.length();
     }
 
@@ -85,10 +84,10 @@ public class IdComparator<T extends GedObject> implements Comparator<T> {
      * @param thatChunk
      * @return
      */
-    private int compareChunks(String thisChunk, String thatChunk) {
+    private int compareChunks(final String thisChunk, final String thatChunk) {
         final int thisChunkLength = thisChunk.length();
         for (int i = 0; i < thisChunkLength; i++) {
-            int result = thisChunk.charAt(i) - thatChunk.charAt(i);
+            final int result = thisChunk.charAt(i) - thatChunk.charAt(i);
             if (result != 0) {
                 return result;
             }
@@ -121,7 +120,7 @@ public class IdComparator<T extends GedObject> implements Comparator<T> {
      * @param ch the character to check
      * @return true if it's a digit
      */
-    private final boolean isDigit(char ch) {
+    private final boolean isDigit(final char ch) {
         return ((ch >= '0') && (ch <= '9'));
     }
 
