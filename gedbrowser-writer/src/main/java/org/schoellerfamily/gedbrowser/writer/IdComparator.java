@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.writer;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -11,7 +12,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
  * @param <T> the data type to be compared
  */
 @SuppressWarnings("PMD.CyclomaticComplexity")
-public class IdComparator<T extends GedObject> implements Comparator<T> {
+public class IdComparator<T extends GedObject>
+        implements Comparator<T>, Serializable {
+    /** */
+    private static final long serialVersionUID = 1L;
+
     /**
      * {@inheritDoc}
      */
