@@ -52,7 +52,7 @@ public class GedWriter {
      * Save the existing version of the file.
      */
     private void backup() {
-        final File dest = new File(root.getFilename());
+        final File dest = createFile(root.getFilename());
         if (dest.exists()) {
             final File backupFile = generateBackupFilename();
             dest.renameTo(backupFile);
@@ -65,12 +65,19 @@ public class GedWriter {
     private File generateBackupFilename() {
         int i = 1;
         while (true) {
-            final String backupFilename = root.getFinder() + "." + i;
-            final File backupFile = new File(backupFilename);
+            final File backupFile = createFile(root.getFinder() + "." + i);
             if (!backupFile.exists()) {
                 return backupFile;
             }
             i++;
         }
+    }
+
+    /**
+     * @param filename the name of the file to create
+     * @return the file object
+     */
+    public File createFile(final String filename) {
+        return new File(filename);
     }
 }

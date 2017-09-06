@@ -75,7 +75,8 @@ public final class HeadTest {
         assertTrue("Should contain submitterLink",
                 head.getAttributes().contains(submitterLink));
         assertTrue("Should contain date", head.getAttributes().contains(date));
-        for (Map.Entry<String, Attribute> entry : attributeChecks.entrySet()) {
+        for (final Map.Entry<String, Attribute> entry : attributeChecks
+                .entrySet()) {
             assertTrue(entry.getKey(),
                     head.getAttributes().contains(entry.getValue()));
         }
