@@ -82,7 +82,8 @@ public class GedLineCreatorTest {
     @Test
     public void testLineCount() {
         final Collection<GedWriterLine> lines = gedLineCreator.getLines();
-        assertEquals("Should have just one item", 33, lines.size());
+        final int expected = 33;
+        assertEquals("Output size mismatch", expected, lines.size());
     }
 
     /** */
@@ -90,7 +91,8 @@ public class GedLineCreatorTest {
     public void testRootFilename() {
         final List<GedWriterLine> lines = gedLineCreator.getLines();
         final GedWriterFile file = (GedWriterFile) lines.get(0);
-        assertEquals("Should be the filename set above", "huh.ged", file.getFilename());
+        assertEquals("Should be the filename set above", "huh.ged",
+                file.getFilename());
     }
 
     /** */
@@ -98,6 +100,7 @@ public class GedLineCreatorTest {
     public void testRootDbName() {
         final List<GedWriterLine> lines = gedLineCreator.getLines();
         final GedWriterFile file = (GedWriterFile) lines.get(0);
-        assertEquals("Should be the DB name set above", "huh", file.getDbName());
+        assertEquals("Should be the DB name set above", "huh",
+                file.getDbName());
     }
 }

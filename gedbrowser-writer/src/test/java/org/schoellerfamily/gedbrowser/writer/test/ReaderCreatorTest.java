@@ -46,7 +46,6 @@ public class ReaderCreatorTest {
     private final String actual;
 
     /**
-     * @param message the message string
      * @param expected the expected line string
      * @param actual the actual line string
      */
@@ -74,7 +73,7 @@ public class ReaderCreatorTest {
         for (int i = 0; i < lines.size(); i++) {
             final String expected = expected(strings, i);
             final String actual = lines.get(i).getLine();
-            final String[] array = { expected, actual };
+            final String[] array = {expected, actual};
             parameters.add(array);
         }
         return parameters;
@@ -112,7 +111,8 @@ public class ReaderCreatorTest {
      * @return a stream of strings
      * @throws IOException because reader might throw.
      */
-    private static Stream<String> readFileTestSourceAsStrings() throws IOException {
+    private static Stream<String> readFileTestSourceAsStrings()
+            throws IOException {
         return TestResourceReader.readFileTestSourceAsStrings(
                 "", FILE_NAME);
     }

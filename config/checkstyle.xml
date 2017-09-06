@@ -14,8 +14,6 @@ Allow field shadowing with constructor and setter arguments
   <property name="fileExtensions" value="java, xml, properties, html, yml, txt, css"/>
   <property name="severity" value="warning"/>
   <module name="TreeWalker">
-    <module name="SuppressionCommentFilter"/>
-    <module name="FileContentsHolder"/>
     <module name="JavadocMethod">
       <property name="suppressLoadErrors" value="true"/>
     </module>

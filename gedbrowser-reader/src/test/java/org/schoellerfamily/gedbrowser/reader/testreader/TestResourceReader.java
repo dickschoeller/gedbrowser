@@ -67,8 +67,8 @@ public final class TestResourceReader {
      * @return the strings of the file
      * @throws IOException because reader might throw.
      */
-    public static Stream<String> readFileTestSourceAsStrings(final Object caller,
-            final String filename) throws IOException {
+    public static Stream<String> readFileTestSourceAsStrings(
+            final Object caller, final String filename) throws IOException {
         InputStream fis;
         if (filename.charAt(0) == '/') {
             fis = new FileInputStream(filename);

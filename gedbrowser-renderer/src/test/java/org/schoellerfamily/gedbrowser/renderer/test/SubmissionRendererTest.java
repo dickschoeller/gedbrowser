@@ -141,15 +141,16 @@ public final class SubmissionRendererTest {
     @Test
     public void testNullIdString() {
         final SubmissionRenderer renderer = createRenderer();
-        assertEquals("Expected empty submission ID", "", renderer.getIdString());
+        assertEquals("Expected empty submission ID", "",
+                renderer.getIdString());
     }
 
     /**
      * @return the renderer
      */
     private SubmissionRenderer createRenderer() {
-        return new SubmissionRenderer(new Submission(), new GedRendererFactory(),
-                anonymousContext);
+        return new SubmissionRenderer(new Submission(),
+                new GedRendererFactory(), anonymousContext);
     }
 
     /**
