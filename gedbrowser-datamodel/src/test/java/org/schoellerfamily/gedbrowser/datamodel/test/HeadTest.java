@@ -3,6 +3,9 @@ package org.schoellerfamily.gedbrowser.datamodel.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -46,39 +49,36 @@ public final class HeadTest {
         builder.createAttribute(date, "TIME", "22:04");
         final Attribute chars = builder.createAttribute(head, "CHAR", "ANSI");
 
-        assertHeadValid(head, soLink, vers, suLink, gedc, dest, date, chars);
+        final Map<String, Attribute> attributeChecks = new HashMap<>();
+        attributeChecks.put("Should contain version", vers);
+        attributeChecks.put("Should contain gedc item", gedc);
+        attributeChecks.put("Should contain dest", dest);
+        attributeChecks.put("Should contain charset", chars);
+        assertHeadValid(head, soLink, suLink, date, attributeChecks);
     }
 
     /**
      * @param head the head we're checking
      * @param sourceLink the expected source link
-     * @param version the expected version
      * @param submitterLink the expected submitter link
-     * @param gedc the expected gedc descriptor
-     * @param dest the expected destination
      * @param date the expected date
-     * @param charset the expected charset
+     * @param attributeChecks maps of messages to attributes to check
      */
-    // CHECKSTYLE:OFF
     private void assertHeadValid(final Head head, final SourceLink sourceLink,
-            final Attribute version, final SubmitterLink submitterLink,
-            final Attribute gedc, final Attribute dest, final Date date,
-            final Attribute charset) {
-        // CHECKSTYLE:ON
+            final SubmitterLink submitterLink,
+            final Date date,
+            final Map<String, Attribute> attributeChecks) {
         assertEquals("Mismatch attribute count", ATTRIBUTE_COUNT,
                 head.getAttributes().size());
         assertTrue("Should contain sourceLink",
                 head.getAttributes().contains(sourceLink));
-        assertTrue("Should contain version",
-                head.getAttributes().contains(version));
         assertTrue("Should contain submitterLink",
                 head.getAttributes().contains(submitterLink));
-        assertTrue("Should contain gedc item",
-                head.getAttributes().contains(gedc));
-        assertTrue("Should contain dest", head.getAttributes().contains(dest));
         assertTrue("Should contain date", head.getAttributes().contains(date));
-        assertTrue("Should contain charset",
-                head.getAttributes().contains(charset));
+        for (Map.Entry<String, Attribute> entry : attributeChecks.entrySet()) {
+            assertTrue(entry.getKey(),
+                    head.getAttributes().contains(entry.getValue()));
+        }
     }
 
     /** */
