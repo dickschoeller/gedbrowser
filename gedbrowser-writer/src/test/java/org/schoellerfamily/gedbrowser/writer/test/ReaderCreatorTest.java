@@ -19,7 +19,7 @@ import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestResourceReader;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
-import org.schoellerfamily.gedbrowser.writer.GedWriterLineCreator;
+import org.schoellerfamily.gedbrowser.writer.creator.GedWriterLineCreator;
 
 /**
  * @author Dick Schoeller

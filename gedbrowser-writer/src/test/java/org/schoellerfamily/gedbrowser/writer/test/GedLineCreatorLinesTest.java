@@ -29,7 +29,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
-import org.schoellerfamily.gedbrowser.writer.GedWriterLineCreator;
+import org.schoellerfamily.gedbrowser.writer.creator.GedWriterLineCreator;
 
 /**
  * @author Dick Schoeller
