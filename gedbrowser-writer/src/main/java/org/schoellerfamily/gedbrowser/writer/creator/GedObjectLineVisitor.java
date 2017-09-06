@@ -12,7 +12,7 @@ import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
  */
 public interface GedObjectLineVisitor extends GedObjectVisitor {
     /** The maximum length of line content. */
-    static final int MAX_LINE_LENGTH = 200;
+    int MAX_LINE_LENGTH = 200;
 
     /**
      * @return the current level being processed

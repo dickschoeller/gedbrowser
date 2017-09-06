@@ -293,12 +293,14 @@ public class GedWriterLineCreator implements AttributeLineVisitor,
     @Override
     public void visit(final Note note) {
         if (level == 0) {
-            final GedWriterLine line = new GedWriterLine(getLevel(), note,
-                    getLevel() + " @" + note.getString() + "@ NOTE" + tail(note));
+            final GedWriterLine line =
+                    new GedWriterLine(getLevel(), note, getLevel() + " @"
+                            + note.getString() + "@ NOTE" + tail(note));
             getLines().add(line);
         } else {
-            final GedWriterLine line = new GedWriterLine(getLevel(), note,
-                    getLevel() + " NOTE" + tail(note));
+            final GedWriterLine line =
+                    new GedWriterLine(getLevel(), note,
+                            getLevel() + " NOTE" + tail(note));
             getLines().add(line);
         }
         contAndConc(note);

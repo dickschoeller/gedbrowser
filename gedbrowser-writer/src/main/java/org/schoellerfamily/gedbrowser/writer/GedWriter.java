@@ -72,7 +72,8 @@ public class GedWriter {
     }
 
     /**
-     * Loop through the lines from the line creator and write them to the stream.
+     * Loop through the lines from the line creator and write them to the
+     * stream.
      *
      * @param stream the stream to write to
      * @throws IOException if there is a problem writing to the stream

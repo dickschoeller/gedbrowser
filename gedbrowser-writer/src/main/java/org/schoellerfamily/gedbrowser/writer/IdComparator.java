@@ -44,13 +44,7 @@ public class IdComparator<T extends GedObject>
             final String thatChunk = getChunk(s2, s2Length, thatMarker);
             thatMarker += thatChunk.length();
 
-            int result = 0;
-            if (isDigit(thisChunk.charAt(0)) && isDigit(thatChunk.charAt(0))) {
-                result = compareNumericChunks(thisChunk, thatChunk);
-            } else {
-                result = thisChunk.compareTo(thatChunk);
-            }
-
+            final int result = compareChunksOfEitherType(thisChunk, thatChunk);
             if (result != 0) {
                 return result;
             }
@@ -60,9 +54,27 @@ public class IdComparator<T extends GedObject>
     }
 
     /**
-     * @param thisChunk string 1
-     * @param thatChunk string 2
-     * @return the difference (0 if the same)
+     * @param thisChunk the first chunk to be compared
+     * @param thatChunk the second chunk to be compared
+     * @return a negative integer, zero, or a positive integer as the first
+     *      argument is less than, equal to, or greater than the second 
+     */
+    private int compareChunksOfEitherType(final String thisChunk,
+            final String thatChunk) {
+        int result = 0;
+        if (isDigit(thisChunk.charAt(0)) && isDigit(thatChunk.charAt(0))) {
+            result = compareNumericChunks(thisChunk, thatChunk);
+        } else {
+            result = thisChunk.compareTo(thatChunk);
+        }
+        return result;
+    }
+
+    /**
+     * @param thisChunk the first chunk to be compared
+     * @param thatChunk the second chunk to be compared
+     * @return a negative integer, zero, or a positive integer as the first
+     *      argument is less than, equal to, or greater than the second 
      */
     private int compareNumericChunks(final String thisChunk,
             final String thatChunk) {
@@ -74,8 +86,8 @@ public class IdComparator<T extends GedObject>
     }
 
     /**
-     * @param thisChunk string one
-     * @param thatChunk string two
+     * @param thisChunk the first chunk to be compared
+     * @param thatChunk the second chunk to be compared
      * @return the difference in length (l1 - l2)
      */
     private int lengthDifference(final String thisChunk,
@@ -86,9 +98,9 @@ public class IdComparator<T extends GedObject>
     /**
      * Compare two chunks based on assumed same length. 0 if the same.
      *
-     * @param thisChunk chunk 0
-     * @param thatChunk chunk 1
-     * @return the comparison result
+     * @param thisChunk the first chunk to be compared
+     * @param thatChunk the second chunk to be compared
+     * @return the difference in length (l1 - l2)
      */
     private int compareChunks(final String thisChunk, final String thatChunk) {
         final int thisChunkLength = thisChunk.length();

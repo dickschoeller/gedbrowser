@@ -15,8 +15,9 @@ public interface AttributeLineVisitor extends GedObjectLineVisitor {
      */
     @Override
     default void visit(final Attribute attribute) {
-        final GedWriterLine line = new GedWriterLine(getLevel(), attribute,
-                getLevel() + " " + mapTag(attribute.getString()) + tail(attribute));
+        final GedWriterLine line =
+                new GedWriterLine(getLevel(), attribute, getLevel() + " "
+                        + mapTag(attribute.getString()) + tail(attribute));
         getLines().add(line);
         contAndConc(attribute);
         handleChildren(attribute);
