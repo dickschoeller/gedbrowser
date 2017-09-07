@@ -57,7 +57,7 @@ public class IdComparator<T extends GedObject>
      * @param thisChunk the first chunk to be compared
      * @param thatChunk the second chunk to be compared
      * @return a negative integer, zero, or a positive integer as the first
-     *      argument is less than, equal to, or greater than the second 
+     *      argument is less than, equal to, or greater than the second
      */
     private int compareChunksOfEitherType(final String thisChunk,
             final String thatChunk) {
@@ -74,7 +74,7 @@ public class IdComparator<T extends GedObject>
      * @param thisChunk the first chunk to be compared
      * @param thatChunk the second chunk to be compared
      * @return a negative integer, zero, or a positive integer as the first
-     *      argument is less than, equal to, or greater than the second 
+     *      argument is less than, equal to, or greater than the second
      */
     private int compareNumericChunks(final String thisChunk,
             final String thatChunk) {
