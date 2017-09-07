@@ -119,7 +119,8 @@ public abstract class AbstractGedObjectFactory {
         tokens.put("AFT", new GedToken("After", ATTR_FACTORY));
         tokens.put("AGE", new GedToken("Age", ATTR_FACTORY));
         tokens.put("ALIA", new GedToken("Alias", ATTR_FACTORY));
-        tokens.put("ANCE", new GedToken("Generations of ancestors", ATTR_FACTORY));
+        tokens.put("ANCE",
+                new GedToken("Generations of ancestors", ATTR_FACTORY));
         tokens.put("ANUL", new GedToken("Anullment", ATTR_FACTORY));
         tokens.put("AUDIO", new GedToken("Audio", ATTR_FACTORY));
         tokens.put("AUTH", new GedToken("Author", ATTR_FACTORY));
@@ -156,7 +157,8 @@ public abstract class AbstractGedObjectFactory {
         tokens.put("COURT", new GedToken("Court", ATTR_FACTORY));
         tokens.put("DATE", new GedToken("Date", DATE_FACTORY));
         tokens.put("DEAT", new GedToken("Death", ATTR_FACTORY));
-        tokens.put("DESC", new GedToken("Generations of descendants", ATTR_FACTORY));
+        tokens.put("DESC",
+                new GedToken("Generations of descendants", ATTR_FACTORY));
         tokens.put("DEST", new GedToken("Destination", ATTR_FACTORY));
         tokens.put("DIV", new GedToken("Divorce", ATTR_FACTORY));
         tokens.put("DIVF", new GedToken("Divorce Final", ATTR_FACTORY));
@@ -228,7 +230,8 @@ public abstract class AbstractGedObjectFactory {
         tokens.put("NUMBER", new GedToken("Number", ATTR_FACTORY));
         tokens.put("OBJE", new GedToken("Multimedia", MULTIMEDIA_FACTORY));
         tokens.put("OCCU", new GedToken("Occupation", ATTR_FACTORY));
-        tokens.put("ORDI", new GedToken("Ordinance process flag", ATTR_FACTORY));
+        tokens.put("ORDI",
+                new GedToken("Ordinance process flag", ATTR_FACTORY));
         tokens.put("ORDERED", new GedToken("Ordered", ATTR_FACTORY));
         tokens.put("ORGANIZATION", new GedToken("Organization", ATTR_FACTORY));
         tokens.put("ORIGINAL", new GedToken("Original", ATTR_FACTORY));
@@ -663,7 +666,8 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class SubmissionLinkFactory extends AbstractGedObjectFactory {
+    private static class SubmissionLinkFactory
+            extends AbstractGedObjectFactory {
         /**
          * {@inheritDoc}
          */

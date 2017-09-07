@@ -11,7 +11,8 @@ public class SubmissionLinkNameHtmlRenderer implements NameHtmlRenderer {
      *
      * @param submissionLinkRenderer the parent renderer
      */
-    public SubmissionLinkNameHtmlRenderer(final SubmissionLinkRenderer submissionLinkRenderer) {
+    public SubmissionLinkNameHtmlRenderer(
+            final SubmissionLinkRenderer submissionLinkRenderer) {
         this.submissionLinkRenderer = submissionLinkRenderer;
     }
 

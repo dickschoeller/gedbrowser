@@ -135,7 +135,8 @@ public final class SubmissionRepositoryTest {
     @Test
     public void testFindAllFilename() {
         final Iterable<SubmissionDocument> list =
-                submissionDocumentRepository.findAll(rootDocument.getFilename());
+                submissionDocumentRepository.findAll(
+                        rootDocument.getFilename());
         int count = 0;
         for (final SubmissionDocument submission : list) {
             checkEquals("Type string mismatch",

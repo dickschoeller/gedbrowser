@@ -422,13 +422,17 @@ public final class GedLineTest {
             for (final GedObject gob : head.getAttributes()) {
                 if (gob instanceof SubmissionLink) {
                     final SubmissionLink submissionLink = (SubmissionLink) gob;
-                    checkEquals("getFromString mismatch", "Header", submissionLink.getFromString());
-                    checkEquals("getToString mismatch", "SUBMISSION", submissionLink.getToString());
-                    checkEquals("toString mismatch", "Submission", submissionLink.toString());
+                    checkEquals("getFromString mismatch", "Header",
+                            submissionLink.getFromString());
+                    checkEquals("getToString mismatch", "SUBMISSION",
+                            submissionLink.getToString());
+                    checkEquals("toString mismatch", "Submission",
+                            submissionLink.toString());
                 }
             }
         }
-        assertEquals("getString mismatch", "SUBMISSION", submission.getString());
+        assertEquals("getString mismatch", "SUBMISSION",
+                submission.getString());
     }
 
     /**

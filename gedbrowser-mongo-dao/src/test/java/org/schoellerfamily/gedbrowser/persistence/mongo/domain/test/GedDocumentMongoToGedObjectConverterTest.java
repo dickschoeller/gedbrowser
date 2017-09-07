@@ -213,7 +213,8 @@ public final class GedDocumentMongoToGedObjectConverterTest {
     /** */
     @Test
     public void testCreateSubmissionLink() {
-        final SubmissionLinkDocumentMongo gmd = new SubmissionLinkDocumentMongo();
+        final SubmissionLinkDocumentMongo gmd =
+                new SubmissionLinkDocumentMongo();
         gmd.setString("SubmissionLink");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", SubmissionLink.class, ged.getClass());

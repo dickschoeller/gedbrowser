@@ -44,10 +44,12 @@ public final class SubmissionLinkPhraseRendererTest {
         final Head head = new Head(root, "Head");
         root.insert(head);
 
-        final Submission submission = new Submission(root, new ObjectId("SUBN1"));
+        final Submission submission =
+                new Submission(root, new ObjectId("SUBN1"));
         root.insert(submission);
 
-        submissionLink = new SubmissionLink(head, "Submission", new ObjectId("SUBN1"));
+        submissionLink =
+                new SubmissionLink(head, "Submission", new ObjectId("SUBN1"));
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 

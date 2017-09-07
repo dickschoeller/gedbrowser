@@ -65,13 +65,13 @@
     <jackson-databind.version>2.8.9</jackson-databind.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.9.9</joda-time.version>
-    <undertow.version>1.4.19.Final</undertow.version>
+    <undertow.version>1.4.20.Final</undertow.version>
     <sauce_junit.version>2.1.23</sauce_junit.version>
     <geojson-jackson.version>1.8</geojson-jackson.version>
     <log4j-over-slf4j.version>1.7.25</log4j-over-slf4j.version>
     <logback-classic.version>1.2.3</logback-classic.version>
 
-    <selenium.version>3.5.2</selenium.version>
+    <selenium.version>3.5.3</selenium.version>
     <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
     <htmlunit-driver.version>2.27</htmlunit-driver.version>
 
@@ -79,7 +79,7 @@
     <jacoco-plugin.version>0.7.9</jacoco-plugin.version>
     <findbugs-plugin.version>3.0.5</findbugs-plugin.version>
     <checkstyle-plugin.version>2.17</checkstyle-plugin.version>
-    <checkstyle-version>8.1</checkstyle-version>
+    <checkstyle-version>8.2</checkstyle-version>
     <pmd-plugin.version>3.8</pmd-plugin.version>
     <pmd-version>5.8.1</pmd-version>
     <build-helper-plugin.version>3.0.0</build-helper-plugin.version>
@@ -116,6 +116,7 @@
     <module>gedbrowser-mongo-dao</module>
     <module>gedbrowser-reader</module>
     <module>gedbrowser-renderer</module>
+    <module>gedbrowser-writer</module>
     <module>geoservice</module>
     <module>geoservice-client</module>
     <module>geoservice-common</module>
