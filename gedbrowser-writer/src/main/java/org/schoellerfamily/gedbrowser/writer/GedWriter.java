@@ -73,7 +73,7 @@ public class GedWriter {
     private File generateBackupFilename() {
         int i = 1;
         while (true) {
-            final File backupFile = createFile(root.getFinder() + "." + i);
+            final File backupFile = createFile(root.getFilename() + "." + i);
             if (!backupFile.exists()) {
                 return backupFile;
             }
@@ -91,8 +91,12 @@ public class GedWriter {
     private void writeTheLines(final BufferedOutputStream stream)
             throws IOException {
         for (final GedWriterLine line : creator.getLines()) {
+            if (line.getLine().isEmpty()) {
+                continue;
+            }
             final String string = line.getLine();
             stream.write(string.getBytes("UTF-8"));
+            stream.write('\n');
         }
     }
 
@@ -100,7 +104,7 @@ public class GedWriter {
      * @param filename the name of the file to create
      * @return the file object
      */
-    public File createFile(final String filename) {
+    private File createFile(final String filename) {
         return new File(filename);
     }
 }
