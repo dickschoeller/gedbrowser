@@ -51,8 +51,10 @@ public class GedWriter {
     }
 
     /**
-     * Save the existing version of the file.
-     * @throws IOException 
+     * Save the existing version of the file by renaming it to something ending
+     * with .&lt;number&gt;.
+     *
+     * @throws IOException if the rename fails 
      */
     private void backup() throws IOException {
         final File dest = createFile(root.getFilename());
