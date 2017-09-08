@@ -40,7 +40,9 @@ public class GedWriterTest {
     /** */
     private String filename;
 
-    /** */
+    /**
+     * @throws IOException if there are problems reading the data file
+     */
     @Before
     public void setUp() throws IOException {
         final AbstractGedLine top = readFileTestSource();
@@ -66,7 +68,9 @@ public class GedWriterTest {
         assertSuccess();
     }
 
-    /** */
+    /**
+     * @throws IOException if there are problems reading or writing files
+     */
     private void assertSuccess() throws IOException {
         logger.info("originalFilename: " + FILE_NAME);
         logger.info("filename: " + filename);
@@ -89,9 +93,9 @@ public class GedWriterTest {
     /**
      * Clean up the files that might be sitting in the temp directory.
      *
-     * @param filename the filename that we'll be doing stuff with
+     * @param baseFilename the filename that we'll be doing stuff with
      */
-    private void cleanTemp(final String filename) {
+    private void cleanTemp(final String baseFilename) {
         final File folder = new File("/tmp");
         final File[] files = folder.listFiles(new FilenameFilter() {
             /**
@@ -99,7 +103,7 @@ public class GedWriterTest {
              */
             @Override
             public boolean accept(final File dir, final String name) {
-                return name.matches(filename + ".*");
+                return name.matches(baseFilename + ".*");
             }
         });
         for (final File delFile : files) {
