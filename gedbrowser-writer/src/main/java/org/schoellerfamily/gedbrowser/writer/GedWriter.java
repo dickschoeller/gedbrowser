@@ -35,7 +35,11 @@ public class GedWriter {
      */
     public void write() {
         root.accept(creator);
-        backup();
+        try {
+            backup();
+        } catch (IOException e) {
+            logger.error("Problem backing up old copy of GEDCOM file", e);
+        }
         final String filename = root.getFilename();
         try (FileOutputStream fstream = new FileOutputStream(filename);
                 BufferedOutputStream bstream = new BufferedOutputStream(
@@ -47,13 +51,19 @@ public class GedWriter {
     }
 
     /**
-     * Save the existing version of the file.
+     * Save the existing version of the file by renaming it to something ending
+     * with .&lt;number&gt;.
+     *
+     * @throws IOException if the rename fails
      */
-    private void backup() {
+    private void backup() throws IOException {
         final File dest = createFile(root.getFilename());
         if (dest.exists()) {
             final File backupFile = generateBackupFilename();
-            dest.renameTo(backupFile);
+            if (!dest.renameTo(backupFile)) {
+                throw new IOException("Could not rename file from "
+                        + dest.getName() + " to " + backupFile.getName());
+            }
         }
     }
 
@@ -82,7 +92,7 @@ public class GedWriter {
             throws IOException {
         for (final GedWriterLine line : creator.getLines()) {
             final String string = line.getLine();
-            stream.write(string.getBytes());
+            stream.write(string.getBytes("UTF-8"));
         }
     }
 
