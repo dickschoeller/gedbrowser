@@ -43,7 +43,7 @@ public final class TestResourceReader {
         String shortername;
         InputStream fis;
         if (filename.charAt(0) == '/') {
-            shortname = filename.substring(filename.lastIndexOf("/"));
+            shortname = filename.substring(filename.lastIndexOf("/") + 1);
             shortername = shortname.substring(0, shortname.indexOf("."));
             fis = new FileInputStream(filename);
         } else {
