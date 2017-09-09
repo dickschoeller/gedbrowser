@@ -5,6 +5,12 @@ import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
+import org.schoellerfamily.gedbrowser.renderer.href.HeaderHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.IndexHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.PlacesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SaveHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
  * Render a Note.
@@ -13,8 +19,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Note;
  */
 public final class NoteRenderer extends GedRenderer<Note>
         implements HeaderHrefRenderer<Note>, IndexHrefRenderer<Note>,
-            PlacesHrefRenderer<Note>, SourcesHrefRenderer<Note>,
-            SubmittersHrefRenderer<Note> {
+            PlacesHrefRenderer<Note>, SaveHrefRenderer<Note>,
+            SourcesHrefRenderer<Note>, SubmittersHrefRenderer<Note> {
     /**
      * @param gedObject the Note that we are going to render
      * @param rendererFactory the factory that creates the renderers for the

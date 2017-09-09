@@ -413,6 +413,11 @@
       </dependency>
       <dependency>
         <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>gedbrowser-writer</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
         <artifactId>geoservice</artifactId>
         <version>${gedbrowser.version}</version>
       </dependency>

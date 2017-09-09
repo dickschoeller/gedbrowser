@@ -6,6 +6,12 @@ import java.util.List;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.SourceVisitor;
+import org.schoellerfamily.gedbrowser.renderer.href.HeaderHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.IndexHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.PlacesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SaveHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
  * Render a Source.
@@ -14,8 +20,8 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.SourceVisitor;
  */
 public final class SourceRenderer extends GedRenderer<Source>
         implements HeaderHrefRenderer<Source>, IndexHrefRenderer<Source>,
-            PlacesHrefRenderer<Source>, SourcesHrefRenderer<Source>,
-            SubmittersHrefRenderer<Source> {
+            PlacesHrefRenderer<Source>, SaveHrefRenderer<Source>,
+            SourcesHrefRenderer<Source>, SubmittersHrefRenderer<Source> {
     /**
      * @param gedObject the Source that we are going to render
      * @param rendererFactory the factory that creates the renderers for the

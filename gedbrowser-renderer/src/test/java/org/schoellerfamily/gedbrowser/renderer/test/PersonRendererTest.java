@@ -1448,6 +1448,22 @@ public final class PersonRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
+    public void testSaveMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Person> persons = root.find(Person.class);
+        for (final Person person : persons) {
+            final PersonRenderer renderer = createRenderer(person);
+            assertEquals("save href mismatch",
+                    "save?db=gl120368", renderer.getSaveHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
     public void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Person> persons = root.find(Person.class);

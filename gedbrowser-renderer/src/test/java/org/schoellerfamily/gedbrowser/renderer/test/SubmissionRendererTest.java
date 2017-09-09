@@ -159,13 +159,29 @@ public final class SubmissionRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testHeaderMenuItem() throws IOException {
+    public void testHeadMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Submission> submissions = root.find(Submission.class);
         for (final Submission submission : submissions) {
             final SubmissionRenderer renderer = createRenderer(submission);
             assertEquals("head href mismatch",
                     "head?db=gl120368", renderer.getHeaderHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSaveMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Submission> submissions = root.find(Submission.class);
+        for (final Submission submission : submissions) {
+            final SubmissionRenderer renderer = createRenderer(submission);
+            assertEquals("save href mismatch",
+                    "save?db=gl120368", renderer.getSaveHref());
         }
     }
 
