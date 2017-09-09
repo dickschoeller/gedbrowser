@@ -12,24 +12,36 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
+import org.schoellerfamily.gedbrowser.reader.test.TestConfiguration;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestResourceReader;
 import org.schoellerfamily.gedbrowser.writer.GedWriter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Dick Schoeller
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestConfiguration.class })
 public class GedWriterTest {
+    /** */
+    @Autowired
+    private transient GedObjectCreator g2g;
+
+    /** */
+    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
+    private transient String gedbrowserHome;
+
     /**
      * The file name to use in the test.
      */
-    private static final String FILE_NAME =
-            "/var/lib/gedbrowser/mini-schoeller.ged";
-// Tests can be done with these others.
-//            "/var/lib/gedbrowser/schoeller.ged";
-//            "gl120368.ged";
+    private String inputFilename;
 
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
@@ -45,8 +57,8 @@ public class GedWriterTest {
      */
     @Before
     public void setUp() throws IOException {
+        inputFilename = gedbrowserHome + "/mini-schoeller.ged";
         final AbstractGedLine top = readFileTestSource();
-        final GedObjectCreator g2g = new GedObjectCreator();
         root = g2g.create(top);
         logger.info("dbName: " + root.getDbName());
         filename = root.getDbName() + ".ged";
@@ -72,9 +84,9 @@ public class GedWriterTest {
      * @throws IOException if there are problems reading or writing files
      */
     private void assertSuccess() throws IOException {
-        logger.info("originalFilename: " + FILE_NAME);
+        logger.info("originalFilename: " + inputFilename);
         logger.info("filename: " + filename);
-        final File original = new File(FILE_NAME);
+        final File original = new File(inputFilename);
         final File result = new File("/tmp/" + filename);
         assertTrue("File content should match",
                 FileUtils.contentEquals(original, result));
@@ -119,8 +131,8 @@ public class GedWriterTest {
      * @return a populated GedLine parse tree.
      * @throws IOException because reader might throw.
      */
-    private static AbstractGedLine readFileTestSource() throws IOException {
+    private AbstractGedLine readFileTestSource() throws IOException {
         return TestResourceReader.readFileTestSource(
-                "", FILE_NAME);
+                "", inputFilename);
     }
 }
