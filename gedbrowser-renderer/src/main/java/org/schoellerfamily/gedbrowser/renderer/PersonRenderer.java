@@ -10,6 +10,12 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
+import org.schoellerfamily.gedbrowser.renderer.href.HeaderHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.IndexHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.PlacesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SaveHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
  * Render a Person.
@@ -19,7 +25,8 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 public final class PersonRenderer extends GedRenderer<Person>
         implements HeaderHrefRenderer<Person>, IndexHrefRenderer<Person>,
         PlacesHrefRenderer<Person>, PersonLifeSpanRenderer, PersonNameRenderer,
-        SourcesHrefRenderer<Person>, SubmittersHrefRenderer<Person> {
+        SaveHrefRenderer<Person>, SourcesHrefRenderer<Person>,
+        SubmittersHrefRenderer<Person> {
     /**
      * Connection to helper to estimate whether this person is living.
      */

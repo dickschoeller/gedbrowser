@@ -53,7 +53,7 @@ public class SourcesController extends DatedDataController {
         model.addAttribute("model", gedRenderer);
         model.addAttribute("appInfo", appInfo);
 
-        logger.debug("Exiting submitters");
+        logger.debug("Exiting sources");
         return "sources";
     }
 }

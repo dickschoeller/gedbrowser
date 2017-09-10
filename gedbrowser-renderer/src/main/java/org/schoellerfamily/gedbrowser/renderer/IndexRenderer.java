@@ -10,14 +10,20 @@ import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
+import org.schoellerfamily.gedbrowser.renderer.href.HeaderHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.IndexHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.PlacesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SaveHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
  * @author Dick Schoeller
  */
 public final class IndexRenderer extends GedRenderer<Root>
         implements HeaderHrefRenderer<Root>, IndexHrefRenderer<Root>,
-        PlacesHrefRenderer<Root>, SourcesHrefRenderer<Root>,
-        SubmittersHrefRenderer<Root> {
+        PlacesHrefRenderer<Root>, SaveHrefRenderer<Root>,
+        SourcesHrefRenderer<Root>, SubmittersHrefRenderer<Root> {
     /** Logger. */
     private final Log logger = LogFactory.getLog(getClass());
 

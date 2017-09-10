@@ -239,13 +239,45 @@ public final class NoteRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testHeaderMenuItem() throws IOException {
+    public void testHeadMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
             final NoteRenderer renderer = createRenderer(note);
             assertEquals("head href mismatch",
                     "head?db=gl120368", renderer.getHeaderHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSaveMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Note> notes = root.find(Note.class);
+        for (final Note note : notes) {
+            final NoteRenderer renderer = createRenderer(note);
+            assertEquals("save href mismatch",
+                    "save?db=gl120368", renderer.getSaveHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSaveFilename() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Note> notes = root.find(Note.class);
+        for (final Note note : notes) {
+            final NoteRenderer renderer = createRenderer(note);
+            assertEquals("save href mismatch",
+                    "gl120368.ged", renderer.getSaveFilename());
         }
     }
 

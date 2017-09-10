@@ -12,14 +12,20 @@ import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.renderer.href.HeaderHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.IndexHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.PlacesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SaveHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
  * @author Dick Schoeller
  */
 public final class LivingRenderer extends GedRenderer<Root>
         implements HeaderHrefRenderer<Root>, IndexHrefRenderer<Root>,
-        PlacesHrefRenderer<Root>, SubmittersHrefRenderer<Root>,
-        SourcesHrefRenderer<Root> {
+        PlacesHrefRenderer<Root>, SaveHrefRenderer<Root>,
+        SubmittersHrefRenderer<Root>, SourcesHrefRenderer<Root> {
     /** Logger. */
     private final Log logger = LogFactory.getLog(getClass());
 

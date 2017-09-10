@@ -62,6 +62,10 @@
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
+      <artifactId>gedbrowser-writer</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-renderer</artifactId>
     </dependency>
     <dependency>
