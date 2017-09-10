@@ -168,6 +168,22 @@ public final class HeadRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
+    public void testSaveFilename() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Head> heads = root.find(Head.class);
+        for (final Head head : heads) {
+            final HeadRenderer renderer = createRenderer(head);
+            assertEquals("save href mismatch",
+                    "gl120368.ged", renderer.getSaveFilename());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
     public void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         for (final Head head : root.find(Head.class)) {

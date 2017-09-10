@@ -187,6 +187,20 @@ public final class LivingRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
+    public void testSaveFilename() throws IOException {
+        final Root root1 = reader.readFileTestSource();
+        final LivingRenderer renderer = new LivingRenderer(root1,
+                userContext);
+        assertEquals("save href mismatch",
+                "gl120368.ged", renderer.getSaveFilename());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
     public void testIndexMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1,

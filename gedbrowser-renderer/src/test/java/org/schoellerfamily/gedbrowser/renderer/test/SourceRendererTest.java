@@ -227,6 +227,22 @@ public final class SourceRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
+    public void testSaveFilename() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Source> sources = root.find(Source.class);
+        for (final Source source : sources) {
+            final SourceRenderer renderer = createRenderer(source);
+            assertEquals("save href mismatch",
+                    "gl120368.ged", renderer.getSaveFilename());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
     public void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Source> sources = root.find(Source.class);

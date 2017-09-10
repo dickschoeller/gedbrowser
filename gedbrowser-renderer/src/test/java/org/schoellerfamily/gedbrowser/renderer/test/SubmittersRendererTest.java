@@ -106,6 +106,20 @@ public final class SubmittersRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
+    public void testSaveFilename() throws IOException {
+        final Root root1 = reader.readFileTestSource();
+        final SubmittersRenderer renderer = new SubmittersRenderer(root1,
+                anonymousContext);
+        assertEquals("save href mismatch",
+                "gl120368.ged", renderer.getSaveFilename());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
     public void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final SubmittersRenderer renderer = new SubmittersRenderer(root,
