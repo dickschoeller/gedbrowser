@@ -48,10 +48,18 @@ public class SaveController extends AbstractController {
 
         final Root root = fetchRoot(dbName);
 
-        response.setHeader("content-type", "application/octet-stream");
-        response.setHeader("content-disposition",
-                "attachment; filename=" + getSaveFilename(root));
+        setHeaders(response, root);
 
+        final String contents = renderGedFile(root);
+        logger.debug("Exiting save");
+        return contents;
+    }
+
+    /**
+     * @param root the dataset to render
+     * @return the gedcom file as a string
+     */
+    private String renderGedFile(final Root root) {
         final GedWriterLineCreator gedLineCreator = new GedWriterLineCreator();
         root.accept(gedLineCreator);
         final StringBuilder builder = new StringBuilder();
@@ -61,8 +69,21 @@ public class SaveController extends AbstractController {
             }
             builder.append(line.getLine()).append("\n");
         }
-        logger.debug("Exiting save");
         return builder.toString();
+    }
+
+    /**
+     * Fill in response headers to make this save the file instead of
+     * displaying it.
+     *
+     * @param response the servlet response
+     * @param root the root of the dataset being saved
+     */
+    private void setHeaders(final HttpServletResponse response,
+            final Root root) {
+        response.setHeader("content-type", "application/octet-stream");
+        response.setHeader("content-disposition",
+                "attachment; filename=" + getSaveFilename(root));
     }
 
     /**
