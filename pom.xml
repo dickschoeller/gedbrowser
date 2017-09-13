@@ -84,7 +84,7 @@
     <pmd-version>5.8.1</pmd-version>
     <build-helper-plugin.version>3.0.0</build-helper-plugin.version>
     <jxr-plugin.version>2.5</jxr-plugin.version>
-    <compiler-plugin.version>3.6.2</compiler-plugin.version>
+    <compiler-plugin.version>3.7.0</compiler-plugin.version>
     <war-plugin.version>3.1.0</war-plugin.version>
     <source-plugin.version>3.0.1</source-plugin.version>
     <failsafe.version>2.20</failsafe.version>
