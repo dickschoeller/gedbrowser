@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
@@ -41,14 +40,14 @@ public class SaveController extends AbstractController {
         logger.debug("Entering save");
 
         final RenderingContext context = createRenderingContext();
-        if (!context.isAdmin() && !context.isUser()) {
-            throw new ObjectNotFoundException("Can't find save", "ROOT", dbName,
-                    context);
-        }
 
         final Root root = fetchRoot(dbName);
 
         setHeaders(response, root);
+
+        if (!context.isAdmin()) {
+            return "Sorry, you aren't authorized to do that!";
+        }
 
         final String contents = renderGedFile(root);
         logger.debug("Exiting save");
