@@ -12,7 +12,7 @@
             <span><a th:href="${model.indexHref}" id="index-menu">Index</a></span>
             <span><a th:href="${model.sourcesHref}" id="sources-menu">Sources</a></span>
             <span><a th:href="${model.submittersHref}" id="submitters-menu">Submitters</a></span>
-            <span><a th:if="${model.hasRole('USER')}" th:href="${model.saveHref}" id="save-menu" th:attr="download=${model.saveFilename}">Save</a></span>
+            <span><a th:if="${model.hasRole('ADMIN')}" th:href="${model.saveHref}" id="save-menu" th:attr="download=${model.saveFilename}">Save</a></span>
             <span><a th:if="${model.hasRole('ADMIN')}" th:href="${model.livingHref}" id="living-menu">Living</a></span>
             <span><a th:if="${model.hasRole('ADMIN')}" th:href="${model.placesHref}" id="places-menu">Places</a></span>
         </span>
@@ -46,7 +46,7 @@
             <span><a th:href="${error.exception.indexHref}" id="index-menu">Index</a></span>
             <span><a th:href="${error.exception.sourcesHref}" id="sources-menu">Sources</a></span>
             <span><a th:href="${error.exception.submittersHref}" id="submitters-menu">Submitters</a></span>
-            <span><a th:if="${error.exception.hasRole('USER')}" th:href="${error.exception.saveHref}" id="save-menu">Save</a></span>
+            <span><a th:if="${error.exception.hasRole('ADMIN')}" th:href="${error.exception.saveHref}" id="save-menu">Save</a></span>
             <span><a th:if="${error.exception.hasRole('ADMIN')}" th:href="${error.exception.livingHref}" id="living-menu">Living</a></span>
             <span><a th:if="${error.exception.hasRole('ADMIN')}" th:href="${error.exception.placesHref}" id="places-menu">Places</a></span>
         </span>
