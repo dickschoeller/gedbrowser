@@ -33,6 +33,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
 import org.schoellerfamily.gedbrowser.persistence.PersistenceException;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
+import org.schoellerfamily.gedbrowser.persistence.domain.GedDocumentVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.AttributeDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.ChildDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.DateDocumentMongo;
@@ -213,7 +214,8 @@ public final class GedDocumentMongoToGedObjectConverterTest {
     /** */
     @Test
     public void testCreateSubmissionLink() {
-        final SubmissionLinkDocumentMongo gmd = new SubmissionLinkDocumentMongo();
+        final SubmissionLinkDocumentMongo gmd =
+                new SubmissionLinkDocumentMongo();
         gmd.setString("SubmissionLink");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals("Wrong class", SubmissionLink.class, ged.getClass());
@@ -308,6 +310,14 @@ public final class GedDocumentMongoToGedObjectConverterTest {
              */
             @Override
             public void accept(final GedDocumentMongoVisitor visitor) {
+                visitor.visit(this);
+            }
+
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void accept(final GedDocumentVisitor visitor) {
                 visitor.visit(this);
             }
         };

@@ -28,7 +28,8 @@ public class SubmissionTest {
     @Test
     public void testSubmissionGedObjectCompare() {
         final Root root = builder.getRoot();
-        final Submission submission = new Submission(root, new ObjectId("SUBN1"));
+        final Submission submission =
+                new Submission(root, new ObjectId("SUBN1"));
         root.insert(submission);
         final GedObject gob = root.find("SUBN1");
         assertEquals("Found wrong submission", submission, gob);
@@ -46,7 +47,8 @@ public class SubmissionTest {
     @Test
     public void testSubmissionGedObjectStringGetString() {
         final Root root = builder.getRoot();
-        final Submission submission = new Submission(root, new ObjectId("SUBN1"));
+        final Submission submission =
+                new Submission(root, new ObjectId("SUBN1"));
         root.insert(submission);
         assertEquals("Expected submission 1", "SUBN1", submission.getString());
     }

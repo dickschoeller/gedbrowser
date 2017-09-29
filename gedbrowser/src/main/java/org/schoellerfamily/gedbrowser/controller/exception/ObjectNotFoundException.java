@@ -64,6 +64,13 @@ public class ObjectNotFoundException extends RuntimeException {
     }
 
     /**
+     * @return href string to the index page for surnames beginning with A.
+     */
+    public String getSaveHref() {
+        return "save?db=" + datasetName;
+    }
+
+    /**
      * @return href string to the index page for sources.
      */
     public String getSourcesHref() {

@@ -1,6 +1,11 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
+import org.schoellerfamily.gedbrowser.renderer.href.HeaderHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.IndexHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SaveHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
  * Render a Submission.
@@ -8,9 +13,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Submission;
  * @author Dick Schoeller
  */
 public final class SubmissionRenderer extends GedRenderer<Submission>
-        implements IndexHrefRenderer<Submission>, AttributesRenderer<Submission>,
-        HeaderHrefRenderer<Submission>, SubmittersHrefRenderer<Submission>,
-        SourcesHrefRenderer<Submission> {
+        implements AttributesRenderer<Submission>,
+        HeaderHrefRenderer<Submission>,
+        IndexHrefRenderer<Submission>,
+        SaveHrefRenderer<Submission>,
+        SourcesHrefRenderer<Submission>,
+        SubmittersHrefRenderer<Submission> {
     /**
      * @param gedObject the Submission that we are going to render
      * @param rendererFactory the factory that creates the renderers for the

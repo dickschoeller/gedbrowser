@@ -15,4 +15,12 @@ public interface PersonDocument extends GedDocument<Person> {
      * @return the index string for this person.
      */
     String getIndexName();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    default void accept(GedDocumentVisitor visitor) {
+        visitor.visit(this);
+    }
 }

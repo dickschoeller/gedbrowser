@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.renderer;
+package org.schoellerfamily.gedbrowser.renderer.href;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 

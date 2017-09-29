@@ -15,7 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.geographics.Places;
 import org.schoellerfamily.gedbrowser.geographics.RootPlaces;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
-import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestResourceReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -32,7 +32,7 @@ public class RootPlacesTest {
 
     /** */
     @Autowired
-    private transient GedObjectCreator g2g;
+    private transient GedLineToGedObjectTransformer g2g;
 
     /**
      * Right now, reads and dumps. Just checking for apparent

@@ -35,15 +35,15 @@ public class SubmissionDocumentRepositoryMongoImpl implements
             final String filename, final String string) {
         final Query searchQuery = new Query(Criteria.where("string").is(string)
                 .and("filename").is(filename));
-        final SubmissionDocument submissionDocument =
-                mongoTemplate.findOne(searchQuery, SubmissionDocumentMongo.class);
-        if (submissionDocument == null) {
+        final SubmissionDocument submDocument = mongoTemplate
+                .findOne(searchQuery, SubmissionDocumentMongo.class);
+        if (submDocument == null) {
             return null;
         }
-        final Submission submission =
-                (Submission) toObjConverter.createGedObject(null, submissionDocument);
-        submissionDocument.setGedObject(submission);
-        return submissionDocument;
+        final Submission submission = (Submission) toObjConverter
+                .createGedObject(null, submDocument);
+        submDocument.setGedObject(submission);
+        return submDocument;
     }
 
     /**
@@ -75,11 +75,11 @@ public class SubmissionDocumentRepositoryMongoImpl implements
             return null;
         }
         final List<SubmissionDocument> submissionDocuments = new ArrayList<>();
-        for (final SubmissionDocument submissionDocument : submissionDocumentsMongo) {
-            final Submission submission = (Submission) toObjConverter.createGedObject(
-                    null, submissionDocument);
-            submissionDocument.setGedObject(submission);
-            submissionDocuments.add(submissionDocument);
+        for (final SubmissionDocument submDocument : submissionDocumentsMongo) {
+            final Submission submission = (Submission) toObjConverter
+                    .createGedObject(null, submDocument);
+            submDocument.setGedObject(submission);
+            submissionDocuments.add(submDocument);
         }
         return submissionDocuments;
     }
@@ -95,8 +95,8 @@ public class SubmissionDocumentRepositoryMongoImpl implements
         if (submissionDocuments == null) {
             return null;
         }
-        for (final SubmissionDocument submissionDocument : submissionDocuments) {
-            final Submission submission = submissionDocument.getGedObject();
+        for (final SubmissionDocument submDocument : submissionDocuments) {
+            final Submission submission = submDocument.getGedObject();
             submission.setParent(rootDocument.getGedObject());
         }
         return submissionDocuments;

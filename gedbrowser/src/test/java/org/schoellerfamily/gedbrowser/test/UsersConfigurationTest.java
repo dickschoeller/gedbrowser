@@ -34,7 +34,7 @@ public final class UsersConfigurationTest {
     /** */
     @Test
     public void testUserFileNotFound() {
-        final String userFile = gedbrowserHome + "/XXX";
+        final String userFile = gedbrowserHome + "/XYX";
         final UsersConfiguration uc = new UsersConfiguration();
         final Users users = uc.readUserFile(userFile);
         final int expected = 1;
@@ -46,7 +46,7 @@ public final class UsersConfigurationTest {
     /** */
     @Test
     public void testUserFileNotFoundContainsGues() {
-        final String userFile = gedbrowserHome + "/XXX";
+        final String userFile = gedbrowserHome + "/XYX";
         final UsersConfiguration uc = new UsersConfiguration();
         final Users users = uc.readUserFile(userFile);
         final User guest = users.get("guest");

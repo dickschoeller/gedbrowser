@@ -1,13 +1,13 @@
 package org.schoellerfamily.gedbrowser.reader;
 
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.reader.AbstractGedObjectFactory.GedObjectFactory;
+import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
 
 /**
  * @author Dick Schoeller
  *
  */
-public final class GedObjectCreator {
+public final class GedLineToGedObjectTransformer {
     /** */
     private final GedObjectFactory factory = new GedObjectFactory();
 
@@ -16,8 +16,8 @@ public final class GedObjectCreator {
      * @return the output gedobject
      */
     public Root create(final AbstractGedLine line) {
-        final GedObjectCreatorVisitor visitor =
-                new GedObjectCreatorVisitor(factory, null);
+        final GedLineToGedObjectVisitor visitor =
+                new GedLineToGedObjectVisitor(factory, null);
         line.accept(visitor);
         return (Root) visitor.getGedObject();
     }

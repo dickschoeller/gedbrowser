@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLine;
-import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public final class TestDataReader {
     /** */
     @Autowired
-    private transient GedObjectCreator g2g;
+    private transient GedLineToGedObjectTransformer g2g;
 
     /**
      * Embed some GEDCOM right here in the source. That allows us to test

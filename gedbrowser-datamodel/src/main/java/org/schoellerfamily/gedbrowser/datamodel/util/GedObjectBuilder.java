@@ -1,11 +1,16 @@
 package org.schoellerfamily.gedbrowser.datamodel.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
+import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
 
 /**
  * @author Dick Schoeller
@@ -26,6 +31,84 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
 
     /** */
     private final AttributeBuilder attributeBuilder;
+
+    /** */
+    private final GedObjectFactory factory = new GedObjectFactory();
+
+    /**
+     * Map of strings in web service to strings of GEDCOM.
+     */
+    private static final Map<String, String> TAGMAP = new HashMap<>();
+    static {
+        TAGMAP.put("attribute", "ATTRIBUTE");
+        TAGMAP.put("child", "HUSB");
+        TAGMAP.put("date", "DATE");
+        TAGMAP.put("famc", "FAMC");
+        TAGMAP.put("family", "FAM");
+        TAGMAP.put("fams", "FAMS");
+        TAGMAP.put("head", "HEAD");
+        TAGMAP.put("header", "HEAD");
+        TAGMAP.put("husband", "HUSB");
+        TAGMAP.put("link", "LINK");
+        TAGMAP.put("multimedia", "OBJE");
+        TAGMAP.put("name", "NAME");
+        TAGMAP.put("note", "NOTE");
+        TAGMAP.put("person", "INDI");
+        TAGMAP.put("place", "PLAC");
+        TAGMAP.put("root", "ROOT");
+        TAGMAP.put("source", "SOUR");
+        TAGMAP.put("sourcelink", "SOUR");
+        TAGMAP.put("submission", "SUBN");
+        TAGMAP.put("submissionlink", "SUBN");
+        TAGMAP.put("submitter", "SUBM");
+        TAGMAP.put("submitterlink", "SUBM");
+        TAGMAP.put("trailer", "TRLR");
+        TAGMAP.put("wife", "WIFE");
+    }
+
+    /** */
+    private enum Construction {
+        /** */
+        attribute,
+        /** */
+        hasid,
+        /** */
+        note,
+        /** */
+        reference,
+        /** */
+        value
+    };
+
+    /** */
+    private static final Map<String, Construction> CONSTRUCTION_MAP =
+            new HashMap<>();
+    static {
+        CONSTRUCTION_MAP.put("attribute", Construction.attribute);
+        CONSTRUCTION_MAP.put("child", Construction.reference);
+        CONSTRUCTION_MAP.put("date", Construction.value);
+        CONSTRUCTION_MAP.put("famc", Construction.reference);
+        CONSTRUCTION_MAP.put("family", Construction.hasid);
+        CONSTRUCTION_MAP.put("fams", Construction.reference);
+        CONSTRUCTION_MAP.put("head", Construction.value);
+        CONSTRUCTION_MAP.put("header", Construction.value);
+        CONSTRUCTION_MAP.put("husband", Construction.reference);
+        CONSTRUCTION_MAP.put("link", Construction.reference);
+        CONSTRUCTION_MAP.put("multimedia", Construction.value);
+        CONSTRUCTION_MAP.put("name", Construction.value);
+        CONSTRUCTION_MAP.put("note", Construction.note);
+        CONSTRUCTION_MAP.put("person", Construction.hasid);
+        CONSTRUCTION_MAP.put("place", Construction.value);
+        CONSTRUCTION_MAP.put("root", Construction.value);
+        CONSTRUCTION_MAP.put("source", Construction.hasid);
+        CONSTRUCTION_MAP.put("sourcelink", Construction.reference);
+        CONSTRUCTION_MAP.put("submission", Construction.hasid);
+        CONSTRUCTION_MAP.put("submissionlink", Construction.reference);
+        CONSTRUCTION_MAP.put("submitter", Construction.hasid);
+        CONSTRUCTION_MAP.put("submitterlink", Construction.reference);
+        CONSTRUCTION_MAP.put("trailer", Construction.value);
+        CONSTRUCTION_MAP.put("wife", Construction.reference);
+    }
 
     /**
      * Constructor.
@@ -138,5 +221,57 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
                         new ObjectId(submission.getString()));
         head.insert(submissionLink);
         return submissionLink;
+    }
+
+    /**
+     * @param parent the object that will have this as an attribute
+     * @param type the type string
+     * @param string a data string
+     * @param tail additional data string
+     * @return the new object
+     */
+    public GedObject createEvent(final GedObject parent, final String type,
+            final String string, final String tail) {
+        String tag = TAGMAP.get(type);
+        if (tag == null) {
+            tag = "ATTRIBUTE";
+        }
+        Construction construction = CONSTRUCTION_MAP.get(type);
+        if (construction == null) {
+            construction = Construction.attribute;
+        }
+        GedObject gob;
+        switch (construction) {
+        case attribute:
+            gob = factory.create(parent, "", string, tail);
+            break;
+        case hasid:
+            gob = factory.create(parent, string, tag, tail);
+            break;
+        case reference:
+            gob = factory.create(parent, "", tag, "@" + string + "@");
+            break;
+        case value:
+            gob = factory.create(parent, "", tag, string);
+            break;
+        default:
+            gob = factory.create(parent, "", string, tail);
+            break;
+        }
+        parent.insert(gob);
+        return gob;
+    }
+
+    /**
+     * @param parent the object that will have this as an attribute
+     * @param type the type string
+     * @param string a data string
+     * @return the new object
+     */
+    public GedObject createEvent(final GedObject parent, final String type,
+            final String string) {
+        final GedObject g = createEvent(parent, type, string, null);
+        parent.insert(g);
+        return g;
     }
 }

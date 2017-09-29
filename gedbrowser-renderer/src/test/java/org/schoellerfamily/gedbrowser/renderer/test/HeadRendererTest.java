@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.Before;
@@ -142,6 +143,38 @@ public final class HeadRendererTest {
             final HeadRenderer renderer = createRenderer(head);
             assertEquals("head href mismatch",
                     "head?db=gl120368", renderer.getHeaderHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSaveMenuItem() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Head> heads = root.find(Head.class);
+        for (final Head head : heads) {
+            final HeadRenderer renderer = createRenderer(head);
+            assertEquals("save href mismatch",
+                    "save?db=gl120368", renderer.getSaveHref());
+        }
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSaveFilename() throws IOException {
+        final Root root = reader.readFileTestSource();
+        final Collection<Head> heads = root.find(Head.class);
+        for (final Head head : heads) {
+            final HeadRenderer renderer = createRenderer(head);
+            assertEquals("save href mismatch",
+                    "gl120368.ged", renderer.getSaveFilename());
         }
     }
 

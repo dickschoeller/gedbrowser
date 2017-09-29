@@ -2,6 +2,12 @@ package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.renderer.href.HeaderHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.IndexHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.PlacesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SaveHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
  * Render a Submitter.
@@ -10,7 +16,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
  */
 public final class SubmitterRenderer extends GedRenderer<Submitter>
         implements IndexHrefRenderer<Submitter>, AttributesRenderer<Submitter>,
-        HeaderHrefRenderer<Submitter>, SubmittersHrefRenderer<Submitter>,
+        HeaderHrefRenderer<Submitter>, PlacesHrefRenderer<Submitter>,
+        SaveHrefRenderer<Submitter>, SubmittersHrefRenderer<Submitter>,
         SourcesHrefRenderer<Submitter> {
     /**
      * @param gedObject the Submitter that we are going to render

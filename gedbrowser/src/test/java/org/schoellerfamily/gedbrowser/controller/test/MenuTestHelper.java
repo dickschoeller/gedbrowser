@@ -32,6 +32,7 @@ public interface MenuTestHelper {
             + ">Submitters</a></span>\n"
             + "            <span></span>\n"
             + "            <span></span>\n"
+            + "            <span></span>\n"
             + "        </span>";
 
     /**

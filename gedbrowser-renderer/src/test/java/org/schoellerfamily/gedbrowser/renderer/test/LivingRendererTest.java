@@ -159,12 +159,40 @@ public final class LivingRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testHeaderMenuItem() throws IOException {
+    public void testHeadMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1,
                 userContext);
         assertEquals("head href mismatch",
                 "head?db=gl120368", renderer.getHeaderHref());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSaveMenuItem() throws IOException {
+        final Root root1 = reader.readFileTestSource();
+        final LivingRenderer renderer = new LivingRenderer(root1,
+                userContext);
+        assertEquals("save href mismatch",
+                "save?db=gl120368", renderer.getSaveHref());
+    }
+
+    /**
+     * Test whether the menu items are as expected.
+     *
+     * @throws IOException if can't read data file
+     */
+    @Test
+    public void testSaveFilename() throws IOException {
+        final Root root1 = reader.readFileTestSource();
+        final LivingRenderer renderer = new LivingRenderer(root1,
+                userContext);
+        assertEquals("save href mismatch",
+                "gl120368.ged", renderer.getSaveFilename());
     }
 
     /**

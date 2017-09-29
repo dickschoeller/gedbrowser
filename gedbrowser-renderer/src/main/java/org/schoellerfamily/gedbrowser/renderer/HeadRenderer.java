@@ -1,6 +1,12 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.datamodel.Head;
+import org.schoellerfamily.gedbrowser.renderer.href.HeaderHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.IndexHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.PlacesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SaveHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
  * Render a Head.
@@ -10,7 +16,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Head;
 public final class HeadRenderer extends GedRenderer<Head>
         implements AttributesRenderer<Head>, HeaderHrefRenderer<Head>,
         IndexHrefRenderer<Head>, PlacesHrefRenderer<Head>,
-        SourcesHrefRenderer<Head>, SubmittersHrefRenderer<Head> {
+        SaveHrefRenderer<Head>, SourcesHrefRenderer<Head>,
+        SubmittersHrefRenderer<Head> {
     /**
      * @param gedObject the Head that we are going to render.
      * @param rendererFactory the factory that creates the renderers for the

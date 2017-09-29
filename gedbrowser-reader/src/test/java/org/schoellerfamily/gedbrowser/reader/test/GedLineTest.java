@@ -21,7 +21,7 @@ import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLine;
-import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -360,7 +360,7 @@ public final class GedLineTest {
 
     /** */
     @Autowired
-    private transient GedObjectCreator g2g;
+    private transient GedLineToGedObjectTransformer g2g;
 
     /**
      * Test GedLine with an array input.
@@ -422,13 +422,17 @@ public final class GedLineTest {
             for (final GedObject gob : head.getAttributes()) {
                 if (gob instanceof SubmissionLink) {
                     final SubmissionLink submissionLink = (SubmissionLink) gob;
-                    checkEquals("getFromString mismatch", "Header", submissionLink.getFromString());
-                    checkEquals("getToString mismatch", "SUBMISSION", submissionLink.getToString());
-                    checkEquals("toString mismatch", "Submission", submissionLink.toString());
+                    checkEquals("getFromString mismatch", "Header",
+                            submissionLink.getFromString());
+                    checkEquals("getToString mismatch", "SUBMISSION",
+                            submissionLink.getToString());
+                    checkEquals("toString mismatch", "Submission",
+                            submissionLink.toString());
                 }
             }
         }
-        assertEquals("getString mismatch", "SUBMISSION", submission.getString());
+        assertEquals("getString mismatch", "SUBMISSION",
+                submission.getString());
     }
 
     /**

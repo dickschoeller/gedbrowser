@@ -21,7 +21,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.reader.GedFile;
-import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
@@ -50,7 +50,7 @@ public final class GedFileLoader {
      * Converts AbstractGedLine hierarchy to GedObject hierarchy.
      */
     @Autowired
-    private transient GedObjectCreator g2g;
+    private transient GedLineToGedObjectTransformer g2g;
 
     /**
      * Implements conversion from GedObject to GedDocumentMongo.

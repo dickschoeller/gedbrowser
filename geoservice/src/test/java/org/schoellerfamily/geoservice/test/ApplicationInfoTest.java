@@ -72,6 +72,6 @@ public final class ApplicationInfoTest {
     @Test
     public void testApplicationInfoVersion() {
         assertEquals("Version mismatch",
-                "1.2.2", appInfo.getVersion());
+                "1.2.3-SNAPSHOT", appInfo.getVersion());
     }
 }

@@ -13,6 +13,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonConfidentialVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PlaceVisitor;
+import org.schoellerfamily.gedbrowser.renderer.href.HeaderHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.IndexHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.PlacesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SaveHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
+import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.schoellerfamily.geoservice.model.GeoServiceItemComparator;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
@@ -22,8 +28,8 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
  */
 public final class IndexByPlaceRenderer extends GedRenderer<Root>
     implements HeaderHrefRenderer<Root>, IndexHrefRenderer<Root>,
-        PlacesHrefRenderer<Root>, SourcesHrefRenderer<Root>,
-        SubmittersHrefRenderer<Root> {
+        PlacesHrefRenderer<Root>, SaveHrefRenderer<Root>,
+        SourcesHrefRenderer<Root>, SubmittersHrefRenderer<Root> {
     /** Logger. */
     private final Log logger = LogFactory.getLog(getClass());
 
