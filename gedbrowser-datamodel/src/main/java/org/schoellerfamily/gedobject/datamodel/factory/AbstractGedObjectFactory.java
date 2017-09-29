@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.reader;
+package org.schoellerfamily.gedobject.datamodel.factory;
 
 import java.util.HashMap;
 import java.util.Map;

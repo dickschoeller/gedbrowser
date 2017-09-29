@@ -15,4 +15,12 @@ public interface MultimediaDocument extends GedDocument<Multimedia> {
      * @param tail the new tail string
      */
     void setTail(String tail);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    default void accept(GedDocumentVisitor visitor) {
+        visitor.visit(this);
+    }
 }

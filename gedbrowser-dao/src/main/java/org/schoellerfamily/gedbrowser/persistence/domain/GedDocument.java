@@ -96,4 +96,11 @@ public interface GedDocument<G extends GedObject> {
      * @param ged the associated gedObject
      */
     void loadGedObject(GedDocumentLoader loader, GedObject ged);
+
+    /**
+     * Allows visitor traversal by generic documents.
+     *
+     * @param visitor the visitor
+     */
+    void accept(GedDocumentVisitor visitor);
 }

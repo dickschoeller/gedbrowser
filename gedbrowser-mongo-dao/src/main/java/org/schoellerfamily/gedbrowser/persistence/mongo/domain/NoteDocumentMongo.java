@@ -54,6 +54,22 @@ public class NoteDocumentMongo extends GedDocumentMongo<Note>
      * {@inheritDoc}
      */
     @Override
+    public String getTail() {
+        return tail;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setTail(final String tail) {
+        this.tail = tail;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
@@ -64,19 +80,5 @@ public class NoteDocumentMongo extends GedDocumentMongo<Note>
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);
-    }
-
-    /**
-     * @return the tail string (contents) of the note
-     */
-    public String getTail() {
-        return tail;
-    }
-
-    /**
-     * @param tail the tail string (contents) of the note
-     */
-    public void setTail(final String tail) {
-        this.tail = tail;
     }
 }

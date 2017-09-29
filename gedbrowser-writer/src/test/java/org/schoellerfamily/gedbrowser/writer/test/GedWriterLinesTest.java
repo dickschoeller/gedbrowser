@@ -29,13 +29,13 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
-import org.schoellerfamily.gedbrowser.writer.creator.GedWriterLineCreator;
+import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor;
 
 /**
  * @author Dick Schoeller
  */
 @RunWith(Parameterized.class)
-public class GedLineCreatorLinesTest {
+public class GedWriterLinesTest {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -169,9 +169,10 @@ public class GedLineCreatorLinesTest {
         final Multimedia multimedia = builder.addMultimediaToPerson(p4, "");
         builder.createAttribute(multimedia, "FILE",
                 "https://archive.org/details/luckybag1924unse");
-        final GedWriterLineCreator gedLineCreator = new GedWriterLineCreator();
-        root.accept(gedLineCreator);
-        final List<GedWriterLine> lines = gedLineCreator.getLines();
+        final GedObjectToGedWriterVisitor visitor =
+                new GedObjectToGedWriterVisitor();
+        root.accept(visitor);
+        final List<GedWriterLine> lines = visitor.getLines();
         final List<String[]> parameters = new ArrayList<>();
         for (int i = 0; i < lines.size(); i++) {
             final String message = OUTPUT[i][0];
@@ -188,7 +189,7 @@ public class GedLineCreatorLinesTest {
      * @param expected the expected line string
      * @param actual the actual line string
      */
-    public GedLineCreatorLinesTest(final String message, final String expected,
+    public GedWriterLinesTest(final String message, final String expected,
             final String actual) {
         this.message = message;
         this.expected = expected;

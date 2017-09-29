@@ -8,7 +8,7 @@ import java.io.IOException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.writer.creator.GedWriterLineCreator;
+import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor;
 
 /**
  * @author Richard Schoeller
@@ -18,7 +18,8 @@ public class GedWriter {
     private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
-    private final GedWriterLineCreator creator = new GedWriterLineCreator();
+    private final GedObjectToGedWriterVisitor visitor =
+            new GedObjectToGedWriterVisitor();
 
     /** */
     private final Root root;
@@ -34,7 +35,7 @@ public class GedWriter {
      * Write the file as directed.
      */
     public void write() {
-        root.accept(creator);
+        root.accept(visitor);
         try {
             backup();
         } catch (IOException e) {
@@ -90,7 +91,7 @@ public class GedWriter {
      */
     private void writeTheLines(final BufferedOutputStream stream)
             throws IOException {
-        for (final GedWriterLine line : creator.getLines()) {
+        for (final GedWriterLine line : visitor.getLines()) {
             if (line.getLine().isEmpty()) {
                 continue;
             }

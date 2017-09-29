@@ -2,7 +2,7 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderStub;
-import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
@@ -50,7 +50,7 @@ public class TestConfiguration {
      * @return converter from AbstractGedLine to GedObject
      */
     @Bean
-    public GedObjectCreator gedObjectCreator() {
-        return new GedObjectCreator();
+    public GedLineToGedObjectTransformer gedObjectCreator() {
+        return new GedLineToGedObjectTransformer();
     }
 }
