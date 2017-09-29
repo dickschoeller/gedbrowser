@@ -7,7 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
-import org.schoellerfamily.gedbrowser.writer.creator.GedWriterLineCreator;
+import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,10 +59,11 @@ public class SaveController extends AbstractController {
      * @return the gedcom file as a string
      */
     private String renderGedFile(final Root root) {
-        final GedWriterLineCreator gedLineCreator = new GedWriterLineCreator();
-        root.accept(gedLineCreator);
+        final GedObjectToGedWriterVisitor visitor =
+                new GedObjectToGedWriterVisitor();
+        root.accept(visitor);
         final StringBuilder builder = new StringBuilder();
-        for (final GedWriterLine line : gedLineCreator.getLines()) {
+        for (final GedWriterLine line : visitor.getLines()) {
             if (line.getLine().isEmpty()) {
                 continue;
             }

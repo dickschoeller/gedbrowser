@@ -4,13 +4,15 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
 import org.schoellerfamily.gedbrowser.persistence.PersistenceException;
+import org.schoellerfamily.gedbrowser.persistence.domain.NameDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 
 /**
  * @author Dick Schoeller
  */
-public class NameDocumentMongo extends GedDocumentMongo<Name> {
+public class NameDocumentMongo extends GedDocumentMongo<Name>
+        implements NameDocument {
     /**
      * {@inheritDoc}
      */

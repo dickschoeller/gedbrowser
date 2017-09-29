@@ -4,7 +4,7 @@ import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.analytics.order.test.OrderAnalyzerTestWrapper;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
-import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -41,7 +41,7 @@ public class TestConfiguration {
      * @return convert for AbstractGedLine hierarchy to GedObject hierarchy
      */
     @Bean
-    public GedObjectCreator g2g() {
-        return new GedObjectCreator();
+    public GedLineToGedObjectTransformer g2g() {
+        return new GedLineToGedObjectTransformer();
     }
 }

@@ -25,20 +25,20 @@ import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.writer.GedWriterFile;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
-import org.schoellerfamily.gedbrowser.writer.creator.GedWriterLineCreator;
+import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor;
 
 /**
  * @author Dick Schoeller
  */
-public class GedLineCreatorTest {
+public class GedWriterLineTest {
     /** */
-    private GedWriterLineCreator gedLineCreator;
+    private GedObjectToGedWriterVisitor gedLineCreator;
 
     /** */
     @Before
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        gedLineCreator = new GedWriterLineCreator();
+        gedLineCreator = new GedObjectToGedWriterVisitor();
         final Root root = builder.getRoot();
         root.setFilename("huh.ged");
         root.setDbName("huh");

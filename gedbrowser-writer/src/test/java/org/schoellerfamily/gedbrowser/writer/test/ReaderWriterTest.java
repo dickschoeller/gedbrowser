@@ -16,16 +16,16 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
-import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestResourceReader;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
-import org.schoellerfamily.gedbrowser.writer.creator.GedWriterLineCreator;
+import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor;
 
 /**
  * @author Dick Schoeller
  */
 @RunWith(Parameterized.class)
-public class ReaderCreatorTest {
+public class ReaderWriterTest {
     /**
      * The file name to use in the test.
      */
@@ -49,7 +49,7 @@ public class ReaderCreatorTest {
      * @param expected the expected line string
      * @param actual the actual line string
      */
-    public ReaderCreatorTest(final String expected,
+    public ReaderWriterTest(final String expected,
             final String actual) {
         this.message = "Line mismatch";
         this.expected = expected;
@@ -63,11 +63,13 @@ public class ReaderCreatorTest {
     @Parameters
     public static Collection<String[]> data() throws IOException {
         final AbstractGedLine top = readFileTestSource();
-        final GedObjectCreator g2g = new GedObjectCreator();
+        final GedLineToGedObjectTransformer g2g =
+                new GedLineToGedObjectTransformer();
         final Root root = g2g.create(top);
-        final GedWriterLineCreator gedLineCreator = new GedWriterLineCreator();
-        root.accept(gedLineCreator);
-        final List<GedWriterLine> lines = gedLineCreator.getLines();
+        final GedObjectToGedWriterVisitor gedLineVisitor =
+                new GedObjectToGedWriterVisitor();
+        root.accept(gedLineVisitor);
+        final List<GedWriterLine> lines = gedLineVisitor.getLines();
         final List<String[]> parameters = new ArrayList<>();
         final Object[] strings = readFileTestSourceAsStrings().toArray();
         for (int i = 0; i < lines.size(); i++) {

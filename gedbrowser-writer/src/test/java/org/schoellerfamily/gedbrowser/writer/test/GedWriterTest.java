@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
-import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.schoellerfamily.gedbrowser.reader.test.TestConfiguration;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestResourceReader;
 import org.schoellerfamily.gedbrowser.writer.GedWriter;
@@ -32,7 +32,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class GedWriterTest {
     /** */
     @Autowired
-    private transient GedObjectCreator g2g;
+    private transient GedLineToGedObjectTransformer g2g;
 
     /** */
     @Value("${gedbrowser.home:/var/lib/gedbrowser}")

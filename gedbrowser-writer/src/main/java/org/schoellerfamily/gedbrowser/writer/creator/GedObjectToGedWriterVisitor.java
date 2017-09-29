@@ -14,7 +14,7 @@ import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
 /**
  * @author Dick Schoeller
  */
-public class GedWriterLineCreator implements AttributeLineVisitor,
+public class GedObjectToGedWriterVisitor implements AttributeLineVisitor,
         RootLineVisitor, LinkLineVisitor, DateLineVisitor,
         IdentifiedRecordLineVisitor {
 

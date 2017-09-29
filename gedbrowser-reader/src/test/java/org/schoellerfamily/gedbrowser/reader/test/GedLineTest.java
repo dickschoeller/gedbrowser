@@ -21,7 +21,7 @@ import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLine;
-import org.schoellerfamily.gedbrowser.reader.GedObjectCreator;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -360,7 +360,7 @@ public final class GedLineTest {
 
     /** */
     @Autowired
-    private transient GedObjectCreator g2g;
+    private transient GedLineToGedObjectTransformer g2g;
 
     /**
      * Test GedLine with an array input.

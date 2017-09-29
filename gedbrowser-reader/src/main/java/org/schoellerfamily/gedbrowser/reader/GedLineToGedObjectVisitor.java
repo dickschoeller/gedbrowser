@@ -2,12 +2,12 @@ package org.schoellerfamily.gedbrowser.reader;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.reader.AbstractGedObjectFactory.GedObjectFactory;
+import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
 
 /**
  * @author Dick Schoeller
  */
-public class GedObjectCreatorVisitor implements GedLineVisitor {
+public class GedLineToGedObjectVisitor implements GedLineVisitor {
     /** */
     private final GedObjectFactory factory;
 
@@ -27,7 +27,7 @@ public class GedObjectCreatorVisitor implements GedLineVisitor {
      * @param factory the object factory to use
      * @param parent the parent object in the hierarchy
      */
-    public GedObjectCreatorVisitor(final GedObjectFactory factory,
+    public GedLineToGedObjectVisitor(final GedObjectFactory factory,
             final AbstractGedLine parent) {
         this.factory = factory;
         this.parent = parent;
@@ -101,7 +101,7 @@ public class GedObjectCreatorVisitor implements GedLineVisitor {
     private void createChildren(final GedObject gob,
             final AbstractGedLine current) {
         for (final AbstractGedLine child : current.getChildren()) {
-            final GedObjectCreatorVisitor visitor = createVisitor(current);
+            final GedLineToGedObjectVisitor visitor = createVisitor(current);
             child.accept(visitor);
             gob.insert(visitor.getGedObject());
         }
@@ -111,8 +111,8 @@ public class GedObjectCreatorVisitor implements GedLineVisitor {
      * @param current current line, parent in the new visitor
      * @return the new visitor
      */
-    private GedObjectCreatorVisitor createVisitor(
+    private GedLineToGedObjectVisitor createVisitor(
             final AbstractGedLine current) {
-        return new GedObjectCreatorVisitor(factory, current);
+        return new GedLineToGedObjectVisitor(factory, current);
     }
 }
