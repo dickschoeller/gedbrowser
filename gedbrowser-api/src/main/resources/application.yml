@@ -1,0 +1,33 @@
+gedbrowser:
+    home: /var/lib/gedbrowser
+
+server:
+    servlet-path: /gedbrowser-api
+
+logging:
+    level:
+        org:
+            schoellerfamily: INFO
+            springframework:
+                test: WARN
+                core: WARN
+                beans: WARN
+                data:
+                    mongodb:
+                        core:
+                            index: OFF
+
+spring:
+    jackson:
+        serialization:
+            INDENT_OUTPUT: true
+
+endpoints:
+    health:
+        sensitive: false
+        enabled: true
+
+management:
+    port: 8081
+    security:
+        enabled: false

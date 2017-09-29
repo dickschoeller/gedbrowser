@@ -110,6 +110,7 @@
   <modules>
     <module>gedbrowser</module>
     <module>gedbrowser-analytics</module>
+    <module>gedbrowser-api</module>
     <module>gedbrowser-datamodel</module>
     <module>gedbrowser-dao</module>
     <module>gedbrowser-geographics</module>
@@ -379,6 +380,11 @@
       <dependency>
         <groupId>org.schoellerfamily.gedbrowser</groupId>
         <artifactId>gedbrowser-analytics</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>gedbrowser-api</artifactId>
         <version>${gedbrowser.version}</version>
       </dependency>
       <dependency>
