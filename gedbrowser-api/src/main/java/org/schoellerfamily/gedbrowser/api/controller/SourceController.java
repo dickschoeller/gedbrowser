@@ -48,6 +48,12 @@ public class SourceController {
     private transient RepositoryManagerMongo repositoryManager;
 
     /**
+     * Handles data conversion from DB model to API model.
+     */
+    private DocumentToApiModelTransformer d2dm =
+            new DocumentToApiModelTransformer();
+
+    /**
      * @param db the name of the db to access
      * @return the list of sources
      */
@@ -57,8 +63,6 @@ public class SourceController {
             @PathVariable final String db) {
         logger.info("Entering sources, db: " + db);
         final List<ApiSource> list = new ArrayList<>();
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
         for (final SourceDocument person : fetchSources(db)) {
             list.add(d2dm.convert(person));
         }
@@ -115,9 +119,7 @@ public class SourceController {
     public ApiSource source(
             @PathVariable final String db,
             @PathVariable final String id) {
-        logger.info("Entering person, db: " + db + ", id: " + id);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
+        logger.info("Entering source, db: " + db + ", id: " + id);
         return d2dm.convert(fetchSource(db, id));
     }
 
@@ -166,9 +168,7 @@ public class SourceController {
     public List<ApiObject> attributes(
             @PathVariable final String db,
             @PathVariable final String id) {
-        logger.info("Entering attributes, db: " + db + ", id: " + id);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
+        logger.info("Entering source attributes, db: " + db + ", id: " + id);
         return d2dm.convert(fetchSource(db, id)).getAttributes();
     }
 
@@ -185,10 +185,8 @@ public class SourceController {
             @PathVariable final String db,
             @PathVariable final String id,
             @PathVariable final int index) {
-        logger.info("Entering attribute, db: " + db + ", id: " + id
+        logger.info("Entering source attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
         final List<ApiObject> attributes =
                 d2dm.convert(fetchSource(db, id)).getAttributes();
         if (index >= attributes.size()) {
@@ -210,15 +208,8 @@ public class SourceController {
             @PathVariable final String db,
             @PathVariable final String id,
             @PathVariable final int index) {
-        logger.info("Entering createAttribute, db: " + db + ", id: " + id
+        logger.info("Entering source createAttribute, db: " + db + ", id: " + id
                 + ", index: " + index);
-//        DocumentToDataModel d2dm = new DocumentToDataModel();
-//        final List<BaseObject> attributes = d2dm.convert(fetchSource(db, id))
-//                .getAttributes();
-//        if (index >= attributes.size()) {
-//            return null;
-//        }
-//        return attributes.get(index);
         return null;
     }
 }

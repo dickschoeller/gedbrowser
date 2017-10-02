@@ -63,6 +63,13 @@ public class PersonController {
     private transient GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /**
+     * Handles data conversion from DB model to API model.
+     */
+    private DocumentToApiModelTransformer d2dm =
+            new DocumentToApiModelTransformer();
+
+
+    /**
      * @param db the name of the db to access
      * @return the list of persons
      */
@@ -72,8 +79,6 @@ public class PersonController {
             @PathVariable final String db) {
         logger.info("Entering persons, db: " + db);
         final List<ApiPerson> list = new ArrayList<>();
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
         for (final PersonDocument person : fetchPersons(db)) {
             list.add(d2dm.convert(person));
         }
@@ -129,8 +134,6 @@ public class PersonController {
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering person, db: " + db + ", id: " + id);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
         return d2dm.convert(fetchPerson(db, id));
     }
 
@@ -175,9 +178,7 @@ public class PersonController {
     public List<ApiObject> attributes(
             @PathVariable final String db,
             @PathVariable final String id) {
-        logger.info("Entering attributes, db: " + db + ", id: " + id);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
+        logger.info("Entering person attributes, db: " + db + ", id: " + id);
         return d2dm.convert(fetchPerson(db, id)).getAttributes();
     }
 
@@ -194,10 +195,8 @@ public class PersonController {
             @PathVariable final String db,
             @PathVariable final String id,
             @PathVariable final int index) {
-        logger.info("Entering attribute, db: " + db + ", id: " + id
+        logger.info("Entering person attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
         final List<ApiObject> attributes =
                 d2dm.convert(fetchPerson(db, id)).getAttributes();
         if (index >= attributes.size()) {
@@ -220,10 +219,9 @@ public class PersonController {
             @PathVariable final String id,
             @PathVariable final int index,
             @RequestBody final ApiAttribute attribute) {
-        logger.info("Entering createAttribute, db: " + db + ", id: " + id
+        logger.info("Entering person createAttribute, db: " + db
+                + ", id: " + id
                 + ", index: " + index);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
         final PersonDocument personDocument = fetchPerson(db, id);
         final List<ApiObject> attributes = d2dm.convert(personDocument)
                 .getAttributes();

@@ -47,6 +47,12 @@ public class FamilyController {
     private transient RepositoryManagerMongo repositoryManager;
 
     /**
+     * Handles data conversion from DB model to API model.
+     */
+    private DocumentToApiModelTransformer d2dm =
+            new DocumentToApiModelTransformer();
+
+    /**
      * @param db the name of the db to access
      * @return the list of persons
      */
@@ -56,8 +62,6 @@ public class FamilyController {
             @PathVariable final String db) {
         logger.info("Entering families, db: " + db);
         final List<ApiFamily> list = new ArrayList<>();
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
         for (final FamilyDocument family : fetchFamilies(db)) {
             list.add(d2dm.convert(family));
         }
@@ -76,8 +80,6 @@ public class FamilyController {
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering family, db: " + db + ", id: " + id);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
         return d2dm.convert(fetchFamily(db, id));
     }
 
@@ -92,9 +94,7 @@ public class FamilyController {
     public List<ApiObject> attributes(
             @PathVariable final String db,
             @PathVariable final String id) {
-        logger.info("Entering attributes, db: " + db + ", id: " + id);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
+        logger.info("Entering family attributes, db: " + db + ", id: " + id);
         return d2dm.convert(fetchFamily(db, id)).getAttributes();
     }
 
@@ -111,10 +111,8 @@ public class FamilyController {
             @PathVariable final String db,
             @PathVariable final String id,
             @PathVariable final int index) {
-        logger.info("Entering attribute, db: " + db + ", id: " + id
+        logger.info("Entering family attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
         final List<ApiObject> attributes =
                 d2dm.convert(fetchFamily(db, id)).getAttributes();
         if (index >= attributes.size()) {
@@ -135,8 +133,6 @@ public class FamilyController {
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering children, db: " + db + ", id: " + id);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
         final List<ApiObject> attributes =
                 d2dm.convert(fetchFamily(db, id)).getAttributes();
         final List<ApiObject> children = new ArrayList<>();
@@ -163,8 +159,6 @@ public class FamilyController {
             @PathVariable final int index) {
         logger.info("Entering child, db: " + db + ", id: " + id + ", index: "
                 + index);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
         final List<ApiObject> attributes =
                 d2dm.convert(fetchFamily(db, id)).getAttributes();
         final List<ApiObject> children = new ArrayList<>();
@@ -188,14 +182,12 @@ public class FamilyController {
     @RequestMapping(method = RequestMethod.GET,
             value = "/dbs/{db}/families/{id}/{type}")
     @ResponseBody
-    public List<ApiObject> attribute(
+    public List<ApiObject> attributes(
             @PathVariable final String db,
             @PathVariable final String id,
             @PathVariable final String type) {
-        logger.info("Entering attribute, db: " + db + ", id: " + id
+        logger.info("Entering family attributes, db: " + db + ", id: " + id
                 + ", index: " + type);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
         final List<ApiObject> attributes =
                 d2dm.convert(fetchFamily(db, id)).getAttributes();
         final List<ApiObject> list = new ArrayList<>();

@@ -46,6 +46,12 @@ public class HeadController {
     private transient RepositoryManagerMongo repositoryManager;
 
     /**
+     * Handles data conversion from DB model to API model.
+     */
+    private DocumentToApiModelTransformer d2dm =
+            new DocumentToApiModelTransformer();
+
+    /**
      * @param db the name of the db to access
      * @return the list of sources
      */
@@ -53,10 +59,8 @@ public class HeadController {
     @ResponseBody
     public ApiHead head(
             @PathVariable final String db) {
-        logger.info("Entering sources, db: " + db);
+        logger.info("Entering head, db: " + db);
         final List<ApiHead> list = new ArrayList<>();
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
         for (final HeadDocument head : fetchHeads(db)) {
             list.add(d2dm.convert(head));
         }

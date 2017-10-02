@@ -47,6 +47,12 @@ public class SubmitterController {
     private transient RepositoryManagerMongo repositoryManager;
 
     /**
+     * Handles data conversion from DB model to API model.
+     */
+    private DocumentToApiModelTransformer d2dm =
+            new DocumentToApiModelTransformer();
+
+    /**
      * @param db the name of the db to access
      * @return the list of submitters
      */
@@ -56,8 +62,6 @@ public class SubmitterController {
             @PathVariable final String db) {
         logger.info("Entering submitters, db: " + db);
         final List<ApiSubmitter> list = new ArrayList<>();
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
         for (final SubmitterDocument person : fetchSubmitters(db)) {
             list.add(d2dm.convert(person));
         }
@@ -113,9 +117,7 @@ public class SubmitterController {
     public ApiSubmitter submitter(
             @PathVariable final String db,
             @PathVariable final String id) {
-        logger.info("Entering person, db: " + db + ", id: " + id);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
+        logger.info("Entering submitter, db: " + db + ", id: " + id);
         return d2dm.convert(fetchSubmitter(db, id));
     }
 
@@ -164,9 +166,8 @@ public class SubmitterController {
     public List<ApiObject> attributes(
             @PathVariable final String db,
             @PathVariable final String id) {
-        logger.info("Entering attributes, db: " + db + ", id: " + id);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
+        logger.info("Entering submitter attributes, db: " + db
+                + ", id: " + id);
         return d2dm.convert(fetchSubmitter(db, id)).getAttributes();
     }
 
@@ -183,10 +184,8 @@ public class SubmitterController {
             @PathVariable final String db,
             @PathVariable final String id,
             @PathVariable final int index) {
-        logger.info("Entering attribute, db: " + db + ", id: " + id
+        logger.info("Entering submitter attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
         final List<ApiObject> attributes = d2dm.convert(fetchSubmitter(db, id))
                 .getAttributes();
         if (index >= attributes.size()) {
