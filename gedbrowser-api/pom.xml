@@ -66,19 +66,7 @@
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
-      <artifactId>gedbrowser-renderer</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-mongo-dao</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.schoellerfamily.gedbrowser</groupId>
-      <artifactId>gedbrowser-geographics</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.schoellerfamily.gedbrowser</groupId>
-      <artifactId>geoservice-client</artifactId>
     </dependency>
 
     <dependency>

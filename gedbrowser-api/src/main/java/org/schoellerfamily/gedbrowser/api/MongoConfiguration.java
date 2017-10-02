@@ -2,10 +2,6 @@ package org.schoellerfamily.gedbrowser.api;
 
 import java.net.UnknownHostException;
 
-import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
-import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
-import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderStub;
-import org.schoellerfamily.gedbrowser.api.controller.ApplicationInfoImpl;
 import org.schoellerfamily.gedbrowser.api.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
@@ -30,13 +26,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     TrailerDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
-// TODO app info shouldn't be in renderer
-import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
-import org.schoellerfamily.geoservice.client.GeoServiceClient;
-import org.schoellerfamily.geoservice.client.GeoServiceClientImpl;
-import org.schoellerfamily.geoservice.keys.KeyManager;
-import org.schoellerfamily.geoservice.keys.KeyManagerImpl;
-import org.schoellerfamily.geoservice.keys.KeyManagerStub;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -82,10 +71,6 @@ public class MongoConfiguration {
     @Value("${spring.data.mongodb.port:27017}")
     private transient int port;
 
-    /** */
-    @Value("${geoservice.keyfile:/var/lib/gedbrowser/google-geocoding-key}")
-    private transient String keyfile;
-
     /**
      * Get a MongoDbFactory for accessing the gedbrowser database.
      *
@@ -126,51 +111,12 @@ public class MongoConfiguration {
     }
 
     /**
-     * @return the application info provider
-     */
-    @Bean
-    public ApplicationInfo appInfo() {
-        return new ApplicationInfoImpl();
-    }
-
-    /**
      * @param builder the rest template builder that Spring provides
      * @return the rest template
      */
     @Bean
     public RestTemplate restTemplate(final RestTemplateBuilder builder) {
         return builder.build();
-    }
-
-    /**
-     * @return the geoservice client
-     */
-    @Bean
-    public GeoServiceClient client() {
-        return new GeoServiceClientImpl();
-    }
-
-    // TODO change to configure tests with different configuration class
-    /**
-     * @return the manager of google keys
-     */
-    @Bean
-    public KeyManager keyManager() {
-        if ("stub".equals(keyfile)) {
-            return new KeyManagerStub();
-        }
-        return new KeyManagerImpl(keyfile);
-    }
-
-    /**
-     * @return a calendar provider of REAL today
-     */
-    @Bean
-    public CalendarProvider calendarProvider() {
-        if ("stub".equals(keyfile)) {
-            return new CalendarProviderStub();
-        }
-        return new CalendarProviderImpl();
     }
 
     /**
