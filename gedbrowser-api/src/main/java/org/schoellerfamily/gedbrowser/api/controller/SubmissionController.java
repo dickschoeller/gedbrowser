@@ -41,7 +41,7 @@ public class SubmissionController {
     /**
      * Handles data conversion from DB model to API model.
      */
-    private DocumentToApiModelTransformer d2dm =
+    private final DocumentToApiModelTransformer d2dm =
             new DocumentToApiModelTransformer();
 
     /**
@@ -158,7 +158,8 @@ public class SubmissionController {
     public List<ApiObject> attributes(
             @PathVariable final String db,
             @PathVariable final String id) {
-        logger.info("Entering submission attributes, db: " + db + ", id: " + id);
+        logger.info("Entering submission attributes, db: " + db + ","
+                + " id: " + id);
         return d2dm.convert(fetchSubmission(db, id)).getAttributes();
     }
 

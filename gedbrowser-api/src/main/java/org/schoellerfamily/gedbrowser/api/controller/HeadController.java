@@ -40,7 +40,7 @@ public class HeadController {
     /**
      * Handles data conversion from DB model to API model.
      */
-    private DocumentToApiModelTransformer d2dm =
+    private final DocumentToApiModelTransformer d2dm =
             new DocumentToApiModelTransformer();
 
     /**
