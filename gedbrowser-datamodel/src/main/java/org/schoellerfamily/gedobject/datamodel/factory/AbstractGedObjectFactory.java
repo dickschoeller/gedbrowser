@@ -759,7 +759,7 @@ public abstract class AbstractGedObjectFactory {
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
             parent.appendString(tail);
-            return parent;
+            return null;
         }
     }
 
@@ -776,7 +776,7 @@ public abstract class AbstractGedObjectFactory {
         public final GedObject create(final GedObject parent,
                 final ObjectId xref, final String tag, final String tail) {
             parent.appendString("\n" + tail);
-            return parent;
+            return null;
         }
     }
 
