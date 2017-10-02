@@ -30,14 +30,6 @@ public class SubmissionController {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
-//    /** */
-//    @Value("${gedbrowser.home}")
-//    private transient String gedbrowserHome;
-
-//    /** */
-//    @Autowired
-//    private transient ApplicationInfo appInfo;
-
     /** */
     @Autowired
     private transient GedFileLoader loader;
@@ -185,8 +177,6 @@ public class SubmissionController {
             @PathVariable final int index) {
         logger.info("Entering submission attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
-        final DocumentToApiModelTransformer d2dm =
-                new DocumentToApiModelTransformer();
         final List<ApiObject> attributes =
                 d2dm.convert(fetchSubmission(db, id)).getAttributes();
         if (index >= attributes.size()) {

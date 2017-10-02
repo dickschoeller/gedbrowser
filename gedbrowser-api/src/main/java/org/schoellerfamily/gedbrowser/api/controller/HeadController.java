@@ -29,14 +29,6 @@ public class HeadController {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
-//    /** */
-//    @Value("${gedbrowser.home}")
-//    private transient String gedbrowserHome;
-
-//    /** */
-//    @Autowired
-//    private transient ApplicationInfo appInfo;
-
     /** */
     @Autowired
     private transient GedFileLoader loader;
