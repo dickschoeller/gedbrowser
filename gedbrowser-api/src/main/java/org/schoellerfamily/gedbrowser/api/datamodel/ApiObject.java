@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.schoellerfamily.gedbrowser.datamodel.GetString;
+
 /**
  * @author Dick Schoeller
  */
-public class ApiObject implements Serializable {
+public class ApiObject implements Serializable, GetString {
     /** */
     private static final long serialVersionUID = 1L;
 

@@ -1,27 +1,26 @@
-package org.schoellerfamily.gedbrowser.writer;
+package org.schoellerfamily.gedbrowser.datamodel.util;
 
 import java.io.Serializable;
 import java.util.Comparator;
 
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.GetString;
 
 /**
  * Trying to sort IDs naturally. That is, I1, I2, I3... I10, I11, etc.
  *
  * @author Dick Schoeller
- * @param <T> the data type to be compared
  */
 @SuppressWarnings("PMD.CyclomaticComplexity")
-public class IdComparator<T extends GedObject>
-        implements Comparator<T>, Serializable {
+public class GetStringComparator
+        implements Comparator<GetString>, Serializable {
     /** */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public int compare(final T arg0, final T arg1) {
+    public int compare(final GetString arg0, final GetString arg1) {
         if (arg0 == null || arg1 == null) {
             return 0;
         }

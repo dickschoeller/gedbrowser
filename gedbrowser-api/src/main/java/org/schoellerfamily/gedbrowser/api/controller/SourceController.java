@@ -6,11 +6,11 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiObjectComparator;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.schoellerfamily.gedbrowser.api.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
@@ -58,7 +58,7 @@ public class SourceController {
         for (final SourceDocument person : fetchSources(db)) {
             list.add(d2dm.convert(person));
         }
-        list.sort(new ApiObjectComparator());
+        list.sort(new GetStringComparator());
         return list;
     }
 
