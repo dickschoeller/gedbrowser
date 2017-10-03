@@ -21,7 +21,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGe
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 //import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -81,8 +80,7 @@ public class PersonController {
      * @return the list of persons
      */
     private List<PersonDocument> fetchPersons(final String dbName) {
-        final RootDocument root = fetchRoot(dbName);
-        return find(root);
+        return find(fetchRoot(dbName));
     }
 
     /**
@@ -104,10 +102,9 @@ public class PersonController {
      * @return the list of person documents
      */
     private List<PersonDocument> find(final RootDocument root) {
-        final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
-        repo = repositoryManager.get(Person.class);
         final List<PersonDocument> all = new ArrayList<>();
-        for (final GedDocument<?> document : repo.findAll(root)) {
+        for (final GedDocument<?> document
+                : repositoryManager.get(Person.class).findAll(root)) {
             all.add((PersonDocument) document);
         }
         return all;
@@ -135,8 +132,7 @@ public class PersonController {
      */
     private PersonDocument fetchPerson(final String dbName,
             final String idString) {
-        final RootDocument root = fetchRoot(dbName);
-        final PersonDocument person = find(root, idString);
+        final PersonDocument person = find(fetchRoot(dbName), idString);
         if (person == null) {
             logger.debug("Person not found: " + idString);
 //            throw new PersonNotFoundException(
@@ -153,9 +149,8 @@ public class PersonController {
      */
     private PersonDocument find(final RootDocument root,
             final String idString) {
-        final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
-            repo = repositoryManager.get(Person.class);
-        return (PersonDocument) repo.findByRootAndString(root, idString);
+        return (PersonDocument) repositoryManager.get(Person.class)
+                .findByRootAndString(root, idString);
     }
 
     /**

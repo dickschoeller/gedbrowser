@@ -8,13 +8,12 @@ import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmissionDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,8 +64,7 @@ public class SubmissionController {
      * @return the list of submissions
      */
     private List<SubmissionDocument> fetchSubmissions(final String dbName) {
-        final RootDocument root = fetchRoot(dbName);
-        return find(root);
+        return find(fetchRoot(dbName));
     }
 
     /**
@@ -88,11 +86,9 @@ public class SubmissionController {
      * @return the list of submissions
      */
     private List<SubmissionDocument> find(final RootDocument root) {
-        final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
-            repo = repositoryManager.get(
-                    org.schoellerfamily.gedbrowser.datamodel.Submission.class);
         final List<SubmissionDocument> all = new ArrayList<>();
-        for (final GedDocument<?> document : repo.findAll(root)) {
+        for (final GedDocument<?> document
+                : repositoryManager.get(Submission.class).findAll(root)) {
             all.add((SubmissionDocument) document);
         }
         return all;
@@ -120,8 +116,7 @@ public class SubmissionController {
      */
     private SubmissionDocument fetchSubmission(final String dbName,
             final String idString) {
-        final RootDocument root = fetchRoot(dbName);
-        final SubmissionDocument submission = find(root, idString);
+        final SubmissionDocument submission = find(fetchRoot(dbName), idString);
         if (submission == null) {
             logger.debug("Submission not found: " + idString);
 //            throw new PersonNotFoundException(
@@ -138,13 +133,8 @@ public class SubmissionController {
      */
     private SubmissionDocument find(final RootDocument root,
             final String idString) {
-        final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
-            repo = repositoryManager.get(
-                    org.schoellerfamily.gedbrowser.datamodel.Submission.class);
-        final SubmissionDocument person = (SubmissionDocument) repo
+        return (SubmissionDocument) repositoryManager.get(Submission.class)
                 .findByRootAndString(root, idString);
-        person.setGedObject(null);
-        return person;
     }
 
     /**

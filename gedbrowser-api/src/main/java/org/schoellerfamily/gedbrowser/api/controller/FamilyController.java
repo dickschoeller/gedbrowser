@@ -8,13 +8,12 @@ import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.persistence.domain.FamilyDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -200,8 +199,7 @@ public class FamilyController {
      * @return the list of persons
      */
     private List<FamilyDocument> fetchFamilies(final String dbName) {
-        final RootDocument root = fetchRoot(dbName);
-        return find(root);
+        return find(fetchRoot(dbName));
     }
 
     /**
@@ -211,8 +209,7 @@ public class FamilyController {
      */
     private FamilyDocument fetchFamily(final String dbName,
             final String idString) {
-        final RootDocument root = fetchRoot(dbName);
-        final FamilyDocument family = find(root, idString);
+        final FamilyDocument family = find(fetchRoot(dbName), idString);
         if (family == null) {
             logger.debug("Family not found: " + idString);
 //            throw new PersonNotFoundException(
@@ -243,10 +240,8 @@ public class FamilyController {
      */
     private FamilyDocument find(final RootDocument root,
             final String idString) {
-        final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
-            repo = repositoryManager.get(
-                    org.schoellerfamily.gedbrowser.datamodel.Family.class);
-        return (FamilyDocument) repo.findByRootAndString(root, idString);
+        return (FamilyDocument) repositoryManager.get(Family.class)
+                .findByRootAndString(root, idString);
     }
 
     /**
@@ -254,11 +249,9 @@ public class FamilyController {
      * @return the list of family documents
      */
     private List<FamilyDocument> find(final RootDocument root) {
-        final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
-        repo = repositoryManager.get(
-                org.schoellerfamily.gedbrowser.datamodel.Family.class);
         final List<FamilyDocument> all = new ArrayList<>();
-        for (final GedDocument<?> document : repo.findAll(root)) {
+        for (final GedDocument<?> document
+                : repositoryManager.get(Family.class).findAll(root)) {
             all.add((FamilyDocument) document);
         }
         return all;

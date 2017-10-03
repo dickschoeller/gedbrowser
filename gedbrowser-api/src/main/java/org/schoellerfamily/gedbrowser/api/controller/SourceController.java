@@ -8,14 +8,13 @@ import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,8 +66,7 @@ public class SourceController {
      * @return the list of sources
      */
     private List<SourceDocument> fetchSources(final String dbName) {
-        final RootDocument root = fetchRoot(dbName);
-        return find(root);
+        return find(fetchRoot(dbName));
     }
 
     /**
@@ -90,11 +88,9 @@ public class SourceController {
      * @return the list of sources
      */
     private List<SourceDocument> find(final RootDocument root) {
-        final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
-            repo = repositoryManager.get(
-                    org.schoellerfamily.gedbrowser.datamodel.Source.class);
         final List<SourceDocument> all = new ArrayList<>();
-        for (final GedDocument<?> document : repo.findAll(root)) {
+        for (final GedDocument<?> document
+                : repositoryManager.get(Source.class).findAll(root)) {
             all.add((SourceDocument) document);
         }
         return all;
@@ -122,8 +118,7 @@ public class SourceController {
      */
     private SourceDocument fetchSource(final String dbName,
             final String idString) {
-        final RootDocument root = fetchRoot(dbName);
-        final SourceDocument source = find(root, idString);
+        final SourceDocument source = find(fetchRoot(dbName), idString);
         if (source == null) {
             logger.debug("Source not found: " + idString);
 //            throw new PersonNotFoundException(
@@ -140,13 +135,8 @@ public class SourceController {
      */
     private SourceDocument find(final RootDocument root,
             final String idString) {
-        final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
-            repo = repositoryManager.get(
-                    org.schoellerfamily.gedbrowser.datamodel.Source.class);
-        final SourceDocument person =
-                (SourceDocument) repo.findByRootAndString(root, idString);
-        person.setGedObject(null);
-        return person;
+        return (SourceDocument) repositoryManager.get(Source.class)
+                .findByRootAndString(root, idString);
     }
 
     /**
