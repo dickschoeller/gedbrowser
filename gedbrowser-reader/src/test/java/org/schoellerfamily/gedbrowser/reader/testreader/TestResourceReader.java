@@ -75,10 +75,8 @@ public final class TestResourceReader {
         } else {
             fis = caller.getClass().getResourceAsStream(DATA_DIR + filename);
         }
-        try (Reader reader = new InputStreamReader(fis, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(
-                        reader);) {
-            return bufferedReader.lines();
-        }
+        final Reader reader = new InputStreamReader(fis, "UTF-8");
+        final BufferedReader bufferedReader = new BufferedReader(reader);
+        return bufferedReader.lines();
     }
 }
