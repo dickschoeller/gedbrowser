@@ -7,7 +7,7 @@ import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.controller.ApplicationInfoImpl;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
-import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
+import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
@@ -120,8 +120,8 @@ public class MongoConfiguration {
      * @return the loader
      */
     @Bean
-    public GedFileLoader loader() {
-        return new GedFileLoader();
+    public GedObjectFileLoader loader() {
+        return new GedObjectFileLoader();
     }
 
     /**

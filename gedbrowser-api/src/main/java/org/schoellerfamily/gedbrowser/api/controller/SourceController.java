@@ -7,13 +7,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
-import org.schoellerfamily.gedbrowser.api.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
+import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class SourceController {
 
     /** */
     @Autowired
-    private transient GedFileLoader loader;
+    private transient GedDocumentFileLoader loader;
 
     /** */
     @Autowired
@@ -76,7 +76,7 @@ public class SourceController {
      * @return the root object of the data set
      */
     private RootDocument fetchRoot(final String dbName) {
-        final RootDocument root = loader.load(dbName);
+        final RootDocument root = loader.loadDocument(dbName);
         if (root == null) {
             logger.debug("Data set not found: " + dbName);
 //            throw new DataSetNotFoundException(

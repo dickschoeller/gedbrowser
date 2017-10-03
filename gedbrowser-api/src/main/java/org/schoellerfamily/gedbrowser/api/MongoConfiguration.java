@@ -2,10 +2,10 @@ package org.schoellerfamily.gedbrowser.api;
 
 import java.net.UnknownHostException;
 
-import org.schoellerfamily.gedbrowser.api.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     FamilyDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
@@ -106,8 +106,8 @@ public class MongoConfiguration {
      * @return the loader
      */
     @Bean
-    public GedFileLoader loader() {
-        return new GedFileLoader();
+    public GedDocumentFileLoader loader() {
+        return new GedDocumentFileLoader();
     }
 
     /**

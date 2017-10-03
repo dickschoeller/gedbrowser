@@ -7,12 +7,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
-import org.schoellerfamily.gedbrowser.api.loader.GedFileLoader;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.persistence.domain.FamilyDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
+import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class FamilyController {
 
     /** */
     @Autowired
-    private transient GedFileLoader loader;
+    private transient GedDocumentFileLoader loader;
 
     /** */
     @Autowired
@@ -227,7 +227,7 @@ public class FamilyController {
      * @return the root object
      */
     private RootDocument fetchRoot(final String dbName) {
-        final RootDocument root = loader.load(dbName);
+        final RootDocument root = loader.loadDocument(dbName);
         if (root == null) {
             logger.debug("Data set not found: " + dbName);
 //            throw new DataSetNotFoundException(
@@ -246,10 +246,7 @@ public class FamilyController {
         final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
             repo = repositoryManager.get(
                     org.schoellerfamily.gedbrowser.datamodel.Family.class);
-        final FamilyDocument family =
-                (FamilyDocument) repo.findByRootAndString(root, idString);
-        family.setGedObject(null);
-        return family;
+        return (FamilyDocument) repo.findByRootAndString(root, idString);
     }
 
     /**

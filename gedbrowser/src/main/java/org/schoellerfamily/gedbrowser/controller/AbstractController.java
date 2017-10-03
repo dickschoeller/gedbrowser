@@ -13,7 +13,7 @@ import org.schoellerfamily.gedbrowser.controller.exception.SourceNotFoundExcepti
 import org.schoellerfamily.gedbrowser.controller.exception.SubmissionNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.SubmitterNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
+import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.renderer.GedResourceNotFoundRenderer;
 import org.schoellerfamily.gedbrowser.renderer.Renderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
@@ -45,7 +45,7 @@ public abstract class AbstractController {
 
     /** */
     @Autowired
-    private transient GedFileLoader loader;
+    private transient GedObjectFileLoader loader;
 
     /** */
     @Autowired

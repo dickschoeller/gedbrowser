@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.loader.GedFileLoader;
+import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.endpoint.Endpoint;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,7 @@ public class RestoreEndpoint implements Endpoint<List<String>> {
 
     /** */
     @Autowired
-    private transient GedFileLoader loader;
+    private transient GedObjectFileLoader loader;
 
     /**
      * {@inheritDoc}
