@@ -13,15 +13,11 @@ import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransfo
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
-import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
-import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-//import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -36,14 +32,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Dick Schoeller
  */
 @Controller
-@SuppressWarnings("PMD.ExcessiveImports")
-public class PersonController {
+public class PersonController extends Fetcher {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
-
-    /** */
-    @Autowired
-    private transient GedDocumentFileLoader loader;
 
     /** */
     @Autowired
@@ -76,41 +67,6 @@ public class PersonController {
     }
 
     /**
-     * @param dbName the name of the database
-     * @return the list of persons
-     */
-    private List<PersonDocument> fetchPersons(final String dbName) {
-        return find(fetchRoot(dbName));
-    }
-
-    /**
-     * @param dbName the name of the database
-     * @return the root object
-     */
-    private RootDocument fetchRoot(final String dbName) {
-        final RootDocument root = loader.loadDocument(dbName);
-        if (root == null) {
-            logger.debug("Data set not found: " + dbName);
-//            throw new DataSetNotFoundException(
-//                    "Data set " + dbName + " not found", dbName);
-        }
-        return root;
-    }
-
-    /**
-     * @param root the root document of the data set to search
-     * @return the list of person documents
-     */
-    private List<PersonDocument> find(final RootDocument root) {
-        final List<PersonDocument> all = new ArrayList<>();
-        for (final GedDocument<?> document
-                : repositoryManager.get(Person.class).findAll(root)) {
-            all.add((PersonDocument) document);
-        }
-        return all;
-    }
-
-    /**
      * @param db the name of the db to access
      * @param id the ID of the person
      * @return the person
@@ -123,34 +79,6 @@ public class PersonController {
             @PathVariable final String id) {
         logger.info("Entering person, db: " + db + ", id: " + id);
         return d2dm.convert(fetchPerson(db, id));
-    }
-
-    /**
-     * @param dbName the name of the database
-     * @param idString the ID of the person
-     * @return the person
-     */
-    private PersonDocument fetchPerson(final String dbName,
-            final String idString) {
-        final PersonDocument person = find(fetchRoot(dbName), idString);
-        if (person == null) {
-            logger.debug("Person not found: " + idString);
-//            throw new PersonNotFoundException(
-//                    "Person " + idString + " not found", idString,
-//                    root.getDbName(), context);
-        }
-        return person;
-    }
-
-    /**
-     * @param root the root document of the data set to search
-     * @param idString the ID of the person to find
-     * @return the person document
-     */
-    private PersonDocument find(final RootDocument root,
-            final String idString) {
-        return (PersonDocument) repositoryManager.get(Person.class)
-                .findByRootAndString(root, idString);
     }
 
     /**

@@ -7,13 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
-import org.schoellerfamily.gedbrowser.datamodel.Head;
-import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
-import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,17 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Dick Schoeller
  */
 @Controller
-public class HeadController {
+public class HeadController extends Fetcher {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
-
-    /** */
-    @Autowired
-    private transient GedDocumentFileLoader loader;
-
-    /** */
-    @Autowired
-    private transient RepositoryManagerMongo repositoryManager;
 
     /**
      * Handles data conversion from DB model to API model.
@@ -56,40 +42,5 @@ public class HeadController {
             list.add(d2dm.convert(head));
         }
         return list.get(0);
-    }
-
-    /**
-     * @param dbName the name of the database
-     * @return the list of sources
-     */
-    private List<HeadDocument> fetchHeads(final String dbName) {
-        return find(fetchRoot(dbName));
-    }
-
-    /**
-     * @param dbName the name of the database
-     * @return the root object of the data set
-     */
-    private RootDocument fetchRoot(final String dbName) {
-        final RootDocument root = loader.loadDocument(dbName);
-        if (root == null) {
-            logger.debug("Data set not found: " + dbName);
-//            throw new DataSetNotFoundException(
-//                    "Data set " + dbName + " not found", dbName);
-        }
-        return root;
-    }
-
-    /**
-     * @param root the root document of the data set
-     * @return the list of heads
-     */
-    private List<HeadDocument> find(final RootDocument root) {
-        final List<HeadDocument> all = new ArrayList<>();
-        for (final GedDocument<?> document
-                : repositoryManager.get(Head.class).findAll(root)) {
-            all.add((HeadDocument) document);
-        }
-        return all;
     }
 }

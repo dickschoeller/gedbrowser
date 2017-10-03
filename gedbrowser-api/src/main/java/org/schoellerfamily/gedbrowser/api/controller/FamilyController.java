@@ -8,13 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
-import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.persistence.domain.FamilyDocument;
-import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
-import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,17 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Dick Schoeller
  */
 @Controller
-public class FamilyController {
+public class FamilyController extends Fetcher {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
-
-    /** */
-    @Autowired
-    private transient GedDocumentFileLoader loader;
-
-    /** */
-    @Autowired
-    private transient RepositoryManagerMongo repositoryManager;
 
     /**
      * Handles data conversion from DB model to API model.
@@ -183,11 +169,7 @@ public class FamilyController {
                 d2dm.convert(fetchFamily(db, id)).getAttributes();
         final List<ApiObject> list = new ArrayList<>();
         for (final ApiObject object : attributes) {
-            if (type.equals(object.getType())) {
-                list.add(object);
-            }
-            if ("attribute".equals(object.getType())
-                    && type.equalsIgnoreCase(object.getString())) {
+            if (isObjectDesiredType(type, object)) {
                 list.add(object);
             }
         }
@@ -195,65 +177,17 @@ public class FamilyController {
     }
 
     /**
-     * @param dbName the name of the database
-     * @return the list of persons
+     * @param type the type we are looking for
+     * @param object the object being checked
+     * @return true if object satisfies
      */
-    private List<FamilyDocument> fetchFamilies(final String dbName) {
-        return find(fetchRoot(dbName));
-    }
-
-    /**
-     * @param dbName the name of the database
-     * @param idString the ID of the person
-     * @return the person
-     */
-    private FamilyDocument fetchFamily(final String dbName,
-            final String idString) {
-        final FamilyDocument family = find(fetchRoot(dbName), idString);
-        if (family == null) {
-            logger.debug("Family not found: " + idString);
-//            throw new PersonNotFoundException(
-//                    "Person " + idString + " not found", idString,
-//                    root.getDbName(), context);
+    private boolean isObjectDesiredType(final String type,
+            final ApiObject object) {
+        final String objectType = object.getType();
+        if (type.equals(objectType)) {
+            return true;
         }
-        return family;
-    }
-
-    /**
-     * @param dbName the name of the database
-     * @return the root object
-     */
-    private RootDocument fetchRoot(final String dbName) {
-        final RootDocument root = loader.loadDocument(dbName);
-        if (root == null) {
-            logger.debug("Data set not found: " + dbName);
-//            throw new DataSetNotFoundException(
-//                    "Data set " + dbName + " not found", dbName);
-        }
-        return root;
-    }
-
-    /**
-     * @param root the root document of the data set to search
-     * @param idString the ID of the family
-     * @return the family document
-     */
-    private FamilyDocument find(final RootDocument root,
-            final String idString) {
-        return (FamilyDocument) repositoryManager.get(Family.class)
-                .findByRootAndString(root, idString);
-    }
-
-    /**
-     * @param root the root document of the data set to search
-     * @return the list of family documents
-     */
-    private List<FamilyDocument> find(final RootDocument root) {
-        final List<FamilyDocument> all = new ArrayList<>();
-        for (final GedDocument<?> document
-                : repositoryManager.get(Family.class).findAll(root)) {
-            all.add((FamilyDocument) document);
-        }
-        return all;
+        return "attribute".equals(objectType)
+                && type.equalsIgnoreCase(object.getString());
     }
 }
