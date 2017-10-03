@@ -118,6 +118,10 @@ public class GedWriterTest {
                 return name.matches(baseFilename + ".*");
             }
         });
+        if (files == null) {
+            logger.info("No files found matching " + baseFilename + " in /tmp");
+            return;
+        }
         for (final File delFile : files) {
             if (!delFile.delete()) {
                 logger.error("Can't delete file " + delFile.getName());

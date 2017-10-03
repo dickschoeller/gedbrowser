@@ -14,8 +14,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
+import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.writer.GedWriterFile;
-import org.schoellerfamily.gedbrowser.writer.IdComparator;
 
 /**
  * @author Dick Schoeller
@@ -131,7 +131,7 @@ public interface RootLineVisitor extends GedObjectLineVisitor {
     default <T extends GedObject> Collection<T> find(final Root root,
             final Class<T> clazz) {
         final Collection<T> collection = root.find(clazz);
-        final Set<T> set = new TreeSet<>(new IdComparator<>());
+        final Set<T> set = new TreeSet<>(new GetStringComparator());
         set.addAll(collection);
         return set;
     }

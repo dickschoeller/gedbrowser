@@ -10,7 +10,8 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 /**
  * @author Dick Schoeller
  */
-public abstract class GedObject extends AbstractFinderObject {
+public abstract class GedObject extends AbstractFinderObject
+        implements GetString {
 
     /** */
     protected static final String DEFAULT_IDX_NAME = "";
