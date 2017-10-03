@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
+import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.persistence.domain.FamilyDocument;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Dick Schoeller
  */
 @Controller
-public class FamilyController extends Fetcher {
+public class FamilyController extends Fetcher<FamilyDocument> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -39,7 +40,7 @@ public class FamilyController extends Fetcher {
             @PathVariable final String db) {
         logger.info("Entering families, db: " + db);
         final List<ApiFamily> list = new ArrayList<>();
-        for (final FamilyDocument family : fetchFamilies(db)) {
+        for (final FamilyDocument family : fetch(db, Family.class)) {
             list.add(d2dm.convert(family));
         }
         return list;
@@ -57,7 +58,7 @@ public class FamilyController extends Fetcher {
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering family, db: " + db + ", id: " + id);
-        return d2dm.convert(fetchFamily(db, id));
+        return d2dm.convert(fetch(db, id, Family.class));
     }
 
     /**
@@ -72,7 +73,7 @@ public class FamilyController extends Fetcher {
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering family attributes, db: " + db + ", id: " + id);
-        return d2dm.convert(fetchFamily(db, id)).getAttributes();
+        return d2dm.convert(fetch(db, id, Family.class)).getAttributes();
     }
 
     /**
@@ -91,7 +92,7 @@ public class FamilyController extends Fetcher {
         logger.info("Entering family attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
         final List<ApiObject> attributes =
-                d2dm.convert(fetchFamily(db, id)).getAttributes();
+                d2dm.convert(fetch(db, id, Family.class)).getAttributes();
         if (index >= attributes.size()) {
             return null;
         }
@@ -111,7 +112,7 @@ public class FamilyController extends Fetcher {
             @PathVariable final String id) {
         logger.info("Entering children, db: " + db + ", id: " + id);
         final List<ApiObject> attributes =
-                d2dm.convert(fetchFamily(db, id)).getAttributes();
+                d2dm.convert(fetch(db, id, Family.class)).getAttributes();
         final List<ApiObject> children = new ArrayList<>();
         for (final ApiObject attribute : attributes) {
             if ("child".equals(attribute.getType())) {
@@ -137,7 +138,7 @@ public class FamilyController extends Fetcher {
         logger.info("Entering child, db: " + db + ", id: " + id + ", index: "
                 + index);
         final List<ApiObject> attributes =
-                d2dm.convert(fetchFamily(db, id)).getAttributes();
+                d2dm.convert(fetch(db, id, Family.class)).getAttributes();
         final List<ApiObject> children = new ArrayList<>();
         for (final ApiObject attribute : attributes) {
             if ("child".equals(attribute.getType())) {
@@ -166,7 +167,7 @@ public class FamilyController extends Fetcher {
         logger.info("Entering family attributes, db: " + db + ", id: " + id
                 + ", index: " + type);
         final List<ApiObject> attributes =
-                d2dm.convert(fetchFamily(db, id)).getAttributes();
+                d2dm.convert(fetch(db, id, Family.class)).getAttributes();
         final List<ApiObject> list = new ArrayList<>();
         for (final ApiObject object : attributes) {
             if (isObjectDesiredType(type, object)) {

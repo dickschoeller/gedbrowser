@@ -7,6 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
+import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Dick Schoeller
  */
 @Controller
-public class HeadController extends Fetcher {
+public class HeadController extends Fetcher<HeadDocument> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -38,7 +39,7 @@ public class HeadController extends Fetcher {
             @PathVariable final String db) {
         logger.info("Entering head, db: " + db);
         final List<ApiHead> list = new ArrayList<>();
-        for (final HeadDocument head : fetchHeads(db)) {
+        for (final HeadDocument head : fetch(db, Head.class)) {
             list.add(d2dm.convert(head));
         }
         return list.get(0);

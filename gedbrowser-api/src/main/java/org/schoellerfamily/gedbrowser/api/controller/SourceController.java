@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
+import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Dick Schoeller
  */
 @Controller
-public class SourceController extends Fetcher {
+public class SourceController extends Fetcher<SourceDocument> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -40,7 +41,7 @@ public class SourceController extends Fetcher {
             @PathVariable final String db) {
         logger.info("Entering sources, db: " + db);
         final List<ApiSource> list = new ArrayList<>();
-        for (final SourceDocument person : fetchSources(db)) {
+        for (final SourceDocument person : fetch(db, Source.class)) {
             list.add(d2dm.convert(person));
         }
         list.sort(new GetStringComparator());
@@ -59,7 +60,7 @@ public class SourceController extends Fetcher {
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering source, db: " + db + ", id: " + id);
-        return d2dm.convert(fetchSource(db, id));
+        return d2dm.convert(fetch(db, id, Source.class));
     }
 
     /**
@@ -74,7 +75,7 @@ public class SourceController extends Fetcher {
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering source attributes, db: " + db + ", id: " + id);
-        return d2dm.convert(fetchSource(db, id)).getAttributes();
+        return d2dm.convert(fetch(db, id, Source.class)).getAttributes();
     }
 
     /**
@@ -93,7 +94,7 @@ public class SourceController extends Fetcher {
         logger.info("Entering source attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
         final List<ApiObject> attributes =
-                d2dm.convert(fetchSource(db, id)).getAttributes();
+                d2dm.convert(fetch(db, id, Source.class)).getAttributes();
         if (index >= attributes.size()) {
             return null;
         }

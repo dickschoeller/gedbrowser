@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmitterDocument;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Dick Schoeller
  */
 @Controller
-public class SubmitterController extends Fetcher {
+public class SubmitterController extends Fetcher<SubmitterDocument> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -39,8 +40,8 @@ public class SubmitterController extends Fetcher {
             @PathVariable final String db) {
         logger.info("Entering submitters, db: " + db);
         final List<ApiSubmitter> list = new ArrayList<>();
-        for (final SubmitterDocument person : fetchSubmitters(db)) {
-            list.add(d2dm.convert(person));
+        for (final SubmitterDocument submitter : fetch(db, Submitter.class)) {
+            list.add(d2dm.convert(submitter));
         }
         return list;
     }
@@ -57,7 +58,7 @@ public class SubmitterController extends Fetcher {
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering submitter, db: " + db + ", id: " + id);
-        return d2dm.convert(fetchSubmitter(db, id));
+        return d2dm.convert(fetch(db, id, Submitter.class));
     }
 
     /**
@@ -73,7 +74,7 @@ public class SubmitterController extends Fetcher {
             @PathVariable final String id) {
         logger.info("Entering submitter attributes, db: " + db
                 + ", id: " + id);
-        return d2dm.convert(fetchSubmitter(db, id)).getAttributes();
+        return d2dm.convert(fetch(db, id, Submitter.class)).getAttributes();
     }
 
     /**
@@ -91,8 +92,8 @@ public class SubmitterController extends Fetcher {
             @PathVariable final int index) {
         logger.info("Entering submitter attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
-        final List<ApiObject> attributes = d2dm.convert(fetchSubmitter(db, id))
-                .getAttributes();
+        final List<ApiObject> attributes = d2dm
+                .convert(fetch(db, id, Submitter.class)).getAttributes();
         if (index >= attributes.size()) {
             return null;
         }

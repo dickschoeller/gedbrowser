@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Dick Schoeller
  */
 @Controller
-public class PersonController extends Fetcher {
+public class PersonController extends Fetcher<PersonDocument> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -60,7 +60,7 @@ public class PersonController extends Fetcher {
             @PathVariable final String db) {
         logger.info("Entering persons, db: " + db);
         final List<ApiPerson> list = new ArrayList<>();
-        for (final PersonDocument person : fetchPersons(db)) {
+        for (final PersonDocument person : fetch(db, Person.class)) {
             list.add(d2dm.convert(person));
         }
         return list;
@@ -78,7 +78,7 @@ public class PersonController extends Fetcher {
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering person, db: " + db + ", id: " + id);
-        return d2dm.convert(fetchPerson(db, id));
+        return d2dm.convert(fetch(db, id, Person.class));
     }
 
     /**
@@ -93,7 +93,7 @@ public class PersonController extends Fetcher {
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering person attributes, db: " + db + ", id: " + id);
-        return d2dm.convert(fetchPerson(db, id)).getAttributes();
+        return d2dm.convert(fetch(db, id, Person.class)).getAttributes();
     }
 
     /**
@@ -112,7 +112,7 @@ public class PersonController extends Fetcher {
         logger.info("Entering person attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
         final List<ApiObject> attributes =
-                d2dm.convert(fetchPerson(db, id)).getAttributes();
+                d2dm.convert(fetch(db, id, Person.class)).getAttributes();
         if (index >= attributes.size()) {
             return null;
         }
@@ -136,7 +136,7 @@ public class PersonController extends Fetcher {
         logger.info("Entering person createAttribute, db: " + db
                 + ", id: " + id
                 + ", index: " + index);
-        final PersonDocument personDocument = fetchPerson(db, id);
+        final PersonDocument personDocument = fetch(db, id, Person.class);
         final List<ApiObject> attributes = d2dm.convert(personDocument)
                 .getAttributes();
         if (index >= attributes.size()) {
