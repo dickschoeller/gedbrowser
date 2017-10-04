@@ -20,15 +20,28 @@ public class GetStringComparator
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.NPathComplexity")
     public int compare(final GetString arg0, final GetString arg1) {
-        if (arg0 == null || arg1 == null) {
+        if (arg0 == null && arg1 == null) {
             return 0;
+        }
+        if (arg0 == null) {
+            return -1;
+        }
+        if (arg1 == null) {
+            return 1;
         }
 
         final String s1 = arg0.getString();
         final String s2 = arg1.getString();
-        if ((s1 == null) || (s2 == null)) {
+        if (s1 == null && s2 == null) {
             return 0;
+        }
+        if (s1 == null) {
+            return -1;
+        }
+        if (s2 == null) {
+            return 1;
         }
 
         int thisMarker = 0;
