@@ -41,7 +41,7 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
     private static final Map<String, String> TAGMAP = new HashMap<>();
     static {
         TAGMAP.put("attribute", "ATTRIBUTE");
-        TAGMAP.put("child", "HUSB");
+        TAGMAP.put("child", "CHIL");
         TAGMAP.put("date", "DATE");
         TAGMAP.put("famc", "FAMC");
         TAGMAP.put("family", "FAM");
