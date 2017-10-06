@@ -7,6 +7,7 @@ import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.NoteDocumentRepositoryMongo;
@@ -53,6 +54,7 @@ import com.mongodb.MongoClient;
                         TrailerDocumentRepositoryMongo.class
                 },
                 type = FilterType.ASSIGNABLE_TYPE))
+@SuppressWarnings("PMD.ExcessiveImports")
 public class MongoTestConfiguration {
     /** */
     @Value("${spring.data.mongodb.host:localhost}")
@@ -144,5 +146,13 @@ public class MongoTestConfiguration {
     @Bean
     public GedObjectToGedDocumentMongoConverter toGedDocumentConverter() {
         return new GedObjectToGedDocumentMongoConverter();
+    }
+
+    /**
+     * @return the loader
+     */
+    @Bean
+    public GedDocumentFileLoader gedDocumentFileLoader() {
+        return new GedDocumentFileLoader();
     }
 }

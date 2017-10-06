@@ -57,7 +57,7 @@ public class GedDocumentFileLoader {
     private transient GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /** */
-    @Value("${gedbrowser.home}")
+    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
     private transient String gedbrowserHome;
 
     /**
@@ -144,6 +144,7 @@ public class GedDocumentFileLoader {
             repositoryManager.getRootDocumentRepository().save(rootdoc);
         } catch (DataAccessException e) {
             logger.error("Could not save root: " + root.getDbName(), e);
+            return null;
         }
         return rootdoc;
     }
