@@ -15,6 +15,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLo
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.test.MongoTestConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -33,6 +34,10 @@ public class GedDocumentFileLoaderTest {
      */
     @Autowired
     private transient RepositoryManagerMongo repositoryManager;
+
+    /** */
+    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
+    private transient String gedbrowserHome;
 
     /** */
     @Test
@@ -91,7 +96,7 @@ public class GedDocumentFileLoaderTest {
         assertEquals("dbname mismatch", "mini-schoeller",
                 details.get("dbname"));
         assertEquals("filename mismatch",
-                "/var/lib/gedbrowser/mini-schoeller.ged",
+                gedbrowserHome + "/mini-schoeller.ged",
                 details.get("filename"));
         final long expectedPersonsCount = 20;
         final long expectedFamiliesCount = 7;
