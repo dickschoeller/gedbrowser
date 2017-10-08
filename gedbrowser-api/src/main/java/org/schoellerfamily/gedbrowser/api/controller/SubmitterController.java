@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
@@ -95,8 +96,69 @@ public class SubmitterController extends Fetcher<SubmitterDocument> {
         final List<ApiObject> attributes = d2dm
                 .convert(fetch(db, id, Submitter.class)).getAttributes();
         if (index >= attributes.size()) {
-            return null;
+            throw new ObjectNotFoundException(
+                    "Attribute " + index + "of submitter " + id + " not found",
+                    "attribute", "id/attributes/" + index, db);
         }
         return attributes.get(index);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the submitter
+     * @param type the type we are looking for
+     * @return the attribute
+     */
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/dbs/{db}/submitters/{id}/{type}")
+    @ResponseBody
+    public List<ApiObject> attributes(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final String type) {
+        logger.info("Entering read /dbs/" + db + "/submitters/" + id + "/"
+                + type);
+        final List<ApiObject> attributes =
+                d2dm.convert(fetch(db, id, Submitter.class)).getAttributes();
+        final List<ApiObject> list = new ArrayList<>();
+        for (final ApiObject object : attributes) {
+            if (object.isType(type)) {
+                list.add(object);
+            }
+        }
+        return list;
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the submitter
+     * @param type the type we are looking for
+     * @param index the index in the list of found matches
+     * @return the attribute
+     */
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/dbs/{db}/submitters/{id}/{type}/{index}")
+    @ResponseBody
+    public ApiObject attribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final String type,
+            @PathVariable final int index) {
+        logger.info("Entering read /dbs/" + db + "/submitters/" + id + "/"
+                + type + "/" + index);
+        final List<ApiObject> attributes =
+                d2dm.convert(fetch(db, id, Submitter.class)).getAttributes();
+        final List<ApiObject> list = new ArrayList<>();
+        for (final ApiObject object : attributes) {
+            if (object.isType(type)) {
+                list.add(object);
+            }
+        }
+        if (index >= list.size()) {
+            throw new ObjectNotFoundException(
+                    type + " " + index + " of submitters " + id + " not found",
+                    "attribute", id + "/attributes/" + type + "/" + index, db);
+        }
+        return list.get(index);
     }
 }

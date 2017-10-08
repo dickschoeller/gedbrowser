@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
+import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
@@ -38,7 +39,7 @@ public class FamilyController extends Fetcher<FamilyDocument> {
     @ResponseBody
     public List<ApiFamily> families(
             @PathVariable final String db) {
-        logger.info("Entering families, db: " + db);
+        logger.info("Entering read /dbs/" + db + "/families");
         final List<ApiFamily> list = new ArrayList<>();
         for (final FamilyDocument family : fetch(db, Family.class)) {
             list.add(d2dm.convert(family));
@@ -57,7 +58,7 @@ public class FamilyController extends Fetcher<FamilyDocument> {
     public ApiFamily family(
             @PathVariable final String db,
             @PathVariable final String id) {
-        logger.info("Entering family, db: " + db + ", id: " + id);
+        logger.info("Entering read /dbs/" + db + "/families/" + id);
         return d2dm.convert(fetch(db, id, Family.class));
     }
 
@@ -72,7 +73,8 @@ public class FamilyController extends Fetcher<FamilyDocument> {
     public List<ApiObject> attributes(
             @PathVariable final String db,
             @PathVariable final String id) {
-        logger.info("Entering family attributes, db: " + db + ", id: " + id);
+        logger.info("Entering read /dbs/" + db + "/families/" + id
+                + "/attributes");
         return d2dm.convert(fetch(db, id, Family.class)).getAttributes();
     }
 
@@ -89,66 +91,16 @@ public class FamilyController extends Fetcher<FamilyDocument> {
             @PathVariable final String db,
             @PathVariable final String id,
             @PathVariable final int index) {
-        logger.info("Entering family attribute, db: " + db + ", id: " + id
-                + ", index: " + index);
+        logger.info("Entering read /dbs/" + db + "/families/" + id
+                + "/attributes/" + index);
         final List<ApiObject> attributes =
                 d2dm.convert(fetch(db, id, Family.class)).getAttributes();
         if (index >= attributes.size()) {
-            return null;
+            throw new ObjectNotFoundException(
+                    "Attribute " + index + "of family " + id + " not found",
+                    "attribute", "id/attributes/" + index, db);
         }
         return attributes.get(index);
-    }
-
-    /**
-     * @param db the name of the db to access
-     * @param id the ID of the person
-     * @return the attribute
-     */
-    @RequestMapping(method = RequestMethod.GET,
-            value = "/dbs/{db}/families/{id}/children")
-    @ResponseBody
-    public List<ApiObject> children(
-            @PathVariable final String db,
-            @PathVariable final String id) {
-        logger.info("Entering children, db: " + db + ", id: " + id);
-        final List<ApiObject> attributes =
-                d2dm.convert(fetch(db, id, Family.class)).getAttributes();
-        final List<ApiObject> children = new ArrayList<>();
-        for (final ApiObject attribute : attributes) {
-            if ("child".equals(attribute.getType())) {
-                children.add(attribute);
-            }
-        }
-        return children;
-    }
-
-    /**
-     * @param db the name of the db to access
-     * @param id the ID of the person
-     * @param index the index of the attribute
-     * @return the attribute
-     */
-    @RequestMapping(method = RequestMethod.GET,
-            value = "/dbs/{db}/families/{id}/children/{index}")
-    @ResponseBody
-    public ApiObject child(
-            @PathVariable final String db,
-            @PathVariable final String id,
-            @PathVariable final int index) {
-        logger.info("Entering child, db: " + db + ", id: " + id + ", index: "
-                + index);
-        final List<ApiObject> attributes =
-                d2dm.convert(fetch(db, id, Family.class)).getAttributes();
-        final List<ApiObject> children = new ArrayList<>();
-        for (final ApiObject attribute : attributes) {
-            if ("child".equals(attribute.getType())) {
-                children.add(attribute);
-            }
-        }
-        if (index >= children.size()) {
-            return null;
-        }
-        return children.get(index);
     }
 
     /**
@@ -164,13 +116,13 @@ public class FamilyController extends Fetcher<FamilyDocument> {
             @PathVariable final String db,
             @PathVariable final String id,
             @PathVariable final String type) {
-        logger.info("Entering family attributes, db: " + db + ", id: " + id
-                + ", index: " + type);
+        logger.info("Entering read /dbs/" + db + "/families/" + id + "/"
+                + type);
         final List<ApiObject> attributes =
                 d2dm.convert(fetch(db, id, Family.class)).getAttributes();
         final List<ApiObject> list = new ArrayList<>();
         for (final ApiObject object : attributes) {
-            if (isObjectDesiredType(type, object)) {
+            if (object.isType(type)) {
                 list.add(object);
             }
         }
@@ -178,17 +130,35 @@ public class FamilyController extends Fetcher<FamilyDocument> {
     }
 
     /**
+     * @param db the name of the db to access
+     * @param id the ID of the family
      * @param type the type we are looking for
-     * @param object the object being checked
-     * @return true if object satisfies
+     * @param index the index in the list of found matches
+     * @return the attribute
      */
-    private boolean isObjectDesiredType(final String type,
-            final ApiObject object) {
-        final String objectType = object.getType();
-        if (type.equals(objectType)) {
-            return true;
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/dbs/{db}/families/{id}/{type}/{index}")
+    @ResponseBody
+    public ApiObject attribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final String type,
+            @PathVariable final int index) {
+        logger.info("Entering read /dbs/" + db + "/families/" + id + "/"
+                + type + "/" + index);
+        final List<ApiObject> attributes =
+                d2dm.convert(fetch(db, id, Family.class)).getAttributes();
+        final List<ApiObject> list = new ArrayList<>();
+        for (final ApiObject object : attributes) {
+            if (object.isType(type)) {
+                list.add(object);
+            }
         }
-        return "attribute".equals(objectType)
-                && type.equalsIgnoreCase(object.getString());
+        if (index >= list.size()) {
+            throw new ObjectNotFoundException(
+                    type + " " + index + " of person " + id + " not found",
+                    "attribute", id + "/attributes/" + type + "/" + index, db);
+        }
+        return list.get(index);
     }
 }
