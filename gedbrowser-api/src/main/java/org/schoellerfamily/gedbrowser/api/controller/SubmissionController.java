@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -39,12 +38,7 @@ public class SubmissionController extends Fetcher<SubmissionDocument> {
     public List<ApiSubmission> submissions(
             @PathVariable final String db) {
         logger.info("Entering submissions, db: " + db);
-        final List<ApiSubmission> list = new ArrayList<>();
-        for (final SubmissionDocument submission
-                : fetch(db, Submission.class)) {
-            list.add(d2dm.convert(submission));
-        }
-        return list;
+        return d2dm.convert(fetch(db, Submission.class));
     }
 
     /**
@@ -75,7 +69,7 @@ public class SubmissionController extends Fetcher<SubmissionDocument> {
             @PathVariable final String id) {
         logger.info("Entering submission attributes, db: " + db + ","
                 + " id: " + id);
-        return d2dm.convert(fetch(db, id, Submission.class)).getAttributes();
+        return d2dm.attributes(fetch(db, id, Submission.class));
     }
 
     /**
@@ -93,11 +87,44 @@ public class SubmissionController extends Fetcher<SubmissionDocument> {
             @PathVariable final int index) {
         logger.info("Entering submission attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
-        final List<ApiObject> attributes =
-                d2dm.convert(fetch(db, id, Submission.class)).getAttributes();
-        if (index >= attributes.size()) {
-            return null;
-        }
-        return attributes.get(index);
+        return d2dm.attribute(fetch(db, id, Submission.class), index);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the submission
+     * @param type the type we are looking for
+     * @return the attribute
+     */
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/dbs/{db}/submissions/{id}/{type}")
+    @ResponseBody
+    public List<ApiObject> attributes(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final String type) {
+        logger.info("Entering read /dbs/" + db + "/submissions/" + id + "/"
+                + type);
+        return d2dm.attributes(fetch(db, id, Submission.class), type);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the submission
+     * @param type the type we are looking for
+     * @param index the index in the list of found matches
+     * @return the attribute
+     */
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/dbs/{db}/submissions/{id}/{type}/{index}")
+    @ResponseBody
+    public ApiObject attribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final String type,
+            @PathVariable final int index) {
+        logger.info("Entering read /dbs/" + db + "/submissions/" + id + "/"
+                + type + "/" + index);
+        return d2dm.attribute(fetch(db, id, Submission.class), type, index);
     }
 }

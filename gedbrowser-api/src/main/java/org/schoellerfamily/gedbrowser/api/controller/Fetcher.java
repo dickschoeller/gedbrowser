@@ -2,9 +2,12 @@ package org.schoellerfamily.gedbrowser.api.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
+import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
@@ -37,8 +40,8 @@ public class Fetcher <Z> {
         final RootDocument root = loader.loadDocument(dbName);
         if (root == null) {
             logger.debug("Data set not found: " + dbName);
-//            throw new DataSetNotFoundException(
-//                    "Data set " + dbName + " not found", dbName);
+            throw new DataSetNotFoundException(
+                    "Data set " + dbName + " not found", dbName);
         }
         return root;
     }
@@ -55,10 +58,12 @@ public class Fetcher <Z> {
             final Class<? extends GedObject> clazz) {
         final Z document = find(fetchRoot(dbName), idString, clazz);
         if (document == null) {
-            logger.debug("Person not found: " + idString);
-//            throw new PersonNotFoundException(
-//                    "Person " + idString + " not found", idString,
-//                    root.getDbName(), context);
+            logger.debug("Object not found: " + idString);
+            final String type =
+                    clazz.getSimpleName().toLowerCase(Locale.ENGLISH);
+            throw new ObjectNotFoundException(
+                    "Object " + idString + " of type " + type + " not found",
+                    type, idString, dbName);
         }
         return document;
     }

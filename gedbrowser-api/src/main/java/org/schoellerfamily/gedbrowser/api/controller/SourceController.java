@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -9,7 +8,6 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
-import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,18 +38,13 @@ public class SourceController extends Fetcher<SourceDocument> {
     public List<ApiSource> sources(
             @PathVariable final String db) {
         logger.info("Entering sources, db: " + db);
-        final List<ApiSource> list = new ArrayList<>();
-        for (final SourceDocument person : fetch(db, Source.class)) {
-            list.add(d2dm.convert(person));
-        }
-        list.sort(new GetStringComparator());
-        return list;
+        return d2dm.convert(fetch(db, Source.class));
     }
 
     /**
      * @param db the name of the db to access
      * @param id the ID of the source
-     * @return the person
+     * @return the source
      */
     @RequestMapping(method = RequestMethod.GET,
             value = "/dbs/{db}/sources/{id}")
@@ -75,7 +68,7 @@ public class SourceController extends Fetcher<SourceDocument> {
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering source attributes, db: " + db + ", id: " + id);
-        return d2dm.convert(fetch(db, id, Source.class)).getAttributes();
+        return d2dm.attributes(fetch(db, id, Source.class));
     }
 
     /**
@@ -93,29 +86,64 @@ public class SourceController extends Fetcher<SourceDocument> {
             @PathVariable final int index) {
         logger.info("Entering source attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
-        final List<ApiObject> attributes =
-                d2dm.convert(fetch(db, id, Source.class)).getAttributes();
-        if (index >= attributes.size()) {
-            return null;
-        }
-        return attributes.get(index);
+        return d2dm.attribute(fetch(db, id, Source.class), index);
     }
 
     /**
      * @param db the name of the db to access
      * @param id the ID of the source
-     * @param index the index of the attribute
+     * @param type the type we are looking for
      * @return the attribute
      */
-    @RequestMapping(method = RequestMethod.POST,
-            value = "/dbs/{db}/sources/{id}/attributes/{index}")
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/dbs/{db}/sources/{id}/{type}")
     @ResponseBody
-    public ApiObject createAttribute(
+    public List<ApiObject> attributes(
             @PathVariable final String db,
             @PathVariable final String id,
-            @PathVariable final int index) {
-        logger.info("Entering source createAttribute, db: " + db + ", id: " + id
-                + ", index: " + index);
-        return null;
+            @PathVariable final String type) {
+        logger.info("Entering read /dbs/" + db + "/sources/" + id + "/"
+                + type);
+        return d2dm.attributes(fetch(db, id, Source.class), type);
     }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the source
+     * @param type the type we are looking for
+     * @param index the index in the list of found matches
+     * @return the attribute
+     */
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/dbs/{db}/sources/{id}/{type}/{index}")
+    @ResponseBody
+    public ApiObject attribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final String type,
+            @PathVariable final int index) {
+        logger.info("Entering read /dbs/" + db + "/sources/" + id + "/"
+                + type + "/" + index);
+        return d2dm.attribute(fetch(db, id, Source.class), type, index);
+    }
+//
+//    /**
+//     * @param db the name of the db to access
+//     * @param id the ID of the source
+//     * @param index the index of the attribute
+//     * @return the attribute
+//     */
+//    @RequestMapping(method = RequestMethod.POST,
+//            value = "/dbs/{db}/sources/{id}/attributes/{index}")
+//    @ResponseBody
+//    public ApiObject createAttribute(
+//            @PathVariable final String db,
+//            @PathVariable final String id,
+//            @PathVariable final int index) {
+//        logger.info("Entering source createAttribute,"
+//                + " db: " + db
+//                + ", id: " + id
+//                + ", index: " + index);
+//        return null;
+//    }
 }

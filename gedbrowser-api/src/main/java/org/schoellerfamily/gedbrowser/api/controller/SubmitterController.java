@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -39,11 +38,7 @@ public class SubmitterController extends Fetcher<SubmitterDocument> {
     public List<ApiSubmitter> submitters(
             @PathVariable final String db) {
         logger.info("Entering submitters, db: " + db);
-        final List<ApiSubmitter> list = new ArrayList<>();
-        for (final SubmitterDocument submitter : fetch(db, Submitter.class)) {
-            list.add(d2dm.convert(submitter));
-        }
-        return list;
+        return d2dm.convert(fetch(db, Submitter.class));
     }
 
     /**
@@ -74,7 +69,7 @@ public class SubmitterController extends Fetcher<SubmitterDocument> {
             @PathVariable final String id) {
         logger.info("Entering submitter attributes, db: " + db
                 + ", id: " + id);
-        return d2dm.convert(fetch(db, id, Submitter.class)).getAttributes();
+        return d2dm.attributes(fetch(db, id, Submitter.class));
     }
 
     /**
@@ -92,11 +87,44 @@ public class SubmitterController extends Fetcher<SubmitterDocument> {
             @PathVariable final int index) {
         logger.info("Entering submitter attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
-        final List<ApiObject> attributes = d2dm
-                .convert(fetch(db, id, Submitter.class)).getAttributes();
-        if (index >= attributes.size()) {
-            return null;
-        }
-        return attributes.get(index);
+        return d2dm.attribute(fetch(db, id, Submitter.class), index);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the submitter
+     * @param type the type we are looking for
+     * @return the attribute
+     */
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/dbs/{db}/submitters/{id}/{type}")
+    @ResponseBody
+    public List<ApiObject> attributes(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final String type) {
+        logger.info("Entering read /dbs/" + db + "/submitters/" + id + "/"
+                + type);
+        return d2dm.attributes(fetch(db, id, Submitter.class), type);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the submitter
+     * @param type the type we are looking for
+     * @param index the index in the list of found matches
+     * @return the attribute
+     */
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/dbs/{db}/submitters/{id}/{type}/{index}")
+    @ResponseBody
+    public ApiObject attribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final String type,
+            @PathVariable final int index) {
+        logger.info("Entering read /dbs/" + db + "/submitters/" + id + "/"
+                + type + "/" + index);
+        return d2dm.attribute(fetch(db, id, Submitter.class), type, index);
     }
 }

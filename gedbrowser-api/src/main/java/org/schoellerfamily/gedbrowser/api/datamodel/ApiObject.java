@@ -1,6 +1,8 @@
 package org.schoellerfamily.gedbrowser.api.datamodel;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +35,7 @@ public class ApiObject implements Serializable, GetString {
      * Constructor.
      */
     public ApiObject() {
-        this.type = "";
-        this.string = "";
+        this("", "");
     }
 
     /**
@@ -59,7 +60,11 @@ public class ApiObject implements Serializable, GetString {
         super();
         this.type = type;
         this.string = string;
-        this.attributes = attributes;
+        if (attributes == null) {
+            this.attributes = new ArrayList<>();
+        } else {
+            this.attributes = attributes;
+        }
     }
 
     /**
@@ -88,5 +93,32 @@ public class ApiObject implements Serializable, GetString {
      */
     public void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
+    }
+
+    /**
+     * Check this object against a sought after type string.
+     *
+     * @param t type we want to match
+     * @return true if this object matches
+     */
+    public boolean isType(final String t) {
+        final String dt = decode(t);
+        if (dt.equals(getType())) {
+            return true;
+        }
+        return "attribute".equals(getType())
+                && dt.equalsIgnoreCase(getString());
+    }
+
+    /**
+     * @param t type string to decode
+     * @return decoded string
+     */
+    private String decode(final String t) {
+        try {
+            return URLDecoder.decode(t, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return t;
+        }
     }
 }
