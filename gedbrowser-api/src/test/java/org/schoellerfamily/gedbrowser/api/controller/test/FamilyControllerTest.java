@@ -54,10 +54,10 @@ public class FamilyControllerTest {
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"family\",\n"
-                + "  \"string\" : \"F1593\",\n"
+                + "  \"string\" : \"F1\",\n"
                 + "  \"attributes\" : [ {\n"
                 + "    \"type\" : \"husband\",\n"
-                + "    \"string\" : \"I4351\",\n"
+                + "    \"string\" : \"I1354\",\n"
                 + "    \"attributes\" : [ ]\n"
                 + "  }, {\n";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);

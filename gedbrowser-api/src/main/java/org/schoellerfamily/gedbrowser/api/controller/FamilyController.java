@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundExc
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
+import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.FamilyDocument;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,6 +45,7 @@ public class FamilyController extends Fetcher<FamilyDocument> {
         for (final FamilyDocument family : fetch(db, Family.class)) {
             list.add(d2dm.convert(family));
         }
+        list.sort(new GetStringComparator());
         return list;
     }
 

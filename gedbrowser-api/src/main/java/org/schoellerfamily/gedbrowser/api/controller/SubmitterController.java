@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmitterDocument;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,6 +45,7 @@ public class SubmitterController extends Fetcher<SubmitterDocument> {
         for (final SubmitterDocument submitter : fetch(db, Submitter.class)) {
             list.add(d2dm.convert(submitter));
         }
+        list.sort(new GetStringComparator());
         return list;
     }
 

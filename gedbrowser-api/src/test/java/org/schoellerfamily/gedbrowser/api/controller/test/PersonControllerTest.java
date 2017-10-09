@@ -55,19 +55,11 @@ public class PersonControllerTest {
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"person\",\n"
-                + "  \"string\" : \"I10\",\n"
+                + "  \"string\" : \"I1\",\n"
                 + "  \"attributes\" : [ {\n"
                 + "    \"type\" : \"name\",\n"
-                + "    \"string\" : \"Thomas Harris /Williams/\",\n"
-                + "    \"attributes\" : [ {\n"
-                + "      \"type\" : \"sourcelink\",\n"
-                + "      \"string\" : \"S1878\",\n"
-                + "      \"attributes\" : [ {\n"
-                + "        \"type\" : \"attribute\",\n"
-                + "        \"string\" : \"DATA\",\n"
-                + "        \"attributes\" : [ {\n"
-                + "          \"type\" : \"attribute\",\n"
-                + "          \"string\" : \"Text\",\n";
+                + "    \"string\" : \"Living /Williams/\",\n"
+                + "    \"attributes\" : [ ]";
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody().substring(0, TRUNCATE_LENGTH))
@@ -85,17 +77,16 @@ public class PersonControllerTest {
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"person\",\n"
-                + "  \"string\" : \"I2\",\n"
+                + "  \"string\" : \"I1\",\n"
                 + "  \"attributes\" : [ {\n"
                 + "    \"type\" : \"attribute\",\n"
                 + "    \"string\" : \"Reference Number\",\n"
                 + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"2\"\n"
+                + "    \"tail\" : \"1\"\n"
                 + "  }, {\n"
                 + "    \"type\" : \"name\",\n"
-                + "    \"string\" : \"Richard John/Schoeller/\",\n"
-                + "    \"attributes\" : [ ]\n"
-                + "  }, {\n";
+                + "    \"string\" : \"Melissa Robinson/Schoeller/\",\n"
+                + "    \"attributes\" : [ {\n";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()) .startsWith(bodyFragment);
     }
