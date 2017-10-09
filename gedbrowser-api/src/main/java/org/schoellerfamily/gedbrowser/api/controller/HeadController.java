@@ -1,8 +1,5 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
@@ -38,10 +35,6 @@ public class HeadController extends Fetcher<HeadDocument> {
     public ApiHead head(
             @PathVariable final String db) {
         logger.info("Entering head, db: " + db);
-        final List<ApiHead> list = new ArrayList<>();
-        for (final HeadDocument head : fetch(db, Head.class)) {
-            list.add(d2dm.convert(head));
-        }
-        return list.get(0);
+        return (ApiHead) d2dm.convert(fetch(db, Head.class)).get(0);
     }
 }

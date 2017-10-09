@@ -1,16 +1,13 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
-import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmitterDocument;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,12 +38,7 @@ public class SubmitterController extends Fetcher<SubmitterDocument> {
     public List<ApiSubmitter> submitters(
             @PathVariable final String db) {
         logger.info("Entering submitters, db: " + db);
-        final List<ApiSubmitter> list = new ArrayList<>();
-        for (final SubmitterDocument submitter : fetch(db, Submitter.class)) {
-            list.add(d2dm.convert(submitter));
-        }
-        list.sort(new GetStringComparator());
-        return list;
+        return d2dm.convert(fetch(db, Submitter.class));
     }
 
     /**
@@ -77,7 +69,7 @@ public class SubmitterController extends Fetcher<SubmitterDocument> {
             @PathVariable final String id) {
         logger.info("Entering submitter attributes, db: " + db
                 + ", id: " + id);
-        return d2dm.convert(fetch(db, id, Submitter.class)).getAttributes();
+        return d2dm.attributes(fetch(db, id, Submitter.class));
     }
 
     /**
@@ -95,14 +87,7 @@ public class SubmitterController extends Fetcher<SubmitterDocument> {
             @PathVariable final int index) {
         logger.info("Entering submitter attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
-        final List<ApiObject> attributes = d2dm
-                .convert(fetch(db, id, Submitter.class)).getAttributes();
-        if (index >= attributes.size()) {
-            throw new ObjectNotFoundException(
-                    "Attribute " + index + "of submitter " + id + " not found",
-                    "attribute", "id/attributes/" + index, db);
-        }
-        return attributes.get(index);
+        return d2dm.attribute(fetch(db, id, Submitter.class), index);
     }
 
     /**
@@ -120,15 +105,7 @@ public class SubmitterController extends Fetcher<SubmitterDocument> {
             @PathVariable final String type) {
         logger.info("Entering read /dbs/" + db + "/submitters/" + id + "/"
                 + type);
-        final List<ApiObject> attributes =
-                d2dm.convert(fetch(db, id, Submitter.class)).getAttributes();
-        final List<ApiObject> list = new ArrayList<>();
-        for (final ApiObject object : attributes) {
-            if (object.isType(type)) {
-                list.add(object);
-            }
-        }
-        return list;
+        return d2dm.attributes(fetch(db, id, Submitter.class), type);
     }
 
     /**
@@ -148,19 +125,6 @@ public class SubmitterController extends Fetcher<SubmitterDocument> {
             @PathVariable final int index) {
         logger.info("Entering read /dbs/" + db + "/submitters/" + id + "/"
                 + type + "/" + index);
-        final List<ApiObject> attributes =
-                d2dm.convert(fetch(db, id, Submitter.class)).getAttributes();
-        final List<ApiObject> list = new ArrayList<>();
-        for (final ApiObject object : attributes) {
-            if (object.isType(type)) {
-                list.add(object);
-            }
-        }
-        if (index >= list.size()) {
-            throw new ObjectNotFoundException(
-                    type + " " + index + " of submitters " + id + " not found",
-                    "attribute", id + "/attributes/" + type + "/" + index, db);
-        }
-        return list.get(index);
+        return d2dm.attribute(fetch(db, id, Submitter.class), type, index);
     }
 }

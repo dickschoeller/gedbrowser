@@ -1,17 +1,15 @@
 package org.schoellerfamily.gedbrowser.api.transformers;
 
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
-import org.schoellerfamily.gedbrowser.persistence.domain.FamilyDocument;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
+import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
+import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
-import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
-import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
-import org.schoellerfamily.gedbrowser.persistence.domain.SubmissionDocument;
-import org.schoellerfamily.gedbrowser.persistence.domain.SubmitterDocument;
 
 /**
  * @author Dick Schoeller
@@ -36,57 +34,116 @@ public class DocumentToApiModelTransformer {
     }
 
     /**
-     * @param document the document to convert
-     * @return the resulting object
+     * @param <T> the data type returned
+     * @param <V> the data type input
+     * @param listIn list of FamilyDocument
+     * @return list of ApiFamily
      */
-    public final ApiFamily convert(final FamilyDocument document) {
-        final DocumentToApiModelVisitor v =
-                new DocumentToApiModelVisitor();
-        document.accept(v);
-        return (ApiFamily) v.getBaseObject();
+    public final <T extends ApiObject, V extends GedDocument<?>> List<T>
+            convert(final List<V> listIn) {
+        final List<T> listOut = new ArrayList<>();
+        for (final V family : listIn) {
+            listOut.add(convert(family));
+        }
+        listOut.sort(new GetStringComparator());
+        return listOut;
     }
 
     /**
+     * @param <T> the data type returned
+     * @param <V> the data type input
      * @param document the document to convert
      * @return the resulting object
      */
-    public final ApiPerson convert(final PersonDocument document) {
+    @SuppressWarnings("unchecked")
+    public final <T extends ApiObject, V extends GedDocument<?>> T convert(
+            final V document) {
         final DocumentToApiModelVisitor v =
                 new DocumentToApiModelVisitor();
         document.accept(v);
-        return (ApiPerson) v.getBaseObject();
+        return (T) v.getBaseObject();
     }
 
     /**
-     * @param document the document to convert
-     * @return the resulting object
+     * @param <V> the data type input
+     * @param document the document to convert and find attributes
+     * @return the resulting list of attributes
      */
-    public final ApiSource convert(final SourceDocument document) {
-        final DocumentToApiModelVisitor v =
-                new DocumentToApiModelVisitor();
-        document.accept(v);
-        return (ApiSource) v.getBaseObject();
+    public final <V extends GedDocument<?>> List<ApiObject> attributes(
+            final V document) {
+        return convert(document).getAttributes();
     }
 
     /**
-     * @param document the document to convert
-     * @return the resulting object
+     * @param <V> the data type input
+     * @param document the document to convert and find attributes
+     * @param index the attribute index to return
+     * @return the resulting attribute
      */
-    public final ApiSubmission convert(final SubmissionDocument document) {
-        final DocumentToApiModelVisitor v =
-                new DocumentToApiModelVisitor();
-        document.accept(v);
-        return (ApiSubmission) v.getBaseObject();
+    public final <V extends GedDocument<?>> ApiObject attribute(
+            final V document, final int index) {
+        final List<ApiObject> attributes = attributes(document);
+        if (index >= attributes.size()) {
+            throw new ObjectNotFoundException(
+                    "Attribute " + index
+                    + " of " + typeString(document)
+                    + " " + document.getString()
+                    + " not found",
+                    "attribute",
+                    document.getString() + "/attributes/" + index,
+                    document.getDbName());
+        }
+        return attributes.get(index);
     }
 
     /**
-     * @param document the document to convert
-     * @return the resulting object
+     * @param <V> the type of document input
+     * @param document the document
+     * @return it's simple name in lower case
      */
-    public final ApiSubmitter convert(final SubmitterDocument document) {
-        final DocumentToApiModelVisitor v =
-                new DocumentToApiModelVisitor();
-        document.accept(v);
-        return (ApiSubmitter) v.getBaseObject();
+    private <V extends GedDocument<?>> String typeString(final V document) {
+        return document.getGedObject().getClass()
+                .getSimpleName().toLowerCase(Locale.ENGLISH);
+    }
+
+    /**
+     * @param <V> the data type input
+     * @param document the document to convert and find attributes
+     * @param type the attribute type we want
+     * @return the resulting list of attributes of the requested type
+     */
+    public final <V extends GedDocument<?>> List<ApiObject> attributes(
+            final V document, final String type) {
+        final List<ApiObject> list = new ArrayList<>();
+        for (final ApiObject object : attributes(document)) {
+            if (object.isType(type)) {
+                list.add(object);
+            }
+        }
+        return list;
+    }
+
+    /**
+     * @param <V> the data type input
+     * @param document the document to convert and find attributes
+     * @param type the attribute type we want
+     * @param index the index of the attribute of the type we want
+     * @return the resulting attribute
+     */
+    public final <V extends GedDocument<?>> ApiObject attribute(
+            final V document, final String type, final int index) {
+        final List<ApiObject> list =
+                attributes(document, type);
+        if (index >= list.size()) {
+            throw new ObjectNotFoundException(
+                    type + " " + index
+                    + " of " + typeString(document)
+                    + " " + document.getString()
+                    + " not found",
+                    "attribute",
+                    document.getString() + "/attributes/" + type + "/" + index,
+                    document.getDbName());
+        }
+        return list.get(index);
     }
 }

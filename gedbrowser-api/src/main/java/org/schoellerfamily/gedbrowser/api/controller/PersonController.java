@@ -1,16 +1,13 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
-import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,12 +46,7 @@ public class PersonController extends Fetcher<PersonDocument> {
     public List<ApiPerson> persons(
             @PathVariable final String db) {
         logger.info("Entering read /dbs/" + db + "/persons");
-        final List<ApiPerson> list = new ArrayList<>();
-        for (final PersonDocument person : fetch(db, Person.class)) {
-            list.add(d2dm.convert(person));
-        }
-        list.sort(new GetStringComparator());
-        return list;
+        return d2dm.convert(fetch(db, Person.class));
     }
 
     /**
@@ -85,7 +77,7 @@ public class PersonController extends Fetcher<PersonDocument> {
             @PathVariable final String id) {
         logger.info("Entering read /dbs/" + db + "/persons/" + id
                 + "/attributes");
-        return d2dm.convert(fetch(db, id, Person.class)).getAttributes();
+        return d2dm.attributes(fetch(db, id, Person.class));
     }
 
     /**
@@ -103,14 +95,7 @@ public class PersonController extends Fetcher<PersonDocument> {
             @PathVariable final int index) {
         logger.info("Entering read /dbs/" + db + "/persons/" + id
                 + "/attributes/" + index);
-        final List<ApiObject> attributes =
-                d2dm.convert(fetch(db, id, Person.class)).getAttributes();
-        if (index >= attributes.size()) {
-            throw new ObjectNotFoundException(
-                    "Attribute " + index + "of person " + id + " not found",
-                    "attribute", "id/attributes/" + index, db);
-        }
-        return attributes.get(index);
+        return d2dm.attribute(fetch(db, id, Person.class), index);
     }
 
     /**
@@ -128,15 +113,7 @@ public class PersonController extends Fetcher<PersonDocument> {
             @PathVariable final String type) {
         logger.info("Entering read /dbs/" + db + "/persons/" + id + "/"
             + type);
-        final List<ApiObject> attributes =
-                d2dm.convert(fetch(db, id, Person.class)).getAttributes();
-        final List<ApiObject> list = new ArrayList<>();
-        for (final ApiObject object : attributes) {
-            if (object.isType(type)) {
-                list.add(object);
-            }
-        }
-        return list;
+        return d2dm.attributes(fetch(db, id, Person.class), type);
     }
 
     /**
@@ -156,20 +133,7 @@ public class PersonController extends Fetcher<PersonDocument> {
             @PathVariable final int index) {
         logger.info("Entering read /dbs/" + db + "/persons/" + id + "/"
             + type + "/" + index);
-        final List<ApiObject> attributes =
-                d2dm.convert(fetch(db, id, Person.class)).getAttributes();
-        final List<ApiObject> list = new ArrayList<>();
-        for (final ApiObject object : attributes) {
-            if (object.isType(type)) {
-                list.add(object);
-            }
-        }
-        if (index >= list.size()) {
-            throw new ObjectNotFoundException(
-                    type + " " + index + " of person " + id + " not found",
-                    "attribute", id + "/attributes/" + type + "/" + index, db);
-        }
-        return list.get(index);
+        return d2dm.attribute(fetch(db, id, Person.class), type, index);
     }
 //
 //    /**
