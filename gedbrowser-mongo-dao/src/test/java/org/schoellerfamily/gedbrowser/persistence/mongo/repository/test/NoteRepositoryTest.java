@@ -141,6 +141,13 @@ public class NoteRepositoryTest {
         assertEquals("Should be 3 notes", NOTE_COUNT, count);
     }
 
+    /** */
+    @Test
+    public void testLastId() {
+        final String string = noteDocumentRepository.lastId(rootDocument);
+        assertEquals("", "N3", string);
+    }
+
     /**
      * Wrapper for assertion to bypass PMD check.
      *

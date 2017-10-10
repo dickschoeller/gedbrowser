@@ -19,7 +19,7 @@ import org.springframework.data.mongodb.core.query.Query;
  * @author Dick Schoeller
  */
 public class SourceDocumentRepositoryMongoImpl implements
-    FindableDocument<Source, SourceDocument> {
+    FindableDocument<Source, SourceDocument>, LastId<SourceDocumentMongo> {
     /** */
     @Autowired
     private transient MongoTemplate mongoTemplate;
@@ -118,5 +118,23 @@ public class SourceDocumentRepositoryMongoImpl implements
     @Override
     public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String lastId(final RootDocument rootDocument) {
+        return lastId(mongoTemplate, SourceDocumentMongo.class,
+                rootDocument.getFilename(), "S");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String newId(final RootDocument rootDocument) {
+        return newId(mongoTemplate, SourceDocumentMongo.class,
+                rootDocument.getFilename(), "S");
     }
 }

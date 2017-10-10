@@ -141,6 +141,20 @@ public final class SourceRepositoryTest {
         assertEquals("Should be 9 sources", SOURCE_COUNT, count);
     }
 
+    /** */
+    @Test
+    public void testLastId() {
+        final String string = sourceDocumentRepository.lastId(rootDocument);
+        assertEquals("", "S229", string);
+    }
+
+    /** */
+    @Test
+    public void testNewId() {
+        final String string = sourceDocumentRepository.newId(rootDocument);
+        assertEquals("", "S230", string);
+    }
+
     /**
      * Wrapper for assertion to bypass PMD check.
      *

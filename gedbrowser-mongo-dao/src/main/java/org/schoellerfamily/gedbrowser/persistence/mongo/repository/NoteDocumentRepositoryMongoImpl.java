@@ -18,7 +18,7 @@ import org.springframework.data.mongodb.core.query.Query;
  * @author Dick Schoeller
  */
 public class NoteDocumentRepositoryMongoImpl implements
-    FindableDocument<Note, NoteDocument> {
+    FindableDocument<Note, NoteDocument>, LastId<NoteDocumentMongo>  {
     /** */
     @Autowired
     private transient MongoTemplate mongoTemplate;
@@ -119,4 +119,21 @@ public class NoteDocumentRepositoryMongoImpl implements
         return count(rootDocument.getFilename());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String lastId(final RootDocument rootDocument) {
+        return lastId(mongoTemplate, NoteDocumentMongo.class,
+                rootDocument.getFilename(), "N");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String newId(final RootDocument rootDocument) {
+        return newId(mongoTemplate, NoteDocumentMongo.class,
+                rootDocument.getFilename(), "N");
+    }
 }

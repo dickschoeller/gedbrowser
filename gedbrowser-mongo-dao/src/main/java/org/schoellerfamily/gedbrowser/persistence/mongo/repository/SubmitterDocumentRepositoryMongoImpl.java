@@ -19,7 +19,8 @@ import org.springframework.data.mongodb.core.query.Query;
  * @author Dick Schoeller
  */
 public class SubmitterDocumentRepositoryMongoImpl implements
-    FindableDocument<Submitter, SubmitterDocument> {
+    FindableDocument<Submitter, SubmitterDocument>,
+    LastId<SubmitterDocumentMongo> {
     /** */
     @Autowired
     private transient MongoTemplate mongoTemplate;
@@ -120,5 +121,23 @@ public class SubmitterDocumentRepositoryMongoImpl implements
     @Override
     public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String lastId(final RootDocument rootDocument) {
+        return lastId(mongoTemplate, SubmitterDocumentMongo.class,
+                rootDocument.getFilename(), "SUB");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String newId(final RootDocument rootDocument) {
+        return newId(mongoTemplate, SubmitterDocumentMongo.class,
+                rootDocument.getFilename(), "SUB");
     }
 }

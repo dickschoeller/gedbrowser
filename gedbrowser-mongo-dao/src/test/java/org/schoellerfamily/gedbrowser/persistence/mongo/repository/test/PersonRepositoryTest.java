@@ -391,6 +391,20 @@ public final class PersonRepositoryTest {
         assertEquals("Should be 16 persons", PERSON_COUNT, count);
     }
 
+    /** */
+    @Test
+    public void testLastId() {
+        final String string = personDocumentRepository.lastId(rootDocument);
+        assertEquals("", "I5266", string);
+    }
+
+    /** */
+    @Test
+    public void testNewId() {
+        final String string = personDocumentRepository.newId(rootDocument);
+        assertEquals("", "I5267", string);
+    }
+
     /**
      * Wrapper for assertion to bypass PMD check.
      *

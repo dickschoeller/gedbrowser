@@ -49,4 +49,16 @@ public  interface FindableDocument
      * @return the list of all document of this type in that root
      */
     long count(RootDocument rootDocument);
+
+    /**
+     * @param rootDocument the root of the data set
+     * @return the last ID matching the standard pattern in this data set
+     */
+    String lastId(RootDocument rootDocument);
+
+    /**
+     * @param rootDocument the root of the data set
+     * @return the last ID matching the standard pattern in this data set
+     */
+    String newId(RootDocument rootDocument);
 }

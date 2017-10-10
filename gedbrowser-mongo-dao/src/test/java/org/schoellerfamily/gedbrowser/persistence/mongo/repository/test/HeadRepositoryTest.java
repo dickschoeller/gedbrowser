@@ -184,4 +184,11 @@ public final class HeadRepositoryTest {
         }
         assertEquals("Should only be one head", 1, count);
     }
+
+    /** */
+    @Test
+    public void testLastId() {
+        final String string = headDocumentRepository.lastId(rootDocument);
+        assertEquals("", "", string);
+    }
 }

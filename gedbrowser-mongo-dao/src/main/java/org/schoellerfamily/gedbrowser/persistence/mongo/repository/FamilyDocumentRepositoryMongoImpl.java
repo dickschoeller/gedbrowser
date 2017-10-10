@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class FamilyDocumentRepositoryMongoImpl implements
-    FindableDocument<Family, FamilyDocument> {
+    FindableDocument<Family, FamilyDocument>, LastId<FamilyDocumentMongo> {
     /** */
     @Autowired
     private transient MongoTemplate mongoTemplate;
@@ -120,5 +120,23 @@ public class FamilyDocumentRepositoryMongoImpl implements
     @Override
     public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String lastId(final RootDocument rootDocument) {
+        return lastId(mongoTemplate, FamilyDocumentMongo.class,
+                rootDocument.getFilename(), "F");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String newId(final RootDocument rootDocument) {
+        return newId(mongoTemplate, FamilyDocumentMongo.class,
+                rootDocument.getFilename(), "F");
     }
 }

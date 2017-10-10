@@ -119,4 +119,20 @@ public class HeadDocumentRepositoryMongoImpl implements
     public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String lastId(final RootDocument rootDocument) {
+        return "";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String newId(final RootDocument rootDocument) {
+        return "";
+    }
 }

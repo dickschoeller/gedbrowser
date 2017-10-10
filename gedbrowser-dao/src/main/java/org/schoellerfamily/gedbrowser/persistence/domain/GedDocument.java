@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.persistence.domain;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.GetString;
 import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
 
 /**
@@ -10,7 +11,7 @@ import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
  *
  * @param <G> the GedObject type that this is for
  */
-public interface GedDocument<G extends GedObject> {
+public interface GedDocument<G extends GedObject> extends GetString {
     /**
      * @return the idString
      */

@@ -28,7 +28,8 @@ import org.springframework.data.mongodb.core.query.Query;
  */
 @SuppressWarnings("PMD.TooManyMethods")
 public final class PersonDocumentRepositoryMongoImpl implements
-        FindableByNameDocument<Person, PersonDocument> {
+        FindableByNameDocument<Person, PersonDocument>,
+        LastId<PersonDocumentMongo> {
     /** Logger. */
     private final Log logger = LogFactory.getLog(getClass());
 
@@ -312,5 +313,23 @@ public final class PersonDocumentRepositoryMongoImpl implements
     @Override
     public long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String lastId(final RootDocument rootDocument) {
+        return lastId(mongoTemplate, PersonDocumentMongo.class,
+                rootDocument.getFilename(), "I");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String newId(final RootDocument rootDocument) {
+        return newId(mongoTemplate, PersonDocumentMongo.class,
+                rootDocument.getFilename(), "I");
     }
 }
