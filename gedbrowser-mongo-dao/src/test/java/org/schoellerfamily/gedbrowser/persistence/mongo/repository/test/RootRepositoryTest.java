@@ -374,6 +374,13 @@ public final class RootRepositoryTest {
         assertEquals("Should only be one root", 1, count);
     }
 
+    /** */
+    @Test
+    public void testLastId() {
+        final String string = rootDocumentRepository.lastId(rootDocument);
+        assertEquals("", "", string);
+    }
+
     /**
      * Wrapper for assertion to bypass PMD check.
      *

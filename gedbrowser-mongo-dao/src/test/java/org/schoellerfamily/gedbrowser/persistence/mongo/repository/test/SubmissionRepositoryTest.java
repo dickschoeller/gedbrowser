@@ -147,6 +147,13 @@ public final class SubmissionRepositoryTest {
         assertEquals("Should be 1 submission", expected, count);
     }
 
+    /** */
+    @Test
+    public void testLastId() {
+        final String string = submissionDocumentRepository.lastId(rootDocument);
+        assertEquals("", "SUBN", string);
+    }
+
     /**
      * Wrapper for assertion to bypass PMD check.
      *

@@ -73,7 +73,6 @@ public final class FamilyRepositoryTest {
         final Family family =
                 (Family) toObjConverter.createGedObject(root, famdoc);
         assertEquals("Id mismatch", "F1", family.getString());
-        // TODO test following husband, wife, children
     }
 
     /** */
@@ -84,7 +83,6 @@ public final class FamilyRepositoryTest {
         final Family family =
                 (Family) toObjConverter.createGedObject(root, famdoc);
         assertEquals("Id mismatch", "F1", family.getString());
-        // TODO test following husband, wife, children
     }
 
     /** */
@@ -141,6 +139,20 @@ public final class FamilyRepositoryTest {
             count++;
         }
         assertEquals("Should be 6 families", FAMILY_COUNT, count);
+    }
+
+    /** */
+    @Test
+    public void testLastId() {
+        final String string = familyDocumentRepository.lastId(rootDocument);
+        assertEquals("", "F10", string);
+    }
+
+    /** */
+    @Test
+    public void testNewId() {
+        final String string = familyDocumentRepository.newId(rootDocument);
+        assertEquals("", "F11", string);
     }
 
     /**
