@@ -47,16 +47,4 @@ public interface FindableByNameDocument
      */
     Collection<D> findByRootAndSurnameBeginsWith(RootDocument rootDocument,
             String beginsWith);
-
-    /**
-     * @param filename the value of filename
-     * @return collection of matching items
-     */
-    Collection<D> findByFile(String filename);
-
-    /**
-     * @param rootDocument the root of our data set
-     * @return collection of matching items
-     */
-    Collection<D> findByRoot(RootDocument rootDocument);
 }

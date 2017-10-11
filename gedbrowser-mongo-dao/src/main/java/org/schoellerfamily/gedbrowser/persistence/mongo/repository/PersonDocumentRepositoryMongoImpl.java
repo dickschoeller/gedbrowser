@@ -179,37 +179,6 @@ public final class PersonDocumentRepositoryMongoImpl implements
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Collection<PersonDocument> findByFile(final String filename) {
-        final Query searchQuery = new Query(Criteria.where("filename").is(
-                filename));
-        final List<PersonDocumentMongo> personDocuments =
-                mongoTemplate.find(searchQuery, PersonDocumentMongo.class);
-        createGedObjects(personDocuments);
-        return copy(personDocuments);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Collection<PersonDocument> findByRoot(
-            final RootDocument rootDocument) {
-        if (rootDocument == null) {
-            return Collections.emptyList();
-        }
-        final Collection<PersonDocument> personDocuments =
-                findByFile(rootDocument.getFilename());
-        for (final PersonDocument personDocument : personDocuments) {
-            final Person person = personDocument.getGedObject();
-            person.setParent(rootDocument.getGedObject());
-        }
-        return personDocuments;
-    }
-
-    /**
      * @param personDocuments
      *            the list of person documents to create and associate.
      */
@@ -261,21 +230,12 @@ public final class PersonDocumentRepositoryMongoImpl implements
      */
     @Override
     public Iterable<PersonDocument> findAll(final String filename) {
-        final Query searchQuery =
-                new Query(Criteria.where("filename").is(filename));
-        final List<PersonDocumentMongo> personDocumentsMongo =
+        final Query searchQuery = new Query(
+                Criteria.where("filename").is(filename));
+        final List<PersonDocumentMongo> personDocuments =
                 mongoTemplate.find(searchQuery, PersonDocumentMongo.class);
-        if (personDocumentsMongo == null) {
-            return null;
-        }
-        final List<PersonDocument> personDocuments = new ArrayList<>();
-        for (final PersonDocument personDocument : personDocumentsMongo) {
-            final Person person = (Person) toObjConverter.createGedObject(
-                    null, personDocument);
-            personDocument.setGedObject(person);
-            personDocuments.add(personDocument);
-        }
-        return personDocuments;
+        createGedObjects(personDocuments);
+        return copy(personDocuments);
     }
 
     /**
@@ -283,11 +243,11 @@ public final class PersonDocumentRepositoryMongoImpl implements
      */
     @Override
     public Iterable<PersonDocument> findAll(final RootDocument rootDocument) {
+        if (rootDocument == null) {
+            return Collections.emptyList();
+        }
         final Iterable<PersonDocument> personDocuments =
                 findAll(rootDocument.getFilename());
-        if (personDocuments == null) {
-            return null;
-        }
         for (final PersonDocument personDocument : personDocuments) {
             final Person person = personDocument.getGedObject();
             person.setParent(rootDocument.getGedObject());
