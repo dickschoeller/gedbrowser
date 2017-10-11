@@ -90,7 +90,6 @@ public final class PersonDocumentRepositoryMongoImpl implements
         final List<PersonDocumentMongo> personDocuments =
                 mongoTemplate.find(searchQuery, PersonDocumentMongo.class);
         createGedObjects(personDocuments);
-        Collections.sort(personDocuments, new PersonDocumentComparator());
         return copy(personDocuments);
     }
 
@@ -129,7 +128,6 @@ public final class PersonDocumentRepositoryMongoImpl implements
             personDocuments = querySurnameBeginsWith(filename, beginsWith);
         }
         createGedObjects(personDocuments);
-        Collections.sort(personDocuments, new PersonDocumentComparator());
         return copy(personDocuments);
     }
 
@@ -185,14 +183,11 @@ public final class PersonDocumentRepositoryMongoImpl implements
      */
     @Override
     public Collection<PersonDocument> findByFile(final String filename) {
-        logger.debug("Starting findByFile");
         final Query searchQuery = new Query(Criteria.where("filename").is(
                 filename));
         final List<PersonDocumentMongo> personDocuments =
                 mongoTemplate.find(searchQuery, PersonDocumentMongo.class);
         createGedObjects(personDocuments);
-        Collections.sort(personDocuments, new PersonDocumentComparator());
-        logger.debug("Ending findByFile");
         return copy(personDocuments);
     }
 
@@ -202,7 +197,6 @@ public final class PersonDocumentRepositoryMongoImpl implements
     @Override
     public Collection<PersonDocument> findByRoot(
             final RootDocument rootDocument) {
-        logger.info("Starting findByRoot");
         if (rootDocument == null) {
             return Collections.emptyList();
         }
@@ -212,7 +206,6 @@ public final class PersonDocumentRepositoryMongoImpl implements
             final Person person = personDocument.getGedObject();
             person.setParent(rootDocument.getGedObject());
         }
-        logger.info("Ending findByRoot");
         return personDocuments;
     }
 
@@ -237,10 +230,8 @@ public final class PersonDocumentRepositoryMongoImpl implements
      */
     private Collection<PersonDocument> copy(
             final Collection<PersonDocumentMongo> in) {
-        final List<PersonDocument> out = new ArrayList<>(in.size());
-        for (final PersonDocumentMongo pdm : in) {
-            out.add(pdm);
-        }
+        final List<PersonDocument> out = new ArrayList<>(in);
+        Collections.sort(out, new PersonDocumentComparator());
         return out;
     }
 
