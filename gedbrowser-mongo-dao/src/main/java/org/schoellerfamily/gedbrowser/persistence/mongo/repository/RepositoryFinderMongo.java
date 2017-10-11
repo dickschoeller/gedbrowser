@@ -205,7 +205,7 @@ public final class RepositoryFinderMongo
                     (RootDocumentMongo) toDocConverter.createGedDocument(root);
             final Iterable<PersonDocument> personDocuments =
                     repositoryManager.getPersonDocumentRepository().
-                        findByRoot(rootDocument);
+                        findAll(rootDocument);
             for (final PersonDocument personDocument : personDocuments) {
                 final String firstLetter = personDocument.getSurname()
                         .substring(0, 1);

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.junit.After;
 import org.junit.Before;
@@ -13,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
+import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
@@ -261,28 +263,28 @@ public final class PersonRepositoryTest {
     /** */
     @Test
     public void testFindByFileNotFound() {
-        final Collection<PersonDocument> persons = personDocumentRepository
-                .findByFile("XYZZY");
+        final Iterable<PersonDocument> persons = personDocumentRepository
+                .findAll("XYZZY");
         assertEquals("Bogus request should return empty",
-                0, persons.size());
+                0, count(persons));
     }
 
     /** */
     @Test
     public void testFindByFileNull() {
-        final Collection<PersonDocument> persons = personDocumentRepository
-                .findByFile(null);
+        final Iterable<PersonDocument> persons = personDocumentRepository
+                .findAll((String) null);
         assertEquals("Bogus request should return empty",
-                0, persons.size());
+                0, count(persons));
     }
 
     /** */
     @Test
     public void testFindByNullRoot() {
-        final Collection<PersonDocument> persons = personDocumentRepository
-                .findByRoot(null);
+        final Iterable<PersonDocument> persons = personDocumentRepository
+                .findAll((RootDocument) null);
         assertEquals("Bogus request should return empty",
-                0, persons.size());
+                0, count(persons));
     }
 
     /** */
@@ -290,10 +292,10 @@ public final class PersonRepositoryTest {
     public void testFindByRootWithFileNotFound() {
         final RootDocumentMongo rootDocument1 = new RootDocumentMongo();
         rootDocument1.setFilename("XYZZY.ged");
-        final Collection<PersonDocument> persons = personDocumentRepository
-                .findByRoot(rootDocument1);
+        final Iterable<PersonDocument> persons = personDocumentRepository
+                .findAll(rootDocument1);
         assertEquals("Bogus request should return empty",
-                0, persons.size());
+                0, count(persons));
     }
 
     /** */
@@ -415,5 +417,21 @@ public final class PersonRepositoryTest {
     private void checkEquals(final String message, final Object expected,
             final Object actual) {
         assertEquals(message, expected, actual);
+    }
+
+    /**
+     * Count the number of items in an collection.
+     *
+     * @param iterable the collect expressed as an iterable
+     * @return the count
+     */
+    private int count(final Iterable<?> iterable) {
+        final Iterator<?> iterator = iterable.iterator();
+        int count = 0;
+        while (iterator.hasNext()) {
+            count++;
+            iterator.next();
+        }
+        return count;
     }
 }
