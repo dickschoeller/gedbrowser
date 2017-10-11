@@ -2,8 +2,6 @@ package org.schoellerfamily.gedbrowser.api.controller.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
@@ -28,9 +26,6 @@ public class PersonControllerTest {
     /** */
     private static final int TRUNCATE_LENGTH = 500;
 
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
-
     /**
      * Not sure what this is good for.
      */
@@ -50,8 +45,6 @@ public class PersonControllerTest {
                 + "/gedbrowser-api/dbs/gl120368/persons";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody().substring(0, TRUNCATE_LENGTH));
-
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"person\",\n"
@@ -60,7 +53,6 @@ public class PersonControllerTest {
                 + "    \"type\" : \"name\",\n"
                 + "    \"string\" : \"Living /Williams/\",\n"
                 + "    \"attributes\" : [ ]";
-
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody().substring(0, TRUNCATE_LENGTH))
                 .startsWith(bodyFragment);
@@ -73,7 +65,6 @@ public class PersonControllerTest {
                 + "/gedbrowser-api/dbs/mini-schoeller/persons";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody().substring(0, TRUNCATE_LENGTH));
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"person\",\n"
@@ -88,7 +79,7 @@ public class PersonControllerTest {
                 + "    \"string\" : \"Melissa Robinson/Schoeller/\",\n"
                 + "    \"attributes\" : [ {\n";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()) .startsWith(bodyFragment);
+        then(entity.getBody()).startsWith(bodyFragment);
     }
 
     /** */
@@ -98,7 +89,6 @@ public class PersonControllerTest {
                 + "/gedbrowser-api/dbs/mini-schoeller/persons/I2";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody().substring(0, TRUNCATE_LENGTH));
         final String bodyFragment =
                 "{\n"
                 + "  \"type\" : \"person\",\n"
@@ -124,7 +114,6 @@ public class PersonControllerTest {
                 + "/gedbrowser-api/dbs/mini-schoeller/persons/I2/attributes";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody().substring(0, TRUNCATE_LENGTH));
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"attribute\",\n"
@@ -147,7 +136,6 @@ public class PersonControllerTest {
                 + "/gedbrowser-api/dbs/mini-schoeller/persons/I2/attributes/5";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody());
         final String bodyFragment =
                 "{\n"
                 + "  \"type\" : \"attribute\",\n"
@@ -180,7 +168,6 @@ public class PersonControllerTest {
                 + "/persons/I2/attributes/99";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info(entity.getBody());
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
@@ -191,7 +178,6 @@ public class PersonControllerTest {
                 + "/gedbrowser-api/dbs/mini-schoeller/persons/I2/Birth";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody());
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"attribute\",\n"
@@ -223,7 +209,6 @@ public class PersonControllerTest {
                 + "/gedbrowser-api/dbs/mini-schoeller/persons/I2/Birth/0";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody());
         final String bodyFragment =
                 "{\n"
                 + "  \"type\" : \"attribute\",\n"
@@ -256,7 +241,6 @@ public class PersonControllerTest {
                 + "/persons/I2/Birth/99";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info(entity.getBody());
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
@@ -268,7 +252,6 @@ public class PersonControllerTest {
                 + "/persons/Xyzzy";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info(entity.getBody());
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 }

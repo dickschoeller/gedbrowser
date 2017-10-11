@@ -2,8 +2,6 @@ package org.schoellerfamily.gedbrowser.api.controller.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
@@ -25,12 +23,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class SourceControllerTest {
-    /** */
-    private static final int TRUNCATE_LENGTH = 500;
-
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
-
     /**
      * Not sure what this is good for.
      */
@@ -50,7 +42,6 @@ public class SourceControllerTest {
                 + "/gedbrowser-api/dbs/gl120368/sources";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody().substring(0, TRUNCATE_LENGTH));
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"source\",\n"
@@ -103,7 +94,6 @@ public class SourceControllerTest {
                 + "/gedbrowser-api/dbs/mini-schoeller/sources";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody().substring(0, TRUNCATE_LENGTH));
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"source\",\n"
@@ -138,7 +128,6 @@ public class SourceControllerTest {
                 + "/gedbrowser-api/dbs/mini-schoeller/sources/S2";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody());
         final String bodyFragment =
                 "{\n"
                 + "  \"type\" : \"source\",\n"
@@ -173,7 +162,6 @@ public class SourceControllerTest {
                 + "/gedbrowser-api/dbs/mini-schoeller/sources/S2/attributes";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody());
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"attribute\",\n"
@@ -204,7 +192,6 @@ public class SourceControllerTest {
                 + "/gedbrowser-api/dbs/mini-schoeller/sources/S2/attributes/1";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody());
         final String bodyFragment =
                 "{\n"
                 + "  \"type\" : \"attribute\",\n"
@@ -225,7 +212,6 @@ public class SourceControllerTest {
                 + "/sources/S2/attributes/99";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info(entity.getBody());
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
@@ -236,7 +222,6 @@ public class SourceControllerTest {
                 + "/gedbrowser-api/dbs/mini-schoeller/sources/S2/Title";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody());
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"attribute\",\n"
@@ -257,7 +242,6 @@ public class SourceControllerTest {
                 + "/gedbrowser-api/dbs/mini-schoeller/sources/S2/Title/0";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody());
         final String bodyFragment =
                 "{\n"
                 + "  \"type\" : \"attribute\",\n"
@@ -279,7 +263,6 @@ public class SourceControllerTest {
                 + "/sources/S2/Title/99";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info(entity.getBody());
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
@@ -291,7 +274,6 @@ public class SourceControllerTest {
                 + "/sources/Xyzzy";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info(entity.getBody());
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 }

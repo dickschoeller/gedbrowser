@@ -121,33 +121,42 @@ public final class PersonDocumentRepositoryMongoImpl implements
         if (filename == null) {
             return Collections.emptyList();
         }
+        final List<PersonDocumentMongo> personDocuments;
         if (beginsWith == null || beginsWith.equals("")
                 || beginsWith.equals("?")) {
-            final Query emptyQuery = new Query(Criteria.where("surname")
-                    .is("").and("filename").is(filename));
-            final Query nullQuery = new Query(Criteria.where("surname")
-                    .exists(false).and("filename").is(filename));
-            final Query qMarkQuery = new Query(Criteria.where("surname")
-                    .is("?").and("filename").is(filename));
-            final List<PersonDocumentMongo> personDocuments =
-                    mongoTemplate.find(emptyQuery, PersonDocumentMongo.class);
-            personDocuments.addAll(mongoTemplate.find(nullQuery,
-                    PersonDocumentMongo.class));
-            personDocuments.addAll(mongoTemplate.find(qMarkQuery,
-                    PersonDocumentMongo.class));
-            createGedObjects(personDocuments);
-            Collections.sort(personDocuments, new PersonDocumentComparator());
-            return copy(personDocuments);
+            personDocuments = queryUnknownSurname(filename);
         } else {
-            final Query searchQuery = new Query(Criteria.where("surname")
-                    .regex("^" + beginsWith + ".*").and("filename")
-                    .is(filename));
-            final List<PersonDocumentMongo> personDocuments =
-                    mongoTemplate.find(searchQuery, PersonDocumentMongo.class);
-            createGedObjects(personDocuments);
-            Collections.sort(personDocuments, new PersonDocumentComparator());
-            return copy(personDocuments);
+            personDocuments = querySurnameBeginsWith(filename, beginsWith);
         }
+        createGedObjects(personDocuments);
+        Collections.sort(personDocuments, new PersonDocumentComparator());
+        return copy(personDocuments);
+    }
+
+    /**
+     * @param filename the filename of the dataset to search
+     * @return the list of matches
+     */
+    private List<PersonDocumentMongo> queryUnknownSurname(
+            final String filename) {
+        final Query emptyQuery = new Query(
+                Criteria.where("filename").is(filename).andOperator(
+                        Criteria.where("surname").in("", "?"),
+                        Criteria.where("surname").exists(false)));
+        return mongoTemplate.find(emptyQuery, PersonDocumentMongo.class);
+    }
+
+    /**
+     * @param filename the filename of the dataset to search
+     * @param beginsWith beginning substring
+     * @return the list of matches
+     */
+    private List<PersonDocumentMongo> querySurnameBeginsWith(
+            final String filename, final String beginsWith) {
+        final Query searchQuery = new Query(Criteria.where("surname")
+                .regex("^" + beginsWith + ".*").and("filename")
+                .is(filename));
+        return mongoTemplate.find(searchQuery, PersonDocumentMongo.class);
     }
 
     /**
@@ -242,8 +251,6 @@ public final class PersonDocumentRepositoryMongoImpl implements
      */
     private static class PersonDocumentComparator implements
             Comparator<PersonDocument>, Serializable {
-        // TODO combine with the person comparator.
-
         /** */
         private static final long serialVersionUID = 3;
 
