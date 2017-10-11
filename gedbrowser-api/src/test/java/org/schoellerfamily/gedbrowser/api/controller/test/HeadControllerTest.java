@@ -2,8 +2,6 @@ package org.schoellerfamily.gedbrowser.api.controller.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
@@ -25,9 +23,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class HeadControllerTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
-
     /**
      * Not sure what this is good for.
      */
@@ -49,7 +44,6 @@ public class HeadControllerTest {
                 testRestTemplate.getForEntity(url, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        logger.info("\n" + entity.getBody());
         then(entity.getBody())
             .startsWith("{\n  \"type\" : \"head\",\n  \"string\" : \"Header\","
                     + "\n  \"attributes\" : [ "

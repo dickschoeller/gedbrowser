@@ -2,8 +2,6 @@ package org.schoellerfamily.gedbrowser.api.controller.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
@@ -25,9 +23,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class SubmissionControllerTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
-
     /**
      * Not sure what this is good for.
      */
@@ -47,7 +42,6 @@ public class SubmissionControllerTest {
                 + "/gedbrowser-api/dbs/gl120368/submissions";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody());
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"submission\",\n"
@@ -70,7 +64,6 @@ public class SubmissionControllerTest {
                 + "/gedbrowser-api/dbs/mini-schoeller/submissions";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody());
         final String bodyFragment =
                 "[ ]";
 
@@ -85,7 +78,6 @@ public class SubmissionControllerTest {
                 + "/gedbrowser-api/dbs/gl120368/submissions/B1";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody());
         final String bodyFragment =
                 "{\n"
                 + "  \"type\" : \"submission\",\n"
@@ -108,7 +100,6 @@ public class SubmissionControllerTest {
                 + "/gedbrowser-api/dbs/gl120368/submissions/B1/attributes";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody());
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"attribute\",\n"
@@ -127,7 +118,6 @@ public class SubmissionControllerTest {
                 + "/gedbrowser-api/dbs/gl120368/submissions/B1/attributes/0";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody());
         final String bodyFragment =
                 "{\n"
                 + "  \"type\" : \"attribute\",\n"
@@ -146,7 +136,6 @@ public class SubmissionControllerTest {
                 + "/gedbrowser-api/dbs/gl120368/submissions/B1/attributes/99";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info(entity.getBody());
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
@@ -158,7 +147,6 @@ public class SubmissionControllerTest {
                 + "Generations%20of%20descendants";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody());
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"attribute\",\n"
@@ -178,7 +166,6 @@ public class SubmissionControllerTest {
                 + "Generations%20of%20descendants/0";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info("\n" + entity.getBody());
         final String bodyFragment =
                 "{\n"
                 + "  \"type\" : \"attribute\",\n"
@@ -198,7 +185,6 @@ public class SubmissionControllerTest {
                 + "Generations%20of%20descendants/99";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info(entity.getBody());
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
@@ -209,7 +195,6 @@ public class SubmissionControllerTest {
                 + "/gedbrowser-api/dbs/gl120368/submissions/Xyzzy";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
-        logger.info(entity.getBody());
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 }
