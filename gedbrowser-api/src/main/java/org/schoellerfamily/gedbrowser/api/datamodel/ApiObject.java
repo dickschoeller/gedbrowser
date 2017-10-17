@@ -125,7 +125,7 @@ public class ApiObject implements Serializable, GetString {
     }
 
     /**
-     * @{inhertDoc}
+     * @{inheritDoc}
      */
     @Override
     public int hashCode() {
@@ -168,7 +168,7 @@ public class ApiObject implements Serializable, GetString {
     }
 
     /**
-     * @{inhertDoc}
+     * @{inheritDoc}
      */
     @Override
     @SuppressWarnings("PMD.NPathComplexity")
