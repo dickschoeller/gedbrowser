@@ -43,6 +43,6 @@ public final class GeoRepositoryFixture extends GeoCodeTestFixture {
      */
     public void clearRepository() {
         geoDocumentRepository.deleteAll();
-        mongoTemplate.getDb().dropDatabase();
+        mongoTemplate.getDb().drop();
     }
 }

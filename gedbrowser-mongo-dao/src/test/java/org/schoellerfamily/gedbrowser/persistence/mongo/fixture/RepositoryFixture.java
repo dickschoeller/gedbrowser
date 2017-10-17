@@ -76,6 +76,6 @@ public final class RepositoryFixture {
      */
     public void clearRepository() {
         repositoryManager.reset();
-        mongoTemplate.getDb().dropDatabase();
+        mongoTemplate.getDb().drop();
     }
 }

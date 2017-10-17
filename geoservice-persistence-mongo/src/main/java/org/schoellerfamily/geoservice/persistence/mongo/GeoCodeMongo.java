@@ -98,7 +98,7 @@ public final class GeoCodeMongo extends GeoCodeBasic {
     public GeoDocument deleteDocument(final String placeName) {
         final GeoDocument document = getDocument(placeName);
         if (document != null) {
-            geoDocumentRepository.delete(placeName);
+            geoDocumentRepository.delete((GeoDocumentMongo) document);
         }
         return document;
     }
