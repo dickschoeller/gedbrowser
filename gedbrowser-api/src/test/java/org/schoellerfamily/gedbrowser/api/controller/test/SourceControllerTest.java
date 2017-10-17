@@ -2,17 +2,25 @@ package org.schoellerfamily.gedbrowser.api.controller.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.RestClientException;
 
 /**
  * @author Dick Schoeller
@@ -37,7 +45,7 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testGetSourcesGl120368() {
+    public final void testReadSourcesGl120368() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/dbs/gl120368/sources";
         final ResponseEntity<String> entity =
@@ -65,7 +73,8 @@ public class SourceControllerTest {
                 + "  }, {\n"
                 + "    \"type\" : \"noteLink\",\n"
                 + "    \"string\" : \"N1350\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  }, {\n"
                 + "    \"type\" : \"attribute\",\n"
                 + "    \"string\" : \"Changed\",\n"
@@ -77,7 +86,8 @@ public class SourceControllerTest {
                 + "        \"string\" : \"Time\",\n"
                 + "        \"attributes\" : [ ],\n"
                 + "        \"tail\" : \"21:26:46\"\n"
-                + "      } ]\n"
+                + "      } ],\n"
+                + "      \"tail\" : \"\"\n"
                 + "    } ],\n"
                 + "    \"tail\" : \"\"\n"
                 + "  } ]\n"
@@ -89,7 +99,7 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testGetSourcesMiniSchoeller() {
+    public final void testReadSourcesMiniSchoeller() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/dbs/mini-schoeller/sources";
         final ResponseEntity<String> entity =
@@ -123,7 +133,7 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testGetSourcesMiniSchoellerS2() {
+    public final void testReadSourcesMiniSchoellerS2() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/dbs/mini-schoeller/sources/S2";
         final ResponseEntity<String> entity =
@@ -157,7 +167,7 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testGetSourcesMiniSchoellerS2Attributes() {
+    public final void testReadSourcesMiniSchoellerS2Attributes() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/dbs/mini-schoeller/sources/S2/attributes";
         final ResponseEntity<String> entity =
@@ -187,7 +197,7 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testGetSourcesMiniSchoellerS2Attributes1() {
+    public final void testReadSourcesMiniSchoellerS2Attributes1() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/dbs/mini-schoeller/sources/S2/attributes/1";
         final ResponseEntity<String> entity =
@@ -206,7 +216,7 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testGetSourcesMiniSchoellerS2Attributes99() {
+    public final void testReadSourcesMiniSchoellerS2Attributes99() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/dbs/mini-schoeller"
                 + "/sources/S2/attributes/99";
@@ -217,7 +227,7 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testGetSourcesMiniSchoellerS2Title() {
+    public final void testReadSourcesMiniSchoellerS2Title() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/dbs/mini-schoeller/sources/S2/Title";
         final ResponseEntity<String> entity =
@@ -237,7 +247,7 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testGetSourcesMiniSchoellerS2Title0() {
+    public final void testReadSourcesMiniSchoellerS2Title0() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/dbs/mini-schoeller/sources/S2/Title/0";
         final ResponseEntity<String> entity =
@@ -257,7 +267,7 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testGetSourcesMiniSchoellerS2Title99() {
+    public final void testReadSourcesMiniSchoellerS2Title99() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/dbs/mini-schoeller"
                 + "/sources/S2/Title/99";
@@ -268,12 +278,33 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testGetSourcesMiniSchoellerXyzzy() {
+    public final void testReadSourcesMiniSchoellerXyzzy() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/dbs/mini-schoeller"
                 + "/sources/Xyzzy";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testCreateSourcesSimple()
+            throws RestClientException, URISyntaxException {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/gl120368/sources";
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        final ApiSource reqBody = new ApiSource("source", "");
+        final HttpEntity<ApiSource> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiSource> entity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiSource.class);
+        final ApiSource resBody = entity.getBody();
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(resBody.getType()).isEqualTo(reqBody.getType());
     }
 }

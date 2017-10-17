@@ -4,13 +4,15 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
-import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmissionDocument;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,15 +21,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Dick Schoeller
  */
 @Controller
-public class SubmissionController extends Fetcher<SubmissionDocument> {
+public class SubmissionController
+    extends OperationsEnabler<Submission, SubmissionDocument>
+    implements CreateOperations<Submission, SubmissionDocument, ApiSubmission>,
+        Fetcher<Submission, SubmissionDocument, ApiSubmission> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
-     * Handles data conversion from DB model to API model.
+     * {@inheritDoc}
      */
-    private final DocumentToApiModelTransformer d2dm =
-            new DocumentToApiModelTransformer();
+    @Override
+    public Class<Submission> getGedClass() {
+        return Submission.class;
+    }
 
     /**
      * @param db the name of the db to access
@@ -35,10 +42,10 @@ public class SubmissionController extends Fetcher<SubmissionDocument> {
      */
     @RequestMapping(method = RequestMethod.GET, value = "/dbs/{db}/submissions")
     @ResponseBody
-    public List<ApiSubmission> submissions(
+    public List<ApiSubmission> readSubmissions(
             @PathVariable final String db) {
         logger.info("Entering submissions, db: " + db);
-        return d2dm.convert(fetch(db, Submission.class));
+        return getD2dm().convert(fetch(db));
     }
 
     /**
@@ -49,11 +56,11 @@ public class SubmissionController extends Fetcher<SubmissionDocument> {
     @RequestMapping(method = RequestMethod.GET,
             value = "/dbs/{db}/submissions/{id}")
     @ResponseBody
-    public ApiSubmission submission(
+    public ApiSubmission readSubmission(
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering submission, db: " + db + ", id: " + id);
-        return d2dm.convert(fetch(db, id, Submission.class));
+        return getD2dm().convert(fetch(db, id));
     }
 
     /**
@@ -64,12 +71,12 @@ public class SubmissionController extends Fetcher<SubmissionDocument> {
     @RequestMapping(method = RequestMethod.GET,
             value = "/dbs/{db}/submissions/{id}/attributes")
     @ResponseBody
-    public List<ApiObject> attributes(
+    public List<ApiAttribute> readSubmissionAttributes(
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering submission attributes, db: " + db + ","
                 + " id: " + id);
-        return d2dm.attributes(fetch(db, id, Submission.class));
+        return getD2dm().attributes(fetch(db, id));
     }
 
     /**
@@ -81,13 +88,13 @@ public class SubmissionController extends Fetcher<SubmissionDocument> {
     @RequestMapping(method = RequestMethod.GET,
             value = "/dbs/{db}/submissions/{id}/attributes/{index}")
     @ResponseBody
-    public ApiObject attribute(
+    public ApiObject readSubmissionAttribute(
             @PathVariable final String db,
             @PathVariable final String id,
             @PathVariable final int index) {
         logger.info("Entering submission attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
-        return d2dm.attribute(fetch(db, id, Submission.class), index);
+        return getD2dm().attribute(fetch(db, id), index);
     }
 
     /**
@@ -99,13 +106,13 @@ public class SubmissionController extends Fetcher<SubmissionDocument> {
     @RequestMapping(method = RequestMethod.GET,
             value = "/dbs/{db}/submissions/{id}/{type}")
     @ResponseBody
-    public List<ApiObject> attributes(
+    public List<ApiAttribute> readSubmissionAttributes(
             @PathVariable final String db,
             @PathVariable final String id,
             @PathVariable final String type) {
         logger.info("Entering read /dbs/" + db + "/submissions/" + id + "/"
                 + type);
-        return d2dm.attributes(fetch(db, id, Submission.class), type);
+        return getD2dm().attributes(fetch(db, id), type);
     }
 
     /**
@@ -118,13 +125,46 @@ public class SubmissionController extends Fetcher<SubmissionDocument> {
     @RequestMapping(method = RequestMethod.GET,
             value = "/dbs/{db}/submissions/{id}/{type}/{index}")
     @ResponseBody
-    public ApiObject attribute(
+    public ApiObject readSubmissionAttribute(
             @PathVariable final String db,
             @PathVariable final String id,
             @PathVariable final String type,
             @PathVariable final int index) {
         logger.info("Entering read /dbs/" + db + "/submissions/" + id + "/"
                 + type + "/" + index);
-        return d2dm.attribute(fetch(db, id, Submission.class), type, index);
+        return getD2dm().attribute(fetch(db, id), type, index);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param submission the data for the submission
+     * @return the submission as created
+     */
+    @PostMapping(value = "/dbs/{db}/submissions")
+    @ResponseBody
+    public ApiSubmission createSubmission(@PathVariable final String db,
+            @RequestBody final ApiSubmission submission) {
+        logger.info("Entering create submission in db: " + db);
+        return create(fetchRoot(db), submission, (i, id) ->
+            new ApiSubmission(i.getType(), id, i.getAttributes()));
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the submission
+     * @param index the index of the attribute
+     * @param attribute the attribute value to add
+     * @return the attribute
+     */
+    @PostMapping(value = "/dbs/{db}/submissions/{id}/attributes/{index}")
+    @ResponseBody
+    public ApiAttribute createSubmissionAttribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final int index,
+            @RequestBody final ApiAttribute attribute) {
+        logger.info("Entering submission createAttribute,"
+                + " db: " + db + ", id: " + id + ", index: " + index);
+        return createAttribute(fetch(db, id), index, attribute);
     }
 }

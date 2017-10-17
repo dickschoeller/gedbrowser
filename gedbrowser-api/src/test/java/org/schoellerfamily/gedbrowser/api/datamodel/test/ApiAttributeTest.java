@@ -35,21 +35,21 @@ public class ApiAttributeTest {
     /** */
     @Test
     public void testConstructorType() {
-        final ApiAttribute o = new ApiAttribute("string", "type", "tail");
+        final ApiAttribute o = new ApiAttribute("type", "string", "tail");
         assertEquals("type mismatch", "type", o.getType());
     }
 
     /** */
     @Test
     public void testConstructorString() {
-        final ApiAttribute o = new ApiAttribute("string", "type", "tail");
+        final ApiAttribute o = new ApiAttribute("type", "string", "tail");
         assertEquals("string mismatch", "string", o.getString());
     }
 
     /** */
     @Test
     public void testConstructorTail() {
-        final ApiAttribute o = new ApiAttribute("string", "type", "tail");
+        final ApiAttribute o = new ApiAttribute("type", "string", "tail");
         assertEquals("tail mismatch", "tail", o.getTail());
     }
 
@@ -63,14 +63,14 @@ public class ApiAttributeTest {
     /** */
     @Test
     public void testIsType() {
-        final ApiAttribute o = new ApiAttribute("string", "type", "tail");
+        final ApiAttribute o = new ApiAttribute("type", "string", "tail");
         assertTrue("isType mismatch", o.isType("type"));
     }
 
     /** */
     @Test
     public void testAccept() {
-        final ApiAttribute o = new ApiAttribute("string", "type", "tail");
+        final ApiAttribute o = new ApiAttribute("type", "string", "tail");
         final ApiTestVisitor visitor = new ApiTestVisitor();
         o.accept(visitor);
         assertEquals("Method mismatch", "attribute", visitor.getMethodCalled());

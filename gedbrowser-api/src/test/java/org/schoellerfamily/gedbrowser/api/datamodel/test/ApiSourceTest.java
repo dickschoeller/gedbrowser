@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 
 /**
  * @author Dick Schoeller
@@ -66,8 +66,8 @@ public class ApiSourceTest {
     /** */
     @Test
     public void testConstructorWithAttributes() {
-        final List<ApiObject> attributes = new ArrayList<>();
-        attributes.add(new ApiObject("attribute", "a string"));
+        final List<ApiAttribute> attributes = new ArrayList<>();
+        attributes.add(new ApiAttribute("a string", "attribute", ""));
         final ApiSource o = new ApiSource("type", "string", attributes);
         assertEquals("attributes size mismatch", 1, o.getAttributes().size());
     }

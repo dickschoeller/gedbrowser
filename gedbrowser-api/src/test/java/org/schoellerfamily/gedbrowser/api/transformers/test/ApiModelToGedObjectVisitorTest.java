@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
@@ -69,10 +68,10 @@ public class ApiModelToGedObjectVisitorTest {
         final ApiPerson apiPerson = new ApiPerson(
                 "person", "I1", "Richard/Schoeller/", "Schoeller");
         final ApiAttribute apiAttribute =
-                new ApiAttribute("Richard/Schoeller/", "name", null);
+                new ApiAttribute("name", "Richard/Schoeller/", null);
         apiPerson.getAttributes().add(apiAttribute);
-        final ApiObject apiObject =
-                new ApiObject("date", "1 JAN 1900");
+        final ApiAttribute apiObject =
+                new ApiAttribute("1 JAN 1900", "date", "");
         apiPerson.getAttributes().add(apiObject);
         apiPerson.accept(visitor);
         final Person gob = (Person) visitor.getGedObject();
@@ -111,7 +110,7 @@ public class ApiModelToGedObjectVisitorTest {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder, p);
         final ApiAttribute apiSource =
-                new ApiAttribute("S1", "sourcelink", null);
+                new ApiAttribute("sourcelink", "S1", null);
         apiSource.accept(visitor);
         final SourceLink gob = (SourceLink) visitor.getGedObject();
         assertEquals("source mismatch", "S1", gob.getToString());

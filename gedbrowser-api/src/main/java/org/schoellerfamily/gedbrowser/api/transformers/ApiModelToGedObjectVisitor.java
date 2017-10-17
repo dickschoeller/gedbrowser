@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.api.transformers;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObjectVisitor;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
@@ -10,6 +11,8 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Note;
+import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
@@ -93,6 +96,17 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
      * {@inheritDoc}
      */
     @Override
+    public void visit(final ApiNote note) {
+        gedObject = new Note(builder.getRoot(),
+                new ObjectId(note.getString()), note.getTail());
+        builder.getRoot().insert(gedObject);
+        addAttributes(note);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void visit(final ApiPerson person) {
         gedObject = builder.createPerson(person.getString());
         addAttributes(person);
@@ -132,7 +146,6 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
         for (final ApiObject object : apiParent.getAttributes()) {
             final ApiModelToGedObjectVisitor visitor = createVisitor();
             object.accept(visitor);
-            gedObject.addAttribute(visitor.getGedObject());
         }
     }
 

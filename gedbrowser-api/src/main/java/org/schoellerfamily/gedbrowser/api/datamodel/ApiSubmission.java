@@ -7,7 +7,7 @@ import java.util.List;
  */
 public final class ApiSubmission extends ApiObject {
     /** */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     /**
      * Constructor.
@@ -34,7 +34,7 @@ public final class ApiSubmission extends ApiObject {
      * @param attributes the list of subordinate attributes of this object
      */
     public ApiSubmission(final String type, final String string,
-            final List<ApiObject> attributes) {
+            final List<ApiAttribute> attributes) {
         super(type, string, attributes);
     }
 
