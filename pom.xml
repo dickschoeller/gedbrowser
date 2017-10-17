@@ -60,7 +60,7 @@
     <cglib.version>3.2.5</cglib.version>
     <spring-data-mongodb.version>1.10.7.RELEASE</spring-data-mongodb.version>
     <spring-data-commons.version>1.13.7.RELEASE</spring-data-commons.version>
-    <google-maps-services.version>0.2.3</google-maps-services.version>
+    <google-maps-services.version>0.2.4</google-maps-services.version>
     <jackson-core.version>2.8.9</jackson-core.version>
     <jackson-databind.version>2.8.9</jackson-databind.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
@@ -71,7 +71,7 @@
     <log4j-over-slf4j.version>1.7.25</log4j-over-slf4j.version>
     <logback-classic.version>1.2.3</logback-classic.version>
 
-    <selenium.version>3.5.3</selenium.version>
+    <selenium.version>3.6.0</selenium.version>
     <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
     <htmlunit-driver.version>2.27</htmlunit-driver.version>
 
@@ -79,13 +79,13 @@
     <jacoco-plugin.version>0.7.9</jacoco-plugin.version>
     <findbugs-plugin.version>3.0.5</findbugs-plugin.version>
     <checkstyle-plugin.version>2.17</checkstyle-plugin.version>
-    <checkstyle-version>8.2</checkstyle-version>
+    <checkstyle-version>8.3</checkstyle-version>
     <pmd-plugin.version>3.8</pmd-plugin.version>
     <pmd-version>5.8.1</pmd-version>
     <build-helper-plugin.version>3.0.0</build-helper-plugin.version>
     <jxr-plugin.version>2.5</jxr-plugin.version>
     <compiler-plugin.version>3.7.0</compiler-plugin.version>
-    <war-plugin.version>3.1.0</war-plugin.version>
+    <war-plugin.version>3.2.0</war-plugin.version>
     <source-plugin.version>3.0.1</source-plugin.version>
     <failsafe.version>2.20.1</failsafe.version>
     <surefire.version>2.20.1</surefire.version>
