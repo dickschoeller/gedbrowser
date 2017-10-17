@@ -49,6 +49,9 @@ public interface LastId<T extends GedDocumentMongo<?>> {
             final String baseId) {
         String last = lastId(mongoTemplate, clazz, filename, baseId);
         String number = last.replace(baseId, "");
+        if (number.isEmpty()) {
+            return baseId + "1";
+        }
         int newNumber = Integer.parseInt(number) + 1;
         return baseId + newNumber;
     }

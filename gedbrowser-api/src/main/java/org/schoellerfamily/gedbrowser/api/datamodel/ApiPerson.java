@@ -5,9 +5,11 @@ import java.util.List;
 /**
  * @author Dick Schoeller
  */
-public class ApiPerson extends ApiObject {
+@SuppressWarnings({ "PMD.CyclomaticComplexity",
+        "PMD.ModifiedCyclomaticComplexity", "PMD.StdCyclomaticComplexity" })
+public final class ApiPerson extends ApiObject {
     /** */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     /**
      * The name in a form that is usable for indexing.
@@ -50,7 +52,7 @@ public class ApiPerson extends ApiObject {
      * @param surname the surname
      */
     public ApiPerson(final String type, final String string,
-            final List<ApiObject> attributes,
+            final List<ApiAttribute> attributes,
             final String indexName, final String surname) {
         super(type, string, attributes);
         this.indexName = indexName;
@@ -76,5 +78,69 @@ public class ApiPerson extends ApiObject {
      */
     public void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + indexNameHash();
+        result = prime * result + surnameHash();
+        return result;
+    }
+
+    /**
+     * @return the hash code for the index name string
+     */
+    private int indexNameHash() {
+        if (indexName == null) {
+            return 0;
+        }
+        return indexName.hashCode();
+    }
+
+    /**
+     * @return the hash code for the surname string
+     */
+    private int surnameHash() {
+        if (surname == null) {
+            return 0;
+        }
+        return surname.hashCode();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ApiPerson other = (ApiPerson) obj;
+        if (indexName == null) {
+            if (other.indexName != null) {
+                return false;
+            }
+        } else if (!indexName.equals(other.indexName)) {
+            return false;
+        }
+        if (surname == null) {
+            if (other.surname != null) {
+                return false;
+            }
+        } else if (!surname.equals(other.surname)) {
+            return false;
+        }
+        return true;
     }
 }

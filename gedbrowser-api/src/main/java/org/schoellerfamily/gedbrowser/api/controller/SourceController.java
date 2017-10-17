@@ -4,13 +4,15 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
-import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,15 +21,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Dick Schoeller
  */
 @Controller
-public class SourceController extends Fetcher<SourceDocument> {
+public class SourceController
+    extends OperationsEnabler<Source, SourceDocument>
+    implements CreateOperations<Source, SourceDocument, ApiSource>,
+        Fetcher<Source, SourceDocument, ApiSource> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
-     * Handles data conversion from DB model to API model.
+     * {@inheritDoc}
      */
-    private final DocumentToApiModelTransformer d2dm =
-            new DocumentToApiModelTransformer();
+    @Override
+    public Class<Source> getGedClass() {
+        return Source.class;
+    }
 
     /**
      * @param db the name of the db to access
@@ -35,10 +42,10 @@ public class SourceController extends Fetcher<SourceDocument> {
      */
     @RequestMapping(method = RequestMethod.GET, value = "/dbs/{db}/sources")
     @ResponseBody
-    public List<ApiSource> sources(
+    public List<ApiSource> readSources(
             @PathVariable final String db) {
         logger.info("Entering sources, db: " + db);
-        return d2dm.convert(fetch(db, Source.class));
+        return getD2dm().convert(fetch(db));
     }
 
     /**
@@ -49,11 +56,11 @@ public class SourceController extends Fetcher<SourceDocument> {
     @RequestMapping(method = RequestMethod.GET,
             value = "/dbs/{db}/sources/{id}")
     @ResponseBody
-    public ApiSource source(
+    public ApiSource readSource(
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering source, db: " + db + ", id: " + id);
-        return d2dm.convert(fetch(db, id, Source.class));
+        return getD2dm().convert(fetch(db, id));
     }
 
     /**
@@ -64,11 +71,11 @@ public class SourceController extends Fetcher<SourceDocument> {
     @RequestMapping(method = RequestMethod.GET,
             value = "/dbs/{db}/sources/{id}/attributes")
     @ResponseBody
-    public List<ApiObject> attributes(
+    public List<ApiAttribute> readSourceAttributes(
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering source attributes, db: " + db + ", id: " + id);
-        return d2dm.attributes(fetch(db, id, Source.class));
+        return getD2dm().attributes(fetch(db, id));
     }
 
     /**
@@ -80,13 +87,13 @@ public class SourceController extends Fetcher<SourceDocument> {
     @RequestMapping(method = RequestMethod.GET,
             value = "/dbs/{db}/sources/{id}/attributes/{index}")
     @ResponseBody
-    public ApiObject attribute(
+    public ApiObject readSourceAttribute(
             @PathVariable final String db,
             @PathVariable final String id,
             @PathVariable final int index) {
         logger.info("Entering source attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
-        return d2dm.attribute(fetch(db, id, Source.class), index);
+        return getD2dm().attribute(fetch(db, id), index);
     }
 
     /**
@@ -98,13 +105,13 @@ public class SourceController extends Fetcher<SourceDocument> {
     @RequestMapping(method = RequestMethod.GET,
             value = "/dbs/{db}/sources/{id}/{type}")
     @ResponseBody
-    public List<ApiObject> attributes(
+    public List<ApiAttribute> readSourceAttributes(
             @PathVariable final String db,
             @PathVariable final String id,
             @PathVariable final String type) {
         logger.info("Entering read /dbs/" + db + "/sources/" + id + "/"
                 + type);
-        return d2dm.attributes(fetch(db, id, Source.class), type);
+        return getD2dm().attributes(fetch(db, id), type);
     }
 
     /**
@@ -117,33 +124,46 @@ public class SourceController extends Fetcher<SourceDocument> {
     @RequestMapping(method = RequestMethod.GET,
             value = "/dbs/{db}/sources/{id}/{type}/{index}")
     @ResponseBody
-    public ApiObject attribute(
+    public ApiObject readSourceAttribute(
             @PathVariable final String db,
             @PathVariable final String id,
             @PathVariable final String type,
             @PathVariable final int index) {
         logger.info("Entering read /dbs/" + db + "/sources/" + id + "/"
                 + type + "/" + index);
-        return d2dm.attribute(fetch(db, id, Source.class), type, index);
+        return getD2dm().attribute(fetch(db, id), type, index);
     }
-//
-//    /**
-//     * @param db the name of the db to access
-//     * @param id the ID of the source
-//     * @param index the index of the attribute
-//     * @return the attribute
-//     */
-//    @RequestMapping(method = RequestMethod.POST,
-//            value = "/dbs/{db}/sources/{id}/attributes/{index}")
-//    @ResponseBody
-//    public ApiObject createAttribute(
-//            @PathVariable final String db,
-//            @PathVariable final String id,
-//            @PathVariable final int index) {
-//        logger.info("Entering source createAttribute,"
-//                + " db: " + db
-//                + ", id: " + id
-//                + ", index: " + index);
-//        return null;
-//    }
+
+    /**
+     * @param db the name of the db to access
+     * @param source the data for the source
+     * @return the source as created
+     */
+    @PostMapping(value = "/dbs/{db}/sources")
+    @ResponseBody
+    public ApiObject createSource(@PathVariable final String db,
+            @RequestBody final ApiSource source) {
+        logger.info("Entering create source in db: " + db);
+        return create(fetchRoot(db), source, (i, id) ->
+            new ApiSource(i.getType(), id, i.getAttributes()));
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the source
+     * @param index the index of the attribute
+     * @param attribute the attribute value to add
+     * @return the attribute
+     */
+    @PostMapping(value = "/dbs/{db}/sources/{id}/attributes/{index}")
+    @ResponseBody
+    public ApiObject createSourceAttribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final int index,
+            @RequestBody final ApiAttribute attribute) {
+        logger.info("Entering source createAttribute,"
+                + " db: " + db + ", id: " + id + ", index: " + index);
+        return createAttribute(fetch(db, id), index, attribute);
+    }
 }

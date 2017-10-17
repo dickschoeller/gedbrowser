@@ -25,6 +25,11 @@ public interface ApiObjectVisitor {
     void visit(ApiHead head);
 
     /**
+     * @param note the Note object to visit
+     */
+    void visit(ApiNote note);
+
+    /**
      * @param person the Person object to visit
      */
     void visit(ApiPerson person);

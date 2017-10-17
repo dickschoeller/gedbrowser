@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
@@ -69,7 +70,7 @@ public class DocumentToApiModelTransformer {
      * @param document the document to convert and find attributes
      * @return the resulting list of attributes
      */
-    public final <V extends GedDocument<?>> List<ApiObject> attributes(
+    public final <V extends GedDocument<?>> List<ApiAttribute> attributes(
             final V document) {
         return convert(document).getAttributes();
     }
@@ -80,9 +81,9 @@ public class DocumentToApiModelTransformer {
      * @param index the attribute index to return
      * @return the resulting attribute
      */
-    public final <V extends GedDocument<?>> ApiObject attribute(
+    public final <V extends GedDocument<?>> ApiAttribute attribute(
             final V document, final int index) {
-        final List<ApiObject> attributes = attributes(document);
+        final List<ApiAttribute> attributes = attributes(document);
         if (index >= attributes.size()) {
             throw new ObjectNotFoundException(
                     "Attribute " + index
@@ -112,10 +113,10 @@ public class DocumentToApiModelTransformer {
      * @param type the attribute type we want
      * @return the resulting list of attributes of the requested type
      */
-    public final <V extends GedDocument<?>> List<ApiObject> attributes(
+    public final <V extends GedDocument<?>> List<ApiAttribute> attributes(
             final V document, final String type) {
-        final List<ApiObject> list = new ArrayList<>();
-        for (final ApiObject object : attributes(document)) {
+        final List<ApiAttribute> list = new ArrayList<>();
+        for (final ApiAttribute object : attributes(document)) {
             if (object.isType(type)) {
                 list.add(object);
             }
@@ -132,7 +133,7 @@ public class DocumentToApiModelTransformer {
      */
     public final <V extends GedDocument<?>> ApiObject attribute(
             final V document, final String type, final int index) {
-        final List<ApiObject> list =
+        final List<ApiAttribute> list =
                 attributes(document, type);
         if (index >= list.size()) {
             throw new ObjectNotFoundException(

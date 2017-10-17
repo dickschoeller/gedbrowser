@@ -11,6 +11,8 @@ import org.schoellerfamily.gedbrowser.datamodel.GetString;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.CyclomaticComplexity",
+        "PMD.ModifiedCyclomaticComplexity", "PMD.StdCyclomaticComplexity" })
 public class ApiObject implements Serializable, GetString {
     /** */
     private static final long serialVersionUID = 1L;
@@ -29,7 +31,7 @@ public class ApiObject implements Serializable, GetString {
     /**
      * The list of subordinate attributes of this object.
      */
-    private List<ApiObject> attributes;
+    private List<ApiAttribute> attributes;
 
     /**
      * Constructor.
@@ -56,7 +58,7 @@ public class ApiObject implements Serializable, GetString {
      * @param attributes the list of subordinate attributes of this object
      */
     public ApiObject(final String type, final String string,
-            final List<ApiObject> attributes) {
+            final List<ApiAttribute> attributes) {
         super();
         this.type = type;
         this.string = string;
@@ -84,7 +86,7 @@ public class ApiObject implements Serializable, GetString {
     /**
      * @return the list of additional attributes
      */
-    public final List<ApiObject> getAttributes() {
+    public final List<ApiAttribute> getAttributes() {
         return attributes;
     }
 
@@ -120,5 +122,88 @@ public class ApiObject implements Serializable, GetString {
         } catch (UnsupportedEncodingException e) {
             return t;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + attributesHash();
+        result = prime * result + stringHash();
+        result = prime * result + typeHash();
+        return result;
+    }
+
+    /**
+     * @return the hash for the attributes
+     */
+    private int attributesHash() {
+        if (attributes == null) {
+            return 0;
+        }
+        return attributes.hashCode();
+    }
+
+    /**
+     * @return the hash for the string
+     */
+    private int stringHash() {
+        if (string == null) {
+            return 0;
+        }
+        return string.hashCode();
+    }
+
+    /**
+     * @return the hash for the type
+     */
+    private int typeHash() {
+        if (type == null) {
+            return 0;
+        }
+        return type.hashCode();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.NPathComplexity")
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ApiObject other = (ApiObject) obj;
+        if (attributes == null) {
+            if (other.attributes != null) {
+                return false;
+            }
+        } else if (!attributes.equals(other.attributes)) {
+            return false;
+        }
+        if (string == null) {
+            if (other.string != null) {
+                return false;
+            }
+        } else if (!string.equals(other.string)) {
+            return false;
+        }
+        if (type == null) {
+            if (other.type != null) {
+                return false;
+            }
+        } else if (!type.equals(other.type)) {
+            return false;
+        }
+        return true;
     }
 }

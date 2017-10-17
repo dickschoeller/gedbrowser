@@ -2,17 +2,25 @@ package org.schoellerfamily.gedbrowser.api.controller.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.RestClientException;
 
 /**
  * @author Dick Schoeller
@@ -52,9 +60,9 @@ public class SubmissionControllerTest {
                 + "    \"attributes\" : [ ],\n"
                 + "    \"tail\" : \"2\"\n"
                 + "  } ]\n"
-                + "} ]";
+                + "}";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).isEqualTo(bodyFragment);
+        then(entity.getBody()).startsWith(bodyFragment);
     }
 
     /** */
@@ -196,5 +204,26 @@ public class SubmissionControllerTest {
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testCreateSubmissionsSimple()
+            throws RestClientException, URISyntaxException {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/gl120368/submissions";
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        final ApiSubmission reqBody = new ApiSubmission("submission", "");
+        final HttpEntity<ApiSubmission> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiSubmission> entity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiSubmission.class);
+        final ApiSubmission resBody = entity.getBody();
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(resBody.getType()).isEqualTo(reqBody.getType());
     }
 }

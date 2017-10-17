@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.api.datamodel.test;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObjectVisitor;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
@@ -54,6 +55,14 @@ public class ApiTestVisitor implements ApiObjectVisitor {
     @Override
     public void visit(final ApiHead head) {
         methodCalled = "head";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void visit(final ApiNote note) {
+        methodCalled = "note";
     }
 
     /**

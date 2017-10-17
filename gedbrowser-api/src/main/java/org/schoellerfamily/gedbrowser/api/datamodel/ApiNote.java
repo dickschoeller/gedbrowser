@@ -5,14 +5,14 @@ import java.util.List;
 /**
  * @author Dick Schoeller
  */
-public final class ApiHead extends ApiObject {
+public final class ApiNote extends ApiTail {
     /** */
     private static final long serialVersionUID = 2L;
 
     /**
      * Constructor.
      */
-    public ApiHead() {
+    public ApiNote() {
         super();
     }
 
@@ -21,21 +21,24 @@ public final class ApiHead extends ApiObject {
      *
      * @param type a string describing the data type of this object
      * @param string a string containing the primary value of this object
+     * @param tail an additional string containing the secondary value of this
+     *      object
      */
-    public ApiHead(final String type, final String string) {
-        super(type, string);
+    public ApiNote(final String type, final String string, final String tail) {
+        super(type, string, tail);
     }
 
     /**
      * Constructor.
-     *
      * @param type a string describing the data type of this object
      * @param string a string containing the primary value of this object
      * @param attributes the list of subordinate attributes of this object
+     * @param tail an additional string containing the secondary value of this
+     *      object
      */
-    public ApiHead(final String type, final String string,
-            final List<ApiAttribute> attributes) {
-        super(type, string, attributes);
+    public ApiNote(final String type, final String string,
+            final List<ApiAttribute> attributes, final String tail) {
+        super(type, string, attributes, tail);
     }
 
     /**

@@ -2,17 +2,28 @@ package org.schoellerfamily.gedbrowser.api.controller.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.RestClientException;
 
 /**
  * @author Dick Schoeller
@@ -49,7 +60,8 @@ public class FamilyControllerTest {
                 + "  \"attributes\" : [ {\n"
                 + "    \"type\" : \"husband\",\n"
                 + "    \"string\" : \"I1354\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  }, {\n";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).startsWith(bodyFragment);
@@ -69,15 +81,18 @@ public class FamilyControllerTest {
                 + "  \"attributes\" : [ {\n"
                 + "    \"type\" : \"husband\",\n"
                 + "    \"string\" : \"I2\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  }, {\n"
                 + "    \"type\" : \"wife\",\n"
                 + "    \"string\" : \"I3\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  }, {\n"
                 + "    \"type\" : \"child\",\n"
                 + "    \"string\" : \"I1\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  }, {\n";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).startsWith(bodyFragment);
@@ -97,7 +112,8 @@ public class FamilyControllerTest {
                 + "  \"attributes\" : [ {\n"
                 + "    \"type\" : \"husband\",\n"
                 + "    \"string\" : \"I4351\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  }, {\n";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).startsWith(bodyFragment);
@@ -117,15 +133,18 @@ public class FamilyControllerTest {
                 + "  \"attributes\" : [ {\n"
                 + "    \"type\" : \"husband\",\n"
                 + "    \"string\" : \"I2\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  }, {\n"
                 + "    \"type\" : \"wife\",\n"
                 + "    \"string\" : \"I3\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  }, {\n"
                 + "    \"type\" : \"child\",\n"
                 + "    \"string\" : \"I1\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  }, {\n";
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -143,15 +162,18 @@ public class FamilyControllerTest {
                 "[ {\n"
                 + "  \"type\" : \"husband\",\n"
                 + "  \"string\" : \"I2\",\n"
-                + "  \"attributes\" : [ ]\n"
+                + "  \"attributes\" : [ ],\n"
+                + "  \"tail\" : \"\"\n"
                 + "}, {\n"
                 + "  \"type\" : \"wife\",\n"
                 + "  \"string\" : \"I3\",\n"
-                + "  \"attributes\" : [ ]\n"
+                + "  \"attributes\" : [ ],\n"
+                + "  \"tail\" : \"\"\n"
                 + "}, {\n"
                 + "  \"type\" : \"child\",\n"
                 + "  \"string\" : \"I1\",\n"
-                + "  \"attributes\" : [ ]\n"
+                + "  \"attributes\" : [ ],\n"
+                + "  \"tail\" : \"\"\n"
                 + "}, {\n";
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -173,12 +195,14 @@ public class FamilyControllerTest {
                 + "  \"attributes\" : [ {\n"
                 + "    \"type\" : \"date\",\n"
                 + "    \"string\" : \"27 MAY 1984\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  }, {\n"
                 + "    \"type\" : \"place\",\n"
                 + "    \"string\" : \"Temple Emanu-el, Providence, Providence"
                 + " County, Rhode Island, USA\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  }, {\n"
                 + "    \"type\" : \"attribute\",\n"
                 + "    \"string\" : \"Note\",\n"
@@ -190,7 +214,8 @@ public class FamilyControllerTest {
                 + "  }, {\n"
                 + "    \"type\" : \"sourcelink\",\n"
                 + "    \"string\" : \"S4\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  } ],\n"
                 + "  \"tail\" : \"\"\n"
                 + "}";
@@ -225,12 +250,14 @@ public class FamilyControllerTest {
                 + "  \"attributes\" : [ {\n"
                 + "    \"type\" : \"date\",\n"
                 + "    \"string\" : \"27 MAY 1984\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  }, {\n"
                 + "    \"type\" : \"place\",\n"
                 + "    \"string\" : \"Temple Emanu-el, Providence, Providence"
                 + " County, Rhode Island, USA\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  }, {\n"
                 + "    \"type\" : \"attribute\",\n"
                 + "    \"string\" : \"Note\",\n"
@@ -242,7 +269,8 @@ public class FamilyControllerTest {
                 + "  }, {\n"
                 + "    \"type\" : \"sourcelink\",\n"
                 + "    \"string\" : \"S4\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  } ],\n"
                 + "  \"tail\" : \"\"\n"
                 + "}";
@@ -262,7 +290,8 @@ public class FamilyControllerTest {
                 "[ {\n"
                 + "  \"type\" : \"child\",\n"
                 + "  \"string\" : \"I1\",\n"
-                + "  \"attributes\" : [ ]\n"
+                + "  \"attributes\" : [ ],\n"
+                + "  \"tail\" : \"\"\n"
                 + "}, {\n";
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -281,7 +310,8 @@ public class FamilyControllerTest {
                 "{\n"
                 + "  \"type\" : \"child\",\n"
                 + "  \"string\" : \"I1\",\n"
-                + "  \"attributes\" : [ ]\n"
+                + "  \"attributes\" : [ ],\n"
+                + "  \"tail\" : \"\"\n"
                 + "}";
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -308,5 +338,49 @@ public class FamilyControllerTest {
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testCreateFamiliesSimple()
+            throws RestClientException, URISyntaxException {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/gl120368/families";
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        final ApiFamily reqBody = new ApiFamily("family", "");
+        final HttpEntity<ApiFamily> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiFamily> entity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiFamily.class);
+        final ApiFamily resBody = entity.getBody();
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(resBody.getType()).isEqualTo(reqBody.getType());
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testCreateFamiliesWithMarriage()
+            throws RestClientException, URISyntaxException {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/gl120368/families";
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        final List<ApiAttribute> attributes = new ArrayList<>();
+        attributes.add(new ApiAttribute("attribute", "Marriage", ""));
+        final ApiFamily reqBody = new ApiFamily("family", "", attributes);
+        final HttpEntity<ApiFamily> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiFamily> entity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiFamily.class);
+        final ApiFamily resBody = entity.getBody();
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(resBody.getType()).isEqualTo(reqBody.getType());
     }
 }

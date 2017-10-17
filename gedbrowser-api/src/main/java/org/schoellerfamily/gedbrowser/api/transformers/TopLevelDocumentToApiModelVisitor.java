@@ -1,9 +1,10 @@
 package org.schoellerfamily.gedbrowser.api.transformers;
 
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
@@ -115,8 +116,8 @@ public class TopLevelDocumentToApiModelVisitor
      */
     @Override
     public final void visit(final NoteDocument document) {
-        setBaseObject(new ApiAttribute(document.getString(),
-                document.getType(), document.getTail()));
+        setBaseObject(new ApiNote(document.getType(), document.getString(),
+                document.getTail()));
         addAttributes(document);
     }
 
@@ -140,8 +141,21 @@ public class TopLevelDocumentToApiModelVisitor
                 .getAttributes()) {
             final DocumentToApiModelVisitor v = createVisitor();
             attribute.accept(v);
-            baseObject.getAttributes().add(v.getBaseObject());
+            baseObject.getAttributes()
+                    .add(convertToAttribute(v.getBaseObject()));
         }
+    }
+
+    /**
+     * @param object the object to copy or return
+     * @return the object or new object with fields copied
+     */
+    private ApiAttribute convertToAttribute(final ApiObject object) {
+        if (object.getClass() == ApiAttribute.class) {
+            return (ApiAttribute) object;
+        }
+        return new ApiAttribute(object.getType(), object.getString(),
+                object.getAttributes(), "");
     }
 
     /**

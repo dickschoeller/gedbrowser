@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.transformers;
 
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.persistence.domain.AttributeDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.ChildDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.DateDocument;
@@ -30,8 +29,8 @@ public final class DocumentToApiModelVisitor
      */
     @Override
     public void visit(final AttributeDocument document) {
-        setBaseObject(new ApiAttribute(document.getString(),
-                document.getType(), document.getTail()));
+        setBaseObject(new ApiAttribute(document.getType(),
+                document.getString(), document.getTail()));
         addAttributes(document);
     }
 
@@ -40,7 +39,7 @@ public final class DocumentToApiModelVisitor
      */
     @Override
     public void visit(final ChildDocument document) {
-        setBaseObject(new ApiObject(document.getType(),
+        setBaseObject(new ApiAttribute(document.getType(),
                 document.getString()));
         addAttributes(document);
     }
@@ -50,7 +49,7 @@ public final class DocumentToApiModelVisitor
      */
     @Override
     public void visit(final DateDocument document) {
-        setBaseObject(new ApiObject(document.getType(),
+        setBaseObject(new ApiAttribute(document.getType(),
                 document.getString()));
         addAttributes(document);
     }
@@ -60,8 +59,8 @@ public final class DocumentToApiModelVisitor
      */
     @Override
     public void visit(final MultimediaDocument document) {
-        setBaseObject(new ApiAttribute(document.getString(),
-                document.getType(), document.getTail()));
+        setBaseObject(new ApiAttribute(document.getType(),
+                document.getString(), document.getTail()));
         addAttributes(document);
     }
 
@@ -70,7 +69,7 @@ public final class DocumentToApiModelVisitor
      */
     @Override
     public void visit(final NameDocument document) {
-        setBaseObject(new ApiObject(document.getType(),
+        setBaseObject(new ApiAttribute(document.getType(),
                 document.getString()));
         addAttributes(document);
     }
@@ -80,7 +79,7 @@ public final class DocumentToApiModelVisitor
      */
     @Override
     public void visit(final NoteLinkDocument document) {
-        setBaseObject(new ApiObject(document.getType(),
+        setBaseObject(new ApiAttribute(document.getType(),
                 document.getString()));
         addAttributes(document);
     }
@@ -90,7 +89,7 @@ public final class DocumentToApiModelVisitor
      */
     @Override
     public void visit(final FamCDocument document) {
-        setBaseObject(new ApiObject(document.getType(),
+        setBaseObject(new ApiAttribute(document.getType(),
                 document.getString()));
         addAttributes(document);
     }
@@ -100,7 +99,7 @@ public final class DocumentToApiModelVisitor
      */
     @Override
     public void visit(final FamSDocument document) {
-        setBaseObject(new ApiObject(document.getType(),
+        setBaseObject(new ApiAttribute(document.getType(),
                 document.getString()));
         addAttributes(document);
     }
@@ -110,7 +109,7 @@ public final class DocumentToApiModelVisitor
      */
     @Override
     public void visit(final HusbandDocument document) {
-        setBaseObject(new ApiObject(document.getType(),
+        setBaseObject(new ApiAttribute(document.getType(),
                 document.getString()));
         addAttributes(document);
     }
@@ -120,7 +119,7 @@ public final class DocumentToApiModelVisitor
      */
     @Override
     public void visit(final PlaceDocument document) {
-        setBaseObject(new ApiObject(document.getType(),
+        setBaseObject(new ApiAttribute(document.getType(),
                 document.getString()));
         addAttributes(document);
     }
@@ -130,7 +129,7 @@ public final class DocumentToApiModelVisitor
      */
     @Override
     public void visit(final SourceLinkDocument document) {
-        setBaseObject(new ApiObject(document.getType(),
+        setBaseObject(new ApiAttribute(document.getType(),
                 document.getString()));
         addAttributes(document);
     }
@@ -140,7 +139,7 @@ public final class DocumentToApiModelVisitor
      */
     @Override
     public void visit(final SubmissionLinkDocument document) {
-        setBaseObject(new ApiObject(document.getType(),
+        setBaseObject(new ApiAttribute(document.getType(),
                 document.getString()));
         addAttributes(document);
     }
@@ -150,7 +149,7 @@ public final class DocumentToApiModelVisitor
      */
     @Override
     public void visit(final SubmitterLinkDocument document) {
-        setBaseObject(new ApiObject(document.getType(),
+        setBaseObject(new ApiAttribute(document.getType(),
                 document.getString()));
         addAttributes(document);
     }
@@ -160,7 +159,7 @@ public final class DocumentToApiModelVisitor
      */
     @Override
     public void visit(final WifeDocument document) {
-        setBaseObject(new ApiObject(document.getType(),
+        setBaseObject(new ApiAttribute(document.getType(),
                 document.getString()));
         addAttributes(document);
     }

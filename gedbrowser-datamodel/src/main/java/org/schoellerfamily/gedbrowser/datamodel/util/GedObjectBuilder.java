@@ -270,8 +270,6 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
      */
     public GedObject createEvent(final GedObject parent, final String type,
             final String string) {
-        final GedObject g = createEvent(parent, type, string, null);
-        parent.insert(g);
-        return g;
+        return createEvent(parent, type, string, null);
     }
 }

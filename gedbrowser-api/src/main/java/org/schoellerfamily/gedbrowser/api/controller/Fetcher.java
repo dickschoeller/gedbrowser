@@ -4,42 +4,41 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Dick Schoeller
  *
- * @param <Z> the data type we are fetching
+ * @param <X> the data model type we are creating
+ * @param <Y> the DB type associated with the type X
+ * @param <Z> the Api type associated with the type X
  */
-public class Fetcher <Z> {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
+public interface Fetcher <X extends GedObject,
+    Y extends GedDocument<X>, Z extends ApiObject> extends NewId<X, Y> {
+    /**
+     * @return the loader
+     */
+    GedDocumentFileLoader getLoader();
 
-    /** */
-    @Autowired
-    private transient GedDocumentFileLoader loader;
-
-    /** */
-    @Autowired
-    private transient RepositoryManagerMongo repositoryManager;
+    /**
+     * @return the data model class
+     */
+    Class<X> getGedClass();
 
     /**
      * @param dbName the name of the database
      * @return the root object
      */
-    protected final RootDocument fetchRoot(final String dbName) {
-        final RootDocument root = loader.loadDocument(dbName);
+    default RootDocument fetchRoot(final String dbName) {
+        final RootDocument root = getLoader().loadDocument(dbName);
         if (root == null) {
-            logger.debug("Data set not found: " + dbName);
             throw new DataSetNotFoundException(
                     "Data set " + dbName + " not found", dbName);
         }
@@ -51,16 +50,13 @@ public class Fetcher <Z> {
      *
      * @param dbName the name of the database
      * @param idString the ID of the item to fetch
-     * @param clazz the class of the search
      * @return the found object
      */
-    protected Z fetch(final String dbName, final String idString,
-            final Class<? extends GedObject> clazz) {
-        final Z document = find(fetchRoot(dbName), idString, clazz);
+    default Y fetch(final String dbName, final String idString) {
+        final Y document = find(fetchRoot(dbName), idString);
         if (document == null) {
-            logger.debug("Object not found: " + idString);
             final String type =
-                    clazz.getSimpleName().toLowerCase(Locale.ENGLISH);
+                    getGedClass().getSimpleName().toLowerCase(Locale.ENGLISH);
             throw new ObjectNotFoundException(
                     "Object " + idString + " of type " + type + " not found",
                     type, idString, dbName);
@@ -70,41 +66,33 @@ public class Fetcher <Z> {
 
     /**
      * @param dbName the name of the database
-     * @param clazz the class of the search
      * @return the list of persons
      */
-    protected List<Z> fetch(final String dbName,
-            final Class<? extends GedObject> clazz) {
-        return find(fetchRoot(dbName), clazz);
+    default List<Y> fetch(final String dbName) {
+        return find(fetchRoot(dbName));
     }
 
     /**
      * @param root the root document of the data set to search
      * @param idString the ID of the family
-     * @param clazz the class that we are searching for
-     * @param <T> the type returned
      * @return the family document
      */
-    @SuppressWarnings("unchecked")
-    protected <T> T find(final RootDocument root,
-            final String idString, final Class<? extends GedObject> clazz) {
-        return (T) repositoryManager.get(clazz)
-                .findByRootAndString(root, idString);
+    default Y find(final RootDocument root, final String idString) {
+        return getRepository().findByRootAndString(root, idString);
     }
 
     /**
      * @param root the root document of the data set
-     * @param clazz the class being searched
-     * @param <T> the type returned
      * @return the list of submitters
      */
-    @SuppressWarnings("unchecked")
-    protected <T> List<T> find(final RootDocument root,
-            final Class<? extends GedObject> clazz) {
-        final List<T> all = new ArrayList<>();
-        for (final GedDocument<?> document
-                : repositoryManager.get(clazz).findAll(root)) {
-            all.add((T) document);
+    default List<Y> find(final RootDocument root) {
+        final List<Y> all = new ArrayList<>();
+        for (final Y document : getRepository().findAll(root)) {
+            all.add(document);
+        }
+        all.sort(new GetStringComparator());
+        for (final Y document : all) {
+            System.out.println(document.getString());
         }
         return all;
     }

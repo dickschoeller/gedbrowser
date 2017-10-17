@@ -3,7 +3,6 @@ package org.schoellerfamily.gedbrowser.api.controller;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
-import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
 import org.springframework.stereotype.Controller;
@@ -16,15 +15,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Dick Schoeller
  */
 @Controller
-public class HeadController extends Fetcher<HeadDocument> {
+public class HeadController
+    extends OperationsEnabler<Head, HeadDocument>
+    implements Fetcher<Head, HeadDocument, ApiHead> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
-     * Handles data conversion from DB model to API model.
+     * {@inheritDoc}
      */
-    private final DocumentToApiModelTransformer d2dm =
-            new DocumentToApiModelTransformer();
+    @Override
+    public Class<Head> getGedClass() {
+        return Head.class;
+    }
 
     /**
      * @param db the name of the db to access
@@ -32,9 +35,9 @@ public class HeadController extends Fetcher<HeadDocument> {
      */
     @RequestMapping(method = RequestMethod.GET, value = "/dbs/{db}")
     @ResponseBody
-    public ApiHead head(
+    public ApiHead readHead(
             @PathVariable final String db) {
         logger.info("Entering head, db: " + db);
-        return (ApiHead) d2dm.convert(fetch(db, Head.class)).get(0);
+        return (ApiHead) getD2dm().convert(fetch(db)).get(0);
     }
 }

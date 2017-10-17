@@ -2,17 +2,25 @@ package org.schoellerfamily.gedbrowser.api.controller.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.RestClientException;
 
 /**
  * @author Dick Schoeller
@@ -43,17 +51,18 @@ public class SubmitterControllerTest {
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
         final String bodyFragment =
-                "[ {\n"
+                "{\n"
                 + "  \"type\" : \"submitter\",\n"
                 + "  \"string\" : \"U1\",\n"
                 + "  \"attributes\" : [ {\n"
                 + "    \"type\" : \"name\",\n"
                 + "    \"string\" : \"Phil Williams\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  } ]\n"
-                + "}, {";
+                + "}";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).startsWith(bodyFragment);
+        then(entity.getBody()).contains(bodyFragment);
     }
 
     /** */
@@ -70,7 +79,8 @@ public class SubmitterControllerTest {
                 + "  \"attributes\" : [ {\n"
                 + "    \"type\" : \"name\",\n"
                 + "    \"string\" : \"Phil Williams\",\n"
-                + "    \"attributes\" : [ ]\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
                 + "  } ]\n"
                 + "}";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -88,7 +98,8 @@ public class SubmitterControllerTest {
                 "[ {\n"
                 + "  \"type\" : \"name\",\n"
                 + "  \"string\" : \"Phil Williams\",\n"
-                + "  \"attributes\" : [ ]\n"
+                + "  \"attributes\" : [ ],\n"
+                + "  \"tail\" : \"\"\n"
                 + "} ]";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).isEqualTo(bodyFragment);
@@ -105,7 +116,8 @@ public class SubmitterControllerTest {
                 "{\n"
                 + "  \"type\" : \"name\",\n"
                 + "  \"string\" : \"Phil Williams\",\n"
-                + "  \"attributes\" : [ ]\n"
+                + "  \"attributes\" : [ ],\n"
+                + "  \"tail\" : \"\"\n"
                 + "}";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).isEqualTo(bodyFragment);
@@ -133,7 +145,8 @@ public class SubmitterControllerTest {
                 "[ {\n"
                 + "  \"type\" : \"name\",\n"
                 + "  \"string\" : \"Phil Williams\",\n"
-                + "  \"attributes\" : [ ]\n"
+                + "  \"attributes\" : [ ],\n"
+                + "  \"tail\" : \"\"\n"
                 + "} ]";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).startsWith(bodyFragment);
@@ -151,7 +164,8 @@ public class SubmitterControllerTest {
                 "{\n"
                 + "  \"type\" : \"name\",\n"
                 + "  \"string\" : \"Phil Williams\",\n"
-                + "  \"attributes\" : [ ]\n"
+                + "  \"attributes\" : [ ],\n"
+                + "  \"tail\" : \"\"\n"
                 + "}";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).isEqualTo(bodyFragment);
@@ -176,5 +190,26 @@ public class SubmitterControllerTest {
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testCreateSubmittersSimple()
+            throws RestClientException, URISyntaxException {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/gl120368/submitters";
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        final ApiSubmitter reqBody = new ApiSubmitter("submitter", "");
+        final HttpEntity<ApiSubmitter> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiSubmitter> entity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiSubmitter.class);
+        final ApiSubmitter resBody = entity.getBody();
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(resBody.getType()).isEqualTo(reqBody.getType());
     }
 }

@@ -5,14 +5,9 @@ import java.util.List;
 /**
  * @author Dick Schoeller
  */
-public final class ApiAttribute extends ApiObject {
+public final class ApiAttribute extends ApiTail {
     /** */
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * An additional string containing the secondary value of this object.
-     */
-    private String tail;
+    private static final long serialVersionUID = 2L;
 
     /**
      * Constructor.
@@ -26,13 +21,22 @@ public final class ApiAttribute extends ApiObject {
      *
      * @param type a string describing the data type of this object
      * @param string a string containing the primary value of this object
+     */
+    public ApiAttribute(final String type, final String string) {
+        super(type, string);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param type a string describing the data type of this object
+     * @param string a string containing the primary value of this object
      * @param tail an additional string containing the secondary value of this
      *      object
      */
-    public ApiAttribute(final String string, final String type,
+    public ApiAttribute(final String type, final String string,
             final String tail) {
-        super(type, string);
-        this.tail = tail;
+        super(type, string, tail);
     }
 
     /**
@@ -44,17 +48,8 @@ public final class ApiAttribute extends ApiObject {
      * @param tail an additional string
      */
     public ApiAttribute(final String string, final String type,
-            final List<ApiObject> attributes, final String tail) {
-        super(type, string, attributes);
-        this.tail = tail;
-    }
-
-    /**
-     * @return an additional string containing the secondary value of this
-     *      object
-     */
-    public String getTail() {
-        return tail;
+            final List<ApiAttribute> attributes, final String tail) {
+        super(type, string, attributes, tail);
     }
 
     /**
