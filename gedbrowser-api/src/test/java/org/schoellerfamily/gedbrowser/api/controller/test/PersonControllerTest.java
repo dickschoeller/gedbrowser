@@ -327,7 +327,6 @@ public class PersonControllerTest {
         then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
     }
 
-
     /**
      * @throws RestClientException if we can't talk to rest server
      * @throws URISyntaxException if there is a problem with the URL
@@ -388,6 +387,16 @@ public class PersonControllerTest {
     }
 
     /**
+     * @return the newly created person
+     */
+    private ApiPerson createRJS() {
+        final List<ApiAttribute> attributes = new ArrayList<>();
+        attributes.add(new ApiAttribute("name", "Richard/Schoeller/", ""));
+        return new ApiPerson("person", "",
+                attributes, "Schoeller, Richard", "Schoeller");
+    }
+
+    /**
      * @param o1 object 1
      * @param o2 object 2
      */
@@ -396,15 +405,5 @@ public class PersonControllerTest {
         assertEquals("strings don't match", o1.getString(), o2.getString());
         assertEquals("attributes don't match",
                 o1.getAttributes(), o2.getAttributes());
-    }
-
-    /**
-     * @return the newly created person
-     */
-    private ApiPerson createRJS() {
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("name", "Richard/Schoeller/", ""));
-        return new ApiPerson("person", "",
-                attributes, "Schoeller, Richard", "Schoeller");
     }
 }

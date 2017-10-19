@@ -99,9 +99,6 @@ public abstract class ApiTail extends ApiObject {
         if (!super.equals(obj)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
         final ApiTail other = (ApiTail) obj;
         if (tail == null) {
             if (other.tail != null) {
