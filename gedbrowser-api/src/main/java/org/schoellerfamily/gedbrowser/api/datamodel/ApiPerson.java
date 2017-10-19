@@ -123,9 +123,6 @@ public final class ApiPerson extends ApiObject {
         if (!super.equals(obj)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
         final ApiPerson other = (ApiPerson) obj;
         if (indexName == null) {
             if (other.indexName != null) {
