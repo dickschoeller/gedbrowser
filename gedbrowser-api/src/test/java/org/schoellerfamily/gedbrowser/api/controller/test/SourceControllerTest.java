@@ -1,13 +1,16 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.junit.Assert.assertEquals;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
@@ -306,5 +309,68 @@ public class SourceControllerTest {
         final ApiSource resBody = entity.getBody();
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(resBody.getType()).isEqualTo(reqBody.getType());
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testCreateSourceDateAttribute()
+            throws RestClientException, URISyntaxException {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        // Create a family.
+        // We want to be sure we know the structure of the family
+        // we are modifying.
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/gl120368/sources";
+        final ApiSource reqBody = new ApiSource("source", "");
+        final HttpEntity<ApiSource> req = new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiSource> sourceEntity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiSource.class);
+        then(sourceEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        // Capture information about new person.
+        final ApiSource resBody = sourceEntity.getBody();
+        final String id = resBody.getString();
+
+        // Create a new attribute for the family.
+        // This is the real step being tested.
+        final String attrUrl = url + "/" + id + "/attributes/0";
+        final ApiAttribute attr =
+                new ApiAttribute("attribute", "Date", "1 JAN 1950");
+        final HttpEntity<ApiAttribute> attrReq =
+                new HttpEntity<>(attr, headers);
+        final ResponseEntity<ApiAttribute> attrEntity = testRestTemplate
+                .postForEntity(new URI(attrUrl), attrReq, ApiAttribute.class);
+        then(attrEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        // Check the contents of the new attribute
+        final ApiAttribute newBody = attrEntity.getBody();
+        then(newBody.getType()).isEqualTo("attribute");
+        then(newBody.getString()).isEqualTo("Date");
+        then(newBody.getTail()).isEqualTo("1 JAN 1950");
+
+        // Now fetch the family again
+        final String checkUrl = url + "/" + id;
+        final ResponseEntity<ApiSource> checkEntity =
+                testRestTemplate.getForEntity(checkUrl, ApiSource.class);
+        final ApiSource checkSource = checkEntity.getBody();
+        // Do some checks.
+        then(checkSource.getString()).isEqualTo(id);
+        final List<ApiAttribute> attributes = checkSource.getAttributes();
+        assertMatch(attributes.get(0), attr);
+    }
+
+    /**
+     * @param o1 object 1
+     * @param o2 object 2
+     */
+    private void assertMatch(final ApiAttribute o1, final ApiAttribute o2) {
+        assertEquals("types don't match", o1.getType(), o2.getType());
+        assertEquals("strings don't match", o1.getString(), o2.getString());
+        assertEquals("attributes don't match",
+                o1.getAttributes(), o2.getAttributes());
     }
 }
