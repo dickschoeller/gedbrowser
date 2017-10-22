@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HeadController
     extends OperationsEnabler<Head, HeadDocument>
-    implements Fetcher<Head, HeadDocument, ApiHead> {
+    implements ReadOperations<Head, HeadDocument, ApiHead> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -38,6 +38,6 @@ public class HeadController
     public ApiHead readHead(
             @PathVariable final String db) {
         logger.info("Entering head, db: " + db);
-        return (ApiHead) getD2dm().convert(fetch(db)).get(0);
+        return (ApiHead) getD2dm().convert(read(db)).get(0);
     }
 }

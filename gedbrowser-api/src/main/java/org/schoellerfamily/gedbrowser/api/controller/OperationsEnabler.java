@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
+import java.util.Locale;
+
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
@@ -79,5 +81,16 @@ public abstract class OperationsEnabler<
      */
     public final DocumentToApiModelTransformer getD2dm() {
         return d2dm;
+    }
+
+    /**
+     * Get the simple name of a class in all lower case for logging and
+     * exceptions.
+     *
+     * @param clazz the class to name
+     * @return the simple class name in lower case
+     */
+    public final String typeString(final Class<?> clazz) {
+        return clazz.getSimpleName().toLowerCase(Locale.ENGLISH);
     }
 }

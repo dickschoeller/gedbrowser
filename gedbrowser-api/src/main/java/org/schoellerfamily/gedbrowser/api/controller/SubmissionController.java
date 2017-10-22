@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmissionDocument;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SubmissionController
     extends OperationsEnabler<Submission, SubmissionDocument>
     implements CreateOperations<Submission, SubmissionDocument, ApiSubmission>,
-        Fetcher<Submission, SubmissionDocument, ApiSubmission> {
+        ReadOperations<Submission, SubmissionDocument, ApiSubmission>,
+        DeleteOperations<Submission, SubmissionDocument, ApiSubmission> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -45,13 +47,13 @@ public class SubmissionController
     public List<ApiSubmission> readSubmissions(
             @PathVariable final String db) {
         logger.info("Entering submissions, db: " + db);
-        return getD2dm().convert(fetch(db));
+        return getD2dm().convert(read(db));
     }
 
     /**
      * @param db the name of the db to access
      * @param id the ID of the submission
-     * @return the person
+     * @return the submission
      */
     @RequestMapping(method = RequestMethod.GET,
             value = "/dbs/{db}/submissions/{id}")
@@ -60,7 +62,7 @@ public class SubmissionController
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering submission, db: " + db + ", id: " + id);
-        return getD2dm().convert(fetch(db, id));
+        return getD2dm().convert(read(db, id));
     }
 
     /**
@@ -76,7 +78,7 @@ public class SubmissionController
             @PathVariable final String id) {
         logger.info("Entering submission attributes, db: " + db + ","
                 + " id: " + id);
-        return getD2dm().attributes(fetch(db, id));
+        return getD2dm().attributes(read(db, id));
     }
 
     /**
@@ -94,7 +96,7 @@ public class SubmissionController
             @PathVariable final int index) {
         logger.info("Entering submission attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
-        return getD2dm().attribute(fetch(db, id), index);
+        return getD2dm().attribute(read(db, id), index);
     }
 
     /**
@@ -112,7 +114,7 @@ public class SubmissionController
             @PathVariable final String type) {
         logger.info("Entering read /dbs/" + db + "/submissions/" + id + "/"
                 + type);
-        return getD2dm().attributes(fetch(db, id), type);
+        return getD2dm().attributes(read(db, id), type);
     }
 
     /**
@@ -132,7 +134,7 @@ public class SubmissionController
             @PathVariable final int index) {
         logger.info("Entering read /dbs/" + db + "/submissions/" + id + "/"
                 + type + "/" + index);
-        return getD2dm().attribute(fetch(db, id), type, index);
+        return getD2dm().attribute(read(db, id), type, index);
     }
 
     /**
@@ -145,7 +147,7 @@ public class SubmissionController
     public ApiSubmission createSubmission(@PathVariable final String db,
             @RequestBody final ApiSubmission submission) {
         logger.info("Entering create submission in db: " + db);
-        return create(fetchRoot(db), submission, (i, id) ->
+        return create(readRoot(db), submission, (i, id) ->
             new ApiSubmission(i.getType(), id, i.getAttributes()));
     }
 
@@ -165,6 +167,34 @@ public class SubmissionController
             @RequestBody final ApiAttribute attribute) {
         logger.info("Entering submission createAttribute,"
                 + " db: " + db + ", id: " + id + ", index: " + index);
-        return createAttribute(fetch(db, id), index, attribute);
+        return createAttribute(read(db, id), index, attribute);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the submission
+     * @return the deleted object
+     */
+    @DeleteMapping(value = "/dbs/{db}/submissions/{id}")
+    @ResponseBody
+    public ApiSubmission deleteSubmission(
+            @PathVariable final String db,
+            @PathVariable final String id) {
+        return delete(readRoot(db), id);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the submission
+     * @param index the index of the attribute
+     * @return the deleted object
+     */
+    @DeleteMapping(value = "/dbs/{db}/submissions/{id}/attributes/{index}")
+    @ResponseBody
+    public ApiAttribute deleteSubmissionAttribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final int index) {
+        return deleteAttribute(readRoot(db), id, index);
     }
 }

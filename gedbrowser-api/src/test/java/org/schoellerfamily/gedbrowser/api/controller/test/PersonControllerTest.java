@@ -20,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -405,5 +406,128 @@ public class PersonControllerTest {
         assertEquals("strings don't match", o1.getString(), o2.getString());
         assertEquals("attributes don't match",
                 o1.getAttributes(), o2.getAttributes());
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testDeletePerson()
+            throws RestClientException, URISyntaxException {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        // Create a family.
+        // We want to be sure we know the structure of the family
+        // we are modifying.
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/gl120368/persons";
+        final List<ApiAttribute> attributes = new ArrayList<>();
+        attributes.add(new ApiAttribute("name", "Richard/Schoeller/", ""));
+        final ApiPerson reqBody = new ApiPerson("person", "", attributes,
+                "Richard/Schoeller/", "Schoeller");
+        final HttpEntity<ApiPerson> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiPerson> personEntity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiPerson.class);
+        then(personEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        // Capture information about new person.
+        final ApiPerson resBody = personEntity.getBody();
+        final String id = resBody.getString();
+
+        final String deleteUrl = url + "/" + id;
+        final ResponseEntity<ApiPerson> preDeleteEntity = testRestTemplate
+                .getForEntity(deleteUrl, ApiPerson.class);
+        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ResponseEntity<String> deleteEntity = testRestTemplate
+                .exchange(deleteUrl, HttpMethod.DELETE, null, String.class);
+        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ResponseEntity<ApiPerson> postDeleteEntity = testRestTemplate
+                .getForEntity(deleteUrl, ApiPerson.class);
+        then(postDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testDeletePersonNotFound()
+            throws RestClientException, URISyntaxException {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/gl120368/persons/XXXXXXX";
+        final ResponseEntity<ApiPerson> preDeleteEntity = testRestTemplate
+                .getForEntity(url, ApiPerson.class);
+        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final ResponseEntity<String> deleteEntity = testRestTemplate
+                .exchange(url, HttpMethod.DELETE, null, String.class);
+        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testDeleteSubmitterDatabaseNotFound()
+            throws RestClientException, URISyntaxException {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/XYZZY/persons/SUBM1";
+        final ResponseEntity<ApiPerson> preDeleteEntity = testRestTemplate
+                .getForEntity(url, ApiPerson.class);
+        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final ResponseEntity<String> deleteEntity = testRestTemplate
+                .exchange(url, HttpMethod.DELETE, null, String.class);
+        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testDeletePersonAttribute()
+            throws RestClientException, URISyntaxException {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        // Create a family.
+        // We want to be sure we know the structure of the family
+        // we are modifying.
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/gl120368/persons";
+        final List<ApiAttribute> attributes = new ArrayList<>();
+        attributes.add(new ApiAttribute("name", "Richard/Schoeller/", ""));
+        attributes.add(new ApiAttribute("attribute", "Birth", ""));
+        final ApiPerson reqBody = new ApiPerson("person", "", attributes,
+                "Richard/Schoeller/", "Schoeller");
+        final HttpEntity<ApiPerson> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiPerson> personEntity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiPerson.class);
+        then(personEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        // Capture information about new person.
+        final ApiPerson resBody = personEntity.getBody();
+        final String id = resBody.getString();
+
+        final String deleteUrl = url + "/" + id + "/attributes/1";
+        final ResponseEntity<ApiAttribute> preDeleteEntity = testRestTemplate
+                .getForEntity(deleteUrl, ApiAttribute.class);
+        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ResponseEntity<String> deleteEntity = testRestTemplate
+                .exchange(deleteUrl, HttpMethod.DELETE, null, String.class);
+        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ResponseEntity<ApiAttribute> postDeleteEntity = testRestTemplate
+                .getForEntity(deleteUrl, ApiAttribute.class);
+        then(postDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        testRestTemplate.exchange(
+                url + "/" + id, HttpMethod.DELETE, null, String.class);
     }
 }

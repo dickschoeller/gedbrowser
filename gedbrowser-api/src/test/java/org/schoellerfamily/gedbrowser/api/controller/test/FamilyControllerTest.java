@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -405,7 +406,7 @@ public class FamilyControllerTest {
         final ResponseEntity<ApiFamily> familyEntity = testRestTemplate
                 .postForEntity(new URI(url), req, ApiFamily.class);
         then(familyEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        // Capture information about new person.
+        // Capture information about new family.
         final ApiFamily resBody = familyEntity.getBody();
         final String id = resBody.getString();
 
@@ -449,5 +450,124 @@ public class FamilyControllerTest {
         assertEquals("strings don't match", o1.getString(), o2.getString());
         assertEquals("attributes don't match",
                 o1.getAttributes(), o2.getAttributes());
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testDeleteFamily()
+            throws RestClientException, URISyntaxException {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        // Create a family.
+        // We want to be sure we know the structure of the family
+        // we are modifying.
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/gl120368/families";
+        final ApiFamily reqBody = new ApiFamily("family", "");
+        final HttpEntity<ApiFamily> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiFamily> familyEntity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiFamily.class);
+        then(familyEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        // Capture information about new family.
+        final ApiFamily resBody = familyEntity.getBody();
+        final String id = resBody.getString();
+
+        final String deleteUrl = url + "/" + id;
+        final ResponseEntity<ApiFamily> preDeleteEntity = testRestTemplate
+                .getForEntity(deleteUrl, ApiFamily.class);
+        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ResponseEntity<String> deleteEntity = testRestTemplate
+                .exchange(deleteUrl, HttpMethod.DELETE, null, String.class);
+        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ResponseEntity<ApiFamily> postDeleteEntity = testRestTemplate
+                .getForEntity(deleteUrl, ApiFamily.class);
+        then(postDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testDeleteFamilyNotFound()
+            throws RestClientException, URISyntaxException {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/gl120368/families/XXXXXXX";
+        final ResponseEntity<ApiFamily> preDeleteEntity = testRestTemplate
+                .getForEntity(url, ApiFamily.class);
+        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final ResponseEntity<String> deleteEntity = testRestTemplate
+                .exchange(url, HttpMethod.DELETE, null, String.class);
+        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testDeleteFamilyDatabaseNotFound()
+            throws RestClientException, URISyntaxException {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/XYZZY/families/SUBM1";
+        final ResponseEntity<ApiFamily> preDeleteEntity = testRestTemplate
+                .getForEntity(url, ApiFamily.class);
+        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final ResponseEntity<String> deleteEntity = testRestTemplate
+                .exchange(url, HttpMethod.DELETE, null, String.class);
+        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testDeleteFamilyAttribute()
+            throws RestClientException, URISyntaxException {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        // Create a family.
+        // We want to be sure we know the structure of the family
+        // we are modifying.
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/gl120368/families";
+        final List<ApiAttribute> attributes = new ArrayList<>();
+        attributes.add(new ApiAttribute("attribute", "Marriage", ""));
+        attributes.add(new ApiAttribute("attribute", "Divorce", ""));
+        final ApiFamily reqBody = new ApiFamily("family", "", attributes);
+        final HttpEntity<ApiFamily> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiFamily> familyEntity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiFamily.class);
+        then(familyEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        // Capture information about new family.
+        final ApiFamily resBody = familyEntity.getBody();
+        final String id = resBody.getString();
+
+        final String deleteUrl = url + "/" + id + "/attributes/1";
+        final ResponseEntity<ApiAttribute> preDeleteEntity = testRestTemplate
+                .getForEntity(deleteUrl, ApiAttribute.class);
+        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ResponseEntity<String> deleteEntity = testRestTemplate
+                .exchange(deleteUrl, HttpMethod.DELETE, null, String.class);
+        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ResponseEntity<ApiAttribute> postDeleteEntity = testRestTemplate
+                .getForEntity(deleteUrl, ApiAttribute.class);
+        then(postDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        testRestTemplate.exchange(
+                url + "/" + id, HttpMethod.DELETE, null, String.class);
     }
 }

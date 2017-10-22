@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.persistence.domain.FamilyDocument;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,8 +25,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public final class FamilyController
     extends OperationsEnabler<Family, FamilyDocument>
-    implements Fetcher<Family, FamilyDocument, ApiFamily>,
-        CreateOperations<Family, FamilyDocument, ApiFamily> {
+    implements ReadOperations<Family, FamilyDocument, ApiFamily>,
+        CreateOperations<Family, FamilyDocument, ApiFamily>,
+        DeleteOperations<Family, FamilyDocument, ApiFamily> {
 
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
@@ -47,7 +49,7 @@ public final class FamilyController
     public List<ApiFamily> readFamilies(
             @PathVariable final String db) {
         logger.info("Entering read /dbs/" + db + "/families");
-        return convert(fetch(db));
+        return convert(read(db));
     }
 
     /**
@@ -62,7 +64,7 @@ public final class FamilyController
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering read /dbs/" + db + "/families/" + id);
-        return convert(fetch(db, id));
+        return convert(read(db, id));
     }
 
     /**
@@ -78,7 +80,7 @@ public final class FamilyController
             @PathVariable final String id) {
         logger.info("Entering read /dbs/" + db + "/families/" + id
                 + "/attributes");
-        return getD2dm().attributes(fetch(db, id));
+        return getD2dm().attributes(read(db, id));
     }
 
     /**
@@ -96,7 +98,7 @@ public final class FamilyController
             @PathVariable final int index) {
         logger.info("Entering read /dbs/" + db + "/families/" + id
                 + "/attributes/" + index);
-        return getD2dm().attribute(fetch(db, id), index);
+        return getD2dm().attribute(read(db, id), index);
     }
 
     /**
@@ -113,7 +115,7 @@ public final class FamilyController
             @PathVariable final String type) {
         logger.info("Entering read /dbs/" + db + "/families/" + id + "/"
                 + type);
-        return getD2dm().attributes(fetch(db, id), type);
+        return getD2dm().attributes(read(db, id), type);
     }
 
     /**
@@ -132,7 +134,7 @@ public final class FamilyController
             @PathVariable final int index) {
         logger.info("Entering read /dbs/" + db + "/families/" + id + "/"
                 + type + "/" + index);
-        return getD2dm().attribute(fetch(db, id), type, index);
+        return getD2dm().attribute(read(db, id), type, index);
     }
 
     /**
@@ -145,7 +147,7 @@ public final class FamilyController
     public ApiObject createFamily(@PathVariable final String db,
             @RequestBody final ApiFamily family) {
         logger.info("Entering create family in db: " + db);
-        return create(fetchRoot(db), family, (i, id) ->
+        return create(readRoot(db), family, (i, id) ->
             new ApiFamily(i.getType(), id, i.getAttributes()));
     }
 
@@ -165,6 +167,34 @@ public final class FamilyController
             @RequestBody final ApiAttribute attribute) {
         logger.info("Entering family createAttribute,"
                 + " db: " + db + ", id: " + id + ", index: " + index);
-        return createAttribute(fetch(db, id), index, attribute);
+        return createAttribute(read(db, id), index, attribute);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the family
+     * @return the deleted object
+     */
+    @DeleteMapping(value = "/dbs/{db}/families/{id}")
+    @ResponseBody
+    public ApiFamily deleteFamily(
+            @PathVariable final String db,
+            @PathVariable final String id) {
+        return delete(readRoot(db), id);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the family
+     * @param index the index of the attribute
+     * @return the deleted object
+     */
+    @DeleteMapping(value = "/dbs/{db}/families/{id}/attributes/{index}")
+    @ResponseBody
+    public ApiAttribute deleteFamilyAttribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final int index) {
+        return deleteAttribute(readRoot(db), id, index);
     }
 }
