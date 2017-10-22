@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PersonController
     extends OperationsEnabler<Person, PersonDocument>
     implements CreateOperations<Person, PersonDocument, ApiPerson>,
-        Fetcher<Person, PersonDocument, ApiPerson> {
+        ReadOperations<Person, PersonDocument, ApiPerson>,
+        DeleteOperations<Person, PersonDocument, ApiPerson> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -45,7 +47,7 @@ public class PersonController
     public List<ApiPerson> readPersons(
             @PathVariable final String db) {
         logger.info("Entering read /dbs/" + db + "/persons");
-        return getD2dm().convert(fetch(db));
+        return getD2dm().convert(read(db));
     }
 
     /**
@@ -60,7 +62,7 @@ public class PersonController
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering read /dbs/" + db + "/persons/" + id);
-        return getD2dm().convert(fetch(db, id));
+        return getD2dm().convert(read(db, id));
     }
 
     /**
@@ -76,7 +78,7 @@ public class PersonController
             @PathVariable final String id) {
         logger.info("Entering read /dbs/" + db + "/persons/" + id
                 + "/attributes");
-        return getD2dm().attributes(fetch(db, id));
+        return getD2dm().attributes(read(db, id));
     }
 
     /**
@@ -94,7 +96,7 @@ public class PersonController
             @PathVariable final int index) {
         logger.info("Entering read /dbs/" + db + "/persons/" + id
                 + "/attributes/" + index);
-        return getD2dm().attribute(fetch(db, id), index);
+        return getD2dm().attribute(read(db, id), index);
     }
 
     /**
@@ -112,7 +114,7 @@ public class PersonController
             @PathVariable final String type) {
         logger.info("Entering read /dbs/" + db + "/persons/" + id + "/"
             + type);
-        return getD2dm().attributes(fetch(db, id), type);
+        return getD2dm().attributes(read(db, id), type);
     }
 
     /**
@@ -132,7 +134,7 @@ public class PersonController
             @PathVariable final int index) {
         logger.info("Entering read /dbs/" + db + "/persons/" + id + "/"
             + type + "/" + index);
-        return getD2dm().attribute(fetch(db, id), type, index);
+        return getD2dm().attribute(read(db, id), type, index);
     }
 
     /**
@@ -145,7 +147,7 @@ public class PersonController
     public ApiObject createPerson(@PathVariable final String db,
             @RequestBody final ApiPerson person) {
         logger.info("Entering create person in db: " + db);
-        return create(fetchRoot(db), person, (i, id) ->
+        return create(readRoot(db), person, (i, id) ->
             new ApiPerson(i.getType(), id, i.getAttributes(), i.getIndexName(),
                     i.getSurname()));
     }
@@ -166,6 +168,34 @@ public class PersonController
             @RequestBody final ApiAttribute attribute) {
         logger.info("Entering person createAttribute,"
                 + " db: " + db + ", id: " + id + ", index: " + index);
-        return createAttribute(fetch(db, id), index, attribute);
+        return createAttribute(read(db, id), index, attribute);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the person
+     * @return the deleted object
+     */
+    @DeleteMapping(value = "/dbs/{db}/persons/{id}")
+    @ResponseBody
+    public ApiPerson deletePerson(
+            @PathVariable final String db,
+            @PathVariable final String id) {
+        return delete(readRoot(db), id);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the person
+     * @param index the index of the attribute
+     * @return the deleted object
+     */
+    @DeleteMapping(value = "/dbs/{db}/persons/{id}/attributes/{index}")
+    @ResponseBody
+    public ApiAttribute deletePersonAttribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final int index) {
+        return deleteAttribute(readRoot(db), id, index);
     }
 }

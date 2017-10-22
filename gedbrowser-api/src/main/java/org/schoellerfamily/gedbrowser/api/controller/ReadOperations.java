@@ -20,7 +20,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLo
  * @param <Y> the DB type associated with the type X
  * @param <Z> the Api type associated with the type X
  */
-public interface Fetcher <X extends GedObject,
+public interface ReadOperations <X extends GedObject,
     Y extends GedDocument<X>, Z extends ApiObject> extends NewId<X, Y> {
     /**
      * @return the loader
@@ -36,7 +36,7 @@ public interface Fetcher <X extends GedObject,
      * @param dbName the name of the database
      * @return the root object
      */
-    default RootDocument fetchRoot(final String dbName) {
+    default RootDocument readRoot(final String dbName) {
         final RootDocument root = getLoader().loadDocument(dbName);
         if (root == null) {
             throw new DataSetNotFoundException(
@@ -52,8 +52,8 @@ public interface Fetcher <X extends GedObject,
      * @param idString the ID of the item to fetch
      * @return the found object
      */
-    default Y fetch(final String dbName, final String idString) {
-        final Y document = find(fetchRoot(dbName), idString);
+    default Y read(final String dbName, final String idString) {
+        final Y document = read(readRoot(dbName), idString);
         if (document == null) {
             final String type =
                     getGedClass().getSimpleName().toLowerCase(Locale.ENGLISH);
@@ -68,8 +68,8 @@ public interface Fetcher <X extends GedObject,
      * @param dbName the name of the database
      * @return the list of persons
      */
-    default List<Y> fetch(final String dbName) {
-        return find(fetchRoot(dbName));
+    default List<Y> read(final String dbName) {
+        return read(readRoot(dbName));
     }
 
     /**
@@ -77,7 +77,7 @@ public interface Fetcher <X extends GedObject,
      * @param idString the ID of the family
      * @return the family document
      */
-    default Y find(final RootDocument root, final String idString) {
+    default Y read(final RootDocument root, final String idString) {
         return getRepository().findByRootAndString(root, idString);
     }
 
@@ -85,7 +85,7 @@ public interface Fetcher <X extends GedObject,
      * @param root the root document of the data set
      * @return the list of submitters
      */
-    default List<Y> find(final RootDocument root) {
+    default List<Y> read(final RootDocument root) {
         final List<Y> all = new ArrayList<>();
         for (final Y document : getRepository().findAll(root)) {
             all.add(document);

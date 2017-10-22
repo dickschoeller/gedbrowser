@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmitterDocument;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SubmitterController
     extends OperationsEnabler<Submitter, SubmitterDocument>
     implements CreateOperations<Submitter, SubmitterDocument, ApiSubmitter>,
-        Fetcher<Submitter, SubmitterDocument, ApiSubmitter> {
+        ReadOperations<Submitter, SubmitterDocument, ApiSubmitter>,
+        DeleteOperations<Submitter, SubmitterDocument, ApiSubmitter> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -45,7 +47,7 @@ public class SubmitterController
     public List<ApiSubmitter> readSubmitters(
             @PathVariable final String db) {
         logger.info("Entering submitters, db: " + db);
-        return convert(fetch(db));
+        return convert(read(db));
     }
 
     /**
@@ -60,7 +62,7 @@ public class SubmitterController
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering submitter, db: " + db + ", id: " + id);
-        return convert(fetch(db, id));
+        return convert(read(db, id));
     }
 
     /**
@@ -76,7 +78,7 @@ public class SubmitterController
             @PathVariable final String id) {
         logger.info("Entering submitter attributes, db: " + db
                 + ", id: " + id);
-        return getD2dm().attributes(fetch(db, id));
+        return getD2dm().attributes(read(db, id));
     }
 
     /**
@@ -94,7 +96,7 @@ public class SubmitterController
             @PathVariable final int index) {
         logger.info("Entering submitter attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
-        return getD2dm().attribute(fetch(db, id), index);
+        return getD2dm().attribute(read(db, id), index);
     }
 
     /**
@@ -112,7 +114,7 @@ public class SubmitterController
             @PathVariable final String type) {
         logger.info("Entering read /dbs/" + db + "/submitters/" + id + "/"
                 + type);
-        return getD2dm().attributes(fetch(db, id), type);
+        return getD2dm().attributes(read(db, id), type);
     }
 
     /**
@@ -132,7 +134,7 @@ public class SubmitterController
             @PathVariable final int index) {
         logger.info("Entering read /dbs/" + db + "/submitters/" + id + "/"
                 + type + "/" + index);
-        return getD2dm().attribute(fetch(db, id), type, index);
+        return getD2dm().attribute(read(db, id), type, index);
     }
 
     /**
@@ -145,7 +147,7 @@ public class SubmitterController
     public ApiObject createSubmitter(@PathVariable final String db,
             @RequestBody final ApiSubmitter submitter) {
         logger.info("Entering create submitter in db: " + db);
-        return create(fetchRoot(db), submitter, (i, id) ->
+        return create(readRoot(db), submitter, (i, id) ->
             new ApiSubmitter(i.getType(), id, i.getAttributes()));
     }
 
@@ -165,6 +167,34 @@ public class SubmitterController
             @RequestBody final ApiAttribute attribute) {
         logger.info("Entering submitter createAttribute,"
                 + " db: " + db + ", id: " + id + ", index: " + index);
-        return createAttribute(fetch(db, id), index, attribute);
+        return createAttribute(read(db, id), index, attribute);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the submitter
+     * @return the deleted object
+     */
+    @DeleteMapping(value = "/dbs/{db}/submitters/{id}")
+    @ResponseBody
+    public ApiSubmitter deleteSubmitter(
+            @PathVariable final String db,
+            @PathVariable final String id) {
+        return delete(readRoot(db), id);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the submitter
+     * @param index the index of the attribute
+     * @return the deleted object
+     */
+    @DeleteMapping(value = "/dbs/{db}/submitters/{id}/attributes/{index}")
+    @ResponseBody
+    public ApiAttribute deleteSubmitterAttribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final int index) {
+        return deleteAttribute(readRoot(db), id, index);
     }
 }

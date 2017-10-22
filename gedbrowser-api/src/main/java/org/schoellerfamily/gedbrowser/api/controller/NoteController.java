@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.persistence.domain.NoteDocument;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class NoteController
     extends OperationsEnabler<Note, NoteDocument>
     implements CreateOperations<Note, NoteDocument, ApiNote>,
-        Fetcher<Note, NoteDocument, ApiNote> {
+        ReadOperations<Note, NoteDocument, ApiNote>,
+        DeleteOperations<Note, NoteDocument, ApiNote> {
 
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
@@ -46,7 +48,7 @@ public class NoteController
     public List<ApiNote> readNotes(
             @PathVariable final String db) {
         logger.info("Entering notes, db: " + db);
-        return getD2dm().convert(fetch(db));
+        return getD2dm().convert(read(db));
     }
 
     /**
@@ -61,7 +63,7 @@ public class NoteController
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering note, db: " + db + ", id: " + id);
-        return getD2dm().convert(fetch(db, id));
+        return getD2dm().convert(read(db, id));
     }
 
     /**
@@ -76,7 +78,7 @@ public class NoteController
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering note attributes, db: " + db + ", id: " + id);
-        return getD2dm().attributes(fetch(db, id));
+        return getD2dm().attributes(read(db, id));
     }
 
     /**
@@ -94,7 +96,7 @@ public class NoteController
             @PathVariable final int index) {
         logger.info("Entering note attribute, db: " + db + ", id: " + id
                 + ", index: " + index);
-        return getD2dm().attribute(fetch(db, id), index);
+        return getD2dm().attribute(read(db, id), index);
     }
 
     /**
@@ -112,7 +114,7 @@ public class NoteController
             @PathVariable final String type) {
         logger.info("Entering read /dbs/" + db + "/notes/" + id + "/"
                 + type);
-        return getD2dm().attributes(fetch(db, id), type);
+        return getD2dm().attributes(read(db, id), type);
     }
 
     /**
@@ -132,7 +134,7 @@ public class NoteController
             @PathVariable final int index) {
         logger.info("Entering read /dbs/" + db + "/notes/" + id + "/"
                 + type + "/" + index);
-        return getD2dm().attribute(fetch(db, id), type, index);
+        return getD2dm().attribute(read(db, id), type, index);
     }
 
     /**
@@ -145,7 +147,7 @@ public class NoteController
     public ApiObject createNote(@PathVariable final String db,
             @RequestBody final ApiNote note) {
         logger.info("Entering create note in db: " + db);
-        return create(fetchRoot(db), note, (i, id) ->
+        return create(readRoot(db), note, (i, id) ->
             new ApiNote(i.getType(), id, i.getAttributes(), i.getTail()));
     }
 
@@ -165,6 +167,34 @@ public class NoteController
             @RequestBody final ApiAttribute attribute) {
         logger.info("Entering note createAttribute,"
                 + " db: " + db + ", id: " + id + ", index: " + index);
-        return createAttribute(fetch(db, id), index, attribute);
+        return createAttribute(read(db, id), index, attribute);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the note
+     * @return the deleted object
+     */
+    @DeleteMapping(value = "/dbs/{db}/notes/{id}")
+    @ResponseBody
+    public ApiNote deleteNote(
+            @PathVariable final String db,
+            @PathVariable final String id) {
+        return delete(readRoot(db), id);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the note
+     * @param index the index of the attribute
+     * @return the deleted object
+     */
+    @DeleteMapping(value = "/dbs/{db}/notes/{id}/attributes/{index}")
+    @ResponseBody
+    public ApiAttribute deleteNoteAttribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final int index) {
+        return deleteAttribute(readRoot(db), id, index);
     }
 }
