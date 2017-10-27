@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,9 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class SubmitterController
     extends OperationsEnabler<Submitter, SubmitterDocument>
-    implements CreateOperations<Submitter, SubmitterDocument, ApiSubmitter>,
-        ReadOperations<Submitter, SubmitterDocument, ApiSubmitter>,
-        DeleteOperations<Submitter, SubmitterDocument, ApiSubmitter> {
+    implements CrudOperations<Submitter, SubmitterDocument, ApiSubmitter> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -36,6 +35,39 @@ public class SubmitterController
     @Override
     public Class<Submitter> getGedClass() {
         return Submitter.class;
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param submitter the data for the submitter
+     * @return the submitter as created
+     */
+    @PostMapping(value = "/dbs/{db}/submitters")
+    @ResponseBody
+    public ApiObject createSubmitter(@PathVariable final String db,
+            @RequestBody final ApiSubmitter submitter) {
+        logger.info("Entering create submitter in db: " + db);
+        return create(readRoot(db), submitter, (i, id) ->
+            new ApiSubmitter(i.getType(), id, i.getAttributes()));
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the submitter
+     * @param index the index of the attribute
+     * @param attribute the attribute value to add
+     * @return the attribute
+     */
+    @PostMapping(value = "/dbs/{db}/submitters/{id}/attributes/{index}")
+    @ResponseBody
+    public ApiObject createSubmitterAttribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final int index,
+            @RequestBody final ApiAttribute attribute) {
+        logger.info("Entering submitter createAttribute,"
+                + " db: " + db + ", id: " + id + ", index: " + index);
+        return createAttribute(read(db, id), index, attribute);
     }
 
     /**
@@ -139,35 +171,20 @@ public class SubmitterController
 
     /**
      * @param db the name of the db to access
+     * @param id the id of the submitter to update
      * @param submitter the data for the submitter
      * @return the submitter as created
      */
-    @PostMapping(value = "/dbs/{db}/submitters")
+    @PutMapping(value = "/dbs/{db}/submitters/{id}")
     @ResponseBody
-    public ApiObject createSubmitter(@PathVariable final String db,
-            @RequestBody final ApiSubmitter submitter) {
-        logger.info("Entering create submitter in db: " + db);
-        return create(readRoot(db), submitter, (i, id) ->
-            new ApiSubmitter(i.getType(), id, i.getAttributes()));
-    }
-
-    /**
-     * @param db the name of the db to access
-     * @param id the ID of the submitter
-     * @param index the index of the attribute
-     * @param attribute the attribute value to add
-     * @return the attribute
-     */
-    @PostMapping(value = "/dbs/{db}/submitters/{id}/attributes/{index}")
-    @ResponseBody
-    public ApiObject createSubmitterAttribute(
-            @PathVariable final String db,
+    public ApiObject updateSubmitter(@PathVariable final String db,
             @PathVariable final String id,
-            @PathVariable final int index,
-            @RequestBody final ApiAttribute attribute) {
-        logger.info("Entering submitter createAttribute,"
-                + " db: " + db + ", id: " + id + ", index: " + index);
-        return createAttribute(read(db, id), index, attribute);
+            @RequestBody final ApiSubmitter submitter) {
+        logger.info("Entering update submitter in db: " + db);
+        if (!id.equals(submitter.getString())) {
+            return null;
+        }
+        return update(readRoot(db), submitter);
     }
 
     /**

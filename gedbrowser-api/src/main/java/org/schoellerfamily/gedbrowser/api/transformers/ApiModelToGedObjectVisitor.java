@@ -10,9 +10,15 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
+import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
+import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.Source;
+import org.schoellerfamily.gedbrowser.datamodel.Submission;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
@@ -79,7 +85,7 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
      */
     @Override
     public void visit(final ApiFamily family) {
-        gedObject = builder.createFamily(family.getString());
+        gedObject = new Family(parent, new ObjectId(family.getString()));
         addAttributes(family);
     }
 
@@ -88,7 +94,7 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
      */
     @Override
     public void visit(final ApiHead head) {
-        gedObject = builder.createHead();
+        gedObject = new Head(parent, "Head");
         addAttributes(head);
     }
 
@@ -108,7 +114,8 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
      */
     @Override
     public void visit(final ApiPerson person) {
-        gedObject = builder.createPerson(person.getString());
+        gedObject = new Person(builder.getRoot(),
+                new ObjectId(person.getString()));
         addAttributes(person);
     }
 
@@ -117,7 +124,8 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
      */
     @Override
     public void visit(final ApiSource source) {
-        gedObject = builder.createSource(source.getString());
+        gedObject = new Source(builder.getRoot(),
+                new ObjectId(source.getString()));
         addAttributes(source);
     }
 
@@ -126,7 +134,8 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
      */
     @Override
     public void visit(final ApiSubmission submission) {
-        gedObject = builder.createSubmission(submission.getString());
+        gedObject = new Submission(builder.getRoot(),
+                new ObjectId(submission.getString()));
         addAttributes(submission);
     }
 
@@ -135,7 +144,8 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
      */
     @Override
     public void visit(final ApiSubmitter submitter) {
-        gedObject = builder.createSubmitter(submitter.getString());
+        gedObject = new Submitter(builder.getRoot(),
+                new ObjectId(submitter.getString()));
         addAttributes(submitter);
     }
 

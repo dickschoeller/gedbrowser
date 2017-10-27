@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,9 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class SourceController
     extends OperationsEnabler<Source, SourceDocument>
-    implements CreateOperations<Source, SourceDocument, ApiSource>,
-        ReadOperations<Source, SourceDocument, ApiSource>,
-        DeleteOperations<Source, SourceDocument, ApiSource> {
+    implements CrudOperations<Source, SourceDocument, ApiSource> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -36,6 +35,39 @@ public class SourceController
     @Override
     public Class<Source> getGedClass() {
         return Source.class;
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param source the data for the source
+     * @return the source as created
+     */
+    @PostMapping(value = "/dbs/{db}/sources")
+    @ResponseBody
+    public ApiObject createSource(@PathVariable final String db,
+            @RequestBody final ApiSource source) {
+        logger.info("Entering create source in db: " + db);
+        return create(readRoot(db), source, (i, id) ->
+            new ApiSource(i.getType(), id, i.getAttributes()));
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the source
+     * @param index the index of the attribute
+     * @param attribute the attribute value to add
+     * @return the attribute
+     */
+    @PostMapping(value = "/dbs/{db}/sources/{id}/attributes/{index}")
+    @ResponseBody
+    public ApiObject createSourceAttribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final int index,
+            @RequestBody final ApiAttribute attribute) {
+        logger.info("Entering source createAttribute,"
+                + " db: " + db + ", id: " + id + ", index: " + index);
+        return createAttribute(read(db, id), index, attribute);
     }
 
     /**
@@ -138,35 +170,20 @@ public class SourceController
 
     /**
      * @param db the name of the db to access
+     * @param id the id of the source to update
      * @param source the data for the source
      * @return the source as created
      */
-    @PostMapping(value = "/dbs/{db}/sources")
+    @PutMapping(value = "/dbs/{db}/sources/{id}")
     @ResponseBody
-    public ApiObject createSource(@PathVariable final String db,
-            @RequestBody final ApiSource source) {
-        logger.info("Entering create source in db: " + db);
-        return create(readRoot(db), source, (i, id) ->
-            new ApiSource(i.getType(), id, i.getAttributes()));
-    }
-
-    /**
-     * @param db the name of the db to access
-     * @param id the ID of the source
-     * @param index the index of the attribute
-     * @param attribute the attribute value to add
-     * @return the attribute
-     */
-    @PostMapping(value = "/dbs/{db}/sources/{id}/attributes/{index}")
-    @ResponseBody
-    public ApiObject createSourceAttribute(
-            @PathVariable final String db,
+    public ApiObject updateSource(@PathVariable final String db,
             @PathVariable final String id,
-            @PathVariable final int index,
-            @RequestBody final ApiAttribute attribute) {
-        logger.info("Entering source createAttribute,"
-                + " db: " + db + ", id: " + id + ", index: " + index);
-        return createAttribute(read(db, id), index, attribute);
+            @RequestBody final ApiSource source) {
+        logger.info("Entering update source in db: " + db);
+        if (!id.equals(source.getString())) {
+            return null;
+        }
+        return update(readRoot(db), source);
     }
 
     /**

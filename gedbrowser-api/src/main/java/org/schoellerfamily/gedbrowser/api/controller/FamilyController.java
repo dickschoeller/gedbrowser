@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,9 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public final class FamilyController
     extends OperationsEnabler<Family, FamilyDocument>
-    implements ReadOperations<Family, FamilyDocument, ApiFamily>,
-        CreateOperations<Family, FamilyDocument, ApiFamily>,
-        DeleteOperations<Family, FamilyDocument, ApiFamily> {
+    implements CrudOperations<Family, FamilyDocument, ApiFamily> {
 
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
@@ -38,6 +37,39 @@ public final class FamilyController
     @Override
     public Class<Family> getGedClass() {
         return Family.class;
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param family the data for the family
+     * @return the family as created
+     */
+    @PostMapping(value = "/dbs/{db}/families")
+    @ResponseBody
+    public ApiObject createFamily(@PathVariable final String db,
+            @RequestBody final ApiFamily family) {
+        logger.info("Entering create family in db: " + db);
+        return create(readRoot(db), family, (i, id) ->
+            new ApiFamily(i.getType(), id, i.getAttributes()));
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the source
+     * @param index the index of the attribute
+     * @param attribute the attribute value to add
+     * @return the attribute
+     */
+    @PostMapping(value = "/dbs/{db}/families/{id}/attributes/{index}")
+    @ResponseBody
+    public ApiObject createFamilyAttribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final int index,
+            @RequestBody final ApiAttribute attribute) {
+        logger.info("Entering family createAttribute,"
+                + " db: " + db + ", id: " + id + ", index: " + index);
+        return createAttribute(read(db, id), index, attribute);
     }
 
     /**
@@ -139,35 +171,20 @@ public final class FamilyController
 
     /**
      * @param db the name of the db to access
+     * @param id the id of the family to update
      * @param family the data for the family
      * @return the family as created
      */
-    @PostMapping(value = "/dbs/{db}/families")
+    @PutMapping(value = "/dbs/{db}/families/{id}")
     @ResponseBody
-    public ApiObject createFamily(@PathVariable final String db,
-            @RequestBody final ApiFamily family) {
-        logger.info("Entering create family in db: " + db);
-        return create(readRoot(db), family, (i, id) ->
-            new ApiFamily(i.getType(), id, i.getAttributes()));
-    }
-
-    /**
-     * @param db the name of the db to access
-     * @param id the ID of the source
-     * @param index the index of the attribute
-     * @param attribute the attribute value to add
-     * @return the attribute
-     */
-    @PostMapping(value = "/dbs/{db}/families/{id}/attributes/{index}")
-    @ResponseBody
-    public ApiObject createFamilyAttribute(
-            @PathVariable final String db,
+    public ApiObject updateFamily(@PathVariable final String db,
             @PathVariable final String id,
-            @PathVariable final int index,
-            @RequestBody final ApiAttribute attribute) {
-        logger.info("Entering family createAttribute,"
-                + " db: " + db + ", id: " + id + ", index: " + index);
-        return createAttribute(read(db, id), index, attribute);
+            @RequestBody final ApiFamily family) {
+        logger.info("Entering update family in db: " + db);
+        if (!id.equals(family.getString())) {
+            return null;
+        }
+        return update(readRoot(db), family);
     }
 
     /**

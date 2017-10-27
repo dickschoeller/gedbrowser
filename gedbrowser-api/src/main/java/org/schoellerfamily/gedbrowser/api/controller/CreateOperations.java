@@ -14,12 +14,16 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.data.repository.CrudRepository;
 
 /**
+ * This interface contains default methods that implement the create
+ * operations for the classes that declare implementing the interface.
+ *
  * @author Dick Schoeller
  *
- * @param <X> the data model type we are creating
+ * @param <X> the data model type we are manipulating
  * @param <Y> the DB type associated with the type X
  * @param <Z> the Api type associated with the type X
  */
+@SuppressWarnings("PMD.CommentSize")
 public interface CreateOperations<X extends GedObject,
             Y extends GedDocument<X>,
             Z extends ApiObject>
@@ -97,7 +101,7 @@ public interface CreateOperations<X extends GedObject,
      * Save a GedObject to the database.
      *
      * @param gob the GedObject to save
-     * @return the new submitter document
+     * @return the new document
      */
     @SuppressWarnings("unchecked")
     default Y save(X gob) {
@@ -106,7 +110,9 @@ public interface CreateOperations<X extends GedObject,
             final FindableDocument<X, Y> repo = getRepository();
             Y oldDoc = repo.findByFileAndString(
                     gob.getFilename(), gob.getString());
-            document.setIdString(oldDoc.getIdString());
+            if (oldDoc != null) {
+                document.setIdString(oldDoc.getIdString());
+            }
             return ((CrudRepository<Y, String>) repo)
                     .save(document);
         } catch (Exception e) {

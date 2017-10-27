@@ -594,4 +594,41 @@ public class NoteControllerTest {
         testRestTemplate.exchange(
                 url + "/" + id, HttpMethod.DELETE, null, String.class);
     }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testUpdateNoteWithNote()
+            throws RestClientException, URISyntaxException {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/gl120368/notes";
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        final List<ApiAttribute> attributes = new ArrayList<>();
+        attributes.add(new ApiAttribute("attribute", "Note", "first note"));
+        final ApiNote reqBody =
+                new ApiNote("note", "", attributes, "Top level note");
+        final HttpEntity<ApiNote> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiNote> entity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiNote.class);
+        final ApiNote resBody = entity.getBody();
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(resBody.getType()).isEqualTo(reqBody.getType());
+
+        final ApiAttribute aNote =
+                new ApiAttribute("attribute", "Note", "this is a note");
+        resBody.getAttributes().add(
+                aNote);
+        final HttpEntity<ApiNote> putRequestEntity =
+                new HttpEntity<ApiNote>(resBody);
+        final ResponseEntity<ApiNote> putResponseEntity =
+                testRestTemplate.exchange(
+                url + "/" + resBody.getString(),
+                HttpMethod.PUT, putRequestEntity, ApiNote.class);
+        assertEquals("attribute should be present", aNote,
+                putResponseEntity.getBody().getAttributes().get(1));
+    }
 }

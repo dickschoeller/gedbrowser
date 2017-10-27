@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,9 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class PersonController
     extends OperationsEnabler<Person, PersonDocument>
-    implements CreateOperations<Person, PersonDocument, ApiPerson>,
-        ReadOperations<Person, PersonDocument, ApiPerson>,
-        DeleteOperations<Person, PersonDocument, ApiPerson> {
+    implements CrudOperations<Person, PersonDocument, ApiPerson> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -36,6 +35,40 @@ public class PersonController
     @Override
     public Class<Person> getGedClass() {
         return Person.class;
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param person the data for the person
+     * @return the person as created
+     */
+    @PostMapping(value = "/dbs/{db}/persons")
+    @ResponseBody
+    public ApiObject createPerson(@PathVariable final String db,
+            @RequestBody final ApiPerson person) {
+        logger.info("Entering create person in db: " + db);
+        return create(readRoot(db), person, (i, id) ->
+            new ApiPerson(i.getType(), id, i.getAttributes(), i.getIndexName(),
+                    i.getSurname()));
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the source
+     * @param index the index of the attribute
+     * @param attribute the attribute value to add
+     * @return the attribute
+     */
+    @PostMapping(value = "/dbs/{db}/persons/{id}/attributes/{index}")
+    @ResponseBody
+    public ApiObject createPersonAttribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final int index,
+            @RequestBody final ApiAttribute attribute) {
+        logger.info("Entering person createAttribute,"
+                + " db: " + db + ", id: " + id + ", index: " + index);
+        return createAttribute(read(db, id), index, attribute);
     }
 
     /**
@@ -139,36 +172,20 @@ public class PersonController
 
     /**
      * @param db the name of the db to access
+     * @param id the id of the person to update
      * @param person the data for the person
      * @return the person as created
      */
-    @PostMapping(value = "/dbs/{db}/persons")
+    @PutMapping(value = "/dbs/{db}/persons/{id}")
     @ResponseBody
-    public ApiObject createPerson(@PathVariable final String db,
-            @RequestBody final ApiPerson person) {
-        logger.info("Entering create person in db: " + db);
-        return create(readRoot(db), person, (i, id) ->
-            new ApiPerson(i.getType(), id, i.getAttributes(), i.getIndexName(),
-                    i.getSurname()));
-    }
-
-    /**
-     * @param db the name of the db to access
-     * @param id the ID of the source
-     * @param index the index of the attribute
-     * @param attribute the attribute value to add
-     * @return the attribute
-     */
-    @PostMapping(value = "/dbs/{db}/persons/{id}/attributes/{index}")
-    @ResponseBody
-    public ApiObject createPersonAttribute(
-            @PathVariable final String db,
+    public ApiObject updatePerson(@PathVariable final String db,
             @PathVariable final String id,
-            @PathVariable final int index,
-            @RequestBody final ApiAttribute attribute) {
-        logger.info("Entering person createAttribute,"
-                + " db: " + db + ", id: " + id + ", index: " + index);
-        return createAttribute(read(db, id), index, attribute);
+            @RequestBody final ApiPerson person) {
+        logger.info("Entering update person in db: " + db);
+        if (!id.equals(person.getString())) {
+            return null;
+        }
+        return update(readRoot(db), person);
     }
 
     /**

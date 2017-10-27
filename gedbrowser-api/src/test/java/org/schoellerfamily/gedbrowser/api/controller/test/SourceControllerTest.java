@@ -494,4 +494,40 @@ public class SourceControllerTest {
         testRestTemplate.exchange(
                 url + "/" + id, HttpMethod.DELETE, null, String.class);
     }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testUpdateSourceWithNote()
+            throws RestClientException, URISyntaxException {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/gl120368/sources";
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        final List<ApiAttribute> attributes = new ArrayList<>();
+        attributes.add(new ApiAttribute("attribute", "Note", "first note"));
+        final ApiSource reqBody = new ApiSource("source", "", attributes);
+        final HttpEntity<ApiSource> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiSource> entity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiSource.class);
+        final ApiSource resBody = entity.getBody();
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(resBody.getType()).isEqualTo(reqBody.getType());
+
+        final ApiAttribute aNote =
+                new ApiAttribute("attribute", "Note", "this is a note");
+        resBody.getAttributes().add(
+                aNote);
+        final HttpEntity<ApiSource> putRequestEntity =
+                new HttpEntity<ApiSource>(resBody);
+        final ResponseEntity<ApiSource> putResponseEntity =
+                testRestTemplate.exchange(
+                url + "/" + resBody.getString(),
+                HttpMethod.PUT, putRequestEntity, ApiSource.class);
+        assertEquals("attribute should be present", aNote,
+                putResponseEntity.getBody().getAttributes().get(1));
+    }
 }

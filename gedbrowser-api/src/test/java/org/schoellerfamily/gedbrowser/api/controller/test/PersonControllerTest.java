@@ -418,8 +418,8 @@ public class PersonControllerTest {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
-        // Create a family.
-        // We want to be sure we know the structure of the family
+        // Create a person.
+        // We want to be sure we know the structure of the person
         // we are modifying.
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/dbs/gl120368/persons";
@@ -498,8 +498,8 @@ public class PersonControllerTest {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
-        // Create a family.
-        // We want to be sure we know the structure of the family
+        // Create a person.
+        // We want to be sure we know the structure of the person
         // we are modifying.
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/dbs/gl120368/persons";
@@ -529,5 +529,42 @@ public class PersonControllerTest {
         then(postDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         testRestTemplate.exchange(
                 url + "/" + id, HttpMethod.DELETE, null, String.class);
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testUpdatePersonWithNote()
+            throws RestClientException, URISyntaxException {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/gl120368/persons";
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        final List<ApiAttribute> attributes = new ArrayList<>();
+        attributes.add(new ApiAttribute("name", "Richard/Schoeller/", ""));
+        final ApiPerson reqBody = new ApiPerson("person", "", attributes,
+                "Richard/Schoeller/", "Schoeller");
+        final HttpEntity<ApiPerson> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiPerson> entity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiPerson.class);
+        final ApiPerson resBody = entity.getBody();
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(resBody.getType()).isEqualTo(reqBody.getType());
+
+        final ApiAttribute aNote =
+                new ApiAttribute("attribute", "Note", "this is a note");
+        resBody.getAttributes().add(
+                aNote);
+        final HttpEntity<ApiPerson> putRequestEntity =
+                new HttpEntity<ApiPerson>(resBody);
+        final ResponseEntity<ApiPerson> putResponseEntity =
+                testRestTemplate.exchange(
+                url + "/" + resBody.getString(),
+                HttpMethod.PUT, putRequestEntity, ApiPerson.class);
+        assertEquals("attribute should be present", aNote,
+                putResponseEntity.getBody().getAttributes().get(1));
     }
 }
