@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,9 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class NoteController
     extends OperationsEnabler<Note, NoteDocument>
-    implements CreateOperations<Note, NoteDocument, ApiNote>,
-        ReadOperations<Note, NoteDocument, ApiNote>,
-        DeleteOperations<Note, NoteDocument, ApiNote> {
+    implements CrudOperations<Note, NoteDocument, ApiNote> {
 
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
@@ -37,6 +36,39 @@ public class NoteController
     @Override
     public Class<Note> getGedClass() {
         return Note.class;
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param note the data for the note
+     * @return the note as created
+     */
+    @PostMapping(value = "/dbs/{db}/notes")
+    @ResponseBody
+    public ApiObject createNote(@PathVariable final String db,
+            @RequestBody final ApiNote note) {
+        logger.info("Entering create note in db: " + db);
+        return create(readRoot(db), note, (i, id) ->
+            new ApiNote(i.getType(), id, i.getAttributes(), i.getTail()));
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the note
+     * @param index the index of the attribute
+     * @param attribute the attribute value to add
+     * @return the attribute
+     */
+    @PostMapping(value = "/dbs/{db}/notes/{id}/attributes/{index}")
+    @ResponseBody
+    public ApiObject createNoteAttribute(
+            @PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final int index,
+            @RequestBody final ApiAttribute attribute) {
+        logger.info("Entering note createAttribute,"
+                + " db: " + db + ", id: " + id + ", index: " + index);
+        return createAttribute(read(db, id), index, attribute);
     }
 
     /**
@@ -139,35 +171,20 @@ public class NoteController
 
     /**
      * @param db the name of the db to access
+     * @param id the id of the note to update
      * @param note the data for the note
      * @return the note as created
      */
-    @PostMapping(value = "/dbs/{db}/notes")
+    @PutMapping(value = "/dbs/{db}/notes/{id}")
     @ResponseBody
-    public ApiObject createNote(@PathVariable final String db,
-            @RequestBody final ApiNote note) {
-        logger.info("Entering create note in db: " + db);
-        return create(readRoot(db), note, (i, id) ->
-            new ApiNote(i.getType(), id, i.getAttributes(), i.getTail()));
-    }
-
-    /**
-     * @param db the name of the db to access
-     * @param id the ID of the note
-     * @param index the index of the attribute
-     * @param attribute the attribute value to add
-     * @return the attribute
-     */
-    @PostMapping(value = "/dbs/{db}/notes/{id}/attributes/{index}")
-    @ResponseBody
-    public ApiObject createNoteAttribute(
-            @PathVariable final String db,
+    public ApiObject updateNote(@PathVariable final String db,
             @PathVariable final String id,
-            @PathVariable final int index,
-            @RequestBody final ApiAttribute attribute) {
-        logger.info("Entering note createAttribute,"
-                + " db: " + db + ", id: " + id + ", index: " + index);
-        return createAttribute(read(db, id), index, attribute);
+            @RequestBody final ApiNote note) {
+        logger.info("Entering update note in db: " + db);
+        if (!id.equals(note.getString())) {
+            return null;
+        }
+        return update(readRoot(db), note);
     }
 
     /**

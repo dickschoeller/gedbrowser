@@ -13,12 +13,16 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.data.repository.CrudRepository;
 
 /**
+ * This interface contains default methods that implement the delete
+ * operations for the classes that declare implementing the interface.
+ *
  * @author Dick Schoeller
  *
- * @param <X> the data model type we are creating
+ * @param <X> the data model type we are manipulating
  * @param <Y> the DB type associated with the type X
  * @param <Z> the Api type associated with the type X
  */
+@SuppressWarnings("PMD.CommentSize")
 public interface DeleteOperations<X extends GedObject,
             Y extends GedDocument<X>,
             Z extends ApiObject>
@@ -85,7 +89,7 @@ public interface DeleteOperations<X extends GedObject,
      * Save a GedObject to the database.
      *
      * @param document the document to save
-     * @return the new submitter document
+     * @return the deleted document
      */
     @SuppressWarnings("unchecked")
     default Y save(Y document) {

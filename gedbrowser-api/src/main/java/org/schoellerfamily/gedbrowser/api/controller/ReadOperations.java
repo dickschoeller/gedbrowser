@@ -12,16 +12,26 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
 /**
+ * This interface contains default methods that implement the read
+ * operations for the classes that declare implementing the interface.
+ *
  * @author Dick Schoeller
  *
- * @param <X> the data model type we are creating
+ * @param <X> the data model type we are manipulating
  * @param <Y> the DB type associated with the type X
  * @param <Z> the Api type associated with the type X
  */
+@SuppressWarnings("PMD.CommentSize")
 public interface ReadOperations <X extends GedObject,
-    Y extends GedDocument<X>, Z extends ApiObject> extends NewId<X, Y> {
+    Y extends GedDocument<X>, Z extends ApiObject> {
+    /**
+     * @return the DB repository for this type
+     */
+    FindableDocument<X, Y> getRepository();
+
     /**
      * @return the loader
      */
@@ -74,7 +84,7 @@ public interface ReadOperations <X extends GedObject,
 
     /**
      * @param root the root document of the data set to search
-     * @param idString the ID of the family
+     * @param idString the ID of the object
      * @return the family document
      */
     default Y read(final RootDocument root, final String idString) {
@@ -83,7 +93,7 @@ public interface ReadOperations <X extends GedObject,
 
     /**
      * @param root the root document of the data set
-     * @return the list of submitters
+     * @return the list of objects of the requested type
      */
     default List<Y> read(final RootDocument root) {
         final List<Y> all = new ArrayList<>();

@@ -570,4 +570,40 @@ public class FamilyControllerTest {
         testRestTemplate.exchange(
                 url + "/" + id, HttpMethod.DELETE, null, String.class);
     }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testUpdateFamilyWithNote()
+            throws RestClientException, URISyntaxException {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/dbs/gl120368/families";
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        final List<ApiAttribute> attributes = new ArrayList<>();
+        attributes.add(new ApiAttribute("attribute", "Marriage", ""));
+        final ApiFamily reqBody = new ApiFamily("family", "", attributes);
+        final HttpEntity<ApiFamily> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiFamily> entity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiFamily.class);
+        final ApiFamily resBody = entity.getBody();
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(resBody.getType()).isEqualTo(reqBody.getType());
+
+        final ApiAttribute aNote =
+                new ApiAttribute("attribute", "Note", "this is a note");
+        resBody.getAttributes().add(
+                aNote);
+        final HttpEntity<ApiFamily> putRequestEntity =
+                new HttpEntity<ApiFamily>(resBody);
+        final ResponseEntity<ApiFamily> putResponseEntity =
+                testRestTemplate.exchange(
+                url + "/" + resBody.getString(),
+                HttpMethod.PUT, putRequestEntity, ApiFamily.class);
+        assertEquals("attribute should be present", aNote,
+                putResponseEntity.getBody().getAttributes().get(1));
+    }
 }
