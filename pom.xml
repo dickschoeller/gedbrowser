@@ -53,7 +53,7 @@
     <gedbrowser.version>1.2.3-SNAPSHOT</gedbrowser.version>
 
     <spring-boot.version>1.5.7.RELEASE</spring-boot.version>
-    <spring-boot-maven.version>1.5.7.RELEASE</spring-boot-maven.version>
+    <spring-boot-maven.version>1.5.8.RELEASE</spring-boot-maven.version>
     <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
     <spring.version>4.3.11.RELEASE</spring.version>
     <junit.version>4.12</junit.version>
@@ -71,7 +71,7 @@
     <log4j-over-slf4j.version>1.7.25</log4j-over-slf4j.version>
     <logback-classic.version>1.2.3</logback-classic.version>
 
-    <selenium.version>3.6.0</selenium.version>
+    <selenium.version>3.7.0</selenium.version>
     <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
     <htmlunit-driver.version>2.27</htmlunit-driver.version>
 
@@ -79,7 +79,7 @@
     <jacoco-plugin.version>0.7.9</jacoco-plugin.version>
     <findbugs-plugin.version>3.0.5</findbugs-plugin.version>
     <checkstyle-plugin.version>2.17</checkstyle-plugin.version>
-    <checkstyle-version>8.3</checkstyle-version>
+    <checkstyle-version>8.4</checkstyle-version>
     <pmd-plugin.version>3.8</pmd-plugin.version>
     <pmd-version>5.8.1</pmd-version>
     <build-helper-plugin.version>3.0.0</build-helper-plugin.version>
