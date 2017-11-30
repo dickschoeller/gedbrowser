@@ -52,7 +52,7 @@
 
     <gedbrowser.version>1.2.3-SNAPSHOT</gedbrowser.version>
 
-    <spring-boot.version>1.5.7.RELEASE</spring-boot.version>
+    <spring-boot.version>1.5.8.RELEASE</spring-boot.version>
     <spring-boot-maven.version>1.5.8.RELEASE</spring-boot-maven.version>
     <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
     <spring.version>4.3.11.RELEASE</spring.version>
