@@ -29,14 +29,18 @@ public final class GeoServiceClientImpl implements GeoServiceClient {
     @Value("${geoservice.port:8080}")
     private transient int port;
 
+    /** */
+    @Value("${geoservice.protocol:http}")
+    private transient String protocol;
+
     /**
      * {@inheritDoc}
      */
     @Override
     public GeoServiceItem get(final String placeName) {
         logger.debug("Get: " + placeName);
-        final String url = "http://" + host + ":" + port + "/geocode?name="
-                + placeName;
+        final String url = protocol + "://" + host + ":" + port
+                + "/geocode?name=" + placeName;
         try {
             return restTemplate.getForObject(url, GeoServiceItem.class);
         } catch (RestClientException rce) {
