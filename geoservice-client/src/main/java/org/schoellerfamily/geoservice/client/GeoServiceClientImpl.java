@@ -49,6 +49,9 @@ public final class GeoServiceClientImpl implements GeoServiceClient {
                     "Unable to get geocode from geoservice at " + url, rce);
             } else {
                 logger.error("Unable to get geocode from geoservice at " + url);
+                logger.error("host: " + host);
+                logger.error("port: " + port);
+                logger.error("protocol: " + protocol);
             }
             return new GeoServiceItem(placeName, placeName, null);
         }
