@@ -35,7 +35,7 @@ public final class CellRow {
      * @return the contained array.
      */
     public CellRenderer[] getCells() {
-        return renderers.toArray(new CellRenderer[renderers.size()]);
+        return renderers.toArray(new CellRenderer[0]);
     }
 
     /**

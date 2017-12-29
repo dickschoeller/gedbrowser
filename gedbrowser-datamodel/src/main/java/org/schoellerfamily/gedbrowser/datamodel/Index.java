@@ -44,7 +44,7 @@ public final class Index {
     /**
      * Initialize the index from the root's objects.
      */
-    void init() {
+    public void init() {
         surnameIndex.clear();
 
         final RootVisitor visitor = new RootVisitor();

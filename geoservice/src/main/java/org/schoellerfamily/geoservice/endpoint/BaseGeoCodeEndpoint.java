@@ -19,7 +19,7 @@ public abstract class BaseGeoCodeEndpoint implements Endpoint<List<String>> {
     /**
      * Do the appropriate load action.
      */
-    abstract void geoCodeAction();
+    public abstract void geoCodeAction();
 
     /**
      * Return the GeoCode object for these actions.

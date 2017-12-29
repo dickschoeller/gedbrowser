@@ -39,66 +39,83 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 @SuppressWarnings({ "PMD.CommentSize" })
 public abstract class AbstractGedObjectFactory {
     /** */
-    private static final AttributeFactory ATTR_FACTORY = new AttributeFactory();
+    /* default */ static final AttributeFactory ATTR_FACTORY =
+            new AttributeFactory();
     /** */
-    private static final ChildFactory CHILD_FACTORY = new ChildFactory();
+    /* default */ static final ChildFactory CHILD_FACTORY =
+            new ChildFactory();
     /** */
-    private static final ConcatenationFactory CONCAT_FACTORY =
+    /* default */ static final ConcatenationFactory CONCAT_FACTORY =
             new ConcatenationFactory();
     /** */
-    private static final ContinuationFactory CONTIN_FACTORY =
+    /* default */ static final ContinuationFactory CONTIN_FACTORY =
             new ContinuationFactory();
     /** */
-    private static final DateFactory DATE_FACTORY = new DateFactory();
+    /* default */ static final DateFactory DATE_FACTORY =
+            new DateFactory();
     /** */
-    private static final FamCFactory FAMC_FACTORY = new FamCFactory();
+    /* default */ static final FamCFactory FAMC_FACTORY =
+            new FamCFactory();
     /** */
-    private static final FamilyFactory FAMILY_FACTORY = new FamilyFactory();
+    /* default */ static final FamilyFactory FAMILY_FACTORY =
+            new FamilyFactory();
     /** */
-    private static final FamSFactory FAMS_FACTORY = new FamSFactory();
+    /* default */ static final FamSFactory FAMS_FACTORY =
+            new FamSFactory();
     /** */
-    private static final HeadFactory HEAD_FACTORY = new HeadFactory();
+    /* default */ static final HeadFactory HEAD_FACTORY =
+            new HeadFactory();
     /** */
-    private static final HusbandFactory HUSBAND_FACTORY = new HusbandFactory();
+    /* default */ static final HusbandFactory HUSBAND_FACTORY =
+            new HusbandFactory();
     /** */
-    private static final LinkFactory LINK_FACTORY = new LinkFactory();
+    /* default */ static final LinkFactory LINK_FACTORY =
+            new LinkFactory();
     /** */
-    private static final MultimediaFactory MULTIMEDIA_FACTORY =
+    /* default */ static final MultimediaFactory MULTIMEDIA_FACTORY =
             new MultimediaFactory();
     /** */
-    private static final NameFactory NAME_FACTORY = new NameFactory();
+    /* default */ static final NameFactory NAME_FACTORY =
+            new NameFactory();
     /** */
-    private static final NoteFactory NOTE_FACTORY = new NoteFactory();
+    /* default */ static final NoteFactory NOTE_FACTORY =
+            new NoteFactory();
     /** */
-    private static final NoteLinkFactory NOTELINK_FACTORY =
+    /* default */ static final NoteLinkFactory NOTELINK_FACTORY =
             new NoteLinkFactory();
     /** */
-    private static final PersonFactory PERSON_FACTORY = new PersonFactory();
+    /* default */ static final PersonFactory PERSON_FACTORY =
+            new PersonFactory();
     /** */
-    private static final PlaceFactory PLACE_FACTORY = new PlaceFactory();
+    /* default */ static final PlaceFactory PLACE_FACTORY =
+            new PlaceFactory();
     /** */
-    private static final RootFactory ROOT_FACTORY = new RootFactory();
+    /* default */ static final RootFactory ROOT_FACTORY =
+            new RootFactory();
     /** */
-    private static final SourceFactory SOURCE_FACTORY = new SourceFactory();
+    /* default */ static final SourceFactory SOURCE_FACTORY =
+            new SourceFactory();
     /** */
-    private static final SourceLinkFactory SOURLINK_FACTORY =
+    /* default */ static final SourceLinkFactory SOURLINK_FACTORY =
             new SourceLinkFactory();
     /** */
-    private static final SubmissionFactory SUBMISSION_FACTORY =
+    /* default */ static final SubmissionFactory SUBMISSION_FACTORY =
             new SubmissionFactory();
     /** */
-    private static final SubmissionLinkFactory SUBNLINK_FACTORY =
+    /* default */ static final SubmissionLinkFactory SUBNLINK_FACTORY =
             new SubmissionLinkFactory();
     /** */
-    private static final SubmitterFactory SUBMITTER_FACTORY =
+    /* default */ static final SubmitterFactory SUBMITTER_FACTORY =
             new SubmitterFactory();
     /** */
-    private static final SubmitterLinkFactory SUBMLINK_FACTORY =
+    /* default */ static final SubmitterLinkFactory SUBMLINK_FACTORY =
             new SubmitterLinkFactory();
     /** */
-    private static final TrailerFactory TRAILER_FACTORY = new TrailerFactory();
+    /* default */ static final TrailerFactory TRAILER_FACTORY =
+            new TrailerFactory();
     /** */
-    private static final WifeFactory WIFE_FACTORY = new WifeFactory();
+    /* default */ static final WifeFactory WIFE_FACTORY =
+            new WifeFactory();
 
 
     /**
@@ -316,7 +333,7 @@ public abstract class AbstractGedObjectFactory {
          * @param factory
          *            the factory for GedObject creation.
          */
-        GedToken(final String fullstring,
+        /* default */ GedToken(final String fullstring,
                 final AbstractGedObjectFactory factory) {
             this.fullString = fullstring;
             this.factory = factory;
@@ -325,14 +342,14 @@ public abstract class AbstractGedObjectFactory {
         /**
          * @return the full string of the line.
          */
-        String getFullString() {
+        public String getFullString() {
             return fullString;
         }
 
         /**
          * @return the GedObject factory.
          */
-        AbstractGedObjectFactory getFactory() {
+        public AbstractGedObjectFactory getFactory() {
             return factory;
         }
     }

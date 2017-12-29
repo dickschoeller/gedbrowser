@@ -29,7 +29,7 @@ public final class SubmitterLinkRenderer extends
      *
      * @return The name of the linked submitter
      */
-    String getNameString() {
+    public String getNameString() {
         return this.getNameHtml();
     }
 }

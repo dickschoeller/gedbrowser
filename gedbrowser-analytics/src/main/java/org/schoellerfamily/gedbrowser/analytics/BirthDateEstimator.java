@@ -77,21 +77,21 @@ public final class BirthDateEstimator extends BasicBirthDateEstimator {
      * @param localDate the input date estimate
      * @return the new estimate
      */
-    LocalDate estimateFromSpousesAncestors(final LocalDate localDate) {
+    public LocalDate estimateFromSpousesAncestors(final LocalDate localDate) {
         return spousesEstimator.estimateFromAncestors(localDate);
     }
 
     /**
      * @return the estimate based on the ancestors' dates.
      */
-    LocalDate ancestorsEstimate() {
+    public LocalDate ancestorsEstimate() {
         return ancestorsEstimator.estimate(null);
     }
 
     /**
      * @return the estimated birth date as a LocalDate
      */
-    LocalDate shortEstimate() {
+    public LocalDate shortEstimate() {
         LocalDate localDate = estimateFromBirthDate();
         localDate = siblingsEstimator.estimateFromSiblings(localDate);
         localDate = parentsEstimator.estimateFromMarriage(localDate);
@@ -103,7 +103,8 @@ public final class BirthDateEstimator extends BasicBirthDateEstimator {
      * @param localDate if not null we already have a better estimate
      * @return estimate from own ancestors' other events
      */
-    LocalDate estimateFromAncestorsOtherEvents(final LocalDate localDate) {
+    public LocalDate estimateFromAncestorsOtherEvents(
+            final LocalDate localDate) {
         return ancestorsEstimator.estimateFromOtherEvents(localDate);
     }
 
@@ -113,7 +114,7 @@ public final class BirthDateEstimator extends BasicBirthDateEstimator {
      * @param localDate if not null we already have a better estimate
      * @return an estimate based on some ancestor's marriage date
      */
-    LocalDate estimateFromAncestorsMarriage(final LocalDate localDate) {
+    public LocalDate estimateFromAncestorsMarriage(final LocalDate localDate) {
         return ancestorsEstimator.estimateFromMarriage(localDate);
     }
 
@@ -121,7 +122,7 @@ public final class BirthDateEstimator extends BasicBirthDateEstimator {
      * @param localDate if not null we already have a better estimate
      * @return estimate from some ancestor's birth date
      */
-    LocalDate estimateFromAncestorsBirth(final LocalDate localDate) {
+    public LocalDate estimateFromAncestorsBirth(final LocalDate localDate) {
         return ancestorsEstimator.estimateFromBirth(localDate);
     }
 
@@ -130,7 +131,7 @@ public final class BirthDateEstimator extends BasicBirthDateEstimator {
      * @param shortEstimate whether to do a short estimate or a deep estimate
      * @return the estimate from own marriages
      */
-    LocalDate estimateFromSpouses(final LocalDate localDate,
+    public LocalDate estimateFromSpouses(final LocalDate localDate,
             final boolean shortEstimate) {
         return spousesEstimator.estimate(localDate, shortEstimate);
     }
@@ -139,7 +140,7 @@ public final class BirthDateEstimator extends BasicBirthDateEstimator {
      * @param localDate if not null we already have a better estimate
      * @return estimate from some children
      */
-    LocalDate estimateFromChildren(final LocalDate localDate) {
+    public LocalDate estimateFromChildren(final LocalDate localDate) {
         return childrenEstimator.estimate(localDate);
     }
 }
