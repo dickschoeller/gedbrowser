@@ -39,7 +39,7 @@ public abstract class BaseBackupEndpoint implements Endpoint<List<String>> {
      * @throws JsonMappingException if JSON won't map to the data types
      * @throws IOException if the file can't be accessed
      */
-    abstract void action(File backupFile)
+    public abstract void action(File backupFile)
             throws JsonParseException, JsonMappingException, IOException;
 
     /**

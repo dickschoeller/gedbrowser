@@ -185,7 +185,7 @@ public final class LivingEstimator {
      * @param person the person who name to dump
      * @return the string to dump
      */
-    private static String dumpableName(final Person person) {
+    /* default */ static String dumpableName(final Person person) {
         return person.getIndexName() + " [" + person.toString() + "]";
     }
 }
