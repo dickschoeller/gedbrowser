@@ -158,7 +158,7 @@ public class DocumentToApiModelTest {
          */
         @Override
         public void addAttribute(
-                final GedDocument<? extends GedObject> attribute) {
+                final GedDocument<?> attribute) {
             // Empty
         }
 
