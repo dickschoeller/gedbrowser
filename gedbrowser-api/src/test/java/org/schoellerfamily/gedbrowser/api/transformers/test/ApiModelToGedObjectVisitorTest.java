@@ -7,12 +7,14 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
 import org.schoellerfamily.gedbrowser.api.transformers.ApiModelToGedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -138,5 +140,30 @@ public class ApiModelToGedObjectVisitorTest {
         apiSubmitter.accept(visitor);
         final Submitter gob = (Submitter) visitor.getGedObject();
         assertEquals("submitter mismatch", "SUB1", gob.getString());
+    }
+
+    /** */
+    @Test
+    public void testBasicObject() {
+        final ApiModelToGedObjectVisitor visitor =
+                new ApiModelToGedObjectVisitor(builder);
+        final ApiObject apiSubmitter = new ApiObject(
+                "object", "OBJECT1");
+        apiSubmitter.accept(visitor);
+        final GedObject gob = visitor.getGedObject();
+        assertEquals("object mismatch", "OBJECT1", gob.getString());
+    }
+
+    /** */
+    @Test
+    public void testBasicObjectType() {
+        final ApiModelToGedObjectVisitor visitor =
+                new ApiModelToGedObjectVisitor(builder);
+        final ApiObject apiSubmitter = new ApiObject(
+                "object", "OBJECT1");
+        apiSubmitter.accept(visitor);
+        final GedObject gob = visitor.getGedObject();
+        assertEquals("object type mismatch",
+                "Attribute", gob.getClass().getSimpleName());
     }
 }
