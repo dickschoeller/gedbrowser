@@ -49,15 +49,31 @@ public class CharsetScanner {
                 BufferedReader bufferedReader = new BufferedReader(reader)) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                if (line.startsWith("1 CHAR")) {
-                    final int space = line.lastIndexOf(' ') + 1;
-                    return gedcomCharsetToJava(line.substring(space));
+                if (isCharset(line)) {
+                    return extractCharsetFromLine(line);
                 }
             }
         } catch (IOException e) {
             logger.warn("Could not read file: " + filename);
         }
         return "UTF-8";
+    }
+
+    /**
+     * @param line the input line
+     * @return true if this line is the charset line
+     */
+    private boolean isCharset(final String line) {
+        return line.startsWith("1 CHAR");
+    }
+
+    /**
+     * @param line the input line
+     * @return the charset found there
+     */
+    private String extractCharsetFromLine(final String line) {
+        final int space = line.lastIndexOf(' ') + 1;
+        return gedcomCharsetToJava(line.substring(space));
     }
 
     /**
