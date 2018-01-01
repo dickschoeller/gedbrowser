@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.CharsetScanner;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -22,6 +23,10 @@ public class CharsetScannerTest {
     /** */
     @Autowired
     private transient TestDataReader reader;
+
+    /** */
+    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
+    private transient String gedbrowserHome;
 
     /** */
     @Test
@@ -37,7 +42,7 @@ public class CharsetScannerTest {
         final CharsetScanner scanner =
                 new CharsetScanner();
         assertEquals("Charset mismatch",
-                "Cp1252", scanner.charset("/var/lib/gedbrowser/gl120368.ged"));
+                "Cp1252", scanner.charset(gedbrowserHome + "/gl120368.ged"));
     }
 
     /** */
