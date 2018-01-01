@@ -36,6 +36,7 @@ public class CharsetTest {
         final Place subAttr = (Place) attr.getAttributes().get(0);
         final String place = subAttr.getString();
         assertEquals(
+                "String not converted correctly",
                 "slash l - uppercase (Ł), slash o - uppercase (Ø), slash d -"
                 + " uppercase (Đ), thorn - uppercase (Þ)",
                 place);
@@ -52,6 +53,7 @@ public class CharsetTest {
         final Place subAttr = (Place) attr.getAttributes().get(1);
         final String place = subAttr.getString();
         assertEquals(
+                "String not converted correctly",
                 "South Australia on the Ábberton  1846 with daug & son in law",
                 place);
     }

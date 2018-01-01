@@ -27,7 +27,8 @@ public class CharsetScannerTest {
     @Test
     public void testFileUTF8() {
         final CharsetScanner scanner = new CharsetScanner();
-        assertEquals("UTF-8", scanner.charset("mini-schoeller.ged"));
+        assertEquals("Charset mismatch",
+                "UTF-8", scanner.charset("mini-schoeller.ged"));
     }
 
     /** */
@@ -35,7 +36,7 @@ public class CharsetScannerTest {
     public void testFileANSI() {
         final CharsetScanner scanner =
                 new CharsetScanner();
-        assertEquals(
+        assertEquals("Charset mismatch",
                 "Cp1252", scanner.charset("/var/lib/gedbrowser/gl120368.ged"));
     }
 
@@ -44,7 +45,8 @@ public class CharsetScannerTest {
     public void testFileASCII() {
         final CharsetScanner scanner =
                 new CharsetScanner();
-        assertEquals("ASCII", scanner.charset("simple.ged"));
+        assertEquals("Charset mismatch",
+                "ASCII", scanner.charset("simple.ged"));
     }
 
     /** */
@@ -52,7 +54,8 @@ public class CharsetScannerTest {
     public void testFileANSEL() {
         final CharsetScanner scanner =
                 new CharsetScanner();
-        assertEquals("ANSEL", scanner.charset("TGC551LF.ged"));
+        assertEquals("Charset mismatch",
+                "ANSEL", scanner.charset("TGC551LF.ged"));
     }
 
     /** */
@@ -60,7 +63,8 @@ public class CharsetScannerTest {
     public void testFileANSEL2() {
         final CharsetScanner scanner =
                 new CharsetScanner();
-        assertEquals("ANSEL", scanner.charset("ansel.ged"));
+        assertEquals("Charset mismatch",
+                "ANSEL", scanner.charset("ansel.ged"));
     }
 
     /**
@@ -70,7 +74,8 @@ public class CharsetScannerTest {
     public void testRootUTF8() throws IOException {
         final Root root = reader.readFileTestSource("mini-schoeller.ged");
         final CharsetScanner scanner = new CharsetScanner();
-        assertEquals("UTF-8", scanner.charset(root));
+        assertEquals("Charset mismatch",
+                "UTF-8", scanner.charset(root));
     }
 
     /**
@@ -80,6 +85,7 @@ public class CharsetScannerTest {
     public void testRootANSEL2() throws IOException {
         final Root root = reader.readFileTestSource("ansel.ged");
         final CharsetScanner scanner = new CharsetScanner();
-        assertEquals("ANSEL", scanner.charset(root));
+        assertEquals("Charset mismatch",
+                "ANSEL", scanner.charset(root));
     }
 }

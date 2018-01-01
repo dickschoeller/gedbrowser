@@ -67,11 +67,21 @@ public class CharsetScanner {
     public String charset(final Root root) {
         final GedObject gob = root.getAttributes().get(0);
         if ("Header".equals(gob.getString())) {
-            for (final GedObject hgob : gob.getAttributes()) {
-                if ("Character Set".equals(hgob.getString())) {
-                    final String charset = ((Attribute) hgob).getTail();
-                    return gedcomCharsetToJava(charset);
-                }
+            return gedcomCharsetToJava(findCharsetInHeader(gob));
+        }
+        return "UTF-8";
+    }
+
+    /**
+     * Find the GEDCOM charset in the attributes of the header.
+     *
+     * @param gob the header ged object
+     * @return the GEDCOM charset
+     */
+    private String findCharsetInHeader(final GedObject gob) {
+        for (final GedObject hgob : gob.getAttributes()) {
+            if ("Character Set".equals(hgob.getString())) {
+                return ((Attribute) hgob).getTail();
             }
         }
         return "UTF-8";
