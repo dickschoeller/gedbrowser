@@ -70,6 +70,7 @@
     <geojson-jackson.version>1.8</geojson-jackson.version>
     <log4j-over-slf4j.version>1.7.25</log4j-over-slf4j.version>
     <logback-classic.version>1.2.3</logback-classic.version>
+    <anselcharset.version>1.1</anselcharset.version>
 
     <selenium.version>3.8.1</selenium.version>
     <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
@@ -616,6 +617,13 @@
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
+
+  <repositories>
+    <repository>
+      <id>clojars</id>
+      <url>http://clojars.org/repo/</url>
+    </repository>
+  </repositories>
 
   <profiles>
     <profile>

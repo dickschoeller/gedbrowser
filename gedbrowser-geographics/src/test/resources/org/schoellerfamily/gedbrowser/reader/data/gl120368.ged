@@ -27,7 +27,6 @@
 1 _LIST Work in Progress
 1 _LIST Bookmarks
 1 _ROOT @I1@
-1 SUBN @B1@
 0 @I1@ INDI
 1 NAME Living /Williams/
 1 SEX M
@@ -129,7 +128,7 @@
 4 TEXT Ancestry.com. England and Wales, Death Index: 1984-2002 [database online]. Provo, Utah: MyFamily.com, Inc., 2005. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office
 5 CONC , in London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Indexes created by the General Register Office
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Indexes created by the General Register Office
 5 CONC , in London, England.
 1 SEX M
 1 BIRT
@@ -190,14 +189,14 @@
 4 TEXT FreeBMD. England and Wales, Birth Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 2 SOUR @S1873@
 3 DATA
 4 TEXT FreeBMD. England and Wales, Birth Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 NAME Edwin E /Williams/
 2 SOUR @S1752@
@@ -271,21 +270,21 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 2 SOUR @S1883@
 3 DATA
 4 TEXT FreeBMD. England and Wales, Marriage Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office
 5 CONC , in London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 2 SOUR @S1883@
 3 DATA
 4 TEXT FreeBMD. England and Wales, Marriage Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office
 5 CONC , in London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 NAME Thomas /Williams/
 2 SOUR @S1692@
@@ -296,10 +295,10 @@
 1 NAME Thomas H. /Williams/
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -331,10 +330,10 @@
 2 PLAC Chipping Norton, Oxfordshire, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -355,7 +354,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 RESI
 2 DATE 7 JUN 1841
@@ -411,10 +410,10 @@
 2 PLAC Ipswich St Matthew, Suffolk, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -516,7 +515,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 FAMC @F11@
 1 FAMS @F9@
@@ -536,7 +535,7 @@
 4 TEXT FreeBMD. England and Wales, Marriage Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office
 5 CONC , in London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 NAME Mary A. /Williams/
 2 SOUR @S2118@
@@ -700,10 +699,10 @@
 1 NAME Samuel /Amass/
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -714,7 +713,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 SEX M
 1 BIRT
@@ -802,7 +801,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 DEAT
 2 DATE 1893
@@ -1080,10 +1079,10 @@
 2 PLAC Gomersal, Yorkshire, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -1124,10 +1123,10 @@
 1 NAME Grace /Hill/
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -1167,10 +1166,10 @@
 2 PLAC Portsmouth, Hampshire, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -1205,10 +1204,10 @@
 2 PLAC Portsea, Hampshire, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -1476,7 +1475,7 @@
 4 TEXT FreeBMD. England and Wales, Marriage Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office
 5 CONC , in London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 SEX M
 1 BIRT
@@ -1506,7 +1505,7 @@
 4 TEXT FreeBMD. England and Wales, Marriage Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office
 5 CONC , in London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 2 SOUR @S1716@
 3 DATA
@@ -1570,7 +1569,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 2 SOUR @S1692@
 3 DATA
@@ -1596,7 +1595,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 BIRT
 2 DATE 1789
@@ -1657,7 +1656,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 FAMC @F30@
 1 FAMS @F29@
@@ -2121,8 +2120,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: The Generations Network, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus C
-5 CONC hrist of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
-5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Cr
+5 CONC hrist of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
+5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Cr
 5 CONC own copyright. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used on
 5 CONC ly for purposes of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 02
 5 CONC 0 8392 5225   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -2148,8 +2147,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: The Generations Network, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus C
-5 CONC hrist of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
-5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Cr
+5 CONC hrist of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
+5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Cr
 5 CONC own copyright. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used on
 5 CONC ly for purposes of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 02
 5 CONC 0 8392 5225   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -2171,8 +2170,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: The Generations Network, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus C
-5 CONC hrist of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
-5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Cr
+5 CONC hrist of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
+5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Cr
 5 CONC own copyright. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used on
 5 CONC ly for purposes of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 02
 5 CONC 0 8392 5225   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -2645,7 +2644,7 @@
 4 TEXT FreeBMD. England and Wales, Birth Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 SEX F
 1 BIRT
@@ -2664,7 +2663,7 @@
 4 TEXT FreeBMD. England and Wales, Birth Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 OCCU Dressmaker
 2 DATE 1891
@@ -2709,7 +2708,7 @@
 4 TEXT FreeBMD. England and Wales, Birth Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 SEX M
 1 BIRT
@@ -2728,7 +2727,7 @@
 4 TEXT FreeBMD. England and Wales, Birth Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 RESI
 2 DATE 1901
@@ -2759,14 +2758,14 @@
 4 TEXT FreeBMD. England and Wales, Marriage Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office
 5 CONC , in London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 2 SOUR @S1883@
 3 DATA
 4 TEXT FreeBMD. England and Wales, Marriage Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office
 5 CONC , in London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 NAME Matilda /Voke/
 2 SOUR @S1692@
@@ -3015,8 +3014,8 @@
 2 SOUR @S1888@
 3 DATA
 4 TEXT Online publication - FreeBMD. England & Wales, FreeBMD Birth Index: 1837-1983 [database on-line]. Provo, UT, USA: The Generations Network, Inc., 2006.Original data - General Register Office. England and Wales Civil Registration Indexes. London
-5 CONC , England: General Register Office, ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Co
-5 CONC pyright ï¿½ 1998-2003 Graham Hart, Ben Laurie, Camilla von Massenbach and David Mayall.
+5 CONC , England: General Register Office, © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Co
+5 CONC pyright © 1998-2003 Graham Hart, Ben Laurie, Camilla von Massenbach and David Mayall.
 1 NAME James Sheppard /Amoss/
 2 SOUR @S1716@
 3 DATA
@@ -3041,8 +3040,8 @@
 2 SOUR @S1888@
 3 DATA
 4 TEXT Online publication - FreeBMD. England & Wales, FreeBMD Birth Index: 1837-1983 [database on-line]. Provo, UT, USA: The Generations Network, Inc., 2006.Original data - General Register Office. England and Wales Civil Registration Indexes. London
-5 CONC , England: General Register Office, ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Co
-5 CONC pyright ï¿½ 1998-2003 Graham Hart, Ben Laurie, Camilla von Massenbach and David Mayall.
+5 CONC , England: General Register Office, © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Co
+5 CONC pyright © 1998-2003 Graham Hart, Ben Laurie, Camilla von Massenbach and David Mayall.
 1 BIRT
 2 DATE 1857
 2 PLAC Pettaugh, Suffolk, England
@@ -3634,7 +3633,7 @@
 4 TEXT FreeBMD. England and Wales, Marriage Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office
 5 CONC , in London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 SEX M
 1 BIRT
@@ -3708,7 +3707,7 @@
 4 TEXT FreeBMD. England and Wales, Birth Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 SEX M
 1 BIRT
@@ -3722,7 +3721,7 @@
 4 TEXT FreeBMD. England and Wales, Birth Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 BIRT
 2 DATE 1886
@@ -4140,7 +4139,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 SEX M
 1 BIRT
@@ -4157,7 +4156,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 OCCU 
 2 DATE 1851
@@ -4305,7 +4304,7 @@
 4 TEXT Ancestry.com. England and Wales, Death Index: 1984-2004 [database online]. Provo, Utah: MyFamily.com, Inc., 2005. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office
 5 CONC , in London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Indexes created by the General Register Office
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Indexes created by the General Register Office
 5 CONC , in London, England.
 1 SEX M
 1 BIRT
@@ -4320,7 +4319,7 @@
 4 TEXT Ancestry.com. England and Wales, Death Index: 1984-2004 [database online]. Provo, Utah: MyFamily.com, Inc., 2005. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office
 5 CONC , in London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Indexes created by the General Register Office
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Indexes created by the General Register Office
 5 CONC , in London, England.
 2 SOUR @S33651@
 3 PAGE Deaths Ipswich Mar 1985 10 3229
@@ -4338,7 +4337,7 @@
 4 TEXT Ancestry.com. England and Wales, Death Index: 1984-2004 [database online]. Provo, Utah: MyFamily.com, Inc., 2005. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office
 5 CONC , in London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Indexes created by the General Register Office
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Indexes created by the General Register Office
 5 CONC , in London, England.
 1 DEAT
 2 DATE MAR 1985
@@ -4363,7 +4362,7 @@
 4 TEXT Ancestry.com. England and Wales, Death Index: 1984-2004 [database online]. Provo, Utah: MyFamily.com, Inc., 2005. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office
 5 CONC , in London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Indexes created by the General Register Office
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Indexes created by the General Register Office
 5 CONC , in London, England.
 1 SEX F
 1 BIRT
@@ -4376,7 +4375,7 @@
 4 TEXT Ancestry.com. England and Wales, Death Index: 1984-2004 [database online]. Provo, Utah: MyFamily.com, Inc., 2005. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office
 5 CONC , in London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Indexes created by the General Register Office
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Indexes created by the General Register Office
 5 CONC , in London, England.
 1 DEAT
 2 DATE NOV 1989
@@ -4389,7 +4388,7 @@
 4 TEXT Ancestry.com. England and Wales, Death Index: 1984-2004 [database online]. Provo, Utah: MyFamily.com, Inc., 2005. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office
 5 CONC , in London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Indexes created by the General Register Office
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Indexes created by the General Register Office
 5 CONC , in London, England.
 1 FAMS @F84@
 1 NOTE @N157@
@@ -4535,14 +4534,14 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -4569,17 +4568,17 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 BIRT
 2 DATE 1797
 2 PLAC Northamptonshire, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -4628,10 +4627,10 @@
 2 PLAC Northampton St Giles, Northamptonshire, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -4645,7 +4644,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 BURI
 2 DATE 27 OCT 1881
@@ -7431,10 +7430,10 @@
 1 NAME Joseph /Austin/
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -7445,7 +7444,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 SEX M
 1 BIRT
@@ -7456,10 +7455,10 @@
 2 PLAC Bilston, Staffordshire, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -7472,7 +7471,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 RESI
 2 DATE 1881
@@ -7482,10 +7481,10 @@
 2 PLAC Sedgley, Staffordshire, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -7503,7 +7502,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 OCCU 
 2 DATE 1881
@@ -7976,8 +7975,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: MyFamily.com, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus Christ of La
-5 CONC tter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Christ of Lat
-5 CONC ter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Crown copyrig
+5 CONC tter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Christ of Lat
+5 CONC ter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Crown copyrig
 5 CONC ht. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used only for purp
 5 CONC oses of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 020 8392 522
 5 CONC 5   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -7991,8 +7990,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: MyFamily.com, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus Christ of La
-5 CONC tter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Christ of Lat
-5 CONC ter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Crown copyrig
+5 CONC tter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Christ of Lat
+5 CONC ter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Crown copyrig
 5 CONC ht. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used only for purp
 5 CONC oses of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 020 8392 522
 5 CONC 5   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -8183,10 +8182,10 @@
 1 NAME Elizabeth /Dallaston/
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -8209,10 +8208,10 @@
 2 PLAC Congleton, Cheshire, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -8241,10 +8240,10 @@
 2 PLAC Sedgley, Staffordshire, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -8356,8 +8355,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: MyFamily.com, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus Christ of La
-5 CONC tter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Christ of Lat
-5 CONC ter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Crown copyrig
+5 CONC tter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Christ of Lat
+5 CONC ter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Crown copyrig
 5 CONC ht. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used only for purp
 5 CONC oses of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 020 8392 522
 5 CONC 5   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -8376,8 +8375,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: MyFamily.com, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus Christ of La
-5 CONC tter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Christ of Lat
-5 CONC ter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Crown copyrig
+5 CONC tter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Christ of Lat
+5 CONC ter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Crown copyrig
 5 CONC ht. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used only for purp
 5 CONC oses of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 020 8392 522
 5 CONC 5   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -8406,8 +8405,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: MyFamily.com, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus Christ of La
-5 CONC tter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Christ of Lat
-5 CONC ter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Crown copyrig
+5 CONC tter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Christ of Lat
+5 CONC ter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Crown copyrig
 5 CONC ht. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used only for purp
 5 CONC oses of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 020 8392 522
 5 CONC 5   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -8439,7 +8438,7 @@
 2 SOUR @S1899@
 3 DATA
 4 TEXT Online publication - FreeBMD. England & Wales, FreeBMD Death Index: 1837-1983 [database on-line]. Provo, UT, USA: MyFamily.com, Inc., 2006.Original data - General Register Office. England and Wales Civil Registration Indexes. London, England: Ge
-5 CONC neral Register Office, ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 199
+5 CONC neral Register Office, © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 199
 5 CONC 8-2003 Graham Hart, Ben Laurie, Camilla von Massenbach and David Mayall.
 1 SEX F
 1 BIRT
@@ -8450,7 +8449,7 @@
 2 SOUR @S1899@
 3 DATA
 4 TEXT Online publication - FreeBMD. England & Wales, FreeBMD Death Index: 1837-1983 [database on-line]. Provo, UT, USA: MyFamily.com, Inc., 2006.Original data - General Register Office. England and Wales Civil Registration Indexes. London, England: Ge
-5 CONC neral Register Office, ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 199
+5 CONC neral Register Office, © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 199
 5 CONC 8-2003 Graham Hart, Ben Laurie, Camilla von Massenbach and David Mayall.
 1 DEAT
 2 DATE 14 SEP 1876
@@ -8461,7 +8460,7 @@
 2 SOUR @S1899@
 3 DATA
 4 TEXT Online publication - FreeBMD. England & Wales, FreeBMD Death Index: 1837-1983 [database on-line]. Provo, UT, USA: MyFamily.com, Inc., 2006.Original data - General Register Office. England and Wales Civil Registration Indexes. London, England: Ge
-5 CONC neral Register Office, ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 199
+5 CONC neral Register Office, © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 199
 5 CONC 8-2003 Graham Hart, Ben Laurie, Camilla von Massenbach and David Mayall.
 1 FAMC @F151@
 1 FAMS @F38@
@@ -8774,8 +8773,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: The Generations Network, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus C
-5 CONC hrist of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
-5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Cr
+5 CONC hrist of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
+5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Cr
 5 CONC own copyright. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used on
 5 CONC ly for purposes of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 02
 5 CONC 0 8392 5225   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -8789,8 +8788,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: The Generations Network, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus C
-5 CONC hrist of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
-5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Cr
+5 CONC hrist of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
+5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Cr
 5 CONC own copyright. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used on
 5 CONC ly for purposes of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 02
 5 CONC 0 8392 5225   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -8800,8 +8799,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: The Generations Network, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus C
-5 CONC hrist of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
-5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Cr
+5 CONC hrist of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
+5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Cr
 5 CONC own copyright. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used on
 5 CONC ly for purposes of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 02
 5 CONC 0 8392 5225   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -8876,7 +8875,7 @@
 4 TEXT FreeBMD. England and Wales, Birth Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 SEX M
 1 BIRT
@@ -8887,7 +8886,7 @@
 4 TEXT FreeBMD. England and Wales, Birth Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 BIRT
 2 DATE ABT 1912
@@ -9030,7 +9029,7 @@
 2 PLAC Suffolk
 1 EMIG
 2 DATE 1846
-2 PLAC South Australia on the ï¿½bberton  1846 with daug & son in law
+2 PLAC South Australia on the Ábberton  1846 with daug & son in law
 1 DEAT
 2 PLAC Australia
 1 FAMS @F60@
@@ -9737,10 +9736,10 @@
 1 NAME Charles F. /Stearn/
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -9755,10 +9754,10 @@
 2 PLAC Ipswich St Clement, Suffolk, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -9821,10 +9820,10 @@
 2 PLAC Ipswich St Clement, Suffolk, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -10005,7 +10004,7 @@
 2 SOUR @S1729@
 3 DATA
 4 TEXT 1880 U.S. Census Index provided by The Church of Jesus Christ of Latter-day Saints
-5 CONT ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved.
+5 CONT © Copyright 1999 Intellectual Reserve, Inc. All rights reserved.
 5 CONT All use is subject to the limited use license and other terms and conditions applicable to this site.
 5 CONT 
 5 CONT  Brighton, Macoupin, Illinois, ED 106, roll T9_232, page 40.1000, image 0081.
@@ -10025,7 +10024,7 @@
 2 SOUR @S1729@
 3 DATA
 4 TEXT 1880 U.S. Census Index provided by The Church of Jesus Christ of Latter-day Saints
-5 CONT ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved.
+5 CONT © Copyright 1999 Intellectual Reserve, Inc. All rights reserved.
 5 CONT All use is subject to the limited use license and other terms and conditions applicable to this site.
 5 CONT 
 5 CONT  Brighton, Macoupin, Illinois, ED 106, roll T9_232, page 40.1000, image 0081.
@@ -10116,7 +10115,7 @@
 2 SOUR @S1729@
 3 DATA
 4 TEXT 1880 U.S. Census Index provided by The Church of Jesus Christ of Latter-day Saints
-5 CONT ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved.
+5 CONT © Copyright 1999 Intellectual Reserve, Inc. All rights reserved.
 5 CONT All use is subject to the limited use license and other terms and conditions applicable to this site.
 5 CONT 
 5 CONT  Brighton, Macoupin, Illinois, ED 106, roll T9_232, page 40.1000, image 0081.
@@ -11670,7 +11669,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 SEX F
 1 BIRT
@@ -11729,7 +11728,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 FAMC @F102@
 1 NOTE @N435@
@@ -12422,7 +12421,7 @@
 4 TEXT FreeBMD. England and Wales, Birth Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 NAME Edward /Moore/
 2 SOUR @S1761@
@@ -12458,7 +12457,7 @@
 4 TEXT FreeBMD. England and Wales, Birth Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 OCCU 
 2 DATE 1901
@@ -12727,7 +12726,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 SEX M
 1 BIRT
@@ -12740,7 +12739,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 RESI
 2 DATE 1851
@@ -12753,7 +12752,7 @@
 4 TEXT FreeBMD. England and Wales, Death Index: 1837-1983 [database online]. Provo, Utah: MyFamily.com, Inc., 2006. Original data: Microfilm and microfiche of the England and Wales, Civil Registration Indexes created by the General Register Office, i
 5 CONC n London, England.
 5 CONT 
-5 CONT ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 1998-2003 Graham Hart, Be
+5 CONT © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 1998-2003 Graham Hart, Be
 5 CONC n Laurie, Camilla von Massenbach and David Mayall.
 1 OCCU 
 2 DATE BET 1851 AND 1871
@@ -13050,7 +13049,7 @@
 2 SOUR @S1899@
 3 DATA
 4 TEXT Online publication - FreeBMD. England & Wales, FreeBMD Death Index: 1837-1983 [database on-line]. Provo, UT, USA: MyFamily.com, Inc., 2006.Original data - General Register Office. England and Wales Civil Registration Indexes. London, England: Ge
-5 CONC neral Register Office, ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 199
+5 CONC neral Register Office, © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 199
 5 CONC 8-2003 Graham Hart, Ben Laurie, Camilla von Massenbach and David Mayall.
 1 SEX M
 1 BIRT
@@ -13065,7 +13064,7 @@
 2 SOUR @S1899@
 3 DATA
 4 TEXT Online publication - FreeBMD. England & Wales, FreeBMD Death Index: 1837-1983 [database on-line]. Provo, UT, USA: MyFamily.com, Inc., 2006.Original data - General Register Office. England and Wales Civil Registration Indexes. London, England: Ge
-5 CONC neral Register Office, ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 199
+5 CONC neral Register Office, © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 199
 5 CONC 8-2003 Graham Hart, Ben Laurie, Camilla von Massenbach and David Mayall.
 1 FAMC @F189@
 1 FAMS @F208@
@@ -13244,8 +13243,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: The Generations Network, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus C
-5 CONC hrist of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
-5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Cr
+5 CONC hrist of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
+5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Cr
 5 CONC own copyright. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used on
 5 CONC ly for purposes of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 02
 5 CONC 0 8392 5225   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -13259,8 +13258,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: The Generations Network, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus C
-5 CONC hrist of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
-5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Cr
+5 CONC hrist of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
+5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Cr
 5 CONC own copyright. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used on
 5 CONC ly for purposes of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 02
 5 CONC 0 8392 5225   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -13273,8 +13272,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: The Generations Network, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus C
-5 CONC hrist of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
-5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Cr
+5 CONC hrist of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
+5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Cr
 5 CONC own copyright. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used on
 5 CONC ly for purposes of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 02
 5 CONC 0 8392 5225   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -13319,10 +13318,10 @@
 5 CONC o the National Archives, Kew, Richmond, Surrey TW9 4DU. Infringement of the above condition may result in legal action.
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -13373,10 +13372,10 @@
 2 PLAC Ipswich, Suffolk, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -13419,10 +13418,10 @@
 2 PLAC Ipswich St Matthew, Suffolk, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -13980,10 +13979,10 @@
 1 NAME Samuel /Williams/
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -14003,10 +14002,10 @@
 2 PLAC Northamptonshire, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -14033,10 +14032,10 @@
 2 PLAC Manchester, Lancashire, England
 2 SOUR @S1738@
 3 DATA
-4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
+4 TEXT 1881 British Isles Census Index provided by The Church of Jesus Christ of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicabl
 5 CONC e to this site. Appreciation is expressed to The Church of Jesus Christ of Latter-day Saints for providing the 1881 England and Wales Census Index.
 5 CONT 
-5 CONT Images ï¿½ Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
+5 CONT Images © Crown copyright. Images reproduced by courtesy of The National Archives, London, England.
 5 CONT 
 5 CONT The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.
 5 CONT 
@@ -15644,7 +15643,7 @@
 2 SOUR @S33645@
 3 PAGE ED1-1-4 161428 Pte Vincent Martin Amass - records
 3 DATA
-4 TEXT Exp[editionary] force France 13 Jul 1916 ï¿½ 14 Feb 1919
+4 TEXT Exp[editionary] force France 13 Jul 1916 – 14 Feb 1919
 2 SOUR @S33643@
 1 EVEN
 2 TYPE Decorated
@@ -15666,7 +15665,7 @@
 1 NOTE @N1385@
 2 SOUR @S33643@
 1 REFN 692
-1 _MDCL Chest 31" expanded. Vaccination marks on left arm, 5ï¿½ 2ï¿½ï¿½ ,   31ï¿½ Chest.
+1 _MDCL Chest 31" expanded. Vaccination marks on left arm, 5’ 2½” ,   31” Chest.
 2 SOUR @@S02144@@
 3 PAGE ED1-1-4 161428 Pte Vincent Martin Amass - records
 1 CHAN
@@ -20791,7 +20790,7 @@
 2 SOUR @S1888@
 3 DATA
 4 TEXT Online publication - FreeBMD. England & Wales, FreeBMD Birth Index: 1837-1983 [database on-line]. Provo, UT, USA: MyFamily.com, Inc., 2006.Original data - General Register Office. England and Wales Civil Registration Indexes. London, England: Ge
-5 CONC neral Register Office, ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 199
+5 CONC neral Register Office, © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 199
 5 CONC 8-2003 Graham Hart, Ben Laurie, Camilla von Massenbach and David Mayall.
 1 SEX F
 1 BIRT
@@ -20803,7 +20802,7 @@
 2 SOUR @S1888@
 3 DATA
 4 TEXT Online publication - FreeBMD. England & Wales, FreeBMD Birth Index: 1837-1983 [database on-line]. Provo, UT, USA: MyFamily.com, Inc., 2006.Original data - General Register Office. England and Wales Civil Registration Indexes. London, England: Ge
-5 CONC neral Register Office, ï¿½ Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright ï¿½ 199
+5 CONC neral Register Office, © Crown copyright. Published by permission of the Controller of HMSO and the Office for National Statistics. You must not copy on, transfer or reproduce records without the prior permission of ONS. Database Copyright © 199
 5 CONC 8-2003 Graham Hart, Ben Laurie, Camilla von Massenbach and David Mayall.
 1 BIRT
 2 DATE 1883
@@ -32260,8 +32259,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: The Generations Network, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus C
-5 CONC hrist of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
-5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Cr
+5 CONC hrist of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
+5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Cr
 5 CONC own copyright. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used on
 5 CONC ly for purposes of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 02
 5 CONC 0 8392 5225   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -32278,8 +32277,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: The Generations Network, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus C
-5 CONC hrist of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
-5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Cr
+5 CONC hrist of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
+5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Cr
 5 CONC own copyright. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used on
 5 CONC ly for purposes of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 02
 5 CONC 0 8392 5225   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -32310,8 +32309,8 @@
 2 SOUR @S1738@
 3 DATA
 4 TEXT Online publication - Ancestry.com and The Church of Jesus Christ of Latter-day Saints. 1881 England Census [database on-line]. Provo, UT, USA: The Generations Network, Inc., 2004. 1881 British Isles Census Index provided by The Church of Jesus C
-5 CONC hrist of Latter-day Saints ï¿½ Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
-5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images ï¿½ Cr
+5 CONC hrist of Latter-day Saints © Copyright 1999 Intellectual Reserve, Inc. All rights reserved. All use is subject to the limited use license and other terms and conditions applicable to this site. Appreciation is expressed to The Church of Jesus Ch
+5 CONC rist of Latter-day Saints for providing the 1881 England and Wales Census Index..Original data - Census Returns of England and Wales, 1881. Kew, Surrey, England: The National Archives of the UK (TNA): Public Record Office (PRO), 1881.Images © Cr
 5 CONC own copyright. Images reproduced by courtesy of The National Archives, London, England.     The National Archives give no warranty as to the accuracy, completeness or fitness for the purpose of the information provided.     Images may be used on
 5 CONC ly for purposes of research, private study or education.  Applications for any other use should be made to <a href= http://www.nationalarchives.gov.uk/imagelibrary/ >The National Archives Image Library</a>, Kew, Richmond, Surrey TW9 4DU, Tel: 02
 5 CONC 0 8392 5225   Fax: 020 8392 5266.  Infringement of the above condition may result in legal action..
@@ -51163,13 +51162,13 @@
 2 SOUR @S33645@
 3 PAGE ED1-1-3 122529 Pte Victor Edward Amass - records
 3 DATA
-4 TEXT Fishmongers assistant  5ï¿½ 7"  130 lb   [9 st 4 lbs]  35" chest
-3 NOTE Various, Miscellaneous Documents,  (Various Authors), Fishmongers assistant  5ï¿½ 7"  130 lb   [9 st 4 lbs]  35" chest
+4 TEXT Fishmongers assistant  5’ 7"  130 lb   [9 st 4 lbs]  35" chest
+3 NOTE Various, Miscellaneous Documents,  (Various Authors), Fishmongers assistant  5’ 7"  130 lb   [9 st 4 lbs]  35" chest
 4 CONT .
 1 FAMC @F903@
 1 SOUR @S33643@
 2 NOTE Record originated in...
-1 _MDCL 5ï¿½ 7ï¿½,   130 lb,   [9 st 4 lbs],  35ï¿½ chest, not vaccinated, slight discharge from l[eft] ear, Examined: 27 Sep 1915
+1 _MDCL 5’ 7”,   130 lb,   [9 st 4 lbs],  35” chest, not vaccinated, slight discharge from l[eft] ear, Examined: 27 Sep 1915
 2 SOUR @@S02144@@
 3 PAGE ED1-1-3 122529 Pte Victor Edward Amass - records
 1 CHAN
@@ -52787,7 +52786,7 @@
 1 SOUR @S33643@
 2 NOTE Record originated in...
 1 NOTE @N1403@
-1 _MDCL Malaria contracted July 1918 in India ï¿½ reccurred. Heat stroke received in India August 1918 . Complains of headaches in occipital region. Vaccinated in infancy. Grey eyes.
+1 _MDCL Malaria contracted July 1918 in India – reccurred. Heat stroke received in India August 1918 . Complains of headaches in occipital region. Vaccinated in infancy. Grey eyes.
 2 SOUR @@S02144@@
 3 PAGE ED1-1-2 741975 Pte Offord Richard Amass
 1 CHAN
@@ -75283,7 +75282,7 @@
 1 SEX M
 1 BIRT
 2 DATE 24 AUG 1113
-2 PLAC Anjou, , Rhï¿½ne-Alpes, France
+2 PLAC Anjou, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for John Lackland - AFN=8XJ4-1K - 11 Jan 2005
 3 QUAY 3
@@ -75335,7 +75334,7 @@
 1 SEX M
 1 BIRT
 2 DATE 1092
-2 PLAC Anjou, , Rhï¿½ne-Alpes, France
+2 PLAC Anjou, , Rhône-Alpes, France
 2 SOUR @S33691@
 1 DEAT
 2 DATE 10 NOV 1143
@@ -75370,7 +75369,7 @@
 1 SEX M
 1 BIRT
 2 DATE 1043
-2 PLAC Anjou, , Rhï¿½ne-Alpes, France
+2 PLAC Anjou, , Rhône-Alpes, France
 2 SOUR @S33693@
 3 PAGE Email from Lisa Johnson dated 18 May 2004 - p. 3
 3 QUAY 3
@@ -75396,7 +75395,7 @@
 1 SEX F
 1 BIRT
 2 DATE (Abt 1059-1060)
-2 PLAC Montfort Amaury, , ï¿½le-de-France, France
+2 PLAC Montfort Amaury, , Île-de-France, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Foulques - AFN=8WKK-4W - 11 Jan 2005
 3 QUAY 3
@@ -75498,9 +75497,9 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I3997@ INDI
-1 NAME Mathilde /de Chï¿½teau-du-Loire/
+1 NAME Mathilde /de Château-du-Loire/
 2 GIVN Mathilde
-2 SURN de Chï¿½teau-du-Loire
+2 SURN de Château-du-Loire
 1 SEX F
 1 BIRT
 2 DATE ABT 1055
@@ -76858,7 +76857,7 @@
 3 QUAY 3
 1 DEAT
 2 DATE 18 SEP 1180
-2 PLAC Paris, , Rhï¿½ne-Alpes, France
+2 PLAC Paris, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Louis - AFN=8XJD-KF - 28 Jan 2005
 3 QUAY 3
@@ -76928,7 +76927,7 @@
 2 NOTE @N1575@
 1 DEAT
 2 DATE 31 OCT 1214
-2 PLAC Burgos, , Castilla y Leï¿½n, Spain
+2 PLAC Burgos, , Castilla y León, Spain
 2 NOTE @N1576@
 1 FAMC @F1405@
 1 FAMS @F1444@
@@ -76946,7 +76945,7 @@
 1 SEX M
 1 BIRT
 2 DATE 11 NOV 1155
-2 PLAC Soria, , Castilla y Leï¿½n, Spain
+2 PLAC Soria, , Castilla y León, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Louis - AFN=8XJD-KF - 28 Jan 2005
 3 QUAY 3
@@ -77186,10 +77185,10 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I4073@ INDI
-1 NAME Aymer /de Taillefer/ Count of Angoulï¿½me
+1 NAME Aymer /de Taillefer/ Count of Angoulême
 2 GIVN Aymer
 2 SURN de Taillefer
-2 NSFX Count of Angoulï¿½me
+2 NSFX Count of Angoulême
 1 SEX M
 1 BIRT
 2 DATE ABT 1160
@@ -77248,7 +77247,7 @@
 1 SEX M
 1 BIRT
 2 DATE ABT 1108
-2 PLAC Angoulï¿½me, , Poitou-Charentes, France
+2 PLAC Angoulême, , Poitou-Charentes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Isabella de Taillefer - AFN=8XJ5-XC - 30 Jan 2005
 3 QUAY 3
@@ -77601,7 +77600,7 @@
 3 QUAY 3
 1 DEAT
 2 DATE 1 AUG 1137
-2 PLAC Paris, , Rhï¿½ne-Alpes, France
+2 PLAC Paris, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Louis - AFN=8XJ2-7B - 29 Jan 2005
 3 QUAY 3
@@ -77630,7 +77629,7 @@
 3 QUAY 3
 1 DEAT
 2 DATE 29 JUL 1108
-2 PLAC Melun, , ï¿½le-de-France, France
+2 PLAC Melun, , Île-de-France, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Louis - AFN=8XJ2-7B - 29 Jan 2005
 3 QUAY 3
@@ -77798,7 +77797,7 @@
 1 SEX F
 1 BIRT
 2 DATE ABT 1116
-2 PLAC Albon, , Rhï¿½ne-Alpes, France
+2 PLAC Albon, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Matilde - RIN=MLKS-RW - 19 May 2005
 1 DEAT
@@ -77827,7 +77826,7 @@
 3 QUAY 3
 1 DEAT
 2 DATE 4 JUN 1206
-2 PLAC Paris, , Rhï¿½ne-Alpes, France
+2 PLAC Paris, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Louis - AFN=8XJD-KF - 28 Jan 2005
 3 QUAY 3
@@ -78358,9 +78357,9 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I4122@ INDI
-1 NAME Raymond /Bï¿½renger/ V, Count of Province and Forcalquier
+1 NAME Raymond /Bérenger/ V, Count of Province and Forcalquier
 2 GIVN Raymond
-2 SURN Bï¿½renger
+2 SURN Bérenger
 2 NSFX V, Count of Province and Forcalquier
 1 SEX M
 1 BIRT
@@ -78386,9 +78385,9 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I4123@ INDI
-1 NAME Alfonso // II, Prince of Aragï¿½n
+1 NAME Alfonso // II, Prince of Aragón
 2 GIVN Alfonso
-2 NSFX II, Prince of Aragï¿½n
+2 NSFX II, Prince of Aragón
 1 SEX M
 1 BIRT
 2 DATE ABT 1180
@@ -78413,20 +78412,20 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I4124@ INDI
-1 NAME Alfonso "the Chaste" // II, King of Aragï¿½n
+1 NAME Alfonso "the Chaste" // II, King of Aragón
 2 GIVN Alfonso "the Chaste"
-2 NSFX II, King of Aragï¿½n
+2 NSFX II, King of Aragón
 1 SEX M
 1 BIRT
 2 DATE BEF 25 MAR 1157
-2 PLAC Huesca, , Aragï¿½n, Spain
+2 PLAC Huesca, , Aragón, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Raymond Berenger V - AFN=8XJ8-D1 - 10 Apr 2005
 3 QUAY 3
 2 NOTE @N1652@
 1 DEAT
 2 DATE 25 APR 1196
-2 PLAC Perpignan, , Midi-Pyrï¿½nï¿½es, France
+2 PLAC Perpignan, , Midi-Pyrénées, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Raymond Berenger V - AFN=8XJ8-D1 - 10 Apr 2005
 3 QUAY 3
@@ -78442,10 +78441,10 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I4125@ INDI
-1 NAME Ramï¿½n /Berenguer/ IV, Prince of Aragï¿½n
-2 GIVN Ramï¿½n
+1 NAME Ramón /Berenguer/ IV, Prince of Aragón
+2 GIVN Ramón
 2 SURN Berenguer
-2 NSFX IV, Prince of Aragï¿½n
+2 NSFX IV, Prince of Aragón
 1 SEX M
 1 BIRT
 2 DATE 1113
@@ -78535,7 +78534,7 @@
 3 PAGE Pedigree chart for Alfonso - RIN=9B5V-PP - 19 May 2005
 1 DEAT
 2 DATE (2 Feb 1148-1149)
-2 PLAC Palencia, , Castilla y Leï¿½n, Spain
+2 PLAC Palencia, , Castilla y León, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Alfonso - RIN=9B5V-PP - 19 May 2005
 1 FAMC @F1483@
@@ -78549,9 +78548,9 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I4129@ INDI
-1 NAME Alfonso // VII, King of Castile, Leï¿½n & Galicia
+1 NAME Alfonso // VII, King of Castile, León & Galicia
 2 GIVN Alfonso
-2 NSFX VII, King of Castile, Leï¿½n & Galicia
+2 NSFX VII, King of Castile, León & Galicia
 1 SEX M
 1 BIRT
 2 DATE 1 MAR 1105
@@ -78583,9 +78582,9 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I4130@ INDI
-1 NAME Petronila // I, Queen of Aragï¿½n
+1 NAME Petronila // I, Queen of Aragón
 2 GIVN Petronila
-2 NSFX I, Queen of Aragï¿½n
+2 NSFX I, Queen of Aragón
 1 SEX F
 1 BIRT
 2 DATE ABT 1136
@@ -78594,7 +78593,7 @@
 3 QUAY 3
 1 DEAT
 2 DATE (13-17 Oct 1173)
-2 PLAC Barcelona, , Cataluï¿½a, Spain
+2 PLAC Barcelona, , Cataluña, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Raymond Berenger V - AFN=8XJ8-D1 - 10 Apr 2005
 3 QUAY 3
@@ -78617,7 +78616,7 @@
 1 SEX M
 1 BIRT
 2 DATE ABT 1095
-2 PLAC , , Aragï¿½n, Spain
+2 PLAC , , Aragón, Spain
 2 SOUR @S33691@
 1 DEAT
 2 DATE 16 AUG 1147
@@ -78649,9 +78648,9 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I4133@ INDI
-1 NAME Dulce // Princess of Aragï¿½n
+1 NAME Dulce // Princess of Aragón
 2 GIVN Dulce
-2 NSFX Princess of Aragï¿½n
+2 NSFX Princess of Aragón
 1 SEX F
 1 BIRT
 2 DATE ABT 1159
@@ -78697,9 +78696,9 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I4135@ INDI
-1 NAME Sancha // Queen of Aragï¿½n
+1 NAME Sancha // Queen of Aragón
 2 GIVN Sancha
-2 NSFX Queen of Aragï¿½n
+2 NSFX Queen of Aragón
 1 SEX F
 1 BIRT
 2 DATE 21 SEP 1154
@@ -78708,7 +78707,7 @@
 3 QUAY 3
 1 DEAT
 2 DATE 9 NOV 1208
-2 PLAC Jaï¿½n, , Andalucï¿½a, Spain
+2 PLAC Jaén, , AndalucÍa, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Raymond Berenger V - AFN=8XJ8-D1 - 10 Apr 2005
 3 QUAY 3
@@ -78735,7 +78734,7 @@
 3 PAGE Pedigree chart for Alfonso - RIN=9FWS-1G - 19 May 2005
 1 DEAT
 2 DATE 24 MAY 1107
-2 PLAC Grajal de Campos, , Castilla y Leï¿½n, Spain
+2 PLAC Grajal de Campos, , Castilla y León, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Alfonso - RIN=9FWS-1G - 19 May 2005
 1 FAMS @F1488@
@@ -78759,7 +78758,7 @@
 3 PAGE Pedigree chart for Alfonso - RIN=9FWS-1G - 19 May 2005
 1 DEAT
 2 DATE 8 MAR 1126
-2 PLAC Saldaï¿½a, , Castilla y Leï¿½n, Spain
+2 PLAC Saldaña, , Castilla y León, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Alfonso - RIN=9FWS-1G - 19 May 2005
 2 NOTE @N1669@
@@ -78837,9 +78836,9 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I4141@ INDI
-1 NAME Pedro "the Catholic" // II, King of Aragï¿½n
+1 NAME Pedro "the Catholic" // II, King of Aragón
 2 GIVN Pedro "the Catholic"
-2 NSFX II, King of Aragï¿½n
+2 NSFX II, King of Aragón
 1 SEX M
 1 BIRT
 2 DATE (Abt 1174-1176)
@@ -79056,7 +79055,7 @@
 1 SEX F
 1 BIRT
 2 DATE ABT 1156
-2 PLAC Forcalquier, , Provence-Alpes-Cï¿½te d'Azur, France
+2 PLAC Forcalquier, , Provence-Alpes-Côte d'Azur, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Raymond Berenger V - AFN=8XJ8-D1 - 10 Apr 2005
 3 QUAY 3
@@ -79079,7 +79078,7 @@
 1 SEX M
 1 BIRT
 2 DATE 1130
-2 PLAC Forcalquier, , Provence-Alpes-Cï¿½te d'Azur, France
+2 PLAC Forcalquier, , Provence-Alpes-Côte d'Azur, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Raymond Berenger V - AFN=8XJ8-D1 - 10 Apr 2005
 3 QUAY 3
@@ -79196,7 +79195,7 @@
 3 PAGE Pedigree chart for Costanza - RIN=9B5T-0X - 20 May 2005
 1 DEAT
 2 DATE 20 JAN 1233
-2 PLAC Aoste, , Rhï¿½ne-Alpes, France
+2 PLAC Aoste, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Costanza - RIN=9B5T-0X - 20 May 2005
 2 NOTE @N1691@
@@ -79239,7 +79238,7 @@
 2 NSFX III, Count of Albon
 1 SEX M
 1 BIRT
-2 PLAC Albon, , Rhï¿½ne-Alpes, France
+2 PLAC Albon, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Matilde - RIN=MLKS-RW - 19 May 2005
 2 NOTE @N1694@
@@ -79262,7 +79261,7 @@
 1 SEX F
 1 BIRT
 2 DATE ABT 1070
-2 PLAC Albon, , Rhï¿½ne-Alpes, France
+2 PLAC Albon, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Matilde - RIN=MLKS-RW - 19 May 2005
 2 NOTE @N1696@
@@ -79470,7 +79469,7 @@
 3 PAGE Pedigree chart for Costanza - RIN=9B5T-0X - 20 May 2005
 1 DEAT
 2 DATE 8 APR 1257
-2 PLAC Pierre-Chï¿½tel, , Rhï¿½ne-Alpes, France
+2 PLAC Pierre-Châtel, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Costanza - RIN=9B5T-0X - 20 May 2005
 1 FAMC @F1504@
@@ -79490,7 +79489,7 @@
 1 SEX M
 1 BIRT
 2 DATE 1130
-2 PLAC Geneva, , Genï¿½ve, Switzerland
+2 PLAC Geneva, , Genève, Switzerland
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Beatrix - RIN=9HLZ-8K - 20 May 2005
 1 DEAT
@@ -79514,7 +79513,7 @@
 1 SEX M
 1 BIRT
 2 DATE ABT 1100
-2 PLAC Geneva, , Genï¿½ve, Switzerland
+2 PLAC Geneva, , Genève, Switzerland
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Beatrix - RIN=9HLZ-8K - 20 May 2005
 1 DEAT
@@ -79815,7 +79814,7 @@
 2 NOTE @N1724@
 1 DEAT
 2 DATE 21 DEC 1295
-2 PLAC Paris, , Rhï¿½ne-Alpes, France
+2 PLAC Paris, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Isabelle - AFN=8XJD-8V - 28 Jan 2005
 3 QUAY 3
@@ -79838,7 +79837,7 @@
 1 SEX M
 1 BIRT
 2 DATE 25 APR 1215
-2 PLAC Poissy, , ï¿½le-de-France, France
+2 PLAC Poissy, , Île-de-France, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Isabelle - AFN=8XJD-8V - 28 Jan 2005
 3 QUAY 3
@@ -79886,7 +79885,7 @@
 1 SEX M
 1 BIRT
 2 DATE (21 Mar 1226-1227)
-2 PLAC Paris, , Rhï¿½ne-Alpes, France
+2 PLAC Paris, , Rhône-Alpes, France
 2 SOUR @S33691@
 2 NOTE @N1730@
 1 DEAT
@@ -79991,7 +79990,7 @@
 1 SEX F
 1 BIRT
 2 DATE 1248
-2 PLAC Arras, , Rhï¿½ne-Alpes, France
+2 PLAC Arras, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Isabelle - AFN=8XJD-8V - 28 Jan 2005
 3 QUAY 3
@@ -79999,7 +79998,7 @@
 3 PAGE Pedigree chart for Joan Plantagenet - RIN=9FTX-7T - 14 May 2005
 1 DEAT
 2 DATE 2 MAY 1302
-2 PLAC Paris, , Rhï¿½ne-Alpes, France
+2 PLAC Paris, , Rhône-Alpes, France
 2 SOUR @S33694@
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Isabelle - AFN=8XJD-8V - 28 Jan 2005
@@ -80017,9 +80016,9 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I4194@ INDI
-1 NAME Eleanor // Princess of Castile & Lï¿½on
+1 NAME Eleanor // Princess of Castile & Léon
 2 GIVN Eleanor
-2 NSFX Princess of Castile & Lï¿½on
+2 NSFX Princess of Castile & Léon
 1 SEX F
 1 BIRT
 2 DATE 1244
@@ -80045,9 +80044,9 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I4195@ INDI
-1 NAME Ferdinand "the Saint" // III, King of Castile and Lï¿½on
+1 NAME Ferdinand "the Saint" // III, King of Castile and Léon
 2 GIVN Ferdinand "the Saint"
-2 NSFX III, King of Castile and Lï¿½on
+2 NSFX III, King of Castile and Léon
 1 SEX M
 1 BIRT
 2 DATE 5 AUG 1201
@@ -80080,7 +80079,7 @@
 1 SEX M
 1 BIRT
 2 DATE 15 AUG 1171
-2 PLAC Zamarra, , Castilla y Leï¿½n, Spain
+2 PLAC Zamarra, , Castilla y León, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Edward II King of England - AFN=8WKN-JD - 11 Jan 2005
 3 QUAY 3
@@ -80102,19 +80101,19 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I4197@ INDI
-1 NAME Fernando /Alfonsez/ II, King of Leï¿½n
+1 NAME Fernando /Alfonsez/ II, King of León
 2 GIVN Fernando
 2 SURN Alfonsez
-2 NSFX II, King of Leï¿½n
+2 NSFX II, King of León
 1 SEX M
 1 BIRT
 2 DATE 1137
-2 PLAC Leï¿½n, , Castilla y Leï¿½n, Spain
+2 PLAC León, , Castilla y León, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Alfonso - RIN=9B5V-PP - 19 May 2005
 1 DEAT
 2 DATE 22 JAN 1188
-2 PLAC Benavente, , Castilla y Leï¿½n, Spain
+2 PLAC Benavente, , Castilla y León, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Alfonso - RIN=9B5V-PP - 19 May 2005
 2 NOTE @N1746@
@@ -80482,10 +80481,10 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I4212@ INDI
-1 NAME Urraca /Affonsez/ Queen of Leï¿½n
+1 NAME Urraca /Affonsez/ Queen of León
 2 GIVN Urraca
 2 SURN Affonsez
-2 NSFX Queen of Leï¿½n
+2 NSFX Queen of León
 1 SEX F
 1 BIRT
 2 DATE 1151
@@ -80493,7 +80492,7 @@
 3 PAGE Pedigree chart for Alfonso - RIN=9B5V-PP - 19 May 2005
 1 DEAT
 2 DATE 16 OCT 1188
-2 PLAC Valladolid, , Castilla y Leï¿½n, Spain
+2 PLAC Valladolid, , Castilla y León, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Alfonso - RIN=9B5V-PP - 19 May 2005
 1 FAMC @F1500@
@@ -80742,7 +80741,7 @@
 2 NOTE @N1776@
 1 DEAT
 2 DATE 21 DEC 1252
-2 PLAC Paris, , Rhï¿½ne-Alpes, France
+2 PLAC Paris, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Louis - AFN=8XJD-KF - 28 Jan 2005
 3 QUAY 3
@@ -80765,7 +80764,7 @@
 1 SEX M
 1 BIRT
 2 DATE 3 SEP 1187
-2 PLAC Paris, , Rhï¿½ne-Alpes, France
+2 PLAC Paris, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Louis - AFN=8XJD-KF - 28 Jan 2005
 3 QUAY 3
@@ -80834,9 +80833,9 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I4228@ INDI
-1 NAME Alfonso // Count of Molino, Prince of Lï¿½on & Castile
+1 NAME Alfonso // Count of Molino, Prince of Léon & Castile
 2 GIVN Alfonso
-2 NSFX Count of Molino, Prince of Lï¿½on & Castile
+2 NSFX Count of Molino, Prince of Léon & Castile
 1 SEX M
 1 BIRT
 2 DATE (1203-1204)
@@ -80844,7 +80843,7 @@
 3 PAGE Pedigree chart for Alfonso Fernandez - RIN=MB79-J2 - 16 May 2005
 1 DEAT
 2 DATE 6 JAN 1272
-2 PLAC Salamanca, , Castilla y Lï¿½on, Spain
+2 PLAC Salamanca, , Castilla y Léon, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Alfonso Fernandez - RIN=MB79-J2 - 16 May 2005
 1 FAMC @F1518@
@@ -80945,7 +80944,7 @@
 3 PAGE Pedigree chart for Alfonso el Sabio - RIN=9BBL-GW - 16 May 2005
 1 DEAT
 2 DATE 5 NOV 1235
-2 PLAC Toro, , Castilla y Leï¿½n, Spain
+2 PLAC Toro, , Castilla y León, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Alfonso el Sabio - RIN=9BBL-GW - 16 May 2005
 2 NOTE @N1788@
@@ -80968,7 +80967,7 @@
 2 DATE ABT 1208
 1 DEAT
 2 DATE 15 MAR 1279
-2 PLAC Abbï¿½ville, , , France
+2 PLAC Abbéville, , , France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Edward II King of England - AFN=8WKN-JD - 11 Jan 2005
 3 QUAY 3
@@ -81449,7 +81448,7 @@
 1 SEX M
 1 BIRT
 2 DATE ABT 1067
-2 PLAC , , Aragï¿½n, Spain
+2 PLAC , , Aragón, Spain
 2 SOUR @S33691@
 2 NOTE @N1815@
 1 DEAT
@@ -81806,8 +81805,8 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @I4273@ INDI
-1 NAME Bï¿½atrice /de Saint Pol/
-2 GIVN Bï¿½atrice
+1 NAME Béatrice /de Saint Pol/
+2 GIVN Béatrice
 2 SURN de Saint Pol
 1 SEX F
 1 BIRT
@@ -82187,7 +82186,7 @@
 1 SEX M
 1 BIRT
 2 DATE 22 AUG 1165
-2 PLAC Paris, , Rhï¿½ne-Alpes, France
+2 PLAC Paris, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Louis - AFN=8XJD-KF - 28 Jan 2005
 3 QUAY 3
@@ -82224,7 +82223,7 @@
 2 NOTE @N1859@
 1 DEAT
 2 DATE 15 MAR 1190
-2 PLAC Paris, , Rhï¿½ne-Alpes, France
+2 PLAC Paris, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Louis - AFN=8XJD-KF - 28 Jan 2005
 3 QUAY 3
@@ -102999,7 +102998,7 @@
 0 @F1444@ FAM
 1 MARR
 2 DATE 22 SEP 1177
-2 PLAC Burgos, , Castilla y Leï¿½n, Spain
+2 PLAC Burgos, , Castilla y León, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Louis - AFN=8XJD-KF - 28 Jan 2005
 3 QUAY 3
@@ -103071,7 +103070,7 @@
 0 @F1451@ FAM
 1 MARR
 2 DATE 1180
-2 PLAC Angoulï¿½me, , Poitou-Charentes, France
+2 PLAC Angoulême, , Poitou-Charentes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Isabella de Taillefer - AFN=8XJ5-XC - 30 Jan 2005
 3 QUAY 3
@@ -103185,7 +103184,7 @@
 0 @F1460@ FAM
 1 MARR
 2 DATE ABT 1115
-2 PLAC Paris, , Rhï¿½ne-Alpes, France
+2 PLAC Paris, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Louis - AFN=8XJ2-7B - 29 Jan 2005
 3 QUAY 3
@@ -103415,7 +103414,7 @@
 0 @F1480@ FAM
 1 MARR
 2 DATE ABT JUL 1193
-2 PLAC Aix-en-Provence, , Provence-Alpes-Cï¿½te d'Azur, France
+2 PLAC Aix-en-Provence, , Provence-Alpes-Côte d'Azur, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Raymond Berenger V - AFN=8XJ8-D1 - 10 Apr 2005
 3 QUAY 3
@@ -103434,7 +103433,7 @@
 0 @F1481@ FAM
 1 MARR
 2 DATE (18 Jan 1174-1175)
-2 PLAC Zaragoza, , Aragï¿½n, Spain
+2 PLAC Zaragoza, , Aragón, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Raymond Berenger V - AFN=8XJ8-D1 - 10 Apr 2005
 3 QUAY 3
@@ -103478,7 +103477,7 @@
 0 @F1484@ FAM
 1 MARR
 2 DATE NOV 1128
-2 PLAC Saldaï¿½a, , Castilla y Leï¿½n, Spain
+2 PLAC Saldaña, , Castilla y León, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Berenguela Raimundo - RIN=91M1-8T - 19 May 2005
 1 HUSB @I4129@
@@ -103555,7 +103554,7 @@
 0 @F1490@ FAM
 1 MARR
 2 DATE 15 JUN 1204
-2 PLAC Montpellier, , Hï¿½rault, France
+2 PLAC Montpellier, , Hérault, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Yolanda - RIN=91RL-FG - 17 May 2005
 1 HUSB @I4141@
@@ -103814,7 +103813,7 @@
 0 @F1515@ FAM
 1 MARR
 2 DATE (Bef 29 Oct 1275-1276)
-2 PLAC Paris, , Rhï¿½ne-Alpes, France
+2 PLAC Paris, , Rhône-Alpes, France
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Joan Plantagenet - RIN=9FTX-7T - 14 May 2005
 1 HUSB @I4192@
@@ -103838,7 +103837,7 @@
 0 @F1517@ FAM
 1 MARR
 2 DATE 1237
-2 PLAC Burgos, , Castilla y Leï¿½n, Spain
+2 PLAC Burgos, , Castilla y León, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Edward II King of England - AFN=8WKN-JD - 11 Jan 2005
 3 QUAY 3
@@ -103853,7 +103852,7 @@
 0 @F1518@ FAM
 1 MARR
 2 DATE DEC 1197
-2 PLAC Valladolid, , Castilla y Leï¿½n, Spain
+2 PLAC Valladolid, , Castilla y León, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Edward II King of England - AFN=8WKN-JD - 11 Jan 2005
 3 QUAY 3
@@ -103958,7 +103957,7 @@
 0 @F1526@ FAM
 1 MARR
 2 DATE 30 JAN 1151
-2 PLAC Logroï¿½o, , La Rioja, Spain
+2 PLAC Logroño, , La Rioja, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Louis - AFN=8XJD-KF - 28 Jan 2005
 3 QUAY 3
@@ -104087,7 +104086,7 @@
 0 @F1537@ FAM
 1 MARR
 2 DATE 30 NOV 1219
-2 PLAC Burgos, , Castilla y Leï¿½n, Spain
+2 PLAC Burgos, , Castilla y León, Spain
 2 SOUR @S33691@
 3 PAGE Pedigree chart for Alfonso el Sabio - RIN=9BBL-GW - 16 May 2005
 1 HUSB @I4195@
@@ -106175,11 +106174,11 @@
 1 CONT 
 1 CONT Wife of David
 1 CONT 
-1 CONT Born: March 21, 1856 ï¿½ England
+1 CONT Born: March 21, 1856 – England
 1 CONT 
-1 CONT Died: January 14, 1929 ï¿½ Nephi, Utah
+1 CONT Died: January 14, 1929 – Nephi, Utah
 1 CONT 
-1 CONT Buried: Nephi, Utah ï¿½ City Cemetery - Downtown
+1 CONT Buried: Nephi, Utah – City Cemetery - Downtown
 1 CONT 
 1 CONT 
 1 CONT 
@@ -106187,7 +106186,7 @@
 1 CONT 
 1 CONT Wife of David
 1 CONT 
-1 CONT Born: June 18, 1848 ï¿½ England
+1 CONT Born: June 18, 1848 – England
 1 CONT 
 1 CONT Died: August 8, 1912
 1 CONT 
@@ -106630,7 +106629,7 @@
 1 CONT [PIPESexKOR.FTW]
 1 CONT 
 1 CONT Suffolk Record Office, Ipswich Branch: The Iveagh (Phillipps) Suffolk Manuscripts [HD 1538/1 - HD 1538/112]
-1 CONT The contents of this catalogue are the copyright of Suffolk Record Office, Ipswich Branch.Rights in the Access to Archives database are the property of the Crown, ï¿½ 2001-2004.To find out more about the archives described below, contact Suffolk R
+1 CONT The contents of this catalogue are the copyright of Suffolk Record Office, Ipswich Branch.Rights in the Access to Archives database are the property of the Crown, © 2001-2004.To find out more about the archives described below, contact Suffolk R
 1 CONC ecord Office, Ipswich Branch <http://www.hmc.gov.uk/archon/searches/locresult.asp?LR=173>
 1 CONT The Iveagh (Phillipps) Suffolk Manuscripts
 1 CONT Catalogue Ref. HD 1538
@@ -106674,23 +106673,23 @@
 0 @N404@ NOTE _P_CCINFO 1-1319
 1 CONT Mr Edwin Amass Comes From England to Brighton
 1 CONT 
-1 CONT Mr. Edwin Amass travelled to Brighton from Debenham near Stonham in the County of Suffolk , England, leaving the 5th of January 1858, and arriving at Ipswich on the same day. The following day he was in London, and dined at the Indian Chiefï¿½s Co
+1 CONT Mr. Edwin Amass travelled to Brighton from Debenham near Stonham in the County of Suffolk , England, leaving the 5th of January 1858, and arriving at Ipswich on the same day. The following day he was in London, and dined at the Indian Chief’s Co
 1 CONC ffee Shop in High Street, opposite the Eastern Counties railroad  Terminus [Liverpool Street Station]. Mr Amass had a pair of new boots to come to America, from Thomas Gooding, Bootmaker, located at No. 10 Upper John Street, and later dined on D
 1 CONC rummond Street.
 1 CONT 
 1 CONT On January 14th he left London and arrived at Liverpool the same evening. On the 15th the ship Emerald Isle, which was tugged out of harbour, sailed down the Irish Channel and arrived at the mouth of the North Atlantic Ocean at night. Between th
-1 CONC e 20th and 21st the ship sailed under light head winds, but on the 23rd a ï¿½tremendous galeï¿½ blew, and by six oï¿½clock that evening the ï¿½sea broke over the ship, bursted in the bulwarks , and the water rushed down into the cabins and struck terro
-1 CONC r and consternation in the minds of all passengers on board.ï¿½ The sea was running ï¿½mountain highï¿½ and continued until the 25th. Then fine weather returned and the Western  Islands were passed, a portion of the Portuguese Dominion.  On February 2
-1 CONC nd a large shoal of whale threshers showed themselves close to the shipï¿½s side, and a complete hurricane was experienced on the 5th which lasted for two days, and the ship drifted close to Bermuda , one of the West Indies Islands. This day wa
+1 CONC e 20th and 21st the ship sailed under light head winds, but on the 23rd a “tremendous gale” blew, and by six o’clock that evening the “sea broke over the ship, bursted in the bulwarks , and the water rushed down into the cabins and struck terro
+1 CONC r and consternation in the minds of all passengers on board.” The sea was running “mountain high” and continued until the 25th. Then fine weather returned and the Western  Islands were passed, a portion of the Portuguese Dominion.  On February 2
+1 CONC nd a large shoal of whale threshers showed themselves close to the ship’s side, and a complete hurricane was experienced on the 5th which lasted for two days, and the ship drifted close to Bermuda , one of the West Indies Islands. This day wa
 1 CONC s a memorable one, for a large number of flying fish were seen and more whale threshers. In a day or two the Emerald Isle was visited by a British sloop of war.
 1 CONT 
 1 CONT              By the 16th of February another hurricane came, and when it abated the weather became very hot. These varying conditions persisted for many days and they were still on their journey by March the 1st when the Gulf Stream was entered
 1 CONC . Then bitter cold and snow storms were encountered, and the ship drifted back into the North Atlantic. On March 11 the morning was fair and at 5 P.M. land was sighted. What a thrill that must have been after being at sea so long! On the 12th a
 1 CONC t 7 A.M. a steam tug boat took them to Castle Gardens, New York arriving at 5 P.M. for the large sum of $200. Mr Amass travelled to Elmira, and thence to Niagara, where he visited the falls at night, and crossed the Suspension Bridge. (Evidentl
-1 CONC y this journey was down the St Lawrence by boat). By train the journey continued to Hamilton and then to Toronto and to Windsor. The Lake (Lake Windsor) was crossed and Detroit was reached, then on to Chicago.  Mr Amass left Chicago at 12 oï¿½cloc
-1 CONC k noon and arrived at Brighton at 12 oï¿½clock midnight on March 24th, 1858, and went to lodge at Mr Hillï¿½s (Hill House).
+1 CONC y this journey was down the St Lawrence by boat). By train the journey continued to Hamilton and then to Toronto and to Windsor. The Lake (Lake Windsor) was crossed and Detroit was reached, then on to Chicago.  Mr Amass left Chicago at 12 o’cloc
+1 CONC k noon and arrived at Brighton at 12 o’clock midnight on March 24th, 1858, and went to lodge at Mr Hill’s (Hill House).
 1 CONT 
-1 CONT From: ï¿½There The Heart Isï¿½ A History of Brighton, Illinois 1826-1964 pp 200-201  Martha A Bentley. Published April 17, 1965.
+1 CONT From: “There The Heart Is” A History of Brighton, Illinois 1826-1964 pp 200-201  Martha A Bentley. Published April 17, 1965.
 1 CONT 
 1 CONT Mr Edwin Amass Prospects For Gold
 1 CONT 
@@ -106698,22 +106697,22 @@
 1 CONC ich went to Napoleon and Little Rock, Arkansas. Here the Steamer D.H. Morton was boarded, which was completely destroyed by fire and the passengers were left on shore for two days, when they again boarded the Steamer L.H. Tucker . This Steamer p
 1 CONC assed the Ozark Mountain area and when Mr Amass arrived at Fort Smith, he commenced camping outside the town. He purchased a yoke of oxen, a wagon and some provisions.
 1 CONT 
-1 CONT On March 30th , 1859 a caravan of 7 yoke of oxen, 7 waggons and 23 men started out to prospect for gold. The prospectors experienced the ï¿½usualï¿½ - a broken axle, passed immense herds of bison, and on the Big Bend of the Arkansas River saw 7000 e
+1 CONT On March 30th , 1859 a caravan of 7 yoke of oxen, 7 waggons and 23 men started out to prospect for gold. The prospectors experienced the “usual” - a broken axle, passed immense herds of bison, and on the Big Bend of the Arkansas River saw 7000 e
 1 CONC ncamped Indians. Days without end they met discouraged prospectors on their way back. On one occasion 6000 Comanchee Indians were encountered, but no mention of hostility was made.
 1 CONT 
-1 CONT By May 26th Pikeï¿½s Peak was plainly visible, and June 5th Denver was reached. The going was slow and laborious, but a thrill of excitement ensued when they arrived at the foot of the Rocky Mountains, after a trek of 890 miles from Fort Smith.
+1 CONT By May 26th Pike’s Peak was plainly visible, and June 5th Denver was reached. The going was slow and laborious, but a thrill of excitement ensued when they arrived at the foot of the Rocky Mountains, after a trek of 890 miles from Fort Smith.
 1 CONT 
 1 CONT The men worked around the Gregory Mines and made nothing, until on August 7th they decided to pack up and leave for South Park, a distance of 200 miles, which took 9 days. On and on they travelled, seeing the Great Salt Lake, the Platte River, m
 1 CONC ore bison and Potawatami Indians.
 1 CONT 
 1 CONT At St Lawrence the ox team was sold and a stage coach taken to Kansas City, and from there on to St. Joe by way of the steamer W.H. Russell. (Much travel was done by boat at this time, and apparently the steamers were named for their owners.) Th
 1 CONC e railroad was used to get to Hannibal, Missouri, then the Steamer landed Mr Amass at St. Louis on October 8, 1859. The Steamer Baltimore brought him to Alton, Illinois, and he came on up to Brighton in the evening. Mr. Amass worked for a whil
-1 CONC e in Alton and while there had the misfortune of losing has carpet bag on March 10th of 1860 ï¿½ the bag and contents were valued at $61.50.
+1 CONC e in Alton and while there had the misfortune of losing has carpet bag on March 10th of 1860 – the bag and contents were valued at $61.50.
 1 CONT 
-1 CONT Mr. Amassï¿½ frequent visits to Brighton indicated a definite interest in the village and on May 10th, 1860 he ï¿½commenced work for Mrs. Hill at $25 a month.ï¿½ (Presumably at Hill house). From that day on Mr Edwin Amass ceased to travel and he belon
+1 CONT Mr. Amass’ frequent visits to Brighton indicated a definite interest in the village and on May 10th, 1860 he “commenced work for Mrs. Hill at $25 a month.” (Presumably at Hill house). From that day on Mr Edwin Amass ceased to travel and he belon
 1 CONC ged to Brighton, contributing to the business, social and religious life of the community.
 1 CONT 
-1 CONT From: ï¿½There The Heart Isï¿½ A History of Brighton, Illinois 1826-1964 pp 208-209  Martha A Bentley. Published April 17, 1965.
+1 CONT From: “There The Heart Is” A History of Brighton, Illinois 1826-1964 pp 208-209  Martha A Bentley. Published April 17, 1965.
 1 CONT 
 1 CONT Chicago Fire contribution: 1782
 1 CONT 
@@ -106792,17 +106791,17 @@
 1 CONT 
 1 CONT Date:15.1.1805
 1 CONT 
-1 CONT Personal estate under ï¿½100
+1 CONT Personal estate under £100
 1 CONT 
 1 CONT 15 Jan 1805
 1 CONT 
 1 CONT Suffolk Record Office, Ipswich Branch: Debenham Parish Records
-1 CONT The contents of this catalogue are the copyright of Suffolk Record Office, Ipswich Branch.Rights in the Access to Archives database are the property of the Crown, ï¿½ 2001-2004.To find out more about the archives described below, contact Suffolk R
+1 CONT The contents of this catalogue are the copyright of Suffolk Record Office, Ipswich Branch.Rights in the Access to Archives database are the property of the Crown, © 2001-2004.To find out more about the archives described below, contact Suffolk R
 1 CONC ecord Office, Ipswich Branch <http://www.hmc.gov.uk/archon/searches/locresult.asp?LR=173>
 1 CONT DEBENHAM PARISH RECORDS
 1 CONT Catalogue Ref. FB47
 1 CONT Creator(s):Church of England, Debenham Parish, SuffolkOVERSEERSBastardyFILE - William Amass of Debenham, butcher - ref. FB47/G8/65 - date: 1807FILE - Thomas Darby of Kenton, farmer - ref. FB47/G8/71 - date: 1810[from Scope and Content] Bound i
-1 CONC n ï¿½100 to indemnify the parish from the maintenance of a female child born to Mary Amass, single-woman 24 July 1810
+1 CONC n £100 to indemnify the parish from the maintenance of a female child born to Mary Amass, single-woman 24 July 1810
 1 CONT 
 1 CONT John Palmer
 1 CONT Male
@@ -107068,9 +107067,9 @@
 1 CONC 40. Elder Cazier writes: "My father and mother joined the Church in 1845 and moved with their family to Council Bluffs, Iowa, in 1846, where they shared with the Saints in the general hardships of that time. My brothers James and John enlisted i
 1 CONC n the Mormon Battalion; my mother died in the fall of 1846 in a hay shed and was buried in a coffin made of a hollowed-out log; there were no flowers in evidence at her funeral. My father went into Missouri to split rails, thereby earning corn a
 1 CONC nd pork wherewith to feed his family. We resided in Iowa for four years and when we departed from that territory to migrate to Utah, we left a good house. We settled in Nephi in 1851, being among the first settlers of that place. I was baptize
-1 CONC d in 1852 and took an active part in the Walker and Black hawk wars. Together with my brothers John and Samuel, I also participated in the Echo canyon campaign during the winter of 1857ï¿½58.
+1 CONC d in 1852 and took an active part in the Walker and Black hawk wars. Together with my brothers John and Samuel, I also participated in the Echo canyon campaign during the winter of 1857–58.
 1 CONT 
-1 CONT Nephiï¿½The first election in Nephi was conducted on the first Monday in May, 1852, according to the Deseret News of December 11, 1852. Officers elected were Josiah Miller, Mayor; Timothy B. Foote, Charles H. Bryan, John Carter and Isaac Grace, Al
+1 CONT Nephi—The first election in Nephi was conducted on the first Monday in May, 1852, according to the Deseret News of December 11, 1852. Officers elected were Josiah Miller, Mayor; Timothy B. Foote, Charles H. Bryan, John Carter and Isaac Grace, Al
 1 CONC dermen; Amos Gustin, John Cazier, David Webb, James Crabb, Cleon Elmer, Levi Gifford, Ichabod Gifford, Thomas Tranter and Miles Miller, Councilors; Zimri H. Baxter, Assessor and Collector; William Cazier, Treasurer; Israel Hoyt, Marshal; and Cha
 1 CONC rles Sperry, Supervisor of Streets.
 0 @N665@ NOTE _P_CCINFO 1-1319
@@ -107828,7 +107827,7 @@
 0 @N1249@ NOTE _P_CCINFO 1-1319
 1 CONT [PIPESexKOR.FTW]
 1 CONT 
-1 CONT Name Samuel Pipe AMASS Date 30 Mar 1803 Aged inf Place Debenham Description St Mary Denomination Anglican County code SFKAmount paid ï¿½0.05
+1 CONT Name Samuel Pipe AMASS Date 30 Mar 1803 Aged inf Place Debenham Description St Mary Denomination Anglican County code SFKAmount paid £0.05
 0 @N1250@ NOTE _P_CCINFO 1-1319
 1 CONT [PIPESexKOR.FTW]
 1 CONT 
@@ -107884,7 +107883,7 @@
 1 CONT Census 1851
 1 CONT Aged 17 a lodger and trainee butcher  in the parish of St Mathew Ipswich with the Maidwell family.
 1 CONT 
-1 CONT ?Child of  - Groom George Amass Status - from Parish - Bride Louisa Banyard Status - from Parish - Married at Coddenham on 27 Mar 1832Amount paid ï¿½0.05
+1 CONT ?Child of  - Groom George Amass Status - from Parish - Bride Louisa Banyard Status - from Parish - Married at Coddenham on 27 Mar 1832Amount paid £0.05
 1 CONT 
 1 CONT .Died.  Name George AMASS Date 23 Apr 1857 Aged 75 Place Debenham Description St Mary Denomination Anglican County code SFK
 1 CONT 
@@ -108249,7 +108248,7 @@
 1 CONC e certificate).
 1 CONT 
 1 CONT Statement by soldier concerning his own case:
-1 CONT ï¿½Richard Offard.ï¿½ Served: ï¿½England 18 months, India 2 years 4 months, in the ranks and in the cook House.ï¿½Suffering from: ï¿½ Heatstroke began August 1918 through heat in India.ï¿½ï¿½Feeling Allwright [sic] at presentï¿½ dated: 10 Jun 1919.
+1 CONT “Richard Offard.” Served: “England 18 months, India 2 years 4 months, in the ranks and in the cook House.”Suffering from: “ Heatstroke began August 1918 through heat in India.”“Feeling Allwright [sic] at present” dated: 10 Jun 1919.
 1 CONT 
 1 CONT Treated: Jutagh India,  Jullendah India. National Health Approved Society: Liverpool Victoria Friendly Society. Hospital: Admitted 1 Jun 1919 discharged 5 Jun 1919 Malaria. Letters A A and three other marks Tattooed on Left Forearm.
 1 SOUR @S33643@
@@ -109890,7 +109889,7 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @N1591@ NOTE 
-1 CONT Isabella was heiress of her father, Aymer, Count of Angoulï¿½me.  She became Queen of England.
+1 CONT Isabella was heiress of her father, Aymer, Count of Angoulême.  She became Queen of England.
 1 CONT 
 1 CONT Ref:  Pedigree chart - Edward III, King of England
 1 CONT       "The Descent of George Washington"
@@ -110354,7 +110353,7 @@
 2 DATE 6 MAR 2008
 3 TIME 22:27:14
 0 @N1653@ NOTE 
-1 CONT "Perpignan, Pyï¿½nï¿½es-Orientales, France"
+1 CONT "Perpignan, Pyénées-Orientales, France"
 1 SOUR @S33690@
 2 NOTE Record originated in...
 1 CHAN

@@ -26,6 +26,7 @@ public final class ReaderSource extends AbstractGedLineSource {
     @Override
     public AbstractGedLine createGedLine(final AbstractGedLine parent)
             throws IOException {
-        return createGedLine(parent, reader.readLine());
+        final String line = reader.readLine();
+        return createGedLine(parent, line);
     }
 }

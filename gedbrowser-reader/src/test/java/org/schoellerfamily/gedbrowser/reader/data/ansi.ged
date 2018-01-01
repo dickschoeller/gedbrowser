@@ -1,0 +1,28 @@
+0 HEAD
+1 SOUR FAMILY_HISTORIAN
+2 VERS 3.1
+2 NAME Family Historian
+2 CORP Calico Pie Limited
+1 FILE C:\Users\Phil\Documents\W0803.GED
+1 GEDC
+2 VERS 5.5
+2 FORM LINEAGE-LINKED
+1 CHAR ANSI
+0 @I380@ INDI
+1 NAME Thomas /Barnes/
+1 SEX M
+1 BIRT
+2 DATE ABT 1776
+2 PLAC Suffolk
+1 EMIG
+2 DATE 1846
+2 PLAC South Australia on the Ábberton  1846 with daug & son in law
+1 DEAT
+2 PLAC Australia
+1 FAMS @F60@
+1 NOTE @N380@
+1 REFN 413
+1 CHAN
+2 DATE 12 APR 2007
+3 TIME 23:21:11
+0 TRLR

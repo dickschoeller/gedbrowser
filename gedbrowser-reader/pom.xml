@@ -41,6 +41,11 @@
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-datamodel</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.clojars.rayne</groupId>
+      <artifactId>anselcharset</artifactId>
+      <version>${anselcharset.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework</groupId>
