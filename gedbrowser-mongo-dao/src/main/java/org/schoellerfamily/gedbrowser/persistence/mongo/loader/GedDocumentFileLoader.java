@@ -19,6 +19,7 @@ import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
+import org.schoellerfamily.gedbrowser.reader.CharsetScanner;
 import org.schoellerfamily.gedbrowser.reader.GedFile;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,10 +101,10 @@ public class GedDocumentFileLoader {
         Root root;
 
         final String filename = buildFileName(dbName);
-
+        final String charset = new CharsetScanner().charset(filename);
         final File file = new File(filename);
         try (FileInputStream fis = new FileInputStream(file);
-                Reader reader = new InputStreamReader(fis, "UTF-8");
+                Reader reader = new InputStreamReader(fis, charset);
                 BufferedReader bufferedReader = new BufferedReader(reader);) {
             final GedFile gedFile = new GedFile(filename, dbName, finder,
                     bufferedReader);

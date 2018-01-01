@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.reader.testreader;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,7 +8,9 @@ import java.io.Reader;
 import java.util.stream.Stream;
 
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
+import org.schoellerfamily.gedbrowser.reader.CharsetScanner;
 import org.schoellerfamily.gedbrowser.reader.GedFile;
+import org.schoellerfamily.gedbrowser.reader.StreamManager;
 
 /**
  * This class provides a method to simplify reading test data files.
@@ -17,12 +18,6 @@ import org.schoellerfamily.gedbrowser.reader.GedFile;
  * @author Dick Schoeller
  */
 public final class TestResourceReader {
-    /**
-     * Directory containing test data files.
-     */
-    private static final String DATA_DIR =
-            "/org/schoellerfamily/gedbrowser/reader/data/";
-
     /**
      * Constructor.
      */
@@ -40,19 +35,14 @@ public final class TestResourceReader {
     public static AbstractGedLine readFileTestSource(final Object caller,
             final String filename) throws IOException {
         String shortname;
-        String shortername;
-        InputStream fis;
         if (filename.charAt(0) == '/') {
             shortname = filename.substring(filename.lastIndexOf("/") + 1);
-            shortername = shortname.substring(0, shortname.indexOf("."));
-            fis = new FileInputStream(filename);
         } else {
             shortname = filename;
-            shortername = shortname.substring(0, shortname.indexOf("."));
-            fis = caller.getClass().getResourceAsStream(DATA_DIR + filename);
         }
-        final Reader reader = new InputStreamReader(fis, "UTF-8");
-        final BufferedReader bufferedReader = new BufferedReader(reader);
+        final String shortername = shortname.substring(0,
+                shortname.indexOf("."));
+        final BufferedReader bufferedReader = openBufferedReader(filename);
         final GedFile gedFile = new GedFile(shortname, shortername, null,
                 bufferedReader);
         gedFile.readToNext();
@@ -69,14 +59,20 @@ public final class TestResourceReader {
      */
     public static Stream<String> readFileTestSourceAsStrings(
             final Object caller, final String filename) throws IOException {
-        InputStream fis;
-        if (filename.charAt(0) == '/') {
-            fis = new FileInputStream(filename);
-        } else {
-            fis = caller.getClass().getResourceAsStream(DATA_DIR + filename);
-        }
-        final Reader reader = new InputStreamReader(fis, "UTF-8");
-        final BufferedReader bufferedReader = new BufferedReader(reader);
-        return bufferedReader.lines();
+        return openBufferedReader(filename).lines();
+    }
+
+    /**
+     * @param filename the input filename
+     * @return the buffered reader
+     * @throws IOException if the file isn't found or bad charset
+     */
+    private static BufferedReader openBufferedReader(final String filename)
+            throws IOException {
+        final InputStream fis = new StreamManager(filename).getInputStream();
+        final String charset = new CharsetScanner().charset(filename);
+        final Reader reader = new InputStreamReader(
+                fis, charset);
+        return new BufferedReader(reader);
     }
 }
