@@ -1,3 +1,10 @@
+version: "2"
+checks:
+  similar-code:
+    enabled: false
+  identical-code:
+    config:
+      threshold: 30
 engines:
 #  stylelint:
 #    enabled: true
@@ -24,5 +31,6 @@ ratings:
   - "**.java"
   - "**.md"
   - "**.html"
-exclude_paths:
-- config/
+exclude_patterns:
+- "config/"
+- "**/src/test/"
