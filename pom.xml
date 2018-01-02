@@ -604,6 +604,11 @@
         <artifactId>logback-classic</artifactId>
         <version>${logback-classic.version}</version>
       </dependency>
+      <dependency>
+        <groupId>org.clojars.rayne</groupId>
+        <artifactId>anselcharset</artifactId>
+        <version>${anselcharset.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
