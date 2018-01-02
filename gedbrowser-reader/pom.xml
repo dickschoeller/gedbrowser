@@ -44,7 +44,6 @@
     <dependency>
       <groupId>org.clojars.rayne</groupId>
       <artifactId>anselcharset</artifactId>
-      <version>${anselcharset.version}</version>
     </dependency>
 
     <dependency>
