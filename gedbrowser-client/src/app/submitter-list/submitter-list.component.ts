@@ -22,19 +22,11 @@ export class SubmitterListComponent implements OnInit {
    * If those are the same, then by ID.
    */
   compare = function(a: ApiSubmitter, b: ApiSubmitter) {
-    if (a.name < b.name) {
-      return -1;
+    const val = a.name.localeCompare(b.name);
+    if (val !== 0) {
+      return val;
     }
-    if (a.name > b.name) {
-      return 1;
-    }
-    if (a.string < b.string) {
-      return -1;
-    }
-    if (a.string > b.string) {
-      return 1;
-    }
-    return 0;
+    return a.string.localeCompare(b.string);
   };
 
   /**

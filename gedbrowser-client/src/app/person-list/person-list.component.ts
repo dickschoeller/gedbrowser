@@ -20,23 +20,13 @@ export class PersonListComponent implements OnInit {
    * Comparison function to sort the persons returned.
    * Index name is the first level sort.
    * If those are the same, then by ID.
-   *
-   * TODO We should do something to include dates in there.
    */
   compare = function(a: ApiPerson, b: ApiPerson) {
-    if (a.indexName < b.indexName) {
-      return -1;
+    const val = a.indexName.localeCompare(b.indexName);
+    if (val !== 0) {
+      return val;
     }
-    if (a.indexName > b.indexName) {
-      return 1;
-    }
-    if (a.string < b.string) {
-      return -1;
-    }
-    if (a.string > b.string) {
-      return 1;
-    }
-    return 0;
+    return a.string.localeCompare(b.string);
   };
 
   /**

@@ -23,11 +23,7 @@ module.exports = function (config) {
       environment: 'dev'
     },
     reporters: ['progress', 'kjhtml'],
-    port: 9876,
-    colors: true,
-    logLevel: config.LOG_INFO,
-    autoWatch: true,
-    browsers: ['Chrome'],
-    singleRun: false
+    port: 9876, colors: true, logLevel: config.LOG_INFO,
+    autoWatch: true, browsers: ['Chrome'], singleRun: false
   });
 };

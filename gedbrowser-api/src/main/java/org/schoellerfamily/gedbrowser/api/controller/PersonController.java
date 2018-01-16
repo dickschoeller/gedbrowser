@@ -82,8 +82,7 @@ public class PersonController
     public List<ApiPerson> readPersons(
             @PathVariable final String db) {
         logger.info("Entering read /dbs/" + db + "/persons");
-        final List<ApiPerson> persons = getD2dm().convert(read(db));
-        return persons;
+        return getD2dm().convert(read(db));
     }
 
     /**
@@ -98,8 +97,7 @@ public class PersonController
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering read /dbs/" + db + "/persons/" + id);
-        final ApiPerson person = getD2dm().convert(read(db, id));
-        return person;
+        return getD2dm().convert(read(db, id));
     }
 
     /**

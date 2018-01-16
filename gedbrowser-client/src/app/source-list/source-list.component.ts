@@ -22,19 +22,11 @@ export class SourceListComponent implements OnInit {
    * If those are the same, then by ID.
    */
   compare = function(a: ApiSource, b: ApiSource) {
-    if (a.title < b.title) {
-      return -1;
+    const val = a.title.localeCompare(b.title);
+    if (val !== 0) {
+      return val;
     }
-    if (a.title > b.title) {
-      return 1;
-    }
-    if (a.string < b.string) {
-      return -1;
-    }
-    if (a.string > b.string) {
-      return 1;
-    }
-    return 0;
+    return a.string.localeCompare(b.string);
   };
 
   /**
