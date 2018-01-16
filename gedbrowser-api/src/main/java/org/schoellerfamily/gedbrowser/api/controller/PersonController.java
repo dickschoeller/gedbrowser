@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * @author Dick Schoeller
  */
+@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 public class PersonController
     extends OperationsEnabler<Person, PersonDocument>
@@ -49,7 +51,7 @@ public class PersonController
         logger.info("Entering create person in db: " + db);
         return create(readRoot(db), person, (i, id) ->
             new ApiPerson(i.getType(), id, i.getAttributes(), i.getIndexName(),
-                    i.getSurname()));
+                    i.getSurname(), i.getLifespan()));
     }
 
     /**
@@ -80,7 +82,8 @@ public class PersonController
     public List<ApiPerson> readPersons(
             @PathVariable final String db) {
         logger.info("Entering read /dbs/" + db + "/persons");
-        return getD2dm().convert(read(db));
+        final List<ApiPerson> persons = getD2dm().convert(read(db));
+        return persons;
     }
 
     /**
@@ -95,7 +98,8 @@ public class PersonController
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("Entering read /dbs/" + db + "/persons/" + id);
-        return getD2dm().convert(read(db, id));
+        final ApiPerson person = getD2dm().convert(read(db, id));
+        return person;
     }
 
     /**

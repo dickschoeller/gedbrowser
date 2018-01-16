@@ -64,7 +64,8 @@ public class SubmitterControllerTest {
                 + "    \"string\" : \"Phil Williams\",\n"
                 + "    \"attributes\" : [ ],\n"
                 + "    \"tail\" : \"\"\n"
-                + "  } ]\n"
+                + "  } ],\n"
+                + "  \"name\" : \"Phil Williams\"\n"
                 + "}";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains(bodyFragment);
@@ -86,7 +87,8 @@ public class SubmitterControllerTest {
                 + "    \"string\" : \"Phil Williams\",\n"
                 + "    \"attributes\" : [ ],\n"
                 + "    \"tail\" : \"\"\n"
-                + "  } ]\n"
+                + "  } ],\n"
+                + "  \"name\" : \"Phil Williams\"\n"
                 + "}";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).isEqualTo(bodyFragment);
@@ -208,7 +210,7 @@ public class SubmitterControllerTest {
                 + "/gedbrowser-api/dbs/gl120368/submitters";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        final ApiSubmitter reqBody = new ApiSubmitter("submitter", "");
+        final ApiSubmitter reqBody = new ApiSubmitter("submitter", "", "? ?");
         final HttpEntity<ApiSubmitter> req =
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiSubmitter> entity = testRestTemplate
@@ -233,7 +235,7 @@ public class SubmitterControllerTest {
         // we are modifying.
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/dbs/gl120368/submitters";
-        final ApiSubmitter reqBody = new ApiSubmitter("submitter", "");
+        final ApiSubmitter reqBody = new ApiSubmitter("submitter", "", "? ?");
         final HttpEntity<ApiSubmitter> req = new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiSubmitter> submitterEntity = testRestTemplate
                 .postForEntity(new URI(url), req, ApiSubmitter.class);
@@ -296,7 +298,7 @@ public class SubmitterControllerTest {
         // we are modifying.
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/dbs/gl120368/submitters";
-        final ApiSubmitter reqBody = new ApiSubmitter("submitter", "");
+        final ApiSubmitter reqBody = new ApiSubmitter("submitter", "", "? ?");
         final HttpEntity<ApiSubmitter> req =
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiSubmitter> submitterEntity = testRestTemplate
@@ -376,8 +378,8 @@ public class SubmitterControllerTest {
         final List<ApiAttribute> attributes = new ArrayList<>();
         attributes.add(new ApiAttribute("name", "Richard/Schoeller/", ""));
         attributes.add(new ApiAttribute("attribute", "Date", "1 JAN 1970"));
-        final ApiSubmitter reqBody =
-                new ApiSubmitter("submitter", "", attributes);
+        final ApiSubmitter reqBody = new ApiSubmitter("submitter", "",
+                attributes, "Richard Schoeller");
         final HttpEntity<ApiSubmitter> req =
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiSubmitter> submitterEntity = testRestTemplate
@@ -415,7 +417,7 @@ public class SubmitterControllerTest {
         final List<ApiAttribute> attributes = new ArrayList<>();
         attributes.add(new ApiAttribute("attribute", "Note", "first note"));
         final ApiSubmitter reqBody =
-                new ApiSubmitter("submitter", "", attributes);
+                new ApiSubmitter("submitter", "", attributes, "? ?");
         final HttpEntity<ApiSubmitter> req =
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiSubmitter> entity = testRestTemplate

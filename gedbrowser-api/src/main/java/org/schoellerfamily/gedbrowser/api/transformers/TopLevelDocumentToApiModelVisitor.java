@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.api.transformers;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiLifespan;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
@@ -10,6 +11,8 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
+import org.schoellerfamily.gedbrowser.persistence.domain.AttributeDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.FamilyDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
@@ -49,9 +52,25 @@ public class TopLevelDocumentToApiModelVisitor
      */
     @Override
     public final void visit(final PersonDocument document) {
+        final String birthDate = date(document, "Birth");
+        final String deathDate = date(document, "Death");
+        final ApiLifespan lifespan = new ApiLifespan(birthDate, deathDate);
         setBaseObject(new ApiPerson(document.getType(), document.getString(),
-                document.getIndexName(), document.getSurname()));
+                document.getIndexName(), document.getSurname(), lifespan));
         addAttributes(document);
+    }
+
+    /**
+     * Get a particular date type.
+     *
+     * @param document the person document we're assessing
+     * @param type which event type
+     * @return the date string
+     */
+    private String date(final PersonDocument document, final String type) {
+        final GetDateVisitor birthVisitor = new GetDateVisitor(type);
+        document.getGedObject().accept(birthVisitor);
+        return birthVisitor.getDate();
     }
 
     /**
@@ -68,8 +87,23 @@ public class TopLevelDocumentToApiModelVisitor
      */
     @Override
     public final void visit(final SourceDocument document) {
-        setBaseObject(new ApiSource(document.getType(), document.getString()));
+        setBaseObject(new ApiSource(document.getType(), document.getString(),
+                title(document)));
         addAttributes(document);
+    }
+
+    /**
+     * @param document the document whose title we want
+     * @return the title
+     */
+    private String title(final SourceDocument document) {
+        for (final GedDocument<?> g : document.getAttributes()) {
+            if ("Title".equals(g.getString())) {
+                final AttributeDocument a = (AttributeDocument) g;
+                return a.getTail();
+            }
+        }
+        return "Unknown";
     }
 
     /**
@@ -96,9 +130,22 @@ public class TopLevelDocumentToApiModelVisitor
      */
     @Override
     public final void visit(final SubmitterDocument document) {
-        setBaseObject(
-                new ApiSubmitter(document.getType(), document.getString()));
+        setBaseObject(new ApiSubmitter(document.getType(), document.getString(),
+                name(document)));
         addAttributes(document);
+    }
+
+    /**
+     * @param document the document whose name we want
+     * @return the name
+     */
+    private String name(final SubmitterDocument document) {
+        for (final GedDocument<?> g : document.getAttributes()) {
+            if ("name".equals(g.getType())) {
+                return g.getString().replace("/", " ").trim();
+            }
+        }
+        return "? ?";
     }
 
     /**

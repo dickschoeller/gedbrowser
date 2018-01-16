@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiLifespan;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
@@ -55,8 +56,8 @@ public class ApiModelToGedObjectVisitorTest {
     public void testPerson() {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
-        final ApiPerson apiPerson = new ApiPerson(
-                "person", "I1", "Schoeller/Richard/", "Schoeller");
+        final ApiPerson apiPerson = new ApiPerson("person", "I1",
+                "Schoeller/Richard/", "Schoeller", new ApiLifespan("", ""));
         apiPerson.accept(visitor);
         final Person gob = (Person) visitor.getGedObject();
         assertEquals("person mismatch", "I1", gob.getString());
@@ -67,8 +68,8 @@ public class ApiModelToGedObjectVisitorTest {
     public void testPersonWithAttributes() {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
-        final ApiPerson apiPerson = new ApiPerson(
-                "person", "I1", "Richard/Schoeller/", "Schoeller");
+        final ApiPerson apiPerson = new ApiPerson("person", "I1",
+                "Richard/Schoeller/", "Schoeller", new ApiLifespan("", ""));
         final ApiAttribute apiAttribute =
                 new ApiAttribute("name", "Richard/Schoeller/", null);
         apiPerson.getAttributes().add(apiAttribute);
@@ -99,7 +100,7 @@ public class ApiModelToGedObjectVisitorTest {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
         final ApiSource apiSource = new ApiSource(
-                "source", "S1");
+                "source", "S1", "Unknown");
         apiSource.accept(visitor);
         final Source gob = (Source) visitor.getGedObject();
         assertEquals("source mismatch", "S1", gob.getString());
@@ -136,7 +137,7 @@ public class ApiModelToGedObjectVisitorTest {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
         final ApiSubmitter apiSubmitter = new ApiSubmitter(
-                "submitter", "SUB1");
+                "submitter", "SUB1", "? ?");
         apiSubmitter.accept(visitor);
         final Submitter gob = (Submitter) visitor.getGedObject();
         assertEquals("submitter mismatch", "SUB1", gob.getString());

@@ -95,7 +95,8 @@ public class SourceControllerTest {
                 + "      \"tail\" : \"\"\n"
                 + "    } ],\n"
                 + "    \"tail\" : \"\"\n"
-                + "  } ]\n"
+                + "  } ],\n"
+                + "  \"title\" : \"1841 England Census\"\n"
                 + "}, {";
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -129,7 +130,9 @@ public class SourceControllerTest {
                 + "    \"string\" : \"Note\",\n"
                 + "    \"attributes\" : [ ],\n"
                 + "    \"tail\" : \"We have the original of this document\"\n"
-                + "  } ]\n"
+                + "  } ],\n"
+                + "  \"title\" : \"Schoeller, Melissa Robinson, birth"
+                + " certificate\"\n"
                 + "}, {";
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -163,7 +166,9 @@ public class SourceControllerTest {
                 + "    \"string\" : \"Note\",\n"
                 + "    \"attributes\" : [ ],\n"
                 + "    \"tail\" : \"We have the original of this document\"\n"
-                + "  } ]\n"
+                + "  } ],\n"
+                + "  \"title\" : \"Schoeller, Melissa Robinson, birth"
+                + " certificate\"\n"
                 + "}";
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -303,7 +308,7 @@ public class SourceControllerTest {
                 + "/gedbrowser-api/dbs/gl120368/sources";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        final ApiSource reqBody = new ApiSource("source", "");
+        final ApiSource reqBody = new ApiSource("source", "", "Unknown");
         final HttpEntity<ApiSource> req =
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiSource> entity = testRestTemplate
@@ -328,7 +333,7 @@ public class SourceControllerTest {
         // we are modifying.
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/dbs/gl120368/sources";
-        final ApiSource reqBody = new ApiSource("source", "");
+        final ApiSource reqBody = new ApiSource("source", "", "Unknown");
         final HttpEntity<ApiSource> req = new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiSource> sourceEntity = testRestTemplate
                 .postForEntity(new URI(url), req, ApiSource.class);
@@ -391,7 +396,7 @@ public class SourceControllerTest {
         // we are modifying.
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/dbs/gl120368/sources";
-        final ApiSource reqBody = new ApiSource("source", "");
+        final ApiSource reqBody = new ApiSource("source", "", "Unknown");
         final HttpEntity<ApiSource> req =
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiSource> sourceEntity = testRestTemplate
@@ -471,7 +476,8 @@ public class SourceControllerTest {
         final List<ApiAttribute> attributes = new ArrayList<>();
         attributes.add(new ApiAttribute("attribute", "Title", "the title"));
         attributes.add(new ApiAttribute("attribute", "Abbreviation", "the"));
-        final ApiSource reqBody = new ApiSource("source", "", attributes);
+        final ApiSource reqBody = new ApiSource("source", "", attributes,
+                "the title");
         final HttpEntity<ApiSource> req =
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiSource> sourceEntity = testRestTemplate
@@ -508,7 +514,8 @@ public class SourceControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         final List<ApiAttribute> attributes = new ArrayList<>();
         attributes.add(new ApiAttribute("attribute", "Note", "first note"));
-        final ApiSource reqBody = new ApiSource("source", "", attributes);
+        final ApiSource reqBody = new ApiSource("source", "", attributes,
+                "Unknown");
         final HttpEntity<ApiSource> req =
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiSource> entity = testRestTemplate

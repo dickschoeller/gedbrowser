@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * @author Dick Schoeller
  */
+@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 public class SourceController
     extends OperationsEnabler<Source, SourceDocument>
@@ -48,7 +50,7 @@ public class SourceController
             @RequestBody final ApiSource source) {
         logger.info("Entering create source in db: " + db);
         return create(readRoot(db), source, (i, id) ->
-            new ApiSource(i.getType(), id, i.getAttributes()));
+            new ApiSource(i.getType(), id, i.getAttributes(), i.getTitle()));
     }
 
     /**
