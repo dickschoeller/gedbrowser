@@ -14,49 +14,60 @@ public final class ApiPerson extends ApiObject {
     /**
      * The name in a form that is usable for indexing.
      */
-    private String indexName;
+    private final String indexName;
 
     /**
      * The surname.
      */
-    private String surname;
+    private final String surname;
+
+    /**
+     * The lifespan of this person.
+     */
+    private final ApiLifespan lifespan;
 
     /**
      * Constructor.
      */
     public ApiPerson() {
         super();
+        indexName = "";
+        surname = "";
+        lifespan = new ApiLifespan("", "");
     }
 
     /**
      * Constructor.
-     *
      * @param type a string describing the data type of this object
      * @param string a string containing the primary value of this object
      * @param indexName the name in a form that is usable for indexing
      * @param surname the surname
+     * @param lifespan the lifespan of this person
      */
     public ApiPerson(final String type, final String string,
-            final String indexName, final String surname) {
+            final String indexName, final String surname,
+            final ApiLifespan lifespan) {
         super(type, string);
         this.indexName = indexName;
         this.surname = surname;
+        this.lifespan = lifespan;
     }
 
     /**
-     * Constructor.
      * @param type a string describing the data type of this object
      * @param string a string containing the primary value of this object
      * @param attributes the list of subordinate attributes of this object
      * @param indexName the name in a form that is usable for indexing
      * @param surname the surname
+     * @param lifespan the lifespan of this person
      */
     public ApiPerson(final String type, final String string,
-            final List<ApiAttribute> attributes,
-            final String indexName, final String surname) {
+            final List<ApiAttribute> attributes, final String indexName,
+            final String surname, final ApiLifespan lifespan) {
         super(type, string, attributes);
         this.indexName = indexName;
         this.surname = surname;
+        this.lifespan = lifespan;
     }
 
     /**
@@ -71,6 +82,13 @@ public final class ApiPerson extends ApiObject {
      */
     public String getSurname() {
         return surname;
+    }
+
+    /**
+     * @return the lifespan of this person
+     */
+    public ApiLifespan getLifespan() {
+        return lifespan;
     }
 
     /**

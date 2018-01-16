@@ -1,0 +1,6 @@
+<div>
+  <h1>{{person.string}}: {{person.indexName}}{{lfString()}}</h1>
+  <ul>
+    <li *ngFor="let a of person.attributes">{{a.type}} {{a.string}} {{a.tail}}</li>
+  </ul>
+</div>

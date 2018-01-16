@@ -38,21 +38,21 @@ public class ApiSourceTest {
     /** */
     @Test
     public void testConstructorType() {
-        final ApiSource o = new ApiSource("type", "string");
+        final ApiSource o = new ApiSource("type", "string", "Unknown");
         assertEquals("type mismatch", "type", o.getType());
     }
 
     /** */
     @Test
     public void testConstructorString() {
-        final ApiSource o = new ApiSource("type", "string");
+        final ApiSource o = new ApiSource("type", "string", "Unknown");
         assertEquals("string mismatch", "string", o.getString());
     }
 
     /** */
     @Test
     public void testConstructorNoAttributes() {
-        final ApiSource o = new ApiSource("type", "string");
+        final ApiSource o = new ApiSource("type", "string", "Unknown");
         assertTrue("attributes empty mismatch", o.getAttributes().isEmpty());
     }
 
@@ -68,21 +68,22 @@ public class ApiSourceTest {
     public void testConstructorWithAttributes() {
         final List<ApiAttribute> attributes = new ArrayList<>();
         attributes.add(new ApiAttribute("a string", "attribute", ""));
-        final ApiSource o = new ApiSource("type", "string", attributes);
+        final ApiSource o = new ApiSource("type", "string", attributes,
+                "Unknown");
         assertEquals("attributes size mismatch", 1, o.getAttributes().size());
     }
 
     /** */
     @Test
     public void testIsType() {
-        final ApiSource o = new ApiSource("type", "string");
+        final ApiSource o = new ApiSource("type", "string", "Unknown");
         assertTrue("isType mismatch", o.isType("type"));
     }
 
     /** */
     @Test
     public void testAccept() {
-        final ApiSource o = new ApiSource("type", "string");
+        final ApiSource o = new ApiSource("type", "string", "Unknown");
         final ApiTestVisitor visitor = new ApiTestVisitor();
         o.accept(visitor);
         assertEquals("Method mismatch", "source", visitor.getMethodCalled());
