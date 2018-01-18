@@ -5,6 +5,8 @@ checks:
   identical-code:
     config:
       threshold: 30
+  return-statements:
+    enabled: false
 engines:
 #  stylelint:
 #    enabled: true
