@@ -57,7 +57,7 @@ public class ApiModelToGedObjectVisitorTest {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
         final ApiPerson apiPerson = new ApiPerson("person", "I1",
-                "Schoeller/Richard/", "Schoeller", new ApiLifespan("", ""));
+                "Schoeller/Richard/", "Schoeller", new ApiLifespan());
         apiPerson.accept(visitor);
         final Person gob = (Person) visitor.getGedObject();
         assertEquals("person mismatch", "I1", gob.getString());
@@ -69,7 +69,7 @@ public class ApiModelToGedObjectVisitorTest {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
         final ApiPerson apiPerson = new ApiPerson("person", "I1",
-                "Richard/Schoeller/", "Schoeller", new ApiLifespan("", ""));
+                "Richard/Schoeller/", "Schoeller", new ApiLifespan());
         final ApiAttribute apiAttribute =
                 new ApiAttribute("name", "Richard/Schoeller/", null);
         apiPerson.getAttributes().add(apiAttribute);

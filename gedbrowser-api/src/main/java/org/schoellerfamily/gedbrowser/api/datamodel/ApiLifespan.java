@@ -20,21 +20,38 @@ public final class ApiLifespan implements Serializable {
     private final String deathDate;
 
     /**
+     * Holds the birth year, empty string means unknown.
+     */
+    private final String birthYear;
+
+    /**
+     * Holds the death year, null means unknown.
+     */
+    private final String deathYear;
+
+    /**
      * Constructor.
      */
     public ApiLifespan() {
         super();
         birthDate = "";
         deathDate = "";
+        birthYear = "";
+        deathYear = "";
     }
 
     /**
      * @param birthDate the birth date
      * @param deathDate the death date
+     * @param birthYear the birth year
+     * @param deathYear the death year
      */
-    public ApiLifespan(final String birthDate, final String deathDate) {
+    public ApiLifespan(final String birthDate, final String deathDate,
+            final String birthYear, final String deathYear) {
         this.birthDate = defaultValue(birthDate);
         this.deathDate = defaultValue(deathDate);
+        this.birthYear = defaultValue(birthYear);
+        this.deathYear = defaultValue(deathYear);
     }
 
     /**
@@ -47,6 +64,7 @@ public final class ApiLifespan implements Serializable {
         }
         return input;
     }
+
     /**
      * @return the birth date
      */
@@ -59,5 +77,19 @@ public final class ApiLifespan implements Serializable {
      */
     public String getDeathDate() {
         return deathDate;
+    }
+
+    /**
+     * @return the birth year
+     */
+    public String getBirthYear() {
+        return birthYear;
+    }
+
+    /**
+     * @return the death year
+     */
+    public String getDeathYear() {
+        return deathYear;
     }
 }

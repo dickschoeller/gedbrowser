@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {PersonService, ApiPerson, ApiObject} from '../shared';
+import {PersonService, ApiPerson, ApiObject, LifespanUtil} from '../shared';
 
 @Component({
   selector: 'app-person-list-item',
@@ -15,18 +15,7 @@ export class PersonListItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  onClick = function() {
-      alert(this.person.indexName
-        + this.lfString()
-        + ' [' + this.person.string + ']');
-  };
-
-  lfString = function() {
-    const p: ApiPerson = this.person;
-    if (p.lifespan.birthDate || p.lifespan.deathDate) {
-        return ' (' + p.lifespan.birthDate + '-' + p.lifespan.deathDate + ')';
-    } else {
-        return '';
-    }
-  };
+  lifespanYearString() {
+    return new LifespanUtil(this.person.lifespan).lifespanYearString();
+  }
 }

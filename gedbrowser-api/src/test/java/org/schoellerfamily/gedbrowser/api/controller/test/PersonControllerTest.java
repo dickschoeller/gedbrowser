@@ -294,7 +294,7 @@ public class PersonControllerTest {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         final ApiPerson reqBody = new ApiPerson("person", "", "?, ?", "?",
-                new ApiLifespan("", ""));
+                new ApiLifespan());
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiPerson> entity = testRestTemplate
@@ -395,7 +395,7 @@ public class PersonControllerTest {
         final List<ApiAttribute> attributes = new ArrayList<>();
         attributes.add(new ApiAttribute("name", "Richard/Schoeller/", ""));
         return new ApiPerson("person", "", attributes, "Schoeller, Richard",
-                "Schoeller", new ApiLifespan("", ""));
+                "Schoeller", new ApiLifespan());
     }
 
     /**
@@ -427,7 +427,7 @@ public class PersonControllerTest {
         final List<ApiAttribute> attributes = new ArrayList<>();
         attributes.add(new ApiAttribute("name", "Richard/Schoeller/", ""));
         final ApiPerson reqBody = new ApiPerson("person", "", attributes,
-                "Richard/Schoeller/", "Schoeller", new ApiLifespan("", ""));
+                "Richard/Schoeller/", "Schoeller", new ApiLifespan());
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiPerson> personEntity = testRestTemplate
@@ -508,7 +508,7 @@ public class PersonControllerTest {
         attributes.add(new ApiAttribute("name", "Richard/Schoeller/", ""));
         attributes.add(new ApiAttribute("attribute", "Birth", ""));
         final ApiPerson reqBody = new ApiPerson("person", "", attributes,
-                "Richard/Schoeller/", "Schoeller", new ApiLifespan("", ""));
+                "Richard/Schoeller/", "Schoeller", new ApiLifespan());
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiPerson> personEntity = testRestTemplate
@@ -546,7 +546,7 @@ public class PersonControllerTest {
         final List<ApiAttribute> attributes = new ArrayList<>();
         attributes.add(new ApiAttribute("name", "Richard/Schoeller/", ""));
         final ApiPerson reqBody = new ApiPerson("person", "", attributes,
-                "Richard/Schoeller/", "Schoeller", new ApiLifespan("", ""));
+                "Richard/Schoeller/", "Schoeller", new ApiLifespan());
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiPerson> entity = testRestTemplate
