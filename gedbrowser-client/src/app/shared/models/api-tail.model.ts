@@ -1,5 +1,5 @@
 import { ApiObject } from './api-object.model';
 
-export class ApiTail {
+export class ApiTail extends ApiObject {
   tail = '';
 }

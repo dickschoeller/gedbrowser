@@ -1,7 +1,14 @@
-import { Component, OnInit, } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
-import { ApiPerson, PersonService } from '../shared';
+import {
+  ApiPerson,
+  ApiAttribute,
+  ApiObject,
+  ApiLifespan,
+  LifespanUtil,
+  PersonService
+} from '../shared';
 
 @Component({
   selector: 'app-person',
@@ -24,12 +31,7 @@ export class PersonComponent implements OnInit {
     );
   }
 
-  lfString = function() {
-    const p: ApiPerson = this.person;
-    if (p.lifespan.birthDate || p.lifespan.deathDate) {
-        return ' (' + p.lifespan.birthDate + '-' + p.lifespan.deathDate + ')';
-    } else {
-        return '';
-    }
-  };
+  lifespanDateString() {
+    return new LifespanUtil(this.person.lifespan).lifespanDateString();
+  }
 }

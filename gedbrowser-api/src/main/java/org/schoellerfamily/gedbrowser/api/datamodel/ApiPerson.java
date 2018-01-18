@@ -33,7 +33,7 @@ public final class ApiPerson extends ApiObject {
         super();
         indexName = "";
         surname = "";
-        lifespan = new ApiLifespan("", "");
+        lifespan = new ApiLifespan();
     }
 
     /**
