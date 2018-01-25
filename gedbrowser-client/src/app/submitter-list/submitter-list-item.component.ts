@@ -14,8 +14,4 @@ export class SubmitterListItemComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  onClick = function() {
-    alert(this.submitter.name + ' (' + this.submitter.string + ')');
-  };
 }

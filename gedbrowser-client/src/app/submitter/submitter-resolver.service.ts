@@ -3,24 +3,23 @@ import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@a
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 
-import { ApiPerson, PersonService } from '../shared';
+import { ApiSubmitter, SubmitterService } from '../shared';
 
 @Injectable()
-export class PersonResolver implements Resolve<ApiPerson> {
+export class SubmitterResolver implements Resolve<ApiSubmitter> {
 
   constructor(
-    private personService: PersonService,
-    private router: Router
+    private submitterService: SubmitterService,
+    private route: Router
   ) {}
-
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<ApiPerson> {
+  ): Observable<ApiSubmitter> {
     const id: string = route.params['string'];
-    const foo: Observable<ApiPerson> =
-       this.personService.getOne('schoeller', id);
+    const foo: Observable<ApiSubmitter> =
+       this.submitterService.getOne('schoeller', id);
 //      .catch((err) => this.router.navigateByUrl('/'));
     return foo;
   }

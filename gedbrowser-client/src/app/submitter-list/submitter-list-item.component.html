@@ -1,1 +1,1 @@
-<li (click)="onClick()">{{submitter.name}} ({{submitter.string}})</li>
+<li><a [routerLink]="['/submitters', submitter.string]">{{submitter.name}} ({{submitter.string}})</a></li>

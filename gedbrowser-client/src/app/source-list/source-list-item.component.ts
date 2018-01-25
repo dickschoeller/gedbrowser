@@ -14,8 +14,4 @@ export class SourceListItemComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  onClick = function() {
-    alert(this.source.title + ' (' + this.source.string + ')');
-  };
 }

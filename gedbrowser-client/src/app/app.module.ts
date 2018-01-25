@@ -4,10 +4,12 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { PersonModule } from './person/person.module';
 import { PersonListModule } from './person-list/person-list.module';
+import { PersonModule } from './person/person.module';
 import { SourceListModule } from './source-list/source-list.module';
+import { SourceModule } from './source/source.module';
 import { SubmitterListModule } from './submitter-list/submitter-list.module';
+import { SubmitterModule } from './submitter/submitter.module';
 import {
   PersonService,
   SourceService,
@@ -21,14 +23,16 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     AppComponent,
   ],
   imports: [
+    rootRouting,
     BrowserModule,
     HttpClientModule,
-    rootRouting,
     SharedModule,
     PersonListModule,
+    PersonModule,
     SourceListModule,
+    SourceModule,
     SubmitterListModule,
-    PersonModule
+    SubmitterModule
   ],
   providers: [
     PersonService,
