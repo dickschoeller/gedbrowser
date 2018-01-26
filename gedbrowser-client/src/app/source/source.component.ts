@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ApiSource, SourceService } from '../shared';
+import {
+  ApiSource,
+  AttributeListComponent,
+  SourceService,
+} from '../shared';
 
 @Component({
   selector: 'app-source',

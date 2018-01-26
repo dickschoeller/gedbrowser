@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ApiSubmitter, SubmitterService } from '../shared';
+import {
+  ApiSubmitter,
+  AttributeListComponent,
+  SubmitterService,
+ } from '../shared';
 
 @Component({
   selector: 'app-submitter',
