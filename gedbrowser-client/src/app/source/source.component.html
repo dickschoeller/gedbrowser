@@ -1,6 +1,4 @@
 <div>
   <h1>{{source.string}}: {{source.title}}</h1>
-  <ul>
-    <li *ngFor="let a of source.attributes">{{a.type}} {{a.string}} {{a.tail}}</li>
-  </ul>
+  <app-attribute-list [attributes]="source.attributes"></app-attribute-list>
 </div>

@@ -3,11 +3,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {
   ApiPerson,
-  ApiAttribute,
-  ApiObject,
-  ApiLifespan,
+  AttributeListComponent,
   LifespanUtil,
-  PersonService
+  PersonService,
 } from '../shared';
 
 @Component({

@@ -1,5 +1,5 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {PersonService, ApiPerson, ApiObject, LifespanUtil} from '../shared';
+import { Component, OnInit, Input } from '@angular/core';
+import { PersonService, ApiPerson, LifespanUtil } from '../shared';
 
 @Component({
   selector: 'app-person-list-item',
