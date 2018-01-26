@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { ApiSubmitter } from '../models/api-submitter.model';
 
 @Injectable()
 export class SubmitterService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(db): Observable<any> {
-    return this.http.get('http://localhost:8080/gedbrowser-api/dbs/' + db + '/submitters');
+  getAll(db: string): Observable<Array<ApiSubmitter>> {
+    return this.http.get<Array<ApiSubmitter>>(
+      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/submitters');
   }
 
-  getOne(db, id): Observable<any> {
-    return this.http
-      .get('http://localhost:8080/gedbrowser-api/dbs/' + db + '/submitters/' + id);
+  getOne(db: string, id: string): Observable<ApiSubmitter> {
+    return this.http.get<ApiSubmitter>(
+      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/submitters/' + id);
   }
 }

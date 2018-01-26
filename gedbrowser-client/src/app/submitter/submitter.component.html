@@ -1,0 +1,6 @@
+<div>
+  <h1>{{submitter.string}}: {{submitter.name}}</h1>
+  <ul>
+    <li *ngFor="let a of submitter.attributes">{{a.type}} {{a.string}} {{a.tail}}</li>
+  </ul>
+</div>
