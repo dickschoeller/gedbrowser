@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiAttribute } from '../models';
-import { StringUtil } from '../util';
+import { StringUtil, NameUtil } from '../util';
 
 @Component({
   selector: 'app-attribute-list-item',
@@ -19,8 +19,7 @@ export class AttributeListItemComponent implements OnInit {
     if (this.attribute.type === 'attribute') {
       return this.attribute.string;
     }
-    const su = new StringUtil();
-    return su.titleCase(this.attribute.type);
+    return new StringUtil().titleCase(this.attribute.type);
   }
 
   contents() {
@@ -28,8 +27,7 @@ export class AttributeListItemComponent implements OnInit {
       return this.attribute.tail;
     }
     if (this.attribute.type === 'name') {
-      const su = new StringUtil();
-      return su.replaceAll(su.replaceAll(this.attribute.string, '/', ' '), '  ', ' ').trim();
+      return new NameUtil().cleanup(this.attribute.string);
     }
     return this.attribute.string;
   }
