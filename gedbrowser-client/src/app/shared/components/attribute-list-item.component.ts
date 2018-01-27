@@ -19,7 +19,8 @@ export class AttributeListItemComponent implements OnInit {
     if (this.attribute.type === 'attribute') {
       return this.attribute.string;
     }
-    return this.attribute.type.charAt(0).toUpperCase() + this.attribute.type.slice(1);
+    const su = new StringUtil();
+    return su.titleCase(this.attribute.type);
   }
 
   contents() {
