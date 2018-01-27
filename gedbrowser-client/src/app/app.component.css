@@ -1,1 +1,83 @@
+ol,ul,li,p,td,body { font-family: Arial,Helvetica,sans-serif; }
 
+a:link { color: #c46a04; background: inherit; }
+a:visited { color: #944e04; background: inherit; }
+a:active { color: #944e04; background: inherit; }
+a:hover { color: #e49234; background: inherit; }
+
+a img { border-style: none; }
+
+/** ul { list-style-image: url("../images/bullet.png"); } */
+
+h1 {
+ font-size: 32pt;
+ font-weight: bold;
+ text-align: left;
+ color: #046ac4;
+}
+
+h2 {
+ font-size: 24pt;
+ font-weight: bold;
+ text-align: left;
+ color: #046ac4;
+}
+
+h3 {
+ font-size: 18pt;
+ font-weight: bold;
+ text-align: left;
+ color: #046ac4;
+}
+
+hr {
+ color: #046ac3;
+ background: #046ac4;
+ border-style: none;
+ border-color: #046ac5;
+ border-width: 0;
+ clear: left;
+}
+
+div.menubar {
+  postion: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 1.1em;
+  margin-left: -1em;
+  margin-right: -1em;
+  margin-top: -1ex;
+  margin-bottom: -1ex;
+  padding: 15px;
+
+  font-size: 18pt;
+  font-weight: bold;
+  text-align: left;
+  text-decoration: none;
+  background: #046ac4;
+  color: #e49234;
+  z-index: 100;
+}
+
+div.menubar a,logout {
+  font-size: 18pt;
+  font-weight: bold;
+  text-align: left;
+  text-decoration: none;
+  color: #e49234;
+  padding: 15px 15px 15px 15px;
+}
+
+div.menubar span.left {
+  float: left;
+}
+
+div.menubar div.right {
+  display: inline;
+  float: right;
+}
+
+div.menubar span.right {
+  float: right;
+}

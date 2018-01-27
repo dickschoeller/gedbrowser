@@ -3,8 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { AttributeComponent } from './components/attribute.component';
-import { AttributeListComponent } from './components/attribute-list.component';
+import {
+  AttributeListItemComponent,
+  AttributeListComponent,
+  AttributeListItemDetailListComponent,
+} from './components';
+import { AttributeListItemDetailListItemComponent } from './components/attribute-list-item-detail-list-item.component';
 
 @NgModule({
   imports: [
@@ -15,12 +19,15 @@ import { AttributeListComponent } from './components/attribute-list.component';
     RouterModule,
   ],
   declarations: [
-    AttributeComponent,
-    AttributeListComponent
+    AttributeListItemComponent,
+    AttributeListComponent,
+    AttributeListItemDetailListComponent,
+    AttributeListItemDetailListItemComponent,
   ],
   exports: [
-    AttributeComponent,
-    AttributeListComponent
+    AttributeListItemComponent,
+    AttributeListComponent,
+    AttributeListItemDetailListComponent,
   ]
 })
 export class SharedModule {}
