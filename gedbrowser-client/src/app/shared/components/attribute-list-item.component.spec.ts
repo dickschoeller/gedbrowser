@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AttributeComponent } from './attribute.component';
+import { AttributeListItemComponent } from './attribute-list-item.component';
 
-describe('AttributeComponent', () => {
-  let component: AttributeComponent;
-  let fixture: ComponentFixture<AttributeComponent>;
+describe('AttributeListItemComponent', () => {
+  let component: AttributeListItemComponent;
+  let fixture: ComponentFixture<AttributeListItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('AttributeComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AttributeComponent);
+    fixture = TestBed.createComponent(AttributeListItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

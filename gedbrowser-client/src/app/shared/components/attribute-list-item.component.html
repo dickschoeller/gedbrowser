@@ -1,0 +1,5 @@
+<li>
+  <span class="label">{{label()}}:</span><span *ngIf="contents()"> {{contents()}}</span>
+  <app-attribute-list-item-detail-list [attributes]="attribute.attributes"></app-attribute-list-item-detail-list>
+  <!--span *ngIf="editable()"><button>Edit Me!</button></span -->
+</li>

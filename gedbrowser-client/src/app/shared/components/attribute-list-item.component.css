@@ -1,0 +1,7 @@
+@import '../../app.component.css';
+
+span.label {
+  font-weight: bold;
+  color: #046ac4;
+  background: inherit;
+}
