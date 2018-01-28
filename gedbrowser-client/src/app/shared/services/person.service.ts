@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import {ApiPerson} from '../models/api-person.model';
 
+import { ApiPerson } from '../models/api-person.model';
+
+/**
+ * Service for obtaining person objects.
+ */
 @Injectable()
 export class PersonService {
 

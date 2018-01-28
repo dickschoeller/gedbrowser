@@ -1,4 +1,4 @@
-import { StringUtil } from '.';
+import { StringUtil } from './string-util';
 
 export class NameUtil {
   cleanup(name: string): string {

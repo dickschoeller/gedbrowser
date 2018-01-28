@@ -1,4 +1,9 @@
 <div>
   <h1>{{person.string}}: {{person.indexName}}{{lifespanDateString()}}</h1>
-  <app-attribute-list [attributes]="person.attributes"></app-attribute-list>
+  <app-person-family-list [person]="person" [attributes]="famsAttributes()"></app-person-family-list>
+  <div>
+    <hr class="attributes"/>
+    <h3 class="attributes">Attributes</h3>
+    <app-attribute-list [attributes]="strippedAttributes()"></app-attribute-list>
+  </div>
 </div>

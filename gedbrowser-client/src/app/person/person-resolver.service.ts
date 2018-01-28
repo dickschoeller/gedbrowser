@@ -5,6 +5,9 @@ import 'rxjs/add/operator/catch';
 
 import { ApiPerson, PersonService } from '../shared';
 
+/**
+ * Resolves and fetches a person from the module routing.
+ */
 @Injectable()
 export class PersonResolver implements Resolve<ApiPerson> {
 
@@ -12,7 +15,6 @@ export class PersonResolver implements Resolve<ApiPerson> {
     private personService: PersonService,
     private router: Router
   ) {}
-
 
   resolve(
     route: ActivatedRouteSnapshot,
