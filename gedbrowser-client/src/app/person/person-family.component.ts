@@ -43,28 +43,35 @@ export class PersonFamilyComponent implements OnInit {
   spouse(): ApiAttribute {
     const stripped: Array<ApiAttribute> = new Array<ApiAttribute>();
     for (const attribute of this.family.attributes) {
-      if (attribute.type === 'husband'
-        || attribute.type === 'wife') {
-        if (attribute.string !== this.person.string) {
-          return attribute;
-        }
+      if (this.isSpouse(attribute) && !this.isThisPerson(attribute)) {
+        return attribute;
       }
     }
     return null;
   }
 
+  private isThisPerson(attribute: ApiAttribute): boolean {
+    return (attribute.string === this.person.string);
+  }
+
+  private isSpouse(attribute: ApiAttribute): boolean {
+    return (attribute.type === 'husband' || attribute.type === 'wife');
+  }
+
   strippedAttributes(): Array<ApiAttribute> {
     const stripped: Array<ApiAttribute> = new Array<ApiAttribute>();
     for (const attribute of this.family.attributes) {
-      if (attribute.type !== 'husband'
-        && attribute.type !== 'wife'
-        && attribute.type !== 'child') {
+      if (!this.isFamilyMember(attribute)) {
         stripped.push(attribute);
       }
     }
     return stripped;
   }
 
+  private isFamilyMember(attribute: ApiAttribute): boolean {
+    return (attribute.type === 'husband' || attribute.type === 'wife'
+        || attribute.type === 'child');
+  }
 
   children(): Array<ApiAttribute> {
     const stripped: Array<ApiAttribute> = new Array<ApiAttribute>();
