@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { ApiSource } from '../models/api-source.model';
 
+/**
+ * Service for obtaining source objects.
+ */
 @Injectable()
 export class SourceService {
 

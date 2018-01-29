@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { ApiSubmitter } from '../models/api-submitter.model';
 
+/**
+ * Service for obtaining submitter objects.
+ */
 @Injectable()
 export class SubmitterService {
 

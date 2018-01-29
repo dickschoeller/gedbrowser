@@ -1,0 +1,7 @@
+<div class="family">
+  <hr class="family"/>
+  <h3 class="family">Family {{index+1}}</h3>
+  <app-person-family-spouse [attribute]="spouse()"></app-person-family-spouse>
+  <app-attribute-list [attributes]="strippedAttributes()"></app-attribute-list>
+  <app-person-family-child-list [children]="children()"></app-person-family-child-list>
+</div>

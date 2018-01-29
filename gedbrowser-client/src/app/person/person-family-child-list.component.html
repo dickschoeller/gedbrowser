@@ -1,0 +1,6 @@
+<div *ngIf="children.length">
+  <span class="children label">Children:</span>
+  <ol>
+    <app-person-family-child *ngFor="let child of children" [child]="child"></app-person-family-child>
+  </ol>
+</div>
