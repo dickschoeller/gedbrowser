@@ -19,7 +19,8 @@ export class PersonFamilySpouseComponent implements OnInit {
   @Input() attribute: ApiAttribute;
   spouse: ApiPerson;
 
-  constructor(private personService: PersonService,
+  constructor(
+    private personService: PersonService,
   ) {}
 
   ngOnInit() {
@@ -29,8 +30,8 @@ export class PersonFamilySpouseComponent implements OnInit {
     });
   }
 
-  lifespanDateString(): string {
-    return new LifespanUtil(this.spouse.lifespan).lifespanDateString();
+  lifespanYearString(): string {
+    return new LifespanUtil(this.spouse.lifespan).lifespanYearString();
   }
 
   label(): string {

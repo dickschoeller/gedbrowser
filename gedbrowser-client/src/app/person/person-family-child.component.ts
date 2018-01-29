@@ -30,7 +30,7 @@ export class PersonFamilyChildComponent implements OnInit {
     });
   }
 
-  lifespanDateString(): string {
-    return new LifespanUtil(this.person.lifespan).lifespanDateString();
+  lifespanYearString(): string {
+    return new LifespanUtil(this.person.lifespan).lifespanYearString();
   }
 }
