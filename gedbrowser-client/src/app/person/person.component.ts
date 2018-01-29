@@ -50,6 +50,16 @@ export class PersonComponent implements OnInit {
     return fams;
   }
 
+  famcAttributes(): Array<ApiAttribute> {
+    const fams: Array<ApiAttribute> = new Array<ApiAttribute>();
+    for (const attribute of this.person.attributes) {
+      if (attribute.type === 'famc') {
+        fams.push(attribute);
+      }
+    }
+    return fams;
+  }
+
   /**
    * Remove family links and the first instance of name.
    * Those will be handled elsewhere.

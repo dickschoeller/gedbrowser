@@ -8,6 +8,9 @@ import { PersonFamilyChildListComponent } from './person-family-child-list.compo
 import { PersonFamilyComponent } from './person-family.component';
 import { PersonFamilyListComponent } from './person-family-list.component';
 import { PersonFamilySpouseComponent } from './person-family-spouse.component';
+import { PersonParentComponent } from './person-parent.component';
+import { PersonParentFamiliesComponent } from './person-parent-families.component';
+import { PersonParentFamilyComponent } from './person-parent-family.component';
 import { PersonResolver } from './person-resolver.service';
 import { SharedModule } from '../shared';
 
@@ -37,6 +40,9 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
     PersonFamilyComponent,
     PersonFamilyListComponent,
     PersonFamilySpouseComponent,
+    PersonParentFamiliesComponent,
+    PersonParentFamilyComponent,
+    PersonParentComponent,
   ],
   providers: [
     PersonResolver,
