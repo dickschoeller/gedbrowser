@@ -1,10 +1,20 @@
-<div>
-  <h1>{{person.string}}: {{person.indexName}}{{lifespanDateString()}}</h1>
-  <app-person-parent-families [attributes]="famcAttributes()"></app-person-parent-families>
+<mat-card [class.mat-elevation-z4]="true">
+  <mat-card-title>{{person.string}}: {{person.indexName}}{{lifespanDateString()}}</mat-card-title>
+  <mat-divider [inset]="true"></mat-divider>
+  <br/>
+  <mat-accordion multi="true">
+  <mat-expansion-panel [expanded]="true" [class.mat-elevation-z8]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>Parents</mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-person-parent-families [attributes]="famcAttributes()"></app-person-parent-families>
+  </mat-expansion-panel>
   <app-person-family-list [person]="person" [attributes]="famsAttributes()"></app-person-family-list>
-  <div>
-    <hr class="attributes"/>
-    <h3 class="attributes">Attributes</h3>
+  <mat-expansion-panel [expanded]="true" [class.mat-elevation-z8]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>Attributes</mat-panel-title>
+    </mat-expansion-panel-header>    
     <app-attribute-list [attributes]="strippedAttributes()"></app-attribute-list>
-  </div>
-</div>
+  </mat-expansion-panel>
+  </mat-accordion>
+</mat-card>

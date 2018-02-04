@@ -1,4 +1,7 @@
-<h1>Person List</h1>
-<ul>
-  <app-person-list-item *ngFor="let p of persons" [person]="p"></app-person-list-item>
-</ul>
+<mat-card [class.mat-elevation-z4]="true">
+  <mat-card-title>Person List</mat-card-title>
+  <mat-divider [inset]="true"></mat-divider>
+  <mat-list>
+    <app-person-list-item *ngFor="let p of persons" [person]="p"></app-person-list-item>
+  </mat-list>
+</mat-card>

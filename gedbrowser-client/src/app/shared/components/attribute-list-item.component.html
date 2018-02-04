@@ -1,5 +1,5 @@
-<li>
-  <span class="label">{{label()}}:</span><span *ngIf="contents()"> {{contents()}}</span>
+<mat-list-item>
+  <span class="label">{{label()}}:&nbsp;</span><span *ngIf="contents()"> {{contents()}}</span>
   <app-attribute-list-item-detail-list [attributes]="attribute.attributes"></app-attribute-list-item-detail-list>
   <!--span *ngIf="editable()"><button>Edit Me!</button></span -->
-</li>
+</mat-list-item>

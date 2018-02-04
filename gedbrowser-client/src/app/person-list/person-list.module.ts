@@ -1,11 +1,12 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import {ModuleWithProviders, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {MatCardModule, MatDividerModule, MatListModule} from '@angular/material';
 
-import { PersonListComponent } from './person-list.component';
-import { PersonListItemComponent } from './person-list-item.component';
-import { PersonListResolver } from './person-list-resolver.service';
-import { SharedModule } from '../shared';
+import {PersonListComponent} from './person-list.component';
+import {PersonListItemComponent} from './person-list-item.component';
+import {PersonListResolver} from './person-list-resolver.service';
+import {SharedModule} from '../shared';
 
 const personRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -21,7 +22,10 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
   imports: [
     personRouting,
     SharedModule,
-    CommonModule
+    CommonModule,
+    MatCardModule,
+    MatDividerModule,
+    MatListModule,
   ],
   declarations: [
     PersonListComponent,

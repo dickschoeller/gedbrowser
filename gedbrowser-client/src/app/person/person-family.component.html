@@ -1,7 +1,10 @@
-<div class="family">
-  <hr class="family"/>
-  <h3 class="family">Family {{index+1}}</h3>
-  <app-person-family-spouse [attribute]="spouse()"></app-person-family-spouse>
+<mat-expansion-panel [expanded]="true" [class.mat-elevation-z8]="true">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <span>Family {{index+1}}</span><span *ngIf="spouse()">&nbsp; - &nbsp;</span>
+      <app-person-family-spouse *ngIf="spouse()" [attribute]="spouse()"></app-person-family-spouse>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
   <app-attribute-list [attributes]="strippedAttributes()"></app-attribute-list>
   <app-person-family-child-list [children]="children()"></app-person-family-child-list>
-</div>
+</mat-expansion-panel>

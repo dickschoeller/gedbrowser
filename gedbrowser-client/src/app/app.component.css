@@ -1,94 +1,31 @@
-ol,ul,li,p,td,body { font-family: Arial,Helvetica,sans-serif; }
-
-a:link { color: #c46a04; background: inherit; }
-a:visited { color: #944e04; background: inherit; }
-a:active { color: #944e04; background: inherit; }
-a:hover { color: #e49234; background: inherit; }
-
-a img { border-style: none; }
-
-/** ul { list-style-image: url("../images/bullet.png"); } */
-
-h1 {
- font-family: Arial,Helvetica,sans-serif;
- font-size: 32pt;
- font-weight: bold;
- text-align: left;
- color: #046ac4;
-}
-
-h2 {
- font-family: Arial,Helvetica,sans-serif;
- font-size: 24pt;
- font-weight: bold;
- text-align: left;
- color: #046ac4;
-}
-
-h3 {
- font-family: Arial,Helvetica,sans-serif;
- font-size: 18pt;
- font-weight: bold;
- text-align: left;
- color: #046ac4;
-}
-
-hr {
- color: #046ac3;
- background: #046ac4;
- border-style: none;
- border-color: #046ac5;
- border-width: 0;
- clear: left;
-}
-
-div.menubar {
-  font-family: Arial,Helvetica,sans-serif;
-  postion: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 1.1em;
+.menubar {
+  position: fixed;
+  top: 0;
   margin-left: -1em;
-  margin-right: -1em;
-  margin-top: -1ex;
   margin-bottom: -1ex;
+
+  font-size: 18pt;
+  font-weight: bold;
+  text-align: left;
+  text-decoration: none;
+}
+
+.menubar span {
   padding: 15px;
-
-  font-size: 18pt;
-  font-weight: bold;
-  text-align: left;
-  text-decoration: none;
-  background: #046ac4;
-  color: #e49234;
-  z-index: 100;
-}
-
-div.menubar a,logout {
-  font-size: 18pt;
-  font-weight: bold;
-  text-align: left;
-  text-decoration: none;
-  color: #e49234;
-  padding: 15px 15px 15px 15px;
-}
-
-div.menubar span.left {
-  float: left;
-}
-
-div.menubar div.right {
-  display: inline;
-  float: right;
-}
-
-div.menubar span.right {
-  float: right;
 }
 
 span.label {
- font-family: Arial,Helvetica,sans-serif;
  font-weight: bold;
- color: #046ac4;
- background: inherit;
+}
+
+div.body {
+  position: absolute;
+  top: 75px;
+  z-index: -1;
+}
+
+.example-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox. 
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
 }

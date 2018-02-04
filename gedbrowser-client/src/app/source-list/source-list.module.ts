@@ -1,11 +1,12 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import {ModuleWithProviders, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {MatCardModule, MatDividerModule, MatListModule} from '@angular/material';
 
-import { SourceListComponent } from './source-list.component';
-import { SourceListItemComponent } from './source-list-item.component';
-import { SourceListResolver } from './source-list-resolver.service';
-import { SharedModule } from '../shared';
+import {SourceListComponent} from './source-list.component';
+import {SourceListItemComponent} from './source-list-item.component';
+import {SourceListResolver} from './source-list-resolver.service';
+import {SharedModule} from '../shared';
 
 const sourceRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -21,7 +22,10 @@ const sourceRouting: ModuleWithProviders = RouterModule.forChild([
   imports: [
     sourceRouting,
     SharedModule,
-    CommonModule
+    CommonModule,
+    MatCardModule,
+    MatDividerModule,
+    MatListModule,
   ],
   declarations: [
     SourceListComponent,

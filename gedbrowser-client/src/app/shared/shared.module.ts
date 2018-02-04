@@ -1,8 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {RouterModule} from '@angular/router';
+import {MatFormFieldModule, MatListModule} from '@angular/material';
+
+
 import {
   AttributeListItemComponent,
   AttributeListComponent,
@@ -17,6 +20,8 @@ import { AttributeListItemDetailListItemComponent } from './components/attribute
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
+    MatFormFieldModule,
+    MatListModule,
   ],
   declarations: [
     AttributeListItemComponent,
