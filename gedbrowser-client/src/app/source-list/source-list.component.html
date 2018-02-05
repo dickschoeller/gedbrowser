@@ -1,4 +1,7 @@
-<h1>Source List</h1>
-<ul>
-  <app-source-list-item *ngFor="let source of sources" [source]="source"></app-source-list-item>
-</ul>
+<mat-card [class.mat-elevation-4]="true">
+  <mat-card-title>Source List</mat-card-title>
+  <mat-divider [inset]="true"></mat-divider>
+  <mat-list>
+    <app-source-list-item *ngFor="let source of sources" [source]="source"></app-source-list-item>
+  </mat-list>
+</mat-card>

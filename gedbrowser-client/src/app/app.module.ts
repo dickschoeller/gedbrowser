@@ -1,31 +1,105 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import {ModuleWithProviders, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RouterModule} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatStepperModule,
+} from '@angular/material';
+import {CdkTableModule} from '@angular/cdk/table';
 
-import { AppComponent } from './app.component';
-import { PersonListModule } from './person-list/person-list.module';
-import { PersonModule } from './person/person.module';
-import { SourceListModule } from './source-list/source-list.module';
-import { SourceModule } from './source/source.module';
-import { SubmitterListModule } from './submitter-list/submitter-list.module';
-import { SubmitterModule } from './submitter/submitter.module';
+import {AppComponent} from './app.component';
+import {PersonListModule} from './person-list/person-list.module';
+import {PersonModule} from './person/person.module';
+import {SourceListModule} from './source-list/source-list.module';
+import {SourceModule} from './source/source.module';
+import {SubmitterListModule} from './submitter-list/submitter-list.module';
+import {SubmitterModule} from './submitter/submitter.module';
 import {
   FamilyService,
   PersonService,
   SourceService,
   SubmitterService,
-  SharedModule } from './shared';
+  SharedModule
+} from './shared';
+
+@NgModule({
+  exports: [
+    CdkTableModule,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+  ]
+})
+export class AppMaterialModule {}
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
   imports: [
+    AppMaterialModule,
     rootRouting,
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
     PersonListModule,
@@ -34,6 +108,9 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     SourceModule,
     SubmitterListModule,
     SubmitterModule
+  ],
+  declarations: [
+    AppComponent,
   ],
   providers: [
     FamilyService,

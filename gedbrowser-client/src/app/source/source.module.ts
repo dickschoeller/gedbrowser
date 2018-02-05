@@ -6,6 +6,7 @@ import { SharedModule } from '../shared';
 
 import { SourceComponent } from './source.component';
 import { SourceResolver } from './source-resolver.service';
+import { MatCardModule, MatDividerModule } from '@angular/material';
 
 const sourceRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -21,7 +22,9 @@ const sourceRouting: ModuleWithProviders = RouterModule.forChild([
   imports: [
     sourceRouting,
     SharedModule,
-    CommonModule
+    CommonModule,
+    MatCardModule,
+    MatDividerModule
   ],
   declarations: [
     SourceComponent,

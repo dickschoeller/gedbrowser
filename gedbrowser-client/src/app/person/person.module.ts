@@ -1,6 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import {MatCardModule, MatDividerModule, MatExpansionModule, MatListModule} from '@angular/material';
 
 import { PersonComponent } from './person.component';
 import { PersonFamilyChildComponent } from './person-family-child.component';
@@ -32,6 +33,10 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
     personRouting,
     CommonModule,
     SharedModule,
+    MatCardModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatListModule,
   ],
   declarations: [
     PersonComponent,

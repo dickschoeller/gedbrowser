@@ -1,4 +1,7 @@
-<h1>Submitter List</h1>
-<ul>
-  <app-submitter-list-item *ngFor="let submitter of submitters" [submitter]="submitter"></app-submitter-list-item>
-</ul>
+<mat-card [class.mat-elevation-z4]="true">
+  <mat-card-title>Submitter List</mat-card-title>
+  <mat-divider [inset]="true"></mat-divider>
+  <mat-list>
+    <app-submitter-list-item *ngFor="let submitter of submitters" [submitter]="submitter"></app-submitter-list-item>
+  </mat-list>
+</mat-card>

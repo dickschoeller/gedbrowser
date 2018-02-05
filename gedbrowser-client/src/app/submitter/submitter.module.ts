@@ -1,6 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatCardModule, MatDividerModule } from '@angular/material';
 
 import { SharedModule } from '../shared';
 
@@ -21,7 +22,9 @@ const submitterRouting: ModuleWithProviders = RouterModule.forChild([
   imports: [
     submitterRouting,
     SharedModule,
-    CommonModule
+    CommonModule,
+    MatCardModule,
+    MatDividerModule,
   ],
   declarations: [
     SubmitterComponent,
