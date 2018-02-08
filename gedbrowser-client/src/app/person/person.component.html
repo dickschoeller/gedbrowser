@@ -3,18 +3,24 @@
   <mat-divider [inset]="true"></mat-divider>
   <br/>
   <mat-accordion multi="true">
-  <mat-expansion-panel [expanded]="true" [class.mat-elevation-z8]="true">
-    <mat-expansion-panel-header>
-      <mat-panel-title>Parents</mat-panel-title>
-    </mat-expansion-panel-header>
-    <app-person-parent-families [attributes]="famcAttributes()"></app-person-parent-families>
-  </mat-expansion-panel>
-  <app-person-family-list [person]="person" [attributes]="famsAttributes()"></app-person-family-list>
-  <mat-expansion-panel [expanded]="true" [class.mat-elevation-z8]="true">
-    <mat-expansion-panel-header>
-      <mat-panel-title>Attributes</mat-panel-title>
-    </mat-expansion-panel-header>
-    <app-attribute-list [attributes]="strippedAttributes()"></app-attribute-list>
-  </mat-expansion-panel>
+     <mat-expansion-panel [expanded]="true" [class.mat-elevation-z8]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Parents</mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-person-parent-families [attributes]="famcAttributes()"></app-person-parent-families>
+    </mat-expansion-panel>
+    <app-person-family-list [person]="person" [attributes]="famsAttributes()"></app-person-family-list>
+    <mat-expansion-panel [expanded]="true" [class.mat-elevation-z8]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Attributes</mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-attribute-list [attributes]="strippedAttributes()"></app-attribute-list>
+    </mat-expansion-panel>
+    <mat-expansion-panel *ngIf="imageAttributes().length" [expanded]="true" [class.mat-elevation-z8]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Images</mat-panel-title>
+      </mat-expansion-panel-header>
+      <ngx-gallery [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
+    </mat-expansion-panel>
   </mat-accordion>
 </mat-card>
