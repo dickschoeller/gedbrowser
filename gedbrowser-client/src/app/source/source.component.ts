@@ -65,7 +65,7 @@ export class SourceComponent implements OnInit {
   strippedAttributes(): Array<ApiAttribute> {
     const stripped: Array<ApiAttribute> = new Array<ApiAttribute>();
     for (const attribute of this.source.attributes) {
-      if (!new ImageUtil(attribute).isImageWrapper()) {
+      if (!new ImageUtil().isImageWrapper(attribute)) {
         stripped.push(attribute);
       }
     }
@@ -73,20 +73,10 @@ export class SourceComponent implements OnInit {
   }
 
   imageAttributes(): Array<ApiAttribute> {
-    const images: Array<ApiAttribute> = new Array<ApiAttribute>();
-    for (const attribute of this.source.attributes) {
-      if (new ImageUtil(attribute).isImageWrapper()) {
-        images.push(attribute);
-      }
-    }
-    return images;
+    return new ImageUtil().imageAttributes(this.source.attributes);
   }
 
-  galleryImages(): Array<any> {
-    const gallery: Array<any> = new Array<any>();
-    for (const attribute of this.imageAttributes()) {
-      gallery.push(new ImageUtil(attribute).galleryImage());
-    }
-    return gallery;
+  galleryImages(): Array<NgxGalleryImage> {
+    return new ImageUtil().galleryImages(this.source.attributes);
   }
 }

@@ -97,7 +97,7 @@ export class PersonComponent implements OnInit {
     const stripped: Array<ApiAttribute> = new Array<ApiAttribute>();
     for (const attribute of this.person.attributes) {
       if (attribute.type !== 'fams' && attribute.type !== 'famc'
-        && !new ImageUtil(attribute).isImageWrapper()) {
+        && !new ImageUtil().isImageWrapper(attribute)) {
         stripped.push(attribute);
       }
     }
@@ -105,20 +105,10 @@ export class PersonComponent implements OnInit {
   }
 
   imageAttributes(): Array<ApiAttribute> {
-    const images: Array<ApiAttribute> = new Array<ApiAttribute>();
-    for (const attribute of this.person.attributes) {
-      if (new ImageUtil(attribute).isImageWrapper()) {
-        images.push(attribute);
-      }
-    }
-    return images;
+    return new ImageUtil().imageAttributes(this.person.attributes);
   }
 
-  galleryImages(): Array<any> {
-    const gallery: Array<any> = new Array<any>();
-    for (const attribute of this.imageAttributes()) {
-      gallery.push(new ImageUtil(attribute).galleryImage());
-    }
-    return gallery;
+  galleryImages(): Array<NgxGalleryImage> {
+    return new ImageUtil().galleryImages(this.person.attributes);
   }
 }

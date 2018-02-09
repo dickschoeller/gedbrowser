@@ -2,44 +2,62 @@ import {ApiAttribute} from '../models';
 import {NgxGalleryImage} from 'ngx-gallery';
 
 export class ImageUtil {
-  constructor(private attribute: ApiAttribute) {}
+  constructor() {}
 
-  isImageWrapper(): boolean {
-    for (const attribute of this.attribute.attributes) {
-      const imageUtil = new ImageUtil(attribute);
-      if (imageUtil.isImage()) {
+  imageAttributes(attributes: Array<ApiAttribute>): Array<ApiAttribute> {
+    const images: Array<ApiAttribute> = new Array<ApiAttribute>();
+    for (const attribute of attributes) {
+      if (this.isImageWrapper(attribute)) {
+        images.push(attribute);
+      }
+    }
+    return images;
+  }
+
+  galleryImages(attributes: Array<ApiAttribute>): Array<NgxGalleryImage> {
+    const gallery: Array<NgxGalleryImage> = new Array<NgxGalleryImage>();
+    for (const attribute of this.imageAttributes(attributes)) {
+      gallery.push(this.galleryImage(attribute));
+    }
+    return gallery;
+  }
+
+  isImageWrapper(attr: ApiAttribute): boolean {
+    for (const attribute of attr.attributes) {
+      if (this.isImage(attribute)) {
         return true;
       }
-      if (imageUtil.isImageWrapper()) {
+      if (this.isImageWrapper(attribute)) {
         return true;
       }
     }
     return false;
   }
 
-  isImage(): boolean {
+  isImage(attr: ApiAttribute): boolean {
     const types = [ 'bmp', 'gif', 'ico', 'jpg', 'jpeg', 'png', 'tiff', 'tif', 'svg' ];
     for (const t of types) {
-      if (this.attribute.tail.toLowerCase().endsWith(t)) {
+      if (attr.tail.toLowerCase().endsWith(t)) {
         return true;
       }
     }
     return false;
   }
 
-  galleryImage(): NgxGalleryImage {
-    if (this.isImage()) {
-      return { small: this.attribute.tail, medium: this.attribute.tail,
-        big: this.attribute.tail, description: 'foo', url: this.attribute.tail };
+  galleryImage(attr: ApiAttribute): NgxGalleryImage {
+    if (this.isImage(attr)) {
+      return { small: attr.tail, medium: attr.tail,
+        big: attr.tail, description: 'foo', url: attr.tail };
     }
-    for (const attribute of this.attribute.attributes) {
-      const imageUtil = new ImageUtil(attribute);
-      if (imageUtil.isImage()) {
-        return imageUtil.galleryImage();
+    for (const attribute of attr.attributes) {
+      if (this.isImage(attribute)) {
+        return this.galleryImage(attribute);
       }
-      if (imageUtil.isImageWrapper()) {
+      if (this.isImageWrapper(attribute)) {
         for (const subAttribute of attribute.attributes) {
-          return new ImageUtil(subAttribute).galleryImage();
+          if (this.isImage(subAttribute)) {
+            return this.galleryImage(subAttribute);
+          }
         }
       }
     }
