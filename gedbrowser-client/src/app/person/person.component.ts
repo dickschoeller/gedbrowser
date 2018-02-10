@@ -26,10 +26,11 @@ import {
 })
 export class PersonComponent implements OnInit {
   person: ApiPerson;
+  imageUtil: ImageUtil;
   galleryOptions: Array<NgxGalleryOptions>;
   constructor(private route: ActivatedRoute,
     private personService: PersonService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -38,31 +39,8 @@ export class PersonComponent implements OnInit {
         this.person = data.person;
       }
     );
-
-    this.galleryOptions = [
-      {
-        image: false,
-        preview: true,
-        previewCloseOnClick: true,
-        previewCloseOnEsc: true,
-        previewKeyboardNavigation: true,
-        previewFullscreen: true,
-        height: '100px',
-        thumbnailsColumns: 4,
-      },
-      {
-        preview: true,
-        breakpoint: 500,
-        width: '300px',
-        thumbnailsColumns: 3,
-      },
-      {
-        breakpoint: 300,
-        width: '100%',
-        thumbnailsColumns: 2,
-      }
-    ];
-
+    this.imageUtil = new ImageUtil();
+    this.galleryOptions = this.imageUtil.galleryOptions();
   }
 
   lifespanDateString() {
@@ -97,7 +75,7 @@ export class PersonComponent implements OnInit {
     const stripped: Array<ApiAttribute> = new Array<ApiAttribute>();
     for (const attribute of this.person.attributes) {
       if (attribute.type !== 'fams' && attribute.type !== 'famc'
-        && !new ImageUtil().isImageWrapper(attribute)) {
+        && !this.imageUtil.isImageWrapper(attribute)) {
         stripped.push(attribute);
       }
     }
@@ -105,10 +83,10 @@ export class PersonComponent implements OnInit {
   }
 
   imageAttributes(): Array<ApiAttribute> {
-    return new ImageUtil().imageAttributes(this.person.attributes);
+    return this.imageUtil.imageAttributes(this.person.attributes);
   }
 
   galleryImages(): Array<NgxGalleryImage> {
-    return new ImageUtil().galleryImages(this.person.attributes);
+    return this.imageUtil.galleryImages(this.person.attributes);
   }
 }

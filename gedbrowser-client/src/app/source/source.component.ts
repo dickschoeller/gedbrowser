@@ -19,6 +19,7 @@ ImageUtil,
 })
 export class SourceComponent implements OnInit {
   source: ApiSource;
+  imageUtil: ImageUtil;
   galleryOptions: Array<NgxGalleryOptions>;
 
   constructor(private route: ActivatedRoute,
@@ -32,30 +33,8 @@ export class SourceComponent implements OnInit {
         this.source = data.source;
       }
     );
-
-    this.galleryOptions = [
-      {
-        image: false,
-        preview: true,
-        previewCloseOnClick: true,
-        previewCloseOnEsc: true,
-        previewKeyboardNavigation: true,
-        previewFullscreen: true,
-        height: '100px',
-        thumbnailsColumns: 4,
-      },
-      {
-        preview: true,
-        breakpoint: 500,
-        width: '300px',
-        thumbnailsColumns: 3,
-      },
-      {
-        breakpoint: 300,
-        width: '100%',
-        thumbnailsColumns: 2,
-      }
-    ];
+    this.imageUtil = new ImageUtil();
+    this.galleryOptions = this.imageUtil.galleryOptions();
   }
 
   /**
@@ -65,7 +44,7 @@ export class SourceComponent implements OnInit {
   strippedAttributes(): Array<ApiAttribute> {
     const stripped: Array<ApiAttribute> = new Array<ApiAttribute>();
     for (const attribute of this.source.attributes) {
-      if (!new ImageUtil().isImageWrapper(attribute)) {
+      if (!this.imageUtil.isImageWrapper(attribute)) {
         stripped.push(attribute);
       }
     }
@@ -73,10 +52,10 @@ export class SourceComponent implements OnInit {
   }
 
   imageAttributes(): Array<ApiAttribute> {
-    return new ImageUtil().imageAttributes(this.source.attributes);
+    return this.imageUtil.imageAttributes(this.source.attributes);
   }
 
   galleryImages(): Array<NgxGalleryImage> {
-    return new ImageUtil().galleryImages(this.source.attributes);
+    return this.imageUtil.galleryImages(this.source.attributes);
   }
 }

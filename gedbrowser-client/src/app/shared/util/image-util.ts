@@ -1,5 +1,5 @@
 import {ApiAttribute} from '../models';
-import {NgxGalleryImage} from 'ngx-gallery';
+import {NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
 
 export class ImageUtil {
   constructor() {}
@@ -20,6 +20,33 @@ export class ImageUtil {
       gallery.push(this.galleryImage(attribute));
     }
     return gallery;
+  }
+
+  galleryOptions(): Array<NgxGalleryOptions> {
+    return [
+      {
+        image: false,
+        preview: true,
+        previewCloseOnClick: true,
+        previewCloseOnEsc: true,
+        previewKeyboardNavigation: true,
+        previewFullscreen: true,
+        height: '100px',
+        thumbnailsColumns: 4,
+      },
+      {
+        preview: true,
+        breakpoint: 500,
+        width: '300px',
+        thumbnailsColumns: 3,
+      },
+      {
+        breakpoint: 300,
+        width: '100%',
+        thumbnailsColumns: 2,
+      }
+    ];
+
   }
 
   isImageWrapper(attr: ApiAttribute): boolean {
@@ -45,22 +72,37 @@ export class ImageUtil {
   }
 
   galleryImage(attr: ApiAttribute): NgxGalleryImage {
+    const description = 'Image';
     if (this.isImage(attr)) {
-      return { small: attr.tail, medium: attr.tail,
-        big: attr.tail, description: 'foo', url: attr.tail };
+      return this.buildGalleryImage(attr.tail, description);
     }
-    for (const attribute of attr.attributes) {
+    return this.buildGalleryImageFromArray(attr.attributes, description);
+  }
+
+  private buildDescription(attribute: ApiAttribute, description: string): string {
+      if (attribute.string === 'Title') {
+        return attribute.tail;
+      }
+    return description;
+  }
+
+  private buildGalleryImageFromArray(attributes: Array<ApiAttribute>,
+    description: string): NgxGalleryImage {
+    for (const attribute of attributes) {
+      description = this.buildDescription(attribute, description);
       if (this.isImage(attribute)) {
-        return this.galleryImage(attribute);
+        return this.buildGalleryImage(attribute.tail, description);
       }
       if (this.isImageWrapper(attribute)) {
-        for (const subAttribute of attribute.attributes) {
-          if (this.isImage(subAttribute)) {
-            return this.galleryImage(subAttribute);
-          }
-        }
+        return this.buildGalleryImageFromArray(attribute.attributes, description);
       }
     }
     return null;
+  }
+
+  private buildGalleryImage(url: string, description: string): NgxGalleryImage {
+    return {
+      small: url, medium: url, big: url, description: description, url: url
+    };
   }
 }
