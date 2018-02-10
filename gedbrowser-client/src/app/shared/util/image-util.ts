@@ -62,20 +62,17 @@ export class ImageUtil {
 
   isImageWrapper(attr: ApiAttribute): boolean {
     for (const attribute of attr.attributes) {
-      if (this.isImage(attribute)) {
-        return true;
-      }
-      if (this.isImageWrapper(attribute)) {
+      if (this.isImage(attribute) || this.isImageWrapper(attribute)) {
         return true;
       }
     }
     return false;
   }
 
-  isImage(attr: ApiAttribute): boolean {
+  isImage(attribute: ApiAttribute): boolean {
     const types = [ 'bmp', 'gif', 'ico', 'jpg', 'jpeg', 'png', 'tiff', 'tif', 'svg' ];
     for (const t of types) {
-      if (attr.tail.toLowerCase().endsWith(t)) {
+      if (attribute.tail.toLowerCase().endsWith(t)) {
         return true;
       }
     }
