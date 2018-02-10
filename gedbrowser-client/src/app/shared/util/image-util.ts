@@ -24,7 +24,14 @@ export class ImageUtil {
 
   galleryOptions(): Array<NgxGalleryOptions> {
     return [
-      {
+      this.galleryOptionsDefault(),
+      this.galleryOptionsMediumWidth(),
+      this.galleryOptionsNarrow()
+    ];
+  }
+
+  private galleryOptionsDefault(): NgxGalleryOptions {
+    return {
         image: false,
         preview: true,
         previewCloseOnClick: true,
@@ -33,20 +40,24 @@ export class ImageUtil {
         previewFullscreen: true,
         height: '100px',
         thumbnailsColumns: 4,
-      },
-      {
-        preview: true,
-        breakpoint: 500,
-        width: '300px',
-        thumbnailsColumns: 3,
-      },
-      {
-        breakpoint: 300,
-        width: '100%',
-        thumbnailsColumns: 2,
-      }
-    ];
+      };
+  }
 
+  private galleryOptionsMediumWidth(): NgxGalleryOptions {
+    return {
+      preview: true,
+      breakpoint: 500,
+      width: '300px',
+      thumbnailsColumns: 3,
+    };
+  }
+
+  private galleryOptionsNarrow(): NgxGalleryOptions {
+    return {
+      breakpoint: 300,
+      width: '100%',
+      thumbnailsColumns: 2,
+    };
   }
 
   isImageWrapper(attr: ApiAttribute): boolean {
