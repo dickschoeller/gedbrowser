@@ -1,19 +1,21 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import {ModuleWithProviders, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {CommonModule} from '@angular/common';
 import {MatCardModule, MatDividerModule, MatExpansionModule, MatListModule} from '@angular/material';
+import {NgxGalleryModule} from 'ngx-gallery';
+import {Ng2PageScrollModule} from 'ng2-page-scroll';
 
-import { PersonComponent } from './person.component';
-import { PersonFamilyChildComponent } from './person-family-child.component';
-import { PersonFamilyChildListComponent } from './person-family-child-list.component';
-import { PersonFamilyComponent } from './person-family.component';
-import { PersonFamilyListComponent } from './person-family-list.component';
-import { PersonFamilySpouseComponent } from './person-family-spouse.component';
-import { PersonParentComponent } from './person-parent.component';
-import { PersonParentFamiliesComponent } from './person-parent-families.component';
-import { PersonParentFamilyComponent } from './person-parent-family.component';
-import { PersonResolver } from './person-resolver.service';
-import { SharedModule } from '../shared';
+import {PersonComponent} from './person.component';
+import {PersonFamilyChildComponent} from './person-family-child.component';
+import {PersonFamilyChildListComponent} from './person-family-child-list.component';
+import {PersonFamilyComponent} from './person-family.component';
+import {PersonFamilyListComponent} from './person-family-list.component';
+import {PersonFamilySpouseComponent} from './person-family-spouse.component';
+import {PersonParentComponent} from './person-parent.component';
+import {PersonParentFamiliesComponent} from './person-parent-families.component';
+import {PersonParentFamilyComponent} from './person-parent-family.component';
+import {PersonResolver} from './person-resolver.service';
+import {SharedModule} from '../shared';
 
 const personRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -37,6 +39,8 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
     MatDividerModule,
     MatExpansionModule,
     MatListModule,
+    NgxGalleryModule,
+    Ng2PageScrollModule.forRoot(),
   ],
   declarations: [
     PersonComponent,

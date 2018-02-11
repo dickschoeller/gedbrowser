@@ -4,9 +4,11 @@ import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '../shared';
 
-import { SourceComponent } from './source.component';
-import { SourceResolver } from './source-resolver.service';
-import { MatCardModule, MatDividerModule } from '@angular/material';
+import {SourceComponent} from './source.component';
+import {SourceResolver} from './source-resolver.service';
+import {MatCardModule, MatDividerModule, MatExpansionModule, MatListModule} from '@angular/material';
+import {NgxGalleryModule} from 'ngx-gallery';
+import {Ng2PageScrollModule} from 'ng2-page-scroll';
 
 const sourceRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -24,7 +26,11 @@ const sourceRouting: ModuleWithProviders = RouterModule.forChild([
     SharedModule,
     CommonModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    MatExpansionModule,
+    MatListModule,
+    NgxGalleryModule,
+    Ng2PageScrollModule.forRoot(),
   ],
   declarations: [
     SourceComponent,
