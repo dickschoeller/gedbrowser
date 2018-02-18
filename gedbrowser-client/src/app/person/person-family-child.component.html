@@ -1,3 +1,11 @@
-<li>
-  <span><a [routerLink]="['/persons', person.string]" class="name">{{person.indexName}} {{lifespanYearString()}} [{{person.string}}]</a></span>
-</li>
+<mat-list-item class="parent">
+  <span>
+    <a [routerLink]="['/persons', person.string]" class="name">{{person.indexName}} {{lifespanYearString()}} [{{person.string}}]</a>
+  </span>
+  <span class="example-fill-remaining-space"></span>
+  <span class="hidden">
+    <button mat-icon-button color="primary"><mat-icon>arrow_drop_up</mat-icon></button>
+    <button mat-icon-button color="primary"><mat-icon>arrow_drop_down</mat-icon></button>
+    <button mat-icon-button color="accent"><mat-icon>delete_forever</mat-icon></button>
+  </span>
+</mat-list-item>

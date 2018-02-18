@@ -14,8 +14,9 @@
   padding: 15px;
 }
 
-span.label {
+.label {
  font-weight: bold;
+ color: primary;
 }
 
 div.body {
@@ -28,4 +29,12 @@ div.body {
   /* This fills the remaining space, by using flexbox.
      Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.parent:hover .hidden {
+  visibility: visible;
 }

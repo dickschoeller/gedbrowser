@@ -38,8 +38,9 @@ export class ImageUtil {
         previewCloseOnEsc: true,
         previewKeyboardNavigation: true,
         previewFullscreen: true,
-        height: '100px',
-        thumbnailsColumns: 4,
+        height: '200px',
+        width: '800px',
+        thumbnailsColumns: 6,
       };
   }
 

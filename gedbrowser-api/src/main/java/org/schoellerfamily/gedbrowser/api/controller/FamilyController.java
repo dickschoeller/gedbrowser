@@ -24,7 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * @author Dick Schoeller
  */
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins =
+    { "http://largo.schoellerfamily.org:4200", "http:/localhost:4200" })
 @Controller
 public final class FamilyController
     extends OperationsEnabler<Family, FamilyDocument>

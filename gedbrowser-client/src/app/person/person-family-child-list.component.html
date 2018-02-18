@@ -4,8 +4,11 @@
   <br/>
   <mat-list>
   <mat-list-item><span class="children label">Children:</span></mat-list-item>
-  </mat-list>
-  <ol>
+  <mat-list>
     <app-person-family-child *ngFor="let child of children" [child]="child"></app-person-family-child>
-  </ol>
+    <mat-list-item>
+      <button mat-icon-button color="primary"><mat-icon>add_circle</mat-icon></button>
+    </mat-list-item>
+  </mat-list>
+  </mat-list>
 </div>

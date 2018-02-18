@@ -3,15 +3,24 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
-import {MatFormFieldModule, MatListModule} from '@angular/material';
-
+import {
+  MatButtonModule,
+  MatDialogModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatSelectModule,
+  MatToolbarModule,
+} from '@angular/material';
 
 import {
-  AttributeListItemComponent,
   AttributeListComponent,
+  AttributeListItemComponent,
   AttributeListItemDetailListComponent,
+  AttributeListItemDetailListItemComponent,
+  AttributeDialogComponent,
 } from './components';
-import { AttributeListItemDetailListItemComponent } from './components/attribute-list-item-detail-list-item.component';
 
 @NgModule({
   imports: [
@@ -20,19 +29,31 @@ import { AttributeListItemDetailListItemComponent } from './components/attribute
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
+    MatButtonModule,
+    MatDialogModule,
     MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
     MatListModule,
+    MatSelectModule,
+    MatToolbarModule,
   ],
   declarations: [
-    AttributeListItemComponent,
     AttributeListComponent,
+    AttributeListItemComponent,
     AttributeListItemDetailListComponent,
     AttributeListItemDetailListItemComponent,
+    AttributeDialogComponent,
+  ],
+  entryComponents: [
+    AttributeDialogComponent,
   ],
   exports: [
-    AttributeListItemComponent,
     AttributeListComponent,
+    AttributeListItemComponent,
     AttributeListItemDetailListComponent,
+    AttributeListItemDetailListItemComponent,
+    AttributeDialogComponent,
   ]
 })
 export class SharedModule {}

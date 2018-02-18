@@ -6,5 +6,6 @@
     </mat-panel-title>
   </mat-expansion-panel-header>
   <app-attribute-list [attributes]="strippedAttributes()"></app-attribute-list>
+  <ngx-gallery *ngIf="galleryImages().length" [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
   <app-person-family-child-list [children]="children()"></app-person-family-child-list>
 </mat-expansion-panel>
