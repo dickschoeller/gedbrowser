@@ -18,17 +18,15 @@ export class AttributeListComponent implements OnInit {
   }
 
   createAttribute(): void {
-    const config = {
-      width: '500px',
-      height: '600px',
-      data: new ApiAttribute()
-    };
     const dialogRef: MatDialogRef<AttributeDialogComponent> =
-      this.dialog.open(AttributeDialogComponent, config);
+      this.dialog.open(AttributeDialogComponent, {
+        width: '500px',
+        height: '600px',
+        data: {type: 'Birth', text: '', date: '', place: '', note: ''}
+      });
 
     dialogRef.afterClosed().subscribe(result => {
-      const attribute: ApiAttribute = result;
-      alert('attribute: ' + attribute.string);
+      const data = result;
     });
   }
 }
