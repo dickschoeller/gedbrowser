@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { ApiAttribute, ApiFamily, ApiPerson, FamilyService } from '../shared';
+import { ApiAttribute, ApiFamily, ApiPerson, FamilyService, ImageUtil } from '../shared';
+import { NgxGalleryOptions, NgxGalleryImage } from 'ngx-gallery';
 import { Observable } from 'rxjs/Observable';
 
 /**
@@ -24,6 +25,8 @@ export class PersonFamilyComponent implements OnInit {
   @Input() person: ApiPerson;
   @Input() index: number;
   family: ApiFamily;
+  imageUtil: ImageUtil;
+  galleryOptions: Array<NgxGalleryOptions>;
 
   constructor(
     private familyService: FamilyService,
@@ -34,6 +37,8 @@ export class PersonFamilyComponent implements OnInit {
       .subscribe((family: ApiFamily) => {
         this.family = family;
     });
+    this.imageUtil = new ImageUtil();
+    this.galleryOptions = this.imageUtil.galleryOptions();
   }
 
   familyString() {
@@ -61,7 +66,8 @@ export class PersonFamilyComponent implements OnInit {
   strippedAttributes(): Array<ApiAttribute> {
     const stripped: Array<ApiAttribute> = new Array<ApiAttribute>();
     for (const attribute of this.family.attributes) {
-      if (!this.isFamilyMember(attribute)) {
+      if (!this.isFamilyMember(attribute) &&
+      !this.imageUtil.isImageWrapper(attribute)) {
         stripped.push(attribute);
       }
     }
@@ -81,5 +87,13 @@ export class PersonFamilyComponent implements OnInit {
       }
     }
     return stripped;
+  }
+
+  imageAttributes(): Array<ApiAttribute> {
+    return this.imageUtil.imageAttributes(this.family.attributes);
+  }
+
+  galleryImages(): Array<NgxGalleryImage> {
+    return this.imageUtil.galleryImages(this.family.attributes);
   }
 }

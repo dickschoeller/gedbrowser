@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ApiAttribute} from '../models';
 import {StringUtil, NameUtil, AttributeUtil} from '../util';
 import {AttributeDialogComponent} from './attribute-dialog.component';
@@ -9,35 +9,12 @@ import {MatDialogRef, MatDialog} from '@angular/material';
   templateUrl: './attribute-list-item.component.html',
   styleUrls: ['./attribute-list-item.component.css']
 })
-export class AttributeListItemComponent implements OnInit {
+export class AttributeListItemComponent {
   @Input() attribute: ApiAttribute;
   @Input() attributes: Array<ApiAttribute>;
-  private attributeUtil = new AttributeUtil(this);
+  attributeUtil = new AttributeUtil(this);
 
   constructor(public dialog: MatDialog) { }
-
-  ngOnInit() {
-  }
-
-  label() {
-    return this.attributeUtil.label();
-  }
-
-  contents() {
-    return this.attributeUtil.contents();
-  }
-
-  editable(): boolean {
-    return this.attributeUtil.editable();
-  }
-
-  first(): boolean {
-    return this.attributeUtil.first();
-  }
-
-  last(): boolean {
-    return this.attributeUtil.last();
-  }
 
   edit(): void {
     const config = {
