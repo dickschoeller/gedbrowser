@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ApiAttribute } from '../models';
-import { StringUtil, NameUtil } from '../util';
-import { AttributeDialogComponent } from './attribute-dialog.component';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import {Component, OnInit, Input} from '@angular/core';
+import {ApiAttribute} from '../models';
+import {StringUtil, NameUtil, AttributeUtil} from '../util';
+import {AttributeDialogComponent} from './attribute-dialog.component';
+import {MatDialogRef, MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-attribute-list-item',
@@ -12,6 +12,7 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 export class AttributeListItemComponent implements OnInit {
   @Input() attribute: ApiAttribute;
   @Input() attributes: Array<ApiAttribute>;
+  private attributeUtil = new AttributeUtil(this);
 
   constructor(public dialog: MatDialog) { }
 
@@ -19,53 +20,23 @@ export class AttributeListItemComponent implements OnInit {
   }
 
   label() {
-    if (this.attribute.type === 'attribute') {
-      return this.attribute.string;
-    }
-    return new StringUtil().titleCase(this.attribute.type);
+    return this.attributeUtil.label();
   }
 
   contents() {
-    if (this.attribute.type === 'attribute') {
-      return this.attribute.tail;
-    }
-    if (this.attribute.type === 'name') {
-      return new NameUtil().cleanup(this.attribute.string);
-    }
-    return this.attribute.string;
+    return this.attributeUtil.contents();
   }
 
   editable(): boolean {
-    if (this.label() === 'Reference Number' || this.label() === 'Changed') {
-      return false;
-    }
-    return true;
+    return this.attributeUtil.editable();
   }
 
   first(): boolean {
-    return this.attributes.indexOf(this.attribute) === 0;
+    return this.attributeUtil.first();
   }
 
   last(): boolean {
-    if (this.attributes.indexOf(this.attribute) === (this.attributes.length - 1)) {
-      return true;
-    }
-    if (this.attributes.indexOf(this.attribute) === (this.attributes.length - 2)) {
-      if (this.attributes[this.attributes.length - 1].string === 'Reference Number') {
-        return true;
-      }
-      if (this.attributes[this.attributes.length - 1].string === 'Changed') {
-        return true;
-      }
-    }
-    if (this.attributes.indexOf(this.attribute) === (this.attributes.length - 3)) {
-      if (this.attributes[this.attributes.length - 2].string === 'Reference Number') {
-        if (this.attributes[this.attributes.length - 1].string === 'Changed') {
-          return true;
-        }
-      }
-    }
-    return false;
+    return this.attributeUtil.last();
   }
 
   edit(): void {
