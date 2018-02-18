@@ -39,7 +39,7 @@ export class AttributeListItemDetailListItemComponent implements OnInit {
   }
 
   image(): boolean {
-    return new ImageUtil(this.attribute).isImage();
+    return new ImageUtil().isImage(this.attribute);
   }
 
   displayString(): string {
