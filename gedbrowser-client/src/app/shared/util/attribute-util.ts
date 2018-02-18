@@ -42,19 +42,12 @@ export class AttributeUtil {
       return true;
     }
     if (index === (length - 2)) {
-      if (attributes[length - 1].string === 'Reference Number') {
-        return true;
-      }
-      if (attributes[length - 1].string === 'Changed') {
-        return true;
-      }
+      return ((attributes[length - 1].string === 'Reference Number')
+        || (attributes[length - 1].string === 'Changed'));
     }
     if (index === (length - 3)) {
-      if (attributes[length - 2].string === 'Reference Number') {
-        if (attributes[length - 1].string === 'Changed') {
-          return true;
-        }
-      }
+      return ((attributes[length - 2].string === 'Reference Number')
+        && (attributes[length - 1].string === 'Changed'));
     }
     return false;
   }
