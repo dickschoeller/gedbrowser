@@ -94,7 +94,8 @@ export class AttributeDialogHelper {
       + i + '  type : "' + attribute.type + '"\n'
       + i + '  string : "' + attribute.string + '"\n'
       + i + '  tail : "' + attribute.tail + '"\n'
-      + i + '  attributes : [' + this.dumpAttributes(attribute.attributes, i + '    ') + ']\n'
+      + i + '  attributes : ['
+      + this.dumpAttributes(attribute.attributes, i + '    ') + ']\n'
       + i + '}'
       ;
     return v;
