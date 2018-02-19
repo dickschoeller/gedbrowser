@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ApiAttribute} from '../models';
 import {StringUtil, NameUtil, AttributeUtil} from '../util';
+import { AttributeDialogHelper } from './attribute-dialog-helper';
 import {AttributeDialogComponent} from './attribute-dialog.component';
 import {MatDialogRef, MatDialog} from '@angular/material';
 
@@ -13,6 +14,7 @@ export class AttributeListItemComponent {
   @Input() attribute: ApiAttribute;
   @Input() attributes: Array<ApiAttribute>;
   attributeUtil = new AttributeUtil(this);
+  attributeDialogHelper = new AttributeDialogHelper(this);
 
   constructor(public dialog: MatDialog) { }
 
@@ -20,81 +22,32 @@ export class AttributeListItemComponent {
     const config = {
       width: '500px',
       height: '600px',
-      data: this.buildData()
+      data: this.attributeDialogHelper.buildData()
     };
     const dialogRef: MatDialogRef<AttributeDialogComponent> =
       this.dialog.open(AttributeDialogComponent, config);
 
     dialogRef.afterClosed().subscribe(result => {
+      if (result === null) {
+        return;
+      }
       const data = result;
+      this.attributeDialogHelper.populateAttribute(data);
     });
-  }
-
-  buildData() {
-    const type = this.attribute.string;
-    const text = this.attribute.tail;
-    const date = this.date();
-    const place = this.place();
-    const note = this.note();
-    const data = { type: type, text: text, date: date, place: place, note: note };
-    return data;
-  }
-
-  date() {
-    for (const attr of this.attribute.attributes) {
-      if (attr.type.toLowerCase() === 'date') {
-        return attr.string;
-      }
-    }
-  }
-
-  place() {
-    for (const attr of this.attribute.attributes) {
-      if (attr.type.toLowerCase() === 'place') {
-        return attr.string;
-      }
-    }
-  }
-
-  note() {
-    for (const attr of this.attribute.attributes) {
-      if (attr.string === 'Note') {
-        return attr.tail;
-      }
-    }
   }
 
   moveUp(): void {
     const index = this.attributes.indexOf(this.attribute);
     this.attributes.splice(index - 1, 0, this.attributes.splice(index, 1)[0]);
-    alert(this.dumpAttributes());
   }
 
   moveDown(): void {
     const index = this.attributes.indexOf(this.attribute);
     this.attributes.splice(index + 1, 0, this.attributes.splice(index, 1)[0]);
-    alert(this.dumpAttributes());
   }
 
   delete(): void {
     const index = this.attributes.indexOf(this.attribute);
     this.attributes.splice(index, 1);
-    alert(this.dumpAttributes());
-  }
-
-  dumpAttribute(): string {
-    let result = '';
-    for (const attr of this.attribute.attributes) {
-      result = result + 'type:' + attr.type + ', string: ' + attr.string + ', tail: ' + attr.tail + '\n';
-    }
-    return result;
-  }
-
-  dumpAttributes(): string {
-    let result = '';
-    for (const attr of this.attributes) {
-      result = result + attr.type + ' ' + attr.string + ' ' + attr.tail + '\n';
-    }
-    return result;
   }
 }
