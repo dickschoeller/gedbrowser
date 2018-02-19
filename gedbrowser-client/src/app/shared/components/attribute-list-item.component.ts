@@ -28,11 +28,11 @@ export class AttributeListItemComponent {
       this.dialog.open(AttributeDialogComponent, config);
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result === null) {
+      if (result === null || result === undefined) {
         return;
       }
       const data = result;
-      this.attributeDialogHelper.populateAttribute(data);
+      this.attributeDialogHelper.populateParentAttribute(data);
     });
   }
 
