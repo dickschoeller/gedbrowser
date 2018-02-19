@@ -20,4 +20,15 @@ export class SourceService {
     return this.http.get<ApiSource>(
       'http://localhost:8080/gedbrowser-api/dbs/' + db + '/sources/' + id);
   }
+
+  put(db: string, source: ApiSource) {
+    this.http.put(
+      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/sources/' + source.string,
+      source);
+  }
+
+  post(db: string, source: ApiSource) {
+    this.http.post(
+      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/sources', source);
+  }
 }

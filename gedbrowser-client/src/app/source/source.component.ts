@@ -21,6 +21,8 @@ export class SourceComponent implements OnInit {
   source: ApiSource;
   imageUtil: ImageUtil;
   galleryOptions: Array<NgxGalleryOptions>;
+  strippedAttributes: Array<ApiAttribute>;
+  imageAttributes: Array<ApiAttribute>;
 
   constructor(private route: ActivatedRoute,
     private sourceService: SourceService,
@@ -35,13 +37,15 @@ export class SourceComponent implements OnInit {
     );
     this.imageUtil = new ImageUtil();
     this.galleryOptions = this.imageUtil.galleryOptions();
+    this.strippedAttributes = this.createStrippedAttributes();
+    this.imageAttributes = this.createImageAttributes();
   }
 
   /**
    * Remove family links and images.
    * Those will be handled elsewhere.
    */
-  strippedAttributes(): Array<ApiAttribute> {
+  createStrippedAttributes(): Array<ApiAttribute> {
     const stripped: Array<ApiAttribute> = new Array<ApiAttribute>();
     for (const attribute of this.source.attributes) {
       if (!this.imageUtil.isImageWrapper(attribute)) {
@@ -51,7 +55,7 @@ export class SourceComponent implements OnInit {
     return stripped;
   }
 
-  imageAttributes(): Array<ApiAttribute> {
+  createImageAttributes(): Array<ApiAttribute> {
     return this.imageUtil.imageAttributes(this.source.attributes);
   }
 

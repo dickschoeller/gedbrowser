@@ -20,4 +20,15 @@ export class SubmitterService {
     return this.http.get<ApiSubmitter>(
       'http://localhost:8080/gedbrowser-api/dbs/' + db + '/submitters/' + id);
   }
+
+  put(db: string, submitter: ApiSubmitter) {
+    this.http.put(
+      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/submitters/' + submitter.string,
+      submitter);
+  }
+
+  post(db: string, submitter: ApiSubmitter) {
+    this.http.post(
+      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/submitters', submitter);
+  }
 }

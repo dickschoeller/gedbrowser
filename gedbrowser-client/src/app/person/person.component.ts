@@ -46,8 +46,8 @@ export class PersonComponent implements OnInit {
     );
     this.imageUtil = new ImageUtil();
     this.galleryOptions = this.imageUtil.galleryOptions();
-    this.famsAttributes = this.createFamsAttributes();
-    this.famcAttributes = this.createFamcAttributes();
+    this.famsAttributes = this.createAttributeListOfType('fams');
+    this.famcAttributes = this.createAttributeListOfType('famc');
     this.imageAttributes = this.createImageAttributes();
     this.strippedAttributes = this.createStrippedAttributes();
   }
@@ -56,30 +56,16 @@ export class PersonComponent implements OnInit {
     return new LifespanUtil(this.person.lifespan).lifespanDateString();
   }
 
-  createFamsAttributes(): Array<ApiAttribute> {
+  createAttributeListOfType(type: string) {
     const fams: Array<ApiAttribute> = new Array<ApiAttribute>();
     for (const attribute of this.person.attributes) {
-      if (attribute.type === 'fams') {
+      if (attribute.type === type) {
         fams.push(attribute);
       }
     }
     return fams;
   }
 
-  createFamcAttributes(): Array<ApiAttribute> {
-    const fams: Array<ApiAttribute> = new Array<ApiAttribute>();
-    for (const attribute of this.person.attributes) {
-      if (attribute.type === 'famc') {
-        fams.push(attribute);
-      }
-    }
-    return fams;
-  }
-
-  /**
-   * Remove family links and images.
-   * Those will be handled elsewhere.
-   */
   createStrippedAttributes(): Array<ApiAttribute> {
     const stripped: Array<ApiAttribute> = new Array<ApiAttribute>();
     for (const attribute of this.person.attributes) {

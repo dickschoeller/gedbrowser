@@ -24,10 +24,13 @@ export class PersonService {
   }
 
   put(db: string, person: ApiPerson) {
-    this.http.put('http://localhost:8080/gedbrowser-api/dbs/' + db + '/persons/' + person.string, person);
+    this.http.put(
+      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/persons/' + person.string,
+      person);
   }
 
   post(db: string, person: ApiPerson) {
-    this.http.post('http://localhost:8080/gedbrowser-api/dbs/' + db + '/persons', person);
+    this.http.post(
+      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/persons', person);
   }
 }

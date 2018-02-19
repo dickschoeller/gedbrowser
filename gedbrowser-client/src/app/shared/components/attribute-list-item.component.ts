@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
+import {MatDialogRef, MatDialog} from '@angular/material';
 import {ApiAttribute} from '../models';
 import {StringUtil, NameUtil, AttributeUtil} from '../util';
-import { AttributeDialogHelper } from './attribute-dialog-helper';
+import {AttributeDialogHelper} from './attribute-dialog-helper';
 import {AttributeDialogComponent} from './attribute-dialog.component';
-import {MatDialogRef, MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-attribute-list-item',
