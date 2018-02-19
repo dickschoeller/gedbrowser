@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import {NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation,
-  NgxGalleryImageSize, NgxGalleryComponent, NgxGalleryLayout,
-  NgxGalleryOrder} from 'ngx-gallery';
-
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NgxGalleryOptions, NgxGalleryImage} from 'ngx-gallery';
 import {
   ApiSource,
   AttributeListComponent,
   SourceService,
-ApiAttribute,
-ImageUtil,
+  ApiAttribute,
+  ImageUtil,
 } from '../shared';
 
 @Component({
@@ -20,9 +17,9 @@ ImageUtil,
 export class SourceComponent implements OnInit {
   source: ApiSource;
   imageUtil: ImageUtil;
-  galleryOptions: Array<NgxGalleryOptions>;
-  strippedAttributes: Array<ApiAttribute>;
-  imageAttributes: Array<ApiAttribute>;
+  galleryOptions: Array<NgxGalleryOptions> = new Array<NgxGalleryOptions>();
+  strippedAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
+  imageAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
 
   constructor(private route: ActivatedRoute,
     private sourceService: SourceService,
@@ -33,18 +30,14 @@ export class SourceComponent implements OnInit {
     this.route.data.subscribe(
       (data: {source: ApiSource}) => {
         this.source = data.source;
+        this.imageUtil = new ImageUtil();
+        this.galleryOptions = this.imageUtil.galleryOptions();
+        this.strippedAttributes = this.createStrippedAttributes();
+        this.imageAttributes = this.createImageAttributes();
       }
     );
-    this.imageUtil = new ImageUtil();
-    this.galleryOptions = this.imageUtil.galleryOptions();
-    this.strippedAttributes = this.createStrippedAttributes();
-    this.imageAttributes = this.createImageAttributes();
   }
 
-  /**
-   * Remove family links and images.
-   * Those will be handled elsewhere.
-   */
   createStrippedAttributes(): Array<ApiAttribute> {
     const stripped: Array<ApiAttribute> = new Array<ApiAttribute>();
     for (const attribute of this.source.attributes) {

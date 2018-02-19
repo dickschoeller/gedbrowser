@@ -7,16 +7,14 @@ import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Dick Schoeller
  */
-@CrossOrigin(origins =
-    { "http://largo.schoellerfamily.org:4200", "http:/localhost:4200" })
+@CrossOrigin(origins = { "http://localhost:4200" })
 @Controller
 public class HeadController
     extends OperationsEnabler<Head, HeadDocument>
@@ -36,7 +34,7 @@ public class HeadController
      * @param db the name of the db to access
      * @return the list of sources
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/dbs/{db}")
+    @GetMapping(value = "/dbs/{db}")
     @ResponseBody
     public ApiHead readHead(
             @PathVariable final String db) {

@@ -17,15 +17,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Dick Schoeller
  */
-@CrossOrigin(origins =
-    { "http://largo.schoellerfamily.org:4200", "http:/localhost:4200" })
+@CrossOrigin(origins = { "http://localhost:4200" })
 @Controller
 public final class FamilyController
     extends OperationsEnabler<Family, FamilyDocument>
@@ -79,7 +76,7 @@ public final class FamilyController
      * @param db the name of the db to access
      * @return the list of families
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/dbs/{db}/families")
+    @GetMapping(value = "/dbs/{db}/families")
     @ResponseBody
     public List<ApiFamily> readFamilies(
             @PathVariable final String db) {
@@ -92,8 +89,7 @@ public final class FamilyController
      * @param id the ID of the family
      * @return the family
      */
-    @RequestMapping(method = RequestMethod.GET,
-            value = "/dbs/{db}/families/{id}")
+    @GetMapping(value = "/dbs/{db}/families/{id}")
     @ResponseBody
     public ApiFamily readFamily(
             @PathVariable final String db,
@@ -107,8 +103,7 @@ public final class FamilyController
      * @param id the ID of the family
      * @return the attributes of the family
      */
-    @RequestMapping(method = RequestMethod.GET,
-            value = "/dbs/{db}/families/{id}/attributes")
+    @GetMapping(value = "/dbs/{db}/families/{id}/attributes")
     @ResponseBody
     public List<ApiAttribute> readFamilyAttributes(
             @PathVariable final String db,
@@ -124,8 +119,7 @@ public final class FamilyController
      * @param index the index of the attribute
      * @return the attribute
      */
-    @RequestMapping(method = RequestMethod.GET,
-            value = "/dbs/{db}/families/{id}/attributes/{index}")
+    @GetMapping(value = "/dbs/{db}/families/{id}/attributes/{index}")
     @ResponseBody
     public ApiObject readFamilyAttribute(
             @PathVariable final String db,

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ApiAttribute, ApiFamily, FamilyService } from '../shared';
+import {Component, OnInit, Input} from '@angular/core';
+import {ApiAttribute, ApiFamily, FamilyService} from '../shared';
 
 @Component({
   selector: 'app-person-parent-family',
@@ -23,6 +23,9 @@ export class PersonParentFamilyComponent implements OnInit {
 
   spouses(): Array<ApiAttribute> {
     const spouses: Array<ApiAttribute> = new Array<ApiAttribute>();
+    if (this.family === undefined) {
+      return spouses;
+    }
     for (const attribute of this.family.attributes) {
       if (attribute.type === 'husband' || attribute.type === 'wife') {
         spouses.push(attribute);

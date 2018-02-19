@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation,
-  NgxGalleryImageSize, NgxGalleryComponent, NgxGalleryLayout,
-  NgxGalleryOrder} from 'ngx-gallery';
+import {NgxGalleryOptions, NgxGalleryImage} from 'ngx-gallery';
 
 import {
   ApiAttribute,
@@ -27,11 +25,11 @@ import {
 export class PersonComponent implements OnInit {
   person: ApiPerson;
   imageUtil: ImageUtil;
-  galleryOptions: Array<NgxGalleryOptions>;
-  famsAttributes: Array<ApiAttribute>;
-  famcAttributes: Array<ApiAttribute>;
-  imageAttributes: Array<ApiAttribute>;
-  strippedAttributes: Array<ApiAttribute>;
+  galleryOptions: Array<NgxGalleryOptions> = new Array<NgxGalleryOptions>();
+  famsAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
+  famcAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
+  imageAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
+  strippedAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
 
   constructor(private route: ActivatedRoute,
     private personService: PersonService,
@@ -42,14 +40,14 @@ export class PersonComponent implements OnInit {
     this.route.data.subscribe(
       (data: {person: ApiPerson}) => {
         this.person = data.person;
+        this.imageUtil = new ImageUtil();
+        this.galleryOptions = this.imageUtil.galleryOptions();
+        this.famsAttributes = this.createAttributeListOfType('fams');
+        this.famcAttributes = this.createAttributeListOfType('famc');
+        this.imageAttributes = this.createImageAttributes();
+        this.strippedAttributes = this.createStrippedAttributes();
       }
     );
-    this.imageUtil = new ImageUtil();
-    this.galleryOptions = this.imageUtil.galleryOptions();
-    this.famsAttributes = this.createAttributeListOfType('fams');
-    this.famcAttributes = this.createAttributeListOfType('famc');
-    this.imageAttributes = this.createImageAttributes();
-    this.strippedAttributes = this.createStrippedAttributes();
   }
 
   lifespanDateString() {

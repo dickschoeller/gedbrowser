@@ -12,19 +12,17 @@ import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Dick Schoeller
  */
-@CrossOrigin(origins =
-    { "http://largo.schoellerfamily.org:4200", "http:/localhost:4200" })
+@CrossOrigin(origins = { "http://localhost:4200" })
 @Controller
 public class SourceController
     extends OperationsEnabler<Source, SourceDocument>
@@ -77,7 +75,7 @@ public class SourceController
      * @param db the name of the db to access
      * @return the list of sources
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/dbs/{db}/sources")
+    @GetMapping(value = "/dbs/{db}/sources")
     @ResponseBody
     public List<ApiSource> readSources(
             @PathVariable final String db) {
@@ -90,8 +88,7 @@ public class SourceController
      * @param id the ID of the source
      * @return the source
      */
-    @RequestMapping(method = RequestMethod.GET,
-            value = "/dbs/{db}/sources/{id}")
+    @GetMapping(value = "/dbs/{db}/sources/{id}")
     @ResponseBody
     public ApiSource readSource(
             @PathVariable final String db,
@@ -105,8 +102,7 @@ public class SourceController
      * @param id the ID of the source
      * @return the attributes of the source
      */
-    @RequestMapping(method = RequestMethod.GET,
-            value = "/dbs/{db}/sources/{id}/attributes")
+    @GetMapping(value = "/dbs/{db}/sources/{id}/attributes")
     @ResponseBody
     public List<ApiAttribute> readSourceAttributes(
             @PathVariable final String db,
@@ -121,8 +117,7 @@ public class SourceController
      * @param index the index of the attribute
      * @return the attribute
      */
-    @RequestMapping(method = RequestMethod.GET,
-            value = "/dbs/{db}/sources/{id}/attributes/{index}")
+    @GetMapping(value = "/dbs/{db}/sources/{id}/attributes/{index}")
     @ResponseBody
     public ApiObject readSourceAttribute(
             @PathVariable final String db,
@@ -139,8 +134,7 @@ public class SourceController
      * @param type the type we are looking for
      * @return the attribute
      */
-    @RequestMapping(method = RequestMethod.GET,
-            value = "/dbs/{db}/sources/{id}/{type}")
+    @GetMapping(value = "/dbs/{db}/sources/{id}/{type}")
     @ResponseBody
     public List<ApiAttribute> readSourceAttributes(
             @PathVariable final String db,
@@ -158,8 +152,7 @@ public class SourceController
      * @param index the index in the list of found matches
      * @return the attribute
      */
-    @RequestMapping(method = RequestMethod.GET,
-            value = "/dbs/{db}/sources/{id}/{type}/{index}")
+    @GetMapping(value = "/dbs/{db}/sources/{id}/{type}/{index}")
     @ResponseBody
     public ApiObject readSourceAttribute(
             @PathVariable final String db,

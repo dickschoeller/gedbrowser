@@ -27,11 +27,11 @@ export class PersonFamilyComponent implements OnInit {
 
   family: ApiFamily;
   imageUtil: ImageUtil;
-  galleryOptions: Array<NgxGalleryOptions>;
-  spouseAttributes: Array<ApiAttribute>;
-  childrenAttributes: Array<ApiAttribute>;
-  strippedAttributes: Array<ApiAttribute>;
-  imageAttributes: Array<ApiAttribute>;
+  galleryOptions: Array<NgxGalleryOptions> = new Array<NgxGalleryOptions>();
+  spouseAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
+  childrenAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
+  strippedAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
+  imageAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
 
   constructor(
     private familyService: FamilyService,
@@ -41,14 +41,13 @@ export class PersonFamilyComponent implements OnInit {
     this.familyService.getOne('schoeller', this.string)
       .subscribe((family: ApiFamily) => {
         this.family = family;
+        this.imageUtil = new ImageUtil();
+        this.spouseAttributes = this.createSpouseAttributes();
+        this.strippedAttributes = this.createStrippedAttributes();
+        this.childrenAttributes = this.createChildrenAttributes();
+        this.imageAttributes = this.createImageAttributes();
+        this.galleryOptions = this.imageUtil.galleryOptions();
     });
-    this.imageUtil = new ImageUtil();
-    this.spouseAttributes = this.createSpouseAttributes();
-    this.strippedAttributes = this.createStrippedAttributes();
-    this.childrenAttributes = this.createChildrenAttributes();
-    this.imageAttributes = this.createImageAttributes();
-
-    this.galleryOptions = this.imageUtil.galleryOptions();
   }
 
   familyString() {
@@ -56,7 +55,9 @@ export class PersonFamilyComponent implements OnInit {
   }
 
   spouse(): ApiAttribute {
-    const stripped: Array<ApiAttribute> = new Array<ApiAttribute>();
+    if (this.family === undefined) {
+      return null;
+    }
     for (const attribute of this.family.attributes) {
       if (this.isSpouse(attribute) && !this.isThisPerson(attribute)) {
         return attribute;
@@ -114,6 +115,9 @@ export class PersonFamilyComponent implements OnInit {
   }
 
   galleryImages(): Array<NgxGalleryImage> {
+    if (this.imageUtil === undefined || this.family === undefined) {
+      return new Array<NgxGalleryImage>();
+    }
     return this.imageUtil.galleryImages(this.family.attributes);
   }
 
