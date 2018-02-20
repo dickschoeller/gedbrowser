@@ -2,6 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
 
 import {ApiAttribute} from '../../shared/models';
+import { AttributeDialogHelper } from './attribute-dialog-helper';
 import {AttributeDialogComponent} from './attribute-dialog.component';
 
 @Component({
@@ -11,6 +12,7 @@ import {AttributeDialogComponent} from './attribute-dialog.component';
 })
 export class AttributeListComponent implements OnInit {
   @Input() attributes: Array<ApiAttribute>;
+  attributeDialogHelper = new AttributeDialogHelper(this);
 
   constructor(public dialog: MatDialog) { }
 
@@ -26,7 +28,13 @@ export class AttributeListComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
+      if (result === null || result === undefined) {
+        return;
+      }
       const data = result;
+      const attribute: ApiAttribute =
+        this.attributeDialogHelper.populateNewAttribute(data);
+      this.attributes.splice(0, 0, attribute);
     });
   }
 }

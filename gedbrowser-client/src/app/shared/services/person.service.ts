@@ -12,14 +12,25 @@ export class PersonService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(db): Observable<Array<ApiPerson>> {
+  getAll(db: string): Observable<Array<ApiPerson>> {
     return this.http.get<Array<ApiPerson>>(
       'http://localhost:8080/gedbrowser-api/dbs/' + db + '/persons');
   }
 
-  getOne(db, id): Observable<ApiPerson> {
+  getOne(db: string, id: string): Observable<ApiPerson> {
     return this.http
       .get<ApiPerson>(
         'http://localhost:8080/gedbrowser-api/dbs/' + db + '/persons/' + id);
+  }
+
+  put(db: string, person: ApiPerson) {
+    this.http.put(
+      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/persons/' + person.string,
+      person);
+  }
+
+  post(db: string, person: ApiPerson) {
+    this.http.post(
+      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/persons', person);
   }
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ApiAttribute, ApiPerson, PersonService, LifespanUtil } from '../shared';
+import {Component, OnInit, Input} from '@angular/core';
+import {ApiAttribute, ApiPerson, PersonService, LifespanUtil} from '../shared';
 
 /**
  * Implements a child block within a family on a person page.

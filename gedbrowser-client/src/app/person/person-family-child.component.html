@@ -1,5 +1,5 @@
 <mat-list-item class="parent">
-  <span>
+  <span *ngIf="person">
     <a [routerLink]="['/persons', person.string]" class="name">{{person.indexName}} {{lifespanYearString()}} [{{person.string}}]</a>
   </span>
   <span class="example-fill-remaining-space"></span>

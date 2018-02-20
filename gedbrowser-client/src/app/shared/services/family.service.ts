@@ -12,9 +12,20 @@ export class FamilyService {
 
   constructor(private http: HttpClient) { }
 
-  getOne(db, id): Observable<ApiFamily> {
+  getOne(db: string, id: string): Observable<ApiFamily> {
     return this.http
       .get<ApiFamily>(
         'http://localhost:8080/gedbrowser-api/dbs/' + db + '/families/' + id);
+  }
+
+  put(db: string, family: ApiFamily) {
+    this.http.put(
+      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/families/' + family.string,
+      family);
+  }
+
+  post(db: string, family: ApiFamily) {
+    this.http.post(
+      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/families', family);
   }
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ApiAttribute } from '../shared';
+import {Component, OnInit, Input} from '@angular/core';
+import {ApiAttribute} from '../shared';
 
 @Component({
   selector: 'app-person-parent-families',

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ApiAttribute, ApiPerson, PersonService, LifespanUtil, StringUtil } from '../shared';
+import {Component, OnInit, Input} from '@angular/core';
+import {ApiAttribute, ApiPerson, PersonService, LifespanUtil, StringUtil} from '../shared';
 
 /**
  * Implements a spouse block within a family on a person page.
