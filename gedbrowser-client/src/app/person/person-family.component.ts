@@ -41,13 +41,17 @@ export class PersonFamilyComponent implements OnInit {
     this.service.getOne('schoeller', this.string)
       .subscribe((family: ApiFamily) => {
         this.family = family;
-        this.imageUtil = new ImageUtil();
-        this.spouseAttributes = this.createSpouseAttributes();
-        this.strippedAttributes = this.createStrippedAttributes();
-        this.childrenAttributes = this.createChildrenAttributes();
-        this.imageAttributes = this.createImageAttributes();
-        this.galleryOptions = this.imageUtil.galleryOptions();
+        this.initLists();
     });
+  }
+
+  initLists() {
+    this.imageUtil = new ImageUtil();
+    this.spouseAttributes = this.createSpouseAttributes();
+    this.strippedAttributes = this.createStrippedAttributes();
+    this.childrenAttributes = this.createChildrenAttributes();
+    this.imageAttributes = this.createImageAttributes();
+    this.galleryOptions = this.imageUtil.galleryOptions();
   }
 
   familyString() {
@@ -130,12 +134,7 @@ export class PersonFamilyComponent implements OnInit {
     this.service.put('schoeller', this.family).subscribe(
       (data: ApiFamily) => {
         this.family = data;
-        this.imageUtil = new ImageUtil();
-        this.spouseAttributes = this.createSpouseAttributes();
-        this.strippedAttributes = this.createStrippedAttributes();
-        this.childrenAttributes = this.createChildrenAttributes();
-        this.imageAttributes = this.createImageAttributes();
-        this.galleryOptions = this.imageUtil.galleryOptions();
+        this.initLists();
       }
     );
   }

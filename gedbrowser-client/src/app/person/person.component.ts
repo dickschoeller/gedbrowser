@@ -42,14 +42,18 @@ export class PersonComponent implements OnInit {
     this.route.data.subscribe(
       (data: {person: ApiPerson}) => {
         this.person = data.person;
-        this.imageUtil = new ImageUtil();
-        this.galleryOptions = this.imageUtil.galleryOptions();
-        this.famsAttributes = this.createAttributeListOfType('fams');
-        this.famcAttributes = this.createAttributeListOfType('famc');
-        this.imageAttributes = this.createImageAttributes();
-        this.strippedAttributes = this.createStrippedAttributes();
+        this.initLists();
       }
     );
+  }
+
+  initLists() {
+    this.imageUtil = new ImageUtil();
+    this.galleryOptions = this.imageUtil.galleryOptions();
+    this.famsAttributes = this.createAttributeListOfType('fams');
+    this.famcAttributes = this.createAttributeListOfType('famc');
+    this.imageAttributes = this.createImageAttributes();
+    this.strippedAttributes = this.createStrippedAttributes();
   }
 
   lifespanDateString() {
@@ -94,12 +98,7 @@ export class PersonComponent implements OnInit {
     this.service.put('schoeller', this.person).subscribe(
       (data: ApiPerson) => {
         this.person = data;
-        this.imageUtil = new ImageUtil();
-        this.galleryOptions = this.imageUtil.galleryOptions();
-        this.famsAttributes = this.createAttributeListOfType('fams');
-        this.famcAttributes = this.createAttributeListOfType('famc');
-        this.imageAttributes = this.createImageAttributes();
-        this.strippedAttributes = this.createStrippedAttributes();
+        this.initLists();
       }
     );
   }
