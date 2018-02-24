@@ -34,20 +34,24 @@ export class PersonFamilyComponent implements OnInit {
   imageAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
 
   constructor(
-    private familyService: FamilyService,
+    private service: FamilyService,
   ) { }
 
   ngOnInit() {
-    this.familyService.getOne('schoeller', this.string)
+    this.service.getOne('schoeller', this.string)
       .subscribe((family: ApiFamily) => {
         this.family = family;
-        this.imageUtil = new ImageUtil();
-        this.spouseAttributes = this.createSpouseAttributes();
-        this.strippedAttributes = this.createStrippedAttributes();
-        this.childrenAttributes = this.createChildrenAttributes();
-        this.imageAttributes = this.createImageAttributes();
-        this.galleryOptions = this.imageUtil.galleryOptions();
+        this.initLists();
     });
+  }
+
+  initLists() {
+    this.imageUtil = new ImageUtil();
+    this.spouseAttributes = this.createSpouseAttributes();
+    this.strippedAttributes = this.createStrippedAttributes();
+    this.childrenAttributes = this.createChildrenAttributes();
+    this.imageAttributes = this.createImageAttributes();
+    this.galleryOptions = this.imageUtil.galleryOptions();
   }
 
   familyString() {
@@ -122,11 +126,16 @@ export class PersonFamilyComponent implements OnInit {
   }
 
   save() {
-    this.family.attributes = new Array<ApiAttribute>();
-    this.family.attributes.concat(this.spouseAttributes);
-    this.family.attributes.concat(this.strippedAttributes);
-    this.family.attributes.concat(this.childrenAttributes);
-    this.family.attributes.concat(this.imageAttributes);
-    this.familyService.put('schoeller', this.family);
+    this.family.attributes = new Array<ApiAttribute>()
+      .concat(this.spouseAttributes)
+      .concat(this.strippedAttributes)
+      .concat(this.childrenAttributes)
+      .concat(this.imageAttributes);
+    this.service.put('schoeller', this.family).subscribe(
+      (data: ApiFamily) => {
+        this.family = data;
+        this.initLists();
+      }
+    );
   }
 }

@@ -34,8 +34,10 @@ export class AttributeUtil {
   }
 
   last(): boolean {
-    const attribute: ApiAttribute = this.parent.attribute;
-    const attributes: Array<ApiAttribute> = this.parent.attributes;
+    return this.isLast(this.parent.attributes, this.parent.attribute);
+  }
+
+  isLast(attributes: Array<ApiAttribute>, attribute: ApiAttribute): boolean {
     const index = attributes.indexOf(attribute);
     const length = attributes.length;
     if (index === (length - 1)) {
@@ -50,5 +52,16 @@ export class AttributeUtil {
         && (attributes[length - 1].string === 'Changed'));
     }
     return false;
+  }
+
+  lastIndex(): number {
+    let index = 0;
+    for (const attribute of this.parent.attributes) {
+      if (this.isLast(this.parent.attributes, attribute)) {
+        return index;
+      }
+      index++;
+    }
+    return 0;
   }
 }

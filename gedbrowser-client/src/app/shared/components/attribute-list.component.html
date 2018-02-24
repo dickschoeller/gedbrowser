@@ -1,8 +1,10 @@
 <mat-list>
   <app-attribute-list-item
-    *ngFor="let attribute of attributes"
+    *ngFor="let attribute of attributes; let i = index"
     [attribute]="attribute"
-    [attributes]="attributes">
+    [attributes]="attributes"
+    [index]="i"
+    [parent]="parent">
   </app-attribute-list-item>
   <mat-list-item>
     <button mat-icon-button color="primary" (click)="createAttribute()"><mat-icon>add_circle</mat-icon></button>

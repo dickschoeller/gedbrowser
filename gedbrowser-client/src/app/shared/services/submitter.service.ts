@@ -1,13 +1,15 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { ApiSubmitter } from '../models/api-submitter.model';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+
+import {ApiSubmitter} from '../models/api-submitter.model';
+import {ApiService} from './api-service';
 
 /**
  * Service for obtaining submitter objects.
  */
 @Injectable()
-export class SubmitterService {
+export class SubmitterService implements ApiService<ApiSubmitter> {
 
   constructor(private http: HttpClient) {}
 
@@ -18,17 +20,22 @@ export class SubmitterService {
 
   getOne(db: string, id: string): Observable<ApiSubmitter> {
     return this.http.get<ApiSubmitter>(
-      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/submitters/' + id);
+      'http://largo.schoellerfamily.org:8080/gedbrowser-api/dbs/' + db + '/submitters/' + id);
   }
 
-  put(db: string, submitter: ApiSubmitter) {
-    this.http.put(
-      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/submitters/' + submitter.string,
+  put(db: string, submitter: ApiSubmitter): Observable<ApiSubmitter> {
+    return this.http.put<ApiSubmitter>(
+      'http://largo.schoellerfamily.org:8080/gedbrowser-api/dbs/' + db + '/submitters/' + submitter.string,
       submitter);
   }
 
-  post(db: string, submitter: ApiSubmitter) {
-    this.http.post(
-      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/submitters', submitter);
+  post(db: string, submitter: ApiSubmitter): Observable<ApiSubmitter> {
+    return this.http.post<ApiSubmitter>(
+      'http://largo.schoellerfamily.org:8080/gedbrowser-api/dbs/' + db + '/submitters', submitter);
+  }
+
+  delete(db: string, submitter: ApiSubmitter): Observable<ApiSubmitter> {
+    return this.http.delete<ApiSubmitter>(
+      'http://largo.schoellerfamily.org:8080/gedbrowser-api/dbs/' + db + '/submitters/' + submitter.string);
   }
 }

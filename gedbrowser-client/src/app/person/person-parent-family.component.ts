@@ -11,11 +11,11 @@ export class PersonParentFamilyComponent implements OnInit {
   family: ApiFamily;
 
   constructor(
-    private familyService: FamilyService,
+    private service: FamilyService,
   ) { }
 
   ngOnInit() {
-    this.familyService.getOne('schoeller', this.attribute.string)
+    this.service.getOne('schoeller', this.attribute.string)
       .subscribe((family: ApiFamily) => {
         this.family = family;
     });
