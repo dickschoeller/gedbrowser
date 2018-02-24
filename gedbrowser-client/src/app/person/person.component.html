@@ -14,7 +14,7 @@
       <mat-expansion-panel-header>
         <mat-panel-title>Attributes</mat-panel-title>
       </mat-expansion-panel-header>
-      <app-attribute-list [attributes]="strippedAttributes"></app-attribute-list>
+      <app-attribute-list [attributes]="strippedAttributes" [parent]="this"></app-attribute-list>
     </mat-expansion-panel>
     <mat-expansion-panel *ngIf="imageAttributes.length" [expanded]="true" [class.mat-elevation-z8]="true">
       <mat-expansion-panel-header>

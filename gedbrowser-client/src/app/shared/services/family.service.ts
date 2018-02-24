@@ -1,31 +1,42 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 
-import { ApiFamily } from '../models';
+import {ApiFamily} from '../models';
+import {ApiService} from './api-service';
 
 /**
  * Service for obtaining family objects.
  */
 @Injectable()
-export class FamilyService {
+export class FamilyService implements ApiService<ApiFamily> {
 
   constructor(private http: HttpClient) { }
+
+  getAll(db: string): Observable<Array<ApiFamily>> {
+    return this.http.get<Array<ApiFamily>>(
+      'http://largo.schoellerfamily.org:8080/gedbrowser-api/dbs/' + db + '/families');
+  }
 
   getOne(db: string, id: string): Observable<ApiFamily> {
     return this.http
       .get<ApiFamily>(
-        'http://localhost:8080/gedbrowser-api/dbs/' + db + '/families/' + id);
+        'http://largo.schoellerfamily.org:8080/gedbrowser-api/dbs/' + db + '/families/' + id);
   }
 
-  put(db: string, family: ApiFamily) {
-    this.http.put(
-      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/families/' + family.string,
+  put(db: string, family: ApiFamily): Observable<ApiFamily> {
+    return this.http.put<ApiFamily>(
+      'http://largo.schoellerfamily.org:8080/gedbrowser-api/dbs/' + db + '/families/' + family.string,
       family);
   }
 
-  post(db: string, family: ApiFamily) {
-    this.http.post(
-      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/families', family);
+  post(db: string, family: ApiFamily): Observable<ApiFamily> {
+    return this.http.post<ApiFamily>(
+      'http://largo.schoellerfamily.org:8080/gedbrowser-api/dbs/' + db + '/families', family);
+  }
+
+  delete(db: string, family: ApiFamily): Observable<ApiFamily> {
+    return this.http.delete<ApiFamily>(
+      'http://largo.schoellerfamily.org:8080/gedbrowser-api/dbs/' + db + '/families/' + family.string);
   }
 }

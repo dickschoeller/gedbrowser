@@ -10,6 +10,7 @@ import {
   PersonService,
   ImageUtil,
 } from '../shared';
+import { AttributeDialogHelper } from '../shared/components/attribute-dialog-helper';
 
 /**
  * Implements a person page.
@@ -30,9 +31,10 @@ export class PersonComponent implements OnInit {
   famcAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
   imageAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
   strippedAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
+  attributeDialogHelper: AttributeDialogHelper = new AttributeDialogHelper(this);
 
   constructor(private route: ActivatedRoute,
-    private personService: PersonService,
+    private service: PersonService,
     private router: Router
   ) {}
 
@@ -84,11 +86,21 @@ export class PersonComponent implements OnInit {
   }
 
   save() {
-    this.person.attributes = new Array<ApiAttribute>();
-    this.person.attributes.concat(this.strippedAttributes);
-    this.person.attributes.concat(this.imageAttributes);
-    this.person.attributes.concat(this.famcAttributes);
-    this.person.attributes.concat(this.famsAttributes);
-    this.personService.put('schoeller', this.person);
+    this.person.attributes = new Array<ApiAttribute>()
+      .concat(this.strippedAttributes)
+      .concat(this.imageAttributes)
+      .concat(this.famcAttributes)
+      .concat(this.famsAttributes);
+    this.service.put('schoeller', this.person).subscribe(
+      (data: ApiPerson) => {
+        this.person = data;
+        this.imageUtil = new ImageUtil();
+        this.galleryOptions = this.imageUtil.galleryOptions();
+        this.famsAttributes = this.createAttributeListOfType('fams');
+        this.famcAttributes = this.createAttributeListOfType('famc');
+        this.imageAttributes = this.createImageAttributes();
+        this.strippedAttributes = this.createStrippedAttributes();
+      }
+    );
   }
 }

@@ -1,9 +1,10 @@
 import { ApiAttribute } from '../models';
 import { StringUtil } from '../util/string-util';
+import { AttributeDialogData } from './attribute-dialog-data';
 export class AttributeDialogHelper {
   constructor(public parent: any) {}
 
-  buildData() {
+  buildData(insert: boolean) {
     let type = '';
     let text = '';
     if (this.parent.attribute.type === 'attribute') {
@@ -16,21 +17,25 @@ export class AttributeDialogHelper {
     const date = this.getByType('date');
     const place = this.getByType('place');
     const note = this.getByString('note');
-    const data = { type: type, text: text, date: date, place: place, note: note };
+    const data: AttributeDialogData = {
+      insert: insert, index: this.parent.index, type: type, text: text,
+      date: date, place: place, note: note, originalType: type,
+      originalText: text, originalDate: date, originalPlace: place,
+      originalNote: note, };
     return data;
   }
 
-  populateParentAttribute(data: any) {
+  populateParentAttribute(data: AttributeDialogData) {
     this.populateAttribute(this.parent.attribute, data);
   }
 
-  populateNewAttribute(data: any): ApiAttribute {
+  populateNewAttribute(data: AttributeDialogData): ApiAttribute {
     const attribute = new ApiAttribute();
     this.populateAttribute(attribute, data);
     return attribute;
   }
 
-  private populateAttribute(attribute: ApiAttribute, data: any) {
+  private populateAttribute(attribute: ApiAttribute, data: AttributeDialogData) {
     if (data.type.toLowerCase() === 'name') {
       attribute.type = data.type.toLowerCase();
       attribute.string = data.text;

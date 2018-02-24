@@ -5,7 +5,7 @@
       <app-person-family-spouse *ngIf="spouse()" [attribute]="spouse()"></app-person-family-spouse>
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <app-attribute-list [attributes]="strippedAttributes"></app-attribute-list>
+  <app-attribute-list [attributes]="strippedAttributes" [parent]="this"></app-attribute-list>
   <ngx-gallery *ngIf="galleryImages().length" [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
   <app-person-family-child-list [children]="childrenAttributes"></app-person-family-child-list>
 </mat-expansion-panel>
