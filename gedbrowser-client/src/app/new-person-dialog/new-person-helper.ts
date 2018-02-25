@@ -14,15 +14,15 @@ export class NewPersonHelper {
     }
     const person: ApiPerson = new ApiPerson();
     person.attributes = new Array<ApiAttribute>();
-    const adh: AttributeDialogHelper = new AttributeDialogHelper(person);
-    this.addName(adh, data.name, person);
-    this.addSex(adh, data.sex, person);
-    this.addBirth(adh, data.birthDate, data.birthPlace, person);
-    this.addDeath(adh, data.deathDate, data.deathPlace, person);
+    this.addName(data.name, person);
+    this.addSex(data.sex, person);
+    this.addBirth(data.birthDate, data.birthPlace, person);
+    this.addDeath(data.deathDate, data.deathPlace, person);
     return person;
   }
 
-  addName(adh, name, person) {
+  addName(name, person) {
+    const adh: AttributeDialogHelper = new AttributeDialogHelper(person);
     person.attributes.push(adh.populateNewAttribute({
       insert: true, index: 0,
       type: 'Name', text: name, date: '', place: '', note: '',
@@ -31,7 +31,8 @@ export class NewPersonHelper {
     }));
   }
 
-  addSex(adh, sex, person) {
+  addSex(sex, person) {
+    const adh: AttributeDialogHelper = new AttributeDialogHelper(person);
     person.attributes.push(adh.populateNewAttribute({
       insert: true, index: 1,
       type: 'Sex', text: sex, date: '', place: '', note: '',
@@ -40,7 +41,8 @@ export class NewPersonHelper {
     }));
   }
 
-  addBirth(adh, birthDate, birthPlace, person) {
+  addBirth(birthDate, birthPlace, person) {
+    const adh: AttributeDialogHelper = new AttributeDialogHelper(person);
     if (birthDate !== '' || birthPlace !== '') {
       person.attributes.push(adh.populateNewAttribute({
         insert: true, index: 0,
@@ -52,7 +54,8 @@ export class NewPersonHelper {
     }
   }
 
-  addDeath(adh, deathDate, deathPlace, person) {
+  addDeath(deathDate, deathPlace, person) {
+    const adh: AttributeDialogHelper = new AttributeDialogHelper(person);
     if (deathDate !== '' || deathPlace !== '') {
       person.attributes.push(adh.populateNewAttribute({
         insert: true, index: 0,
