@@ -12,6 +12,7 @@ import {
   MatListModule,
   MatSelectModule,
   MatToolbarModule,
+  MatTooltipModule,
 } from '@angular/material';
 
 import {
@@ -37,6 +38,7 @@ import {
     MatListModule,
     MatSelectModule,
     MatToolbarModule,
+    MatTooltipModule,
   ],
   declarations: [
     AttributeListComponent,

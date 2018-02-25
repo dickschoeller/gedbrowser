@@ -22,7 +22,7 @@ export class SourceComponent implements OnInit {
   imageAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
 
   constructor(private route: ActivatedRoute,
-    private sourceService: SourceService,
+    private service: SourceService,
     private router: Router
   ) {}
 
@@ -30,12 +30,16 @@ export class SourceComponent implements OnInit {
     this.route.data.subscribe(
       (data: {source: ApiSource}) => {
         this.source = data.source;
-        this.imageUtil = new ImageUtil();
-        this.galleryOptions = this.imageUtil.galleryOptions();
-        this.strippedAttributes = this.createStrippedAttributes();
-        this.imageAttributes = this.createImageAttributes();
+        this.initLists();
       }
     );
+  }
+
+  initLists() {
+    this.imageUtil = new ImageUtil();
+    this.galleryOptions = this.imageUtil.galleryOptions();
+    this.strippedAttributes = this.createStrippedAttributes();
+    this.imageAttributes = this.createImageAttributes();
   }
 
   createStrippedAttributes(): Array<ApiAttribute> {
@@ -54,5 +58,17 @@ export class SourceComponent implements OnInit {
 
   galleryImages(): Array<NgxGalleryImage> {
     return this.imageUtil.galleryImages(this.source.attributes);
+  }
+
+  save() {
+    this.source.attributes = new Array<ApiAttribute>()
+      .concat(this.strippedAttributes)
+      .concat(this.imageAttributes);
+    this.service.put('schoeller', this.source).subscribe(
+      (data: ApiSource) => {
+        this.source = data;
+        this.initLists();
+      }
+    );
   }
 }
