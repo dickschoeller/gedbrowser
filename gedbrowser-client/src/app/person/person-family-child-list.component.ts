@@ -43,22 +43,28 @@ export class PersonFamilyChildListComponent {
         return;
       }
       const dialogData: NewPersonDialogData = result;
-      const nph = new NewPersonHelper();
-      const newPerson: ApiPerson = nph.buildPerson(dialogData);
-      newPerson.attributes.push({
-        type: 'famc', string: this.family.string, tail: '',
-        attributes: undefined
-      });
-      this.personService.post('schoeller', newPerson).subscribe(
-        (data: ApiPerson) => {
-          const person: ApiPerson = data;
-          this.parentComponent.childrenAttributes.push({
-            type: 'child', string: person.string, tail: '',
-            attributes: undefined
-          });
-          this.parentComponent.save();
-        }
-      );
+      this.saveNewPerson(dialogData);
     });
+  }
+
+  private saveNewPerson(dialogData: NewPersonDialogData): void {
+    const nph = new NewPersonHelper();
+    const newPerson: ApiPerson = nph.buildPerson(dialogData);
+    newPerson.attributes.push({
+      type: 'famc', string: this.family.string, tail: '', attributes: undefined
+    });
+    this.personService.post('schoeller', newPerson).subscribe(
+      (data: ApiPerson) => {
+        const person: ApiPerson = data;
+        this.addChildToParent(person);
+      }
+    );
+  }
+
+  private addChildToParent(person: ApiPerson): void {
+    this.parentComponent.childrenAttributes.push({
+      type: 'child', string: person.string, tail: '', attributes: undefined
+    });
+    this.parentComponent.save();
   }
 }

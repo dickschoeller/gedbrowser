@@ -15,36 +15,52 @@ export class NewPersonHelper {
     const person: ApiPerson = new ApiPerson();
     person.attributes = new Array<ApiAttribute>();
     const adh: AttributeDialogHelper = new AttributeDialogHelper(person);
+    this.addName(adh, data.name, person);
+    this.addSex(adh, data.sex, person);
+    this.addBirth(adh, data.birthDate, data.birthPlace, person);
+    this.addDeath(adh, data.deathDate, data.deathPlace, person);
+    return person;
+  }
+
+  addName(adh, name, person) {
     person.attributes.push(adh.populateNewAttribute({
       insert: true, index: 0,
-      type: 'Name', text: data.name, date: '', place: '', note: '',
-      originalType: 'Name', originalText: data.name, originalDate: '',
+      type: 'Name', text: name, date: '', place: '', note: '',
+      originalType: 'Name', originalText: name, originalDate: '',
       originalPlace: '', originalNote: ''
     }));
+  }
+
+  addSex(adh, sex, person) {
     person.attributes.push(adh.populateNewAttribute({
       insert: true, index: 1,
-      type: 'Sex', text: data.sex, date: '', place: '', note: '',
+      type: 'Sex', text: sex, date: '', place: '', note: '',
       originalType: '', originalText: '', originalDate: '', originalPlace: '',
       originalNote: ''
     }));
-    if (data.birthDate !== '' || data.birthPlace !== '') {
+  }
+
+  addBirth(adh, birthDate, birthPlace, person) {
+    if (birthDate !== '' || birthPlace !== '') {
       person.attributes.push(adh.populateNewAttribute({
-        insert: true, index: 1,
-        type: 'Birth', text: '', date: data.birthDate, place: data.birthPlace,
+        insert: true, index: 0,
+        type: 'Birth', text: '', date: birthDate, place: birthPlace,
         note: '',
         originalType: '', originalText: '', originalDate: '', originalPlace: '',
         originalNote: ''
       }));
     }
-    if (data.deathDate !== '' || data.deathPlace !== '') {
+  }
+
+  addDeath(adh, deathDate, deathPlace, person) {
+    if (deathDate !== '' || deathPlace !== '') {
       person.attributes.push(adh.populateNewAttribute({
-        insert: true, index: 1,
-        type: 'Death', text: '', date: data.deathDate, place: data.deathPlace,
+        insert: true, index: 0,
+        type: 'Death', text: '', date: deathDate, place: deathPlace,
         note: '',
         originalType: '', originalText: '', originalDate: '', originalPlace: '',
         originalNote: ''
       }));
     }
-    return person;
   }
 }
