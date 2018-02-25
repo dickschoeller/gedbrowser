@@ -16,7 +16,7 @@ export class SubmitterComponent implements OnInit {
   submitter: ApiSubmitter;
 
   constructor(private route: ActivatedRoute,
-    private submitterService: SubmitterService,
+    private service: SubmitterService,
     private router: Router
   ) { }
 
@@ -24,6 +24,14 @@ export class SubmitterComponent implements OnInit {
     this.route.data.subscribe(
       (data: {submitter: ApiSubmitter}) => {
         this.submitter = data.submitter;
+      }
+    );
+  }
+
+  save() {
+    this.service.put('schoeller', this.submitter).subscribe(
+      (data: ApiSubmitter) => {
+        this.submitter = data;
       }
     );
   }

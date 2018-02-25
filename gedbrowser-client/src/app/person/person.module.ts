@@ -10,6 +10,7 @@ import {
   MatIconModule,
   MatListModule,
   MatMenuModule,
+  MatTooltipModule,
 } from '@angular/material';
 import {NgxGalleryModule} from 'ngx-gallery';
 import {Ng2PageScrollModule} from 'ng2-page-scroll';
@@ -52,6 +53,7 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
     MatIconModule,
     MatListModule,
     MatMenuModule,
+    MatTooltipModule,
     NgxGalleryModule,
     Ng2PageScrollModule.forRoot(),
   ],
