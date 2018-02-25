@@ -13,5 +13,5 @@
   </mat-list>
 </div>
 <div *ngIf="!children.length">
-  <button mat-icon-button color="primary" matTooltip="Add child"><mat-icon>person_add</mat-icon></button>
+  <button mat-icon-button color="primary" (click)="createChild()" matTooltip="Add child"><mat-icon>person_add</mat-icon></button>
 </div>
