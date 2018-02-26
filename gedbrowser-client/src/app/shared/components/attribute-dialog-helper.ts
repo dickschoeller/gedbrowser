@@ -86,37 +86,6 @@ export class AttributeDialogHelper {
     attribute.attributes.push(newAttr);
   }
 
-  alertAttribute(arg0: ApiAttribute): any {
-    alert(this.dumpAttribute(arg0));
-  }
-
-  dumpAttribute(attribute: ApiAttribute, indent?: string): string {
-    let i = '';
-    if (indent) {
-      i = indent;
-    }
-    const v = i + '{\n'
-      + i + '  type : "' + attribute.type + '"\n'
-      + i + '  string : "' + attribute.string + '"\n'
-      + i + '  tail : "' + attribute.tail + '"\n'
-      + i + '  attributes : ['
-      + this.dumpAttributes(attribute.attributes, i + '    ') + ']\n'
-      + i + '}'
-      ;
-    return v;
-  }
-
-  dumpAttributes(attributes: Array<ApiAttribute>, indent: string): string {
-    if (attributes === undefined || attributes.length === 0) {
-      return '';
-    }
-    let val = '\n';
-    for (const attribute of attributes) {
-      val = val + this.dumpAttribute(attribute, indent) + '\n';
-    }
-    return val;
-  }
-
   private setByString(attribute: ApiAttribute, stringInput, tailInput: string) {
     if (tailInput === null || tailInput === undefined || tailInput === '') {
       this.deleteByString(attribute, stringInput);

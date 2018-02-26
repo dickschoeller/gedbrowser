@@ -1,6 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ApiAttribute} from '../../shared/models';
+import { AttributeDialogData } from './attribute-dialog-data';
 
 @Component({
   selector: 'app-attribute-dialog',
@@ -135,7 +136,7 @@ export class AttributeDialogComponent {
   ];
 
   constructor(public dialogRef: MatDialogRef<AttributeDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
+    @Inject(MAT_DIALOG_DATA) public data: AttributeDialogData) {}
 
   onNoClick(): void {
     this.dialogRef.close();

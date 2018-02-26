@@ -14,6 +14,7 @@ import {
   MatDatepickerModule,
   MatDialogModule,
   MatExpansionModule,
+  MatFormFieldModule,
   MatGridListModule,
   MatIconModule,
   MatInputModule,
@@ -40,6 +41,7 @@ import {
 import {CdkTableModule} from '@angular/cdk/table';
 
 import {AppComponent} from './app.component';
+import {NewPersonDialogComponent} from './new-person-dialog';
 import {PersonListModule} from './person-list/person-list.module';
 import {PersonModule} from './person/person.module';
 import {SourceListModule} from './source-list/source-list.module';
@@ -67,6 +69,7 @@ import {
     MatDatepickerModule,
     MatDialogModule,
     MatExpansionModule,
+    MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,
@@ -88,7 +91,7 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-  ]
+  ],
 })
 export class AppMaterialModule {}
 
@@ -100,6 +103,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     rootRouting,
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
     PersonListModule,
@@ -111,6 +116,10 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
   ],
   declarations: [
     AppComponent,
+    NewPersonDialogComponent,
+  ],
+  entryComponents: [
+    NewPersonDialogComponent,
   ],
   providers: [
     FamilyService,
