@@ -77,8 +77,7 @@ export class PersonFamilyListComponent {
     family.attributes.push(this.spouseLink(person1));
     family.attributes.push(this.spouseLink(person2));
     this.familyService.post('schoeller', family).subscribe(
-      (data: ApiFamily) => {
-        const f: ApiFamily = data;
+      (f: ApiFamily) => {
         this.newPersonFamsLink(f);
         this.personFamsLink(f);
       }
@@ -87,25 +86,29 @@ export class PersonFamilyListComponent {
 
   private newPersonFamsLink(f: ApiFamily) {
     for (const a of f.attributes) {
-      if ((a.type === 'husband' || a.type === 'wife') && a.string !== this.person.string) {
-        this.personService.getOne('schoeller', a.string).subscribe(
-          (data: ApiPerson) => {
-            const p: ApiPerson = data;
-            p.attributes.push(
-              {type: 'fams', string: f.string, tail: '',
-                attributes: new Array<ApiAttribute>()}
-            );
-            this.personService.put('schoeller', p).subscribe((data1: ApiPerson) => {});
-          }
-        );
+      if (a.type !== 'husband' && a.type !== 'wife') {
+        continue;
       }
+      if (this.person.string === a.string) {
+        continue;
+      }
+      this.personService.getOne('schoeller', a.string).subscribe(
+        (p: ApiPerson) => {
+          this.pushFams(p, f);
+          this.personService.put('schoeller', p).subscribe((pback: ApiPerson) => {});
+        }
+      );
     }
   }
 
-  private personFamsLink(f: ApiFamily) {
-    this.person.attributes.push(
+  private pushFams(p: ApiPerson, f: ApiFamily): void {
+    p.attributes.push(
       {type: 'fams', string: f.string, tail: '', attributes: new Array<ApiAttribute>()}
     );
+  }
+
+  private personFamsLink(f: ApiFamily) {
+    this.pushFams(this.person, f);
     this.personService.put('schoeller', this.person).subscribe(
       (data: ApiPerson) => {
         this.parent.initLists();
@@ -115,13 +118,16 @@ export class PersonFamilyListComponent {
 
   private spouseLink(p: ApiPerson): ApiAttribute {
     for (const a of p.attributes) {
-      if (a.string === 'Sex') {
-        if (a.tail === 'M') {
-          return {type: 'husband', string: p.string, tail: '', attributes: new Array<ApiAttribute>()};
-        } else if (a.tail === 'F') {
-          return {type: 'wife', string: p.string, tail: '', attributes: new Array<ApiAttribute>()};
-        }
+      if (a.string !== 'Sex') {
+        continue;
       }
+      let t = 'spouse';
+      if (a.tail === 'M') {
+        t = 'husband';
+      } else if (a.tail === 'F') {
+        t = 'wife';
+      }
+      return {type: t, string: p.string, tail: '', attributes: new Array<ApiAttribute>()};
     }
   }
 }
