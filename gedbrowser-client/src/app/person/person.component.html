@@ -9,7 +9,7 @@
       </mat-expansion-panel-header>
       <app-person-parent-families [attributes]="famcAttributes"></app-person-parent-families>
     </mat-expansion-panel>
-    <app-person-family-list [person]="person" [attributes]="famsAttributes"></app-person-family-list>
+    <app-person-family-list [person]="person" [attributes]="famsAttributes" [parent]="this"></app-person-family-list>
     <mat-expansion-panel [expanded]="true" [class.mat-elevation-z8]="true">
       <mat-expansion-panel-header>
         <mat-panel-title>Attributes</mat-panel-title>
