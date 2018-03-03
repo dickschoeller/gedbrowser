@@ -1,5 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {ApiAttribute, ApiPerson, PersonService, LifespanUtil} from '../shared';
+import { PersonFamilyComponent } from './person-family.component';
 
 /**
  * Implements a child block within a family on a person page.
@@ -17,6 +18,8 @@ import {ApiAttribute, ApiPerson, PersonService, LifespanUtil} from '../shared';
 })
 export class PersonFamilyChildComponent implements OnInit {
   @Input() child: ApiAttribute;
+  @Input() index: number;
+  @Input() parentComponent: PersonFamilyComponent;
   person: ApiPerson;
 
   constructor(
@@ -32,5 +35,28 @@ export class PersonFamilyChildComponent implements OnInit {
 
   lifespanYearString(): string {
     return new LifespanUtil(this.person.lifespan).lifespanYearString();
+  }
+
+  first(): boolean {
+    return this.index === 0;
+  }
+
+  last(): boolean {
+    return this.index > this.parentComponent.childrenAttributes.length;
+  }
+
+  moveUp(): void {
+    this.parentComponent.childrenAttributes.splice(this.index - 1, 0, this.parentComponent.childrenAttributes.splice(this.index, 1)[0]);
+    this.parentComponent.save();
+  }
+
+  moveDown(): void {
+    this.parentComponent.childrenAttributes.splice(this.index + 1, 0, this.parentComponent.childrenAttributes.splice(this.index, 1)[0]);
+    this.parentComponent.save();
+  }
+
+  delete(): void {
+    this.parentComponent.childrenAttributes.splice(this.index, 1);
+    this.parentComponent.save();
   }
 }

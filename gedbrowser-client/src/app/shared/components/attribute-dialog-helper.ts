@@ -16,7 +16,7 @@ export class AttributeDialogHelper {
     }
     const date = this.getByType('date');
     const place = this.getByType('place');
-    const note = this.getByString('note');
+    const note = this.getByString('Note');
     const data: AttributeDialogData = {
       insert: insert, index: this.parent.index, type: type, text: text,
       date: date, place: place, note: note, originalType: type,
