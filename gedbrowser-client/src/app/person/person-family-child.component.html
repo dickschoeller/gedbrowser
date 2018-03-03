@@ -4,8 +4,8 @@
   </span>
   <span class="example-fill-remaining-space"></span>
   <span class="hidden">
-    <button mat-icon-button color="primary"><mat-icon>arrow_drop_up</mat-icon></button>
-    <button mat-icon-button color="primary"><mat-icon>arrow_drop_down</mat-icon></button>
+    <button mat-icon-button color="primary" (click)="moveUp()" *ngIf="!first()"><mat-icon>arrow_drop_up</mat-icon></button>
+    <button mat-icon-button color="primary" (click)="moveDown()" *ngIf="!last()"><mat-icon>arrow_drop_down</mat-icon></button>
     <button mat-icon-button color="accent"><mat-icon>delete_forever</mat-icon></button>
   </span>
 </mat-list-item>
