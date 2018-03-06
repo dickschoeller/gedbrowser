@@ -5,6 +5,9 @@
       <app-person-family-spouse *ngIf="spouse()" [attribute]="spouse()"></app-person-family-spouse>
     </mat-panel-title>
   </mat-expansion-panel-header>
+  <span *ngIf="!spouse()">
+    <button mat-icon-button color="primary" (click)="createSpouse()" matTooltip="Add spouse"><mat-icon>person_add</mat-icon></button>
+  </span>
   <app-attribute-list [attributes]="strippedAttributes" [parent]="this"></app-attribute-list>
   <ngx-gallery *ngIf="galleryImages().length" [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
   <app-person-family-child-list [children]="childrenAttributes" [family]="family" [parentComponent]="this"></app-person-family-child-list>

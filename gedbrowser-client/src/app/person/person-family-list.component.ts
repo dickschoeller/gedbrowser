@@ -38,7 +38,6 @@ export class PersonFamilyListComponent {
         height: '600px',
         data: dataIn,
       });
-    alert('create child');
   }
 
   createFamilyWithSpouse(): void {
