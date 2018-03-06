@@ -1,1 +1,4 @@
-<app-person-parent-family *ngFor="let attribute of attributes" [attribute]="attribute"></app-person-parent-family>
+<app-person-parent-family *ngFor="let famcAttribute of famcAttributes" [attribute]="famcAttribute"></app-person-parent-family>
+<div *ngIf="!famcAttributes.length">
+  <button mat-icon-button color="primary" (click)="createParentFamily()" matTooltip="Add parent family"><mat-icon>group_add</mat-icon></button>
+</div>

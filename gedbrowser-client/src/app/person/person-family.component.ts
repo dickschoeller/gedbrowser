@@ -1,8 +1,10 @@
+import {NewPersonDialogData, NewPersonDialogComponent, NewPersonHelper} from '../new-person-dialog';
 import {Component, OnInit, Input} from '@angular/core';
 import {NgxGalleryOptions, NgxGalleryImage} from 'ngx-gallery';
 import {Observable} from 'rxjs/Observable';
 
-import {ApiAttribute, ApiFamily, ApiPerson, FamilyService, ImageUtil} from '../shared';
+import {ApiAttribute, ApiFamily, ApiPerson, FamilyService, ImageUtil, PersonService} from '../shared';
+import {MatDialogRef, MatDialog} from '@angular/material';
 
 /**
  * Implements a family block within a person page.
@@ -33,9 +35,9 @@ export class PersonFamilyComponent implements OnInit {
   strippedAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
   imageAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
 
-  constructor(
+  constructor(public dialog: MatDialog,
     private service: FamilyService,
-  ) { }
+    private personService: PersonService) {}
 
   ngOnInit() {
     this.service.getOne('schoeller', this.string)
@@ -52,30 +54,6 @@ export class PersonFamilyComponent implements OnInit {
     this.childrenAttributes = this.createChildrenAttributes();
     this.imageAttributes = this.createImageAttributes();
     this.galleryOptions = this.imageUtil.galleryOptions();
-  }
-
-  familyString() {
-    return this.family.string;
-  }
-
-  spouse(): ApiAttribute {
-    if (this.family === undefined) {
-      return null;
-    }
-    for (const attribute of this.family.attributes) {
-      if (this.isSpouse(attribute) && !this.isThisPerson(attribute)) {
-        return attribute;
-      }
-    }
-    return null;
-  }
-
-  private isThisPerson(attribute: ApiAttribute): boolean {
-    return (attribute.string === this.person.string);
-  }
-
-  private isSpouse(attribute: ApiAttribute): boolean {
-    return (attribute.type === 'husband' || attribute.type === 'wife');
   }
 
   private createStrippedAttributes(): Array<ApiAttribute> {
@@ -116,6 +94,84 @@ export class PersonFamilyComponent implements OnInit {
 
   private createImageAttributes(): Array<ApiAttribute> {
     return this.imageUtil.imageAttributes(this.family.attributes);
+  }
+
+  familyString() {
+    return this.family.string;
+  }
+
+  spouse(): ApiAttribute {
+    if (this.family === undefined) {
+      return null;
+    }
+    for (const attribute of this.family.attributes) {
+      if (this.isSpouse(attribute) && !this.isThisPerson(attribute)) {
+        return attribute;
+      }
+    }
+    return null;
+  }
+
+  private isSpouse(attribute: ApiAttribute): boolean {
+    return (attribute.type === 'husband' || attribute.type === 'wife');
+  }
+
+  private isThisPerson(attribute: ApiAttribute): boolean {
+    return (attribute.string === this.person.string);
+  }
+
+  createSpouse(): void {
+    const dataIn: NewPersonDialogData = {
+      sex: 'F', name: 'Anonyma',
+      birthDate: '', birthPlace: '', deathDate: '', deathPlace: ''
+    };
+    const dialogRef: MatDialogRef<NewPersonDialogComponent> =
+      this.dialog.open(NewPersonDialogComponent, {
+        width: '500px',
+        height: '600px',
+        data: dataIn,
+      });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === null || result === undefined) {
+        return;
+      }
+      const dialogData: NewPersonDialogData = result;
+      this.saveNewSpouse(dialogData);
+    });
+  }
+
+  private saveNewSpouse(dialogData: NewPersonDialogData): void {
+    const nph = new NewPersonHelper();
+    const newPerson: ApiPerson = nph.buildPerson(dialogData);
+    this.pushFams(newPerson, this.family);
+    this.personService.post('schoeller', newPerson).subscribe(
+      (data: ApiPerson) => {
+        const person: ApiPerson = data;
+        this.spouseAttributes.push(this.spouseLink(person));
+        this.save();
+      }
+    );
+  }
+
+  private pushFams(p: ApiPerson, f: ApiFamily): void {
+    p.attributes.push(
+      {type: 'fams', string: f.string, tail: '', attributes: new Array<ApiAttribute>()}
+    );
+  }
+
+  private spouseLink(p: ApiPerson): ApiAttribute {
+    for (const a of p.attributes) {
+      if (a.string !== 'Sex') {
+        continue;
+      }
+      let t = 'spouse';
+      if (a.tail === 'M') {
+        t = 'husband';
+      } else if (a.tail === 'F') {
+        t = 'wife';
+      }
+      return {type: t, string: p.string, tail: '', attributes: new Array<ApiAttribute>()};
+    }
   }
 
   galleryImages(): Array<NgxGalleryImage> {
