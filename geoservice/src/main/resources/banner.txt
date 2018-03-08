@@ -10,4 +10,4 @@
  | (_| |  __/ (_) \__ \  __/ |   \ V /| | (_|  __/
   \__, |\___|\___/|___/\___|_|    \_/ |_|\___\___|
    __/ |
-  |___/    gedbrowser-geoservice-1.2.3-SNAPSHOT
+  |___/    gedbrowser-geoservice-1.3.0-M1-SNAPSHOT
