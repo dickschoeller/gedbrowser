@@ -95,17 +95,7 @@ public final class ApiSource extends ApiObject {
         if (!super.equals(obj)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        ApiSource other = (ApiSource) obj;
-        if (title == null) {
-            if (other.title != null) {
-                return false;
-            }
-        } else if (!title.equals(other.title)) {
-            return false;
-        }
-        return true;
+        final ApiSource other = (ApiSource) obj;
+        return stringCompare(title, other.title);
     }
 }

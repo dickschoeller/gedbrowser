@@ -100,13 +100,6 @@ public abstract class ApiTail extends ApiObject {
             return false;
         }
         final ApiTail other = (ApiTail) obj;
-        if (tail == null) {
-            if (other.tail != null) {
-                return false;
-            }
-        } else if (!tail.equals(other.tail)) {
-            return false;
-        }
-        return true;
+        return stringCompare(tail, other.tail);
     }
 }
