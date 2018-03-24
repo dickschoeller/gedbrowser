@@ -3,8 +3,8 @@ import {MatDialogRef, MatDialog} from '@angular/material';
 
 import {NewPersonDialogData, NewPersonDialogComponent, NewPersonHelper} from '../new-person-dialog';
 import {ApiAttribute, ApiFamily, ApiPerson} from '../shared/models';
-import {PersonService, FamilyService} from '../shared/services';
-import { PersonFamilyComponent } from './person-family.component';
+import {ChildService, PersonService, FamilyService} from '../shared/services';
+import {PersonFamilyComponent} from './person-family.component';
 
 /**
  * Implements a child list within a family on a person page.
@@ -23,12 +23,13 @@ export class PersonFamilyChildListComponent {
   @Input() parentComponent: PersonFamilyComponent;
 
   constructor(public dialog: MatDialog,
+    private childService: ChildService,
     private personService: PersonService,
     private familyService: FamilyService) { }
 
   createChild(): void {
     const dataIn: NewPersonDialogData = {
-      sex: 'M', name: 'Anonymous',
+      sex: 'M', name: 'Anonymous/' + this.parentComponent.person.surname + '/',
       birthDate: '', birthPlace: '', deathDate: '', deathPlace: ''
     };
     const dialogRef: MatDialogRef<NewPersonDialogComponent> =
@@ -50,21 +51,10 @@ export class PersonFamilyChildListComponent {
   private saveNewPerson(dialogData: NewPersonDialogData): void {
     const nph = new NewPersonHelper();
     const newPerson: ApiPerson = nph.buildPerson(dialogData);
-    newPerson.attributes.push({
-      type: 'famc', string: this.family.string, tail: '', attributes: undefined
-    });
-    this.personService.post('schoeller', newPerson).subscribe(
+    this.childService.postToFamily('schoeller', this.family.string, newPerson).subscribe(
       (data: ApiPerson) => {
-        const person: ApiPerson = data;
-        this.addChildToParent(person);
+        this.parentComponent.ngOnInit();
       }
     );
-  }
-
-  private addChildToParent(person: ApiPerson): void {
-    this.parentComponent.childrenAttributes.push({
-      type: 'child', string: person.string, tail: '', attributes: undefined
-    });
-    this.parentComponent.save();
   }
 }

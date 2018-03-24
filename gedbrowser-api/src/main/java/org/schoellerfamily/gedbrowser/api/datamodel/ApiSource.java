@@ -62,4 +62,40 @@ public final class ApiSource extends ApiObject {
     public void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + titleHash();
+        return result;
+    }
+
+    /**
+     * @return the title's hash code
+     */
+    private int titleHash() {
+        if (title == null) {
+            return 0;
+        }
+        return title.hashCode();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        final ApiSource other = (ApiSource) obj;
+        return stringCompare(title, other.title);
+    }
 }

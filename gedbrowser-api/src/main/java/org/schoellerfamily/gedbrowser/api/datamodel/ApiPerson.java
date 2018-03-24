@@ -142,20 +142,9 @@ public final class ApiPerson extends ApiObject {
             return false;
         }
         final ApiPerson other = (ApiPerson) obj;
-        if (indexName == null) {
-            if (other.indexName != null) {
-                return false;
-            }
-        } else if (!indexName.equals(other.indexName)) {
+        if (!stringCompare(indexName, other.indexName)) {
             return false;
         }
-        if (surname == null) {
-            if (other.surname != null) {
-                return false;
-            }
-        } else if (!surname.equals(other.surname)) {
-            return false;
-        }
-        return true;
+        return stringCompare(surname, other.surname);
     }
 }

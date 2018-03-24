@@ -33,9 +33,4 @@ export class PersonFamilySpouseComponent implements OnInit {
   lifespanYearString(): string {
     return new LifespanUtil(this.spouse.lifespan).lifespanYearString();
   }
-
-  label(): string {
-    const su = new StringUtil();
-    return su.capitalize(this.attribute.type);
-  }
 }

@@ -1,10 +1,11 @@
+import {MatDialogRef, MatDialog} from '@angular/material';
+
 import {NewPersonDialogData, NewPersonDialogComponent, NewPersonHelper} from '../new-person-dialog';
 import {Component, Input} from '@angular/core';
 import {ApiAttribute, ApiPerson} from '../shared';
-import { ApiFamily } from '../shared/models';
-import { PersonService, FamilyService } from '../shared/services';
-import { PersonComponent } from './person.component';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import {ApiFamily} from '../shared/models';
+import {SpouseService, PersonService, ChildService} from '../shared/services';
+import {PersonComponent} from './person.component';
 
 /**
  * Implements a the list of families on a person page
@@ -24,8 +25,9 @@ export class PersonFamilyListComponent {
   @Input() parent: PersonComponent;
 
   constructor(public dialog: MatDialog,
+    private spouseService: SpouseService,
     private personService: PersonService,
-    private familyService: FamilyService) { }
+    private childService: ChildService) { }
 
   createFamilyWithChild(): void {
     const dataIn: NewPersonDialogData = {
@@ -38,6 +40,28 @@ export class PersonFamilyListComponent {
         height: '600px',
         data: dataIn,
       });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === null || result === undefined) {
+        return;
+      }
+      const dialogData: NewPersonDialogData = result;
+      this.saveNewChild(dialogData);
+    });
+  }
+
+  private saveNewChild(dialogData: NewPersonDialogData): void {
+    const nph = new NewPersonHelper();
+    const newPerson: ApiPerson = nph.buildPerson(dialogData);
+    this.childService.postToPerson('schoeller', this.person.string, newPerson).subscribe(
+      (data: ApiPerson) => {
+        this.personService.getOne('schoeller', this.person.string).subscribe(
+          (person: ApiPerson) => {
+            this.person = person;
+            this.parent.person = person;
+            this.parent.initLists();
+          });
+      }
+    );
   }
 
   createFamilyWithSpouse(): void {
@@ -63,70 +87,15 @@ export class PersonFamilyListComponent {
   private saveNewSpouse(dialogData: NewPersonDialogData): void {
     const nph = new NewPersonHelper();
     const newPerson: ApiPerson = nph.buildPerson(dialogData);
-    this.personService.post('schoeller', newPerson).subscribe(
+    this.spouseService.postToPerson('schoeller', this.person.string, newPerson).subscribe(
       (data: ApiPerson) => {
-        const person: ApiPerson = data;
-        this.addNewFamilyWithSpouse(this.person, person);
+        this.personService.getOne('schoeller', this.person.string).subscribe(
+          (person: ApiPerson) => {
+            this.person = person;
+            this.parent.person = person;
+            this.parent.initLists();
+          });
       }
     );
-  }
-
-  private addNewFamilyWithSpouse(person1: ApiPerson, person2: ApiPerson) {
-    const family: ApiFamily = {type: 'Family', string: '', attributes: new Array<ApiAttribute>()};
-    family.attributes.push(this.spouseLink(person1));
-    family.attributes.push(this.spouseLink(person2));
-    this.familyService.post('schoeller', family).subscribe(
-      (f: ApiFamily) => {
-        this.newPersonFamsLink(f);
-        this.personFamsLink(f);
-      }
-    );
-  }
-
-  private newPersonFamsLink(f: ApiFamily) {
-    for (const a of f.attributes) {
-      if (a.type !== 'husband' && a.type !== 'wife') {
-        continue;
-      }
-      if (this.person.string === a.string) {
-        continue;
-      }
-      this.personService.getOne('schoeller', a.string).subscribe(
-        (p: ApiPerson) => {
-          this.pushFams(p, f);
-          this.personService.put('schoeller', p).subscribe((pback: ApiPerson) => {});
-        }
-      );
-    }
-  }
-
-  private pushFams(p: ApiPerson, f: ApiFamily): void {
-    p.attributes.push(
-      {type: 'fams', string: f.string, tail: '', attributes: new Array<ApiAttribute>()}
-    );
-  }
-
-  private personFamsLink(f: ApiFamily) {
-    this.pushFams(this.person, f);
-    this.personService.put('schoeller', this.person).subscribe(
-      (data: ApiPerson) => {
-        this.parent.initLists();
-      }
-    );
-  }
-
-  private spouseLink(p: ApiPerson): ApiAttribute {
-    for (const a of p.attributes) {
-      if (a.string !== 'Sex') {
-        continue;
-      }
-      let t = 'spouse';
-      if (a.tail === 'M') {
-        t = 'husband';
-      } else if (a.tail === 'F') {
-        t = 'wife';
-      }
-      return {type: t, string: p.string, tail: '', attributes: new Array<ApiAttribute>()};
-    }
   }
 }

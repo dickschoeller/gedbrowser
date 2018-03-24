@@ -77,11 +77,11 @@
     <htmlunit-driver.version>2.29.2</htmlunit-driver.version>
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
-    <jacoco-plugin.version>0.7.9</jacoco-plugin.version>
+    <jacoco-plugin.version>0.8.0</jacoco-plugin.version>
     <findbugs-plugin.version>3.0.5</findbugs-plugin.version>
-    <checkstyle-plugin.version>2.17</checkstyle-plugin.version>
+    <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
     <checkstyle-version>8.8</checkstyle-version>
-    <pmd-plugin.version>3.8</pmd-plugin.version>
+    <pmd-plugin.version>3.9.0</pmd-plugin.version>
     <pmd-version>6.1.0</pmd-version>
     <build-helper-plugin.version>3.0.0</build-helper-plugin.version>
     <jxr-plugin.version>2.5</jxr-plugin.version>
@@ -139,7 +139,6 @@
         <version>${findbugs-plugin.version}</version>
       </plugin>
       <plugin>
-        <!-- New vendor of checkstyle plugin out there. -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${checkstyle-plugin.version}</version>

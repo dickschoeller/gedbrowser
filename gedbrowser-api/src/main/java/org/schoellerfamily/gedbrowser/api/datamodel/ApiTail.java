@@ -91,7 +91,6 @@ public abstract class ApiTail extends ApiObject {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.CommentRequired")
     public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
@@ -100,13 +99,6 @@ public abstract class ApiTail extends ApiObject {
             return false;
         }
         final ApiTail other = (ApiTail) obj;
-        if (tail == null) {
-            if (other.tail != null) {
-                return false;
-            }
-        } else if (!tail.equals(other.tail)) {
-            return false;
-        }
-        return true;
+        return stringCompare(tail, other.tail);
     }
 }

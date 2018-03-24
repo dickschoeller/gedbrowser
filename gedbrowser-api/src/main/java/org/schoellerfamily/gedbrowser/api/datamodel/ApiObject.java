@@ -171,7 +171,6 @@ public class ApiObject implements Serializable, GetString {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.NPathComplexity")
     public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
@@ -190,18 +189,24 @@ public class ApiObject implements Serializable, GetString {
         } else if (!attributes.equals(other.attributes)) {
             return false;
         }
-        if (string == null) {
-            if (other.string != null) {
-                return false;
-            }
-        } else if (!string.equals(other.string)) {
+        if (!stringCompare(string, other.string)) {
             return false;
         }
-        if (type == null) {
-            if (other.type != null) {
+        return stringCompare(type, other.type);
+    }
+
+    /**
+     * @param thisString string from this object
+     * @param otherString string from object being checked
+     * @return true if they match;
+     */
+    protected boolean stringCompare(final String thisString,
+            final String otherString) {
+        if (thisString == null) {
+            if (otherString != null) {
                 return false;
             }
-        } else if (!type.equals(other.type)) {
+        } else if (!thisString.equals(otherString)) {
             return false;
         }
         return true;

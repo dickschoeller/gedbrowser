@@ -3,7 +3,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {NgxGalleryOptions, NgxGalleryImage} from 'ngx-gallery';
 import {Observable} from 'rxjs/Observable';
 
-import {ApiAttribute, ApiFamily, ApiPerson, FamilyService, ImageUtil, PersonService} from '../shared';
+import {ApiAttribute, ApiFamily, ApiPerson, FamilyService, ImageUtil, PersonService, SpouseService} from '../shared';
 import {MatDialogRef, MatDialog} from '@angular/material';
 
 /**
@@ -36,11 +36,12 @@ export class PersonFamilyComponent implements OnInit {
   imageAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
 
   constructor(public dialog: MatDialog,
-    private service: FamilyService,
-    private personService: PersonService) {}
+    private familyService: FamilyService,
+    private personService: PersonService,
+    private spouseService: SpouseService) {}
 
   ngOnInit() {
-    this.service.getOne('schoeller', this.string)
+    this.familyService.getOne('schoeller', this.string)
       .subscribe((family: ApiFamily) => {
         this.family = family;
         this.initLists();
@@ -143,35 +144,11 @@ export class PersonFamilyComponent implements OnInit {
   private saveNewSpouse(dialogData: NewPersonDialogData): void {
     const nph = new NewPersonHelper();
     const newPerson: ApiPerson = nph.buildPerson(dialogData);
-    this.pushFams(newPerson, this.family);
-    this.personService.post('schoeller', newPerson).subscribe(
+    this.spouseService.postToFamily('schoeller', this.family.string, newPerson).subscribe(
       (data: ApiPerson) => {
-        const person: ApiPerson = data;
-        this.spouseAttributes.push(this.spouseLink(person));
-        this.save();
+        this.ngOnInit();
       }
     );
-  }
-
-  private pushFams(p: ApiPerson, f: ApiFamily): void {
-    p.attributes.push(
-      {type: 'fams', string: f.string, tail: '', attributes: new Array<ApiAttribute>()}
-    );
-  }
-
-  private spouseLink(p: ApiPerson): ApiAttribute {
-    for (const a of p.attributes) {
-      if (a.string !== 'Sex') {
-        continue;
-      }
-      let t = 'spouse';
-      if (a.tail === 'M') {
-        t = 'husband';
-      } else if (a.tail === 'F') {
-        t = 'wife';
-      }
-      return {type: t, string: p.string, tail: '', attributes: new Array<ApiAttribute>()};
-    }
   }
 
   galleryImages(): Array<NgxGalleryImage> {
@@ -187,7 +164,7 @@ export class PersonFamilyComponent implements OnInit {
       .concat(this.strippedAttributes)
       .concat(this.childrenAttributes)
       .concat(this.imageAttributes);
-    this.service.put('schoeller', this.family).subscribe(
+    this.familyService.put('schoeller', this.family).subscribe(
       (data: ApiFamily) => {
         this.family = data;
         this.initLists();
