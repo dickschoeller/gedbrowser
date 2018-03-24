@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.api.controller;
+package org.schoellerfamily.gedbrowser.api.crud;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;

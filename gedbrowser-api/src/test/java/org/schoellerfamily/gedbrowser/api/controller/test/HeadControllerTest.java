@@ -39,7 +39,7 @@ public class HeadControllerTest {
     @Test
     public final void testGetHeadGl120368() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368";
+                + "/gedbrowser-api/v1/dbs/gl120368";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
 
@@ -55,7 +55,7 @@ public class HeadControllerTest {
     @Test
     public final void testGetHeadMiniSchoeller() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller";
+                + "/gedbrowser-api/v1/dbs/mini-schoeller";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
 
@@ -71,7 +71,7 @@ public class HeadControllerTest {
     @Test
     public final void testGetHeadBadDataSet() {
         final ResponseEntity<String> entity = testRestTemplate.getForEntity(
-                "http://localhost:" + port + "/gedbrowser-api/dbs/XYZZY",
+                "http://localhost:" + port + "/gedbrowser-api/v1/dbs/XYZZY",
                 String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);

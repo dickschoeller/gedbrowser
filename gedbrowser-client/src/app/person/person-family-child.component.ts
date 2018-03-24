@@ -46,12 +46,16 @@ export class PersonFamilyChildComponent implements OnInit {
   }
 
   moveUp(): void {
-    this.parentComponent.childrenAttributes.splice(this.index - 1, 0, this.parentComponent.childrenAttributes.splice(this.index, 1)[0]);
+    this.parentComponent.childrenAttributes.splice(
+      this.index - 1, 0,
+      this.parentComponent.childrenAttributes.splice(this.index, 1)[0]);
     this.parentComponent.save();
   }
 
   moveDown(): void {
-    this.parentComponent.childrenAttributes.splice(this.index + 1, 0, this.parentComponent.childrenAttributes.splice(this.index, 1)[0]);
+    this.parentComponent.childrenAttributes.splice(
+      this.index + 1, 0,
+      this.parentComponent.childrenAttributes.splice(this.index, 1)[0]);
     this.parentComponent.save();
   }
 

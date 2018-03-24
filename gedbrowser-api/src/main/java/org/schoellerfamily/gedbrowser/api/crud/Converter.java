@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.api.controller;
+package org.schoellerfamily.gedbrowser.api.crud;
 
 import java.util.List;
 

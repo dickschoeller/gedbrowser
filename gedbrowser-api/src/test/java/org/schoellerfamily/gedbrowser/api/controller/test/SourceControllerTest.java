@@ -52,7 +52,7 @@ public class SourceControllerTest {
     @Test
     public final void testReadSourcesGl120368() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368/sources";
+                + "/gedbrowser-api/v1/dbs/gl120368/sources";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
         final String bodyFragment =
@@ -107,7 +107,7 @@ public class SourceControllerTest {
     @Test
     public final void testReadSourcesMiniSchoeller() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller/sources";
+                + "/gedbrowser-api/v1/dbs/mini-schoeller/sources";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
         final String bodyFragment =
@@ -143,7 +143,7 @@ public class SourceControllerTest {
     @Test
     public final void testReadSourcesMiniSchoellerS2() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller/sources/S2";
+                + "/gedbrowser-api/v1/dbs/mini-schoeller/sources/S2";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
         final String bodyFragment =
@@ -177,120 +177,9 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testReadSourcesMiniSchoellerS2Attributes() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller/sources/S2/attributes";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        final String bodyFragment =
-                "[ {\n"
-                + "  \"type\" : \"attribute\",\n"
-                + "  \"string\" : \"Title\",\n"
-                + "  \"attributes\" : [ ],\n"
-                + "  \"tail\" : \"Schoeller, Melissa Robinson, birth"
-                + " certificate\"\n"
-                + "}, {\n"
-                + "  \"type\" : \"attribute\",\n"
-                + "  \"string\" : \"Abbreviation\",\n"
-                + "  \"attributes\" : [ ],\n"
-                + "  \"tail\" : \"SchoellerMelissaBirthCert\"\n"
-                + "}, {\n"
-                + "  \"type\" : \"attribute\",\n"
-                + "  \"string\" : \"Note\",\n"
-                + "  \"attributes\" : [ ],\n"
-                + "  \"tail\" : \"We have the original of this document\"\n"
-                + "} ]";
-
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).isEqualTo(bodyFragment);
-    }
-
-    /** */
-    @Test
-    public final void testReadSourcesMiniSchoellerS2Attributes1() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller/sources/S2/attributes/1";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        final String bodyFragment =
-                "{\n"
-                + "  \"type\" : \"attribute\",\n"
-                + "  \"string\" : \"Abbreviation\",\n"
-                + "  \"attributes\" : [ ],\n"
-                + "  \"tail\" : \"SchoellerMelissaBirthCert\"\n"
-                + "}";
-
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).isEqualTo(bodyFragment);
-    }
-
-    /** */
-    @Test
-    public final void testReadSourcesMiniSchoellerS2Attributes99() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller"
-                + "/sources/S2/attributes/99";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-    }
-
-    /** */
-    @Test
-    public final void testReadSourcesMiniSchoellerS2Title() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller/sources/S2/Title";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        final String bodyFragment =
-                "[ {\n"
-                + "  \"type\" : \"attribute\",\n"
-                + "  \"string\" : \"Title\",\n"
-                + "  \"attributes\" : [ ],\n"
-                + "  \"tail\" : \"Schoeller, Melissa Robinson, birth"
-                + " certificate\"\n"
-                + "} ]";
-
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).isEqualTo(bodyFragment);
-    }
-
-    /** */
-    @Test
-    public final void testReadSourcesMiniSchoellerS2Title0() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller/sources/S2/Title/0";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        final String bodyFragment =
-                "{\n"
-                + "  \"type\" : \"attribute\",\n"
-                + "  \"string\" : \"Title\",\n"
-                + "  \"attributes\" : [ ],\n"
-                + "  \"tail\" : \"Schoeller, Melissa Robinson, birth"
-                + " certificate\"\n"
-                + "}";
-
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).isEqualTo(bodyFragment);
-    }
-
-    /** */
-    @Test
-    public final void testReadSourcesMiniSchoellerS2Title99() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller"
-                + "/sources/S2/Title/99";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-    }
-
-    /** */
-    @Test
     public final void testReadSourcesMiniSchoellerXyzzy() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller"
+                + "/gedbrowser-api/v1/dbs/mini-schoeller"
                 + "/sources/Xyzzy";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
@@ -305,7 +194,7 @@ public class SourceControllerTest {
     public final void testCreateSourcesSimple()
             throws RestClientException, URISyntaxException {
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368/sources";
+                + "/gedbrowser-api/v1/dbs/gl120368/sources";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         final ApiSource reqBody = new ApiSource("source", "", "Unknown");
@@ -323,69 +212,6 @@ public class SourceControllerTest {
      * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
-    public final void testCreateSourceDateAttribute()
-            throws RestClientException, URISyntaxException {
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-
-        // Create a family.
-        // We want to be sure we know the structure of the family
-        // we are modifying.
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368/sources";
-        final ApiSource reqBody = new ApiSource("source", "", "Unknown");
-        final HttpEntity<ApiSource> req = new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiSource> sourceEntity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiSource.class);
-        then(sourceEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        // Capture information about new source.
-        final ApiSource resBody = sourceEntity.getBody();
-        final String id = resBody.getString();
-
-        // Create a new attribute for the family.
-        // This is the real step being tested.
-        final String attrUrl = url + "/" + id + "/attributes/0";
-        final ApiAttribute attr =
-                new ApiAttribute("attribute", "Date", "1 JAN 1950");
-        final HttpEntity<ApiAttribute> attrReq =
-                new HttpEntity<>(attr, headers);
-        final ResponseEntity<ApiAttribute> attrEntity = testRestTemplate
-                .postForEntity(new URI(attrUrl), attrReq, ApiAttribute.class);
-        then(attrEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-        // Check the contents of the new attribute
-        final ApiAttribute newBody = attrEntity.getBody();
-        then(newBody.getType()).isEqualTo("attribute");
-        then(newBody.getString()).isEqualTo("Date");
-        then(newBody.getTail()).isEqualTo("1 JAN 1950");
-
-        // Now fetch the family again
-        final String checkUrl = url + "/" + id;
-        final ResponseEntity<ApiSource> checkEntity =
-                testRestTemplate.getForEntity(checkUrl, ApiSource.class);
-        final ApiSource checkSource = checkEntity.getBody();
-        // Do some checks.
-        then(checkSource.getString()).isEqualTo(id);
-        final List<ApiAttribute> attributes = checkSource.getAttributes();
-        assertMatch(attributes.get(0), attr);
-    }
-
-    /**
-     * @param o1 object 1
-     * @param o2 object 2
-     */
-    private void assertMatch(final ApiAttribute o1, final ApiAttribute o2) {
-        assertEquals("types don't match", o1.getType(), o2.getType());
-        assertEquals("strings don't match", o1.getString(), o2.getString());
-        assertEquals("attributes don't match",
-                o1.getAttributes(), o2.getAttributes());
-    }
-
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
-     */
-    @Test
     public final void testDeleteSource()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = new HttpHeaders();
@@ -395,7 +221,7 @@ public class SourceControllerTest {
         // We want to be sure we know the structure of the family
         // we are modifying.
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368/sources";
+                + "/gedbrowser-api/v1/dbs/gl120368/sources";
         final ApiSource reqBody = new ApiSource("source", "", "Unknown");
         final HttpEntity<ApiSource> req =
                 new HttpEntity<>(reqBody, headers);
@@ -429,7 +255,7 @@ public class SourceControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368/sources/XXXXXXX";
+                + "/gedbrowser-api/v1/dbs/gl120368/sources/XXXXXXX";
         final ResponseEntity<ApiSource> preDeleteEntity = testRestTemplate
                 .getForEntity(url, ApiSource.class);
         then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
@@ -449,7 +275,7 @@ public class SourceControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/XYZZY/sources/SUBM1";
+                + "/gedbrowser-api/v1/dbs/XYZZY/sources/SUBM1";
         final ResponseEntity<ApiSource> preDeleteEntity = testRestTemplate
                 .getForEntity(url, ApiSource.class);
         then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
@@ -463,53 +289,10 @@ public class SourceControllerTest {
      * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
-    public final void testDeleteSourceAttribute()
-            throws RestClientException, URISyntaxException {
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-
-        // Create a family.
-        // We want to be sure we know the structure of the family
-        // we are modifying.
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368/sources";
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Title", "the title"));
-        attributes.add(new ApiAttribute("attribute", "Abbreviation", "the"));
-        final ApiSource reqBody = new ApiSource("source", "", attributes,
-                "the title");
-        final HttpEntity<ApiSource> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiSource> sourceEntity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiSource.class);
-        then(sourceEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        // Capture information about new source.
-        final ApiSource resBody = sourceEntity.getBody();
-        final String id = resBody.getString();
-
-        final String deleteUrl = url + "/" + id + "/attributes/1";
-        final ResponseEntity<ApiAttribute> preDeleteEntity = testRestTemplate
-                .getForEntity(deleteUrl, ApiAttribute.class);
-        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(deleteUrl, HttpMethod.DELETE, null, String.class);
-        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ResponseEntity<ApiAttribute> postDeleteEntity = testRestTemplate
-                .getForEntity(deleteUrl, ApiAttribute.class);
-        then(postDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        testRestTemplate.exchange(
-                url + "/" + id, HttpMethod.DELETE, null, String.class);
-    }
-
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
-     */
-    @Test
     public final void testUpdateSourceWithNote()
             throws RestClientException, URISyntaxException {
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368/sources";
+                + "/gedbrowser-api/v1/dbs/gl120368/sources";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         final List<ApiAttribute> attributes = new ArrayList<>();

@@ -1,5 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {ApiAttribute, ApiFamily, FamilyService} from '../shared';
+
+import {ApiAttribute, ApiFamily} from '../shared/models';
+import {FamilyService} from '../shared/services';
 
 @Component({
   selector: 'app-person-parent-family',

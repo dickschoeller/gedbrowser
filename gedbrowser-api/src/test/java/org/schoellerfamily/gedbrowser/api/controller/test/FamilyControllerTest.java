@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiLifespan;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -52,7 +54,7 @@ public class FamilyControllerTest {
     @Test
     public final void testGetFamiliesGl120368() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368/families";
+                + "/gedbrowser-api/v1/dbs/gl120368/families";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
         final String bodyFragment =
@@ -73,7 +75,7 @@ public class FamilyControllerTest {
     @Test
     public final void testGetFamiliesMiniSchoeller() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller/families";
+                + "/gedbrowser-api/v1/dbs/mini-schoeller/families";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
         final String bodyFragment =
@@ -104,7 +106,7 @@ public class FamilyControllerTest {
     @Test
     public final void testGetFamiliesGl120368F1593() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368/families/F1593";
+                + "/gedbrowser-api/v1/dbs/gl120368/families/F1593";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
         final String bodyFragment =
@@ -125,7 +127,7 @@ public class FamilyControllerTest {
     @Test
     public final void testGetFamiliesMiniSchoellerF1() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller/families/F1";
+                + "/gedbrowser-api/v1/dbs/mini-schoeller/families/F1";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
         final String bodyFragment =
@@ -155,187 +157,9 @@ public class FamilyControllerTest {
 
     /** */
     @Test
-    public final void testGetFamiliesMiniSchoellerF1Attributes() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller/families/F1/attributes";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        final String bodyFragment =
-                "[ {\n"
-                + "  \"type\" : \"husband\",\n"
-                + "  \"string\" : \"I2\",\n"
-                + "  \"attributes\" : [ ],\n"
-                + "  \"tail\" : \"\"\n"
-                + "}, {\n"
-                + "  \"type\" : \"wife\",\n"
-                + "  \"string\" : \"I3\",\n"
-                + "  \"attributes\" : [ ],\n"
-                + "  \"tail\" : \"\"\n"
-                + "}, {\n"
-                + "  \"type\" : \"child\",\n"
-                + "  \"string\" : \"I1\",\n"
-                + "  \"attributes\" : [ ],\n"
-                + "  \"tail\" : \"\"\n"
-                + "}, {\n";
-
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).startsWith(bodyFragment);
-    }
-
-    /** */
-    @Test
-    public final void testGetFamiliesMiniSchoellerF1Attributes4() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller"
-                + "/families/F1/attributes/4";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        final String bodyFragment =
-                "{\n"
-                + "  \"type\" : \"attribute\",\n"
-                + "  \"string\" : \"Marriage\",\n"
-                + "  \"attributes\" : [ {\n"
-                + "    \"type\" : \"date\",\n"
-                + "    \"string\" : \"27 MAY 1984\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"\"\n"
-                + "  }, {\n"
-                + "    \"type\" : \"place\",\n"
-                + "    \"string\" : \"Temple Emanu-el, Providence, Providence"
-                + " County, Rhode Island, USA\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"\"\n"
-                + "  }, {\n"
-                + "    \"type\" : \"attribute\",\n"
-                + "    \"string\" : \"Note\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"The ceremony performed by Rabbi Wayne"
-                + " Franklin and Cantor Ivan\\nPerlman.  The best man and"
-                + " matron of honor were Dale Matcovitch\\nand Carol Robinson"
-                + " Sacerdote.\"\n"
-                + "  }, {\n"
-                + "    \"type\" : \"sourcelink\",\n"
-                + "    \"string\" : \"S4\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"\"\n"
-                + "  } ],\n"
-                + "  \"tail\" : \"\"\n"
-                + "}";
-
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).startsWith(bodyFragment);
-    }
-
-    /** */
-    @Test
-    public final void testGetFamiliesMiniSchoellerF1Attributes99() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller"
-                + "/families/F1/attributes/99";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-    }
-
-    /** */
-    @Test
-    public final void testGetFamiliesMiniSchoellerF1Marriage() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller"
-                + "/families/F1/Marriage";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        final String bodyFragment =
-                "[ {\n"
-                + "  \"type\" : \"attribute\",\n"
-                + "  \"string\" : \"Marriage\",\n"
-                + "  \"attributes\" : [ {\n"
-                + "    \"type\" : \"date\",\n"
-                + "    \"string\" : \"27 MAY 1984\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"\"\n"
-                + "  }, {\n"
-                + "    \"type\" : \"place\",\n"
-                + "    \"string\" : \"Temple Emanu-el, Providence, Providence"
-                + " County, Rhode Island, USA\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"\"\n"
-                + "  }, {\n"
-                + "    \"type\" : \"attribute\",\n"
-                + "    \"string\" : \"Note\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"The ceremony performed by Rabbi Wayne"
-                + " Franklin and Cantor Ivan\\nPerlman.  The best man and"
-                + " matron of honor were Dale Matcovitch\\nand Carol Robinson"
-                + " Sacerdote.\"\n"
-                + "  }, {\n"
-                + "    \"type\" : \"sourcelink\",\n"
-                + "    \"string\" : \"S4\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"\"\n"
-                + "  } ],\n"
-                + "  \"tail\" : \"\"\n"
-                + "}";
-
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).startsWith(bodyFragment);
-    }
-
-    /** */
-    @Test
-    public final void testGetFamiliesMiniSchoellerF1Children() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller/families/F1/child";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        final String bodyFragment =
-                "[ {\n"
-                + "  \"type\" : \"child\",\n"
-                + "  \"string\" : \"I1\",\n"
-                + "  \"attributes\" : [ ],\n"
-                + "  \"tail\" : \"\"\n"
-                + "}, {\n";
-
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).startsWith(bodyFragment);
-    }
-
-    /** */
-    @Test
-    public final void testGetFamiliesMiniSchoellerF1Child0() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller"
-                + "/families/F1/child/0";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        final String bodyFragment =
-                "{\n"
-                + "  \"type\" : \"child\",\n"
-                + "  \"string\" : \"I1\",\n"
-                + "  \"attributes\" : [ ],\n"
-                + "  \"tail\" : \"\"\n"
-                + "}";
-
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).isEqualTo(bodyFragment);
-    }
-
-    /** */
-    @Test
-    public final void testGetFamiliesMiniSchoellerF1Child99() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller"
-                + "/families/F1/child/99";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-    }
-
-    /** */
-    @Test
     public final void testGetFamiliesMiniSchoellerXyzzy() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/mini-schoeller"
+                + "/gedbrowser-api/v1/dbs/mini-schoeller"
                 + "/families/Xyzzy";
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
@@ -350,7 +174,7 @@ public class FamilyControllerTest {
     public final void testCreateFamiliesSimple()
             throws RestClientException, URISyntaxException {
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368/families";
+                + "/gedbrowser-api/v1/dbs/gl120368/families";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         final ApiFamily reqBody = new ApiFamily("family", "");
@@ -371,7 +195,7 @@ public class FamilyControllerTest {
     public final void testCreateFamiliesWithMarriage()
             throws RestClientException, URISyntaxException {
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368/families";
+                + "/gedbrowser-api/v1/dbs/gl120368/families";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         final List<ApiAttribute> attributes = new ArrayList<>();
@@ -391,72 +215,6 @@ public class FamilyControllerTest {
      * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
-    public final void testCreateFamiliesMarriageAttribute()
-            throws RestClientException, URISyntaxException {
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-
-        // Create a family.
-        // We want to be sure we know the structure of the family
-        // we are modifying.
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368/families";
-        final ApiFamily reqBody = new ApiFamily("family", "");
-        final HttpEntity<ApiFamily> req = new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiFamily> familyEntity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiFamily.class);
-        then(familyEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        // Capture information about new family.
-        final ApiFamily resBody = familyEntity.getBody();
-        final String id = resBody.getString();
-
-        // Create a new attribute for the family.
-        // This is the real step being tested.
-        final String attrUrl = url + "/" + id + "/attributes/0";
-        final List<ApiAttribute> attrs = new ArrayList<>();
-        attrs.add(new ApiAttribute("attribute", "Date", "1 JAN 1950"));
-        final ApiAttribute attr =
-                new ApiAttribute("Marriage", "attribute", attrs, "");
-        final HttpEntity<ApiAttribute> attrReq =
-                new HttpEntity<>(attr, headers);
-        final ResponseEntity<ApiAttribute> attrEntity = testRestTemplate
-                .postForEntity(new URI(attrUrl), attrReq, ApiAttribute.class);
-        then(attrEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-        // Check the contents of the new attribute
-        final ApiAttribute newBody = attrEntity.getBody();
-        then(newBody.getType()).isEqualTo("attribute");
-        then(newBody.getString()).isEqualTo("Marriage");
-        then(newBody.getAttributes())
-                .contains(new ApiAttribute("attribute", "Date", "1 JAN 1950"));
-
-        // Now fetch the family again
-        final String checkUrl = url + "/" + id;
-        final ResponseEntity<ApiFamily> checkEntity =
-                testRestTemplate.getForEntity(checkUrl, ApiFamily.class);
-        final ApiFamily checkFamily = checkEntity.getBody();
-        // Do some checks.
-        then(checkFamily.getString()).isEqualTo(id);
-        final List<ApiAttribute> attributes = checkFamily.getAttributes();
-        assertMatch(attributes.get(0), attr);
-    }
-
-    /**
-     * @param o1 object 1
-     * @param o2 object 2
-     */
-    private void assertMatch(final ApiAttribute o1, final ApiAttribute o2) {
-        assertEquals("types don't match", o1.getType(), o2.getType());
-        assertEquals("strings don't match", o1.getString(), o2.getString());
-        assertEquals("attributes don't match",
-                o1.getAttributes(), o2.getAttributes());
-    }
-
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
-     */
-    @Test
     public final void testDeleteFamily()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = new HttpHeaders();
@@ -466,7 +224,7 @@ public class FamilyControllerTest {
         // We want to be sure we know the structure of the family
         // we are modifying.
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368/families";
+                + "/gedbrowser-api/v1/dbs/gl120368/families";
         final ApiFamily reqBody = new ApiFamily("family", "");
         final HttpEntity<ApiFamily> req =
                 new HttpEntity<>(reqBody, headers);
@@ -500,7 +258,7 @@ public class FamilyControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368/families/XXXXXXX";
+                + "/gedbrowser-api/v1/dbs/gl120368/families/XXXXXXX";
         final ResponseEntity<ApiFamily> preDeleteEntity = testRestTemplate
                 .getForEntity(url, ApiFamily.class);
         then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
@@ -520,7 +278,7 @@ public class FamilyControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/XYZZY/families/SUBM1";
+                + "/gedbrowser-api/v1/dbs/XYZZY/families/SUBM1";
         final ResponseEntity<ApiFamily> preDeleteEntity = testRestTemplate
                 .getForEntity(url, ApiFamily.class);
         then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
@@ -534,52 +292,10 @@ public class FamilyControllerTest {
      * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
-    public final void testDeleteFamilyAttribute()
-            throws RestClientException, URISyntaxException {
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-
-        // Create a family.
-        // We want to be sure we know the structure of the family
-        // we are modifying.
-        final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368/families";
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Marriage", ""));
-        attributes.add(new ApiAttribute("attribute", "Divorce", ""));
-        final ApiFamily reqBody = new ApiFamily("family", "", attributes);
-        final HttpEntity<ApiFamily> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiFamily> familyEntity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiFamily.class);
-        then(familyEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        // Capture information about new family.
-        final ApiFamily resBody = familyEntity.getBody();
-        final String id = resBody.getString();
-
-        final String deleteUrl = url + "/" + id + "/attributes/1";
-        final ResponseEntity<ApiAttribute> preDeleteEntity = testRestTemplate
-                .getForEntity(deleteUrl, ApiAttribute.class);
-        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(deleteUrl, HttpMethod.DELETE, null, String.class);
-        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ResponseEntity<ApiAttribute> postDeleteEntity = testRestTemplate
-                .getForEntity(deleteUrl, ApiAttribute.class);
-        then(postDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        testRestTemplate.exchange(
-                url + "/" + id, HttpMethod.DELETE, null, String.class);
-    }
-
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
-     */
-    @Test
     public final void testUpdateFamilyWithNote()
             throws RestClientException, URISyntaxException {
         final String url = "http://localhost:" + port
-                + "/gedbrowser-api/dbs/gl120368/families";
+                + "/gedbrowser-api/v1/dbs/gl120368/families";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         final List<ApiAttribute> attributes = new ArrayList<>();
@@ -606,4 +322,123 @@ public class FamilyControllerTest {
         assertEquals("attribute should be present", aNote,
                 putResponseEntity.getBody().getAttributes().get(1));
     }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testCreateSpouseInFamily()
+            throws RestClientException, URISyntaxException {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/v1/dbs/gl120368/families/F1/spouses";
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        final ApiPerson reqBody = createAlexandra();
+        final HttpEntity<ApiPerson> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiPerson> entity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiPerson.class);
+
+        final ApiPerson resBody = entity.getBody();
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(resBody.getType()).isEqualTo(reqBody.getType());
+        then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
+        then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testCreateSpouseInFamily2()
+            throws RestClientException, URISyntaxException {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/v1/dbs/gl120368/families/F2/spouses";
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        final ApiPerson reqBody = createAlexander();
+        final HttpEntity<ApiPerson> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiPerson> entity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiPerson.class);
+
+        final ApiPerson resBody = entity.getBody();
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(resBody.getType()).isEqualTo(reqBody.getType());
+        then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
+        then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testCreateChildInFamily()
+            throws RestClientException, URISyntaxException {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/v1/dbs/gl120368/families/F1/children";
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        final ApiPerson reqBody = createAlexandra();
+        final HttpEntity<ApiPerson> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiPerson> entity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiPerson.class);
+
+        final ApiPerson resBody = entity.getBody();
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(resBody.getType()).isEqualTo(reqBody.getType());
+        then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
+        then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testCreateChildInFamily2()
+            throws RestClientException, URISyntaxException {
+        final String url = "http://localhost:" + port
+                + "/gedbrowser-api/v1/dbs/gl120368/families/F4/children";
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        final ApiPerson reqBody = createAlexander();
+        final HttpEntity<ApiPerson> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiPerson> entity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiPerson.class);
+
+        final ApiPerson resBody = entity.getBody();
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(resBody.getType()).isEqualTo(reqBody.getType());
+        then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
+        then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
+    }
+
+    /**
+     * @return the newly created person
+     */
+    private ApiPerson createAlexander() {
+        final List<ApiAttribute> attributes = new ArrayList<>();
+        attributes.add(new ApiAttribute("name", "Alexander/Romanov/", ""));
+        attributes.add(new ApiAttribute("attribute", "Sex", "M"));
+        return new ApiPerson("person", "", attributes, "Romanov, Alexander",
+                "Romanov", new ApiLifespan());
+    }
+
+    /**
+     * @return the newly created person
+     */
+    private ApiPerson createAlexandra() {
+        final List<ApiAttribute> attributes = new ArrayList<>();
+        attributes.add(new ApiAttribute("name", "Alexandra/Romanov/", ""));
+        attributes.add(new ApiAttribute("attribute", "Sex", "F"));
+        return new ApiPerson("person", "", attributes, "Romanov, Alexandra",
+                "Romanov", new ApiLifespan());
+    }
+
 }

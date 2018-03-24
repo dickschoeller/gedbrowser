@@ -15,27 +15,27 @@ export class SubmitterService implements ApiService<ApiSubmitter> {
 
   getAll(db: string): Observable<Array<ApiSubmitter>> {
     return this.http.get<Array<ApiSubmitter>>(
-      'http://localhost:8080/gedbrowser-api/dbs/' + db + '/submitters');
+      'http://largo.schoellerfamily.org:9084/gedbrowser-api/v1/dbs/' + db + '/submitters');
   }
 
   getOne(db: string, id: string): Observable<ApiSubmitter> {
     return this.http.get<ApiSubmitter>(
-      'http://largo.schoellerfamily.org:8080/gedbrowser-api/dbs/' + db + '/submitters/' + id);
+      'http://largo.schoellerfamily.org:9084/gedbrowser-api/v1/dbs/' + db + '/submitters/' + id);
   }
 
   put(db: string, submitter: ApiSubmitter): Observable<ApiSubmitter> {
     return this.http.put<ApiSubmitter>(
-      'http://largo.schoellerfamily.org:8080/gedbrowser-api/dbs/' + db + '/submitters/' + submitter.string,
+      'http://largo.schoellerfamily.org:9084/gedbrowser-api/v1/dbs/' + db + '/submitters/' + submitter.string,
       submitter);
   }
 
   post(db: string, submitter: ApiSubmitter): Observable<ApiSubmitter> {
     return this.http.post<ApiSubmitter>(
-      'http://largo.schoellerfamily.org:8080/gedbrowser-api/dbs/' + db + '/submitters', submitter);
+      'http://largo.schoellerfamily.org:9084/gedbrowser-api/v1/dbs/' + db + '/submitters', submitter);
   }
 
   delete(db: string, submitter: ApiSubmitter): Observable<ApiSubmitter> {
     return this.http.delete<ApiSubmitter>(
-      'http://largo.schoellerfamily.org:8080/gedbrowser-api/dbs/' + db + '/submitters/' + submitter.string);
+      'http://largo.schoellerfamily.org:9084/gedbrowser-api/v1/dbs/' + db + '/submitters/' + submitter.string);
   }
 }

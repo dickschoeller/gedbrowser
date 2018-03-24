@@ -1,6 +1,4 @@
-package org.schoellerfamily.gedbrowser.api.controller;
-
-import java.util.Locale;
+package org.schoellerfamily.gedbrowser.api.crud;
 
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -8,8 +6,6 @@ import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @param <X> the data model type we are creating
@@ -19,22 +15,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class OperationsEnabler<
     X extends GedObject, Y extends GedDocument<X>> {
     /** */
-    @Autowired
-    private transient GedDocumentFileLoader loader;
+    private final GedDocumentFileLoader loader;
 
     /** */
-    @Autowired
-    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
+    private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /** */
-    @Autowired
-    private transient RepositoryManagerMongo repositoryManager;
+    private final RepositoryManagerMongo repositoryManager;
 
     /**
      * Handles data conversion from DB model to API model.
      */
     private final DocumentToApiModelTransformer d2dm =
             new DocumentToApiModelTransformer();
+
+    /**
+     * @param loader the file loader that we will use
+     * @param toDocConverter the document converter
+     * @param repositoryManager the repository manager
+     */
+    public OperationsEnabler(final GedDocumentFileLoader loader,
+            final GedObjectToGedDocumentMongoConverter toDocConverter,
+            final RepositoryManagerMongo repositoryManager) {
+        this.loader = loader;
+        this.toDocConverter = toDocConverter;
+        this.repositoryManager = repositoryManager;
+    }
 
     /**
      * @return the data model class
@@ -66,31 +72,10 @@ public abstract class OperationsEnabler<
         return repositoryManager;
     }
 
-
-    /**
-     * @return the repository for this type
-     */
-    @SuppressWarnings("unchecked")
-    public FindableDocument<X, Y> getRepository() {
-        return (FindableDocument<X, Y>)
-                getRepositoryManager().get(getGedClass());
-    }
-
     /**
      * @return the class the converts from DB model to API model
      */
     public final DocumentToApiModelTransformer getD2dm() {
         return d2dm;
-    }
-
-    /**
-     * Get the simple name of a class in all lower case for logging and
-     * exceptions.
-     *
-     * @param clazz the class to name
-     * @return the simple class name in lower case
-     */
-    public final String typeString(final Class<?> clazz) {
-        return clazz.getSimpleName().toLowerCase(Locale.ENGLISH);
     }
 }

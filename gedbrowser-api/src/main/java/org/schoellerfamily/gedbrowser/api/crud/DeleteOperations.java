@@ -1,9 +1,8 @@
-package org.schoellerfamily.gedbrowser.api.controller;
+package org.schoellerfamily.gedbrowser.api.crud;
 
 import java.util.Locale;
 
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
@@ -43,14 +42,6 @@ public interface DeleteOperations<X extends GedObject,
     Class<X> getGedClass();
 
     /**
-     * Get the simple name of a class in all lower case for logging and
-     * exceptions.
-     *
-     * @param clazz the class to name
-     * @return the simple class name in lower case
-     */
-    String typeString(Class<?> clazz);
-    /**
      * @param root the root of the db
      * @param id the ID of the object to delete
      * @return the deleted object
@@ -68,37 +59,5 @@ public interface DeleteOperations<X extends GedObject,
         }
         ((CrudRepository<Y, String>) repo).delete(oldDoc);
         return convert(oldDoc);
-    }
-
-    /**
-     * @param root the root of the db
-     * @param id the ID of the object whose attribute will be deleted
-     * @param index of the attribute to delete
-     * @return the deleted attribute
-     */
-    default ApiAttribute deleteAttribute(final RootDocument root,
-            final String id, final int index) {
-        final Y document = getRepository().findByRootAndString(root, id);
-        final ApiAttribute attribute = getD2dm().attribute(document, index);
-        document.getAttributes().remove(index);
-        save(document);
-        return attribute;
-    }
-
-    /**
-     * Save a GedObject to the database.
-     *
-     * @param document the document to save
-     * @return the deleted document
-     */
-    @SuppressWarnings("unchecked")
-    default Y save(Y document) {
-        try {
-            final FindableDocument<X, Y> repo = getRepository();
-            return ((CrudRepository<Y, String>) repo)
-                    .save(document);
-        } catch (Exception e) {
-            return null;
-        }
     }
 }
