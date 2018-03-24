@@ -70,27 +70,42 @@ public final class ApiSource extends ApiObject {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + ((title == null) ? 0 : title.hashCode());
+        result = prime * result + titleHash();
         return result;
+    }
+
+    /**
+     * @return the title's hash code
+     */
+    private int titleHash() {
+        if (title == null) {
+            return 0;
+        }
+        return title.hashCode();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (!super.equals(obj))
+        }
+        if (!super.equals(obj)) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         ApiSource other = (ApiSource) obj;
         if (title == null) {
-            if (other.title != null)
+            if (other.title != null) {
                 return false;
-        } else if (!title.equals(other.title))
+            }
+        } else if (!title.equals(other.title)) {
             return false;
+        }
         return true;
     }
 }
