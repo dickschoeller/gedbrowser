@@ -158,7 +158,6 @@ export class PersonFamilyComponent implements OnInit {
     return this.imageUtil.galleryImages(this.family.attributes);
   }
 
-  // TODO make this go away
   save() {
     this.family.attributes = new Array<ApiAttribute>()
       .concat(this.spouseAttributes)

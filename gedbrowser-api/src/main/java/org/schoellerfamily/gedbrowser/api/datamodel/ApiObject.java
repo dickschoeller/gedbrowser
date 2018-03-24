@@ -171,7 +171,6 @@ public class ApiObject implements Serializable, GetString {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.NPathComplexity")
     public boolean equals(final Object obj) {
         if (this == obj) {
             return true;

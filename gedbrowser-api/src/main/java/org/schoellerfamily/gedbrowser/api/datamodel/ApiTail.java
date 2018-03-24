@@ -91,7 +91,6 @@ public abstract class ApiTail extends ApiObject {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.CommentRequired")
     public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
