@@ -11,7 +11,6 @@ import {PersonComponent} from './person.component';
  * Implements a the list of families on a person page
  *
  * Inputs:
- *  attributes: the attributes that refer to families
  *  person: the person this page is for
  */
 @Component({
@@ -20,9 +19,8 @@ import {PersonComponent} from './person.component';
   styleUrls: ['./person-family-list.component.css']
 })
 export class PersonFamilyListComponent {
-  @Input() attributes: Array<ApiAttribute>;
-  @Input() person: ApiPerson;
   @Input() parent: PersonComponent;
+  @Input() person: ApiPerson;
 
   constructor(public dialog: MatDialog,
     private spouseService: SpouseService,

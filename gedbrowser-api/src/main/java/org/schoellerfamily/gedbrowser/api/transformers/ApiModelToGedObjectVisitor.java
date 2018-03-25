@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.transformers;
 
+import java.util.List;
+
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
@@ -117,6 +119,30 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
         gedObject = new Person(builder.getRoot(),
                 new ObjectId(person.getString()));
         addAttributes(person);
+    }
+
+    /**
+     * @param apiParent the parent object
+     */
+    private void addAttributes(final ApiPerson apiParent) {
+        addToAttributes(apiParent.getAttributes());
+        addToAttributes(apiParent.getImages());
+        addToAttributes(apiParent.getFamc());
+        addToAttributes(apiParent.getFams());
+        addToAttributes(apiParent.getRefn());
+        addToAttributes(apiParent.getChanged());
+    }
+
+    /**
+     * Add to the attributes of the parent for saving.
+     *
+     * @param attributes some attributes to add to the list
+     */
+    private void addToAttributes(final List<ApiAttribute> attributes) {
+        for (final ApiObject object : attributes) {
+            final ApiModelToGedObjectVisitor visitor = createVisitor();
+            object.accept(visitor);
+        }
     }
 
     /**

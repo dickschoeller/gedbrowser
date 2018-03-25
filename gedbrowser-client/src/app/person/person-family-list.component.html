@@ -1,4 +1,4 @@
-<app-person-family *ngFor="let attribute of attributes; let i = index" [string]="attribute.string" [person]="person" [index]="i"></app-person-family>
+<app-person-family *ngFor="let attribute of person.fams; let i = index" [string]="attribute.string" [person]="person" [index]="i"></app-person-family>
 <mat-expansion-panel [expanded]="true" [class.mat-elevation-z8]="true">
   <button mat-icon-button [matMenuTriggerFor]="newFamilyMenu" color="primary" matTooltip="Add family"><mat-icon>group_add</mat-icon></button>
 </mat-expansion-panel>

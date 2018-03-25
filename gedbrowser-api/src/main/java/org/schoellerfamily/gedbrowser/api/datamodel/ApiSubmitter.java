@@ -62,4 +62,40 @@ public final class ApiSubmitter extends ApiObject {
     public void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + nameHashCode();
+        return result;
+    }
+
+    /**
+     * @return hash code of name string or 0 if null
+     */
+    private int nameHashCode() {
+        if (name == null) {
+            return 0;
+        }
+        return name.hashCode();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        final ApiSubmitter other = (ApiSubmitter) obj;
+        return this.stringCompare(name, other.name);
+    }
 }

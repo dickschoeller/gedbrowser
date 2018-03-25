@@ -12,9 +12,8 @@ import {PersonComponent} from './person.component';
   styleUrls: ['./person-parent-families.component.css']
 })
 export class PersonParentFamiliesComponent {
-  @Input() famcAttributes: Array<ApiAttribute>;
-  @Input() person: ApiPerson;
   @Input() parent: PersonComponent;
+  @Input() person: ApiPerson;
 
   constructor(public dialog: MatDialog,
     private personService: PersonService,
