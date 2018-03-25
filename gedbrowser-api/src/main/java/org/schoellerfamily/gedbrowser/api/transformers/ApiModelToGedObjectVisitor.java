@@ -120,6 +120,36 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
     }
 
     /**
+     * @param apiParent the parent object
+     */
+    private void addAttributes(final ApiPerson apiParent) {
+        for (final ApiObject object : apiParent.getAttributes()) {
+            final ApiModelToGedObjectVisitor visitor = createVisitor();
+            object.accept(visitor);
+        }
+        for (final ApiObject object : apiParent.getImages()) {
+            final ApiModelToGedObjectVisitor visitor = createVisitor();
+            object.accept(visitor);
+        }
+        for (final ApiObject object : apiParent.getFamc()) {
+            final ApiModelToGedObjectVisitor visitor = createVisitor();
+            object.accept(visitor);
+        }
+        for (final ApiObject object : apiParent.getFams()) {
+            final ApiModelToGedObjectVisitor visitor = createVisitor();
+            object.accept(visitor);
+        }
+        for (final ApiObject object : apiParent.getRefn()) {
+            final ApiModelToGedObjectVisitor visitor = createVisitor();
+            object.accept(visitor);
+        }
+        for (final ApiObject object : apiParent.getChanged()) {
+            final ApiModelToGedObjectVisitor visitor = createVisitor();
+            object.accept(visitor);
+        }
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

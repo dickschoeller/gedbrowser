@@ -54,7 +54,7 @@ public class TopLevelDocumentToApiModelVisitor
         final ApiLifespan lifespan = buildLifespan(document);
         setBaseObject(new ApiPerson(document.getType(), document.getString(),
                 document.getIndexName(), document.getSurname(), lifespan));
-        addAttributes(document);
+        addPersonAttributes(document);
     }
 
     /**
@@ -147,6 +147,22 @@ public class TopLevelDocumentToApiModelVisitor
             attribute.accept(v);
             baseObject.getAttributes()
                     .add(convertToAttribute(v.getBaseObject()));
+        }
+    }
+
+    /**
+     * Recurse into the child documents converting and adding to the list.
+     * Person is handled specially because it breaks the list up.
+     *
+     * @param document the current document
+     */
+    protected void addPersonAttributes(final GedDocument<?> document) {
+        for (final GedDocument<? extends GedObject> attribute : document
+                .getAttributes()) {
+            final DocumentToApiModelVisitor v = createVisitor();
+            attribute.accept(v);
+            ((ApiPerson) baseObject)
+                    .addAttribute(convertToAttribute(v.getBaseObject()));
         }
     }
 

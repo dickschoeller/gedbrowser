@@ -58,8 +58,7 @@ public class PersonCrud
     public ApiPerson createPerson(final String db, final ApiPerson person) {
         logger.info("Entering create person in db: " + db);
         return create(readRoot(db), person,
-                (i, id) -> new ApiPerson(i.getType(), id, i.getAttributes(),
-                        i.getIndexName(), i.getSurname(), i.getLifespan()));
+                (i, id) -> new ApiPerson(i, id));
     }
 
     /**
@@ -93,6 +92,7 @@ public class PersonCrud
         if (!id.equals(person.getString())) {
             return null;
         }
+        person.change();
         return update(readRoot(db), person);
     }
 

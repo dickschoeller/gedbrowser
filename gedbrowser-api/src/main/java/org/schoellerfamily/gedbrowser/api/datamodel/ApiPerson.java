@@ -1,6 +1,11 @@
 package org.schoellerfamily.gedbrowser.api.datamodel;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.TextStyle;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author Dick Schoeller
@@ -27,6 +32,31 @@ public final class ApiPerson extends ApiObject {
     private final ApiLifespan lifespan;
 
     /**
+     * The list of fams attributes of this object.
+     */
+    private final List<ApiAttribute> fams = new ArrayList<>();
+
+    /**
+     * The list of famc attributes of this object.
+     */
+    private final List<ApiAttribute> famc = new ArrayList<>();
+
+    /**
+     * The list of refn attributes of this object.
+     */
+    private final List<ApiAttribute> refn = new ArrayList<>();
+
+    /**
+     * The list of changed attributes of this object.
+     */
+    private final List<ApiAttribute> changed = new ArrayList<>();
+
+    /**
+     * The list of image attributes of this object.
+     */
+    private final List<ApiAttribute> images = new ArrayList<>();
+
+    /**
      * Constructor.
      */
     public ApiPerson() {
@@ -51,6 +81,16 @@ public final class ApiPerson extends ApiObject {
         this.indexName = indexName;
         this.surname = surname;
         this.lifespan = lifespan;
+        addAttribute(refn(string));
+    }
+
+    /**
+     * @param string the person string
+     * @return the refn number extracted from that
+     */
+    private ApiAttribute refn(final String string) {
+        return new ApiAttribute("attribute", "Reference Number",
+                string.replaceAll("[A-Za-z]", ""));
     }
 
     /**
@@ -64,10 +104,81 @@ public final class ApiPerson extends ApiObject {
     public ApiPerson(final String type, final String string,
             final List<ApiAttribute> attributes, final String indexName,
             final String surname, final ApiLifespan lifespan) {
-        super(type, string, attributes);
+        super(type, string);
         this.indexName = indexName;
         this.surname = surname;
         this.lifespan = lifespan;
+        this.addAttribute(refn(string));
+        this.addAttributes(attributes);
+    }
+
+    /**
+     * @param string the ID of this object
+     * @param in a person to copy (except for the ID)
+     */
+    public ApiPerson(final ApiPerson in, final String string) {
+        super(in.getType(), string, in.getAttributes());
+        this.indexName = in.indexName;
+        this.surname = in.surname;
+        this.lifespan = in.lifespan;
+        this.refn.addAll(refn);
+        this.famc.addAll(in.famc);
+        this.fams.addAll(in.fams);
+        this.images.addAll(in.images);
+        this.change();
+    }
+
+    /**
+     * Mark the person as changed today.
+     */
+    public void change() {
+        final ApiAttribute chanAttr = new ApiAttribute("attribute", "Changed");
+        chanAttr.getAttributes().add(todayDateAttribute());
+        final ArrayList<ApiAttribute> chanList = new ArrayList<>();
+        chanList.add(chanAttr);
+        this.changed.clear();
+        this.changed.addAll(chanList);
+    }
+
+    /**
+     * @return a date attribute for today
+     */
+    private ApiAttribute todayDateAttribute() {
+        final java.util.Date date = new java.util.Date();
+        final LocalDate localDate = date.toInstant()
+                .atZone(ZoneId.systemDefault()).toLocalDate();
+        final int day = localDate.getDayOfMonth();
+        final String month = localDate.getMonth()
+                .getDisplayName(TextStyle.SHORT, Locale.ENGLISH)
+                .toUpperCase(Locale.ENGLISH);
+        final int year = localDate.getYear();
+        final String todayString = twoDigit(day) + " " + month + " " + year;
+        return new ApiAttribute("date", todayString);
+    }
+
+    /**
+     * @param day a day number
+     * @return as a two digit string
+     */
+    private String twoDigit(final int day) {
+        final int ten = 10;
+        if (day >= ten) {
+            return Integer.toString(day);
+        }
+        return "0" + day;
+    }
+
+    /**
+     * @param attributes the attributes
+     */
+    private void addAttributes(final List<ApiAttribute> attributes) {
+        getAttributes().clear();
+        if (attributes == null) {
+            return;
+        }
+        for (final ApiAttribute attribute : attributes) {
+            addAttribute(attribute);
+        }
     }
 
     /**
@@ -89,6 +200,41 @@ public final class ApiPerson extends ApiObject {
      */
     public ApiLifespan getLifespan() {
         return lifespan;
+    }
+
+    /**
+     * @return the list of fams attributes
+     */
+    public List<ApiAttribute> getFams() {
+        return fams;
+    }
+
+    /**
+     * @return the list of famc attributes
+     */
+    public List<ApiAttribute> getFamc() {
+        return famc;
+    }
+
+    /**
+     * @return the list of refn attributes
+     */
+    public List<ApiAttribute> getRefn() {
+        return refn;
+    }
+
+    /**
+     * @return the list of changed attributes
+     */
+    public List<ApiAttribute> getChanged() {
+        return changed;
+    }
+
+    /**
+     * @return the list of image attributes
+     */
+    public List<ApiAttribute> getImages() {
+        return images;
     }
 
     /**
@@ -146,5 +292,29 @@ public final class ApiPerson extends ApiObject {
             return false;
         }
         return stringCompare(surname, other.surname);
+    }
+
+    /**
+     * Special handling of adding attributes to an ApiPerson because the list
+     * gets broken up into different sections.
+     *
+     * @param attribute the attribute to add
+     */
+    public void addAttribute(final ApiAttribute attribute) {
+        if (attribute.isType("fams")) {
+            fams.add(attribute);
+        } else if (attribute.isType("famc")) {
+            famc.add(attribute);
+        } else if (attribute.isType("Changed")) {
+            changed.clear();
+            changed.add(attribute);
+        } else if (attribute.isType("Reference Number")) {
+            refn.clear();
+            refn.add(attribute);
+        } else if (new ImageUtils().isImageWrapper(attribute)) {
+            images.add(attribute);
+        } else {
+            getAttributes().add(attribute);
+        }
     }
 }
