@@ -1,7 +1,5 @@
 package org.schoellerfamily.gedbrowser.api.transformers;
 
-import java.util.List;
-
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
@@ -69,7 +67,7 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
     public void visit(final ApiAttribute attribute) {
         gedObject = builder.createEvent(parent, attribute.getType(),
                 attribute.getString(), attribute.getTail());
-        addAttributes(attribute);
+        new AttributeListHelper(this).addAttributes(attribute);
     }
 
     /**
@@ -118,31 +116,7 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
     public void visit(final ApiPerson person) {
         gedObject = new Person(builder.getRoot(),
                 new ObjectId(person.getString()));
-        addAttributes(person);
-    }
-
-    /**
-     * @param apiParent the parent object
-     */
-    private void addAttributes(final ApiPerson apiParent) {
-        addToAttributes(apiParent.getAttributes());
-        addToAttributes(apiParent.getImages());
-        addToAttributes(apiParent.getFamc());
-        addToAttributes(apiParent.getFams());
-        addToAttributes(apiParent.getRefn());
-        addToAttributes(apiParent.getChanged());
-    }
-
-    /**
-     * Add to the attributes of the parent for saving.
-     *
-     * @param attributes some attributes to add to the list
-     */
-    private void addToAttributes(final List<ApiAttribute> attributes) {
-        for (final ApiObject object : attributes) {
-            final ApiModelToGedObjectVisitor visitor = createVisitor();
-            object.accept(visitor);
-        }
+        new AttributeListHelper(this).addAttributes(person);
     }
 
     /**
@@ -179,16 +153,13 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
      * @param apiParent the parent object
      */
     private void addAttributes(final ApiObject apiParent) {
-        for (final ApiObject object : apiParent.getAttributes()) {
-            final ApiModelToGedObjectVisitor visitor = createVisitor();
-            object.accept(visitor);
-        }
+        new AttributeListHelper(this).addAttributes(apiParent);
     }
 
     /**
      * @return the visitor
      */
-    private ApiModelToGedObjectVisitor createVisitor() {
+    /* default */ ApiModelToGedObjectVisitor createVisitor() {
         return new ApiModelToGedObjectVisitor(builder, gedObject);
     }
 }
