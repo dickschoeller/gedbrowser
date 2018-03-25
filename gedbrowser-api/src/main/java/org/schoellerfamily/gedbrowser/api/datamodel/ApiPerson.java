@@ -1,11 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.datamodel;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * @author Dick Schoeller
@@ -133,39 +129,11 @@ public final class ApiPerson extends ApiObject {
      */
     public void change() {
         final ApiAttribute chanAttr = new ApiAttribute("attribute", "Changed");
-        chanAttr.getAttributes().add(todayDateAttribute());
+        chanAttr.getAttributes().add(new DateUtil().todayDateAttribute());
         final ArrayList<ApiAttribute> chanList = new ArrayList<>();
         chanList.add(chanAttr);
         this.changed.clear();
         this.changed.addAll(chanList);
-    }
-
-    /**
-     * @return a date attribute for today
-     */
-    private ApiAttribute todayDateAttribute() {
-        final java.util.Date date = new java.util.Date();
-        final LocalDate localDate = date.toInstant()
-                .atZone(ZoneId.systemDefault()).toLocalDate();
-        final int day = localDate.getDayOfMonth();
-        final String month = localDate.getMonth()
-                .getDisplayName(TextStyle.SHORT, Locale.ENGLISH)
-                .toUpperCase(Locale.ENGLISH);
-        final int year = localDate.getYear();
-        final String todayString = twoDigit(day) + " " + month + " " + year;
-        return new ApiAttribute("date", todayString);
-    }
-
-    /**
-     * @param day a day number
-     * @return as a two digit string
-     */
-    private String twoDigit(final int day) {
-        final int ten = 10;
-        if (day >= ten) {
-            return Integer.toString(day);
-        }
-        return "0" + day;
     }
 
     /**
@@ -303,18 +271,26 @@ public final class ApiPerson extends ApiObject {
     public void addAttribute(final ApiAttribute attribute) {
         if (attribute.isType("fams")) {
             fams.add(attribute);
-        } else if (attribute.isType("famc")) {
+            return;
+        }
+        if (attribute.isType("famc")) {
             famc.add(attribute);
-        } else if (attribute.isType("Changed")) {
+            return;
+        }
+        if (attribute.isType("Changed")) {
             changed.clear();
             changed.add(attribute);
-        } else if (attribute.isType("Reference Number")) {
+            return;
+        }
+        if (attribute.isType("Reference Number")) {
             refn.clear();
             refn.add(attribute);
-        } else if (new ImageUtils().isImageWrapper(attribute)) {
-            images.add(attribute);
-        } else {
-            getAttributes().add(attribute);
+            return;
         }
+        if (new ImageUtils().isImageWrapper(attribute)) {
+            images.add(attribute);
+            return;
+        }
+        getAttributes().add(attribute);
     }
 }
