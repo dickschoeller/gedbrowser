@@ -86,7 +86,7 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
     @Override
     public void visit(final ApiFamily family) {
         gedObject = new Family(parent, new ObjectId(family.getString()));
-        addAttributes(family);
+        new AttributeListHelper(this).addAttributes(family);
     }
 
     /**

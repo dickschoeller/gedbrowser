@@ -81,15 +81,6 @@ public final class ApiPerson extends ApiObject {
     }
 
     /**
-     * @param string the person string
-     * @return the refn number extracted from that
-     */
-    private ApiAttribute refn(final String string) {
-        return new ApiAttribute("attribute", "Reference Number",
-                string.replaceAll("[A-Za-z]", ""));
-    }
-
-    /**
      * @param type a string describing the data type of this object
      * @param string a string containing the primary value of this object
      * @param attributes the list of subordinate attributes of this object
@@ -109,8 +100,10 @@ public final class ApiPerson extends ApiObject {
     }
 
     /**
-     * @param string the ID of this object
+     * Constructor.
+     *
      * @param in a person to copy (except for the ID)
+     * @param string the ID of this object
      */
     public ApiPerson(final ApiPerson in, final String string) {
         super(in.getType(), string, in.getAttributes());
@@ -122,6 +115,15 @@ public final class ApiPerson extends ApiObject {
         this.fams.addAll(in.fams);
         this.images.addAll(in.images);
         this.change();
+    }
+
+    /**
+     * @param string the person string
+     * @return the refn number extracted from that
+     */
+    private ApiAttribute refn(final String string) {
+        return new ApiAttribute("attribute", "Reference Number",
+                string.replaceAll("[A-Za-z]", ""));
     }
 
     /**

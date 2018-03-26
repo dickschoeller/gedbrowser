@@ -45,8 +45,11 @@ export class PersonParentFamiliesComponent {
     const newPerson: ApiPerson = nph.buildPerson(dialogData);
     this.parentService.postToPerson('schoeller', this.person.string, newPerson).subscribe(
       (data: ApiPerson) => {
-        this.parent.person = data;
-        this.parent.initLists();
+        this.personService.getOne('schoeller', this.person.string).subscribe(
+          (data1: ApiPerson) => {
+            this.parent.person = data1;
+            this.parent.initLists();
+          });
       }
     );
   }
