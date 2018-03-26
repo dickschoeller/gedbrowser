@@ -72,7 +72,7 @@ public class FamilyControllerTest {
                 + "    \"type\" : \"wife\",\n"
                 + "    \"string\" : \"I1355\",\n"
                 + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : ""\n"
+                + "    \"tail\" : \"\"\n"
                 + "  }, {\n"
                 + "    \"type\" : \"wife\",\n"
                 + "    \"string\" : \"I4461\",\n"
