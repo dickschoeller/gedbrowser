@@ -42,25 +42,25 @@ export class PersonFamilyChildComponent implements OnInit {
   }
 
   last(): boolean {
-    return this.index > this.parentComponent.childrenAttributes.length;
+    return this.index > this.parentComponent.family.children.length;
   }
 
   moveUp(): void {
-    this.parentComponent.childrenAttributes.splice(
+    this.parentComponent.family.children.splice(
       this.index - 1, 0,
-      this.parentComponent.childrenAttributes.splice(this.index, 1)[0]);
+      this.parentComponent.family.children.splice(this.index, 1)[0]);
     this.parentComponent.save();
   }
 
   moveDown(): void {
-    this.parentComponent.childrenAttributes.splice(
+    this.parentComponent.family.children.splice(
       this.index + 1, 0,
-      this.parentComponent.childrenAttributes.splice(this.index, 1)[0]);
+      this.parentComponent.family.children.splice(this.index, 1)[0]);
     this.parentComponent.save();
   }
 
   delete(): void {
-    this.parentComponent.childrenAttributes.splice(this.index, 1);
+    this.parentComponent.family.children.splice(this.index, 1);
     this.parentComponent.save();
   }
 }

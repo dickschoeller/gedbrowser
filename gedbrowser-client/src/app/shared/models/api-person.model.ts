@@ -1,6 +1,6 @@
-import { ApiAttribute } from './api-attribute.model';
-import { ApiObject } from './api-object.model';
-import { ApiLifespan } from './api-lifespan.model';
+import {ApiAttribute} from './api-attribute.model';
+import {ApiObject} from './api-object.model';
+import {ApiLifespan} from './api-lifespan.model';
 
 export class ApiPerson extends ApiObject {
   indexName = '';

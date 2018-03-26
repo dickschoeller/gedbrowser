@@ -30,10 +30,7 @@ export class PersonFamilyComponent implements OnInit {
   family: ApiFamily;
   imageUtil: ImageUtil;
   galleryOptions: Array<NgxGalleryOptions> = new Array<NgxGalleryOptions>();
-  spouseAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
-  childrenAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
-  strippedAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
-  imageAttributes: Array<ApiAttribute> = new Array<ApiAttribute>();
+  initialized = false;
 
   constructor(public dialog: MatDialog,
     private familyService: FamilyService,
@@ -45,56 +42,13 @@ export class PersonFamilyComponent implements OnInit {
       .subscribe((family: ApiFamily) => {
         this.family = family;
         this.initLists();
+        this.initialized = true;
     });
   }
 
   initLists() {
     this.imageUtil = new ImageUtil();
-    this.spouseAttributes = this.createSpouseAttributes();
-    this.strippedAttributes = this.createStrippedAttributes();
-    this.childrenAttributes = this.createChildrenAttributes();
-    this.imageAttributes = this.createImageAttributes();
     this.galleryOptions = this.imageUtil.galleryOptions();
-  }
-
-  private createStrippedAttributes(): Array<ApiAttribute> {
-    const stripped: Array<ApiAttribute> = new Array<ApiAttribute>();
-    for (const attribute of this.family.attributes) {
-      if (!this.isFamilyMember(attribute) &&
-      !this.imageUtil.isImageWrapper(attribute)) {
-        stripped.push(attribute);
-      }
-    }
-    return stripped;
-  }
-
-  private isFamilyMember(attribute: ApiAttribute): boolean {
-    return (attribute.type === 'husband' || attribute.type === 'wife'
-        || attribute.type === 'child');
-  }
-
-  private createChildrenAttributes(): Array<ApiAttribute> {
-    const stripped: Array<ApiAttribute> = new Array<ApiAttribute>();
-    for (const attribute of this.family.attributes) {
-      if (attribute.type === 'child') {
-        stripped.push(attribute);
-      }
-    }
-    return stripped;
-  }
-
-  private createSpouseAttributes(): Array<ApiAttribute> {
-    const spouses: Array<ApiAttribute> = new Array<ApiAttribute>();
-    for (const attribute of this.family.attributes) {
-      if (this.isSpouse(attribute)) {
-        spouses.push(attribute);
-      }
-    }
-    return spouses;
-  }
-
-  private createImageAttributes(): Array<ApiAttribute> {
-    return this.imageUtil.imageAttributes(this.family.attributes);
   }
 
   familyString() {
@@ -105,16 +59,12 @@ export class PersonFamilyComponent implements OnInit {
     if (this.family === undefined) {
       return null;
     }
-    for (const attribute of this.family.attributes) {
-      if (this.isSpouse(attribute) && !this.isThisPerson(attribute)) {
+    for (const attribute of this.family.spouses) {
+      if (!this.isThisPerson(attribute)) {
         return attribute;
       }
     }
     return null;
-  }
-
-  private isSpouse(attribute: ApiAttribute): boolean {
-    return (attribute.type === 'husband' || attribute.type === 'wife');
   }
 
   private isThisPerson(attribute: ApiAttribute): boolean {
@@ -155,15 +105,10 @@ export class PersonFamilyComponent implements OnInit {
     if (this.imageUtil === undefined || this.family === undefined) {
       return new Array<NgxGalleryImage>();
     }
-    return this.imageUtil.galleryImages(this.family.attributes);
+    return this.imageUtil.galleryImages(this.family.images);
   }
 
   save() {
-    this.family.attributes = new Array<ApiAttribute>()
-      .concat(this.spouseAttributes)
-      .concat(this.strippedAttributes)
-      .concat(this.childrenAttributes)
-      .concat(this.imageAttributes);
     this.familyService.put('schoeller', this.family).subscribe(
       (data: ApiFamily) => {
         this.family = data;

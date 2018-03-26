@@ -1,4 +1,4 @@
-<mat-expansion-panel [expanded]="true" [class.mat-elevation-z8]="true">
+<mat-expansion-panel *ngIf="initialized" [expanded]="true" [class.mat-elevation-z8]="true">
   <mat-expansion-panel-header>
     <mat-panel-title>
       <span>Family {{index+1}}</span><span *ngIf="spouse()">&nbsp; - &nbsp;</span>
@@ -8,7 +8,7 @@
   <span *ngIf="!spouse()">
     <button mat-icon-button color="primary" (click)="createSpouse()" matTooltip="Add spouse"><mat-icon>person_add</mat-icon></button>
   </span>
-  <app-attribute-list [attributes]="strippedAttributes" [parent]="this"></app-attribute-list>
-  <ngx-gallery *ngIf="galleryImages().length" [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
-  <app-person-family-child-list [children]="childrenAttributes" [family]="family" [parentComponent]="this"></app-person-family-child-list>
+  <app-attribute-list [attributes]="family.attributes" [parent]="this"></app-attribute-list>
+  <ngx-gallery *ngIf="family.images.length" [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
+  <app-person-family-child-list [children]="family.children" [family]="family" [parentComponent]="this"></app-person-family-child-list>
 </mat-expansion-panel>

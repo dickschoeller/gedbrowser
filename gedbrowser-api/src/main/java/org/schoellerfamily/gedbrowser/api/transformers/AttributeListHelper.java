@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.api.transformers;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 
@@ -87,6 +88,16 @@ public class AttributeListHelper {
         addToAttributes(apiParent.getFams());
         addToAttributes(apiParent.getRefn());
         addToAttributes(apiParent.getChanged());
+    }
+
+    /**
+     * @param apiParent the parent object
+     */
+    public void addAttributes(final ApiFamily apiParent) {
+        addToAttributes(apiParent.getSpouses());
+        addToAttributes(apiParent.getChildren());
+        addToAttributes(apiParent.getAttributes());
+        addToAttributes(apiParent.getImages());
     }
 
     /**

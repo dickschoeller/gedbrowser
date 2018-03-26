@@ -182,17 +182,30 @@ public class ApiObject implements Serializable, GetString {
             return false;
         }
         final ApiObject other = (ApiObject) obj;
-        if (attributes == null) {
-            if (other.attributes != null) {
-                return false;
-            }
-        } else if (!attributes.equals(other.attributes)) {
+        if (!listCompare(attributes, other.attributes)) {
             return false;
         }
         if (!stringCompare(string, other.string)) {
             return false;
         }
         return stringCompare(type, other.type);
+    }
+
+    /**
+     * @param list the list from this object
+     * @param otherList the list from another object
+     * @return true if the lists are equal
+     */
+    protected boolean listCompare(final List<ApiAttribute> list,
+            final List<ApiAttribute> otherList) {
+        if (list == null) {
+            if (otherList != null) {
+                return false;
+            }
+        } else if (!list.equals(otherList)) {
+            return false;
+        }
+        return true;
     }
 
     /**
