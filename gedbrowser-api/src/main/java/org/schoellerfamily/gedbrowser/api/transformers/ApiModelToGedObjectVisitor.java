@@ -126,7 +126,7 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
     public void visit(final ApiSource source) {
         gedObject = new Source(builder.getRoot(),
                 new ObjectId(source.getString()));
-        addAttributes(source);
+        new AttributeListHelper(this).addAttributes(source);
     }
 
     /**

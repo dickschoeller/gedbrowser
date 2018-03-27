@@ -57,8 +57,7 @@ public class SourceCrud
     public ApiObject createSource(final String db,
             final ApiSource source) {
         logger.info("Entering create source in db: " + db);
-        return create(readRoot(db), source, (i, id) ->
-            new ApiSource(i.getType(), id, i.getAttributes(), i.getTitle()));
+        return create(readRoot(db), source, (i, id) -> new ApiSource(i, id));
     }
 
     /**

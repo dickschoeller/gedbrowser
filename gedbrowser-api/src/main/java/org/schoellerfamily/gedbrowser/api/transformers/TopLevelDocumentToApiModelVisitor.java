@@ -73,7 +73,7 @@ public class TopLevelDocumentToApiModelVisitor
     public final void visit(final SourceDocument document) {
         setBaseObject(new ApiSource(document.getType(), document.getString(),
                 title(document)));
-        addAttributes(document);
+        addSourceAttributes(document);
     }
 
     /**
@@ -178,6 +178,22 @@ public class TopLevelDocumentToApiModelVisitor
             final DocumentToApiModelVisitor v = createVisitor();
             attribute.accept(v);
             ((ApiFamily) baseObject)
+                    .addAttribute(convertToAttribute(v.getBaseObject()));
+        }
+    }
+
+    /**
+     * Recurse into the child documents converting and adding to the list.
+     * Person is handled specially because it breaks the list up.
+     *
+     * @param document the current document
+     */
+    protected void addSourceAttributes(final GedDocument<?> document) {
+        for (final GedDocument<? extends GedObject> attribute : document
+                .getAttributes()) {
+            final DocumentToApiModelVisitor v = createVisitor();
+            attribute.accept(v);
+            ((ApiSource) baseObject)
                     .addAttribute(convertToAttribute(v.getBaseObject()));
         }
     }

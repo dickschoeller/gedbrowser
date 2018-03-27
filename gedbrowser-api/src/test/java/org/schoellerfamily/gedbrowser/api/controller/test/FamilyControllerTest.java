@@ -62,25 +62,7 @@ public class FamilyControllerTest {
                 + "  \"type\" : \"family\",\n"
                 + "  \"string\" : \"F1\",\n"
                 + "  \"attributes\" : [ ],\n"
-                + "  \"children\" : [ ],\n"
-                + "  \"spouses\" : [ {\n"
-                + "    \"type\" : \"husband\",\n"
-                + "    \"string\" : \"I1354\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"\"\n"
-                + "  }, {\n"
-                + "    \"type\" : \"wife\",\n"
-                + "    \"string\" : \"I1355\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"\"\n"
-                + "  }, {\n"
-                + "    \"type\" : \"wife\",\n"
-                + "    \"string\" : \"I4461\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"\"\n"
-                + "  } ],\n"
-                + "  \"images\" : [ ]\n"
-                + "}, {\n";
+                + "  \"images\" : [ ],\n";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).startsWith(bodyFragment);
     }
@@ -139,35 +121,7 @@ public class FamilyControllerTest {
                 + "      \"string\" : \"Note\",\n"
                 + "      \"attributes\" : [ ],\n"
                 + "      \"tail\" : \"Record originated in...\"\n"
-                + "    } ],\n" + "    \"tail\" : \"\"\n" + "  }, {\n"
-                + "    \"type\" : \"sourcelink\",\n"
-                + "    \"string\" : \"S33716\",\n"
-                + "    \"attributes\" : [ {\n"
-                + "      \"type\" : \"attribute\",\n"
-                + "      \"string\" : \"Note\",\n"
-                + "      \"attributes\" : [ ],\n"
-                + "      \"tail\" : \"Record originated in...\"\n"
-                + "    } ],\n" + "    \"tail\" : \"\"\n" + "  }, {\n"
-                + "    \"type\" : \"attribute\",\n"
-                + "    \"string\" : \"Changed\",\n"
-                + "    \"attributes\" : [ {\n"
-                + "      \"type\" : \"date\",\n"
-                + "      \"string\" : \"8 MAR 2008\",\n"
-                + "      \"attributes\" : [ {\n"
-                + "        \"type\" : \"attribute\",\n"
-                + "        \"string\" : \"Time\",\n"
-                + "        \"attributes\" : [ ],\n"
-                + "        \"tail\" : \"22:45:54\"\n" + "      } ],\n"
-                + "      \"tail\" : \"\"\n" + "    } ],\n"
-                + "    \"tail\" : \"\"\n" + "  } ],\n"
-                + "  \"children\" : [ {\n"
-                + "    \"type\" : \"child\",\n"
-                + "    \"string\" : \"I4349\",\n"
-                + "    \"attributes\" : [ {\n"
-                + "      \"type\" : \"attribute\",\n"
-                + "      \"string\" : \"_FREL\",\n"
-                + "      \"attributes\" : [ ],\n"
-                + "      \"tail\" : \"Natural\"\n" + "    }, {";
+                + "    } ],\n" + "    \"tail\" : \"\"\n" + "  }, {";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).startsWith(bodyFragment);
     }

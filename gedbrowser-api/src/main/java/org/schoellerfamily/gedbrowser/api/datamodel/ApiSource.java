@@ -5,9 +5,9 @@ import java.util.List;
 /**
  * @author Dick Schoeller
  */
-public final class ApiSource extends ApiObject {
+public final class ApiSource extends ApiHasImages {
     /** */
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 
     /**
      * The title string.
@@ -47,6 +47,18 @@ public final class ApiSource extends ApiObject {
             final List<ApiAttribute> attributes, final String title) {
         super(type, string, attributes);
         this.title = title;
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param in a source to copy (except for the ID)
+     * @param string the ID of this object
+     */
+    public ApiSource(final ApiSource in, final String string) {
+        super(in.getType(), string, in.getAttributes());
+        this.title = in.title;
+        this.getImages().addAll(in.getImages());
     }
 
     /**
@@ -97,5 +109,19 @@ public final class ApiSource extends ApiObject {
         }
         final ApiSource other = (ApiSource) obj;
         return stringCompare(title, other.title);
+    }
+
+    /**
+     * Special handling of adding attributes to an ApiPerson because the list
+     * gets broken up into different sections.
+     *
+     * @param attribute the attribute to add
+     */
+    public void addAttribute(final ApiAttribute attribute) {
+        if (new ImageUtils().isImageWrapper(attribute)) {
+            getImages().add(attribute);
+            return;
+        }
+        getAttributes().add(attribute);
     }
 }

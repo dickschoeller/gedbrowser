@@ -57,8 +57,7 @@ public class PersonCrud
      */
     public ApiPerson createPerson(final String db, final ApiPerson person) {
         logger.info("Entering create person in db: " + db);
-        return create(readRoot(db), person,
-                (i, id) -> new ApiPerson(i, id));
+        return create(readRoot(db), person, (i, id) -> new ApiPerson(i, id));
     }
 
     /**

@@ -21,8 +21,8 @@ import {LifespanUtil, ImageUtil} from '../shared/util';
 })
 export class PersonComponent implements OnInit {
   person: ApiPerson;
-  imageUtil: ImageUtil;
-  galleryOptions: Array<NgxGalleryOptions> = new Array<NgxGalleryOptions>();
+  imageUtil = new ImageUtil();
+  galleryOptions = this.imageUtil.galleryOptions();
   attributeDialogHelper: AttributeDialogHelper = new AttributeDialogHelper(this);
 
   constructor(private route: ActivatedRoute,
@@ -34,14 +34,8 @@ export class PersonComponent implements OnInit {
     this.route.data.subscribe(
       (data: {person: ApiPerson}) => {
         this.person = data.person;
-        this.initLists();
       }
     );
-  }
-
-  initLists() {
-    this.imageUtil = new ImageUtil();
-    this.galleryOptions = this.imageUtil.galleryOptions();
   }
 
   lifespanDateString() {
@@ -56,7 +50,6 @@ export class PersonComponent implements OnInit {
     this.service.put('schoeller', this.person).subscribe(
       (data: ApiPerson) => {
         this.person = data;
-        this.initLists();
       }
     );
   }

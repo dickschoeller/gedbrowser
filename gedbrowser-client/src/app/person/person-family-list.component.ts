@@ -56,7 +56,6 @@ export class PersonFamilyListComponent {
           (person: ApiPerson) => {
             this.person = person;
             this.parent.person = person;
-            this.parent.initLists();
           });
       }
     );
@@ -91,7 +90,6 @@ export class PersonFamilyListComponent {
           (person: ApiPerson) => {
             this.person = person;
             this.parent.person = person;
-            this.parent.initLists();
           });
       }
     );

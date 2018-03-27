@@ -101,9 +101,6 @@ public interface ReadOperations <X extends GedObject,
             all.add(document);
         }
         all.sort(new GetStringComparator());
-        for (final Y document : all) {
-            System.out.println(document.getString());
-        }
         return all;
     }
 }

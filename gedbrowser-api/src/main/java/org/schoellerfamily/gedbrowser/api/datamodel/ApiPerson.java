@@ -6,11 +6,9 @@ import java.util.List;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.CyclomaticComplexity",
-        "PMD.ModifiedCyclomaticComplexity", "PMD.StdCyclomaticComplexity" })
-public final class ApiPerson extends ApiObject {
+public final class ApiPerson extends ApiHasImages {
     /** */
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 
     /**
      * The name in a form that is usable for indexing.
@@ -46,11 +44,6 @@ public final class ApiPerson extends ApiObject {
      * The list of changed attributes of this object.
      */
     private final List<ApiAttribute> changed = new ArrayList<>();
-
-    /**
-     * The list of image attributes of this object.
-     */
-    private final List<ApiAttribute> images = new ArrayList<>();
 
     /**
      * Constructor.
@@ -113,7 +106,7 @@ public final class ApiPerson extends ApiObject {
         this.refn.addAll(refn);
         this.famc.addAll(in.famc);
         this.fams.addAll(in.fams);
-        this.images.addAll(in.images);
+        this.getImages().addAll(in.getImages());
         this.change();
     }
 
@@ -201,13 +194,6 @@ public final class ApiPerson extends ApiObject {
     }
 
     /**
-     * @return the list of image attributes
-     */
-    public List<ApiAttribute> getImages() {
-        return images;
-    }
-
-    /**
      * @param visitor the visitor
      */
     public void accept(final ApiObjectVisitor visitor) {
@@ -290,7 +276,7 @@ public final class ApiPerson extends ApiObject {
             return;
         }
         if (new ImageUtils().isImageWrapper(attribute)) {
-            images.add(attribute);
+            getImages().add(attribute);
             return;
         }
         getAttributes().add(attribute);
