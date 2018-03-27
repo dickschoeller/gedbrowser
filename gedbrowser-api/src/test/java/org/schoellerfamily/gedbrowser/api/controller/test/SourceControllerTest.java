@@ -56,8 +56,7 @@ public class SourceControllerTest {
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
         final String bodyFragment =
-                "[ {\n"
-                + "  \"type\" : \"source\",\n"
+                "[ {\n" + "  \"type\" : \"source\",\n"
                 + "  \"string\" : \"S1688\",\n"
                 + "  \"attributes\" : [ {\n"
                 + "    \"type\" : \"attribute\",\n"
@@ -92,13 +91,11 @@ public class SourceControllerTest {
                 + "        \"attributes\" : [ ],\n"
                 + "        \"tail\" : \"21:26:46\"\n"
                 + "      } ],\n"
-                + "      \"tail\" : \"\"\n"
-                + "    } ],\n"
-                + "    \"tail\" : \"\"\n"
-                + "  } ],\n"
+                + "      \"tail\" : \"\"\n" + "    } ],\n"
+                + "    \"tail\" : \"\"\n" + "  } ],\n"
+                + "  \"images\" : [ ],\n"
                 + "  \"title\" : \"1841 England Census\"\n"
                 + "}, {";
-
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).startsWith(bodyFragment);
     }
@@ -111,8 +108,7 @@ public class SourceControllerTest {
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
         final String bodyFragment =
-                "[ {\n"
-                + "  \"type\" : \"source\",\n"
+                "[ {\n" + "  \"type\" : \"source\",\n"
                 + "  \"string\" : \"S2\",\n"
                 + "  \"attributes\" : [ {\n"
                 + "    \"type\" : \"attribute\",\n"
@@ -131,10 +127,10 @@ public class SourceControllerTest {
                 + "    \"attributes\" : [ ],\n"
                 + "    \"tail\" : \"We have the original of this document\"\n"
                 + "  } ],\n"
-                + "  \"title\" : \"Schoeller, Melissa Robinson, birth"
-                + " certificate\"\n"
+                + "  \"images\" : [ ],\n"
+                + "  \"title\" : \"Schoeller, Melissa Robinson,"
+                + " birth certificate\"\n"
                 + "}, {";
-
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).startsWith(bodyFragment);
     }
@@ -166,11 +162,10 @@ public class SourceControllerTest {
                 + "    \"string\" : \"Note\",\n"
                 + "    \"attributes\" : [ ],\n"
                 + "    \"tail\" : \"We have the original of this document\"\n"
-                + "  } ],\n"
+                + "  } ],\n" + "  \"images\" : [ ],\n"
                 + "  \"title\" : \"Schoeller, Melissa Robinson, birth"
                 + " certificate\"\n"
                 + "}";
-
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).isEqualTo(bodyFragment);
     }

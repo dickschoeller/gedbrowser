@@ -6,9 +6,9 @@ import java.util.List;
 /**
  * @author Dick Schoeller
  */
-public final class ApiFamily extends ApiObject {
+public final class ApiFamily extends ApiHasImages {
     /** */
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 
     /**
      * The list of child attributes of this object.
@@ -19,11 +19,6 @@ public final class ApiFamily extends ApiObject {
      * The list of husband, wife, spouse attributes of this object.
      */
     private final List<ApiAttribute> spouses = new ArrayList<>();
-
-    /**
-     * The list of image attributes of this object.
-     */
-    private final List<ApiAttribute> images = new ArrayList<>();
 
     /**
      * Constructor.
@@ -64,7 +59,7 @@ public final class ApiFamily extends ApiObject {
         super(in.getType(), string, in.getAttributes());
         this.children.addAll(in.children);
         this.spouses.addAll(in.spouses);
-        this.images.addAll(in.images);
+        this.getImages().addAll(in.getImages());
     }
 
     /**
@@ -79,13 +74,6 @@ public final class ApiFamily extends ApiObject {
      */
     public List<ApiAttribute> getSpouses() {
         return spouses;
-    }
-
-    /**
-     * @return the list of image attributes
-     */
-    public List<ApiAttribute> getImages() {
-        return images;
     }
 
     /**
@@ -113,7 +101,7 @@ public final class ApiFamily extends ApiObject {
             return;
         }
         if (new ImageUtils().isImageWrapper(attribute)) {
-            images.add(attribute);
+            getImages().add(attribute);
             return;
         }
         getAttributes().add(attribute);
@@ -126,9 +114,7 @@ public final class ApiFamily extends ApiObject {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result
-                + childrenHash();
-        result = prime * result + imagesHash();
+        result = prime * result + childrenHash();
         result = prime * result + spousesHash();
         return result;
     }
@@ -141,16 +127,6 @@ public final class ApiFamily extends ApiObject {
             return 0;
         }
         return children.hashCode();
-    }
-
-    /**
-     * @return hash code for the images list
-     */
-    private int imagesHash() {
-        if (images == null) {
-            return 0;
-        }
-        return images.hashCode();
     }
 
     /**
@@ -176,9 +152,6 @@ public final class ApiFamily extends ApiObject {
         }
         final ApiFamily other = (ApiFamily) obj;
         if (!listCompare(children, other.children)) {
-            return false;
-        }
-        if (!listCompare(images, other.images)) {
             return false;
         }
         return listCompare(spouses, other.spouses);

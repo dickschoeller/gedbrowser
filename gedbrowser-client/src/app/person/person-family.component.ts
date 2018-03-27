@@ -28,8 +28,8 @@ export class PersonFamilyComponent implements OnInit {
   @Input() index: number;
 
   family: ApiFamily;
-  imageUtil: ImageUtil;
-  galleryOptions: Array<NgxGalleryOptions> = new Array<NgxGalleryOptions>();
+  imageUtil = new ImageUtil();
+  galleryOptions = this.imageUtil.galleryOptions();
   initialized = false;
 
   constructor(public dialog: MatDialog,
@@ -41,14 +41,8 @@ export class PersonFamilyComponent implements OnInit {
     this.familyService.getOne('schoeller', this.string)
       .subscribe((family: ApiFamily) => {
         this.family = family;
-        this.initLists();
         this.initialized = true;
     });
-  }
-
-  initLists() {
-    this.imageUtil = new ImageUtil();
-    this.galleryOptions = this.imageUtil.galleryOptions();
   }
 
   familyString() {
@@ -112,7 +106,6 @@ export class PersonFamilyComponent implements OnInit {
     this.familyService.put('schoeller', this.family).subscribe(
       (data: ApiFamily) => {
         this.family = data;
-        this.initLists();
       }
     );
   }

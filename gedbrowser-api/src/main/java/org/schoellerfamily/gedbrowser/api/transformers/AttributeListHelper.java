@@ -6,6 +6,7 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 
 /**
  * Helper class for building attribute lists. Manages order and aggregation.
@@ -96,6 +97,14 @@ public class AttributeListHelper {
     public void addAttributes(final ApiFamily apiParent) {
         addToAttributes(apiParent.getSpouses());
         addToAttributes(apiParent.getChildren());
+        addToAttributes(apiParent.getAttributes());
+        addToAttributes(apiParent.getImages());
+    }
+
+    /**
+     * @param apiParent the parent object
+     */
+    public void addAttributes(final ApiSource apiParent) {
         addToAttributes(apiParent.getAttributes());
         addToAttributes(apiParent.getImages());
     }

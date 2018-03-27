@@ -1,14 +1,13 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-
-import { SharedModule } from '../shared';
-
-import {SourceComponent} from './source.component';
-import {SourceResolver} from './source-resolver.service';
+import {ModuleWithProviders, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {CommonModule} from '@angular/common';
 import {MatCardModule, MatDividerModule, MatExpansionModule, MatListModule} from '@angular/material';
 import {NgxGalleryModule} from 'ngx-gallery';
 import {Ng2PageScrollModule} from 'ng2-page-scroll';
+
+import {SharedModule} from '../shared';
+import {SourceComponent} from './source.component';
+import {SourceResolver} from './source-resolver.service';
 
 const sourceRouting: ModuleWithProviders = RouterModule.forChild([
   {

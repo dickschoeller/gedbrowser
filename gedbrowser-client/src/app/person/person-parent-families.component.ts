@@ -48,7 +48,6 @@ export class PersonParentFamiliesComponent {
         this.personService.getOne('schoeller', this.person.string).subscribe(
           (data1: ApiPerson) => {
             this.parent.person = data1;
-            this.parent.initLists();
           });
       }
     );
