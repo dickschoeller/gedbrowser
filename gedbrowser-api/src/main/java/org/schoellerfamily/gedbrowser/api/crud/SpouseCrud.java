@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.api.crud;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
@@ -52,10 +53,10 @@ public class SpouseCrud {
         final ApiPerson newPerson = personCrud.createPerson(db, person);
         final ApiFamily newFamily = familyCrud.createFamily(db,
                 new ApiFamily());
-        newFamily.getAttributes().add(helper.spouseAttribute(oldPerson));
-        newFamily.getAttributes().add(helper.spouseAttribute(newPerson));
-        newPerson.getAttributes().add(helper.famsAttribute(newFamily));
-        oldPerson.getAttributes().add(helper.famsAttribute(newFamily));
+        addSpouseAttribute(newFamily, helper.spouseAttribute(oldPerson));
+        addSpouseAttribute(newFamily, helper.spouseAttribute(newPerson));
+        newPerson.getFams().add(helper.famsAttribute(newFamily));
+        oldPerson.getFams().add(helper.famsAttribute(newFamily));
 
         familyCrud.updateFamily(db, newFamily.getString(), newFamily);
         personCrud.updatePerson(db, oldPerson.getString(), oldPerson);
@@ -74,10 +75,25 @@ public class SpouseCrud {
                 "Entering create spouse in db: " + db + " for family " + id);
         final ApiPerson newPerson = personCrud.createPerson(db, person);
         final ApiFamily newFamily = familyCrud.readFamily(db, id);
-        newFamily.getAttributes().add(helper.spouseAttribute(newPerson));
-        newPerson.getAttributes().add(helper.famsAttribute(newFamily));
+        addSpouseAttribute(newFamily, helper.spouseAttribute(newPerson));
+        newPerson.getFams().add(helper.famsAttribute(newFamily));
 
         familyCrud.updateFamily(db, newFamily.getString(), newFamily);
         return personCrud.updatePerson(db, newPerson.getString(), newPerson);
+    }
+
+    /**
+     * Add the spouses in husband/wife order.
+     *
+     * @param newFamily the family to modify
+     * @param spouseAttribute the spouse to add
+     */
+    private void addSpouseAttribute(final ApiFamily newFamily,
+            final ApiAttribute spouseAttribute) {
+        if ("husband".equals(spouseAttribute.getType())) {
+            newFamily.getSpouses().add(0, spouseAttribute);
+        } else {
+            newFamily.getSpouses().add(spouseAttribute);
+        }
     }
 }
