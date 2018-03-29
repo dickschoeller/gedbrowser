@@ -450,7 +450,7 @@ public class FamilyControllerTest {
                 .add(new ApiAttribute("name", "Alexandra/Romanov/", ""))
                 .add(new ApiAttribute("attribute", "Sex", "F"))
                 .surname("Romanov")
-                .indexName("Romanov, Alexander")
+                .indexName("Romanov, Alexandra")
                 .lifespan(new ApiLifespan());
         return new ApiPerson(builder);
     }

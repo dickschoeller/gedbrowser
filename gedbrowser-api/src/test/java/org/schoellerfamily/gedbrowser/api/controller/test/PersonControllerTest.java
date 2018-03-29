@@ -206,7 +206,7 @@ public class PersonControllerTest {
                 .add(new ApiAttribute("name", "Alexandra/Romanov/", ""))
                 .add(new ApiAttribute("attribute", "Sex", "F"))
                 .surname("Romanov")
-                .indexName("Romanov, Alexander")
+                .indexName("Romanov, Alexandra")
                 .lifespan(new ApiLifespan());
         return new ApiPerson(builder);
     }
@@ -319,7 +319,7 @@ public class PersonControllerTest {
                 url + "/" + resBody.getString(),
                 HttpMethod.PUT, putRequestEntity, ApiPerson.class);
         assertEquals("attribute should be present", aNote,
-                putResponseEntity.getBody().getAttributes().get(1));
+                putResponseEntity.getBody().getAttributes().get(2));
     }
 
     /**
