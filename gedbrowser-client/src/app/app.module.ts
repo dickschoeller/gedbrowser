@@ -56,6 +56,7 @@ import {
   SourceService,
   SpouseService,
   SubmitterService,
+  SaveService,
   SharedModule
 } from './shared';
 
@@ -132,6 +133,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     SpouseService,
     SourceService,
     SubmitterService,
+    SaveService
   ],
   bootstrap: [AppComponent]
 })
