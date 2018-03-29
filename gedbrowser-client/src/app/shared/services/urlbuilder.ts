@@ -9,15 +9,19 @@ export class UrlBuilder {
       + this.db;
   }
 
-  typeUrl(t: string, id: string): string {
+  typeUrl(t, id) {
     return this.baseUrl() + '/' + t + '/' + id;
   }
 
-  spousesUrl(t: string, id: string): string {
+  spousesUrl(t, id) {
     return this.typeUrl(t, id) + '/spouses';
   }
 
-  childrenUrl(t: string, id: string): string {
+  parentsUrl(t, id) {
+    return this.typeUrl(t, id) + '/parents';
+  }
+
+  childrenUrl(t, id) {
     return this.typeUrl(t, id) + '/children';
   }
 }

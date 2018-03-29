@@ -4,38 +4,14 @@ import {Observable} from 'rxjs/Observable';
 
 import {ApiSubmitter} from '../models/api-submitter.model';
 import {ApiService} from './api-service';
+import {ServiceBase} from './service-base';
 
 /**
  * Service for obtaining submitter objects.
  */
 @Injectable()
-export class SubmitterService implements ApiService<ApiSubmitter> {
-
-  constructor(private http: HttpClient) {}
-
-  getAll(db: string): Observable<Array<ApiSubmitter>> {
-    return this.http.get<Array<ApiSubmitter>>(
-      'http://largo.schoellerfamily.org:9084/gedbrowser-api/v1/dbs/' + db + '/submitters');
-  }
-
-  getOne(db: string, id: string): Observable<ApiSubmitter> {
-    return this.http.get<ApiSubmitter>(
-      'http://largo.schoellerfamily.org:9084/gedbrowser-api/v1/dbs/' + db + '/submitters/' + id);
-  }
-
-  put(db: string, submitter: ApiSubmitter): Observable<ApiSubmitter> {
-    return this.http.put<ApiSubmitter>(
-      'http://largo.schoellerfamily.org:9084/gedbrowser-api/v1/dbs/' + db + '/submitters/' + submitter.string,
-      submitter);
-  }
-
-  post(db: string, submitter: ApiSubmitter): Observable<ApiSubmitter> {
-    return this.http.post<ApiSubmitter>(
-      'http://largo.schoellerfamily.org:9084/gedbrowser-api/v1/dbs/' + db + '/submitters', submitter);
-  }
-
-  delete(db: string, submitter: ApiSubmitter): Observable<ApiSubmitter> {
-    return this.http.delete<ApiSubmitter>(
-      'http://largo.schoellerfamily.org:9084/gedbrowser-api/v1/dbs/' + db + '/submitters/' + submitter.string);
+export class SubmitterService extends ServiceBase<ApiSubmitter> {
+  url(db): string {
+    return this.baseUrl(db) + '/submitters';
   }
 }
