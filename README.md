@@ -5,7 +5,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=development)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=development)
 [![Code Climate](https://codeclimate.com/github/dickschoeller/gedbrowser/badges/gpa.svg)](https://codeclimate.com/github/dickschoeller/gedbrowser)
 [![codebeat badge](https://codebeat.co/badges/0a10c645-cc88-4f2f-9058-df89e8dc408f)](https://codebeat.co/projects/github-com-dickschoeller-gedbrowser-development)
-[![Dependency Status](https://www.versioneye.com/user/projects/58987dc1f55eb2003257f7bd/badge.svg)](https://www.versioneye.com/user/projects/58987dc1f55eb2003257f7bd)
+[![Dependency Status](https://img.shields.io/librariesio/github/dickschoeller/gedbrowser.svg)](https://libraries.io/github/dickschoeller/gedbrowser)
+[![Vulnerability Status](https://snyk.io/test/github/dickschoeller/gedbrowser/badge.svg)](https://snyk.io/org/dickschoeller/projects?origin=github)
 [![Build Status](https://saucelabs.com/buildstatus/dickschoeller)](https://saucelabs.com/open_sauce/user/dickschoeller)
 
 Spring Boot application to display the genealogy data from a
