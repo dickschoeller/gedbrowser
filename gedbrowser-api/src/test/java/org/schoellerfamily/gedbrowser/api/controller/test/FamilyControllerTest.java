@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiLifespan;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
@@ -437,7 +436,7 @@ public class FamilyControllerTest {
                 .add(new ApiAttribute("attribute", "Sex", "M"))
                 .surname("Romanov")
                 .indexName("Romanov, Alexander")
-                .lifespan(new ApiLifespan());
+                .build();
         return new ApiPerson(builder);
     }
 
@@ -451,7 +450,7 @@ public class FamilyControllerTest {
                 .add(new ApiAttribute("attribute", "Sex", "F"))
                 .surname("Romanov")
                 .indexName("Romanov, Alexandra")
-                .lifespan(new ApiLifespan());
+                .build();
         return new ApiPerson(builder);
     }
 
