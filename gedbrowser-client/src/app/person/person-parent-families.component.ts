@@ -14,6 +14,7 @@ import {PersonComponent} from './person.component';
 export class PersonParentFamiliesComponent {
   @Input() parent: PersonComponent;
   @Input() person: ApiPerson;
+  nph = new NewPersonHelper();
 
   constructor(public dialog: MatDialog,
     private personService: PersonService,
@@ -21,35 +22,24 @@ export class PersonParentFamiliesComponent {
     private parentService: ParentService) {}
 
   createParentFamily() {
-    const dataIn: NewPersonDialogData = {
-      sex: 'M', name: 'Anonymous/' + this.person.surname + '/',
-      birthDate: '', birthPlace: '', deathDate: '', deathPlace: ''
-    };
+    const dataIn: NewPersonDialogData =
+      this.nph.initialData('M', 'Anonymous/' + this.person.surname);
     const dialogRef: MatDialogRef<NewPersonDialogComponent> =
-      this.dialog.open(NewPersonDialogComponent, {
-        width: '500px',
-        height: '600px',
-        data: dataIn,
-      });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === null || result === undefined) {
-        return;
-      }
-      const dialogData: NewPersonDialogData = result;
-      this.saveNewParent(dialogData);
-    });
+      this.dialog.open(NewPersonDialogComponent, this.nph.config(dataIn));
+    dialogRef.afterClosed().subscribe(result => this.saveNewParent(result));
   }
 
   private saveNewParent(dialogData: NewPersonDialogData) {
-    const nph = new NewPersonHelper();
-    const newPerson: ApiPerson = nph.buildPerson(dialogData);
+    if (this.nph.empty(dialogData)) {
+      return;
+    }
+    const newPerson: ApiPerson = this.nph.buildPerson(dialogData);
     this.parentService.postToPerson('schoeller', this.person.string, newPerson).subscribe(
-      (data: ApiPerson) => {
-        this.personService.getOne('schoeller', this.person.string).subscribe(
-          (data1: ApiPerson) => {
-            this.parent.person = data1;
-          });
-      }
-    );
+      (data: ApiPerson) => this.refreshPerson());
+  }
+
+  private refreshPerson() {
+    this.personService.getOne('schoeller', this.person.string).subscribe(
+      (data: ApiPerson) => this.parent.person = data);
   }
 }

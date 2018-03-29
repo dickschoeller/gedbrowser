@@ -21,6 +21,7 @@ import {PersonComponent} from './person.component';
 export class PersonFamilyListComponent {
   @Input() parent: PersonComponent;
   @Input() person: ApiPerson;
+  nph = new NewPersonHelper();
 
   constructor(public dialog: MatDialog,
     private spouseService: SpouseService,
@@ -28,70 +29,44 @@ export class PersonFamilyListComponent {
     private childService: ChildService) { }
 
   createFamilyWithChild(): void {
-    const dataIn: NewPersonDialogData = {
-      sex: 'M', name: 'Anonymous',
-      birthDate: '', birthPlace: '', deathDate: '', deathPlace: ''
-    };
+    const dataIn = this.nph.initialData('M', 'Anonymous');
     const dialogRef: MatDialogRef<NewPersonDialogComponent> =
-      this.dialog.open(NewPersonDialogComponent, {
-        width: '500px',
-        height: '600px',
-        data: dataIn,
-      });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === null || result === undefined) {
-        return;
-      }
-      const dialogData: NewPersonDialogData = result;
-      this.saveNewChild(dialogData);
-    });
+      this.dialog.open(NewPersonDialogComponent, this.nph.config(dataIn));
+    dialogRef.afterClosed().subscribe(result => this.saveNewChild(result));
   }
 
   private saveNewChild(dialogData: NewPersonDialogData): void {
-    const nph = new NewPersonHelper();
-    const newPerson: ApiPerson = nph.buildPerson(dialogData);
-    this.childService.postToPerson('schoeller', this.person.string, newPerson).subscribe(
-      (data: ApiPerson) => {
-        this.personService.getOne('schoeller', this.person.string).subscribe(
-          (person: ApiPerson) => {
-            this.person = person;
-            this.parent.person = person;
-          });
-      }
-    );
+    if (this.nph.empty(dialogData)) {
+      return;
+    }
+    const newPerson: ApiPerson = this.nph.buildPerson(dialogData);
+    this.childService.postChildToPerson('schoeller', this.person.string, newPerson).subscribe(
+      (data: ApiPerson) => this.refreshPerson());
   }
 
   createFamilyWithSpouse(): void {
-    const dataIn: NewPersonDialogData = {
-      sex: 'F', name: 'Anonyma',
-      birthDate: '', birthPlace: '', deathDate: '', deathPlace: ''
-    };
+    const dataIn: NewPersonDialogData = this.nph.initialData('F', 'Anonyma');
     const dialogRef: MatDialogRef<NewPersonDialogComponent> =
-      this.dialog.open(NewPersonDialogComponent, {
-        width: '500px',
-        height: '600px',
-        data: dataIn,
-      });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === null || result === undefined) {
-        return;
-      }
-      const dialogData: NewPersonDialogData = result;
-      this.saveNewSpouse(dialogData);
-    });
+      this.dialog.open(NewPersonDialogComponent, this.nph.config(dataIn));
+    dialogRef.afterClosed().subscribe(result => this.saveNewSpouse(result));
   }
 
   private saveNewSpouse(dialogData: NewPersonDialogData): void {
-    const nph = new NewPersonHelper();
-    const newPerson: ApiPerson = nph.buildPerson(dialogData);
-    this.spouseService.postToPerson('schoeller', this.person.string, newPerson).subscribe(
-      (data: ApiPerson) => {
-        this.personService.getOne('schoeller', this.person.string).subscribe(
-          (person: ApiPerson) => {
-            this.person = person;
-            this.parent.person = person;
-          });
-      }
-    );
+    if (this.nph.empty(dialogData)) {
+      return;
+    }
+    const newPerson: ApiPerson = this.nph.buildPerson(dialogData);
+    this.spouseService.postSpouseToPerson('schoeller', this.person.string, newPerson).subscribe(
+      (data: ApiPerson) => this.refreshPerson());
+  }
+
+  private refreshPerson() {
+    this.personService.getOne('schoeller', this.person.string).subscribe(
+      (person: ApiPerson) => this.updatePerson(person));
+  }
+
+  private updatePerson(person: ApiPerson) {
+    this.person = person;
+    this.parent.person = person;
   }
 }

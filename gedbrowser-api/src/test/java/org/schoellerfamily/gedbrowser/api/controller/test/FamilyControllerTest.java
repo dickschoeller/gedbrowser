@@ -431,22 +431,28 @@ public class FamilyControllerTest {
      * @return the newly created person
      */
     private ApiPerson createAlexander() {
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("name", "Alexander/Romanov/", ""));
-        attributes.add(new ApiAttribute("attribute", "Sex", "M"));
-        return new ApiPerson("person", "", attributes, "Romanov, Alexander",
-                "Romanov", new ApiLifespan());
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .id("")
+                .add(new ApiAttribute("name", "Alexander/Romanov/", ""))
+                .add(new ApiAttribute("attribute", "Sex", "M"))
+                .surname("Romanov")
+                .indexName("Romanov, Alexander")
+                .lifespan(new ApiLifespan());
+        return new ApiPerson(builder);
     }
 
     /**
      * @return the newly created person
      */
     private ApiPerson createAlexandra() {
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("name", "Alexandra/Romanov/", ""));
-        attributes.add(new ApiAttribute("attribute", "Sex", "F"));
-        return new ApiPerson("person", "", attributes, "Romanov, Alexandra",
-                "Romanov", new ApiLifespan());
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .id("")
+                .add(new ApiAttribute("name", "Alexandra/Romanov/", ""))
+                .add(new ApiAttribute("attribute", "Sex", "F"))
+                .surname("Romanov")
+                .indexName("Romanov, Alexandra")
+                .lifespan(new ApiLifespan());
+        return new ApiPerson(builder);
     }
 
 }

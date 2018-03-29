@@ -5,8 +5,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -135,8 +133,8 @@ public class PersonControllerTest {
                 + "/gedbrowser-api/v1/dbs/gl120368/persons";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        final ApiPerson reqBody = new ApiPerson("person", "", "?, ?", "?",
-                new ApiLifespan());
+        final ApiPerson.Builder builder = new ApiPerson.Builder().build();
+        final ApiPerson reqBody = new ApiPerson(builder);
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiPerson> entity = testRestTemplate
@@ -175,32 +173,42 @@ public class PersonControllerTest {
      * @return the newly created person
      */
     private ApiPerson createRJS() {
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("name", "Richard/Schoeller/", ""));
-        return new ApiPerson("person", "", attributes, "Schoeller, Richard",
-                "Schoeller", new ApiLifespan());
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .id("")
+                .add(new ApiAttribute("name", "Richard/Schoeller/", ""))
+                .add(new ApiAttribute("attribute", "Sex", "M"))
+                .surname("Schoeller")
+                .indexName("Schoeller, Richard")
+                .lifespan(new ApiLifespan());
+        return new ApiPerson(builder);
     }
 
     /**
      * @return the newly created person
      */
     private ApiPerson createAlexander() {
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("name", "Alexander/Romanov/", ""));
-        attributes.add(new ApiAttribute("attribute", "Sex", "M"));
-        return new ApiPerson("person", "", attributes, "Romanov, Alexander",
-                "Romanov", new ApiLifespan());
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .id("")
+                .add(new ApiAttribute("name", "Alexander/Romanov/", ""))
+                .add(new ApiAttribute("attribute", "Sex", "M"))
+                .surname("Romanov")
+                .indexName("Romanov, Alexander")
+                .lifespan(new ApiLifespan());
+        return new ApiPerson(builder);
     }
 
     /**
      * @return the newly created person
      */
     private ApiPerson createAlexandra() {
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("name", "Alexandra/Romanov/", ""));
-        attributes.add(new ApiAttribute("attribute", "Sex", "F"));
-        return new ApiPerson("person", "", attributes, "Romanov, Alexandra",
-                "Romanov", new ApiLifespan());
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .id("")
+                .add(new ApiAttribute("name", "Alexandra/Romanov/", ""))
+                .add(new ApiAttribute("attribute", "Sex", "F"))
+                .surname("Romanov")
+                .indexName("Romanov, Alexandra")
+                .lifespan(new ApiLifespan());
+        return new ApiPerson(builder);
     }
 
     /**
@@ -218,10 +226,7 @@ public class PersonControllerTest {
         // we are modifying.
         final String url = "http://localhost:" + port
                 + "/gedbrowser-api/v1/dbs/gl120368/persons";
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("name", "Richard/Schoeller/", ""));
-        final ApiPerson reqBody = new ApiPerson("person", "", attributes,
-                "Richard/Schoeller/", "Schoeller", new ApiLifespan());
+        final ApiPerson reqBody = createRJS();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiPerson> personEntity = testRestTemplate
@@ -294,10 +299,7 @@ public class PersonControllerTest {
                 + "/gedbrowser-api/v1/dbs/gl120368/persons";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("name", "Richard/Schoeller/", ""));
-        final ApiPerson reqBody = new ApiPerson("person", "", attributes,
-                "Richard/Schoeller/", "Schoeller", new ApiLifespan());
+        final ApiPerson reqBody = createRJS();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiPerson> entity = testRestTemplate
@@ -317,7 +319,7 @@ public class PersonControllerTest {
                 url + "/" + resBody.getString(),
                 HttpMethod.PUT, putRequestEntity, ApiPerson.class);
         assertEquals("attribute should be present", aNote,
-                putResponseEntity.getBody().getAttributes().get(1));
+                putResponseEntity.getBody().getAttributes().get(2));
     }
 
     /**

@@ -74,25 +74,6 @@ public final class ApiPerson extends ApiHasImages {
     }
 
     /**
-     * @param type a string describing the data type of this object
-     * @param string a string containing the primary value of this object
-     * @param attributes the list of subordinate attributes of this object
-     * @param indexName the name in a form that is usable for indexing
-     * @param surname the surname
-     * @param lifespan the lifespan of this person
-     */
-    public ApiPerson(final String type, final String string,
-            final List<ApiAttribute> attributes, final String indexName,
-            final String surname, final ApiLifespan lifespan) {
-        super(type, string);
-        this.indexName = indexName;
-        this.surname = surname;
-        this.lifespan = lifespan;
-        this.addAttribute(refn(string));
-        this.addAttributes(attributes);
-    }
-
-    /**
      * Constructor.
      *
      * @param in a person to copy (except for the ID)
@@ -108,6 +89,18 @@ public final class ApiPerson extends ApiHasImages {
         this.fams.addAll(in.fams);
         this.getImages().addAll(in.getImages());
         this.change();
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param builder a builder
+     */
+    public ApiPerson(final Builder builder) {
+        super("person", builder.getId(), builder.getAttributes());
+        this.indexName = builder.getIndexName();
+        this.surname = builder.getSurname();
+        this.lifespan = builder.getLifespan();
     }
 
     /**
@@ -129,19 +122,6 @@ public final class ApiPerson extends ApiHasImages {
         chanList.add(chanAttr);
         this.changed.clear();
         this.changed.addAll(chanList);
-    }
-
-    /**
-     * @param attributes the attributes
-     */
-    private void addAttributes(final List<ApiAttribute> attributes) {
-        getAttributes().clear();
-        if (attributes == null) {
-            return;
-        }
-        for (final ApiAttribute attribute : attributes) {
-            addAttribute(attribute);
-        }
     }
 
     /**
@@ -280,5 +260,120 @@ public final class ApiPerson extends ApiHasImages {
             return;
         }
         getAttributes().add(attribute);
+    }
+
+    /**
+     * @author Dick Schoeller
+     */
+    public static final class Builder {
+        /** */
+        private String d;
+        /** */
+        private final List<ApiAttribute> attributes = new ArrayList<>();
+        /** */
+        private String s;
+        /** */
+        private String i;
+        /** */
+        private ApiLifespan l;
+
+        /**
+         * @param id the id
+         * @return this
+         */
+        public Builder id(final String id) {
+            this.d = id;
+            return this;
+        }
+
+        /**
+         * @param attribute an attribute
+         * @return this
+         */
+        public Builder add(final ApiAttribute attribute) {
+            attributes.add(attribute);
+            return this;
+        }
+
+        /**
+         * @param surname the surname
+         * @return this
+         */
+        public Builder surname(final String surname) {
+            this.s = surname;
+            return this;
+        }
+
+        /**
+         * @param indexName the index name
+         * @return this
+         */
+        public Builder indexName(final String indexName) {
+            this.i = indexName;
+            return this;
+        }
+
+        /**
+         * @param lifespan the lifespan
+         * @return this
+         */
+        public Builder lifespan(final ApiLifespan lifespan) {
+            this.l = lifespan;
+            return this;
+        }
+
+        /**
+         * @return the id
+         */
+        /* default */ String getId() {
+            return d;
+        }
+
+        /**
+         * @return the attributes
+         */
+        /* default */ List<ApiAttribute> getAttributes() {
+            return attributes;
+        }
+
+        /**
+         * @return the surname
+         */
+        /* default */ String getSurname() {
+            return s;
+        }
+
+        /**
+         * @return the index name
+         */
+        /* default */ String getIndexName() {
+            return i;
+        }
+
+        /**
+         * @return the lifespan
+         */
+        /* default */ ApiLifespan getLifespan() {
+            return l;
+        }
+
+        /**
+         * @return this
+         */
+        public Builder build() {
+            if (d == null) {
+                d = "";
+            }
+            if (s == null) {
+                s = "?";
+            }
+            if (i == null) {
+                i = "?, ?";
+            }
+            if (l == null) {
+                l = new ApiLifespan();
+            }
+            return this;
+        }
     }
 }

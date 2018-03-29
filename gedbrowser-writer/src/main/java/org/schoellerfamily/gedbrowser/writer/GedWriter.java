@@ -112,4 +112,21 @@ public class GedWriter {
     private File createFile(final String filename) {
         return new File(filename);
     }
+
+
+    /**
+     * @return the gedcom file as a string
+     */
+    public String writeString() {
+        root.accept(visitor);
+        final StringBuilder builder = new StringBuilder();
+        for (final GedWriterLine line : visitor.getLines()) {
+            if (line.getLine().isEmpty()) {
+                continue;
+            }
+            builder.append(line.getLine()).append("\n");
+        }
+        return builder.toString();
+    }
+
 }

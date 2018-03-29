@@ -6,8 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
-import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
-import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor;
+import org.schoellerfamily.gedbrowser.writer.GedWriter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,27 +48,9 @@ public class SaveController extends AbstractController {
             return "Sorry, you aren't authorized to do that!";
         }
 
-        final String contents = renderGedFile(root);
+        final String contents = new GedWriter(root).writeString();
         logger.debug("Exiting save");
         return contents;
-    }
-
-    /**
-     * @param root the dataset to render
-     * @return the gedcom file as a string
-     */
-    private String renderGedFile(final Root root) {
-        final GedObjectToGedWriterVisitor visitor =
-                new GedObjectToGedWriterVisitor();
-        root.accept(visitor);
-        final StringBuilder builder = new StringBuilder();
-        for (final GedWriterLine line : visitor.getLines()) {
-            if (line.getLine().isEmpty()) {
-                continue;
-            }
-            builder.append(line.getLine()).append("\n");
-        }
-        return builder.toString();
     }
 
     /**

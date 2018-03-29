@@ -66,4 +66,23 @@ export class NewPersonHelper {
       }));
     }
   }
+
+  config(dataIn) {
+    return {
+        width: '500px',
+        height: '600px',
+        data: dataIn,
+      };
+  }
+
+  initialData(sex: string, name: string): NewPersonDialogData {
+    return {
+      sex: sex, name: name,
+      birthDate: '', birthPlace: '', deathDate: '', deathPlace: ''
+    };
+  }
+
+  empty(result): boolean {
+    return (result === null || result === undefined);
+  }
 }

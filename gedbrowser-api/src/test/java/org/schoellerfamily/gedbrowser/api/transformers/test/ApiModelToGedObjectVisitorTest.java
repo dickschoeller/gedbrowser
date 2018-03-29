@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiLifespan;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
@@ -56,8 +55,12 @@ public class ApiModelToGedObjectVisitorTest {
     public void testPerson() {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
-        final ApiPerson apiPerson = new ApiPerson("person", "I1",
-                "Schoeller/Richard/", "Schoeller", new ApiLifespan());
+        final ApiPerson.Builder b = new ApiPerson.Builder()
+                .id("I1")
+                .surname("Schoeller")
+                .indexName("Schoeller/Richard/")
+                .build();
+        final ApiPerson apiPerson = new ApiPerson(b);
         apiPerson.accept(visitor);
         final Person gob = (Person) visitor.getGedObject();
         assertEquals("person mismatch", "I1", gob.getString());
@@ -68,14 +71,14 @@ public class ApiModelToGedObjectVisitorTest {
     public void testPersonWithAttributes() {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
-        final ApiPerson apiPerson = new ApiPerson("person", "I1",
-                "Richard/Schoeller/", "Schoeller", new ApiLifespan());
-        final ApiAttribute apiAttribute =
-                new ApiAttribute("name", "Richard/Schoeller/", null);
-        apiPerson.getAttributes().add(apiAttribute);
-        final ApiAttribute apiObject =
-                new ApiAttribute("1 JAN 1900", "date", "");
-        apiPerson.getAttributes().add(apiObject);
+        final ApiPerson.Builder b = new ApiPerson.Builder()
+                .id("I1")
+                .surname("Schoeller")
+                .indexName("Richard/Schoeller/")
+                .add(new ApiAttribute("name", "Richard/Schoeller/", null))
+                .add(new ApiAttribute("1 JAN 1900", "date", ""))
+                .build();
+        final ApiPerson apiPerson = new ApiPerson(b);
         apiPerson.accept(visitor);
         final Person gob = (Person) visitor.getGedObject();
         final Name name = gob.getName();
