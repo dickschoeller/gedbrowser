@@ -52,10 +52,10 @@ public class ChildCrud {
         final ApiPerson newPerson = personCrud.createPerson(db, person);
         final ApiFamily newFamily = familyCrud.createFamily(db,
                 new ApiFamily());
-        newFamily.getAttributes().add(helper.spouseAttribute(oldPerson));
-        newFamily.getAttributes().add(helper.childAttribute(newPerson));
-        newPerson.getAttributes().add(helper.famcAttribute(newFamily));
-        oldPerson.getAttributes().add(helper.famsAttribute(newFamily));
+        newFamily.getSpouses().add(helper.spouseAttribute(oldPerson));
+        newFamily.getChildren().add(helper.childAttribute(newPerson));
+        newPerson.getFamc().add(helper.famcAttribute(newFamily));
+        oldPerson.getFams().add(helper.famsAttribute(newFamily));
         familyCrud.updateFamily(db, newFamily.getString(), newFamily);
         personCrud.updatePerson(db, oldPerson.getString(), oldPerson);
         return personCrud.updatePerson(db, newPerson.getString(), newPerson);
@@ -73,8 +73,8 @@ public class ChildCrud {
                 "Entering create spouse in db: " + db + " for person " + id);
         final ApiFamily newFamily = familyCrud.readFamily(db, id);
         final ApiPerson newPerson = personCrud.createPerson(db, person);
-        newFamily.getAttributes().add(helper.childAttribute(newPerson));
-        newPerson.getAttributes().add(helper.famcAttribute(newFamily));
+        newFamily.getChildren().add(helper.childAttribute(newPerson));
+        newPerson.getFamc().add(helper.famcAttribute(newFamily));
         familyCrud.updateFamily(db, newFamily.getString(), newFamily);
         return personCrud.updatePerson(db, newPerson.getString(), newPerson);
     }

@@ -53,10 +53,10 @@ public class ParentCrud {
         final ApiPerson newPerson = personCrud.createPerson(db, person);
         final ApiFamily newFamily = familyCrud.createFamily(db,
                 new ApiFamily());
-        newFamily.getAttributes().add(helper.childAttribute(oldPerson));
-        newFamily.getAttributes().add(helper.spouseAttribute(newPerson));
-        newPerson.getAttributes().add(helper.famsAttribute(newFamily));
-        oldPerson.getAttributes().add(helper.famcAttribute(newFamily));
+        newFamily.getChildren().add(helper.childAttribute(oldPerson));
+        newFamily.getSpouses().add(helper.spouseAttribute(newPerson));
+        newPerson.getFams().add(helper.famsAttribute(newFamily));
+        oldPerson.getFamc().add(helper.famcAttribute(newFamily));
         familyCrud.updateFamily(db, newFamily.getString(), newFamily);
         personCrud.updatePerson(db, oldPerson.getString(), oldPerson);
         return personCrud.updatePerson(db, newPerson.getString(), newPerson);
