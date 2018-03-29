@@ -4,9 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiLifespan;
@@ -80,28 +77,28 @@ public class ApiPersonTest {
 
     /** */
     @Test
-    public void testConstructorNullAttributes() {
-        final ApiPerson o = new ApiPerson("type", "string", null, "indexName",
-                "surname", new ApiLifespan());
-        assertTrue("attributes mismatch", o.getAttributes().isEmpty());
-    }
-
-    /** */
-    @Test
     public void testConstructorWithAttributes() {
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("a string", "attribute", ""));
-        final ApiPerson o = new ApiPerson("type", "string", attributes,
-                "indexName", "surname", new ApiLifespan());
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .id("string")
+                .add(new ApiAttribute("a string", "attribute", ""))
+                .indexName("indexName")
+                .surname("surname")
+                .lifespan(new ApiLifespan());
+        final ApiPerson o = new ApiPerson(builder);
         assertEquals("attributes mismatch", 1, o.getAttributes().size());
     }
 
     /** */
     @Test
     public void testIsType() {
-        final ApiPerson o = new ApiPerson("type", "string", "indexName",
-                "surname", new ApiLifespan());
-        assertTrue("type mismatch", o.isType("type"));
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .id("string")
+                .add(new ApiAttribute("a string", "attribute", ""))
+                .indexName("indexName")
+                .surname("surname")
+                .lifespan(new ApiLifespan());
+        final ApiPerson o = new ApiPerson(builder);
+        assertTrue("type mismatch", o.isType("person"));
     }
 
     /** */
