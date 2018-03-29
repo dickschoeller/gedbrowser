@@ -81,9 +81,7 @@ public class ApiPersonTest {
         final ApiPerson.Builder builder = new ApiPerson.Builder()
                 .id("string")
                 .add(new ApiAttribute("a string", "attribute", ""))
-                .indexName("indexName")
-                .surname("surname")
-                .lifespan(new ApiLifespan());
+                .build();
         final ApiPerson o = new ApiPerson(builder);
         assertEquals("attributes mismatch", 1, o.getAttributes().size());
     }
@@ -94,9 +92,7 @@ public class ApiPersonTest {
         final ApiPerson.Builder builder = new ApiPerson.Builder()
                 .id("string")
                 .add(new ApiAttribute("a string", "attribute", ""))
-                .indexName("indexName")
-                .surname("surname")
-                .lifespan(new ApiLifespan());
+                .build();
         final ApiPerson o = new ApiPerson(builder);
         assertTrue("type mismatch", o.isType("person"));
     }
