@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiLifespan;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 
@@ -38,40 +37,41 @@ public class ApiPersonTest {
     /** */
     @Test
     public void testConstructorType() {
-        final ApiPerson o = new ApiPerson("type", "string", "indexName",
-                "surname", new ApiLifespan());
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+        .type("type")
+        .id("string")
+        .indexName("index name")
+        .surname("surname")
+        .build();
+        final ApiPerson o = new ApiPerson(builder);
         assertEquals("type mismatch", "type", o.getType());
     }
 
     /** */
     @Test
     public void testConstructorString() {
-        final ApiPerson o = new ApiPerson("type", "string", "indexName",
-                "surname", new ApiLifespan());
+        final ApiPerson o = createPerson();
         assertEquals("string mismatch", "string", o.getString());
     }
 
     /** */
     @Test
     public void testConstructorIndexName() {
-        final ApiPerson o = new ApiPerson("type", "string", "indexName",
-                "surname", new ApiLifespan());
-        assertEquals("indexname mismatch", "indexName", o.getIndexName());
+        final ApiPerson o = createPerson();
+        assertEquals("indexname mismatch", "index name", o.getIndexName());
     }
 
     /** */
     @Test
     public void testConstructorSurname() {
-        final ApiPerson o = new ApiPerson("type", "string", "indexName",
-                "surname", new ApiLifespan());
+        final ApiPerson o = createPerson();
         assertEquals("surname mismatch", "surname", o.getSurname());
     }
 
     /** */
     @Test
     public void testConstructorNoAttributes() {
-        final ApiPerson o = new ApiPerson("type", "string", "indexName",
-                "surname", new ApiLifespan());
+        final ApiPerson o = createPerson();
         assertTrue("attributes mismatch", o.getAttributes().isEmpty());
     }
 
@@ -100,8 +100,7 @@ public class ApiPersonTest {
     /** */
     @Test
     public void testAccept() {
-        final ApiPerson o = new ApiPerson("type", "string", "indexName",
-                "surname", new ApiLifespan());
+        final ApiPerson o = createPerson();
         final ApiTestVisitor visitor = new ApiTestVisitor();
         o.accept(visitor);
         assertEquals("Method mismatch", "person", visitor.getMethodCalled());
@@ -110,26 +109,22 @@ public class ApiPersonTest {
     /** */
     @Test
     public void testEqualsSame() {
-        final ApiPerson expected = new ApiPerson("type", "string", "index name",
-                "surname", new ApiLifespan());
+        final ApiPerson expected = createPerson();
         assertEquals("Should match", expected, expected);
     }
 
     /** */
     @Test
     public void testEqualsSimple() {
-        final ApiPerson expected = new ApiPerson("type", "string", "index name",
-                "surname", new ApiLifespan());
-        final ApiPerson actual = new ApiPerson("type", "string", "index name",
-                "surname", new ApiLifespan());
+        final ApiPerson expected = createPerson();
+        final ApiPerson actual = createPerson();
         assertEquals("Should match", expected, actual);
     }
 
     /** */
     @Test
     public void testNotEqualsClass() {
-        final ApiPerson expected = new ApiPerson("type", "string", "index name",
-                "surname", new ApiLifespan());
+        final ApiPerson expected = createPerson();
         final ApiNote actual = new ApiNote("type", "string", "tail");
         assertNotEquals("Should not match", expected, actual);
     }
@@ -137,100 +132,126 @@ public class ApiPersonTest {
     /** */
     @Test
     public void testEqualsNullIndexName() {
-        final ApiPerson expected = new ApiPerson("type", "string", null,
-                "surname", new ApiLifespan());
-        final ApiPerson actual = new ApiPerson("type", "string", null,
-                "surname", new ApiLifespan());
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .type("type")
+                .id("string")
+                .indexName(null)
+                .surname("surname");
+        final ApiPerson expected = new ApiPerson(builder);
+        final ApiPerson actual = new ApiPerson(builder);
         assertEquals("Should match", expected, actual);
     }
 
     /** */
     @Test
     public void testNotEqualsNullIndexName() {
-        final ApiPerson expected = new ApiPerson("type", "string", null,
-                "surname", new ApiLifespan());
-        final ApiPerson actual = new ApiPerson("type", "string", "index name",
-                "surname", new ApiLifespan());
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .type("type")
+                .id("string")
+                .indexName(null)
+                .surname("surname");
+        final ApiPerson expected = new ApiPerson(builder);
+        final ApiPerson actual = createPerson();
         assertNotEquals("Should not match", expected, actual);
     }
 
     /** */
     @Test
     public void testNotEqualsIndexNameNull() {
-        final ApiPerson expected = new ApiPerson("type", "string", "index name",
-                "surname", new ApiLifespan());
-        final ApiPerson actual = new ApiPerson("type", "string", null,
-                "surname", new ApiLifespan());
+        final ApiPerson expected = createPerson();
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .type("type")
+                .id("string")
+                .indexName(null)
+                .surname("surname");
+        final ApiPerson actual = new ApiPerson(builder);
         assertNotEquals("Should not match", expected, actual);
     }
 
     /** */
     @Test
     public void testEqualsNullSurname() {
-        final ApiPerson expected = new ApiPerson("type", "string", "index name",
-                null, new ApiLifespan());
-        final ApiPerson actual = new ApiPerson("type", "string", "index name",
-                null, new ApiLifespan());
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .type("type")
+                .id("string")
+                .indexName("index name")
+                .surname(null);
+        final ApiPerson expected = new ApiPerson(builder);
+        final ApiPerson actual = new ApiPerson(builder);
         assertEquals("Should match", expected, actual);
     }
 
     /** */
     @Test
     public void testNotEqualsNullSurname() {
-        final ApiPerson expected = new ApiPerson("type", "string", "index name",
-                null, new ApiLifespan());
-        final ApiPerson actual = new ApiPerson("type", "string", "index name",
-                "surname", new ApiLifespan());
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .type("type")
+                .id("string")
+                .indexName("index name")
+                .surname(null);
+        final ApiPerson expected = new ApiPerson(builder);
+        final ApiPerson actual = createPerson();
         assertNotEquals("Should not match", expected, actual);
     }
 
     /** */
     @Test
     public void testNotEqualsSurnameNull() {
-        final ApiPerson expected = new ApiPerson("type", "string", "index name",
-                "surname", new ApiLifespan());
-        final ApiPerson actual = new ApiPerson("type", "string", "index name",
-                null, new ApiLifespan());
+        final ApiPerson expected = createPerson();
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .type("type")
+                .id("string")
+                .indexName("index name")
+                .surname(null);
+        final ApiPerson actual = new ApiPerson(builder);
         assertNotEquals("Should not match", expected, actual);
     }
 
     /** */
     @Test
     public void testEqualsHash() {
-        final ApiPerson expected = new ApiPerson("type", "string", "index name",
-                "surname", new ApiLifespan());
-        final ApiPerson actual = new ApiPerson("type", "string", "index name",
-                "surname", new ApiLifespan());
+        final ApiPerson expected = createPerson();
+        final ApiPerson actual = createPerson();
         assertEquals("Should match", expected.hashCode(), actual.hashCode());
     }
 
     /** */
     @Test
     public void testEqualsNullIndexNameHash() {
-        final ApiPerson expected = new ApiPerson("type", "string", null,
-                "surname", new ApiLifespan());
-        final ApiPerson actual = new ApiPerson("type", "string", null,
-                "surname", new ApiLifespan());
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .type("type")
+                .id("string")
+                .indexName(null)
+                .surname("surname");
+        final ApiPerson expected = new ApiPerson(builder);
+        final ApiPerson actual = new ApiPerson(builder);
         assertEquals("Should match", expected.hashCode(), actual.hashCode());
     }
 
     /** */
     @Test
     public void testEqualsNullSurnameHash() {
-        final ApiPerson expected = new ApiPerson("type", "string", "index name",
-                null, new ApiLifespan());
-        final ApiPerson actual = new ApiPerson("type", "string", "index name",
-                null, new ApiLifespan());
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .type("type")
+                .id("string")
+                .indexName("index name")
+                .surname(null);
+        final ApiPerson expected = new ApiPerson(builder);
+        final ApiPerson actual = new ApiPerson(builder);
         assertEquals("Should match", expected.hashCode(), actual.hashCode());
     }
 
     /** */
     @Test
     public void testNotEqualsNullSurnameHash() {
-        final ApiPerson expected = new ApiPerson("type", "string", "index name",
-                null, new ApiLifespan());
-        final ApiPerson actual = new ApiPerson("type", "string", "index name",
-                "surname", new ApiLifespan());
+        // Not calling build in order to allow the null in.
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .type("type")
+                .id("string")
+                .indexName("index name")
+                .surname(null);
+        final ApiPerson expected = new ApiPerson(builder);
+        final ApiPerson actual = createPerson();
         assertNotEquals("Should not match", expected.hashCode(),
                 actual.hashCode());
     }
@@ -238,11 +259,28 @@ public class ApiPersonTest {
     /** */
     @Test
     public void testNotEqualsSurnameNullHash() {
-        final ApiPerson expected = new ApiPerson("type", "string", "index name",
-                "surname", new ApiLifespan());
-        final ApiPerson actual = new ApiPerson("type", "string", "index name",
-                null, new ApiLifespan());
+        final ApiPerson expected = createPerson();
+        // Not calling build in order to allow the null in.
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .type("type")
+                .id("string")
+                .indexName("index name")
+                .surname(null);
+        final ApiPerson actual = new ApiPerson(builder);
         assertNotEquals("Should not match", expected.hashCode(),
                 actual.hashCode());
+    }
+
+    /**
+     * @return the new person
+     */
+    private ApiPerson createPerson() {
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .type("type")
+                .id("string")
+                .indexName("index name")
+                .surname("surname")
+                .build();
+        return new ApiPerson(builder);
     }
 }

@@ -49,6 +49,8 @@ import {SourceModule} from './source/source.module';
 import {SubmitterListModule} from './submitter-list/submitter-list.module';
 import {SubmitterModule} from './submitter/submitter.module';
 import {
+  SpecialPost,
+  ServiceBase,
   ChildService,
   FamilyService,
   ParentService,
@@ -56,9 +58,9 @@ import {
   SourceService,
   SpouseService,
   SubmitterService,
-  SaveService,
-  SharedModule
-} from './shared';
+  SaveService
+} from './shared/services';
+import {SharedModule} from './shared';
 
 @NgModule({
   exports: [

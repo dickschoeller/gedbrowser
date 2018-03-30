@@ -70,6 +70,18 @@ public class ApiObject implements Serializable, GetString {
     }
 
     /**
+     * Constructor.
+     *
+     * @param builder a builder for this object type
+     */
+    public ApiObject(final Builder<?> builder) {
+        super();
+        this.type = builder.getType();
+        this.string = builder.getId();
+        this.attributes = builder.getAttributes();
+    }
+
+    /**
      * @return the type string
      */
     public final String getType() {
@@ -223,5 +235,86 @@ public class ApiObject implements Serializable, GetString {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @author Dick Schoeller
+     *
+     * @param <T> the actual type
+     */
+    public static class Builder<T extends ApiObject.Builder<T>> {
+        /** */
+        private String t;
+        /** */
+        private String d;
+        /** */
+        private final List<ApiAttribute> attributes = new ArrayList<>();
+
+        /**
+         * @param type the type
+         * @return this
+         */
+        @SuppressWarnings("unchecked")
+        public T type(final String type) {
+            this.t = type;
+            return (T) this;
+        }
+
+        /**
+         * @param id the id
+         * @return this
+         */
+        @SuppressWarnings("unchecked")
+        public T id(final String id) {
+            this.d = id;
+            return (T) this;
+        }
+
+        /**
+         * @param attribute an attribute
+         * @return this
+         */
+        @SuppressWarnings("unchecked")
+        public T add(final ApiAttribute attribute) {
+            attributes.add(attribute);
+            return (T) this;
+        }
+
+        /**
+         * @return the type string
+         */
+        /* default */ final String getType() {
+            return t;
+        }
+
+        /**
+         * @return the id
+         */
+        /* default */ final String getId() {
+            return d;
+        }
+
+        /**
+         * @return the attributes
+         */
+        /* default */ final List<ApiAttribute> getAttributes() {
+            return attributes;
+        }
+
+        /**
+         * Build.
+         *
+         * @return this
+         */
+        @SuppressWarnings("unchecked")
+        public T build() {
+            if (t == null) {
+                t = "object";
+            }
+            if (d == null) {
+                d = "";
+            }
+            return (T) this;
+        }
     }
 }

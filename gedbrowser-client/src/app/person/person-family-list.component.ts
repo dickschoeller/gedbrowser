@@ -4,7 +4,7 @@ import {NewPersonDialogData, NewPersonDialogComponent, NewPersonHelper} from '..
 import {Component, Input} from '@angular/core';
 import {ApiAttribute, ApiPerson} from '../shared';
 import {ApiFamily} from '../shared/models';
-import {SpouseService, PersonService, ChildService} from '../shared/services';
+import {SpouseService, PersonService} from '../shared/services';
 import {PersonComponent} from './person.component';
 
 /**
@@ -25,8 +25,7 @@ export class PersonFamilyListComponent {
 
   constructor(public dialog: MatDialog,
     private spouseService: SpouseService,
-    private personService: PersonService,
-    private childService: ChildService) { }
+    private personService: PersonService) { }
 
   createFamilyWithChild(): void {
     const dataIn = this.nph.initialData('M', 'Anonymous');
@@ -40,8 +39,8 @@ export class PersonFamilyListComponent {
       return;
     }
     const newPerson: ApiPerson = this.nph.buildPerson(dialogData);
-    this.childService.postChildToPerson('schoeller', this.person.string, newPerson).subscribe(
-      (data: ApiPerson) => this.refreshPerson());
+//    this.childService.postChildToPerson('schoeller', this.person.string, newPerson).subscribe(
+//      (data: ApiPerson) => this.refreshPerson());
   }
 
   createFamilyWithSpouse(): void {

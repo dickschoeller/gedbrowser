@@ -1,10 +1,12 @@
 import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
 import {ApiObject} from '../models';
 import {ApiService} from './api-service';
 import {UrlBuilder} from './urlbuilder';
 
+@Injectable()
 export abstract class ServiceBase<T extends ApiObject> implements ApiService<T> {
   constructor(private http: HttpClient) {}
 
