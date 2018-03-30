@@ -3,7 +3,7 @@ import {MatDialogRef, MatDialog} from '@angular/material';
 
 import {NewPersonDialogData, NewPersonDialogComponent, NewPersonHelper} from '../new-person-dialog';
 import {ApiAttribute, ApiFamily, ApiPerson} from '../shared/models';
-import {ChildService, PersonService, FamilyService} from '../shared/services';
+import {PersonService, FamilyService} from '../shared/services';
 import {PersonFamilyComponent} from './person-family.component';
 
 /**
@@ -24,7 +24,7 @@ export class PersonFamilyChildListComponent {
   nph = new NewPersonHelper();
 
   constructor(public dialog: MatDialog,
-    private childService: ChildService,
+//    private childService: ChildService,
     private personService: PersonService,
     private familyService: FamilyService) { }
 
@@ -44,7 +44,7 @@ export class PersonFamilyChildListComponent {
       return;
     }
     const newPerson: ApiPerson = this.nph.buildPerson(dialogData);
-    this.childService.postChildToFamily('schoeller', this.family.string, newPerson).subscribe(
-      (data: ApiPerson) => this.parentComponent.ngOnInit());
+//    this.childService.postChildToFamily('schoeller', this.family.string, newPerson).subscribe(
+//      (data: ApiPerson) => this.parentComponent.ngOnInit());
   }
 }

@@ -23,7 +23,7 @@ export class PersonParentFamiliesComponent {
 
   createParentFamily() {
     const dataIn: NewPersonDialogData =
-      this.nph.initialData('M', 'Anonymous/' + this.person.surname);
+      this.nph.initialData('M', 'Anonymous/' + this.person.surname + '/');
     const dialogRef: MatDialogRef<NewPersonDialogComponent> =
       this.dialog.open(NewPersonDialogComponent, this.nph.config(dataIn));
     dialogRef.afterClosed().subscribe(result => this.saveNewParent(result));

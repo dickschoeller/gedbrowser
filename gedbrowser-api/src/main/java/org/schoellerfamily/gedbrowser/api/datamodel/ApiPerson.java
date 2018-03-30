@@ -57,20 +57,18 @@ public final class ApiPerson extends ApiHasImages {
 
     /**
      * Constructor.
+     *
      * @param type a string describing the data type of this object
      * @param string a string containing the primary value of this object
      * @param indexName the name in a form that is usable for indexing
      * @param surname the surname
-     * @param lifespan the lifespan of this person
      */
     public ApiPerson(final String type, final String string,
-            final String indexName, final String surname,
-            final ApiLifespan lifespan) {
+            final String indexName, final String surname) {
         super(type, string);
         this.indexName = indexName;
         this.surname = surname;
-        this.lifespan = lifespan;
-        addAttribute(refn(string));
+        this.lifespan = new ApiLifespan();
     }
 
     /**
@@ -97,10 +95,11 @@ public final class ApiPerson extends ApiHasImages {
      * @param builder a builder
      */
     public ApiPerson(final Builder builder) {
-        super("person", builder.getId(), builder.getAttributes());
+        super(builder.getType(), builder.getId(), builder.getAttributes());
         this.indexName = builder.getIndexName();
         this.surname = builder.getSurname();
         this.lifespan = builder.getLifespan();
+        addAttribute(refn(getString()));
     }
 
     /**
@@ -267,6 +266,8 @@ public final class ApiPerson extends ApiHasImages {
      */
     public static final class Builder {
         /** */
+        private String t;
+        /** */
         private String d;
         /** */
         private final List<ApiAttribute> attributes = new ArrayList<>();
@@ -276,6 +277,15 @@ public final class ApiPerson extends ApiHasImages {
         private String i;
         /** */
         private ApiLifespan l;
+
+        /**
+         * @param type the type
+         * @return this
+         */
+        public Builder type(final String type) {
+            this.t = type;
+            return this;
+        }
 
         /**
          * @param id the id
@@ -321,6 +331,12 @@ public final class ApiPerson extends ApiHasImages {
             this.l = lifespan;
             return this;
         }
+        /**
+         * @return the type string
+         */
+        /* default */ String getType() {
+            return t;
+        }
 
         /**
          * @return the id
@@ -361,6 +377,9 @@ public final class ApiPerson extends ApiHasImages {
          * @return this
          */
         public Builder build() {
+            if (t == null) {
+                t = "person";
+            }
             if (d == null) {
                 d = "";
             }

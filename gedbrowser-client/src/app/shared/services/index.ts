@@ -6,3 +6,5 @@ export * from './submitter.service';
 export * from './spouse.service';
 export * from './parent.service';
 export * from './save.service';
+export * from './special-post';
+export * from './service-base';

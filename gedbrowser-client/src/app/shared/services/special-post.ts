@@ -1,7 +1,9 @@
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ApiObject} from '../models';
 import {Observable} from 'rxjs/Observable';
+import {ApiObject} from '../models';
 
+@Injectable()
 export abstract class SpecialPost<T extends ApiObject> {
   constructor(private http: HttpClient) {}
 

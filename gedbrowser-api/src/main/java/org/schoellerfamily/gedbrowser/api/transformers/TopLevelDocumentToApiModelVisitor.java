@@ -52,8 +52,13 @@ public class TopLevelDocumentToApiModelVisitor
     @Override
     public final void visit(final PersonDocument document) {
         final ApiLifespan lifespan = buildLifespan(document);
-        setBaseObject(new ApiPerson(document.getType(), document.getString(),
-                document.getIndexName(), document.getSurname(), lifespan));
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+                .id(document.getString())
+                .indexName(document.getIndexName())
+                .surname(document.getSurname())
+                .lifespan(lifespan)
+                .build();
+        setBaseObject(new ApiPerson(builder));
         addPersonAttributes(document);
     }
 
