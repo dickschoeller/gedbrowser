@@ -308,7 +308,9 @@ public final class ApiPerson extends ApiHasImages {
          * @return this
          */
         public Builder build() {
-            type("person");
+            if (getType() == null) {
+                type("person");
+            }
             super.build();
             if (s == null) {
                 s = "?";

@@ -37,7 +37,13 @@ public class ApiPersonTest {
     /** */
     @Test
     public void testConstructorType() {
-        final ApiPerson o = createPerson();
+        final ApiPerson.Builder builder = new ApiPerson.Builder()
+        .type("type")
+        .id("string")
+        .indexName("index name")
+        .surname("surname")
+        .build();
+        final ApiPerson o = new ApiPerson(builder);
         assertEquals("type mismatch", "type", o.getType());
     }
 
