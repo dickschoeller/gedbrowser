@@ -3,8 +3,6 @@ package org.schoellerfamily.gedbrowser.api.datamodel;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject.Builder;
-
 /**
  * @author Dick Schoeller
  */
@@ -257,33 +255,6 @@ public final class ApiPerson extends ApiHasImages {
         private String i;
         /** */
         private ApiLifespan l;
-
-        /**
-         * @param type the type
-         * @return this
-         */
-        public Builder type(final String type) {
-            super.type(type);
-            return this;
-        }
-
-        /**
-         * @param id the id
-         * @return this
-         */
-        public Builder id(final String id) {
-            super.id(id);
-            return this;
-        }
-
-        /**
-         * @param attribute an attribute
-         * @return this
-         */
-        public Builder add(final ApiAttribute attribute) {
-            super.add(attribute);
-            return this;
-        }
 
         /**
          * @param surname the surname

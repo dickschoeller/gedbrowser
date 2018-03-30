@@ -108,9 +108,10 @@ public class ApiHasImages extends ApiObject {
          *
          * @return this
          */
-        public Builder<T> build() {
+        @SuppressWarnings("unchecked")
+        public T build() {
             super.build();
-            return this;
+            return (T) this;
         }
     }
 }

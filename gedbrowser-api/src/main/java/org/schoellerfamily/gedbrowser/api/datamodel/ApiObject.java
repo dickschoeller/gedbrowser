@@ -254,27 +254,30 @@ public class ApiObject implements Serializable, GetString {
          * @param type the type
          * @return this
          */
-        public Builder<T> type(final String type) {
+        @SuppressWarnings("unchecked")
+        public T type(final String type) {
             this.t = type;
-            return this;
+            return (T) this;
         }
 
         /**
          * @param id the id
          * @return this
          */
-        public Builder<T> id(final String id) {
+        @SuppressWarnings("unchecked")
+        public T id(final String id) {
             this.d = id;
-            return this;
+            return (T) this;
         }
 
         /**
          * @param attribute an attribute
          * @return this
          */
-        public Builder<T> add(final ApiAttribute attribute) {
+        @SuppressWarnings("unchecked")
+        public T add(final ApiAttribute attribute) {
             attributes.add(attribute);
-            return this;
+            return (T) this;
         }
 
         /**
@@ -303,14 +306,15 @@ public class ApiObject implements Serializable, GetString {
          *
          * @return this
          */
-        public Builder<T> build() {
+        @SuppressWarnings("unchecked")
+        public T build() {
             if (t == null) {
                 t = "object";
             }
             if (d == null) {
                 d = "";
             }
-            return this;
+            return (T) this;
         }
     }
 }
