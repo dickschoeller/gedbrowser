@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.api.transformers;
 
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiHasImages;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiLifespan;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
@@ -59,7 +60,7 @@ public class TopLevelDocumentToApiModelVisitor
                 .lifespan(lifespan)
                 .build();
         setBaseObject(new ApiPerson(builder));
-        addPersonAttributes(document);
+        addSplitAttributes(document);
     }
 
     /**
@@ -68,7 +69,7 @@ public class TopLevelDocumentToApiModelVisitor
     @Override
     public final void visit(final FamilyDocument document) {
         setBaseObject(new ApiFamily(document.getType(), document.getString()));
-        addFamilyAttributes(document);
+        addSplitAttributes(document);
     }
 
     /**
@@ -78,7 +79,7 @@ public class TopLevelDocumentToApiModelVisitor
     public final void visit(final SourceDocument document) {
         setBaseObject(new ApiSource(document.getType(), document.getString(),
                 title(document)));
-        addSourceAttributes(document);
+        addSplitAttributes(document);
     }
 
     /**
@@ -157,48 +158,17 @@ public class TopLevelDocumentToApiModelVisitor
 
     /**
      * Recurse into the child documents converting and adding to the list.
-     * Person is handled specially because it breaks the list up.
+     * Several document types require special processing because they have
+     * split lists.
      *
      * @param document the current document
      */
-    protected void addPersonAttributes(final GedDocument<?> document) {
+    protected void addSplitAttributes(final GedDocument<?> document) {
         for (final GedDocument<? extends GedObject> attribute : document
                 .getAttributes()) {
             final DocumentToApiModelVisitor v = createVisitor();
             attribute.accept(v);
-            ((ApiPerson) baseObject)
-                    .addAttribute(convertToAttribute(v.getBaseObject()));
-        }
-    }
-
-    /**
-     * Recurse into the child documents converting and adding to the list.
-     * Person is handled specially because it breaks the list up.
-     *
-     * @param document the current document
-     */
-    protected void addFamilyAttributes(final GedDocument<?> document) {
-        for (final GedDocument<? extends GedObject> attribute : document
-                .getAttributes()) {
-            final DocumentToApiModelVisitor v = createVisitor();
-            attribute.accept(v);
-            ((ApiFamily) baseObject)
-                    .addAttribute(convertToAttribute(v.getBaseObject()));
-        }
-    }
-
-    /**
-     * Recurse into the child documents converting and adding to the list.
-     * Person is handled specially because it breaks the list up.
-     *
-     * @param document the current document
-     */
-    protected void addSourceAttributes(final GedDocument<?> document) {
-        for (final GedDocument<? extends GedObject> attribute : document
-                .getAttributes()) {
-            final DocumentToApiModelVisitor v = createVisitor();
-            attribute.accept(v);
-            ((ApiSource) baseObject)
+            ((ApiHasImages) baseObject)
                     .addAttribute(convertToAttribute(v.getBaseObject()));
         }
     }

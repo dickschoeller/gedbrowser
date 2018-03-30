@@ -11,8 +11,6 @@ import org.schoellerfamily.gedbrowser.datamodel.GetString;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.CyclomaticComplexity",
-        "PMD.ModifiedCyclomaticComplexity", "PMD.StdCyclomaticComplexity" })
 public class ApiObject implements Serializable, GetString {
     /** */
     private static final long serialVersionUID = 1L;

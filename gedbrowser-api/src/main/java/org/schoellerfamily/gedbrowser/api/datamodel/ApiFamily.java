@@ -82,13 +82,10 @@ public final class ApiFamily extends ApiHasImages {
         visitor.visit(this);
     }
 
-
     /**
-     * Special handling of adding attributes to an ApiPerson because the list
-     * gets broken up into different sections.
-     *
-     * @param attribute the attribute to add
+     * {@inheritDoc}
      */
+    @Override
     public void addAttribute(final ApiAttribute attribute) {
         if (attribute.isType("husband") || attribute.isType("wife")
                 || attribute.isType("spouse")) {
