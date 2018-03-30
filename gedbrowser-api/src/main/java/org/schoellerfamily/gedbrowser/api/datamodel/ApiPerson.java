@@ -1,14 +1,11 @@
 package org.schoellerfamily.gedbrowser.api.datamodel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Dick Schoeller
  */
-public final class ApiPerson extends ApiHasImages {
+public final class ApiPerson extends ApiExtraLists {
     /** */
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 4L;
 
     /**
      * The name in a form that is usable for indexing.
@@ -24,26 +21,6 @@ public final class ApiPerson extends ApiHasImages {
      * The lifespan of this person.
      */
     private final ApiLifespan lifespan;
-
-    /**
-     * The list of fams attributes of this object.
-     */
-    private final List<ApiAttribute> fams = new ArrayList<>();
-
-    /**
-     * The list of famc attributes of this object.
-     */
-    private final List<ApiAttribute> famc = new ArrayList<>();
-
-    /**
-     * The list of refn attributes of this object.
-     */
-    private final List<ApiAttribute> refn = new ArrayList<>();
-
-    /**
-     * The list of changed attributes of this object.
-     */
-    private final List<ApiAttribute> changed = new ArrayList<>();
 
     /**
      * Constructor.
@@ -62,15 +39,10 @@ public final class ApiPerson extends ApiHasImages {
      * @param string the ID of this object
      */
     public ApiPerson(final ApiPerson in, final String string) {
-        super(in.getType(), string, in.getAttributes());
+        super(in, string);
         this.indexName = in.indexName;
         this.surname = in.surname;
         this.lifespan = in.lifespan;
-        this.refn.addAll(refn);
-        this.famc.addAll(in.famc);
-        this.fams.addAll(in.fams);
-        this.getImages().addAll(in.getImages());
-        this.change();
     }
 
     /**
@@ -96,18 +68,6 @@ public final class ApiPerson extends ApiHasImages {
     }
 
     /**
-     * Mark the person as changed today.
-     */
-    public void change() {
-        final ApiAttribute chanAttr = new ApiAttribute("attribute", "Changed");
-        chanAttr.getAttributes().add(new DateUtil().todayDateAttribute());
-        final ArrayList<ApiAttribute> chanList = new ArrayList<>();
-        chanList.add(chanAttr);
-        this.changed.clear();
-        this.changed.addAll(chanList);
-    }
-
-    /**
      * @return the name in a form that is usable for indexing
      */
     public String getIndexName() {
@@ -126,34 +86,6 @@ public final class ApiPerson extends ApiHasImages {
      */
     public ApiLifespan getLifespan() {
         return lifespan;
-    }
-
-    /**
-     * @return the list of fams attributes
-     */
-    public List<ApiAttribute> getFams() {
-        return fams;
-    }
-
-    /**
-     * @return the list of famc attributes
-     */
-    public List<ApiAttribute> getFamc() {
-        return famc;
-    }
-
-    /**
-     * @return the list of refn attributes
-     */
-    public List<ApiAttribute> getRefn() {
-        return refn;
-    }
-
-    /**
-     * @return the list of changed attributes
-     */
-    public List<ApiAttribute> getChanged() {
-        return changed;
     }
 
     /**
@@ -214,41 +146,9 @@ public final class ApiPerson extends ApiHasImages {
     }
 
     /**
-     * Special handling of adding attributes to an ApiPerson because the list
-     * gets broken up into different sections.
-     *
-     * @param attribute the attribute to add
-     */
-    public void addAttribute(final ApiAttribute attribute) {
-        if (attribute.isType("fams")) {
-            fams.add(attribute);
-            return;
-        }
-        if (attribute.isType("famc")) {
-            famc.add(attribute);
-            return;
-        }
-        if (attribute.isType("Changed")) {
-            changed.clear();
-            changed.add(attribute);
-            return;
-        }
-        if (attribute.isType("Reference Number")) {
-            refn.clear();
-            refn.add(attribute);
-            return;
-        }
-        if (new ImageUtils().isImageWrapper(attribute)) {
-            getImages().add(attribute);
-            return;
-        }
-        getAttributes().add(attribute);
-    }
-
-    /**
      * @author Dick Schoeller
      */
-    public static final class Builder extends ApiHasImages.Builder<Builder> {
+    public static final class Builder extends ApiExtraLists.Builder<Builder> {
         /** */
         private String s;
         /** */

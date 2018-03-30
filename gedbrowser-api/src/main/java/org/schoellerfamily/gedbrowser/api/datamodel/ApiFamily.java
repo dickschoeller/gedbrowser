@@ -56,10 +56,9 @@ public final class ApiFamily extends ApiHasImages {
      * @param string the ID of this object
      */
     public ApiFamily(final ApiFamily in, final String string) {
-        super(in.getType(), string, in.getAttributes());
+        super(in, string);
         this.children.addAll(in.children);
         this.spouses.addAll(in.spouses);
-        this.getImages().addAll(in.getImages());
     }
 
     /**

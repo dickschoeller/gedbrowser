@@ -56,9 +56,8 @@ public final class ApiSource extends ApiHasImages {
      * @param string the ID of this object
      */
     public ApiSource(final ApiSource in, final String string) {
-        super(in.getType(), string, in.getAttributes());
+        super(in, string);
         this.title = in.title;
-        this.getImages().addAll(in.getImages());
     }
 
     /**
