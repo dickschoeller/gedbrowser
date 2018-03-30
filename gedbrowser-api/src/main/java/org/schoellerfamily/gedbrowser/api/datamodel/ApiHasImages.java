@@ -47,6 +47,17 @@ public class ApiHasImages extends ApiObject {
     /**
      * Constructor.
      *
+     * @param in object to copy
+     * @param string id string
+     */
+    public ApiHasImages(final ApiHasImages in, final String string) {
+        super(in.getType(), string, in.getAttributes());
+        this.getImages().addAll(in.getImages());
+    }
+
+    /**
+     * Constructor.
+     *
      * @param builder a builder for this object type
      */
     public ApiHasImages(final Builder<?> builder) {
@@ -67,18 +78,8 @@ public class ApiHasImages extends ApiObject {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + imagesHash();
+        result = prime * result + attributesHash(images);
         return result;
-    }
-
-    /**
-     * @return hash code for the images list
-     */
-    private int imagesHash() {
-        if (images == null) {
-            return 0;
-        }
-        return images.hashCode();
     }
 
     /**

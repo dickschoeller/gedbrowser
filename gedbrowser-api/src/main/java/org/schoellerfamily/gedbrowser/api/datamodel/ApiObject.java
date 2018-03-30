@@ -143,40 +143,32 @@ public class ApiObject implements Serializable, GetString {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + attributesHash();
-        result = prime * result + stringHash();
-        result = prime * result + typeHash();
+        result = prime * result + attributesHash(attributes);
+        result = prime * result + stringHash(string);
+        result = prime * result + stringHash(type);
         return result;
     }
 
     /**
+     * @param attrs an attribute list
      * @return the hash for the attributes
      */
-    private int attributesHash() {
-        if (attributes == null) {
+    protected int attributesHash(final List<ApiAttribute> attrs) {
+        if (attrs == null) {
             return 0;
         }
-        return attributes.hashCode();
+        return attrs.hashCode();
     }
 
     /**
+     * @param s the string to add to the hash
      * @return the hash for the string
      */
-    private int stringHash() {
-        if (string == null) {
+    protected int stringHash(final String s) {
+        if (s == null) {
             return 0;
         }
-        return string.hashCode();
-    }
-
-    /**
-     * @return the hash for the type
-     */
-    private int typeHash() {
-        if (type == null) {
-            return 0;
-        }
-        return type.hashCode();
+        return s.hashCode();
     }
 
     /**
