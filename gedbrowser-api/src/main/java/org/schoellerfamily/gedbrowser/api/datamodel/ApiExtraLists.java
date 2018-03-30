@@ -98,12 +98,11 @@ public class ApiExtraLists extends ApiHasImages {
         this.changed.addAll(chanList);
     }
 
+
     /**
-     * Special handling of adding attributes to an ApiPerson because the list
-     * gets broken up into different sections.
-     *
-     * @param attribute the attribute to add
+     * {@inheritDoc}
      */
+    @Override
     public final void addAttribute(final ApiAttribute attribute) {
         if (attribute.isType("fams")) {
             fams.add(attribute);

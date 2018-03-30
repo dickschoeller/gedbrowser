@@ -68,6 +68,18 @@ public final class ApiSource extends ApiHasImages {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addAttribute(final ApiAttribute attribute) {
+        if (new ImageUtils().isImageWrapper(attribute)) {
+            getImages().add(attribute);
+            return;
+        }
+        getAttributes().add(attribute);
+    }
+
+    /**
      * @param visitor the visitor
      */
     public void accept(final ApiObjectVisitor visitor) {
@@ -108,19 +120,5 @@ public final class ApiSource extends ApiHasImages {
         }
         final ApiSource other = (ApiSource) obj;
         return stringCompare(title, other.title);
-    }
-
-    /**
-     * Special handling of adding attributes to an ApiPerson because the list
-     * gets broken up into different sections.
-     *
-     * @param attribute the attribute to add
-     */
-    public void addAttribute(final ApiAttribute attribute) {
-        if (new ImageUtils().isImageWrapper(attribute)) {
-            getImages().add(attribute);
-            return;
-        }
-        getAttributes().add(attribute);
     }
 }

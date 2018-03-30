@@ -6,9 +6,10 @@ import java.util.List;
 /**
  * @author Dick Schoeller
  */
-public class ApiHasImages extends ApiObject {
+public abstract class ApiHasImages extends ApiObject
+        implements ApiSplitAttributes {
     /** */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     /**
      * The list of image attributes of this object.
