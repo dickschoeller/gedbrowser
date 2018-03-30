@@ -70,6 +70,18 @@ public class ApiObject implements Serializable, GetString {
     }
 
     /**
+     * Constructor.
+     *
+     * @param builder a builder for this object type
+     */
+    public ApiObject(final Builder builder) {
+        super();
+        this.type = builder.getType();
+        this.string = builder.getId();
+        this.attributes = builder.getAttributes();
+    }
+
+    /**
      * @return the type string
      */
     public final String getType() {
@@ -223,5 +235,80 @@ public class ApiObject implements Serializable, GetString {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @author Dick Schoeller
+     */
+    public static class Builder {
+        /** */
+        private String t;
+        /** */
+        private String d;
+        /** */
+        private final List<ApiAttribute> attributes = new ArrayList<>();
+
+        /**
+         * @param type the type
+         * @return this
+         */
+        public final Builder type(final String type) {
+            this.t = type;
+            return this;
+        }
+
+        /**
+         * @param id the id
+         * @return this
+         */
+        public final Builder id(final String id) {
+            this.d = id;
+            return this;
+        }
+
+        /**
+         * @param attribute an attribute
+         * @return this
+         */
+        public final Builder add(final ApiAttribute attribute) {
+            attributes.add(attribute);
+            return this;
+        }
+
+        /**
+         * @return the type string
+         */
+        /* default */ final String getType() {
+            return t;
+        }
+
+        /**
+         * @return the id
+         */
+        /* default */ final String getId() {
+            return d;
+        }
+
+        /**
+         * @return the attributes
+         */
+        /* default */ final List<ApiAttribute> getAttributes() {
+            return attributes;
+        }
+
+        /**
+         * Build.
+         *
+         * @return this
+         */
+        public Builder build() {
+            if (t == null) {
+                t = "object";
+            }
+            if (d == null) {
+                d = "";
+            }
+            return this;
+        }
     }
 }

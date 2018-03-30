@@ -45,6 +45,15 @@ public class ApiHasImages extends ApiObject {
     }
 
     /**
+     * Constructor.
+     *
+     * @param builder a builder for this object type
+     */
+    public ApiHasImages(final Builder builder) {
+        super(builder);
+    }
+
+    /**
      * @return the list of image attributes
      */
     public final List<ApiAttribute> getImages() {
@@ -85,5 +94,21 @@ public class ApiHasImages extends ApiObject {
         }
         final ApiHasImages other = (ApiHasImages) obj;
         return listCompare(images, other.getImages());
+    }
+
+    /**
+     * @author Dick Schoeller
+     */
+    public static class Builder extends ApiObject.Builder {
+
+        /**
+         * Build.
+         *
+         * @return this
+         */
+        public Builder build() {
+            super.build();
+            return this;
+        }
     }
 }

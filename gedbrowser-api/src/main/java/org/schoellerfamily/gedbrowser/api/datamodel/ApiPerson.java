@@ -58,22 +58,6 @@ public final class ApiPerson extends ApiHasImages {
     /**
      * Constructor.
      *
-     * @param type a string describing the data type of this object
-     * @param string a string containing the primary value of this object
-     * @param indexName the name in a form that is usable for indexing
-     * @param surname the surname
-     */
-    public ApiPerson(final String type, final String string,
-            final String indexName, final String surname) {
-        super(type, string);
-        this.indexName = indexName;
-        this.surname = surname;
-        this.lifespan = new ApiLifespan();
-    }
-
-    /**
-     * Constructor.
-     *
      * @param in a person to copy (except for the ID)
      * @param string the ID of this object
      */
@@ -95,7 +79,7 @@ public final class ApiPerson extends ApiHasImages {
      * @param builder a builder
      */
     public ApiPerson(final Builder builder) {
-        super(builder.getType(), builder.getId(), builder.getAttributes());
+        super(builder);
         this.indexName = builder.getIndexName();
         this.surname = builder.getSurname();
         this.lifespan = builder.getLifespan();
@@ -264,46 +248,13 @@ public final class ApiPerson extends ApiHasImages {
     /**
      * @author Dick Schoeller
      */
-    public static final class Builder {
-        /** */
-        private String t;
-        /** */
-        private String d;
-        /** */
-        private final List<ApiAttribute> attributes = new ArrayList<>();
+    public static final class Builder extends ApiHasImages.Builder {
         /** */
         private String s;
         /** */
         private String i;
         /** */
         private ApiLifespan l;
-
-        /**
-         * @param type the type
-         * @return this
-         */
-        public Builder type(final String type) {
-            this.t = type;
-            return this;
-        }
-
-        /**
-         * @param id the id
-         * @return this
-         */
-        public Builder id(final String id) {
-            this.d = id;
-            return this;
-        }
-
-        /**
-         * @param attribute an attribute
-         * @return this
-         */
-        public Builder add(final ApiAttribute attribute) {
-            attributes.add(attribute);
-            return this;
-        }
 
         /**
          * @param surname the surname
@@ -331,26 +282,6 @@ public final class ApiPerson extends ApiHasImages {
             this.l = lifespan;
             return this;
         }
-        /**
-         * @return the type string
-         */
-        /* default */ String getType() {
-            return t;
-        }
-
-        /**
-         * @return the id
-         */
-        /* default */ String getId() {
-            return d;
-        }
-
-        /**
-         * @return the attributes
-         */
-        /* default */ List<ApiAttribute> getAttributes() {
-            return attributes;
-        }
 
         /**
          * @return the surname
@@ -377,12 +308,8 @@ public final class ApiPerson extends ApiHasImages {
          * @return this
          */
         public Builder build() {
-            if (t == null) {
-                t = "person";
-            }
-            if (d == null) {
-                d = "";
-            }
+            type("person");
+            super.build();
             if (s == null) {
                 s = "?";
             }
