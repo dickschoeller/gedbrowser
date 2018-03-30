@@ -3,20 +3,23 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
 import {ApiHead} from '../models';
+import {UrlBuilder} from './urlbuilder';
 
 @Injectable()
 export class HeadService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getOne(db: string, id: string): Observable<ApiHead> {
-    return this.http
-      .get<ApiHead>(
-        'http://largo.schoellerfamily.org:9084/gedbrowser-api/v1/dbs/' + db);
+    return this.http.get<ApiHead>(this.url(db));
   }
 
   put(db: string, head: ApiHead): Observable<ApiHead> {
-    return this.http.put<ApiHead>(
-      'http://largo.schoellerfamily.org:9084/gedbrowser-api/v1/dbs/' + db, head);
+    return this.http.put<ApiHead>(this.url(db), head);
+  }
+
+  url(db) {
+    const ub = new UrlBuilder(db);
+    return ub.baseUrl();
   }
 }

@@ -3,19 +3,21 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
 import {ApiPerson} from '../models';
+import {SpecialPost} from './special-post';
 import {UrlBuilder} from './urlbuilder';
 
 @Injectable()
-export class SpouseService {
-  constructor(private http: HttpClient) {}
-
-  postSpouseToPerson(db: string, id: string, person: ApiPerson): Observable<ApiPerson> {
-    const ub = new UrlBuilder(db);
-    return this.http.post<ApiPerson>(ub.spousesUrl('persons', id), person);
+export class SpouseService extends SpecialPost<ApiPerson> {
+  postSpouseToPerson(db, id, person: ApiPerson): Observable<ApiPerson> {
+    return this.post(this.url(db, 'persons', id), person);
   }
 
-  postSpouseToFamily(db: string, id: string, person: ApiPerson): Observable<ApiPerson> {
+  postSpouseToFamily(db, id, person: ApiPerson): Observable<ApiPerson> {
+    return this.post(this.url(db, 'families', id), person);
+  }
+
+  url(db, t, id) {
     const ub = new UrlBuilder(db);
-    return this.http.post<ApiPerson>(ub.spousesUrl('families', id), person);
+    return ub.spousesUrl(t, id);
   }
 }
