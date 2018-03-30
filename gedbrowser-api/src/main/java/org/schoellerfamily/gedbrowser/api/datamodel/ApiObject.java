@@ -74,7 +74,7 @@ public class ApiObject implements Serializable, GetString {
      *
      * @param builder a builder for this object type
      */
-    public ApiObject(final Builder builder) {
+    public ApiObject(final Builder<?> builder) {
         super();
         this.type = builder.getType();
         this.string = builder.getId();
@@ -239,8 +239,10 @@ public class ApiObject implements Serializable, GetString {
 
     /**
      * @author Dick Schoeller
+     *
+     * @param <T> the actual type
      */
-    public static class Builder {
+    public static class Builder<T extends ApiObject.Builder<T>> {
         /** */
         private String t;
         /** */
@@ -252,7 +254,7 @@ public class ApiObject implements Serializable, GetString {
          * @param type the type
          * @return this
          */
-        public final Builder type(final String type) {
+        public Builder<T> type(final String type) {
             this.t = type;
             return this;
         }
@@ -261,7 +263,7 @@ public class ApiObject implements Serializable, GetString {
          * @param id the id
          * @return this
          */
-        public final Builder id(final String id) {
+        public Builder<T> id(final String id) {
             this.d = id;
             return this;
         }
@@ -270,7 +272,7 @@ public class ApiObject implements Serializable, GetString {
          * @param attribute an attribute
          * @return this
          */
-        public final Builder add(final ApiAttribute attribute) {
+        public Builder<T> add(final ApiAttribute attribute) {
             attributes.add(attribute);
             return this;
         }
@@ -301,7 +303,7 @@ public class ApiObject implements Serializable, GetString {
          *
          * @return this
          */
-        public Builder build() {
+        public Builder<T> build() {
             if (t == null) {
                 t = "object";
             }

@@ -49,7 +49,7 @@ public class ApiHasImages extends ApiObject {
      *
      * @param builder a builder for this object type
      */
-    public ApiHasImages(final Builder builder) {
+    public ApiHasImages(final Builder<?> builder) {
         super(builder);
     }
 
@@ -98,15 +98,17 @@ public class ApiHasImages extends ApiObject {
 
     /**
      * @author Dick Schoeller
+     *
+     * @param <T> the actual type
      */
-    public static class Builder extends ApiObject.Builder {
-
+    public static class Builder<T extends ApiObject.Builder<T>>
+            extends ApiObject.Builder<T> {
         /**
          * Build.
          *
          * @return this
          */
-        public Builder build() {
+        public Builder<T> build() {
             super.build();
             return this;
         }
