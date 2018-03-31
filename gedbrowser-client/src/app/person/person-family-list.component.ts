@@ -5,6 +5,7 @@ import {Component, Input} from '@angular/core';
 import {ApiAttribute, ApiPerson} from '../shared';
 import {ApiFamily} from '../shared/models';
 import {SpouseService, PersonService} from '../shared/services';
+import { PersonCreator } from './person-creator';
 import {PersonComponent} from './person.component';
 
 /**
@@ -18,45 +19,38 @@ import {PersonComponent} from './person.component';
   templateUrl: './person-family-list.component.html',
   styleUrls: ['./person-family-list.component.css']
 })
-export class PersonFamilyListComponent {
+export class PersonFamilyListComponent extends PersonCreator {
   @Input() parent: PersonComponent;
   @Input() person: ApiPerson;
-  nph = new NewPersonHelper();
 
   constructor(public dialog: MatDialog,
     private spouseService: SpouseService,
-    private personService: PersonService) { }
-
-  createFamilyWithChild(): void {
-    const dataIn = this.nph.initialData('M', 'Anonymous');
-    const dialogRef: MatDialogRef<NewPersonDialogComponent> =
-      this.dialog.open(NewPersonDialogComponent, this.nph.config(dataIn));
-    dialogRef.afterClosed().subscribe(result => this.saveNewChild(result));
+    private personService: PersonService) {
+    super(dialog);
   }
 
-  private saveNewChild(dialogData: NewPersonDialogData): void {
-    if (this.nph.empty(dialogData)) {
+  createFamilyWithChild(): void {
+    this.newPersonDialog('M', 'Anonymous', this.saveNewChild);
+  }
+
+  saveNewChild(dialogData: NewPersonDialogData, that: PersonFamilyListComponent): void {
+    if (that.nph.empty(dialogData)) {
       return;
     }
-    const newPerson: ApiPerson = this.nph.buildPerson(dialogData);
-//    this.childService.postChildToPerson('schoeller', this.person.string, newPerson).subscribe(
-//      (data: ApiPerson) => this.refreshPerson());
+    const newPerson: ApiPerson = that.nph.buildPerson(dialogData);
   }
 
   createFamilyWithSpouse(): void {
-    const dataIn: NewPersonDialogData = this.nph.initialData('F', 'Anonyma');
-    const dialogRef: MatDialogRef<NewPersonDialogComponent> =
-      this.dialog.open(NewPersonDialogComponent, this.nph.config(dataIn));
-    dialogRef.afterClosed().subscribe(result => this.saveNewSpouse(result));
+    this.newPersonDialog('F', 'Anonyma', this.saveNewSpouse);
   }
 
-  private saveNewSpouse(dialogData: NewPersonDialogData): void {
-    if (this.nph.empty(dialogData)) {
+  saveNewSpouse(dialogData: NewPersonDialogData, that: PersonFamilyListComponent): void {
+    if (that.nph.empty(dialogData)) {
       return;
     }
-    const newPerson: ApiPerson = this.nph.buildPerson(dialogData);
-    this.spouseService.postSpouseToPerson('schoeller', this.person.string, newPerson).subscribe(
-      (data: ApiPerson) => this.refreshPerson());
+    const newPerson: ApiPerson = that.nph.buildPerson(dialogData);
+    that.spouseService.postSpouseToPerson('schoeller', that.person.string, newPerson).subscribe(
+      (data: ApiPerson) => that.refreshPerson());
   }
 
   private refreshPerson() {
@@ -68,4 +62,7 @@ export class PersonFamilyListComponent {
     this.person = person;
     this.parent.person = person;
   }
+
+  // Implemented for the interface. Not needed here.
+  public saveNewParent(dialogData: NewPersonDialogData) { }
 }

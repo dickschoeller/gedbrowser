@@ -4,6 +4,7 @@ import {MatDialogRef, MatDialog} from '@angular/material';
 import {NewPersonDialogData, NewPersonDialogComponent, NewPersonHelper} from '../new-person-dialog';
 import {ApiAttribute, ApiPerson, ApiFamily} from '../shared/models';
 import {PersonService, FamilyService, ParentService} from '../shared/services';
+import { PersonCreator } from './person-creator';
 import {PersonComponent} from './person.component';
 
 @Component({
@@ -11,31 +12,28 @@ import {PersonComponent} from './person.component';
   templateUrl: './person-parent-families.component.html',
   styleUrls: ['./person-parent-families.component.css']
 })
-export class PersonParentFamiliesComponent {
+export class PersonParentFamiliesComponent extends PersonCreator {
   @Input() parent: PersonComponent;
   @Input() person: ApiPerson;
-  nph = new NewPersonHelper();
 
   constructor(public dialog: MatDialog,
     private personService: PersonService,
     private familyService: FamilyService,
-    private parentService: ParentService) {}
-
-  createParentFamily() {
-    const dataIn: NewPersonDialogData =
-      this.nph.initialData('M', 'Anonymous/' + this.person.surname + '/');
-    const dialogRef: MatDialogRef<NewPersonDialogComponent> =
-      this.dialog.open(NewPersonDialogComponent, this.nph.config(dataIn));
-    dialogRef.afterClosed().subscribe(result => this.saveNewParent(result));
+    private parentService: ParentService) {
+    super(dialog);
   }
 
-  private saveNewParent(dialogData: NewPersonDialogData) {
-    if (this.nph.empty(dialogData)) {
+  createParentFamily() {
+    this.newPersonDialog('M', 'Anonymous/' + this.person.surname + '/', this.saveNewParent);
+  }
+
+  public saveNewParent(dialogData: NewPersonDialogData, that: PersonParentFamiliesComponent) {
+    if (that.nph.empty(dialogData)) {
       return;
     }
-    const newPerson: ApiPerson = this.nph.buildPerson(dialogData);
-    this.parentService.postToPerson('schoeller', this.person.string, newPerson).subscribe(
-      (data: ApiPerson) => this.refreshPerson());
+    const newPerson: ApiPerson = that.nph.buildPerson(dialogData);
+    that.parentService.postToPerson('schoeller', that.person.string, newPerson).subscribe(
+      (data: ApiPerson) => that.refreshPerson());
   }
 
   private refreshPerson() {
