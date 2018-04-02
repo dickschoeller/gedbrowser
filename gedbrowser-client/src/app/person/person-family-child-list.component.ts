@@ -1,9 +1,10 @@
 import {Component, Input} from '@angular/core';
 import {MatDialogRef, MatDialog} from '@angular/material';
 
-import {NewPersonDialogData, NewPersonDialogComponent, NewPersonHelper} from '../new-person-dialog';
-import {ApiAttribute, ApiFamily, ApiPerson} from '../shared/models';
-import {PersonService, FamilyService} from '../shared/services';
+import {ApiAttribute, ApiFamily} from '../shared/models';
+import {NewPersonLinkService, PersonService} from '../shared/services';
+import { UrlBuilder } from '../shared/services/urlbuilder';
+import {PersonCreator} from './person-creator';
 import {PersonFamilyComponent} from './person-family.component';
 
 /**
@@ -17,34 +18,29 @@ import {PersonFamilyComponent} from './person-family.component';
   templateUrl: './person-family-child-list.component.html',
   styleUrls: ['./person-family-child-list.component.css']
 })
-export class PersonFamilyChildListComponent {
+export class PersonFamilyChildListComponent extends PersonCreator {
   @Input() children: Array<ApiAttribute>;
   @Input() family: ApiFamily;
   @Input() parentComponent: PersonFamilyComponent;
-  nph = new NewPersonHelper();
 
   constructor(public dialog: MatDialog,
-//    private childService: ChildService,
-    private personService: PersonService,
-    private familyService: FamilyService) { }
-
-  createChild(): void {
-    const dataIn: NewPersonDialogData = this.nph.initialData(
-      'M', 'Anonymous/' + this.parentComponent.person.surname + '/');
-    const dialogRef: MatDialogRef<NewPersonDialogComponent> =
-      this.dialog.open(NewPersonDialogComponent, this.nph.config(dataIn));
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.saveNewPerson(result);
-    });
+    private newPersonLinkService: NewPersonLinkService,
+    private personService: PersonService) {
+    super(dialog);
   }
 
-  private saveNewPerson(dialogData: NewPersonDialogData): void {
-    if (this.nph.empty(dialogData)) {
-      return;
-    }
-    const newPerson: ApiPerson = this.nph.buildPerson(dialogData);
-//    this.childService.postChildToFamily('schoeller', this.family.string, newPerson).subscribe(
-//      (data: ApiPerson) => this.parentComponent.ngOnInit());
+  createChild(): void {
+    this.newPersonDialog2('M', 'Anonymous/' + this.parentComponent.person.surname + '/',
+      this.newPersonLinkService,
+      new UrlBuilder('schoeller', 'families', 'children'));
+  }
+
+  anchor(): string {
+    return this.family.string;
+  }
+
+  refreshPerson(): void {
+    this.personService.getOne('schoeller', this.parentComponent.person.string).subscribe(
+      (person: any) => this.parentComponent.refreshPerson());
   }
 }

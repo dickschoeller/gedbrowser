@@ -5,8 +5,10 @@ import {Observable} from 'rxjs/Observable';
 
 import {NewPersonDialogData, NewPersonDialogComponent, NewPersonHelper} from '../new-person-dialog';
 import {ApiAttribute, ApiFamily, ApiPerson} from '../shared/models';
-import {FamilyService, PersonService, SpouseService} from '../shared/services';
+import {FamilyService, PersonService, NewPersonLinkService} from '../shared/services';
+import {UrlBuilder} from '../shared/services/urlbuilder';
 import {ImageUtil} from '../shared/util';
+import {PersonCreator} from './person-creator';
 
 /**
  * Implements a family block within a person page.
@@ -24,7 +26,7 @@ import {ImageUtil} from '../shared/util';
   templateUrl: './person-family.component.html',
   styleUrls: ['./person-family.component.css']
 })
-export class PersonFamilyComponent implements OnInit {
+export class PersonFamilyComponent extends PersonCreator implements OnInit {
   @Input() string: string;
   @Input() person: ApiPerson;
   @Input() index: number;
@@ -38,7 +40,9 @@ export class PersonFamilyComponent implements OnInit {
   constructor(public dialog: MatDialog,
     private familyService: FamilyService,
     private personService: PersonService,
-    private spouseService: SpouseService) {}
+    private newPersonLinkService: NewPersonLinkService) {
+    super(dialog);
+  }
 
   ngOnInit() {
     this.familyService.getOne('schoeller', this.string)
@@ -69,19 +73,16 @@ export class PersonFamilyComponent implements OnInit {
   }
 
   createSpouse(): void {
-    const dataIn: NewPersonDialogData = this.nph.initialData('F', 'Anonyma');
-    const dialogRef: MatDialogRef<NewPersonDialogComponent> =
-      this.dialog.open(NewPersonDialogComponent, this.nph.config(dataIn));
-    dialogRef.afterClosed().subscribe(result => this.saveNewSpouse(result));
+    this.newPersonDialog2('F', 'Anonyma',
+      this.newPersonLinkService, new UrlBuilder('schoeller', 'families', 'spouses'));
   }
 
-  private saveNewSpouse(dialogData: NewPersonDialogData): void {
-    if (this.nph.empty(dialogData)) {
-      return;
-    }
-    const newPerson: ApiPerson = this.nph.buildPerson(dialogData);
-    this.spouseService.postSpouseToFamily('schoeller', this.family.string, newPerson).subscribe(
-      (data: ApiPerson) => this.ngOnInit());
+  anchor() {
+    return this.family.string;
+  }
+
+  refreshPerson() {
+    this.ngOnInit();
   }
 
   galleryImages(): Array<NgxGalleryImage> {

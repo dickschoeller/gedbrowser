@@ -49,14 +49,11 @@ import {SourceModule} from './source/source.module';
 import {SubmitterListModule} from './submitter-list/submitter-list.module';
 import {SubmitterModule} from './submitter/submitter.module';
 import {
-  SpecialPost,
   ServiceBase,
-  ChildService,
   FamilyService,
-  ParentService,
+  NewPersonLinkService,
   PersonService,
   SourceService,
-  SpouseService,
   SubmitterService,
   SaveService
 } from './shared/services';
@@ -128,11 +125,9 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     NewPersonDialogComponent,
   ],
   providers: [
-    ChildService,
+    NewPersonLinkService,
     FamilyService,
-    ParentService,
     PersonService,
-    SpouseService,
     SourceService,
     SubmitterService,
     SaveService
