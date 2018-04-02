@@ -213,26 +213,18 @@ public final class GeoCodeItem {
     private static boolean geometryCompare(final Geometry result,
             final Geometry other) {
         if (result == null) {
-            if (other != null) {
-                return false;
-            }
-        } else {
-            if (other == null) {
-                return false;
-            }
-            if (result.location == null) {
-                if (other.location != null) {
-                    return false;
-                }
-            } else {
-                if (other.location == null) {
-                    return false;
-                }
-                return result.location.toString()
-                        .equals(other.location.toString());
-            }
+            return other == null;
         }
-        return true;
+        if (other == null) {
+            return false;
+        }
+        if (result.location == null) {
+            return other.location == null;
+        }
+        if (other.location == null) {
+            return false;
+        }
+        return result.location.toString().equals(other.location.toString());
     }
 
     /**
