@@ -2,7 +2,8 @@ import {Component, Input} from '@angular/core';
 import {MatDialogRef, MatDialog} from '@angular/material';
 
 import {ApiAttribute, ApiFamily} from '../shared/models';
-import {ChildToFamilyService, PersonService} from '../shared/services';
+import {NewPersonLinkService, PersonService} from '../shared/services';
+import { UrlBuilder } from '../shared/services/urlbuilder';
 import {PersonCreator} from './person-creator';
 import {PersonFamilyComponent} from './person-family.component';
 
@@ -23,13 +24,15 @@ export class PersonFamilyChildListComponent extends PersonCreator {
   @Input() parentComponent: PersonFamilyComponent;
 
   constructor(public dialog: MatDialog,
-    private childToFamilyService: ChildToFamilyService,
+    private newPersonLinkService: NewPersonLinkService,
     private personService: PersonService) {
     super(dialog);
   }
 
   createChild(): void {
-    this.newPersonDialog1('M', 'Anonymous/' + this.parentComponent.person.surname + '/', this.childToFamilyService);
+    this.newPersonDialog2('M', 'Anonymous/' + this.parentComponent.person.surname + '/',
+      this.newPersonLinkService,
+      new UrlBuilder('schoeller', 'families', 'children'));
   }
 
   anchor(): string {

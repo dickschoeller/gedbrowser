@@ -33,7 +33,7 @@ export abstract class ServiceBase<T extends ApiObject> implements ApiService<T> 
   }
 
   baseUrl(db) {
-    const ub = new UrlBuilder(db);
+    const ub = new UrlBuilder(db, '', '');
     return ub.baseUrl();
   }
 }

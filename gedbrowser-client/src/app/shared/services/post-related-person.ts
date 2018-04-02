@@ -1,6 +1,7 @@
-import {ApiPerson} from '../models';
 import {Observable} from 'rxjs/Observable';
+import {ApiPerson} from '../models';
+import {UrlBuilder} from './urlbuilder';
 
 export interface PostRelatedPerson {
-    post(db: string, id: string, person: ApiPerson): Observable<ApiPerson>;
+    p(ub: UrlBuilder, id: string, person: ApiPerson): Observable<ApiPerson>;
 }

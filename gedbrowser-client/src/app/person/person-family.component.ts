@@ -5,7 +5,8 @@ import {Observable} from 'rxjs/Observable';
 
 import {NewPersonDialogData, NewPersonDialogComponent, NewPersonHelper} from '../new-person-dialog';
 import {ApiAttribute, ApiFamily, ApiPerson} from '../shared/models';
-import {FamilyService, PersonService, SpouseToFamilyService} from '../shared/services';
+import {FamilyService, PersonService, NewPersonLinkService} from '../shared/services';
+import {UrlBuilder} from '../shared/services/urlbuilder';
 import {ImageUtil} from '../shared/util';
 import {PersonCreator} from './person-creator';
 
@@ -39,7 +40,7 @@ export class PersonFamilyComponent extends PersonCreator implements OnInit {
   constructor(public dialog: MatDialog,
     private familyService: FamilyService,
     private personService: PersonService,
-    private spouseToFamilyService: SpouseToFamilyService) {
+    private newPersonLinkService: NewPersonLinkService) {
     super(dialog);
   }
 
@@ -72,7 +73,8 @@ export class PersonFamilyComponent extends PersonCreator implements OnInit {
   }
 
   createSpouse(): void {
-    this.newPersonDialog1('F', 'Anonyma', this.spouseToFamilyService);
+    this.newPersonDialog2('F', 'Anonyma',
+      this.newPersonLinkService, new UrlBuilder('schoeller', 'families', 'spouses'));
   }
 
   anchor() {

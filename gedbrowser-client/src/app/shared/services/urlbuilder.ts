@@ -1,7 +1,11 @@
 export class UrlBuilder {
   db: string;
-  constructor(db: string) {
+  t: string;
+  sub: string;
+  constructor(db: string, t: string, sub: string) {
     this.db = db;
+    this.t = t;
+    this.sub = sub;
   }
 
   baseUrl(): string {
@@ -9,7 +13,7 @@ export class UrlBuilder {
       + this.db;
   }
 
-  url(t, id, sub) {
-    return this.baseUrl() + '/' + t + '/' + id + '/' + sub;
+  url(id) {
+    return this.baseUrl() + '/' + this.t + '/' + id + '/' + this.sub;
   }
 }

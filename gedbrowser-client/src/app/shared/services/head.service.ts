@@ -19,7 +19,7 @@ export class HeadService {
   }
 
   url(db) {
-    const ub = new UrlBuilder(db);
+    const ub = new UrlBuilder(db, '', '');
     return ub.baseUrl();
   }
 }

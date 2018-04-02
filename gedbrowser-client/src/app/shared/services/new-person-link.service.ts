@@ -7,11 +7,10 @@ import {PostRelatedPerson} from './post-related-person';
 import {UrlBuilder} from './urlbuilder';
 
 @Injectable()
-export class ChildToPersonService implements PostRelatedPerson {
+export class NewPersonLinkService implements PostRelatedPerson {
   constructor(private http: HttpClient) {}
 
-  post(db: string, id: string, person: ApiPerson): Observable<ApiPerson> {
-    const ub = new UrlBuilder(db);
-    return this.http.post<ApiPerson>(ub.url('persons', id, 'children'), person);
+  p(ub: UrlBuilder, id: string, person: ApiPerson): Observable<ApiPerson> {
+    return this.http.post<ApiPerson>(ub.url(id), person);
   }
 }
