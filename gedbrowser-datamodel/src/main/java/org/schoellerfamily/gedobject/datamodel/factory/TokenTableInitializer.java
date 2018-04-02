@@ -205,7 +205,7 @@ public final class TokenTableInitializer {
     }
 
     /**
-     * Method to initialize the tokens for top level items
+     * Method to initialize the tokens for top level items.
      */
     private void initLevel0FactoryTokens() {
         put("ROOT", "Root", AbstractGedObjectFactory.ROOT_FACTORY);
