@@ -190,6 +190,7 @@ public final class TokenTableInitializer {
      */
     public TokenTableInitializer() {
         initAttributeTokens();
+        initLevel0FactoryTokens();
         initSpecialFactoryTokens();
     }
 
@@ -204,6 +205,22 @@ public final class TokenTableInitializer {
     }
 
     /**
+     * Method to initialize the tokens for top level items
+     */
+    private void initLevel0FactoryTokens() {
+        put("ROOT", "Root", AbstractGedObjectFactory.ROOT_FACTORY);
+        put("HEAD", "Header", AbstractGedObjectFactory.HEAD_FACTORY);
+        put("FAM", "Family", AbstractGedObjectFactory.FAMILY_FACTORY);
+        put("INDI", "Person", AbstractGedObjectFactory.PERSON_FACTORY);
+        put("NOTE", "Note", AbstractGedObjectFactory.NOTE_FACTORY);
+        put("OBJE", "Multimedia", AbstractGedObjectFactory.MULTIMEDIA_FACTORY);
+        put("SOUR", "Source", AbstractGedObjectFactory.SOURCE_FACTORY);
+        put("SUBM", "Submitter", AbstractGedObjectFactory.SUBMITTER_FACTORY);
+        put("SUBN", "Submission", AbstractGedObjectFactory.SUBMISSION_FACTORY);
+        put("TRLR", "Trailer", AbstractGedObjectFactory.TRAILER_FACTORY);
+    }
+
+    /**
      * Method to initialize the tokens that use something other than the
      * attribute factory.
      */
@@ -212,23 +229,13 @@ public final class TokenTableInitializer {
         put("CONC", "Concatenate", AbstractGedObjectFactory.CONCAT_FACTORY);
         put("CONT", "Continuation", AbstractGedObjectFactory.CONTIN_FACTORY);
         put("DATE", "Date", AbstractGedObjectFactory.DATE_FACTORY);
-        put("FAM", "Family", AbstractGedObjectFactory.FAMILY_FACTORY);
         put("FAMC", "Child of Family", AbstractGedObjectFactory.FAMC_FACTORY);
         put("FAMS", "Spouse of Family", AbstractGedObjectFactory.FAMS_FACTORY);
-        put("HEAD", "Header", AbstractGedObjectFactory.HEAD_FACTORY);
         put("HUSB", "Husband", AbstractGedObjectFactory.HUSBAND_FACTORY);
-        put("INDI", "Person", AbstractGedObjectFactory.PERSON_FACTORY);
         put("LINK", "Link", AbstractGedObjectFactory.LINK_FACTORY);
         put("NAME", "Name", AbstractGedObjectFactory.NAME_FACTORY);
-        put("NOTE", "Note", AbstractGedObjectFactory.NOTE_FACTORY);
-        put("OBJE", "Multimedia", AbstractGedObjectFactory.MULTIMEDIA_FACTORY);
         put("PLAC", "Place", AbstractGedObjectFactory.PLACE_FACTORY);
         put("PLACE", "Place", AbstractGedObjectFactory.PLACE_FACTORY);
-        put("ROOT", "Root", AbstractGedObjectFactory.ROOT_FACTORY);
-        put("SOUR", "Source", AbstractGedObjectFactory.SOURCE_FACTORY);
-        put("SUBM", "Submitter", AbstractGedObjectFactory.SUBMITTER_FACTORY);
-        put("SUBN", "Submission", AbstractGedObjectFactory.SUBMISSION_FACTORY);
-        put("TRLR", "Trailer", AbstractGedObjectFactory.TRAILER_FACTORY);
         put("WIFE", "Wife", AbstractGedObjectFactory.WIFE_FACTORY);
     }
 
