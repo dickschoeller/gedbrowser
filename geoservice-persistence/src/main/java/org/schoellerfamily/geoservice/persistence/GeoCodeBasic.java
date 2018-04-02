@@ -78,25 +78,13 @@ public abstract class GeoCodeBasic implements GeoCode {
         logger.debug(
                 "find(\"" + placeName + "\", \"" + modernPlaceName + "\")");
         final GeoDocument geoDocument = getDocument(placeName);
-        GeoCodeItem gcce;
         if (geoDocument != null) {
             // We found one.
             if (modernPlaceName.equals(geoDocument.getModernName())) {
                 // Modern name matches existing, so we don't have a change.
                 if (geoDocument.getResult() == null) {
-                    // No result, try to get.
-                    final GeocodingResult[] results = geoCoder.geocode(
-                            modernPlaceName);
-                    if (results.length == 0) {
-                        // Not found, so current is good enough.
-                        return geoDocument.getGeoItem();
-                    }
-
-                    // Replace item in cache with new one.
-                    gcce = new GeoCodeItem(placeName, modernPlaceName,
-                            results[0]);
-                    add(gcce);
-                    return gcce;
+                    return modernWithNoResult(placeName, modernPlaceName,
+                            geoDocument);
                 } else {
                     // Fully formed return it.
                     return geoDocument.getGeoItem();
@@ -107,18 +95,14 @@ public abstract class GeoCodeBasic implements GeoCode {
                 final GeocodingResult[] results = geoCoder.geocode(
                         modernPlaceName);
                 if (results.length == 0) {
-                    gcce = new GeoCodeItem(placeName, modernPlaceName);
-                    add(gcce);
-                    return gcce;
+                    return noModernResult(placeName, modernPlaceName);
                 } else {
-                    gcce = new GeoCodeItem(placeName, modernPlaceName,
-                            results[0]);
-                    add(gcce);
-                    return gcce;
+                    return newModernResult(placeName, modernPlaceName, results);
                 }
             }
         }
 
+        GeoCodeItem gcce;
         // Not found in cache. Let's see what we can find.
         final GeocodingResult[] results = geoCoder.geocode(modernPlaceName);
         if (results.length > 0) {
@@ -128,6 +112,57 @@ public abstract class GeoCodeBasic implements GeoCode {
             // Not found, create empty.
             gcce = new GeoCodeItem(placeName, modernPlaceName);
         }
+        add(gcce);
+        return gcce;
+    }
+
+
+    /**
+     * @param placeName the old place name
+     * @param modernPlaceName the modern place name
+     * @param results the geocoding result
+     * @return the new item
+     */
+    @SuppressWarnings("PMD.UseVarargs")
+    private GeoCodeItem newModernResult(final String placeName,
+            final String modernPlaceName, final GeocodingResult[] results) {
+        final GeoCodeItem gcce = new GeoCodeItem(placeName, modernPlaceName,
+                results[0]);
+        add(gcce);
+        return gcce;
+    }
+
+
+    /**
+     * @param placeName the old place name
+     * @param modernPlaceName the modern place name
+     * @return a geocode item
+     */
+    private GeoCodeItem noModernResult(final String placeName,
+            final String modernPlaceName) {
+        final GeoCodeItem gcce = new GeoCodeItem(placeName, modernPlaceName);
+        add(gcce);
+        return gcce;
+    }
+
+
+    /**
+     * @param placeName the old place name
+     * @param modernPlaceName the modern place name
+     * @param geoDocument the document
+     * @return the matching geocode item
+     */
+    private GeoCodeItem modernWithNoResult(final String placeName,
+            final String modernPlaceName, final GeoDocument geoDocument) {
+        // No result, try to get.
+        final GeocodingResult[] results = geoCoder.geocode(modernPlaceName);
+        if (results.length == 0) {
+            // Not found, so current is good enough.
+            return geoDocument.getGeoItem();
+        }
+
+        final GeoCodeItem gcce =
+                new GeoCodeItem(placeName, modernPlaceName, results[0]);
         add(gcce);
         return gcce;
     }
