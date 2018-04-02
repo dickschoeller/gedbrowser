@@ -4,8 +4,8 @@ import {NewPersonDialogData, NewPersonDialogComponent, NewPersonHelper} from '..
 import {Component, Input} from '@angular/core';
 import {ApiAttribute, ApiPerson} from '../shared';
 import {ApiFamily} from '../shared/models';
-import {SpouseService, PersonService} from '../shared/services';
-import { PersonCreator } from './person-creator';
+import {ChildToPersonService, SpouseToPersonService, PersonService} from '../shared/services';
+import {PersonCreator} from './person-creator';
 import {PersonComponent} from './person.component';
 
 /**
@@ -24,36 +24,25 @@ export class PersonFamilyListComponent extends PersonCreator {
   @Input() person: ApiPerson;
 
   constructor(public dialog: MatDialog,
-    private spouseService: SpouseService,
+    private childToPersonService: ChildToPersonService,
+    private spouseToPersonService: SpouseToPersonService,
     private personService: PersonService) {
     super(dialog);
   }
 
   createFamilyWithChild(): void {
-    this.newPersonDialog('M', 'Anonymous', this.saveNewChild);
-  }
-
-  saveNewChild(dialogData: NewPersonDialogData, that: PersonFamilyListComponent): void {
-    if (that.nph.empty(dialogData)) {
-      return;
-    }
-    const newPerson: ApiPerson = that.nph.buildPerson(dialogData);
+    this.newPersonDialog1('M', 'Anonymous', this.childToPersonService);
   }
 
   createFamilyWithSpouse(): void {
-    this.newPersonDialog('F', 'Anonyma', this.saveNewSpouse);
+    this.newPersonDialog1('F', 'Anonyma', this.spouseToPersonService);
   }
 
-  saveNewSpouse(dialogData: NewPersonDialogData, that: PersonFamilyListComponent): void {
-    if (that.nph.empty(dialogData)) {
-      return;
-    }
-    const newPerson: ApiPerson = that.nph.buildPerson(dialogData);
-    that.spouseService.postSpouseToPerson('schoeller', that.person.string, newPerson).subscribe(
-      (data: ApiPerson) => that.refreshPerson());
+  anchor(): string {
+    return this.person.string;
   }
 
-  private refreshPerson() {
+  refreshPerson(): void {
     this.personService.getOne('schoeller', this.person.string).subscribe(
       (person: ApiPerson) => this.updatePerson(person));
   }
@@ -62,7 +51,4 @@ export class PersonFamilyListComponent extends PersonCreator {
     this.person = person;
     this.parent.person = person;
   }
-
-  // Implemented for the interface. Not needed here.
-  public saveNewParent(dialogData: NewPersonDialogData) { }
 }

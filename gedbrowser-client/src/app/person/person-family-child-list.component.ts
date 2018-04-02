@@ -1,10 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {MatDialogRef, MatDialog} from '@angular/material';
 
-import {NewPersonDialogData, NewPersonDialogComponent, NewPersonHelper} from '../new-person-dialog';
-import {ApiAttribute, ApiFamily, ApiPerson} from '../shared/models';
-import {ChildService, PersonService, FamilyService} from '../shared/services';
-import { PersonCreator } from './person-creator';
+import {ApiAttribute, ApiFamily} from '../shared/models';
+import {ChildToFamilyService, PersonService} from '../shared/services';
+import {PersonCreator} from './person-creator';
 import {PersonFamilyComponent} from './person-family.component';
 
 /**
@@ -22,25 +21,23 @@ export class PersonFamilyChildListComponent extends PersonCreator {
   @Input() children: Array<ApiAttribute>;
   @Input() family: ApiFamily;
   @Input() parentComponent: PersonFamilyComponent;
-  nph = new NewPersonHelper();
 
   constructor(public dialog: MatDialog,
-    private childService: ChildService,
-    private personService: PersonService,
-    private familyService: FamilyService) {
+    private childToFamilyService: ChildToFamilyService,
+    private personService: PersonService) {
     super(dialog);
   }
 
   createChild(): void {
-    this.newPersonDialog('M', 'Anonymous/' + this.parentComponent.person.surname + '/', this.saveNewPerson);
+    this.newPersonDialog1('M', 'Anonymous/' + this.parentComponent.person.surname + '/', this.childToFamilyService);
   }
 
-  private saveNewPerson(dialogData: NewPersonDialogData, that: PersonFamilyChildListComponent): void {
-    if (that.nph.empty(dialogData)) {
-      return;
-    }
-    const newPerson: ApiPerson = that.nph.buildPerson(dialogData);
-    that.childService.postChildToFamily('schoeller', that.family.string, newPerson).subscribe(
-      (data: ApiPerson) => that.parentComponent.ngOnInit());
+  anchor(): string {
+    return this.family.string;
+  }
+
+  refreshPerson(): void {
+    this.personService.getOne('schoeller', this.parentComponent.person.string).subscribe(
+      (person: any) => this.parentComponent.refreshPerson());
   }
 }

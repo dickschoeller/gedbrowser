@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 
 import {NewPersonDialogData, NewPersonDialogComponent, NewPersonHelper} from '../new-person-dialog';
 import {ApiAttribute, ApiFamily, ApiPerson} from '../shared/models';
-import {FamilyService, PersonService, SpouseService} from '../shared/services';
+import {FamilyService, PersonService, SpouseToFamilyService} from '../shared/services';
 import {ImageUtil} from '../shared/util';
 import {PersonCreator} from './person-creator';
 
@@ -39,7 +39,7 @@ export class PersonFamilyComponent extends PersonCreator implements OnInit {
   constructor(public dialog: MatDialog,
     private familyService: FamilyService,
     private personService: PersonService,
-    private spouseService: SpouseService) {
+    private spouseToFamilyService: SpouseToFamilyService) {
     super(dialog);
   }
 
@@ -72,16 +72,15 @@ export class PersonFamilyComponent extends PersonCreator implements OnInit {
   }
 
   createSpouse(): void {
-    this.newPersonDialog('F', 'Anonyma', this.saveNewSpouse);
+    this.newPersonDialog1('F', 'Anonyma', this.spouseToFamilyService);
   }
 
-  public saveNewSpouse(dialogData: NewPersonDialogData, that: PersonFamilyComponent): void {
-    if (that.nph.empty(dialogData)) {
-      return;
-    }
-    const newPerson: ApiPerson = that.nph.buildPerson(dialogData);
-    that.spouseService.postSpouseToFamily('schoeller', that.family.string, newPerson).subscribe(
-      (data: ApiPerson) => that.ngOnInit());
+  anchor() {
+    return this.family.string;
+  }
+
+  refreshPerson() {
+    this.ngOnInit();
   }
 
   galleryImages(): Array<NgxGalleryImage> {

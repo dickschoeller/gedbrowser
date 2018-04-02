@@ -9,19 +9,7 @@ export class UrlBuilder {
       + this.db;
   }
 
-  typeUrl(t, id) {
-    return this.baseUrl() + '/' + t + '/' + id;
-  }
-
-  spousesUrl(t, id) {
-    return this.typeUrl(t, id) + '/spouses';
-  }
-
-  parentsUrl(t, id) {
-    return this.typeUrl(t, id) + '/parents';
-  }
-
-  childrenUrl(t, id) {
-    return this.typeUrl(t, id) + '/children';
+  url(t, id, sub) {
+    return this.baseUrl() + '/' + t + '/' + id + '/' + sub;
   }
 }

@@ -3,8 +3,8 @@ import {MatDialogRef, MatDialog} from '@angular/material';
 
 import {NewPersonDialogData, NewPersonDialogComponent, NewPersonHelper} from '../new-person-dialog';
 import {ApiAttribute, ApiPerson, ApiFamily} from '../shared/models';
-import {PersonService, FamilyService, ParentService} from '../shared/services';
-import { PersonCreator } from './person-creator';
+import {PersonService, ParentService} from '../shared/services';
+import {PersonCreator} from './person-creator';
 import {PersonComponent} from './person.component';
 
 @Component({
@@ -18,25 +18,19 @@ export class PersonParentFamiliesComponent extends PersonCreator {
 
   constructor(public dialog: MatDialog,
     private personService: PersonService,
-    private familyService: FamilyService,
     private parentService: ParentService) {
     super(dialog);
   }
 
   createParentFamily() {
-    this.newPersonDialog('M', 'Anonymous/' + this.person.surname + '/', this.saveNewParent);
+    this.newPersonDialog1('M', 'Anonymous/' + this.person.surname + '/', this.parentService);
   }
 
-  public saveNewParent(dialogData: NewPersonDialogData, that: PersonParentFamiliesComponent) {
-    if (that.nph.empty(dialogData)) {
-      return;
-    }
-    const newPerson: ApiPerson = that.nph.buildPerson(dialogData);
-    that.parentService.postToPerson('schoeller', that.person.string, newPerson).subscribe(
-      (data: ApiPerson) => that.refreshPerson());
+  anchor () {
+    return this.person.string;
   }
 
-  private refreshPerson() {
+  refreshPerson() {
     this.personService.getOne('schoeller', this.person.string).subscribe(
       (data: ApiPerson) => this.parent.person = data);
   }
