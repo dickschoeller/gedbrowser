@@ -9,11 +9,179 @@ import java.util.Map;
  *
  * @author Dick Schoeller
  */
-public class TokenTableInitializer {
+public final class TokenTableInitializer {
     /**
      * The token table.
      */
     private final Map<String, GedToken> tokens = new HashMap<>();
+
+    /**
+     * The list of short and long strings for standard attributes.
+     */
+    private static final String[][] ATTRIBUTE_PAIRS = {
+            {"ATTRIBUTE", "Attribute"},
+            {"ABBR", "Abbreviation"},
+            {"ABSTRACTOR", "Abstractor"},
+            {"ABT", "About"},
+            {"ACTIVE", "Active"},
+            {"ADDR", "Address"},
+            {"ADOP", "Adopted"},
+            {"ADBAP", "Adult Baptism"},
+            {"AFN", "Ancestral File Number"},
+            {"AFT", "After"},
+            {"AGE", "Age"},
+            {"ALIA", "Alias"},
+            {"ANCE", "Generations of ancestors"},
+            {"ANUL", "Anullment"},
+            {"AUDIO", "Audio"},
+            {"AUTH", "Author"},
+            {"AUTHOR", "Author"},
+            {"BAPM", "Baptism"},
+            {"BARM", "Bar Mitzvah"},
+            {"BASM", "Bat Mitzvah"},
+            {"BEF", "Before"},
+            {"BEGIN", "Begin"},
+            {"BET", "Between"},
+            {"BIRT", "Birth"},
+            {"BOOK", "Book"},
+            {"BRIS", "Bris Milah"},
+            {"BURI", "Burial"},
+            {"BUSINESS", "Business"},
+            {"CANCELED", "Canceled"},
+            {"CARD", "Card"},
+            {"CAST", "Caste"},
+            {"CAUS", "Cause"},
+            {"CEME", "Cemetery"},
+            {"CENS", "Census"},
+            {"CENSUS", "Census"},
+            {"CHAN", "Changed"},
+            {"CHAR", "Character Set"},
+            {"CHR", "Christening"},
+            {"CHURCH", "Church"},
+            {"COMPILER", "Compiler"},
+            {"COMPLETED", "Completed"},
+            {"CONF", "Confirmation"},
+            {"COPY", "Copy"},
+            {"COURT", "Court"},
+            {"DEAT", "Death"},
+            {"DESC", "Generations of descendants"},
+            {"DEST", "Destination"},
+            {"DIV", "Divorce"},
+            {"DIVF", "Divorce Final"},
+            {"DIVORCED", "Divorced"},
+            {"DONE", "Done"},
+            {"EDITOR", "Editor"},
+            {"EDUC", "Education"},
+            {"ELECTRONIC", "Electronic"},
+            {"EMIG", "Emigration"},
+            {"ENGA", "Engaged"},
+            {"EVEN", "Event"},
+            {"EXTRACT", "Extract"},
+            {"FAMF", "Family file"},
+            {"FATH", "Father"},
+            {"FEMALE", "Female"},
+            {"FICHE", "Fiche"},
+            {"FILE", "File"},
+            {"FILM", "Film"},
+            {"FORM", "Format"},
+            {"FOUND", "Found"},
+            {"FROM", "From"},
+            {"GEDC", "GEDCOM"},
+            {"GODP", "Godparent"},
+            {"GOVERNMENT", "Government"},
+            {"GRAD", "Graduation"},
+            {"HEIR", "Heir"},
+            {"HISTORY", "History"},
+            {"IMMI", "Immigration"},
+            {"INFANT", "Infant"},
+            {"INFORMANT", "Informant"},
+            {"INTERVIEW", "Interview"},
+            {"INTERVIEWER", "Interviewer"},
+            {"ISSUE", "Issue"},
+            {"ITEM", "Item"},
+            {"JOURNAL", "Journal"},
+            {"LANG", "Language"},
+            {"LETTER", "Letter"},
+            {"LINE", "Line"},
+            {"LINEAGE", "Lineage"},
+            {"MAGAZINE", "Magazine"},
+            {"MALE", "Male"},
+            {"MANUSCRIPT", "Manuscript"},
+            {"MAP", "Map"},
+            {"MARB", "Marriage Bans"},
+            {"MARL", "Marriage License"},
+            {"MARR", "Marriage"},
+            {"MARRIED", "Married"},
+            {"MEDI", "Media"},
+            {"MEMBER", "Member"},
+            {"MILITARY", "Military"},
+            {"MOTH", "Mother"},
+            {"NAMR", "Name (religious)"},
+            {"NAMING", "Naming"},
+            {"NAMS", "NAMS"},
+            {"NATU", "Naturalized"},
+            {"NCHI", "Number of Children"},
+            {"NEWLINE", "Newline"},
+            {"NEWSPAPER", "Newspaper"},
+            {"NMR", "Not Married"},
+            {"NUMBER", "Number"},
+            {"OCCU", "Occupation"},
+            {"ORDI", "Ordinance process flag"},
+            {"ORDERED", "Ordered"},
+            {"ORGANIZATION", "Organization"},
+            {"ORIGINAL", "Original"},
+            {"OTHER", "Other"},
+            {"PAGE", "Page"},
+            {"PERIODICAL", "Periodical"},
+            {"PERSONAL", "Personal"},
+            {"PHON", "Phone Number"},
+            {"PHOTO", "Photograph"},
+            {"PHOTOCOPY", "Photocopy"},
+            {"PLANNED", "Planned"},
+            {"PLOT", "Plot"},
+            {"PROB", "Probate"},
+            {"PROVED", "Proved"},
+            {"PUBL", "Published"},
+            {"QUAY", "Surety"},
+            {"RECITED", "Recited"},
+            {"REFN", "Reference Number"},
+            {"RELI", "Religion"},
+            {"REPO", "Repository"},
+            {"RESI", "Residence"},
+            {"RESN", "Restriction"},
+            {"RETI", "Retired"},
+            {"ROLE", "Role"},
+            {"SEX", "Sex"},
+            {"SINGLE", "Single"},
+            {"SITE", "Site"},
+            {"SOUND", "Sound"},
+            {"SPOU", "Spouse"},
+            {"SSN", "Social Security Number"},
+            {"STILLBORN", "Stillborn"},
+            {"SUBMITTED", "Submitted"},
+            {"TEMP", "Temple code"},
+            {"TEXT", "Text"},
+            {"TIME", "Time"},
+            {"TITL", "Title"},
+            {"TO", "To"},
+            {"TOKEN", "Token"},
+            {"TOMBSTONE", "Tombstone"},
+            {"TRADITION", "Tradition"},
+            {"TRANSCRIBER", "Transcriber"},
+            {"TRANSCRIPT", "Transcript"},
+            {"TYPE", "Type"},
+            {"UNDERSCORE", "Underscore"},
+            {"UNICODE", "Unicode"},
+            {"UNPUBLISHED", "Unpublished"},
+            {"UNVEIL", "Headstone unveiled"},
+            {"VERS", "Version"},
+            {"VIDEO", "Video"},
+            {"VITAL", "Vital"},
+            {"WIDOWED", "Widowed"},
+            {"WILL", "Will"},
+            {"WITN", "Witness"},
+            {"XREF", "Cross Reference"},
+    };
 
     /**
      * Constructor.
@@ -21,15 +189,7 @@ public class TokenTableInitializer {
      * Populates the map of tokens.
      */
     public TokenTableInitializer() {
-        initAttributeTokensA();
-        initAttributeTokensB();
-        initAttributeTokensCD();
-        initAttributeTokensEFGH();
-        initAttributeTokensIJKL();
-        initAttributeTokensMN();
-        initAttributeTokensOQ();
-        initAttributeTokensRS();
-        initAttributeTokensTZ();
+        initAttributeTokens();
         initSpecialFactoryTokens();
     }
 
@@ -37,241 +197,10 @@ public class TokenTableInitializer {
      * Initialize a chunk of the tokens that go to the standard attribute
      * factory.
      */
-    private void initAttributeTokensA() {
-        put("ATTRIBUTE", "Attribute");
-        put("ABBR", "Abbreviation");
-        put("ABSTRACTOR", "Abstractor");
-        put("ABT", "About");
-        put("ACTIVE", "Active");
-        put("ADDR", "Address");
-        put("ADOP", "Adopted");
-        put("ADBAP", "Adult Baptism");
-        put("AFN", "Ancestral File Number");
-        put("AFT", "After");
-        put("AGE", "Age");
-        put("ALIA", "Alias");
-        put("ANCE", "Generations of ancestors");
-        put("ANUL", "Anullment");
-        put("AUDIO", "Audio");
-        put("AUTH", "Author");
-        put("AUTHOR", "Author");
-    }
-
-    /**
-     * Initialize a chunk of the tokens that go to the standard attribute
-     * factory.
-     */
-    private void initAttributeTokensB() {
-        put("BAPM", "Baptism");
-        put("BARM", "Bar Mitzvah");
-        put("BASM", "Bat Mitzvah");
-        put("BEF", "Before");
-        put("BEGIN", "Begin");
-        put("BET", "Between");
-        put("BIRT", "Birth");
-        put("BOOK", "Book");
-        put("BRIS", "Bris Milah");
-        put("BURI", "Burial");
-        put("BUSINESS", "Business");
-    }
-
-    /**
-     * Initialize a chunk of the tokens that go to the standard attribute
-     * factory.
-     */
-    private void initAttributeTokensCD() {
-        put("CANCELED", "Canceled");
-        put("CARD", "Card");
-        put("CAST", "Caste");
-        put("CAUS", "Cause");
-        put("CEME", "Cemetery");
-        put("CENS", "Census");
-        put("CENSUS", "Census");
-        put("CHAN", "Changed");
-        put("CHAR", "Character Set");
-        put("CHR", "Christening");
-        put("CHURCH", "Church");
-        put("COMPILER", "Compiler");
-        put("COMPLETED", "Completed");
-        put("CONF", "Confirmation");
-        put("COPY", "Copy");
-        put("COURT", "Court");
-        put("DEAT", "Death");
-        put("DESC", "Generations of descendants");
-        put("DEST", "Destination");
-        put("DIV", "Divorce");
-        put("DIVF", "Divorce Final");
-        put("DIVORCED", "Divorced");
-        put("DONE", "Done");
-    }
-
-    /**
-     * Initialize a chunk of the tokens that go to the standard attribute
-     * factory.
-     */
-    private void initAttributeTokensEFGH() {
-        put("EDITOR", "Editor");
-        put("EDUC", "Education");
-        put("ELECTRONIC", "Electronic");
-        put("EMIG", "Emigration");
-        put("ENGA", "Engaged");
-        put("EVEN", "Event");
-        put("EXTRACT", "Extract");
-        put("FAMF", "Family file");
-        put("FATH", "Father");
-        put("FEMALE", "Female");
-        put("FICHE", "Fiche");
-        put("FILE", "File");
-        put("FILM", "Film");
-        put("FORM", "Format");
-        put("FOUND", "Found");
-        put("FROM", "From");
-        put("GEDC", "GEDCOM");
-        put("GODP", "Godparent");
-        put("GOVERNMENT", "Government");
-        put("GRAD", "Graduation");
-        put("HEIR", "Heir");
-        put("HISTORY", "History");
-    }
-
-    /**
-     * Initialize a chunk of the tokens that go to the standard attribute
-     * factory.
-     */
-    private void initAttributeTokensIJKL() {
-        put("IMMI", "Immigration");
-        put("INFANT", "Infant");
-        put("INFORMANT", "Informant");
-        put("INTERVIEW", "Interview");
-        put("INTERVIEWER", "Interviewer");
-        put("ISSUE", "Issue");
-        put("ITEM", "Item");
-        put("JOURNAL", "Journal");
-        put("LANG", "Language");
-        put("LETTER", "Letter");
-        put("LINE", "Line");
-        put("LINEAGE", "Lineage");
-    }
-
-    /**
-     * Initialize a chunk of the tokens that go to the standard attribute
-     * factory.
-     */
-    private void initAttributeTokensMN() {
-        put("MAGAZINE", "Magazine");
-        put("MALE", "Male");
-        put("MANUSCRIPT", "Manuscript");
-        put("MAP", "Map");
-        put("MARB", "Marriage Bans");
-        put("MARL", "Marriage License");
-        put("MARR", "Marriage");
-        put("MARRIED", "Married");
-        put("MEDI", "Media");
-        put("MEMBER", "Member");
-        put("MILITARY", "Military");
-        put("MOTH", "Mother");
-        put("NAMR", "Name (religious)");
-        put("NAMING", "Naming");
-        put("NAMS", "NAMS");
-        put("NATU", "Naturalized");
-        put("NCHI", "Number of Children");
-        put("NEWLINE", "Newline");
-        put("NEWSPAPER", "Newspaper");
-        put("NMR", "Not Married");
-        put("NUMBER", "Number");
-    }
-
-    /**
-     * Initialize a chunk of the tokens that go to the standard attribute
-     * factory.
-     */
-    private void initAttributeTokensOQ() {
-        put("OCCU", "Occupation");
-        put("ORDI", "Ordinance process flag");
-        put("ORDERED", "Ordered");
-        put("ORGANIZATION", "Organization");
-        put("ORIGINAL", "Original");
-        put("OTHER", "Other");
-        put("PAGE", "Page");
-        put("PERIODICAL", "Periodical");
-        put("PERSONAL", "Personal");
-        put("PHON", "Phone Number");
-        put("PHOTO", "Photograph");
-        put("PHOTOCOPY", "Photocopy");
-        put("PLANNED", "Planned");
-        put("PLOT", "Plot");
-        put("PROB", "Probate");
-        put("PROVED", "Proved");
-        put("PUBL", "Published");
-        put("QUAY", "Surety");
-    }
-
-    /**
-     * Initialize a chunk of the tokens that go to the standard attribute
-     * factory.
-     */
-    private void initAttributeTokensRS() {
-        put("RECITED", "Recited");
-        put("REFN", "Reference Number");
-        put("RELI", "Religion");
-        put("REPO", "Repository");
-        put("RESI", "Residence");
-        put("RESN", "Restriction");
-        put("RETI", "Retired");
-        put("ROLE", "Role");
-        put("SEX", "Sex");
-        put("SINGLE", "Single");
-        put("SITE", "Site");
-        put("SOUND", "Sound");
-        put("SPOU", "Spouse");
-        put("SSN", "Social Security Number");
-        put("STILLBORN", "Stillborn");
-        put("SUBMITTED", "Submitted");
-    }
-
-    /**
-     * Initialize a chunk of the tokens that go to the standard attribute
-     * factory.
-     */
-    private void initAttributeTokensTZ() {
-        put("TEMP", "Temple code");
-        put("TEXT", "Text");
-        put("TIME", "Time");
-        put("TITL", "Title");
-        put("TO", "To");
-        put("TOKEN", "Token");
-        put("TOMBSTONE", "Tombstone");
-        put("TRADITION", "Tradition");
-        put("TRANSCRIBER", "Transcriber");
-        put("TRANSCRIPT", "Transcript");
-        put("TYPE", "Type");
-        put("UNDERSCORE", "Underscore");
-        put("UNICODE", "Unicode");
-        put("UNPUBLISHED", "Unpublished");
-        put("UNVEIL", "Headstone unveiled");
-        put("VERS", "Version");
-        put("VIDEO", "Video");
-        put("VITAL", "Vital");
-        put("WIDOWED", "Widowed");
-        put("WILL", "Will");
-        put("WITN", "Witness");
-        put("XREF", "Cross Reference");
-    }
-
-    /**
-     * @param shortstring the short string in gedcom
-     * @param fullstring the long string in the db
-     */
-    private void put(final String shortstring, final String fullstring) {
-        tokens.put(shortstring, createAttrToken(fullstring));
-    }
-
-    /**
-     * @param fullstring the token string
-     * @return the token object
-     */
-    private GedToken createAttrToken(final String fullstring) {
-        return new GedToken(fullstring, AbstractGedObjectFactory.ATTR_FACTORY);
+    private void initAttributeTokens() {
+        for (final String[] pair : ATTRIBUTE_PAIRS) {
+            put(pair[0], pair[1], AbstractGedObjectFactory.ATTR_FACTORY);
+        }
     }
 
     /**
