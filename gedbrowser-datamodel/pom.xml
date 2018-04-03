@@ -37,10 +37,11 @@
   </properties>
 
   <dependencies>
-    <dependency>
+    <!-- Need to fix dependency on commons-beanutils before using this. (,1.9.1 -->
+    <!-- dependency>
       <groupId>org.gedcom4j</groupId>
       <artifactId>gedcom4j</artifactId>
-    </dependency>
+    </dependency -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
