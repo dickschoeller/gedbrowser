@@ -161,10 +161,6 @@ public final class GeoCodeItem {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.CyclomaticComplexity",
-        "PMD.ModifiedCyclomaticComplexity",
-        "PMD.NPathComplexity",
-        "PMD.StdCyclomaticComplexity" })
     public boolean equals(final Object obj) {
         // Suppressed all typical problems that go with an equals method
         if (this == obj) {
@@ -180,21 +176,10 @@ public final class GeoCodeItem {
         if (!equals(geocodingResult, other.geocodingResult)) {
             return false;
         }
-        if (modernPlaceName == null) {
-            if (other.modernPlaceName != null) {
-                return false;
-            }
-        } else if (!modernPlaceName.equals(other.modernPlaceName)) {
+        if (!stringCompare(modernPlaceName, other.modernPlaceName)) {
             return false;
         }
-        if (placeName == null) {
-            if (other.placeName != null) {
-                return false;
-            }
-        } else if (!placeName.equals(other.placeName)) {
-            return false;
-        }
-        return true;
+        return (stringCompare(placeName, other.placeName));
     }
 
     /**
@@ -204,11 +189,7 @@ public final class GeoCodeItem {
      * @param other the item to compare
      * @return returns true if they seem equal
      */
-    @SuppressWarnings({ "PMD.CompareObjectsWithEquals",
-        "PMD.CyclomaticComplexity",
-        "PMD.ModifiedCyclomaticComplexity",
-        "PMD.NPathComplexity",
-        "PMD.StdCyclomaticComplexity" })
+    @SuppressWarnings({ "PMD.CompareObjectsWithEquals" })
     private static boolean equals(final GeocodingResult result,
             final GeocodingResult other) {
         // Suppressed all typical problems that go with an equals method
@@ -218,34 +199,47 @@ public final class GeoCodeItem {
         if (result == null || other == null) {
             return false;
         }
-        if (result.formattedAddress == null) {
-            if (other.formattedAddress != null) {
-                return false;
-            }
-        } else {
-            if (!result.formattedAddress.equals(other.formattedAddress)) {
-                return false;
-            }
+        if (!stringCompare(result.formattedAddress, other.formattedAddress)) {
+            return false;
         }
-        if (result.geometry == null) {
-            if (other.geometry != null) {
+        return geometryCompare(result.geometry, other.geometry);
+    }
+
+    /**
+     * @param result the input geometry
+     * @param other the compared geometry
+     * @return true if they match
+     */
+    private static boolean geometryCompare(final Geometry result,
+            final Geometry other) {
+        if (result == null) {
+            return other == null;
+        }
+        if (other == null) {
+            return false;
+        }
+        if (result.location == null) {
+            return other.location == null;
+        }
+        if (other.location == null) {
+            return false;
+        }
+        return result.location.toString().equals(other.location.toString());
+    }
+
+    /**
+     * @param string string from primary
+     * @param otherString string from compared object
+     * @return true if strings match
+     */
+    private static boolean stringCompare(final String string,
+            final String otherString) {
+        if (string == null) {
+            if (otherString != null) {
                 return false;
             }
-        } else {
-            if (other.geometry == null) {
-                return false;
-            }
-            if (result.geometry.location == null) {
-                if (other.geometry.location != null) {
-                    return false;
-                }
-            } else {
-                if (other.geometry.location == null) {
-                    return false;
-                }
-                return result.geometry.location.toString()
-                        .equals(other.geometry.location.toString());
-            }
+        } else if (!string.equals(otherString)) {
+            return false;
         }
         return true;
     }
