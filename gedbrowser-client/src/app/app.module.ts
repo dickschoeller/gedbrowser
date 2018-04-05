@@ -39,15 +39,22 @@ import {
   MatStepperModule,
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
+import {NgxGalleryModule} from 'ngx-gallery';
+import {Ng2PageScrollModule} from 'ng2-page-scroll';
 
 import {AppComponent} from './app.component';
-import {NewPersonDialogComponent} from './new-person-dialog';
-import {PersonListModule} from './person-list/person-list.module';
-import {PersonModule} from './person/person.module';
-import {SourceListModule} from './source-list/source-list.module';
-import {SourceModule} from './source/source.module';
-import {SubmitterListModule} from './submitter-list/submitter-list.module';
-import {SubmitterModule} from './submitter/submitter.module';
+
+import {
+  PersonListModule,
+  PersonModule,
+  SourceListModule,
+  SourceModule,
+  SubmitterListModule,
+  SubmitterModule
+} from './modules';
+
+import {ComponentsModule, NewPersonDialogComponent} from './components';
+
 import {
   ServiceBase,
   FamilyService,
@@ -56,8 +63,7 @@ import {
   SourceService,
   SubmitterService,
   SaveService
-} from './shared/services';
-import {SharedModule} from './shared';
+} from './services';
 
 @NgModule({
   exports: [
@@ -102,20 +108,23 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
 
 @NgModule({
   imports: [
-    AppMaterialModule,
     rootRouting,
+
+    AppMaterialModule,
+
+    Ng2PageScrollModule.forRoot(),
+    NgxGalleryModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SharedModule,
     PersonListModule,
     PersonModule,
     SourceListModule,
     SourceModule,
     SubmitterListModule,
-    SubmitterModule
+    SubmitterModule,
   ],
   declarations: [
     AppComponent,
