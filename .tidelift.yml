@@ -1,3 +1,4 @@
 ci:
-  tests:
-    unlicensed: warn
+  'org.schoellerfamily.gedbrowser:gedbrowser-analytics':
+    tests:
+      unlicensed: warn
