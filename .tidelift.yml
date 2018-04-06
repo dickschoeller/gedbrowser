@@ -1,5 +1,5 @@
 files:
-  'gedbrowser/pom.xml':
+  'pom.xml':
     gedbrowser-analytics:
       tests:
         unlicensed: skip
@@ -16,19 +16,6 @@ files:
       tests:
         unlicensed: skip
     gedbrowser-renderer:
-      tests:
-        unlicensed: skip
-    geoservice-client:
-      tests:
-        unlicensed: skip
-  'gedbrowser-renderer/pom.xml':
-    gedbrowser-analytics:
-      tests:
-        unlicensed: skip
-    gedbrowser-datamodel:
-      tests:
-        unlicensed: skip
-    gedbrowser-reader:
       tests:
         unlicensed: skip
     geoservice-client:
