@@ -1,5 +1,5 @@
 ci:
-  platform:
+  files:
     'gedbrowser/pom.xml':
       gedbrowser-analytics:
         tests:
