@@ -1,0 +1,48 @@
+ci:
+  platform:
+    Maven:
+      gedbrowser:
+        tests:
+	  unlicensed: skip
+      gedbrowser-analytics:
+        tests:
+	  unlicensed: skip
+      gedbrowser-api:
+        tests:
+	  unlicensed: skip
+      gedbrowser-dao:
+        tests:
+	  unlicensed: skip
+      gedbrowser-datamodel:
+        tests:
+	  unlicensed: skip
+      gedbrowser-geographics:
+        tests:
+	  unlicensed: skip
+      gedbrowser-mongo-dao:
+        tests:
+	  unlicensed: skip
+      gedbrowser-reader:
+        tests:
+	  unlicensed: skip
+      gedbrowser-renderer:
+        tests:
+	  unlicensed: skip
+      gedbrowser-writer:
+        tests:
+	  unlicensed: skip
+      geoservice:
+        tests:
+	  unlicensed: skip
+      geoservice-client:
+        tests:
+	  unlicensed: skip
+      geoservice-common:
+        tests:
+	  unlicensed: skip
+      geoservice-persistence:
+        tests:
+	  unlicensed: skip
+      geoservice-persistence-mongo:
+        tests:
+	  unlicensed: skip
