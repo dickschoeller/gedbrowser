@@ -1,48 +1,48 @@
 ci:
   platform:
-    Maven:
+    'pom.xml':
       gedbrowser:
         tests:
-	  unlicensed: skip
+          unlicensed: skip
       gedbrowser-analytics:
         tests:
-	  unlicensed: skip
+          unlicensed: skip
       gedbrowser-api:
         tests:
-	  unlicensed: skip
+          unlicensed: skip
       gedbrowser-dao:
         tests:
-	  unlicensed: skip
+          unlicensed: skip
       gedbrowser-datamodel:
         tests:
-	  unlicensed: skip
+          unlicensed: skip
       gedbrowser-geographics:
         tests:
-	  unlicensed: skip
+          unlicensed: skip
       gedbrowser-mongo-dao:
         tests:
-	  unlicensed: skip
+          unlicensed: skip
       gedbrowser-reader:
         tests:
-	  unlicensed: skip
+          unlicensed: skip
       gedbrowser-renderer:
         tests:
-	  unlicensed: skip
+          unlicensed: skip
       gedbrowser-writer:
         tests:
-	  unlicensed: skip
+          unlicensed: skip
       geoservice:
         tests:
-	  unlicensed: skip
+          unlicensed: skip
       geoservice-client:
         tests:
-	  unlicensed: skip
+          unlicensed: skip
       geoservice-common:
         tests:
-	  unlicensed: skip
+          unlicensed: skip
       geoservice-persistence:
         tests:
-	  unlicensed: skip
+          unlicensed: skip
       geoservice-persistence-mongo:
         tests:
-	  unlicensed: skip
+          unlicensed: skip
