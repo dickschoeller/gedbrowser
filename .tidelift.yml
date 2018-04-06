@@ -1,16 +1,7 @@
 ci:
   platform:
-    'pom.xml':
-      gedbrowser:
-        tests:
-          unlicensed: skip
+    'gedbrowser/pom.xml':
       gedbrowser-analytics:
-        tests:
-          unlicensed: skip
-      gedbrowser-api:
-        tests:
-          unlicensed: skip
-      gedbrowser-dao:
         tests:
           unlicensed: skip
       gedbrowser-datamodel:
@@ -28,21 +19,19 @@ ci:
       gedbrowser-renderer:
         tests:
           unlicensed: skip
-      gedbrowser-writer:
-        tests:
-          unlicensed: skip
-      geoservice:
-        tests:
-          unlicensed: skip
       geoservice-client:
         tests:
           unlicensed: skip
-      geoservice-common:
+    'gedbrowser-renderer/pom.xml':
+      gedbrowser-analytics:
         tests:
           unlicensed: skip
-      geoservice-persistence:
+      gedbrowser-datamodel:
         tests:
           unlicensed: skip
-      geoservice-persistence-mongo:
+      gedbrowser-reader:
+        tests:
+          unlicensed: skip
+      geoservice-client:
         tests:
           unlicensed: skip
