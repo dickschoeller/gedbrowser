@@ -1,37 +1,36 @@
-ci:
-  files:
-    'gedbrowser/pom.xml':
-      gedbrowser-analytics:
-        tests:
-          unlicensed: skip
-      gedbrowser-datamodel:
-        tests:
-          unlicensed: skip
-      gedbrowser-geographics:
-        tests:
-          unlicensed: skip
-      gedbrowser-mongo-dao:
-        tests:
-          unlicensed: skip
-      gedbrowser-reader:
-        tests:
-          unlicensed: skip
-      gedbrowser-renderer:
-        tests:
-          unlicensed: skip
-      geoservice-client:
-        tests:
-          unlicensed: skip
-    'gedbrowser-renderer/pom.xml':
-      gedbrowser-analytics:
-        tests:
-          unlicensed: skip
-      gedbrowser-datamodel:
-        tests:
-          unlicensed: skip
-      gedbrowser-reader:
-        tests:
-          unlicensed: skip
-      geoservice-client:
-        tests:
-          unlicensed: skip
+files:
+  'gedbrowser/pom.xml':
+    gedbrowser-analytics:
+      tests:
+        unlicensed: skip
+    gedbrowser-datamodel:
+      tests:
+        unlicensed: skip
+    gedbrowser-geographics:
+      tests:
+        unlicensed: skip
+    gedbrowser-mongo-dao:
+      tests:
+        unlicensed: skip
+    gedbrowser-reader:
+      tests:
+        unlicensed: skip
+    gedbrowser-renderer:
+      tests:
+        unlicensed: skip
+    geoservice-client:
+      tests:
+        unlicensed: skip
+  'gedbrowser-renderer/pom.xml':
+    gedbrowser-analytics:
+      tests:
+        unlicensed: skip
+    gedbrowser-datamodel:
+      tests:
+        unlicensed: skip
+    gedbrowser-reader:
+      tests:
+        unlicensed: skip
+    geoservice-client:
+      tests:
+        unlicensed: skip
