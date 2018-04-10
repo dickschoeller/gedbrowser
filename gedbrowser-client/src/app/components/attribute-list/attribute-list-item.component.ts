@@ -3,6 +3,7 @@ import {MatDialogRef, MatDialog} from '@angular/material';
 
 import {ApiAttribute} from '../../models';
 import {StringUtil, NameUtil, AttributeUtil} from '../../utils';
+import { AttributeDialogData } from '../attribute-dialog';
 
 import {AttributeDialogHelper} from '../attribute-dialog/attribute-dialog-helper';
 import {AttributeDialogComponent} from '../attribute-dialog/attribute-dialog.component';
@@ -32,13 +33,15 @@ export class AttributeListItemComponent {
     const dialogRef: MatDialogRef<AttributeDialogComponent> =
       this.dialog.open(AttributeDialogComponent, config);
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === null || result === undefined) {
-        return;
+    const sub = dialogRef.componentInstance.onOK.subscribe(
+      (data: AttributeDialogData) => {
+        this.attributeDialogHelper.populateParentAttribute(data);
+        this.parent.save();
       }
-      const data = result;
-      this.attributeDialogHelper.populateParentAttribute(data);
-      this.parent.save();
+    );
+
+    dialogRef.afterClosed().subscribe(() => {
+      sub.unsubscribe();
     });
   }
 

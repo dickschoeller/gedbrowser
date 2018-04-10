@@ -40,15 +40,18 @@ export class AttributeListComponent implements OnInit {
         data: dataIn,
       });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === null || result === undefined) {
-        return;
+    const sub = dialogRef.componentInstance.onOK.subscribe(
+      (data: AttributeDialogData) => {
+        const attribute: ApiAttribute =
+          this.attributeDialogHelper.populateNewAttribute(data);
+        this.attributes.splice(0, 0, attribute);
+        this.parent.save();
       }
-      const data: AttributeDialogData = result;
-      const attribute: ApiAttribute =
-        this.attributeDialogHelper.populateNewAttribute(data);
-      this.attributes.splice(0, 0, attribute);
-      this.parent.save();
+    );
+
+    dialogRef.afterClosed().subscribe(() => {
+      alert('Close');
+      sub.unsubscribe();
     });
   }
 }

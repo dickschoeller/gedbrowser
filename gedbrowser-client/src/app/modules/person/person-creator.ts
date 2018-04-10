@@ -13,16 +13,29 @@ export abstract class PersonCreator {
     const dataIn: NewPersonDialogData = this.nph.initialData(sex, name);
     const dialogRef: MatDialogRef<NewPersonDialogComponent> =
       this.dialog.open(NewPersonDialogComponent, this.nph.config(dataIn));
-    dialogRef.afterClosed().subscribe(result => this.saveNew2(result, this, service, ub));
+
+    const sub =
+      dialogRef.componentInstance.onOK.subscribe(
+        result => this.saveNewWrapper(this, result, service, ub));
+
+    dialogRef.afterClosed().subscribe(() => {
+      alert('there');
+      sub.unsubscribe();
+    });
   }
 
-  saveNew2(dialogData: NewPersonDialogData, that: PersonCreator, service: PostRelatedPerson, ub: UrlBuilder): void {
-    if (that.nph.empty(dialogData)) {
-      return;
-    }
-    const newPerson: ApiPerson = that.nph.buildPerson(dialogData);
-    service.p(ub, that.anchor(), newPerson).subscribe(
-      (data: ApiPerson) => that.refreshPerson());
+  saveNewWrapper(that: PersonCreator,
+    dialogData: NewPersonDialogData, service: PostRelatedPerson,
+    ub: UrlBuilder): void {
+    alert('here');
+    that.saveNew(dialogData, service, ub);
+  }
+
+  saveNew(dialogData: NewPersonDialogData, service: PostRelatedPerson,
+    ub: UrlBuilder): void {
+    const newPerson: ApiPerson = this.nph.buildPerson(dialogData);
+    service.p(ub, this.anchor(), newPerson).subscribe(
+      (data: ApiPerson) => this.refreshPerson());
   }
 
   abstract anchor(): string;
