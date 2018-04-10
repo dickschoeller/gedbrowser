@@ -7,8 +7,6 @@ import {ApiAttribute, ApiFamily, ApiPerson} from '../../models';
 import {FamilyService, PersonService, NewPersonLinkService, UrlBuilder} from '../../services';
 import {ImageUtil} from '../../utils';
 
-import {NewPersonDialogData, NewPersonDialogComponent, NewPersonHelper} from '../../components/new-person-dialog';
-
 import {PersonCreator} from './person-creator';
 
 /**
@@ -36,7 +34,6 @@ export class PersonFamilyComponent extends PersonCreator implements OnInit {
   imageUtil = new ImageUtil();
   galleryOptions = this.imageUtil.galleryOptions();
   initialized = false;
-  nph = new NewPersonHelper();
 
   constructor(public dialog: MatDialog,
     private familyService: FamilyService,

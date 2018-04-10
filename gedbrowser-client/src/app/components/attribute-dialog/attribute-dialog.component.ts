@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, Output, EventEmitter} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 import {ApiAttribute} from '../../models';
@@ -11,6 +11,7 @@ import {AttributeDialogData} from './attribute-dialog-data';
   styleUrls: ['./attribute-dialog.component.css']
 })
 export class AttributeDialogComponent {
+  @Output() onOK = new EventEmitter<AttributeDialogData>();
   options: Array<String> = [
       'Abbreviation',
       'Address',
@@ -139,6 +140,10 @@ export class AttributeDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<AttributeDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AttributeDialogData) {}
+
+  onClickOK() {
+    this.onOK.emit(this.data);
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

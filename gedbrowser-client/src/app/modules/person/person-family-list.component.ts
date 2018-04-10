@@ -4,8 +4,6 @@ import {MatDialogRef, MatDialog} from '@angular/material';
 import {ApiAttribute, ApiFamily, ApiPerson} from '../../models';
 import {NewPersonLinkService, PersonService, UrlBuilder} from '../../services';
 
-import {NewPersonDialogData, NewPersonDialogComponent, NewPersonHelper} from '../../components/new-person-dialog';
-
 import {PersonCreator} from './person-creator';
 import {PersonComponent} from './person.component';
 

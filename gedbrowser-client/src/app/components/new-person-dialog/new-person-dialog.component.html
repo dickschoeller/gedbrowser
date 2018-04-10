@@ -23,6 +23,6 @@
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="data">OK</button>
+  <button mat-button (click)="onClickOK()" [mat-dialog-close]="data">OK</button>
   <button mat-button (click)="onNoClick()">Cancel</button>
 </mat-dialog-actions>
