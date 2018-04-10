@@ -1,0 +1,21 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.10.2
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:debug:20170905':
+    - karma > log4js > mailgun-js > debug:
+        patched: '2018-04-10T17:03:58.114Z'
+    - angular-ide > debug:
+        patched: '2018-04-10T17:03:58.114Z'
+  'npm:moment:20170905':
+    - angular-ide > moment:
+        patched: '2018-04-10T17:03:58.114Z'
+  'npm:ms:20170412':
+    - karma > log4js > mailgun-js > debug > ms:
+        patched: '2018-04-10T17:03:58.114Z'
+    - angular-ide > debug > ms:
+        patched: '2018-04-10T17:03:58.114Z'
+  'npm:ws:20160920':
+    - angular-ide > ws:
+        patched: '2018-04-10T17:03:58.114Z'
