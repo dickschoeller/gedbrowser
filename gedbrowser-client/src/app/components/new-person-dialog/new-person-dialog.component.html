@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>New Person</h1>
+<mat-dialog-content class="container">
+  <mat-form-field>
+    <mat-select placeholder="Sex" [(value)]="data.sex">
+      <mat-option [value]="'M'">M</mat-option>
+      <mat-option [value]="'F'">F</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Name" [(ngModel)]="data.name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Birth date" [(ngModel)]="data.birthDate">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Birth place" [(ngModel)]="data.birthPlace">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Death date" [(ngModel)]="data.deathDate">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Death place" [(ngModel)]="data.deathPlace">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onClickOK()" [mat-dialog-close]="data">OK</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+</mat-dialog-actions>
