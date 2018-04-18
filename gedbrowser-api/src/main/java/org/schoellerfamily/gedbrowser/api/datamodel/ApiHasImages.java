@@ -95,7 +95,7 @@ public abstract class ApiHasImages extends ApiObject
             return false;
         }
         final ApiHasImages other = (ApiHasImages) obj;
-        return listCompare(images, other.getImages());
+        return images.equals(other.getImages());
     }
 
     /**
