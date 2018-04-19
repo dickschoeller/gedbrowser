@@ -23,7 +23,7 @@ public class ImageUtils {
      * @param attribute the attribute to check
      * @return true if it is a reference to an image file type
      */
-    private boolean isImage(final ApiAttribute attribute) {
+    public boolean isImage(final ApiAttribute attribute) {
         final String[] types = {
                 "bmp", "gif", "ico", "jpg", "jpeg", "png", "tiff",
                 "tif", "svg" };

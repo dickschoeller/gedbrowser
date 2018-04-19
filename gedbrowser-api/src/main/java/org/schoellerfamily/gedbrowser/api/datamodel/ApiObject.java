@@ -152,9 +152,6 @@ public class ApiObject implements Serializable, GetString {
      * @return the hash for the attributes
      */
     protected int attributesHash(final List<ApiAttribute> attrs) {
-        if (attrs == null) {
-            return 0;
-        }
         return attrs.hashCode();
     }
 
@@ -184,7 +181,7 @@ public class ApiObject implements Serializable, GetString {
             return false;
         }
         final ApiObject other = (ApiObject) obj;
-        if (!listCompare(attributes, other.attributes)) {
+        if (!attributesEquals(other)) {
             return false;
         }
         if (!stringCompare(string, other.string)) {
@@ -194,20 +191,11 @@ public class ApiObject implements Serializable, GetString {
     }
 
     /**
-     * @param list the list from this object
-     * @param otherList the list from another object
-     * @return true if the lists are equal
+     * @param other the other object to compare against
+     * @return true if the attributes match
      */
-    protected boolean listCompare(final List<ApiAttribute> list,
-            final List<ApiAttribute> otherList) {
-        if (list == null) {
-            if (otherList != null) {
-                return false;
-            }
-        } else if (!list.equals(otherList)) {
-            return false;
-        }
-        return true;
+    private boolean attributesEquals(final ApiObject other) {
+        return attributes.equals(other.attributes);
     }
 
     /**

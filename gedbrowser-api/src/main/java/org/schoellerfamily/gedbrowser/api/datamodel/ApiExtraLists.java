@@ -155,16 +155,16 @@ public class ApiExtraLists extends ApiHasImages {
             return false;
         }
         final ApiExtraLists other = (ApiExtraLists) obj;
-        if (!listCompare(changed, other.changed)) {
+        if (!changed.equals(other.changed)) {
             return false;
         }
-        if (!listCompare(famc, other.famc)) {
+        if (!famc.equals(other.famc)) {
             return false;
         }
-        if (!listCompare(fams, other.fams)) {
+        if (!fams.equals(other.fams)) {
             return false;
         }
-        return listCompare(refn, other.refn);
+        return refn.equals(other.refn);
     }
 
     /**

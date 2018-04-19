@@ -271,6 +271,40 @@ public class ApiPersonTest {
                 actual.hashCode());
     }
 
+    /** */
+    @Test
+    public void testImage() {
+        final ApiPerson o = createPerson();
+        final ApiAttribute multimedia = new ApiAttribute(
+                "multimedia", "Multimedia");
+        final ApiAttribute file = new ApiAttribute(
+                "attribute", "File", "foo.jpg");
+        multimedia.getAttributes().add(file);
+        o.addAttribute(multimedia);
+        assertTrue("Should contain multimedia",
+                o.getImages().contains(multimedia));
+    }
+
+    /** */
+    @Test
+    public void testOneImage() {
+        final ApiPerson o = createPerson();
+        final ApiAttribute multimedia = new ApiAttribute(
+                "multimedia", "Multimedia");
+        final ApiAttribute file = new ApiAttribute(
+                "attribute", "File", "foo.jpg");
+        multimedia.getAttributes().add(file);
+        o.addAttribute(multimedia);
+        assertEquals("Should contain 1 image", 1, o.getImages().size());
+    }
+
+    /** */
+    @Test
+    public void testNoImages() {
+        final ApiPerson o = createPerson();
+        assertEquals("Should contain 0 images", 0, o.getImages().size());
+    }
+
     /**
      * @return the new person
      */
@@ -282,5 +316,19 @@ public class ApiPersonTest {
                 .surname("surname")
                 .build();
         return new ApiPerson(builder);
+    }
+
+    /** */
+    @Test
+    public void testHash() {
+        final ApiPerson o = createPerson();
+        final ApiAttribute multimedia = new ApiAttribute(
+                "multimedia", "Multimedia");
+        final ApiAttribute file = new ApiAttribute(
+                "attribute", "File", "foo.jpg");
+        multimedia.getAttributes().add(file);
+        o.addAttribute(multimedia);
+        final int expected = 33764385;
+        assertEquals("Hash should be", expected, o.hashCode());
     }
 }
