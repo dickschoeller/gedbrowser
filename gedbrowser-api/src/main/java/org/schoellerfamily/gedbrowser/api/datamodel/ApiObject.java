@@ -181,13 +181,21 @@ public class ApiObject implements Serializable, GetString {
             return false;
         }
         final ApiObject other = (ApiObject) obj;
-        if (!attributes.equals(other.attributes)) {
+        if (!attributesEquals(other)) {
             return false;
         }
         if (!stringCompare(string, other.string)) {
             return false;
         }
         return stringCompare(type, other.type);
+    }
+
+    /**
+     * @param other the other object to compare against
+     * @return true if the attributes match
+     */
+    private boolean attributesEquals(final ApiObject other) {
+        return attributes.equals(other.attributes);
     }
 
     /**

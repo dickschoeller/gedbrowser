@@ -147,9 +147,25 @@ public final class ApiFamily extends ApiHasImages {
             return false;
         }
         final ApiFamily other = (ApiFamily) obj;
-        if (!children.equals(other.children)) {
+        if (!childrenEquals(other)) {
             return false;
         }
+        return spousesEquals(other);
+    }
+
+    /**
+     * @param other the other object to compare against
+     * @return true if the children lists match
+     */
+    private boolean childrenEquals(final ApiFamily other) {
+        return children.equals(other.children);
+    }
+
+    /**
+     * @param other the other object to compare against
+     * @return true if the spouses lists match
+     */
+    private boolean spousesEquals(final ApiFamily other) {
         return spouses.equals(other.spouses);
     }
 }
