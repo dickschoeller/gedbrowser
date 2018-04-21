@@ -49,20 +49,6 @@ export class PersonFamilyChildComponent implements OnInit {
     return this.index + 1 >= this.parent.family.children.length;
   }
 
-  moveUp(): void {
-    this.parent.family.children.splice(
-      this.index - 1, 0,
-      this.parent.family.children.splice(this.index, 1)[0]);
-    this.parent.save();
-  }
-
-  moveDown(): void {
-    this.parent.family.children.splice(
-      this.index + 1, 0,
-      this.parent.family.children.splice(this.index, 1)[0]);
-    this.parent.save();
-  }
-
   delete(): void {
     this.parent.family.children.splice(this.index, 1);
     this.parent.save();

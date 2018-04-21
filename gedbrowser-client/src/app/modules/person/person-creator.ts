@@ -18,9 +18,7 @@ export abstract class PersonCreator {
       dialogRef.componentInstance.onOK.subscribe(
         result => this.saveNewWrapper(this, result, service, ub));
 
-    dialogRef.afterClosed().subscribe(() => {
-      sub.unsubscribe();
-    });
+    dialogRef.afterClosed().subscribe(() => { sub.unsubscribe(); });
   }
 
   saveNewWrapper(that: PersonCreator,

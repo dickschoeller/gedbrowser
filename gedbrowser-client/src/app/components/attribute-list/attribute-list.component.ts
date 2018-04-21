@@ -49,8 +49,6 @@ export class AttributeListComponent implements OnInit {
       }
     );
 
-    dialogRef.afterClosed().subscribe(() => {
-      sub.unsubscribe();
-    });
+    dialogRef.afterClosed().subscribe(() => { sub.unsubscribe(); });
   }
 }
