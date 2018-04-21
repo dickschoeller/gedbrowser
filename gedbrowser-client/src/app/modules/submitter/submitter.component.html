@@ -1,5 +1,4 @@
-<mat-card [class.mat-elevation-z4]="true">
-  <mat-card-title>{{submitter.string}}: {{submitter.name}}</mat-card-title>
-  <mat-divider [inset]="true"></mat-divider>
+<p-panel>
+  <p-header>{{submitter.string}}: {{submitter.name}}</p-header>
   <app-attribute-list [attributes]="submitter.attributes"></app-attribute-list>
-</mat-card>
+</p-panel>

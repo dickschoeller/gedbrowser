@@ -21,7 +21,7 @@ import {PersonFamilyComponent} from './person-family.component';
 export class PersonFamilyChildListComponent extends PersonCreator {
   @Input() children: Array<ApiAttribute>;
   @Input() family: ApiFamily;
-  @Input() parentComponent: PersonFamilyComponent;
+  @Input() parent: PersonFamilyComponent;
 
   constructor(public dialog: MatDialog,
     private newPersonLinkService: NewPersonLinkService,
@@ -30,7 +30,7 @@ export class PersonFamilyChildListComponent extends PersonCreator {
   }
 
   createChild(): void {
-    this.newPersonDialog2('M', 'Anonymous/' + this.parentComponent.person.surname + '/',
+    this.newPersonDialog2('M', 'Anonymous/' + this.parent.person.surname + '/',
       this.newPersonLinkService,
       new UrlBuilder('schoeller', 'families', 'children'));
   }
@@ -40,7 +40,7 @@ export class PersonFamilyChildListComponent extends PersonCreator {
   }
 
   refreshPerson(): void {
-    this.personService.getOne('schoeller', this.parentComponent.person.string).subscribe(
-      (person: any) => this.parentComponent.refreshPerson());
+    this.personService.getOne('schoeller', this.parent.person.string).subscribe(
+      (person: any) => this.parent.refreshPerson());
   }
 }

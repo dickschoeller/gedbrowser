@@ -1,12 +1,25 @@
-<mat-list>
-  <app-attribute-list-item
-    *ngFor="let attribute of attributes; let i = index"
-    [attribute]="attribute"
-    [attributes]="attributes"
-    [index]="i"
-    [parent]="parent">
-  </app-attribute-list-item>
-  <mat-list-item>
-    <button mat-icon-button color="primary" (click)="createAttribute()" matTooltip="Add attribute"><mat-icon>add_circle</mat-icon></button>
-  </mat-list-item>
-</mat-list>
+<p-panel header="Attributes" [toggleable]="toggleable" [styleClass]="styleClass">
+  <p-header>
+    <span class="bump-out">
+      <p-button (click)="createAttribute()" icon="fa fa-fw fa-plus-circle"
+          [styleClass]="'ui-button-success'"
+          pTooltip="Add attribute"></p-button>
+    </span>
+  </p-header>
+  <div>
+    <p-orderList [value]="attributes" dragdrop="true" dragdropScope="attributes"
+        [responsive]="false" [listStyle]="{'height':'100%','width':'100%','border':'0'}"
+        (onReorder)="parent.save()">
+      <ng-template let-attribute let-i="index" pTemplate="item">
+        <div>
+          <app-attribute-list-item
+            [attribute]="attribute"
+            [attributes]="attributes"
+            [index]="i"
+            [parent]="parent">
+          </app-attribute-list-item>
+        </div>
+      </ng-template>
+    </p-orderList>
+  </div>
+</p-panel>

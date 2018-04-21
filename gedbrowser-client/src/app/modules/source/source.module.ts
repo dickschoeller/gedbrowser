@@ -1,9 +1,11 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
-import {MatCardModule, MatDividerModule, MatExpansionModule, MatListModule} from '@angular/material';
+
 import {NgxGalleryModule} from 'ngx-gallery';
 import {Ng2PageScrollModule} from 'ng2-page-scroll';
+
+import {PanelModule} from 'primeng/panel';
 
 import {ComponentsModule} from '../../components';
 
@@ -24,12 +26,10 @@ const sourceRouting: ModuleWithProviders = RouterModule.forChild([
   imports: [
     sourceRouting,
     CommonModule,
-    MatCardModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatListModule,
     NgxGalleryModule,
     Ng2PageScrollModule.forRoot(),
+
+    PanelModule,
 
     ComponentsModule,
   ],

@@ -26,8 +26,6 @@ export class AttributeListItemComponent {
 
   edit(): void {
     const config = {
-      width: '500px',
-      height: '600px',
       data: this.attributeDialogHelper.buildData(false)
     };
     const dialogRef: MatDialogRef<AttributeDialogComponent> =
@@ -40,21 +38,7 @@ export class AttributeListItemComponent {
       }
     );
 
-    dialogRef.afterClosed().subscribe(() => {
-      sub.unsubscribe();
-    });
-  }
-
-  moveUp(): void {
-    const index = this.attributes.indexOf(this.attribute);
-    this.attributes.splice(index - 1, 0, this.attributes.splice(index, 1)[0]);
-    this.parent.save();
-  }
-
-  moveDown(): void {
-    const index = this.attributes.indexOf(this.attribute);
-    this.attributes.splice(index + 1, 0, this.attributes.splice(index, 1)[0]);
-    this.parent.save();
+    dialogRef.afterClosed().subscribe(() => { sub.unsubscribe(); });
   }
 
   delete(): void {

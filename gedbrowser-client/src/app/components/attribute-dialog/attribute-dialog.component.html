@@ -1,24 +1,30 @@
 <h1 mat-dialog-title>Attribute</h1>
 <mat-dialog-content class="container">
-  <mat-form-field>
-    <mat-select placeholder="Type" [(value)]="data.type">
-      <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Text" [(ngModel)]="data.text">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Date" [(ngModel)]="data.date">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Place" [(ngModel)]="data.place">
-  </mat-form-field>
-  <mat-form-field>
-    <textarea matInput placeholder="Note" [(ngModel)]="data.note" rows="8"></textarea>
-  </mat-form-field>
+  <p-dropdown [options]="getOptions()" [(ngModel)]="data.type" [style]="{'width':'425px'}"
+      editable="false" placeholder="Select an attribute type"></p-dropdown>
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-text" type="text" size="50" pInputText [(ngModel)]="data.text">
+    <label for="float-input-text">Text</label>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-date" type="text" size="50" pInputText [(ngModel)]="data.date">
+    <label for="float-input-date">Date</label>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-place" type="text" size="50" pInputText [(ngModel)]="data.place">
+    <label for="float-input-place">Place</label>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <textarea id="float-input-note" pInputTextarea [(ngModel)]="data.note"
+        [rows]="8" [cols]="50" autoResize="autoResize"></textarea>
+    <label for="float-input-note">Note</label>
+  </div>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button (click)="onClickOK()" [mat-dialog-close]="data">OK</button>
-  <button mat-button (click)="onNoClick()">Cancel</button>
+<mat-dialog-actions class="custom-button-placement">
+  <p-button label="OK" icon="fa fa-fw fa-check" (click)="onClickOK();close()"></p-button>
+  <p-button label="Cancel" icon="fa fa-fw fa-close" (click)="close()" [styleClass]="'ui-button-secondary'"></p-button>
 </mat-dialog-actions>

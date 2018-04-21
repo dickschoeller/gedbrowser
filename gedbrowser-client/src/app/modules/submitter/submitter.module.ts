@@ -1,7 +1,7 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
-import {MatCardModule, MatDividerModule} from '@angular/material';
+import {PanelModule} from 'primeng/panel';
 
 import {ComponentsModule} from '../../components';
 
@@ -22,9 +22,8 @@ const submitterRouting: ModuleWithProviders = RouterModule.forChild([
   imports: [
     submitterRouting,
     CommonModule,
-    MatCardModule,
-    MatDividerModule,
     ComponentsModule,
+    PanelModule,
   ],
   declarations: [
     SubmitterComponent,

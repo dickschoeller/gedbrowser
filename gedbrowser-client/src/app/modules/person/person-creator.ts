@@ -18,16 +18,12 @@ export abstract class PersonCreator {
       dialogRef.componentInstance.onOK.subscribe(
         result => this.saveNewWrapper(this, result, service, ub));
 
-    dialogRef.afterClosed().subscribe(() => {
-      alert('there');
-      sub.unsubscribe();
-    });
+    dialogRef.afterClosed().subscribe(() => { sub.unsubscribe(); });
   }
 
   saveNewWrapper(that: PersonCreator,
     dialogData: NewPersonDialogData, service: PostRelatedPerson,
     ub: UrlBuilder): void {
-    alert('here');
     that.saveNew(dialogData, service, ub);
   }
 

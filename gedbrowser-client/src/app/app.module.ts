@@ -4,41 +4,17 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {
-  MatAutocompleteModule,
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatChipsModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatExpansionModule,
-  MatFormFieldModule,
-  MatGridListModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatMenuModule,
-  MatNativeDateModule,
-  MatPaginatorModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatRippleModule,
-  MatSelectModule,
-  MatSidenavModule,
-  MatSliderModule,
-  MatSlideToggleModule,
-  MatSnackBarModule,
-  MatSortModule,
-  MatTableModule,
-  MatTabsModule,
-  MatToolbarModule,
-  MatTooltipModule,
-  MatStepperModule,
-} from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
+
+import {ToolbarModule} from 'primeng/toolbar';
+import {ButtonModule} from 'primeng/button';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import {PanelModule} from 'primeng/panel';
+import {AccordionModule} from 'primeng/accordion';
+import {MenuModule} from 'primeng/menu';
+import {OrderListModule} from 'primeng/orderlist';
+import {TooltipModule} from 'primeng/tooltip';
+
 import {NgxGalleryModule} from 'ngx-gallery';
 import {Ng2PageScrollModule} from 'ng2-page-scroll';
 
@@ -53,7 +29,7 @@ import {
   SubmitterModule
 } from './modules';
 
-import {ComponentsModule, NewPersonDialogComponent} from './components';
+import {ComponentsModule} from './components';
 
 import {
   ServiceBase,
@@ -65,60 +41,31 @@ import {
   SaveService
 } from './services';
 
-@NgModule({
-  exports: [
-    CdkTableModule,
-    MatAutocompleteModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatStepperModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-  ],
-})
-export class AppMaterialModule {}
-
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
 
 @NgModule({
   imports: [
     rootRouting,
 
-    AppMaterialModule,
-
     Ng2PageScrollModule.forRoot(),
     NgxGalleryModule,
+
     BrowserModule,
     BrowserAnimationsModule,
+    CdkTableModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+
+    ToolbarModule,
+    ButtonModule,
+    SplitButtonModule,
+    PanelModule,
+    AccordionModule,
+    MenuModule,
+    OrderListModule,
+    TooltipModule,
+
     PersonListModule,
     PersonModule,
     SourceListModule,
@@ -128,10 +75,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
   ],
   declarations: [
     AppComponent,
-    NewPersonDialogComponent,
   ],
   entryComponents: [
-    NewPersonDialogComponent,
   ],
   providers: [
     NewPersonLinkService,

@@ -1,3 +1,8 @@
-<mat-list *ngIf="initialized">
-  <app-person-parent *ngFor="let attribute of family.spouses" [attribute]="attribute"></app-person-parent>
-</mat-list>
+<p-orderList [value]="family?.spouses" dragdrop="false"
+    [responsive]="false" [listStyle]="{'height':'100%','width':'100%','border':'0'}">
+  <ng-template let-spouse pTemplate="listItem">
+    <div class="parent-family">
+      <app-person-parent [attribute]="spouse"></app-person-parent>
+    </div>
+  </ng-template>
+</p-orderList>

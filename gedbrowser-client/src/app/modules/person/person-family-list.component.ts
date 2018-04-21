@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {MatDialogRef, MatDialog} from '@angular/material';
+import {MenuItem} from 'primeng/api';
 
 import {ApiAttribute, ApiFamily, ApiPerson} from '../../models';
 import {NewPersonLinkService, PersonService, UrlBuilder} from '../../services';
@@ -21,6 +22,14 @@ import {PersonComponent} from './person.component';
 export class PersonFamilyListComponent extends PersonCreator {
   @Input() parent: PersonComponent;
   @Input() person: ApiPerson;
+  items: MenuItem[] = [
+    {
+      label: 'Add family with partner', icon: 'fa-user-plus', command: (event: Event) => { this.createFamilyWithSpouse(); }
+    },
+    {
+      label: 'Add family with child', icon: 'fa-user-plus', command: (event: Event) => { this.createFamilyWithChild(); }
+    },
+  ];
 
   constructor(public dialog: MatDialog,
     private newPersonLinkService: NewPersonLinkService,

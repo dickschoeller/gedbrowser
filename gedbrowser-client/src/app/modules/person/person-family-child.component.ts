@@ -23,7 +23,7 @@ import {PersonFamilyComponent} from './person-family.component';
 export class PersonFamilyChildComponent implements OnInit {
   @Input() child: ApiAttribute;
   @Input() index: number;
-  @Input() parentComponent: PersonFamilyComponent;
+  @Input() parent: PersonFamilyComponent;
   person: ApiPerson;
 
   constructor(
@@ -46,25 +46,11 @@ export class PersonFamilyChildComponent implements OnInit {
   }
 
   last(): boolean {
-    return this.index > this.parentComponent.family.children.length;
-  }
-
-  moveUp(): void {
-    this.parentComponent.family.children.splice(
-      this.index - 1, 0,
-      this.parentComponent.family.children.splice(this.index, 1)[0]);
-    this.parentComponent.save();
-  }
-
-  moveDown(): void {
-    this.parentComponent.family.children.splice(
-      this.index + 1, 0,
-      this.parentComponent.family.children.splice(this.index, 1)[0]);
-    this.parentComponent.save();
+    return this.index + 1 >= this.parent.family.children.length;
   }
 
   delete(): void {
-    this.parentComponent.family.children.splice(this.index, 1);
-    this.parentComponent.save();
+    this.parent.family.children.splice(this.index, 1);
+    this.parent.save();
   }
 }

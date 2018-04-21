@@ -138,6 +138,14 @@ export class AttributeDialogComponent {
       'Will',
   ];
 
+  getOptions(): any {
+    const ret: Array<any> = new Array<any>();
+    for (const option of this.options) {
+      ret.push({ label: option, value: option });
+    }
+    return ret;
+  }
+
   constructor(public dialogRef: MatDialogRef<AttributeDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AttributeDialogData) {}
 
@@ -145,7 +153,7 @@ export class AttributeDialogComponent {
     this.onOK.emit(this.data);
   }
 
-  onNoClick(): void {
+  close(): void {
     this.dialogRef.close();
   }
 }

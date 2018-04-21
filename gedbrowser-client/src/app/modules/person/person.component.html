@@ -1,29 +1,17 @@
-<mat-card [class.mat-elevation-z4]="true">
-  <mat-card-title>{{person.string}}: {{person.indexName}}{{lifespanDateString()}}</mat-card-title>
-  <mat-divider [inset]="true"></mat-divider>
-  <br/>
-  <mat-accordion multi="true">
-     <mat-expansion-panel [expanded]="true" [class.mat-elevation-z8]="true">
-      <mat-expansion-panel-header>
-        <mat-panel-title>Parents</mat-panel-title>
-      </mat-expansion-panel-header>
-      <app-person-parent-families [parent]="this" [person]="person"></app-person-parent-families>
-    </mat-expansion-panel>
-    <app-person-family-list [parent]="this" [person]="person"></app-person-family-list>
-    <mat-expansion-panel [expanded]="true" [class.mat-elevation-z8]="true">
-      <mat-expansion-panel-header>
-        <mat-panel-title>Attributes</mat-panel-title>
-      </mat-expansion-panel-header>
-      <app-attribute-list [attributes]="person.attributes" [parent]="this"></app-attribute-list>
-    </mat-expansion-panel>
-    <mat-expansion-panel *ngIf="person.images.length" [expanded]="true" [class.mat-elevation-z8]="true">
-      <mat-expansion-panel-header>
-        <mat-panel-title>Images</mat-panel-title>
-      </mat-expansion-panel-header>
-      <ngx-gallery [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
-    </mat-expansion-panel>
-  </mat-accordion>
-  <br/>
+<app-person-parent-families [parent]="this" [person]="person"></app-person-parent-families>
+<br/>
+<app-person-family-list [parent]="this" [person]="person"></app-person-family-list>
+<br/>
+<app-attribute-list [attributes]="person.attributes" [parent]="this" [toggleable]="true"></app-attribute-list>
+<br/>
+<p-panel header="Images" [toggleable]="true">
+  <div>
+    <ngx-gallery [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
+  </div>
+</p-panel>
+<br/>
+<p-panel [showHeader]="false">
   <div><b>{{person.refn[0].string}}:&nbsp;</b> {{person.refn[0].tail}}</div>
   <div><b>{{person.changed[0].string}}:&nbsp;</b> {{person.changed[0].attributes[0].string}}</div>
-</mat-card>
+</p-panel>
+<br/>

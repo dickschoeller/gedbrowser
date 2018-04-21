@@ -16,6 +16,8 @@ import {AttributeDialogComponent} from '../attribute-dialog/attribute-dialog.com
 export class AttributeListComponent implements OnInit {
   @Input() attributes: Array<ApiAttribute>;
   @Input() parent: any;
+  @Input() toggleable = false;
+  @Input() styleClass: string;
 
   index;
   attributeDialogHelper = new AttributeDialogHelper(this);
@@ -35,8 +37,6 @@ export class AttributeListComponent implements OnInit {
     };
     const dialogRef: MatDialogRef<AttributeDialogComponent> =
       this.dialog.open(AttributeDialogComponent, {
-        width: '500px',
-        height: '600px',
         data: dataIn,
       });
 
@@ -49,9 +49,6 @@ export class AttributeListComponent implements OnInit {
       }
     );
 
-    dialogRef.afterClosed().subscribe(() => {
-      alert('Close');
-      sub.unsubscribe();
-    });
+    dialogRef.afterClosed().subscribe(() => { sub.unsubscribe(); });
   }
 }
