@@ -70,8 +70,8 @@ export class NewPersonHelper {
 
   config(dataIn) {
     return {
-        width: '500px',
-        height: '600px',
+//        width: '500px',
+//        height: '600px',
         data: dataIn,
       };
   }

@@ -1,7 +1,10 @@
-<mat-card [class.mat-elevation-z4]="true">
-  <mat-card-title>Person List</mat-card-title>
-  <mat-divider [inset]="true"></mat-divider>
-  <mat-list>
-    <app-person-list-item *ngFor="let p of persons" [person]="p"></app-person-list-item>
-  </mat-list>
-</mat-card>
+<p-dataView [value]="persons" [style]="{'min-width':'500px'}"  [paginator]="true" [rows]="30"
+    paginatorPosition="both" pageLinks="10" [rowsPerPageOptions]="[10, 30, 100, 10000]"
+    [alwaysShowPaginator]="false">
+  <p-header>Person List</p-header>
+  <ng-template let-person pTemplate="listItem">
+    <div class="main-list">
+      <app-person-list-item [person]="person"></app-person-list-item>
+    </div>
+  </ng-template>
+</p-dataView>

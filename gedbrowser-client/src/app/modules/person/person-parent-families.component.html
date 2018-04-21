@@ -1,4 +1,9 @@
-<app-person-parent-family *ngFor="let famcAttribute of person.famc" [attribute]="famcAttribute"></app-person-parent-family>
-<div *ngIf="!person.famc.length">
-  <button mat-icon-button color="primary" (click)="createParentFamily()" matTooltip="Add parent family"><mat-icon>group_add</mat-icon></button>
-</div>
+<p-panel header="{{parent.person.string}}: {{parent.person.indexName}}{{parent.lifespanDateString()}}">
+  <p-header>
+    <span class="bump-out" *ngIf="!person.famc.length">
+      <p-button (click)="createParentFamily()" icon="fa fa-fw fa-user-plus"
+          [styleClass]="'ui-button-success'" pTooltip="Add parent family"></p-button>
+    </span>
+  </p-header>
+  <app-person-parent-family *ngFor="let famcAttribute of person.famc" [attribute]="famcAttribute"></app-person-parent-family>
+</p-panel>

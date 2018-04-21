@@ -1,19 +1,16 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatListModule,
-  MatMenuModule,
-  MatTooltipModule,
-} from '@angular/material';
 import {NgxGalleryModule} from 'ngx-gallery';
 import {Ng2PageScrollModule} from 'ng2-page-scroll';
+
+import {PanelModule} from 'primeng/panel';
+import {AccordionModule} from 'primeng/accordion';
+import {DataViewModule} from 'primeng/dataview';
+import {ButtonModule} from 'primeng/button';
+import {TooltipModule} from 'primeng/tooltip';
+import {OrderListModule} from 'primeng/orderlist';
+import {MenuModule} from 'primeng/menu';
 
 import {ComponentsModule} from '../../components';
 
@@ -41,22 +38,20 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
 /**
  * The module for a person page routing.
  */
-@NgModule({
+@NgModule( {
   imports: [
     personRouting,
     CommonModule,
-    MatButtonModule,
-    MatCardModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatListModule,
-    MatMenuModule,
-    MatTooltipModule,
     NgxGalleryModule,
     Ng2PageScrollModule.forRoot(),
     ComponentsModule,
+    PanelModule,
+    AccordionModule,
+    DataViewModule,
+    ButtonModule,
+    TooltipModule,
+    OrderListModule,
+    MenuModule,
   ],
   declarations: [
     PersonComponent,
@@ -72,6 +67,6 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
   providers: [
     PersonResolver,
   ]
-})
+} )
 
 export class PersonModule {}

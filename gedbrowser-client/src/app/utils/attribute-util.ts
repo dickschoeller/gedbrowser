@@ -58,6 +58,9 @@ export class AttributeUtil {
 
   lastIndex(): number {
     let index = 0;
+    if (this.parent === null || this.parent.attributes === null) {
+      return 0;
+    }
     for (const attribute of this.parent.attributes) {
       if (this.isLast(this.parent.attributes, attribute)) {
         return index;

@@ -26,8 +26,6 @@ export class AttributeListItemComponent {
 
   edit(): void {
     const config = {
-      width: '500px',
-      height: '600px',
       data: this.attributeDialogHelper.buildData(false)
     };
     const dialogRef: MatDialogRef<AttributeDialogComponent> =

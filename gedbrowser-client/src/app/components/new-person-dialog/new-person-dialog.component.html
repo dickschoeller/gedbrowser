@@ -1,28 +1,36 @@
-<h1 mat-dialog-title>New Person</h1>
+<p-header mat-dialog-title>New Person</p-header>
 <mat-dialog-content class="container">
-  <mat-form-field>
-    <mat-select placeholder="Sex" [(value)]="data.sex">
-      <mat-option [value]="'M'">M</mat-option>
-      <mat-option [value]="'F'">F</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Name" [(ngModel)]="data.name">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Birth date" [(ngModel)]="data.birthDate">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Birth place" [(ngModel)]="data.birthPlace">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Death date" [(ngModel)]="data.deathDate">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Death place" [(ngModel)]="data.deathPlace">
-  </mat-form-field>
+  <p-dropdown
+      [options]="[{'label': 'Select the sex', 'value': ''}, {'label': 'Male', 'value': 'M'}, {'label': 'Female', 'value': 'F'}]"
+      [(ngModel)]="data.sex" [style]="{'width':'425px'}"
+      editable="false" placeholder="Select the sex"></p-dropdown>
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-name" type="text" size="50" pInputText [(ngModel)]="data.name">
+    <label for="float-input-name">Name</label>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-bdate" type="text" size="50" pInputText [(ngModel)]="data.birthDate">
+    <label for="float-input-bdate">Birth date</label>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-bplace" type="text" size="50" pInputText [(ngModel)]="data.birthPlace">
+    <label for="float-input-bplace">Birth place</label>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-ddate" type="text" size="50" pInputText [(ngModel)]="data.deathDate">
+    <label for="float-input-ddate">Death date</label>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-dplace" type="text" size="50" pInputText [(ngModel)]="data.deathPlace">
+    <label for="float-input-dplace">Death place</label>
+  </div>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button (click)="onClickOK()" [mat-dialog-close]="data">OK</button>
-  <button mat-button (click)="onNoClick()">Cancel</button>
+<mat-dialog-actions class="custom-button-placement">
+  <p-button label="OK" icon="fa fa-fw fa-check" (click)="onClickOK();onNoClick()"></p-button>
+  <p-button label="Cancel" icon="fa fa-fw fa-close" (click)="onNoClick()" [styleClass]="'ui-button-secondary'"></p-button>
 </mat-dialog-actions>

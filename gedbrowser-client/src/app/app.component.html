@@ -1,38 +1,17 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-<section class="mat-typography">
-<mat-menu #menu="matMenu" class="menu" yPosition="below" xPosition="before">
-  <button mat-menu-item [routerLink]="['/header']">
-    <mat-icon>description</mat-icon>
-    <span>Header</span>
-  </button>
-  <button mat-menu-item [routerLink]="['/persons']">
-    <mat-icon>people</mat-icon>
-    <span>Persons</span>
-  </button>
-  <button mat-menu-item [routerLink]="['/sources']">
-    <mat-icon>book</mat-icon>
-    <span>Sources</span>
-  </button>
-  <button mat-menu-item [routerLink]="['/submitters']">
-    <mat-icon>people_outline</mat-icon>
-    <span>Submitters</span>
-  </button>
-  <button mat-menu-item (click)="saveFile()">
-    <mat-icon>save</mat-icon>
-    <span>Save</span>
-  </button>
-</mat-menu>
 
-<mat-toolbar class="menubar" color="primary">
-<span>Gedbrowser</span>
-<span class="example-fill-remaining-space"></span>
-<button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
-</mat-toolbar>
-</section>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <span>Gedbrowser</span>
+    </div>
+    <div class="ui-toolbar-group-right">
+        <p-menu #menu1 popup="popup" [model]="items"></p-menu>
+        <button type="button" pButton icon="fa fa-bars" (click)="menu1.toggle($event)"></button>
+    </div>
+</p-toolbar>
+
 
 <div class="body">
-  <section class="mat-typography">
-    <router-outlet></router-outlet>
-  </section>
+  <router-outlet></router-outlet>
 </div>

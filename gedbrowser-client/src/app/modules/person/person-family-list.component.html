@@ -1,16 +1,7 @@
-<app-person-family *ngFor="let attribute of person.fams; let i = index" [string]="attribute.string" [person]="person" [index]="i"></app-person-family>
-<mat-expansion-panel [expanded]="true" [class.mat-elevation-z8]="true">
-  <button mat-icon-button [matMenuTriggerFor]="newFamilyMenu" color="primary" matTooltip="Add family"><mat-icon>group_add</mat-icon></button>
-</mat-expansion-panel>
+<app-person-family *ngFor="let attribute of person.fams; let i = index"
+    [string]="attribute.string" [person]="person" [index]="i"></app-person-family>
 
-
-<mat-menu #newFamilyMenu="matMenu" class="menu" yPosition="below" xPosition="before">
-  <button mat-menu-item (click)="createFamilyWithSpouse()">
-    <mat-icon>person_add</mat-icon>
-    <span>Add family with partner</span>
-  </button>
-  <button mat-menu-item (click)="createFamilyWithChild()">
-    <mat-icon>person_add</mat-icon>
-    <span>Add family with child</span>
-  </button>
-</mat-menu>
+<p-menu #menu popup="popup" #cm appendTo="body" [model]="items"></p-menu>
+<p-button icon="fa fa-user-plus" (click)="menu.toggle($event)" pTooltip="Add new family"
+    [styleClass]="'ui-button-success'"></p-button>
+<br/>

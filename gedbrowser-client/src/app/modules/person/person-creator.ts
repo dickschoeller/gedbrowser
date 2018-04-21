@@ -19,7 +19,6 @@ export abstract class PersonCreator {
         result => this.saveNewWrapper(this, result, service, ub));
 
     dialogRef.afterClosed().subscribe(() => {
-      alert('there');
       sub.unsubscribe();
     });
   }
@@ -27,7 +26,6 @@ export abstract class PersonCreator {
   saveNewWrapper(that: PersonCreator,
     dialogData: NewPersonDialogData, service: PostRelatedPerson,
     ub: UrlBuilder): void {
-    alert('here');
     that.saveNew(dialogData, service, ub);
   }
 

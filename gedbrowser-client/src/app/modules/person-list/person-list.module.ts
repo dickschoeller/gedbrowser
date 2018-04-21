@@ -1,7 +1,9 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
-import {MatCardModule, MatDividerModule, MatListModule} from '@angular/material';
+
+import {PanelModule} from 'primeng/panel';
+import {DataViewModule} from 'primeng/dataview';
 
 import {ComponentsModule} from '../../components';
 
@@ -23,10 +25,9 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
   imports: [
     personRouting,
     CommonModule,
-    MatCardModule,
-    MatDividerModule,
-    MatListModule,
     ComponentsModule,
+    PanelModule,
+    DataViewModule,
   ],
   declarations: [
     PersonListComponent,

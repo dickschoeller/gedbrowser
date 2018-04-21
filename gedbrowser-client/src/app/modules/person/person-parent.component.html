@@ -1,4 +1,2 @@
-<mat-list-item>
-  <b>{{label()}}:&nbsp;</b>
-  <span *ngIf="person"><a [routerLink]="['/persons', person.string]" class="name"> {{person.indexName}} {{lifespanYearString()}} [{{person.string}}]</a></span>
-</mat-list-item>
+<b>{{label()}}:&nbsp;</b>
+<span *ngIf="person"><a [routerLink]="['/persons', person.string]" class="name"> {{person.indexName}} {{lifespanYearString()}} [{{person.string}}]</a></span>

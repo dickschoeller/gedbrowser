@@ -1,17 +1,25 @@
-<br/>
-<mat-divider [inset]="true"></mat-divider>
-<br/>
-<div *ngIf="children.length">
-  <mat-list>
-    <mat-list-item><span class="children label">Children:</span></mat-list-item>
-    <mat-list>
-      <app-person-family-child *ngFor="let child of children; let i = index;" [child]="child" [index]="i" [parentComponent]="parentComponent"></app-person-family-child>
-      <mat-list-item>
-        <button mat-icon-button color="primary" matTooltip="Add child" (click)="createChild()"><mat-icon>person_add</mat-icon></button>
-      </mat-list-item>
-    </mat-list>
-  </mat-list>
-</div>
-<div *ngIf="!children.length">
-  <button mat-icon-button color="primary" (click)="createChild()" matTooltip="Add child"><mat-icon>person_add</mat-icon></button>
+<div class="ui-g">
+  <div class="ui-g-1"></div>
+  <div class="ui-g-10">
+    <p-panel header="Children" styleClass="ui-panel-titlebar-success">
+      <p-header>
+        <span class="bump-out">
+          <p-button (click)="createChild()" icon="fa fa-fw fa-user-plus" pTooltip="Add child"
+              [styleClass]="'ui-button-success'"></p-button>
+        </span>
+      </p-header>
+
+      <p-orderList [value]="children" dragdrop="true" dragdropScope="children"
+          [responsive]="false" [listStyle]="{'height':'100%','width':'100%','border':'0'}"
+          (onReorder)="parent.save()">
+        <ng-template let-child let-i="index" pTemplate="item">
+          <div>
+            <app-person-family-child [child]="child" [index]="i"
+                [parent]="parent"></app-person-family-child>
+          </div>
+        </ng-template>
+      </p-orderList>
+    </p-panel>
+  </div>
+  <div class="ui-g-1"></div>
 </div>

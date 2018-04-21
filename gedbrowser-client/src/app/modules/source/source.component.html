@@ -1,19 +1,11 @@
-<mat-card [class.mat-elevation-z4]="true">
-  <mat-card-title>{{source.string}}: {{source.title}}</mat-card-title>
-  <mat-divider [inset]="true"></mat-divider>
-  <br/>
-  <mat-accordion multi="true">
-    <mat-expansion-panel [expanded]="true" [class.mat-elevation-z8]="true">
-      <mat-expansion-panel-header>
-        <mat-panel-title>Attributes</mat-panel-title>
-      </mat-expansion-panel-header>
-      <app-attribute-list [attributes]="source.attributes" [parent]="this"></app-attribute-list>
-    </mat-expansion-panel>
-    <mat-expansion-panel *ngIf="source.images.length" [expanded]="true" [class.mat-elevation-z8]="true">
-      <mat-expansion-panel-header>
-        <mat-panel-title>Images</mat-panel-title>
-      </mat-expansion-panel-header>
-      <ngx-gallery [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
-    </mat-expansion-panel>
-  </mat-accordion>
-</mat-card>
+<p-panel>
+  <p-header>{{source.string}}: {{source.title}}</p-header>
+</p-panel>
+
+<p-panel header="Attributes" [toggleable]="true">
+  <app-attribute-list [attributes]="source.attributes" [parent]="this"></app-attribute-list>
+</p-panel>
+
+<p-panel header="Images" [toggleable]="true">
+  <ngx-gallery [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
+</p-panel>
