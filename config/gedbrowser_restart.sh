@@ -12,6 +12,11 @@ docker rm gedbrowser
 docker rm geoservice
 docker rm mongo
 
+docker rmi dickschoeller/gedbrowser-api:latest
+docker rmi dickschoeller/gedbrowser:latest
+docker rmi dickschoeller/geoservice:latest
+docker rmi mongo:latest
+
 export R="--restart unless-stopped"
 export M="--link mongo:mongo"
 export H="-v ${GEDBROWSER_HOME}:/var/lib/gedbrowser"
