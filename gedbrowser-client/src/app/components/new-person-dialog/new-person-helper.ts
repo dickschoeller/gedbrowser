@@ -82,13 +82,17 @@ export class NewPersonHelper {
   guessPartnerSex(person: ApiPerson): string {
     for (const a of person.attributes) {
       if (a.string === 'Sex') {
-        if (a.tail === 'F') {
-          return 'M';
-        }
-        return 'F';
+        return this.oppositeSex(a.tail);
       }
     }
     return 'M';
+  }
+
+  private oppositeSex(sex: string): string {
+    if (sex === 'F') {
+      return 'M';
+    }
+    return 'F';
   }
 
   defaultGiven(sex: string): string {

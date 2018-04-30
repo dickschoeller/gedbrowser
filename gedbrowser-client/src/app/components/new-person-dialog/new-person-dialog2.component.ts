@@ -1,5 +1,7 @@
 import {Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges} from '@angular/core';
 
+import {BaseDialogComponent} from '../base-dialog/base-dialog.component';
+
 import {NewPersonDialogData} from './new-person-dialog-data';
 
 @Component({
@@ -7,23 +9,15 @@ import {NewPersonDialogData} from './new-person-dialog-data';
   templateUrl: './new-person-dialog2.component.html',
   styleUrls: ['./new-person-dialog2.component.css']
 })
-export class NewPersonDialog2Component implements OnInit, OnChanges, OnDestroy {
-  _display = false;
-  @Input() set display(value: boolean) {
-    this._display = value;
-  }
-
-  get display(): boolean {
-    return this._display;
-  }
-  @Input() p: any;
-  @Output() onOK = new EventEmitter<NewPersonDialogData>();
-  @Output() onClose = new EventEmitter<void>();
-  @Output() onOpen = new EventEmitter<NewPersonDialog2Component>();
+export class NewPersonDialog2Component
+  extends BaseDialogComponent<NewPersonDialogData, NewPersonDialog2Component>
+  implements OnInit, OnChanges {
 
   _data: NewPersonDialogData;
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   ngOnInit() {
     this.onOpen.emit(this);
@@ -51,11 +45,5 @@ export class NewPersonDialog2Component implements OnInit, OnChanges, OnDestroy {
   cancel() {
     this.onClose.emit();
     this.onOpen.emit(this);
-  }
-
-  ngOnDestroy() {
-    this.onClose.unsubscribe();
-    this.onOK.unsubscribe();
-    this.onOpen.unsubscribe();
   }
 }

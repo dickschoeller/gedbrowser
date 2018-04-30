@@ -1,6 +1,8 @@
 import {Component, OnInit, Input, Output, EventEmitter, OnDestroy, OnChanges} from '@angular/core';
 import {SelectItem} from 'primeng/api';
 
+import {BaseDialogComponent} from '../base-dialog/base-dialog.component';
+
 import {AttributeDialogData} from './attribute-dialog-data';
 
 @Component({
@@ -8,22 +10,10 @@ import {AttributeDialogData} from './attribute-dialog-data';
   templateUrl: './new-attribute-dialog.component.html',
   styleUrls: ['./new-attribute-dialog.component.css']
 })
-export class NewAttributeDialogComponent implements OnInit, OnChanges, OnDestroy {
-  _display = false;
-  @Input() set display(value: boolean) {
-    this._display = value;
-  }
-
-  get display(): boolean {
-    return this._display;
-  }
-
-  @Input() p: any;
+export class NewAttributeDialogComponent
+  extends BaseDialogComponent<AttributeDialogData, NewAttributeDialogComponent>
+  implements OnInit, OnChanges {
   @Input() options;
-  @Output() onOK = new EventEmitter<AttributeDialogData>();
-  @Output() onClose = new EventEmitter<void>();
-  @Output() onOpen = new EventEmitter<NewAttributeDialogComponent>();
-  _data: AttributeDialogData;
   data = function(): AttributeDialogData {
     return {
       insert: true, index: 0, type: 'Name', text: '', date: '',
@@ -32,7 +22,9 @@ export class NewAttributeDialogComponent implements OnInit, OnChanges, OnDestroy
     };
   };
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   ngOnInit() {
     this._data = this.p.defaultData();
@@ -61,11 +53,5 @@ export class NewAttributeDialogComponent implements OnInit, OnChanges, OnDestroy
   cancel() {
     this.onClose.emit();
     this._data = this.p.defaultData();
-  }
-
-  ngOnDestroy() {
-    this.onClose.unsubscribe();
-    this.onOK.unsubscribe();
-    this.onOpen.unsubscribe();
   }
 }
