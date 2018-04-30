@@ -1,0 +1,40 @@
+<p-dialog
+    [modal]="true" [closable]="true" [closeOnEscape]="true"
+    [dismissableMask]="true"
+    (onHide)="close()" (onShow)="open()"
+    [(visible)]="_display"
+    header="Attribute" appendTo="body">
+  <div>
+    <p-dropdown
+        [options]="options" [style]="{'width':'425px'}"
+        [editable]="true" [autoWidth]="false"
+        [(ngModel)]="_data.type"
+        placeholder="Select an attribute type"></p-dropdown>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <input [(ngModel)]="_data.text" id="float-input-text" type="text" size="50" pInputText>
+    <label for="float-input-text">Text</label>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <input [(ngModel)]="_data.date" id="float-input-date" type="text" size="50" pInputText>
+    <label for="float-input-date">Date</label>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <input [(ngModel)]="_data.place" id="float-input-place" type="text" size="50" pInputText>
+    <label for="float-input-place">Place</label>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <textarea [rows]="8" [cols]="50" [(ngModel)]="_data.note"
+        id="float-input-note" autoResize="autoResize" pInputTextarea></textarea>
+    <label for="float-input-note">Note</label>
+  </div>
+  <p-footer>
+    <p-button (click)="ok()" label="OK" icon="fa fa-fw fa-check"></p-button>
+    <p-button [styleClass]="'ui-button-secondary'" (click)="cancel()"
+        label="Cancel" icon="fa fa-fw fa-close"></p-button>
+  </p-footer>
+</p-dialog>

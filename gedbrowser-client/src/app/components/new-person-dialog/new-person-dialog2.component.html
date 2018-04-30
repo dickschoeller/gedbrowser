@@ -1,0 +1,43 @@
+<p-dialog header="New Person"
+    [(visible)]="_display"
+    [modal]="true" [closable]="true"
+    [closeOnEscape]="true" [dismissableMask]="true"
+    (onHide)="close()" (onShow)="open()"
+    appendTo="body">
+  <div>
+    <p-dropdown
+        [options]="[{'label': 'Select the sex', 'value': ''}, {'label': 'Male', 'value': 'M'}, {'label': 'Female', 'value': 'F'}]"
+        [style]="{'width':'425px'}"
+        [(ngModel)]="_data.sex"
+        editable="false" placeholder="Select the sex"></p-dropdown>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-name" type="text" size="50" pInputText [(ngModel)]="_data.name">
+    <label for="float-input-name">Name</label>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-bdate" type="text" size="50" pInputText [(ngModel)]="_data.birthDate">
+    <label for="float-input-bdate">Birth date</label>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-bplace" type="text" size="50" pInputText [(ngModel)]="_data.birthPlace">
+    <label for="float-input-bplace">Birth place</label>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-ddate" type="text" size="50" pInputText [(ngModel)]="_data.deathDate">
+    <label for="float-input-ddate">Death date</label>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-dplace" type="text" size="50" pInputText [(ngModel)]="_data.deathPlace">
+    <label for="float-input-dplace">Death place</label>
+  </div>
+  <p-footer>
+    <p-button label="OK" icon="fa fa-fw fa-check" (click)="ok()"></p-button>
+    <p-button label="Cancel" icon="fa fa-fw fa-close" (click)="cancel()" [styleClass]="'ui-button-secondary'"></p-button>
+  </p-footer>
+<p-dialog>

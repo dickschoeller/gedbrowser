@@ -1,6 +1,7 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
+
 import {PanelModule} from 'primeng/panel';
 
 import {ComponentsModule} from '../../components';

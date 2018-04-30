@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {MatDialogRef, MatDialog} from '@angular/material';
 
+import {NewPersonDialogData, NewPersonDialog2Component} from '../../components';
 import {ApiAttribute, ApiPerson, ApiFamily} from '../../models';
 import {PersonService, NewPersonLinkService, UrlBuilder} from '../../services';
 
@@ -15,16 +15,32 @@ import {PersonComponent} from './person.component';
 export class PersonParentFamiliesComponent extends PersonCreator {
   @Input() parent: PersonComponent;
   @Input() person: ApiPerson;
+  display = false;
+  surname: string;
 
-  constructor(public dialog: MatDialog,
-    private personService: PersonService,
-    private newPersonLinkService: NewPersonLinkService) {
-    super(dialog);
+  constructor(private personService: PersonService,
+    newPersonLinkService: NewPersonLinkService) {
+    super(newPersonLinkService);
+  }
+
+  init(): void {
+    this.surname = this.person.surname;
   }
 
   createParentFamily() {
-    this.newPersonDialog2('M', 'Anonymous/' + this.person.surname + '/',
-      this.newPersonLinkService, new UrlBuilder('schoeller', 'persons', 'parents'));
+    this.display = true;
+  }
+
+  ub(): UrlBuilder {
+    return new UrlBuilder('schoeller', 'persons', 'parents');
+  }
+
+  onDialogOpen(dialog: NewPersonDialog2Component) {
+    dialog._data = this.nph.initNew('M', this.person.surname);
+  }
+
+  closeDialog() {
+    this.display = false;
   }
 
   anchor () {

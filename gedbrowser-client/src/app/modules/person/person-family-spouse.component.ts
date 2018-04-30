@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnChanges} from '@angular/core';
 
 import {ApiAttribute, ApiPerson} from '../../models';
 import {PersonService} from '../../services';
@@ -18,7 +18,7 @@ import {LifespanUtil, StringUtil} from '../../utils';
   templateUrl: './person-family-spouse.component.html',
   styleUrls: ['./person-family-spouse.component.css']
 })
-export class PersonFamilySpouseComponent implements OnInit {
+export class PersonFamilySpouseComponent implements OnInit, OnChanges {
   @Input() attribute: ApiAttribute;
   spouse: ApiPerson;
 
@@ -27,6 +27,14 @@ export class PersonFamilySpouseComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.init();
+  }
+
+  ngOnChanges() {
+    this.init();
+  }
+
+  private init(): void {
     this.personService.getOne('schoeller', this.attribute.string)
       .subscribe((person: ApiPerson) => {
         this.spouse = person;

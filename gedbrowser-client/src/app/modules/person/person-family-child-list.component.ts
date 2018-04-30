@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {MatDialogRef, MatDialog} from '@angular/material';
 
-import {ApiAttribute, ApiFamily} from '../../models';
+import {NewPersonDialog2Component, NewPersonDialogData, NewPersonHelper} from '../../components';
+import {ApiAttribute, ApiFamily, ApiPerson} from '../../models';
 import {NewPersonLinkService, PersonService, UrlBuilder} from '../../services';
 
 import {PersonCreator} from './person-creator';
@@ -22,17 +22,48 @@ export class PersonFamilyChildListComponent extends PersonCreator {
   @Input() children: Array<ApiAttribute>;
   @Input() family: ApiFamily;
   @Input() parent: PersonFamilyComponent;
-
-  constructor(public dialog: MatDialog,
-    private newPersonLinkService: NewPersonLinkService,
+  display = false;
+  surname: string;
+  constructor(newPersonLinkService: NewPersonLinkService,
     private personService: PersonService) {
-    super(dialog);
+    super(newPersonLinkService);
   }
 
-  createChild(): void {
-    this.newPersonDialog2('M', 'Anonymous/' + this.parent.person.surname + '/',
-      this.newPersonLinkService,
-      new UrlBuilder('schoeller', 'families', 'children'));
+  init(): void {
+    const h = this.husbandId();
+    if (h !== '') {
+      this.personService.getOne('schoeller', h)
+        .subscribe((person: ApiPerson) => {
+          this.surname = person.surname;
+        });
+    } else {
+      this.surname = this.parent.person.surname;
+    }
+  }
+
+  ub(): UrlBuilder {
+    return new UrlBuilder('schoeller', 'families', 'children');
+  }
+
+  private husbandId(): string {
+    for (const spouse of this.family.spouses) {
+      if (spouse.type === 'husband') {
+        return spouse.string;
+      }
+    }
+    return '';
+  }
+
+  createChild2(): void {
+    this.display = true;
+  }
+
+  onDialogOpen(data: NewPersonDialog2Component) {
+    data._data = this.nph.initNew('M', this.surname);
+  }
+
+  closeDialog() {
+    this.display = false;
   }
 
   anchor(): string {

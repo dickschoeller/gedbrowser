@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {MatDialogRef, MatDialog} from '@angular/material';
 import {MenuItem} from 'primeng/api';
 
+import {NewPersonDialogData, NewPersonDialog2Component} from '../../components';
 import {ApiAttribute, ApiFamily, ApiPerson} from '../../models';
 import {NewPersonLinkService, PersonService, UrlBuilder} from '../../services';
 
@@ -30,21 +30,53 @@ export class PersonFamilyListComponent extends PersonCreator {
       label: 'Add family with child', icon: 'fa-user-plus', command: (event: Event) => { this.createFamilyWithChild(); }
     },
   ];
+  displayS = false;
+  displayC = false;
+  surnameS: string;
+  surnameC: string;
+  _ub: UrlBuilder;
+  partnerSex: string;
 
-  constructor(public dialog: MatDialog,
-    private newPersonLinkService: NewPersonLinkService,
+  constructor(newPersonLinkService: NewPersonLinkService,
     private personService: PersonService) {
-    super(dialog);
+    super(newPersonLinkService);
+  }
+
+  init() {
+    this.partnerSex = this.nph.guessPartnerSex(this.person);
+    if (this.partnerSex === 'M') {
+      this.surnameC = '?';
+    } else {
+      this.surnameC = this.person.surname;
+    }
+    this.surnameS = '?';
   }
 
   createFamilyWithChild(): void {
-    this.newPersonDialog2('M', 'Anonymous', this.newPersonLinkService,
-      new UrlBuilder('schoeller', 'persons', 'children'));
+    this.displayC = true;
+    this._ub = new UrlBuilder('schoeller', 'persons', 'children');
   }
 
   createFamilyWithSpouse(): void {
-    this.newPersonDialog2('F', 'Anonyma', this.newPersonLinkService,
-      new UrlBuilder('schoeller', 'persons', 'spouses'));
+    this.displayS = true;
+    this._ub = new UrlBuilder('schoeller', 'persons', 'spouses');
+  }
+
+  ub(): UrlBuilder {
+    return this._ub;
+  }
+
+  onDialogOpenS(data: NewPersonDialog2Component) {
+    data._data = this.nph.initNew(this.partnerSex, this.surnameS);
+  }
+
+  onDialogOpenC(data: NewPersonDialog2Component) {
+    data._data = this.nph.initNew('M', this.surnameC);
+  }
+
+  closeDialog() {
+    this.displayS = false;
+    this.displayC = false;
   }
 
   anchor(): string {

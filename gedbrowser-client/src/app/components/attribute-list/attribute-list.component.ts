@@ -1,54 +1,68 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
+import {Component, OnInit, Input, OnChanges} from '@angular/core';
+import {SelectItem} from 'primeng/api';
 
 import {ApiAttribute} from '../../models';
 import {AttributeUtil} from '../../utils';
+import {HasAttributeList} from '../../interfaces';
 
-import {AttributeDialogData} from '../attribute-dialog/attribute-dialog-data';
-import {AttributeDialogHelper} from '../attribute-dialog/attribute-dialog-helper';
-import {AttributeDialogComponent} from '../attribute-dialog/attribute-dialog.component';
+import {
+  AttributeDialogData,
+  AttributeDialogHelper,
+  NewAttributeDialogComponent
+} from '../attribute-dialog';
 
 @Component({
   selector: 'app-attribute-list',
   templateUrl: './attribute-list.component.html',
   styleUrls: ['./attribute-list.component.css']
 })
-export class AttributeListComponent implements OnInit {
+export class AttributeListComponent implements OnInit, OnChanges {
   @Input() attributes: Array<ApiAttribute>;
-  @Input() parent: any;
+  @Input() parent: HasAttributeList;
   @Input() toggleable = false;
   @Input() styleClass: string;
 
+  display = false;
   index;
   attributeDialogHelper = new AttributeDialogHelper(this);
   attributeUtil = new AttributeUtil(this);
 
-  constructor(public dialog: MatDialog) { }
+  constructor() { }
 
   ngOnInit() {
     this.index = this.attributeUtil.lastIndex();
   }
 
-  createAttribute(): void {
-    const dataIn: AttributeDialogData = {
-      insert: true, index: this.index, type: 'Birth', text: '', date: '',
-      place: '', note: '', originalType: 'Birth', originalText: '',
-      originalDate: '', originalPlace: '', originalNote: '',
-    };
-    const dialogRef: MatDialogRef<AttributeDialogComponent> =
-      this.dialog.open(AttributeDialogComponent, {
-        data: dataIn,
-      });
+  ngOnChanges() {
+    this.index = this.attributeUtil.lastIndex();
+  }
 
-    const sub = dialogRef.componentInstance.onOK.subscribe(
-      (data: AttributeDialogData) => {
-        const attribute: ApiAttribute =
-          this.attributeDialogHelper.populateNewAttribute(data);
-        this.attributes.splice(0, 0, attribute);
-        this.parent.save();
-      }
-    );
+  create() {
+    this.display = true;
+  }
 
-    dialogRef.afterClosed().subscribe(() => { sub.unsubscribe(); });
+  defaultData(): AttributeDialogData {
+    return this.parent.defaultData();
+  }
+
+  onDialogOpen(data: NewAttributeDialogComponent) {
+    data._data = this.defaultData();
+  }
+
+  onDialogOK(data: AttributeDialogData) {
+    if (data != null) {
+      const attribute: ApiAttribute =
+        this.attributeDialogHelper.populateNewAttribute(data);
+      this.attributes.splice(0, 0, attribute);
+      this.parent.save();
+    }
+  }
+
+  onDialogClose() {
+    this.display = false;
+  }
+
+  options(): Array<SelectItem> {
+    return this.parent.options();
   }
 }

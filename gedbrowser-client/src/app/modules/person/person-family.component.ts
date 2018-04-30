@@ -1,11 +1,13 @@
-import {MatDialogRef, MatDialog} from '@angular/material';
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {NgxGalleryOptions, NgxGalleryImage} from 'ngx-gallery';
 import {Observable} from 'rxjs/Observable';
+import {SelectItem} from 'primeng/api';
 
+import {AttributeDialogData, NewPersonDialogData, NewPersonDialog2Component} from '../../components';
 import {ApiAttribute, ApiFamily, ApiPerson} from '../../models';
 import {FamilyService, PersonService, NewPersonLinkService, UrlBuilder} from '../../services';
 import {ImageUtil} from '../../utils';
+import {HasAttributeList} from '../../interfaces';
 
 import {PersonCreator} from './person-creator';
 
@@ -25,7 +27,7 @@ import {PersonCreator} from './person-creator';
   templateUrl: './person-family.component.html',
   styleUrls: ['./person-family.component.css']
 })
-export class PersonFamilyComponent extends PersonCreator implements OnInit {
+export class PersonFamilyComponent extends PersonCreator implements HasAttributeList {
   @Input() string: string;
   @Input() person: ApiPerson;
   @Input() index: number;
@@ -34,20 +36,49 @@ export class PersonFamilyComponent extends PersonCreator implements OnInit {
   imageUtil = new ImageUtil();
   galleryOptions = this.imageUtil.galleryOptions();
   initialized = false;
+  _options: Array<SelectItem> = [
+      {value: 'Annulment', label: 'Annulment'},
+      {value: 'Census', label: 'Census'},
+      {value: 'Children Count', label: 'Children Count'},
+      {value: 'Divorce', label: 'Divorce'},
+      {value: 'Divorce Filed', label: 'Divorce Filed'},
+      {value: 'Event', label: 'Event'},
+      {value: 'Engagement', label: 'Engagement'},
+      {value: 'Marriage', label: 'Marriage'},
+      {value: 'Marriage Bann', label: 'Marriage Bann'},
+      {value: 'Marriage Contract', label: 'Marriage Contract'},
+      {value: 'Marriage License', label: 'Marriage License'},
+      {value: 'Marriage Settlement', label: 'Marriage Settlement'},
+      {value: 'Note', label: 'Note'},
+      {value: 'Multimedia', label: 'Multimedia'},
+      {value: 'Residence', label: 'Residence'},
+      {value: 'Restriction', label: 'Restriction'},
+      {value: 'Sealing Child', label: 'Sealing Child'},
+      {value: 'Sealing Spouse', label: 'Sealing Spouse'},
+      {value: 'Source', label: 'Source'},
+    ];
+  surname: string;
+  display = false;
+  sex: string;
 
-  constructor(public dialog: MatDialog,
-    private familyService: FamilyService,
+  constructor(private familyService: FamilyService,
     private personService: PersonService,
-    private newPersonLinkService: NewPersonLinkService) {
-    super(dialog);
+    newPersonLinkService: NewPersonLinkService) {
+    super(newPersonLinkService);
   }
 
-  ngOnInit() {
+  init(): void {
     this.familyService.getOne('schoeller', this.string)
       .subscribe((family: ApiFamily) => {
         this.family = family;
         this.initialized = true;
     });
+    this.surname = '?';
+    this.sex = this.nph.guessPartnerSex(this.person);
+  }
+
+  ub(): UrlBuilder {
+      return new UrlBuilder('schoeller', 'families', 'spouses');
   }
 
   familyString() {
@@ -71,8 +102,15 @@ export class PersonFamilyComponent extends PersonCreator implements OnInit {
   }
 
   createSpouse(): void {
-    this.newPersonDialog2('F', 'Anonyma',
-      this.newPersonLinkService, new UrlBuilder('schoeller', 'families', 'spouses'));
+    this.display = true;
+  }
+
+  onDialogOpen(data: NewPersonDialog2Component) {
+    data._data = this.nph.initNew(this.sex, this.surname);
+  }
+
+  closeDialog() {
+    this.display = false;
   }
 
   anchor() {
@@ -93,5 +131,17 @@ export class PersonFamilyComponent extends PersonCreator implements OnInit {
   save() {
     this.familyService.put('schoeller', this.family).subscribe(
       (data: ApiFamily) => this.family = data);
+  }
+
+  options(): Array<SelectItem> {
+    return this._options;
+  }
+
+  defaultData(): AttributeDialogData {
+    return {
+      insert: true, index: 0, type: 'Marriage', text: '', date: '',
+      place: '', note: '', originalType: '', originalText: '',
+      originalDate: '', originalPlace: '', originalNote: ''
+    };
   }
 }

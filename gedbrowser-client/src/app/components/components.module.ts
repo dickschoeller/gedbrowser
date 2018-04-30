@@ -1,18 +1,17 @@
-import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
-import {OrderListModule} from 'primeng/orderlist';
-import {ButtonModule} from 'primeng/button';
-import {TooltipModule} from 'primeng/tooltip';
-import {InputTextModule} from 'primeng/inputtext';
-import {InputTextareaModule} from 'primeng/inputtextarea';
-import {DropdownModule} from 'primeng/dropdown';
-import {DialogModule} from 'primeng/dialog';
-import {PanelModule} from 'primeng/panel';
 
-import {MatButtonModule, MatDialogModule, MatSelectModule} from '@angular/material';
+import {ButtonModule} from 'primeng/button';
+import {DialogModule} from 'primeng/dialog';
+import {DropdownModule} from 'primeng/dropdown';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {InputTextModule} from 'primeng/inputtext';
+import {OrderListModule} from 'primeng/orderlist';
+import {PanelModule} from 'primeng/panel';
+import {TooltipModule} from 'primeng/tooltip';
 
 import {
   AttributeListComponent,
@@ -20,10 +19,8 @@ import {
   AttributeListItemDetailListComponent,
   AttributeListItemDetailListItemComponent,
 } from './attribute-list';
-
-import {AttributeDialogComponent} from './attribute-dialog';
-
-import {NewPersonDialogComponent} from './new-person-dialog';
+import {NewPersonDialog2Component} from './new-person-dialog';
+import {NewAttributeDialogComponent} from './attribute-dialog';
 
 @NgModule({
   imports: [
@@ -32,38 +29,31 @@ import {NewPersonDialogComponent} from './new-person-dialog';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
-    MatDialogModule,
-    MatSelectModule,
-    MatButtonModule,
 
-    OrderListModule,
     ButtonModule,
-    TooltipModule,
-    InputTextModule,
-    InputTextareaModule,
-    DropdownModule,
     DialogModule,
+    DropdownModule,
+    InputTextareaModule,
+    InputTextModule,
+    OrderListModule,
     PanelModule,
+    TooltipModule,
   ],
   declarations: [
-    AttributeDialogComponent,
     AttributeListComponent,
     AttributeListItemComponent,
     AttributeListItemDetailListComponent,
     AttributeListItemDetailListItemComponent,
-    NewPersonDialogComponent,
-  ],
-  entryComponents: [
-    AttributeDialogComponent,
-    NewPersonDialogComponent,
+    NewAttributeDialogComponent,
+    NewPersonDialog2Component,
   ],
   exports: [
-    AttributeDialogComponent,
     AttributeListComponent,
     AttributeListItemComponent,
     AttributeListItemDetailListComponent,
     AttributeListItemDetailListItemComponent,
-    NewPersonDialogComponent,
+    NewAttributeDialogComponent,
+    NewPersonDialog2Component,
   ]
 })
 

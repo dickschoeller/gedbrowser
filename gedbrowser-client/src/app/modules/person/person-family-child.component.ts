@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnChanges} from '@angular/core';
 
 import {ApiAttribute, ApiPerson} from '../../models';
 import {PersonService} from '../../services';
@@ -20,7 +20,7 @@ import {PersonFamilyComponent} from './person-family.component';
   templateUrl: './person-family-child.component.html',
   styleUrls: ['./person-family-child.component.css']
 })
-export class PersonFamilyChildComponent implements OnInit {
+export class PersonFamilyChildComponent implements OnInit, OnChanges {
   @Input() child: ApiAttribute;
   @Input() index: number;
   @Input() parent: PersonFamilyComponent;
@@ -31,10 +31,18 @@ export class PersonFamilyChildComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.init();
+  }
+
+  ngOnChanges() {
+    this.init();
+  }
+
+  private init(): void {
     this.personService.getOne('schoeller', this.child.string)
-    .subscribe((person: ApiPerson) => {
-      this.person = person;
-    });
+      .subscribe((person: ApiPerson) => {
+        this.person = person;
+      });
   }
 
   lifespanYearString(): string {

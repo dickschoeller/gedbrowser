@@ -1,38 +1,35 @@
-import {MatDialogRef, MatDialog} from '@angular/material';
+import {NewPersonDialogData, NewPersonHelper} from '../../components/new-person-dialog';
+import {OnChanges, OnInit} from '@angular/core';
 
-import {NewPersonDialogData, NewPersonDialogComponent, NewPersonHelper} from '../../components/new-person-dialog';
 import {ApiPerson} from '../../models';
-import {PostRelatedPerson, UrlBuilder} from '../../services';
+import {PostRelatedPerson, UrlBuilder, NewPersonLinkService} from '../../services';
 
-export abstract class PersonCreator {
+export abstract class PersonCreator implements OnInit, OnChanges {
   nph = new NewPersonHelper();
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public newPersonLinkService: NewPersonLinkService) {}
 
-  public newPersonDialog2(sex: string, name: string, service: PostRelatedPerson, ub: UrlBuilder): void {
-    const dataIn: NewPersonDialogData = this.nph.initialData(sex, name);
-    const dialogRef: MatDialogRef<NewPersonDialogComponent> =
-      this.dialog.open(NewPersonDialogComponent, this.nph.config(dataIn));
-
-    const sub =
-      dialogRef.componentInstance.onOK.subscribe(
-        result => this.saveNewWrapper(this, result, service, ub));
-
-    dialogRef.afterClosed().subscribe(() => { sub.unsubscribe(); });
+  ngOnInit(): void {
+    this.init();
   }
 
-  saveNewWrapper(that: PersonCreator,
-    dialogData: NewPersonDialogData, service: PostRelatedPerson,
-    ub: UrlBuilder): void {
-    that.saveNew(dialogData, service, ub);
+  ngOnChanges(): void {
+    this.init();
   }
 
-  saveNew(dialogData: NewPersonDialogData, service: PostRelatedPerson,
-    ub: UrlBuilder): void {
-    const newPerson: ApiPerson = this.nph.buildPerson(dialogData);
-    service.p(ub, this.anchor(), newPerson).subscribe(
-      (data: ApiPerson) => this.refreshPerson());
+  createPerson(data: NewPersonDialogData): void {
+    if (data != null) {
+      const newPerson: ApiPerson = this.nph.buildPerson(data);
+      this.newPersonLinkService.p(this.ub(), this.anchor(), newPerson).subscribe(
+        (d: ApiPerson) => this.refreshPerson());
+    }
   }
+
+  abstract init(): void;
+
+  abstract closeDialog(): void;
+
+  abstract ub(): UrlBuilder;
 
   abstract anchor(): string;
 
