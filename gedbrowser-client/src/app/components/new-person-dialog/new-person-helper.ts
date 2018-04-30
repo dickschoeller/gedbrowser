@@ -7,11 +7,7 @@ export class NewPersonHelper {
 
   buildPerson(data: NewPersonDialogData): ApiPerson {
     if (data.name === '' || data.name === undefined || data.name === null) {
-      if (data.sex === 'F') {
-        data.name = 'Anonyma';
-      } else {
-        data.name = 'Anonymous';
-      }
+      data.name = this.defaultGiven(data.sex);
     }
     const person: ApiPerson = new ApiPerson();
     person.attributes = new Array<ApiAttribute>();
@@ -69,21 +65,40 @@ export class NewPersonHelper {
   }
 
   config(dataIn) {
-    return {
-//        width: '500px',
-//        height: '600px',
-        data: dataIn,
-      };
+    return { data: dataIn };
   }
 
-  initialData(sex: string, name: string): NewPersonDialogData {
+  initNew(sex: string, surname: string): NewPersonDialogData {
     return {
-      sex: sex, name: name,
+      sex: sex, name: this.defaultGiven(sex) + '/' + surname + '/',
       birthDate: '', birthPlace: '', deathDate: '', deathPlace: ''
     };
   }
 
   empty(result): boolean {
     return (result === null || result === undefined);
+  }
+
+  guessPartnerSex(person: ApiPerson): string {
+    for (const a of person.attributes) {
+      if (a.string === 'Sex') {
+        return this.oppositeSex(a.tail);
+      }
+    }
+    return 'M';
+  }
+
+  private oppositeSex(sex: string): string {
+    if (sex === 'F') {
+      return 'M';
+    }
+    return 'F';
+  }
+
+  defaultGiven(sex: string): string {
+    if (sex === 'F') {
+      return 'Anonyma';
+    }
+    return 'Anonymous';
   }
 }

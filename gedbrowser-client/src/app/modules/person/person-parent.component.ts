@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnChanges} from '@angular/core';
 
 import {ApiAttribute, ApiPerson} from '../../models';
 import {PersonService} from '../../services';
@@ -9,7 +9,7 @@ import {LifespanUtil} from '../../utils';
   templateUrl: './person-parent.component.html',
   styleUrls: ['./person-parent.component.css']
 })
-export class PersonParentComponent implements OnInit {
+export class PersonParentComponent implements OnInit, OnChanges {
   @Input() attribute: ApiAttribute;
   person: ApiPerson;
 
@@ -18,10 +18,18 @@ export class PersonParentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.init();
+  }
+
+  ngOnChanges() {
+    this.init();
+  }
+
+  private init(): void {
     this.personService.getOne('schoeller', this.attribute.string)
       .subscribe((person: ApiPerson) => {
         this.person = person;
-    });
+      });
   }
 
   label(): string {

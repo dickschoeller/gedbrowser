@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {NgxGalleryModule} from 'ngx-gallery';
 import {Ng2PageScrollModule} from 'ng2-page-scroll';
 
+import {DialogModule} from 'primeng/dialog';
 import {PanelModule} from 'primeng/panel';
 import {AccordionModule} from 'primeng/accordion';
 import {DataViewModule} from 'primeng/dataview';
@@ -52,6 +53,7 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
     TooltipModule,
     OrderListModule,
     MenuModule,
+    DialogModule,
   ],
   declarations: [
     PersonComponent,

@@ -4,8 +4,15 @@
     <p-panel header="Children" styleClass="ui-panel-titlebar-success">
       <p-header>
         <span class="bump-out">
-          <p-button (click)="createChild()" icon="fa fa-fw fa-user-plus" pTooltip="Add child"
+          <p-button (click)="createChild2()" icon="fa fa-fw fa-user-plus" pTooltip="Add child"
               [styleClass]="'ui-button-success'"></p-button>
+          <app-new-person-dialog2
+              *ngIf="surname"
+              [p]="this"
+              (onClose)="closeDialog()"
+              (onOpen)="onDialogOpen($event)"
+              (onOK)="createPerson($event)"
+              [(display)]="display"></app-new-person-dialog2>
         </span>
       </p-header>
 

@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnChanges} from '@angular/core';
 
 import {ApiAttribute, ApiFamily} from '../../models';
 import {FamilyService} from '../../services';
@@ -8,7 +8,7 @@ import {FamilyService} from '../../services';
   templateUrl: './person-parent-family.component.html',
   styleUrls: ['./person-parent-family.component.css']
 })
-export class PersonParentFamilyComponent implements OnInit {
+export class PersonParentFamilyComponent implements OnInit, OnChanges {
   @Input() attribute: ApiAttribute;
   family: ApiFamily;
   initialized = false;
@@ -18,10 +18,18 @@ export class PersonParentFamilyComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.init();
+  }
+
+  ngOnChanges() {
+    this.init();
+  }
+
+  private init(): void {
     this.service.getOne('schoeller', this.attribute.string)
       .subscribe((family: ApiFamily) => {
         this.family = family;
         this.initialized = true;
-    });
+      });
   }
 }

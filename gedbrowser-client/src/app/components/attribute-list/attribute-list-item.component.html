@@ -3,7 +3,13 @@
   <app-attribute-list-item-detail-list [attributes]="attribute.attributes"></app-attribute-list-item-detail-list>
   <span class="example-fill-remaining-space"></span>
   <span *ngIf="attributeUtil.editable()" class="hidden">
-    <p-button icon="fa fa-fw fa-pencil" (onClick)="edit()" pTooltip="Edit attribute"></p-button>
-    <p-button icon="fa fa-fw fa-trash" (onClick)="delete()" pTooltip="Delete attribute" [styleClass]="'ui-button-danger'"></p-button>
+    <p-button (onClick)="edit()"
+        icon="fa fa-fw fa-pencil" pTooltip="Edit attribute"></p-button>
+    <p-button [styleClass]="'ui-button-danger'" (onClick)="delete()"
+        icon="fa fa-fw fa-trash" pTooltip="Delete attribute"></p-button>
   </span>
 </div>
+<app-new-attribute-dialog
+    [p]="this" [options]="options()" (onClose)="onDialogClose()"
+    (onOpen)="onDialogOpen($event)" (onOK)="onDialogOK($event)"
+    [(display)]="display"></app-new-attribute-dialog>

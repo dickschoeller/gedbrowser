@@ -1,44 +1,60 @@
-import {Component, Input} from '@angular/core';
-import {MatDialogRef, MatDialog} from '@angular/material';
+import {OnInit, Component, Input} from '@angular/core';
+import {SelectItem} from 'primeng/api';
 
 import {ApiAttribute} from '../../models';
 import {StringUtil, NameUtil, AttributeUtil} from '../../utils';
-import { AttributeDialogData } from '../attribute-dialog';
+import {AttributeDialogData} from '../attribute-dialog';
+import {HasAttributeList} from '../../interfaces';
 
-import {AttributeDialogHelper} from '../attribute-dialog/attribute-dialog-helper';
-import {AttributeDialogComponent} from '../attribute-dialog/attribute-dialog.component';
+import {AttributeDialogHelper, NewAttributeDialogComponent} from '../attribute-dialog';
 
 @Component({
   selector: 'app-attribute-list-item',
   templateUrl: './attribute-list-item.component.html',
   styleUrls: ['./attribute-list-item.component.css']
 })
-export class AttributeListItemComponent {
+export class AttributeListItemComponent implements OnInit {
   @Input() attribute: ApiAttribute;
   @Input() attributes: Array<ApiAttribute>;
   @Input() index: number;
-  @Input() parent: any;
+  @Input() parent: HasAttributeList;
 
+  display = false;
   attributeUtil = new AttributeUtil(this);
-  attributeDialogHelper = new AttributeDialogHelper(this);
+  attributeDialogHelper: AttributeDialogHelper = new AttributeDialogHelper(this);
+  _data: AttributeDialogData;
 
-  constructor(public dialog: MatDialog) { }
+  constructor() { }
 
-  edit(): void {
-    const config = {
-      data: this.attributeDialogHelper.buildData(false)
-    };
-    const dialogRef: MatDialogRef<AttributeDialogComponent> =
-      this.dialog.open(AttributeDialogComponent, config);
+  ngOnInit() {
+  }
 
-    const sub = dialogRef.componentInstance.onOK.subscribe(
-      (data: AttributeDialogData) => {
-        this.attributeDialogHelper.populateParentAttribute(data);
-        this.parent.save();
-      }
-    );
+  edit() {
+    this.display = true;
+  }
 
-    dialogRef.afterClosed().subscribe(() => { sub.unsubscribe(); });
+  defaultData(): AttributeDialogData {
+    const adh: AttributeDialogHelper = new AttributeDialogHelper(this);
+    return adh.buildData(false);
+  }
+
+  onDialogOpen(data: NewAttributeDialogComponent) {
+    data.data = this.defaultData;
+  }
+
+  onDialogOK(data: AttributeDialogData) {
+    if (data != null) {
+      this.attributeDialogHelper.populateParentAttribute(data);
+      this.parent.save();
+    }
+  }
+
+  onDialogClose() {
+    this.display = false;
+  }
+
+  options(): Array<SelectItem> {
+    return this.parent.options();
   }
 
   delete(): void {

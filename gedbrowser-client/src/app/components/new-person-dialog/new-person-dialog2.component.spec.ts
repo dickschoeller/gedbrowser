@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AttributeDialogComponent } from './attribute-dialog.component';
+import { NewPersonDialog2Component } from './new-person-dialog2.component';
 
-describe('AttributeDialogComponent', () => {
-  let component: AttributeDialogComponent;
-  let fixture: ComponentFixture<AttributeDialogComponent>;
+describe('NewPersonDialog2Component', () => {
+  let component: NewPersonDialog2Component;
+  let fixture: ComponentFixture<NewPersonDialog2Component>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AttributeDialogComponent ]
+      declarations: [ NewPersonDialog2Component ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AttributeDialogComponent);
+    fixture = TestBed.createComponent(NewPersonDialog2Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
