@@ -18,6 +18,7 @@ export class SourceListResolver  {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
-    return this.sourceService.getAll('schoeller').catch((err) => this.router.navigateByUrl('/'));
+    const dataset: string = route.params['dataset'];
+    return this.sourceService.getAll(dataset).catch((err) => this.router.navigateByUrl('/'));
   }
 }

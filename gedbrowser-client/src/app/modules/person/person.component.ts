@@ -23,6 +23,7 @@ import {AttributeDialogHelper, AttributeDialogData} from '../../components/attri
   styleUrls: ['./person.component.css']
 })
 export class PersonComponent implements OnInit, HasAttributeList {
+  dataset: string;
   person: ApiPerson;
   imageUtil = new ImageUtil();
   galleryOptions = this.imageUtil.galleryOptions();
@@ -105,8 +106,11 @@ export class PersonComponent implements OnInit, HasAttributeList {
   ) {}
 
   ngOnInit() {
+    this.route.params.subscribe((params) => {
+      this.dataset = params['dataset'];
+    });
     this.route.data.subscribe(
-      (data: {person: ApiPerson}) => {
+      (data: {dataset: string, person: ApiPerson}) => {
         this.person = data.person;
       }
     );
@@ -121,7 +125,7 @@ export class PersonComponent implements OnInit, HasAttributeList {
   }
 
   save() {
-    this.service.put('schoeller', this.person).subscribe(
+    this.service.put(this.dataset, this.person).subscribe(
       (data: ApiPerson) => {
         this.person = data;
       }

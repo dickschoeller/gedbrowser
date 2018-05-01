@@ -22,7 +22,7 @@
         <ng-template let-child let-i="index" pTemplate="item">
           <div>
             <app-person-family-child [child]="child" [index]="i"
-                [parent]="parent"></app-person-family-child>
+                [parent]="parent" [dataset]="dataset"></app-person-family-child>
           </div>
         </ng-template>
       </p-orderList>

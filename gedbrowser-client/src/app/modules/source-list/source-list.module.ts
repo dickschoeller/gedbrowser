@@ -13,7 +13,7 @@ import {SourceListResolver} from './source-list-resolver.service';
 
 const sourceRouting: ModuleWithProviders = RouterModule.forChild([
   {
-    path: 'sources',
+    path: ':dataset/sources',
     component: SourceListComponent,
     resolve: {
       sources: SourceListResolver

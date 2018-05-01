@@ -19,6 +19,7 @@ import {LifespanUtil, StringUtil} from '../../utils';
   styleUrls: ['./person-family-spouse.component.css']
 })
 export class PersonFamilySpouseComponent implements OnInit, OnChanges {
+  @Input() dataset: string;
   @Input() attribute: ApiAttribute;
   spouse: ApiPerson;
 
@@ -35,7 +36,7 @@ export class PersonFamilySpouseComponent implements OnInit, OnChanges {
   }
 
   private init(): void {
-    this.personService.getOne('schoeller', this.attribute.string)
+    this.personService.getOne(this.dataset, this.attribute.string)
       .subscribe((person: ApiPerson) => {
         this.spouse = person;
     });

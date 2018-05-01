@@ -20,6 +20,7 @@ import {PersonComponent} from './person.component';
   styleUrls: ['./person-family-list.component.css']
 })
 export class PersonFamilyListComponent extends PersonCreator {
+  @Input() dataset: string;
   @Input() parent: PersonComponent;
   @Input() person: ApiPerson;
   items: MenuItem[] = [
@@ -54,12 +55,12 @@ export class PersonFamilyListComponent extends PersonCreator {
 
   createFamilyWithChild(): void {
     this.displayC = true;
-    this._ub = new UrlBuilder('schoeller', 'persons', 'children');
+    this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
   }
 
   createFamilyWithSpouse(): void {
     this.displayS = true;
-    this._ub = new UrlBuilder('schoeller', 'persons', 'spouses');
+    this._ub = new UrlBuilder(this.dataset, 'persons', 'spouses');
   }
 
   ub(): UrlBuilder {
@@ -84,7 +85,7 @@ export class PersonFamilyListComponent extends PersonCreator {
   }
 
   refreshPerson(): void {
-    this.personService.getOne('schoeller', this.person.string).subscribe(
+    this.personService.getOne(this.dataset, this.person.string).subscribe(
       (person: ApiPerson) => this.updatePerson(person));
   }
 

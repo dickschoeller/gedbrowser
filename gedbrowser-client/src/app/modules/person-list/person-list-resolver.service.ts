@@ -18,7 +18,8 @@ export class PersonListResolver implements Resolve<Array<ApiPerson>> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
-    return this.personService.getAll('schoeller')
+    const dataset: string = route.params['dataset'];
+    return this.personService.getAll(dataset)
       .catch((err) => this.router.navigateByUrl('/'));
   }
 }

@@ -9,6 +9,7 @@ import {SourceService} from '../../services';
   styleUrls: ['./source-list-item.component.css']
 })
 export class SourceListItemComponent implements OnInit {
+  @Input() dataset: string;
   @Input() source: ApiSource;
 
   constructor(private sourceService: SourceService) {

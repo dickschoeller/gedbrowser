@@ -13,6 +13,7 @@ import {PersonComponent} from './person.component';
   styleUrls: ['./person-parent-families.component.css']
 })
 export class PersonParentFamiliesComponent extends PersonCreator {
+  @Input() dataset: string;
   @Input() parent: PersonComponent;
   @Input() person: ApiPerson;
   display = false;
@@ -32,7 +33,7 @@ export class PersonParentFamiliesComponent extends PersonCreator {
   }
 
   ub(): UrlBuilder {
-    return new UrlBuilder('schoeller', 'persons', 'parents');
+    return new UrlBuilder(this.dataset, 'persons', 'parents');
   }
 
   onDialogOpen(dialog: NewPersonDialog2Component) {
@@ -48,7 +49,7 @@ export class PersonParentFamiliesComponent extends PersonCreator {
   }
 
   refreshPerson() {
-    this.personService.getOne('schoeller', this.person.string).subscribe(
+    this.personService.getOne(this.dataset, this.person.string).subscribe(
       (data: ApiPerson) => this.parent.person = data);
   }
 }

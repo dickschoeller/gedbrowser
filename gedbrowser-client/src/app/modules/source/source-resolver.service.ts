@@ -19,9 +19,10 @@ export class SourceResolver implements Resolve<ApiSource> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<ApiSource> {
+    const dataset: string = route.params['dataset'];
     const id: string = route.params['string'];
     const foo: Observable<ApiSource> =
-       this.sourceService.getOne('schoeller', id);
+       this.sourceService.getOne(dataset, id);
 //      .catch((err) => this.router.navigateByUrl('/'));
     return foo;
   }

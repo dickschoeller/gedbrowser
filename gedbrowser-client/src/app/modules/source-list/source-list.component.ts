@@ -10,6 +10,7 @@ import {SourceService} from '../../services';
   styleUrls: ['./source-list.component.css']
 })
 export class SourceListComponent implements OnInit {
+  dataset: string;
   sources: ApiSource[];
 
   constructor(private route: ActivatedRoute,
@@ -36,8 +37,11 @@ export class SourceListComponent implements OnInit {
    * Read sources from the web service and sort using our comparator.
    */
   ngOnInit() {
+    this.route.params.subscribe((params) => {
+      this.dataset = params['dataset'];
+    });
     this.route.data.subscribe(
-      (data: {sources: ApiSource[]}) => {
+      (data: {dataset: string, sources: ApiSource[]}) => {
         this.sources = data.sources;
         this.sources.sort(this.compare);
       }

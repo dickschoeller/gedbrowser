@@ -28,8 +28,9 @@ import {PersonCreator} from './person-creator';
   styleUrls: ['./person-family.component.css']
 })
 export class PersonFamilyComponent extends PersonCreator implements HasAttributeList {
-  @Input() string: string;
+  @Input() dataset: string;
   @Input() person: ApiPerson;
+  @Input() string: string;
   @Input() index: number;
 
   family: ApiFamily;
@@ -68,7 +69,7 @@ export class PersonFamilyComponent extends PersonCreator implements HasAttribute
   }
 
   init(): void {
-    this.familyService.getOne('schoeller', this.string)
+    this.familyService.getOne(this.dataset, this.string)
       .subscribe((family: ApiFamily) => {
         this.family = family;
         this.initialized = true;
@@ -78,7 +79,7 @@ export class PersonFamilyComponent extends PersonCreator implements HasAttribute
   }
 
   ub(): UrlBuilder {
-      return new UrlBuilder('schoeller', 'families', 'spouses');
+      return new UrlBuilder(this.dataset, 'families', 'spouses');
   }
 
   familyString() {
@@ -129,7 +130,7 @@ export class PersonFamilyComponent extends PersonCreator implements HasAttribute
   }
 
   save() {
-    this.familyService.put('schoeller', this.family).subscribe(
+    this.familyService.put(this.dataset, this.family).subscribe(
       (data: ApiFamily) => this.family = data);
   }
 

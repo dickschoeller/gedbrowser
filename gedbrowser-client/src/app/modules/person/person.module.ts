@@ -28,7 +28,7 @@ import {PersonResolver} from './person-resolver.service';
 
 const personRouting: ModuleWithProviders = RouterModule.forChild([
   {
-    path: 'persons/:string',
+    path: ':dataset/persons/:string',
     component: PersonComponent,
     resolve: {
       person: PersonResolver

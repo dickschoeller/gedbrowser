@@ -13,7 +13,7 @@ import {PersonListResolver} from './person-list-resolver.service';
 
 const personRouting: ModuleWithProviders = RouterModule.forChild([
   {
-    path: 'persons',
+    path: ':dataset/persons',
     component: PersonListComponent,
     resolve: {
       persons: PersonListResolver

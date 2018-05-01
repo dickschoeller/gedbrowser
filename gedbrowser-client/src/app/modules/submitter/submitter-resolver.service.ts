@@ -18,9 +18,10 @@ export class SubmitterResolver implements Resolve<ApiSubmitter> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<ApiSubmitter> {
+    const dataset: string = route.params['dataset'];
     const id: string = route.params['string'];
     const foo: Observable<ApiSubmitter> =
-       this.submitterService.getOne('schoeller', id);
+       this.submitterService.getOne(dataset, id);
 //      .catch((err) => this.router.navigateByUrl('/'));
     return foo;
   }
