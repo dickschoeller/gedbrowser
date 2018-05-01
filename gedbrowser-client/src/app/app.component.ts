@@ -29,34 +29,18 @@ export class AppComponent implements OnInit, OnChanges {
 
   private init() {
     this.items = [
-      {
-        label: 'Persons', icon: 'fa-users', routerLink: ['/' + this.dataset + '/persons']
-      },
-      {
-        label: 'Sources', icon: 'fa-book', routerLink: ['/' + this.dataset + '/sources']
-      },
-      {
-        label: 'Submitters', icon: 'fa-user', routerLink: ['/' + this.dataset + '/submitters']
-      },
-      {
-        label: 'Save', icon: 'fa-save', command: (event: Event) => { this.saveFile(); }
-      },
-      {
-        label: 'Pick dataset', items: [
-          {
-            'label': 'schoeller', 'command': (event) => { this.pickDataset('schoeller'); },
-            routerLink: ['/schoeller/persons']
-          },
-          {
-            'label': 'mini-schoeller', 'command': (event) => { this.pickDataset('mini-schoeller'); },
-            routerLink: ['/mini-schoeller/persons']
-          },
-          {
-            'label': 'gl120368', 'command': (event) => { this.pickDataset('gl120368'); },
-            routerLink: ['/gl120368/persons']
-          }
-        ]
-      },
+      { label: 'Persons', icon: 'fa-users', routerLink: ['/' + this.dataset + '/persons'] },
+      { label: 'Sources', icon: 'fa-book', routerLink: ['/' + this.dataset + '/sources'] },
+      { label: 'Submitters', icon: 'fa-user', routerLink: ['/' + this.dataset + '/submitters'] },
+      { label: 'Save', icon: 'fa-save', command: (event: Event) => { this.saveFile(); } },
+      { label: 'Pick dataset', items: [
+          { 'label': 'schoeller', 'command': (event) => { this.pickDataset('schoeller'); },
+            routerLink: ['/schoeller/persons'] },
+          { 'label': 'mini-schoeller', 'command': (event) => { this.pickDataset('mini-schoeller'); },
+            routerLink: ['/mini-schoeller/persons'] },
+          { 'label': 'gl120368', 'command': (event) => { this.pickDataset('gl120368'); },
+            routerLink: ['/gl120368/persons'] }
+        ] },
     ];
   }
 
