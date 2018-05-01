@@ -73,9 +73,12 @@
     <sauce_junit.version>2.1.23</sauce_junit.version>
     <geojson-jackson.version>1.8</geojson-jackson.version>
     <log4j-over-slf4j.version>1.7.25</log4j-over-slf4j.version>
+    <jcl-over-slf4j.version>1.7.25</jcl-over-slf4j.version>
     <logback-classic.version>1.2.3</logback-classic.version>
     <anselcharset.version>1.1</anselcharset.version>
     <commons-io.version>2.6</commons-io.version>
+    <commons-logging.version>1.2</commons-logging.version>
+    <assertj.version>3.9.1</assertj.version>
 
     <selenium.version>3.11.0</selenium.version>
     <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
@@ -598,6 +601,11 @@
         <version>${log4j-over-slf4j.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <version>${log4j-over-slf4j.version}</version>
+      </dependency>
+      <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
         <version>${logback-classic.version}</version>
@@ -611,6 +619,17 @@
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
         <version>${commons-io.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>${commons-logging.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>${assertj.version}</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>

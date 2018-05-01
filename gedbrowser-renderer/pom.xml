@@ -60,6 +60,26 @@
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>geoservice-client</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.schoellerfamily.gedbrowser</groupId>
+      <artifactId>geoservice-persistence</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>de.grundid.opendatalab</groupId>
+      <artifactId>geojson-jackson</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>junit</groupId>
