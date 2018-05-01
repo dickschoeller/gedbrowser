@@ -2,7 +2,7 @@
     [responsive]="false" [listStyle]="{'height':'100%','width':'100%','border':'0'}">
   <ng-template let-spouse pTemplate="listItem">
     <div class="parent-family">
-      <app-person-parent [attribute]="spouse"></app-person-parent>
+      <app-person-parent [attribute]="spouse" [dataset]="dataset"></app-person-parent>
     </div>
   </ng-template>
 </p-orderList>

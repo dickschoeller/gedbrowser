@@ -13,7 +13,7 @@ import {SubmitterListResolver} from './submitter-list-resolver.service';
 
 const submitterRouting: ModuleWithProviders = RouterModule.forChild([
   {
-    path: 'submitters',
+    path: ':dataset/submitters',
     component: SubmitterListComponent,
     resolve: {
       submitters: SubmitterListResolver

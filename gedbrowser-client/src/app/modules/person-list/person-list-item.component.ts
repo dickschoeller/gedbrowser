@@ -10,6 +10,7 @@ import {LifespanUtil} from '../../utils';
   styleUrls: ['./person-list-item.component.css']
 })
 export class PersonListItemComponent implements OnInit {
+  @Input() dataset: string;
   @Input() person: ApiPerson;
 
   constructor(private personService: PersonService) {

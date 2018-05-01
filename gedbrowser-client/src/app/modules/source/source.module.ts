@@ -14,7 +14,7 @@ import {SourceResolver} from './source-resolver.service';
 
 const sourceRouting: ModuleWithProviders = RouterModule.forChild([
   {
-    path: 'sources/:string',
+    path: ':dataset/sources/:string',
     component: SourceComponent,
     resolve: {
       source: SourceResolver

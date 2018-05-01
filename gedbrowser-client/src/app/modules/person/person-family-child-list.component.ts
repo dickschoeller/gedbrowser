@@ -19,6 +19,7 @@ import {PersonFamilyComponent} from './person-family.component';
   styleUrls: ['./person-family-child-list.component.css']
 })
 export class PersonFamilyChildListComponent extends PersonCreator {
+  @Input() dataset: string;
   @Input() children: Array<ApiAttribute>;
   @Input() family: ApiFamily;
   @Input() parent: PersonFamilyComponent;
@@ -32,7 +33,7 @@ export class PersonFamilyChildListComponent extends PersonCreator {
   init(): void {
     const h = this.husbandId();
     if (h !== '') {
-      this.personService.getOne('schoeller', h)
+      this.personService.getOne(this.dataset, h)
         .subscribe((person: ApiPerson) => {
           this.surname = person.surname;
         });
@@ -42,7 +43,7 @@ export class PersonFamilyChildListComponent extends PersonCreator {
   }
 
   ub(): UrlBuilder {
-    return new UrlBuilder('schoeller', 'families', 'children');
+    return new UrlBuilder(this.dataset, 'families', 'children');
   }
 
   private husbandId(): string {
@@ -71,7 +72,7 @@ export class PersonFamilyChildListComponent extends PersonCreator {
   }
 
   refreshPerson(): void {
-    this.personService.getOne('schoeller', this.parent.person.string).subscribe(
+    this.personService.getOne(this.dataset, this.parent.person.string).subscribe(
       (person: any) => this.parent.refreshPerson());
   }
 }

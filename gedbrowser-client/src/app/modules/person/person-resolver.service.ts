@@ -21,9 +21,10 @@ export class PersonResolver implements Resolve<ApiPerson> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<ApiPerson> {
+    const dataset: string = route.params['dataset'];
     const id: string = route.params['string'];
     const foo: Observable<ApiPerson> =
-       this.personService.getOne('schoeller', id);
+       this.personService.getOne(dataset, id);
 //      .catch((err) => this.router.navigateByUrl('/'));
     return foo;
   }

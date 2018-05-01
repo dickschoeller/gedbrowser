@@ -18,6 +18,7 @@ export class SubmitterListResolver  {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
-    return this.submitterService.getAll('schoeller').catch((err) => this.router.navigateByUrl('/'));
+    const dataset: string = route.params['dataset'];
+    return this.submitterService.getAll(dataset).catch((err) => this.router.navigateByUrl('/'));
   }
 }

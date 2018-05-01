@@ -13,6 +13,7 @@ import {HasAttributeList} from '../../interfaces';
   styleUrls: ['./submitter.component.css']
 })
 export class SubmitterComponent implements OnInit, HasAttributeList {
+  dataset: string;
   submitter: ApiSubmitter;
   _options: Array<SelectItem> = [
       {value: 'Address', label: 'Address'},
@@ -33,15 +34,18 @@ export class SubmitterComponent implements OnInit, HasAttributeList {
   ) { }
 
   ngOnInit() {
+    this.route.params.subscribe((params) => {
+      this.dataset = params['dataset'];
+    });
     this.route.data.subscribe(
-      (data: {submitter: ApiSubmitter}) => {
+      (data: {dataset: string, submitter: ApiSubmitter}) => {
         this.submitter = data.submitter;
       }
     );
   }
 
   save() {
-    this.service.put('schoeller', this.submitter).subscribe(
+    this.service.put(this.dataset, this.submitter).subscribe(
       (data: ApiSubmitter) => {
         this.submitter = data;
       }

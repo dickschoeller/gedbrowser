@@ -15,6 +15,7 @@ import {HasAttributeList} from '../../interfaces';
   styleUrls: ['./source.component.css']
 })
 export class SourceComponent implements OnInit, HasAttributeList {
+  dataset: string;
   source: ApiSource;
   imageUtil = new ImageUtil();
   galleryOptions = this.imageUtil.galleryOptions();
@@ -150,8 +151,11 @@ export class SourceComponent implements OnInit, HasAttributeList {
   ) {}
 
   ngOnInit() {
+    this.route.params.subscribe((params) => {
+      this.dataset = params['dataset'];
+    });
     this.route.data.subscribe(
-      (data: {source: ApiSource}) => {
+      (data: {dataset: string, source: ApiSource}) => {
         this.source = data.source;
       }
     );
@@ -162,7 +166,7 @@ export class SourceComponent implements OnInit, HasAttributeList {
   }
 
   save() {
-    this.sourceService.put('schoeller', this.source).subscribe(
+    this.sourceService.put(this.dataset, this.source).subscribe(
       (data: ApiSource) => {
         this.source = data;
       }

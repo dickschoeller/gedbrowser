@@ -10,6 +10,7 @@ import {SubmitterService} from '../../services';
   styleUrls: ['./submitter-list.component.css']
 })
 export class SubmitterListComponent implements OnInit {
+  dataset: string;
   submitters: ApiSubmitter[];
 
   constructor(private route: ActivatedRoute,
@@ -36,6 +37,9 @@ export class SubmitterListComponent implements OnInit {
    * Read submitters from the web service and sort using our comparator.
    */
   ngOnInit() {
+    this.route.params.subscribe((params) => {
+      this.dataset = params['dataset'];
+    });
     this.route.data.subscribe(
       (data: {submitters: ApiSubmitter[]}) => {
         this.submitters = data.submitters;

@@ -12,6 +12,7 @@ import {SplitButtonModule} from 'primeng/splitbutton';
 import {PanelModule} from 'primeng/panel';
 import {AccordionModule} from 'primeng/accordion';
 import {MenuModule} from 'primeng/menu';
+import {TieredMenuModule} from 'primeng/tieredmenu';
 import {OrderListModule} from 'primeng/orderlist';
 import {TooltipModule} from 'primeng/tooltip';
 
@@ -64,6 +65,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     AccordionModule,
     MenuModule,
     OrderListModule,
+    TieredMenuModule,
     TooltipModule,
 
     PersonListModule,

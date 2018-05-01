@@ -9,6 +9,7 @@ import {FamilyService} from '../../services';
   styleUrls: ['./person-parent-family.component.css']
 })
 export class PersonParentFamilyComponent implements OnInit, OnChanges {
+  @Input() dataset: string;
   @Input() attribute: ApiAttribute;
   family: ApiFamily;
   initialized = false;
@@ -26,7 +27,7 @@ export class PersonParentFamilyComponent implements OnInit, OnChanges {
   }
 
   private init(): void {
-    this.service.getOne('schoeller', this.attribute.string)
+    this.service.getOne(this.dataset, this.attribute.string)
       .subscribe((family: ApiFamily) => {
         this.family = family;
         this.initialized = true;

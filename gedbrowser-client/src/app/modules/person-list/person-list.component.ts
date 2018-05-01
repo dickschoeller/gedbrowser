@@ -10,6 +10,7 @@ import {PersonService} from '../../services';
   styleUrls: ['./person-list.component.css']
 })
 export class PersonListComponent implements OnInit {
+  dataset: string;
   persons: ApiPerson[];
 
   constructor(private route: ActivatedRoute,
@@ -36,8 +37,11 @@ export class PersonListComponent implements OnInit {
    * Read persons from the web service and sort using our comparator.
    */
   ngOnInit() {
+    this.route.params.subscribe((params) => {
+      this.dataset = params['dataset'];
+    });
     this.route.data.subscribe(
-      (data: {persons: ApiPerson[]}) => {
+      (data: {dataset: string, persons: ApiPerson[]}) => {
         this.persons = data.persons;
         this.persons.sort(this.compare);
       }

@@ -9,6 +9,7 @@ import {SubmitterService} from '../../services';
   styleUrls: ['./submitter-list-item.component.css']
 })
 export class SubmitterListItemComponent implements OnInit {
+  @Input() dataset: string;
   @Input() submitter: ApiSubmitter;
 
   constructor(private submitterService: SubmitterService) {
