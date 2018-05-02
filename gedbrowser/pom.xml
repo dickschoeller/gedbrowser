@@ -70,15 +70,15 @@
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
+      <artifactId>gedbrowser-dao</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-mongo-dao</artifactId>
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-analytics</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.schoellerfamily.gedbrowser</groupId>
-      <artifactId>gedbrowser-geographics</artifactId>
     </dependency>
     <dependency>
       <groupId>org.schoellerfamily.gedbrowser</groupId>
@@ -116,6 +116,14 @@
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-mongodb</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
     </dependency>
 
     <!-- Testing dependencies -->
@@ -183,6 +191,11 @@
     <dependency>
       <groupId>com.saucelabs</groupId>
       <artifactId>sauce_junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
