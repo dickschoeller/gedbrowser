@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { SourceService } from './submitter.service';
+import { SubmitterService } from './submitter.service';
 
 describe('SubmitterService', () => {
   beforeEach(() => {

@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { SubmittersResolverService } from './submitters-resolver.service';
+import { SubmitterListResolver } from './submitter-list-resolver.service';
 
-describe('SubmittersResolverService', () => {
+describe('SubmitterListResolver', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SubmittersResolverService]
+      providers: [SubmitterListResolver]
     });
   });
 
-  it('should be created', inject([SubmittersResolverService], (service: SubmittersResolverService) => {
+  it('should be created', inject([SubmitterListResolver], (service: SubmitterListResolver) => {
     expect(service).toBeTruthy();
   }));
 });
