@@ -121,11 +121,12 @@
     <module>gedbrowser-api</module>
     <module>gedbrowser-datamodel</module>
     <module>gedbrowser-dao</module>
-    <module>gedbrowser-geographics</module>
     <module>gedbrowser-mongo-dao</module>
     <module>gedbrowser-reader</module>
     <module>gedbrowser-renderer</module>
     <module>gedbrowser-writer</module>
+    <module>gedbrowserng</module>
+    <module>gedbrowserng-frontend</module>
     <module>geoservice</module>
     <module>geoservice-client</module>
     <module>geoservice-common</module>
@@ -391,17 +392,17 @@
       </dependency>
       <dependency>
         <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>gedbrowser-backend</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
         <artifactId>gedbrowser-datamodel</artifactId>
         <version>${gedbrowser.version}</version>
       </dependency>
       <dependency>
         <groupId>org.schoellerfamily.gedbrowser</groupId>
         <artifactId>gedbrowser-dao</artifactId>
-        <version>${gedbrowser.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.schoellerfamily.gedbrowser</groupId>
-        <artifactId>gedbrowser-geographics</artifactId>
         <version>${gedbrowser.version}</version>
       </dependency>
       <dependency>
@@ -422,6 +423,16 @@
       <dependency>
         <groupId>org.schoellerfamily.gedbrowser</groupId>
         <artifactId>gedbrowser-writer</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>gedbrowserng</artifactId>
+        <version>${gedbrowser.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>gedbrowserng-frontend</artifactId>
         <version>${gedbrowser.version}</version>
       </dependency>
       <dependency>
