@@ -2,11 +2,11 @@
 export GEDBROWSER_HOME=/var/lib/gedbrowser
 export DATA_DIR=/home/dick/data
 
-docker stop gedbrowser-api-snapshot
+docker stop gedbrowserng-snapshot
 docker stop gedbrowser-snapshot
 docker stop geoservice-snapshot
 
-docker rm gedbrowser-api-snapshot
+docker rm gedbrowserng-snapshot
 docker rm gedbrowser-snapshot
 docker rm geoservice-snapshot
 
@@ -23,4 +23,4 @@ docker run ${R} ${M} ${H} -p 9086:8080 -p 9087:8081 --name geoservice${VN} -d di
 sleep 5
 docker run ${R} -e "geoservice.host=${HO}" -e "geoservice.port=${PO}" ${M} --link geoservice:geoservice ${H} -p 9082:8080 -p 9083:8081 --name gedbrowser${VN} -d dickschoeller/gedbrowser:${V} ${A}
 sleep 5
-docker run ${R} ${M} ${H} -p 9088:8080 -p 9089:8081 --name gedbrowser-api${VN} -d dickschoeller/gedbrowser-api:${V} ${A}
+docker run ${R} ${M} ${H} -p 9088:8080 -p 9089:8081 --name gedbrowserng${VN} -d dickschoeller/gedbrowserng:${V} ${A}
