@@ -72,8 +72,9 @@
             <goals>
               <goal>yarn</goal>
             </goals>
-            <phase>test</phase>
+            <phase>integration-test</phase>
             <configuration>
+	      <skip>${skip.integration.tests}</skip>
               <arguments>test</arguments>
               <failOnError>true</failOnError>
             </configuration>

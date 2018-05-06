@@ -32,15 +32,15 @@ import {AppComponent} from './app.component';
 
 // import {ComponentsModule} from './components';
 
-// import {
-//   ServiceBase,
-//   FamilyService,
-//   NewPersonLinkService,
-//   PersonService,
-//   SourceService,
-//   SubmitterService,
-//   SaveService
-// } from './services';
+import {
+  ServiceBase,
+  FamilyService,
+  NewPersonLinkService,
+  PersonService,
+  SourceService,
+  SubmitterService,
+  SaveService
+} from './services';
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
 
