@@ -21,14 +21,14 @@ import {Ng2PageScrollModule} from 'ng2-page-scroll';
 
 import {AppComponent} from './app.component';
 
-// import {
-//   PersonListModule,
+import {
+  PersonListModule,
 //   PersonModule,
-//   SourceListModule,
+  SourceListModule,
 //   SourceModule,
-//   SubmitterListModule,
+  SubmitterListModule,
 //   SubmitterModule
-// } from './modules';
+} from './modules';
 
 // import {ComponentsModule} from './components';
 
@@ -68,11 +68,11 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     TieredMenuModule,
     TooltipModule,
 
-//     PersonListModule,
+    PersonListModule,
 //     PersonModule,
-//     SourceListModule,
+    SourceListModule,
 //     SourceModule,
-//     SubmitterListModule,
+    SubmitterListModule,
 //     SubmitterModule,
   ],
   declarations: [
@@ -81,12 +81,12 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
   entryComponents: [
   ],
   providers: [
-//     NewPersonLinkService,
-//     FamilyService,
-//     PersonService,
-//     SourceService,
-//     SubmitterService,
-//     SaveService
+    NewPersonLinkService,
+    FamilyService,
+    PersonService,
+    SourceService,
+    SubmitterService,
+    SaveService
   ],
   bootstrap: [AppComponent]
 })

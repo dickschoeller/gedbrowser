@@ -3,7 +3,7 @@ import {HttpResponse} from '@angular/common/http';
 import {saveAs} from 'file-saver/FileSaver';
 import {MenuItem} from 'primeng/api';
 
-// import {SaveService} from './services';
+import {SaveService} from './services';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +18,7 @@ export class AppComponent implements OnInit, OnChanges {
   items: MenuItem[];
 
   constructor(
-//    private saveService: SaveService
+    private saveService: SaveService
   ) { }
 
   ngOnInit() {
@@ -53,13 +53,13 @@ export class AppComponent implements OnInit, OnChanges {
   }
 
   saveFile() {
-//    this.saveService.getTextFile(this.dataset).subscribe(
-//      results => this.saveToFileSystem(results)
-//    );
+    this.saveService.getTextFile(this.dataset).subscribe(
+      results => this.saveToFileSystem(results)
+    );
   }
 
   private saveToFileSystem(response) {
-//    const blob = new Blob([response], {type: 'text/plain'});
-//    saveAs(blob, this.dataset + '.ged');
+    const blob = new Blob([response], {type: 'text/plain'});
+    saveAs(blob, this.dataset + '.ged');
   }
 }

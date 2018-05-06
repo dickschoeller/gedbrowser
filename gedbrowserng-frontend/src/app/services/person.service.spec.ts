@@ -1,5 +1,5 @@
-import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed, inject} from '@angular/core/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 import {PersonService} from './person.service';
 

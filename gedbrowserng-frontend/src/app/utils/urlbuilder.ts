@@ -9,8 +9,7 @@ export class UrlBuilder {
   }
 
   baseUrl(): string {
-    return 'http://largo.schoellerfamily.org:9084/gedbrowser-api/v1/dbs/'
-      + this.db;
+    return '/gedbrowserng/v1/dbs/' + this.db;
   }
 
   url(id) {

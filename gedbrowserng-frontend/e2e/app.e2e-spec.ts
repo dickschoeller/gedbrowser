@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('frontend App', () => {
+describe('gedbrowserng-frontend App', () => {
   let page: AppPage;
 
   beforeEach(() => {
