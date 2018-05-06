@@ -1,0 +1,32 @@
+<div class="ui-g">
+  <div class="ui-g-1"></div>
+  <div class="ui-g-10">
+    <p-panel header="Children" styleClass="ui-panel-titlebar-success">
+      <p-header>
+        <span class="bump-out">
+          <p-button (click)="createChild2()" icon="fa fa-fw fa-user-plus" pTooltip="Add child"
+              [styleClass]="'ui-button-success'"></p-button>
+          <app-new-person-dialog2
+              *ngIf="surname"
+              [p]="this"
+              (emitClose)="closeDialog()"
+              (emitOpen)="onDialogOpen($event)"
+              (emitOK)="createPerson($event)"
+              [(display)]="display"></app-new-person-dialog2>
+        </span>
+      </p-header>
+
+      <p-orderList [value]="children" dragdrop="true" dragdropScope="children"
+          [responsive]="false" [listStyle]="{'height':'100%','width':'100%','border':'0'}"
+          (onReorder)="parent.save()">
+        <ng-template let-child let-i="index" pTemplate="item">
+          <div>
+            <app-person-family-child [child]="child" [index]="i"
+                [parent]="parent" [dataset]="dataset"></app-person-family-child>
+          </div>
+        </ng-template>
+      </p-orderList>
+    </p-panel>
+  </div>
+  <div class="ui-g-1"></div>
+</div>

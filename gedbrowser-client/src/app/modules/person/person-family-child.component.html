@@ -1,9 +1,0 @@
-<div class="parent">
-  <span *ngIf="person">
-    <a [routerLink]="['/' + dataset + '/persons', person.string]" class="name">{{person.indexName}} {{lifespanYearString()}} [{{person.string}}]</a>
-  </span>
-  <span class="example-fill-remaining-space"></span>
-  <span class="hidden">
-    <p-button icon="fa fa-fw fa-trash" (onClick)="delete()" pTooltip="Delete attribute" [styleClass]="'ui-button-danger'"></p-button>
-  </span>
-</div>

@@ -1,0 +1,26 @@
+<p-panel [toggleable]="toggleable" [styleClass]="styleClass" header="Attributes">
+  <p-header>
+    <span class="bump-out">
+      <p-button [styleClass]="'ui-button-success'" (click)="create()"
+          icon="fa fa-fw fa-plus-circle" pTooltip="Create attribute"></p-button>
+    </span>
+  </p-header>
+  <div>
+    <p-orderList [value]="attributes" [responsive]="false"
+        [listStyle]="{'height':'100%','width':'100%','border':'0'}"
+        (onReorder)="parent.save()"
+        dragdrop="true" dragdropScope="attributes">
+      <ng-template let-attribute let-i="index" pTemplate="item">
+        <div>
+          <app-attribute-list-item [attribute]="attribute"
+              [attributes]="attributes" [index]="i" [parent]="parent">
+          </app-attribute-list-item>
+        </div>
+      </ng-template>
+    </p-orderList>
+  </div>
+</p-panel>
+<app-new-attribute-dialog [p]="this" [options]="options()"
+    (emitClose)="onDialogClose()" (emitOpen)="onDialogOpen($event)"
+    (emitOK)="onDialogOK($event)"
+    [(display)]="display"></app-new-attribute-dialog>
