@@ -7,7 +7,7 @@ import {ApiSource} from '../../models';
 import {SourceService} from '../../services';
 
 @Injectable()
-export class SourceResolver implements Resolve<ApiSource> {
+export class SourceResolverService implements Resolve<ApiSource> {
 
   constructor(
     private sourceService: SourceService,

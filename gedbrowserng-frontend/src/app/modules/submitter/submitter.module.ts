@@ -7,14 +7,14 @@ import {PanelModule} from 'primeng/panel';
 import {ComponentsModule} from '../../components';
 
 import {SubmitterComponent} from './submitter.component';
-import {SubmitterResolver} from './submitter-resolver.service';
+import {SubmitterResolverService} from './submitter-resolver.service';
 
 const submitterRouting: ModuleWithProviders = RouterModule.forChild([
   {
     path: ':dataset/submitters/:string',
     component: SubmitterComponent,
     resolve: {
-      submitter: SubmitterResolver
+      submitter: SubmitterResolverService
     }
   }
 ]);
@@ -30,7 +30,7 @@ const submitterRouting: ModuleWithProviders = RouterModule.forChild([
     SubmitterComponent,
   ],
   providers: [
-    SubmitterResolver
+    SubmitterResolverService
   ]
 })
 

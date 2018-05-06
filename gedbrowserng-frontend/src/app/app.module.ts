@@ -23,14 +23,12 @@ import {AppComponent} from './app.component';
 
 import {
   PersonListModule,
-//   PersonModule,
+  PersonModule,
   SourceListModule,
   SourceModule,
   SubmitterListModule,
-//   SubmitterModule
+  SubmitterModule
 } from './modules';
-
-// import {ComponentsModule} from './components';
 
 import {
   ServiceBase,
@@ -69,11 +67,11 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     TooltipModule,
 
     PersonListModule,
-//     PersonModule,
+    PersonModule,
     SourceListModule,
     SourceModule,
     SubmitterListModule,
-//     SubmitterModule,
+    SubmitterModule,
   ],
   declarations: [
     AppComponent,

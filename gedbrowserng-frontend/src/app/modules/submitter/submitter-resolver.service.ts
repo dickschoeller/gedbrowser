@@ -7,7 +7,7 @@ import {ApiSubmitter} from '../../models';
 import {SubmitterService} from '../../services';
 
 @Injectable()
-export class SubmitterResolver implements Resolve<ApiSubmitter> {
+export class SubmitterResolverService implements Resolve<ApiSubmitter> {
 
   constructor(
     private submitterService: SubmitterService,

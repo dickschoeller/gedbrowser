@@ -9,9 +9,9 @@
           <app-new-person-dialog2
               *ngIf="surname"
               [p]="this"
-              (onClose)="closeDialog()"
-              (onOpen)="onDialogOpen($event)"
-              (onOK)="createPerson($event)"
+              (emitClose)="closeDialog()"
+              (emitOpen)="onDialogOpen($event)"
+              (emitOK)="createPerson($event)"
               [(display)]="display"></app-new-person-dialog2>
         </span>
       </p-header>

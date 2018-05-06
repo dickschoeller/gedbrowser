@@ -5,7 +5,7 @@ import {SelectItem} from 'primeng/api';
 
 import {
   AttributeListComponent,
-//  AttributeDialogData,
+  AttributeDialogData,
 } from '../../components';
 import {ApiSource, ApiAttribute} from '../../models';
 import {SourceService} from '../../services';

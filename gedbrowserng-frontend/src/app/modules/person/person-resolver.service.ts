@@ -10,7 +10,7 @@ import {PersonService} from '../../services';
  * Resolves and fetches a person from the module routing.
  */
 @Injectable()
-export class PersonResolver implements Resolve<ApiPerson> {
+export class PersonResolverService implements Resolve<ApiPerson> {
 
   constructor(
     private personService: PersonService,

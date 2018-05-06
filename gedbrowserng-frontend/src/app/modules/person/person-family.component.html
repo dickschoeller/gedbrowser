@@ -1,6 +1,6 @@
 <p-panel [toggleable]="true">
   <p-header>
-    <span>Family {{index+1}}</span>
+    <span>Family {{ index + 1 }}</span>
     <span *ngIf="spouse()">&nbsp;-&nbsp;</span>
     <app-person-family-spouse *ngIf="spouse()" [attribute]="spouse()" [dataset]="dataset"></app-person-family-spouse>
     <span class="bump-out" *ngIf="!spouse()">
@@ -9,9 +9,9 @@
       <app-new-person-dialog2
           *ngIf="surname"
           [p]="this"
-          (onClose)="closeDialog()"
-          (onOpen)="onDialogOpen($event)"
-          (onOK)="createPerson($event)"
+          (emitClose)="closeDialog()"
+          (emitOpen)="onDialogOpen($event)"
+          (emitOK)="createPerson($event)"
           [(display)]="display"></app-new-person-dialog2>
     </span>
   </p-header>

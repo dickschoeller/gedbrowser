@@ -8,12 +8,12 @@
 <app-new-person-dialog2
     *ngIf="surnameS"
     [p]="this"
-    (onClose)="closeDialog()" (onOpen)="onDialogOpenS($event)"
-    (onOK)="createPerson($event)"
+    (emitClose)="closeDialog()" (emitOpen)="onDialogOpenS($event)"
+    (emitOK)="createPerson($event)"
     [(display)]="displayS"></app-new-person-dialog2>
 <app-new-person-dialog2
     *ngIf="surnameC"
     [p]="this"
-    (onClose)="closeDialog()" (onOpen)="onDialogOpenC($event)"
-    (onOK)="createPerson($event)"
+    (emitClose)="closeDialog()" (emitOpen)="onDialogOpenC($event)"
+    (emitOK)="createPerson($event)"
     [(display)]="displayC"></app-new-person-dialog2>

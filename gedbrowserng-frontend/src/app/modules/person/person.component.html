@@ -11,7 +11,7 @@
 </p-panel>
 <br/>
 <p-panel [showHeader]="false">
-  <div><b>{{person.refn[0].string}}:&nbsp;</b> {{person.refn[0].tail}}</div>
-  <div><b>{{person.changed[0].string}}:&nbsp;</b> {{person.changed[0].attributes[0].string}}</div>
+  <div><b>{{ person?.refn[0].string }}:&nbsp;</b> {{ person?.refn[0].tail }}</div>
+  <div><b>{{ person?.changed[0].string }}:&nbsp;</b> {{ person?.changed[0].attributes[0].string }}</div>
 </p-panel>
 <br/>

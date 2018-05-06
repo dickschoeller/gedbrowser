@@ -20,30 +20,30 @@ export class NewPersonDialog2Component
   }
 
   ngOnInit() {
-    this.onOpen.emit(this);
+    this.emitOpen.emit(this);
   }
 
   ngOnChanges() {
-    this.onOpen.emit(this);
+    this.emitOpen.emit(this);
   }
 
   open() {
-    this.onOpen.emit(this);
+    this.emitOpen.emit(this);
   }
 
   close() {
-    this.onClose.emit();
-    this.onOpen.emit(this);
+    this.emitClose.emit();
+    this.emitOpen.emit(this);
   }
 
   ok() {
-    this.onOK.emit(this._data);
-    this.onClose.emit();
-    this.onOpen.emit(this);
+    this.emitOK.emit(this._data);
+    this.emitClose.emit();
+    this.emitOpen.emit(this);
   }
 
   cancel() {
-    this.onClose.emit();
-    this.onOpen.emit(this);
+    this.emitClose.emit();
+    this.emitOpen.emit(this);
   }
 }

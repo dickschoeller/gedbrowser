@@ -24,14 +24,14 @@ import {PersonFamilySpouseComponent} from './person-family-spouse.component';
 import {PersonParentComponent} from './person-parent.component';
 import {PersonParentFamiliesComponent} from './person-parent-families.component';
 import {PersonParentFamilyComponent} from './person-parent-family.component';
-import {PersonResolver} from './person-resolver.service';
+import {PersonResolverService} from './person-resolver.service';
 
 const personRouting: ModuleWithProviders = RouterModule.forChild([
   {
     path: ':dataset/persons/:string',
     component: PersonComponent,
     resolve: {
-      person: PersonResolver
+      person: PersonResolverService
     }
   }
 ]);
@@ -44,7 +44,7 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
     personRouting,
     CommonModule,
     NgxGalleryModule,
-    Ng2PageScrollModule.forRoot(),
+    Ng2PageScrollModule,
     ComponentsModule,
     PanelModule,
     AccordionModule,
@@ -67,7 +67,7 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
     PersonParentComponent,
   ],
   providers: [
-    PersonResolver,
+    PersonResolverService,
   ]
 } )
 

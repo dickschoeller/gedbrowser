@@ -10,14 +10,14 @@ import {PanelModule} from 'primeng/panel';
 import {ComponentsModule} from '../../components';
 
 import {SourceComponent} from './source.component';
-import {SourceResolver} from './source-resolver.service';
+import {SourceResolverService} from './source-resolver.service';
 
 const sourceRouting: ModuleWithProviders = RouterModule.forChild([
   {
     path: ':dataset/sources/:string',
     component: SourceComponent,
     resolve: {
-      source: SourceResolver
+      source: SourceResolverService
     }
   }
 ]);
@@ -37,7 +37,7 @@ const sourceRouting: ModuleWithProviders = RouterModule.forChild([
     SourceComponent,
   ],
   providers: [
-    SourceResolver
+    SourceResolverService
   ]
 })
 
