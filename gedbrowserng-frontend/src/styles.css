@@ -2,8 +2,23 @@
 @import '~primeng/resources/themes/start/theme.css';
 @import '~primeng/resources/primeng.min.css';
 
-.mat-sidenav-container, .mat-sidenav-content, .mat-tab-body-content {
-    transform: none !important;
+.label {
+ font-weight: bold;
+ color: primary;
+}
+
+.example-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.parent:hover .hidden {
+  visibility: visible;
 }
 
 ngx-gallery-arrows.ngx-gallery-image-size-contain .fa {

@@ -25,7 +25,7 @@ import {
   PersonListModule,
 //   PersonModule,
   SourceListModule,
-//   SourceModule,
+  SourceModule,
   SubmitterListModule,
 //   SubmitterModule
 } from './modules';
@@ -48,7 +48,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
   imports: [
     rootRouting,
 
-    Ng2PageScrollModule.forRoot(),
+    Ng2PageScrollModule,
     NgxGalleryModule,
 
     BrowserModule,
@@ -71,7 +71,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     PersonListModule,
 //     PersonModule,
     SourceListModule,
-//     SourceModule,
+    SourceModule,
     SubmitterListModule,
 //     SubmitterModule,
   ],

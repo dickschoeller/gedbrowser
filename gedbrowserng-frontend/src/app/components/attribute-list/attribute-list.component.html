@@ -21,6 +21,6 @@
   </div>
 </p-panel>
 <app-new-attribute-dialog [p]="this" [options]="options()"
-    (onClose)="onDialogClose()" (onOpen)="onDialogOpen($event)"
-    (onOK)="onDialogOK($event)"
+    (emitClose)="onDialogClose()" (emitOpen)="onDialogOpen($event)"
+    (emitOK)="onDialogOK($event)"
     [(display)]="display"></app-new-attribute-dialog>

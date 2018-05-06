@@ -14,9 +14,9 @@ export class BaseDialogComponent<D, C> implements OnInit, OnDestroy {
     return this._display;
   }
 
-  @Output() onOK = new EventEmitter<D>();
-  @Output() onClose = new EventEmitter<void>();
-  @Output() onOpen = new EventEmitter<C>();
+  @Output() emitOK = new EventEmitter<D>();
+  @Output() emitClose = new EventEmitter<void>();
+  @Output() emitOpen = new EventEmitter<C>();
 
   _display = false;
   _data: D;
@@ -27,9 +27,9 @@ export class BaseDialogComponent<D, C> implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.onClose.unsubscribe();
-    this.onOK.unsubscribe();
-    this.onOpen.unsubscribe();
+    this.emitClose.unsubscribe();
+    this.emitOK.unsubscribe();
+    this.emitOpen.unsubscribe();
   }
 
 }

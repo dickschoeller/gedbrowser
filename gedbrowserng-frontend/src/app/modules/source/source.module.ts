@@ -27,7 +27,7 @@ const sourceRouting: ModuleWithProviders = RouterModule.forChild([
     sourceRouting,
     CommonModule,
     NgxGalleryModule,
-    Ng2PageScrollModule.forRoot(),
+    Ng2PageScrollModule,
 
     PanelModule,
 

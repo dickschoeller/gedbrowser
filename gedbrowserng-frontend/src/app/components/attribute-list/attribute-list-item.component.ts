@@ -3,10 +3,13 @@ import {SelectItem} from 'primeng/api';
 
 import {ApiAttribute} from '../../models';
 import {StringUtil, NameUtil, AttributeUtil} from '../../utils';
-import {AttributeDialogData} from '../attribute-dialog';
 import {HasAttributeList} from '../../interfaces';
 
-import {AttributeDialogHelper, NewAttributeDialogComponent} from '../attribute-dialog';
+import {
+  AttributeDialogData,
+  AttributeDialogHelper,
+  NewAttributeDialogComponent
+} from '../attribute-dialog';
 
 @Component({
   selector: 'app-attribute-list-item',

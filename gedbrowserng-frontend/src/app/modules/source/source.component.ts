@@ -3,7 +3,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NgxGalleryOptions, NgxGalleryImage} from 'ngx-gallery';
 import {SelectItem} from 'primeng/api';
 
-import {AttributeListComponent, AttributeDialogData} from '../../components';
+import {
+  AttributeListComponent,
+//  AttributeDialogData,
+} from '../../components';
 import {ApiSource, ApiAttribute} from '../../models';
 import {SourceService} from '../../services';
 import {ImageUtil} from '../../utils';
@@ -177,7 +180,7 @@ export class SourceComponent implements OnInit, HasAttributeList {
     return this._options;
   }
 
-  defaultData(): AttributeDialogData {
+  defaultData(): any { // AttributeDialogData {
     return {
       insert: true, index: 0, type: 'Title', text: '', date: '',
       place: '', note: '', originalType: '', originalText: '',

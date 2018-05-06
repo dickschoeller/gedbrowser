@@ -1,9 +1,9 @@
 <p-panel>
-  <p-header>{{source.string}}: {{source.title}}</p-header>
+  <p-header>{{ source?.string }}: {{ source?.title }}</p-header>
 </p-panel>
 
 <p-panel header="Attributes" [toggleable]="true">
-  <app-attribute-list [attributes]="source.attributes" [parent]="this"></app-attribute-list>
+  <app-attribute-list [attributes]="source?.attributes" [parent]="this"></app-attribute-list>
 </p-panel>
 
 <p-panel header="Images" [toggleable]="true">

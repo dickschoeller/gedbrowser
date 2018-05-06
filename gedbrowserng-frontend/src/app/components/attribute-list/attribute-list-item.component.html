@@ -1,6 +1,6 @@
 <div class="parent">
-  <b>{{attributeUtil.label()}}:&nbsp;</b><span *ngIf="attributeUtil.contents()"> {{attributeUtil.contents()}}<span *ngIf="attribute.attributes">,&nbsp;</span></span>
-  <app-attribute-list-item-detail-list [attributes]="attribute.attributes"></app-attribute-list-item-detail-list>
+  <b>{{ attributeUtil.label() }}:&nbsp;</b><span *ngIf="attributeUtil.contents()"> {{ attributeUtil.contents() }}<span *ngIf="attribute?.attributes">,&nbsp;</span></span>
+  <app-attribute-list-item-detail-list [attributes]="attribute?.attributes"></app-attribute-list-item-detail-list>
   <span class="example-fill-remaining-space"></span>
   <span *ngIf="attributeUtil.editable()" class="hidden">
     <p-button (onClick)="edit()"
@@ -10,6 +10,6 @@
   </span>
 </div>
 <app-new-attribute-dialog
-    [p]="this" [options]="options()" (onClose)="onDialogClose()"
-    (onOpen)="onDialogOpen($event)" (onOK)="onDialogOK($event)"
+    [p]="this" [options]="options()" (emitClose)="onDialogClose()"
+    (emitOpen)="onDialogOpen($event)" (emitOK)="onDialogOK($event)"
     [(display)]="display"></app-new-attribute-dialog>
