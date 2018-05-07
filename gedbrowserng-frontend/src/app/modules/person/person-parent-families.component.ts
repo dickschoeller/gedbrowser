@@ -2,7 +2,8 @@ import {Component, Input} from '@angular/core';
 
 import {NewPersonDialogData, NewPersonDialog2Component} from '../../components';
 import {ApiAttribute, ApiPerson, ApiFamily} from '../../models';
-import {PersonService, NewPersonLinkService, UrlBuilder} from '../../services';
+import {UrlBuilder} from '../../utils';
+import {PersonService, NewPersonLinkService} from '../../services';
 
 import {PersonCreator} from './person-creator';
 import {PersonComponent} from './person.component';

@@ -3,7 +3,8 @@ import {MenuItem} from 'primeng/api';
 
 import {NewPersonDialogData, NewPersonDialog2Component} from '../../components';
 import {ApiAttribute, ApiFamily, ApiPerson} from '../../models';
-import {NewPersonLinkService, PersonService, UrlBuilder} from '../../services';
+import {UrlBuilder} from '../../utils';
+import {NewPersonLinkService, PersonService} from '../../services';
 
 import {PersonCreator} from './person-creator';
 import {PersonComponent} from './person.component';

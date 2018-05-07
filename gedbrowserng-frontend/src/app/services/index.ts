@@ -6,4 +6,4 @@ export * from './source.service';
 export * from './submitter.service';
 export * from './service-base';
 export * from './post-related-person';
-export * from '../utils/urlbuilder';
+export * from './resolver-base';

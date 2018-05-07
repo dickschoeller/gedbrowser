@@ -3,20 +3,21 @@ import {Component, OnInit, Input, OnChanges} from '@angular/core';
 import {ApiAttribute, ApiPerson} from '../../models';
 import {PersonService} from '../../services';
 import {LifespanUtil} from '../../utils';
+import { PersonGetter } from './person-getter';
 
 @Component({
   selector: 'app-person-parent',
   templateUrl: './person-parent.component.html',
   styleUrls: ['./person-parent.component.css']
 })
-export class PersonParentComponent implements OnInit, OnChanges {
+export class PersonParentComponent extends PersonGetter implements OnInit, OnChanges {
   @Input() dataset: string;
   @Input() attribute: ApiAttribute;
   person: ApiPerson;
 
-  constructor(
-    private personService: PersonService,
-  ) { }
+  constructor(personService: PersonService) {
+    super(personService);
+  }
 
   ngOnInit() {
     this.init();
@@ -27,10 +28,9 @@ export class PersonParentComponent implements OnInit, OnChanges {
   }
 
   private init(): void {
-    this.personService.getOne(this.dataset, this.attribute.string)
-      .subscribe((person: ApiPerson) => {
-        this.person = person;
-      });
+    this.get(this.dataset, this.attribute.string, (person: ApiPerson) => {
+      this.person = person;
+    });
   }
 
   label(): string {
