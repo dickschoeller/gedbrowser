@@ -5,6 +5,7 @@ import {PersonService} from '../../services';
 import {LifespanUtil} from '../../utils';
 
 import {PersonFamilyComponent} from './person-family.component';
+import { PersonGetter } from './person-getter';
 
 /**
  * Implements a child block within a family on a person page.
@@ -20,16 +21,16 @@ import {PersonFamilyComponent} from './person-family.component';
   templateUrl: './person-family-child.component.html',
   styleUrls: ['./person-family-child.component.css']
 })
-export class PersonFamilyChildComponent implements OnInit, OnChanges {
+export class PersonFamilyChildComponent extends PersonGetter implements OnInit, OnChanges {
   @Input() dataset: string;
   @Input() child: ApiAttribute;
   @Input() index: number;
   @Input() parent: PersonFamilyComponent;
   person: ApiPerson;
 
-  constructor(
-    private personService: PersonService,
-  ) { }
+  constructor(personService: PersonService) {
+    super(personService);
+  }
 
   ngOnInit() {
     this.init();
@@ -40,10 +41,9 @@ export class PersonFamilyChildComponent implements OnInit, OnChanges {
   }
 
   private init(): void {
-    this.personService.getOne(this.dataset, this.child.string)
-      .subscribe((person: ApiPerson) => {
-        this.person = person;
-      });
+    this.get(this.dataset, this.child.string, (person: ApiPerson) => {
+      this.person = person;
+    });
   }
 
   lifespanYearString(): string {
