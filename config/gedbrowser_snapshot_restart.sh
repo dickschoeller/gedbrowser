@@ -19,6 +19,10 @@ export VN="-snapshot"
 export HO="largo.schoellerfamily.org"
 export PO="9086"
 
+docker ps | grep mongo
+if [ $? = 1 ]; then
+    docker run -v ${DATA_DIR}:/data/db --name mongo -p 28001:27017 -d mongo
+fi
 docker run ${R} ${M} ${H} -p 9086:8080 -p 9087:8081 --name geoservice${VN} -d dickschoeller/geoservice:${V} ${A}
 sleep 5
 docker run ${R} -e "geoservice.host=${HO}" -e "geoservice.port=${PO}" ${M} --link geoservice:geoservice ${H} -p 9082:8080 -p 9083:8081 --name gedbrowser${VN} -d dickschoeller/gedbrowser:${V} ${A}
