@@ -2,7 +2,8 @@ import {NewPersonDialogData, NewPersonHelper} from '../../components/new-person-
 import {OnChanges, OnInit} from '@angular/core';
 
 import {ApiPerson} from '../../models';
-import {PostRelatedPerson, UrlBuilder, NewPersonLinkService} from '../../services';
+import {UrlBuilder} from '../../utils';
+import {PostRelatedPerson, NewPersonLinkService} from '../../services';
 
 export abstract class PersonCreator implements OnInit, OnChanges {
   nph = new NewPersonHelper();

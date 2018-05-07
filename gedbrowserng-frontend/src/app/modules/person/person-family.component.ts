@@ -5,8 +5,8 @@ import {SelectItem} from 'primeng/api';
 
 import {AttributeDialogData, NewPersonDialogData, NewPersonDialog2Component} from '../../components';
 import {ApiAttribute, ApiFamily, ApiPerson} from '../../models';
-import {FamilyService, PersonService, NewPersonLinkService, UrlBuilder} from '../../services';
-import {ImageUtil} from '../../utils';
+import {FamilyService, PersonService, NewPersonLinkService} from '../../services';
+import {ImageUtil, UrlBuilder} from '../../utils';
 import {HasAttributeList} from '../../interfaces';
 
 import {PersonCreator} from './person-creator';

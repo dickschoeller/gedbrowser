@@ -4,22 +4,14 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 
 import {ApiPerson} from '../../models';
-import {PersonService} from '../../services';
+import {PersonService, ResolverBase} from '../../services';
 
 @Injectable()
-export class PersonListResolverService implements Resolve<Array<ApiPerson>> {
+export class PersonListResolverService
+  extends ResolverBase
+  implements Resolve<Array<ApiPerson>> {
 
-  constructor(
-    private personService: PersonService,
-    private router: Router
-  ) {}
-
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<any> {
-    const dataset: string = route.params['dataset'];
-    return this.personService.getAll(dataset)
-      .catch((err) => this.router.navigateByUrl('/'));
+  constructor(personService: PersonService, router: Router) {
+    super(personService, router);
   }
 }
