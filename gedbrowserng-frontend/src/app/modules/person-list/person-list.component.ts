@@ -1,3 +1,4 @@
+import { PersonCreator } from '../../bases';
 import {Component, Input} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -16,14 +17,15 @@ import { PersonListPageComponent } from './person-list-page.component';
   templateUrl: './person-list.component.html',
   styleUrls: ['./person-list.component.css']
 })
-export class PersonListComponent {
+export class PersonListComponent extends PersonCreator {
   @Input() p: PersonListPageComponent;
   @Input() dataset: string;
   @Input() persons: ApiPerson[];
   display = false;
-  nph = new NewPersonHelper();
 
-  constructor(private newPersonLinkService: NewPersonLinkService) {}
+  constructor(public newPersonLinkService: NewPersonLinkService) {
+    super(newPersonLinkService);
+  }
 
   ub(): UrlBuilder {
     return new UrlBuilder(this.dataset, 'persons');
@@ -45,11 +47,7 @@ export class PersonListComponent {
     return undefined;
   }
 
-  createPerson(data: NewPersonDialogData): void {
-    if (data != null) {
-      const newPerson: ApiPerson = this.nph.buildPerson(data);
-      this.newPersonLinkService.p(this.ub(), this.anchor(), newPerson).subscribe(
-        (d: ApiPerson) => this.p.refreshPerson());
-    }
+  refreshPerson() {
+    this.p.refreshPerson();
   }
 }

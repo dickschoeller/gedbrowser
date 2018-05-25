@@ -6,7 +6,7 @@ import {ApiAttribute, ApiFamily, ApiPerson} from '../../models';
 import {UrlBuilder} from '../../utils';
 import {NewPersonLinkService, PersonService} from '../../services';
 
-import {PersonCreator} from './person-creator';
+import {InitablePersonCreator} from '../../bases';
 import {PersonComponent} from './person.component';
 
 /**
@@ -20,7 +20,7 @@ import {PersonComponent} from './person.component';
   templateUrl: './person-family-list.component.html',
   styleUrls: ['./person-family-list.component.css']
 })
-export class PersonFamilyListComponent extends PersonCreator {
+export class PersonFamilyListComponent extends InitablePersonCreator {
   @Input() dataset: string;
   @Input() parent: PersonComponent;
   @Input() person: ApiPerson;

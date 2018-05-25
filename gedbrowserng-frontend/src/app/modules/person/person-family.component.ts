@@ -9,7 +9,7 @@ import {FamilyService, PersonService, NewPersonLinkService} from '../../services
 import {ImageUtil, UrlBuilder} from '../../utils';
 import {HasAttributeList} from '../../interfaces';
 
-import {PersonCreator} from './person-creator';
+import {InitablePersonCreator} from '../../bases';
 
 /**
  * Implements a family block within a person page.
@@ -27,7 +27,7 @@ import {PersonCreator} from './person-creator';
   templateUrl: './person-family.component.html',
   styleUrls: ['./person-family.component.css']
 })
-export class PersonFamilyComponent extends PersonCreator implements HasAttributeList {
+export class PersonFamilyComponent extends InitablePersonCreator implements HasAttributeList {
   @Input() dataset: string;
   @Input() person: ApiPerson;
   @Input() string: string;
