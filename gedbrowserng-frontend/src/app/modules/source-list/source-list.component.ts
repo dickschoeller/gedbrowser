@@ -1,50 +1,27 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, Input} from '@angular/core';
 
 import {ApiSource} from '../../models';
 import {SourceService} from '../../services';
+import {SourceListPageComponent} from './source-list-page.component';
 
 @Component({
   selector: 'app-source-list',
   templateUrl: './source-list.component.html',
   styleUrls: ['./source-list.component.css']
 })
-export class SourceListComponent implements OnInit {
-  dataset: string;
-  sources: ApiSource[];
+export class SourceListComponent {
+  @Input() p: SourceListPageComponent;
+  @Input() dataset: string;
+  @Input() sources: Array<ApiSource>;
+  display = false;
 
-  constructor(private route: ActivatedRoute,
-    private sourceService: SourceService,
-    private router: Router
-  ) {}
+  constructor() {}
 
-  /**
-   * Comparison function to sort the persons returned.
-   * Index name is the first level sort.
-   * If those are the same, then by ID.
-   */
-  compare = function(a: ApiSource, b: ApiSource) {
-    const val = a.title.localeCompare(b.title);
-    if (val !== 0) {
-      return val;
-    }
-    return a.string.localeCompare(b.string);
-  };
+  openCreateSourceDialog(): void {
+    this.display = true;
+  }
 
-  /**
-   * Prepare the page display.
-   *
-   * Read sources from the web service and sort using our comparator.
-   */
-  ngOnInit() {
-    this.route.params.subscribe((params) => {
-      this.dataset = params['dataset'];
-    });
-    this.route.data.subscribe(
-      (data: {dataset: string, sources: ApiSource[]}) => {
-        this.sources = data.sources;
-        this.sources.sort(this.compare);
-      }
-    );
+  closeDialog(): void {
+    this.display = false;
   }
 }

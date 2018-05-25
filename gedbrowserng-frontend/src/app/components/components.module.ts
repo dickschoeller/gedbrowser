@@ -19,9 +19,9 @@ import {
   AttributeListItemDetailListComponent,
   AttributeListItemDetailListItemComponent,
 } from './attribute-list';
+import {BaseDialogComponent} from './base-dialog/base-dialog.component';
 import {NewPersonDialog2Component} from './new-person-dialog';
 import {NewAttributeDialogComponent} from './attribute-dialog';
-import {BaseDialogComponent} from './base-dialog/base-dialog.component';
 
 @NgModule({
   imports: [

@@ -26,6 +26,7 @@ export class PersonFamilyChildListComponent extends PersonCreator {
   @Input() parent: PersonFamilyComponent;
   display = false;
   surname: string;
+
   constructor(newPersonLinkService: NewPersonLinkService,
     private personService: PersonService) {
     super(newPersonLinkService);
