@@ -61,7 +61,6 @@ export class PersonListPageComponent implements OnInit, OnChanges {
     this.personService.getAll(this.dataset).subscribe(
       (persons: Array<ApiPerson>) => {
         this.persons = persons.sort(this.compare);
-        alert('there are ' + this.persons.length + ' persons');
       }
     );
   }
