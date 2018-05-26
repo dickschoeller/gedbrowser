@@ -1,5 +1,4 @@
 export * from './person.component';
-export * from './person-creator';
 export * from './person-family-child.component';
 export * from './person-family-child-list.component';
 export * from './person-family.component';

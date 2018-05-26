@@ -1,17 +1,18 @@
+import {CommonModule} from '@angular/common';
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {CommonModule} from '@angular/common';
+
 import {NgxGalleryModule} from 'ngx-gallery';
 import {Ng2PageScrollModule} from 'ng2-page-scroll';
 
-import {DialogModule} from 'primeng/dialog';
-import {PanelModule} from 'primeng/panel';
 import {AccordionModule} from 'primeng/accordion';
-import {DataViewModule} from 'primeng/dataview';
 import {ButtonModule} from 'primeng/button';
-import {TooltipModule} from 'primeng/tooltip';
-import {OrderListModule} from 'primeng/orderlist';
+import {DataViewModule} from 'primeng/dataview';
+import {DialogModule} from 'primeng/dialog';
 import {MenuModule} from 'primeng/menu';
+import {OrderListModule} from 'primeng/orderlist';
+import {PanelModule} from 'primeng/panel';
+import {TooltipModule} from 'primeng/tooltip';
 
 import {ComponentsModule} from '../../components';
 
@@ -43,17 +44,20 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
   imports: [
     personRouting,
     CommonModule,
+
     NgxGalleryModule,
     Ng2PageScrollModule,
-    ComponentsModule,
-    PanelModule,
+
     AccordionModule,
-    DataViewModule,
     ButtonModule,
-    TooltipModule,
-    OrderListModule,
-    MenuModule,
+    DataViewModule,
     DialogModule,
+    MenuModule,
+    OrderListModule,
+    PanelModule,
+    TooltipModule,
+
+    ComponentsModule,
   ],
   declarations: [
     PersonComponent,

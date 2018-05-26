@@ -35,6 +35,14 @@
         <jacoco.skip>true</jacoco.skip>
         <skip.integration.tests>true</skip.integration.tests>
         <skip.unit.tests>true</skip.unit.tests>
+	<skip.npm>true</skip.npm>
+	<skip.yarn>true</skip.yarn>
+	<skip.bower>true</skip.bower>
+	<skip.grunt>true</skip.grunt>
+	<skip.gulp>true</skip.gulp>
+	<skip.jspm>true</skip.jspm>
+	<skip.karma>true</skip.karma>
+	<skip.webpack>true</skip.webpack>
       </properties>
     </profile>
     <profile>

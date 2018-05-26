@@ -2,11 +2,12 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 
-import {PanelModule} from 'primeng/panel';
+import {ButtonModule} from 'primeng/button';
 import {DataViewModule} from 'primeng/dataview';
+import {PanelModule} from 'primeng/panel';
+import {TooltipModule} from 'primeng/tooltip';
 
-// import {ComponentsModule} from '../../components';
-
+import {SourceListPageComponent} from './source-list-page.component';
 import {SourceListComponent} from './source-list.component';
 import {SourceListItemComponent} from './source-list-item.component';
 import {SourceListResolverService} from './source-list-resolver.service';
@@ -14,7 +15,7 @@ import {SourceListResolverService} from './source-list-resolver.service';
 const sourceRouting: ModuleWithProviders = RouterModule.forChild([
   {
     path: ':dataset/sources',
-    component: SourceListComponent,
+    component: SourceListPageComponent,
     resolve: {
       sources: SourceListResolverService
     }
@@ -25,13 +26,16 @@ const sourceRouting: ModuleWithProviders = RouterModule.forChild([
   imports: [
     sourceRouting,
     CommonModule,
-//    ComponentsModule,
-    PanelModule,
+
+    ButtonModule,
     DataViewModule,
+    PanelModule,
+    TooltipModule,
   ],
   declarations: [
+    SourceListPageComponent,
     SourceListComponent,
-    SourceListItemComponent
+    SourceListItemComponent,
   ],
   providers: [
     SourceListResolverService

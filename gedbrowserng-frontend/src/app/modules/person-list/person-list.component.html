@@ -1,7 +1,18 @@
 <p-dataView [value]="persons" [style]="{'min-width':'500px'}"  [paginator]="true" [rows]="30"
     paginatorPosition="both" pageLinks="10" [rowsPerPageOptions]="[10, 30, 100, 10000]"
     [alwaysShowPaginator]="false">
-  <p-header>Person List</p-header>
+  <p-header><span>Person List</span>
+    <span class="bump-out">
+      <p-button (click)="openCreatePersonDialog()" icon="fa fa-fw fa-user-plus" pTooltip="Add child"
+          [styleClass]="'ui-button-success'"></p-button>
+      <app-new-person-dialog2
+          [p]="this"
+          (emitClose)="closeDialog()"
+          (emitOpen)="onDialogOpen($event)"
+          (emitOK)="createPerson($event)"
+          [(display)]="display"></app-new-person-dialog2>
+    </span>
+  </p-header>
   <ng-template let-person pTemplate="listItem">
     <div class="main-list">
       <app-person-list-item [person]="person" [dataset]="dataset"></app-person-list-item>
