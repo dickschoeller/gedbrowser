@@ -65,7 +65,7 @@ export class NewPersonHelper {
   }
 
   config(dataIn) {
-    return { data: dataIn };
+    return {data: dataIn};
   }
 
   initNew(sex: string, surname: string): NewPersonDialogData {

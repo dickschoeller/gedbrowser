@@ -1,7 +1,19 @@
 <p-dataView [value]="sources" [style]="{'min-width':'500px'}" [paginator]="true" [rows]="30"
     paginatorPosition="both" pageLinks="10" [rowsPerPageOptions]="[10, 30, 100, 10000]"
     [alwaysShowPaginator]="false">
-  <p-header>Source List</p-header>
+  <p-header><span>Source List</span>
+    <span class="bump-out">
+    <!-- FIXME THE ICON IS WRONG -->
+      <p-button (click)="openCreateSourceDialog()" icon="fa fa-fw fa-plus-circle" pTooltip="New source"
+          [styleClass]="'ui-button-success'"></p-button>
+      <app-new-source-dialog
+          [p]="this"
+          (emitClose)="closeDialog()"
+          (emitOpen)="onDialogOpen($event)"
+          (emitOK)="createSource($event)"
+          [(display)]="display"></app-new-source-dialog>
+    </span>
+  </p-header>
   <ng-template let-source pTemplate="listItem">
     <div class="main-list">
       <app-source-list-item [source]="source" [dataset]="dataset"></app-source-list-item>

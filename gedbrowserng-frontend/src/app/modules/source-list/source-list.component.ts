@@ -1,7 +1,15 @@
 import {Component, Input} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
+import {SourceCreator} from '../../bases';
+import {
+  NewSourceDialogComponent,
+  NewSourceDialogData,
+  NewSourceHelper
+} from '../../components';
 import {ApiSource} from '../../models';
-import {SourceService} from '../../services';
+import {SourceService, NewSourceLinkService} from '../../services';
+import {UrlBuilder} from '../../utils';
 import {SourceListPageComponent} from './source-list-page.component';
 
 @Component({
@@ -9,13 +17,19 @@ import {SourceListPageComponent} from './source-list-page.component';
   templateUrl: './source-list.component.html',
   styleUrls: ['./source-list.component.css']
 })
-export class SourceListComponent {
+export class SourceListComponent extends SourceCreator {
   @Input() p: SourceListPageComponent;
   @Input() dataset: string;
   @Input() sources: Array<ApiSource>;
   display = false;
 
-  constructor() {}
+  constructor(public newSourceLinkService: NewSourceLinkService) {
+    super(newSourceLinkService);
+  }
+
+  ub(): UrlBuilder {
+    return new UrlBuilder(this.dataset, 'sources');
+  }
 
   openCreateSourceDialog(): void {
     this.display = true;
@@ -23,5 +37,17 @@ export class SourceListComponent {
 
   closeDialog(): void {
     this.display = false;
+  }
+
+  onDialogOpen(data: NewSourceDialogComponent) {
+    data._data = this.nsh.initNew('New Source');
+  }
+
+  anchor(): string {
+    return undefined;
+  }
+
+  refreshSource() {
+    this.p.refreshSource();
   }
 }
