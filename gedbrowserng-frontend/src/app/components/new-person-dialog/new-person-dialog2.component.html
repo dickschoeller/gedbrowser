@@ -4,17 +4,18 @@
     [closeOnEscape]="true" [dismissableMask]="true"
     (onHide)="close()" (onShow)="open()"
     appendTo="body">
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-name" type="text" size="50" pInputText [(ngModel)]="_data.name">
+    <label for="float-input-name">Name</label>
+  </div>
+  <br/>
   <div>
     <p-dropdown
         [options]="[{'label': 'Select the sex', 'value': ''}, {'label': 'Male', 'value': 'M'}, {'label': 'Female', 'value': 'F'}]"
         [style]="{'width':'425px'}"
         [(ngModel)]="_data.sex"
         editable="false" placeholder="Select the sex"></p-dropdown>
-  </div>
-  <br/>
-  <div class="ui-float-label">
-    <input id="float-input-name" type="text" size="50" pInputText [(ngModel)]="_data.name">
-    <label for="float-input-name">Name</label>
   </div>
   <br/>
   <div class="ui-float-label">

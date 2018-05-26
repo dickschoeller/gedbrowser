@@ -34,6 +34,7 @@ import {
   ServiceBase,
   FamilyService,
   NewPersonLinkService,
+  NewSourceLinkService,
   PersonService,
   SourceService,
   SubmitterService,
@@ -80,6 +81,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
   ],
   providers: [
     NewPersonLinkService,
+    NewSourceLinkService,
     FamilyService,
     PersonService,
     SourceService,

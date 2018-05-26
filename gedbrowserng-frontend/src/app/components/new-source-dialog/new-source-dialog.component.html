@@ -1,0 +1,27 @@
+<p-dialog header="New Source"
+    [(visible)]="_display"
+    [modal]="true" [closable]="true"
+    [closeOnEscape]="true" [dismissableMask]="true"
+    (onHide)="close()" (onShow)="open()"
+    appendTo="body">
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-title" type="text" size="50" pInputText [(ngModel)]="_data.title">
+    <label for="float-input-title">Title</label>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-abbreviation" type="text" size="50" pInputText [(ngModel)]="_data.abbreviation">
+    <label for="float-input-abbreviation">Abbreviation</label>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <textarea [rows]="8" [cols]="50" [(ngModel)]="_data.text"
+        id="float-input-text" autoResize="autoResize" pInputTextarea></textarea>
+    <label for="float-input-text">Text</label>
+  </div>
+  <p-footer>
+    <p-button label="OK" icon="fa fa-fw fa-check" (click)="ok()"></p-button>
+    <p-button label="Cancel" icon="fa fa-fw fa-close" (click)="cancel()" [styleClass]="'ui-button-secondary'"></p-button>
+  </p-footer>
+<p-dialog>

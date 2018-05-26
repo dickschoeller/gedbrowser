@@ -1,7 +1,7 @@
-import { PersonCreator } from '../../bases';
 import {Component, Input} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
+import {PersonCreator} from '../../bases';
 import {
   NewPersonDialog2Component,
   NewPersonDialogData,
@@ -10,7 +10,7 @@ import {
 import {ApiPerson} from '../../models';
 import {PersonService, NewPersonLinkService} from '../../services';
 import {UrlBuilder} from '../../utils';
-import { PersonListPageComponent } from './person-list-page.component';
+import {PersonListPageComponent} from './person-list-page.component';
 
 @Component({
   selector: 'app-person-list',

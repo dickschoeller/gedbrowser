@@ -7,6 +7,8 @@ import {DataViewModule} from 'primeng/dataview';
 import {PanelModule} from 'primeng/panel';
 import {TooltipModule} from 'primeng/tooltip';
 
+import {ComponentsModule} from '../../components';
+
 import {SourceListPageComponent} from './source-list-page.component';
 import {SourceListComponent} from './source-list.component';
 import {SourceListItemComponent} from './source-list-item.component';
@@ -31,6 +33,8 @@ const sourceRouting: ModuleWithProviders = RouterModule.forChild([
     DataViewModule,
     PanelModule,
     TooltipModule,
+
+    ComponentsModule,
   ],
   declarations: [
     SourceListPageComponent,

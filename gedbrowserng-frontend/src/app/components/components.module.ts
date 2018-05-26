@@ -22,6 +22,7 @@ import {
 import {BaseDialogComponent} from './base-dialog/base-dialog.component';
 import {NewPersonDialog2Component} from './new-person-dialog';
 import {NewAttributeDialogComponent} from './attribute-dialog';
+import {NewSourceDialogComponent} from './new-source-dialog/new-source-dialog.component';
 
 @NgModule({
   imports: [
@@ -47,6 +48,7 @@ import {NewAttributeDialogComponent} from './attribute-dialog';
     AttributeListItemDetailListItemComponent,
     NewAttributeDialogComponent,
     NewPersonDialog2Component,
+    NewSourceDialogComponent,
     BaseDialogComponent,
   ],
   exports: [
@@ -56,6 +58,7 @@ import {NewAttributeDialogComponent} from './attribute-dialog';
     AttributeListItemDetailListItemComponent,
     NewAttributeDialogComponent,
     NewPersonDialog2Component,
+    NewSourceDialogComponent,
   ]
 })
 

@@ -1,6 +1,6 @@
-import {NewPersonDialogData, NewPersonHelper} from '../components/new-person-dialog';
 import {OnChanges, OnInit} from '@angular/core';
 
+import {NewPersonDialogData, NewPersonHelper} from '../components';
 import {ApiPerson} from '../models';
 import {UrlBuilder} from '../utils';
 import {PostRelatedPerson, NewPersonLinkService} from '../services';

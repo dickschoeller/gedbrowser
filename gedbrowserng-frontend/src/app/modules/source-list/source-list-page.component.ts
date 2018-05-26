@@ -60,7 +60,6 @@ export class SourceListPageComponent implements OnInit, OnChanges {
     this.sourceService.getAll(this.dataset).subscribe(
       (sources: Array<ApiSource>) => {
         this.sources = sources.sort(this.compare);
-        alert('there are ' + this.sources.length + ' sources');
       }
     );
   }
