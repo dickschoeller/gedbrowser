@@ -29,10 +29,10 @@ export class AttributeListItemComponent implements OnInit {
   _data: AttributeDialogData;
   sourcemenuitems: MenuItem[] = [
     {
-      label: 'Add family with partner', icon: 'fa-plus-circle', command: (event: Event) => { this.createSource(); }
+      label: 'Add source', icon: 'fa-plus-circle', command: (event: Event) => { this.createSource(); }
     },
     {
-      label: 'Add family with child', icon: 'fa-link', command: (event: Event) => { this.linkSource(); }
+      label: 'Link source', icon: 'fa-link', command: (event: Event) => { this.linkSource(); }
     },
   ];
 
