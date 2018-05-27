@@ -12,8 +12,8 @@
         dragdrop="true" dragdropScope="attributes">
       <ng-template let-attribute let-i="index" pTemplate="item">
         <div>
-          <app-attribute-list-item [attribute]="attribute"
-              [attributes]="attributes" [index]="i" [parent]="parent">
+          <app-attribute-list-item [parent]="parent" [dataset]="dataset" [attribute]="attribute"
+              [attributes]="attributes" [index]="i">
           </app-attribute-list-item>
         </div>
       </ng-template>

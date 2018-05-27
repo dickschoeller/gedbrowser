@@ -21,6 +21,7 @@ export class AttributeListComponent implements OnInit, OnChanges {
   @Input() parent: HasAttributeList;
   @Input() toggleable = false;
   @Input() styleClass: string;
+  @Input() dataset: string;
 
   display = false;
   index;

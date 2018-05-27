@@ -9,6 +9,7 @@ import {DialogModule} from 'primeng/dialog';
 import {DropdownModule} from 'primeng/dropdown';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {InputTextModule} from 'primeng/inputtext';
+import {MenuModule} from 'primeng/menu';
 import {OrderListModule} from 'primeng/orderlist';
 import {PanelModule} from 'primeng/panel';
 import {TooltipModule} from 'primeng/tooltip';
@@ -37,6 +38,7 @@ import {NewSourceDialogComponent} from './new-source-dialog/new-source-dialog.co
     DropdownModule,
     InputTextareaModule,
     InputTextModule,
+    MenuModule,
     OrderListModule,
     PanelModule,
     TooltipModule,
