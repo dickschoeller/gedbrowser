@@ -1,12 +1,15 @@
 <div class="parent">
   <b>{{ attributeUtil.label() }}:&nbsp;</b><span *ngIf="attributeUtil.contents()"> {{ attributeUtil.contents() }}<span *ngIf="attribute?.attributes">,&nbsp;</span></span>
-  <app-attribute-list-item-detail-list [attributes]="attribute?.attributes"></app-attribute-list-item-detail-list>
+  <app-attribute-list-item-detail-list [dataset]="dataset" [attributes]="attribute?.attributes"></app-attribute-list-item-detail-list>
   <span class="example-fill-remaining-space"></span>
   <span *ngIf="attributeUtil.editable()" class="hidden">
     <p-button (onClick)="edit()"
         icon="fa fa-fw fa-pencil" pTooltip="Edit attribute"></p-button>
     <p-button [styleClass]="'ui-button-danger'" (onClick)="delete()"
         icon="fa fa-fw fa-trash" pTooltip="Delete attribute"></p-button>
+    <p-menu #sourcemenu popup="popup" #cm appendTo="body" [model]="sourcemenuitems"></p-menu>
+    <p-button [styleClass]="'ui-button-success'" (click)="sourcemenu.toggle($event)"
+        icon="fa fa-fw fa-book" pTooltip="Source"></p-button>
   </span>
 </div>
 <app-new-attribute-dialog

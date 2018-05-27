@@ -1,4 +1,4 @@
 <p-panel>
   <p-header>{{ submitter?.string }}: {{ submitter?.name }}</p-header>
-  <app-attribute-list [attributes]="submitter?.attributes" [parent]="this"></app-attribute-list>
+  <app-attribute-list [dataset]="dataset" [attributes]="submitter?.attributes" [parent]="this"></app-attribute-list>
 </p-panel>

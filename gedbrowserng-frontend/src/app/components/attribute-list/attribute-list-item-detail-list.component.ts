@@ -9,6 +9,7 @@ import {ApiAttribute} from '../../models';
 })
 export class AttributeListItemDetailListComponent implements OnInit {
   @Input() attributes: Array<ApiAttribute>;
+  @Input() dataset: string;
 
   constructor() { }
 

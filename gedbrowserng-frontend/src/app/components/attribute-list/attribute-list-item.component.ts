@@ -1,5 +1,5 @@
 import {OnInit, Component, Input} from '@angular/core';
-import {SelectItem} from 'primeng/api';
+import {MenuItem, SelectItem} from 'primeng/api';
 
 import {ApiAttribute} from '../../models';
 import {StringUtil, NameUtil, AttributeUtil} from '../../utils';
@@ -21,11 +21,20 @@ export class AttributeListItemComponent implements OnInit {
   @Input() attributes: Array<ApiAttribute>;
   @Input() index: number;
   @Input() parent: HasAttributeList;
+  @Input() dataset: string;
 
   display = false;
   attributeUtil = new AttributeUtil(this);
   attributeDialogHelper: AttributeDialogHelper = new AttributeDialogHelper(this);
   _data: AttributeDialogData;
+  sourcemenuitems: MenuItem[] = [
+    {
+      label: 'Add family with partner', icon: 'fa-plus-circle', command: (event: Event) => { this.createSource(); }
+    },
+    {
+      label: 'Add family with child', icon: 'fa-link', command: (event: Event) => { this.linkSource(); }
+    },
+  ];
 
   constructor() { }
 
@@ -64,5 +73,13 @@ export class AttributeListItemComponent implements OnInit {
     const index = this.attributes.indexOf(this.attribute);
     this.attributes.splice(index, 1);
     this.parent.save();
+  }
+
+  createSource() {
+    //
+  }
+
+  linkSource() {
+    //
   }
 }

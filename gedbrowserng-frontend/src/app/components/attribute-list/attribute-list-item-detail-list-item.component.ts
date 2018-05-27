@@ -12,6 +12,7 @@ export class AttributeListItemDetailListItemComponent implements OnInit {
   @Input() attribute: ApiAttribute;
   @Input() index: number;
   @Input() length: number;
+  @Input() dataset: string;
 
   constructor() { }
 
@@ -28,10 +29,10 @@ export class AttributeListItemDetailListItemComponent implements OnInit {
 
   href() {
     if (this.attribute.type === 'sourcelink') {
-      return '#/sources/' + this.attribute.string;
+      return '#/' + this.dataset + '/sources/' + this.attribute.string;
     }
     if (this.attribute.type === 'submitterlink') {
-      return '#/submitters' + this.attribute.string;
+      return '#/' + this.dataset + '/submitters' + this.attribute.string;
     }
     if (this.attribute.string === 'File') {
       return this.attribute.tail;
