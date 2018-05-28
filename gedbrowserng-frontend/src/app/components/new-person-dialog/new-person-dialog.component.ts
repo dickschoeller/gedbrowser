@@ -30,20 +30,4 @@ export class NewPersonDialogComponent
   open() {
     this.emitOpen.emit(this);
   }
-
-  close() {
-    this.emitClose.emit();
-    this.emitOpen.emit(this);
-  }
-
-  ok() {
-    this.emitOK.emit(this._data);
-    this.emitClose.emit();
-    this.emitOpen.emit(this);
-  }
-
-  cancel() {
-    this.emitClose.emit();
-    this.emitOpen.emit(this);
-  }
 }
