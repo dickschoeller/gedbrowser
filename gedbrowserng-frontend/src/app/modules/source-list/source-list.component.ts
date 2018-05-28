@@ -2,14 +2,10 @@ import {Component, Input} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {SourceCreator} from '../../bases';
-import {
-  NewSourceDialogComponent,
-  NewSourceDialogData,
-  NewSourceHelper
-} from '../../components';
-import {ApiSource} from '../../models';
+import {NewSourceDialogComponent} from '../../components';
+import {ApiSource, NewPersonDialogData} from '../../models';
 import {SourceService, NewSourceLinkService} from '../../services';
-import {UrlBuilder} from '../../utils';
+import {NewSourceHelper, UrlBuilder} from '../../utils';
 import {SourceListPageComponent} from './source-list-page.component';
 
 @Component({
@@ -21,33 +17,33 @@ export class SourceListComponent extends SourceCreator {
   @Input() p: SourceListPageComponent;
   @Input() dataset: string;
   @Input() sources: Array<ApiSource>;
-  display = false;
+  displaySourceDialog = false;
 
   constructor(public newSourceLinkService: NewSourceLinkService) {
     super(newSourceLinkService);
   }
 
-  ub(): UrlBuilder {
+  sourceUB(): UrlBuilder {
     return new UrlBuilder(this.dataset, 'sources');
   }
 
   openCreateSourceDialog(): void {
-    this.display = true;
+    this.displaySourceDialog = true;
   }
 
-  closeDialog(): void {
-    this.display = false;
+  closeSourceDialog(): void {
+    this.displaySourceDialog = false;
   }
 
   onDialogOpen(data: NewSourceDialogComponent) {
     data._data = this.nsh.initNew('New Source');
   }
 
-  anchor(): string {
+  sourceAnchor(): string {
     return undefined;
   }
 
-  refreshSource() {
+  refreshSource(source: ApiSource) {
     this.p.refreshSource();
   }
 }

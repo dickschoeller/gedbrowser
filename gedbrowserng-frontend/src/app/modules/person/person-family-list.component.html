@@ -5,15 +5,15 @@
 <p-button icon="fa fa-user-plus" (click)="menu.toggle($event)" pTooltip="Add new family"
     [styleClass]="'ui-button-success'"></p-button>
 <br/>
-<app-new-person-dialog2
+<app-new-person-dialog
     *ngIf="surnameS"
     [p]="this"
-    (emitClose)="closeDialog()" (emitOpen)="onDialogOpenS($event)"
+    (emitClose)="closePersonDialog()" (emitOpen)="onDialogOpenS($event)"
     (emitOK)="createPerson($event)"
-    [(display)]="displayS"></app-new-person-dialog2>
-<app-new-person-dialog2
+    [(display)]="displayPersonDialogS"></app-new-person-dialog>
+<app-new-person-dialog
     *ngIf="surnameC"
     [p]="this"
-    (emitClose)="closeDialog()" (emitOpen)="onDialogOpenC($event)"
+    (emitClose)="closePersonDialog()" (emitOpen)="onDialogOpenC($event)"
     (emitOK)="createPerson($event)"
-    [(display)]="displayC"></app-new-person-dialog2>
+    [(display)]="displayPersonDialogC"></app-new-person-dialog>

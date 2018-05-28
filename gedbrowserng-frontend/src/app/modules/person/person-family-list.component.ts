@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {MenuItem} from 'primeng/api';
 
-import {NewPersonDialogData, NewPersonDialog2Component} from '../../components';
-import {ApiAttribute, ApiFamily, ApiPerson} from '../../models';
+import {NewPersonDialogComponent} from '../../components';
+import {ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData} from '../../models';
 import {UrlBuilder} from '../../utils';
 import {NewPersonLinkService, PersonService} from '../../services';
 
@@ -32,8 +32,8 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
       label: 'Add family with child', icon: 'fa-user-plus', command: (event: Event) => { this.createFamilyWithChild(); }
     },
   ];
-  displayS = false;
-  displayC = false;
+  displayPersonDialogS = false;
+  displayPersonDialogC = false;
   surnameS: string;
   surnameC: string;
   _ub: UrlBuilder;
@@ -55,33 +55,33 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
   }
 
   createFamilyWithChild(): void {
-    this.displayC = true;
+    this.displayPersonDialogC = true;
     this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
   }
 
   createFamilyWithSpouse(): void {
-    this.displayS = true;
+    this.displayPersonDialogS = true;
     this._ub = new UrlBuilder(this.dataset, 'persons', 'spouses');
   }
 
-  ub(): UrlBuilder {
-    return this._ub;
-  }
-
-  onDialogOpenS(data: NewPersonDialog2Component) {
+  onDialogOpenS(data: NewPersonDialogComponent) {
     data._data = this.nph.initNew(this.partnerSex, this.surnameS);
   }
 
-  onDialogOpenC(data: NewPersonDialog2Component) {
+  onDialogOpenC(data: NewPersonDialogComponent) {
     data._data = this.nph.initNew('M', this.surnameC);
   }
 
-  closeDialog() {
-    this.displayS = false;
-    this.displayC = false;
+  personUB(): UrlBuilder {
+    return this._ub;
   }
 
-  anchor(): string {
+  closePersonDialog() {
+    this.displayPersonDialogS = false;
+    this.displayPersonDialogC = false;
+  }
+
+  personAnchor(): string {
     return this.person.string;
   }
 

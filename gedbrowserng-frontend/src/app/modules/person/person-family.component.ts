@@ -3,8 +3,8 @@ import {NgxGalleryOptions, NgxGalleryImage} from 'ngx-gallery';
 import {Observable} from 'rxjs/Observable';
 import {SelectItem} from 'primeng/api';
 
-import {AttributeDialogData, NewPersonDialogData, NewPersonDialog2Component} from '../../components';
-import {ApiAttribute, ApiFamily, ApiPerson} from '../../models';
+import {AttributeDialogData, NewPersonDialogComponent} from '../../components';
+import {ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData} from '../../models';
 import {FamilyService, PersonService, NewPersonLinkService} from '../../services';
 import {ImageUtil, UrlBuilder} from '../../utils';
 import {HasAttributeList} from '../../interfaces';
@@ -59,7 +59,7 @@ export class PersonFamilyComponent extends InitablePersonCreator implements HasA
       {value: 'Source', label: 'Source'},
     ];
   surname: string;
-  display = false;
+  displayPersonDialog = false;
   sex: string;
 
   constructor(private familyService: FamilyService,
@@ -76,10 +76,6 @@ export class PersonFamilyComponent extends InitablePersonCreator implements HasA
     });
     this.surname = '?';
     this.sex = this.nph.guessPartnerSex(this.person);
-  }
-
-  ub(): UrlBuilder {
-      return new UrlBuilder(this.dataset, 'families', 'spouses');
   }
 
   familyString() {
@@ -103,18 +99,22 @@ export class PersonFamilyComponent extends InitablePersonCreator implements HasA
   }
 
   createSpouse(): void {
-    this.display = true;
+    this.displayPersonDialog = true;
   }
 
-  onDialogOpen(data: NewPersonDialog2Component) {
+  onDialogOpen(data: NewPersonDialogComponent) {
     data._data = this.nph.initNew(this.sex, this.surname);
   }
 
-  closeDialog() {
-    this.display = false;
+  personUB(): UrlBuilder {
+      return new UrlBuilder(this.dataset, 'families', 'spouses');
   }
 
-  anchor() {
+  closePersonDialog() {
+    this.displayPersonDialog = false;
+  }
+
+  personAnchor() {
     return this.family.string;
   }
 

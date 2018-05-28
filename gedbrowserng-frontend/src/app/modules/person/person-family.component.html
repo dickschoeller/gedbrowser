@@ -6,13 +6,13 @@
     <span class="bump-out" *ngIf="!spouse()">
       <p-button (click)="createSpouse()" icon="fa fa-fw fa-user-plus"
           [styleClass]="'ui-button-success'" pTooltip="Add spouse"></p-button>
-      <app-new-person-dialog2
+      <app-new-person-dialog
           *ngIf="surname"
           [p]="this"
-          (emitClose)="closeDialog()"
+          (emitClose)="closePersonDialog()"
           (emitOpen)="onDialogOpen($event)"
           (emitOK)="createPerson($event)"
-          [(display)]="display"></app-new-person-dialog2>
+          [(display)]="displayPersonDialog"></app-new-person-dialog>
     </span>
   </p-header>
   <div class="ui-g">

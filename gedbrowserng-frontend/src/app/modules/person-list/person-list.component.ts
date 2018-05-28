@@ -3,13 +3,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {PersonCreator} from '../../bases';
 import {
-  NewPersonDialog2Component,
-  NewPersonDialogData,
-  NewPersonHelper
+  NewPersonDialogComponent
 } from '../../components';
-import {ApiPerson} from '../../models';
+import {ApiPerson, NewPersonDialogData} from '../../models';
 import {PersonService, NewPersonLinkService} from '../../services';
-import {UrlBuilder} from '../../utils';
+import {UrlBuilder, NewPersonHelper} from '../../utils';
 import {PersonListPageComponent} from './person-list-page.component';
 
 @Component({
@@ -21,29 +19,29 @@ export class PersonListComponent extends PersonCreator {
   @Input() p: PersonListPageComponent;
   @Input() dataset: string;
   @Input() persons: ApiPerson[];
-  display = false;
+  displayPersonDialog = false;
 
   constructor(public newPersonLinkService: NewPersonLinkService) {
     super(newPersonLinkService);
   }
 
-  ub(): UrlBuilder {
-    return new UrlBuilder(this.dataset, 'persons');
-  }
-
   openCreatePersonDialog(): void {
-    this.display = true;
+    this.displayPersonDialog = true;
   }
-
-  closeDialog(): void {
-    this.display = false;
-  }
-
-  onDialogOpen(data: NewPersonDialog2Component) {
+  onDialogOpen(data: NewPersonDialogComponent) {
     data._data = this.nph.initNew('M', '');
   }
 
-  anchor(): string {
+
+  personUB(): UrlBuilder {
+    return new UrlBuilder(this.dataset, 'persons');
+  }
+
+  closePersonDialog(): void {
+    this.displayPersonDialog = false;
+  }
+
+  personAnchor(): string {
     return undefined;
   }
 

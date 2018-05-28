@@ -1,7 +1,7 @@
 import {Component, OnInit, OnChanges} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
-import {NewPersonHelper} from '../../components';
+import {NewPersonHelper} from '../../utils';
 import {ApiPerson} from '../../models';
 import {PersonService} from '../../services';
 

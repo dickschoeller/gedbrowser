@@ -7,10 +7,10 @@
           [styleClass]="'ui-button-success'"></p-button>
       <app-new-source-dialog
           [p]="this"
-          (emitClose)="closeDialog()"
+          (emitClose)="closeSourceDialog()"
           (emitOpen)="onDialogOpen($event)"
           (emitOK)="createSource($event)"
-          [(display)]="display"></app-new-source-dialog>
+          [(display)]="displaySourceDialog"></app-new-source-dialog>
     </span>
   </p-header>
   <ng-template let-source pTemplate="listItem">

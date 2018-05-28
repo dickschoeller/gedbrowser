@@ -13,6 +13,11 @@
   </span>
 </div>
 <app-new-attribute-dialog
-    [p]="this" [options]="options()" (emitClose)="onDialogClose()"
-    (emitOpen)="onDialogOpen($event)" (emitOK)="onDialogOK($event)"
-    [(display)]="display"></app-new-attribute-dialog>
+    [p]="this" [options]="options()" (emitClose)="onAttributeDialogClose()"
+    (emitOpen)="onAttributeDialogOpen($event)" (emitOK)="onAttributeDialogOK($event)"
+    [(display)]="displayAttributeDialog"></app-new-attribute-dialog>
+<app-new-source-dialog
+    [p]="this"
+    (emitClose)="onSourceDialogClose()" (emitOpen)="onSourceDialogOpen($event)"
+    (emitOK)="createSource($event)"
+    [(display)]="displaySourceDialog"></app-new-source-dialog>

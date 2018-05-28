@@ -2,15 +2,15 @@ import {Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges} fr
 
 import {BaseDialogComponent} from '../base-dialog/base-dialog.component';
 
-import {NewPersonDialogData} from './new-person-dialog-data';
+import {NewPersonDialogData} from '../../models/new-person-dialog-data';
 
 @Component({
-  selector: 'app-new-person-dialog2',
-  templateUrl: './new-person-dialog2.component.html',
-  styleUrls: ['./new-person-dialog2.component.css']
+  selector: 'app-new-person-dialog',
+  templateUrl: './new-person-dialog.component.html',
+  styleUrls: ['./new-person-dialog.component.css']
 })
-export class NewPersonDialog2Component
-  extends BaseDialogComponent<NewPersonDialogData, NewPersonDialog2Component>
+export class NewPersonDialogComponent
+  extends BaseDialogComponent<NewPersonDialogData, NewPersonDialogComponent>
   implements OnInit, OnChanges {
 
   _data: NewPersonDialogData;

@@ -1,6 +1,6 @@
 import {OnInit, OnChanges} from '@angular/core';
 
-import {NewPersonHelper} from '../components';
+import {NewPersonHelper} from '../utils';
 import {NewPersonLinkService} from '../services';
 import {PersonCreator} from './person-creator';
 

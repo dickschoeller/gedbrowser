@@ -5,12 +5,12 @@
     <span class="bump-out">
       <p-button (click)="openCreatePersonDialog()" icon="fa fa-fw fa-plus-circle" pTooltip="New person"
           [styleClass]="'ui-button-success'"></p-button>
-      <app-new-person-dialog2
+      <app-new-person-dialog
           [p]="this"
-          (emitClose)="closeDialog()"
+          (emitClose)="closePersonDialog()"
           (emitOpen)="onDialogOpen($event)"
           (emitOK)="createPerson($event)"
-          [(display)]="display"></app-new-person-dialog2>
+          [(display)]="displayPersonDialog"></app-new-person-dialog>
     </span>
   </p-header>
   <ng-template let-person pTemplate="listItem">

@@ -1,8 +1,7 @@
 import {OnChanges, OnInit} from '@angular/core';
 
-import {NewPersonDialogData, NewPersonHelper} from '../components';
-import {ApiPerson} from '../models';
-import {UrlBuilder} from '../utils';
+import {ApiPerson, NewPersonDialogData} from '../models';
+import {NewPersonHelper, UrlBuilder} from '../utils';
 import {PostRelatedPerson, NewPersonLinkService} from '../services';
 
 export abstract class PersonCreator  {
@@ -13,16 +12,16 @@ export abstract class PersonCreator  {
   createPerson(data: NewPersonDialogData): void {
     if (data != null) {
       const newPerson: ApiPerson = this.nph.buildPerson(data);
-      this.newPersonLinkService.p(this.ub(), this.anchor(), newPerson).subscribe(
-        (d: ApiPerson) => this.refreshPerson());
+      this.newPersonLinkService.p(this.personUB(), this.personAnchor(), newPerson)
+        .subscribe((d: ApiPerson) => this.refreshPerson());
     }
   }
 
-  abstract closeDialog(): void;
+  abstract closePersonDialog(): void;
 
-  abstract ub(): UrlBuilder;
+  abstract personUB(): UrlBuilder;
 
-  abstract anchor(): string;
+  abstract personAnchor(): string;
 
   abstract refreshPerson(): void;
 }

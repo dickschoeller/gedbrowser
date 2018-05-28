@@ -2,7 +2,7 @@ import {Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges} fr
 
 import {BaseDialogComponent} from '../base-dialog/base-dialog.component';
 
-import {NewSourceDialogData} from './new-source-dialog-data';
+import {NewSourceDialogData} from '../../models/new-source-dialog-data';
 
 @Component({
   selector: 'app-new-source-dialog',
@@ -13,7 +13,7 @@ export class NewSourceDialogComponent
   extends BaseDialogComponent<NewSourceDialogData, NewSourceDialogComponent>
   implements OnInit, OnChanges {
 
-  _data: NewSourceDialogData;
+  _data: NewSourceDialogData = {title: '', abbreviation: '', text: ''};
 
   constructor() {
     super();
