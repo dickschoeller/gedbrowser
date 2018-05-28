@@ -1,6 +1,6 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {NewPersonDialog2Component} from './new-person-dialog2.component';
+import {NewPersonDialog2Component} from './new-person-dialog.component';
 
 describe('NewPersonDialog2Component', () => {
   let component: NewPersonDialog2Component;

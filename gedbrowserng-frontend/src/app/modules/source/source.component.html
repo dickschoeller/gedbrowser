@@ -2,9 +2,7 @@
   <p-header>{{ source?.string }}: {{ source?.title }}</p-header>
 </p-panel>
 
-<p-panel header="Attributes" [toggleable]="true">
-  <app-attribute-list [dataset]="dataset" [attributes]="source?.attributes" [parent]="this"></app-attribute-list>
-</p-panel>
+<app-attribute-list [dataset]="dataset" [attributes]="source?.attributes" [parent]="this"></app-attribute-list>
 
 <p-panel header="Images" [toggleable]="true">
   <ngx-gallery [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>

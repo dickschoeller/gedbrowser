@@ -2,18 +2,18 @@ import {Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges} fr
 
 import {BaseDialogComponent} from '../base-dialog/base-dialog.component';
 
-import {NewSourceDialogData} from '../../models/new-source-dialog-data';
+import {NewPersonDialogData} from '../../models/new-person-dialog-data';
 
 @Component({
-  selector: 'app-new-source-dialog',
-  templateUrl: './new-source-dialog.component.html',
-  styleUrls: ['./new-source-dialog.component.css']
+  selector: 'app-new-person-dialog',
+  templateUrl: './new-person-dialog.component.html',
+  styleUrls: ['./new-person-dialog.component.css']
 })
-export class NewSourceDialogComponent
-  extends BaseDialogComponent<NewSourceDialogData, NewSourceDialogComponent>
+export class NewPersonDialogComponent
+  extends BaseDialogComponent<NewPersonDialogData, NewPersonDialogComponent>
   implements OnInit, OnChanges {
 
-  _data: NewSourceDialogData;
+  _data: NewPersonDialogData;
 
   constructor() {
     super();

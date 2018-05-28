@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
 
-import {NewPersonDialog2Component, NewPersonDialogData, NewPersonHelper} from '../../components';
-import {ApiAttribute, ApiFamily, ApiPerson} from '../../models';
+import {NewPersonDialogComponent} from '../../components';
+import {ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData} from '../../models';
 import {NewPersonLinkService, PersonService} from '../../services';
-import {UrlBuilder} from '../../utils';
+import {NewPersonHelper, UrlBuilder} from '../../utils';
 
 import {InitablePersonCreator} from '../../bases';
 import {PersonFamilyComponent} from './person-family.component';
@@ -24,7 +24,7 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator {
   @Input() children: Array<ApiAttribute>;
   @Input() family: ApiFamily;
   @Input() parent: PersonFamilyComponent;
-  display = false;
+  displayPersonDialog = false;
   surname: string;
 
   constructor(newPersonLinkService: NewPersonLinkService,
@@ -44,10 +44,6 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator {
     }
   }
 
-  ub(): UrlBuilder {
-    return new UrlBuilder(this.dataset, 'families', 'children');
-  }
-
   private husbandId(): string {
     for (const spouse of this.family.spouses) {
       if (spouse.type === 'husband') {
@@ -58,18 +54,22 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator {
   }
 
   createChild2(): void {
-    this.display = true;
+    this.displayPersonDialog = true;
   }
 
-  onDialogOpen(data: NewPersonDialog2Component) {
+  onDialogOpen(data: NewPersonDialogComponent) {
     data._data = this.nph.initNew('M', this.surname);
   }
 
-  closeDialog() {
-    this.display = false;
+  closePersonDialog() {
+    this.displayPersonDialog = false;
   }
 
-  anchor(): string {
+  personUB(): UrlBuilder {
+    return new UrlBuilder(this.dataset, 'families', 'children');
+  }
+
+  personAnchor(): string {
     return this.family.string;
   }
 

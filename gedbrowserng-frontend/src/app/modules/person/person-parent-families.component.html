@@ -4,13 +4,13 @@
       <p-button (click)="createParentFamily()" icon="fa fa-fw fa-user-plus"
           [styleClass]="'ui-button-success'" pTooltip="Add parent"></p-button>
     </span>
-    <app-new-person-dialog2
+    <app-new-person-dialog
         *ngIf="surname"
         [p]="this"
-        (emitClose)="closeDialog()"
+        (emitClose)="closePersonDialog()"
         (emitOpen)="onDialogOpen($event)"
         (emitOK)="createPerson($event)"
-        [(display)]="display"></app-new-person-dialog2>
+        [(display)]="displayPersonDialog"></app-new-person-dialog>
   </p-header>
   <app-person-parent-family *ngFor="let famcAttribute of person?.famc" [attribute]="famcAttribute" [dataset]="dataset"></app-person-parent-family>
 </p-panel>

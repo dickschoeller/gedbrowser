@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 
-import {NewPersonDialogData, NewPersonDialog2Component} from '../../components';
-import {ApiAttribute, ApiPerson, ApiFamily} from '../../models';
+import {NewPersonDialogComponent} from '../../components';
+import {ApiAttribute, ApiPerson, ApiFamily, NewPersonDialogData} from '../../models';
 import {UrlBuilder} from '../../utils';
 import {PersonService, NewPersonLinkService} from '../../services';
 
@@ -17,7 +17,7 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator {
   @Input() dataset: string;
   @Input() parent: PersonComponent;
   @Input() person: ApiPerson;
-  display = false;
+  displayPersonDialog = false;
   surname: string;
 
   constructor(private personService: PersonService,
@@ -30,22 +30,22 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator {
   }
 
   createParentFamily() {
-    this.display = true;
+    this.displayPersonDialog = true;
   }
 
-  ub(): UrlBuilder {
-    return new UrlBuilder(this.dataset, 'persons', 'parents');
-  }
-
-  onDialogOpen(dialog: NewPersonDialog2Component) {
+  onDialogOpen(dialog: NewPersonDialogComponent) {
     dialog._data = this.nph.initNew('M', this.person.surname);
   }
 
-  closeDialog() {
-    this.display = false;
+  personUB(): UrlBuilder {
+    return new UrlBuilder(this.dataset, 'persons', 'parents');
   }
 
-  anchor () {
+  closePersonDialog() {
+    this.displayPersonDialog = false;
+  }
+
+  personAnchor () {
     return this.person.string;
   }
 

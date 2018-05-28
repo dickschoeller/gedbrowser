@@ -35,23 +35,6 @@ export class NewAttributeDialogComponent
   }
 
   open() {
-    this._data = this.p.defaultData();
     this.emitOpen.emit(this);
-  }
-
-  close() {
-    this.emitClose.emit();
-    this._data = this.p.defaultData();
-  }
-
-  ok() {
-    this.emitOK.emit(this._data);
-    this.emitClose.emit();
-    this._data = this.p.defaultData();
-  }
-
-  cancel() {
-    this.emitClose.emit();
-    this._data = this.p.defaultData();
   }
 }

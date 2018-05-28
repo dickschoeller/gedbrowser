@@ -1,11 +1,6 @@
 import {Component, OnInit, Input, EventEmitter, Output, OnDestroy} from '@angular/core';
 
-@Component({
-  selector: 'app-base-dialog',
-  templateUrl: './base-dialog.component.html',
-  styleUrls: ['./base-dialog.component.css']
-})
-export class BaseDialogComponent<D, C> implements OnInit, OnDestroy {
+export abstract class BaseDialogComponent<D, C> implements OnInit, OnDestroy {
   @Input() p: any;
   @Input() set display(value: boolean) {
     this._display = value;
@@ -32,4 +27,18 @@ export class BaseDialogComponent<D, C> implements OnInit, OnDestroy {
     this.emitOpen.unsubscribe();
   }
 
+  abstract open(): void;
+
+  close() {
+    this.emitClose.emit();
+  }
+
+  ok() {
+    this.emitOK.emit(this._data);
+    this.emitClose.emit();
+  }
+
+  cancel() {
+    this.emitClose.emit();
+  }
 }
