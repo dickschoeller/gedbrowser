@@ -1,6 +1,5 @@
 # gedbrowser
 
-[![Overv.io Issues](https://img.shields.io/badge/Overv.io-issues-blue.svg)](https://overv.io/dickschoeller/gedbrowser/)
 [![Build Status](https://api.travis-ci.org/dickschoeller/gedbrowser.svg?branch=development)](https://travis-ci.org/dickschoeller/gedbrowser)
 [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=development)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=development)
 [![Code Climate](https://codeclimate.com/github/dickschoeller/gedbrowser/badges/gpa.svg)](https://codeclimate.com/github/dickschoeller/gedbrowser)
