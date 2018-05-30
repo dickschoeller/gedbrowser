@@ -2,8 +2,8 @@
     [string]="attribute.string" [person]="person" [index]="i" [dataset]="dataset"></app-person-family>
 
 <p-menu #menu popup="popup" #cm appendTo="body" [model]="items"></p-menu>
-<p-button icon="fa fa-user-plus" (click)="menu.toggle($event)" pTooltip="Add new family"
-    [styleClass]="'ui-button-success'"></p-button>
+<p-splitButton icon="fa fa-user-plus" (click)="menu.toggle($event)" pTooltip="Add new family"
+    [styleClass]="'ui-button-success'"></p-splitButton>
 <br/>
 <app-new-person-dialog
     *ngIf="surnameS"

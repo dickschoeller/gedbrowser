@@ -1,8 +1,7 @@
 import {Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges} from '@angular/core';
 
-import {BaseDialogComponent} from '../base-dialog/base-dialog.component';
-
-import {NewSourceDialogData} from '../../models/new-source-dialog-data';
+import {BaseDialog} from '../../bases';
+import {NewSourceDialogData} from '../../models';
 
 @Component({
   selector: 'app-new-source-dialog',
@@ -10,7 +9,7 @@ import {NewSourceDialogData} from '../../models/new-source-dialog-data';
   styleUrls: ['./new-source-dialog.component.css']
 })
 export class NewSourceDialogComponent
-  extends BaseDialogComponent<NewSourceDialogData, NewSourceDialogComponent>
+  extends BaseDialog<NewSourceDialogData, NewSourceDialogComponent>
   implements OnInit, OnChanges {
 
   _data: NewSourceDialogData;

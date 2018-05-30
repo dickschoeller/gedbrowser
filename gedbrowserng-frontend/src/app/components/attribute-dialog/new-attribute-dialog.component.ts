@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter, OnDestroy, OnChanges} from '@angular/core';
 import {SelectItem} from 'primeng/api';
 
-import {BaseDialogComponent} from '../base-dialog/base-dialog.component';
+import {BaseDialog} from '../../bases';
 
 import {AttributeDialogData} from './attribute-dialog-data';
 
@@ -11,7 +11,7 @@ import {AttributeDialogData} from './attribute-dialog-data';
   styleUrls: ['./new-attribute-dialog.component.css']
 })
 export class NewAttributeDialogComponent
-  extends BaseDialogComponent<AttributeDialogData, NewAttributeDialogComponent>
+  extends BaseDialog<AttributeDialogData, NewAttributeDialogComponent>
   implements OnInit, OnChanges {
   @Input() options;
   data = function(): AttributeDialogData {

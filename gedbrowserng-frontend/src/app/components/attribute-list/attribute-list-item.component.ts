@@ -3,7 +3,7 @@ import {MenuItem, SelectItem} from 'primeng/api';
 
 import {HasAttributeList} from '../../interfaces';
 import {SourceCreator} from '../../bases';
-import {ApiAttribute, ApiSource} from '../../models';
+import {ApiAttribute, ApiSource, LinkSourceDialogData, LinkSourceItem} from '../../models';
 import {NewSourceLinkService} from '../../services';
 import {
   AttributeUtil, NameUtil, NewSourceHelper, StringUtil, UrlBuilder
@@ -15,6 +15,7 @@ import {
   NewAttributeDialogComponent
 } from '../attribute-dialog';
 import {NewSourceDialogComponent} from '../new-source-dialog';
+import {LinkSourceDialogComponent} from '../link-source-dialog/';
 
 @Component({
   selector: 'app-attribute-list-item',
@@ -30,6 +31,7 @@ export class AttributeListItemComponent extends SourceCreator implements OnInit 
 
   displayAttributeDialog = false;
   displaySourceDialog = false;
+  displayLinkSourceDialog = false;
   attributeUtil = new AttributeUtil(this);
   attributeDialogHelper: AttributeDialogHelper = new AttributeDialogHelper(this);
   _data: AttributeDialogData;
@@ -38,7 +40,7 @@ export class AttributeListItemComponent extends SourceCreator implements OnInit 
       label: 'Add source', icon: 'fa-plus-circle', command: (event: Event) => { this.openCreateSourceDialog(); }
     },
     {
-      label: 'Link source', icon: 'fa-link', command: (event: Event) => { this.linkSource(); }
+      label: 'Link source', icon: 'fa-link', command: (event: Event) => { this.openLinkSourceDialog(); }
     },
   ];
 
@@ -89,11 +91,6 @@ export class AttributeListItemComponent extends SourceCreator implements OnInit 
     this.displaySourceDialog = true;
   }
 
-  linkSource() {
-    //
-  }
-
-
   onSourceDialogClose() {
     this.displaySourceDialog = false;
   }
@@ -126,6 +123,30 @@ export class AttributeListItemComponent extends SourceCreator implements OnInit 
       attributes: new Array<ApiAttribute>()
     };
     this.attribute.attributes.push(attribute);
+    this.parent.save();
+  }
+
+  openLinkSourceDialog() {
+    this.displayLinkSourceDialog = true;
+  }
+
+  onLinkSourceDialogClose() {
+    this.displayLinkSourceDialog = false;
+  }
+
+  onLinkSourceDialogOpen(data: LinkSourceDialogComponent) {
+  }
+
+  linkSource(data: LinkSourceDialogData) {
+    for (const item of data.selected) {
+      const attribute: ApiAttribute = {
+        type: 'sourcelink',
+        string: item.id,
+        tail: '',
+        attributes: new Array<ApiAttribute>()
+      };
+      this.attribute.attributes.push(attribute);
+    }
     this.parent.save();
   }
 }

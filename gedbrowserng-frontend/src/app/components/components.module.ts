@@ -9,9 +9,12 @@ import {DialogModule} from 'primeng/dialog';
 import {DropdownModule} from 'primeng/dropdown';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {InputTextModule} from 'primeng/inputtext';
+import {ListboxModule} from 'primeng/listbox';
 import {MenuModule} from 'primeng/menu';
 import {OrderListModule} from 'primeng/orderlist';
 import {PanelModule} from 'primeng/panel';
+import {ScrollPanelModule} from 'primeng/scrollpanel';
+import {SplitButtonModule} from 'primeng/splitbutton';
 import {TooltipModule} from 'primeng/tooltip';
 
 import {
@@ -23,6 +26,7 @@ import {
 import {NewPersonDialogComponent} from './new-person-dialog';
 import {NewAttributeDialogComponent} from './attribute-dialog';
 import {NewSourceDialogComponent} from './new-source-dialog';
+import {LinkSourceDialogComponent} from './link-source-dialog';
 
 @NgModule({
   imports: [
@@ -37,9 +41,12 @@ import {NewSourceDialogComponent} from './new-source-dialog';
     DropdownModule,
     InputTextareaModule,
     InputTextModule,
+    ListboxModule,
     MenuModule,
     OrderListModule,
     PanelModule,
+    ScrollPanelModule,
+    SplitButtonModule,
     TooltipModule,
   ],
   declarations: [
@@ -47,6 +54,7 @@ import {NewSourceDialogComponent} from './new-source-dialog';
     AttributeListItemComponent,
     AttributeListItemDetailListComponent,
     AttributeListItemDetailListItemComponent,
+    LinkSourceDialogComponent,
     NewAttributeDialogComponent,
     NewPersonDialogComponent,
     NewSourceDialogComponent,
@@ -56,6 +64,7 @@ import {NewSourceDialogComponent} from './new-source-dialog';
     AttributeListItemComponent,
     AttributeListItemDetailListComponent,
     AttributeListItemDetailListItemComponent,
+    LinkSourceDialogComponent,
     NewAttributeDialogComponent,
     NewPersonDialogComponent,
     NewSourceDialogComponent,

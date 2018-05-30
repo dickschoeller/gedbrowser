@@ -1,0 +1,19 @@
+<p-dialog
+    *ngIf="_data"
+    [modal]="true" [closable]="true" [closeOnEscape]="true"
+    [dismissableMask]="true"
+    (onHide)="close()" (onShow)="open()"
+    [(visible)]="_display"
+    header="Link Source" appendTo="body">
+  <p-listbox [options]="_data.items" [style]="{'width':'425px'}"
+      [(ngModel)]="_data.selected"
+      multiple="multiple" checkbox="checkbox" filter="filter"
+      optionLabel="title">
+    <p-header><i class="fa fa-book"></i> Sources</p-header>
+  </p-listbox>
+  <p-footer>
+    <p-button (click)="ok()" label="OK" icon="fa fa-fw fa-check"></p-button>
+    <p-button [styleClass]="'ui-button-secondary'" (click)="cancel()"
+        label="Cancel" icon="fa fa-fw fa-close"></p-button>
+  </p-footer>
+</p-dialog>
