@@ -12,6 +12,7 @@ import {DialogModule} from 'primeng/dialog';
 import {MenuModule} from 'primeng/menu';
 import {OrderListModule} from 'primeng/orderlist';
 import {PanelModule} from 'primeng/panel';
+import {SplitButtonModule} from 'primeng/splitbutton';
 import {TooltipModule} from 'primeng/tooltip';
 
 import {ComponentsModule} from '../../components';
@@ -55,6 +56,7 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
     MenuModule,
     OrderListModule,
     PanelModule,
+    SplitButtonModule,
     TooltipModule,
 
     ComponentsModule,

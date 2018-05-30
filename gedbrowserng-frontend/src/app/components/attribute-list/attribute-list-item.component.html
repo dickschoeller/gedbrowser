@@ -8,8 +8,8 @@
     <p-button [styleClass]="'ui-button-danger'" (onClick)="delete()"
         icon="fa fa-fw fa-trash" pTooltip="Delete attribute"></p-button>
     <p-menu #sourcemenu popup="popup" #cm appendTo="body" [model]="sourcemenuitems"></p-menu>
-    <p-button [styleClass]="'ui-button-success'" (click)="sourcemenu.toggle($event)"
-        icon="fa fa-fw fa-book" pTooltip="Source"></p-button>
+    <p-splitButton [styleClass]="'ui-button-success'" (click)="sourcemenu.toggle($event)"
+        icon="fa fa-fw fa-book" pTooltip="Source"></p-splitButton>
   </span>
 </div>
 <app-new-attribute-dialog
@@ -21,3 +21,8 @@
     (emitClose)="onSourceDialogClose()" (emitOpen)="onSourceDialogOpen($event)"
     (emitOK)="createSource($event)"
     [(display)]="displaySourceDialog"></app-new-source-dialog>
+<app-link-source-dialog
+    [p]="this"
+    (emitClose)="onLinkSourceDialogClose()" (emitOpen)="onLinkSourceDialogOpen($event)"
+    (emitOK)="linkSource($event)"
+    [(display)]="displayLinkSourceDialog"></app-link-source-dialog>

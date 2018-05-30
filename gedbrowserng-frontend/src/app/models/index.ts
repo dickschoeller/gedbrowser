@@ -12,3 +12,4 @@ export * from './api-tail.model';
 export * from './user.model';
 export * from './new-source-dialog-data';
 export * from './new-person-dialog-data';
+export * from './link-source-dialog-data';

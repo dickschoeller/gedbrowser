@@ -1,8 +1,8 @@
 import {Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges} from '@angular/core';
 
-import {BaseDialogComponent} from '../base-dialog/base-dialog.component';
+import {BaseDialog} from '../../bases';
 
-import {NewPersonDialogData} from '../../models/new-person-dialog-data';
+import {NewPersonDialogData} from '../../models';
 
 @Component({
   selector: 'app-new-person-dialog',
@@ -10,7 +10,7 @@ import {NewPersonDialogData} from '../../models/new-person-dialog-data';
   styleUrls: ['./new-person-dialog.component.css']
 })
 export class NewPersonDialogComponent
-  extends BaseDialogComponent<NewPersonDialogData, NewPersonDialogComponent>
+  extends BaseDialog<NewPersonDialogData, NewPersonDialogComponent>
   implements OnInit, OnChanges {
 
   _data: NewPersonDialogData;
