@@ -7,28 +7,12 @@
         icon="fa fa-fw fa-pencil" pTooltip="Edit attribute"></p-button>
     <p-button [styleClass]="'ui-button-danger'" (onClick)="delete()"
         icon="fa fa-fw fa-trash" pTooltip="Delete attribute"></p-button>
-    <p-menu #sourcemenu popup="popup" #cm appendTo="body" [model]="sourcemenuitems"></p-menu>
-    <p-splitButton [styleClass]="'ui-button-success'" (click)="sourcemenu.toggle($event)"
-        icon="fa fa-fw fa-book" pTooltip="Source"></p-splitButton>
+    <app-attribute-list-item-sources
+        [parent]="parent" [dataset]="dataset" [attribute]="attribute">
+    </app-attribute-list-item-sources>
   </span>
 </div>
 <app-new-attribute-dialog
     [p]="this" [options]="options()" (emitClose)="onAttributeDialogClose()"
     (emitOpen)="onAttributeDialogOpen($event)" (emitOK)="onAttributeDialogOK($event)"
     [(display)]="displayAttributeDialog"></app-new-attribute-dialog>
-<app-new-source-dialog
-    [p]="this"
-    (emitClose)="onSourceDialogClose()" (emitOpen)="onSourceDialogOpen($event)"
-    (emitOK)="createSource($event)"
-    [(display)]="displaySourceDialog"></app-new-source-dialog>
-<app-link-source-dialog
-    [p]="this"
-    (emitClose)="onLinkSourceDialogClose()" (emitOpen)="onLinkSourceDialogOpen($event)"
-    (emitOK)="linkSource($event)"
-    [(display)]="displayLinkSourceDialog"></app-link-source-dialog>
-<app-link-source-dialog
-    [p]="this"
-    (emitClose)="onUnlinkSourceDialogClose()" (emitOpen)="onUnlinkSourceDialogOpen($event)"
-    (emitOK)="unlinkSource($event)"
-    [(display)]="displayUnlinkSourceDialog"></app-link-source-dialog>
-    

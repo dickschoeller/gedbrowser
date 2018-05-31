@@ -54,7 +54,7 @@ div.ui-orderlist-controls {
   padding: 3px;
 }
 
-.ui-toolbar-group-left span {
+.ui-toolbar-group-left span.title {
   font-size:16pt;
   vertical-align: baseline;
 }
