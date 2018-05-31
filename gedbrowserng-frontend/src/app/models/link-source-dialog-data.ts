@@ -4,6 +4,7 @@ export class LinkSourceDialogData {
 }
 
 export class LinkSourceItem {
+  index: number;
   id: string;
   title: string;
 }

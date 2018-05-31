@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {BaseDialog} from '../../bases';
 import {ApiSource, LinkSourceItem, LinkSourceDialogData} from '../../models';
-import {SourceService} from '../../services';
 
 @Component({
   selector: 'app-link-source-dialog',
@@ -16,10 +15,9 @@ export class LinkSourceDialogComponent
   dataset: string;
   sources: Array<ApiSource>;
 
-  _data: LinkSourceDialogData;
+  _data: LinkSourceDialogData = { items: new Array<LinkSourceItem>(), selected: new Array<LinkSourceItem>() };
 
   constructor(private route: ActivatedRoute,
-    private sourceService: SourceService,
     private router: Router) {
     super();
   }
@@ -40,19 +38,6 @@ export class LinkSourceDialogComponent
     this.route.params.subscribe((params) => {
       this.dataset = params['dataset'];
     });
-    this.sourceService.getAll(this.dataset).subscribe(
-      (value: ApiSource[]) => {
-        this.sources = value;
-        this.sources.sort(this.compare);
-        this._data = {
-          items: new Array<LinkSourceItem>(),
-          selected: new Array<LinkSourceItem>()
-        };
-        for (const source of this.sources) {
-          this._data.items.push({id: source.string, title: source.title});
-        }
-      }
-    );
   }
 
   /**
