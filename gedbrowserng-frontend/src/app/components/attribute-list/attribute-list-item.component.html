@@ -26,3 +26,9 @@
     (emitClose)="onLinkSourceDialogClose()" (emitOpen)="onLinkSourceDialogOpen($event)"
     (emitOK)="linkSource($event)"
     [(display)]="displayLinkSourceDialog"></app-link-source-dialog>
+<app-link-source-dialog
+    [p]="this"
+    (emitClose)="onUnlinkSourceDialogClose()" (emitOpen)="onUnlinkSourceDialogOpen($event)"
+    (emitOK)="unlinkSource($event)"
+    [(display)]="displayUnlinkSourceDialog"></app-link-source-dialog>
+    

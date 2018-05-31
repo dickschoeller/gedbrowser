@@ -4,7 +4,7 @@ import {MenuItem, SelectItem} from 'primeng/api';
 import {HasAttributeList} from '../../interfaces';
 import {SourceCreator} from '../../bases';
 import {ApiAttribute, ApiSource, LinkSourceDialogData, LinkSourceItem} from '../../models';
-import {NewSourceLinkService} from '../../services';
+import {NewSourceLinkService, SourceService} from '../../services';
 import {
   AttributeUtil, NameUtil, NewSourceHelper, StringUtil, UrlBuilder
 } from '../../utils';
@@ -32,20 +32,31 @@ export class AttributeListItemComponent extends SourceCreator implements OnInit 
   displayAttributeDialog = false;
   displaySourceDialog = false;
   displayLinkSourceDialog = false;
+  displayUnlinkSourceDialog = false;
   attributeUtil = new AttributeUtil(this);
   attributeDialogHelper: AttributeDialogHelper = new AttributeDialogHelper(this);
   _data: AttributeDialogData;
   sourcemenuitems: MenuItem[] = [
     {
-      label: 'Add source', icon: 'fa-plus-circle', command: (event: Event) => { this.openCreateSourceDialog(); }
+      label: 'Add source',
+      icon: 'fa-plus-circle',
+      command: (event: Event) => { this.openCreateSourceDialog(); }
     },
     {
-      label: 'Link source', icon: 'fa-link', command: (event: Event) => { this.openLinkSourceDialog(); }
+      label: 'Link source',
+      icon: 'fa-link',
+      command: (event: Event) => { this.openLinkSourceDialog(); }
+    },
+    {
+      label: 'Unlink source',
+      icon: 'fa-unlink',
+      command: (event: Event) => { this.openUnlinkSourceDialog(); }
     },
   ];
 
   constructor(
-    public newSourceLinkService: NewSourceLinkService
+    public newSourceLinkService: NewSourceLinkService,
+    private sourceService: SourceService,
   ) {
     super(newSourceLinkService);
   }
@@ -135,6 +146,24 @@ export class AttributeListItemComponent extends SourceCreator implements OnInit 
   }
 
   onLinkSourceDialogOpen(data: LinkSourceDialogComponent) {
+    this.sourceService.getAll(data.dataset).subscribe(
+      (value: ApiSource[]) => {
+        data.sources = value;
+        data.sources.sort(data.compare);
+        data._data = {
+          items: new Array<LinkSourceItem>(),
+          selected: new Array<LinkSourceItem>()
+        };
+        let index = 0;
+        for (const source of data.sources) {
+          data._data.items.push({
+            index: index++,
+            id: source.string,
+            title: source.title + ' [' + source.string + ']'
+          });
+        }
+      }
+    );
   }
 
   linkSource(data: LinkSourceDialogData) {
@@ -146,6 +175,59 @@ export class AttributeListItemComponent extends SourceCreator implements OnInit 
         attributes: new Array<ApiAttribute>()
       };
       this.attribute.attributes.push(attribute);
+    }
+    this.parent.save();
+  }
+
+  openUnlinkSourceDialog() {
+    this.displayUnlinkSourceDialog = true;
+  }
+
+  onUnlinkSourceDialogClose() {
+    this.displayUnlinkSourceDialog = false;
+  }
+
+  onUnlinkSourceDialogOpen(data: LinkSourceDialogComponent) {
+    this.sourceService.getAll(data.dataset).subscribe(
+      (value: ApiSource[]) => {
+        data.sources = value;
+        data.sources.sort(data.compare);
+        data._data = {
+          items: new Array<LinkSourceItem>(),
+          selected: new Array<LinkSourceItem>()
+        };
+        let index = 0;
+        for (const attribute of this.attribute.attributes) {
+          if (attribute.type === 'sourcelink') {
+            index++;
+            data._data.items.push({
+              index: index,
+              id: attribute.string,
+              title: index + ' ' + this.find(attribute.string, data.sources) + ' [' + attribute.string + ']'
+            });
+          }
+        }
+      }
+    );
+  }
+
+  private find(sourceId: string, sources: Array<ApiSource>): string {
+    for (const source of sources) {
+      if (source.string === sourceId) {
+        return source.title;
+      }
+    }
+    return undefined;
+  }
+
+  unlinkSource(data: LinkSourceDialogData) {
+    for (const item of data.selected) {
+      this.attribute.attributes.forEach((attribute, index) => {
+        if (attribute.string === item.id) {
+          this.attribute.attributes.splice(index, 1);
+          return;
+        }
+      });
     }
     this.parent.save();
   }
