@@ -12,6 +12,7 @@ import {ApiSource, LinkSourceItem, LinkSourceDialogData} from '../../models';
 export class LinkSourceDialogComponent
   extends BaseDialog<LinkSourceDialogData, LinkSourceDialogComponent>
   implements OnInit, OnChanges {
+  @Input() titleString: string;
   dataset: string;
   sources: Array<ApiSource>;
 

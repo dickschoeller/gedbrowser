@@ -1,9 +1,10 @@
-<p-dialog header="New Source"
-    [(visible)]="_display"
+<p-dialog
     [modal]="true" [closable]="true"
     [closeOnEscape]="true" [dismissableMask]="true"
     (onHide)="close()" (onShow)="open()"
+    [(visible)]="_display"
     appendTo="body">
+  <p-header><i class="fa fa-book"></i> New Source</p-header>
   <br/>
   <div class="ui-float-label">
     <input id="float-input-title" type="text" size="50" pInputText [(ngModel)]="_data.title">
