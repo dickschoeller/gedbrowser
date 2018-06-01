@@ -8,12 +8,12 @@
       (emitOK)="createSource($event)"
       [(display)]="displaySourceDialog"></app-new-source-dialog>
   <app-link-source-dialog
-      [p]="this"
+      [p]="this" titleString="Link Sources"
       (emitClose)="onLinkSourceDialogClose()" (emitOpen)="onLinkSourceDialogOpen($event)"
       (emitOK)="linkSource($event)"
       [(display)]="displayLinkSourceDialog"></app-link-source-dialog>
   <app-link-source-dialog
-      [p]="this"
+      [p]="this" titleString="Unlink Sources"
       (emitClose)="onUnlinkSourceDialogClose()" (emitOpen)="onUnlinkSourceDialogOpen($event)"
       (emitOK)="unlinkSource($event)"
       [(display)]="displayUnlinkSourceDialog"></app-link-source-dialog>

@@ -1,9 +1,10 @@
-<p-dialog header="New Person"
-    [(visible)]="_display"
+<p-dialog
     [modal]="true" [closable]="true"
     [closeOnEscape]="true" [dismissableMask]="true"
     (onHide)="close()" (onShow)="open()"
+    [(visible)]="_display"
     appendTo="body">
+  <p-header><i class="fa fa-user"></i> New Person</p-header>
   <br/>
   <div class="ui-float-label">
     <input id="float-input-name" type="text" size="50" pInputText [(ngModel)]="_data.name">
