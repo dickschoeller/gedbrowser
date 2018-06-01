@@ -15,7 +15,7 @@ export class LinkSourceDialogComponent
   dataset: string;
   sources: Array<ApiSource>;
 
-  _data: LinkSourceDialogData = { items: new Array<LinkSourceItem>(), selected: new Array<LinkSourceItem>() };
+  _data: LinkSourceDialogData = new LinkSourceDialogData();
 
   constructor(private route: ActivatedRoute,
     private router: Router) {

@@ -105,7 +105,7 @@ export class AttributeListItemSourcesComponent extends SourceCreator implements 
       (value: ApiSource[]) => {
         data.sources = value;
         data.sources.sort(data.compare);
-        data._data = this.emptyLinkSourceDialogData();
+        data._data = new LinkSourceDialogData();
         let index = 0;
         for (const source of data.sources) {
           data._data.items.push({
@@ -116,13 +116,6 @@ export class AttributeListItemSourcesComponent extends SourceCreator implements 
         }
       }
     );
-  }
-
-  private emptyLinkSourceDialogData(): LinkSourceDialogData {
-    return {
-      items: new Array<LinkSourceItem>(),
-      selected: new Array<LinkSourceItem>()
-    };
   }
 
   linkSource(data: LinkSourceDialogData) {
@@ -151,7 +144,7 @@ export class AttributeListItemSourcesComponent extends SourceCreator implements 
       (value: ApiSource[]) => {
         data.sources = value;
         data.sources.sort(data.compare);
-        data._data = this.emptyLinkSourceDialogData();
+        data._data = new LinkSourceDialogData();
         let index = 0;
         for (const attribute of this.attribute.attributes) {
           if (attribute.type === 'sourcelink') {
