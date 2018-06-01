@@ -22,6 +22,7 @@ import {
   AttributeListItemComponent,
   AttributeListItemDetailListComponent,
   AttributeListItemDetailListItemComponent,
+  AttributeListItemSourcesComponent,
 } from './attribute-list';
 import {NewPersonDialogComponent} from './new-person-dialog';
 import {NewAttributeDialogComponent} from './attribute-dialog';
@@ -54,6 +55,7 @@ import {LinkSourceDialogComponent} from './link-source-dialog';
     AttributeListItemComponent,
     AttributeListItemDetailListComponent,
     AttributeListItemDetailListItemComponent,
+    AttributeListItemSourcesComponent,
     LinkSourceDialogComponent,
     NewAttributeDialogComponent,
     NewPersonDialogComponent,
@@ -64,6 +66,7 @@ import {LinkSourceDialogComponent} from './link-source-dialog';
     AttributeListItemComponent,
     AttributeListItemDetailListComponent,
     AttributeListItemDetailListItemComponent,
+    AttributeListItemSourcesComponent,
     LinkSourceDialogComponent,
     NewAttributeDialogComponent,
     NewPersonDialogComponent,
