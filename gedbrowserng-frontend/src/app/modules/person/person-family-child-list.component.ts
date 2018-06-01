@@ -97,30 +97,46 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator {
           if (this.alreadyLinked(person)) {
             continue;
           }
-          const lifespanUtil = new LifespanUtil(person.lifespan);
-          const lifespan: string = lifespanUtil.lifespanYearString();
-          data._data.items.push({
-            id: person.string,
-            label: person.indexName + lifespan + ' [' + person.string + ']',
-            person: person
-          });
+          this.pushDataItem(data, person);
         }
       }
     );
   }
 
-  alreadyLinked(person: ApiPerson): boolean {
+  private alreadyLinked(person: ApiPerson): boolean {
+    if (this.spouseLinked(person)) {
+      return true;
+    }
+    return this.childLinked(person);
+  }
+
+  private spouseLinked(person: ApiPerson): boolean {
     for (const spouse of this.family.spouses) {
       if (spouse.string === person.string) {
         return true;
       }
     }
+    return false;
+  }
+
+  private childLinked(person: ApiPerson): boolean {
     for (const child of this.children) {
       if (child.string === person.string) {
         return true;
       }
     }
     return false;
+  }
+
+  private pushDataItem(data, person) {
+    const lifespanUtil = new LifespanUtil(person.lifespan);
+    data._data.items.push({
+      id: person.string,
+      label: person.indexName
+        + lifespanUtil.lifespanYearString()
+        + ' [' + person.string + ']',
+      person: person
+    });
   }
 
   linkChild(data: LinkPersonDialogData) {

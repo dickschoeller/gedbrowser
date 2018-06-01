@@ -171,15 +171,19 @@ export class AttributeListItemSourcesComponent extends SourceCreator implements 
 
   unlinkSource(data: LinkSourceDialogData) {
     for (const item of data.selected) {
-      let index = 0;
-      for (const attribute of this.attribute.attributes) {
-        if (attribute.string === item.id) {
-          this.attribute.attributes.splice(index, 1);
-          break;
-        }
-        index++;
-      }
+      this.spliceOutOneSource(item);
     }
     this.parent.save();
+  }
+
+  spliceOutOneSource(item: LinkSourceItem) {
+    let index = 0;
+    for (const attribute of this.attribute.attributes) {
+      if (attribute.string === item.id) {
+        this.attribute.attributes.splice(index, 1);
+        break;
+      }
+      index++;
+    }
   }
 }

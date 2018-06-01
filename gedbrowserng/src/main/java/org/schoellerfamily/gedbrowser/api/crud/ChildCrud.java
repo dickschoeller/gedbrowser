@@ -86,11 +86,13 @@ public class ChildCrud {
      * @param person the data for the child (only need the string field)
      * @return the person linking to the new person
      */
-    public ApiPerson linkChildInFamily(String db, String id, ApiPerson person) {
+    public ApiPerson linkChildInFamily(final String db, final String id,
+            final ApiPerson person) {
         logger.info(
                 "Entering link child in db: " + db + " for family " + id);
         final ApiFamily newFamily = familyCrud.readFamily(db, id);
-        final ApiPerson newPerson = personCrud.readPerson(db, person.getString());
+        final ApiPerson newPerson =
+                personCrud.readPerson(db, person.getString());
         newFamily.getChildren().add(helper.childAttribute(newPerson));
         newPerson.getFamc().add(helper.famcAttribute(newFamily));
         familyCrud.updateFamily(db, newFamily.getString(), newFamily);
