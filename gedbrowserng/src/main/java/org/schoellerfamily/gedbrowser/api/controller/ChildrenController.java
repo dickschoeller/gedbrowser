@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.crud.ChildCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -20,6 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
 public class ChildrenController {
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
+
     /** */
     @Autowired
     private transient GedDocumentFileLoader loader;
@@ -50,6 +56,7 @@ public class ChildrenController {
     public ApiPerson createChild(@PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
+        logger.info("Entering ceateChild");
         return childCrud().createChild(db, id, person);
     }
 
@@ -64,6 +71,22 @@ public class ChildrenController {
     public ApiPerson createChildInFamily(@PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
+        logger.info("Entering ceateChildInFamily");
         return childCrud().createChildInFamily(db, id, person);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the id of the family whose child we are adding
+     * @param person the data for the child
+     * @return the person as created
+     */
+    @PutMapping(value = "/v1/dbs/{db}/families/{id}/children")
+    @ResponseBody
+    public ApiPerson linkChildInFamily(@PathVariable final String db,
+            @PathVariable final String id,
+            @RequestBody final ApiPerson person) {
+        logger.info("Entering linkChildInFamily");
+        return childCrud().linkChildInFamily(db, id, person);
     }
 }

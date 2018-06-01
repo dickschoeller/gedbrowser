@@ -6,13 +6,8 @@
         <span class="bump-out">
           <p-button (click)="createChild2()" icon="fa fa-fw fa-user-plus" pTooltip="Add child"
               [styleClass]="'ui-button-success'"></p-button>
-          <app-new-person-dialog
-              *ngIf="surname"
-              [p]="this"
-              (emitClose)="closePersonDialog()"
-              (emitOpen)="onDialogOpen($event)"
-              (emitOK)="createPerson($event)"
-              [(display)]="displayPersonDialog"></app-new-person-dialog>
+          <p-button (click)="openLinkChildDialog()" icon="fa fa-fw fa-link" pTooltip="Link child"
+              [styleClass]="'ui-button-success'"></p-button>
         </span>
       </p-header>
 
@@ -30,3 +25,14 @@
   </div>
   <div class="ui-g-1"></div>
 </div>
+<app-new-person-dialog *ngIf="surname" [p]="this"
+    (emitClose)="closePersonDialog()" (emitOpen)="onDialogOpen($event)"
+    (emitOK)="createPerson($event)"
+    [(display)]="displayPersonDialog">
+</app-new-person-dialog>
+<app-link-person-dialog *ngIf="surname" [p]="this" titleString="Link Child"
+    (emitClose)="onLinkChildDialogClose()"
+    (emitOpen)="onLinkChildDialogOpen($event)"
+    (emitOK)="linkChild($event)"
+    [(display)]="displayLinkChildDialog">
+</app-link-person-dialog>

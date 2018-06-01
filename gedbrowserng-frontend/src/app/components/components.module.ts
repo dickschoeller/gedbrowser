@@ -24,10 +24,11 @@ import {
   AttributeListItemDetailListItemComponent,
   AttributeListItemSourcesComponent,
 } from './attribute-list';
-import {NewPersonDialogComponent} from './new-person-dialog';
-import {NewAttributeDialogComponent} from './attribute-dialog';
-import {NewSourceDialogComponent} from './new-source-dialog';
+import {LinkPersonDialogComponent} from './link-person-dialog';
 import {LinkSourceDialogComponent} from './link-source-dialog';
+import {NewAttributeDialogComponent} from './attribute-dialog';
+import {NewPersonDialogComponent} from './new-person-dialog';
+import {NewSourceDialogComponent} from './new-source-dialog';
 
 @NgModule({
   imports: [
@@ -56,6 +57,7 @@ import {LinkSourceDialogComponent} from './link-source-dialog';
     AttributeListItemDetailListComponent,
     AttributeListItemDetailListItemComponent,
     AttributeListItemSourcesComponent,
+    LinkPersonDialogComponent,
     LinkSourceDialogComponent,
     NewAttributeDialogComponent,
     NewPersonDialogComponent,
@@ -67,6 +69,7 @@ import {LinkSourceDialogComponent} from './link-source-dialog';
     AttributeListItemDetailListComponent,
     AttributeListItemDetailListItemComponent,
     AttributeListItemSourcesComponent,
+    LinkPersonDialogComponent,
     LinkSourceDialogComponent,
     NewAttributeDialogComponent,
     NewPersonDialogComponent,

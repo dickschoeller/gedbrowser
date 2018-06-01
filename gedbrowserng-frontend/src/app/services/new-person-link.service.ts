@@ -11,7 +11,11 @@ import {UrlBuilder} from '../utils/urlbuilder';
 export class NewPersonLinkService implements PostRelatedPerson {
   constructor(private http: HttpClient) {}
 
-  p(ub: UrlBuilder, id: string, person: ApiPerson): Observable<ApiPerson> {
+  post(ub: UrlBuilder, id: string, person: ApiPerson): Observable<ApiPerson> {
     return this.http.post<ApiPerson>(ub.url(id), person);
+  }
+
+  put(ub: UrlBuilder, id: string, person: ApiPerson): Observable<ApiPerson> {
+    return this.http.put<ApiPerson>(ub.url(id), person);
   }
 }
