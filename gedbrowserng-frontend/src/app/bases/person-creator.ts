@@ -12,7 +12,7 @@ export abstract class PersonCreator  {
   createPerson(data: NewPersonDialogData): void {
     if (data != null) {
       const newPerson: ApiPerson = this.nph.buildPerson(data);
-      this.newPersonLinkService.p(this.personUB(), this.personAnchor(), newPerson)
+      this.newPersonLinkService.post(this.personUB(), this.personAnchor(), newPerson)
         .subscribe((d: ApiPerson) => this.refreshPerson());
     }
   }

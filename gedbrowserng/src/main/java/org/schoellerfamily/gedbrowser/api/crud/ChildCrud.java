@@ -47,7 +47,7 @@ public class ChildCrud {
     public ApiPerson createChild(final String db, final String id,
             final ApiPerson person) {
         logger.info(
-                "Entering create spouse in db: " + db + " for person " + id);
+                "Entering create child in db: " + db + " for person " + id);
         final ApiPerson oldPerson = personCrud.readPerson(db, id);
         final ApiPerson newPerson = personCrud.createPerson(db, person);
         final ApiFamily newFamily = familyCrud.createFamily(db,
@@ -63,16 +63,36 @@ public class ChildCrud {
 
     /**
      * @param db the name of the db to access
-     * @param id the id of the person whose spouse we are adding
+     * @param id the id of the family whose child we are adding
      * @param person the data for the spouse
      * @return the person linking to the new person
      */
     public ApiPerson createChildInFamily(final String db, final String id,
             final ApiPerson person) {
         logger.info(
-                "Entering create spouse in db: " + db + " for person " + id);
+                "Entering create child in db: " + db + " for family " + id);
         final ApiFamily newFamily = familyCrud.readFamily(db, id);
         final ApiPerson newPerson = personCrud.createPerson(db, person);
+        newFamily.getChildren().add(helper.childAttribute(newPerson));
+        newPerson.getFamc().add(helper.famcAttribute(newFamily));
+        familyCrud.updateFamily(db, newFamily.getString(), newFamily);
+        return personCrud.updatePerson(db, newPerson.getString(), newPerson);
+    }
+
+
+    /**
+     * @param db the name of the db to access
+     * @param id the id of the family whose child we are linking
+     * @param person the data for the child (only need the string field)
+     * @return the person linking to the new person
+     */
+    public ApiPerson linkChildInFamily(final String db, final String id,
+            final ApiPerson person) {
+        logger.info(
+                "Entering link child in db: " + db + " for family " + id);
+        final ApiFamily newFamily = familyCrud.readFamily(db, id);
+        final ApiPerson newPerson =
+                personCrud.readPerson(db, person.getString());
         newFamily.getChildren().add(helper.childAttribute(newPerson));
         newPerson.getFamc().add(helper.famcAttribute(newFamily));
         familyCrud.updateFamily(db, newFamily.getString(), newFamily);
