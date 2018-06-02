@@ -18,4 +18,8 @@ export class NewPersonLinkService implements PostRelatedPerson {
   put(ub: UrlBuilder, id: string, person: ApiPerson): Observable<ApiPerson> {
     return this.http.put<ApiPerson>(ub.url(id), person);
   }
+
+  delete(ub: UrlBuilder, id: string, person: ApiPerson): Observable<ApiPerson> {
+    return this.http.delete<ApiPerson>(ub.url(id, person.string));
+  }
 }

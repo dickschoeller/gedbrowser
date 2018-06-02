@@ -14,8 +14,10 @@ export class UrlBuilder {
     return '/gedbrowserng/v1/dbs/' + this.db;
   }
 
-  url(id?: string) {
-    if (id) {
+  url(id?: string, id2?: string) {
+    if (id2) {
+      return this.baseUrl() + '/' + this.t + '/' + id + '/' + this.sub + '/' + id2;
+    } else if (id) {
       return this.baseUrl() + '/' + this.t + '/' + id + '/' + this.sub;
     }
     return this.baseUrl() + '/' + this.t;

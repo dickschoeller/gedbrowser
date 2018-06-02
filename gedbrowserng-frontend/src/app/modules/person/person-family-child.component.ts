@@ -1,8 +1,8 @@
 import {Component, OnInit, Input, OnChanges} from '@angular/core';
 
 import {ApiAttribute, ApiPerson} from '../../models';
-import {PersonService} from '../../services';
-import {LifespanUtil} from '../../utils';
+import {PersonService, NewPersonLinkService} from '../../services';
+import {LifespanUtil, UrlBuilder} from '../../utils';
 
 import {PersonFamilyComponent} from './person-family.component';
 import { PersonGetter } from './person-getter';
@@ -28,7 +28,8 @@ export class PersonFamilyChildComponent extends PersonGetter implements OnInit, 
   @Input() parent: PersonFamilyComponent;
   person: ApiPerson;
 
-  constructor(personService: PersonService) {
+  constructor(public newPersonLinkService: NewPersonLinkService,
+    personService: PersonService) {
     super(personService);
   }
 
@@ -59,8 +60,8 @@ export class PersonFamilyChildComponent extends PersonGetter implements OnInit, 
   }
 
   delete(): void {
-// Only does half of unlink, should be renamed unlink
-//    this.parent.family.children.splice(this.index, 1);
-//    this.parent.save();
+    const ub: UrlBuilder = new UrlBuilder(this.dataset, 'families', 'children');
+    this.newPersonLinkService.delete(ub, this.parent.familyString(), this.person)
+      .subscribe((data: ApiPerson) => { this.parent.refreshPerson(); });
   }
 }
