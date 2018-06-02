@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -103,5 +104,20 @@ public class ChildrenController {
             @RequestBody final ApiPerson person) {
         logger.info("Entering linkChildInFamily");
         return childCrud().linkChildInFamily(db, id, person);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the id of the family whose child we are adding
+     * @param child the id of the child
+     * @return the person as created
+     */
+    @DeleteMapping(value = "/v1/dbs/{db}/families/{id}/children/{child}")
+    @ResponseBody
+    public ApiPerson unlinkChildInFamily(@PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final String child) {
+        logger.info("Entering linkChildInFamily");
+        return childCrud().unlinkChild(db, id, child);
     }
 }
