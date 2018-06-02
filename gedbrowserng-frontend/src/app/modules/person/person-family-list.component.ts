@@ -114,12 +114,11 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
     this.lph.onLinkChildDialogOpen(dialogComponent, this);
   }
 
-  private childLinked(person: ApiPerson): boolean {
-//    for (const child of this.children) {
-//      if (child.string === person.string) {
-//        return true;
-//      }
-//    }
+  spouseLinked(person: ApiPerson): boolean {
+    return this.person.string === person.string;
+  }
+
+  childLinked(person: ApiPerson): boolean {
     return false;
   }
 

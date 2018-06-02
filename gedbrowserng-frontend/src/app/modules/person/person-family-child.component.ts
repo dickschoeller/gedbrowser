@@ -59,7 +59,7 @@ export class PersonFamilyChildComponent extends PersonGetter implements OnInit, 
   }
 
   delete(): void {
-// FIXME only does half of unlink, should be renamed unlink
+// Only does half of unlink, should be renamed unlink
 //    this.parent.family.children.splice(this.index, 1);
 //    this.parent.save();
   }

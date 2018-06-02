@@ -20,19 +20,10 @@ export class LinkPersonHelper {
   }
 
   private alreadyLinked(person: ApiPerson, component): boolean {
-    if (this.spouseLinked(person, component)) {
+    if (component.spouseLinked(person, component)) {
       return true;
     }
     return component.childLinked(person);
-  }
-
-  private spouseLinked(person: ApiPerson, component): boolean {
-    for (const spouse of component.family.spouses) {
-      if (spouse.string === person.string) {
-        return true;
-      }
-    }
-    return false;
   }
 
   private pushDataItem(data: LinkPersonDialogData, person: ApiPerson) {
