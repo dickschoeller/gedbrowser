@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import {MenuItem} from 'primeng/api';
 
 import {NewPersonDialogComponent, LinkPersonDialogComponent} from '../../components';
 import {ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData} from '../../models';
@@ -27,6 +28,14 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator {
   displayPersonDialog = false;
   displayLinkChildDialog = false;
   surname: string;
+  items: MenuItem[] = [
+    {
+      label: 'Create child', icon: 'fa-user', command: (event: Event) => { this.createChild2(); }
+    },
+    {
+      label: 'Link child', icon: 'fa-link', command: (event: Event) => { this.openLinkChildDialog(); }
+    },
+  ];
 
   constructor(newPersonLinkService: NewPersonLinkService,
     private personService: PersonService) {
@@ -142,8 +151,7 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator {
   linkChild(data: LinkPersonDialogData) {
     for (const item of data.selected) {
       this.newPersonLinkService.put(this.personUB(), this.personAnchor(), item.person)
-        .subscribe((person: ApiPerson) => {});
+        .subscribe((person: ApiPerson) => { this.refreshPerson(); });
     }
-    this.refreshPerson();
   }
 }

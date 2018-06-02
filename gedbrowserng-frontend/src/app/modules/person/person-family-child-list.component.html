@@ -4,10 +4,9 @@
     <p-panel header="Children" styleClass="ui-panel-titlebar-success">
       <p-header>
         <span class="bump-out">
-          <p-button (click)="createChild2()" icon="fa fa-fw fa-user-plus" pTooltip="Add child"
-              [styleClass]="'ui-button-success'"></p-button>
-          <p-button (click)="openLinkChildDialog()" icon="fa fa-fw fa-link" pTooltip="Link child"
-              [styleClass]="'ui-button-success'"></p-button>
+          <p-menu #menu popup="popup" #cm appendTo="body" [model]="items"></p-menu>
+          <p-splitButton icon="fa fa-user-plus" (click)="menu.toggle($event)" pTooltip="Add child"
+              [styleClass]="'ui-button-success'"></p-splitButton>
         </span>
       </p-header>
 

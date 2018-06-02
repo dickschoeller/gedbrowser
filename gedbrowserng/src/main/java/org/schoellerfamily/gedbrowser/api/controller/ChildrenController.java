@@ -62,6 +62,21 @@ public class ChildrenController {
 
     /**
      * @param db the name of the db to access
+     * @param id the id of the person whose child we are adding
+     * @param person the data for the child
+     * @return the input person as modified
+     */
+    @PutMapping(value = "/v1/dbs/{db}/persons/{id}/children")
+    @ResponseBody
+    public ApiPerson linkChild(@PathVariable final String db,
+            @PathVariable final String id,
+            @RequestBody final ApiPerson person) {
+        logger.info("Entering ceateChild");
+        return childCrud().linkChild(db, id, person);
+    }
+
+    /**
+     * @param db the name of the db to access
      * @param id the id of the family whose child we are adding
      * @param person the data for the child
      * @return the person as created

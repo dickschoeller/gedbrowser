@@ -75,8 +75,7 @@ public class ChildCrud {
         final ApiPerson newPerson = personCrud.createPerson(db, person);
         newFamily.getChildren().add(helper.childAttribute(newPerson));
         newPerson.getFamc().add(helper.famcAttribute(newFamily));
-        familyCrud.updateFamily(db, newFamily.getString(), newFamily);
-        return personCrud.updatePerson(db, newPerson.getString(), newPerson);
+        return crudUpdateBoth(db, newFamily, newPerson);
     }
 
 
@@ -95,6 +94,33 @@ public class ChildCrud {
                 personCrud.readPerson(db, person.getString());
         newFamily.getChildren().add(helper.childAttribute(newPerson));
         newPerson.getFamc().add(helper.famcAttribute(newFamily));
+        return crudUpdateBoth(db, newFamily, newPerson);
+    }
+
+    /**
+     * @param db the name of the db to update
+     * @param newFamily the family to modify
+     * @param newPerson the person linked to the family
+     * @return the person
+     */
+    private ApiPerson crudUpdateBoth(final String db, final ApiFamily newFamily,
+            final ApiPerson newPerson) {
+        familyCrud.updateFamily(db, newFamily.getString(), newFamily);
+        return personCrud.updatePerson(db, newPerson.getString(), newPerson);
+    }
+
+    public ApiPerson linkChild(final String db, final String id, final ApiPerson person) {
+        logger.info(
+                "Entering create child in db: " + db + " for person " + id);
+        final ApiPerson oldPerson = personCrud.readPerson(db, id);
+        final ApiPerson newPerson = personCrud.readPerson(db, person.getString());
+        final ApiFamily newFamily = familyCrud.createFamily(db,
+                new ApiFamily());
+        newFamily.getSpouses().add(helper.spouseAttribute(oldPerson));
+        newFamily.getChildren().add(helper.childAttribute(newPerson));
+        newPerson.getFamc().add(helper.famcAttribute(newFamily));
+        oldPerson.getFams().add(helper.famsAttribute(newFamily));
+        personCrud.updatePerson(db, oldPerson.getString(), oldPerson);
         familyCrud.updateFamily(db, newFamily.getString(), newFamily);
         return personCrud.updatePerson(db, newPerson.getString(), newPerson);
     }
