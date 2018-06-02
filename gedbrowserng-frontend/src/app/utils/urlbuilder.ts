@@ -28,6 +28,6 @@ export class UrlBuilder {
   }
 
   plusT(): string {
-    this.baseUrl() + '/' + this.t;
+    return this.baseUrl() + '/' + this.t;
   }
 }
