@@ -53,12 +53,9 @@ public final class ChildCrud {
         final ApiFamily newFamily = familyCrud.createFamily(db,
                 new ApiFamily());
         newFamily.getSpouses().add(helper.spouseAttribute(oldPerson));
-        newFamily.getChildren().add(helper.childAttribute(newPerson));
-        newPerson.getFamc().add(helper.famcAttribute(newFamily));
+        addNewPersonToFamilyChildren(newFamily, newPerson);
         oldPerson.getFams().add(helper.famsAttribute(newFamily));
-        familyCrud.updateFamily(db, newFamily.getString(), newFamily);
-        personCrud.updatePerson(db, oldPerson.getString(), oldPerson);
-        return personCrud.updatePerson(db, newPerson.getString(), newPerson);
+        return crudUpdate(db, newFamily, oldPerson, newPerson);
     }
 
     /**
@@ -73,9 +70,8 @@ public final class ChildCrud {
                 "Entering create child in db: " + db + " for family " + id);
         final ApiFamily newFamily = familyCrud.readFamily(db, id);
         final ApiPerson newPerson = personCrud.createPerson(db, person);
-        newFamily.getChildren().add(helper.childAttribute(newPerson));
-        newPerson.getFamc().add(helper.famcAttribute(newFamily));
-        return crudUpdateBoth(db, newFamily, newPerson);
+        addNewPersonToFamilyChildren(newFamily, newPerson);
+        return crudUpdate(db, newFamily, newPerson);
     }
 
 
@@ -92,21 +88,8 @@ public final class ChildCrud {
         final ApiFamily newFamily = familyCrud.readFamily(db, id);
         final ApiPerson newPerson =
                 personCrud.readPerson(db, person.getString());
-        newFamily.getChildren().add(helper.childAttribute(newPerson));
-        newPerson.getFamc().add(helper.famcAttribute(newFamily));
-        return crudUpdateBoth(db, newFamily, newPerson);
-    }
-
-    /**
-     * @param db the name of the db to update
-     * @param newFamily the family to modify
-     * @param newPerson the person linked to the family
-     * @return the person
-     */
-    private ApiPerson crudUpdateBoth(final String db, final ApiFamily newFamily,
-            final ApiPerson newPerson) {
-        familyCrud.updateFamily(db, newFamily.getString(), newFamily);
-        return personCrud.updatePerson(db, newPerson.getString(), newPerson);
+        addNewPersonToFamilyChildren(newFamily, newPerson);
+        return crudUpdate(db, newFamily, newPerson);
     }
 
     /**
@@ -125,11 +108,33 @@ public final class ChildCrud {
         final ApiFamily newFamily = familyCrud.createFamily(db,
                 new ApiFamily());
         newFamily.getSpouses().add(helper.spouseAttribute(oldPerson));
+        addNewPersonToFamilyChildren(newFamily, newPerson);
+        oldPerson.getFams().add(helper.famsAttribute(newFamily));
+        return crudUpdate(db, newFamily, oldPerson, newPerson);
+    }
+
+    /**
+     * @param newFamily the family to add the person to
+     * @param newPerson the person to add
+     */
+    private void addNewPersonToFamilyChildren(final ApiFamily newFamily,
+            final ApiPerson newPerson) {
         newFamily.getChildren().add(helper.childAttribute(newPerson));
         newPerson.getFamc().add(helper.famcAttribute(newFamily));
-        oldPerson.getFams().add(helper.famsAttribute(newFamily));
-        personCrud.updatePerson(db, oldPerson.getString(), oldPerson);
+    }
+
+    /**
+     * @param db the name of the db to update
+     * @param newFamily the family to modify
+     * @param newPersons the persons linked to the family
+     * @return the person
+     */
+    private ApiPerson crudUpdate(final String db, final ApiFamily newFamily, final ApiPerson... newPersons) {
         familyCrud.updateFamily(db, newFamily.getString(), newFamily);
-        return personCrud.updatePerson(db, newPerson.getString(), newPerson);
+        ApiPerson person = null;
+        for (final ApiPerson newPerson : newPersons) {
+            person = personCrud.updatePerson(db, newPerson.getString(), newPerson);
+        }
+        return person;
     }
 }
