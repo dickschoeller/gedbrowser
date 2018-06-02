@@ -1,10 +1,11 @@
 import {Component, Input} from '@angular/core';
 import {MenuItem} from 'primeng/api';
 
-import {NewPersonDialogComponent} from '../../components';
-import {ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData} from '../../models';
+import {NewPersonDialogComponent, LinkPersonDialogComponent} from '../../components';
+import {ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData, LinkPersonItem} from '../../models';
 import {UrlBuilder} from '../../utils';
 import {NewPersonLinkService, PersonService} from '../../services';
+import {LifespanUtil, LinkPersonHelper} from '../../utils';
 
 import {InitablePersonCreator} from '../../bases';
 import {PersonComponent} from './person.component';
@@ -26,18 +27,23 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
   @Input() person: ApiPerson;
   items: MenuItem[] = [
     {
-      label: 'Add family with partner', icon: 'fa-user-plus', command: (event: Event) => { this.createFamilyWithSpouse(); }
+      label: 'Add family, create partner', icon: 'fa-user-plus', command: (event: Event) => { this.createFamilyWithSpouse(); }
     },
     {
-      label: 'Add family with child', icon: 'fa-user-plus', command: (event: Event) => { this.createFamilyWithChild(); }
+      label: 'Add family, create child', icon: 'fa-user-plus', command: (event: Event) => { this.createFamilyWithChild(); }
+    },
+    {
+      label: 'Add family, link child', icon: 'fa-link', command: (event: Event) => { this.createFamilyLinkChild(); }
     },
   ];
   displayPersonDialogS = false;
   displayPersonDialogC = false;
+  displayLinkChildDialog = false;
   surnameS: string;
   surnameC: string;
   _ub: UrlBuilder;
   partnerSex: string;
+  lph: LinkPersonHelper = new LinkPersonHelper();
 
   constructor(newPersonLinkService: NewPersonLinkService,
     private personService: PersonService) {
@@ -93,5 +99,51 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
   private updatePerson(person: ApiPerson) {
     this.person = person;
     this.parent.person = person;
+  }
+
+  createFamilyLinkChild() {
+    this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
+    this.displayLinkChildDialog = true;
+  }
+
+  onLinkChildDialogClose() {
+    this.displayLinkChildDialog = false;
+  }
+
+  onLinkChildDialogOpen(dialogComponent: LinkPersonDialogComponent) {
+    this.lph.onLinkChildDialogOpen(dialogComponent, this);
+  }
+
+  spouseLinked(person: ApiPerson): boolean {
+    return this.person.string === person.string;
+  }
+
+  childLinked(person: ApiPerson): boolean {
+    return false;
+  }
+
+  linkChildren(data: LinkPersonDialogData) {
+    const selected: Array<LinkPersonItem> = data.selected.splice(0, 1);
+    this.newPersonLinkService.put(this.personUB(), this.personAnchor(), selected[0].person)
+      .subscribe((person: ApiPerson) => {
+        this.linkChildrenToMainPerson(data);
+      });
+  }
+
+  private linkChildrenToMainPerson(data: LinkPersonDialogData) {
+    this.personService.getOne(this.dataset, this.person.string)
+      .subscribe((mainPerson: ApiPerson) => {
+        this.linkRemainingChildren(data, mainPerson);
+      });
+  }
+
+  private linkRemainingChildren(data: LinkPersonDialogData, mainPerson: ApiPerson): void {
+    this.updatePerson(mainPerson);
+    const fams = mainPerson.fams[mainPerson.fams.length - 1];
+    const ub = new UrlBuilder(this.dataset, 'families', 'children');
+    for (const selected of data.selected) {
+      this.newPersonLinkService.put(ub, fams.string, selected.person)
+        .subscribe((p: ApiPerson) => { this.refreshPerson(); });
+    }
   }
 }
