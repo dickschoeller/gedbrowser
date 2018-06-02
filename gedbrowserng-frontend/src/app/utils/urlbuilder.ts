@@ -16,10 +16,18 @@ export class UrlBuilder {
 
   url(id?: string, id2?: string) {
     if (id2) {
-      return this.baseUrl() + '/' + this.t + '/' + id + '/' + this.sub + '/' + id2;
+      return this.plusId(id) + '/' + id2;
     } else if (id) {
-      return this.baseUrl() + '/' + this.t + '/' + id + '/' + this.sub;
+      return this.plusId(id);
     }
-    return this.baseUrl() + '/' + this.t;
+    return this.plusT();
+  }
+
+  plusId(id: string) {
+    return this.plusT() + '/' + id + '/' + this.sub;
+  }
+
+  plusT(): string {
+    this.baseUrl() + '/' + this.t;
   }
 }

@@ -109,7 +109,7 @@ public class ChildrenController {
     /**
      * @param db the name of the db to access
      * @param id the id of the family whose child we are adding
-     * @param person the data for the child
+     * @param child the id of the child
      * @return the person as created
      */
     @DeleteMapping(value = "/v1/dbs/{db}/families/{id}/children/{child}")

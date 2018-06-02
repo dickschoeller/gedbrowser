@@ -115,7 +115,7 @@ public final class ChildCrud {
         addNewPersonToFamilySpouses(family, oldPerson);
         return crudUpdate(db, family, oldPerson, newPerson);
     }
-    
+
     /**
      * @param family the family to add the person to
      * @param person the person to add
