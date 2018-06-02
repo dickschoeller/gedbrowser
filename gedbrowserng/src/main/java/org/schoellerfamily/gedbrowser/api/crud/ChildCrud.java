@@ -129,11 +129,13 @@ public final class ChildCrud {
      * @param newPersons the persons linked to the family
      * @return the person
      */
-    private ApiPerson crudUpdate(final String db, final ApiFamily newFamily, final ApiPerson... newPersons) {
+    private ApiPerson crudUpdate(final String db, final ApiFamily newFamily,
+            final ApiPerson... newPersons) {
         familyCrud.updateFamily(db, newFamily.getString(), newFamily);
         ApiPerson person = null;
         for (final ApiPerson newPerson : newPersons) {
-            person = personCrud.updatePerson(db, newPerson.getString(), newPerson);
+            person = personCrud
+                    .updatePerson(db, newPerson.getString(), newPerson);
         }
         return person;
     }
