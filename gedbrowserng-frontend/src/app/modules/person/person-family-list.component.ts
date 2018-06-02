@@ -5,7 +5,7 @@ import {NewPersonDialogComponent, LinkPersonDialogComponent} from '../../compone
 import {ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData, LinkPersonItem} from '../../models';
 import {UrlBuilder} from '../../utils';
 import {NewPersonLinkService, PersonService} from '../../services';
-import {LifespanUtil} from '../../utils';
+import {LifespanUtil, LinkPersonHelper} from '../../utils';
 
 import {InitablePersonCreator} from '../../bases';
 import {PersonComponent} from './person.component';
@@ -43,6 +43,7 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
   surnameC: string;
   _ub: UrlBuilder;
   partnerSex: string;
+  lph: LinkPersonHelper = new LinkPersonHelper();
 
   constructor(newPersonLinkService: NewPersonLinkService,
     private personService: PersonService) {
@@ -109,34 +110,8 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
     this.displayLinkChildDialog = false;
   }
 
-  onLinkChildDialogOpen(data: LinkPersonDialogComponent) {
-    this.personService.getAll(data.dataset).subscribe(
-      (value: ApiPerson[]) => {
-        data.persons = value;
-        data.persons.sort(data.compare);
-        data._data = new LinkPersonDialogData();
-        for (const person of data.persons) {
-          if (this.alreadyLinked(person)) {
-            continue;
-          }
-          this.pushDataItem(data, person);
-        }
-      }
-    );
-  }
-
-  private alreadyLinked(person: ApiPerson): boolean {
-    if (this.spouseLinked(person)) {
-      return true;
-    }
-    return this.childLinked(person);
-  }
-
-  private spouseLinked(person: ApiPerson): boolean {
-    if (this.person.string === person.string) {
-      return true;
-    }
-    return false;
+  onLinkChildDialogOpen(dialogComponent: LinkPersonDialogComponent) {
+    this.lph.onLinkChildDialogOpen(dialogComponent, this);
   }
 
   private childLinked(person: ApiPerson): boolean {
@@ -148,31 +123,28 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
     return false;
   }
 
-  private pushDataItem(data, person) {
-    const lifespanUtil = new LifespanUtil(person.lifespan);
-    data._data.items.push({
-      id: person.string,
-      label: person.indexName
-        + lifespanUtil.lifespanYearString()
-        + ' [' + person.string + ']',
-      person: person
-    });
-  }
-
-  linkChild(data: LinkPersonDialogData) {
+  linkChildren(data: LinkPersonDialogData) {
     const selected: Array<LinkPersonItem> = data.selected.splice(0, 1);
     this.newPersonLinkService.put(this.personUB(), this.personAnchor(), selected[0].person)
       .subscribe((person: ApiPerson) => {
-        this.personService.getOne(this.dataset, this.person.string)
-          .subscribe((mainPerson: ApiPerson) => {
-            this.updatePerson(mainPerson);
-            const fams = mainPerson.fams[mainPerson.fams.length - 1];
-            const ub = new UrlBuilder(this.dataset, 'families', 'children');
-            for (const item1 of data.selected) {
-              this.newPersonLinkService.put(ub, fams.string, item1.person)
-                .subscribe((p: ApiPerson) => { this.refreshPerson(); });
-            }
-          });
+        this.linkChildrenToMainPerson(data);
       });
+  }
+
+  private linkChildrenToMainPerson(data: LinkPersonDialogData) {
+    this.personService.getOne(this.dataset, this.person.string)
+      .subscribe((mainPerson: ApiPerson) => {
+        this.linkRemainingChildren(data, mainPerson);
+      });
+  }
+
+  private linkRemainingChildren(data: LinkPersonDialogData, mainPerson: ApiPerson): void {
+    this.updatePerson(mainPerson);
+    const fams = mainPerson.fams[mainPerson.fams.length - 1];
+    const ub = new UrlBuilder(this.dataset, 'families', 'children');
+    for (const selected of data.selected) {
+      this.newPersonLinkService.put(ub, fams.string, selected.person)
+        .subscribe((p: ApiPerson) => { this.refreshPerson(); });
+    }
   }
 }

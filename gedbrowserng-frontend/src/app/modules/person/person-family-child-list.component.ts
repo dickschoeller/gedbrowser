@@ -4,7 +4,7 @@ import {MenuItem} from 'primeng/api';
 import {NewPersonDialogComponent, LinkPersonDialogComponent} from '../../components';
 import {ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData} from '../../models';
 import {NewPersonLinkService, PersonService} from '../../services';
-import {NewPersonHelper, UrlBuilder, LifespanUtil} from '../../utils';
+import {NewPersonHelper, UrlBuilder, LifespanUtil, LinkPersonHelper} from '../../utils';
 
 import {InitablePersonCreator} from '../../bases';
 import {PersonFamilyComponent} from './person-family.component';
@@ -36,6 +36,7 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator {
       label: 'Link child', icon: 'fa-link', command: (event: Event) => { this.openLinkChildDialog(); }
     },
   ];
+  lph: LinkPersonHelper = new LinkPersonHelper();
 
   constructor(newPersonLinkService: NewPersonLinkService,
     private personService: PersonService) {
@@ -96,36 +97,8 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator {
     this.displayLinkChildDialog = false;
   }
 
-  onLinkChildDialogOpen(data: LinkPersonDialogComponent) {
-    this.personService.getAll(data.dataset).subscribe(
-      (value: ApiPerson[]) => {
-        data.persons = value;
-        data.persons.sort(data.compare);
-        data._data = new LinkPersonDialogData();
-        for (const person of data.persons) {
-          if (this.alreadyLinked(person)) {
-            continue;
-          }
-          this.pushDataItem(data, person);
-        }
-      }
-    );
-  }
-
-  private alreadyLinked(person: ApiPerson): boolean {
-    if (this.spouseLinked(person)) {
-      return true;
-    }
-    return this.childLinked(person);
-  }
-
-  private spouseLinked(person: ApiPerson): boolean {
-    for (const spouse of this.family.spouses) {
-      if (spouse.string === person.string) {
-        return true;
-      }
-    }
-    return false;
+  onLinkChildDialogOpen(dialogComponent: LinkPersonDialogComponent) {
+    this.lph.onLinkChildDialogOpen(dialogComponent, this);
   }
 
   private childLinked(person: ApiPerson): boolean {
@@ -135,17 +108,6 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator {
       }
     }
     return false;
-  }
-
-  private pushDataItem(data, person) {
-    const lifespanUtil = new LifespanUtil(person.lifespan);
-    data._data.items.push({
-      id: person.string,
-      label: person.indexName
-        + lifespanUtil.lifespanYearString()
-        + ' [' + person.string + ']',
-      person: person
-    });
   }
 
   linkChild(data: LinkPersonDialogData) {

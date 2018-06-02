@@ -11,7 +11,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 /**
  * @author Dick Schoeller
  */
-public class ChildCrud {
+public final class ChildCrud {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -109,11 +109,19 @@ public class ChildCrud {
         return personCrud.updatePerson(db, newPerson.getString(), newPerson);
     }
 
-    public ApiPerson linkChild(final String db, final String id, final ApiPerson person) {
+    /**
+     * @param db the name of the db to update
+     * @param id the id of the family to modify
+     * @param person the person object to link as a child
+     * @return the person post modification
+     */
+    public ApiPerson linkChild(final String db, final String id,
+            final ApiPerson person) {
         logger.info(
                 "Entering create child in db: " + db + " for person " + id);
         final ApiPerson oldPerson = personCrud.readPerson(db, id);
-        final ApiPerson newPerson = personCrud.readPerson(db, person.getString());
+        final ApiPerson newPerson = personCrud.readPerson(db,
+                person.getString());
         final ApiFamily newFamily = familyCrud.createFamily(db,
                 new ApiFamily());
         newFamily.getSpouses().add(helper.spouseAttribute(oldPerson));
