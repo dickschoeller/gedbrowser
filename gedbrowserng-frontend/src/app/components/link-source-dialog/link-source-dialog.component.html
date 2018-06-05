@@ -8,7 +8,7 @@
   <p-header><i class="fa fa-book"></i> {{ titleString }}</p-header>
   <p-listbox [options]="_data.items" [style]="{'width':'425px'}"
       [(ngModel)]="_data.selected"
-      multiple="multiple" checkbox="checkbox" filter="filter"
+      multiple="true" checkbox="checkbox" filter="filter"
       optionLabel="title">
   </p-listbox>
   <p-footer>

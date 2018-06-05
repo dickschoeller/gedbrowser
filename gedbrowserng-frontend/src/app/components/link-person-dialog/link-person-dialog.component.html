@@ -6,11 +6,20 @@
     [(visible)]="_display"
     appendTo="body">
   <p-header><i class="fa fa-users"></i> {{ titleString }}</p-header>
-  <p-listbox [options]="_data.items" [style]="{'width':'425px'}"
-      [(ngModel)]="_data.selected"
-      multiple="multiple" checkbox="checkbox" filter="filter"
-      optionLabel="label">
-  </p-listbox>
+  <span *ngIf="multi">
+    <p-listbox [options]="_data.items" [style]="{'width':'425px'}"
+        [multiple]="multi" [checkbox]="multi"
+        [(ngModel)]="_data.selected"
+        filter="filter" optionLabel="label">
+    </p-listbox>
+  </span>
+  <span *ngIf="!multi">
+    <p-listbox [options]="_data.items" [style]="{'width':'425px'}"
+        [multiple]="multi" [checkbox]="multi"
+        [(ngModel)]="_data.selectOne"
+        filter="filter" optionLabel="label">
+    </p-listbox>
+  </span>
   <p-footer>
     <p-button (click)="ok()" label="OK" icon="fa fa-fw fa-check"></p-button>
     <p-button [styleClass]="'ui-button-secondary'" (click)="cancel()"

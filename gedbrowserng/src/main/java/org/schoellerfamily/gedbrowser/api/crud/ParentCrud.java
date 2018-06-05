@@ -12,18 +12,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 /**
  * @author Dick Schoeller
  */
-public class ParentCrud {
+public class ParentCrud extends RelationsCrud {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
-
-    /** Helper. */
-    private final transient CrudHelper helper = new CrudHelper();
-
-    /** Handles all of the basic CRUD operations on persons. */
-    private final PersonCrud personCrud;
-
-    /** Handles all of the basic CRUD operations on families. */
-    private final FamilyCrud familyCrud;
 
     /**
      * @param loader the file loader that we will use
@@ -33,32 +24,44 @@ public class ParentCrud {
     public ParentCrud(final GedDocumentFileLoader loader,
             final GedObjectToGedDocumentMongoConverter toDocConverter,
             final RepositoryManagerMongo repositoryManager) {
-        this.personCrud = new PersonCrud(loader, toDocConverter,
-                repositoryManager);
-        this.familyCrud = new FamilyCrud(loader, toDocConverter,
-                repositoryManager);
+        super(loader, toDocConverter, repositoryManager);
     }
 
     /**
      * @param db the name of the db to access
-     * @param id the id of the person whose spouse we are adding
-     * @param person the data for the spouse
-     * @return the new person
+     * @param id the id of the person whose parent we are adding
+     * @param person the data for the parent
+     * @return the person returned from the db
      */
     public ApiObject createParent(final String db, final String id,
             final ApiPerson person) {
         logger.info(
-                "Entering create spouse in db: " + db + " for person " + id);
-        final ApiPerson oldPerson = personCrud.readPerson(db, id);
-        final ApiPerson newPerson = personCrud.createPerson(db, person);
-        final ApiFamily newFamily = familyCrud.createFamily(db,
-                new ApiFamily());
-        newFamily.getChildren().add(helper.childAttribute(oldPerson));
-        newFamily.getSpouses().add(helper.spouseAttribute(newPerson));
-        newPerson.getFams().add(helper.famsAttribute(newFamily));
-        oldPerson.getFamc().add(helper.famcAttribute(newFamily));
-        familyCrud.updateFamily(db, newFamily.getString(), newFamily);
-        personCrud.updatePerson(db, oldPerson.getString(), oldPerson);
-        return personCrud.updatePerson(db, newPerson.getString(), newPerson);
+                "Entering create parent in db: " + db + " for person " + id);
+        final ApiPerson oldPerson = readPerson(db, id);
+        final ApiPerson newPerson = createPerson(db, person);
+        final ApiFamily family = createFamily(db);
+        addChildToFamily(family, oldPerson);
+        addSpouseToFamily(family, newPerson);
+        return crudUpdate(db, family, oldPerson, newPerson);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the id of the person whose parent we are adding
+     * @param person the data for the spouse
+     * @return the person returned from the db
+     */
+    public ApiObject linkParent(final String db, final String id,
+            final ApiPerson person) {
+        logger.info(
+                "Entering link person: " + person.getString()
+                + " in db: " + db
+                + " as parent of person " + id);
+        final ApiPerson oldPerson = readPerson(db, id);
+        final ApiPerson newPerson = readPerson(db, person.getString());
+        final ApiFamily family = createFamily(db);
+        addChildToFamily(family, oldPerson);
+        addSpouseToFamily(family, newPerson);
+        return crudUpdate(db, family, oldPerson, newPerson);
     }
 }

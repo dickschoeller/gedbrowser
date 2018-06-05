@@ -6,6 +6,7 @@ export class LinkPersonDialogData {
   }
   items: Array<LinkPersonItem>;
   selected: Array<LinkPersonItem>;
+  selectOne: LinkPersonItem;
 }
 
 export class LinkPersonItem {

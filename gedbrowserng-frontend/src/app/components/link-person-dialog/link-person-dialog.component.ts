@@ -13,6 +13,7 @@ export class LinkPersonDialogComponent
   extends BaseDialog<LinkPersonDialogData, LinkPersonDialogComponent>
   implements OnInit, OnChanges {
   @Input() titleString: string;
+  @Input() multi: boolean;
   dataset: string;
   persons: Array<ApiPerson>;
 

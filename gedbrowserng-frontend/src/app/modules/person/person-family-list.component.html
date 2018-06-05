@@ -17,9 +17,17 @@
     (emitClose)="closePersonDialog()" (emitOpen)="onDialogOpenC($event)"
     (emitOK)="createPerson($event)"
     [(display)]="displayPersonDialogC"></app-new-person-dialog>
-<app-link-person-dialog [p]="this" titleString="Link Child"
+<app-link-person-dialog [p]="this"
+    titleString="Link Child" [multi]="'true'"
     (emitClose)="onLinkChildDialogClose()"
     (emitOpen)="onLinkChildDialogOpen($event)"
     (emitOK)="linkChildren($event)"
     [(display)]="displayLinkChildDialog">
+</app-link-person-dialog>
+<app-link-person-dialog [p]="this"
+    titleString="Link Spouse" [multi]="false"
+    (emitClose)="onLinkSpouseDialogClose()"
+    (emitOpen)="onLinkSpouseDialogOpen($event)"
+    (emitOK)="linkSpouse($event)"
+    [(display)]="displayLinkSpouseDialog">
 </app-link-person-dialog>

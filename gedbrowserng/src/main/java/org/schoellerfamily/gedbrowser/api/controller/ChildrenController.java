@@ -114,7 +114,7 @@ public class ChildrenController {
      */
     @DeleteMapping(value = "/v1/dbs/{db}/families/{id}/children/{child}")
     @ResponseBody
-    public ApiPerson unlinkChildInFamily(@PathVariable final String db,
+    public ApiPerson unlinkChild(@PathVariable final String db,
             @PathVariable final String id,
             @PathVariable final String child) {
         logger.info("Entering linkChildInFamily");

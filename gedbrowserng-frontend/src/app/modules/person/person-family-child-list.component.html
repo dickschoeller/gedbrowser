@@ -29,7 +29,8 @@
     (emitOK)="createPerson($event)"
     [(display)]="displayPersonDialog">
 </app-new-person-dialog>
-<app-link-person-dialog *ngIf="surname" [p]="this" titleString="Link Child"
+<app-link-person-dialog *ngIf="surname" [p]="this"
+    titleString="Link Child" [multi]="true"
     (emitClose)="onLinkChildDialogClose()"
     (emitOpen)="onLinkChildDialogOpen($event)"
     (emitOK)="linkChild($event)"

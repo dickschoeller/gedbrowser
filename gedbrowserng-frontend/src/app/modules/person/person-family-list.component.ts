@@ -30,6 +30,9 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
       label: 'Add family, create partner', icon: 'fa-user-plus', command: (event: Event) => { this.createFamilyWithSpouse(); }
     },
     {
+      label: 'Add family, link partner', icon: 'fa-link', command: (event: Event) => { this.openLinkSpouseDialog(); }
+    },
+    {
       label: 'Add family, create child', icon: 'fa-user-plus', command: (event: Event) => { this.createFamilyWithChild(); }
     },
     {
@@ -39,6 +42,7 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
   displayPersonDialogS = false;
   displayPersonDialogC = false;
   displayLinkChildDialog = false;
+  displayLinkSpouseDialog = false;
   surnameS: string;
   surnameC: string;
   _ub: UrlBuilder;
@@ -146,4 +150,31 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
         .subscribe((p: ApiPerson) => { this.refreshPerson(); });
     }
   }
+
+
+
+
+
+  openLinkSpouseDialog() {
+    this._ub = new UrlBuilder(this.dataset, 'persons', 'spouses');
+    this.displayLinkSpouseDialog = true;
+  }
+
+  onLinkSpouseDialogClose() {
+    this.displayLinkSpouseDialog = false;
+  }
+
+  onLinkSpouseDialogOpen(dialogComponent: LinkPersonDialogComponent) {
+    this.lph.onLinkChildDialogOpen(dialogComponent, this);
+  }
+
+  linkSpouse(data: LinkPersonDialogData) {
+    this.newPersonLinkService.put(this.personUB(), this.personAnchor(), data.selectOne.person)
+      .subscribe((person: ApiPerson) => { this.refreshPerson(); });
+  }
+
+
+
+
+
 }
