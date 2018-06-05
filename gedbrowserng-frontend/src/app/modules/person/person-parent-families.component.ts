@@ -1,8 +1,9 @@
 import {Component, Input} from '@angular/core';
+import {MenuItem} from 'primeng/api';
 
-import {NewPersonDialogComponent} from '../../components';
-import {ApiAttribute, ApiPerson, ApiFamily, NewPersonDialogData} from '../../models';
-import {UrlBuilder} from '../../utils';
+import {NewPersonDialogComponent, LinkPersonDialogComponent} from '../../components';
+import {ApiAttribute, ApiPerson, ApiFamily, NewPersonDialogData, LinkPersonDialogData} from '../../models';
+import {UrlBuilder, LinkPersonHelper} from '../../utils';
 import {PersonService, NewPersonLinkService} from '../../services';
 
 import {InitablePersonCreator} from '../../bases';
@@ -18,7 +19,17 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator {
   @Input() parent: PersonComponent;
   @Input() person: ApiPerson;
   displayPersonDialog = false;
+  displayLinkParentDialog = false;
   surname: string;
+  lph: LinkPersonHelper = new LinkPersonHelper();
+  items: MenuItem[] = [
+    {
+      label: 'Create parent', icon: 'fa-user', command: (event: Event) => { this.createParentFamily(); }
+    },
+    {
+      label: 'Link parent', icon: 'fa-link', command: (event: Event) => { this.openLinkParentDialog(); }
+    },
+  ];
 
   constructor(private personService: PersonService,
     newPersonLinkService: NewPersonLinkService) {
@@ -53,4 +64,43 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator {
     this.personService.getOne(this.dataset, this.person.string).subscribe(
       (data: ApiPerson) => this.parent.person = data);
   }
+
+
+
+  openLinkParentDialog() {
+    this.displayLinkParentDialog = true;
+  }
+
+  onLinkParentDialogClose() {
+    this.displayLinkParentDialog = false;
+  }
+
+  onLinkParentDialogOpen(dialogComponent: LinkPersonDialogComponent) {
+    this.lph.onLinkChildDialogOpen(dialogComponent, this);
+  }
+
+  spouseLinked(person: ApiPerson): boolean {
+//    for (const spouse of this.family.spouses) {
+//      if (spouse.string === person.string) {
+//        return true;
+//      }
+//    }
+    return false;
+  }
+
+  childLinked(person: ApiPerson): boolean {
+//    for (const child of this.children) {
+//      if (child.string === person.string) {
+//        return true;
+//      }
+//    }
+    return false;
+  }
+
+  linkParent(data: LinkPersonDialogData) {
+    this.newPersonLinkService.put(this.personUB(), this.personAnchor(), data.selectOne.person)
+      .subscribe((person: ApiPerson) => { this.refreshPerson(); });
+  }
+
+
 }
