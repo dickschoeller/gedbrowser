@@ -1,1 +1,9 @@
-<span *ngIf="spouse"><a [routerLink]="['/' + dataset + '/persons', spouse.string]" class="name">{{ spouse.indexName }} {{ lifespanYearString() }} [{{ spouse.string }}]</a></span>
+<span *ngIf="spouse"><a
+    [routerLink]="['/' + dataset + '/persons', spouse.string]"
+    class="name parent">{{ spouse.indexName }} {{ lifespanYearString() }} [{{ spouse.string }}]</a>
+  <span class="example-fill-remaining-space"></span>
+  <span class="hidden">
+    <p-button icon="fa fa-fw fa-unlink" (onClick)="unlink()"
+        pTooltip="Unlink spouse" [styleClass]="'ui-button-danger'"></p-button>
+</span>
+</span>

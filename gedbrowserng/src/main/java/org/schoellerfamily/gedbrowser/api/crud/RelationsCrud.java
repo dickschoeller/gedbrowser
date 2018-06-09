@@ -89,6 +89,47 @@ public class RelationsCrud {
         person.getFams().add(helper.famsAttribute(family));
     }
 
+    protected void removeSpouseFromFamily(final ApiFamily family,
+            final ApiPerson person) {
+        ApiAttribute spouse = findSpouseAttribute(family, person);
+        if (spouse != null) {
+            family.getSpouses().remove(spouse);
+        }
+        ApiAttribute fams = findFamsAttribute(family, person);
+        if (fams != null) {
+            person.getFams().remove(fams);
+        }
+    }
+
+    /**
+     * @param family the family that we are searching
+     * @param person the person who should be a spouse
+     * @return the spouse attribute
+     */
+    private ApiAttribute findSpouseAttribute(final ApiFamily family, final ApiPerson person) {
+        for (final ApiAttribute spouse : family.getSpouses()) {
+            if (spouse.getString().equals(person.getString())) {
+                return spouse;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @param family the family that should be pointed to by fams
+     * @param person the person we are searching
+     * @return the fams attribute
+     */
+    private ApiAttribute findFamsAttribute(final ApiFamily family, final ApiPerson person) {
+        for (final ApiAttribute fams : person.getFams()) {
+            if (fams.getString().equals(family.getString())) {
+                person.getFams().remove(fams);
+                return fams;
+            }
+        }
+        return null;
+    }
+
     /**
      * @param db the name of the db to update
      * @param newFamily the family to modify

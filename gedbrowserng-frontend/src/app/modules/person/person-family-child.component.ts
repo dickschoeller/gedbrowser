@@ -3,9 +3,8 @@ import {Component, OnInit, Input, OnChanges} from '@angular/core';
 import {ApiAttribute, ApiPerson} from '../../models';
 import {PersonService, NewPersonLinkService} from '../../services';
 import {LifespanUtil, UrlBuilder} from '../../utils';
-
 import {PersonFamilyComponent} from './person-family.component';
-import { PersonGetter } from './person-getter';
+import {PersonGetter} from './person-getter';
 
 /**
  * Implements a child block within a family on a person page.
@@ -23,9 +22,9 @@ import { PersonGetter } from './person-getter';
 })
 export class PersonFamilyChildComponent extends PersonGetter implements OnInit, OnChanges {
   @Input() dataset: string;
+  @Input() parent: PersonFamilyComponent;
   @Input() child: ApiAttribute;
   @Input() index: number;
-  @Input() parent: PersonFamilyComponent;
   person: ApiPerson;
 
   constructor(public newPersonLinkService: NewPersonLinkService,

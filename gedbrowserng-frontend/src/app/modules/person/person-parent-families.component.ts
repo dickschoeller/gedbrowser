@@ -65,8 +65,6 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator {
       (data: ApiPerson) => this.parent.person = data);
   }
 
-
-
   openLinkParentDialog() {
     this.displayLinkParentDialog = true;
   }

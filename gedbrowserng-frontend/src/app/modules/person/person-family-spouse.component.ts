@@ -1,9 +1,10 @@
 import {Component, OnInit, Input, OnChanges} from '@angular/core';
 
 import {ApiAttribute, ApiPerson} from '../../models';
-import {PersonService} from '../../services';
-import {LifespanUtil, StringUtil} from '../../utils';
-import { PersonGetter } from './person-getter';
+import {PersonService, NewPersonLinkService} from '../../services';
+import {LifespanUtil, StringUtil, UrlBuilder} from '../../utils';
+import {PersonFamilyComponent} from './person-family.component';
+import {PersonGetter} from './person-getter';
 
 /**
  * Implements a spouse block within a family on a person page.
@@ -21,10 +22,12 @@ import { PersonGetter } from './person-getter';
 })
 export class PersonFamilySpouseComponent extends PersonGetter implements OnInit, OnChanges {
   @Input() dataset: string;
+  @Input() parent: PersonFamilyComponent;
   @Input() attribute: ApiAttribute;
   spouse: ApiPerson;
 
-  constructor(personService: PersonService) {
+  constructor(public newPersonLinkService: NewPersonLinkService,
+    personService: PersonService) {
     super(personService);
   }
 
@@ -44,5 +47,15 @@ export class PersonFamilySpouseComponent extends PersonGetter implements OnInit,
 
   lifespanYearString(): string {
     return new LifespanUtil(this.spouse.lifespan).lifespanYearString();
+  }
+
+  unlink(): void {
+    const ub: UrlBuilder = new UrlBuilder(this.dataset, 'families', 'spouses');
+    this.newPersonLinkService.delete(ub, this.parent.familyString(), this.spouse)
+      .subscribe((data: ApiPerson) => { this.refreshPerson(); });
+  }
+
+  refreshPerson() {
+    this.parent.refreshPerson();
   }
 }

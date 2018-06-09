@@ -101,4 +101,22 @@ public class SpouseCrud extends RelationsCrud {
         addSpouseToFamily(family, newPerson);
         return crudUpdate(db, family, newPerson);
     }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the id of the family to which we are linking a spouse
+     * @param sid the id of the spouse to remove
+     * @return the person returned from the db
+     */
+    public ApiPerson unlinkSpouseInFamily(final String db, final String id,
+            final String sid) {
+        logger.info(
+                "Entering unlink person: " + sid
+                + " in db: " + db
+                + " from being a spouse in family " + id);
+        final ApiPerson person = readPerson(db, sid);
+        final ApiFamily family = readFamily(db, id);
+        removeSpouseFromFamily(family, person);
+        return crudUpdate(db, family, person);
+    }
 }

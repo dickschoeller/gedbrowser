@@ -8,6 +8,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -94,5 +95,19 @@ public class SpousesController {
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
         return spouseCrud().linkSpouseInFamily(db, id, person);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the id of the person whose spouse we are adding
+     * @param sid the data for the spouse
+     * @return the person whose link was deleted
+     */
+    @DeleteMapping(value = "/v1/dbs/{db}/families/{id}/spouses/{sid}")
+    @ResponseBody
+    public ApiPerson unlinkSpouseInFamily(@PathVariable final String db,
+            @PathVariable final String id,
+            @PathVariable final String sid) {
+        return spouseCrud().unlinkSpouseInFamily(db, id, sid);
     }
 }

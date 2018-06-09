@@ -5,7 +5,6 @@ import {NewPersonDialogComponent, LinkPersonDialogComponent} from '../../compone
 import {ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData} from '../../models';
 import {NewPersonLinkService, PersonService} from '../../services';
 import {NewPersonHelper, UrlBuilder, LifespanUtil, LinkPersonHelper} from '../../utils';
-
 import {InitablePersonCreator} from '../../bases';
 import {PersonFamilyComponent} from './person-family.component';
 
@@ -22,9 +21,9 @@ import {PersonFamilyComponent} from './person-family.component';
 })
 export class PersonFamilyChildListComponent extends InitablePersonCreator {
   @Input() dataset: string;
-  @Input() children: Array<ApiAttribute>;
-  @Input() family: ApiFamily;
   @Input() parent: PersonFamilyComponent;
+  @Input() family: ApiFamily;
+  @Input() children: Array<ApiAttribute>;
   displayPersonDialog = false;
   displayLinkChildDialog = false;
   surname: string;
