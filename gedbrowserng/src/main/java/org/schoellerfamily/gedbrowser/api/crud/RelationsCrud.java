@@ -39,7 +39,8 @@ public class RelationsCrud {
      * @param person the data for the new person
      * @return the person returned from the db
      */
-    protected final ApiPerson createPerson(final String db, final ApiPerson person) {
+    protected final ApiPerson createPerson(final String db,
+            final ApiPerson person) {
         return personCrud.createPerson(db, person);
     }
 
@@ -110,7 +111,7 @@ public class RelationsCrud {
      * @param person the person who should be a spouse
      * @return the spouse attribute
      */
-    private final ApiAttribute findSpouseAttribute(final ApiFamily family,
+    private ApiAttribute findSpouseAttribute(final ApiFamily family,
             final ApiPerson person) {
         for (final ApiAttribute spouse : family.getSpouses()) {
             if (spouse.getString().equals(person.getString())) {
@@ -125,7 +126,7 @@ public class RelationsCrud {
      * @param person the person we are searching
      * @return the fams attribute
      */
-    private final ApiAttribute findFamsAttribute(final ApiFamily family,
+    private ApiAttribute findFamsAttribute(final ApiFamily family,
             final ApiPerson person) {
         for (final ApiAttribute fams : person.getFams()) {
             if (fams.getString().equals(family.getString())) {
@@ -142,8 +143,8 @@ public class RelationsCrud {
      * @param newPersons the persons linked to the family
      * @return the person
      */
-    protected final ApiPerson crudUpdate(final String db, final ApiFamily newFamily,
-            final ApiPerson... newPersons) {
+    protected final ApiPerson crudUpdate(final String db,
+            final ApiFamily newFamily, final ApiPerson... newPersons) {
         familyCrud.updateFamily(db, newFamily.getString(), newFamily);
         ApiPerson person = null;
         for (final ApiPerson newPerson : newPersons) {
