@@ -2,7 +2,6 @@ import {Component, OnInit, Input, OnChanges} from '@angular/core';
 
 import {ApiAttribute, ApiPerson} from '../../models';
 import {PersonService, NewPersonLinkService} from '../../services';
-import {LifespanUtil, UrlBuilder} from '../../utils';
 import {PersonFamilyComponent} from './person-family.component';
 import {PersonGetter} from './person-getter';
 
@@ -27,9 +26,10 @@ export class PersonFamilyChildComponent extends PersonGetter implements OnInit, 
   @Input() index: number;
   person: ApiPerson;
 
-  constructor(public newPersonLinkService: NewPersonLinkService,
+  constructor(newPersonLinkService: NewPersonLinkService,
     personService: PersonService) {
-    super(personService);
+    super(newPersonLinkService, personService);
+    this.famMemberType = 'children';
   }
 
   ngOnInit() {
@@ -40,10 +40,6 @@ export class PersonFamilyChildComponent extends PersonGetter implements OnInit, 
     this.init(this.dataset, this.child.string);
   }
 
-  lifespanYearString(): string {
-    return new LifespanUtil(this.person.lifespan).lifespanYearString();
-  }
-
   first(): boolean {
     return this.index === 0;
   }
@@ -52,9 +48,11 @@ export class PersonFamilyChildComponent extends PersonGetter implements OnInit, 
     return this.index + 1 >= this.parent.family.children.length;
   }
 
-  delete(): void {
-    const ub: UrlBuilder = new UrlBuilder(this.dataset, 'families', 'children');
-    this.newPersonLinkService.delete(ub, this.parent.familyString(), this.person)
-      .subscribe((data: ApiPerson) => { this.parent.refreshPerson(); });
+  familyString(): string {
+    return this.parent.familyString();
+  }
+
+  refreshPerson(): void {
+    this.parent.refreshPerson();
   }
 }
