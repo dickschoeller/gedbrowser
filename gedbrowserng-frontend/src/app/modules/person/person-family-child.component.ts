@@ -33,17 +33,11 @@ export class PersonFamilyChildComponent extends PersonGetter implements OnInit, 
   }
 
   ngOnInit() {
-    this.init();
+    this.init(this.dataset, this.child.string);
   }
 
   ngOnChanges() {
-    this.init();
-  }
-
-  private init(): void {
-    this.get(this.dataset, this.child.string, (person: ApiPerson) => {
-      this.person = person;
-    });
+    this.init(this.dataset, this.child.string);
   }
 
   lifespanYearString(): string {

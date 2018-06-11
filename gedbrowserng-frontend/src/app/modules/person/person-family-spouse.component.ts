@@ -13,7 +13,7 @@ import {PersonGetter} from './person-getter';
  *  attribute: the attribute referring to the spouse
  *
  * Fetches:
- *  spouse: the person identified by the attribute
+ *  person: the person identified by the attribute
  */
 @Component({
   selector: 'app-person-family-spouse',
@@ -24,7 +24,6 @@ export class PersonFamilySpouseComponent extends PersonGetter implements OnInit,
   @Input() dataset: string;
   @Input() parent: PersonFamilyComponent;
   @Input() attribute: ApiAttribute;
-  spouse: ApiPerson;
 
   constructor(public newPersonLinkService: NewPersonLinkService,
     personService: PersonService) {
@@ -32,26 +31,20 @@ export class PersonFamilySpouseComponent extends PersonGetter implements OnInit,
   }
 
   ngOnInit() {
-    this.init();
+    this.init(this.dataset, this.attribute.string);
   }
 
   ngOnChanges() {
-    this.init();
-  }
-
-  private init(): void {
-    this.get(this.dataset, this.attribute.string, (person: ApiPerson) => {
-      this.spouse = person;
-    });
+    this.init(this.dataset, this.attribute.string);
   }
 
   lifespanYearString(): string {
-    return new LifespanUtil(this.spouse.lifespan).lifespanYearString();
+    return new LifespanUtil(this.person.lifespan).lifespanYearString();
   }
 
   unlink(): void {
     const ub: UrlBuilder = new UrlBuilder(this.dataset, 'families', 'spouses');
-    this.newPersonLinkService.delete(ub, this.parent.familyString(), this.spouse)
+    this.newPersonLinkService.delete(ub, this.parent.familyString(), this.person)
       .subscribe((data: ApiPerson) => { this.refreshPerson(); });
   }
 

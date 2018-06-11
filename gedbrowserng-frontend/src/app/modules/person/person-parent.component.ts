@@ -15,7 +15,6 @@ export class PersonParentComponent extends PersonGetter implements OnInit, OnCha
   @Input() dataset: string;
   @Input() parent: PersonParentFamilyComponent;
   @Input() attribute: ApiAttribute;
-  person: ApiPerson;
 
   constructor(public newPersonLinkService: NewPersonLinkService,
     personService: PersonService) {
@@ -23,17 +22,11 @@ export class PersonParentComponent extends PersonGetter implements OnInit, OnCha
   }
 
   ngOnInit() {
-    this.init();
+    this.init(this.dataset, this.attribute.string);
   }
 
   ngOnChanges() {
-    this.init();
-  }
-
-  private init(): void {
-    this.get(this.dataset, this.attribute.string, (person: ApiPerson) => {
-      this.person = person;
-    });
+    this.init(this.dataset, this.attribute.string);
   }
 
   label(): string {
