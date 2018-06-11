@@ -2,6 +2,7 @@ import {Component, OnInit, Input, OnChanges} from '@angular/core';
 
 import {ApiAttribute, ApiFamily} from '../../models';
 import {FamilyService} from '../../services';
+import {PersonParentFamiliesComponent} from './person-parent-families.component';
 
 @Component({
   selector: 'app-person-parent-family',
@@ -10,6 +11,7 @@ import {FamilyService} from '../../services';
 })
 export class PersonParentFamilyComponent implements OnInit, OnChanges {
   @Input() dataset: string;
+  @Input() parent: PersonParentFamiliesComponent;
   @Input() attribute: ApiAttribute;
   family: ApiFamily;
   initialized = false;
@@ -32,5 +34,13 @@ export class PersonParentFamilyComponent implements OnInit, OnChanges {
         this.family = family;
         this.initialized = true;
       });
+  }
+
+  familyString(): string {
+    return this.family.string;
+  }
+
+  refreshPerson() {
+    this.parent.refreshPerson();
   }
 }

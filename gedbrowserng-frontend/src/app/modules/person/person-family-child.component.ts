@@ -2,10 +2,8 @@ import {Component, OnInit, Input, OnChanges} from '@angular/core';
 
 import {ApiAttribute, ApiPerson} from '../../models';
 import {PersonService, NewPersonLinkService} from '../../services';
-import {LifespanUtil, UrlBuilder} from '../../utils';
-
 import {PersonFamilyComponent} from './person-family.component';
-import { PersonGetter } from './person-getter';
+import {PersonGetter} from './person-getter';
 
 /**
  * Implements a child block within a family on a person page.
@@ -23,32 +21,23 @@ import { PersonGetter } from './person-getter';
 })
 export class PersonFamilyChildComponent extends PersonGetter implements OnInit, OnChanges {
   @Input() dataset: string;
+  @Input() parent: PersonFamilyComponent;
   @Input() child: ApiAttribute;
   @Input() index: number;
-  @Input() parent: PersonFamilyComponent;
   person: ApiPerson;
 
-  constructor(public newPersonLinkService: NewPersonLinkService,
+  constructor(newPersonLinkService: NewPersonLinkService,
     personService: PersonService) {
-    super(personService);
+    super(newPersonLinkService, personService);
+    this.famMemberType = 'children';
   }
 
   ngOnInit() {
-    this.init();
+    this.init(this.dataset, this.child.string);
   }
 
   ngOnChanges() {
-    this.init();
-  }
-
-  private init(): void {
-    this.get(this.dataset, this.child.string, (person: ApiPerson) => {
-      this.person = person;
-    });
-  }
-
-  lifespanYearString(): string {
-    return new LifespanUtil(this.person.lifespan).lifespanYearString();
+    this.init(this.dataset, this.child.string);
   }
 
   first(): boolean {
@@ -59,9 +48,11 @@ export class PersonFamilyChildComponent extends PersonGetter implements OnInit, 
     return this.index + 1 >= this.parent.family.children.length;
   }
 
-  delete(): void {
-    const ub: UrlBuilder = new UrlBuilder(this.dataset, 'families', 'children');
-    this.newPersonLinkService.delete(ub, this.parent.familyString(), this.person)
-      .subscribe((data: ApiPerson) => { this.parent.refreshPerson(); });
+  familyString(): string {
+    return this.parent.familyString();
+  }
+
+  refreshPerson(): void {
+    this.parent.refreshPerson();
   }
 }

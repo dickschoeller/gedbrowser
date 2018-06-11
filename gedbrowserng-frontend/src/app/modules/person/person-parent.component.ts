@@ -1,9 +1,9 @@
 import {Component, OnInit, Input, OnChanges} from '@angular/core';
 
 import {ApiAttribute, ApiPerson} from '../../models';
-import {PersonService} from '../../services';
-import {LifespanUtil} from '../../utils';
-import { PersonGetter } from './person-getter';
+import {PersonService, NewPersonLinkService} from '../../services';
+import {PersonParentFamilyComponent} from './person-parent-family.component';
+import {PersonGetter} from './person-getter';
 
 @Component({
   selector: 'app-person-parent',
@@ -12,25 +12,21 @@ import { PersonGetter } from './person-getter';
 })
 export class PersonParentComponent extends PersonGetter implements OnInit, OnChanges {
   @Input() dataset: string;
+  @Input() parent: PersonParentFamilyComponent;
   @Input() attribute: ApiAttribute;
-  person: ApiPerson;
 
-  constructor(personService: PersonService) {
-    super(personService);
+  constructor(newPersonLinkService: NewPersonLinkService,
+    personService: PersonService) {
+    super(newPersonLinkService, personService);
+    this.famMemberType = 'spouses';
   }
 
   ngOnInit() {
-    this.init();
+    this.init(this.dataset, this.attribute.string);
   }
 
   ngOnChanges() {
-    this.init();
-  }
-
-  private init(): void {
-    this.get(this.dataset, this.attribute.string, (person: ApiPerson) => {
-      this.person = person;
-    });
+    this.init(this.dataset, this.attribute.string);
   }
 
   label(): string {
@@ -43,7 +39,11 @@ export class PersonParentComponent extends PersonGetter implements OnInit, OnCha
     return 'Parent';
   }
 
-  lifespanYearString(): string {
-    return new LifespanUtil(this.person.lifespan).lifespanYearString();
+  familyString(): string {
+    return this.parent.familyString();
+  }
+
+  refreshPerson() {
+    this.parent.refreshPerson();
   }
 }

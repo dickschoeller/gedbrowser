@@ -8,4 +8,5 @@ export * from './person-parent.component';
 export * from './person-parent-families.component';
 export * from './person-parent-family.component';
 export * from './person-resolver.service';
+export * from './person-getter';
 export * from './person.module';

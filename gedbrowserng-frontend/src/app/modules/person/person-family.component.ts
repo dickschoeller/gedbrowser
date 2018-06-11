@@ -8,8 +8,9 @@ import {ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData} from '../../mod
 import {FamilyService, PersonService, NewPersonLinkService} from '../../services';
 import {ImageUtil, UrlBuilder} from '../../utils';
 import {HasAttributeList} from '../../interfaces';
-
 import {InitablePersonCreator} from '../../bases';
+
+import {PersonFamilyListComponent} from './person-family-list.component';
 
 /**
  * Implements a family block within a person page.
@@ -29,6 +30,7 @@ import {InitablePersonCreator} from '../../bases';
 })
 export class PersonFamilyComponent extends InitablePersonCreator implements HasAttributeList {
   @Input() dataset: string;
+  @Input() parent: PersonFamilyListComponent;
   @Input() person: ApiPerson;
   @Input() string: string;
   @Input() index: number;

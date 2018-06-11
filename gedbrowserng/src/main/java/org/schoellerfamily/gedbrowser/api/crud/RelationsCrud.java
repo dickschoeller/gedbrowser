@@ -39,7 +39,8 @@ public class RelationsCrud {
      * @param person the data for the new person
      * @return the person returned from the db
      */
-    protected ApiPerson createPerson(final String db, final ApiPerson person) {
+    protected final ApiPerson createPerson(final String db,
+            final ApiPerson person) {
         return personCrud.createPerson(db, person);
     }
 
@@ -48,7 +49,7 @@ public class RelationsCrud {
      * @param id the id of the person to read
      * @return the person returned from the db
      */
-    protected ApiPerson readPerson(final String db, final String id) {
+    protected final ApiPerson readPerson(final String db, final String id) {
         return personCrud.readPerson(db, id);
     }
 
@@ -56,7 +57,7 @@ public class RelationsCrud {
      * @param db the name of the db to access
      * @return the family returned from the db
      */
-    protected ApiFamily createFamily(final String db) {
+    protected final ApiFamily createFamily(final String db) {
         return familyCrud.createFamily(db, new ApiFamily());
     }
 
@@ -65,7 +66,7 @@ public class RelationsCrud {
      * @param id the id of the family to read
      * @return the family returned from the db
      */
-    protected ApiFamily readFamily(final String db, final String id) {
+    protected final ApiFamily readFamily(final String db, final String id) {
         return familyCrud.readFamily(db, id);
     }
 
@@ -73,7 +74,7 @@ public class RelationsCrud {
      * @param family the family to add the person to
      * @param person the person to add
      */
-    protected void addChildToFamily(final ApiFamily family,
+    protected final void addChildToFamily(final ApiFamily family,
             final ApiPerson person) {
         family.getChildren().add(helper.childAttribute(person));
         person.getFamc().add(helper.famcAttribute(family));
@@ -83,10 +84,57 @@ public class RelationsCrud {
      * @param family the family to add the person to
      * @param person the person to add
      */
-    protected void addSpouseToFamily(final ApiFamily family,
+    protected final void addSpouseToFamily(final ApiFamily family,
             final ApiPerson person) {
         this.addSpouseAttribute(family, helper.spouseAttribute(person));
         person.getFams().add(helper.famsAttribute(family));
+    }
+
+    /**
+     * @param family the family from which we will remove a spouse
+     * @param person the person to remove as a spouse
+     */
+    protected final void removeSpouseFromFamily(final ApiFamily family,
+            final ApiPerson person) {
+        final ApiAttribute spouse = findSpouseAttribute(family, person);
+        if (spouse != null) {
+            family.getSpouses().remove(spouse);
+        }
+        final ApiAttribute fams = findFamsAttribute(family, person);
+        if (fams != null) {
+            person.getFams().remove(fams);
+        }
+    }
+
+    /**
+     * @param family the family that we are searching
+     * @param person the person who should be a spouse
+     * @return the spouse attribute
+     */
+    private ApiAttribute findSpouseAttribute(final ApiFamily family,
+            final ApiPerson person) {
+        for (final ApiAttribute spouse : family.getSpouses()) {
+            if (spouse.getString().equals(person.getString())) {
+                return spouse;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @param family the family that should be pointed to by fams
+     * @param person the person we are searching
+     * @return the fams attribute
+     */
+    private ApiAttribute findFamsAttribute(final ApiFamily family,
+            final ApiPerson person) {
+        for (final ApiAttribute fams : person.getFams()) {
+            if (fams.getString().equals(family.getString())) {
+                person.getFams().remove(fams);
+                return fams;
+            }
+        }
+        return null;
     }
 
     /**
@@ -95,8 +143,8 @@ public class RelationsCrud {
      * @param newPersons the persons linked to the family
      * @return the person
      */
-    protected ApiPerson crudUpdate(final String db, final ApiFamily newFamily,
-            final ApiPerson... newPersons) {
+    protected final ApiPerson crudUpdate(final String db,
+            final ApiFamily newFamily, final ApiPerson... newPersons) {
         familyCrud.updateFamily(db, newFamily.getString(), newFamily);
         ApiPerson person = null;
         for (final ApiPerson newPerson : newPersons) {
@@ -112,7 +160,7 @@ public class RelationsCrud {
      * @param newFamily the family to modify
      * @param spouseAttribute the spouse to add
      */
-    protected void addSpouseAttribute(final ApiFamily newFamily,
+    protected final void addSpouseAttribute(final ApiFamily newFamily,
             final ApiAttribute spouseAttribute) {
         if ("husband".equals(spouseAttribute.getType())) {
             newFamily.getSpouses().add(0, spouseAttribute);

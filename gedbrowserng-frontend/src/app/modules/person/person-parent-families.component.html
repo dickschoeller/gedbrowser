@@ -6,7 +6,8 @@
           [styleClass]="'ui-button-success'"></p-splitButton>
     </span>
   </p-header>
-  <app-person-parent-family *ngFor="let famcAttribute of person?.famc" [attribute]="famcAttribute" [dataset]="dataset"></app-person-parent-family>
+  <app-person-parent-family *ngFor="let famcAttribute of person?.famc"
+      [dataset]="dataset" [parent]="this" [attribute]="famcAttribute"></app-person-parent-family>
 </p-panel>
 <app-new-person-dialog *ngIf="surname" [p]="this"
     (emitClose)="closePersonDialog()" (emitOpen)="onDialogOpen($event)"

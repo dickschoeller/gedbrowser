@@ -1,9 +1,9 @@
 import {Component, OnInit, Input, OnChanges} from '@angular/core';
 
 import {ApiAttribute, ApiPerson} from '../../models';
-import {PersonService} from '../../services';
-import {LifespanUtil, StringUtil} from '../../utils';
-import { PersonGetter } from './person-getter';
+import {PersonService, NewPersonLinkService} from '../../services';
+import {PersonFamilyComponent} from './person-family.component';
+import {PersonGetter} from './person-getter';
 
 /**
  * Implements a spouse block within a family on a person page.
@@ -12,7 +12,7 @@ import { PersonGetter } from './person-getter';
  *  attribute: the attribute referring to the spouse
  *
  * Fetches:
- *  spouse: the person identified by the attribute
+ *  person: the person identified by the attribute
  */
 @Component({
   selector: 'app-person-family-spouse',
@@ -21,28 +21,28 @@ import { PersonGetter } from './person-getter';
 })
 export class PersonFamilySpouseComponent extends PersonGetter implements OnInit, OnChanges {
   @Input() dataset: string;
+  @Input() parent: PersonFamilyComponent;
   @Input() attribute: ApiAttribute;
-  spouse: ApiPerson;
 
-  constructor(personService: PersonService) {
-    super(personService);
+  constructor(newPersonLinkService: NewPersonLinkService,
+    personService: PersonService) {
+    super(newPersonLinkService, personService);
+    this.famMemberType = 'spouses';
   }
 
   ngOnInit() {
-    this.init();
+    this.init(this.dataset, this.attribute.string);
   }
 
   ngOnChanges() {
-    this.init();
+    this.init(this.dataset, this.attribute.string);
   }
 
-  private init(): void {
-    this.get(this.dataset, this.attribute.string, (person: ApiPerson) => {
-      this.spouse = person;
-    });
+  familyString(): string {
+    return this.parent.familyString();
   }
 
-  lifespanYearString(): string {
-    return new LifespanUtil(this.spouse.lifespan).lifespanYearString();
+  refreshPerson(): void {
+    this.parent.refreshPerson();
   }
 }
