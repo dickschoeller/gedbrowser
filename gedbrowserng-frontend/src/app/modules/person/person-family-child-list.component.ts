@@ -6,10 +6,7 @@ import { ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDial
 import { NewPersonLinkService, PersonService } from '../../services';
 import { NewPersonHelper, UrlBuilder, LifespanUtil, LinkPersonHelper } from '../../utils';
 import { InitablePersonCreator } from '../../bases';
-import { HasFamily } from '../../interfaces/has-family';
-import { HasPerson } from '../../interfaces/has-person';
-import { RefreshPerson } from '../../interfaces/refresh-person';
-import { Saveable } from '../../interfaces/saveable';
+import { HasFamily, HasPerson, RefreshPerson, Saveable } from '../../interfaces';
 
 /**
  * Implements a child list within a family on a person page.
