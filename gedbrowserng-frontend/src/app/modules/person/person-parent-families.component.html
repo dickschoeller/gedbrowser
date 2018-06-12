@@ -1,4 +1,4 @@
-<p-panel header="{{ parent?.person?.string }}: {{ parent?.person?.indexName }}{{ parent?.lifespanDateString() }}">
+<p-panel header="{{ person?.string }}: {{ person?.indexName }}{{ lifespanDateString() }}">
   <p-header>
     <span class="bump-out" *ngIf="!person.famc.length">
       <p-menu #menu popup="popup" #cm appendTo="body" [model]="items"></p-menu>

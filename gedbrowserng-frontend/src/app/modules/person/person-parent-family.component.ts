@@ -1,8 +1,8 @@
-import {Component, OnInit, Input, OnChanges} from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
-import {ApiAttribute, ApiFamily} from '../../models';
-import {FamilyService} from '../../services';
-import {PersonParentFamiliesComponent} from './person-parent-families.component';
+import { ApiAttribute, ApiFamily } from '../../models';
+import { FamilyService } from '../../services';
+import { RefreshPerson, Saveable } from '../../interfaces';
 
 @Component({
   selector: 'app-person-parent-family',
@@ -11,7 +11,7 @@ import {PersonParentFamiliesComponent} from './person-parent-families.component'
 })
 export class PersonParentFamilyComponent implements OnInit, OnChanges {
   @Input() dataset: string;
-  @Input() parent: PersonParentFamiliesComponent;
+  @Input() parent: RefreshPerson & Saveable;
   @Input() attribute: ApiAttribute;
   family: ApiFamily;
   initialized = false;
@@ -42,5 +42,9 @@ export class PersonParentFamilyComponent implements OnInit, OnChanges {
 
   refreshPerson() {
     this.parent.refreshPerson();
+  }
+
+  save() {
+    this.parent.save();
   }
 }

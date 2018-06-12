@@ -1,9 +1,10 @@
-import {Component, OnInit, Input, OnChanges} from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
-import {ApiAttribute, ApiPerson} from '../../models';
-import {PersonService, NewPersonLinkService} from '../../services';
-import {PersonParentFamilyComponent} from './person-parent-family.component';
-import {PersonGetter} from './person-getter';
+import { ApiAttribute, ApiPerson } from '../../models';
+import { PersonService, NewPersonLinkService } from '../../services';
+import { HasFamily } from '../../interfaces/has-family';
+import { PersonGetter } from './person-getter';
+import { RefreshPerson } from '../../interfaces';
 
 @Component({
   selector: 'app-person-parent',
@@ -12,7 +13,7 @@ import {PersonGetter} from './person-getter';
 })
 export class PersonParentComponent extends PersonGetter implements OnInit, OnChanges {
   @Input() dataset: string;
-  @Input() parent: PersonParentFamilyComponent;
+  @Input() parent: HasFamily & RefreshPerson;
   @Input() attribute: ApiAttribute;
 
   constructor(newPersonLinkService: NewPersonLinkService,

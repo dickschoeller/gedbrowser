@@ -1,16 +1,15 @@
-import {Component, Input} from '@angular/core';
-import {NgxGalleryOptions, NgxGalleryImage} from 'ngx-gallery';
-import {Observable} from 'rxjs/Observable';
-import {SelectItem} from 'primeng/api';
+import { Component, Input } from '@angular/core';
+import { NgxGalleryOptions, NgxGalleryImage } from 'ngx-gallery';
+import { Observable } from 'rxjs/Observable';
+import { SelectItem } from 'primeng/api';
 
-import {AttributeDialogData, NewPersonDialogComponent} from '../../components';
-import {ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData} from '../../models';
-import {FamilyService, PersonService, NewPersonLinkService} from '../../services';
-import {ImageUtil, UrlBuilder} from '../../utils';
-import {HasAttributeList} from '../../interfaces';
-import {InitablePersonCreator} from '../../bases';
-
-import {PersonFamilyListComponent} from './person-family-list.component';
+import { AttributeDialogData, NewPersonDialogComponent } from '../../components';
+import { ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData } from '../../models';
+import { FamilyService, PersonService, NewPersonLinkService } from '../../services';
+import { ImageUtil, UrlBuilder } from '../../utils';
+import { HasAttributeList } from '../../interfaces';
+import { InitablePersonCreator } from '../../bases';
+import { HasPerson } from '../../interfaces';
 
 /**
  * Implements a family block within a person page.
@@ -30,10 +29,12 @@ import {PersonFamilyListComponent} from './person-family-list.component';
 })
 export class PersonFamilyComponent extends InitablePersonCreator implements HasAttributeList {
   @Input() dataset: string;
-  @Input() parent: PersonFamilyListComponent;
-  @Input() person: ApiPerson;
+  @Input() parent: HasPerson;
   @Input() string: string;
   @Input() index: number;
+  get person(): ApiPerson {
+    return this.parent.person;
+  }
 
   family: ApiFamily;
   imageUtil = new ImageUtil();

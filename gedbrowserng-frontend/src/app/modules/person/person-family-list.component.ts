@@ -1,14 +1,14 @@
-import {Component, Input} from '@angular/core';
-import {MenuItem} from 'primeng/api';
+import { Component, Input } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
-import {NewPersonDialogComponent, LinkPersonDialogComponent} from '../../components';
-import {ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData, LinkPersonItem} from '../../models';
-import {UrlBuilder} from '../../utils';
-import {NewPersonLinkService, PersonService} from '../../services';
-import {LifespanUtil, LinkPersonHelper} from '../../utils';
+import { NewPersonDialogComponent, LinkPersonDialogComponent } from '../../components';
+import { ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData, LinkPersonItem } from '../../models';
+import { UrlBuilder } from '../../utils';
+import { NewPersonLinkService, PersonService } from '../../services';
+import { LifespanUtil, LinkPersonHelper } from '../../utils';
 
-import {InitablePersonCreator} from '../../bases';
-import {PersonComponent} from './person.component';
+import { InitablePersonCreator } from '../../bases';
+import { HasPerson } from '../../interfaces';
 
 /**
  * Implements a the list of families on a person page
@@ -23,8 +23,10 @@ import {PersonComponent} from './person.component';
 })
 export class PersonFamilyListComponent extends InitablePersonCreator {
   @Input() dataset: string;
-  @Input() parent: PersonComponent;
-  @Input() person: ApiPerson;
+  @Input() parent: HasPerson;
+  get person(): ApiPerson {
+    return this.parent.person;
+  }
   items: MenuItem[] = [
     {
       label: 'Add family, create partner', icon: 'fa-user-plus', command: (event: Event) => { this.createFamilyWithSpouse(); }
@@ -101,7 +103,6 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
   }
 
   private updatePerson(person: ApiPerson) {
-    this.person = person;
     this.parent.person = person;
   }
 

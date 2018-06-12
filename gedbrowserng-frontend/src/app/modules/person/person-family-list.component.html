@@ -1,6 +1,6 @@
 <app-person-family *ngFor="let attribute of person.fams; let i = index"
     [dataset]="dataset" [parent]="this" [string]="attribute.string"
-    [person]="person" [index]="i"></app-person-family>
+    [index]="i"></app-person-family>
 
 <p-menu #menu popup="popup" #cm appendTo="body" [model]="items"></p-menu>
 <p-splitButton icon="fa fa-user-plus" (click)="menu.toggle($event)" pTooltip="Add new family"

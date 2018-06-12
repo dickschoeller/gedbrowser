@@ -1,12 +1,15 @@
-import {Component, Input} from '@angular/core';
-import {MenuItem} from 'primeng/api';
+import { Component, Input } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
-import {NewPersonDialogComponent, LinkPersonDialogComponent} from '../../components';
-import {ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData} from '../../models';
-import {NewPersonLinkService, PersonService} from '../../services';
-import {NewPersonHelper, UrlBuilder, LifespanUtil, LinkPersonHelper} from '../../utils';
-import {InitablePersonCreator} from '../../bases';
-import {PersonFamilyComponent} from './person-family.component';
+import { NewPersonDialogComponent, LinkPersonDialogComponent } from '../../components';
+import { ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData } from '../../models';
+import { NewPersonLinkService, PersonService } from '../../services';
+import { NewPersonHelper, UrlBuilder, LifespanUtil, LinkPersonHelper } from '../../utils';
+import { InitablePersonCreator } from '../../bases';
+import { HasFamily } from '../../interfaces/has-family';
+import { HasPerson } from '../../interfaces/has-person';
+import { RefreshPerson } from '../../interfaces/refresh-person';
+import { Saveable } from '../../interfaces/saveable';
 
 /**
  * Implements a child list within a family on a person page.
@@ -19,11 +22,12 @@ import {PersonFamilyComponent} from './person-family.component';
   templateUrl: './person-family-child-list.component.html',
   styleUrls: ['./person-family-child-list.component.css']
 })
-export class PersonFamilyChildListComponent extends InitablePersonCreator {
+export class PersonFamilyChildListComponent extends InitablePersonCreator implements HasFamily, Saveable {
   @Input() dataset: string;
-  @Input() parent: PersonFamilyComponent;
+  @Input() parent: RefreshPerson & HasPerson & Saveable;
   @Input() family: ApiFamily;
   @Input() children: Array<ApiAttribute>;
+
   displayPersonDialog = false;
   displayLinkChildDialog = false;
   surname: string;
@@ -123,5 +127,17 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator {
       this.newPersonLinkService.put(this.personUB(), this.personAnchor(), item.person)
         .subscribe((person: ApiPerson) => { this.refreshPerson(); });
     }
+  }
+
+  preferredSurname(): string {
+    return this.parent.person.surname;
+  }
+
+  familyString(): string {
+    return this.family.string;
+  }
+
+  save(): void {
+    this.parent.save();
   }
 }

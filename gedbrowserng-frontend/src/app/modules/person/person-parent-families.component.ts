@@ -1,23 +1,26 @@
-import {Component, Input} from '@angular/core';
-import {MenuItem} from 'primeng/api';
+import { Component, Input } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
-import {NewPersonDialogComponent, LinkPersonDialogComponent} from '../../components';
-import {ApiAttribute, ApiPerson, ApiFamily, NewPersonDialogData, LinkPersonDialogData} from '../../models';
-import {UrlBuilder, LinkPersonHelper} from '../../utils';
-import {PersonService, NewPersonLinkService} from '../../services';
+import { NewPersonDialogComponent, LinkPersonDialogComponent } from '../../components';
+import { ApiAttribute, ApiPerson, ApiFamily, NewPersonDialogData, LinkPersonDialogData } from '../../models';
+import { UrlBuilder, LinkPersonHelper } from '../../utils';
+import { PersonService, NewPersonLinkService } from '../../services';
 
-import {InitablePersonCreator} from '../../bases';
-import {PersonComponent} from './person.component';
+import { InitablePersonCreator } from '../../bases';
+import { HasLifespan, HasPerson, Saveable } from '../../interfaces';
 
 @Component({
   selector: 'app-person-parent-families',
   templateUrl: './person-parent-families.component.html',
   styleUrls: ['./person-parent-families.component.css']
 })
-export class PersonParentFamiliesComponent extends InitablePersonCreator {
+export class PersonParentFamiliesComponent extends InitablePersonCreator implements HasLifespan, HasPerson {
   @Input() dataset: string;
-  @Input() parent: PersonComponent;
-  @Input() person: ApiPerson;
+  @Input() parent: HasPerson & HasLifespan & Saveable;
+  get person(): ApiPerson {
+    return this.parent.person;
+  }
+
   displayPersonDialog = false;
   displayLinkParentDialog = false;
   surname: string;
@@ -100,5 +103,7 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator {
       .subscribe((person: ApiPerson) => { this.refreshPerson(); });
   }
 
-
+  lifespanDateString(): string {
+    return this.parent.lifespanDateString();
+  }
 }

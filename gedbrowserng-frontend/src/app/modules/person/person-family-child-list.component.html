@@ -12,11 +12,11 @@
 
       <p-orderList [value]="children" dragdrop="true" dragdropScope="children"
           [responsive]="false" [listStyle]="{'height':'100%','width':'100%','border':'0'}"
-          (onReorder)="parent.save()">
+          (onReorder)="save()">
         <ng-template let-child let-i="index" pTemplate="item">
           <div>
             <app-person-family-child [child]="child" [index]="i"
-                [parent]="parent" [dataset]="dataset"></app-person-family-child>
+                [parent]="this" [dataset]="dataset"></app-person-family-child>
           </div>
         </ng-template>
       </p-orderList>

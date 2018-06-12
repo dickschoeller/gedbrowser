@@ -1,9 +1,10 @@
-import {Component, OnInit, Input, OnChanges} from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
-import {ApiAttribute, ApiPerson} from '../../models';
-import {PersonService, NewPersonLinkService} from '../../services';
-import {PersonFamilyComponent} from './person-family.component';
-import {PersonGetter} from './person-getter';
+import { ApiAttribute, ApiPerson } from '../../models';
+import { PersonService, NewPersonLinkService } from '../../services';
+import { HasFamily } from '../../interfaces/has-family';
+import { PersonGetter } from './person-getter';
+import { RefreshPerson } from '../../interfaces';
 
 /**
  * Implements a spouse block within a family on a person page.
@@ -21,7 +22,7 @@ import {PersonGetter} from './person-getter';
 })
 export class PersonFamilySpouseComponent extends PersonGetter implements OnInit, OnChanges {
   @Input() dataset: string;
-  @Input() parent: PersonFamilyComponent;
+  @Input() parent: RefreshPerson & HasFamily;
   @Input() attribute: ApiAttribute;
 
   constructor(newPersonLinkService: NewPersonLinkService,
