@@ -29,16 +29,32 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
   }
   items: MenuItem[] = [
     {
-      label: 'Add family, create partner', icon: 'fa-user-plus', command: (event: Event) => { this.createFamilyWithSpouse(); }
+      label: 'Add family, create partner', icon: 'fa-user-plus',
+      command: (event: Event) => {
+        this.displayPersonDialogS = true;
+        this._ub = new UrlBuilder(this.dataset, 'persons', 'spouses');
+      }
     },
     {
-      label: 'Add family, link partner', icon: 'fa-link', command: (event: Event) => { this.openLinkSpouseDialog(); }
+      label: 'Add family, link partner', icon: 'fa-link',
+      command: (event: Event) => {
+        this._ub = new UrlBuilder(this.dataset, 'persons', 'spouses');
+        this.displayLinkSpouseDialog = true;
+      }
     },
     {
-      label: 'Add family, create child', icon: 'fa-user-plus', command: (event: Event) => { this.createFamilyWithChild(); }
+      label: 'Add family, create child', icon: 'fa-user-plus',
+      command: (event: Event) => {
+        this.displayPersonDialogC = true;
+        this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
+      }
     },
     {
-      label: 'Add family, link child', icon: 'fa-link', command: (event: Event) => { this.createFamilyLinkChild(); }
+      label: 'Add family, link child', icon: 'fa-link',
+      command: (event: Event) => {
+        this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
+        this.displayLinkChildDialog = true;
+      }
     },
   ];
   displayPersonDialogS = false;
@@ -64,16 +80,6 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
       this.surnameC = this.person.surname;
     }
     this.surnameS = '?';
-  }
-
-  createFamilyWithChild(): void {
-    this.displayPersonDialogC = true;
-    this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
-  }
-
-  createFamilyWithSpouse(): void {
-    this.displayPersonDialogS = true;
-    this._ub = new UrlBuilder(this.dataset, 'persons', 'spouses');
   }
 
   onDialogOpenS(data: NewPersonDialogComponent) {
@@ -104,11 +110,6 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
 
   private updatePerson(person: ApiPerson) {
     this.parent.person = person;
-  }
-
-  createFamilyLinkChild() {
-    this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
-    this.displayLinkChildDialog = true;
   }
 
   onLinkChildDialogClose() {
@@ -153,13 +154,6 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
   }
 
 
-
-
-
-  openLinkSpouseDialog() {
-    this._ub = new UrlBuilder(this.dataset, 'persons', 'spouses');
-    this.displayLinkSpouseDialog = true;
-  }
 
   onLinkSpouseDialogClose() {
     this.displayLinkSpouseDialog = false;

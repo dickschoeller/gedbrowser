@@ -30,10 +30,10 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator implem
   surname: string;
   items: MenuItem[] = [
     {
-      label: 'Create child', icon: 'fa-user', command: (event: Event) => { this.createChild2(); }
+      label: 'Create child', icon: 'fa-user', command: (event: Event) => { this.displayPersonDialog = true; }
     },
     {
-      label: 'Link child', icon: 'fa-link', command: (event: Event) => { this.openLinkChildDialog(); }
+      label: 'Link child', icon: 'fa-link', command: (event: Event) => { this.displayLinkChildDialog = true; }
     },
   ];
   lph: LinkPersonHelper = new LinkPersonHelper();
@@ -64,10 +64,6 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator implem
     return '';
   }
 
-  createChild2(): void {
-    this.displayPersonDialog = true;
-  }
-
   onDialogOpen(data: NewPersonDialogComponent) {
     data._data = this.nph.initNew('M', this.surname);
   }
@@ -87,10 +83,6 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator implem
   refreshPerson(): void {
     this.personService.getOne(this.dataset, this.parent.person.string).subscribe(
       (person: any) => this.parent.refreshPerson());
-  }
-
-  openLinkChildDialog() {
-    this.displayLinkChildDialog = true;
   }
 
   onLinkChildDialogClose() {

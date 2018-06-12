@@ -27,10 +27,10 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator impleme
   lph: LinkPersonHelper = new LinkPersonHelper();
   items: MenuItem[] = [
     {
-      label: 'Create parent', icon: 'fa-user', command: (event: Event) => { this.createParentFamily(); }
+      label: 'Create parent', icon: 'fa-user', command: (event: Event) => { this.displayPersonDialog = true; }
     },
     {
-      label: 'Link parent', icon: 'fa-link', command: (event: Event) => { this.openLinkParentDialog(); }
+      label: 'Link parent', icon: 'fa-link', command: (event: Event) => { this.displayLinkParentDialog = true; }
     },
   ];
 
@@ -41,10 +41,6 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator impleme
 
   init(): void {
     this.surname = this.person.surname;
-  }
-
-  createParentFamily() {
-    this.displayPersonDialog = true;
   }
 
   onDialogOpen(dialog: NewPersonDialogComponent) {
@@ -66,10 +62,6 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator impleme
   refreshPerson() {
     this.personService.getOne(this.dataset, this.person.string).subscribe(
       (data: ApiPerson) => this.parent.person = data);
-  }
-
-  openLinkParentDialog() {
-    this.displayLinkParentDialog = true;
   }
 
   onLinkParentDialogClose() {
