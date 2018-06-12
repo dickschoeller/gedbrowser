@@ -1,9 +1,11 @@
-import {Component, OnInit, Input, OnChanges} from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
-import {ApiAttribute, ApiPerson} from '../../models';
-import {PersonService, NewPersonLinkService} from '../../services';
-import {PersonFamilyComponent} from './person-family.component';
-import {PersonGetter} from './person-getter';
+import { ApiAttribute, ApiPerson } from '../../models';
+import { PersonService, NewPersonLinkService } from '../../services';
+import { HasFamily } from '../../interfaces/has-family';
+import { HasPerson } from '../../interfaces/has-person';
+import { PersonGetter } from './person-getter';
+import { RefreshPerson } from '../../interfaces';
 
 /**
  * Implements a child block within a family on a person page.
@@ -19,9 +21,10 @@ import {PersonGetter} from './person-getter';
   templateUrl: './person-family-child.component.html',
   styleUrls: ['./person-family-child.component.css']
 })
-export class PersonFamilyChildComponent extends PersonGetter implements OnInit, OnChanges {
+export class PersonFamilyChildComponent extends PersonGetter
+  implements OnInit, OnChanges, HasPerson {
   @Input() dataset: string;
-  @Input() parent: PersonFamilyComponent;
+  @Input() parent: HasFamily & RefreshPerson;
   @Input() child: ApiAttribute;
   @Input() index: number;
   person: ApiPerson;

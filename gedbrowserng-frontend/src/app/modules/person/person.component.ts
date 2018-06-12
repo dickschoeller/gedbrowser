@@ -1,15 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {NgxGalleryOptions, NgxGalleryImage} from 'ngx-gallery';
-import {SelectItem} from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgxGalleryOptions, NgxGalleryImage } from 'ngx-gallery';
+import { SelectItem } from 'primeng/api';
 
-import {ApiPerson} from '../../models';
-import {PersonService} from '../../services';
-import {LifespanUtil, ImageUtil} from '../../utils';
-import {HasAttributeList} from '../../interfaces';
+import { ApiPerson } from '../../models';
+import { PersonService } from '../../services';
+import { LifespanUtil, ImageUtil } from '../../utils';
+import { HasAttributeList } from '../../interfaces';
 
-import {AttributeListComponent} from '../../components/attribute-list';
-import {AttributeDialogHelper, AttributeDialogData} from '../../components/attribute-dialog';
+import { AttributeListComponent } from '../../components/attribute-list';
+import { AttributeDialogHelper, AttributeDialogData } from '../../components/attribute-dialog';
+import { HasPerson, Saveable } from '../../interfaces';
 
 /**
  * Implements a person page.
@@ -22,7 +23,7 @@ import {AttributeDialogHelper, AttributeDialogData} from '../../components/attri
   templateUrl: './person.component.html',
   styleUrls: ['./person.component.css']
 })
-export class PersonComponent implements OnInit, HasAttributeList {
+export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Saveable {
   dataset: string;
   person: ApiPerson;
   imageUtil = new ImageUtil();

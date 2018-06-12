@@ -1,8 +1,8 @@
-<app-person-parent-families [parent]="this" [person]="person" [dataset]="dataset"></app-person-parent-families>
+<app-person-parent-families [dataset]="dataset" [parent]="this"></app-person-parent-families>
 <br/>
-<app-person-family-list [parent]="this" [person]="person" [dataset]="dataset"></app-person-family-list>
+<app-person-family-list [dataset]="dataset" [parent]="this"></app-person-family-list>
 <br/>
-<app-attribute-list [parent]="this" [dataset]="dataset" [attributes]="person.attributes" [toggleable]="true"></app-attribute-list>
+<app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="person.attributes" [toggleable]="true"></app-attribute-list>
 <br/>
 <p-panel header="Images" [toggleable]="true">
   <div>
