@@ -90,7 +90,21 @@ public class FamilyCrud
         if (!id.equals(family.getString())) {
             return null;
         }
-        return update(readRoot(db), family);
+        if (isLinked(family)) {
+            return update(readRoot(db), family);
+        }
+        return delete(readRoot(db), id);
+    }
+
+    /**
+     * @param family the family to check
+     * @return true if the family has spouses or children
+     */
+    private boolean isLinked(final ApiFamily family) {
+        if (!family.getChildren().isEmpty()) {
+            return true;
+        }
+        return !family.getSpouses().isEmpty();
     }
 
     /**

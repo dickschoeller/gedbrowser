@@ -153,8 +153,6 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
     }
   }
 
-
-
   onLinkSpouseDialogClose() {
     this.displayLinkSpouseDialog = false;
   }
@@ -167,9 +165,4 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
     this.newPersonLinkService.put(this.personUB(), this.personAnchor(), data.selectOne.person)
       .subscribe((person: ApiPerson) => { this.refreshPerson(); });
   }
-
-
-
-
-
 }
