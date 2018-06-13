@@ -4,9 +4,15 @@
     <span *ngIf="spouse()">&nbsp;-&nbsp;</span>
     <app-person-family-spouse *ngIf="spouse()"
         [dataset]="dataset" [parent]="this" [attribute]="spouse()"></app-person-family-spouse>
+    <span class="bump-out" *ngIf="spouse()">
+      <p-button (click)="unlink()" icon="fa fa-fw fa-unlink"
+          [styleClass]="'ui-button-danger'" pTooltip="Unlink self from family"></p-button>
+    </span>
     <span class="bump-out" *ngIf="!spouse()">
       <p-button (click)="createSpouse()" icon="fa fa-fw fa-user-plus"
           [styleClass]="'ui-button-success'" pTooltip="Add spouse"></p-button>
+      <p-button (click)="unlink()" icon="fa fa-fw fa-unlink"
+          [styleClass]="'ui-button-danger'" pTooltip="Unlink self from family"></p-button>
       <app-new-person-dialog
           *ngIf="surname"
           [p]="this"

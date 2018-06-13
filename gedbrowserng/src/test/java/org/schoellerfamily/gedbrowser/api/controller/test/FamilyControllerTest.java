@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
@@ -37,6 +39,9 @@ import org.springframework.web.client.RestClientException;
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class FamilyControllerTest {
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
+
     /**
      * Not sure what this is good for.
      */
@@ -307,27 +312,39 @@ public class FamilyControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         final List<ApiAttribute> attributes = new ArrayList<>();
         attributes.add(new ApiAttribute("attribute", "Marriage", ""));
-        final ApiFamily reqBody = new ApiFamily("family", "", attributes);
+        final ApiFamily familyRequest = new ApiFamily("family", "", attributes);
+        familyRequest.getChildren().add(new ApiAttribute("child", "I1"));
         final HttpEntity<ApiFamily> req =
-                new HttpEntity<>(reqBody, headers);
+                new HttpEntity<>(familyRequest, headers);
         final ResponseEntity<ApiFamily> entity = testRestTemplate
                 .postForEntity(new URI(url), req, ApiFamily.class);
-        final ApiFamily resBody = entity.getBody();
+        final ApiFamily familyPostResponse = entity.getBody();
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(resBody.getType()).isEqualTo(reqBody.getType());
+        then(familyPostResponse.getType()).isEqualTo(familyRequest.getType());
+        then(familyPostResponse.getAttributes().size()).isEqualTo(1);
+        then(familyPostResponse.getChildren().size()).isEqualTo(1);
 
         final ApiAttribute aNote =
                 new ApiAttribute("attribute", "Note", "this is a note");
-        resBody.getAttributes().add(
+        familyPostResponse.getAttributes().add(
                 aNote);
+        then(familyPostResponse.getAttributes().size()).isEqualTo(2);
         final HttpEntity<ApiFamily> putRequestEntity =
-                new HttpEntity<ApiFamily>(resBody);
+                new HttpEntity<ApiFamily>(familyPostResponse);
         final ResponseEntity<ApiFamily> putResponseEntity =
                 testRestTemplate.exchange(
-                url + "/" + resBody.getString(),
+                url + "/" + familyPostResponse.getString(),
                 HttpMethod.PUT, putRequestEntity, ApiFamily.class);
+        final ApiFamily familyPutResponse = putResponseEntity.getBody();
+        final List<ApiAttribute> attributesPutResponse =
+                familyPutResponse.getAttributes();
+        logger.info("Attribute list size: " + attributesPutResponse.size());
+        then(attributesPutResponse.size()).isEqualTo(2);
+        for (final ApiAttribute a : attributesPutResponse) {
+            logger.info("attribute: " + a.getType() + " " + a.getString() + " " + a.getTail());
+        }
         assertEquals("attribute should be present", aNote,
-                putResponseEntity.getBody().getAttributes().get(1));
+                attributesPutResponse.get(1));
     }
 
     /**

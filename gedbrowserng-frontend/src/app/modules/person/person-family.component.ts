@@ -9,7 +9,7 @@ import { FamilyService, PersonService, NewPersonLinkService } from '../../servic
 import { ImageUtil, UrlBuilder } from '../../utils';
 import { HasAttributeList } from '../../interfaces';
 import { InitablePersonCreator } from '../../bases';
-import { HasPerson } from '../../interfaces';
+import { HasPerson, RefreshPerson } from '../../interfaces';
 
 /**
  * Implements a family block within a person page.
@@ -29,7 +29,7 @@ import { HasPerson } from '../../interfaces';
 })
 export class PersonFamilyComponent extends InitablePersonCreator implements HasAttributeList {
   @Input() dataset: string;
-  @Input() parent: HasPerson;
+  @Input() parent: HasPerson & RefreshPerson;
   @Input() string: string;
   @Input() index: number;
   get person(): ApiPerson {
@@ -147,5 +147,11 @@ export class PersonFamilyComponent extends InitablePersonCreator implements HasA
       place: '', note: '', originalType: '', originalText: '',
       originalDate: '', originalPlace: '', originalNote: ''
     };
+  }
+
+  unlink(): void {
+    const ub: UrlBuilder = new UrlBuilder(this.dataset, 'families', 'spouses');
+    this.newPersonLinkService.delete(ub, this.family.string, this.person)
+      .subscribe((data: ApiPerson) => { this.parent.refreshPerson(); });
   }
 }
