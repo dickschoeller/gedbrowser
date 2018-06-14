@@ -1,14 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-
-import { NewPersonDialogComponent, LinkPersonDialogComponent } from '../../components';
-import { ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData, LinkPersonItem } from '../../models';
-import { UrlBuilder } from '../../utils';
-import { NewPersonLinkService, PersonService } from '../../services';
-import { LifespanUtil, LinkPersonHelper } from '../../utils';
 
 import { InitablePersonCreator } from '../../bases';
-import { HasPerson } from '../../interfaces';
+import { HasPerson, LinkCheck } from '../../interfaces';
+import { LinkPersonDialogComponent } from '../../components';
+import { ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData, LinkPersonItem } from '../../models';
+import { LifespanUtil, UrlBuilder } from '../../utils';
+import { NewPersonLinkService, PersonService } from '../../services';
 
 /**
  * Implements a the list of families on a person page
@@ -21,51 +18,17 @@ import { HasPerson } from '../../interfaces';
   templateUrl: './person-family-list.component.html',
   styleUrls: ['./person-family-list.component.css']
 })
-export class PersonFamilyListComponent extends InitablePersonCreator {
+export class PersonFamilyListComponent extends InitablePersonCreator implements LinkCheck {
   @Input() dataset: string;
   @Input() parent: HasPerson;
   get person(): ApiPerson {
     return this.parent.person;
   }
-  items: MenuItem[] = [
-    {
-      label: 'Add family, create partner', icon: 'fa-user-plus',
-      command: (event: Event) => {
-        this.displayPersonDialogS = true;
-        this._ub = new UrlBuilder(this.dataset, 'persons', 'spouses');
-      }
-    },
-    {
-      label: 'Add family, link partner', icon: 'fa-link',
-      command: (event: Event) => {
-        this._ub = new UrlBuilder(this.dataset, 'persons', 'spouses');
-        this.displayLinkSpouseDialog = true;
-      }
-    },
-    {
-      label: 'Add family, create child', icon: 'fa-user-plus',
-      command: (event: Event) => {
-        this.displayPersonDialogC = true;
-        this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
-      }
-    },
-    {
-      label: 'Add family, link child', icon: 'fa-link',
-      command: (event: Event) => {
-        this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
-        this.displayLinkChildDialog = true;
-      }
-    },
-  ];
-  displayPersonDialogS = false;
-  displayPersonDialogC = false;
-  displayLinkChildDialog = false;
-  displayLinkSpouseDialog = false;
-  surnameS: string;
-  surnameC: string;
-  _ub: UrlBuilder;
+  partnerSurname: string;
+  childSurname: string;
   partnerSex: string;
-  lph: LinkPersonHelper = new LinkPersonHelper();
+  childSex = 'M';
+  _ub: UrlBuilder;
 
   constructor(newPersonLinkService: NewPersonLinkService,
     private personService: PersonService) {
@@ -75,28 +38,15 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
   init() {
     this.partnerSex = this.nph.guessPartnerSex(this.person);
     if (this.partnerSex === 'M') {
-      this.surnameC = '?';
+      this.childSurname = '?';
     } else {
-      this.surnameC = this.person.surname;
+      this.childSurname = this.person.surname;
     }
-    this.surnameS = '?';
-  }
-
-  onDialogOpenS(data: NewPersonDialogComponent) {
-    data._data = this.nph.initNew(this.partnerSex, this.surnameS);
-  }
-
-  onDialogOpenC(data: NewPersonDialogComponent) {
-    data._data = this.nph.initNew('M', this.surnameC);
+    this.partnerSurname = '?';
   }
 
   personUB(): UrlBuilder {
     return this._ub;
-  }
-
-  closePersonDialog() {
-    this.displayPersonDialogS = false;
-    this.displayPersonDialogC = false;
   }
 
   personAnchor(): string {
@@ -112,14 +62,6 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
     this.parent.person = person;
   }
 
-  onLinkChildDialogClose() {
-    this.displayLinkChildDialog = false;
-  }
-
-  onLinkChildDialogOpen(dialogComponent: LinkPersonDialogComponent) {
-    this.lph.onLinkChildDialogOpen(dialogComponent, this);
-  }
-
   spouseLinked(person: ApiPerson): boolean {
     return this.person.string === person.string;
   }
@@ -129,6 +71,7 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
   }
 
   linkChildren(data: LinkPersonDialogData) {
+    this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
     const selected: Array<LinkPersonItem> = data.selected.splice(0, 1);
     this.newPersonLinkService.put(this.personUB(), this.personAnchor(), selected[0].person)
       .subscribe((person: ApiPerson) => {
@@ -153,16 +96,19 @@ export class PersonFamilyListComponent extends InitablePersonCreator {
     }
   }
 
-  onLinkSpouseDialogClose() {
-    this.displayLinkSpouseDialog = false;
-  }
-
-  onLinkSpouseDialogOpen(dialogComponent: LinkPersonDialogComponent) {
-    this.lph.onLinkChildDialogOpen(dialogComponent, this);
-  }
-
   linkSpouse(data: LinkPersonDialogData) {
+    this._ub = new UrlBuilder(this.dataset, 'persons', 'spouses');
     this.newPersonLinkService.put(this.personUB(), this.personAnchor(), data.selectOne.person)
       .subscribe((person: ApiPerson) => { this.refreshPerson(); });
+  }
+
+  createSpouse(data: NewPersonDialogData): void {
+    this._ub = new UrlBuilder(this.dataset, 'persons', 'spouses');
+    this.createPerson(data);
+  }
+
+  createChild(data: NewPersonDialogData): void {
+    this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
+    this.createPerson(data);
   }
 }

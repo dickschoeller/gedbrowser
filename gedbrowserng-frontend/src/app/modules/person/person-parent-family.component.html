@@ -8,9 +8,12 @@
   </ng-template>
 </p-orderList>
 <div *ngIf="family?.spouses.length < 2">
-  <p-menu #menu popup="popup" #cm appendTo="body" [model]="items"></p-menu>
-  <p-splitButton icon="fa fa-user-plus" (click)="menu.toggle($event)" pTooltip="Add parent"
-      [styleClass]="'ui-button-success'"></p-splitButton>
+  <app-new-person
+      [sex]="sex" [surname]="surname" [label]="'Create parent'"
+      (emitOK)="createPerson($event)"></app-new-person>
+  <app-link-person
+      [parent]="this" [multi]="false" [label]="'Link parent'"
+      (emitOK)="linkParent($event)"></app-link-person>
 </div>
 <div class="ui-g">
   <div class="ui-g-1"></div>
@@ -29,15 +32,3 @@
   </div>
   <div class="ui-g-1"></div>
 </div>
-<app-new-person-dialog [p]="this"
-    (emitClose)="closePersonDialog()" (emitOpen)="onDialogOpen($event)"
-    (emitOK)="createPerson($event)"
-    [(display)]="displayPersonDialog">
-</app-new-person-dialog>
-<app-link-person-dialog [p]="this"
-    titleString="Link Parent" [multi]="false"
-    (emitClose)="onLinkParentDialogClose()"
-    (emitOpen)="onLinkParentDialogOpen($event)"
-    (emitOK)="linkParent($event)"
-    [(display)]="displayLinkParentDialog">
-</app-link-person-dialog>

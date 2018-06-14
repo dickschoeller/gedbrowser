@@ -1,12 +1,10 @@
-import { InitablePersonCreator } from '../../bases';
-import { LinkPersonDialogComponent, NewPersonDialogComponent } from '../../components';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 
+import { InitablePersonCreator } from '../../bases';
 import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData } from '../../models';
 import { FamilyService, NewPersonLinkService, PersonService } from '../../services';
 import { RefreshPerson, Saveable, HasPerson, HasFamily } from '../../interfaces';
-import { UrlBuilder, LinkPersonHelper } from '../../utils';
+import { UrlBuilder } from '../../utils';
 
 @Component({
   selector: 'app-person-parent-family',
@@ -18,19 +16,13 @@ export class PersonParentFamilyComponent extends InitablePersonCreator
   @Input() dataset: string;
   @Input() parent: RefreshPerson & Saveable & HasPerson;
   @Input() attribute: ApiAttribute;
+
   family: ApiFamily;
   initialized = false;
-  lph: LinkPersonHelper = new LinkPersonHelper();
-  items: MenuItem[] = [
-    {
-      label: 'Create parent', icon: 'fa-user', command: (event: Event) => {  this.displayPersonDialog = true; }
-    },
-    {
-      label: 'Link parent', icon: 'fa-link', command: (event: Event) => { this.displayLinkParentDialog = true; }
-    },
-  ];
-  displayPersonDialog = false;
-  displayLinkParentDialog = false;
+  sex = 'M';
+  get surname(): string {
+    return this.parent.person.surname;
+  }
 
   constructor(
     private personService: PersonService,
@@ -64,29 +56,13 @@ export class PersonParentFamilyComponent extends InitablePersonCreator
     return this.family.string;
   }
 
-  closePersonDialog(): void {
-    this.displayPersonDialog = false;
-  }
-
   linkParent(data: LinkPersonDialogData) {
     this.newPersonLinkService.put(this.personUB(), this.personAnchor(), data.selectOne.person)
       .subscribe((person: ApiPerson) => { this.refreshPerson(); });
   }
 
-  onLinkParentDialogClose() {
-    this.displayLinkParentDialog = false;
-  }
-
-  onLinkParentDialogOpen(dialogComponent: LinkPersonDialogComponent) {
-    this.lph.onLinkChildDialogOpen(dialogComponent, this);
-  }
-
-  onDialogOpen(dialog: NewPersonDialogComponent) {
-    dialog._data = this.nph.initNew('M', this.parent.person.surname);
-  }
-
   preferredSurname(): string {
-    return 'Xyzzy';
+    return this.surname;
   }
 
   childLinked(): boolean {

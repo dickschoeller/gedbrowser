@@ -20,7 +20,8 @@ import { RefreshPerson } from '../../interfaces';
   templateUrl: './person-family-spouse.component.html',
   styleUrls: ['./person-family-spouse.component.css']
 })
-export class PersonFamilySpouseComponent extends PersonGetter implements OnInit, OnChanges {
+export class PersonFamilySpouseComponent extends PersonGetter
+  implements OnInit, OnChanges {
   @Input() dataset: string;
   @Input() parent: RefreshPerson & HasFamily;
   @Input() attribute: ApiAttribute;

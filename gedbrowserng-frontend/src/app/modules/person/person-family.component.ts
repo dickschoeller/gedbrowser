@@ -3,13 +3,14 @@ import { NgxGalleryOptions, NgxGalleryImage } from 'ngx-gallery';
 import { Observable } from 'rxjs/Observable';
 import { MenuItem, SelectItem } from 'primeng/api';
 
-import { AttributeDialogData, NewPersonDialogComponent, LinkPersonDialogComponent } from '../../components';
-import { ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData } from '../../models';
+import { AttributeDialogData } from '../../components';
+import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData } from '../../models';
 import { FamilyService, PersonService, NewPersonLinkService } from '../../services';
-import { ImageUtil, UrlBuilder, LinkPersonHelper } from '../../utils';
+import { ImageUtil, UrlBuilder } from '../../utils';
 import { HasAttributeList } from '../../interfaces';
 import { InitablePersonCreator } from '../../bases';
 import { HasPerson, RefreshPerson } from '../../interfaces';
+import { LinkCheck } from '../../interfaces/link-check';
 
 /**
  * Implements a family block within a person page.
@@ -27,7 +28,8 @@ import { HasPerson, RefreshPerson } from '../../interfaces';
   templateUrl: './person-family.component.html',
   styleUrls: ['./person-family.component.css']
 })
-export class PersonFamilyComponent extends InitablePersonCreator implements HasAttributeList {
+export class PersonFamilyComponent extends InitablePersonCreator
+  implements HasAttributeList, LinkCheck {
   @Input() dataset: string;
   @Input() parent: HasPerson & RefreshPerson;
   @Input() string: string;
@@ -61,19 +63,8 @@ export class PersonFamilyComponent extends InitablePersonCreator implements HasA
       {value: 'Sealing Spouse', label: 'Sealing Spouse'},
       {value: 'Source', label: 'Source'},
     ];
-  surname: string;
-  displayPersonDialog = false;
-  displayLinkSpouseDialog = false;
-  lph: LinkPersonHelper = new LinkPersonHelper();
   sex: string;
-  items: MenuItem[] = [
-    {
-      label: 'Create parent', icon: 'fa-user', command: (event: Event) => {  /** this.displayPersonDialog = true; */ }
-    },
-    {
-      label: 'Link parent', icon: 'fa-link', command: (event: Event) => { /** this.displayLinkParentDialog = true; */ }
-    },
-  ];
+  surname: string;
 
   constructor(private familyService: FamilyService,
     private personService: PersonService,
@@ -111,20 +102,12 @@ export class PersonFamilyComponent extends InitablePersonCreator implements HasA
     return (attribute.string === this.person.string);
   }
 
-  createSpouse(): void {
-    this.displayPersonDialog = true;
-  }
-
-  onDialogOpen(data: NewPersonDialogComponent) {
-    data._data = this.nph.initNew(this.sex, this.surname);
-  }
-
   personUB(): UrlBuilder {
       return new UrlBuilder(this.dataset, 'families', 'spouses');
   }
 
   closePersonDialog() {
-    this.displayPersonDialog = false;
+    // TODO get rid of this
   }
 
   personAnchor() {
@@ -165,28 +148,16 @@ export class PersonFamilyComponent extends InitablePersonCreator implements HasA
       .subscribe((data: ApiPerson) => { this.parent.refreshPerson(); });
   }
 
-  openLinkSpouseDialog(): void {
-    this.displayLinkSpouseDialog = true;
-  }
-
-  onLinkSpouseDialogClose(): void {
-    this.displayLinkSpouseDialog = false;
-  }
-
-  onLinkSpouseDialogOpen(dialogComponent: LinkPersonDialogComponent): void {
-    this.lph.onLinkChildDialogOpen(dialogComponent, this);
-  }
-
   linkSpouse(data: LinkPersonDialogData): void {
     this.newPersonLinkService.put(this.personUB(), this.personAnchor(), data.selectOne.person)
       .subscribe((person: ApiPerson) => { this.refreshPerson(); });
   }
 
-  spouseLinked(): boolean {
+  spouseLinked(person: ApiPerson): boolean {
     return false;
   }
 
-  childLinked(): boolean {
+  childLinked(person: ApiPerson): boolean {
     return false;
   }
 }
