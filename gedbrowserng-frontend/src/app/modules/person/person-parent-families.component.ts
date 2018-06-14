@@ -1,38 +1,27 @@
 import { Component, Input } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-
-import { NewPersonDialogComponent, LinkPersonDialogComponent } from '../../components';
-import { ApiAttribute, ApiPerson, ApiFamily, NewPersonDialogData, LinkPersonDialogData } from '../../models';
-import { UrlBuilder, LinkPersonHelper } from '../../utils';
-import { PersonService, NewPersonLinkService } from '../../services';
 
 import { InitablePersonCreator } from '../../bases';
-import { HasLifespan, HasPerson, Saveable } from '../../interfaces';
+import { HasLifespan, HasPerson, Saveable, RefreshPerson } from '../../interfaces';
+import { ApiAttribute, ApiPerson, ApiFamily, LinkPersonDialogData } from '../../models';
+import { PersonService, NewPersonLinkService } from '../../services';
+import { UrlBuilder } from '../../utils';
 
 @Component({
   selector: 'app-person-parent-families',
   templateUrl: './person-parent-families.component.html',
   styleUrls: ['./person-parent-families.component.css']
 })
-export class PersonParentFamiliesComponent extends InitablePersonCreator implements HasLifespan, HasPerson {
+export class PersonParentFamiliesComponent extends InitablePersonCreator
+  implements HasLifespan, HasPerson, RefreshPerson, Saveable {
   @Input() dataset: string;
   @Input() parent: HasPerson & HasLifespan & Saveable;
   get person(): ApiPerson {
     return this.parent.person;
   }
-
-  displayPersonDialog = false;
-  displayLinkParentDialog = false;
-  surname: string;
-  lph: LinkPersonHelper = new LinkPersonHelper();
-  items: MenuItem[] = [
-    {
-      label: 'Create parent', icon: 'fa-user', command: (event: Event) => { this.displayPersonDialog = true; }
-    },
-    {
-      label: 'Link parent', icon: 'fa-link', command: (event: Event) => { this.displayLinkParentDialog = true; }
-    },
-  ];
+  sex = 'M';
+  get surname(): string {
+    return this.person.surname;
+  }
 
   constructor(private personService: PersonService,
     newPersonLinkService: NewPersonLinkService) {
@@ -40,19 +29,10 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator impleme
   }
 
   init(): void {
-    this.surname = this.person.surname;
-  }
-
-  onDialogOpen(dialog: NewPersonDialogComponent) {
-    dialog._data = this.nph.initNew('M', this.person.surname);
   }
 
   personUB(): UrlBuilder {
     return new UrlBuilder(this.dataset, 'persons', 'parents');
-  }
-
-  closePersonDialog() {
-    this.displayPersonDialog = false;
   }
 
   personAnchor () {
@@ -62,14 +42,6 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator impleme
   refreshPerson() {
     this.personService.getOne(this.dataset, this.person.string).subscribe(
       (data: ApiPerson) => this.parent.person = data);
-  }
-
-  onLinkParentDialogClose() {
-    this.displayLinkParentDialog = false;
-  }
-
-  onLinkParentDialogOpen(dialogComponent: LinkPersonDialogComponent) {
-    this.lph.onLinkChildDialogOpen(dialogComponent, this);
   }
 
   spouseLinked(person: ApiPerson): boolean {
@@ -90,12 +62,11 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator impleme
     return false;
   }
 
-  linkParent(data: LinkPersonDialogData) {
-    this.newPersonLinkService.put(this.personUB(), this.personAnchor(), data.selectOne.person)
-      .subscribe((person: ApiPerson) => { this.refreshPerson(); });
-  }
-
   lifespanDateString(): string {
     return this.parent.lifespanDateString();
+  }
+
+  save(): void {
+    this.parent.save();
   }
 }

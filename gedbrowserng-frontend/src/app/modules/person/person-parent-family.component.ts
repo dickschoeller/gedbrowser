@@ -1,34 +1,38 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
-import { ApiAttribute, ApiFamily } from '../../models';
-import { FamilyService } from '../../services';
-import { RefreshPerson, Saveable } from '../../interfaces';
+import { InitablePersonCreator } from '../../bases';
+import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData } from '../../models';
+import { FamilyService, NewPersonLinkService, PersonService } from '../../services';
+import { RefreshPerson, Saveable, HasPerson, HasFamily } from '../../interfaces';
+import { UrlBuilder } from '../../utils';
 
 @Component({
   selector: 'app-person-parent-family',
   templateUrl: './person-parent-family.component.html',
   styleUrls: ['./person-parent-family.component.css']
 })
-export class PersonParentFamilyComponent implements OnInit, OnChanges {
+export class PersonParentFamilyComponent extends InitablePersonCreator
+  implements OnInit, OnChanges, HasFamily, RefreshPerson {
   @Input() dataset: string;
-  @Input() parent: RefreshPerson & Saveable;
+  @Input() parent: RefreshPerson & Saveable & HasPerson;
   @Input() attribute: ApiAttribute;
+
   family: ApiFamily;
   initialized = false;
+  sex = 'M';
+  get surname(): string {
+    return this.parent.person.surname;
+  }
 
   constructor(
+    private personService: PersonService,
     private service: FamilyService,
-  ) { }
-
-  ngOnInit() {
-    this.init();
+    newPersonLinkService: NewPersonLinkService
+  ) {
+    super(newPersonLinkService);
   }
 
-  ngOnChanges() {
-    this.init();
-  }
-
-  private init(): void {
+  init(): void {
     this.service.getOne(this.dataset, this.attribute.string)
       .subscribe((family: ApiFamily) => {
         this.family = family;
@@ -44,7 +48,23 @@ export class PersonParentFamilyComponent implements OnInit, OnChanges {
     this.parent.refreshPerson();
   }
 
-  save() {
-    this.parent.save();
+  personUB(): UrlBuilder {
+    return new UrlBuilder(this.dataset, 'families', 'spouses');
+  }
+
+  personAnchor(): string {
+    return this.family.string;
+  }
+
+  preferredSurname(): string {
+    return this.surname;
+  }
+
+  childLinked(): boolean {
+    return false;
+  }
+
+  spouseLinked(): boolean {
+    return false;
   }
 }

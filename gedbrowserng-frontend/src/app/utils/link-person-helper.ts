@@ -1,10 +1,13 @@
-import {ApiPerson, LinkPersonDialogData} from '../models';
-import {LifespanUtil} from './lifespan-util';
+import { LinkCheck } from '../interfaces';
+import { ApiPerson, LinkPersonDialogData } from '../models';
+import { PersonService } from '../services';
+import { LifespanUtil } from './lifespan-util';
 
 export class LinkPersonHelper {
+  constructor(private personService: PersonService) {}
 
-  onLinkChildDialogOpen(dialogComponent: any, component: any) {
-    component.personService.getAll(dialogComponent.dataset).subscribe(
+  onLinkChildDialogOpen(dialogComponent: any, component: LinkCheck) {
+    this.personService.getAll(dialogComponent.dataset).subscribe(
       (value: ApiPerson[]) => {
         dialogComponent.persons = value;
         dialogComponent.persons.sort(dialogComponent.compare);
@@ -19,8 +22,8 @@ export class LinkPersonHelper {
     );
   }
 
-  private alreadyLinked(person: ApiPerson, component): boolean {
-    if (component.spouseLinked(person, component)) {
+  private alreadyLinked(person: ApiPerson, component: LinkCheck): boolean {
+    if (component.spouseLinked(person)) {
       return true;
     }
     return component.childLinked(person);
@@ -31,8 +34,8 @@ export class LinkPersonHelper {
     data.items.push({
       id: person.string,
       label: person.indexName
-        + lifespanUtil.lifespanYearString()
-        + ' [' + person.string + ']',
+      + lifespanUtil.lifespanYearString()
+      + ' [' + person.string + ']',
       person: person
     });
   }

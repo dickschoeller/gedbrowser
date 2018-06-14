@@ -4,9 +4,12 @@
     <p-panel header="Children" styleClass="ui-panel-titlebar-success">
       <p-header>
         <span class="bump-out">
-          <p-menu #menu popup="popup" #cm appendTo="body" [model]="items"></p-menu>
-          <p-splitButton icon="fa fa-user-plus" (click)="menu.toggle($event)" pTooltip="Add child"
-              [styleClass]="'ui-button-success'"></p-splitButton>
+          <app-new-person
+              [sex]="sex" [surname]="surname" [label]="'Create child'"
+              (emitOK)="createPerson($event)"></app-new-person>
+          <app-link-person
+              [parent]="this" [multi]="true" [label]="'Link child'"
+              (emitOK)="linkChild($event)"></app-link-person>
         </span>
       </p-header>
 
@@ -24,15 +27,3 @@
   </div>
   <div class="ui-g-1"></div>
 </div>
-<app-new-person-dialog *ngIf="surname" [p]="this"
-    (emitClose)="closePersonDialog()" (emitOpen)="onDialogOpen($event)"
-    (emitOK)="createPerson($event)"
-    [(display)]="displayPersonDialog">
-</app-new-person-dialog>
-<app-link-person-dialog *ngIf="surname" [p]="this"
-    titleString="Link Child" [multi]="true"
-    (emitClose)="onLinkChildDialogClose()"
-    (emitOpen)="onLinkChildDialogOpen($event)"
-    (emitOK)="linkChild($event)"
-    [(display)]="displayLinkChildDialog">
-</app-link-person-dialog>

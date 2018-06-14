@@ -1,0 +1,10 @@
+<p-button (click)="openDialog()" icon="fa fa-fw fa-link"
+    [styleClass]="'ui-button-success'" [pTooltip]="label"></p-button>
+<app-link-person-dialog
+    [p]="this"
+    [titleString]="label" [multi]="multi"
+    (emitClose)="onDialogClose()"
+    (emitOpen)="onDialogOpen($event)"
+    (emitOK)="onDialogOK($event)"
+    [(display)]="displayDialog">
+</app-link-person-dialog>

@@ -7,6 +7,14 @@
     </div>
   </ng-template>
 </p-orderList>
+<div *ngIf="family?.spouses.length < 2">
+  <app-new-person
+      [sex]="sex" [surname]="surname" [label]="'Create parent'"
+      (emitOK)="createPerson($event)"></app-new-person>
+  <app-link-person
+      [parent]="this" [multi]="false" [label]="'Link parent'"
+      (emitOK)="linkParent($event)"></app-link-person>
+</div>
 <div class="ui-g">
   <div class="ui-g-1"></div>
   <div class="ui-g-10">

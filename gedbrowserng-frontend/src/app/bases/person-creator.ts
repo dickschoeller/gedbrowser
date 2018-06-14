@@ -1,10 +1,11 @@
-import {OnChanges, OnInit} from '@angular/core';
+import { OnChanges, OnInit } from '@angular/core';
 
-import {ApiPerson, NewPersonDialogData} from '../models';
-import {NewPersonHelper, UrlBuilder} from '../utils';
-import {PostRelatedPerson, NewPersonLinkService} from '../services';
+import { RefreshPerson } from '../interfaces';
+import { ApiPerson, NewPersonDialogData, LinkPersonDialogData } from '../models';
+import { NewPersonHelper, UrlBuilder } from '../utils';
+import { PostRelatedPerson, NewPersonLinkService } from '../services';
 
-export abstract class PersonCreator  {
+export abstract class PersonCreator implements RefreshPerson {
   nph = new NewPersonHelper();
 
   constructor(public newPersonLinkService: NewPersonLinkService) {}
@@ -17,7 +18,10 @@ export abstract class PersonCreator  {
     }
   }
 
-  abstract closePersonDialog(): void;
+  linkParent(data: LinkPersonDialogData) {
+    this.newPersonLinkService.put(this.personUB(), this.personAnchor(), data.selectOne.person)
+      .subscribe((person: ApiPerson) => { this.refreshPerson(); });
+  }
 
   abstract personUB(): UrlBuilder;
 

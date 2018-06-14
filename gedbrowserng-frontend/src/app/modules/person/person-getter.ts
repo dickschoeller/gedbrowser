@@ -1,8 +1,9 @@
+import { RefreshPerson } from '../../interfaces';
 import {ApiPerson} from '../../models';
 import {PersonService, NewPersonLinkService} from '../../services';
 import {UrlBuilder, LifespanUtil} from '../../utils';
 
-export abstract class PersonGetter {
+export abstract class PersonGetter implements RefreshPerson {
   dataset: string;
   person: ApiPerson;
   famMemberType: string;

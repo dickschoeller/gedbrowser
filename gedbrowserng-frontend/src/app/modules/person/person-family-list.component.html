@@ -2,33 +2,16 @@
     [dataset]="dataset" [parent]="this" [string]="attribute.string"
     [index]="i"></app-person-family>
 
-<p-menu #menu popup="popup" #cm appendTo="body" [model]="items"></p-menu>
-<p-splitButton icon="fa fa-user-plus" (click)="menu.toggle($event)" pTooltip="Add new family"
-    [styleClass]="'ui-button-success'"></p-splitButton>
+<app-new-person
+    [sex]="partnerSex" [surname]="partnerSurname" [label]="'Create spouse'"
+    (emitOK)="createSpouse($event)"></app-new-person>
+<app-link-person
+    [parent]="this" [multi]="false" [label]="'Link spouse'"
+    (emitOK)="linkSpouse($event)"></app-link-person>
+<app-new-person
+    [sex]="childSex" [surname]="childSurname" [label]="'Create child'"
+    (emitOK)="createChild($event)"></app-new-person>
+<app-link-person
+    [parent]="this" [multi]="true" [label]="'Link children'"
+    (emitOK)="linkChildren($event)"></app-link-person>
 <br/>
-<app-new-person-dialog
-    *ngIf="surnameS"
-    [p]="this"
-    (emitClose)="closePersonDialog()" (emitOpen)="onDialogOpenS($event)"
-    (emitOK)="createPerson($event)"
-    [(display)]="displayPersonDialogS"></app-new-person-dialog>
-<app-new-person-dialog
-    *ngIf="surnameC"
-    [p]="this"
-    (emitClose)="closePersonDialog()" (emitOpen)="onDialogOpenC($event)"
-    (emitOK)="createPerson($event)"
-    [(display)]="displayPersonDialogC"></app-new-person-dialog>
-<app-link-person-dialog [p]="this"
-    titleString="Link Child" [multi]="'true'"
-    (emitClose)="onLinkChildDialogClose()"
-    (emitOpen)="onLinkChildDialogOpen($event)"
-    (emitOK)="linkChildren($event)"
-    [(display)]="displayLinkChildDialog">
-</app-link-person-dialog>
-<app-link-person-dialog [p]="this"
-    titleString="Link Spouse" [multi]="false"
-    (emitClose)="onLinkSpouseDialogClose()"
-    (emitOpen)="onLinkSpouseDialogOpen($event)"
-    (emitOK)="linkSpouse($event)"
-    [(display)]="displayLinkSpouseDialog">
-</app-link-person-dialog>

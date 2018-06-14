@@ -1,3 +1,4 @@
+export * from './new-person.component';
 export * from './person.component';
 export * from './person-family-child.component';
 export * from './person-family-child-list.component';

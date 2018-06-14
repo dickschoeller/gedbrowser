@@ -1,0 +1,9 @@
+<p-button (click)="openDialog()" icon="fa fa-fw fa-user-plus"
+    [styleClass]="'ui-button-success'" [pTooltip]="label"></p-button>
+<app-new-person-dialog
+    [p]="this"
+    (emitClose)="onDialogClose()"
+    (emitOpen)="onDialogOpen($event)"
+    (emitOK)="onDialogOK($event)"
+    [(display)]="displayDialog">
+</app-new-person-dialog>
