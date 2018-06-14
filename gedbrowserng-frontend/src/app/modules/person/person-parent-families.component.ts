@@ -7,14 +7,15 @@ import { UrlBuilder, LinkPersonHelper } from '../../utils';
 import { PersonService, NewPersonLinkService } from '../../services';
 
 import { InitablePersonCreator } from '../../bases';
-import { HasLifespan, HasPerson, Saveable } from '../../interfaces';
+import { HasLifespan, HasPerson, Saveable, RefreshPerson } from '../../interfaces';
 
 @Component({
   selector: 'app-person-parent-families',
   templateUrl: './person-parent-families.component.html',
   styleUrls: ['./person-parent-families.component.css']
 })
-export class PersonParentFamiliesComponent extends InitablePersonCreator implements HasLifespan, HasPerson {
+export class PersonParentFamiliesComponent extends InitablePersonCreator
+  implements HasLifespan, HasPerson, RefreshPerson, Saveable {
   @Input() dataset: string;
   @Input() parent: HasPerson & HasLifespan & Saveable;
   get person(): ApiPerson {
@@ -97,5 +98,9 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator impleme
 
   lifespanDateString(): string {
     return this.parent.lifespanDateString();
+  }
+
+  save(): void {
+    this.parent.save();
   }
 }

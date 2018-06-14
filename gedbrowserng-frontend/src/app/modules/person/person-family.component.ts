@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { NgxGalleryOptions, NgxGalleryImage } from 'ngx-gallery';
 import { Observable } from 'rxjs/Observable';
-import { SelectItem } from 'primeng/api';
+import { MenuItem, SelectItem } from 'primeng/api';
 
-import { AttributeDialogData, NewPersonDialogComponent } from '../../components';
-import { ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData } from '../../models';
+import { AttributeDialogData, NewPersonDialogComponent, LinkPersonDialogComponent } from '../../components';
+import { ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData } from '../../models';
 import { FamilyService, PersonService, NewPersonLinkService } from '../../services';
-import { ImageUtil, UrlBuilder } from '../../utils';
+import { ImageUtil, UrlBuilder, LinkPersonHelper } from '../../utils';
 import { HasAttributeList } from '../../interfaces';
 import { InitablePersonCreator } from '../../bases';
 import { HasPerson, RefreshPerson } from '../../interfaces';
@@ -63,7 +63,17 @@ export class PersonFamilyComponent extends InitablePersonCreator implements HasA
     ];
   surname: string;
   displayPersonDialog = false;
+  displayLinkSpouseDialog = false;
+  lph: LinkPersonHelper = new LinkPersonHelper();
   sex: string;
+  items: MenuItem[] = [
+    {
+      label: 'Create parent', icon: 'fa-user', command: (event: Event) => {  /** this.displayPersonDialog = true; */ }
+    },
+    {
+      label: 'Link parent', icon: 'fa-link', command: (event: Event) => { /** this.displayLinkParentDialog = true; */ }
+    },
+  ];
 
   constructor(private familyService: FamilyService,
     private personService: PersonService,
@@ -153,5 +163,30 @@ export class PersonFamilyComponent extends InitablePersonCreator implements HasA
     const ub: UrlBuilder = new UrlBuilder(this.dataset, 'families', 'spouses');
     this.newPersonLinkService.delete(ub, this.family.string, this.person)
       .subscribe((data: ApiPerson) => { this.parent.refreshPerson(); });
+  }
+
+  openLinkSpouseDialog(): void {
+    this.displayLinkSpouseDialog = true;
+  }
+
+  onLinkSpouseDialogClose(): void {
+    this.displayLinkSpouseDialog = false;
+  }
+
+  onLinkSpouseDialogOpen(dialogComponent: LinkPersonDialogComponent): void {
+    this.lph.onLinkChildDialogOpen(dialogComponent, this);
+  }
+
+  linkSpouse(data: LinkPersonDialogData): void {
+    this.newPersonLinkService.put(this.personUB(), this.personAnchor(), data.selectOne.person)
+      .subscribe((person: ApiPerson) => { this.refreshPerson(); });
+  }
+
+  spouseLinked(): boolean {
+    return false;
+  }
+
+  childLinked(): boolean {
+    return false;
   }
 }

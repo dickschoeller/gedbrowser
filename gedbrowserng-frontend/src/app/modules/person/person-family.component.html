@@ -11,6 +11,8 @@
     <span class="bump-out" *ngIf="!spouse()">
       <p-button (click)="createSpouse()" icon="fa fa-fw fa-user-plus"
           [styleClass]="'ui-button-success'" pTooltip="Add spouse"></p-button>
+      <p-button (click)="openLinkSpouseDialog()" icon="fa fa-fw fa-link"
+          [styleClass]="'ui-button-success'" pTooltip="Link spouse"></p-button>
       <p-button (click)="unlink()" icon="fa fa-fw fa-unlink"
           [styleClass]="'ui-button-danger'" pTooltip="Unlink self from family"></p-button>
       <app-new-person-dialog
@@ -19,7 +21,15 @@
           (emitClose)="closePersonDialog()"
           (emitOpen)="onDialogOpen($event)"
           (emitOK)="createPerson($event)"
-          [(display)]="displayPersonDialog"></app-new-person-dialog>
+          [(display)]="displayPersonDialog">
+      </app-new-person-dialog>
+      <app-link-person-dialog [p]="this"
+          titleString="Link Parent" [multi]="false"
+          (emitClose)="onLinkSpouseDialogClose()"
+          (emitOpen)="onLinkSpouseDialogOpen($event)"
+          (emitOK)="linkSpouse($event)"
+          [(display)]="displayLinkSpouseDialog">
+      </app-link-person-dialog>
     </span>
   </p-header>
   <div class="ui-g">
