@@ -98,8 +98,7 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
 
   linkSpouse(data: LinkPersonDialogData) {
     this._ub = new UrlBuilder(this.dataset, 'persons', 'spouses');
-    this.newPersonLinkService.put(this.personUB(), this.personAnchor(), data.selectOne.person)
-      .subscribe((person: ApiPerson) => { this.refreshPerson(); });
+    this.linkParent(data);
   }
 
   createSpouse(data: NewPersonDialogData): void {
