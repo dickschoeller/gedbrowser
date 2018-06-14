@@ -62,11 +62,6 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator
     return false;
   }
 
-  linkParent(data: LinkPersonDialogData) {
-    this.newPersonLinkService.put(this.personUB(), this.personAnchor(), data.selectOne.person)
-      .subscribe((person: ApiPerson) => { this.refreshPerson(); });
-  }
-
   lifespanDateString(): string {
     return this.parent.lifespanDateString();
   }

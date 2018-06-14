@@ -106,10 +106,6 @@ export class PersonFamilyComponent extends InitablePersonCreator
       return new UrlBuilder(this.dataset, 'families', 'spouses');
   }
 
-  closePersonDialog() {
-    // TODO get rid of this
-  }
-
   personAnchor() {
     return this.family.string;
   }
