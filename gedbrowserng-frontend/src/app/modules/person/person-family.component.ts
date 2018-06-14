@@ -144,11 +144,6 @@ export class PersonFamilyComponent extends InitablePersonCreator
       .subscribe((data: ApiPerson) => { this.parent.refreshPerson(); });
   }
 
-  linkSpouse(data: LinkPersonDialogData): void {
-    this.newPersonLinkService.put(this.personUB(), this.personAnchor(), data.selectOne.person)
-      .subscribe((person: ApiPerson) => { this.refreshPerson(); });
-  }
-
   spouseLinked(person: ApiPerson): boolean {
     return false;
   }
