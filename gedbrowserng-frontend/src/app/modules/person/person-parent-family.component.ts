@@ -56,11 +56,6 @@ export class PersonParentFamilyComponent extends InitablePersonCreator
     return this.family.string;
   }
 
-  linkParent(data: LinkPersonDialogData) {
-    this.newPersonLinkService.put(this.personUB(), this.personAnchor(), data.selectOne.person)
-      .subscribe((person: ApiPerson) => { this.refreshPerson(); });
-  }
-
   preferredSurname(): string {
     return this.surname;
   }
