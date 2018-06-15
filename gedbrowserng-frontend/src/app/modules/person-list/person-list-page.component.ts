@@ -1,9 +1,9 @@
-import {Component, OnInit, OnChanges} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {NewPersonHelper} from '../../utils';
-import {ApiPerson} from '../../models';
-import {PersonService} from '../../services';
+import { ApiPerson } from '../../models';
+import { PersonService } from '../../services';
+import { ApiComparators, NewPersonHelper } from '../../utils';
 
 @Component({
   selector: 'app-person-list-page',
@@ -13,6 +13,8 @@ import {PersonService} from '../../services';
 export class PersonListPageComponent implements OnInit, OnChanges {
   dataset: string;
   persons: ApiPerson[];
+
+  comparator: ApiComparators = new ApiComparators();
 
   constructor(private route: ActivatedRoute,
     private personService: PersonService,
@@ -33,23 +35,10 @@ export class PersonListPageComponent implements OnInit, OnChanges {
     this.route.data.subscribe(
       (data: {dataset: string, persons: ApiPerson[]}) => {
         this.persons = data.persons;
-        this.persons.sort(this.compare);
+        this.persons.sort(this.comparator.comparePersons);
       }
     );
   }
-
-  /**
-   * Comparison function to sort the persons returned.
-   * Index name is the first level sort.
-   * If those are the same, then by ID.
-   */
-  compare = function(a: ApiPerson, b: ApiPerson) {
-    const val = a.indexName.localeCompare(b.indexName);
-    if (val !== 0) {
-      return val;
-    }
-    return a.string.localeCompare(b.string);
-  };
 
   refreshPerson(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
@@ -60,7 +49,7 @@ export class PersonListPageComponent implements OnInit, OnChanges {
 
     this.personService.getAll(this.dataset).subscribe(
       (persons: Array<ApiPerson>) => {
-        this.persons = persons.sort(this.compare);
+        this.persons = persons.sort(this.comparator.comparePersons);
       }
     );
   }

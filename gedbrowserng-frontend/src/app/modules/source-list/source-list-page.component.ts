@@ -1,8 +1,9 @@
-import {Component, OnInit, OnChanges} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {ApiSource} from '../../models';
-import {SourceService} from '../../services';
+import { ApiSource } from '../../models';
+import { SourceService } from '../../services';
+import { ApiComparators } from '../../utils';
 
 @Component({
   selector: 'app-source-list-page',
@@ -12,6 +13,8 @@ import {SourceService} from '../../services';
 export class SourceListPageComponent implements OnInit, OnChanges {
   dataset: string;
   sources: Array<ApiSource>;
+
+  comparator: ApiComparators = new ApiComparators();
 
   constructor(private route: ActivatedRoute,
     private sourceService: SourceService,
@@ -32,23 +35,10 @@ export class SourceListPageComponent implements OnInit, OnChanges {
     this.route.data.subscribe(
       (data: {dataset: string, sources: ApiSource[]}) => {
         this.sources = data.sources;
-        this.sources.sort(this.compare);
+        this.sources.sort(this.comparator.compareSources);
       }
     );
   }
-
-  /**
-   * Comparison function to sort the persons returned.
-   * Index name is the first level sort.
-   * If those are the same, then by ID.
-   */
-  compare = function(a: ApiSource, b: ApiSource) {
-    const val = a.title.localeCompare(b.title);
-    if (val !== 0) {
-      return val;
-    }
-    return a.string.localeCompare(b.string);
-  };
 
   refreshSource(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
@@ -59,7 +49,7 @@ export class SourceListPageComponent implements OnInit, OnChanges {
 
     this.sourceService.getAll(this.dataset).subscribe(
       (sources: Array<ApiSource>) => {
-        this.sources = sources.sort(this.compare);
+        this.sources = sources.sort(this.comparator.compareSources);
       }
     );
   }

@@ -1,8 +1,8 @@
-import {Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {BaseDialog} from '../../bases';
-import {ApiPerson, LinkPersonItem, LinkPersonDialogData} from '../../models';
+import { BaseDialog } from '../../bases';
+import { ApiPerson, LinkPersonItem, LinkPersonDialogData } from '../../models';
 
 @Component({
   selector: 'app-link-person-dialog',
@@ -14,7 +14,6 @@ export class LinkPersonDialogComponent
   implements OnInit, OnChanges {
   @Input() titleString: string;
   @Input() multi: boolean;
-  dataset: string;
   persons: Array<ApiPerson>;
 
   _data: LinkPersonDialogData = new LinkPersonDialogData();
@@ -37,21 +36,6 @@ export class LinkPersonDialogComponent
   }
 
   private init(): void {
-    this.route.params.subscribe((params) => {
-      this.dataset = params['dataset'];
-    });
   }
 
-  /**
-   * Comparison function to sort the persons returned.
-   * Index name is the first level sort.
-   * If those are the same, then by ID.
-   */
-  compare = function(a: ApiPerson, b: ApiPerson) {
-    const val = a.indexName.localeCompare(b.indexName);
-    if (val !== 0) {
-      return val;
-    }
-    return a.string.localeCompare(b.string);
-  };
 }
