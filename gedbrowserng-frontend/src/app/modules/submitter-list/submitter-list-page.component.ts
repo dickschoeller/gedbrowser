@@ -1,8 +1,9 @@
-import {Component, OnInit, OnChanges} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {ApiSubmitter} from '../../models';
-import {SubmitterService} from '../../services';
+import { ApiSubmitter } from '../../models';
+import { SubmitterService } from '../../services';
+import { ApiComparators } from '../../utils';
 
 @Component({
   selector: 'app-submitter-list-page',
@@ -12,6 +13,8 @@ import {SubmitterService} from '../../services';
 export class SubmitterListPageComponent implements OnInit, OnChanges {
   dataset: string;
   submitters: Array<ApiSubmitter>;
+
+  comparator: ApiComparators = new ApiComparators();
 
   constructor(private route: ActivatedRoute,
     private submitterService: SubmitterService,
@@ -33,23 +36,10 @@ export class SubmitterListPageComponent implements OnInit, OnChanges {
     this.route.data.subscribe(
       (data: {submitters: ApiSubmitter[]}) => {
         this.submitters = data.submitters;
-        this.submitters.sort(this.compare);
+        this.submitters.sort(this.comparator.compareSubmitters);
       }
     );
   }
-
-  /**
-   * Comparison function to sort the persons returned.
-   * Index name is the first level sort.
-   * If those are the same, then by ID.
-   */
-  compare = function(a: ApiSubmitter, b: ApiSubmitter) {
-    const val = a.name.localeCompare(b.name);
-    if (val !== 0) {
-      return val;
-    }
-    return a.string.localeCompare(b.string);
-  };
 
   refreshSubmitter(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
@@ -60,7 +50,7 @@ export class SubmitterListPageComponent implements OnInit, OnChanges {
 
     this.submitterService.getAll(this.dataset).subscribe(
       (submitters: Array<ApiSubmitter>) => {
-        this.submitters = submitters.sort(this.compare);
+        this.submitters = submitters.sort(this.comparator.compareSubmitters);
         alert('there are ' + this.submitters.length + ' submitters');
       }
     );

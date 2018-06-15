@@ -1,14 +1,14 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {MenuItem, SelectItem} from 'primeng/api';
+import { Component, OnInit, Input } from '@angular/core';
+import { MenuItem, SelectItem } from 'primeng/api';
 
-import {SourceCreator} from '../../bases';
-import {HasAttributeList} from '../../interfaces';
-import {ApiAttribute, ApiSource, LinkSourceDialogData, LinkSourceItem} from '../../models';
-import {NewSourceLinkService, SourceService} from '../../services';
-import {NewSourceHelper, UrlBuilder} from '../../utils';
+import { SourceCreator } from '../../bases';
+import { HasAttributeList } from '../../interfaces';
+import { ApiAttribute, ApiSource, LinkSourceDialogData, LinkSourceItem } from '../../models';
+import { NewSourceLinkService, SourceService } from '../../services';
+import { ApiComparators, NewSourceHelper, UrlBuilder } from '../../utils';
 
-import {LinkSourceDialogComponent} from '../link-source-dialog';
-import {NewSourceDialogComponent} from '../new-source-dialog';
+import { LinkSourceDialogComponent } from '../link-source-dialog';
+import { NewSourceDialogComponent } from '../new-source-dialog';
 
 @Component({
   selector: 'app-attribute-list-item-sources',
@@ -41,6 +41,8 @@ export class AttributeListItemSourcesComponent extends SourceCreator implements 
       command: (event: Event) => { this.openUnlinkSourceDialog(); }
     },
   ];
+
+  comparator: ApiComparators = new ApiComparators();
 
   constructor(
     public sourceService: SourceService,
@@ -104,7 +106,7 @@ export class AttributeListItemSourcesComponent extends SourceCreator implements 
     this.sourceService.getAll(data.dataset).subscribe(
       (value: ApiSource[]) => {
         data.sources = value;
-        data.sources.sort(data.compare);
+        data.sources.sort(this.comparator.compareSources);
         data._data = new LinkSourceDialogData();
         let index = 0;
         for (const source of data.sources) {
@@ -143,7 +145,7 @@ export class AttributeListItemSourcesComponent extends SourceCreator implements 
     this.sourceService.getAll(data.dataset).subscribe(
       (value: ApiSource[]) => {
         data.sources = value;
-        data.sources.sort(data.compare);
+        data.sources.sort(this.comparator.compareSources);
         data._data = new LinkSourceDialogData();
         let index = 0;
         for (const attribute of this.attribute.attributes) {
