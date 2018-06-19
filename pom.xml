@@ -60,16 +60,16 @@
     <spring-data-commons.version>1.13.13.RELEASE</spring-data-commons.version>
     <!-- -->
     <!-- Stay in 1.4.x until going to Spring 5 -->
-    <undertow.version>1.4.24.Final</undertow.version>
+    <undertow.version>1.4.25.Final</undertow.version>
 
     <thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
     <junit.version>4.12</junit.version>
     <cglib.version>3.2.6</cglib.version>
     <google-maps-services.version>0.2.7</google-maps-services.version>
-    <jackson-core.version>2.9.5</jackson-core.version>
-    <jackson-databind.version>2.9.5</jackson-databind.version>
+    <jackson-core.version>2.9.6</jackson-core.version>
+    <jackson-databind.version>2.9.6</jackson-databind.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
-    <joda-time.version>2.9.9</joda-time.version>
+    <joda-time.version>2.10</joda-time.version>
     <sauce_junit.version>2.1.23</sauce_junit.version>
     <geojson-jackson.version>1.8</geojson-jackson.version>
     <log4j-over-slf4j.version>1.7.25</log4j-over-slf4j.version>
@@ -78,19 +78,19 @@
     <anselcharset.version>1.1</anselcharset.version>
     <commons-io.version>2.6</commons-io.version>
     <commons-logging.version>1.2</commons-logging.version>
-    <assertj.version>3.9.1</assertj.version>
+    <assertj.version>3.10.0</assertj.version>
 
-    <selenium.version>3.11.0</selenium.version>
+    <selenium.version>3.12.0</selenium.version>
     <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
-    <htmlunit-driver.version>2.30.0</htmlunit-driver.version>
+    <htmlunit-driver.version>2.31.0</htmlunit-driver.version>
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
     <jacoco-plugin.version>0.8.1</jacoco-plugin.version>
     <findbugs-plugin.version>3.0.5</findbugs-plugin.version>
     <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
-    <checkstyle-version>8.9</checkstyle-version>
+    <checkstyle-version>8.10.1</checkstyle-version>
     <pmd-plugin.version>3.9.0</pmd-plugin.version>
-    <pmd-version>6.2.0</pmd-version>
+    <pmd-version>6.4.0</pmd-version>
     <build-helper-plugin.version>3.0.0</build-helper-plugin.version>
     <jxr-plugin.version>2.5</jxr-plugin.version>
     <compiler-plugin.version>3.7.0</compiler-plugin.version>
