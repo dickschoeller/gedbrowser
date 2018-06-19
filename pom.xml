@@ -54,10 +54,10 @@
 
     <!-- These all step forward together -->
     <spring.version>4.3.16.RELEASE</spring.version>
-    <spring-boot.version>1.5.12.RELEASE</spring-boot.version>
-    <spring-boot-maven.version>1.5.12.RELEASE</spring-boot-maven.version>
-    <spring-data-mongodb.version>1.10.11.RELEASE</spring-data-mongodb.version>
-    <spring-data-commons.version>1.13.11.RELEASE</spring-data-commons.version>
+    <spring-boot.version>1.5.14.RELEASE</spring-boot.version>
+    <spring-boot-maven.version>1.5.14.RELEASE</spring-boot-maven.version>
+    <spring-data-mongodb.version>1.10.13.RELEASE</spring-data-mongodb.version>
+    <spring-data-commons.version>1.13.13.RELEASE</spring-data-commons.version>
     <!-- -->
     <!-- Stay in 1.4.x until going to Spring 5 -->
     <undertow.version>1.4.24.Final</undertow.version>
