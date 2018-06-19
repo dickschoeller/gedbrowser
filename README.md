@@ -104,7 +104,7 @@ to reset the database from the files.
   directory
 * Clone this repository and cd into it
 * From the top 'mvn clean install'
-* java -jar gedbrowser/target/gedbrowser-1.3.0-M3.jar or run from your IDE
+* java -jar gedbrowser/target/gedbrowser-1.3.0-M4-SNAPSHOT.jar or run from your IDE
 
 The location of gedbrowser.home defaults to /var/lib/gedbrowser. However that
 can be adjusted in the file application.yml. When running in Docker the data
