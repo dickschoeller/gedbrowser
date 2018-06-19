@@ -25,14 +25,14 @@ sed -i -e "s/$development_version/$release_version/" geoservice/src/main/docker/
 sed -i -e "s/$development_version/$release_version/" geoservice/src/main/java/org/schoellerfamily/geoservice/controller/ApplicationInfo.java
 sed -i -e "s/$development_version/$release_version/" geoservice/src/main/resources/banner.txt
 sed -i -e "s/$development_version/$release_version/" README.md
-sed -i -e "s/$development_version/$release_version/" gedbrowser-api/src/main/resources/banner.txt
-sed -i -e "s/$development_version/$release_version/" gedbrowser-api/src/main/docker/Dockerfile
+sed -i -e "s/$development_version/$release_version/" gedbrowserng/src/main/resources/banner.txt
+sed -i -e "s/$development_version/$release_version/" gedbrowserng/src/main/docker/Dockerfile
 sed -i -e "s/XXXXXX/$release_version/" config/deploy.sh
 sed -i -e "s/XXXXXX/$release_version/" config/before-deploy.sh
 
 # Fix published docker version
 sed -i -e "s/docker.image.tag.snapshot/docker.image.tag>$release_version/" pom.xml
-sed -i -e 's/imageTag>snapshot/imageTag>latest/' gedbrowser/pom.xml geoservice/pom.xml gedbrowser-api/pom.xml
+sed -i -e 's/imageTag>snapshot/imageTag>latest/' gedbrowser/pom.xml geoservice/pom.xml gedbrowserng/pom.xml
 
 # Sanity test. Exit on failure.
 mvn clean test
@@ -73,11 +73,11 @@ sed -i -e "s/$release_version/$new_development_version/" geoservice/src/main/doc
 sed -i -e "s/$release_version/$new_development_version/" geoservice/src/main/java/org/schoellerfamily/geoservice/controller/ApplicationInfo.java
 sed -i -e "s/$release_version/$new_development_version/" geoservice/src/main/resources/banner.txt
 sed -i -e "s/$release_version/$new_development_version/" README.md
-sed -i -e "s/$release_version/$new_development_version/" gedbrowser-api/src/main/resources/banner.txt
-sed -i -e "s/$release_version/$new_development_version/" gedbrowser-api/src/main/docker/Dockerfile
+sed -i -e "s/$release_version/$new_development_version/" gedbrowserng/src/main/resources/banner.txt
+sed -i -e "s/$release_version/$new_development_version/" gedbrowserng/src/main/docker/Dockerfile
 
 sed -i -e "s/docker.image.tag.$release_version/docker.image.tag>snapshot/" pom.xml
-sed -i -e 's/imageTag>latest/imageTag>snapshot/' gedbrowser/pom.xml geoservice/pom.xml gedbrowser-api/pom.xml
+sed -i -e 's/imageTag>latest/imageTag>snapshot/' gedbrowser/pom.xml geoservice/pom.xml gedbrowserng/pom.xml
 sed -i -e "s/$release_version/XXXXXX/" config/deploy.sh
 sed -i -e "s/$release_version/XXXXXX/" config/before-deploy.sh
 
