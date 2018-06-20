@@ -3,7 +3,7 @@ import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 
 import {NgxGalleryModule} from 'ngx-gallery';
-import {Ng2PageScrollModule} from 'ng2-page-scroll';
+import {NgxPageScrollModule} from 'ngx-page-scroll';
 
 import {PanelModule} from 'primeng/panel';
 
@@ -27,7 +27,7 @@ const sourceRouting: ModuleWithProviders = RouterModule.forChild([
     sourceRouting,
     CommonModule,
     NgxGalleryModule,
-    Ng2PageScrollModule,
+    NgxPageScrollModule,
 
     PanelModule,
 

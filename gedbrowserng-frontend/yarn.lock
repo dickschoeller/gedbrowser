@@ -4594,13 +4594,13 @@ neo-async@^2.5.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.5.1.tgz#acb909e327b1e87ec9ef15f41b8a269512ad41ee"
 
-ng2-page-scroll@^4.0.0-beta.12:
-  version "4.0.0-beta.12"
-  resolved "https://registry.yarnpkg.com/ng2-page-scroll/-/ng2-page-scroll-4.0.0-beta.12.tgz#26b4e71ef9ad0859f1fa4e5e8d6ce7c75b73c6f7"
-
 ngx-gallery@^5.3.2:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/ngx-gallery/-/ngx-gallery-5.3.2.tgz#c93c252754b5eb3d5588a4e02ff0cee28f5b7968"
+
+ngx-page-scroll@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/ngx-page-scroll/-/ngx-page-scroll-4.0.2.tgz#0b1b7f26f48f2d55356a19023490052e9fa5a8d9"
 
 no-case@^2.2.0:
   version "2.3.2"
@@ -7267,9 +7267,9 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@~2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.2.tgz#f8395f85d459276067c988aa41837a8f82870844"
+typescript@^2.6.2:
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.9.2.tgz#1cbf61d05d6b96269244eb6a3bce4bd914e0f00c"
 
 typescript@~2.6.2:
   version "2.6.2"

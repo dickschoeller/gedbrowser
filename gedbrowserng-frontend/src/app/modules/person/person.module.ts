@@ -3,7 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { NgxGalleryModule } from 'ngx-gallery';
-import { Ng2PageScrollModule } from 'ng2-page-scroll';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
@@ -49,7 +49,7 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
     CommonModule,
 
     NgxGalleryModule,
-    Ng2PageScrollModule,
+    NgxPageScrollModule,
 
     AccordionModule,
     ButtonModule,

@@ -17,7 +17,7 @@ import {OrderListModule} from 'primeng/orderlist';
 import {TooltipModule} from 'primeng/tooltip';
 
 import {NgxGalleryModule} from 'ngx-gallery';
-import {Ng2PageScrollModule} from 'ng2-page-scroll';
+import {NgxPageScrollModule} from 'ngx-page-scroll';
 
 import {AppComponent} from './app.component';
 
@@ -47,7 +47,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
   imports: [
     rootRouting,
 
-    Ng2PageScrollModule,
+    NgxPageScrollModule,
     NgxGalleryModule,
 
     BrowserModule,
