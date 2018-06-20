@@ -12,6 +12,7 @@ import { LinkPersonHelper } from '../../utils';
   styleUrls: ['./link-person.component.css']
 })
 export class LinkPersonComponent {
+  @Input() dataset: string;
   @Input() parent: LinkCheck;
   @Input() multi: boolean;
   @Input() label: string;
@@ -31,6 +32,7 @@ export class LinkPersonComponent {
   }
 
   onDialogOpen(data: LinkPersonDialogComponent): void {
+    this.dataset = data.dataset;
     this.lph.onLinkChildDialogOpen(data, this.parent);
   }
 

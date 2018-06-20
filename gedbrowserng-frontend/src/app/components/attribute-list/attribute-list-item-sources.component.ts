@@ -42,8 +42,6 @@ export class AttributeListItemSourcesComponent extends SourceCreator implements 
     },
   ];
 
-  comparator: ApiComparators = new ApiComparators();
-
   constructor(
     public sourceService: SourceService,
     public newSourceLinkService: NewSourceLinkService,
@@ -105,8 +103,9 @@ export class AttributeListItemSourcesComponent extends SourceCreator implements 
   onLinkSourceDialogOpen(data: LinkSourceDialogComponent) {
     this.sourceService.getAll(data.dataset).subscribe(
       (value: ApiSource[]) => {
+        const comparator: ApiComparators = new ApiComparators();
         data.sources = value;
-        data.sources.sort(this.comparator.compareSources);
+        data.sources.sort(comparator.compareSources);
         data._data = new LinkSourceDialogData();
         let index = 0;
         for (const source of data.sources) {
@@ -144,8 +143,9 @@ export class AttributeListItemSourcesComponent extends SourceCreator implements 
   onUnlinkSourceDialogOpen(data: LinkSourceDialogComponent) {
     this.sourceService.getAll(data.dataset).subscribe(
       (value: ApiSource[]) => {
+        const comparator: ApiComparators = new ApiComparators();
         data.sources = value;
-        data.sources.sort(this.comparator.compareSources);
+        data.sources.sort(comparator.compareSources);
         data._data = new LinkSourceDialogData();
         let index = 0;
         for (const attribute of this.attribute.attributes) {

@@ -14,8 +14,6 @@ export class PersonListPageComponent implements OnInit, OnChanges {
   dataset: string;
   persons: ApiPerson[];
 
-  comparator: ApiComparators = new ApiComparators();
-
   constructor(private route: ActivatedRoute,
     private personService: PersonService,
     private router: Router) { }
@@ -34,8 +32,9 @@ export class PersonListPageComponent implements OnInit, OnChanges {
     });
     this.route.data.subscribe(
       (data: {dataset: string, persons: ApiPerson[]}) => {
+        const comparator: ApiComparators = new ApiComparators();
         this.persons = data.persons;
-        this.persons.sort(this.comparator.comparePersons);
+        this.persons.sort(comparator.comparePersons);
       }
     );
   }
@@ -49,7 +48,8 @@ export class PersonListPageComponent implements OnInit, OnChanges {
 
     this.personService.getAll(this.dataset).subscribe(
       (persons: Array<ApiPerson>) => {
-        this.persons = persons.sort(this.comparator.comparePersons);
+        const comparator: ApiComparators = new ApiComparators();
+        this.persons = persons.sort(comparator.comparePersons);
       }
     );
   }

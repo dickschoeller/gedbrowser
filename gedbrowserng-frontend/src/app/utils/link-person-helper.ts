@@ -6,15 +6,14 @@ import { ApiComparators } from './api-comparators';
 import { LifespanUtil } from './lifespan-util';
 
 export class LinkPersonHelper {
-  comparator: ApiComparators = new ApiComparators();
-
   constructor(private personService: PersonService) {}
 
   onLinkChildDialogOpen(dialogComponent: any, component: LinkCheck) {
     this.personService.getAll(dialogComponent.dataset).subscribe(
       (value: ApiPerson[]) => {
+        const comparator: ApiComparators = new ApiComparators();
         dialogComponent.persons = value;
-        dialogComponent.persons.sort(this.comparator.comparePersons);
+        dialogComponent.persons.sort(comparator.comparePersons);
         dialogComponent._data = new LinkPersonDialogData();
         for (const person of dialogComponent.persons) {
           if (this.alreadyLinked(person, component)) {

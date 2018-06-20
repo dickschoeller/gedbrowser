@@ -14,8 +14,6 @@ export class SubmitterListPageComponent implements OnInit, OnChanges {
   dataset: string;
   submitters: Array<ApiSubmitter>;
 
-  comparator: ApiComparators = new ApiComparators();
-
   constructor(private route: ActivatedRoute,
     private submitterService: SubmitterService,
     private router: Router
@@ -35,8 +33,9 @@ export class SubmitterListPageComponent implements OnInit, OnChanges {
     });
     this.route.data.subscribe(
       (data: {submitters: ApiSubmitter[]}) => {
+        const comparator: ApiComparators = new ApiComparators();
         this.submitters = data.submitters;
-        this.submitters.sort(this.comparator.compareSubmitters);
+        this.submitters.sort(comparator.compareSubmitters);
       }
     );
   }
@@ -50,7 +49,8 @@ export class SubmitterListPageComponent implements OnInit, OnChanges {
 
     this.submitterService.getAll(this.dataset).subscribe(
       (submitters: Array<ApiSubmitter>) => {
-        this.submitters = submitters.sort(this.comparator.compareSubmitters);
+        const comparator: ApiComparators = new ApiComparators();
+        this.submitters = submitters.sort(comparator.compareSubmitters);
         alert('there are ' + this.submitters.length + ' submitters');
       }
     );
