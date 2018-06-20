@@ -12,6 +12,7 @@ import { ApiPerson, LinkPersonItem, LinkPersonDialogData } from '../../models';
 export class LinkPersonDialogComponent
   extends BaseDialog<LinkPersonDialogData, LinkPersonDialogComponent>
   implements OnInit, OnChanges {
+  @Input() dataset: string;
   @Input() titleString: string;
   @Input() multi: boolean;
   persons: Array<ApiPerson>;

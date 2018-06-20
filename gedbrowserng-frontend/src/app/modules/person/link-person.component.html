@@ -1,7 +1,7 @@
 <p-button (click)="openDialog()" icon="fa fa-fw fa-link"
     [styleClass]="'ui-button-success'" [pTooltip]="label"></p-button>
 <app-link-person-dialog
-    [p]="this"
+    [p]="this" [dataset]="dataset"
     [titleString]="label" [multi]="multi"
     (emitClose)="onDialogClose()"
     (emitOpen)="onDialogOpen($event)"

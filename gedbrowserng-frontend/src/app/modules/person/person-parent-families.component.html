@@ -5,7 +5,7 @@
           [sex]="sex" [surname]="surname" [label]="'Create parent'"
           (emitOK)="createPerson($event)"></app-new-person>
       <app-link-person
-          [parent]="this" [multi]="false" [label]="'Link parent'"
+          [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
           (emitOK)="linkParent($event)"></app-link-person>
     </span>
   </p-header>

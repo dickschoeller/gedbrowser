@@ -14,8 +14,6 @@ export class SourceListPageComponent implements OnInit, OnChanges {
   dataset: string;
   sources: Array<ApiSource>;
 
-  comparator: ApiComparators = new ApiComparators();
-
   constructor(private route: ActivatedRoute,
     private sourceService: SourceService,
     private router: Router) { }
@@ -34,8 +32,9 @@ export class SourceListPageComponent implements OnInit, OnChanges {
     });
     this.route.data.subscribe(
       (data: {dataset: string, sources: ApiSource[]}) => {
+        const comparator: ApiComparators = new ApiComparators();
         this.sources = data.sources;
-        this.sources.sort(this.comparator.compareSources);
+        this.sources.sort(comparator.compareSources);
       }
     );
   }
@@ -49,7 +48,8 @@ export class SourceListPageComponent implements OnInit, OnChanges {
 
     this.sourceService.getAll(this.dataset).subscribe(
       (sources: Array<ApiSource>) => {
-        this.sources = sources.sort(this.comparator.compareSources);
+        const comparator: ApiComparators = new ApiComparators();
+        this.sources = sources.sort(comparator.compareSources);
       }
     );
   }
