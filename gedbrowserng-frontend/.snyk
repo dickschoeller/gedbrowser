@@ -24,13 +24,13 @@ patch:
     - '@angular/cli > node-sass > node-gyp > request > hawk > cryptiles > boom > hoek':
         patched: '2018-06-20T16:11:58.833Z'
     - karma > log4js > loggly > request > hawk > hoek:
-        patched: '2018-06-20T19:07:20.392Z'
+        patched: '2018-06-20T19:07:23.353Z'
     - karma > log4js > loggly > request > hawk > boom > hoek:
-        patched: '2018-06-20T19:07:20.392Z'
+        patched: '2018-06-20T19:07:23.353Z'
     - karma > log4js > loggly > request > hawk > sntp > hoek:
-        patched: '2018-06-20T19:07:20.392Z'
+        patched: '2018-06-20T19:07:23.353Z'
     - karma > log4js > loggly > request > hawk > cryptiles > boom > hoek:
-        patched: '2018-06-20T19:07:20.392Z'
+        patched: '2018-06-20T19:07:23.353Z'
   'npm:ms:20170412':
     - karma > socket.io > socket.io-adapter > socket.io-parser > debug > ms:
         patched: '2018-06-20T16:12:00.110Z'
