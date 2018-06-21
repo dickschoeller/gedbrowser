@@ -5,22 +5,22 @@ ignore: {}
 patch:
   'npm:debug:20170905':
     - karma > socket.io > socket.io-adapter > socket.io-parser > debug:
-        patched: '2018-06-20T16:11:58.833Z'
+        patched: '2018-06-20T16:12:00.110Z'
   'npm:hoek:20180212':
     - '@angular/cli > node-sass > request > hawk > hoek':
-        patched: '2018-06-20T16:11:58.833Z'
+        patched: '2018-06-20T16:12:00.110Z'
     - '@angular/cli > node-sass > request > hawk > boom > hoek':
-        patched: '2018-06-20T16:11:58.833Z'
+        patched: '2018-06-20T16:12:00.110Z'
     - '@angular/cli > node-sass > request > hawk > sntp > hoek':
-        patched: '2018-06-20T16:11:58.833Z'
+        patched: '2018-06-20T16:12:00.110Z'
     - '@angular/cli > node-sass > request > hawk > cryptiles > boom > hoek':
-        patched: '2018-06-20T16:11:58.833Z'
+        patched: '2018-06-20T16:12:00.110Z'
     - '@angular/cli > node-sass > node-gyp > request > hawk > hoek':
-        patched: '2018-06-20T16:11:58.833Z'
+        patched: '2018-06-20T16:12:00.110Z'
     - '@angular/cli > node-sass > node-gyp > request > hawk > boom > hoek':
-        patched: '2018-06-20T16:11:58.833Z'
+        patched: '2018-06-20T16:12:00.110Z'
     - '@angular/cli > node-sass > node-gyp > request > hawk > sntp > hoek':
-        patched: '2018-06-20T16:11:58.833Z'
+        patched: '2018-06-20T16:12:00.110Z'
     - '@angular/cli > node-sass > node-gyp > request > hawk > cryptiles > boom > hoek':
         patched: '2018-06-20T16:11:58.833Z'
     - karma > log4js > loggly > request > hawk > hoek:
@@ -33,4 +33,4 @@ patch:
         patched: '2018-06-20T19:07:23.353Z'
   'npm:ms:20170412':
     - karma > socket.io > socket.io-adapter > socket.io-parser > debug > ms:
-        patched: '2018-06-20T16:11:58.833Z'
+        patched: '2018-06-20T16:12:00.110Z'
