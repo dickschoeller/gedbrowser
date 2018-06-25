@@ -1,6 +1,15 @@
-<app-person-family *ngFor="let attribute of person.fams; let i = index"
-    [dataset]="dataset" [parent]="this" [string]="attribute.string"
-    [index]="i"></app-person-family>
+<p-orderList [value]="person.fams" [responsive]="false"
+    [listStyle]="{'height':'100%','width':'100%','border':'0'}"
+    (onReorder)="parent.save()"
+    dragdrop="true" dragdropScope="person.fams">
+  <ng-template let-attribute let-i="index" pTemplate="item">
+    <div>
+      <app-person-family
+          [dataset]="dataset" [parent]="this" [string]="attribute.string"
+          [index]="i"></app-person-family>
+    </div>
+  </ng-template>
+</p-orderList>
 
 <app-new-person
     [sex]="partnerSex" [surname]="partnerSurname" [label]="'Create spouse'"

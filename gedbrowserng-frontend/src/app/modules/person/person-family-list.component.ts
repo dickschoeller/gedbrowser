@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { InitablePersonCreator } from '../../bases';
-import { HasPerson, LinkCheck } from '../../interfaces';
+import { HasPerson, LinkCheck, Saveable } from '../../interfaces';
 import { LinkPersonDialogComponent } from '../../components';
 import { ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData, LinkPersonItem } from '../../models';
 import { LifespanUtil, UrlBuilder } from '../../utils';
@@ -20,7 +20,7 @@ import { NewPersonLinkService, PersonService } from '../../services';
 })
 export class PersonFamilyListComponent extends InitablePersonCreator implements LinkCheck {
   @Input() dataset: string;
-  @Input() parent: HasPerson;
+  @Input() parent: HasPerson & Saveable;
   get person(): ApiPerson {
     return this.parent.person;
   }
