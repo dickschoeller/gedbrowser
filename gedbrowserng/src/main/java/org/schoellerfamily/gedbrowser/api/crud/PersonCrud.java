@@ -1,9 +1,11 @@
 package org.schoellerfamily.gedbrowser.api.crud;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
@@ -87,7 +89,7 @@ public class PersonCrud
      */
     public ApiPerson updatePerson(final String db, final String id,
             final ApiPerson person) {
-        logger.info("Entering update person in db: " + db);
+        logger.info("Entering update person: " + id + " in db: " + db);
         if (!id.equals(person.getString())) {
             return null;
         }
@@ -101,6 +103,30 @@ public class PersonCrud
      * @return the deleted person object
      */
     public ApiPerson deletePerson(final String db, final String id) {
+        logger.info("Entering delete person: " + id + " from db: " + db);
+        ApiPerson person = readPerson(db, id);
+        List<String> famcList = new ArrayList<>();
+        for (final ApiAttribute a : person.getFamc()) {
+            famcList.add(a.getString());
+        }
+        for (final String famc : famcList) {
+            person = childCrud().unlinkChild(db, famc, id);
+        }
+        List<String> famsList = new ArrayList<>();
+        for (final ApiAttribute a : person.getFams()) {
+            famsList.add(a.getString());
+        }
+        for (final String fams : famsList) {
+            spouseCrud().unlinkSpouseInFamily(db, fams, id);
+        }
         return delete(readRoot(db), id);
+    }
+
+    private ChildCrud childCrud() {
+        return new ChildCrud(getLoader(), getConverter(), getRepositoryManager());
+    }
+
+    private SpouseCrud spouseCrud() {
+        return new SpouseCrud(getLoader(), getConverter(), getRepositoryManager());
     }
 }
