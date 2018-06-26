@@ -105,28 +105,56 @@ public class PersonCrud
     public ApiPerson deletePerson(final String db, final String id) {
         logger.info("Entering delete person: " + id + " from db: " + db);
         ApiPerson person = readPerson(db, id);
-        List<String> famcList = new ArrayList<>();
+        person = unlinkFamc(db, person);
+        person = unlinkFams(db, person);
+        return delete(readRoot(db), id);
+    }
+
+    /**
+     * @param db the dataset
+     * @param person the person to modify
+     * @return the modified person
+     */
+    private ApiPerson unlinkFamc(final String db, ApiPerson person) {
+        final List<String> famcList = new ArrayList<>();
         for (final ApiAttribute a : person.getFamc()) {
             famcList.add(a.getString());
         }
         for (final String famc : famcList) {
-            person = childCrud().unlinkChild(db, famc, id);
+            person = childCrud().unlinkChild(db, famc, person.getString());
         }
-        List<String> famsList = new ArrayList<>();
+        return person;
+    }
+
+    /**
+     * @param db the dataset
+     * @param person the person to modify
+     * @return the modified person
+     */
+    private ApiPerson unlinkFams(final String db, ApiPerson person) {
+        final List<String> famsList = new ArrayList<>();
         for (final ApiAttribute a : person.getFams()) {
             famsList.add(a.getString());
         }
         for (final String fams : famsList) {
-            spouseCrud().unlinkSpouseInFamily(db, fams, id);
+            person = spouseCrud().unlinkSpouseInFamily(db, fams, person.getString());
         }
-        return delete(readRoot(db), id);
+        return person;
     }
 
+    /**
+     * @return a new child CRUD object
+     */
     private ChildCrud childCrud() {
-        return new ChildCrud(getLoader(), getConverter(), getRepositoryManager());
+        return new ChildCrud(getLoader(), getConverter(),
+                getRepositoryManager());
     }
 
+    /**
+     * @return a new spouse CRUD object
+     */
     private SpouseCrud spouseCrud() {
-        return new SpouseCrud(getLoader(), getConverter(), getRepositoryManager());
+        return new SpouseCrud(getLoader(), getConverter(),
+                getRepositoryManager());
     }
 }
