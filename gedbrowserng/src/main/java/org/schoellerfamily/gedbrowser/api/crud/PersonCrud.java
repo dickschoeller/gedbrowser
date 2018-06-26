@@ -115,15 +115,17 @@ public class PersonCrud
      * @param person the person to modify
      * @return the modified person
      */
-    private ApiPerson unlinkFamc(final String db, ApiPerson person) {
+    private ApiPerson unlinkFamc(final String db, final ApiPerson person) {
         final List<String> famcList = new ArrayList<>();
-        for (final ApiAttribute a : person.getFamc()) {
+        ApiPerson newPerson = person;
+        for (final ApiAttribute a : newPerson.getFamc()) {
             famcList.add(a.getString());
         }
         for (final String famc : famcList) {
-            person = childCrud().unlinkChild(db, famc, person.getString());
+            newPerson = childCrud().unlinkChild(
+                    db, famc, newPerson.getString());
         }
-        return person;
+        return newPerson;
     }
 
     /**
@@ -131,15 +133,17 @@ public class PersonCrud
      * @param person the person to modify
      * @return the modified person
      */
-    private ApiPerson unlinkFams(final String db, ApiPerson person) {
+    private ApiPerson unlinkFams(final String db, final ApiPerson person) {
         final List<String> famsList = new ArrayList<>();
-        for (final ApiAttribute a : person.getFams()) {
+        ApiPerson newPerson = person;
+        for (final ApiAttribute a : newPerson.getFams()) {
             famsList.add(a.getString());
         }
         for (final String fams : famsList) {
-            person = spouseCrud().unlinkSpouseInFamily(db, fams, person.getString());
+            newPerson = spouseCrud().unlinkSpouseInFamily(
+                    db, fams, newPerson.getString());
         }
-        return person;
+        return newPerson;
     }
 
     /**
