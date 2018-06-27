@@ -1,10 +1,14 @@
 package org.schoellerfamily.gedbrowser.api.crud;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
@@ -106,6 +110,86 @@ public class SourceCrud
     public ApiSource deleteSource(
             final String db,
             final String id) {
+        unlinkSourceFromPersons(db, id);
+        unlinkSourceFromFamilies(db, id);
         return delete(readRoot(db), id);
+    }
+
+    /**
+     * @param db the dataset we are working on
+     * @param id the ID of the source to unlink
+     */
+    private void unlinkSourceFromPersons(final String db, final String id) {
+        final List<ApiPerson> persons = personCrud().readPersons(db);
+        for (final ApiPerson person : persons) {
+            if (unlinkSource(person, id)) {
+                personCrud().updatePerson(db, person.getString(), person);
+            }
+        }
+    }
+
+    /**
+     * @param db the dataset we are working on
+     * @param id the ID of the source to unlink
+     */
+    private void unlinkSourceFromFamilies(final String db, final String id) {
+        final List<ApiFamily> families = familyCrud().readFamilies(db);
+        for (final ApiFamily family : families) {
+            if (unlinkSource(family, id)) {
+                familyCrud().updateFamily(db, family.getString(), family);
+            }
+        }
+    }
+
+    /**
+     * @return a new person CRUD object
+     */
+    private PersonCrud personCrud() {
+        return new PersonCrud(getLoader(), getConverter(),
+                getRepositoryManager());
+    }
+
+    /**
+     * @return a new family CRUD object
+     */
+    private FamilyCrud familyCrud() {
+        return new FamilyCrud(getLoader(), getConverter(),
+                getRepositoryManager());
+    }
+
+    /**
+     * Recursive method to drill down into the attributes of an API object and
+     * remove links to the identified sources.
+     *
+     * @param object the object we are examining
+     * @param id the id of the source to unlink
+     * @return true if something under here was unlinked
+     */
+    private boolean unlinkSource(final ApiObject object, final String id) {
+        boolean modified = false;
+        final Iterator<ApiAttribute> i = object.getAttributes().iterator();
+        while (i.hasNext()) {
+            final ApiAttribute attribute = i.next();
+            if (isTheSourceLinkWeAreLookingFor(attribute, id)) {
+                i.remove();
+                modified = true;
+            } else if (unlinkSource(attribute, id)) {
+                modified = true;
+            }
+        }
+        return modified;
+    }
+
+    /**
+     * Check if this is a link to the source we are unlinking.
+     *
+     * @param attribute the attribute to examine
+     * @param id the id to check against
+     * @return true if matches
+     */
+    private boolean isTheSourceLinkWeAreLookingFor(final ApiAttribute attribute,
+            final String id) {
+        return attribute.getType().equals("sourcelink")
+                && attribute.getString().equals(id);
     }
 }
