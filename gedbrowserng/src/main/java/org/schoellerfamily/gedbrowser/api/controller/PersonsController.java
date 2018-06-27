@@ -2,6 +2,8 @@ package org.schoellerfamily.gedbrowser.api.controller;
 
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
@@ -26,6 +28,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
 public class PersonsController {
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
+
     /** */
     @Autowired
     private transient GedDocumentFileLoader loader;
@@ -78,6 +83,7 @@ public class PersonsController {
     public ApiPerson readPerson(
             @PathVariable final String db,
             @PathVariable final String id) {
+        logger.info("entering read person: " + id);
         return personCrud().readPerson(db, id);
     }
 
@@ -92,6 +98,7 @@ public class PersonsController {
     public ApiObject updatePerson(@PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
+        logger.info("entering update person: " + id);
         return personCrud().updatePerson(db, id, person);
     }
 
@@ -105,6 +112,7 @@ public class PersonsController {
     public ApiPerson deletePerson(
             @PathVariable final String db,
             @PathVariable final String id) {
+        logger.info("entering delete person: " + id);
         return personCrud().deletePerson(db, id);
     }
 }

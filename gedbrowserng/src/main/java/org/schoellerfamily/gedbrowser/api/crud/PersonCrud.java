@@ -1,9 +1,11 @@
 package org.schoellerfamily.gedbrowser.api.crud;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
@@ -87,7 +89,7 @@ public class PersonCrud
      */
     public ApiPerson updatePerson(final String db, final String id,
             final ApiPerson person) {
-        logger.info("Entering update person in db: " + db);
+        logger.info("Entering update person: " + id + " in db: " + db);
         if (!id.equals(person.getString())) {
             return null;
         }
@@ -101,6 +103,62 @@ public class PersonCrud
      * @return the deleted person object
      */
     public ApiPerson deletePerson(final String db, final String id) {
+        logger.info("Entering delete person: " + id + " from db: " + db);
+        ApiPerson person = readPerson(db, id);
+        person = unlinkFamc(db, person);
+        person = unlinkFams(db, person);
         return delete(readRoot(db), id);
+    }
+
+    /**
+     * @param db the dataset
+     * @param person the person to modify
+     * @return the modified person
+     */
+    private ApiPerson unlinkFamc(final String db, final ApiPerson person) {
+        final List<String> famcList = new ArrayList<>();
+        ApiPerson newPerson = person;
+        for (final ApiAttribute a : newPerson.getFamc()) {
+            famcList.add(a.getString());
+        }
+        for (final String famc : famcList) {
+            newPerson = childCrud().unlinkChild(
+                    db, famc, newPerson.getString());
+        }
+        return newPerson;
+    }
+
+    /**
+     * @param db the dataset
+     * @param person the person to modify
+     * @return the modified person
+     */
+    private ApiPerson unlinkFams(final String db, final ApiPerson person) {
+        final List<String> famsList = new ArrayList<>();
+        ApiPerson newPerson = person;
+        for (final ApiAttribute a : newPerson.getFams()) {
+            famsList.add(a.getString());
+        }
+        for (final String fams : famsList) {
+            newPerson = spouseCrud().unlinkSpouseInFamily(
+                    db, fams, newPerson.getString());
+        }
+        return newPerson;
+    }
+
+    /**
+     * @return a new child CRUD object
+     */
+    private ChildCrud childCrud() {
+        return new ChildCrud(getLoader(), getConverter(),
+                getRepositoryManager());
+    }
+
+    /**
+     * @return a new spouse CRUD object
+     */
+    private SpouseCrud spouseCrud() {
+        return new SpouseCrud(getLoader(), getConverter(),
+                getRepositoryManager());
     }
 }

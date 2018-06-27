@@ -1,14 +1,12 @@
-import {Component, Input} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {PersonCreator} from '../../bases';
-import {
-  NewPersonDialogComponent
-} from '../../components';
-import {ApiPerson, NewPersonDialogData} from '../../models';
-import {PersonService, NewPersonLinkService} from '../../services';
-import {UrlBuilder, NewPersonHelper} from '../../utils';
-import {PersonListPageComponent} from './person-list-page.component';
+import { PersonCreator } from '../../bases';
+import { NewPersonDialogComponent } from '../../components';
+import { ApiPerson, NewPersonDialogData } from '../../models';
+import { PersonService, NewPersonLinkService } from '../../services';
+import { UrlBuilder, NewPersonHelper } from '../../utils';
+import { PersonListPageComponent } from './person-list-page.component';
 
 @Component({
   selector: 'app-person-list',

@@ -1,1 +1,6 @@
-<a [routerLink]="[person?.string]">{{ person?.indexName }}{{ lifespanYearString() }} [{{ person?.string }}]</a>
+<span class="parent">
+  <a [routerLink]="[person?.string]">{{ person?.indexName }}{{ lifespanYearString() }} [{{ person?.string }}]</a>
+  <span class="example-fill-remaining-space"></span>
+  <p-button [styleClass]="'hidden ui-button-danger'" (onClick)="delete()"
+      icon="fa fa-fw fa-trash" pTooltip="Delete person"></p-button>
+</span>
