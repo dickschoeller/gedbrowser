@@ -1,4 +1,5 @@
-import {Component, OnInit, Input} from '@angular/core';
+import { RefreshSource } from '../../interfaces';
+import {Component, Input} from '@angular/core';
 
 import {ApiSource, ApiObject} from '../../models';
 import {SourceService} from '../../services';
@@ -8,13 +9,18 @@ import {SourceService} from '../../services';
   templateUrl: './source-list-item.component.html',
   styleUrls: ['./source-list-item.component.css']
 })
-export class SourceListItemComponent implements OnInit {
+export class SourceListItemComponent {
+  @Input() parent: RefreshSource;
   @Input() dataset: string;
   @Input() source: ApiSource;
 
   constructor(private sourceService: SourceService) {
   }
 
-  ngOnInit() {
+
+  delete() {
+    this.sourceService.delete(this.dataset, this.source).subscribe((source: ApiSource) => {
+      this.parent.refreshSource(source);
+    });
   }
 }

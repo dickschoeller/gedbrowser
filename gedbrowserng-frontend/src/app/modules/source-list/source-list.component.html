@@ -15,7 +15,7 @@
   </p-header>
   <ng-template let-source pTemplate="listItem">
     <div class="main-list">
-      <app-source-list-item [source]="source" [dataset]="dataset"></app-source-list-item>
+      <app-source-list-item [parent]="this" [source]="source" [dataset]="dataset"></app-source-list-item>
     </div>
   </ng-template>
 </p-dataView>

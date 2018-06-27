@@ -1,3 +1,4 @@
+import { RefreshSource } from '../../interfaces';
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -10,7 +11,7 @@ import { ApiComparators } from '../../utils';
   templateUrl: './source-list-page.component.html',
   styleUrls: ['./source-list-page.component.css']
 })
-export class SourceListPageComponent implements OnInit, OnChanges {
+export class SourceListPageComponent implements OnInit, OnChanges, RefreshSource {
   dataset: string;
   sources: Array<ApiSource>;
 
@@ -39,7 +40,7 @@ export class SourceListPageComponent implements OnInit, OnChanges {
     );
   }
 
-  refreshSource(): void {
+  refreshSource(source: ApiSource): void {
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
     };
