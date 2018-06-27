@@ -163,7 +163,6 @@ public class SourceCrud
      *
      * @param object the object we are examining
      * @param id the id of the source to unlink
-     *
      * @return true if something under here was unlinked
      */
     private boolean unlinkSource(final ApiObject object, final String id) {
