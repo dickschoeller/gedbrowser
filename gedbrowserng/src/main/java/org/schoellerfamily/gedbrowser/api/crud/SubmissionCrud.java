@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmissionDocument;
@@ -65,7 +64,7 @@ public class SubmissionCrud
      * @param db the name of the db to access
      * @return the list of submissions
      */
-    public List<ApiSubmission> readSubmissions(final String db) {
+    public List<ApiSubmission> readAll(final String db) {
         logger.info("Entering submissions, db: " + db);
         return getD2dm().convert(read(db));
     }
@@ -86,7 +85,7 @@ public class SubmissionCrud
      * @param submission the data for the submission
      * @return the submission as created
      */
-    public ApiObject updateSubmission(final String db, final String id,
+    public ApiSubmission updateOne(final String db, final String id,
             final ApiSubmission submission) {
         logger.info("Entering update submission in db: " + db);
         if (!id.equals(submission.getString())) {

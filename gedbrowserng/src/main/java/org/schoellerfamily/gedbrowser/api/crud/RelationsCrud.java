@@ -10,15 +10,24 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 /**
  * @author Dick Schoeller
  */
-public class RelationsCrud {
+public abstract class RelationsCrud implements LinkCrud {
     /** Helper. */
     private final transient CrudHelper helper = new CrudHelper();
 
-    /** Handles all of the basic CRUD operations on persons. */
-    private final PersonCrud personCrud;
+    /**
+     * The associated file loader.
+     */
+    private final GedDocumentFileLoader loader;
 
-    /** Handles all of the basic CRUD operations on families. */
-    private final FamilyCrud familyCrud;
+    /**
+     * The associated document converter.
+     */
+    private final GedObjectToGedDocumentMongoConverter toDocConverter;
+
+    /**
+     * The associated repository manager.
+     */
+    private final RepositoryManagerMongo repositoryManager;
 
     /**
      * @param loader the file loader that we will use
@@ -28,10 +37,30 @@ public class RelationsCrud {
     public RelationsCrud(final GedDocumentFileLoader loader,
             final GedObjectToGedDocumentMongoConverter toDocConverter,
             final RepositoryManagerMongo repositoryManager) {
-        this.personCrud = new PersonCrud(loader, toDocConverter,
-                repositoryManager);
-        this.familyCrud = new FamilyCrud(loader, toDocConverter,
-                repositoryManager);
+        this.loader = loader;
+        this.toDocConverter = toDocConverter;
+        this.repositoryManager = repositoryManager;
+    }
+
+    /**
+     * @return the loader
+     */
+    public GedDocumentFileLoader getLoader() {
+        return loader;
+    }
+
+    /**
+     * @return the toDocConverter
+     */
+    public GedObjectToGedDocumentMongoConverter getConverter() {
+        return toDocConverter;
+    }
+
+    /**
+     * @return the repositoryManager
+     */
+    public RepositoryManagerMongo getRepositoryManager() {
+        return repositoryManager;
     }
 
     /**
@@ -41,7 +70,7 @@ public class RelationsCrud {
      */
     protected final ApiPerson createPerson(final String db,
             final ApiPerson person) {
-        return personCrud.createPerson(db, person);
+        return personCrud().createPerson(db, person);
     }
 
     /**
@@ -50,7 +79,7 @@ public class RelationsCrud {
      * @return the person returned from the db
      */
     protected final ApiPerson readPerson(final String db, final String id) {
-        return personCrud.readPerson(db, id);
+        return personCrud().readPerson(db, id);
     }
 
     /**
@@ -58,7 +87,7 @@ public class RelationsCrud {
      * @return the family returned from the db
      */
     protected final ApiFamily createFamily(final String db) {
-        return familyCrud.createFamily(db, new ApiFamily());
+        return familyCrud().createFamily(db, new ApiFamily());
     }
 
     /**
@@ -67,7 +96,7 @@ public class RelationsCrud {
      * @return the family returned from the db
      */
     protected final ApiFamily readFamily(final String db, final String id) {
-        return familyCrud.readFamily(db, id);
+        return familyCrud().readFamily(db, id);
     }
 
     /**
@@ -145,11 +174,11 @@ public class RelationsCrud {
      */
     protected final ApiPerson crudUpdate(final String db,
             final ApiFamily newFamily, final ApiPerson... newPersons) {
-        familyCrud.updateFamily(db, newFamily.getString(), newFamily);
+        familyCrud().updateOne(db, newFamily.getString(), newFamily);
         ApiPerson person = null;
         for (final ApiPerson newPerson : newPersons) {
-            person = personCrud
-                    .updatePerson(db, newPerson.getString(), newPerson);
+            person = personCrud()
+                    .updateOne(db, newPerson.getString(), newPerson);
         }
         return person;
     }
@@ -168,5 +197,4 @@ public class RelationsCrud {
             newFamily.getSpouses().add(spouseAttribute);
         }
     }
-
 }

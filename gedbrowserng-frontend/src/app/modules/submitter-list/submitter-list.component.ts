@@ -1,8 +1,8 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import {ApiSubmitter} from '../../models';
-import {SubmitterService} from '../../services';
-import {SubmitterListPageComponent} from './submitter-list-page.component';
+import { ApiSubmitter } from '../../models';
+import { SubmitterService } from '../../services';
+import { SubmitterListPageComponent } from './submitter-list-page.component';
 
 @Component({
   selector: 'app-submitter-list',
@@ -10,7 +10,7 @@ import {SubmitterListPageComponent} from './submitter-list-page.component';
   styleUrls: ['./submitter-list.component.css']
 })
 export class SubmitterListComponent {
-  @Input() p: SubmitterListPageComponent;
+  @Input() parent: SubmitterListPageComponent;
   @Input() dataset: string;
   @Input() submitters: ApiSubmitter[];
   display = false;
@@ -23,5 +23,9 @@ export class SubmitterListComponent {
 
   closeDialog(): void {
     this.display = false;
+  }
+
+  refreshSubmitter(submitter: ApiSubmitter) {
+    this.parent.refreshSubmitter(submitter);
   }
 }

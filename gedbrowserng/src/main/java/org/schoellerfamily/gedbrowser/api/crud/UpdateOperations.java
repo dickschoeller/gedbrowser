@@ -73,4 +73,12 @@ public interface UpdateOperations<X extends GedObject,
             return null;
         }
     }
+
+    /**
+     * @param db the dataset
+     * @param id the ID of the thing to update
+     * @param object the new data
+     * @return the updated object
+     */
+    Z updateOne(String db, String id, Z object);
 }

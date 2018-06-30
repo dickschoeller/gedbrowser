@@ -144,4 +144,14 @@ public final class ChildCrud extends RelationsCrud {
             }
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isTheLinkWeAreLookingFor(final ApiAttribute attribute,
+            final String id) {
+        return "child".equals(attribute.getType())
+                && attribute.getString().equals(id);
+    }
 }

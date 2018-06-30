@@ -1,5 +1,8 @@
 package org.schoellerfamily.gedbrowser.api.crud;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
@@ -48,10 +51,44 @@ public class HeadCrud
 
     /**
      * @param db the name of the db to access
-     * @return the list of sources
+     * @return the one head
      */
     public ApiHead readHead(final String db) {
         logger.info("Entering head, db: " + db);
         return (ApiHead) getD2dm().convert(read(db)).get(0);
+    }
+
+
+    /**
+     * @param db the name of the db to access
+     * @return the list of heads
+     */
+    public List<ApiHead> readAll(final String db) {
+        logger.info("Entering head, db: " + db);
+        final List<ApiHead> list = new ArrayList<>();
+        list.add((ApiHead) getD2dm().convert(read(db)).get(0));
+        return list;
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param head the data for the head
+     * @return the head as created
+     */
+    public ApiHead updateHead(final String db, final ApiHead head) {
+        logger.info("Entering update head in db: " + db);
+        return update(readRoot(db), head);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the id of the head (ignored)
+     * @param head the data for the head
+     * @return the head as created
+     */
+    public ApiHead updateOne(final String db, final String id,
+            final ApiHead head) {
+        logger.info("Entering update head in db: " + db);
+        return updateHead(db, head);
     }
 }

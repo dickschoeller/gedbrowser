@@ -65,7 +65,7 @@ public class NoteCrud
      * @param db the name of the db to access
      * @return the list of notes
      */
-    public List<ApiNote> readNotes(
+    public List<ApiNote> readAll(
             final String db) {
         logger.info("Entering notes, db: " + db);
         return getD2dm().convert(read(db));
@@ -90,7 +90,7 @@ public class NoteCrud
      * @param note the data for the note
      * @return the note as created
      */
-    public ApiObject updateNote(final String db,
+    public ApiNote updateOne(final String db,
             final String id,
             final ApiNote note) {
         logger.info("Entering update note in db: " + db);

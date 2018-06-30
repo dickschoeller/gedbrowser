@@ -6,6 +6,8 @@ import static org.junit.Assert.assertEquals;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
@@ -34,6 +36,9 @@ import org.springframework.web.client.RestClientException;
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class PersonControllerTest {
+    /** Logger. */
+    private final transient Log logger = LogFactory.getLog(getClass());
+
     /** */
     private static final int TRUNCATE_LENGTH = 500;
 
@@ -245,6 +250,136 @@ public class PersonControllerTest {
         final ResponseEntity<ApiPerson> postDeleteEntity = testRestTemplate
                 .getForEntity(deleteUrl, ApiPerson.class);
         then(postDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testDeleteSpouseLinkedPerson()
+            throws RestClientException, URISyntaxException {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        // Create a person.
+        // We want to be sure we know the structure of the person
+        // we are modifying.
+        final String url = "http://localhost:" + port
+                + "/gedbrowserng/v1/dbs/gl120368/persons";
+        final ApiPerson reqBody = createRJS();
+        final HttpEntity<ApiPerson> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiPerson> personEntity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiPerson.class);
+        then(personEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        // Capture information about new person.
+        final ApiPerson resBody = personEntity.getBody();
+        final String id = resBody.getString();
+
+        final String childUrl = url + "/"
+                + resBody.getString() + "/children";
+        final ApiPerson childReqBody = createAlexander();
+        final HttpEntity<ApiPerson> childReq =
+                new HttpEntity<>(childReqBody, headers);
+        final ResponseEntity<ApiPerson> childEntity = testRestTemplate
+                .postForEntity(new URI(childUrl), childReq, ApiPerson.class);
+        then(childEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ApiPerson child = childEntity.getBody();
+
+        final String fam = child.getFamc().get(0).getString();
+        logger.info(
+                "The new child, " + child.getString() + ", in family " + fam);
+
+        final ApiPerson p2 = createAlexandra();
+        final HttpEntity<ApiPerson> personReq = new HttpEntity<>(p2,
+                headers);
+        final String familiesUrl = "http://localhost:" + port
+                + "/gedbrowserng/v1/dbs/gl120368/families/";
+        final String fspUrl = familiesUrl + fam + "/spouses";
+        logger.info("fspUrl: " + fspUrl);
+        final ResponseEntity<ApiPerson> pe = testRestTemplate.exchange(
+                new URI(fspUrl), HttpMethod.POST,
+                personReq, ApiPerson.class);
+        then(pe.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ApiPerson gotP2 = pe.getBody();
+        then(fam).isEqualTo(gotP2.getFams().get(0).getString());
+
+        final String deleteUrl = url + "/" + id;
+        final ResponseEntity<ApiPerson> preDeleteEntity = testRestTemplate
+                .getForEntity(deleteUrl, ApiPerson.class);
+        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ResponseEntity<String> deleteEntity = testRestTemplate
+                .exchange(deleteUrl, HttpMethod.DELETE, null, String.class);
+        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ResponseEntity<ApiPerson> postDeleteEntity = testRestTemplate
+                .getForEntity(deleteUrl, ApiPerson.class);
+        then(postDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
+    public final void testDeleteChildLinkedPerson()
+            throws RestClientException, URISyntaxException {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        // Create a person.
+        // We want to be sure we know the structure of the person
+        // we are modifying.
+        final String url = "http://localhost:" + port
+                + "/gedbrowserng/v1/dbs/gl120368/persons";
+        final ApiPerson reqBody = createRJS();
+        final HttpEntity<ApiPerson> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiPerson> personEntity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiPerson.class);
+        then(personEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        // Capture information about new person.
+        final ApiPerson resBody = personEntity.getBody();
+
+        final String childUrl = url + "/"
+                + resBody.getString() + "/children";
+        final ApiPerson childReqBody = createAlexander();
+        final HttpEntity<ApiPerson> childReq =
+                new HttpEntity<>(childReqBody, headers);
+        final ResponseEntity<ApiPerson> childEntity = testRestTemplate
+                .postForEntity(new URI(childUrl), childReq, ApiPerson.class);
+        then(childEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ApiPerson child = childEntity.getBody();
+
+        final String fam = child.getFamc().get(0).getString();
+        final String childId = child.getString();
+        logger.info(
+                "The new child, " + childId + ", in family " + fam);
+
+        final ApiPerson p2 = createAlexandra();
+        final HttpEntity<ApiPerson> personReq = new HttpEntity<>(p2,
+                headers);
+        final String familiesUrl = "http://localhost:" + port
+                + "/gedbrowserng/v1/dbs/gl120368/families/";
+        final String fspUrl = familiesUrl + fam + "/spouses";
+        logger.info("fspUrl: " + fspUrl);
+        final ResponseEntity<ApiPerson> pe = testRestTemplate.exchange(
+                new URI(fspUrl), HttpMethod.POST,
+                personReq, ApiPerson.class);
+        then(pe.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ApiPerson gotP2 = pe.getBody();
+        then(fam).isEqualTo(gotP2.getFams().get(0).getString());
+
+        final String deleteUrl = url + "/" + childId;
+        final ResponseEntity<ApiPerson> preDeleteEntity = testRestTemplate
+                .getForEntity(deleteUrl, ApiPerson.class);
+        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ResponseEntity<String> deleteEntity = testRestTemplate
+                .exchange(deleteUrl, HttpMethod.DELETE, null, String.class);
+        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ResponseEntity<ApiPerson> entityAfterDelete = testRestTemplate
+                .getForEntity(deleteUrl, ApiPerson.class);
+        then(entityAfterDelete.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     /**

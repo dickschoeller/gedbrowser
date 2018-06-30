@@ -65,7 +65,7 @@ public class SubmissionsController {
     @ResponseBody
     public List<ApiSubmission> readSubmissions(
             @PathVariable final String db) {
-        return submissionCrud().readSubmissions(db);
+        return submissionCrud().readAll(db);
     }
 
     /**
@@ -92,7 +92,7 @@ public class SubmissionsController {
     public ApiObject updateSubmission(@PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiSubmission submission) {
-        return submissionCrud().updateSubmission(db, id, submission);
+        return submissionCrud().updateOne(db, id, submission);
     }
 
     /**

@@ -103,4 +103,10 @@ public interface ReadOperations <X extends GedObject,
         all.sort(new GetStringComparator());
         return all;
     }
+
+    /**
+     * @param db the dataset name
+     * @return the list of API objects
+     */
+    List<Z> readAll(String db);
 }

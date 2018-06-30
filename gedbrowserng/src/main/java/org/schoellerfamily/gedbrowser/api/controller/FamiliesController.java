@@ -65,7 +65,7 @@ public final class FamiliesController {
     @ResponseBody
     public List<ApiFamily> readFamilies(
             @PathVariable final String db) {
-        return familyCrud().readFamilies(db);
+        return familyCrud().readAll(db);
     }
 
     /**
@@ -92,7 +92,7 @@ public final class FamiliesController {
     public ApiObject updateFamily(@PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiFamily family) {
-        return familyCrud().updateFamily(db, id, family);
+        return familyCrud().updateOne(db, id, family);
     }
 
     /**

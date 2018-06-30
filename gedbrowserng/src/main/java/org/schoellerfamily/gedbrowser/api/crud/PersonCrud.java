@@ -66,7 +66,7 @@ public class PersonCrud
      * @param db the name of the db to access
      * @return the list of persons
      */
-    public List<ApiPerson> readPersons(final String db) {
+    public List<ApiPerson> readAll(final String db) {
         logger.info("Entering read /dbs/" + db + "/persons");
         return getD2dm().convert(read(db));
     }
@@ -87,7 +87,7 @@ public class PersonCrud
      * @param person the data for the person
      * @return the person as created
      */
-    public ApiPerson updatePerson(final String db, final String id,
+    public ApiPerson updateOne(final String db, final String id,
             final ApiPerson person) {
         logger.info("Entering update person: " + id + " in db: " + db);
         if (!id.equals(person.getString())) {
@@ -106,7 +106,8 @@ public class PersonCrud
         logger.info("Entering delete person: " + id + " from db: " + db);
         ApiPerson person = readPerson(db, id);
         person = unlinkFamc(db, person);
-        person = unlinkFams(db, person);
+        /* person = */
+        unlinkFams(db, person);
         return delete(readRoot(db), id);
     }
 

@@ -63,7 +63,7 @@ public class FamilyCrud
      * @param db the name of the db to access
      * @return the list of families
      */
-    public List<ApiFamily> readFamilies(final String db) {
+    public List<ApiFamily> readAll(final String db) {
         logger.info("Entering read /dbs/" + db + "/families");
         return convert(read(db));
     }
@@ -84,7 +84,7 @@ public class FamilyCrud
      * @param family the data for the family
      * @return the family as created
      */
-    public ApiFamily updateFamily(final String db, final String id,
+    public ApiFamily updateOne(final String db, final String id,
             final ApiFamily family) {
         logger.info("Entering update family in db: " + db);
         if (!id.equals(family.getString())) {
