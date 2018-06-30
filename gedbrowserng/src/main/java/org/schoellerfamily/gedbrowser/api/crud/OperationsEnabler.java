@@ -13,15 +13,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
  * @author Dick Schoeller
  */
 public abstract class OperationsEnabler<
-    X extends GedObject, Y extends GedDocument<X>> {
-    /** */
-    private final GedDocumentFileLoader loader;
-
-    /** */
-    private final GedObjectToGedDocumentMongoConverter toDocConverter;
-
-    /** */
-    private final RepositoryManagerMongo repositoryManager;
+    X extends GedObject, Y extends GedDocument<X>> extends CrudParams {
 
     /**
      * Handles data conversion from DB model to API model.
@@ -37,40 +29,13 @@ public abstract class OperationsEnabler<
     public OperationsEnabler(final GedDocumentFileLoader loader,
             final GedObjectToGedDocumentMongoConverter toDocConverter,
             final RepositoryManagerMongo repositoryManager) {
-        this.loader = loader;
-        this.toDocConverter = toDocConverter;
-        this.repositoryManager = repositoryManager;
+        super(loader, toDocConverter, repositoryManager);
     }
 
     /**
      * @return the data model class
      */
     public abstract Class<X> getGedClass();
-
-    /**
-     * Get the class that loads a file into the database if not already there.
-     *
-     * @return the loader
-     */
-    public final GedDocumentFileLoader getLoader() {
-        return loader;
-    }
-
-    /**
-     * Get the class that converts from GedObject to GedDocument.
-     *
-     * @return the converter
-     */
-    public final GedObjectToGedDocumentMongoConverter getConverter() {
-        return toDocConverter;
-    }
-
-    /**
-     * @return the repository manager
-     */
-    public final RepositoryManagerMongo getRepositoryManager() {
-        return repositoryManager;
-    }
 
     /**
      * @return the class the converts from DB model to API model

@@ -10,24 +10,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 /**
  * @author Dick Schoeller
  */
-public abstract class RelationsCrud implements LinkCrud {
+public abstract class RelationsCrud extends CrudParams implements LinkCrud {
     /** Helper. */
     private final transient CrudHelper helper = new CrudHelper();
-
-    /**
-     * The associated file loader.
-     */
-    private final GedDocumentFileLoader loader;
-
-    /**
-     * The associated document converter.
-     */
-    private final GedObjectToGedDocumentMongoConverter toDocConverter;
-
-    /**
-     * The associated repository manager.
-     */
-    private final RepositoryManagerMongo repositoryManager;
 
     /**
      * @param loader the file loader that we will use
@@ -37,30 +22,7 @@ public abstract class RelationsCrud implements LinkCrud {
     public RelationsCrud(final GedDocumentFileLoader loader,
             final GedObjectToGedDocumentMongoConverter toDocConverter,
             final RepositoryManagerMongo repositoryManager) {
-        this.loader = loader;
-        this.toDocConverter = toDocConverter;
-        this.repositoryManager = repositoryManager;
-    }
-
-    /**
-     * @return the loader
-     */
-    public GedDocumentFileLoader getLoader() {
-        return loader;
-    }
-
-    /**
-     * @return the toDocConverter
-     */
-    public GedObjectToGedDocumentMongoConverter getConverter() {
-        return toDocConverter;
-    }
-
-    /**
-     * @return the repositoryManager
-     */
-    public RepositoryManagerMongo getRepositoryManager() {
-        return repositoryManager;
+        super(loader, toDocConverter, repositoryManager);
     }
 
     /**
