@@ -99,10 +99,18 @@ public interface LinkCrud {
      */
     default void unlinkFrom(final String db, final String id) {
         unlinkFrom(db, id, familyCrud());
-        unlinkFrom(db, id, headCrud());
         unlinkFrom(db, id, noteCrud());
         unlinkFrom(db, id, personCrud());
         unlinkFrom(db, id, sourceCrud());
+        unlinkFromHead(db, id);
+    }
+
+    /**
+     * @param db the db to unlink from
+     * @param id the ID to unlink
+     */
+    default void unlinkFromHead(final String db, final String id) {
+        unlinkFrom(db, id, headCrud());
         unlinkFrom(db, id, submissionCrud());
         unlinkFrom(db, id, submitterCrud());
     }

@@ -72,8 +72,8 @@ public class ParentCrud extends RelationsCrud {
     @Override
     public boolean isTheLinkWeAreLookingFor(final ApiAttribute attribute,
             final String id) {
-        return ("husband".equals(attribute.getType())
-                || "wife".equals(attribute.getType()))
+        return ("wife".equals(attribute.getType())
+                || "husband".equals(attribute.getType()))
                 && attribute.getString().equals(id);
     }
 }
