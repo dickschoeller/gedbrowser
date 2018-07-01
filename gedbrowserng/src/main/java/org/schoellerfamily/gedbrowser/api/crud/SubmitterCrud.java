@@ -66,7 +66,7 @@ public class SubmitterCrud
      * @param db the name of the db to access
      * @return the list of submitters
      */
-    public List<ApiSubmitter> readSubmitters(final String db) {
+    public List<ApiSubmitter> readAll(final String db) {
         logger.info("Entering submitters, db: " + db);
         return convert(read(db));
     }
@@ -87,7 +87,7 @@ public class SubmitterCrud
      * @param submitter the data for the submitter
      * @return the submitter as created
      */
-    public ApiObject updateSubmitter(final String db, final String id,
+    public ApiSubmitter updateOne(final String db, final String id,
             final ApiSubmitter submitter) {
         logger.info("Entering update submitter in db: " + db);
         if (!id.equals(submitter.getString())) {

@@ -65,7 +65,7 @@ public class SourcesController {
     @ResponseBody
     public List<ApiSource> readSources(
             @PathVariable final String db) {
-        return sourceCrud().readSources(db);
+        return sourceCrud().readAll(db);
     }
 
     /**
@@ -92,7 +92,7 @@ public class SourcesController {
     public ApiObject updateSource(@PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiSource source) {
-        return sourceCrud().updateSource(db, id, source);
+        return sourceCrud().updateOne(db, id, source);
     }
 
     /**

@@ -65,7 +65,7 @@ public class NotesController {
     @ResponseBody
     public List<ApiNote> readNotes(
             @PathVariable final String db) {
-        return noteCrud().readNotes(db);
+        return noteCrud().readAll(db);
     }
 
     /**
@@ -92,7 +92,7 @@ public class NotesController {
     public ApiObject updateNote(@PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiNote note) {
-        return noteCrud().updateNote(db, id, note);
+        return noteCrud().updateOne(db, id, note);
     }
 
     /**

@@ -1,1 +1,6 @@
-<a [routerLink]="[submitter?.string]">{{ submitter?.name }} ({{ submitter?.string }})</a>
+<span class="parent">
+  <a [routerLink]="[submitter?.string]">{{ submitter?.name }} ({{ submitter?.string }})</a>
+  <span class="example-fill-remaining-space"></span>
+  <p-button [styleClass]="'hidden ui-button-danger'" (onClick)="delete()"
+      icon="fa fa-fw fa-trash" pTooltip="Delete submitter"></p-button>
+</span>

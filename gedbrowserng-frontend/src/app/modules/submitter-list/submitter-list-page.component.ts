@@ -40,7 +40,7 @@ export class SubmitterListPageComponent implements OnInit, OnChanges {
     );
   }
 
-  refreshSubmitter(): void {
+  refreshSubmitter(submitter: ApiSubmitter): void {
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
     };
@@ -51,7 +51,6 @@ export class SubmitterListPageComponent implements OnInit, OnChanges {
       (submitters: Array<ApiSubmitter>) => {
         const comparator: ApiComparators = new ApiComparators();
         this.submitters = submitters.sort(comparator.compareSubmitters);
-        alert('there are ' + this.submitters.length + ' submitters');
       }
     );
   }

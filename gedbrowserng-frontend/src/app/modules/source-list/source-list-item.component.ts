@@ -1,8 +1,8 @@
-import { RefreshSource } from '../../interfaces';
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import {ApiSource, ApiObject} from '../../models';
-import {SourceService} from '../../services';
+import { RefreshSource } from '../../interfaces';
+import { ApiSource, ApiObject } from '../../models';
+import { SourceService } from '../../services';
 
 @Component({
   selector: 'app-source-list-item',
@@ -16,7 +16,6 @@ export class SourceListItemComponent {
 
   constructor(private sourceService: SourceService) {
   }
-
 
   delete() {
     this.sourceService.delete(this.dataset, this.source).subscribe((source: ApiSource) => {

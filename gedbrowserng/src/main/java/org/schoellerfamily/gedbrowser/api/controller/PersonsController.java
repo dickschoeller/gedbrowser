@@ -70,7 +70,7 @@ public class PersonsController {
     @ResponseBody
     public List<ApiPerson> readPersons(
             @PathVariable final String db) {
-        return personCrud().readPersons(db);
+        return personCrud().readAll(db);
     }
 
     /**
@@ -99,7 +99,7 @@ public class PersonsController {
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
         logger.info("entering update person: " + id);
-        return personCrud().updatePerson(db, id, person);
+        return personCrud().updateOne(db, id, person);
     }
 
     /**

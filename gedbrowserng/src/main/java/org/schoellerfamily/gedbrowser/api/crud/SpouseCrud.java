@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.api.crud;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
@@ -118,5 +119,16 @@ public class SpouseCrud extends RelationsCrud {
         final ApiFamily family = readFamily(db, id);
         removeSpouseFromFamily(family, person);
         return crudUpdate(db, family, person);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isTheLinkWeAreLookingFor(final ApiAttribute attribute,
+            final String id) {
+        return ("husband".equals(attribute.getType())
+                || "wife".equals(attribute.getType()))
+                && attribute.getString().equals(id);
     }
 }
