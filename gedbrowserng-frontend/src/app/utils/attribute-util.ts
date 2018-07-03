@@ -69,6 +69,9 @@ export class AttributeUtil {
     return 0;
   }
 
+  href() {
+    return this.href(this.parent.dataset, this.parent.attribute);
+  }
 
   href(dataset: string, attribute: ApiAttribute) {
     if (attribute.type === 'sourcelink') {

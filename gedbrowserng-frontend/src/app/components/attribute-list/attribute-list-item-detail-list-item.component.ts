@@ -22,7 +22,7 @@ export class AttributeListItemDetailListItemComponent {
   }
 
   href() {
-    return this.attributeUtil.href(this.dataset, this.attribute);
+    return this.attributeUtil.href();
   }
 
   image(): boolean {

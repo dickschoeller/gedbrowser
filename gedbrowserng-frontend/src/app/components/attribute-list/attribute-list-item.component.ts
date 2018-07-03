@@ -63,6 +63,6 @@ export class AttributeListItemComponent implements OnInit {
   }
 
   href() {
-    return this.attributeUtil.href(this.dataset, this.attribute);
+    return this.attributeUtil.href();
   }
 }
