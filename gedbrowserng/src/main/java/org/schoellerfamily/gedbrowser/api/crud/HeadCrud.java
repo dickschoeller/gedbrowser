@@ -39,8 +39,7 @@ public class HeadCrud
      */
     @Override
     public FindableDocument<Head, HeadDocument> getRepository() {
-        final HeadDocumentRepositoryMongo headDocumentRepository = getRepositoryManager().getHeadDocumentRepository();
-        return headDocumentRepository;
+        return getRepositoryManager().getHeadDocumentRepository();
     }
 
     /**
