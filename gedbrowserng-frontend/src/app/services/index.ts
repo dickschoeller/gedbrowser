@@ -1,4 +1,5 @@
 export * from './new-person-link.service';
+export * from './head.service';
 export * from './family.service';
 export * from './person.service';
 export * from './save.service';

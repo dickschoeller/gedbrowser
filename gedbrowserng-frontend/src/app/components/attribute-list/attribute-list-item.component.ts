@@ -61,4 +61,8 @@ export class AttributeListItemComponent implements OnInit {
     this.attributes.splice(index, 1);
     this.parent.save();
   }
+
+  href() {
+    return this.attributeUtil.href();
+  }
 }

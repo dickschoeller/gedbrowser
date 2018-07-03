@@ -64,7 +64,7 @@ public class HeadCrud
      * @return the list of heads
      */
     public List<ApiHead> readAll(final String db) {
-        logger.info("Entering head, db: " + db);
+        logger.info("Entering all head, db: " + db);
         final List<ApiHead> list = new ArrayList<>();
         list.add((ApiHead) getD2dm().convert(read(db)).get(0));
         return list;

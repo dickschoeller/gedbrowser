@@ -44,8 +44,7 @@ public class HeadController {
      */
     @GetMapping(value = "/v1/dbs/{db}")
     @ResponseBody
-    public ApiHead readHead(
-            @PathVariable final String db) {
+    public ApiHead readHead(@PathVariable final String db) {
         return headCrud().readHead(db);
     }
 }

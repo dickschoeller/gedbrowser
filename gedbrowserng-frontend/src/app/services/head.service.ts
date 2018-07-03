@@ -11,7 +11,7 @@ export class HeadService {
 
   constructor(private http: HttpClient) {}
 
-  getOne(db: string, id: string): Observable<ApiHead> {
+  getOne(db: string): Observable<ApiHead> {
     return this.http.get<ApiHead>(this.url(db));
   }
 

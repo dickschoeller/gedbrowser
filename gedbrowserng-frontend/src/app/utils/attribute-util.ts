@@ -23,7 +23,6 @@ export class AttributeUtil {
     return this.parent.attribute.string;
   }
 
-
   editable(): boolean {
     if (this.label() === 'Reference Number' || this.label() === 'Changed') {
       return false;
@@ -69,4 +68,25 @@ export class AttributeUtil {
     }
     return 0;
   }
+
+  href() {
+    return this.hrefit(this.parent.dataset, this.parent.attribute);
+  }
+
+  hrefit(dataset: string, attribute: ApiAttribute) {
+    if (attribute.type === 'sourcelink') {
+      return '#/' + dataset + '/sources/' + attribute.string;
+    }
+    if (attribute.type === 'submitterlink') {
+      return '#/' + dataset + '/submitters/' + attribute.string;
+    }
+    if (attribute.type === 'submissionlink') {
+      return '#/' + dataset + '/submissions/' + attribute.string;
+    }
+    if (attribute.string === 'File') {
+      return attribute.tail;
+    }
+    return null;
+  }
+
 }
