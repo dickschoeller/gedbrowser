@@ -70,10 +70,10 @@ export class AttributeUtil {
   }
 
   href() {
-    return this.href(this.parent.dataset, this.parent.attribute);
+    return this.hrefit(this.parent.dataset, this.parent.attribute);
   }
 
-  href(dataset: string, attribute: ApiAttribute) {
+  hrefit(dataset: string, attribute: ApiAttribute) {
     if (attribute.type === 'sourcelink') {
       return '#/' + dataset + '/sources/' + attribute.string;
     }
