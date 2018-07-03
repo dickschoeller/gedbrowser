@@ -1,5 +1,8 @@
 <div class="parent">
-  <b>{{ attributeUtil.label() }}:&nbsp;</b><span *ngIf="attributeUtil.contents()"> {{ attributeUtil.contents() }}<span *ngIf="attribute?.attributes">,&nbsp;</span></span>
+  <b>{{ attributeUtil.label() }}:&nbsp;</b><span *ngIf="attributeUtil.contents()">
+    <span *ngIf="href(); else elseLinkBlock"><a href="{{ href() }}">[{{ attributeUtil.contents() }}]</a></span>
+    <ng-template #elseLinkBlock><span>{{ attributeUtil.contents() }}</span></ng-template><span *ngIf="attribute?.attributes.length">,&nbsp;</span>
+   </span>
   <app-attribute-list-item-detail-list [dataset]="dataset" [attributes]="attribute?.attributes"></app-attribute-list-item-detail-list>
   <span class="example-fill-remaining-space"></span>
   <span *ngIf="attributeUtil.editable()" class="hidden">

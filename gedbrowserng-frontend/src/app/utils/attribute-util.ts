@@ -23,7 +23,6 @@ export class AttributeUtil {
     return this.parent.attribute.string;
   }
 
-
   editable(): boolean {
     if (this.label() === 'Reference Number' || this.label() === 'Changed') {
       return false;

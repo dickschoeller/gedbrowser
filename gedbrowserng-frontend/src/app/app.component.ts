@@ -31,6 +31,7 @@ export class AppComponent implements OnInit, OnChanges {
 
   private init() {
     this.items = [
+      { label: 'Head', icon: 'fa-cog', routerLink: ['/' + this.dataset + '/head'] },
       { label: 'Persons', icon: 'fa-users', routerLink: ['/' + this.dataset + '/persons'] },
       { label: 'Sources', icon: 'fa-book', routerLink: ['/' + this.dataset + '/sources'] },
       { label: 'Submitters', icon: 'fa-user', routerLink: ['/' + this.dataset + '/submitters'] },

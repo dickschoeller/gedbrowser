@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
@@ -38,7 +39,8 @@ public class HeadCrud
      */
     @Override
     public FindableDocument<Head, HeadDocument> getRepository() {
-        return getRepositoryManager().getHeadDocumentRepository();
+        final HeadDocumentRepositoryMongo headDocumentRepository = getRepositoryManager().getHeadDocumentRepository();
+        return headDocumentRepository;
     }
 
     /**
@@ -64,7 +66,7 @@ public class HeadCrud
      * @return the list of heads
      */
     public List<ApiHead> readAll(final String db) {
-        logger.info("Entering head, db: " + db);
+        logger.info("Entering all head, db: " + db);
         final List<ApiHead> list = new ArrayList<>();
         list.add((ApiHead) getD2dm().convert(read(db)).get(0));
         return list;

@@ -22,6 +22,7 @@ import {NgxPageScrollModule} from 'ngx-page-scroll';
 import {AppComponent} from './app.component';
 
 import {
+  HeadModule,
   PersonListModule,
   PersonModule,
   SourceListModule,
@@ -31,6 +32,7 @@ import {
 } from './modules';
 
 import {
+  HeadService,
   ServiceBase,
   FamilyService,
   NewPersonLinkService,
@@ -67,6 +69,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     TieredMenuModule,
     TooltipModule,
 
+    HeadModule,
     PersonListModule,
     PersonModule,
     SourceListModule,
@@ -80,6 +83,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
   entryComponents: [
   ],
   providers: [
+    HeadService,
     NewPersonLinkService,
     NewSourceLinkService,
     FamilyService,

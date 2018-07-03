@@ -23,16 +23,9 @@ export class AttributeListItemDetailListItemComponent implements OnInit {
     return (this.index >= this.length - 1);
   }
 
-  link() {
-    return (this.href() !== null);
-  }
-
   href() {
     if (this.attribute.type === 'sourcelink') {
       return '#/' + this.dataset + '/sources/' + this.attribute.string;
-    }
-    if (this.attribute.type === 'submitterlink') {
-      return '#/' + this.dataset + '/submitters' + this.attribute.string;
     }
     if (this.attribute.string === 'File') {
       return this.attribute.tail;

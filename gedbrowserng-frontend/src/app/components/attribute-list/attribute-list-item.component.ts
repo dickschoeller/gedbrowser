@@ -61,4 +61,20 @@ export class AttributeListItemComponent implements OnInit {
     this.attributes.splice(index, 1);
     this.parent.save();
   }
+
+  href() {
+    if (this.attribute.type === 'sourcelink') {
+      return '#/' + this.dataset + '/sources/' + this.attribute.string;
+    }
+    if (this.attribute.type === 'submitterlink') {
+      return '#/' + this.dataset + '/submitters/' + this.attribute.string;
+    }
+    if (this.attribute.type === 'submissionlink') {
+      return '#/' + this.dataset + '/submissions/' + this.attribute.string;
+    }
+    if (this.attribute.string === 'File') {
+      return this.attribute.tail;
+    }
+    return null;
+  }
 }
