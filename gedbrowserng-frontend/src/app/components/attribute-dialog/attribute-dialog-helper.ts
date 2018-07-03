@@ -124,4 +124,13 @@ export class AttributeDialogHelper {
       }
     }
   }
+
+  public simpleAttribute(type: string, text: string): ApiAttribute {
+    return this.populateNewAttribute({
+      insert: true, index: 0,
+      type: type, text: text, date: '', place: '', note: '',
+      originalType: type, originalText: text, originalDate: '',
+      originalPlace: '', originalNote: ''
+    });
+  }
 }

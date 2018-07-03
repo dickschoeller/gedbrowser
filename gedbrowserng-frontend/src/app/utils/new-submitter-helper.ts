@@ -17,12 +17,7 @@ export class NewSubmitterHelper {
 
   addName(name, submitter) {
     const adh: AttributeDialogHelper = new AttributeDialogHelper(submitter);
-    submitter.attributes.push(adh.populateNewAttribute({
-      insert: true, index: 0,
-      type: 'Name', text: name, date: '', place: '', note: '',
-      originalType: 'Name', originalText: name, originalDate: '',
-      originalPlace: '', originalNote: ''
-    }));
+    submitter.attributes.push(adh.simpleAttribute('Name', name));
   }
 
   initNew(name: string): NewSubmitterDialogData {
