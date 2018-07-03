@@ -13,4 +13,5 @@ export * from './link-person-dialog-data';
 export * from './link-source-dialog-data';
 export * from './new-person-dialog-data';
 export * from './new-source-dialog-data';
+export * from './new-submitter-dialog-data';
 export * from './user.model';
