@@ -34,3 +34,8 @@ patch:
   'npm:ms:20170412':
     - karma > socket.io > socket.io-adapter > socket.io-parser > debug > ms:
         patched: '2018-06-20T16:12:00.110Z'
+  'npm:lodash:20180130':
+    - npm > cli-table2 > lodash:
+        patched: '2018-07-03T03:02:25.728Z'
+    - npm > npm-audit-report > cli-table2 > lodash:
+        patched: '2018-07-03T03:02:25.728Z'
