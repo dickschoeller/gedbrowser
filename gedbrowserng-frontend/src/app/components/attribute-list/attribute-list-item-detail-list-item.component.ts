@@ -1,36 +1,28 @@
-import {Component, OnInit, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import {ApiAttribute} from '../../models';
-import {ImageUtil} from '../../utils';
+import { ApiAttribute } from '../../models';
+import { AttributeUtil, ImageUtil } from '../../utils';
 
 @Component({
   selector: 'app-attribute-list-item-detail-list-item',
   templateUrl: 'attribute-list-item-detail-list-item.component.html',
   styleUrls: ['./attribute-list-item-detail-list-item.component.css']
 })
-export class AttributeListItemDetailListItemComponent implements OnInit {
+export class AttributeListItemDetailListItemComponent {
   @Input() attribute: ApiAttribute;
   @Input() index: number;
   @Input() length: number;
   @Input() dataset: string;
+  attributeUtil = new AttributeUtil(this);
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
   last() {
     return (this.index >= this.length - 1);
   }
 
   href() {
-    if (this.attribute.type === 'sourcelink') {
-      return '#/' + this.dataset + '/sources/' + this.attribute.string;
-    }
-    if (this.attribute.string === 'File') {
-      return this.attribute.tail;
-    }
-    return null;
+    return this.attributeUtil.href(this.dataset, this.attribute);
   }
 
   image(): boolean {

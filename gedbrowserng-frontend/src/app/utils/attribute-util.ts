@@ -68,4 +68,22 @@ export class AttributeUtil {
     }
     return 0;
   }
+
+
+  href(dataset: string, attribute: ApiAttribute) {
+    if (attribute.type === 'sourcelink') {
+      return '#/' + dataset + '/sources/' + attribute.string;
+    }
+    if (attribute.type === 'submitterlink') {
+      return '#/' + dataset + '/submitters/' + attribute.string;
+    }
+    if (attribute.type === 'submissionlink') {
+      return '#/' + dataset + '/submissions/' + attribute.string;
+    }
+    if (attribute.string === 'File') {
+      return attribute.tail;
+    }
+    return null;
+  }
+
 }
