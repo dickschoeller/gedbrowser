@@ -23,32 +23,17 @@ export class NewSourceHelper {
 
   addTitle(title: string, source: ApiSource) {
     const adh: AttributeDialogHelper = new AttributeDialogHelper(source);
-    source.attributes.push(adh.populateNewAttribute({
-      insert: true, index: 0,
-      type: 'Title', text: title, date: '', place: '', note: '',
-      originalType: 'Title', originalText: title, originalDate: '',
-      originalPlace: '', originalNote: ''
-    }));
+    source.attributes.push(adh.simpleAttribute('Title', title));
   }
 
   addAbbreviation(abbreviation: string, source: ApiSource) {
     const adh: AttributeDialogHelper = new AttributeDialogHelper(source);
-    source.attributes.push(adh.populateNewAttribute({
-      insert: true, index: 0,
-      type: 'Abbreviation', text: abbreviation, date: '', place: '', note: '',
-      originalType: 'Abbreviation', originalText: abbreviation, originalDate: '',
-      originalPlace: '', originalNote: ''
-    }));
+    source.attributes.push(adh.simpleAttribute('Abbreviation', abbreviation));
   }
 
   addText(text: string, source: ApiSource) {
     const adh: AttributeDialogHelper = new AttributeDialogHelper(source);
-    source.attributes.push(adh.populateNewAttribute({
-      insert: true, index: 0,
-      type: 'Text', text: text, date: '', place: '', note: '',
-      originalType: 'Text', originalText: text, originalDate: '',
-      originalPlace: '', originalNote: ''
-    }));
+    source.attributes.push(adh.simpleAttribute('Text', text));
   }
 
   config(dataIn) {

@@ -19,22 +19,12 @@ export class NewPersonHelper {
 
   addName(name, person) {
     const adh: AttributeDialogHelper = new AttributeDialogHelper(person);
-    person.attributes.push(adh.populateNewAttribute({
-      insert: true, index: 0,
-      type: 'Name', text: name, date: '', place: '', note: '',
-      originalType: 'Name', originalText: name, originalDate: '',
-      originalPlace: '', originalNote: ''
-    }));
+    person.attributes.push(adh.simpleAttribute('Name', name));
   }
 
   addSex(sex, person) {
     const adh: AttributeDialogHelper = new AttributeDialogHelper(person);
-    person.attributes.push(adh.populateNewAttribute({
-      insert: true, index: 1,
-      type: 'Sex', text: sex, date: '', place: '', note: '',
-      originalType: '', originalText: '', originalDate: '', originalPlace: '',
-      originalNote: ''
-    }));
+    person.attributes.push(adh.simpleAttribute('Sex', sex));
   }
 
   addBirth(birthDate, birthPlace, person) {

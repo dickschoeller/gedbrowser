@@ -1,25 +1,25 @@
-import {ModuleWithProviders, NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {RouterModule} from '@angular/router';
-import {HttpClientModule} from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CdkTableModule} from '@angular/cdk/table';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CdkTableModule } from '@angular/cdk/table';
 
-import {ToolbarModule} from 'primeng/toolbar';
-import {ButtonModule} from 'primeng/button';
-import {SplitButtonModule} from 'primeng/splitbutton';
-import {PanelModule} from 'primeng/panel';
-import {AccordionModule} from 'primeng/accordion';
-import {MenuModule} from 'primeng/menu';
-import {TieredMenuModule} from 'primeng/tieredmenu';
-import {OrderListModule} from 'primeng/orderlist';
-import {TooltipModule} from 'primeng/tooltip';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { PanelModule } from 'primeng/panel';
+import { AccordionModule } from 'primeng/accordion';
+import { MenuModule } from 'primeng/menu';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { OrderListModule } from 'primeng/orderlist';
+import { TooltipModule } from 'primeng/tooltip';
 
-import {NgxGalleryModule} from 'ngx-gallery';
-import {NgxPageScrollModule} from 'ngx-page-scroll';
+import { NgxGalleryModule } from 'ngx-gallery';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 
-import {AppComponent} from './app.component';
+import { AppComponent } from './app.component';
 
 import {
   HeadModule,
@@ -37,6 +37,7 @@ import {
   FamilyService,
   NewPersonLinkService,
   NewSourceLinkService,
+    NewSubmitterLinkService,
   PersonService,
   SourceService,
   SubmitterService,
@@ -86,6 +87,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     HeadService,
     NewPersonLinkService,
     NewSourceLinkService,
+    NewSubmitterLinkService,
     FamilyService,
     PersonService,
     SourceService,
