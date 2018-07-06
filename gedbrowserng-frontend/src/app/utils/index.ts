@@ -9,3 +9,4 @@ export * from './new-person-helper';
 export * from './new-source-helper';
 export * from './new-submitter-helper';
 export * from './link-person-helper';
+export * from './link-helper';
