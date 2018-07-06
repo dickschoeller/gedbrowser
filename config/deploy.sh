@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ $TRAVIS_PULL_REQUEST == 'false' && ( $TRAVIS_BRANCH == '1.3.0-M4' || $TRAVIS_BRANCH == 'development' ) ]]; then
+if [[ $TRAVIS_PULL_REQUEST == 'false' && ( $TRAVIS_BRANCH == 'XXXXXX' || $TRAVIS_BRANCH == 'development' ) ]]; then
     mvn --batch-mode --settings=config/settings.xml -Psign,deploy -DpushImage deploy
 else
     echo "Only deploy on push to development or label"
