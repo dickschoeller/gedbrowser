@@ -19,8 +19,8 @@ export class LinkPersonDialogComponent
 
   _data: LinkPersonDialogData = new LinkPersonDialogData();
 
-  constructor(private route: ActivatedRoute,
-    private router: Router) {
+  constructor(private router: Router,
+    private route: ActivatedRoute) {
     super();
   }
 
