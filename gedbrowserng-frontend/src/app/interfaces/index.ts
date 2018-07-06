@@ -7,3 +7,4 @@ export * from './refresh-person';
 export * from './refresh-source';
 export * from './refresh-submitter';
 export * from './saveable';
+export * from './link-dialog-interface';
