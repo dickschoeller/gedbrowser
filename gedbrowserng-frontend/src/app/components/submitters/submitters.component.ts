@@ -87,9 +87,7 @@ export class SubmittersComponent extends SubmitterCreator {
   }
 
   onLinkSubmitterDialogOpen(dialog: LinkDialogComponent) {
-    this.submitterService.getAll(dialog.dataset).subscribe(
-      (value: ApiSubmitter[]) => this.lh().fillLinkData(dialog, value)
-    );
+    this.lh().onLinkDialogOpen(this.submitterService, dialog);
   }
 
   linkSubmitter(data: LinkDialogData) {
@@ -101,10 +99,7 @@ export class SubmittersComponent extends SubmitterCreator {
   }
 
   onUnlinkSubmitterDialogOpen(dialog: LinkDialogComponent) {
-    this.submitterService.getAll(dialog.dataset).subscribe(
-      (value: ApiSubmitter[]) =>
-        this.lh().fillUnlinkData(dialog, value, this.parent.attributes)
-    );
+    this.lh().onUnlinkDialogOpen(this.submitterService, dialog, this.parent.attributes);
   }
 
   unlinkSubmitter(data: LinkDialogData) {

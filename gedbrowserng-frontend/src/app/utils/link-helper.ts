@@ -6,6 +6,12 @@ export class LinkHelper {
     private comparator,
     private linkString) {}
 
+  onLinkDialogOpen(service, dialog: LinkDialogInterface) {
+    service.getAll(dialog.dataset).subscribe(
+      (value: ApiObject[]) => this.fillLinkData(dialog, value)
+    );
+  }
+
   fillLinkData(dialog: LinkDialogInterface, value) {
     dialog.objects = value;
     dialog.objects.sort(this.comparator);
@@ -27,6 +33,13 @@ export class LinkHelper {
       attributes.push(attribute);
     }
     save();
+  }
+
+  onUnlinkDialogOpen(service, dialog: LinkDialogInterface, attributes: Array<ApiAttribute>) {
+    service.getAll(dialog.dataset).subscribe(
+      (value: ApiObject[]) =>
+        this.fillUnlinkData(dialog, value, attributes)
+    );
   }
 
   fillUnlinkData(dialog: LinkDialogInterface, value, attributes: Array<ApiAttribute>) {

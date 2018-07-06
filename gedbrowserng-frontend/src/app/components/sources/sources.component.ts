@@ -87,9 +87,7 @@ export class SourcesComponent extends SourceCreator {
   }
 
   onLinkSourceDialogOpen(dialog: LinkDialogComponent) {
-    this.sourceService.getAll(dialog.dataset).subscribe(
-      (value: ApiSource[]) => this.lh().fillLinkData(dialog, value)
-    );
+    this.lh().onLinkDialogOpen(this.sourceService, dialog);
   }
 
   linkSource(data: LinkDialogData) {
@@ -101,10 +99,7 @@ export class SourcesComponent extends SourceCreator {
   }
 
   onUnlinkSourceDialogOpen(dialog: LinkDialogComponent) {
-    this.sourceService.getAll(dialog.dataset).subscribe(
-      (value: ApiSource[]) =>
-        this.lh().fillUnlinkData(dialog, value, this.parent.attributes)
-    );
+    this.lh().onUnlinkDialogOpen(this.sourceService, dialog, this.parent.attributes);
   }
 
   unlinkSource(data: LinkDialogData) {
