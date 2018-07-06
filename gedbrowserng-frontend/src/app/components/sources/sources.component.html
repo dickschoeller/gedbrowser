@@ -7,14 +7,14 @@
       (emitClose)="onSourceDialogClose()" (emitOpen)="onSourceDialogOpen($event)"
       (emitOK)="createSource($event)"
       [(display)]="displaySourceDialog"></app-new-source-dialog>
-  <app-link-source-dialog
+  <app-link-dialog
       [p]="this" titleString="Link Sources"
       (emitClose)="onLinkSourceDialogClose()" (emitOpen)="onLinkSourceDialogOpen($event)"
       (emitOK)="linkSource($event)"
-      [(display)]="displayLinkSourceDialog"></app-link-source-dialog>
-  <app-link-source-dialog
+      [(display)]="displayLinkSourceDialog"></app-link-dialog>
+  <app-link-dialog
       [p]="this" titleString="Unlink Sources"
       (emitClose)="onUnlinkSourceDialogClose()" (emitOpen)="onUnlinkSourceDialogOpen($event)"
       (emitOK)="unlinkSource($event)"
-      [(display)]="displayUnlinkSourceDialog"></app-link-source-dialog>
+      [(display)]="displayUnlinkSourceDialog"></app-link-dialog>
 </span>

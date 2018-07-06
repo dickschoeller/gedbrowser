@@ -1,14 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {SelectItem} from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SelectItem } from 'primeng/api';
 
-import {
-  AttributeListComponent,
-  AttributeDialogData,
-} from '../../components';
-import {ApiSubmitter} from '../../models';
-import {SubmitterService} from '../../services';
-import {HasAttributeList} from '../../interfaces';
+import { AttributeListComponent, AttributeDialogData } from '../../components';
+import { ApiSubmitter, ApiAttribute } from '../../models';
+import { SubmitterService } from '../../services';
+import { HasAttributeList } from '../../interfaces';
 
 @Component({
   selector: 'app-submitter',
@@ -18,6 +15,7 @@ import {HasAttributeList} from '../../interfaces';
 export class SubmitterComponent implements OnInit, HasAttributeList {
   dataset: string;
   submitter: ApiSubmitter;
+  attributes: Array<ApiAttribute>;
   _options: Array<SelectItem> = [
       {value: 'Address', label: 'Address'},
       {value: 'Email', label: 'Email'},
@@ -43,6 +41,7 @@ export class SubmitterComponent implements OnInit, HasAttributeList {
     this.route.data.subscribe(
       (data: {dataset: string, submitter: ApiSubmitter}) => {
         this.submitter = data.submitter;
+        this.attributes = this.submitter.attributes;
       }
     );
   }

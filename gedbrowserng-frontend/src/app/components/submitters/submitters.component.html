@@ -1,0 +1,20 @@
+<span>
+  <p-menu #submittermenu popup="popup" #cm appendTo="body" [model]="submittermenuitems"></p-menu>
+  <p-splitButton [styleClass]="'ui-button-success'" (click)="submittermenu.toggle($event)"
+      icon="fa fa-fw fa-user" pTooltip="Submitter"></p-splitButton>
+  <app-new-submitter-dialog
+      [p]="this"
+      (emitClose)="onSubmitterDialogClose()" (emitOpen)="onSubmitterDialogOpen($event)"
+      (emitOK)="createSubmitter($event)"
+      [(display)]="displaySubmitterDialog"></app-new-submitter-dialog>
+  <app-link-dialog
+      [p]="this" titleString="Link Submitters"
+      (emitClose)="onLinkSubmitterDialogClose()" (emitOpen)="onLinkSubmitterDialogOpen($event)"
+      (emitOK)="linkSubmitter($event)"
+      [(display)]="displayLinkSubmitterDialog"></app-link-dialog>
+  <app-link-dialog
+      [p]="this" titleString="Unlink Submitters"
+      (emitClose)="onUnlinkSubmitterDialogClose()" (emitOpen)="onUnlinkSubmitterDialogOpen($event)"
+      (emitOK)="unlinkSubmitter($event)"
+      [(display)]="displayUnlinkSubmitterDialog"></app-link-dialog>
+</span>

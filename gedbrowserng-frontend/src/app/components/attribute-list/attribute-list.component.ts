@@ -1,9 +1,9 @@
-import {Component, OnInit, Input, OnChanges} from '@angular/core';
-import {SelectItem} from 'primeng/api';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { SelectItem } from 'primeng/api';
 
-import {ApiAttribute} from '../../models';
-import {AttributeUtil} from '../../utils';
-import {HasAttributeList} from '../../interfaces';
+import { ApiAttribute } from '../../models';
+import { AttributeUtil } from '../../utils';
+import { HasAttributeList } from '../../interfaces';
 
 import {
   AttributeDialogData,
@@ -16,7 +16,7 @@ import {
   templateUrl: './attribute-list.component.html',
   styleUrls: ['./attribute-list.component.css']
 })
-export class AttributeListComponent implements OnInit, OnChanges {
+export class AttributeListComponent implements OnInit, OnChanges, HasAttributeList {
   @Input() attributes: Array<ApiAttribute>;
   @Input() parent: HasAttributeList;
   @Input() toggleable = false;
@@ -65,5 +65,9 @@ export class AttributeListComponent implements OnInit, OnChanges {
 
   options(): Array<SelectItem> {
     return this.parent.options();
+  }
+
+  save() {
+    this.parent.save();
   }
 }

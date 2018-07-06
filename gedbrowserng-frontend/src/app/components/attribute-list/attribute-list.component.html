@@ -3,6 +3,8 @@
     <span class="bump-out">
       <p-button [styleClass]="'ui-button-success'" (click)="create()"
           icon="fa fa-fw fa-plus-circle" pTooltip="Create attribute"></p-button>
+      <app-sources [parent]="this" [dataset]="dataset"></app-sources>
+      <app-submitters [parent]="this" [dataset]="dataset"></app-submitters>
     </span>
   </p-header>
   <div>
@@ -13,7 +15,7 @@
       <ng-template let-attribute let-i="index" pTemplate="item">
         <div>
           <app-attribute-list-item [parent]="parent" [dataset]="dataset" [attribute]="attribute"
-              [attributes]="attributes" [index]="i">
+              [attributeList]="attributes" [index]="i">
           </app-attribute-list-item>
         </div>
       </ng-template>
