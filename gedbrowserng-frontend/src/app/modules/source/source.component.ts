@@ -1,16 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {NgxGalleryOptions, NgxGalleryImage} from 'ngx-gallery';
-import {SelectItem} from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgxGalleryOptions, NgxGalleryImage } from 'ngx-gallery';
+import { SelectItem } from 'primeng/api';
 
-import {
-  AttributeListComponent,
-  AttributeDialogData,
-} from '../../components';
-import {ApiSource, ApiAttribute} from '../../models';
-import {SourceService} from '../../services';
-import {ImageUtil} from '../../utils';
-import {HasAttributeList} from '../../interfaces';
+import { AttributeListComponent, AttributeDialogData, } from '../../components';
+import { ApiSource, ApiAttribute } from '../../models';
+import { SourceService } from '../../services';
+import { ImageUtil } from '../../utils';
+import { HasAttributeList } from '../../interfaces';
 
 @Component({
   selector: 'app-source',
@@ -20,6 +17,7 @@ import {HasAttributeList} from '../../interfaces';
 export class SourceComponent implements OnInit, HasAttributeList {
   dataset: string;
   source: ApiSource;
+  attributes: Array<ApiAttribute>;
   imageUtil = new ImageUtil();
   galleryOptions = this.imageUtil.galleryOptions();
   _options: Array<SelectItem> = [
@@ -160,6 +158,7 @@ export class SourceComponent implements OnInit, HasAttributeList {
     this.route.data.subscribe(
       (data: {dataset: string, source: ApiSource}) => {
         this.source = data.source;
+        this.attributes = this.source.attributes;
       }
     );
   }

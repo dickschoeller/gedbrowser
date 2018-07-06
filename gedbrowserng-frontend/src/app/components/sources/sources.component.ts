@@ -1,22 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { SourceCreator } from '../../bases';
+import { Component, Input } from '@angular/core';
 import { MenuItem, SelectItem } from 'primeng/api';
 
-import { SourceCreator } from '../../bases';
 import { HasAttributeList } from '../../interfaces';
-import { ApiAttribute, ApiSource, LinkSourceDialogData, LinkSourceItem } from '../../models';
-import { NewSourceLinkService, SourceService } from '../../services';
-import { ApiComparators, NewSourceHelper, UrlBuilder } from '../../utils';
-
-import { LinkSourceDialogComponent } from '../link-source-dialog';
+import { ApiObject, ApiSource, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
+import { SourceService, NewSourceLinkService } from '../../services';
+import { UrlBuilder, NewSourceHelper, ApiComparators } from '../../utils';
+import { LinkDialogComponent } from '../link-dialog';
 import { NewSourceDialogComponent } from '../new-source-dialog';
 
 @Component({
-  selector: 'app-attribute-list-item-sources',
-  templateUrl: './attribute-list-item-sources.component.html',
-  styleUrls: ['./attribute-list-item-sources.component.css']
+  selector: 'app-sources',
+  templateUrl: './sources.component.html',
+  styleUrls: ['./sources.component.css']
 })
-export class AttributeListItemSourcesComponent extends SourceCreator implements OnInit {
-  @Input() attribute: ApiAttribute;
+export class SourcesComponent extends SourceCreator {
+//  @Input() parentObject: ApiObject;
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
@@ -49,9 +48,29 @@ export class AttributeListItemSourcesComponent extends SourceCreator implements 
     super(newSourceLinkService);
   }
 
-  ngOnInit() {
+  sourceUB(): UrlBuilder {
+    // This would enable creating a source but not linking.
+    return new UrlBuilder(this.dataset, 'sources');
   }
 
+  sourceAnchor(): string {
+    return undefined;
+  }
+
+  closeSourceDialog(): void {
+    this.displaySourceDialog = false;
+  }
+
+  refreshSource(source: ApiSource): void {
+    const attribute: ApiAttribute = {
+      type: 'sourcelink',
+      string: source.string,
+      tail: '',
+      attributes: new Array<ApiAttribute>()
+    };
+    this.parent.attributes.push(attribute);
+    this.parent.save();
+  }
 
   openCreateSourceDialog() {
     this.displaySourceDialog = true;
@@ -68,30 +87,6 @@ export class AttributeListItemSourcesComponent extends SourceCreator implements 
     }
   }
 
-  closeSourceDialog(): void {
-    this.displaySourceDialog = false;
-  }
-
-  sourceUB(): UrlBuilder {
-    // This would enable creating a source but not linking.
-    return new UrlBuilder(this.dataset, 'sources');
-  }
-
-  sourceAnchor(): string {
-    return undefined;
-  }
-
-  refreshSource(source: ApiSource): void {
-    const attribute: ApiAttribute = {
-      type: 'sourcelink',
-      string: source.string,
-      tail: '',
-      attributes: new Array<ApiAttribute>()
-    };
-    this.attribute.attributes.push(attribute);
-    this.parent.save();
-  }
-
   openLinkSourceDialog() {
     this.displayLinkSourceDialog = true;
   }
@@ -100,26 +95,26 @@ export class AttributeListItemSourcesComponent extends SourceCreator implements 
     this.displayLinkSourceDialog = false;
   }
 
-  onLinkSourceDialogOpen(data: LinkSourceDialogComponent) {
-    this.sourceService.getAll(data.dataset).subscribe(
+  onLinkSourceDialogOpen(dialog: LinkDialogComponent) {
+    this.sourceService.getAll(dialog.dataset).subscribe(
       (value: ApiSource[]) => {
         const comparator: ApiComparators = new ApiComparators();
-        data.sources = value;
-        data.sources.sort(comparator.compareSources);
-        data._data = new LinkSourceDialogData();
+        dialog.objects = value;
+        dialog.objects.sort(comparator.compareSources);
+        dialog._data = new LinkDialogData();
         let index = 0;
-        for (const source of data.sources) {
-          data._data.items.push({
+        for (const source of dialog.objects) {
+          dialog._data.items.push({
             index: index++,
             id: source.string,
-            title: source.title + ' [' + source.string + ']'
+            label: source.title + ' [' + source.string + ']'
           });
         }
       }
     );
   }
 
-  linkSource(data: LinkSourceDialogData) {
+  linkSource(data: LinkDialogData) {
     for (const item of data.selected) {
       const attribute: ApiAttribute = {
         type: 'sourcelink',
@@ -127,7 +122,7 @@ export class AttributeListItemSourcesComponent extends SourceCreator implements 
         tail: '',
         attributes: new Array<ApiAttribute>()
       };
-      this.attribute.attributes.push(attribute);
+      this.parent.attributes.push(attribute);
     }
     this.parent.save();
   }
@@ -140,21 +135,21 @@ export class AttributeListItemSourcesComponent extends SourceCreator implements 
     this.displayUnlinkSourceDialog = false;
   }
 
-  onUnlinkSourceDialogOpen(data: LinkSourceDialogComponent) {
+  onUnlinkSourceDialogOpen(data: LinkDialogComponent) {
     this.sourceService.getAll(data.dataset).subscribe(
       (value: ApiSource[]) => {
         const comparator: ApiComparators = new ApiComparators();
-        data.sources = value;
-        data.sources.sort(comparator.compareSources);
-        data._data = new LinkSourceDialogData();
+        data.objects = value;
+        data.objects.sort(comparator.compareSources);
+        data._data = new LinkDialogData();
         let index = 0;
-        for (const attribute of this.attribute.attributes) {
+        for (const attribute of this.parent.attributes) {
           if (attribute.type === 'sourcelink') {
             index++;
             data._data.items.push({
               index: index,
               id: attribute.string,
-              title: index + ' ' + this.find(attribute.string, data.sources) + ' [' + attribute.string + ']'
+              label: index + ' ' + this.find(attribute.string, data.objects) + ' [' + attribute.string + ']'
             });
           }
         }
@@ -171,18 +166,18 @@ export class AttributeListItemSourcesComponent extends SourceCreator implements 
     return undefined;
   }
 
-  unlinkSource(data: LinkSourceDialogData) {
+  unlinkSource(data: LinkDialogData) {
     for (const item of data.selected) {
       this.spliceOutOneSource(item);
     }
     this.parent.save();
   }
 
-  spliceOutOneSource(item: LinkSourceItem) {
+  spliceOutOneSource(item: LinkItem) {
     let index = 0;
-    for (const attribute of this.attribute.attributes) {
+    for (const attribute of this.parent.attributes) {
       if (attribute.string === item.id) {
-        this.attribute.attributes.splice(index, 1);
+        this.parent.attributes.splice(index, 1);
         break;
       }
       index++;

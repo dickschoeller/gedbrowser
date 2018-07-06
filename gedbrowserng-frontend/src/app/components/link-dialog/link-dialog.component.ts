@@ -1,22 +1,22 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { BaseDialog } from '../../bases';
-import { ApiSource, LinkSourceItem, LinkSourceDialogData } from '../../models';
+import { LinkDialogData } from '../../models';
 
 @Component({
-  selector: 'app-link-source-dialog',
-  templateUrl: './link-source-dialog.component.html',
-  styleUrls: ['./link-source-dialog.component.css']
+  selector: 'app-link-dialog',
+  templateUrl: './link-dialog.component.html',
+  styleUrls: ['./link-dialog.component.css']
 })
-export class LinkSourceDialogComponent
-  extends BaseDialog<LinkSourceDialogData, LinkSourceDialogComponent>
+export class LinkDialogComponent
+  extends BaseDialog<LinkDialogData, LinkDialogComponent>
   implements OnInit, OnChanges {
   @Input() titleString: string;
   dataset: string;
-  sources: Array<ApiSource>;
+  objects: Array<any>;
 
-  _data: LinkSourceDialogData = new LinkSourceDialogData();
+  _data: LinkDialogData = new LinkDialogData();
 
   constructor(private route: ActivatedRoute,
     private router: Router) {

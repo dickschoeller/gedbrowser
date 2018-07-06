@@ -17,6 +17,7 @@ import { HasAttributeList } from '../../interfaces';
 export class HeadComponent implements OnInit, HasAttributeList {
   dataset: string;
   head: ApiHead;
+  attributes: Array<ApiAttribute>;
   imageUtil = new ImageUtil();
   galleryOptions = this.imageUtil.galleryOptions();
   _options: Array<SelectItem> = [
@@ -46,6 +47,7 @@ export class HeadComponent implements OnInit, HasAttributeList {
     this.route.data.subscribe(
       (data: {dataset: string, head: ApiHead}) => {
         this.head = data.head;
+        this.attributes = this.head.attributes;
       }
     );
   }

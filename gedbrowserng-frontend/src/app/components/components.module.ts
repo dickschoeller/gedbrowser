@@ -22,14 +22,15 @@ import {
   AttributeListItemComponent,
   AttributeListItemDetailListComponent,
   AttributeListItemDetailListItemComponent,
-  AttributeListItemSourcesComponent,
 } from './attribute-list';
+import { LinkDialogComponent } from './link-dialog';
 import { LinkPersonDialogComponent } from './link-person-dialog';
-import { LinkSourceDialogComponent } from './link-source-dialog';
 import { NewAttributeDialogComponent } from './attribute-dialog';
 import { NewPersonDialogComponent } from './new-person-dialog';
 import { NewSourceDialogComponent } from './new-source-dialog';
 import { NewSubmitterDialogComponent } from './new-submitter-dialog';
+import { SourcesComponent } from './sources';
+import { SubmittersComponent } from './submitters/submitters.component';
 
 @NgModule({
   imports: [
@@ -57,26 +58,28 @@ import { NewSubmitterDialogComponent } from './new-submitter-dialog';
     AttributeListItemComponent,
     AttributeListItemDetailListComponent,
     AttributeListItemDetailListItemComponent,
-    AttributeListItemSourcesComponent,
+    LinkDialogComponent,
     LinkPersonDialogComponent,
-    LinkSourceDialogComponent,
     NewAttributeDialogComponent,
     NewPersonDialogComponent,
     NewSourceDialogComponent,
     NewSubmitterDialogComponent,
+    SourcesComponent,
+    SubmittersComponent,
   ],
   exports: [
     AttributeListComponent,
     AttributeListItemComponent,
     AttributeListItemDetailListComponent,
     AttributeListItemDetailListItemComponent,
-    AttributeListItemSourcesComponent,
+    LinkDialogComponent,
     LinkPersonDialogComponent,
-    LinkSourceDialogComponent,
     NewAttributeDialogComponent,
     NewPersonDialogComponent,
     NewSourceDialogComponent,
     NewSubmitterDialogComponent,
+    SourcesComponent,
+    SubmittersComponent,
   ]
 })
 

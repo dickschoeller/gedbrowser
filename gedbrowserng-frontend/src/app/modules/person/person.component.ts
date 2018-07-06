@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage } from 'ngx-gallery';
 import { SelectItem } from 'primeng/api';
 
-import { ApiPerson } from '../../models';
+import { ApiPerson, ApiAttribute } from '../../models';
 import { PersonService } from '../../services';
 import { LifespanUtil, ImageUtil } from '../../utils';
 import { HasAttributeList } from '../../interfaces';
@@ -26,6 +26,7 @@ import { HasPerson, Saveable } from '../../interfaces';
 export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Saveable {
   dataset: string;
   person: ApiPerson;
+  attributes: Array<ApiAttribute>;
   imageUtil = new ImageUtil();
   galleryOptions = this.imageUtil.galleryOptions();
   attributeDialogHelper: AttributeDialogHelper = new AttributeDialogHelper(this);
@@ -113,6 +114,7 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
     this.route.data.subscribe(
       (data: {dataset: string, person: ApiPerson}) => {
         this.person = data.person;
+        this.attributes = this.person.attributes;
       }
     );
   }

@@ -1,20 +1,20 @@
-import {OnInit, Component, Input} from '@angular/core';
-import {MenuItem, SelectItem} from 'primeng/api';
+import { Component, Input } from '@angular/core';
+import { MenuItem, SelectItem } from 'primeng/api';
 
-import {HasAttributeList} from '../../interfaces';
-import {ApiAttribute} from '../../models';
-import {AttributeUtil, NameUtil, StringUtil, UrlBuilder} from '../../utils';
+import { HasAttributeList } from '../../interfaces';
+import { ApiAttribute } from '../../models';
+import { AttributeUtil, NameUtil, StringUtil, UrlBuilder } from '../../utils';
 
-import {AttributeDialogData, AttributeDialogHelper, NewAttributeDialogComponent} from '../attribute-dialog';
+import { AttributeDialogData, AttributeDialogHelper, NewAttributeDialogComponent } from '../attribute-dialog';
 
 @Component({
   selector: 'app-attribute-list-item',
   templateUrl: './attribute-list-item.component.html',
   styleUrls: ['./attribute-list-item.component.css']
 })
-export class AttributeListItemComponent implements OnInit {
+export class AttributeListItemComponent implements HasAttributeList {
   @Input() attribute: ApiAttribute;
-  @Input() attributes: Array<ApiAttribute>;
+  @Input() attributeList: Array<ApiAttribute>;
   @Input() index: number;
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
@@ -23,10 +23,11 @@ export class AttributeListItemComponent implements OnInit {
   attributeUtil = new AttributeUtil(this);
   attributeDialogHelper: AttributeDialogHelper = new AttributeDialogHelper(this);
   _data: AttributeDialogData;
+  get attributes(): Array<ApiAttribute> {
+    return this.attribute.attributes;
+  }
 
   constructor() {}
-
-  ngOnInit() {}
 
   edit() {
     this.displayAttributeDialog = true;
@@ -57,12 +58,16 @@ export class AttributeListItemComponent implements OnInit {
   }
 
   delete(): void {
-    const index = this.attributes.indexOf(this.attribute);
-    this.attributes.splice(index, 1);
+    const index = this.attributeList.indexOf(this.attribute);
+    this.attributeList.splice(index, 1);
     this.parent.save();
   }
 
   href() {
     return this.attributeUtil.href();
+  }
+
+  save() {
+    this.parent.save();
   }
 }

@@ -39,6 +39,7 @@ export class PersonFamilyComponent extends InitablePersonCreator
   }
 
   family: ApiFamily;
+  attributes: Array<ApiAttribute>;
   imageUtil = new ImageUtil();
   galleryOptions = this.imageUtil.galleryOptions();
   initialized = false;
@@ -76,6 +77,7 @@ export class PersonFamilyComponent extends InitablePersonCreator
     this.familyService.getOne(this.dataset, this.string)
       .subscribe((family: ApiFamily) => {
         this.family = family;
+        this.attributes = family.attributes;
         this.initialized = true;
     });
     this.surname = '?';
