@@ -1,17 +1,20 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 
-import {ApiSubmitter} from '../../models';
-import {SubmitterService, ResolverBase} from '../../services';
+import { ApiSubmitter } from '../../models';
+import { SubmitterService } from '../../services';
+import { ResolverHelper } from '../../utils';
 
 @Injectable()
-export class SubmitterListResolverService
-  extends ResolverBase
-  implements Resolve<Array<ApiSubmitter>> {
+export class SubmitterListResolverService implements Resolve<Array<ApiSubmitter>> {
+  rh: ResolverHelper<ApiSubmitter> = new ResolverHelper<ApiSubmitter>();
 
-  constructor(submitterService: SubmitterService, router: Router) {
-    super(submitterService, router);
+  constructor(public submitterService: SubmitterService, public router: Router) {
+  }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Array<ApiSubmitter>> {
+    return this.rh.resolveAll(route, state, this.submitterService);
   }
 }
