@@ -324,9 +324,9 @@
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>${javadoc-plugin.version}</version>
           <configuration>
-            <additionalOptions>
+            <!-- USE THIS ONE WHEN WE GO ALL JAVA 9 additionalOptions>
               <additionalOption>-html5</additionalOption>
-            </additionalOptions>
+            </additionalOptions -->
 	    <quiet>true</quiet>
           </configuration>
           <executions>
