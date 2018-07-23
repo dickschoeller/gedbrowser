@@ -65,7 +65,7 @@
     <thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
     <junit.version>4.12</junit.version>
     <cglib.version>3.2.6</cglib.version>
-    <google-maps-services.version>0.2.7</google-maps-services.version>
+    <google-maps-services.version>0.2.9</google-maps-services.version>
     <jackson-core.version>2.9.6</jackson-core.version>
     <jackson-databind.version>2.9.6</jackson-databind.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
@@ -86,18 +86,18 @@
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
     <jacoco-plugin.version>0.8.1</jacoco-plugin.version>
-    <findbugs-plugin.version>3.0.5</findbugs-plugin.version>
+    <spotbugs-plugin.version>3.1.6</spotbugs-plugin.version>
     <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
-    <checkstyle-version>8.10.1</checkstyle-version>
-    <pmd-plugin.version>3.9.0</pmd-plugin.version>
-    <pmd-version>6.4.0</pmd-version>
+    <checkstyle-version>8.11</checkstyle-version>
+    <pmd-plugin.version>3.10.0</pmd-plugin.version>
+    <pmd-version>6.5.0</pmd-version>
     <build-helper-plugin.version>3.0.0</build-helper-plugin.version>
     <jxr-plugin.version>2.5</jxr-plugin.version>
     <compiler-plugin.version>3.7.0</compiler-plugin.version>
     <source-plugin.version>3.0.1</source-plugin.version>
-    <failsafe.version>2.21.0</failsafe.version>
-    <surefire.version>2.21.0</surefire.version>
-    <javadoc-plugin.version>3.0.0</javadoc-plugin.version>
+    <failsafe.version>2.22.0</failsafe.version>
+    <surefire.version>2.22.0</surefire.version>
+    <javadoc-plugin.version>3.0.1</javadoc-plugin.version>
     <gpg-plugin.version>1.6</gpg-plugin.version>
     <nexus-staging-plugin.version>1.6.8</nexus-staging-plugin.version>
     <jar-plugin.version>3.1.0</jar-plugin.version>
@@ -141,9 +141,9 @@
         <version>${jxr-plugin.version}</version>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <version>${findbugs-plugin.version}</version>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>${spotbugs-plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -247,15 +247,15 @@
           </executions>
         </plugin>
         <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>findbugs-maven-plugin</artifactId>
-          <version>${findbugs-plugin.version}</version>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <version>${spotbugs-plugin.version}</version>
           <executions>
             <execution>
-              <id>findbugs</id>
+              <id>spotbugs</id>
               <phase>test</phase>
               <goals>
-                <goal>findbugs</goal>
+                <goal>spotbugs</goal>
               </goals>
             </execution>
           </executions>
@@ -297,6 +297,13 @@
           <version>${docker-plugin.version}</version>
           <executions>
           </executions>
+          <dependencies>
+            <dependency>
+              <groupId>javax.activation</groupId>
+              <artifactId>activation</artifactId>
+              <version>1.1.1</version>
+            </dependency>
+          </dependencies>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -317,7 +324,10 @@
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>${javadoc-plugin.version}</version>
           <configuration>
-            <quiet>true</quiet>
+            <additionalOptions>
+              <additionalOption>-html5</additionalOption>
+            </additionalOptions>
+	    <quiet>true</quiet>
           </configuration>
           <executions>
             <execution>
