@@ -75,15 +75,13 @@ public class HeadControllerTest {
                 String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        then(entity.getBody()).isEqualTo(
-                "{\n"
-                + "  \"cause\" : null,\n"
-                + "  \"stackTrace\" : [ ],\n"
-                + "  \"datasetName\" : \"XYZZY\",\n"
-                + "  \"message\" : \"Data set XYZZY not found\",\n"
-                + "  \"localizedMessage\" : \"Data set XYZZY not found\",\n"
-                + "  \"suppressed\" : [ ]\n"
-                + "}"
+        then(entity.getBody()).contains(
+                "  \"cause\" : null",
+                "  \"stackTrace\" : [ ]",
+                "  \"datasetName\" : \"XYZZY\"",
+                "  \"message\" : \"Data set XYZZY not found\"",
+                "  \"suppressed\" : [ ]",
+                "  \"localizedMessage\" : \"Data set XYZZY not found\""
                 );
     }
 }
