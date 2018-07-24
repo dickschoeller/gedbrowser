@@ -8,10 +8,7 @@ services:
 
 addons:
   firefox: "49.0.2"
-  sauce_connect:
-    username: dickschoeller
-  jwt:
-    secure: "SCAjXGKQ5p6fZj38LFzYBursOm8HSNwkEHhbMQa8uVmRoH9lSzjr6HdeZLUFRUgKlttoI5xH21bo7ysw2Tshn6fvIZHnoWid23OniZF87aUs3OnwCGB5/vwFgU4K48juoDgJXc0IpgfH7rj8t5yCUEpP1jst3LJGmyTbUfOBSbzROS4UufwsKZdKNKXJbGN21d8q7dpAjUjD8OUgK834Nkj/973DiOVUcFBpF1FFf02yFDj0XJJITFiABDLEhZ1SgolKXCWRoFTruZKO3+OnycaZUUsICmuOj/3L7Aq1qQcUczJYZq0kCEHY6tQlXQrjepSGCh21GmuBCHHnMso8YMiC9szqVeAbP8/aFXCitlvw5q6Zw1GpHuk0bBwWJsZU5n2HTpTUKpMwGFGcdg3AQ6dFjwCpig3+D1HZJkHYaJRLN3qVQmtNRyiLwcr9F2RQEqtqN9yOvj5iiohFE+7pLMgpy+6rj+36XTYaJlQRZLGbQPhaiznlpz/B4XrjbttNgZZPOfIy05L/rh6L/TpeaKkbrJReOuz0iut3qeoqPE6bIJ5FJ5Tu5MR2WiRf8CYkasxfA89kjCEvpqMt6ujBtil7A0ZO9f+koIJvjZlXHq02XvBKf34ZLj/yjf209FPe7Gdz6uVQzOTGMqiWOSs0G//9cC33cwQzk1mMnK3TckU="
+  sauce_connect: true
 
 env:
   global:
