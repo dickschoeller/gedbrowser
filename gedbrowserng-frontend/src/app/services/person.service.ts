@@ -1,10 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
-import {ApiPerson} from '../models/api-person.model';
-import {ApiService} from './api-service';
-import {ServiceBase} from './service-base';
+import { ApiPerson } from '../models';
+import { ServiceBase } from './service-base';
 
 /**
  * Service for obtaining person objects.

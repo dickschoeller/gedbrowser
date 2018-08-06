@@ -1,9 +1,7 @@
-import { OnChanges, OnInit } from '@angular/core';
-
 import { RefreshPerson } from '../interfaces';
 import { ApiPerson, NewPersonDialogData, LinkPersonDialogData } from '../models';
 import { NewPersonHelper, UrlBuilder } from '../utils';
-import { PostRelatedPerson, NewPersonLinkService } from '../services';
+import { NewPersonLinkService } from '../services';
 
 export abstract class PersonCreator implements RefreshPerson {
   nph = new NewPersonHelper();

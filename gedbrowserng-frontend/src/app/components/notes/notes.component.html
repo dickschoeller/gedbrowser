@@ -1,0 +1,20 @@
+<span>
+  <p-menu #notemenu popup="popup" #cm appendTo="body" [model]="notemenuitems"></p-menu>
+  <p-splitButton [styleClass]="'ui-button-success'" (click)="notemenu.toggle($event)"
+      icon="fa fa-comment" pTooltip="Note"></p-splitButton>
+  <app-new-note-dialog
+      [p]="this"
+      (emitClose)="onNoteDialogClose()" (emitOpen)="onNoteDialogOpen($event)"
+      (emitOK)="createNote($event)"
+      [(display)]="displayNoteDialog"></app-new-note-dialog>
+  <app-link-dialog
+      [p]="this" titleString="Link Notes"
+      (emitClose)="onLinkNoteDialogClose()" (emitOpen)="onLinkNoteDialogOpen($event)"
+      (emitOK)="linkNote($event)"
+      [(display)]="displayLinkNoteDialog"></app-link-dialog>
+  <app-link-dialog
+      [p]="this" titleString="Unlink Notes"
+      (emitClose)="onUnlinkNoteDialogClose()" (emitOpen)="onUnlinkNoteDialogOpen($event)"
+      (emitOK)="unlinkNote($event)"
+      [(display)]="displayUnlinkNoteDialog"></app-link-dialog>
+</span>

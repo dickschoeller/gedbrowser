@@ -1,6 +1,6 @@
-import {ApiAttribute} from '../../models';
-import {StringUtil} from '../../utils/string-util';
-import {AttributeDialogData} from './attribute-dialog-data';
+import { ApiAttribute } from '../models';
+import { StringUtil } from './string-util';
+import { AttributeDialogData } from '../models/attribute-dialog-data';
 
 export class AttributeDialogHelper {
   constructor(public parent: any) {}

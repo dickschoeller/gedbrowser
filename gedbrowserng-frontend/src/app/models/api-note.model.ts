@@ -1,4 +1,4 @@
-import {ApiObject} from './api-object.model';
+import {ApiTail} from './api-tail.model';
 
-export class ApiNote extends ApiObject {
+export class ApiNote extends ApiTail {
 }

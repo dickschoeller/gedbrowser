@@ -1,0 +1,6 @@
+<span class="parent">
+  <a [routerLink]="[note?.string]">{{ truncateNote(80) }} ({{ note?.string }})</a>
+  <span class="example-fill-remaining-space"></span>
+  <p-button [styleClass]="'hidden ui-button-danger'" (onClick)="delete()"
+      icon="fa fa-fw fa-trash" pTooltip="Delete note"></p-button>
+</span>

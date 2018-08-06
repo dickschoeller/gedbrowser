@@ -150,7 +150,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
     @Test
     public void testCreateNoteLinkDocument() {
         final GedObject ged = new NoteLink();
-        final String typeString = "noteLink";
+        final String typeString = "notelink";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<NoteLinkDocumentMongo> expectedClass =
                 NoteLinkDocumentMongo.class;

@@ -115,7 +115,7 @@ public final class NoteLinkRendererTest {
     @Test
     public void testNoteLinkCobweb() {
         final NoteLinkRenderer renderer = new NoteLinkRenderer(
-                new NoteLink(null, "noteLink", new ObjectId("N1")),
+                new NoteLink(null, "notelink", new ObjectId("N1")),
                 new GedRendererFactory(), anonymousContext);
         assertEquals("Index name mismatch", "N1", renderer.getIndexName());
     }

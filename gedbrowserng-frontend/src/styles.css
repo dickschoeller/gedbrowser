@@ -72,3 +72,7 @@ div.ui-orderlist-controls {
   top: -.75em;
   font-size: 12px;
 }
+
+.multi_lines_text { 
+    white-space: pre-line; 
+}

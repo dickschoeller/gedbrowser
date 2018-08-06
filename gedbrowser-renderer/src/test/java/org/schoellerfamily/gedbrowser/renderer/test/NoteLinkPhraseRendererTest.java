@@ -51,7 +51,7 @@ public final class NoteLinkPhraseRendererTest {
         root.insert(note);
         note.insert(name);
 
-        noteLink = new NoteLink(head, "SUBM", new ObjectId("N1"));
+        noteLink = new NoteLink(head, "NOTE", new ObjectId("N1"));
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 

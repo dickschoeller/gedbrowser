@@ -1,6 +1,6 @@
-import {NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
+import { NgxGalleryImage, NgxGalleryOptions } from 'ngx-gallery';
 
-import {ApiAttribute} from '../models';
+import { ApiAttribute } from '../models';
 
 export class ImageUtil {
   constructor() {}

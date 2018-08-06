@@ -1,9 +1,9 @@
-import {ApiAttribute} from '../models';
+import { ApiAttribute } from '../models';
 
-import {NameUtil} from './name-util';
-import {StringUtil} from './string-util';
+import { NameUtil } from './name-util';
+import { StringUtil } from './string-util';
 
-export class AttributeUtil {
+export class AttributeAnalyzer {
   constructor(private parent: any) {}
 
   label() {
@@ -82,6 +82,9 @@ export class AttributeUtil {
     }
     if (attribute.type === 'submissionlink') {
       return '#/' + dataset + '/submissions/' + attribute.string;
+    }
+    if (attribute.type === 'notelink') {
+      return '#/' + dataset + '/notes/' + attribute.string;
     }
     if (attribute.string === 'File') {
       return attribute.tail;

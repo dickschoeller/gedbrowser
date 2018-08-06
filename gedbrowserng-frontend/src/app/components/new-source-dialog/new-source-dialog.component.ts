@@ -1,7 +1,7 @@
-import {Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges} from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges } from '@angular/core';
 
-import {BaseDialog} from '../../bases';
-import {NewSourceDialogData} from '../../models';
+import { BaseDialog } from '../../bases';
+import { NewSourceDialogData } from '../../models';
 
 @Component({
   selector: 'app-new-source-dialog',

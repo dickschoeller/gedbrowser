@@ -1,0 +1,5 @@
+<p-panel>
+  <p-header>{{ note?.string }}: {{ truncateNote(80) }}</p-header>
+  <p class="multi_lines_text" [innerHTML]="note.tail"  ></p>
+  <app-attribute-list [dataset]="dataset" [attributes]="note?.attributes" [parent]="this" [showAdd]=false [showNotes]=false [showSubmitters]=false></app-attribute-list>
+</p-panel>

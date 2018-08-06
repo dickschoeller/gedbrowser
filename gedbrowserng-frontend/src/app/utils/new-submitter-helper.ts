@@ -1,6 +1,5 @@
-import { ApiSubmitter, ApiAttribute } from '../models';
-import { AttributeDialogHelper } from '../components/attribute-dialog/attribute-dialog-helper';
-import { NewSubmitterDialogData } from '../models/new-submitter-dialog-data';
+import { ApiSubmitter, ApiAttribute, NewSubmitterDialogData } from '../models';
+import { AttributeDialogHelper } from './attribute-dialog-helper';
 
 export class NewSubmitterHelper {
   constructor() {}

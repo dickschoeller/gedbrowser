@@ -1,9 +1,7 @@
 import { LinkCheck } from '../interfaces';
 import { ApiPerson, LinkPersonDialogData } from '../models';
-import { PersonService } from '../services';
-
-import { ApiComparators } from './api-comparators';
-import { LifespanUtil } from './lifespan-util';
+import { ApiComparators, LifespanUtil } from '../utils';
+import { PersonService } from './person.service';
 
 export class LinkPersonHelper {
   constructor(private personService: PersonService) {}

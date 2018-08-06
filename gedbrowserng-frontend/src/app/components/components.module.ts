@@ -26,11 +26,13 @@ import {
 import { LinkDialogComponent } from './link-dialog';
 import { LinkPersonDialogComponent } from './link-person-dialog';
 import { NewAttributeDialogComponent } from './attribute-dialog';
+import { NewNoteDialogComponent } from './new-note-dialog';
 import { NewPersonDialogComponent } from './new-person-dialog';
 import { NewSourceDialogComponent } from './new-source-dialog';
 import { NewSubmitterDialogComponent } from './new-submitter-dialog';
+import { NotesComponent } from './notes';
 import { SourcesComponent } from './sources';
-import { SubmittersComponent } from './submitters/submitters.component';
+import { SubmittersComponent } from './submitters';
 
 @NgModule({
   imports: [
@@ -61,9 +63,11 @@ import { SubmittersComponent } from './submitters/submitters.component';
     LinkDialogComponent,
     LinkPersonDialogComponent,
     NewAttributeDialogComponent,
+    NewNoteDialogComponent,
     NewPersonDialogComponent,
     NewSourceDialogComponent,
     NewSubmitterDialogComponent,
+    NotesComponent,
     SourcesComponent,
     SubmittersComponent,
   ],
@@ -75,9 +79,11 @@ import { SubmittersComponent } from './submitters/submitters.component';
     LinkDialogComponent,
     LinkPersonDialogComponent,
     NewAttributeDialogComponent,
+    NewNoteDialogComponent,
     NewPersonDialogComponent,
     NewSourceDialogComponent,
     NewSubmitterDialogComponent,
+    NotesComponent,
     SourcesComponent,
     SubmittersComponent,
   ]

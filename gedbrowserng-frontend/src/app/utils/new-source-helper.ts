@@ -1,6 +1,5 @@
-import {ApiSource, ApiAttribute} from '../models';
-import {AttributeDialogHelper} from '../components/attribute-dialog/attribute-dialog-helper';
-import {NewSourceDialogData} from '../models/new-source-dialog-data';
+import { ApiSource, ApiAttribute, NewSourceDialogData } from '../models';
+import { AttributeDialogHelper } from './attribute-dialog-helper';
 
 export class NewSourceHelper {
   constructor() {}

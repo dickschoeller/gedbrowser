@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage } from 'ngx-gallery';
 import { SelectItem } from 'primeng/api';
 
-import { AttributeListComponent, AttributeDialogData, } from '../../components';
-import { ApiSource, ApiAttribute } from '../../models';
+import { AttributeListComponent } from '../../components';
+import { ApiSource, ApiAttribute, AttributeDialogData } from '../../models';
 import { SourceService } from '../../services';
 import { ImageUtil } from '../../utils';
 import { HasAttributeList } from '../../interfaces';

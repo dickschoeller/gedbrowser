@@ -65,4 +65,11 @@ export class StringUtil {
     // Only match if the target is already all upper
     return specials.includes(target) || states.includes(target);
   };
+
+  truncate = function(input: string, length: number): string {
+    if (input.trim().length <= length) {
+      return input.trim();
+    }
+    return input.trim().substr(0, length) + '...';
+  };
 }

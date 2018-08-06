@@ -1,5 +1,5 @@
-import {ApiPerson, ApiAttribute, NewPersonDialogData} from '../models';
-import {AttributeDialogHelper} from '../components/attribute-dialog/attribute-dialog-helper';
+import { ApiPerson, ApiAttribute, NewPersonDialogData } from '../models';
+import { AttributeDialogHelper } from './attribute-dialog-helper';
 
 export class NewPersonHelper {
   constructor() {}

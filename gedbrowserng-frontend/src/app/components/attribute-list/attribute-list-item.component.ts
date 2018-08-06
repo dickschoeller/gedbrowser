@@ -2,10 +2,10 @@ import { Component, Input } from '@angular/core';
 import { MenuItem, SelectItem } from 'primeng/api';
 
 import { HasAttributeList } from '../../interfaces';
-import { ApiAttribute } from '../../models';
-import { AttributeUtil, NameUtil, StringUtil, UrlBuilder } from '../../utils';
+import { ApiAttribute, AttributeDialogData } from '../../models';
+import { AttributeDialogHelper, AttributeAnalyzer, NameUtil, StringUtil, UrlBuilder } from '../../utils';
 
-import { AttributeDialogData, AttributeDialogHelper, NewAttributeDialogComponent } from '../attribute-dialog';
+import { NewAttributeDialogComponent } from '../attribute-dialog';
 
 @Component({
   selector: 'app-attribute-list-item',
@@ -20,7 +20,7 @@ export class AttributeListItemComponent implements HasAttributeList {
   @Input() dataset: string;
 
   displayAttributeDialog = false;
-  attributeUtil = new AttributeUtil(this);
+  attributeUtil = new AttributeAnalyzer(this);
   attributeDialogHelper: AttributeDialogHelper = new AttributeDialogHelper(this);
   _data: AttributeDialogData;
   get attributes(): Array<ApiAttribute> {

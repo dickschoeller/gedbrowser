@@ -1,0 +1,21 @@
+<p-dataView [value]="notes" [style]="{'min-width':'500px'}" [paginator]="true" [rows]="30"
+    paginatorPosition="both" pageLinks="10" [rowsPerPageOptions]="[10, 30, 100, 10000]"
+    [alwaysShowPaginator]="false">
+  <p-header><span>Note List</span>
+    <span class="bump-out">
+      <p-button (click)="openCreateNoteDialog()" icon="fa fa-fw fa-plus-circle" pTooltip="New note"
+          [styleClass]="'ui-button-success'"></p-button>
+      <app-new-note-dialog
+          [p]="this"
+          (emitClose)="closeNoteDialog()"
+          (emitOpen)="onDialogOpen($event)"
+          (emitOK)="createNote($event)"
+          [(display)]="displayNoteDialog"></app-new-note-dialog>
+    </span>
+  </p-header>
+  <ng-template let-note pTemplate="listItem">
+    <div class="main-list">
+      <app-note-list-item [parent]="this" [note]="note" [dataset]="dataset"></app-note-list-item>
+    </div>
+  </ng-template>
+</p-dataView>
