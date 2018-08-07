@@ -3,15 +3,23 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { ApiSubmitter } from '../models';
-import { UrlBuilder } from '../utils/urlbuilder';
+import { UrlBuilder } from '../utils';
 
-import { PostRelatedSubmitter } from './post-related-submitter';
+import { CrudRelated } from './crud-related';
 
 @Injectable()
-export class NewSubmitterLinkService implements PostRelatedSubmitter {
+export class NewSubmitterLinkService implements CrudRelated<ApiSubmitter> {
   constructor(private http: HttpClient) {}
 
-  p(ub: UrlBuilder, id: string, submitter: ApiSubmitter): Observable<ApiSubmitter> {
+  post(ub: UrlBuilder, id: string, submitter: ApiSubmitter): Observable<ApiSubmitter> {
     return this.http.post<ApiSubmitter>(ub.url(id), submitter);
+  }
+
+  put(ub: UrlBuilder, id: string, submitter: ApiSubmitter): Observable<ApiSubmitter> {
+    return this.http.put<ApiSubmitter>(ub.url(id), submitter);
+  }
+
+  delete(ub: UrlBuilder, id: string, submitter: ApiSubmitter): Observable<ApiSubmitter> {
+    return this.http.delete<ApiSubmitter>(ub.url(id, submitter.string));
   }
 }

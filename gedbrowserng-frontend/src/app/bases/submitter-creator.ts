@@ -1,20 +1,15 @@
-import { OnChanges, OnInit } from '@angular/core';
-
+import { RefreshSubmitter } from '../interfaces';
 import { ApiSubmitter, NewSubmitterDialogData } from '../models';
-import { UrlBuilder } from '../utils';
-import { NewSubmitterHelper } from '../utils/new-submitter-helper';
+import { NewSubmitterHelper, UrlBuilder } from '../utils';
 import { NewSubmitterLinkService } from '../services';
 
-export abstract class SubmitterCreator {
-  nsh = new NewSubmitterHelper();
-
-
+export abstract class SubmitterCreator implements RefreshSubmitter {
   constructor(public newSubmitterLinkService: NewSubmitterLinkService) {}
 
   createSubmitter(data: NewSubmitterDialogData): void {
     if (data != null && data !== undefined) {
-      const newSubmitter: ApiSubmitter = this.nsh.buildSubmitter(data);
-      this.newSubmitterLinkService.p(this.submitterUB(), this.submitterAnchor(), newSubmitter)
+      const newSubmitter: ApiSubmitter = NewSubmitterHelper.buildSubmitter(data);
+      this.newSubmitterLinkService.post(this.submitterUB(), this.submitterAnchor(), newSubmitter)
         .subscribe((submitter: ApiSubmitter) => this.refreshSubmitter(submitter));
     }
   }

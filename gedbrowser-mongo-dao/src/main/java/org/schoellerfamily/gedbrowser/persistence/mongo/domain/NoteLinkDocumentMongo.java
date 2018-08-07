@@ -18,7 +18,7 @@ public class NoteLinkDocumentMongo extends GedDocumentMongo<NoteLink>
      */
     @Override
     public final String getType() {
-        return "noteLink";
+        return "notelink";
     }
 
     /**

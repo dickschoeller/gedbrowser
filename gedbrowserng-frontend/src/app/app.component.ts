@@ -31,10 +31,11 @@ export class AppComponent implements OnInit, OnChanges {
 
   private init() {
     this.items = [
-      { label: 'Head', icon: 'fa-cog', routerLink: ['/' + this.dataset + '/head'] },
+      { label: 'Home', icon: 'fa-home', routerLink: ['/' + this.dataset + '/head'] },
       { label: 'Persons', icon: 'fa-users', routerLink: ['/' + this.dataset + '/persons'] },
       { label: 'Sources', icon: 'fa-book', routerLink: ['/' + this.dataset + '/sources'] },
       { label: 'Submitters', icon: 'fa-user', routerLink: ['/' + this.dataset + '/submitters'] },
+      { label: 'Notes', icon: 'fw fa-comment', routerLink: ['/' + this.dataset + '/notes'] },
       { label: 'Save', icon: 'fa-save', command: (event: Event) => { this.saveFile(); } },
       { label: 'Pick dataset', items: [
           { 'label': 'schoeller', 'command': (event) => { this.pickDataset('schoeller'); },

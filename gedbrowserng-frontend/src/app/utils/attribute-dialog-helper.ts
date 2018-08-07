@@ -1,9 +1,16 @@
-import {ApiAttribute} from '../../models';
-import {StringUtil} from '../../utils/string-util';
-import {AttributeDialogData} from './attribute-dialog-data';
+import { ApiAttribute, AttributeDialogData } from '../models';
+import { StringUtil } from './string-util';
 
 export class AttributeDialogHelper {
   constructor(public parent: any) {}
+
+  public static dialogData(typeString: string): AttributeDialogData {
+    return {
+      insert: true, index: 0, type: typeString, text: '', date: '',
+      place: '', note: '', originalType: '', originalText: '',
+      originalDate: '', originalPlace: '', originalNote: ''
+    };
+  }
 
   buildData(insert: boolean) {
     let type = '';
@@ -12,7 +19,7 @@ export class AttributeDialogHelper {
       type = this.parent.attribute.string;
       text = this.parent.attribute.tail;
     } else {
-      type = new StringUtil().capitalize(this.parent.attribute.type);
+      type = StringUtil.capitalize(this.parent.attribute.type);
       text = this.parent.attribute.string;
     }
     const date = this.getByType('date');
@@ -38,41 +45,43 @@ export class AttributeDialogHelper {
 
   private populateAttribute(attribute: ApiAttribute, data: AttributeDialogData) {
     if (data.type.toLowerCase() === 'name') {
-      attribute.type = data.type.toLowerCase();
-      attribute.string = data.text;
-      attribute.tail = '';
+      this.simpleInit(attribute, data.type.toLowerCase(), data.text);
     } else {
-      attribute.type = 'attribute';
-      attribute.string = data.type;
-      attribute.tail = data.text;
-    }
-    if (attribute.attributes === undefined) {
-      attribute.attributes = new Array<ApiAttribute>();
+      this.simpleInit(attribute, 'attribute', data.type, data.text);
     }
     this.setByType(attribute, 'date', data.date);
     this.setByType(attribute, 'place', data.place);
     this.setByString(attribute, 'note', data.note);
   }
 
-  private getByType(typeInput: string) {
-    for (const attr of this.parent.attribute.attributes) {
-      if (attr.type.toLowerCase() === typeInput) {
-        return attr.string;
-      }
+  private simpleInit(attribute, type, string, tail = ''): void {
+    attribute.type = type;
+    attribute.string = string;
+    attribute.tail = tail;
+    if (attribute.attributes === undefined) {
+      attribute.attributes = new Array<ApiAttribute>();
     }
   }
 
+  private getByType(typeInput: string) {
+    return this.getBy(this.parent.attribute.attributes, typeInput, (attr) => attr.type.toLowerCase());
+  }
+
   private getByString(stringInput: string) {
-    for (const attr of this.parent.attribute.attributes) {
-      if (attr.string === stringInput) {
+    return this.getBy(this.parent.attribute.attributes, stringInput, (attr) => attr.string);
+  }
+
+  private getBy(attributes: Array<ApiAttribute>, input: string, getField) {
+    for (const attr of attributes) {
+      if (getField(attr) === input) {
         return attr.tail;
       }
     }
   }
 
   private setByType(attribute, typeInput, valueInput) {
-    if (valueInput === null || valueInput === undefined || valueInput === '') {
-      this.deleteByType(attribute, typeInput);
+    if (StringUtil.isEmpty(valueInput)) {
+      this.deleteBy(attribute, typeInput, (attr) => attr.type);
       return;
     }
     for (const attr of attribute.attributes) {
@@ -81,15 +90,15 @@ export class AttributeDialogHelper {
         return;
       }
     }
-    const newAttr: ApiAttribute = new ApiAttribute();
-    newAttr.type = typeInput;
-    newAttr.string = valueInput;
-    attribute.attributes.push(newAttr);
+    attribute.attributes.push({
+      type: typeInput, string: valueInput,
+      tail: '', attributes: new Array<ApiAttribute>()
+    });
   }
 
   private setByString(attribute: ApiAttribute, stringInput, tailInput: string) {
-    if (tailInput === null || tailInput === undefined || tailInput === '') {
-      this.deleteByString(attribute, stringInput);
+    if (StringUtil.isEmpty(tailInput)) {
+      this.deleteBy(attribute, stringInput, (attr) => attr.string);
       return;
     }
     for (const attr of attribute.attributes) {
@@ -98,26 +107,15 @@ export class AttributeDialogHelper {
         return;
       }
     }
-    const newAttr: ApiAttribute = new ApiAttribute();
-    newAttr.type = 'attribute';
-    newAttr.string = new StringUtil().capitalize(stringInput);
-    newAttr.tail = tailInput;
-    attribute.attributes.push(newAttr);
+    attribute.attributes.push({
+      type: 'attribute', string: StringUtil.capitalize(stringInput),
+      tail: tailInput, attributes: new Array<ApiAttribute>()
+    });
   }
 
-  private deleteByType(attribute: ApiAttribute, typeInput: string) {
+  private deleteBy(attribute: ApiAttribute, input: string, getField) {
     for (const attr of attribute.attributes) {
-      if (attr.type.toLowerCase() === typeInput) {
-        const index = attribute.attributes.indexOf(attr);
-        attribute.attributes.splice(index, 1);
-        return;
-      }
-    }
-  }
-
-  private deleteByString(attribute: ApiAttribute, stringInput: string) {
-    for (const attr of attribute.attributes) {
-      if (attr.string.toLowerCase() === stringInput) {
+      if (getField(attr).toLowerCase() === input) {
         const index = attribute.attributes.indexOf(attr);
         attribute.attributes.splice(index, 1);
         return;

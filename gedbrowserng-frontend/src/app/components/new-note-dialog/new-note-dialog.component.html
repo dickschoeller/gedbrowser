@@ -1,0 +1,18 @@
+<p-dialog
+    [modal]="true" [closable]="true"
+    [closeOnEscape]="true" [dismissableMask]="true"
+    (onHide)="close()" (onShow)="open()"
+    [(visible)]="_display"
+    appendTo="body">
+  <p-header><i class="fa fa-comment"></i> New Note</p-header>
+  <br/>
+  <div class="ui-float-label">
+    <textarea [rows]="8" [cols]="50" [(ngModel)]="_data.text"
+        id="float-input-text" autoResize="autoResize" pInputTextarea></textarea>
+    <label for="float-input-text">Text</label>
+  </div>
+  <p-footer>
+    <p-button label="OK" icon="fa fa-fw fa-check" (click)="ok()"></p-button>
+    <p-button label="Cancel" icon="fa fa-fw fa-close" (click)="cancel()" [styleClass]="'ui-button-secondary'"></p-button>
+  </p-footer>
+<p-dialog>

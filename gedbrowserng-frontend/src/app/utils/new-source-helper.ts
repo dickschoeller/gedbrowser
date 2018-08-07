@@ -1,50 +1,48 @@
-import {ApiSource, ApiAttribute} from '../models';
-import {AttributeDialogHelper} from '../components/attribute-dialog/attribute-dialog-helper';
-import {NewSourceDialogData} from '../models/new-source-dialog-data';
+import { ApiSource, ApiAttribute, NewSourceDialogData } from '../models';
+import { AttributeDialogHelper } from './attribute-dialog-helper';
+import { StringUtil } from './string-util';
 
 export class NewSourceHelper {
-  constructor() {}
-
-  buildSource(data: NewSourceDialogData): ApiSource {
-    if (data.title === '' || data.title === undefined || data.title === null) {
-      data.title = this.defaultTitle(data);
+  public static buildSource(data: NewSourceDialogData): ApiSource {
+    if (StringUtil.isEmpty(data.title)) {
+      data.title = NewSourceHelper.defaultTitle(data);
     }
     const source: ApiSource = new ApiSource();
     source.attributes = new Array<ApiAttribute>();
-    this.addTitle(data.title, source);
-    this.addAbbreviation(data.abbreviation, source);
-    this.addText(data.text, source);
+    NewSourceHelper.addTitle(data.title, source);
+    NewSourceHelper.addAbbreviation(data.abbreviation, source);
+    NewSourceHelper.addText(data.text, source);
     return source;
   }
 
-  defaultTitle(data: NewSourceDialogData): string {
+  private static defaultTitle(data: NewSourceDialogData): string {
     return 'Person source';
   }
 
-  addTitle(title: string, source: ApiSource) {
+  private static addTitle(title: string, source: ApiSource) {
     const adh: AttributeDialogHelper = new AttributeDialogHelper(source);
     source.attributes.push(adh.simpleAttribute('Title', title));
   }
 
-  addAbbreviation(abbreviation: string, source: ApiSource) {
+  private static addAbbreviation(abbreviation: string, source: ApiSource) {
     const adh: AttributeDialogHelper = new AttributeDialogHelper(source);
     source.attributes.push(adh.simpleAttribute('Abbreviation', abbreviation));
   }
 
-  addText(text: string, source: ApiSource) {
+  private static addText(text: string, source: ApiSource) {
     const adh: AttributeDialogHelper = new AttributeDialogHelper(source);
     source.attributes.push(adh.simpleAttribute('Text', text));
   }
 
-  config(dataIn) {
-    return {data: dataIn};
+  public static config(dataIn) {
+    return { data: dataIn };
   }
 
-  initNew(title: string): NewSourceDialogData {
-    return {title: title, abbreviation: title, text: ''};
+  public static initNew(title: string): NewSourceDialogData {
+    return { title: title, abbreviation: title, text: '' };
   }
 
-  empty(result): boolean {
+  private static empty(result): boolean {
     return (result === null || result === undefined);
   }
 }

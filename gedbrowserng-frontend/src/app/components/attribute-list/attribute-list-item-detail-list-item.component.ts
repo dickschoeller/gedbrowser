@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { ApiAttribute } from '../../models';
-import { AttributeUtil, ImageUtil } from '../../utils';
+import { AttributeAnalyzer, ImageUtil } from '../../utils';
 
 @Component({
   selector: 'app-attribute-list-item-detail-list-item',
@@ -13,7 +13,7 @@ export class AttributeListItemDetailListItemComponent {
   @Input() index: number;
   @Input() length: number;
   @Input() dataset: string;
-  attributeUtil = new AttributeUtil(this);
+  attributeUtil = new AttributeAnalyzer(this);
 
   constructor() { }
 
@@ -46,7 +46,9 @@ export class AttributeListItemDetailListItemComponent {
   }
 
   linkString(): boolean {
-    return (this.attribute.type === 'sourcelink' || this.attribute.type === 'submitterlink');
+    return (this.attribute.type === 'sourcelink'
+      || this.attribute.type === 'submitterlink'
+      || this.attribute.type === 'notelink');
   }
 
   stringOnly(): boolean {

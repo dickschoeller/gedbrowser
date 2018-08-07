@@ -1,26 +1,24 @@
-import { ApiSubmitter, ApiAttribute } from '../models';
-import { AttributeDialogHelper } from '../components/attribute-dialog/attribute-dialog-helper';
-import { NewSubmitterDialogData } from '../models/new-submitter-dialog-data';
+import { ApiSubmitter, ApiAttribute, NewSubmitterDialogData } from '../models';
+import { AttributeDialogHelper } from './attribute-dialog-helper';
+import { StringUtil } from './string-util';
 
 export class NewSubmitterHelper {
-  constructor() {}
-
-  buildSubmitter(data: NewSubmitterDialogData): ApiSubmitter {
-    if (data.name === '' || data.name === undefined || data.name === null) {
+  public static buildSubmitter(data: NewSubmitterDialogData): ApiSubmitter {
+    if (StringUtil.isEmpty(data.name)) {
       data.name = 'Unknown';
     }
     const submitter: ApiSubmitter = new ApiSubmitter();
     submitter.attributes = new Array<ApiAttribute>();
-    this.addName(data.name, submitter);
+    NewSubmitterHelper.addName(data.name, submitter);
     return submitter;
   }
 
-  addName(name, submitter) {
+  private static addName(name, submitter) {
     const adh: AttributeDialogHelper = new AttributeDialogHelper(submitter);
     submitter.attributes.push(adh.simpleAttribute('Name', name));
   }
 
-  initNew(name: string): NewSubmitterDialogData {
+  public static initNew(name: string): NewSubmitterDialogData {
     return { name: name };
   }
 }

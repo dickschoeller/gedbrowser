@@ -1,16 +1,16 @@
-import {ApiAttribute} from '../models';
+import { ApiAttribute } from '../models';
 
-import {NameUtil} from './name-util';
-import {StringUtil} from './string-util';
+import { NameUtil } from './name-util';
+import { StringUtil } from './string-util';
 
-export class AttributeUtil {
+export class AttributeAnalyzer {
   constructor(private parent: any) {}
 
   label() {
     if (this.parent.attribute.type === 'attribute') {
       return this.parent.attribute.string;
     }
-    return new StringUtil().titleCase(this.parent.attribute.type);
+    return StringUtil.titleCase(this.parent.attribute.type);
   }
 
   contents() {
@@ -18,7 +18,7 @@ export class AttributeUtil {
       return this.parent.attribute.tail;
     }
     if (this.parent.attribute.type === 'name') {
-      return new NameUtil().cleanup(this.parent.attribute.string);
+      return NameUtil.cleanup(this.parent.attribute.string);
     }
     return this.parent.attribute.string;
   }
@@ -82,6 +82,9 @@ export class AttributeUtil {
     }
     if (attribute.type === 'submissionlink') {
       return '#/' + dataset + '/submissions/' + attribute.string;
+    }
+    if (attribute.type === 'notelink') {
+      return '#/' + dataset + '/notes/' + attribute.string;
     }
     if (attribute.string === 'File') {
       return attribute.tail;

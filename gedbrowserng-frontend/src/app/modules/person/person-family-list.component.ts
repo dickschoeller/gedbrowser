@@ -4,7 +4,7 @@ import { InitablePersonCreator } from '../../bases';
 import { HasPerson, LinkCheck, Saveable } from '../../interfaces';
 import { LinkPersonDialogComponent } from '../../components';
 import { ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData, LinkPersonItem } from '../../models';
-import { LifespanUtil, UrlBuilder } from '../../utils';
+import { LifespanUtil, UrlBuilder, NewPersonHelper } from '../../utils';
 import { NewPersonLinkService, PersonService } from '../../services';
 
 /**
@@ -36,7 +36,7 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
   }
 
   init() {
-    this.partnerSex = this.nph.guessPartnerSex(this.person);
+    this.partnerSex = NewPersonHelper.guessPartnerSex(this.person);
     if (this.partnerSex === 'M') {
       this.childSurname = '?';
     } else {

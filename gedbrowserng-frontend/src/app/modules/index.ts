@@ -1,4 +1,6 @@
 export * from './head';
+export * from './note';
+export * from './note-list';
 export * from './person';
 export * from './person-list';
 export * from './source';

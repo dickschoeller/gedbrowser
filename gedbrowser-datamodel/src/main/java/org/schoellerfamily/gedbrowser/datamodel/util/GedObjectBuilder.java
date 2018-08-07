@@ -53,6 +53,7 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
         TAGMAP.put("multimedia", "OBJE");
         TAGMAP.put("name", "NAME");
         TAGMAP.put("note", "NOTE");
+        TAGMAP.put("notelink", "NOTE");
         TAGMAP.put("person", "INDI");
         TAGMAP.put("place", "PLAC");
         TAGMAP.put("root", "ROOT");
@@ -97,6 +98,7 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
         CONSTRUCTION_MAP.put("multimedia", Construction.value);
         CONSTRUCTION_MAP.put("name", Construction.value);
         CONSTRUCTION_MAP.put("note", Construction.note);
+        CONSTRUCTION_MAP.put("notelink", Construction.reference);
         CONSTRUCTION_MAP.put("person", Construction.hasid);
         CONSTRUCTION_MAP.put("place", Construction.value);
         CONSTRUCTION_MAP.put("root", Construction.value);

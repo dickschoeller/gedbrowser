@@ -1,14 +1,14 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
-import {ApiPerson} from '../models';
+import { ApiPerson } from '../models';
+import { UrlBuilder } from '../utils';
 
-import {PostRelatedPerson} from './post-related-person';
-import {UrlBuilder} from '../utils/urlbuilder';
+import { CrudRelated } from './crud-related';
 
 @Injectable()
-export class NewPersonLinkService implements PostRelatedPerson {
+export class NewPersonLinkService implements CrudRelated<ApiPerson> {
   constructor(private http: HttpClient) {}
 
   post(ub: UrlBuilder, id: string, person: ApiPerson): Observable<ApiPerson> {

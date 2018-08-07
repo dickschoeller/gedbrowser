@@ -37,7 +37,7 @@ export class SubmitterListComponent extends SubmitterCreator implements RefreshS
   }
 
   onDialogOpen(data: NewSubmitterDialogComponent) {
-    data._data = this.nsh.initNew('New Submitter');
+    data._data = NewSubmitterHelper.initNew('New Submitter');
   }
 
   submitterAnchor(): string {

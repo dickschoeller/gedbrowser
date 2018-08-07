@@ -23,6 +23,8 @@ import { AppComponent } from './app.component';
 
 import {
   HeadModule,
+  NoteModule,
+  NoteListModule,
   PersonListModule,
   PersonModule,
   SourceListModule,
@@ -35,9 +37,11 @@ import {
   HeadService,
   ServiceBase,
   FamilyService,
+  NewNoteLinkService,
   NewPersonLinkService,
   NewSourceLinkService,
-    NewSubmitterLinkService,
+  NewSubmitterLinkService,
+  NoteService,
   PersonService,
   SourceService,
   SubmitterService,
@@ -71,6 +75,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     TooltipModule,
 
     HeadModule,
+    NoteModule,
+    NoteListModule,
     PersonListModule,
     PersonModule,
     SourceListModule,
@@ -85,9 +91,11 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
   ],
   providers: [
     HeadService,
+    NewNoteLinkService,
     NewPersonLinkService,
     NewSourceLinkService,
     NewSubmitterLinkService,
+    NoteService,
     FamilyService,
     PersonService,
     SourceService,

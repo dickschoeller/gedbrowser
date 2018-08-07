@@ -3,14 +3,11 @@ import { NgxGalleryOptions, NgxGalleryImage } from 'ngx-gallery';
 import { Observable } from 'rxjs/Observable';
 import { MenuItem, SelectItem } from 'primeng/api';
 
-import { AttributeDialogData } from '../../components';
-import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData } from '../../models';
+import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData, AttributeDialogData } from '../../models';
 import { FamilyService, PersonService, NewPersonLinkService } from '../../services';
-import { ImageUtil, UrlBuilder } from '../../utils';
-import { HasAttributeList } from '../../interfaces';
+import { ImageUtil, UrlBuilder, NewPersonHelper } from '../../utils';
 import { InitablePersonCreator } from '../../bases';
-import { HasPerson, RefreshPerson } from '../../interfaces';
-import { LinkCheck } from '../../interfaces/link-check';
+import { HasAttributeList, HasPerson, RefreshPerson, LinkCheck } from '../../interfaces';
 
 /**
  * Implements a family block within a person page.
@@ -81,7 +78,7 @@ export class PersonFamilyComponent extends InitablePersonCreator
         this.initialized = true;
     });
     this.surname = '?';
-    this.sex = this.nph.guessPartnerSex(this.person);
+    this.sex = NewPersonHelper.guessPartnerSex(this.person);
   }
 
   familyString() {

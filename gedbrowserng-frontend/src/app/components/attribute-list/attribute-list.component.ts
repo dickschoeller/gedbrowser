@@ -1,15 +1,11 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 
-import { ApiAttribute } from '../../models';
-import { AttributeUtil } from '../../utils';
+import { ApiAttribute, AttributeDialogData } from '../../models';
+import { AttributeDialogHelper, AttributeAnalyzer } from '../../utils';
 import { HasAttributeList } from '../../interfaces';
 
-import {
-  AttributeDialogData,
-  AttributeDialogHelper,
-  NewAttributeDialogComponent
-} from '../attribute-dialog';
+import { NewAttributeDialogComponent } from '../attribute-dialog';
 
 @Component({
   selector: 'app-attribute-list',
@@ -22,11 +18,15 @@ export class AttributeListComponent implements OnInit, OnChanges, HasAttributeLi
   @Input() toggleable = false;
   @Input() styleClass: string;
   @Input() dataset: string;
+  @Input() showAdd = true;
+  @Input() showNotes = true;
+  @Input() showSources = true;
+  @Input() showSubmitters = true;
 
   display = false;
   index;
   attributeDialogHelper = new AttributeDialogHelper(this);
-  attributeUtil = new AttributeUtil(this);
+  attributeUtil = new AttributeAnalyzer(this);
 
   constructor() { }
 

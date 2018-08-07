@@ -3,8 +3,7 @@ import { Component, Input, EventEmitter, Output, } from '@angular/core';
 import { LinkPersonDialogComponent } from '../../components';
 import { LinkCheck } from '../../interfaces/link-check';
 import { LinkPersonDialogData } from '../../models';
-import { PersonService } from '../../services';
-import { LinkPersonHelper } from '../../utils';
+import { LinkPersonHelper, PersonService } from '../../services';
 
 @Component({
   selector: 'app-link-person',

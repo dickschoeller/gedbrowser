@@ -1,4 +1,4 @@
-import {ApiLifespan} from '../models';
+import { ApiLifespan } from '../models';
 
 export class LifespanUtil {
   constructor(private lifespan: ApiLifespan) {}

@@ -3,7 +3,7 @@ import {SelectItem} from 'primeng/api';
 
 import {BaseDialog} from '../../bases';
 
-import {AttributeDialogData} from './attribute-dialog-data';
+import {AttributeDialogData} from '../../models/attribute-dialog-data';
 
 @Component({
   selector: 'app-new-attribute-dialog',

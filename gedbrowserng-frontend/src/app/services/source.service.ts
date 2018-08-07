@@ -1,9 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
-import {ApiSource} from '../models/api-source.model';
-import {ApiService} from './api-service';
+import { ApiSource } from '../models';
 import { ServiceBase } from './service-base';
 
 /**

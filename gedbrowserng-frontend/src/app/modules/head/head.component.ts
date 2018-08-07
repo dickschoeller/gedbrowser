@@ -3,10 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage } from 'ngx-gallery';
 import { SelectItem } from 'primeng/api';
 
-import { AttributeListComponent, AttributeDialogData } from '../../components';
-import { ApiHead, ApiAttribute } from '../../models';
+import { AttributeListComponent } from '../../components';
+import { ApiHead, ApiAttribute, AttributeDialogData } from '../../models';
 import { HeadService } from '../../services';
-import { ImageUtil } from '../../utils';
+import { ImageUtil, AttributeDialogHelper } from '../../utils';
 import { HasAttributeList } from '../../interfaces';
 
 @Component({
@@ -68,11 +68,7 @@ export class HeadComponent implements OnInit, HasAttributeList {
     return this._options;
   }
 
-  defaultData(): any { // AttributeDialogData {
-    return {
-      insert: true, index: 0, type: 'Submitterlink', text: '', date: '',
-      place: '', note: '', originalType: '', originalText: '',
-      originalDate: '', originalPlace: '', originalNote: ''
-    };
+  defaultData(): AttributeDialogData {
+    return AttributeDialogHelper.dialogData('Note');
   }
 }

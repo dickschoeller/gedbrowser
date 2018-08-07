@@ -1,10 +1,11 @@
 <p-panel [toggleable]="toggleable" [styleClass]="styleClass" header="Attributes">
   <p-header>
     <span class="bump-out">
-      <p-button [styleClass]="'ui-button-success'" (click)="create()"
+      <p-button *ngIf="showAdd" [styleClass]="'ui-button-success'" (click)="create()"
           icon="fa fa-fw fa-plus-circle" pTooltip="Create attribute"></p-button>
-      <app-sources [parent]="this" [dataset]="dataset"></app-sources>
-      <app-submitters [parent]="this" [dataset]="dataset"></app-submitters>
+      <app-notes *ngIf="showNotes" [parent]="this" [dataset]="dataset"></app-notes>
+      <app-sources *ngIf="showSources" [parent]="this" [dataset]="dataset"></app-sources>
+      <app-submitters *ngIf="showSubmitters" [parent]="this" [dataset]="dataset"></app-submitters>
     </span>
   </p-header>
   <div>

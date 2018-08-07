@@ -75,7 +75,7 @@ public class SourceControllerTest {
                 + "    \"tail\" : \"Provo, UT, USA: The Generations Network,"
                 + " Inc., 2006\"\n"
                 + "  }, {\n"
-                + "    \"type\" : \"noteLink\",\n"
+                + "    \"type\" : \"notelink\",\n"
                 + "    \"string\" : \"N1350\",\n"
                 + "    \"attributes\" : [ ],\n"
                 + "    \"tail\" : \"\"\n"
