@@ -45,20 +45,22 @@ export class AttributeDialogHelper {
 
   private populateAttribute(attribute: ApiAttribute, data: AttributeDialogData) {
     if (data.type.toLowerCase() === 'name') {
-      attribute.type = data.type.toLowerCase();
-      attribute.string = data.text;
-      attribute.tail = '';
+      this.simpleInit(attribute, data.type.toLowerCase(), data.text);
     } else {
-      attribute.type = 'attribute';
-      attribute.string = data.type;
-      attribute.tail = data.text;
-    }
-    if (attribute.attributes === undefined) {
-      attribute.attributes = new Array<ApiAttribute>();
+      this.simpleInit(attribute, 'attribute', data.type, data.text);
     }
     this.setByType(attribute, 'date', data.date);
     this.setByType(attribute, 'place', data.place);
     this.setByString(attribute, 'note', data.note);
+  }
+
+  private simpleInit(attribute, type, string, tail = ''): void {
+    attribute.type = type;
+    attribute.string = string;
+    attribute.tail = tail;
+    if (attribute.attributes === undefined) {
+      attribute.attributes = new Array<ApiAttribute>();
+    }
   }
 
   private getByType(typeInput: string) {
