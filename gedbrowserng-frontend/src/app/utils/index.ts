@@ -12,3 +12,4 @@ export * from './new-submitter-helper';
 export * from './link-helper';
 export * from './resolver-helper';
 export * from './attribute-dialog-helper';
+export * from './refresher';

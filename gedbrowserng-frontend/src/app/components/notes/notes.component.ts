@@ -5,7 +5,7 @@ import { MenuItem, SelectItem } from 'primeng/api';
 import { HasAttributeList } from '../../interfaces';
 import { ApiObject, ApiNote, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { NoteService, NewNoteLinkService, ServiceBase } from '../../services';
-import { UrlBuilder, NewNoteHelper, ApiComparators, LinkHelper } from '../../utils';
+import { UrlBuilder, NewNoteHelper, ApiComparators, LinkHelper, Refresher } from '../../utils';
 import { LinkDialogComponent } from '../link-dialog';
 import { NewNoteDialogComponent } from '../new-note-dialog';
 
@@ -61,14 +61,7 @@ export class NotesComponent extends NoteCreator {
   }
 
   refreshNote(note: ApiNote): void {
-    const attribute: ApiAttribute = {
-      type: 'notelink',
-      string: note.string,
-      tail: '',
-      attributes: new Array<ApiAttribute>()
-    };
-    this.parent.attributes.push(attribute);
-    this.parent.save();
+    Refresher.refresh(this.parent, 'noteLink', note.string);
   }
 
   onNoteDialogClose() {

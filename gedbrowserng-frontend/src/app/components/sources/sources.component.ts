@@ -5,7 +5,7 @@ import { MenuItem, SelectItem } from 'primeng/api';
 import { HasAttributeList } from '../../interfaces';
 import { ApiObject, ApiSource, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { SourceService, NewSourceLinkService, ServiceBase } from '../../services';
-import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper } from '../../utils';
+import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper, Refresher } from '../../utils';
 import { LinkDialogComponent } from '../link-dialog';
 import { NewSourceDialogComponent } from '../new-source-dialog';
 
@@ -61,14 +61,7 @@ export class SourcesComponent extends SourceCreator {
   }
 
   refreshSource(source: ApiSource): void {
-    const attribute: ApiAttribute = {
-      type: 'sourcelink',
-      string: source.string,
-      tail: '',
-      attributes: new Array<ApiAttribute>()
-    };
-    this.parent.attributes.push(attribute);
-    this.parent.save();
+    Refresher.refresh(this.parent, 'sourceLink', source.string);
   }
 
   onSourceDialogClose() {

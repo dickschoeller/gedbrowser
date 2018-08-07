@@ -5,7 +5,7 @@ import { MenuItem, SelectItem } from 'primeng/api';
 import { HasAttributeList } from '../../interfaces';
 import { ApiObject, ApiSubmitter, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { SubmitterService, NewSubmitterLinkService } from '../../services';
-import { UrlBuilder, NewSubmitterHelper, ApiComparators, LinkHelper } from '../../utils';
+import { UrlBuilder, NewSubmitterHelper, ApiComparators, LinkHelper, Refresher } from '../../utils';
 import { LinkDialogComponent } from '../link-dialog';
 import { NewSubmitterDialogComponent } from '../new-submitter-dialog';
 
@@ -61,14 +61,7 @@ export class SubmittersComponent extends SubmitterCreator {
   }
 
   refreshSubmitter(submitter: ApiSubmitter): void {
-    const attribute: ApiAttribute = {
-      type: 'submitterlink',
-      string: submitter.string,
-      tail: '',
-      attributes: new Array<ApiAttribute>()
-    };
-    this.parent.attributes.push(attribute);
-    this.parent.save();
+    Refresher.refresh(this.parent, 'submitterLink', submitter.string);
   }
 
   onSubmitterDialogClose() {
