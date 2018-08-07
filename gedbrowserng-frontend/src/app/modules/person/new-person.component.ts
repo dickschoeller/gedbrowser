@@ -29,7 +29,7 @@ export class NewPersonComponent {
   }
 
   onDialogOpen(data: NewPersonDialogComponent): void {
-    data._data = this.nph.initNew(this.sex, this.surname);
+    data._data = NewPersonHelper.initNew(this.sex, this.surname);
   }
 
   onDialogOK(data: NewPersonDialogData): void {

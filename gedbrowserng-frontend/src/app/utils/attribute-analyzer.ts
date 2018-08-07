@@ -10,7 +10,7 @@ export class AttributeAnalyzer {
     if (this.parent.attribute.type === 'attribute') {
       return this.parent.attribute.string;
     }
-    return new StringUtil().titleCase(this.parent.attribute.type);
+    return StringUtil.titleCase(this.parent.attribute.type);
   }
 
   contents() {
@@ -18,7 +18,7 @@ export class AttributeAnalyzer {
       return this.parent.attribute.tail;
     }
     if (this.parent.attribute.type === 'name') {
-      return new NameUtil().cleanup(this.parent.attribute.string);
+      return NameUtil.cleanup(this.parent.attribute.string);
     }
     return this.parent.attribute.string;
   }

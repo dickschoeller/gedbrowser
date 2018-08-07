@@ -4,14 +4,11 @@ import { NewSubmitterHelper, UrlBuilder } from '../utils';
 import { NewSubmitterLinkService } from '../services';
 
 export abstract class SubmitterCreator implements RefreshSubmitter {
-  nsh = new NewSubmitterHelper();
-
-
   constructor(public newSubmitterLinkService: NewSubmitterLinkService) {}
 
   createSubmitter(data: NewSubmitterDialogData): void {
     if (data != null && data !== undefined) {
-      const newSubmitter: ApiSubmitter = this.nsh.buildSubmitter(data);
+      const newSubmitter: ApiSubmitter = NewSubmitterHelper.buildSubmitter(data);
       this.newSubmitterLinkService.post(this.submitterUB(), this.submitterAnchor(), newSubmitter)
         .subscribe((submitter: ApiSubmitter) => this.refreshSubmitter(submitter));
     }

@@ -1,23 +1,15 @@
 export class StringUtil {
-  /**
-   * Replace all instance of the search string found in the target with the replacement
-   * string.
-   */
-  replaceAll = function(target: string, search: string, replacement: string): string {
-    return target.replace(new RegExp(search, 'g'), replacement);
-  };
-
-  /**
-   * Change the first character to upper and the subsequent characters to lower case.
-   */
-  capitalize = function(target: string): string {
-    return target.charAt(0).toUpperCase() + target.slice(1).toLowerCase();
-  };
+  public static truncate(input: string, length: number): string {
+    if (input.trim().length <= length) {
+      return input.trim();
+    }
+    return input.trim().substr(0, length) + '...';
+  }
 
   /**
    * Change the input string to title case. For the most part, follow Chicago style.
    */
-  titleCase = function(target: string): string {
+  public static titleCase (target: string): string {
     const strSplit = target.split(' ');
     for (let i = 0; i < strSplit.length; i++) {
       let s: string = strSplit[i];
@@ -32,24 +24,31 @@ export class StringUtil {
       strSplit[i] = s;
     }
     return strSplit.join(' ');
-  };
+  }
+
+  /**
+   * Change the first character to upper and the subsequent characters to lower case.
+   */
+  public static capitalize (target: string): string {
+    return target.charAt(0).toUpperCase() + target.slice(1).toLowerCase();
+  }
 
   /**
    * Check for words that are all lower case in Chicago style.
    */
-  private donotcap = function(target: string): boolean {
+  private static donotcap(target: string): boolean {
     const specials = [
       'a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor',
       'on', 'in', 'at', 'since', 'for', 'before', 'to', 'until', 'by', 'beside', 'under', 'below',
       'over', 'above', 'across', 'through', 'into', 'towards', 'onto', 'from',
     ];
     return specials.includes(target.toLowerCase());
-  };
+  }
 
   /**
    * Check for certain all capitalized situations. Only true if the input is all caps.
    */
-  private allcaps = function(target: string): boolean {
+  private static allcaps (target: string): boolean {
     const states = [
       'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE',
       'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS',
@@ -64,12 +63,17 @@ export class StringUtil {
     const specials = [ 'FBI', 'RPI', 'USA' ];
     // Only match if the target is already all upper
     return specials.includes(target) || states.includes(target);
-  };
+  }
 
-  truncate = function(input: string, length: number): string {
-    if (input.trim().length <= length) {
-      return input.trim();
-    }
-    return input.trim().substr(0, length) + '...';
-  };
+  /**
+   * Replace all instance of the search string found in the target with the replacement
+   * string.
+   */
+  public static replaceAll(target: string, search: string, replacement: string): string {
+    return target.replace(new RegExp(search, 'g'), replacement);
+  }
+
+  public static isEmpty(input: string) {
+    return input === null || input === undefined || input === '';
+  }
 }

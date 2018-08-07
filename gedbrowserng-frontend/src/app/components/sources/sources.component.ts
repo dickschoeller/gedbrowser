@@ -77,8 +77,7 @@ export class SourcesComponent extends SourceCreator {
 
   onSourceDialogOpen(data: NewSourceDialogComponent) {
     if (data !== undefined) {
-      const nsh = new NewSourceHelper();
-      data._data = nsh.initNew('New Source');
+      data._data = NewSourceHelper.initNew('New Source');
     }
   }
 

@@ -4,13 +4,11 @@ import { NewPersonHelper, UrlBuilder } from '../utils';
 import { NewPersonLinkService } from '../services';
 
 export abstract class PersonCreator implements RefreshPerson {
-  nph = new NewPersonHelper();
-
   constructor(public newPersonLinkService: NewPersonLinkService) {}
 
   createPerson(data: NewPersonDialogData): void {
     if (data != null) {
-      const newPerson: ApiPerson = this.nph.buildPerson(data);
+      const newPerson: ApiPerson = NewPersonHelper.buildPerson(data);
       this.newPersonLinkService.post(this.personUB(), this.personAnchor(), newPerson)
         .subscribe((d: ApiPerson) => this.refreshPerson());
     }

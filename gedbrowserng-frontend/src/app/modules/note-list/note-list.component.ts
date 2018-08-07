@@ -37,7 +37,7 @@ export class NoteListComponent extends NoteCreator implements RefreshNote {
   }
 
   onDialogOpen(data: NewNoteDialogComponent) {
-    data._data = this.nnh.initNew('New Note');
+    data._data = NewNoteHelper.initNew('New Note');
   }
 
   noteAnchor(): string {

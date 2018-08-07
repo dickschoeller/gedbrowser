@@ -6,6 +6,7 @@ import { AttributeListComponent } from '../../components';
 import { ApiSubmitter, ApiAttribute, AttributeDialogData } from '../../models';
 import { SubmitterService } from '../../services';
 import { HasAttributeList } from '../../interfaces';
+import { AttributeDialogHelper } from '../../utils';
 
 @Component({
   selector: 'app-submitter',
@@ -59,10 +60,6 @@ export class SubmitterComponent implements OnInit, HasAttributeList {
   }
 
   defaultData(): AttributeDialogData {
-    return {
-      insert: true, index: 0, type: 'Name', text: '', date: '',
-      place: '', note: '', originalType: '', originalText: '',
-      originalDate: '', originalPlace: '', originalNote: ''
-    };
+    return AttributeDialogHelper.dialogData('Name');
   }
 }

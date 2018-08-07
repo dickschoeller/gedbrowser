@@ -27,7 +27,7 @@ export class PersonListComponent extends PersonCreator {
     this.displayPersonDialog = true;
   }
   onDialogOpen(data: NewPersonDialogComponent) {
-    data._data = this.nph.initNew('M', '');
+    data._data = NewPersonHelper.initNew('M', '');
   }
 
 

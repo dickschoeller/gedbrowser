@@ -5,7 +5,7 @@ import { MenuItem, SelectItem } from 'primeng/api';
 
 import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData, AttributeDialogData } from '../../models';
 import { FamilyService, PersonService, NewPersonLinkService } from '../../services';
-import { ImageUtil, UrlBuilder } from '../../utils';
+import { ImageUtil, UrlBuilder, NewPersonHelper } from '../../utils';
 import { InitablePersonCreator } from '../../bases';
 import { HasAttributeList, HasPerson, RefreshPerson, LinkCheck } from '../../interfaces';
 
@@ -78,7 +78,7 @@ export class PersonFamilyComponent extends InitablePersonCreator
         this.initialized = true;
     });
     this.surname = '?';
-    this.sex = this.nph.guessPartnerSex(this.person);
+    this.sex = NewPersonHelper.guessPartnerSex(this.person);
   }
 
   familyString() {

@@ -77,8 +77,7 @@ export class NotesComponent extends NoteCreator {
 
   onNoteDialogOpen(data: NewNoteDialogComponent) {
     if (data !== undefined) {
-      const nsh = new NewNoteHelper();
-      data._data = nsh.initNew('New Note');
+      data._data = NewNoteHelper.initNew('New Note');
     }
   }
 

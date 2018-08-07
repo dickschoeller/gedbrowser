@@ -3,7 +3,7 @@ import { MenuItem, SelectItem } from 'primeng/api';
 
 import { HasAttributeList } from '../../interfaces';
 import { ApiAttribute, AttributeDialogData } from '../../models';
-import { AttributeDialogHelper, AttributeAnalyzer, NameUtil, StringUtil, UrlBuilder } from '../../utils';
+import { AttributeDialogHelper, AttributeAnalyzer, NameUtil, UrlBuilder } from '../../utils';
 
 import { NewAttributeDialogComponent } from '../attribute-dialog';
 

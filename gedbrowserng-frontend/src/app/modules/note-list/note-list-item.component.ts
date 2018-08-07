@@ -24,14 +24,10 @@ export class NoteListItemComponent {
     });
   }
 
-  truncateNote(length: number): string {
+  truncateNote(length = 80): string {
     if (this.note === undefined) {
       return '';
     }
-    const u = new StringUtil();
-    if (length === undefined) {
-      return u.truncate(this.note.tail, 80);
-    }
-    return u.truncate(this.note.tail, length);
+    return StringUtil.truncate(this.note.tail, length);
   }
 }

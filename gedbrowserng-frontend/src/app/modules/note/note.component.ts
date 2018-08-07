@@ -6,7 +6,7 @@ import { AttributeListComponent } from '../../components';
 import { ApiNote, ApiAttribute, AttributeDialogData } from '../../models';
 import { NoteService } from '../../services';
 import { HasAttributeList } from '../../interfaces';
-import { StringUtil } from '../../utils';
+import { StringUtil, AttributeDialogHelper } from '../../utils';
 
 @Component({
   selector: 'app-note',
@@ -51,18 +51,10 @@ export class NoteComponent implements OnInit, HasAttributeList {
   }
 
   defaultData(): AttributeDialogData {
-    return {
-      insert: true, index: 0, type: 'Sourcelink', text: '', date: '',
-      place: '', note: '', originalType: '', originalText: '',
-      originalDate: '', originalPlace: '', originalNote: ''
-    };
+    return AttributeDialogHelper.dialogData('Sourcelink');
   }
 
-  truncateNote(length: number): string {
-    const u = new StringUtil();
-    if (length === undefined) {
-      return u.truncate(this.note.tail, 80);
-    }
-    return u.truncate(this.note.tail, length);
+  truncateNote(length = 80): string {
+    return StringUtil.truncate(this.note.tail, length);
   }
 }

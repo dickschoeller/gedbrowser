@@ -6,7 +6,7 @@ import { SelectItem } from 'primeng/api';
 import { AttributeListComponent } from '../../components';
 import { ApiSource, ApiAttribute, AttributeDialogData } from '../../models';
 import { SourceService } from '../../services';
-import { ImageUtil } from '../../utils';
+import { ImageUtil, AttributeDialogHelper } from '../../utils';
 import { HasAttributeList } from '../../interfaces';
 
 @Component({
@@ -179,11 +179,7 @@ export class SourceComponent implements OnInit, HasAttributeList {
     return this._options;
   }
 
-  defaultData(): any { // AttributeDialogData {
-    return {
-      insert: true, index: 0, type: 'Title', text: '', date: '',
-      place: '', note: '', originalType: '', originalText: '',
-      originalDate: '', originalPlace: '', originalNote: ''
-    };
+  defaultData(): AttributeDialogData {
+    return AttributeDialogHelper.dialogData('Title');
   }
 }

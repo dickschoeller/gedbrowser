@@ -37,7 +37,7 @@ export class SourceListComponent extends SourceCreator implements RefreshSource 
   }
 
   onDialogOpen(data: NewSourceDialogComponent) {
-    data._data = this.nsh.initNew('New Source');
+    data._data = NewSourceHelper.initNew('New Source');
   }
 
   sourceAnchor(): string {

@@ -1,11 +1,10 @@
 import { ApiPerson, ApiAttribute, NewPersonDialogData } from '../models';
+import { StringUtil } from './string-util';
 import { AttributeDialogHelper } from './attribute-dialog-helper';
 
 export class NewPersonHelper {
-  constructor() {}
-
-  buildPerson(data: NewPersonDialogData): ApiPerson {
-    if (data.name === '' || data.name === undefined || data.name === null) {
+  public static buildPerson(data: NewPersonDialogData): ApiPerson {
+    if (StringUtil.isEmpty(data.name)) {
       data.name = this.defaultGiven(data.sex);
     }
     const person: ApiPerson = new ApiPerson();
@@ -17,17 +16,17 @@ export class NewPersonHelper {
     return person;
   }
 
-  addName(name, person) {
+  private static addName(name, person) {
     const adh: AttributeDialogHelper = new AttributeDialogHelper(person);
     person.attributes.push(adh.simpleAttribute('Name', name));
   }
 
-  addSex(sex, person) {
+  private static addSex(sex, person) {
     const adh: AttributeDialogHelper = new AttributeDialogHelper(person);
     person.attributes.push(adh.simpleAttribute('Sex', sex));
   }
 
-  addBirth(birthDate, birthPlace, person) {
+  private static addBirth(birthDate, birthPlace, person) {
     const adh: AttributeDialogHelper = new AttributeDialogHelper(person);
     if (birthDate !== '' || birthPlace !== '') {
       person.attributes.push(adh.populateNewAttribute({
@@ -40,7 +39,7 @@ export class NewPersonHelper {
     }
   }
 
-  addDeath(deathDate, deathPlace, person) {
+  private static addDeath(deathDate, deathPlace, person) {
     const adh: AttributeDialogHelper = new AttributeDialogHelper(person);
     if (deathDate !== '' || deathPlace !== '') {
       person.attributes.push(adh.populateNewAttribute({
@@ -53,22 +52,22 @@ export class NewPersonHelper {
     }
   }
 
-  config(dataIn) {
+  public static config(dataIn) {
     return {data: dataIn};
   }
 
-  initNew(sex: string, surname: string): NewPersonDialogData {
+  public static initNew(sex: string, surname: string): NewPersonDialogData {
     return {
       sex: sex, name: this.defaultGiven(sex) + '/' + surname + '/',
       birthDate: '', birthPlace: '', deathDate: '', deathPlace: ''
     };
   }
 
-  empty(result): boolean {
+  private static empty(result): boolean {
     return (result === null || result === undefined);
   }
 
-  guessPartnerSex(person: ApiPerson): string {
+  public static guessPartnerSex(person: ApiPerson): string {
     for (const a of person.attributes) {
       if (a.string === 'Sex') {
         return this.oppositeSex(a.tail);
@@ -77,14 +76,14 @@ export class NewPersonHelper {
     return 'M';
   }
 
-  private oppositeSex(sex: string): string {
+  private static oppositeSex(sex: string): string {
     if (sex === 'F') {
       return 'M';
     }
     return 'F';
   }
 
-  defaultGiven(sex: string): string {
+  private static defaultGiven(sex: string): string {
     if (sex === 'F') {
       return 'Anonyma';
     }

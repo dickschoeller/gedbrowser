@@ -1,8 +1,7 @@
 import { StringUtil } from './string-util';
 
 export class NameUtil {
-  cleanup(name: string): string {
-    const su = new StringUtil();
-    return su.replaceAll(su.replaceAll(name, '/', ' '), '  ', ' ').trim();
+  public static cleanup(name: string): string {
+    return StringUtil.replaceAll(StringUtil.replaceAll(name, '/', ' '), '  ', ' ').trim();
   }
 }

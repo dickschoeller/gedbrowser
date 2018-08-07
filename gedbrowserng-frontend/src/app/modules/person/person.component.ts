@@ -139,10 +139,6 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
   }
 
   defaultData(): AttributeDialogData {
-    return {
-      insert: true, index: 0, type: 'Name', text: '', date: '',
-      place: '', note: '', originalType: '', originalText: '',
-      originalDate: '', originalPlace: '', originalNote: ''
-    };
+    return AttributeDialogHelper.dialogData('Name');
   }
 }

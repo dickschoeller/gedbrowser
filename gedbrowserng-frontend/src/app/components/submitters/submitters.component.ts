@@ -77,8 +77,7 @@ export class SubmittersComponent extends SubmitterCreator {
 
   onSubmitterDialogOpen(data: NewSubmitterDialogComponent) {
     if (data !== undefined) {
-      const nsh = new NewSubmitterHelper();
-      data._data = nsh.initNew('New Submitter');
+      data._data = NewSubmitterHelper.initNew('New Submitter');
     }
   }
 
