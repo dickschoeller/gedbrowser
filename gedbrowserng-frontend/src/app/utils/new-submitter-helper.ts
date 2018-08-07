@@ -9,7 +9,7 @@ export class NewSubmitterHelper {
     }
     const submitter: ApiSubmitter = new ApiSubmitter();
     submitter.attributes = new Array<ApiAttribute>();
-    this.addName(data.name, submitter);
+    NewSubmitterHelper.addName(data.name, submitter);
     return submitter;
   }
 

@@ -9,6 +9,6 @@ export class NewNoteHelper {
   }
 
   public static initNew(text: string): NewNoteDialogData {
-    return {text: text};
+    return { text: text };
   }
 }

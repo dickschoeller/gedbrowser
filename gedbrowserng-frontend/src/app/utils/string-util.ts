@@ -12,7 +12,7 @@ export class StringUtil {
   public static titleCase (target: string): string {
     const strSplit = target.split(' ');
     for (let i = 0; i < strSplit.length; i++) {
-      this.capitalizeSplit(strSplit, i);
+      StringUtil.capitalizeSplit(strSplit, i);
     }
     return strSplit.join(' ');
   }
@@ -20,11 +20,11 @@ export class StringUtil {
   private static capitalizeSplit(strSplit, i): void {
     let s: string = strSplit[i];
     if (i === 0 || i === strSplit.length - 1) {
-      s = this.capitalize(s);
-    } else if (!this.allcaps(s)) {
+      s = StringUtil.capitalize(s);
+    } else if (!StringUtil.allcaps(s)) {
       // Note all caps wins over donotcap, otherwise 'OR' gets mishandled as 'or'.
-      s = this.capitalize(s);
-    } else if (this.donotcap(s)) {
+      s = StringUtil.capitalize(s);
+    } else if (StringUtil.donotcap(s)) {
       s = s.toLowerCase();
     }
     strSplit[i] = s;

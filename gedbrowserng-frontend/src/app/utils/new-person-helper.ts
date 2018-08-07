@@ -5,14 +5,14 @@ import { AttributeDialogHelper } from './attribute-dialog-helper';
 export class NewPersonHelper {
   public static buildPerson(data: NewPersonDialogData): ApiPerson {
     if (StringUtil.isEmpty(data.name)) {
-      data.name = this.defaultGiven(data.sex);
+      data.name = NewPersonHelper.defaultGiven(data.sex);
     }
     const person: ApiPerson = new ApiPerson();
     person.attributes = new Array<ApiAttribute>();
-    this.addName(data.name, person);
-    this.addSex(data.sex, person);
-    this.addBirth(data.birthDate, data.birthPlace, person);
-    this.addDeath(data.deathDate, data.deathPlace, person);
+    NewPersonHelper.addName(data.name, person);
+    NewPersonHelper.addSex(data.sex, person);
+    NewPersonHelper.addBirth(data.birthDate, data.birthPlace, person);
+    NewPersonHelper.addDeath(data.deathDate, data.deathPlace, person);
     return person;
   }
 
@@ -58,7 +58,7 @@ export class NewPersonHelper {
 
   public static initNew(sex: string, surname: string): NewPersonDialogData {
     return {
-      sex: sex, name: this.defaultGiven(sex) + '/' + surname + '/',
+      sex: sex, name: NewPersonHelper.defaultGiven(sex) + '/' + surname + '/',
       birthDate: '', birthPlace: '', deathDate: '', deathPlace: ''
     };
   }
@@ -70,7 +70,7 @@ export class NewPersonHelper {
   public static guessPartnerSex(person: ApiPerson): string {
     for (const a of person.attributes) {
       if (a.string === 'Sex') {
-        return this.oppositeSex(a.tail);
+        return NewPersonHelper.oppositeSex(a.tail);
       }
     }
     return 'M';

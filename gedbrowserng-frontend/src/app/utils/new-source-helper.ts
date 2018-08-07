@@ -5,13 +5,13 @@ import { StringUtil } from './string-util';
 export class NewSourceHelper {
   public static buildSource(data: NewSourceDialogData): ApiSource {
     if (StringUtil.isEmpty(data.title)) {
-      data.title = this.defaultTitle(data);
+      data.title = NewSourceHelper.defaultTitle(data);
     }
     const source: ApiSource = new ApiSource();
     source.attributes = new Array<ApiAttribute>();
-    this.addTitle(data.title, source);
-    this.addAbbreviation(data.abbreviation, source);
-    this.addText(data.text, source);
+    NewSourceHelper.addTitle(data.title, source);
+    NewSourceHelper.addAbbreviation(data.abbreviation, source);
+    NewSourceHelper.addText(data.text, source);
     return source;
   }
 
@@ -34,12 +34,12 @@ export class NewSourceHelper {
     source.attributes.push(adh.simpleAttribute('Text', text));
   }
 
-  private static config(dataIn) {
-    return {data: dataIn};
+  public static config(dataIn) {
+    return { data: dataIn };
   }
 
   public static initNew(title: string): NewSourceDialogData {
-    return {title: title, abbreviation: title, text: ''};
+    return { title: title, abbreviation: title, text: '' };
   }
 
   private static empty(result): boolean {
