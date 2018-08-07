@@ -9,9 +9,8 @@ export class LinkPersonHelper {
   onLinkChildDialogOpen(dialogComponent: any, component: LinkCheck) {
     this.personService.getAll(dialogComponent.dataset).subscribe(
       (value: ApiPerson[]) => {
-        const comparator: ApiComparators = new ApiComparators();
         dialogComponent.persons = value;
-        dialogComponent.persons.sort(comparator.comparePersons);
+        dialogComponent.persons.sort(ApiComparators.comparePersons);
         dialogComponent._data = new LinkPersonDialogData();
         for (const person of dialogComponent.persons) {
           if (this.alreadyLinked(person, component)) {

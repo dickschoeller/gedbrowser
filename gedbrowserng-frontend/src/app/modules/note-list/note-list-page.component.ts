@@ -33,9 +33,8 @@ export class NoteListPageComponent implements OnInit, OnChanges, RefreshNote {
     });
     this.route.data.subscribe(
       (data: {dataset: string, notes: ApiNote[]}) => {
-        const comparator: ApiComparators = new ApiComparators();
         this.notes = data.notes;
-        this.notes.sort(comparator.compareNotes);
+        this.notes.sort(ApiComparators.compareNotes);
       }
     );
   }
@@ -49,8 +48,7 @@ export class NoteListPageComponent implements OnInit, OnChanges, RefreshNote {
 
     this.noteService.getAll(this.dataset).subscribe(
       (notes: Array<ApiNote>) => {
-        const comparator: ApiComparators = new ApiComparators();
-        this.notes = notes.sort(comparator.compareNotes);
+        this.notes = notes.sort(ApiComparators.compareNotes);
       }
     );
   }

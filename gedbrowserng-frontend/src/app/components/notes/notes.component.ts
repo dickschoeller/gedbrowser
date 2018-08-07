@@ -106,7 +106,6 @@ export class NotesComponent extends NoteCreator {
   }
 
   lh(): LinkHelper {
-    const comparators: ApiComparators = new ApiComparators();
-    return new LinkHelper((o: ApiNote) => o.tail, comparators.compareNotes, 'notelink');
+    return new LinkHelper((o: ApiNote) => o.tail, ApiComparators.compareNotes, 'notelink');
   }
 }

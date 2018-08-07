@@ -106,7 +106,6 @@ export class SourcesComponent extends SourceCreator {
   }
 
   lh(): LinkHelper {
-    const comparators: ApiComparators = new ApiComparators();
-    return new LinkHelper((o: ApiSource) => o.title, comparators.compareSources, 'sourcelink');
+    return new LinkHelper((o: ApiSource) => o.title, ApiComparators.compareSources, 'sourcelink');
   }
 }

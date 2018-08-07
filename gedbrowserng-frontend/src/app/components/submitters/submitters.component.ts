@@ -106,7 +106,6 @@ export class SubmittersComponent extends SubmitterCreator {
   }
 
   lh(): LinkHelper {
-    const comparators: ApiComparators = new ApiComparators();
-    return new LinkHelper((o: ApiSubmitter) => o.name, comparators.compareSubmitters, 'submitterlink');
+    return new LinkHelper((o: ApiSubmitter) => o.name, ApiComparators.compareSubmitters, 'submitterlink');
   }
 }
