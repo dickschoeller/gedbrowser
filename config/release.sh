@@ -42,7 +42,7 @@ rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
 git add -A
 git status
 while true; do
-    read -p "Proceed?" yn
+    read -p "Proceed? " yn
     case $yn in
         [Yy]* ) mvn install; break;;
         [Nn]* ) exit;;
