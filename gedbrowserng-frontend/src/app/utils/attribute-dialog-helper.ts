@@ -64,17 +64,17 @@ export class AttributeDialogHelper {
   }
 
   private getByType(typeInput: string) {
-    return this.getBy(this.parent.attribute.attributes, typeInput, (attr) => attr.type.toLowerCase());
+    return this.getBy(this.parent.attribute.attributes, typeInput, (attr) => attr.type.toLowerCase(), (attr) => attr.string);
   }
 
   private getByString(stringInput: string) {
-    return this.getBy(this.parent.attribute.attributes, stringInput, (attr) => attr.string);
+    return this.getBy(this.parent.attribute.attributes, stringInput, (attr) => attr.string, (attr) => attr.tail);
   }
 
-  private getBy(attributes: Array<ApiAttribute>, input: string, getField) {
+  private getBy(attributes: Array<ApiAttribute>, input: string, getField, getValue) {
     for (const attr of attributes) {
       if (getField(attr) === input) {
-        return attr.tail;
+        return getValue(attr);
       }
     }
   }
