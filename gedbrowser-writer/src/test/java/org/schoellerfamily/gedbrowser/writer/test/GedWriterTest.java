@@ -1,10 +1,12 @@
 package org.schoellerfamily.gedbrowser.writer.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
@@ -78,6 +80,17 @@ public class GedWriterTest {
         final GedWriter writer2 = new GedWriter(root);
         writer2.write();
         assertSuccess();
+    }
+
+    /**
+     * @throws IOException if file IO fails
+     */
+    @Test
+    public void testString() throws IOException {
+        final GedWriter writer = new GedWriter(root);
+        final String writeString = writer.writeString();
+        final String readString = FileUtils.readFileToString(new File(inputFilename), StandardCharsets.UTF_8);
+        assertEquals("Input and output should match", readString, writeString);
     }
 
     /**
