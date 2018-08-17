@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.persistence.domain.NoteDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
@@ -54,7 +53,7 @@ public class NoteCrud
      * @param note the data for the note
      * @return the note as created
      */
-    public ApiObject createNote(final String db,
+    public ApiNote createNote(final String db,
             final ApiNote note) {
         logger.info("Entering create note in db: " + db);
         return create(readRoot(db), note, (i, id) ->
