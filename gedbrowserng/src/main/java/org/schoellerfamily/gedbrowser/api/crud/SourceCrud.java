@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
@@ -55,7 +54,7 @@ public class SourceCrud
      * @param source the data for the source
      * @return the source as created
      */
-    public ApiObject createSource(final String db,
+    public ApiSource createSource(final String db,
             final ApiSource source) {
         logger.info("Entering create source in db: " + db);
         return create(readRoot(db), source, (i, id) -> new ApiSource(i, id));

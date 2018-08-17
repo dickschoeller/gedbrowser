@@ -4,7 +4,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
@@ -34,7 +33,7 @@ public class ParentCrud extends RelationsCrud {
      * @param person the data for the parent
      * @return the person returned from the db
      */
-    public ApiObject createParent(final String db, final String id,
+    public ApiPerson createParent(final String db, final String id,
             final ApiPerson person) {
         logger.info(
                 "Entering create parent in db: " + db + " for person " + id);
@@ -52,7 +51,7 @@ public class ParentCrud extends RelationsCrud {
      * @param person the data for the spouse
      * @return the person returned from the db
      */
-    public ApiObject linkParent(final String db, final String id,
+    public ApiPerson linkParent(final String db, final String id,
             final ApiPerson person) {
         logger.info(
                 "Entering link person: " + person.getString()
