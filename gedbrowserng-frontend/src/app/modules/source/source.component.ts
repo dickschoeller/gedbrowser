@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgxGalleryOptions, NgxGalleryImage } from 'ngx-gallery';
 import { SelectItem } from 'primeng/api';
 
 import { AttributeListComponent } from '../../components';
 import { ApiSource, ApiAttribute, AttributeDialogData } from '../../models';
 import { SourceService } from '../../services';
-import { ImageUtil, AttributeDialogHelper } from '../../utils';
+import { AttributeDialogHelper } from '../../utils';
 import { HasAttributeList } from '../../interfaces';
 
 @Component({
@@ -18,8 +17,6 @@ export class SourceComponent implements OnInit, HasAttributeList {
   dataset: string;
   source: ApiSource;
   attributes: Array<ApiAttribute>;
-  imageUtil = new ImageUtil();
-  galleryOptions = this.imageUtil.galleryOptions();
   _options: Array<SelectItem> = [
       {value: 'Abbreviation', label: 'Abbreviation'},
       {value: 'Address', label: 'Address'},
@@ -95,7 +92,6 @@ export class SourceComponent implements OnInit, HasAttributeList {
       {value: 'Marriage License', label: 'Marriage License'},
       {value: 'Marriage Settlement', label: 'Marriage Settlement'},
       {value: 'Media', label: 'Media'},
-      {value: 'Multimedia', label: 'Multimedia'},
       {value: 'Name', label: 'Name'},
       {value: 'Name Prefix', label: 'Name Prefix'},
       {value: 'Name Suffix', label: 'Name Suffix'},
@@ -161,10 +157,6 @@ export class SourceComponent implements OnInit, HasAttributeList {
         this.attributes = this.source.attributes;
       }
     );
-  }
-
-  galleryImages(): Array<NgxGalleryImage> {
-    return this.imageUtil.galleryImages(this.source.images);
   }
 
   save() {

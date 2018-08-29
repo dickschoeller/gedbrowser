@@ -13,7 +13,14 @@ export class AttributeAnalyzer {
     return StringUtil.titleCase(this.parent.attribute.type);
   }
 
-  contents() {
+  contents(): string {
+    const value = this.contentsA();
+    if (value === 'Multimedia') {
+      alert('type: ' + this.parent.attribute.type + ', string: ' + this.parent.attribute.string);
+    }
+    return value;
+  }
+  contentsA() {
     if (this.parent.attribute.type === 'attribute') {
       return this.parent.attribute.tail;
     }

@@ -1,0 +1,56 @@
+<p-dialog
+    [modal]="true" [closable]="true"
+    [closeOnEscape]="true" [dismissableMask]="true"
+    (onHide)="close()" (onShow)="open()"
+    [(visible)]="_display"
+    appendTo="body">
+  <p-header><i class="fa fa-image"></i> Multimedia item</p-header>
+  <br/>
+  <div class="ui-float-label">
+    <input id="float-input-title" type="text" size="50" pInputText [(ngModel)]="_data.title">
+    <label for="float-input-title">Title</label>
+  </div>
+  <div>
+    <p-orderList [value]="_data.files" [responsive]="false"
+        [listStyle]="{'height':'100%','width':'100%','border':'0'}"
+        dragdrop="true" dragdropScope="_data.files">
+      <ng-template let-file let-i="index" pTemplate="item">
+        <br/>
+        <div class="ui-float-label">
+          <input id="float-input-url" type="text" size="50" pInputText [(ngModel)]="file.fileUrl">
+          <label for="float-input-url">File URL</label>
+        </div>
+        <br/>
+        <div class="ui-float-label">
+          <p-dropdown
+              id="float-input-format"
+              [options]="formats()"
+              [style]="{'width':'425px'}"
+              [(ngModel)]="file.format"
+              appendTo="body" editable="false"></p-dropdown>
+          <label for="float-input-format">File format</label>
+        </div>
+        <br/>
+        <div class="ui-float-label">
+          <p-dropdown
+              id="float-input-source-type"
+              [options]="sourceTypes()"
+              [style]="{'width':'425px'}"
+              [(ngModel)]="file.sourceType"
+              appendTo="body" editable="false"></p-dropdown>
+          <label for="float-input-source-type">Source type</label>
+        </div>
+      </ng-template>
+    </p-orderList>
+  </div>
+  <br/>
+  <div class="ui-float-label">
+    <textarea [rows]="8" [cols]="50" [(ngModel)]="_data.note"
+        id="float-input-text" autoResize="autoResize" pInputTextarea></textarea>
+    <label for="float-input-text">Note</label>
+  </div>
+  <p-footer>
+    <p-button label="OK" icon="fa fa-fw fa-check" (click)="ok()"></p-button>
+    <p-button label="Cancel" icon="fa fa-fw fa-close" (click)="cancel()" [styleClass]="'ui-button-secondary'"></p-button>
+  </p-footer>
+<p-dialog>

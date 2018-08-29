@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgxGalleryOptions, NgxGalleryImage } from 'ngx-gallery';
 import { SelectItem } from 'primeng/api';
 
 import { AttributeListComponent } from '../../components';
 import { ApiHead, ApiAttribute, AttributeDialogData } from '../../models';
 import { HeadService } from '../../services';
-import { ImageUtil, AttributeDialogHelper } from '../../utils';
+import { AttributeDialogHelper } from '../../utils';
 import { HasAttributeList } from '../../interfaces';
 
 @Component({
@@ -18,8 +17,6 @@ export class HeadComponent implements OnInit, HasAttributeList {
   dataset: string;
   head: ApiHead;
   attributes: Array<ApiAttribute>;
-  imageUtil = new ImageUtil();
-  galleryOptions = this.imageUtil.galleryOptions();
   _options: Array<SelectItem> = [
       {value: 'Character Set', label: 'Character Set'},
       {value: 'Copyright', label: 'Copyright'},
@@ -51,10 +48,6 @@ export class HeadComponent implements OnInit, HasAttributeList {
       }
     );
   }
-
-//  galleryImages(): Array<NgxGalleryImage> {
-//    return this.imageUtil.galleryImages(this.head.images);
-//  }
 
   save() {
     this.headService.put(this.dataset, this.head).subscribe(

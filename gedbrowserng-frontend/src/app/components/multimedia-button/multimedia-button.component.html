@@ -1,0 +1,10 @@
+<span>
+  <p-menu #multimediamenu popup="popup" #cm appendTo="body" [model]="menuitems"></p-menu>
+  <p-splitButton [styleClass]="'ui-button-success'" (click)="multimediamenu.toggle($event)"
+      icon="fa fa-fw fa-image" pTooltip="Multimedia"></p-splitButton>
+  <app-multimedia-dialog
+      [p]="this"
+      (emitClose)="onDialogClose()" (emitOpen)="onDialogOpen($event)"
+      (emitOK)="create($event)"
+      [(display)]="displayDialog"></app-multimedia-dialog>
+</span>

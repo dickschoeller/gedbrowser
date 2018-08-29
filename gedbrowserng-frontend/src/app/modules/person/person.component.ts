@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgxGalleryOptions, NgxGalleryImage } from 'ngx-gallery';
 import { SelectItem } from 'primeng/api';
 
 import { ApiPerson, ApiAttribute, AttributeDialogData } from '../../models';
 import { PersonService } from '../../services';
-import { AttributeDialogHelper, LifespanUtil, ImageUtil } from '../../utils';
+import { AttributeDialogHelper, LifespanUtil } from '../../utils';
 import { HasAttributeList } from '../../interfaces';
 
 import { AttributeListComponent } from '../../components/attribute-list';
@@ -26,8 +25,6 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
   dataset: string;
   person: ApiPerson;
   attributes: Array<ApiAttribute>;
-  imageUtil = new ImageUtil();
-  galleryOptions = this.imageUtil.galleryOptions();
   attributeDialogHelper: AttributeDialogHelper = new AttributeDialogHelper(this);
   _options: Array<SelectItem> = [
       {value: 'Adoption', label: 'Adoption'},
@@ -120,10 +117,6 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
 
   lifespanDateString() {
     return new LifespanUtil(this.person.lifespan).lifespanDateString();
-  }
-
-  galleryImages(): Array<NgxGalleryImage> {
-    return this.imageUtil.galleryImages(this.person.images);
   }
 
   save() {

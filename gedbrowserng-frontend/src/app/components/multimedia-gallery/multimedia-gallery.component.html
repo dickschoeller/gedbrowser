@@ -1,0 +1,15 @@
+<p-panel header="Multimedia" [toggleable]="true" [styleClass]="styleClass">
+  <p-header>
+    <span class="bump-out">
+      <app-multimedia-button [parent]="this" [dataset]="dataset"></app-multimedia-button>
+    </span>
+  </p-header>
+  <div *ngIf="galleryImages().length">
+    <ngx-gallery [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
+  </div>
+</p-panel>
+<app-multimedia-dialog
+    *ngIf="displayDialog" [p]="this"
+    (emitClose)="onDialogClose()" (emitOpen)="onDialogOpen($event)"
+    (emitOK)="create($event)"
+    [(display)]="displayDialog"></app-multimedia-dialog>

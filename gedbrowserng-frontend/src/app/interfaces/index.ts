@@ -1,6 +1,7 @@
 export * from './has-attribute-list';
 export * from './has-family';
 export * from './has-lifespan';
+export * from './has-multimedia';
 export * from './has-person';
 export * from './link-check';
 export * from './refresh-note';

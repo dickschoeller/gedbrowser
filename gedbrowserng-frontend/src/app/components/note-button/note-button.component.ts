@@ -10,11 +10,11 @@ import { LinkDialogComponent } from '../link-dialog';
 import { NewNoteDialogComponent } from '../new-note-dialog';
 
 @Component({
-  selector: 'app-notes',
-  templateUrl: './notes.component.html',
-  styleUrls: ['./notes.component.css']
+  selector: 'app-note-button',
+  templateUrl: './note-button.component.html',
+  styleUrls: ['./note-button.component.css']
 })
-export class NotesComponent extends NoteCreator {
+export class NoteButtonComponent extends NoteCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 

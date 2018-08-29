@@ -22,19 +22,21 @@
   <div class="ui-g">
     <div class="ui-g-1"></div>
     <div class="ui-g-10">
-      <app-attribute-list [dataset]="dataset" [attributes]="family?.attributes" [parent]="this" [styleClass]="'ui-panel-titlebar-success'"></app-attribute-list>
+      <app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="family?.attributes"
+          [styleClass]="'ui-panel-titlebar-success'"></app-attribute-list>
     </div>
     <div class="ui-g-1"></div>
   </div>
   <div class="ui-g">
     <div class="ui-g-1"></div>
     <div class="ui-g-10">
-      <p-panel header="Images" styleClass="ui-panel-titlebar-success">
-        <ngx-gallery *ngIf="family?.images.length" [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
-      </p-panel>
+      <app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="family?.images"
+          [styleClass]="'ui-panel-titlebar-success'"></app-multimedia-gallery>
     </div>
     <div class="ui-g-1"></div>
   </div>
-  <app-person-family-child-list *ngIf="family?.children" [children]="family?.children" [family]="family" [parent]="this" [dataset]="dataset"></app-person-family-child-list>
+  <app-person-family-child-list *ngIf="family?.children"
+      [children]="family?.children" [family]="family" [parent]="this"
+      [dataset]="dataset"></app-person-family-child-list>
 </p-panel>
 <br/>

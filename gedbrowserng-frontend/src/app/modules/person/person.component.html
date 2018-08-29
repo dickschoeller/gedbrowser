@@ -4,11 +4,7 @@
 <br/>
 <app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="person.attributes" [toggleable]="true"></app-attribute-list>
 <br/>
-<p-panel header="Images" [toggleable]="true">
-  <div>
-    <ngx-gallery [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
-  </div>
-</p-panel>
+<app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="person.images"></app-multimedia-gallery>
 <br/>
 <p-panel [showHeader]="false">
   <div><b>{{ person?.refn[0].string }}:&nbsp;</b> {{ person?.refn[0].tail }}</div>

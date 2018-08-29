@@ -12,7 +12,7 @@
         icon="fa fa-fw fa-pencil" pTooltip="Edit attribute"></p-button>
     <p-button [styleClass]="'ui-button-danger'" (onClick)="delete()"
         icon="fa fa-fw fa-trash" pTooltip="Delete attribute"></p-button>
-    <app-sources *ngIf="!href()"[parent]="this" [dataset]="dataset"></app-sources>
+    <app-source-button *ngIf="!href()"[parent]="this" [dataset]="dataset"></app-source-button>
   </span>
 </div>
 <app-new-attribute-dialog
