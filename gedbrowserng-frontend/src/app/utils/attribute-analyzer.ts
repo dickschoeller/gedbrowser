@@ -14,11 +14,7 @@ export class AttributeAnalyzer {
   }
 
   contents(): string {
-    const value = this.contentsA();
-    if (value === 'Multimedia') {
-      alert('type: ' + this.parent.attribute.type + ', string: ' + this.parent.attribute.string);
-    }
-    return value;
+    return this.contentsA();
   }
   contentsA() {
     if (this.parent.attribute.type === 'attribute') {

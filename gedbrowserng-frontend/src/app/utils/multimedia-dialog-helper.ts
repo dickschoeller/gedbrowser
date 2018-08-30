@@ -28,20 +28,17 @@ export class MultimediaDialogHelper {
   }
 
   public static buildMultimediaDialogData(multimedias: Array<ApiAttribute>, dialogIndex?: number | 0): MultimediaDialogData {
+    const files: Array<MultimediaFileData> = new Array<MultimediaFileData>();
+    if (ArrayUtil.isEmpty(multimedias)) {
+      return { title: 'Title', files: [], note: '' };
+    }
+    const multimedia: ApiAttribute = multimedias[dialogIndex];
     let title = 'Title ' + dialogIndex;
     let note = '';
-    const files: Array<MultimediaFileData> = new Array<MultimediaFileData>();
-    if (!ArrayUtil.isEmpty(multimedias)) {
-      const multimedia: ApiAttribute = multimedias[dialogIndex];
-      for (const attribute of multimedia.attributes) {
-        title = this.buildTitle(attribute, title);
-        if (ImageUtil.isImage(attribute)) {
-          this.pushFile(files, attribute);
-        }
-        if (attribute.type === 'attribute' && attribute.string === 'Note' && StringUtil.isEmpty(note)) {
-          note = attribute.tail;
-        }
-      }
+    for (const attribute of multimedia.attributes) {
+      title = this.buildTitle(attribute, title);
+      this.pushFile(files, attribute);
+      note = this.buildNote(attribute, note);
     }
     return { title: title, files: files, note: note };
   }
@@ -54,10 +51,20 @@ export class MultimediaDialogHelper {
   }
 
   private static pushFile(files: Array<MultimediaFileData>, attribute: ApiAttribute) {
+    if (attribute.string !== 'File') {
+      return;
+    }
     files.push({
       fileUrl: attribute.tail,
       format: MultimediaFormat[ImageUtil.imageFormat(attribute)],
       sourceType: MultimediaSourceType[this.sourceType(attribute)] });
+  }
+
+  private static buildNote(attribute: ApiAttribute, note: string): string {
+    if (attribute.type === 'attribute' && attribute.string === 'Note' && StringUtil.isEmpty(note)) {
+      note = attribute.tail;
+    }
+    return note;
   }
 
   private static sourceType(multimedia: ApiAttribute): string {
