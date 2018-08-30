@@ -18,7 +18,7 @@ export class NoteComponent implements OnInit, HasAttributeList {
   note: ApiNote;
   attributes: Array<ApiAttribute>;
   _options: Array<SelectItem> = [
-      {value: 'Sourcelink', label: 'Source Link'},
+      {value: 'sourcelink', label: 'Source Link'},
     ];
 
   constructor(private route: ActivatedRoute,
@@ -51,7 +51,7 @@ export class NoteComponent implements OnInit, HasAttributeList {
   }
 
   defaultData(): AttributeDialogData {
-    return AttributeDialogHelper.dialogData('Sourcelink');
+    return AttributeDialogHelper.dialogData('sourcelink');
   }
 
   truncateNote(length = 80): string {

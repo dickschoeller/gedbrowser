@@ -61,7 +61,7 @@ export class SourceButtonComponent extends SourceCreator {
   }
 
   refreshSource(source: ApiSource): void {
-    Refresher.refresh(this.parent, 'sourceLink', source.string);
+    Refresher.refresh(this.parent, 'sourcelink', source.string);
   }
 
   onSourceDialogClose() {
