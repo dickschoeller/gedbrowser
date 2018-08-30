@@ -1,16 +1,12 @@
-import {ModuleWithProviders, NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {CommonModule} from '@angular/common';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
-import {NgxGalleryModule} from 'ngx-gallery';
-import {NgxPageScrollModule} from 'ngx-page-scroll';
+import { PanelModule } from 'primeng/panel';
 
-import {PanelModule} from 'primeng/panel';
-
-import {ComponentsModule} from '../../components';
-
-import {SourceComponent} from './source.component';
-import {SourceResolverService} from './source-resolver.service';
+import { ComponentsModule } from '../../components';
+import { SourceComponent } from './source.component';
+import { SourceResolverService } from './source-resolver.service';
 
 const sourceRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -26,8 +22,6 @@ const sourceRouting: ModuleWithProviders = RouterModule.forChild([
   imports: [
     sourceRouting,
     CommonModule,
-    NgxGalleryModule,
-    NgxPageScrollModule,
 
     PanelModule,
 

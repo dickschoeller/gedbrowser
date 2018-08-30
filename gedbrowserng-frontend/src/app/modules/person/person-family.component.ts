@@ -1,13 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { NgxGalleryOptions, NgxGalleryImage } from 'ngx-gallery';
 import { Observable } from 'rxjs/Observable';
 import { MenuItem, SelectItem } from 'primeng/api';
 
 import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData, AttributeDialogData } from '../../models';
 import { FamilyService, PersonService, NewPersonLinkService } from '../../services';
-import { ImageUtil, UrlBuilder, NewPersonHelper } from '../../utils';
+import { UrlBuilder, NewPersonHelper } from '../../utils';
 import { InitablePersonCreator } from '../../bases';
-import { HasAttributeList, HasPerson, RefreshPerson, LinkCheck } from '../../interfaces';
+import { HasAttributeList, HasPerson, RefreshPerson, LinkCheck, Saveable } from '../../interfaces';
 
 /**
  * Implements a family block within a person page.
@@ -26,7 +25,7 @@ import { HasAttributeList, HasPerson, RefreshPerson, LinkCheck } from '../../int
   styleUrls: ['./person-family.component.css']
 })
 export class PersonFamilyComponent extends InitablePersonCreator
-  implements HasAttributeList, LinkCheck {
+  implements HasAttributeList, LinkCheck, Saveable {
   @Input() dataset: string;
   @Input() parent: HasPerson & RefreshPerson;
   @Input() string: string;
@@ -37,8 +36,6 @@ export class PersonFamilyComponent extends InitablePersonCreator
 
   family: ApiFamily;
   attributes: Array<ApiAttribute>;
-  imageUtil = new ImageUtil();
-  galleryOptions = this.imageUtil.galleryOptions();
   initialized = false;
   _options: Array<SelectItem> = [
       {value: 'Annulment', label: 'Annulment'},
@@ -111,13 +108,6 @@ export class PersonFamilyComponent extends InitablePersonCreator
 
   refreshPerson() {
     this.ngOnInit();
-  }
-
-  galleryImages(): Array<NgxGalleryImage> {
-    if (this.imageUtil === undefined || this.family === undefined) {
-      return new Array<NgxGalleryImage>();
-    }
-    return this.imageUtil.galleryImages(this.family.images);
   }
 
   save() {

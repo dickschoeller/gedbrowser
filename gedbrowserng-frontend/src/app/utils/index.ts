@@ -13,3 +13,5 @@ export * from './link-helper';
 export * from './resolver-helper';
 export * from './attribute-dialog-helper';
 export * from './refresher';
+export * from './multimedia-dialog-helper';
+export * from './array-util';

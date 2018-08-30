@@ -2,9 +2,6 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { NgxGalleryModule } from 'ngx-gallery';
-import { NgxPageScrollModule } from 'ngx-page-scroll';
-
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
@@ -47,9 +44,6 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
   imports: [
     personRouting,
     CommonModule,
-
-    NgxGalleryModule,
-    NgxPageScrollModule,
 
     AccordionModule,
     ButtonModule,

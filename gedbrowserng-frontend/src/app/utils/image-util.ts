@@ -5,7 +5,7 @@ import { ApiAttribute } from '../models';
 export class ImageUtil {
   constructor() {}
 
-  imageAttributes(attributes: Array<ApiAttribute>): Array<ApiAttribute> {
+  public static imageAttributes(attributes: Array<ApiAttribute>): Array<ApiAttribute> {
     const images: Array<ApiAttribute> = new Array<ApiAttribute>();
     for (const attribute of attributes) {
       if (this.isImageWrapper(attribute)) {
@@ -15,7 +15,7 @@ export class ImageUtil {
     return images;
   }
 
-  galleryImages(attributes: Array<ApiAttribute>): Array<NgxGalleryImage> {
+  public static galleryImages(attributes: Array<ApiAttribute>): Array<NgxGalleryImage> {
     const gallery: Array<NgxGalleryImage> = new Array<NgxGalleryImage>();
     for (const attribute of this.imageAttributes(attributes)) {
       gallery.push(this.galleryImage(attribute));
@@ -23,46 +23,7 @@ export class ImageUtil {
     return gallery;
   }
 
-  galleryOptions(): Array<NgxGalleryOptions> {
-    return [
-      this.galleryOptionsDefault(),
-      this.galleryOptionsMediumWidth(),
-      this.galleryOptionsNarrow()
-    ];
-  }
-
-  private galleryOptionsDefault(): NgxGalleryOptions {
-    return {
-        image: false,
-        preview: true,
-        previewCloseOnClick: true,
-        previewCloseOnEsc: true,
-        previewKeyboardNavigation: true,
-        previewFullscreen: true,
-        height: '200px',
-        width: '800px',
-        thumbnailsColumns: 6,
-      };
-  }
-
-  private galleryOptionsMediumWidth(): NgxGalleryOptions {
-    return {
-      preview: true,
-      breakpoint: 500,
-      width: '300px',
-      thumbnailsColumns: 3,
-    };
-  }
-
-  private galleryOptionsNarrow(): NgxGalleryOptions {
-    return {
-      breakpoint: 300,
-      width: '100%',
-      thumbnailsColumns: 2,
-    };
-  }
-
-  isImageWrapper(attr: ApiAttribute): boolean {
+  public static isImageWrapper(attr: ApiAttribute): boolean {
     for (const attribute of attr.attributes) {
       if (this.isImage(attribute) || this.isImageWrapper(attribute)) {
         return true;
@@ -71,7 +32,7 @@ export class ImageUtil {
     return false;
   }
 
-  isImage(attribute: ApiAttribute): boolean {
+  public static isImage(attribute: ApiAttribute): boolean {
     const types = [ 'bmp', 'gif', 'ico', 'jpg', 'jpeg', 'png', 'tiff', 'tif', 'svg' ];
     for (const t of types) {
       if (attribute.tail.toLowerCase().endsWith(t)) {
@@ -81,7 +42,17 @@ export class ImageUtil {
     return false;
   }
 
-  galleryImage(attr: ApiAttribute): NgxGalleryImage {
+  public static imageFormat(attribute: ApiAttribute): string {
+    const types = [ 'bmp', 'gif', 'ico', 'jpg', 'jpeg', 'png', 'tiff', 'tif', 'svg' ];
+    for (const t of types) {
+      if (attribute.tail.toLowerCase().endsWith(t)) {
+        return t;
+      }
+    }
+    return 'jpg';
+  }
+
+  public static galleryImage(attr: ApiAttribute): NgxGalleryImage {
     const description = 'Image';
     if (this.isImage(attr)) {
       return this.buildGalleryImage(attr.tail, description);
@@ -89,14 +60,14 @@ export class ImageUtil {
     return this.buildGalleryImageFromArray(attr.attributes, description);
   }
 
-  private buildDescription(attribute: ApiAttribute, description: string): string {
+  private static buildDescription(attribute: ApiAttribute, description: string): string {
       if (attribute.string === 'Title') {
         return attribute.tail;
       }
     return description;
   }
 
-  private buildGalleryImageFromArray(attributes: Array<ApiAttribute>,
+  private static buildGalleryImageFromArray(attributes: Array<ApiAttribute>,
     description: string): NgxGalleryImage {
     for (const attribute of attributes) {
       description = this.buildDescription(attribute, description);
@@ -110,7 +81,7 @@ export class ImageUtil {
     return null;
   }
 
-  private buildGalleryImage(url: string, description: string): NgxGalleryImage {
+  private static buildGalleryImage(url: string, description: string): NgxGalleryImage {
     return {
       small: url, medium: url, big: url, description: description, url: url
     };

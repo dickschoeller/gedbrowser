@@ -12,6 +12,7 @@ export * from './api-tail.model';
 export * from './attribute-dialog-data';
 export * from './link-dialog-data';
 export * from './link-person-dialog-data';
+export * from './multimedia-dialog-data';
 export * from './new-note-dialog-data';
 export * from './new-person-dialog-data';
 export * from './new-source-dialog-data';

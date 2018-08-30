@@ -1,8 +1,8 @@
-import { SourceCreator } from '../../bases';
 import { Component, Input } from '@angular/core';
 import { MenuItem, SelectItem } from 'primeng/api';
 
 import { HasAttributeList } from '../../interfaces';
+import { SourceCreator } from '../../bases';
 import { ApiObject, ApiSource, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { SourceService, NewSourceLinkService, ServiceBase } from '../../services';
 import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper, Refresher } from '../../utils';
@@ -10,11 +10,11 @@ import { LinkDialogComponent } from '../link-dialog';
 import { NewSourceDialogComponent } from '../new-source-dialog';
 
 @Component({
-  selector: 'app-sources',
-  templateUrl: './sources.component.html',
-  styleUrls: ['./sources.component.css']
+  selector: 'app-source-button',
+  templateUrl: './source-button.component.html',
+  styleUrls: ['./source-button.component.css']
 })
-export class SourcesComponent extends SourceCreator {
+export class SourceButtonComponent extends SourceCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 

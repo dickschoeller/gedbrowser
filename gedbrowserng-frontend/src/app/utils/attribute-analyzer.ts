@@ -13,7 +13,10 @@ export class AttributeAnalyzer {
     return StringUtil.titleCase(this.parent.attribute.type);
   }
 
-  contents() {
+  contents(): string {
+    return this.contentsA();
+  }
+  contentsA() {
     if (this.parent.attribute.type === 'attribute') {
       return this.parent.attribute.tail;
     }

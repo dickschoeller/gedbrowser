@@ -26,7 +26,7 @@ export class AttributeListItemDetailListItemComponent {
   }
 
   image(): boolean {
-    return new ImageUtil().isImage(this.attribute);
+    return ImageUtil.isImage(this.attribute);
   }
 
   displayString(): string {

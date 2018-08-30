@@ -10,11 +10,11 @@ import { LinkDialogComponent } from '../link-dialog';
 import { NewSubmitterDialogComponent } from '../new-submitter-dialog';
 
 @Component({
-  selector: 'app-submitters',
-  templateUrl: './submitters.component.html',
-  styleUrls: ['./submitters.component.css']
+  selector: 'app-submitter-button',
+  templateUrl: './submitter-button.component.html',
+  styleUrls: ['./submitter-button.component.css']
 })
-export class SubmittersComponent extends SubmitterCreator {
+export class SubmitterButtonComponent extends SubmitterCreator {
 //  @Input() parentObject: ApiObject;
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
