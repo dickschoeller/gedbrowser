@@ -7,11 +7,11 @@ import { StringUtil, MultimediaDialogHelper } from '../../utils';
 import { MultimediaDialogComponent } from '../multimedia-dialog';
 
 @Component({
-  selector: 'app-multimedia-button',
-  templateUrl: './multimedia-button.component.html',
-  styleUrls: ['./multimedia-button.component.css']
+  selector: 'app-multimedia-add-button',
+  templateUrl: './multimedia-add-button.component.html',
+  styleUrls: ['./multimedia-add-button.component.css']
 })
-export class MultimediaButtonComponent implements OnInit {
+export class MultimediaAddButtonComponent implements OnInit {
   @Input() parent: HasMultimedia;
   @Input() dataset: string;
 

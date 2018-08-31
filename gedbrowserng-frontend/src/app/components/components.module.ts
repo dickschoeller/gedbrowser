@@ -28,8 +28,9 @@ import {
 } from './attribute-list';
 import { LinkDialogComponent } from './link-dialog';
 import { LinkPersonDialogComponent } from './link-person-dialog';
-import { MultimediaButtonComponent } from './multimedia-button/multimedia-button.component';
+import { MultimediaAddButtonComponent } from './multimedia-add-button';
 import { MultimediaDialogComponent } from './multimedia-dialog/multimedia-dialog.component';
+import { MultimediaEditButtonComponent } from './multimedia-edit-button';
 import { MultimediaGalleryComponent } from './multimedia-gallery';
 import { NewAttributeDialogComponent } from './attribute-dialog';
 import { NewNoteDialogComponent } from './new-note-dialog';
@@ -71,8 +72,9 @@ import { SubmitterButtonComponent } from './submitter-button';
     AttributeListItemDetailListItemComponent,
     LinkDialogComponent,
     LinkPersonDialogComponent,
-    MultimediaButtonComponent,
+    MultimediaAddButtonComponent,
     MultimediaDialogComponent,
+    MultimediaEditButtonComponent,
     MultimediaGalleryComponent,
     NewAttributeDialogComponent,
     NewNoteDialogComponent,
@@ -90,8 +92,9 @@ import { SubmitterButtonComponent } from './submitter-button';
     AttributeListItemDetailListItemComponent,
     LinkDialogComponent,
     LinkPersonDialogComponent,
-    MultimediaButtonComponent,
+    MultimediaAddButtonComponent,
     MultimediaDialogComponent,
+    MultimediaEditButtonComponent,
     MultimediaGalleryComponent,
     NewAttributeDialogComponent,
     NewNoteDialogComponent,

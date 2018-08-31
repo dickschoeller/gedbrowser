@@ -11,20 +11,25 @@ export class MultimediaDialogHelper {
       ]
     };
     for (const mFile of data.files) {
-      const file: ApiAttribute = {
-        type: 'attribute', string: 'File', tail: mFile.fileUrl,
-        attributes: [
-          { type: 'attribute', string: 'Format', tail: mFile.format, attributes: [
-            { type: 'attribute', string: 'Media', tail: mFile.sourceType.toLowerCase(), attributes: [] }
-          ] },
-        ]
-      };
-      attribute.attributes.push(file);
+      attribute.attributes.push(this.buildFileAttribute(mFile));
     }
     if (!StringUtil.isEmpty(data.note)) {
       attribute.attributes.push({ type: 'attribute', string: 'Note', tail: data.note, attributes: [] });
     }
     return attribute;
+  }
+
+  private static buildFileAttribute(mFile: MultimediaFileData): ApiAttribute {
+    return {
+      type: 'attribute', string: 'File', tail: mFile.fileUrl,
+      attributes: [
+        {
+          type: 'attribute', string: 'Format', tail: mFile.format.toLowerCase(), attributes: [
+            { type: 'attribute', string: 'Media', tail: mFile.sourceType.toLowerCase(), attributes: [] }
+          ]
+        },
+      ]
+    };
   }
 
   public static buildMultimediaDialogData(multimedias: Array<ApiAttribute>, dialogIndex?: number | 0): MultimediaDialogData {
@@ -56,7 +61,7 @@ export class MultimediaDialogHelper {
     }
     files.push({
       fileUrl: attribute.tail,
-      format: MultimediaFormat[ImageUtil.imageFormat(attribute)],
+      format: MultimediaFormat[this.imageFormat(attribute)],
       sourceType: MultimediaSourceType[this.sourceType(attribute)] });
   }
 
@@ -67,8 +72,17 @@ export class MultimediaDialogHelper {
     return note;
   }
 
-  private static sourceType(multimedia: ApiAttribute): string {
-    for (const attribute of multimedia.attributes) {
+  private static imageFormat(file: ApiAttribute): string {
+    for (const attribute of file.attributes) {
+      if (attribute.string === 'Format') {
+        return attribute.tail;
+      }
+    }
+    return '';
+  }
+
+  private static sourceType(file: ApiAttribute): string {
+    for (const attribute of file.attributes) {
       if (attribute.string === 'Format') {
         return attribute.attributes[0].tail;
       }

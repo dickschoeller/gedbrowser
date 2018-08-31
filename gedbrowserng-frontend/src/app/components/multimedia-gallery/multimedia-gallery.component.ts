@@ -57,7 +57,7 @@ export class MultimediaGalleryComponent implements OnInit, HasMultimedia {
     this.displayDialog = true;
     this.dialogIndex = i;
     this.onDialogOpen = this.onDialogOpen.bind(this);
-    this.create = this.create.bind(this);
+    this.update = this.update.bind(this);
   }
 
   deleteButtonClicked(event, i) {
@@ -120,9 +120,8 @@ export class MultimediaGalleryComponent implements OnInit, HasMultimedia {
     }
   }
 
-  create(data: MultimediaDialogData) {
-    const attribute: ApiAttribute = MultimediaDialogHelper.buildMultimediaAttribute(data);
-    this.multimedia.splice(this.dialogIndex, 1, attribute);
+  update(data: MultimediaDialogData) {
+    this.multimedia.splice(this.dialogIndex, 1, MultimediaDialogHelper.buildMultimediaAttribute(data));
     this.save();
   }
 }
