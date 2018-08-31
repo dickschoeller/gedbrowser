@@ -56,6 +56,8 @@ export class AttributeListItemDetailListItemComponent {
   }
 
   tailOnly(): boolean {
-    return this.attribute.string === 'File' || this.attribute.string === 'Note';
+    return this.attribute.string === 'File'
+      || this.attribute.string === 'Note'
+      || this.attribute.string === 'Title';
   }
 }

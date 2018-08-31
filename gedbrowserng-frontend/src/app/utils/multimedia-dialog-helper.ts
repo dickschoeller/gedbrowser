@@ -5,7 +5,7 @@ import { StringUtil } from './string-util';
 export class MultimediaDialogHelper {
   public static buildMultimediaAttribute(data: MultimediaDialogData): ApiAttribute {
     const attribute: ApiAttribute = {
-      type: 'attribute', string: 'Multimedia', tail: '',
+      type: 'multimedia', string: 'Multimedia', tail: '',
       attributes: [
         { type: 'attribute', string: 'Title', tail: data.title, attributes: [] },
       ]

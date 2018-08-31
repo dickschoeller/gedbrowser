@@ -23,6 +23,9 @@ export class AttributeAnalyzer {
     if (this.parent.attribute.type === 'name') {
       return NameUtil.cleanup(this.parent.attribute.string);
     }
+    if (this.parent.attribute.type === 'multimedia') {
+      return '';
+    }
     return this.parent.attribute.string;
   }
 
