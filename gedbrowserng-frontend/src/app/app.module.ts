@@ -34,6 +34,7 @@ import {
 } from './modules';
 
 import {
+  DatasetsService,
   HeadService,
   ServiceBase,
   FamilyService,
@@ -90,6 +91,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
   entryComponents: [
   ],
   providers: [
+    DatasetsService,
     HeadService,
     NewNoteLinkService,
     NewPersonLinkService,

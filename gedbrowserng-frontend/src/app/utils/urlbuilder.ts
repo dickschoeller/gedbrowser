@@ -11,6 +11,9 @@ export class UrlBuilder {
   }
 
   baseUrl(): string {
+    if (this.db === '') {
+      return '/gedbrowserng/v1/dbs';
+    }
     return '/gedbrowserng/v1/dbs/' + this.db;
   }
 

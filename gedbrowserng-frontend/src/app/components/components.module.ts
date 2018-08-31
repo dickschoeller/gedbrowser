@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
@@ -16,7 +17,10 @@ import { OrderListModule } from 'primeng/orderlist';
 import { PanelModule } from 'primeng/panel';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
+
 
 import { NgxGalleryModule } from 'ngx-gallery';
 
@@ -28,8 +32,9 @@ import {
 } from './attribute-list';
 import { LinkDialogComponent } from './link-dialog';
 import { LinkPersonDialogComponent } from './link-person-dialog';
+import { MainMenuComponent } from './main-menu';
 import { MultimediaAddButtonComponent } from './multimedia-add-button';
-import { MultimediaDialogComponent } from './multimedia-dialog/multimedia-dialog.component';
+import { MultimediaDialogComponent } from './multimedia-dialog';
 import { MultimediaEditButtonComponent } from './multimedia-edit-button';
 import { MultimediaGalleryComponent } from './multimedia-gallery';
 import { NewAttributeDialogComponent } from './attribute-dialog';
@@ -50,6 +55,7 @@ import { SubmitterButtonComponent } from './submitter-button';
     RouterModule,
     BrowserModule,
 
+    AccordionModule,
     ButtonModule,
     DialogModule,
     DropdownModule,
@@ -61,6 +67,8 @@ import { SubmitterButtonComponent } from './submitter-button';
     PanelModule,
     ScrollPanelModule,
     SplitButtonModule,
+    TieredMenuModule,
+    ToolbarModule,
     TooltipModule,
 
     NgxGalleryModule
@@ -72,6 +80,7 @@ import { SubmitterButtonComponent } from './submitter-button';
     AttributeListItemDetailListItemComponent,
     LinkDialogComponent,
     LinkPersonDialogComponent,
+    MainMenuComponent,
     MultimediaAddButtonComponent,
     MultimediaDialogComponent,
     MultimediaEditButtonComponent,
@@ -92,6 +101,7 @@ import { SubmitterButtonComponent } from './submitter-button';
     AttributeListItemDetailListItemComponent,
     LinkDialogComponent,
     LinkPersonDialogComponent,
+    MainMenuComponent,
     MultimediaAddButtonComponent,
     MultimediaDialogComponent,
     MultimediaEditButtonComponent,

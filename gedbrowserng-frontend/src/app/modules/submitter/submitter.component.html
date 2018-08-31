@@ -1,3 +1,4 @@
+<app-main-menu [dataset]="dataset"></app-main-menu>
 <p-panel>
   <p-header>{{ submitter?.string }}: {{ submitter?.name }}</p-header>
   <app-attribute-list [dataset]="dataset" [attributes]="submitter?.attributes" [parent]="this" [showSources]=false [showSubmitters]=false></app-attribute-list>

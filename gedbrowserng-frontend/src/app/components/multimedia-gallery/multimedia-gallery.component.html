@@ -11,5 +11,5 @@
 <app-multimedia-dialog
     *ngIf="displayDialog" [p]="this"
     (emitClose)="onDialogClose()" (emitOpen)="onDialogOpen($event)"
-    (emitOK)="create($event)"
+    (emitOK)="update($event)"
     [(display)]="displayDialog"></app-multimedia-dialog>

@@ -2,6 +2,22 @@
 @import '~primeng/resources/themes/start/theme.css';
 @import '~primeng/resources/primeng.min.css';
 
+.menubar {
+  position: fixed;
+  top: 0;
+  margin-left: -1em;
+  margin-bottom: -1ex;
+
+  font-size: 18pt;
+  font-weight: bold;
+  text-align: left;
+  text-decoration: none;
+}
+
+.menubar span {
+  padding: 15px;
+}
+
 .label {
  font-weight: bold;
  color: primary;
