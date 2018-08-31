@@ -1,0 +1,7 @@
+<p-button (onClick)="edit()"
+    icon="fa fa-fw fa-pencil" pTooltip="Edit multimedia attribute"></p-button>
+<app-multimedia-dialog
+    *ngIf="displayDialog" [p]="this"
+    (emitClose)="onDialogClose()" (emitOpen)="onDialogOpen($event)"
+    (emitOK)="update($event)"
+    [(display)]="displayDialog"></app-multimedia-dialog>

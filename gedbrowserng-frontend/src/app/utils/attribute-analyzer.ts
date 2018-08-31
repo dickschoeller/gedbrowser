@@ -98,4 +98,7 @@ export class AttributeAnalyzer {
     return null;
   }
 
+  multimedia(): boolean {
+    return (this.parent.attribute.type === 'multimedia');
+  }
 }

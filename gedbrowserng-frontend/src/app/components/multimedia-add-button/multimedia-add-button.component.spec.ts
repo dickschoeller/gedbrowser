@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MultimediaButtonComponent } from './multimedia-button.component';
+import { MultimediaButtonComponent } from './multimedia-add-button.component';
 
 describe('MultimediaButtonComponent', () => {
   let component: MultimediaButtonComponent;

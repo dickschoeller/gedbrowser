@@ -5,14 +5,18 @@
         #elseLinkBlock><span>{{ attributeUtil.contents() }}</span></ng-template><span
         *ngIf="attribute?.attributes.length">,</span>
    </span>
-  <app-attribute-list-item-detail-list [dataset]="dataset" [attributes]="attribute?.attributes"></app-attribute-list-item-detail-list>
+  <app-attribute-list-item-detail-list [dataset]="dataset" [attributes]="attribute?.attributes">
+    </app-attribute-list-item-detail-list>
   <span class="example-fill-remaining-space"></span>
   <span *ngIf="attributeUtil.editable()" class="hidden">
-    <p-button (onClick)="edit()"
+    <p-button *ngIf="!attributeUtil.multimedia()" (onClick)="edit()"
         icon="fa fa-fw fa-pencil" pTooltip="Edit attribute"></p-button>
+    <app-multimedia-edit-button *ngIf="attributeUtil.multimedia()"
+        [parent]="this" [dataset]="dataset" [attributes]="attributeList" [index]="index">
+      </app-multimedia-edit-button>
     <p-button [styleClass]="'ui-button-danger'" (onClick)="delete()"
         icon="fa fa-fw fa-trash" pTooltip="Delete attribute"></p-button>
-    <app-source-button *ngIf="!href()"[parent]="this" [dataset]="dataset"></app-source-button>
+    <app-source-button *ngIf="!href()" [parent]="this" [dataset]="dataset"></app-source-button>
   </span>
 </div>
 <app-new-attribute-dialog

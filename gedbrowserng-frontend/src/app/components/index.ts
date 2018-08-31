@@ -2,7 +2,7 @@ export * from './attribute-dialog';
 export * from './attribute-list';
 export * from './link-dialog';
 export * from './link-person-dialog';
-export * from './multimedia-button';
+export * from './multimedia-add-button';
 export * from './multimedia-dialog';
 export * from './multimedia-gallery';
 export * from './new-note-dialog';
