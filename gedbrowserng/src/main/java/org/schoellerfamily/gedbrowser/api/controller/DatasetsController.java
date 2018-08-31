@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
-public class DatasetsController {
+public final class DatasetsController {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -27,6 +27,10 @@ public class DatasetsController {
     @Autowired
     private transient RepositoryManagerMongo repositoryManager;
 
+    /**
+     * Controller to get the currently loaded data sets.
+     * @return a list of the names of the data sets
+     */
     @GetMapping(value = "/v1/dbs")
     @ResponseBody
     public List<String> dbs() {
