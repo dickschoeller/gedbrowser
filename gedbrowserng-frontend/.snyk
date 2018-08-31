@@ -6,6 +6,8 @@ patch:
   'npm:debug:20170905':
     - karma > socket.io > socket.io-adapter > socket.io-parser > debug:
         patched: '2018-06-20T16:12:00.110Z'
+    - angular-ide > debug:
+        patched: '2018-08-31T03:10:20.977Z'
   'npm:hoek:20180212':
     - '@angular/cli > node-sass > request > hawk > hoek':
         patched: '2018-06-20T16:12:00.110Z'
@@ -34,8 +36,16 @@ patch:
   'npm:ms:20170412':
     - karma > socket.io > socket.io-adapter > socket.io-parser > debug > ms:
         patched: '2018-06-20T16:12:00.110Z'
+    - angular-ide > debug > ms:
+        patched: '2018-08-31T03:10:20.977Z'
   'npm:lodash:20180130':
     - npm > cli-table2 > lodash:
         patched: '2018-07-03T03:02:25.728Z'
     - npm > npm-audit-report > cli-table2 > lodash:
         patched: '2018-07-03T03:02:25.728Z'
+  'npm:moment:20170905':
+    - angular-ide > moment:
+        patched: '2018-08-31T03:10:20.977Z'
+  'npm:ws:20160920':
+    - angular-ide > ws:
+        patched: '2018-08-31T03:10:20.977Z'
