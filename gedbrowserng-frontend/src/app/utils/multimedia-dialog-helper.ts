@@ -59,10 +59,27 @@ export class MultimediaDialogHelper {
     if (attribute.string !== 'File') {
       return;
     }
-    files.push({
+    files.push(this.buildFile(attribute));
+  }
+
+  private static buildFile(attribute: ApiAttribute) {
+    const formatString = this.imageFormat(attribute);
+    if (StringUtil.isEmpty(formatString)) {
+      return { fileUrl: attribute.tail };
+    }
+
+    const sourceTypeString = this.sourceType(attribute);
+    if (StringUtil.isEmpty(sourceTypeString)) {
+      return {
+        fileUrl: attribute.tail,
+        format: MultimediaFormat[formatString],
+      };
+    }
+    return {
       fileUrl: attribute.tail,
-      format: MultimediaFormat[this.imageFormat(attribute)],
-      sourceType: MultimediaSourceType[this.sourceType(attribute)] });
+      format: MultimediaFormat[formatString],
+      sourceType: MultimediaSourceType[sourceTypeString]
+    };
   }
 
   private static buildNote(attribute: ApiAttribute, note: string): string {
@@ -78,13 +95,24 @@ export class MultimediaDialogHelper {
         return attribute.tail;
       }
     }
+    return this.fileFormat(file);
+  }
+
+  public static fileFormat(file: ApiAttribute): string {
+    for (const t of Object.keys(MultimediaFormat)) {
+      if (file.tail.toLowerCase().endsWith(t)) {
+        return t;
+      }
+    }
     return '';
   }
 
   private static sourceType(file: ApiAttribute): string {
     for (const attribute of file.attributes) {
       if (attribute.string === 'Format') {
-        return attribute.attributes[0].tail;
+        if (!ArrayUtil.isEmpty(attribute.attributes)) {
+          return attribute.attributes[0].tail;
+        }
       }
     }
     return '';
