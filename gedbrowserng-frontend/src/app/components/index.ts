@@ -2,6 +2,7 @@ export * from './attribute-dialog';
 export * from './attribute-list';
 export * from './link-dialog';
 export * from './link-person-dialog';
+export * from './main-menu';
 export * from './multimedia-add-button';
 export * from './multimedia-dialog';
 export * from './multimedia-gallery';

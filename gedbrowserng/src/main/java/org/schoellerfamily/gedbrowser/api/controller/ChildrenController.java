@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
-public class ChildrenController {
+public final class ChildrenController {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
