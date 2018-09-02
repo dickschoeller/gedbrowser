@@ -12,28 +12,29 @@ export class MultimediaFileData {
 
 export enum MultimediaFormat {
   // Image formats
-  bmp = 'BMP',
-  gif = 'GIF',
-  jpg = 'JPEG',
-  pcx = 'PCX',
-  tif = 'TIFF',
-  png = 'PNG',
+  bmp = 'bmp',
+  gif = 'gif',
+  jpg = 'jpg',
+  pcx = 'pcx',
+  tif = 'tif',
+  png = 'png',
   // Audio formats
-  wav = 'WAV',
-  mp3 = 'MP3',
-  flac = 'FLAC',
-  ogg = 'OGG',
+  wav = 'wav',
+  mp3 = 'mp3',
+  flac = 'flac',
+  ogg = 'ogg',
   // Video formats
-  avi = 'AVI',
-  mpg = 'MPG',
-  mp4 = 'MP4',
-  mov = 'MOV',
+  avi = 'avi',
+  m4v = 'm4v',
+  mpg = 'mpg',
+  mp4 = 'mp4',
+  mov = 'mov',
   // Document formats
-  doc = 'DOC',
-  docx = 'DOCX',
-  pdf = 'PDF',
+  doc = 'doc',
+  docx = 'docx',
+  pdf = 'pdf',
   // Website link
-  html = 'HTML',
+  html = 'html',
 }
 
 export enum MultimediaSourceType {
