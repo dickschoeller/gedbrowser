@@ -8,6 +8,8 @@ patch:
         patched: '2018-06-20T16:12:00.110Z'
     - angular-ide > debug:
         patched: '2018-08-31T03:10:20.977Z'
+    - angular-ide > debug:
+        patched: '2018-09-02T03:07:00.663Z'
   'npm:hoek:20180212':
     - '@angular/cli > node-sass > request > hawk > hoek':
         patched: '2018-06-20T16:12:00.110Z'
@@ -33,11 +35,21 @@ patch:
         patched: '2018-06-20T19:07:23.353Z'
     - karma > log4js > loggly > request > hawk > cryptiles > boom > hoek:
         patched: '2018-06-20T19:07:23.353Z'
+    - karma > log4js > loggly > request > hawk > hoek:
+        patched: '2018-09-02T03:07:00.663Z'
+    - karma > log4js > loggly > request > hawk > boom > hoek:
+        patched: '2018-09-02T03:07:00.663Z'
+    - karma > log4js > loggly > request > hawk > sntp > hoek:
+        patched: '2018-09-02T03:07:00.663Z'
+    - karma > log4js > loggly > request > hawk > cryptiles > boom > hoek:
+        patched: '2018-09-02T03:07:00.663Z'
   'npm:ms:20170412':
     - karma > socket.io > socket.io-adapter > socket.io-parser > debug > ms:
         patched: '2018-06-20T16:12:00.110Z'
     - angular-ide > debug > ms:
         patched: '2018-08-31T03:10:20.977Z'
+    - angular-ide > debug > ms:
+        patched: '2018-09-02T03:07:00.663Z'
   'npm:lodash:20180130':
     - npm > cli-table2 > lodash:
         patched: '2018-07-03T03:02:25.728Z'
@@ -46,6 +58,13 @@ patch:
   'npm:moment:20170905':
     - angular-ide > moment:
         patched: '2018-08-31T03:10:20.977Z'
+    - angular-ide > moment:
+        patched: '2018-09-02T03:07:00.663Z'
   'npm:ws:20160920':
     - angular-ide > ws:
         patched: '2018-08-31T03:10:20.977Z'
+    - angular-ide > ws:
+        patched: '2018-09-02T03:07:00.663Z'
+  'npm:tunnel-agent:20170305':
+    - karma > log4js > loggly > request > tunnel-agent:
+        patched: '2018-09-02T03:07:00.663Z'
