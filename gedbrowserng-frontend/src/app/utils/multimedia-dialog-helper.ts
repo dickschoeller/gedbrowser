@@ -109,10 +109,8 @@ export class MultimediaDialogHelper {
 
   private static sourceType(file: ApiAttribute): string {
     for (const attribute of file.attributes) {
-      if (attribute.string === 'Format') {
-        if (!ArrayUtil.isEmpty(attribute.attributes)) {
-          return attribute.attributes[0].tail;
-        }
+      if (attribute.string === 'Format' && !ArrayUtil.isEmpty(attribute.attributes)) {
+        return attribute.attributes[0].tail;
       }
     }
     return '';
