@@ -23,24 +23,6 @@ export class SubmitterButtonComponent extends SubmitterCreator {
   displayLinkSubmitterDialog = false;
   displayUnlinkSubmitterDialog = false;
 
-  submittermenuitems: MenuItem[] = [
-    {
-      label: 'Add submitter',
-      icon: 'fa-plus-circle',
-      command: (event: Event) => this.displaySubmitterDialog = true
-    },
-    {
-      label: 'Link submitter',
-      icon: 'fa-link',
-      command: (event: Event) => this.displayLinkSubmitterDialog = true
-    },
-    {
-      label: 'Unlink submitter',
-      icon: 'fa-unlink',
-      command: (event: Event) => this.displayUnlinkSubmitterDialog = true
-    },
-  ];
-
   constructor(
     public submitterService: SubmitterService,
     public newSubmitterLinkService: NewSubmitterLinkService,
