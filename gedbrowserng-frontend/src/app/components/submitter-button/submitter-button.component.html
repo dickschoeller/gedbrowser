@@ -8,7 +8,7 @@
   <button mat-menu-item (click)="openLinkSubmitterDialog()"><mat-icon>link</mat-icon> Link submitter</button>
   <button mat-menu-item (click)="openUnlinkSubmitterDialog()"><mat-icon color="warn">link_off</mat-icon> Unlink submitter</button>
 </mat-menu>
-  
+
 <app-new-submitter-dialog
     [p]="this"
     (emitClose)="onSubmitterDialogClose()" (emitOpen)="onSubmitterDialogOpen($event)"
