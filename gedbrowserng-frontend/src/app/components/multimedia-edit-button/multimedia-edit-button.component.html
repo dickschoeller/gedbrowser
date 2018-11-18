@@ -1,5 +1,5 @@
-<p-button (onClick)="edit()"
-    icon="fa fa-fw fa-pencil" pTooltip="Edit multimedia attribute"></p-button>
+<button mat-icon-button matTooltip="Edit multimedia attribute" color="primary" (click)="edit()">
+  <mat-icon matListIcon>edit</mat-icon></button>
 <app-multimedia-dialog
     *ngIf="displayDialog" [p]="this"
     (emitClose)="onDialogClose()" (emitOpen)="onDialogOpen($event)"

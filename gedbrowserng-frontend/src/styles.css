@@ -1,21 +1,11 @@
 @import '~font-awesome/css/font-awesome.min.css';
 @import '~primeng/resources/themes/start/theme.css';
 @import '~primeng/resources/primeng.min.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
-.menubar {
-  position: fixed;
-  top: 0;
-  margin-left: -1em;
-  margin-bottom: -1ex;
-
-  font-size: 18pt;
-  font-weight: bold;
-  text-align: left;
-  text-decoration: none;
-}
-
-.menubar span {
-  padding: 15px;
+body {
+  margin: 0;
+  padding: 0;
 }
 
 .label {
@@ -91,4 +81,40 @@ div.ui-orderlist-controls {
 
 .multi_lines_text {
     white-space: pre-line;
+}
+
+.ui-orderlist {
+  width: 100%;
+}
+
+.mat-drawer-container * .mat-toolbar {
+  font: 500 14px/22px Roboto,"Helvetica Neue",sans-serif;
+}
+
+.mat-drawer-container * .mat-toolbar a,
+.mat-drawer-container * .mat-toolbar a:hover {
+  text-decoration: none;
+}
+
+.mat-drawer-container .ui-orderlist-item:not(.ui-state-highlight):hover .mat-toolbar a {
+  color: white;
+}
+
+.mat-drawer-container .ui-orderlist-item:not(.ui-state-highlight):hover .mat-toolbar a:hover {
+  color: rgb(244, 67, 54);
+}
+
+.mat-drawer-container * .mat-toolbar-row,
+.mat-drawer-container * .mat-toolbar-single-row,
+.ui-orderlist * .mat-toolbar-row,
+.ui-orderlist * .mat-toolbar-single-row {
+  height: 48px;
+}
+
+span.parent {
+  width: 100%;
+}
+
+.ui-widget-content {
+  background: white;
 }

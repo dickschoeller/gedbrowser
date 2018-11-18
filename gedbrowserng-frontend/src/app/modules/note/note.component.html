@@ -1,6 +1,10 @@
-<app-main-menu [dataset]="dataset"></app-main-menu>
-<p-panel>
-  <p-header>{{ note?.string }}: {{ truncateNote(80) }}</p-header>
-  <p class="multi_lines_text" [innerHTML]="note.tail"  ></p>
-  <app-attribute-list [dataset]="dataset" [attributes]="note?.attributes" [parent]="this" [showAdd]=false [showNotes]=false [showSubmitters]=false></app-attribute-list>
-</p-panel>
+<app-main-layout [dataset]="dataset">
+  <mat-card>
+    <mat-card-title><mat-icon>comment</mat-icon> {{ truncateNote(70) }}</mat-card-title>
+    <mat-card-subtitle>{{ note?.string }}</mat-card-subtitle>
+    <mat-card-content>
+      <p class="multi_lines_text" [innerHTML]="note.tail"  ></p>
+      <app-attribute-list [dataset]="dataset" [attributes]="note?.attributes" [parent]="this" [showAdd]=false [showNotes]=false [showSubmitters]=false></app-attribute-list>
+    </mat-card-content>
+  </mat-card>
+</app-main-layout>

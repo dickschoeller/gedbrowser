@@ -1,0 +1,12 @@
+<mat-nav-list>
+  <a mat-list-item [routerLink]="['/' + dataset + '/header']"><mat-icon matListIcon>home</mat-icon> Home</a>
+  <a mat-list-item [routerLink]="['/' + dataset + '/persons']"><mat-icon matListIcon>people</mat-icon> Persons</a>
+  <a mat-list-item [routerLink]="['/' + dataset + '/notes']"><mat-icon matListIcon>comment</mat-icon> Notes</a>
+  <a mat-list-item [routerLink]="['/' + dataset + '/sources']"><mat-icon matListIcon>collections_bookmark</mat-icon> Sources</a>
+  <a mat-list-item [routerLink]="['/' + dataset + '/submitters']"><mat-icon matListIcon>contacts</mat-icon> Submitters</a>
+  <a mat-list-item (click)="saveFile()"><mat-icon matListIcon>save_alt</mat-icon> Save</a>
+  <a mat-list-item [matMenuTriggerFor]="dbPickerMenu"><mat-icon matListIcon>folder_open</mat-icon> Pick dataset</a>
+</mat-nav-list>
+<mat-menu #dbPickerMenu="matMenu" [overlapTrigger]="false">
+  <button *ngFor="let db of dbs" mat-menu-item [routerLink]="['/' + db + '/persons']">{{ db }}</button>
+</mat-menu>

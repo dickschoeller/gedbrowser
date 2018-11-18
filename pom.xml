@@ -104,8 +104,8 @@
     <jxr-plugin.version>2.5</jxr-plugin.version>
     <compiler-plugin.version>3.8.0</compiler-plugin.version>
     <source-plugin.version>3.0.1</source-plugin.version>
-    <failsafe.version>2.22.0</failsafe.version>
-    <surefire.version>2.22.0</surefire.version>
+    <failsafe.version>2.22.1</failsafe.version>
+    <surefire.version>2.22.1</surefire.version>
     <javadoc-plugin.version>3.0.1</javadoc-plugin.version>
     <gpg-plugin.version>1.6</gpg-plugin.version>
     <nexus-staging-plugin.version>1.6.8</nexus-staging-plugin.version>
@@ -192,6 +192,7 @@
           <version>${failsafe.version}</version>
           <configuration>
             <skip>${skip.integration.tests}</skip>
+	    <useSystemClassLoader>false</useSystemClassLoader>
           </configuration>
         </plugin>
         <plugin>
@@ -205,6 +206,7 @@
           <version>${surefire.version}</version>
           <configuration>
             <skip>${skip.unit.tests}</skip>
+	    <useSystemClassLoader>false</useSystemClassLoader>
           </configuration>
         </plugin>
         <plugin>

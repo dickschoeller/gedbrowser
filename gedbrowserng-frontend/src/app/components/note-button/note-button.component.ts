@@ -22,24 +22,6 @@ export class NoteButtonComponent extends NoteCreator {
   displayLinkNoteDialog = false;
   displayUnlinkNoteDialog = false;
 
-  notemenuitems: MenuItem[] = [
-    {
-      label: 'Add note',
-      icon: 'fa-plus-circle',
-      command: (event: Event) => this.displayNoteDialog = true
-    },
-    {
-      label: 'Link note',
-      icon: 'fa-link',
-      command: (event: Event) => this.displayLinkNoteDialog = true
-    },
-    {
-      label: 'Unlink note',
-      icon: 'fa-unlink',
-      command: (event: Event) => this.displayUnlinkNoteDialog = true
-    },
-  ];
-
   constructor(
     public noteService: NoteService,
     public newNoteLinkService: NewNoteLinkService,
@@ -100,5 +82,17 @@ export class NoteButtonComponent extends NoteCreator {
 
   lh(): LinkHelper {
     return new LinkHelper((o: ApiNote) => o.tail, ApiComparators.compareNotes, 'notelink');
+  }
+
+  openNoteDialog() {
+    this.displayNoteDialog = true;
+  }
+
+  openLinkNoteDialog() {
+    this.displayLinkNoteDialog = true;
+  }
+
+  openUnlinkNoteDialog() {
+    this.displayUnlinkNoteDialog = true;
   }
 }

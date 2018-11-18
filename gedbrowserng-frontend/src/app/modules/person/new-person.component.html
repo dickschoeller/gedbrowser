@@ -1,5 +1,5 @@
-<p-button (click)="openDialog()" icon="fa fa-fw fa-user-plus"
-    [styleClass]="'ui-button-success'" [pTooltip]="label"></p-button>
+<button (click)="openDialog()" mat-icon-button [color]="color"
+    matTooltip="{{ label }}"><mat-icon>person_add</mat-icon></button>
 <app-new-person-dialog
     [p]="this"
     (emitClose)="onDialogClose()"

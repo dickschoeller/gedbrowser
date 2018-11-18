@@ -1,13 +1,18 @@
-<p-panel header="Multimedia" [toggleable]="true" [styleClass]="styleClass">
-  <p-header>
-    <span class="bump-out">
-      <app-multimedia-add-button [parent]="this" [dataset]="dataset"></app-multimedia-add-button>
-    </span>
-  </p-header>
-  <div *ngIf="galleryImages().length">
+<mat-card>
+  <mat-card-title>
+    <mat-toolbar>
+      Multimedia
+      <span class="example-fill-remaining-space"></span>
+      <span>
+        <app-multimedia-add-button [parent]="this" [dataset]="dataset"></app-multimedia-add-button>
+      </span>
+    </mat-toolbar>
+  </mat-card-title>
+  <mat-card-content *ngIf="galleryImages().length">
     <ngx-gallery [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
-  </div>
-</p-panel>
+  </mat-card-content>
+  <mat-card-content *ngIf="!galleryImages().length"></mat-card-content>
+</mat-card>
 <app-multimedia-dialog
     *ngIf="displayDialog" [p]="this"
     (emitClose)="onDialogClose()" (emitOpen)="onDialogOpen($event)"

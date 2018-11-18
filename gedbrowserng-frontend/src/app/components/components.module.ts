@@ -5,22 +5,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AccordionModule } from 'primeng/accordion';
+import { MatButtonModule } from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { ListboxModule } from 'primeng/listbox';
-import { MenuModule } from 'primeng/menu';
 import { OrderListModule } from 'primeng/orderlist';
-import { PanelModule } from 'primeng/panel';
-import { ScrollPanelModule } from 'primeng/scrollpanel';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { TieredMenuModule } from 'primeng/tieredmenu';
-import { ToolbarModule } from 'primeng/toolbar';
-import { TooltipModule } from 'primeng/tooltip';
-
 
 import { NgxGalleryModule } from 'ngx-gallery';
 
@@ -45,6 +45,8 @@ import { NewSubmitterDialogComponent } from './new-submitter-dialog';
 import { NoteButtonComponent } from './note-button';
 import { SourceButtonComponent } from './source-button';
 import { SubmitterButtonComponent } from './submitter-button';
+import { SideMenuComponent } from './side-menu';
+import { MainLayoutComponent } from './main-layout/main-layout.component';
 
 @NgModule({
   imports: [
@@ -55,21 +57,22 @@ import { SubmitterButtonComponent } from './submitter-button';
     RouterModule,
     BrowserModule,
 
-    AccordionModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatListModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatTooltipModule,
+
     ButtonModule,
     DialogModule,
     DropdownModule,
     InputTextareaModule,
     InputTextModule,
     ListboxModule,
-    MenuModule,
     OrderListModule,
-    PanelModule,
-    ScrollPanelModule,
-    SplitButtonModule,
-    TieredMenuModule,
-    ToolbarModule,
-    TooltipModule,
 
     NgxGalleryModule
   ],
@@ -93,6 +96,8 @@ import { SubmitterButtonComponent } from './submitter-button';
     NoteButtonComponent,
     SourceButtonComponent,
     SubmitterButtonComponent,
+    SideMenuComponent,
+    MainLayoutComponent,
   ],
   exports: [
     AttributeListComponent,
@@ -114,6 +119,8 @@ import { SubmitterButtonComponent } from './submitter-button';
     NoteButtonComponent,
     SourceButtonComponent,
     SubmitterButtonComponent,
+    SideMenuComponent,
+    MainLayoutComponent,
   ]
 })
 

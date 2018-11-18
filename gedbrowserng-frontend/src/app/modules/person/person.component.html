@@ -1,14 +1,28 @@
-<app-main-menu [dataset]="dataset"></app-main-menu>
-<app-person-parent-families [dataset]="dataset" [parent]="this"></app-person-parent-families>
-<br/>
-<app-person-family-list [dataset]="dataset" [parent]="this"></app-person-family-list>
-<br/>
-<app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="person.attributes" [toggleable]="true"></app-attribute-list>
-<br/>
-<app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="person.images"></app-multimedia-gallery>
-<br/>
-<p-panel [showHeader]="false">
-  <div><b>{{ person?.refn[0].string }}:&nbsp;</b> {{ person?.refn[0].tail }}</div>
-  <div><b>{{ person?.changed[0].string }}:&nbsp;</b> {{ person?.changed[0].attributes[0].string }}</div>
-</p-panel>
-<br/>
+<app-main-layout [dataset]="dataset">
+  <mat-card>
+    <mat-card-title><mat-icon>person</mat-icon> {{ person?.indexName }}</mat-card-title>
+    <mat-card-subtitle>{{ lifespanDateString() }} : {{ person?.string }}</mat-card-subtitle>
+    <mat-card-content>
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="person.attributes"
+                  [toggleable]="true"></app-attribute-list>
+        </div>
+        <div class="ui-g-12">
+          <app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="person.images"></app-multimedia-gallery>
+        </div>
+        <div class="ui-g-6">
+          <app-person-family-list [dataset]="dataset" [parent]="this"></app-person-family-list>
+        </div>
+        <div class="ui-g-6">
+          <app-person-parent-families [dataset]="dataset" [parent]="this"></app-person-parent-families>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-footer>
+      <div><b>{{ person?.refn[0].string }}:&nbsp;</b> {{ person?.refn[0].tail }}</div>
+      <div *ngIf="person?.changed[0]"><b>{{ person?.changed[0]?.string }}:&nbsp;</b> {{ person?.changed[0]?.attributes[0].string }}</div>
+    </mat-card-footer>
+  </mat-card>
+  <br/>
+</app-main-layout>

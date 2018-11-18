@@ -1,14 +1,18 @@
-<p-panel header="Attributes" [toggleable]="toggleable" [styleClass]="styleClass">
-  <p-header>
-    <span class="bump-out">
-      <p-button *ngIf="showAdd" [styleClass]="'ui-button-success'" (click)="create()"
-          icon="fa fa-fw fa-plus-circle" pTooltip="Create attribute"></p-button>
-      <app-note-button *ngIf="showNotes" [parent]="this" [dataset]="dataset"></app-note-button>
-      <app-source-button *ngIf="showSources" [parent]="this" [dataset]="dataset"></app-source-button>
-      <app-submitter-button *ngIf="showSubmitters" [parent]="this" [dataset]="dataset"></app-submitter-button>
-    </span>
-  </p-header>
-  <div>
+<mat-card>
+  <mat-card-title>
+    <mat-toolbar>
+      Attributes
+      <span class="example-fill-remaining-space"></span>
+      <span>
+        <button (click)="create()" mat-icon-button color="primary"
+            matTooltip="Add attribute"><mat-icon>add_box</mat-icon></button>
+        <app-note-button *ngIf="showNotes" [parent]="this" [dataset]="dataset"></app-note-button>
+        <app-source-button *ngIf="showSources" [parent]="this" [dataset]="dataset"></app-source-button>
+        <app-submitter-button *ngIf="showSubmitters" [parent]="this" [dataset]="dataset"></app-submitter-button>
+      </span>
+    </mat-toolbar>
+  </mat-card-title>  
+  <mat-card-content>
     <p-orderList [value]="attributes" [responsive]="false"
         [listStyle]="{'height':'100%','width':'100%','border':'0'}"
         (onReorder)="parent.save()"
@@ -21,8 +25,8 @@
         </div>
       </ng-template>
     </p-orderList>
-  </div>
-</p-panel>
+  </mat-card-content>
+</mat-card>
 <app-new-attribute-dialog [p]="this" [options]="options()"
     (emitClose)="onDialogClose()" (emitOpen)="onDialogOpen($event)"
     (emitOK)="onDialogOK($event)"

@@ -2,15 +2,17 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AccordionModule } from 'primeng/accordion';
-import { ButtonModule } from 'primeng/button';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
-import { MenuModule } from 'primeng/menu';
 import { OrderListModule } from 'primeng/orderlist';
 import { PanelModule } from 'primeng/panel';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { TooltipModule } from 'primeng/tooltip';
 
 import { ComponentsModule } from '../../components';
 
@@ -45,15 +47,17 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
     personRouting,
     CommonModule,
 
-    AccordionModule,
-    ButtonModule,
+    MatButtonModule,
+    MatCardModule,
+    MatGridListModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatTooltipModule,
+
     DataViewModule,
     DialogModule,
-    MenuModule,
     OrderListModule,
     PanelModule,
-    SplitButtonModule,
-    TooltipModule,
 
     ComponentsModule,
   ],

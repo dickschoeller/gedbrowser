@@ -1,20 +1,26 @@
 <span>
-  <p-menu #sourcemenu popup="popup" #cm appendTo="body" [model]="sourcemenuitems"></p-menu>
-  <p-splitButton [styleClass]="'ui-button-success'" (click)="sourcemenu.toggle($event)"
-      icon="fa fa-fw fa-book" pTooltip="Source"></p-splitButton>
-  <app-new-source-dialog
-      [p]="this"
-      (emitClose)="onSourceDialogClose()" (emitOpen)="onSourceDialogOpen($event)"
-      (emitOK)="createSource($event)"
-      [(display)]="displaySourceDialog"></app-new-source-dialog>
-  <app-link-dialog
-      [p]="this" titleString="Link Sources"
-      (emitClose)="onLinkSourceDialogClose()" (emitOpen)="onLinkSourceDialogOpen($event)"
-      (emitOK)="linkSource($event)"
-      [(display)]="displayLinkSourceDialog"></app-link-dialog>
-  <app-link-dialog
-      [p]="this" titleString="Unlink Sources"
-      (emitClose)="onUnlinkSourceDialogClose()" (emitOpen)="onUnlinkSourceDialogOpen($event)"
-      (emitOK)="unlinkSource($event)"
-      [(display)]="displayUnlinkSourceDialog"></app-link-dialog>
+  <button mat-icon-button matTooltip="Source" [matMenuTriggerFor]="sourceMenu" color="primary">
+    <mat-icon matListIcon>book</mat-icon></button>
 </span>
+
+<mat-menu #sourceMenu="matMenu" [overlapTrigger]="false">
+  <button mat-menu-item (click)="openSourceDialog()"><mat-icon>library_add</mat-icon> Add source</button>
+  <button mat-menu-item (click)="openLinkSourceDialog()"><mat-icon>link</mat-icon> Link source</button>
+  <button mat-menu-item (click)="openUnlinkSourceDialog()"><mat-icon color="warn">link_off</mat-icon> Unlink source</button>
+</mat-menu>
+  
+<app-new-source-dialog
+    [p]="this"
+    (emitClose)="onSourceDialogClose()" (emitOpen)="onSourceDialogOpen($event)"
+    (emitOK)="createSource($event)"
+    [(display)]="displaySourceDialog"></app-new-source-dialog>
+<app-link-dialog
+    [p]="this" titleString="Link Sources"
+    (emitClose)="onLinkSourceDialogClose()" (emitOpen)="onLinkSourceDialogOpen($event)"
+    (emitOK)="linkSource($event)"
+    [(display)]="displayLinkSourceDialog"></app-link-dialog>
+<app-link-dialog
+    [p]="this" titleString="Unlink Sources"
+    (emitClose)="onUnlinkSourceDialogClose()" (emitOpen)="onUnlinkSourceDialogOpen($event)"
+    (emitOK)="unlinkSource($event)"
+    [(display)]="displayUnlinkSourceDialog"></app-link-dialog>

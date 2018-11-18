@@ -2,7 +2,8 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-import { PanelModule } from 'primeng/panel';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 import { ComponentsModule } from '../../components';
 import { SourceComponent } from './source.component';
@@ -23,7 +24,8 @@ const sourceRouting: ModuleWithProviders = RouterModule.forChild([
     sourceRouting,
     CommonModule,
 
-    PanelModule,
+    MatCardModule,
+    MatIconModule,
 
     ComponentsModule,
   ],

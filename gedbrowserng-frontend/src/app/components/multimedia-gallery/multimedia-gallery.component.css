@@ -1,1 +1,8 @@
+.mat-card {
+  padding: 0;
+}
 
+.mat-card-content {
+  margin: 24px;
+  padding-bottom: 24px;
+}

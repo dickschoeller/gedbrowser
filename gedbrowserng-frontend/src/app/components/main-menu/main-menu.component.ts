@@ -1,5 +1,5 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
-import {saveAs} from 'file-saver/FileSaver';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { saveAs } from 'file-saver/FileSaver';
 import { MenuItem } from 'primeng/api';
 
 import { SaveService, DatasetsService } from '../../services';
@@ -11,6 +11,7 @@ import { SaveService, DatasetsService } from '../../services';
 })
 export class MainMenuComponent implements OnInit, OnChanges {
   @Input() dataset: string;
+  @Output() emitToggle = new EventEmitter();
   title: string;
   items: MenuItem[];
 
@@ -27,47 +28,10 @@ export class MainMenuComponent implements OnInit, OnChanges {
   }
 
   private init(): void {
-    this.datasetService.get().subscribe(
-      (results: Array<string>) => { this.setupItems(results); }
-    );
     this.title = 'gedbrowserng - ' + this.dataset;
   }
 
-  setupItems(dbs: Array<string>): void {
-    const dbItems: Array<MenuItem> = new Array<MenuItem>();
-    for (const db of dbs.sort()) {
-      dbItems.push(
-        {
-          'label': db,
-          'command': (event) => { this.pickDataset(db); },
-          routerLink: ['/' + db + '/persons']
-        });
-    }
-    this.items = [
-      { label: 'Home', icon: 'fa-home', routerLink: ['/' + this.dataset + '/head'] },
-      { label: 'Persons', icon: 'fa-users', routerLink: ['/' + this.dataset + '/persons'] },
-      { label: 'Sources', icon: 'fa-book', routerLink: ['/' + this.dataset + '/sources'] },
-      { label: 'Submitters', icon: 'fa-user', routerLink: ['/' + this.dataset + '/submitters'] },
-      { label: 'Notes', icon: 'fw fa-comment', routerLink: ['/' + this.dataset + '/notes'] },
-      { label: 'Save', icon: 'fa-save', command: (event: Event) => { this.saveFile(); } },
-      { label: 'Pick dataset', items: dbItems },
-    ];
-  }
-
-  pickDataset(ds: string) {
-    this.dataset = ds;
-    this.title = 'gedbrowser - ' + ds;
-    this.init();
-  }
-
-  saveFile() {
-    this.saveService.getTextFile(this.dataset).subscribe(
-      results => this.saveToFileSystem(results)
-    );
-  }
-
-  private saveToFileSystem(response) {
-    const blob = new Blob([response], {type: 'text/plain'});
-    saveAs(blob, this.dataset + '.ged');
+  toggle() {
+    this.emitToggle.emit();
   }
 }

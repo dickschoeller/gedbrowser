@@ -1,5 +1,4 @@
-<p-button (click)="openDialog()" icon="fa fa-fw fa-link"
-    [styleClass]="'ui-button-success'" [pTooltip]="label"></p-button>
+<button (click)="openDialog()" mat-icon-button [color]="color" matTooltip="{{ label }}"><mat-icon>link</mat-icon></button>
 <app-link-person-dialog
     [p]="this" [dataset]="dataset"
     [titleString]="label" [multi]="multi"

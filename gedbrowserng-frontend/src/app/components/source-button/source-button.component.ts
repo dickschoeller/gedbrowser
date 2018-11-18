@@ -22,24 +22,6 @@ export class SourceButtonComponent extends SourceCreator {
   displayLinkSourceDialog = false;
   displayUnlinkSourceDialog = false;
 
-  sourcemenuitems: MenuItem[] = [
-    {
-      label: 'Add source',
-      icon: 'fa-plus-circle',
-      command: (event: Event) => this.displaySourceDialog = true
-    },
-    {
-      label: 'Link source',
-      icon: 'fa-link',
-      command: (event: Event) => this.displayLinkSourceDialog = true
-    },
-    {
-      label: 'Unlink source',
-      icon: 'fa-unlink',
-      command: (event: Event) => this.displayUnlinkSourceDialog = true
-    },
-  ];
-
   constructor(
     public sourceService: SourceService,
     public newSourceLinkService: NewSourceLinkService,
@@ -100,5 +82,17 @@ export class SourceButtonComponent extends SourceCreator {
 
   lh(): LinkHelper {
     return new LinkHelper((o: ApiSource) => o.title, ApiComparators.compareSources, 'sourcelink');
+  }
+
+  openSourceDialog() {
+    this.displaySourceDialog = true;
+  }
+
+  openLinkSourceDialog() {
+    this.displayLinkSourceDialog = true;
+  }
+
+  openUnlinkSourceDialog() {
+    this.displayUnlinkSourceDialog = true;
   }
 }

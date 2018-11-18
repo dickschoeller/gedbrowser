@@ -101,4 +101,16 @@ export class SubmitterButtonComponent extends SubmitterCreator {
   lh(): LinkHelper {
     return new LinkHelper((o: ApiSubmitter) => o.name, ApiComparators.compareSubmitters, 'submitterlink');
   }
+
+  openSubmitterDialog() {
+    this.displaySubmitterDialog = true;
+  }
+
+  openLinkSubmitterDialog() {
+    this.displayLinkSubmitterDialog = true;
+  }
+
+  openUnlinkSubmitterDialog() {
+    this.displayUnlinkSubmitterDialog = true;
+  }
 }

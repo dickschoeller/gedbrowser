@@ -1,26 +1,33 @@
-<p-orderList [value]="person.fams" [responsive]="false"
-    [listStyle]="{'height':'100%','width':'100%','border':'0'}"
-    (onReorder)="parent.save()"
-    dragdrop="true" dragdropScope="person.fams">
-  <ng-template let-attribute let-i="index" pTemplate="item">
-    <div>
-      <app-person-family
-          [dataset]="dataset" [parent]="this" [string]="attribute.string"
-          [index]="i"></app-person-family>
-    </div>
-  </ng-template>
-</p-orderList>
-
-<app-new-person
-    [sex]="partnerSex" [surname]="partnerSurname" [label]="'Create spouse'"
-    (emitOK)="createSpouse($event)"></app-new-person>
-<app-link-person
-    [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link spouse'"
-    (emitOK)="linkSpouse($event)"></app-link-person>
-<app-new-person
-    [sex]="childSex" [surname]="childSurname" [label]="'Create child'"
-    (emitOK)="createChild($event)"></app-new-person>
-<app-link-person
-    [parent]="this" [dataset]="dataset" [multi]="true" [label]="'Link children'"
-    (emitOK)="linkChildren($event)"></app-link-person>
-<br/>
+<mat-card>
+  <mat-card-title>Spouses and Children</mat-card-title>
+  <mat-card-content>
+    <p-orderList [value]="person.fams" [responsive]="false"
+        [listStyle]="{'height':'100%','width':'100%','border':'0'}"
+        (onReorder)="parent.save()"
+        dragdrop="true" dragdropScope="person.fams">
+      <ng-template let-attribute let-i="index" pTemplate="item">
+        <div>
+          <app-person-family
+              [dataset]="dataset" [parent]="this" [string]="attribute.string"
+              [index]="i"></app-person-family>
+        </div>
+      </ng-template>
+    </p-orderList>
+    <app-new-person
+        [sex]="partnerSex" [surname]="partnerSurname" [label]="'Create spouse'"
+        color="primary"
+        (emitOK)="createSpouse($event)"></app-new-person>
+    <app-link-person
+        [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link spouse'"
+        color="primary"
+        (emitOK)="linkSpouse($event)"></app-link-person>
+    <app-new-person
+        [sex]="childSex" [surname]="childSurname" [label]="'Create child'"
+        color="primary"
+        (emitOK)="createChild($event)"></app-new-person>
+    <app-link-person
+        [parent]="this" [dataset]="dataset" [multi]="true" [label]="'Link children'"
+        color="primary"
+        (emitOK)="linkChildren($event)"></app-link-person>
+  </mat-card-content>
+</mat-card>
