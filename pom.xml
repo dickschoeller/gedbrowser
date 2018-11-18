@@ -76,7 +76,7 @@
     <cglib.version>3.2.7</cglib.version>
     <google-maps-services.version>0.2.10</google-maps-services.version>
     <jackson-core.version>2.9.6</jackson-core.version>
-    <jackson-databind.version>2.9.6</jackson-databind.version>
+    <jackson-databind.version>2.9.7</jackson-databind.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.10</joda-time.version>
     <sauce_junit.version>2.1.24</sauce_junit.version>
