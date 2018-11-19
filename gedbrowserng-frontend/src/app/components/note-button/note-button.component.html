@@ -1,20 +1,26 @@
 <span>
-  <p-menu #notemenu popup="popup" #cm appendTo="body" [model]="notemenuitems"></p-menu>
-  <p-splitButton [styleClass]="'ui-button-success'" (click)="notemenu.toggle($event)"
-      icon="fa fa-comment" pTooltip="Note"></p-splitButton>
-  <app-new-note-dialog
-      [p]="this"
-      (emitClose)="onNoteDialogClose()" (emitOpen)="onNoteDialogOpen($event)"
-      (emitOK)="createNote($event)"
-      [(display)]="displayNoteDialog"></app-new-note-dialog>
-  <app-link-dialog
-      [p]="this" titleString="Link Notes"
-      (emitClose)="onLinkNoteDialogClose()" (emitOpen)="onLinkNoteDialogOpen($event)"
-      (emitOK)="linkNote($event)"
-      [(display)]="displayLinkNoteDialog"></app-link-dialog>
-  <app-link-dialog
-      [p]="this" titleString="Unlink Notes"
-      (emitClose)="onUnlinkNoteDialogClose()" (emitOpen)="onUnlinkNoteDialogOpen($event)"
-      (emitOK)="unlinkNote($event)"
-      [(display)]="displayUnlinkNoteDialog"></app-link-dialog>
+  <button mat-icon-button matTooltip="Note" [matMenuTriggerFor]="noteMenu" color="primary">
+    <mat-icon matListIcon>comment</mat-icon></button>
 </span>
+
+<mat-menu #noteMenu="matMenu" [overlapTrigger]="false">
+  <button mat-menu-item (click)="openNoteDialog()"><mat-icon>add_comment</mat-icon> Add note</button>
+  <button mat-menu-item (click)="openLinkNoteDialog()"><mat-icon>link</mat-icon> Link note</button>
+  <button mat-menu-item (click)="openUnlinkNoteDialog()"><mat-icon color="warn">link_off</mat-icon> Unlink note</button>
+</mat-menu>
+
+<app-new-note-dialog
+    [p]="this"
+    (emitClose)="onNoteDialogClose()" (emitOpen)="onNoteDialogOpen($event)"
+    (emitOK)="createNote($event)"
+    [(display)]="displayNoteDialog"></app-new-note-dialog>
+<app-link-dialog
+    [p]="this" titleString="Link Notes"
+    (emitClose)="onLinkNoteDialogClose()" (emitOpen)="onLinkNoteDialogOpen($event)"
+    (emitOK)="linkNote($event)"
+    [(display)]="displayLinkNoteDialog"></app-link-dialog>
+<app-link-dialog
+    [p]="this" titleString="Unlink Notes"
+    (emitClose)="onUnlinkNoteDialogClose()" (emitOpen)="onUnlinkNoteDialogOpen($event)"
+    (emitOK)="unlinkNote($event)"
+    [(display)]="displayUnlinkNoteDialog"></app-link-dialog>

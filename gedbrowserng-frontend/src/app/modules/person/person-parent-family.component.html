@@ -1,24 +1,40 @@
-<p-orderList [value]="family?.spouses" dragdrop="false"
-    [responsive]="false" [listStyle]="{'height':'100%','width':'100%','border':'0'}">
-  <ng-template let-spouse pTemplate="listItem">
-    <div class="parent-family">
-      <app-person-parent [dataset]="dataset" [parent]="this"
-          [attribute]="spouse"></app-person-parent>
-    </div>
-  </ng-template>
-</p-orderList>
-<div *ngIf="family?.spouses.length < 2">
-  <app-new-person
-      [sex]="sex" [surname]="surname" [label]="'Create parent'"
-      (emitOK)="createPerson($event)"></app-new-person>
-  <app-link-person
-      [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
-      (emitOK)="linkParent($event)"></app-link-person>
-</div>
+<mat-card>
+  <mat-card-title>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row *ngFor="let spouse of family?.spouses">
+        <app-person-parent [dataset]="dataset" [parent]="this"
+            [attribute]="spouse"></app-person-parent>
+        <span class="example-fill-remaining-space"></span>
+        <span *ngIf="family?.spouses.length < 2">
+          <app-new-person
+              [sex]="sex" [surname]="surname" [label]="'Create parent'"
+              (emitOK)="createPerson($event)"></app-new-person>
+          <app-link-person
+              [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
+              (emitOK)="linkParent($event)"></app-link-person>
+        </span>
+      </mat-toolbar-row>
+      <mat-toolbar-row *ngIf="family?.spouses.length == 0">
+          <app-new-person
+              [sex]="sex" [surname]="surname" [label]="'Create parent'"
+              (emitOK)="createPerson($event)"></app-new-person>
+          <app-link-person
+              [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
+              (emitOK)="linkParent($event)"></app-link-person>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </mat-card-title>
+  <mat-card-content>
 <div class="ui-g">
   <div class="ui-g-1"></div>
   <div class="ui-g-10">
-    <p-panel header="Siblings (including self)" styleClass="ui-panel-titlebar-success">
+    <mat-card>
+      <mat-card-title>
+        <mat-toolbar>
+          Siblings (including self)
+        </mat-toolbar>
+      </mat-card-title>
+      <mat-card-content>
       <p-orderList [value]="family?.children" dragdrop="false"
           [responsive]="false" [listStyle]="{'height':'100%','width':'100%','border':'0'}">
         <ng-template let-child let-i="index" pTemplate="item">
@@ -28,7 +44,10 @@
           </div>
         </ng-template>
       </p-orderList>
-    </p-panel>
+      </mat-card-content>
+    </mat-card>
   </div>
   <div class="ui-g-1"></div>
 </div>
+  </mat-card-content>
+</mat-card>

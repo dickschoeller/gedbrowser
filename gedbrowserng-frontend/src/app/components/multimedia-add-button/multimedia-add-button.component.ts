@@ -15,13 +15,6 @@ export class MultimediaAddButtonComponent implements OnInit {
   @Input() parent: HasMultimedia;
   @Input() dataset: string;
 
-  menuitems: MenuItem[] = [
-    {
-      label: 'Add multimedia',
-      icon: 'fa-plus-circle',
-      command: (event: Event) => this.displayDialog = true
-    },
-  ];
   displayDialog = false;
 
   constructor() { }
@@ -43,5 +36,9 @@ export class MultimediaAddButtonComponent implements OnInit {
     const attribute: ApiAttribute = MultimediaDialogHelper.buildMultimediaAttribute(data);
     this.parent.multimedia.push(attribute);
     this.parent.save();
+  }
+
+  openMultimediaDialog() {
+    this.displayDialog = true;
   }
 }

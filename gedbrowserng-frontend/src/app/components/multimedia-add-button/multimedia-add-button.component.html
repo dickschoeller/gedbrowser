@@ -1,10 +1,14 @@
 <span>
-  <p-menu #multimediamenu popup="popup" #cm appendTo="body" [model]="menuitems"></p-menu>
-  <p-splitButton [styleClass]="'ui-button-success'" (click)="multimediamenu.toggle($event)"
-      icon="fa fa-fw fa-image" pTooltip="Multimedia"></p-splitButton>
-  <app-multimedia-dialog
-      [p]="this"
-      (emitClose)="onDialogClose()" (emitOpen)="onDialogOpen($event)"
-      (emitOK)="create($event)"
-      [(display)]="displayDialog"></app-multimedia-dialog>
+  <button mat-icon-button matTooltip="Multimedia" [matMenuTriggerFor]="multimediaMenu" color="primary">
+    <mat-icon matListIcon>image</mat-icon></button>
 </span>
+
+<mat-menu #multimediaMenu="matMenu" [overlapTrigger]="false">
+  <button mat-menu-item (click)="openMultimediaDialog()"><mat-icon>add_photo_alternate</mat-icon> Add multimedia</button>
+</mat-menu>
+
+<app-multimedia-dialog
+    [p]="this"
+    (emitClose)="onDialogClose()" (emitOpen)="onDialogOpen($event)"
+    (emitOK)="create($event)"
+    [(display)]="displayDialog"></app-multimedia-dialog>

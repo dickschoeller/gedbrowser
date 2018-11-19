@@ -1,29 +1,36 @@
 <div class="ui-g">
   <div class="ui-g-1"></div>
   <div class="ui-g-10">
-    <p-panel header="Children" styleClass="ui-panel-titlebar-success">
-      <p-header>
-        <span class="bump-out">
-          <app-new-person
-              [sex]="sex" [surname]="surname" [label]="'Create child'"
-              (emitOK)="createPerson($event)"></app-new-person>
-          <app-link-person
-              [parent]="this" [dataset]="dataset" [multi]="true" [label]="'Link child'"
-              (emitOK)="linkChild($event)"></app-link-person>
-        </span>
-      </p-header>
-
-      <p-orderList [value]="children" dragdrop="true" dragdropScope="children"
-          [responsive]="false" [listStyle]="{'height':'100%','width':'100%','border':'0'}"
-          (onReorder)="save()">
-        <ng-template let-child let-i="index" pTemplate="item">
-          <div>
-            <app-person-family-child [child]="child" [index]="i"
-                [parent]="this" [dataset]="dataset"></app-person-family-child>
-          </div>
-        </ng-template>
-      </p-orderList>
-    </p-panel>
+    <mat-card>
+      <mat-card-title>
+        <mat-toolbar>
+          Children
+          <span class="example-fill-remaining-space"></span>
+          <span>
+            <app-new-person
+                [sex]="sex" [surname]="surname" [label]="'Create child'"
+                color="primary"
+                (emitOK)="createPerson($event)"></app-new-person>
+            <app-link-person
+                [parent]="this" [dataset]="dataset" [multi]="true" [label]="'Link child'"
+                color="primary"
+                (emitOK)="linkChild($event)"></app-link-person>
+          </span>
+        </mat-toolbar>
+      </mat-card-title>
+      <mat-card-content>
+        <p-orderList [value]="children" dragdrop="true" dragdropScope="children"
+            [responsive]="false" [listStyle]="{'height':'100%','width':'100%','border':'0'}"
+            (onReorder)="save()">
+          <ng-template let-child let-i="index" pTemplate="item">
+            <div>
+              <app-person-family-child [child]="child" [index]="i"
+                  [parent]="this" [dataset]="dataset"></app-person-family-child>
+            </div>
+          </ng-template>
+        </p-orderList>
+      </mat-card-content>
+    </mat-card>
   </div>
   <div class="ui-g-1"></div>
 </div>

@@ -14,3 +14,5 @@ export * from './note-button';
 export * from './source-button';
 export * from './submitter-button';
 export * from './components.module';
+export * from './main-layout';
+export * from './side-menu';

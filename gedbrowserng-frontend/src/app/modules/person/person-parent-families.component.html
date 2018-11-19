@@ -1,14 +1,29 @@
-<p-panel header="{{ person?.string }}: {{ person?.indexName }}{{ lifespanDateString() }}">
-  <p-header>
-    <span class="bump-out" *ngIf="!person.famc.length">
+<mat-card>
+  <mat-card-title>
+    Parents and Siblings
+    <span class="example-fill-remaining-space"></span>
+    <span *ngIf="!person.famc.length">
       <app-new-person
           [sex]="sex" [surname]="surname" [label]="'Create parent'"
+          color="primary"
           (emitOK)="createPerson($event)"></app-new-person>
       <app-link-person
           [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
+          color="primary"
           (emitOK)="linkParent($event)"></app-link-person>
     </span>
-  </p-header>
-  <app-person-parent-family *ngFor="let famcAttribute of person?.famc"
-      [dataset]="dataset" [parent]="this" [attribute]="famcAttribute"></app-person-parent-family>
-</p-panel>
+  </mat-card-title>
+  <mat-card-content>
+    <p-orderList [value]="person?.famc" [responsive]="false"
+        [listStyle]="{'height':'100%','width':'100%','border':'0'}"
+        (onReorder)="parent.save()"
+        dragdrop="true" dragdropScope="person.fams">
+      <ng-template let-attribute let-i="index" pTemplate="item">
+        <div>
+          <app-person-parent-family
+              [dataset]="dataset" [parent]="this" [attribute]="attribute"></app-person-parent-family>
+        </div>
+      </ng-template>
+    </p-orderList>
+  </mat-card-content>
+</mat-card>

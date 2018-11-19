@@ -1,24 +1,26 @@
-<p-panel [toggleable]="true">
-  <p-header>
-    <span>Family {{ index + 1 }}</span>
-    <span *ngIf="spouse()">&nbsp;-&nbsp;</span>
-    <app-person-family-spouse *ngIf="spouse()"
-        [dataset]="dataset" [parent]="this" [attribute]="spouse()"></app-person-family-spouse>
-    <span *ngIf="spouse()">
-      <p-button (click)="unlink()" icon="fa fa-fw fa-unlink"
-          [styleClass]="'ui-button-warning'" pTooltip="Unlink self from family"></p-button>
-    </span>
-    <span *ngIf="!spouse()" class="bump-out">
-      <app-new-person
-          [sex]="sex" [surname]="surname" [label]="'Create spouse'"
-          (emitOK)="createPerson($event)"></app-new-person>
-      <app-link-person
-          [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
-          (emitOK)="linkParent($event)"></app-link-person>
-      <p-button (click)="unlink()" icon="fa fa-fw fa-unlink"
-          [styleClass]="'ui-button-warning'" pTooltip="Unlink self from family"></p-button>
-    </span>
-  </p-header>
+<mat-card>
+  <mat-card-title>
+    <mat-toolbar color="primary">Family {{ index + 1 }}<span *ngIf="spouse()">&nbsp;-&nbsp;</span>
+      <app-person-family-spouse *ngIf="spouse()"
+          [dataset]="dataset" [parent]="this" [attribute]="spouse()"></app-person-family-spouse>
+      <span *ngIf="spouse()">
+        <button mat-icon-button matTooltip="Unlink self from family" color="accent" (click)="unlink()">
+          <mat-icon matListIcon>link_off</mat-icon></button>
+      </span>
+      <span *ngIf="!spouse()" class="example-fill-remaining-space"></span>
+      <span *ngIf="!spouse()">
+        <app-new-person
+            [sex]="sex" [surname]="surname" [label]="'Create spouse'"
+            (emitOK)="createPerson($event)"></app-new-person>
+        <app-link-person
+            [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
+            (emitOK)="linkParent($event)"></app-link-person>
+        <button mat-icon-button matTooltip="Unlink self from family" color="accent" (click)="unlink()">
+          <mat-icon matListIcon>link_off</mat-icon></button>
+      </span>
+    </mat-toolbar>
+  </mat-card-title>
+  <mat-card-content>
   <div class="ui-g">
     <div class="ui-g-1"></div>
     <div class="ui-g-10">
@@ -38,5 +40,6 @@
   <app-person-family-child-list *ngIf="family?.children"
       [children]="family?.children" [family]="family" [parent]="this"
       [dataset]="dataset"></app-person-family-child-list>
-</p-panel>
+  </mat-card-content>
+</mat-card>
 <br/>

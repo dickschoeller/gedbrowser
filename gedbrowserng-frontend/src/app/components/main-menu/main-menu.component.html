@@ -1,7 +1,6 @@
-<p-toolbar>
+<mat-toolbar color="primary">
   <div class="ui-toolbar-group-left">
-    <p-tieredMenu #menu1 [popup]="true" [model]="items"></p-tieredMenu>
-    <button type="button" pButton icon="fa fa-bars" (click)="menu1.toggle($event)"></button>
-    <span class="title">{{ title }}</span>
+    <button mat-icon-button (click)="toggle()"><mat-icon>menu</mat-icon></button>
+    <span class="title"> &nbsp; {{ title }}</span>
   </div>
-</p-toolbar>
+</mat-toolbar>

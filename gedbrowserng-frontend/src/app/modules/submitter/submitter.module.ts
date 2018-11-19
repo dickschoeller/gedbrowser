@@ -1,13 +1,14 @@
-import {ModuleWithProviders, NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {CommonModule} from '@angular/common';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
-import {PanelModule} from 'primeng/panel';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
-import {ComponentsModule} from '../../components';
+import { ComponentsModule } from '../../components';
 
-import {SubmitterComponent} from './submitter.component';
-import {SubmitterResolverService} from './submitter-resolver.service';
+import { SubmitterComponent } from './submitter.component';
+import { SubmitterResolverService } from './submitter-resolver.service';
 
 const submitterRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -24,7 +25,9 @@ const submitterRouting: ModuleWithProviders = RouterModule.forChild([
     submitterRouting,
     CommonModule,
     ComponentsModule,
-    PanelModule,
+
+    MatCardModule,
+    MatIconModule,
   ],
   declarations: [
     SubmitterComponent,

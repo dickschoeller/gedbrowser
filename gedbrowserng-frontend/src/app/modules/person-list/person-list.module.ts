@@ -1,18 +1,24 @@
-import {ModuleWithProviders, NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {CommonModule} from '@angular/common';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
-import {ButtonModule} from 'primeng/button';
-import {DataViewModule} from 'primeng/dataview';
-import {PanelModule} from 'primeng/panel';
-import {TooltipModule} from 'primeng/tooltip';
+// import { MatCardModule } from '@angular/material/card';
+// import { MatGridListModule } from '@angular/material/grid-list';
+// import { MatToolbarModule } from '@angular/material/toolbar';
 
-import {ComponentsModule} from '../../components';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
-import {PersonListPageComponent} from './person-list-page.component';
-import {PersonListComponent} from './person-list.component';
-import {PersonListItemComponent} from './person-list-item.component';
-import {PersonListResolverService} from './person-list-resolver.service';
+import { DataViewModule } from 'primeng/dataview';
+import { PanelModule } from 'primeng/panel';
+
+import { ComponentsModule } from '../../components';
+
+import { PersonListPageComponent } from './person-list-page.component';
+import { PersonListComponent } from './person-list.component';
+import { PersonListItemComponent } from './person-list-item.component';
+import { PersonListResolverService } from './person-list-resolver.service';
 
 const personRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -29,10 +35,12 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
     personRouting,
     CommonModule,
 
-    ButtonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+
     DataViewModule,
     PanelModule,
-    TooltipModule,
 
     ComponentsModule,
   ],

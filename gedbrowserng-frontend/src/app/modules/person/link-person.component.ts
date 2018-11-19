@@ -15,6 +15,7 @@ export class LinkPersonComponent {
   @Input() parent: LinkCheck;
   @Input() multi: boolean;
   @Input() label: string;
+  @Input() color = '';
   @Output() emitOK = new EventEmitter<LinkPersonDialogData>();
 
   constructor(private personService: PersonService) { }

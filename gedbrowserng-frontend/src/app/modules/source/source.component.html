@@ -1,14 +1,16 @@
-<app-main-menu [dataset]="dataset"></app-main-menu>
-<p-panel>
-  <p-header>{{ source?.string }}: {{ source?.title }}</p-header>
-</p-panel>
-
-<app-attribute-list [dataset]="dataset" [attributes]="source?.attributes" [parent]="this" [showSources]=false [showSubmitters]=false></app-attribute-list>
-<br/>
-<app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="source.images"></app-multimedia-gallery>
-<br/>
-<!-- p-panel [showHeader]="false">
-  <div><b>{{ source?.refn[0].string }}:&nbsp;</b> {{ source?.refn[0].tail }}</div>
-  <div><b>{{ source?.changed[0].string }}:&nbsp;</b> {{ source?.changed[0].attributes[0].string }}</div>
-</p-panel>
-<br/ -->
+<app-main-layout [dataset]="dataset">
+  <mat-card>
+    <mat-card-title><mat-icon>book</mat-icon> {{ source?.title }}</mat-card-title>
+    <mat-card-subtitle>{{ source?.string }}</mat-card-subtitle>
+    <mat-card-content>
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <app-attribute-list [dataset]="dataset" [attributes]="source?.attributes" [parent]="this" [showSources]=false [showSubmitters]=false></app-attribute-list>
+        </div>
+        <div class="ui-g-12">
+          <app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="source.images"></app-multimedia-gallery>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</app-main-layout>

@@ -19,3 +19,7 @@ button[ng-reflect-icon="fa-angle-double-up"] {
 div.ui-orderlist-controls {
     display: none !important;
 }
+
+.mat-card-footer {
+  margin: 24px;
+}

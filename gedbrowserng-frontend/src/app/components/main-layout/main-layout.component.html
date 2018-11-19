@@ -1,0 +1,9 @@
+<app-main-menu [dataset]="dataset" (emitToggle)="drawer.toggle()"></app-main-menu>
+<mat-drawer-container>
+  <mat-drawer mode="side" opened="true" #drawer>
+    <app-side-menu [dataset]="dataset"></app-side-menu>
+  </mat-drawer>
+  <mat-drawer-content>
+    <ng-content></ng-content>
+  </mat-drawer-content>
+</mat-drawer-container>

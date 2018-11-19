@@ -1,20 +1,26 @@
 <span>
-  <p-menu #submittermenu popup="popup" #cm appendTo="body" [model]="submittermenuitems"></p-menu>
-  <p-splitButton [styleClass]="'ui-button-success'" (click)="submittermenu.toggle($event)"
-      icon="fa fa-fw fa-user" pTooltip="Submitter"></p-splitButton>
-  <app-new-submitter-dialog
-      [p]="this"
-      (emitClose)="onSubmitterDialogClose()" (emitOpen)="onSubmitterDialogOpen($event)"
-      (emitOK)="createSubmitter($event)"
-      [(display)]="displaySubmitterDialog"></app-new-submitter-dialog>
-  <app-link-dialog
-      [p]="this" titleString="Link Submitters"
-      (emitClose)="onLinkSubmitterDialogClose()" (emitOpen)="onLinkSubmitterDialogOpen($event)"
-      (emitOK)="linkSubmitter($event)"
-      [(display)]="displayLinkSubmitterDialog"></app-link-dialog>
-  <app-link-dialog
-      [p]="this" titleString="Unlink Submitters"
-      (emitClose)="onUnlinkSubmitterDialogClose()" (emitOpen)="onUnlinkSubmitterDialogOpen($event)"
-      (emitOK)="unlinkSubmitter($event)"
-      [(display)]="displayUnlinkSubmitterDialog"></app-link-dialog>
+  <button mat-icon-button matTooltip="Submitter" [matMenuTriggerFor]="submitterMenu" color="primary">
+    <mat-icon matListIcon>mail</mat-icon></button>
 </span>
+
+<mat-menu #submitterMenu="matMenu" [overlapTrigger]="false">
+  <button mat-menu-item (click)="openSubmitterDialog()"><mat-icon>add_circle</mat-icon> Add submitter</button>
+  <button mat-menu-item (click)="openLinkSubmitterDialog()"><mat-icon>link</mat-icon> Link submitter</button>
+  <button mat-menu-item (click)="openUnlinkSubmitterDialog()"><mat-icon color="warn">link_off</mat-icon> Unlink submitter</button>
+</mat-menu>
+
+<app-new-submitter-dialog
+    [p]="this"
+    (emitClose)="onSubmitterDialogClose()" (emitOpen)="onSubmitterDialogOpen($event)"
+    (emitOK)="createSubmitter($event)"
+    [(display)]="displaySubmitterDialog"></app-new-submitter-dialog>
+<app-link-dialog
+    [p]="this" titleString="Link Submitters"
+    (emitClose)="onLinkSubmitterDialogClose()" (emitOpen)="onLinkSubmitterDialogOpen($event)"
+    (emitOK)="linkSubmitter($event)"
+    [(display)]="displayLinkSubmitterDialog"></app-link-dialog>
+<app-link-dialog
+    [p]="this" titleString="Unlink Submitters"
+    (emitClose)="onUnlinkSubmitterDialogClose()" (emitOpen)="onUnlinkSubmitterDialogOpen($event)"
+    (emitOK)="unlinkSubmitter($event)"
+    [(display)]="displayUnlinkSubmitterDialog"></app-link-dialog>

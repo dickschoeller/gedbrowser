@@ -13,6 +13,7 @@ export class NewPersonComponent {
   @Input() sex: string;
   @Input() surname: string;
   @Input() label: string;
+  @Input() color = '';
   @Output() emitOK = new EventEmitter<NewPersonDialogData>();
 
   displayDialog = false;
@@ -21,6 +22,7 @@ export class NewPersonComponent {
   constructor() { }
 
   openDialog(): void {
+    alert('open dialog');
     this.displayDialog = true;
   }
 
