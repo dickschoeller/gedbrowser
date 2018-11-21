@@ -6,12 +6,6 @@
       <span class="bump-out">
         <button mat-icon-button matTooltip="New note" color="primary" (click)="openCreateNoteDialog()">
           <mat-icon matListIcon>note_add</mat-icon></button>
-        <app-new-note-dialog
-            [p]="this"
-            (emitClose)="closeNoteDialog()"
-            (emitOpen)="onDialogOpen($event)"
-            (emitOK)="createNote($event)"
-            [(display)]="displayNoteDialog"></app-new-note-dialog>
       </span>
     </p-header>
     <ng-template let-note pTemplate="listItem">

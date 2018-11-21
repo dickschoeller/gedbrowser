@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import { BaseDialog } from '../../bases';
 import { NewNoteDialogData } from '../../models';
 
 @Component({
@@ -8,25 +8,12 @@ import { NewNoteDialogData } from '../../models';
   templateUrl: './new-note-dialog.component.html',
   styleUrls: ['./new-note-dialog.component.css']
 })
-export class NewNoteDialogComponent
-  extends BaseDialog<NewNoteDialogData, NewNoteDialogComponent>
-  implements OnInit, OnChanges {
-
-  _data: NewNoteDialogData;
-
-  constructor() {
-    super();
+export class NewNoteDialogComponent {
+  constructor(public dialogRef: MatDialogRef<NewNoteDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: NewNoteDialogData) {
   }
 
-  ngOnInit() {
-    this.emitOpen.emit(this);
-  }
-
-  ngOnChanges() {
-    this.emitOpen.emit(this);
-  }
-
-  open() {
-    this.emitOpen.emit(this);
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

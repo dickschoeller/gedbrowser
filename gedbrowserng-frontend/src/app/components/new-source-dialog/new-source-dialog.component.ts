@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import { BaseDialog } from '../../bases';
 import { NewSourceDialogData } from '../../models';
 
 @Component({
@@ -8,25 +8,12 @@ import { NewSourceDialogData } from '../../models';
   templateUrl: './new-source-dialog.component.html',
   styleUrls: ['./new-source-dialog.component.css']
 })
-export class NewSourceDialogComponent
-  extends BaseDialog<NewSourceDialogData, NewSourceDialogComponent>
-  implements OnInit, OnChanges {
-
-  _data: NewSourceDialogData;
-
-  constructor() {
-    super();
+export class NewSourceDialogComponent {
+  constructor(public dialogRef: MatDialogRef<NewSourceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: NewSourceDialogData) {
   }
 
-  ngOnInit() {
-    this.emitOpen.emit(this);
-  }
-
-  ngOnChanges() {
-    this.emitOpen.emit(this);
-  }
-
-  open() {
-    this.emitOpen.emit(this);
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

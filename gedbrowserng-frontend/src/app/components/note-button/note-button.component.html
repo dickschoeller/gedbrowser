@@ -4,16 +4,11 @@
 </span>
 
 <mat-menu #noteMenu="matMenu" [overlapTrigger]="false">
-  <button mat-menu-item (click)="openNoteDialog()"><mat-icon>add_comment</mat-icon> Add note</button>
+  <button mat-menu-item (click)="openCreateNoteDialog()"><mat-icon>add_comment</mat-icon> Add note</button>
   <button mat-menu-item (click)="openLinkNoteDialog()"><mat-icon>link</mat-icon> Link note</button>
   <button mat-menu-item (click)="openUnlinkNoteDialog()"><mat-icon color="warn">link_off</mat-icon> Unlink note</button>
 </mat-menu>
 
-<app-new-note-dialog
-    [p]="this"
-    (emitClose)="onNoteDialogClose()" (emitOpen)="onNoteDialogOpen($event)"
-    (emitOK)="createNote($event)"
-    [(display)]="displayNoteDialog"></app-new-note-dialog>
 <app-link-dialog
     [p]="this" titleString="Link Notes"
     (emitClose)="onLinkNoteDialogClose()" (emitOpen)="onLinkNoteDialogOpen($event)"

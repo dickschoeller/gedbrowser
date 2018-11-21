@@ -1,4 +1,4 @@
-import {ApiAttribute} from './api-attribute.model';
+import { ApiAttribute } from './api-attribute.model';
 
 export class ApiObject {
   type = '';

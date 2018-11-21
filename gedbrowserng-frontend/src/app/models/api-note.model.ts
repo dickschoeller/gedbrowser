@@ -1,4 +1,4 @@
-import {ApiTail} from './api-tail.model';
+import { ApiTail } from './api-tail.model';
 
 export class ApiNote extends ApiTail {
 }

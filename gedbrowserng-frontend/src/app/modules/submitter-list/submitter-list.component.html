@@ -6,12 +6,6 @@
       <span class="bump-out">
         <button mat-icon-button matTooltip="New submitter" color="primary" (click)="openCreateSubmitterDialog()">
           <mat-icon matListIcon>add_box</mat-icon></button>
-        <app-new-submitter-dialog
-            [p]="this"
-            (emitClose)="closeSubmitterDialog()"
-            (emitOpen)="onDialogOpen($event)"
-            (emitOK)="createSubmitter($event)"
-            [(display)]="display"></app-new-submitter-dialog>
       </span>
     </p-header>
     <ng-template let-submitter pTemplate="listItem">
