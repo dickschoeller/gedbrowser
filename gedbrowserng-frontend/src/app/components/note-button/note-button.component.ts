@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog, MatDialogRef, } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { HasAttributeList } from '../../interfaces';
 import { NoteCreator } from '../../bases';
@@ -7,8 +7,6 @@ import { ApiObject, ApiNote, ApiAttribute, LinkDialogData, LinkItem } from '../.
 import { NoteService, NewNoteLinkService, ServiceBase } from '../../services';
 import { UrlBuilder, NewNoteHelper, ApiComparators, LinkHelper, Refresher } from '../../utils';
 import { LinkDialogComponent } from '../link-dialog';
-import { NewNoteDialogComponent } from '../new-note-dialog';
-import { NewNoteDialogData } from '../../models';
 
 @Component({
   selector: 'app-note-button',
@@ -19,7 +17,6 @@ export class NoteButtonComponent extends NoteCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
-  data: NewNoteDialogData;
   displayLinkNoteDialog = false;
   displayUnlinkNoteDialog = false;
 
@@ -28,7 +25,7 @@ export class NoteButtonComponent extends NoteCreator {
     public newNoteLinkService: NewNoteLinkService,
     public dialog: MatDialog,
   ) {
-    super(newNoteLinkService);
+    super(newNoteLinkService, dialog);
   }
 
   noteUB(): UrlBuilder {
@@ -70,21 +67,6 @@ export class NoteButtonComponent extends NoteCreator {
 
   lh(): LinkHelper {
     return new LinkHelper((o: ApiNote) => o.tail, ApiComparators.compareNotes, 'notelink');
-  }
-
-  openNoteDialog() {
-    const dialogRef = this.dialog.open(
-      NewNoteDialogComponent,
-      {
-        data: { text: 'New Note' }
-      });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.data = result;
-        this.createNote(this.data);
-      }
-    });
   }
 
   openLinkNoteDialog() {

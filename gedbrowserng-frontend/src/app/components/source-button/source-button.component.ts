@@ -19,7 +19,6 @@ export class SourceButtonComponent extends SourceCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
-  data: NewSourceDialogData;
   displayLinkSourceDialog = false;
   displayUnlinkSourceDialog = false;
 
@@ -28,7 +27,7 @@ export class SourceButtonComponent extends SourceCreator {
     public newSourceLinkService: NewSourceLinkService,
     public dialog: MatDialog,
   ) {
-    super(newSourceLinkService);
+    super(newSourceLinkService, dialog);
   }
 
   sourceUB(): UrlBuilder {
@@ -70,21 +69,6 @@ export class SourceButtonComponent extends SourceCreator {
 
   lh(): LinkHelper {
     return new LinkHelper((o: ApiSource) => o.title, ApiComparators.compareSources, 'sourcelink');
-  }
-
-  openSourceDialog(): void {
-    const dialogRef = this.dialog.open(
-      NewSourceDialogComponent,
-      {
-        data: { title: 'New Source', abbreviation: 'NewSource', text: '' }
-      });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.data = result;
-        this.createSource(this.data);
-      }
-    });
   }
 
   openLinkSourceDialog() {

@@ -19,7 +19,6 @@ export class SubmitterButtonComponent extends SubmitterCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
-  data: NewSubmitterDialogData;
   displayLinkSubmitterDialog = false;
   displayUnlinkSubmitterDialog = false;
 
@@ -28,7 +27,7 @@ export class SubmitterButtonComponent extends SubmitterCreator {
     public newSubmitterLinkService: NewSubmitterLinkService,
     public dialog: MatDialog,
   ) {
-    super(newSubmitterLinkService);
+    super(newSubmitterLinkService, dialog);
   }
 
   submitterUB(): UrlBuilder {
@@ -69,21 +68,6 @@ export class SubmitterButtonComponent extends SubmitterCreator {
 
   lh(): LinkHelper {
     return new LinkHelper((o: ApiSubmitter) => o.name, ApiComparators.compareSubmitters, 'submitterlink');
-  }
-
-  openSubmitterDialog() {
-    const dialogRef = this.dialog.open(
-      NewSubmitterDialogComponent,
-      {
-        data: { name: 'New Submitter' }
-      });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.data = result;
-        this.createSubmitter(this.data);
-      }
-    });
   }
 
   openLinkSubmitterDialog() {

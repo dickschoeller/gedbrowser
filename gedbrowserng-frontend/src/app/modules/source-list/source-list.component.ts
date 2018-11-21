@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog, MatDialogRef, } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { SourceCreator } from '../../bases';
 import { NewSourceDialogComponent } from '../../components';
@@ -21,31 +21,14 @@ export class SourceListComponent extends SourceCreator implements RefreshSource 
   @Input() dataset: string;
   @Input() sources: Array<ApiSource>;
 
-  data: NewSourceDialogData;
-
   constructor(public newSourceLinkService: NewSourceLinkService,
     public dialog: MatDialog,
   ) {
-    super(newSourceLinkService);
+    super(newSourceLinkService, dialog);
   }
 
   sourceUB(): UrlBuilder {
     return new UrlBuilder(this.dataset, 'sources');
-  }
-
-  openCreateSourceDialog(): void {
-    const dialogRef = this.dialog.open(
-      NewSourceDialogComponent,
-      {
-        data: NewSourceHelper.initNew('New Source')
-      });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.data = result;
-        this.createSource(this.data);
-      }
-    });
   }
 
   sourceAnchor(): string {

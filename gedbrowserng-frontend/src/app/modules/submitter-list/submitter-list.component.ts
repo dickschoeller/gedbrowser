@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog, MatDialogRef, } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { SubmitterCreator } from '../../bases/submitter-creator';
 import { NewSubmitterDialogComponent } from '../../components/';
@@ -21,31 +21,14 @@ export class SubmitterListComponent extends SubmitterCreator implements RefreshS
   @Input() dataset: string;
   @Input() submitters: ApiSubmitter[];
 
-  data: NewSubmitterDialogData;
-
   constructor(public newSubmitterLinkService: NewSubmitterLinkService,
     public dialog: MatDialog,
   ) {
-    super(newSubmitterLinkService);
+    super(newSubmitterLinkService, dialog);
   }
 
   submitterUB(): UrlBuilder {
     return new UrlBuilder(this.dataset, 'submitters');
-  }
-
-  openCreateSubmitterDialog(): void {
-    const dialogRef = this.dialog.open(
-      NewSubmitterDialogComponent,
-      {
-        data: NewSubmitterHelper.initNew('New Submitter')
-      });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.data = result;
-        this.createSubmitter(this.data);
-      }
-    });
   }
 
   submitterAnchor(): string {

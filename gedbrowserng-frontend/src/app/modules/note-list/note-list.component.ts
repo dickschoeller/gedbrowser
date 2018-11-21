@@ -21,31 +21,14 @@ export class NoteListComponent extends NoteCreator implements RefreshNote {
   @Input() dataset: string;
   @Input() notes: Array<ApiNote>;
 
-  data: NewNoteDialogData;
-
   constructor(public newNoteLinkService: NewNoteLinkService,
     public dialog: MatDialog,
   ) {
-    super(newNoteLinkService);
+    super(newNoteLinkService, dialog);
   }
 
   noteUB(): UrlBuilder {
     return new UrlBuilder(this.dataset, 'notes');
-  }
-
-  openCreateNoteDialog(): void {
-    const dialogRef = this.dialog.open(
-      NewNoteDialogComponent,
-      {
-        data: { title: 'New Source', abbreviation: 'NewSource', text: '' }
-      });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.data = result;
-        this.createNote(this.data);
-      }
-    });
   }
 
   noteAnchor(): string {
