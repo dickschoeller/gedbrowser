@@ -1,17 +1,13 @@
-<p-dialog
-    [modal]="true" [closable]="true"
-    [closeOnEscape]="true" [dismissableMask]="true"
-    (onHide)="close()" (onShow)="open()"
-    [(visible)]="_display"
-    appendTo="body">
-  <p-header><i class="fa fa-book"></i> New Submitter</p-header>
-  <br/>
-  <div class="ui-float-label">
-    <input id="float-input-name" type="text" size="50" pInputText [(ngModel)]="_data.name">
-    <label for="float-input-name">Name</label>
-  </div>
-  <p-footer>
-    <p-button label="OK" icon="fa fa-fw fa-check" (click)="ok()"></p-button>
-    <p-button label="Cancel" icon="fa fa-fw fa-close" (click)="cancel()" [styleClass]="'ui-button-secondary'"></p-button>
-  </p-footer>
-<p-dialog>
+<div mat-dialog-title>
+  <mat-toolbar color="primary"><mat-icon matListIcon>contact_mail</mat-icon> &nbsp; New submitter</mat-toolbar>
+</div>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput placeHolder="Name" [(ngModel)]="data.name">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <span class="example-fill-remaining-space"></span>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+  <button mat-button (click)="onNoClick()" >Cancel</button>
+</div>

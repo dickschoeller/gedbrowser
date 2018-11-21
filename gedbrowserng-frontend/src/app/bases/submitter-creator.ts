@@ -14,8 +14,6 @@ export abstract class SubmitterCreator implements RefreshSubmitter {
     }
   }
 
-  abstract closeSubmitterDialog(): void;
-
   abstract submitterUB(): UrlBuilder;
 
   abstract submitterAnchor(): string;

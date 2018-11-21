@@ -6,12 +6,6 @@
       <span class="bump-out">
         <button mat-icon-button matTooltip="New source" color="primary" (click)="openCreateSourceDialog()">
           <mat-icon matListIcon>library_add</mat-icon></button>
-        <app-new-source-dialog
-            [p]="this"
-            (emitClose)="closeSourceDialog()"
-            (emitOpen)="onDialogOpen($event)"
-            (emitOK)="createSource($event)"
-            [(display)]="displaySourceDialog"></app-new-source-dialog>
       </span>
     </p-header>
     <ng-template let-source pTemplate="listItem">

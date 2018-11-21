@@ -1,18 +1,14 @@
-<p-dialog
-    [modal]="true" [closable]="true"
-    [closeOnEscape]="true" [dismissableMask]="true"
-    (onHide)="close()" (onShow)="open()"
-    [(visible)]="_display"
-    appendTo="body">
-  <p-header><i class="fa fa-comment"></i> New Note</p-header>
-  <br/>
-  <div class="ui-float-label">
-    <textarea [rows]="8" [cols]="50" [(ngModel)]="_data.text"
-        id="float-input-text" autoResize="autoResize" pInputTextarea></textarea>
-    <label for="float-input-text">Text</label>
-  </div>
-  <p-footer>
-    <p-button label="OK" icon="fa fa-fw fa-check" (click)="ok()"></p-button>
-    <p-button label="Cancel" icon="fa fa-fw fa-close" (click)="cancel()" [styleClass]="'ui-button-secondary'"></p-button>
-  </p-footer>
-<p-dialog>
+<div mat-dialog-title>
+  <mat-toolbar color="primary"><mat-icon matListIcon>comment</mat-icon> &nbsp; New note</mat-toolbar>
+</div>
+<div mat-dialog-content>
+  <mat-form-field>
+    <textarea matInput [rows]="8" [cols]="100" [(ngModel)]="data.text"
+        autoResize="autoResize"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <span class="example-fill-remaining-space"></span>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+  <button mat-button (click)="onNoClick()" >Cancel</button>
+</div>

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MenuItem, SelectItem } from 'primeng/api';
+import { MatDialog, MatDialogRef, } from '@angular/material';
 
 import { HasAttributeList } from '../../interfaces';
 import { SourceCreator } from '../../bases';
@@ -8,6 +8,7 @@ import { SourceService, NewSourceLinkService, ServiceBase } from '../../services
 import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper, Refresher } from '../../utils';
 import { LinkDialogComponent } from '../link-dialog';
 import { NewSourceDialogComponent } from '../new-source-dialog';
+import { NewSourceDialogData } from '../../models';
 
 @Component({
   selector: 'app-source-button',
@@ -18,13 +19,14 @@ export class SourceButtonComponent extends SourceCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
-  displaySourceDialog = false;
+  data: NewSourceDialogData;
   displayLinkSourceDialog = false;
   displayUnlinkSourceDialog = false;
 
   constructor(
     public sourceService: SourceService,
     public newSourceLinkService: NewSourceLinkService,
+    public dialog: MatDialog,
   ) {
     super(newSourceLinkService);
   }
@@ -38,22 +40,8 @@ export class SourceButtonComponent extends SourceCreator {
     return undefined;
   }
 
-  closeSourceDialog(): void {
-    this.displaySourceDialog = false;
-  }
-
   refreshSource(source: ApiSource): void {
     Refresher.refresh(this.parent, 'sourcelink', source.string);
-  }
-
-  onSourceDialogClose() {
-    this.displaySourceDialog = false;
-  }
-
-  onSourceDialogOpen(data: NewSourceDialogComponent) {
-    if (data !== undefined) {
-      data._data = NewSourceHelper.initNew('New Source');
-    }
   }
 
   onLinkSourceDialogClose() {
@@ -84,8 +72,19 @@ export class SourceButtonComponent extends SourceCreator {
     return new LinkHelper((o: ApiSource) => o.title, ApiComparators.compareSources, 'sourcelink');
   }
 
-  openSourceDialog() {
-    this.displaySourceDialog = true;
+  openSourceDialog(): void {
+    const dialogRef = this.dialog.open(
+      NewSourceDialogComponent,
+      {
+        data: { title: 'New Source', abbreviation: 'NewSource', text: '' }
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.data = result;
+        this.createSource(this.data);
+      }
+    });
   }
 
   openLinkSourceDialog() {

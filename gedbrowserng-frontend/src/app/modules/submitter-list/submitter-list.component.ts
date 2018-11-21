@@ -1,10 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog, MatDialogRef, } from '@angular/material';
 
 import { SubmitterCreator } from '../../bases/submitter-creator';
 import { NewSubmitterDialogComponent } from '../../components/';
+import { NewSubmitterDialogData } from '../../models';
 import { RefreshSubmitter } from '../../interfaces';
-import { ApiSubmitter, NewSubmitterDialogData } from '../../models';
+import { ApiSubmitter } from '../../models';
 import { SubmitterService, NewSubmitterLinkService } from '../../services';
 import { NewSubmitterHelper, UrlBuilder } from '../../utils';
 import { SubmitterListPageComponent } from './submitter-list-page.component';
@@ -18,9 +20,12 @@ export class SubmitterListComponent extends SubmitterCreator implements RefreshS
   @Input() parent: RefreshSubmitter;
   @Input() dataset: string;
   @Input() submitters: ApiSubmitter[];
-  display = false;
 
-  constructor(public newSubmitterLinkService: NewSubmitterLinkService) {
+  data: NewSubmitterDialogData;
+
+  constructor(public newSubmitterLinkService: NewSubmitterLinkService,
+    public dialog: MatDialog,
+  ) {
     super(newSubmitterLinkService);
   }
 
@@ -29,15 +34,18 @@ export class SubmitterListComponent extends SubmitterCreator implements RefreshS
   }
 
   openCreateSubmitterDialog(): void {
-    this.display = true;
-  }
+    const dialogRef = this.dialog.open(
+      NewSubmitterDialogComponent,
+      {
+        data: NewSubmitterHelper.initNew('New Submitter')
+      });
 
-  closeSubmitterDialog(): void {
-    this.display = false;
-  }
-
-  onDialogOpen(data: NewSubmitterDialogComponent) {
-    data._data = NewSubmitterHelper.initNew('New Submitter');
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.data = result;
+        this.createSubmitter(this.data);
+      }
+    });
   }
 
   submitterAnchor(): string {

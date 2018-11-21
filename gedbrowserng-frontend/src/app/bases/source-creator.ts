@@ -14,8 +14,6 @@ export abstract class SourceCreator implements RefreshSource {
     }
   }
 
-  abstract closeSourceDialog(): void;
-
   abstract sourceUB(): UrlBuilder;
 
   abstract sourceAnchor(): string;

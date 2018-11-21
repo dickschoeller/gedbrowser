@@ -14,8 +14,6 @@ export abstract class NoteCreator implements RefreshNote {
     }
   }
 
-  abstract closeNoteDialog(): void;
-
   abstract noteUB(): UrlBuilder;
 
   abstract noteAnchor(): string;

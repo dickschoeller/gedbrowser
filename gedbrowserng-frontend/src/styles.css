@@ -118,3 +118,21 @@ span.parent {
 .ui-widget-content {
   background: white;
 }
+
+.mat-dialog-container .mat-toolbar {
+  margin: -24px -24px 0 -24px;
+  padding: 24px;
+  min-width: 419px;
+}
+
+.mat-dialog-container input {
+  min-width: 352px;
+}
+
+.mat-dialog-container textarea {
+  min-width: 352px;
+}
+
+.mat-form-field {
+  min-width: 352px;
+}

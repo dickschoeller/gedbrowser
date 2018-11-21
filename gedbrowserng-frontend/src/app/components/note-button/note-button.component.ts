@@ -1,13 +1,14 @@
-import { NoteCreator } from '../../bases';
 import { Component, Input } from '@angular/core';
-import { MenuItem, SelectItem } from 'primeng/api';
+import { MatDialog, MatDialogRef, } from '@angular/material';
 
 import { HasAttributeList } from '../../interfaces';
+import { NoteCreator } from '../../bases';
 import { ApiObject, ApiNote, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { NoteService, NewNoteLinkService, ServiceBase } from '../../services';
 import { UrlBuilder, NewNoteHelper, ApiComparators, LinkHelper, Refresher } from '../../utils';
 import { LinkDialogComponent } from '../link-dialog';
 import { NewNoteDialogComponent } from '../new-note-dialog';
+import { NewNoteDialogData } from '../../models';
 
 @Component({
   selector: 'app-note-button',
@@ -18,13 +19,14 @@ export class NoteButtonComponent extends NoteCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
-  displayNoteDialog = false;
+  data: NewNoteDialogData;
   displayLinkNoteDialog = false;
   displayUnlinkNoteDialog = false;
 
   constructor(
     public noteService: NoteService,
     public newNoteLinkService: NewNoteLinkService,
+    public dialog: MatDialog,
   ) {
     super(newNoteLinkService);
   }
@@ -38,22 +40,8 @@ export class NoteButtonComponent extends NoteCreator {
     return undefined;
   }
 
-  closeNoteDialog(): void {
-    this.displayNoteDialog = false;
-  }
-
   refreshNote(note: ApiNote): void {
     Refresher.refresh(this.parent, 'noteLink', note.string);
-  }
-
-  onNoteDialogClose() {
-    this.displayNoteDialog = false;
-  }
-
-  onNoteDialogOpen(data: NewNoteDialogComponent) {
-    if (data !== undefined) {
-      data._data = NewNoteHelper.initNew('New Note');
-    }
   }
 
   onLinkNoteDialogClose() {
@@ -85,7 +73,18 @@ export class NoteButtonComponent extends NoteCreator {
   }
 
   openNoteDialog() {
-    this.displayNoteDialog = true;
+    const dialogRef = this.dialog.open(
+      NewNoteDialogComponent,
+      {
+        data: { text: 'New Note' }
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.data = result;
+        this.createNote(this.data);
+      }
+    });
   }
 
   openLinkNoteDialog() {

@@ -7,6 +7,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CdkTableModule } from '@angular/cdk/table';
 
 import { AppComponent } from './app.component';
+import {
+  NewNoteDialogComponent,
+  NewSourceDialogComponent,
+  NewSubmitterDialogComponent,
+} from './components';
 
 import {
   HeadModule,
@@ -63,6 +68,9 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     AppComponent,
   ],
   entryComponents: [
+    NewNoteDialogComponent,
+    NewSourceDialogComponent,
+    NewSubmitterDialogComponent,
   ],
   providers: [
     DatasetsService,

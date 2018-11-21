@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog, MatDialogRef, } from '@angular/material';
 
 import { NoteCreator } from '../../bases';
 import { NewNoteDialogComponent } from '../../components';
+import { NewNoteDialogData } from '../../models';
 import { RefreshNote } from '../../interfaces';
 import { ApiNote, NewPersonDialogData } from '../../models';
 import { NoteService, NewNoteLinkService } from '../../services';
@@ -18,9 +20,12 @@ export class NoteListComponent extends NoteCreator implements RefreshNote {
   @Input() parent: RefreshNote;
   @Input() dataset: string;
   @Input() notes: Array<ApiNote>;
-  displayNoteDialog = false;
 
-  constructor(public newNoteLinkService: NewNoteLinkService) {
+  data: NewNoteDialogData;
+
+  constructor(public newNoteLinkService: NewNoteLinkService,
+    public dialog: MatDialog,
+  ) {
     super(newNoteLinkService);
   }
 
@@ -29,15 +34,18 @@ export class NoteListComponent extends NoteCreator implements RefreshNote {
   }
 
   openCreateNoteDialog(): void {
-    this.displayNoteDialog = true;
-  }
+    const dialogRef = this.dialog.open(
+      NewNoteDialogComponent,
+      {
+        data: { title: 'New Source', abbreviation: 'NewSource', text: '' }
+      });
 
-  closeNoteDialog(): void {
-    this.displayNoteDialog = false;
-  }
-
-  onDialogOpen(data: NewNoteDialogComponent) {
-    data._data = NewNoteHelper.initNew('New Note');
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.data = result;
+        this.createNote(this.data);
+      }
+    });
   }
 
   noteAnchor(): string {

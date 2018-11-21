@@ -1,13 +1,14 @@
-import { SubmitterCreator } from '../../bases';
 import { Component, Input } from '@angular/core';
-import { MenuItem, SelectItem } from 'primeng/api';
+import { MatDialog, MatDialogRef, } from '@angular/material';
 
 import { HasAttributeList } from '../../interfaces';
+import { SubmitterCreator } from '../../bases';
 import { ApiObject, ApiSubmitter, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { SubmitterService, NewSubmitterLinkService } from '../../services';
 import { UrlBuilder, NewSubmitterHelper, ApiComparators, LinkHelper, Refresher } from '../../utils';
 import { LinkDialogComponent } from '../link-dialog';
 import { NewSubmitterDialogComponent } from '../new-submitter-dialog';
+import { NewSubmitterDialogData } from '../../models';
 
 @Component({
   selector: 'app-submitter-button',
@@ -15,17 +16,17 @@ import { NewSubmitterDialogComponent } from '../new-submitter-dialog';
   styleUrls: ['./submitter-button.component.css']
 })
 export class SubmitterButtonComponent extends SubmitterCreator {
-//  @Input() parentObject: ApiObject;
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
-  displaySubmitterDialog = false;
+  data: NewSubmitterDialogData;
   displayLinkSubmitterDialog = false;
   displayUnlinkSubmitterDialog = false;
 
   constructor(
     public submitterService: SubmitterService,
     public newSubmitterLinkService: NewSubmitterLinkService,
+    public dialog: MatDialog,
   ) {
     super(newSubmitterLinkService);
   }
@@ -38,22 +39,8 @@ export class SubmitterButtonComponent extends SubmitterCreator {
     return undefined;
   }
 
-  closeSubmitterDialog(): void {
-    this.displaySubmitterDialog = false;
-  }
-
   refreshSubmitter(submitter: ApiSubmitter): void {
     Refresher.refresh(this.parent, 'submitterLink', submitter.string);
-  }
-
-  onSubmitterDialogClose() {
-    this.displaySubmitterDialog = false;
-  }
-
-  onSubmitterDialogOpen(data: NewSubmitterDialogComponent) {
-    if (data !== undefined) {
-      data._data = NewSubmitterHelper.initNew('New Submitter');
-    }
   }
 
   onLinkSubmitterDialogClose() {
@@ -85,7 +72,18 @@ export class SubmitterButtonComponent extends SubmitterCreator {
   }
 
   openSubmitterDialog() {
-    this.displaySubmitterDialog = true;
+    const dialogRef = this.dialog.open(
+      NewSubmitterDialogComponent,
+      {
+        data: { name: 'New Submitter' }
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.data = result;
+        this.createSubmitter(this.data);
+      }
+    });
   }
 
   openLinkSubmitterDialog() {
