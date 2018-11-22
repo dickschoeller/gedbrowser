@@ -1,33 +1,19 @@
-import {Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges} from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import {BaseDialog} from '../../bases';
-
-import {NewPersonDialogData} from '../../models';
+import { NewPersonDialogData } from '../../models';
 
 @Component({
   selector: 'app-new-person-dialog',
   templateUrl: './new-person-dialog.component.html',
   styleUrls: ['./new-person-dialog.component.css']
 })
-export class NewPersonDialogComponent
-  extends BaseDialog<NewPersonDialogData, NewPersonDialogComponent>
-  implements OnInit, OnChanges {
-
-  _data: NewPersonDialogData;
-
-  constructor() {
-    super();
+export class NewPersonDialogComponent {
+  constructor(public dialogRef: MatDialogRef<NewPersonDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: NewPersonDialogData) {
   }
 
-  ngOnInit() {
-    this.emitOpen.emit(this);
-  }
-
-  ngOnChanges() {
-    this.emitOpen.emit(this);
-  }
-
-  open() {
-    this.emitOpen.emit(this);
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

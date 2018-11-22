@@ -1,45 +1,47 @@
-<p-dialog
-    [modal]="true" [closable]="true"
-    [closeOnEscape]="true" [dismissableMask]="true"
-    (onHide)="close()" (onShow)="open()"
-    [(visible)]="_display"
-    appendTo="body">
-  <p-header><i class="fa fa-user"></i> New Person</p-header>
+<div mat-dialog-title>
+  <mat-toolbar color="primary"><mat-icon matListIcon>person</mat-icon> &nbsp; New person</mat-toolbar>
+</div>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-placeholder>Name</mat-placeholder>
+    <input matInput [(ngModel)]="data.name">
+  </mat-form-field>
   <br/>
-  <div class="ui-float-label">
-    <input id="float-input-name" type="text" size="50" pInputText [(ngModel)]="_data.name">
-    <label for="float-input-name">Name</label>
-  </div>
+  <mat-form-field>
+    <mat-placeholder>Sex</mat-placeholder>
+    <mat-select [(ngModel)]="data.sex">
+      <mat-option value="">-- Unknown --</mat-option>
+      <mat-option value="M">Male</mat-option>
+      <mat-option value="F">Female</mat-option>
+    </mat-select>
+  </mat-form-field>
   <br/>
-  <div>
-    <p-dropdown
-        [options]="[{'label': 'Select the sex', 'value': ''}, {'label': 'Male', 'value': 'M'}, {'label': 'Female', 'value': 'F'}]"
-        [style]="{'width':'425px'}"
-        [(ngModel)]="_data.sex"
-        editable="false" placeholder="Select the sex"></p-dropdown>
-  </div>
+  <mat-form-field>
+    <mat-placeholder>Birth date</mat-placeholder>
+    <input matInput [(ngModel)]="data.birthDate">
+  </mat-form-field>
   <br/>
-  <div class="ui-float-label">
-    <input id="float-input-bdate" type="text" size="50" pInputText [(ngModel)]="_data.birthDate">
-    <label for="float-input-bdate">Birth date</label>
-  </div>
+  <mat-form-field>
+    <mat-placeholder>Birth place</mat-placeholder>
+    <input matInput [(ngModel)]="data.birthPlace">
+  </mat-form-field>
   <br/>
-  <div class="ui-float-label">
-    <input id="float-input-bplace" type="text" size="50" pInputText [(ngModel)]="_data.birthPlace">
-    <label for="float-input-bplace">Birth place</label>
-  </div>
+  <mat-form-field>
+    <mat-placeholder>Death date</mat-placeholder>
+    <input matInput [(ngModel)]="data.deathDate">
+  </mat-form-field>
   <br/>
-  <div class="ui-float-label">
-    <input id="float-input-ddate" type="text" size="50" pInputText [(ngModel)]="_data.deathDate">
-    <label for="float-input-ddate">Death date</label>
-  </div>
+  <mat-form-field>
+    <mat-placeholder>Death place</mat-placeholder>
+    <input matInput [(ngModel)]="data.deathPlace">
+  </mat-form-field>
   <br/>
-  <div class="ui-float-label">
-    <input id="float-input-dplace" type="text" size="50" pInputText [(ngModel)]="_data.deathPlace">
-    <label for="float-input-dplace">Death place</label>
-  </div>
-  <p-footer>
-    <p-button label="OK" icon="fa fa-fw fa-check" (click)="ok()"></p-button>
-    <p-button label="Cancel" icon="fa fa-fw fa-close" (click)="cancel()" [styleClass]="'ui-button-secondary'"></p-button>
-  </p-footer>
-<p-dialog>
+
+
+
+</div>
+<div mat-dialog-actions>
+  <span class="example-fill-remaining-space"></span>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+  <button mat-button (click)="onNoClick()" >Cancel</button>
+</div>

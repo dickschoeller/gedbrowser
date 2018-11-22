@@ -8,7 +8,9 @@ import { CdkTableModule } from '@angular/cdk/table';
 
 import { AppComponent } from './app.component';
 import {
+  NewAttributeDialogComponent,
   NewNoteDialogComponent,
+  NewPersonDialogComponent,
   NewSourceDialogComponent,
   NewSubmitterDialogComponent,
 } from './components';
@@ -68,7 +70,9 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     AppComponent,
   ],
   entryComponents: [
+    NewAttributeDialogComponent,
     NewNoteDialogComponent,
+    NewPersonDialogComponent,
     NewSourceDialogComponent,
     NewSubmitterDialogComponent,
   ],

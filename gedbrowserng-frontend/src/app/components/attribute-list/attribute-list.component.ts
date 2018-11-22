@@ -1,18 +1,18 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { MatDialog } from '@angular/material';
 
-import { ApiAttribute, AttributeDialogData } from '../../models';
+import { ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
 import { AttributeDialogHelper, AttributeAnalyzer } from '../../utils';
 import { HasAttributeList } from '../../interfaces';
 
-import { NewAttributeDialogComponent } from '../attribute-dialog';
+import { HasAttributeDialog } from './has-attribute-dialog';
 
 @Component({
   selector: 'app-attribute-list',
   templateUrl: './attribute-list.component.html',
   styleUrls: ['./attribute-list.component.css']
 })
-export class AttributeListComponent implements OnInit, OnChanges, HasAttributeList {
+export class AttributeListComponent extends HasAttributeDialog implements OnInit, OnChanges, HasAttributeList {
   @Input() attributes: Array<ApiAttribute>;
   @Input() parent: HasAttributeList;
   @Input() toggleable = false;
@@ -23,12 +23,13 @@ export class AttributeListComponent implements OnInit, OnChanges, HasAttributeLi
   @Input() showSources = true;
   @Input() showSubmitters = true;
 
-  display = false;
   index;
   attributeDialogHelper = new AttributeDialogHelper(this);
   attributeUtil = new AttributeAnalyzer(this);
 
-  constructor() { }
+  constructor(public dialog: MatDialog) {
+    super(dialog);
+  }
 
   ngOnInit() {
     this.index = this.attributeUtil.lastIndex();
@@ -38,29 +39,21 @@ export class AttributeListComponent implements OnInit, OnChanges, HasAttributeLi
     this.index = this.attributeUtil.lastIndex();
   }
 
-  create() {
-    this.display = true;
+  openCreateAttributeDialog() {
+    this.openAttributeDialog(result => { this.createAttribute(result); });
   }
 
   defaultData(): AttributeDialogData {
     return this.parent.defaultData();
   }
 
-  onDialogOpen(data: NewAttributeDialogComponent) {
-    data._data = this.defaultData();
-  }
-
-  onDialogOK(data: AttributeDialogData) {
+  createAttribute(data: AttributeDialogData) {
     if (data != null) {
       const attribute: ApiAttribute =
         this.attributeDialogHelper.populateNewAttribute(data);
       this.attributes.splice(0, 0, attribute);
       this.parent.save();
     }
-  }
-
-  onDialogClose() {
-    this.display = false;
   }
 
   options(): Array<SelectItem> {

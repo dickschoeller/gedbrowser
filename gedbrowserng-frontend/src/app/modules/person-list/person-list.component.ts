@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
 
 import { PersonCreator } from '../../bases';
 import { NewPersonDialogComponent } from '../../components';
@@ -17,26 +18,30 @@ export class PersonListComponent extends PersonCreator {
   @Input() p: PersonListPageComponent;
   @Input() dataset: string;
   @Input() persons: ApiPerson[];
-  displayPersonDialog = false;
 
-  constructor(public newPersonLinkService: NewPersonLinkService) {
+  constructor(
+    public newPersonLinkService: NewPersonLinkService,
+    public dialog: MatDialog
+  ) {
     super(newPersonLinkService);
   }
 
   openCreatePersonDialog(): void {
-    this.displayPersonDialog = true;
-  }
-  onDialogOpen(data: NewPersonDialogComponent) {
-    data._data = NewPersonHelper.initNew('M', '');
-  }
+    const dialogRef = this.dialog.open(
+      NewPersonDialogComponent,
+      {
+        data: NewPersonHelper.initNew('M', '')
+      });
 
+    dialogRef.afterClosed().subscribe((result: NewPersonDialogData) => {
+      if (result !== undefined) {
+        this.createPerson(result);
+      }
+    });
+  }
 
   personUB(): UrlBuilder {
     return new UrlBuilder(this.dataset, 'persons');
-  }
-
-  closePersonDialog(): void {
-    this.displayPersonDialog = false;
   }
 
   personAnchor(): string {

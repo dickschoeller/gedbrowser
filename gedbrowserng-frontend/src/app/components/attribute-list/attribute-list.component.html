@@ -4,7 +4,7 @@
       Attributes
       <span class="example-fill-remaining-space"></span>
       <span>
-        <button (click)="create()" mat-icon-button color="primary"
+        <button (click)="openCreateAttributeDialog()" mat-icon-button color="primary"
             matTooltip="Add attribute"><mat-icon>add_box</mat-icon></button>
         <app-note-button *ngIf="showNotes" [parent]="this" [dataset]="dataset"></app-note-button>
         <app-source-button *ngIf="showSources" [parent]="this" [dataset]="dataset"></app-source-button>
@@ -27,7 +27,3 @@
     </p-orderList>
   </mat-card-content>
 </mat-card>
-<app-new-attribute-dialog [p]="this" [options]="options()"
-    (emitClose)="onDialogClose()" (emitOpen)="onDialogOpen($event)"
-    (emitOK)="onDialogOK($event)"
-    [(display)]="display"></app-new-attribute-dialog>

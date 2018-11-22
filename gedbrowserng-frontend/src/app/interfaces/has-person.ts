@@ -1,4 +1,5 @@
-import {ApiPerson} from '../models';
+import { ApiPerson } from '../models';
+
 export interface HasPerson {
   person: ApiPerson;
 }
