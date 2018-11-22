@@ -27,7 +27,9 @@ export class AttributeListComponent extends HasAttributeDialog implements OnInit
   attributeDialogHelper = new AttributeDialogHelper(this);
   attributeUtil = new AttributeAnalyzer(this);
 
-  constructor(public dialog: MatDialog) { super(dialog); }
+  constructor(public dialog: MatDialog) {
+    super(dialog);
+  }
 
   ngOnInit() {
     this.index = this.attributeUtil.lastIndex();
@@ -38,13 +40,7 @@ export class AttributeListComponent extends HasAttributeDialog implements OnInit
   }
 
   openCreateAttributeDialog() {
-    const dialogRef = this.openAttributeDialog();
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.createAttribute(result);
-      }
-    });
+    this.openAttributeDialog(result => { this.createAttribute(result); });
   }
 
   defaultData(): AttributeDialogData {

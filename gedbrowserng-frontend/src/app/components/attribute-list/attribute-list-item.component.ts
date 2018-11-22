@@ -26,16 +26,12 @@ export class AttributeListItemComponent extends HasAttributeDialog implements Ha
     return this.attribute.attributes;
   }
 
-  constructor(public dialog: MatDialog) { super(dialog); }
+  constructor(public dialog: MatDialog) {
+    super(dialog);
+  }
 
   edit() {
-    const dialogRef = this.openAttributeDialog();
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.modifyAttribute(result);
-      }
-    });
+    this.openAttributeDialog(result => { this.modifyAttribute(result); });
   }
 
   defaultData(): AttributeDialogData {
