@@ -6,12 +6,6 @@
       <span class="bump-out">
         <button mat-icon-button matTooltip="New person" color="primary" (click)="openCreatePersonDialog()">
           <mat-icon matListIcon>person_add</mat-icon></button>
-        <!-- app-new-person-dialog
-            [p]="this"
-            (emitClose)="closePersonDialog()"
-            (emitOpen)="onDialogOpen($event)"
-            (emitOK)="createPerson($event)"
-            [(display)]="displayPersonDialog"></app-new-person-dialog -->
       </span>
     </p-header>
     <ng-template let-person pTemplate="listItem">
