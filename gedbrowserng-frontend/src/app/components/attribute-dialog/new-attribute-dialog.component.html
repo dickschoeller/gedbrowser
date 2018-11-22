@@ -1,40 +1,37 @@
-<p-dialog
-    [modal]="true" [closable]="true" [closeOnEscape]="true"
-    [dismissableMask]="true"
-    (onHide)="close()" (onShow)="open()"
-    [(visible)]="_display"
-    header="Attribute" appendTo="body">
-  <div>
-    <p-dropdown
-        [options]="options" [style]="{'width':'425px'}"
-        [editable]="true" [autoWidth]="false"
-        [(ngModel)]="_data.type"
-        placeholder="Select an attribute type"></p-dropdown>
-  </div>
+<div mat-dialog-title>
+  <mat-toolbar color="primary"><mat-icon matListIcon>add_box</mat-icon> &nbsp; New attribute</mat-toolbar>
+</div>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-placeholder>Attribute type</mat-placeholder>
+    <mat-select [(ngModel)]="data.data.type">
+      <mat-option *ngFor="let option of data.options" [value]="option.value">{{ option.label }}</mat-option>
+    </mat-select>
+  </mat-form-field>
   <br/>
-  <div class="ui-float-label">
-    <input [(ngModel)]="_data.text" id="float-input-text" type="text" size="50" pInputText>
-    <label for="float-input-text">Text</label>
-  </div>
+  <mat-form-field>
+    <mat-placeholder>Text</mat-placeholder>
+    <input matInput [(ngModel)]="data.data.text">
+  </mat-form-field>
   <br/>
-  <div class="ui-float-label">
-    <input [(ngModel)]="_data.date" id="float-input-date" type="text" size="50" pInputText>
-    <label for="float-input-date">Date</label>
-  </div>
+  <mat-form-field>
+    <mat-placeholder>Date</mat-placeholder>
+    <input matInput [(ngModel)]="data.data.date">
+  </mat-form-field>
   <br/>
-  <div class="ui-float-label">
-    <input [(ngModel)]="_data.place" id="float-input-place" type="text" size="50" pInputText>
-    <label for="float-input-place">Place</label>
-  </div>
+  <mat-form-field>
+    <mat-placeholder>Place</mat-placeholder>
+    <input matInput [(ngModel)]="data.data.place">
+  </mat-form-field>
   <br/>
-  <div class="ui-float-label">
-    <textarea [rows]="8" [cols]="50" [(ngModel)]="_data.note"
-        id="float-input-note" autoResize="autoResize" pInputTextarea></textarea>
-    <label for="float-input-note">Note</label>
-  </div>
-  <p-footer>
-    <p-button (click)="ok()" label="OK" icon="fa fa-fw fa-check"></p-button>
-    <p-button [styleClass]="'ui-button-secondary'" (click)="cancel()"
-        label="Cancel" icon="fa fa-fw fa-close"></p-button>
-  </p-footer>
-</p-dialog>
+  <mat-form-field>
+    <mat-placeholder>Note</mat-placeholder>
+    <textarea matInput [rows]="8" [cols]="100" [(ngModel)]="data.data.note"
+        autoResize="autoResize"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <span class="example-fill-remaining-space"></span>
+  <button mat-button [mat-dialog-close]="data.data" cdkFocusInitial>OK</button>
+  <button mat-button (click)="onNoClick()" >Cancel</button>
+</div>

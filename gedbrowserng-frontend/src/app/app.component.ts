@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { saveAs } from 'file-saver/FileSaver';
-import { MenuItem } from 'primeng/api';
 
-import {SaveService} from './services';
+import { SaveService } from './services';
 
 @Component({
   selector: 'app-root',

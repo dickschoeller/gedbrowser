@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MenuItem, SelectItem } from 'primeng/api';
 
 import { HasMultimedia } from '../../interfaces';
 import { ApiAttribute, MultimediaDialogData, MultimediaFileData } from '../../models';

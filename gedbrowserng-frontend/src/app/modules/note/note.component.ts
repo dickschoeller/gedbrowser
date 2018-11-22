@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SelectItem } from 'primeng/api';
 
 import { AttributeListComponent } from '../../components';
-import { ApiNote, ApiAttribute, AttributeDialogData } from '../../models';
+import { ApiNote, ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
 import { NoteService } from '../../services';
 import { HasAttributeList } from '../../interfaces';
 import { StringUtil, AttributeDialogHelper } from '../../utils';

@@ -19,7 +19,3 @@
     <app-source-button *ngIf="!href()" [parent]="this" [dataset]="dataset"></app-source-button>
   </span>
 </div>
-<app-new-attribute-dialog
-    [p]="this" [options]="options()" (emitClose)="onAttributeDialogClose()"
-    (emitOpen)="onAttributeDialogOpen($event)" (emitOK)="onAttributeDialogOK($event)"
-    [(display)]="displayAttributeDialog"></app-new-attribute-dialog>

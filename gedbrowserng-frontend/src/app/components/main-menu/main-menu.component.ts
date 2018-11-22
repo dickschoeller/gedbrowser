@@ -1,6 +1,5 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { saveAs } from 'file-saver/FileSaver';
-import { MenuItem } from 'primeng/api';
 
 import { SaveService, DatasetsService } from '../../services';
 
@@ -13,7 +12,6 @@ export class MainMenuComponent implements OnInit, OnChanges {
   @Input() dataset: string;
   @Output() emitToggle = new EventEmitter();
   title: string;
-  items: MenuItem[];
 
   constructor(
     private datasetService: DatasetsService,

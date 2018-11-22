@@ -1,4 +1,5 @@
-import { Component, Input, EventEmitter, Output, } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { MatDialog } from '@angular/material';
 
 import { NewPersonDialogComponent } from '../../components';
 import { NewPersonDialogData } from '../../models';
@@ -16,26 +17,22 @@ export class NewPersonComponent {
   @Input() color = '';
   @Output() emitOK = new EventEmitter<NewPersonDialogData>();
 
-  displayDialog = false;
   nph = new NewPersonHelper();
 
-  constructor() { }
+  constructor(public dialog: MatDialog) {
+  }
 
   openDialog(): void {
-    alert('open dialog');
-    this.displayDialog = true;
-  }
+    const dialogRef = this.dialog.open(
+      NewPersonDialogComponent,
+      {
+        data: NewPersonHelper.initNew(this.sex, this.surname)
+      });
 
-  onDialogClose(): void {
-    this.displayDialog = false;
-  }
-
-  onDialogOpen(data: NewPersonDialogComponent): void {
-    data._data = NewPersonHelper.initNew(this.sex, this.surname);
-  }
-
-  onDialogOK(data: NewPersonDialogData): void {
-    this.displayDialog = false;
-    this.emitOK.emit(data);
+    dialogRef.afterClosed().subscribe((result: NewPersonDialogData) => {
+      if (result !== undefined) {
+        this.emitOK.emit(result);
+      }
+    });
   }
 }

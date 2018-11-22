@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SelectItem } from 'primeng/api';
 
-import { ApiPerson, ApiAttribute, AttributeDialogData } from '../../models';
+import { ApiPerson, ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
 import { PersonService } from '../../services';
 import { AttributeDialogHelper, LifespanUtil } from '../../utils';
 import { HasAttributeList } from '../../interfaces';

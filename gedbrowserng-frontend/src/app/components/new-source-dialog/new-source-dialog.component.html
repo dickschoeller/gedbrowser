@@ -3,14 +3,17 @@
 </div>
 <div mat-dialog-content>
   <mat-form-field>
-    <input matInput placeHolder="Title" [(ngModel)]="data.title">
+    <mat-placeholder>Title</mat-placeholder>
+    <input matInput [(ngModel)]="data.title">
   </mat-form-field>
   <br/>
   <mat-form-field>
-    <input matInput placeHolder="Abbreviation" [(ngModel)]="data.abbreviation">
+    <mat-placeholder>Abbreviation</mat-placeholder>
+    <input matInput [(ngModel)]="data.abbreviation">
   </mat-form-field>
   <br/>
   <mat-form-field>
+    <mat-placeholder>Text</mat-placeholder>
     <textarea matInput [rows]="8" [cols]="100" [(ngModel)]="data.text"
         autoResize="autoResize"></textarea>
   </mat-form-field>

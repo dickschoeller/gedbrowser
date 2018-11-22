@@ -1,6 +1,4 @@
-import { SelectItem } from 'primeng/api';
-
-import { ApiAttribute, AttributeDialogData } from '../models';
+import { ApiAttribute, AttributeDialogData, SelectItem } from '../models';
 
 export interface HasAttributeList {
   attributes: Array<ApiAttribute>;

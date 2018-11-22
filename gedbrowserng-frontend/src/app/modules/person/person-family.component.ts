@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { MenuItem, SelectItem } from 'primeng/api';
 
-import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData, AttributeDialogData } from '../../models';
+import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData, AttributeDialogData, SelectItem } from '../../models';
 import { FamilyService, PersonService, NewPersonLinkService } from '../../services';
 import { UrlBuilder, NewPersonHelper } from '../../utils';
 import { InitablePersonCreator } from '../../bases';

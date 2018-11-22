@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { MatDialog } from '@angular/material';
 
-import { ApiAttribute, AttributeDialogData } from '../../models';
+import { ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
 import { AttributeDialogHelper, AttributeAnalyzer } from '../../utils';
 import { HasAttributeList } from '../../interfaces';
 
@@ -23,12 +23,11 @@ export class AttributeListComponent implements OnInit, OnChanges, HasAttributeLi
   @Input() showSources = true;
   @Input() showSubmitters = true;
 
-  display = false;
   index;
   attributeDialogHelper = new AttributeDialogHelper(this);
   attributeUtil = new AttributeAnalyzer(this);
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
     this.index = this.attributeUtil.lastIndex();
@@ -38,29 +37,31 @@ export class AttributeListComponent implements OnInit, OnChanges, HasAttributeLi
     this.index = this.attributeUtil.lastIndex();
   }
 
-  create() {
-    this.display = true;
+  openCreateAttributeDialog() {
+    const dialogRef = this.dialog.open(
+      NewAttributeDialogComponent,
+      {
+        data: { options: this.options(), data: this.defaultData() }
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.createAttribute(result);
+      }
+    });
   }
 
   defaultData(): AttributeDialogData {
     return this.parent.defaultData();
   }
 
-  onDialogOpen(data: NewAttributeDialogComponent) {
-    data._data = this.defaultData();
-  }
-
-  onDialogOK(data: AttributeDialogData) {
+  createAttribute(data: AttributeDialogData) {
     if (data != null) {
       const attribute: ApiAttribute =
         this.attributeDialogHelper.populateNewAttribute(data);
       this.attributes.splice(0, 0, attribute);
       this.parent.save();
     }
-  }
-
-  onDialogClose() {
-    this.display = false;
   }
 
   options(): Array<SelectItem> {

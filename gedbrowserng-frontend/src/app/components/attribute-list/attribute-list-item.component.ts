@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { MenuItem, SelectItem } from 'primeng/api';
+import { MatDialog } from '@angular/material';
 
 import { HasAttributeList } from '../../interfaces';
-import { ApiAttribute, AttributeDialogData } from '../../models';
+import { ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
 import { AttributeDialogHelper, AttributeAnalyzer, NameUtil, UrlBuilder } from '../../utils';
 
 import { NewAttributeDialogComponent } from '../attribute-dialog';
@@ -19,7 +19,6 @@ export class AttributeListItemComponent implements HasAttributeList {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
-  displayAttributeDialog = false;
   attributeUtil = new AttributeAnalyzer(this);
   attributeDialogHelper: AttributeDialogHelper = new AttributeDialogHelper(this);
   _data: AttributeDialogData;
@@ -27,10 +26,25 @@ export class AttributeListItemComponent implements HasAttributeList {
     return this.attribute.attributes;
   }
 
-  constructor() {}
+  constructor(public dialog: MatDialog) { }
 
   edit() {
-    this.displayAttributeDialog = true;
+    const dialogRef = this.dialog.open(
+      NewAttributeDialogComponent,
+      {
+        data: { options: this.options(), data: this.defaultData() }
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.modifyAttribute(result);
+      }
+    });
+// <!-- app-new-attribute-dialog
+//    [p]="this" [options]="options()" (emitClose)="onAttributeDialogClose()"
+//    (emitOpen)="onAttributeDialogOpen($event)" (emitOK)="onAttributeDialogOK($event)"
+//    [(display)]="displayAttributeDialog"></app-new-attribute-dialog -->
+
   }
 
   defaultData(): AttributeDialogData {
@@ -38,19 +52,9 @@ export class AttributeListItemComponent implements HasAttributeList {
     return adh.buildData(false);
   }
 
-  onAttributeDialogOpen(data: NewAttributeDialogComponent) {
-    data.data = this.defaultData;
-  }
-
-  onAttributeDialogOK(data: AttributeDialogData) {
-    if (data != null) {
-      this.attributeDialogHelper.populateParentAttribute(data);
-      this.parent.save();
-    }
-  }
-
-  onAttributeDialogClose() {
-    this.displayAttributeDialog = false;
+  modifyAttribute(data: AttributeDialogData) {
+    this.attributeDialogHelper.populateParentAttribute(data);
+    this.parent.save();
   }
 
   options(): Array<SelectItem> {
