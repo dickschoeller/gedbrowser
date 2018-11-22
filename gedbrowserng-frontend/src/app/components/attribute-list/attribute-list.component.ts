@@ -5,14 +5,14 @@ import { ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
 import { AttributeDialogHelper, AttributeAnalyzer } from '../../utils';
 import { HasAttributeList } from '../../interfaces';
 
-import { NewAttributeDialogComponent } from '../attribute-dialog';
+import { HasAttributeDialog } from './has-attribute-dialog';
 
 @Component({
   selector: 'app-attribute-list',
   templateUrl: './attribute-list.component.html',
   styleUrls: ['./attribute-list.component.css']
 })
-export class AttributeListComponent implements OnInit, OnChanges, HasAttributeList {
+export class AttributeListComponent extends HasAttributeDialog implements OnInit, OnChanges, HasAttributeList {
   @Input() attributes: Array<ApiAttribute>;
   @Input() parent: HasAttributeList;
   @Input() toggleable = false;
@@ -27,7 +27,7 @@ export class AttributeListComponent implements OnInit, OnChanges, HasAttributeLi
   attributeDialogHelper = new AttributeDialogHelper(this);
   attributeUtil = new AttributeAnalyzer(this);
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) { super(dialog); }
 
   ngOnInit() {
     this.index = this.attributeUtil.lastIndex();
@@ -38,11 +38,7 @@ export class AttributeListComponent implements OnInit, OnChanges, HasAttributeLi
   }
 
   openCreateAttributeDialog() {
-    const dialogRef = this.dialog.open(
-      NewAttributeDialogComponent,
-      {
-        data: { options: this.options(), data: this.defaultData() }
-      });
+    const dialogRef = this.openAttributeDialog();
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {

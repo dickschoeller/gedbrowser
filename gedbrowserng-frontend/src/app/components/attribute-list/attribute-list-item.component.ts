@@ -5,14 +5,14 @@ import { HasAttributeList } from '../../interfaces';
 import { ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
 import { AttributeDialogHelper, AttributeAnalyzer, NameUtil, UrlBuilder } from '../../utils';
 
-import { NewAttributeDialogComponent } from '../attribute-dialog';
+import { HasAttributeDialog } from './has-attribute-dialog';
 
 @Component({
   selector: 'app-attribute-list-item',
   templateUrl: './attribute-list-item.component.html',
   styleUrls: ['./attribute-list-item.component.css']
 })
-export class AttributeListItemComponent implements HasAttributeList {
+export class AttributeListItemComponent extends HasAttributeDialog implements HasAttributeList {
   @Input() attribute: ApiAttribute;
   @Input() attributeList: Array<ApiAttribute>;
   @Input() index: number;
@@ -26,25 +26,16 @@ export class AttributeListItemComponent implements HasAttributeList {
     return this.attribute.attributes;
   }
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) { super(dialog); }
 
   edit() {
-    const dialogRef = this.dialog.open(
-      NewAttributeDialogComponent,
-      {
-        data: { options: this.options(), data: this.defaultData() }
-      });
+    const dialogRef = this.openAttributeDialog();
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         this.modifyAttribute(result);
       }
     });
-// <!-- app-new-attribute-dialog
-//    [p]="this" [options]="options()" (emitClose)="onAttributeDialogClose()"
-//    (emitOpen)="onAttributeDialogOpen($event)" (emitOK)="onAttributeDialogOK($event)"
-//    [(display)]="displayAttributeDialog"></app-new-attribute-dialog -->
-
   }
 
   defaultData(): AttributeDialogData {
