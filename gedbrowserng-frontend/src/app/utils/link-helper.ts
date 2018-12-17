@@ -6,16 +6,17 @@ export class LinkHelper {
     private comparator,
     private linkString) {}
 
-  onLinkDialogOpen(service, dialog: LinkDialogInterface) {
-    service.getAll(dialog.dataset).subscribe(
+  onLinkDialogOpen(dataset: string, service, dialog: LinkDialogInterface) {
+    dialog.dataset = dataset;
+    service.getAll(dataset).subscribe(
       (value: ApiObject[]) => this.fillLinkData(dialog, value)
     );
   }
 
-  fillLinkData(dialog: LinkDialogInterface, value) {
+  fillLinkData(dialog: LinkDialogInterface, value: ApiObject[]) {
     dialog.objects = value;
     dialog.objects.sort(this.comparator);
-    dialog._data = new LinkDialogData();
+    dialog.data.items = new Array<LinkItem>();
     let index = 1;
     for (const obj of dialog.objects) {
       this.pushObject(index++, dialog, obj);
@@ -35,8 +36,9 @@ export class LinkHelper {
     save();
   }
 
-  onUnlinkDialogOpen(service, dialog: LinkDialogInterface, attributes: Array<ApiAttribute>) {
-    service.getAll(dialog.dataset).subscribe(
+  onUnlinkDialogOpen(dataset: string, service, dialog: LinkDialogInterface, attributes: Array<ApiAttribute>) {
+    dialog.dataset = dataset;
+    service.getAll(dataset).subscribe(
       (value: ApiObject[]) =>
         this.fillUnlinkData(dialog, value, attributes)
     );
@@ -45,7 +47,7 @@ export class LinkHelper {
   fillUnlinkData(dialog: LinkDialogInterface, value, attributes: Array<ApiAttribute>) {
     dialog.objects = value;
     dialog.objects.sort(this.comparator);
-    dialog._data = new LinkDialogData();
+    dialog.data.items = new Array<LinkItem>();
     let index = 1;
     for (const attribute of attributes) {
       if (attribute.type === this.linkString) {
@@ -54,11 +56,11 @@ export class LinkHelper {
     }
   }
 
-  pushObject(index: number, data: LinkDialogInterface, obj: ApiObject) {
-    data._data.items.push({
+  pushObject(index: number, dialog: LinkDialogInterface, obj: ApiObject) {
+    dialog.data.items.push({
       index: index,
       id: obj.string,
-      label: index + ' ' + this.find(obj.string, data.objects) + ' [' + obj.string + ']'
+      label: this.find(obj.string, dialog.objects) + ' [' + obj.string + ']'
     });
   }
 
@@ -72,7 +74,7 @@ export class LinkHelper {
   }
 
   unlink(data: LinkDialogData, attributes: Array<ApiAttribute>, save) {
-        for (const item of data.selected) {
+    for (const item of data.selected) {
       this.spliceOutOne(item, attributes);
     }
     save();

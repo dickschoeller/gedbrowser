@@ -2,10 +2,6 @@ import {TestBed, async} from '@angular/core/testing';
 import {AppComponent} from './app.component';
 import {RouterTestingModule} from '@angular/router/testing';
 
-import {ButtonModule} from 'primeng/button';
-import {TieredMenuModule} from 'primeng/tieredmenu';
-import {ToolbarModule} from 'primeng/toolbar';
-
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({

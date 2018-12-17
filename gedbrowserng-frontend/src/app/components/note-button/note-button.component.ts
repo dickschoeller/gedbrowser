@@ -17,9 +17,6 @@ export class NoteButtonComponent extends NoteCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
-  displayLinkNoteDialog = false;
-  displayUnlinkNoteDialog = false;
-
   constructor(
     public noteService: NoteService,
     public newNoteLinkService: NewNoteLinkService,
@@ -41,39 +38,43 @@ export class NoteButtonComponent extends NoteCreator {
     Refresher.refresh(this.parent, 'noteLink', note.string);
   }
 
-  onLinkNoteDialogClose() {
-    this.displayLinkNoteDialog = false;
-  }
-
-  onLinkNoteDialogOpen(dialog: LinkDialogComponent) {
-    this.lh().onLinkDialogOpen(this.noteService, dialog);
-  }
-
-  linkNote(data: LinkDialogData) {
-    this.lh().link(data, this.parent.attributes, () => this.parent.save());
-  }
-
-  onUnlinkNoteDialogClose() {
-    this.displayUnlinkNoteDialog = false;
-  }
-
-  onUnlinkNoteDialogOpen(dialog: LinkDialogComponent) {
-    this.lh().onUnlinkDialogOpen(this.noteService, dialog, this.parent.attributes);
-  }
-
-  unlinkNote(data: LinkDialogData) {
-    this.lh().unlink(data, this.parent.attributes, () => this.parent.save());
-  }
-
   lh(): LinkHelper {
     return new LinkHelper((o: ApiNote) => o.tail, ApiComparators.compareNotes, 'notelink');
   }
 
   openLinkNoteDialog() {
-    this.displayLinkNoteDialog = true;
+    const dialogRef = this.dialog.open(
+      LinkDialogComponent,
+      {
+        data: { name: 'Link Note' }
+      });
+
+    dialogRef.afterOpen().subscribe(() => {
+      this.lh().onLinkDialogOpen(this.dataset, this.noteService, dialogRef.componentInstance);
+    });
+
+    dialogRef.afterClosed().subscribe((result: LinkDialogData) => {
+      if (result !== undefined) {
+         this.lh().link(result, this.parent.attributes, () => this.parent.save());
+      }
+    });
   }
 
   openUnlinkNoteDialog() {
-    this.displayUnlinkNoteDialog = true;
+    const dialogRef = this.dialog.open(
+      LinkDialogComponent,
+      {
+        data: { name: 'Unlink Note' }
+      });
+
+    dialogRef.afterOpen().subscribe(() => {
+      this.lh().onUnlinkDialogOpen(this.dataset, this.noteService, dialogRef.componentInstance, this.parent.attributes);
+    });
+
+    dialogRef.afterClosed().subscribe((result: LinkDialogData) => {
+      if (result !== undefined) {
+         this.lh().unlink(result, this.parent.attributes, () => this.parent.save());
+      }
+    });
   }
 }

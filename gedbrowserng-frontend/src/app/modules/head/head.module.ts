@@ -2,8 +2,6 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-import { PanelModule } from 'primeng/panel';
-
 import { ComponentsModule } from '../../components';
 
 import { HeadComponent } from './head.component';
@@ -23,9 +21,6 @@ const sourceRouting: ModuleWithProviders = RouterModule.forChild([
   imports: [
     sourceRouting,
     CommonModule,
-
-    PanelModule,
-
     ComponentsModule,
   ],
   declarations: [

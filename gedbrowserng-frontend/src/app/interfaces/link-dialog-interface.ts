@@ -4,5 +4,5 @@ export interface LinkDialogInterface {
   titleString: string;
   dataset: string;
   objects: Array<any>;
-  _data: LinkDialogData;
+  data: LinkDialogData;
 }

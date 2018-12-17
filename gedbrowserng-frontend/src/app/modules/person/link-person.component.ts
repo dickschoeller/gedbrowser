@@ -1,4 +1,5 @@
 import { Component, Input, EventEmitter, Output, } from '@angular/core';
+import { MatDialog } from '@angular/material';
 
 import { LinkPersonDialogComponent } from '../../components';
 import { LinkCheck } from '../../interfaces/link-check';
@@ -18,26 +19,27 @@ export class LinkPersonComponent {
   @Input() color = '';
   @Output() emitOK = new EventEmitter<LinkPersonDialogData>();
 
-  constructor(private personService: PersonService) { }
+  constructor(private personService: PersonService,
+    public dialog: MatDialog) { }
 
-  displayDialog = false;
   lph = new LinkPersonHelper(this.personService);
 
   openDialog(): void {
-    this.displayDialog = true;
-  }
+    const dialogRef = this.dialog.open(
+      LinkPersonDialogComponent,
+      {
+        data: { dataset: this.dataset, titleString: this.label, multi: this.multi }
+      });
 
-  onDialogClose(): void {
-    this.displayDialog = false;
-  }
+    dialogRef.afterOpen().subscribe(() => {
+      this.dataset = dialogRef.componentInstance.data.dataset;
+      this.lph.onLinkChildDialogOpen(dialogRef.componentInstance, this.parent);
+    });
 
-  onDialogOpen(data: LinkPersonDialogComponent): void {
-    this.dataset = data.dataset;
-    this.lph.onLinkChildDialogOpen(data, this.parent);
-  }
-
-  onDialogOK(data: LinkPersonDialogData): void {
-    this.displayDialog = false;
-    this.emitOK.emit(data);
+    dialogRef.afterClosed().subscribe((result: LinkPersonDialogData) => {
+      if (result !== undefined) {
+        this.emitOK.emit(result);
+      }
+    });
   }
 }

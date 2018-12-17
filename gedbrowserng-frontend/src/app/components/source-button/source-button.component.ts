@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog, MatDialogRef, } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { HasAttributeList } from '../../interfaces';
 import { SourceCreator } from '../../bases';
@@ -7,8 +7,6 @@ import { ApiObject, ApiSource, ApiAttribute, LinkDialogData, LinkItem } from '..
 import { SourceService, NewSourceLinkService, ServiceBase } from '../../services';
 import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper, Refresher } from '../../utils';
 import { LinkDialogComponent } from '../link-dialog';
-import { NewSourceDialogComponent } from '../new-source-dialog';
-import { NewSourceDialogData } from '../../models';
 
 @Component({
   selector: 'app-source-button',
@@ -18,9 +16,6 @@ import { NewSourceDialogData } from '../../models';
 export class SourceButtonComponent extends SourceCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
-
-  displayLinkSourceDialog = false;
-  displayUnlinkSourceDialog = false;
 
   constructor(
     public sourceService: SourceService,
@@ -43,39 +38,43 @@ export class SourceButtonComponent extends SourceCreator {
     Refresher.refresh(this.parent, 'sourcelink', source.string);
   }
 
-  onLinkSourceDialogClose() {
-    this.displayLinkSourceDialog = false;
-  }
-
-  onLinkSourceDialogOpen(dialog: LinkDialogComponent) {
-    this.lh().onLinkDialogOpen(this.sourceService, dialog);
-  }
-
-  linkSource(data: LinkDialogData) {
-    this.lh().link(data, this.parent.attributes, () => this.parent.save());
-  }
-
-  onUnlinkSourceDialogClose() {
-    this.displayUnlinkSourceDialog = false;
-  }
-
-  onUnlinkSourceDialogOpen(dialog: LinkDialogComponent) {
-    this.lh().onUnlinkDialogOpen(this.sourceService, dialog, this.parent.attributes);
-  }
-
-  unlinkSource(data: LinkDialogData) {
-    this.lh().unlink(data, this.parent.attributes, () => this.parent.save());
-  }
-
   lh(): LinkHelper {
     return new LinkHelper((o: ApiSource) => o.title, ApiComparators.compareSources, 'sourcelink');
   }
 
   openLinkSourceDialog() {
-    this.displayLinkSourceDialog = true;
+    const dialogRef = this.dialog.open(
+      LinkDialogComponent,
+      {
+        data: { name: 'Link Source' }
+      });
+
+    dialogRef.afterOpen().subscribe(() => {
+      this.lh().onLinkDialogOpen(this.dataset, this.sourceService, dialogRef.componentInstance);
+    });
+
+    dialogRef.afterClosed().subscribe((result: LinkDialogData) => {
+      if (result !== undefined) {
+         this.lh().link(result, this.parent.attributes, () => this.parent.save());
+      }
+    });
   }
 
   openUnlinkSourceDialog() {
-    this.displayUnlinkSourceDialog = true;
+    const dialogRef = this.dialog.open(
+      LinkDialogComponent,
+      {
+        data: { name: 'Unlink Source' }
+      });
+
+    dialogRef.afterOpen().subscribe(() => {
+      this.lh().onUnlinkDialogOpen(this.dataset, this.sourceService, dialogRef.componentInstance, this.parent.attributes);
+    });
+
+    dialogRef.afterClosed().subscribe((result: LinkDialogData) => {
+      if (result !== undefined) {
+         this.lh().unlink(result, this.parent.attributes, () => this.parent.save());
+      }
+    });
   }
 }

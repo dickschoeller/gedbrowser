@@ -1,4 +1,5 @@
 export class LinkDialogData {
+  name: string;
   items: Array<LinkItem>;
   selected: Array<LinkItem>;
   constructor() {

@@ -6,9 +6,3 @@
 <mat-menu #multimediaMenu="matMenu" [overlapTrigger]="false">
   <button mat-menu-item (click)="openMultimediaDialog()"><mat-icon>add_photo_alternate</mat-icon> Add multimedia</button>
 </mat-menu>
-
-<app-multimedia-dialog
-    [p]="this"
-    (emitClose)="onDialogClose()" (emitOpen)="onDialogOpen($event)"
-    (emitOK)="create($event)"
-    [(display)]="displayDialog"></app-multimedia-dialog>

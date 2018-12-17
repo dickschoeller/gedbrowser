@@ -1,5 +1,5 @@
 import { LinkCheck } from '../interfaces';
-import { ApiPerson, LinkPersonDialogData } from '../models';
+import { ApiPerson, LinkPersonDialogData, LinkPersonItem } from '../models';
 import { ApiComparators, LifespanUtil } from '../utils';
 import { PersonService } from './person.service';
 
@@ -7,16 +7,17 @@ export class LinkPersonHelper {
   constructor(private personService: PersonService) {}
 
   onLinkChildDialogOpen(dialogComponent: any, component: LinkCheck) {
-    this.personService.getAll(dialogComponent.dataset).subscribe(
+    this.personService.getAll(dialogComponent.data.dataset).subscribe(
       (value: ApiPerson[]) => {
         dialogComponent.persons = value;
         dialogComponent.persons.sort(ApiComparators.comparePersons);
-        dialogComponent._data = new LinkPersonDialogData();
+        dialogComponent.data.items = new Array<LinkPersonItem>();
+        dialogComponent.data.selected = new Array<LinkPersonItem>();
         for (const person of dialogComponent.persons) {
           if (this.alreadyLinked(person, component)) {
             continue;
           }
-          this.pushDataItem(dialogComponent._data, person);
+          this.pushDataItem(dialogComponent.data, person);
         }
       }
     );

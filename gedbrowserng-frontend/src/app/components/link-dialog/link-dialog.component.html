@@ -1,19 +1,13 @@
-<p-dialog
-    *ngIf="_data"
-    [modal]="true" [closable]="true" [closeOnEscape]="true"
-    [dismissableMask]="true" [resizable]="true" [draggable]="true"
-    (onHide)="close()" (onShow)="open()"
-    [(visible)]="_display"
-    appendTo="body">
-  <p-header><i class="fa fa-book"></i> {{ titleString }}</p-header>
-  <p-listbox [options]="_data.items" [style]="{'width':'425px'}"
-      [(ngModel)]="_data.selected"
-      multiple="true" checkbox="checkbox" filter="filter"
-      optionLabel="label">
-  </p-listbox>
-  <p-footer>
-    <p-button (click)="ok()" label="OK" icon="fa fa-fw fa-check"></p-button>
-    <p-button [styleClass]="'ui-button-secondary'" (click)="cancel()"
-        label="Cancel" icon="fa fa-fw fa-close"></p-button>
-  </p-footer>
-</p-dialog>
+<div mat-dialog-title>
+  <mat-toolbar color="primary"><mat-icon matListIcon>contact_mail</mat-icon>&nbsp; {{ data.name }}</mat-toolbar>
+</div>
+<div mat-dialog-content>
+  <mat-selection-list #items (selectionChange)="onSelection($event, items.selectedOptions.selected)">
+    <mat-list-option *ngFor="let item of data.items" [value]="item.id">{{ item.label }}</mat-list-option>
+  </mat-selection-list>
+</div>
+<div mat-dialog-actions>
+  <span class="example-fill-remaining-space"></span>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+  <button mat-button (click)="onNoClick()" >Cancel</button>
+</div>

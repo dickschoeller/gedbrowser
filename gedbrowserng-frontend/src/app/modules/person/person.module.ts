@@ -4,15 +4,14 @@ import { RouterModule } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { DataViewModule } from 'primeng/dataview';
-import { DialogModule } from 'primeng/dialog';
 import { OrderListModule } from 'primeng/orderlist';
-import { PanelModule } from 'primeng/panel';
 
 import { ComponentsModule } from '../../components';
 
@@ -49,15 +48,14 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
 
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatGridListModule,
     MatIconModule,
     MatToolbarModule,
     MatTooltipModule,
 
     DataViewModule,
-    DialogModule,
     OrderListModule,
-    PanelModule,
 
     ComponentsModule,
   ],

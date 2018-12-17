@@ -1,37 +1,32 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { Component, Inject, Input, EventEmitter, OnInit, Output } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import { BaseDialog } from '../../bases';
 import { MultimediaDialogData, MultimediaFileData, MultimediaFormat, MultimediaSourceType } from '../../models';
+import { SelectItem } from '../../models/select-item';
 
 @Component({
   selector: 'app-multimedia-dialog',
   templateUrl: './multimedia-dialog.component.html',
   styleUrls: ['./multimedia-dialog.component.css']
 })
-export class MultimediaDialogComponent
-  extends BaseDialog<MultimediaDialogData, MultimediaDialogComponent>
-  implements OnInit, OnChanges {
+export class MultimediaDialogComponent implements OnInit {
+  formats: Array<SelectItem>;
+  sourceTypes: Array<SelectItem>;
 
-  _data: MultimediaDialogData;
-
-  constructor() {
-    super();
+  constructor(public dialogRef: MatDialogRef<MultimediaDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: MultimediaDialogData) {
   }
 
   ngOnInit() {
-    this.emitOpen.emit(this);
+    this.formats = this.initFormats();
+    this.sourceTypes = this.initSourceTypes();
   }
 
-  ngOnChanges() {
-    this.emitOpen.emit(this);
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
-  open() {
-    this.emitOpen.emit(this);
-  }
-
-  formats(): Array<SelectItem> {
+  initFormats(): Array<SelectItem> {
     const formats: Array<SelectItem> = new Array<SelectItem>();
     for (const formatString of Object.keys(MultimediaFormat)) {
       formats.push({ label: formatString, value: MultimediaFormat[formatString] });
@@ -39,7 +34,7 @@ export class MultimediaDialogComponent
     return formats;
   }
 
-  sourceTypes(): Array<SelectItem> {
+  initSourceTypes(): Array<SelectItem> {
     const sourceTypes: Array<SelectItem> = new Array<SelectItem>();
     for (const sourceTypeString of Object.keys(MultimediaSourceType)) {
       sourceTypes.push({ label: sourceTypeString, value: MultimediaSourceType[sourceTypeString] });

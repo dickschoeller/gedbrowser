@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { MatDialog, MatDialogRef, } from '@angular/material';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAction } from 'ngx-gallery';
 
 import { HasMultimedia, Saveable } from '../../interfaces';
@@ -18,10 +19,9 @@ export class MultimediaGalleryComponent implements OnInit, HasMultimedia {
   @Input() multimedia: Array<ApiAttribute>;
   @Input() styleClass: string;
   galleryOptions: NgxGalleryOptions[];
-  displayDialog = false;
   dialogIndex = -1;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
     this.galleryOptions = this.buildGalleryOptions();
@@ -54,10 +54,19 @@ export class MultimediaGalleryComponent implements OnInit, HasMultimedia {
   }
 
   editButtonClicked(event, i) {
-    this.displayDialog = true;
     this.dialogIndex = i;
-    this.onDialogOpen = this.onDialogOpen.bind(this);
     this.update = this.update.bind(this);
+    const dialogRef = this.dialog.open(
+      MultimediaDialogComponent,
+      {
+        data: MultimediaDialogHelper.buildMultimediaDialogData(this.multimedia, this.dialogIndex)
+      });
+
+    dialogRef.afterClosed().subscribe((result: MultimediaDialogData) => {
+      if (result !== undefined) {
+        this.update(result);
+      }
+    });
   }
 
   deleteButtonClicked(event, i) {
@@ -108,16 +117,6 @@ export class MultimediaGalleryComponent implements OnInit, HasMultimedia {
 
   save(): void {
     this.parent.save();
-  }
-
-  onDialogClose() {
-    this.displayDialog = false;
-  }
-
-  onDialogOpen(data: MultimediaDialogComponent) {
-    if (data !== undefined) {
-      data._data = MultimediaDialogHelper.buildMultimediaDialogData(this.multimedia, this.dialogIndex);
-    }
   }
 
   update(data: MultimediaDialogData) {

@@ -1,9 +1,10 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import { Component, Inject, Input, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatListOption } from '@angular/material/list';
 
-import { BaseDialog } from '../../bases';
 import { LinkDialogInterface } from '../../interfaces';
-import { LinkDialogData } from '../../models';
+import { LinkDialogData, LinkItem } from '../../models';
 
 @Component({
   selector: 'app-link-dialog',
@@ -11,17 +12,15 @@ import { LinkDialogData } from '../../models';
   styleUrls: ['./link-dialog.component.css']
 })
 export class LinkDialogComponent
-  extends BaseDialog<LinkDialogData, LinkDialogComponent>
   implements OnInit, OnChanges, LinkDialogInterface {
   @Input() titleString: string;
   dataset: string;
   objects: Array<any>;
 
-  _data: LinkDialogData = new LinkDialogData();
-
   constructor(private route: ActivatedRoute,
-    private router: Router) {
-    super();
+    private router: Router,
+    public dialogRef: MatDialogRef<LinkDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: LinkDialogData) {
   }
 
   ngOnInit() {
@@ -32,13 +31,21 @@ export class LinkDialogComponent
     this.init();
   }
 
-  open() {
-    this.emitOpen.emit(this);
-  }
-
   private init(): void {
     this.route.params.subscribe((params) => {
       this.dataset = params['dataset'];
     });
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onSelection(e, v: Array<MatListOption>) {
+    this.data.selected = new Array<LinkItem>();
+    for (const a of v) {
+      const li = { index: 0, label: a.getLabel(), id: a.value };
+      this.data.selected.push(li);
+    }
   }
 }

@@ -2,16 +2,11 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-// import { MatCardModule } from '@angular/material/card';
-// import { MatGridListModule } from '@angular/material/grid-list';
-// import { MatToolbarModule } from '@angular/material/toolbar';
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { DataViewModule } from 'primeng/dataview';
-import { PanelModule } from 'primeng/panel';
 
 import { ComponentsModule } from '../../components';
 
@@ -40,7 +35,6 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
     MatTooltipModule,
 
     DataViewModule,
-    PanelModule,
 
     ComponentsModule,
   ],

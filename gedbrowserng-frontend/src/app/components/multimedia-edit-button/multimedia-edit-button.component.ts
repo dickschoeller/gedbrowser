@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { MatDialog, MatDialogRef, } from '@angular/material';
 
 import { Saveable } from '../../interfaces';
 import { ApiAttribute, MultimediaDialogData } from '../../models';
@@ -15,22 +16,21 @@ export class MultimediaEditButtonComponent {
   @Input() parent: Saveable;
   @Input() attributes: Array<ApiAttribute>;
   @Input() index;
-  displayDialog = false;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   edit(): void {
-    this.displayDialog = true;
-  }
+    const dialogRef = this.dialog.open(
+      MultimediaDialogComponent,
+      {
+        data: MultimediaDialogHelper.buildMultimediaDialogData(this.attributes, this.index)
+      });
 
-  onDialogOpen(data: MultimediaDialogComponent) {
-    if (data !== undefined) {
-      data._data = MultimediaDialogHelper.buildMultimediaDialogData(this.attributes, this.index);
-    }
-  }
-
-  onDialogClose(): void {
-    this.displayDialog = false;
+    dialogRef.afterClosed().subscribe((result: MultimediaDialogData) => {
+      if (result !== undefined) {
+        this.update(result);
+      }
+    });
   }
 
   update(data: MultimediaDialogData): void {

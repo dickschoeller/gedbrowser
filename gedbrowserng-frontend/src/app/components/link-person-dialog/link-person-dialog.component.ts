@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatListOption, MatSelectionList } from '@angular/material/list';
 
-import { BaseDialog } from '../../bases';
 import { ApiPerson, LinkPersonItem, LinkPersonDialogData } from '../../models';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-link-person-dialog',
@@ -10,21 +12,20 @@ import { ApiPerson, LinkPersonItem, LinkPersonDialogData } from '../../models';
   styleUrls: ['./link-person-dialog.component.css']
 })
 export class LinkPersonDialogComponent
-  extends BaseDialog<LinkPersonDialogData, LinkPersonDialogComponent>
   implements OnInit, OnChanges {
-  @Input() dataset: string;
   @Input() titleString: string;
-  @Input() multi: boolean;
+  dataset: string;
   persons: Array<ApiPerson>;
+  @ViewChild(MatSelectionList) selectionList: MatSelectionList;
 
-  _data: LinkPersonDialogData = new LinkPersonDialogData();
-
-  constructor(private router: Router,
-    private route: ActivatedRoute) {
-    super();
+  constructor(private route: ActivatedRoute,
+    private router: Router,
+    public dialogRef: MatDialogRef<LinkPersonDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: LinkPersonDialogData) {
   }
 
   ngOnInit() {
+    this.selectionList.selectedOptions = new SelectionModel<MatListOption>(this.data.multi);
     this.init();
   }
 
@@ -32,11 +33,24 @@ export class LinkPersonDialogComponent
     this.init();
   }
 
-  open() {
-    this.emitOpen.emit(this);
-  }
-
   private init(): void {
+    this.route.params.subscribe((params) => {
+      this.dataset = params['dataset'];
+    });
   }
 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onSelection(e, v: Array<MatListOption>) {
+    this.data.selected = new Array<LinkPersonItem>();
+    for (const a of v) {
+      const li = { id: a.value.id, label: a.value.label, person: a.value.person };
+      this.data.selected.push(li);
+    }
+    if (this.data.selected.length !== 0) {
+      this.data.selectOne = this.data.selected[0];
+    }
+  }
 }
