@@ -1,37 +1,33 @@
 import { LinkDialogInterface } from '../interfaces';
-import { ApiAttribute, LinkDialogData, LinkItem, ApiObject, } from '../models';
+import { ApiAttribute, ApiObject, LinkItem, LinkDialogData } from '../models';
 import { LinkDialogActions } from './link-dialog-actions';
 
-export class LinkHelper extends LinkDialogActions {
+export class UnlinkHelper extends LinkDialogActions {
   constructor(public labelString, private comparator, private linkString) {
     super(labelString);
   }
 
   onOpen(service, dialog: LinkDialogInterface, attributes: Array<ApiAttribute>) {
     service.getAll(dialog.data.dataset).subscribe(
-      (value: ApiObject[]) => this.fillLinkData(dialog, value)
+      (value: ApiObject[]) => this.fillUnlinkData(dialog, value, attributes)
     );
   }
 
-  fillLinkData(dialog: LinkDialogInterface, value: ApiObject[]) {
+  fillUnlinkData(dialog: LinkDialogInterface, value, attributes: Array<ApiAttribute>) {
     dialog.objects = value;
     dialog.objects.sort(this.comparator);
     dialog.data.items = new Array<LinkItem>();
     let index = 1;
-    for (const obj of dialog.objects) {
-      this.pushObject(index++, dialog, obj);
+    for (const attribute of attributes) {
+      if (attribute.type === this.linkString) {
+        this.pushObject(index++, dialog, attribute);
+      }
     }
   }
 
   onOK(data: LinkDialogData, attributes: Array<ApiAttribute>, save) {
     for (const item of data.selected) {
-      const attribute: ApiAttribute = {
-        type: this.linkString,
-        string: item.id,
-        tail: '',
-        attributes: new Array<ApiAttribute>()
-      };
-      attributes.push(attribute);
+      this.spliceOutOne(item, attributes);
     }
     save();
   }

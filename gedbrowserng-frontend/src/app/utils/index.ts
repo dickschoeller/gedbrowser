@@ -15,4 +15,6 @@ export * from './attribute-dialog-helper';
 export * from './refresher';
 export * from './multimedia-dialog-helper';
 export * from './array-util';
-export * from './dialog-helper';
+export * from './link-dialog-launcher';
+export * from './link-dialog-actions';
+export * from './unlink-helper';

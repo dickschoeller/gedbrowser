@@ -5,8 +5,7 @@ import { HasAttributeList } from '../../interfaces';
 import { SubmitterCreator } from '../../bases';
 import { ApiObject, ApiSubmitter, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { SubmitterService, NewSubmitterLinkService } from '../../services';
-import { UrlBuilder, NewSubmitterHelper, ApiComparators, LinkHelper, Refresher, DialogHelper } from '../../utils';
-import { LinkDialogComponent } from '../link-dialog';
+import { UrlBuilder, NewSubmitterHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
 
 @Component({
   selector: 'app-submitter-button',
@@ -37,15 +36,13 @@ export class SubmitterButtonComponent extends SubmitterCreator {
     Refresher.refresh(this.parent, 'submitterLink', submitter.string);
   }
 
-  lh(): LinkHelper {
-    return new LinkHelper((o: ApiSubmitter) => o.name, ApiComparators.compareSubmitters, 'submitterlink');
-  }
-
   openLinkSubmitterDialog() {
-    DialogHelper.openLinkDialog(this, 'Link Submitter', this.lh());
+    const lh = new LinkHelper((o: ApiSubmitter) => o.name, ApiComparators.compareSubmitters, 'submitterlink');
+    LinkDialogLauncher.openDialog(this, 'Link Submitter', lh);
   }
 
   openUnlinkSubmitterDialog() {
-    DialogHelper.openUnlinkDialog(this, 'Unlink Submitter', this.lh());
+    const lh = new UnlinkHelper((o: ApiSubmitter) => o.name, ApiComparators.compareSubmitters, 'submitterlink');
+    LinkDialogLauncher.openDialog(this, 'Unlink Submitter', lh);
   }
 }

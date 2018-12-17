@@ -5,8 +5,7 @@ import { HasAttributeList } from '../../interfaces';
 import { NoteCreator } from '../../bases';
 import { ApiObject, ApiNote, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { NoteService, NewNoteLinkService, ServiceBase } from '../../services';
-import { UrlBuilder, NewNoteHelper, ApiComparators, LinkHelper, Refresher, DialogHelper } from '../../utils';
-import { LinkDialogComponent } from '../link-dialog';
+import { UrlBuilder, NewNoteHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
 
 @Component({
   selector: 'app-note-button',
@@ -38,15 +37,13 @@ export class NoteButtonComponent extends NoteCreator {
     Refresher.refresh(this.parent, 'noteLink', note.string);
   }
 
-  lh(): LinkHelper {
-    return new LinkHelper((o: ApiNote) => o.tail, ApiComparators.compareNotes, 'notelink');
-  }
-
   openLinkNoteDialog() {
-    DialogHelper.openLinkDialog(this, 'Link Note', this.lh());
+    const lh = new LinkHelper((o: ApiNote) => o.tail, ApiComparators.compareNotes, 'notelink');
+    LinkDialogLauncher.openDialog(this, 'Link Note', lh);
   }
 
   openUnlinkNoteDialog() {
-    DialogHelper.openUnlinkDialog(this, 'Unlink Note', this.lh());
+    const lh = new UnlinkHelper((o: ApiNote) => o.tail, ApiComparators.compareNotes, 'notelink');
+    LinkDialogLauncher.openDialog(this, 'Unlink Note', lh);
   }
 }

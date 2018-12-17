@@ -5,8 +5,7 @@ import { HasAttributeList } from '../../interfaces';
 import { SourceCreator } from '../../bases';
 import { ApiObject, ApiSource, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { SourceService, NewSourceLinkService, ServiceBase } from '../../services';
-import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper, Refresher, DialogHelper } from '../../utils';
-import { LinkDialogComponent } from '../link-dialog';
+import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
 
 @Component({
   selector: 'app-source-button',
@@ -38,15 +37,13 @@ export class SourceButtonComponent extends SourceCreator {
     Refresher.refresh(this.parent, 'sourcelink', source.string);
   }
 
-  lh(): LinkHelper {
-    return new LinkHelper((o: ApiSource) => o.title, ApiComparators.compareSources, 'sourcelink');
-  }
-
   openLinkSourceDialog() {
-    DialogHelper.openLinkDialog(this, 'Link Source', this.lh());
+    const lh = new LinkHelper((o: ApiSource) => o.title, ApiComparators.compareSources, 'sourcelink');
+    LinkDialogLauncher.openDialog(this, 'Link Source', lh);
   }
 
   openUnlinkSourceDialog() {
-    DialogHelper.openUnlinkDialog(this, 'Unlink Source', this.lh());
+    const lh = new UnlinkHelper((o: ApiSource) => o.title, ApiComparators.compareSources, 'sourcelink');
+    LinkDialogLauncher.openDialog(this, 'Unlink Source', lh);
   }
 }
