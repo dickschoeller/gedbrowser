@@ -46,11 +46,11 @@ export class NoteButtonComponent extends NoteCreator {
     const dialogRef = this.dialog.open(
       LinkDialogComponent,
       {
-        data: { name: 'Link Note' }
+        data: { name: 'Link Note', dataset: this.dataset }
       });
 
     dialogRef.afterOpen().subscribe(() => {
-      this.lh().onLinkDialogOpen(this.dataset, this.noteService, dialogRef.componentInstance);
+      this.lh().onLinkDialogOpen(this.noteService, dialogRef.componentInstance);
     });
 
     dialogRef.afterClosed().subscribe((result: LinkDialogData) => {
@@ -64,11 +64,11 @@ export class NoteButtonComponent extends NoteCreator {
     const dialogRef = this.dialog.open(
       LinkDialogComponent,
       {
-        data: { name: 'Unlink Note' }
+        data: { name: 'Unlink Note', dataset: this.dataset }
       });
 
     dialogRef.afterOpen().subscribe(() => {
-      this.lh().onUnlinkDialogOpen(this.dataset, this.noteService, dialogRef.componentInstance, this.parent.attributes);
+      this.lh().onUnlinkDialogOpen(this.noteService, dialogRef.componentInstance, this.parent.attributes);
     });
 
     dialogRef.afterClosed().subscribe((result: LinkDialogData) => {

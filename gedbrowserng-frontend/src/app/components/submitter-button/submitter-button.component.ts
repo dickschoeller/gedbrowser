@@ -45,11 +45,11 @@ export class SubmitterButtonComponent extends SubmitterCreator {
     const dialogRef = this.dialog.open(
       LinkDialogComponent,
       {
-        data: { name: 'Link Submitter' }
+        data: { name: 'Link Submitter', dataset: this.dataset }
       });
 
     dialogRef.afterOpen().subscribe(() => {
-      this.lh().onLinkDialogOpen(this.dataset, this.submitterService, dialogRef.componentInstance);
+      this.lh().onLinkDialogOpen(this.submitterService, dialogRef.componentInstance);
     });
 
     dialogRef.afterClosed().subscribe((result: LinkDialogData) => {
@@ -63,11 +63,11 @@ export class SubmitterButtonComponent extends SubmitterCreator {
     const dialogRef = this.dialog.open(
       LinkDialogComponent,
       {
-        data: { name: 'Unlink Submitter' }
+        data: { name: 'Unlink Submitter', dataset: this.dataset }
       });
 
     dialogRef.afterOpen().subscribe(() => {
-      this.lh().onUnlinkDialogOpen(this.dataset, this.submitterService, dialogRef.componentInstance, this.parent.attributes);
+      this.lh().onUnlinkDialogOpen(this.submitterService, dialogRef.componentInstance, this.parent.attributes);
     });
 
     dialogRef.afterClosed().subscribe((result: LinkDialogData) => {

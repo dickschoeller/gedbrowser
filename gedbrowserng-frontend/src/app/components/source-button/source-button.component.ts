@@ -46,11 +46,11 @@ export class SourceButtonComponent extends SourceCreator {
     const dialogRef = this.dialog.open(
       LinkDialogComponent,
       {
-        data: { name: 'Link Source' }
+        data: { name: 'Link Source', dataset: this.dataset }
       });
 
     dialogRef.afterOpen().subscribe(() => {
-      this.lh().onLinkDialogOpen(this.dataset, this.sourceService, dialogRef.componentInstance);
+      this.lh().onLinkDialogOpen(this.sourceService, dialogRef.componentInstance);
     });
 
     dialogRef.afterClosed().subscribe((result: LinkDialogData) => {
@@ -64,11 +64,11 @@ export class SourceButtonComponent extends SourceCreator {
     const dialogRef = this.dialog.open(
       LinkDialogComponent,
       {
-        data: { name: 'Unlink Source' }
+        data: { name: 'Unlink Source', dataset: this.dataset }
       });
 
     dialogRef.afterOpen().subscribe(() => {
-      this.lh().onUnlinkDialogOpen(this.dataset, this.sourceService, dialogRef.componentInstance, this.parent.attributes);
+      this.lh().onUnlinkDialogOpen(this.sourceService, dialogRef.componentInstance, this.parent.attributes);
     });
 
     dialogRef.afterClosed().subscribe((result: LinkDialogData) => {

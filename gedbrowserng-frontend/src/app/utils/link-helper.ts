@@ -6,9 +6,8 @@ export class LinkHelper {
     private comparator,
     private linkString) {}
 
-  onLinkDialogOpen(dataset: string, service, dialog: LinkDialogInterface) {
-    dialog.dataset = dataset;
-    service.getAll(dataset).subscribe(
+  onLinkDialogOpen(service, dialog: LinkDialogInterface) {
+    service.getAll(dialog.data.dataset).subscribe(
       (value: ApiObject[]) => this.fillLinkData(dialog, value)
     );
   }
@@ -36,9 +35,8 @@ export class LinkHelper {
     save();
   }
 
-  onUnlinkDialogOpen(dataset: string, service, dialog: LinkDialogInterface, attributes: Array<ApiAttribute>) {
-    dialog.dataset = dataset;
-    service.getAll(dataset).subscribe(
+  onUnlinkDialogOpen(service, dialog: LinkDialogInterface, attributes: Array<ApiAttribute>) {
+    service.getAll(dialog.data.dataset).subscribe(
       (value: ApiObject[]) =>
         this.fillUnlinkData(dialog, value, attributes)
     );
