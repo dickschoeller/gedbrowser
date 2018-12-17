@@ -5,7 +5,7 @@ import { HasAttributeList } from '../../interfaces';
 import { SourceCreator } from '../../bases';
 import { ApiObject, ApiSource, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { SourceService, NewSourceLinkService, ServiceBase } from '../../services';
-import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper, Refresher } from '../../utils';
+import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper, Refresher, DialogHelper } from '../../utils';
 import { LinkDialogComponent } from '../link-dialog';
 
 @Component({
@@ -18,7 +18,7 @@ export class SourceButtonComponent extends SourceCreator {
   @Input() dataset: string;
 
   constructor(
-    public sourceService: SourceService,
+    public service: SourceService,
     public newSourceLinkService: NewSourceLinkService,
     public dialog: MatDialog,
   ) {
@@ -43,38 +43,10 @@ export class SourceButtonComponent extends SourceCreator {
   }
 
   openLinkSourceDialog() {
-    const dialogRef = this.dialog.open(
-      LinkDialogComponent,
-      {
-        data: { name: 'Link Source', dataset: this.dataset }
-      });
-
-    dialogRef.afterOpen().subscribe(() => {
-      this.lh().onLinkDialogOpen(this.sourceService, dialogRef.componentInstance);
-    });
-
-    dialogRef.afterClosed().subscribe((result: LinkDialogData) => {
-      if (result !== undefined) {
-         this.lh().link(result, this.parent.attributes, () => this.parent.save());
-      }
-    });
+    DialogHelper.openLinkDialog(this, 'Link Source', this.lh());
   }
 
   openUnlinkSourceDialog() {
-    const dialogRef = this.dialog.open(
-      LinkDialogComponent,
-      {
-        data: { name: 'Unlink Source', dataset: this.dataset }
-      });
-
-    dialogRef.afterOpen().subscribe(() => {
-      this.lh().onUnlinkDialogOpen(this.sourceService, dialogRef.componentInstance, this.parent.attributes);
-    });
-
-    dialogRef.afterClosed().subscribe((result: LinkDialogData) => {
-      if (result !== undefined) {
-         this.lh().unlink(result, this.parent.attributes, () => this.parent.save());
-      }
-    });
+    DialogHelper.openUnlinkDialog(this, 'Unlink Source', this.lh());
   }
 }

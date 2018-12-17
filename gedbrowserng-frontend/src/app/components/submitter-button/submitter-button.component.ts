@@ -5,7 +5,7 @@ import { HasAttributeList } from '../../interfaces';
 import { SubmitterCreator } from '../../bases';
 import { ApiObject, ApiSubmitter, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { SubmitterService, NewSubmitterLinkService } from '../../services';
-import { UrlBuilder, NewSubmitterHelper, ApiComparators, LinkHelper, Refresher } from '../../utils';
+import { UrlBuilder, NewSubmitterHelper, ApiComparators, LinkHelper, Refresher, DialogHelper } from '../../utils';
 import { LinkDialogComponent } from '../link-dialog';
 
 @Component({
@@ -18,7 +18,7 @@ export class SubmitterButtonComponent extends SubmitterCreator {
   @Input() dataset: string;
 
   constructor(
-    public submitterService: SubmitterService,
+    public service: SubmitterService,
     public newSubmitterLinkService: NewSubmitterLinkService,
     public dialog: MatDialog,
   ) {
@@ -42,38 +42,10 @@ export class SubmitterButtonComponent extends SubmitterCreator {
   }
 
   openLinkSubmitterDialog() {
-    const dialogRef = this.dialog.open(
-      LinkDialogComponent,
-      {
-        data: { name: 'Link Submitter', dataset: this.dataset }
-      });
-
-    dialogRef.afterOpen().subscribe(() => {
-      this.lh().onLinkDialogOpen(this.submitterService, dialogRef.componentInstance);
-    });
-
-    dialogRef.afterClosed().subscribe((result: LinkDialogData) => {
-      if (result !== undefined) {
-         this.lh().link(result, this.parent.attributes, () => this.parent.save());
-      }
-    });
+    DialogHelper.openLinkDialog(this, 'Link Submitter', this.lh());
   }
 
   openUnlinkSubmitterDialog() {
-    const dialogRef = this.dialog.open(
-      LinkDialogComponent,
-      {
-        data: { name: 'Unlink Submitter', dataset: this.dataset }
-      });
-
-    dialogRef.afterOpen().subscribe(() => {
-      this.lh().onUnlinkDialogOpen(this.submitterService, dialogRef.componentInstance, this.parent.attributes);
-    });
-
-    dialogRef.afterClosed().subscribe((result: LinkDialogData) => {
-      if (result !== undefined) {
-         this.lh().unlink(result, this.parent.attributes, () => this.parent.save());
-      }
-    });
+    DialogHelper.openUnlinkDialog(this, 'Unlink Submitter', this.lh());
   }
 }

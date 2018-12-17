@@ -15,3 +15,4 @@ export * from './attribute-dialog-helper';
 export * from './refresher';
 export * from './multimedia-dialog-helper';
 export * from './array-util';
+export * from './dialog-helper';

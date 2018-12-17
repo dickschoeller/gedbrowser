@@ -5,7 +5,7 @@ import { HasAttributeList } from '../../interfaces';
 import { NoteCreator } from '../../bases';
 import { ApiObject, ApiNote, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { NoteService, NewNoteLinkService, ServiceBase } from '../../services';
-import { UrlBuilder, NewNoteHelper, ApiComparators, LinkHelper, Refresher } from '../../utils';
+import { UrlBuilder, NewNoteHelper, ApiComparators, LinkHelper, Refresher, DialogHelper } from '../../utils';
 import { LinkDialogComponent } from '../link-dialog';
 
 @Component({
@@ -18,7 +18,7 @@ export class NoteButtonComponent extends NoteCreator {
   @Input() dataset: string;
 
   constructor(
-    public noteService: NoteService,
+    public service: NoteService,
     public newNoteLinkService: NewNoteLinkService,
     public dialog: MatDialog,
   ) {
@@ -43,38 +43,10 @@ export class NoteButtonComponent extends NoteCreator {
   }
 
   openLinkNoteDialog() {
-    const dialogRef = this.dialog.open(
-      LinkDialogComponent,
-      {
-        data: { name: 'Link Note', dataset: this.dataset }
-      });
-
-    dialogRef.afterOpen().subscribe(() => {
-      this.lh().onLinkDialogOpen(this.noteService, dialogRef.componentInstance);
-    });
-
-    dialogRef.afterClosed().subscribe((result: LinkDialogData) => {
-      if (result !== undefined) {
-         this.lh().link(result, this.parent.attributes, () => this.parent.save());
-      }
-    });
+    DialogHelper.openLinkDialog(this, 'Link Note', this.lh());
   }
 
   openUnlinkNoteDialog() {
-    const dialogRef = this.dialog.open(
-      LinkDialogComponent,
-      {
-        data: { name: 'Unlink Note', dataset: this.dataset }
-      });
-
-    dialogRef.afterOpen().subscribe(() => {
-      this.lh().onUnlinkDialogOpen(this.noteService, dialogRef.componentInstance, this.parent.attributes);
-    });
-
-    dialogRef.afterClosed().subscribe((result: LinkDialogData) => {
-      if (result !== undefined) {
-         this.lh().unlink(result, this.parent.attributes, () => this.parent.save());
-      }
-    });
+    DialogHelper.openUnlinkDialog(this, 'Unlink Note', this.lh());
   }
 }
