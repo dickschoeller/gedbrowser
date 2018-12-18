@@ -8,14 +8,3 @@
   <button mat-menu-item (click)="openLinkNoteDialog()"><mat-icon>link</mat-icon> Link note</button>
   <button mat-menu-item (click)="openUnlinkNoteDialog()"><mat-icon color="warn">link_off</mat-icon> Unlink note</button>
 </mat-menu>
-
-<app-link-dialog
-    [p]="this" titleString="Link Notes"
-    (emitClose)="onLinkNoteDialogClose()" (emitOpen)="onLinkNoteDialogOpen($event)"
-    (emitOK)="linkNote($event)"
-    [(display)]="displayLinkNoteDialog"></app-link-dialog>
-<app-link-dialog
-    [p]="this" titleString="Unlink Notes"
-    (emitClose)="onUnlinkNoteDialogClose()" (emitOpen)="onUnlinkNoteDialogOpen($event)"
-    (emitOK)="unlinkNote($event)"
-    [(display)]="displayUnlinkNoteDialog"></app-link-dialog>

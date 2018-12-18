@@ -4,9 +4,12 @@ export class LinkPersonDialogData {
     this.items = new Array<LinkPersonItem>();
     this.selected = new Array<LinkPersonItem>();
   }
+  multi: boolean;
   items: Array<LinkPersonItem>;
   selected: Array<LinkPersonItem>;
   selectOne: LinkPersonItem;
+  dataset: string;
+  titleString: string;
 }
 
 export class LinkPersonItem {

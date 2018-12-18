@@ -11,7 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { DataViewModule } from 'primeng/dataview';
-import { PanelModule } from 'primeng/panel';
 
 import { ComponentsModule } from '../../components';
 
@@ -40,7 +39,6 @@ const sourceRouting: ModuleWithProviders = RouterModule.forChild([
     MatTooltipModule,
 
     DataViewModule,
-    PanelModule,
 
     ComponentsModule,
   ],

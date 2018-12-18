@@ -1,56 +1,48 @@
-<p-dialog
-    [modal]="true" [closable]="true"
-    [closeOnEscape]="true" [dismissableMask]="true"
-    (onHide)="close()" (onShow)="open()"
-    [(visible)]="_display"
-    appendTo="body">
-  <p-header><i class="fa fa-image"></i> Multimedia item</p-header>
+<div mat-dialog-title>
+  <mat-toolbar color="primary"><mat-icon matListIcon>image</mat-icon> &nbsp; Multimedia item</mat-toolbar>
+</div>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-placeholder>Title</mat-placeholder>
+    <input matInput [(ngModel)]="data.title">
+  </mat-form-field>
   <br/>
-  <div class="ui-float-label">
-    <input id="float-input-title" type="text" size="50" pInputText [(ngModel)]="_data.title">
-    <label for="float-input-title">Title</label>
-  </div>
   <div>
-    <p-orderList [value]="_data.files" [responsive]="false"
+    <p-orderList [value]="data.files" [responsive]="false"
         [listStyle]="{'height':'100%','width':'100%','border':'0'}"
-        dragdrop="true" dragdropScope="_data.files">
+        dragdrop="true" dragdropScope="data.files">
       <ng-template let-file let-i="index" pTemplate="item">
         <br/>
-        <div class="ui-float-label">
-          <input id="float-input-url" type="text" size="50" pInputText [(ngModel)]="file.fileUrl">
-          <label for="float-input-url">File URL</label>
-        </div>
+        <mat-form-field>
+          <mat-placeholder>File URL</mat-placeholder>
+          <input matInput [(ngModel)]="file.fileUrl">
+        </mat-form-field>
         <br/>
-        <div class="ui-float-label">
-          <p-dropdown
-              id="float-input-format"
-              [options]="formats()"
-              [style]="{'width':'425px'}"
-              [(ngModel)]="file.format"
-              appendTo="body" editable="false"></p-dropdown>
-          <label for="float-input-format">File format</label>
-        </div>
+        <mat-form-field>
+          <mat-placeholder>Format</mat-placeholder>
+          <mat-select [(ngModel)]="file.format">
+            <mat-option *ngFor="let format of formats" [value]="format.value">{{ format.label }}</mat-option>
+          </mat-select>
+        </mat-form-field>
         <br/>
-        <div class="ui-float-label">
-          <p-dropdown
-              id="float-input-source-type"
-              [options]="sourceTypes()"
-              [style]="{'width':'425px'}"
-              [(ngModel)]="file.sourceType"
-              appendTo="body" editable="false"></p-dropdown>
-          <label for="float-input-source-type">Source type</label>
-        </div>
+        <mat-form-field>
+          <mat-placeholder>Format</mat-placeholder>
+          <mat-select [(ngModel)]="file.sourceType">
+            <mat-option *ngFor="let type of sourceTypes" [value]="type.value">{{ type.label }}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </ng-template>
     </p-orderList>
   </div>
   <br/>
-  <div class="ui-float-label">
-    <textarea [rows]="8" [cols]="50" [(ngModel)]="_data.note"
-        id="float-input-text" autoResize="autoResize" pInputTextarea></textarea>
-    <label for="float-input-text">Note</label>
-  </div>
-  <p-footer>
-    <p-button label="OK" icon="fa fa-fw fa-check" (click)="ok()"></p-button>
-    <p-button label="Cancel" icon="fa fa-fw fa-close" (click)="cancel()" [styleClass]="'ui-button-secondary'"></p-button>
-  </p-footer>
-<p-dialog>
+  <mat-form-field>
+    <mat-placeholder>Note</mat-placeholder>
+    <textarea matInput [rows]="8" [cols]="100" [(ngModel)]="data.note"
+        autoresize="autoResize"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <span class="example-fill-remaining-space"></span>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+  <button mat-button (click)="onNoClick()" >Cancel</button>
+</div>

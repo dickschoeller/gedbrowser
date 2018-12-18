@@ -8,6 +8,9 @@ import { CdkTableModule } from '@angular/cdk/table';
 
 import { AppComponent } from './app.component';
 import {
+  LinkDialogComponent,
+  LinkPersonDialogComponent,
+  MultimediaDialogComponent,
   NewAttributeDialogComponent,
   NewNoteDialogComponent,
   NewPersonDialogComponent,
@@ -70,6 +73,9 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     AppComponent,
   ],
   entryComponents: [
+    LinkDialogComponent,
+    LinkPersonDialogComponent,
+    MultimediaDialogComponent,
     NewAttributeDialogComponent,
     NewNoteDialogComponent,
     NewPersonDialogComponent,

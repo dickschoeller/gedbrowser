@@ -18,12 +18,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { DropdownModule } from 'primeng/dropdown';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { InputTextModule } from 'primeng/inputtext';
-import { ListboxModule } from 'primeng/listbox';
 import { OrderListModule } from 'primeng/orderlist';
 
 import { NgxGalleryModule } from 'ngx-gallery';
@@ -74,12 +68,6 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
     MatToolbarModule,
     MatTooltipModule,
 
-    ButtonModule,
-    DialogModule,
-    DropdownModule,
-    InputTextareaModule,
-    InputTextModule,
-    ListboxModule,
     OrderListModule,
 
     NgxGalleryModule

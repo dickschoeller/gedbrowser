@@ -8,14 +8,3 @@
   <button mat-menu-item (click)="openLinkSourceDialog()"><mat-icon>link</mat-icon> Link source</button>
   <button mat-menu-item (click)="openUnlinkSourceDialog()"><mat-icon color="warn">link_off</mat-icon> Unlink source</button>
 </mat-menu>
-
-<app-link-dialog
-    [p]="this" titleString="Link Sources"
-    (emitClose)="onLinkSourceDialogClose()" (emitOpen)="onLinkSourceDialogOpen($event)"
-    (emitOK)="linkSource($event)"
-    [(display)]="displayLinkSourceDialog"></app-link-dialog>
-<app-link-dialog
-    [p]="this" titleString="Unlink Sources"
-    (emitClose)="onUnlinkSourceDialogClose()" (emitOpen)="onUnlinkSourceDialogOpen($event)"
-    (emitOK)="unlinkSource($event)"
-    [(display)]="displayUnlinkSourceDialog"></app-link-dialog>

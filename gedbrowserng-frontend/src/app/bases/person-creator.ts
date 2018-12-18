@@ -14,7 +14,7 @@ export abstract class PersonCreator implements RefreshPerson {
     }
   }
 
-  linkParent(data: LinkPersonDialogData) {
+  linkPerson(data: LinkPersonDialogData) {
     this.newPersonLinkService.put(this.personUB(), this.personAnchor(), data.selectOne.person)
       .subscribe((person: ApiPerson) => { this.refreshPerson(); });
   }

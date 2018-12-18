@@ -1,14 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog, MatDialogRef, } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { HasAttributeList } from '../../interfaces';
 import { SubmitterCreator } from '../../bases';
 import { ApiObject, ApiSubmitter, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { SubmitterService, NewSubmitterLinkService } from '../../services';
-import { UrlBuilder, NewSubmitterHelper, ApiComparators, LinkHelper, Refresher } from '../../utils';
-import { LinkDialogComponent } from '../link-dialog';
-import { NewSubmitterDialogComponent } from '../new-submitter-dialog';
-import { NewSubmitterDialogData } from '../../models';
+import { UrlBuilder, NewSubmitterHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
 
 @Component({
   selector: 'app-submitter-button',
@@ -19,11 +16,8 @@ export class SubmitterButtonComponent extends SubmitterCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
-  displayLinkSubmitterDialog = false;
-  displayUnlinkSubmitterDialog = false;
-
   constructor(
-    public submitterService: SubmitterService,
+    public service: SubmitterService,
     public newSubmitterLinkService: NewSubmitterLinkService,
     public dialog: MatDialog,
   ) {
@@ -42,39 +36,13 @@ export class SubmitterButtonComponent extends SubmitterCreator {
     Refresher.refresh(this.parent, 'submitterLink', submitter.string);
   }
 
-  onLinkSubmitterDialogClose() {
-    this.displayLinkSubmitterDialog = false;
-  }
-
-  onLinkSubmitterDialogOpen(dialog: LinkDialogComponent) {
-    this.lh().onLinkDialogOpen(this.submitterService, dialog);
-  }
-
-  linkSubmitter(data: LinkDialogData) {
-    this.lh().link(data, this.parent.attributes, () => this.parent.save());
-  }
-
-  onUnlinkSubmitterDialogClose() {
-    this.displayUnlinkSubmitterDialog = false;
-  }
-
-  onUnlinkSubmitterDialogOpen(dialog: LinkDialogComponent) {
-    this.lh().onUnlinkDialogOpen(this.submitterService, dialog, this.parent.attributes);
-  }
-
-  unlinkSubmitter(data: LinkDialogData) {
-    this.lh().unlink(data, this.parent.attributes, () => this.parent.save());
-  }
-
-  lh(): LinkHelper {
-    return new LinkHelper((o: ApiSubmitter) => o.name, ApiComparators.compareSubmitters, 'submitterlink');
-  }
-
   openLinkSubmitterDialog() {
-    this.displayLinkSubmitterDialog = true;
+    const lh = new LinkHelper((o: ApiSubmitter) => o.name, ApiComparators.compareSubmitters, 'submitterlink');
+    LinkDialogLauncher.openDialog(this, 'Link Submitter', lh);
   }
 
   openUnlinkSubmitterDialog() {
-    this.displayUnlinkSubmitterDialog = true;
+    const lh = new UnlinkHelper((o: ApiSubmitter) => o.name, ApiComparators.compareSubmitters, 'submitterlink');
+    LinkDialogLauncher.openDialog(this, 'Unlink Submitter', lh);
   }
 }

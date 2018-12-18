@@ -1,28 +1,13 @@
-<p-dialog
-    *ngIf="_data"
-    [modal]="true" [closable]="true" [closeOnEscape]="true"
-    [dismissableMask]="true" [resizable]="true" [draggable]="true"
-    (onHide)="close()" (onShow)="open()"
-    [(visible)]="_display"
-    appendTo="body">
-  <p-header><i class="fa fa-users"></i> {{ titleString }}</p-header>
-  <span *ngIf="multi">
-    <p-listbox [options]="_data.items" [style]="{'width':'425px'}"
-        [multiple]="multi" [checkbox]="multi"
-        [(ngModel)]="_data.selected"
-        filter="filter" optionLabel="label">
-    </p-listbox>
-  </span>
-  <span *ngIf="!multi">
-    <p-listbox [options]="_data.items" [style]="{'width':'425px'}"
-        [multiple]="multi" [checkbox]="multi"
-        [(ngModel)]="_data.selectOne"
-        filter="filter" optionLabel="label">
-    </p-listbox>
-  </span>
-  <p-footer>
-    <p-button (click)="ok()" label="OK" icon="fa fa-fw fa-check"></p-button>
-    <p-button [styleClass]="'ui-button-secondary'" (click)="cancel()"
-        label="Cancel" icon="fa fa-fw fa-close"></p-button>
-  </p-footer>
-</p-dialog>
+<div mat-dialog-title>
+  <mat-toolbar color="primary"><mat-icon matListIcon>person</mat-icon>&nbsp; {{ data.titleString }}</mat-toolbar>
+</div>
+<div mat-dialog-content>
+  <mat-selection-list #items (selectionChange)="onSelection($event, items.selectedOptions.selected)">
+    <mat-list-option *ngFor="let item of data.items" [value]="item">{{ item.label }}</mat-list-option>
+  </mat-selection-list>
+</div>
+<div mat-dialog-actions>
+  <span class="example-fill-remaining-space"></span>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+  <button mat-button (click)="onNoClick()" >Cancel</button>
+</div>

@@ -1,14 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog, MatDialogRef, } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { HasAttributeList } from '../../interfaces';
 import { SourceCreator } from '../../bases';
 import { ApiObject, ApiSource, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { SourceService, NewSourceLinkService, ServiceBase } from '../../services';
-import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper, Refresher } from '../../utils';
-import { LinkDialogComponent } from '../link-dialog';
-import { NewSourceDialogComponent } from '../new-source-dialog';
-import { NewSourceDialogData } from '../../models';
+import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
 
 @Component({
   selector: 'app-source-button',
@@ -19,11 +16,8 @@ export class SourceButtonComponent extends SourceCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
-  displayLinkSourceDialog = false;
-  displayUnlinkSourceDialog = false;
-
   constructor(
-    public sourceService: SourceService,
+    public service: SourceService,
     public newSourceLinkService: NewSourceLinkService,
     public dialog: MatDialog,
   ) {
@@ -43,39 +37,13 @@ export class SourceButtonComponent extends SourceCreator {
     Refresher.refresh(this.parent, 'sourcelink', source.string);
   }
 
-  onLinkSourceDialogClose() {
-    this.displayLinkSourceDialog = false;
-  }
-
-  onLinkSourceDialogOpen(dialog: LinkDialogComponent) {
-    this.lh().onLinkDialogOpen(this.sourceService, dialog);
-  }
-
-  linkSource(data: LinkDialogData) {
-    this.lh().link(data, this.parent.attributes, () => this.parent.save());
-  }
-
-  onUnlinkSourceDialogClose() {
-    this.displayUnlinkSourceDialog = false;
-  }
-
-  onUnlinkSourceDialogOpen(dialog: LinkDialogComponent) {
-    this.lh().onUnlinkDialogOpen(this.sourceService, dialog, this.parent.attributes);
-  }
-
-  unlinkSource(data: LinkDialogData) {
-    this.lh().unlink(data, this.parent.attributes, () => this.parent.save());
-  }
-
-  lh(): LinkHelper {
-    return new LinkHelper((o: ApiSource) => o.title, ApiComparators.compareSources, 'sourcelink');
-  }
-
   openLinkSourceDialog() {
-    this.displayLinkSourceDialog = true;
+    const lh = new LinkHelper((o: ApiSource) => o.title, ApiComparators.compareSources, 'sourcelink');
+    LinkDialogLauncher.openDialog(this, 'Link Source', lh);
   }
 
   openUnlinkSourceDialog() {
-    this.displayUnlinkSourceDialog = true;
+    const lh = new UnlinkHelper((o: ApiSource) => o.title, ApiComparators.compareSources, 'sourcelink');
+    LinkDialogLauncher.openDialog(this, 'Unlink Source', lh);
   }
 }

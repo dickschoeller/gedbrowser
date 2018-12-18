@@ -5,8 +5,7 @@ import { HasAttributeList } from '../../interfaces';
 import { NoteCreator } from '../../bases';
 import { ApiObject, ApiNote, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { NoteService, NewNoteLinkService, ServiceBase } from '../../services';
-import { UrlBuilder, NewNoteHelper, ApiComparators, LinkHelper, Refresher } from '../../utils';
-import { LinkDialogComponent } from '../link-dialog';
+import { UrlBuilder, NewNoteHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
 
 @Component({
   selector: 'app-note-button',
@@ -17,11 +16,8 @@ export class NoteButtonComponent extends NoteCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
-  displayLinkNoteDialog = false;
-  displayUnlinkNoteDialog = false;
-
   constructor(
-    public noteService: NoteService,
+    public service: NoteService,
     public newNoteLinkService: NewNoteLinkService,
     public dialog: MatDialog,
   ) {
@@ -41,39 +37,13 @@ export class NoteButtonComponent extends NoteCreator {
     Refresher.refresh(this.parent, 'noteLink', note.string);
   }
 
-  onLinkNoteDialogClose() {
-    this.displayLinkNoteDialog = false;
-  }
-
-  onLinkNoteDialogOpen(dialog: LinkDialogComponent) {
-    this.lh().onLinkDialogOpen(this.noteService, dialog);
-  }
-
-  linkNote(data: LinkDialogData) {
-    this.lh().link(data, this.parent.attributes, () => this.parent.save());
-  }
-
-  onUnlinkNoteDialogClose() {
-    this.displayUnlinkNoteDialog = false;
-  }
-
-  onUnlinkNoteDialogOpen(dialog: LinkDialogComponent) {
-    this.lh().onUnlinkDialogOpen(this.noteService, dialog, this.parent.attributes);
-  }
-
-  unlinkNote(data: LinkDialogData) {
-    this.lh().unlink(data, this.parent.attributes, () => this.parent.save());
-  }
-
-  lh(): LinkHelper {
-    return new LinkHelper((o: ApiNote) => o.tail, ApiComparators.compareNotes, 'notelink');
-  }
-
   openLinkNoteDialog() {
-    this.displayLinkNoteDialog = true;
+    const lh = new LinkHelper((o: ApiNote) => o.tail, ApiComparators.compareNotes, 'notelink');
+    LinkDialogLauncher.openDialog(this, 'Link Note', lh);
   }
 
   openUnlinkNoteDialog() {
-    this.displayUnlinkNoteDialog = true;
+    const lh = new UnlinkHelper((o: ApiNote) => o.tail, ApiComparators.compareNotes, 'notelink');
+    LinkDialogLauncher.openDialog(this, 'Unlink Note', lh);
   }
 }
