@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatListOption, MatSelectionList } from '@angular/material/list';
 
@@ -14,29 +14,19 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class LinkPersonDialogComponent
   implements OnInit, OnChanges {
   @Input() titleString: string;
-  dataset: string;
   persons: Array<ApiPerson>;
   @ViewChild(MatSelectionList) selectionList: MatSelectionList;
 
   constructor(private route: ActivatedRoute,
-    private router: Router,
     public dialogRef: MatDialogRef<LinkPersonDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: LinkPersonDialogData) {
   }
 
   ngOnInit() {
     this.selectionList.selectedOptions = new SelectionModel<MatListOption>(this.data.multi);
-    this.init();
   }
 
   ngOnChanges() {
-    this.init();
-  }
-
-  private init(): void {
-    this.route.params.subscribe((params) => {
-      this.dataset = params['dataset'];
-    });
   }
 
   onNoClick(): void {

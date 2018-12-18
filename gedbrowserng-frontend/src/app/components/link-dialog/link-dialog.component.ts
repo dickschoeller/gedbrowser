@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnChanges, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatListOption } from '@angular/material/list';
 
@@ -14,27 +14,17 @@ import { LinkDialogData, LinkItem } from '../../models';
 export class LinkDialogComponent
   implements OnInit, OnChanges, LinkDialogInterface {
   @Input() titleString: string;
-  dataset: string;
   objects: Array<any>;
 
   constructor(private route: ActivatedRoute,
-    private router: Router,
     public dialogRef: MatDialogRef<LinkDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: LinkDialogData) {
   }
 
   ngOnInit() {
-    this.init();
   }
 
   ngOnChanges() {
-    this.init();
-  }
-
-  private init(): void {
-    this.route.params.subscribe((params) => {
-      this.dataset = params['dataset'];
-    });
   }
 
   onNoClick(): void {
