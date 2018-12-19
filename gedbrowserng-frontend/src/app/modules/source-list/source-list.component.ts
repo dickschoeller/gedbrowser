@@ -39,18 +39,18 @@ export class SourceListComponent extends SourceCreator implements AfterViewInit,
   }
 
   ngAfterViewInit() {
-    this.datasource.paginator = this.paginator;
-    this.datasource.sort = this.sort;
-    this.datasource.data = this.sources;
+    this.init();
   }
 
   ngOnInit() {
-    this.datasource.paginator = this.paginator;
-    this.datasource.sort = this.sort;
-    this.datasource.data = this.sources;
+    this.init();
   }
 
   ngOnChanges() {
+    this.init();
+  }
+
+  init() {
     this.datasource.paginator = this.paginator;
     this.datasource.sort = this.sort;
     this.datasource.data = this.sources;

@@ -39,18 +39,18 @@ export class SubmitterListComponent extends SubmitterCreator implements AfterVie
   }
 
   ngAfterViewInit() {
-    this.datasource.paginator = this.paginator;
-    this.datasource.sort = this.sort;
-    this.datasource.data = this.submitters;
+    this.init();
   }
 
   ngOnInit() {
-    this.datasource.paginator = this.paginator;
-    this.datasource.sort = this.sort;
-    this.datasource.data = this.submitters;
+    this.init();
   }
 
   ngOnChanges() {
+    this.init();
+  }
+
+  init() {
     this.datasource.paginator = this.paginator;
     this.datasource.sort = this.sort;
     this.datasource.data = this.submitters;

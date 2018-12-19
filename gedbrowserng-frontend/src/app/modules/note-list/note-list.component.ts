@@ -39,18 +39,18 @@ export class NoteListComponent extends NoteCreator implements AfterViewInit, OnC
   }
 
   ngAfterViewInit() {
-    this.datasource.paginator = this.paginator;
-    this.datasource.sort = this.sort;
-    this.datasource.data = this.notes;
+    this.init();
   }
 
   ngOnInit() {
-    this.datasource.paginator = this.paginator;
-    this.datasource.sort = this.sort;
-    this.datasource.data = this.notes;
+    this.init();
   }
 
   ngOnChanges() {
+    this.init();
+  }
+
+  init() {
     this.datasource.paginator = this.paginator;
     this.datasource.sort = this.sort;
     this.datasource.data = this.notes;

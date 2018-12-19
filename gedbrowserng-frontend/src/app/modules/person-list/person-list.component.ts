@@ -68,18 +68,18 @@ export class PersonListComponent extends PersonCreator implements AfterViewInit,
   }
 
   ngAfterViewInit() {
-    this.datasource.paginator = this.paginator;
-    this.datasource.sort = this.sort;
-    this.datasource.data = this.persons;
+    this.init();
   }
 
   ngOnInit() {
-    this.datasource.paginator = this.paginator;
-    this.datasource.sort = this.sort;
-    this.datasource.data = this.persons;
+    this.init();
   }
 
   ngOnChanges() {
+    this.init();
+  }
+
+  init() {
     this.datasource.paginator = this.paginator;
     this.datasource.sort = this.sort;
     this.datasource.data = this.persons;
