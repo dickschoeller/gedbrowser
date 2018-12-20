@@ -10,7 +10,7 @@ import { NewSourceDialogComponent } from '../../components';
 import { NewSourceDialogData } from '../../models';
 import { ApiSource } from '../../models';
 import { SourceService, NewSourceLinkService } from '../../services';
-import { NewSourceHelper, UrlBuilder } from '../../utils';
+import { NewSourceHelper, UrlBuilder, ListPage, ListPageHelper } from '../../utils';
 import { SourceListPageComponent } from './source-list-page.component';
 
 @Component({
@@ -18,7 +18,7 @@ import { SourceListPageComponent } from './source-list-page.component';
   templateUrl: './source-list.component.html',
   styleUrls: ['./source-list.component.css']
 })
-export class SourceListComponent extends SourceCreator implements AfterViewInit, OnChanges, OnInit {
+export class SourceListComponent extends SourceCreator implements AfterViewInit, OnChanges, OnInit, ListPage<ApiSource> {
   @Input() parent: SourceListPageComponent;
   @Input() dataset: string;
   @Input() sources: Array<ApiSource>;
@@ -39,29 +39,23 @@ export class SourceListComponent extends SourceCreator implements AfterViewInit,
   }
 
   ngAfterViewInit() {
-    this.init();
+    ListPageHelper.init(this, this.sources);
   }
 
   ngOnInit() {
-    this.init();
+    ListPageHelper.init(this, this.sources);
   }
 
   ngOnChanges() {
-    this.init();
-  }
-
-  init() {
-    this.datasource.paginator = this.paginator;
-    this.datasource.sort = this.sort;
-    this.datasource.data = this.sources;
+    ListPageHelper.init(this, this.sources);
   }
 
   pagesizeoptions(): number[] {
-    return [15, 30, 100, 500, this.sources.length];
+    return ListPageHelper.pagesizeoptions(this.sources);
   }
 
   applyFilter(filterValue: string) {
-    this.datasource.filter = filterValue.trim().toLowerCase();
+    ListPageHelper.applyFilter(this, filterValue);
   }
 
   sourceUB(): UrlBuilder {

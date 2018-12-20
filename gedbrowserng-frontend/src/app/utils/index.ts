@@ -18,3 +18,4 @@ export * from './array-util';
 export * from './link-dialog-launcher';
 export * from './link-dialog-actions';
 export * from './unlink-helper';
+export * from './list-page-helper';

@@ -10,7 +10,7 @@ import { NewNoteDialogComponent } from '../../components';
 import { NewNoteDialogData } from '../../models';
 import { ApiNote, NewPersonDialogData } from '../../models';
 import { NoteService, NewNoteLinkService } from '../../services';
-import { NewNoteHelper, UrlBuilder } from '../../utils';
+import { NewNoteHelper, UrlBuilder, ListPage, ListPageHelper } from '../../utils';
 import { NoteListPageComponent } from './note-list-page.component';
 
 @Component({
@@ -18,7 +18,7 @@ import { NoteListPageComponent } from './note-list-page.component';
   templateUrl: './note-list.component.html',
   styleUrls: ['./note-list.component.css']
 })
-export class NoteListComponent extends NoteCreator implements AfterViewInit, OnChanges, OnInit {
+export class NoteListComponent extends NoteCreator implements AfterViewInit, OnChanges, OnInit, ListPage<ApiNote> {
   @Input() parent: NoteListPageComponent;
   @Input() dataset: string;
   @Input() notes: Array<ApiNote>;
@@ -39,29 +39,23 @@ export class NoteListComponent extends NoteCreator implements AfterViewInit, OnC
   }
 
   ngAfterViewInit() {
-    this.init();
+    ListPageHelper.init(this, this.notes);
   }
 
   ngOnInit() {
-    this.init();
+    ListPageHelper.init(this, this.notes);
   }
 
   ngOnChanges() {
-    this.init();
-  }
-
-  init() {
-    this.datasource.paginator = this.paginator;
-    this.datasource.sort = this.sort;
-    this.datasource.data = this.notes;
+    ListPageHelper.init(this, this.notes);
   }
 
   pagesizeoptions(): number[] {
-    return [15, 30, 100, 500, this.notes.length];
+    return ListPageHelper.pagesizeoptions(this.notes);
   }
 
   applyFilter(filterValue: string) {
-    this.datasource.filter = filterValue.trim().toLowerCase();
+    ListPageHelper.applyFilter(this, filterValue);
   }
 
   noteUB(): UrlBuilder {

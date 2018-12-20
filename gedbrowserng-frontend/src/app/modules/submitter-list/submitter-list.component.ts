@@ -10,7 +10,7 @@ import { NewSubmitterDialogComponent } from '../../components/';
 import { NewSubmitterDialogData } from '../../models';
 import { ApiSubmitter } from '../../models';
 import { SubmitterService, NewSubmitterLinkService } from '../../services';
-import { NewSubmitterHelper, UrlBuilder } from '../../utils';
+import { NewSubmitterHelper, UrlBuilder, ListPage, ListPageHelper } from '../../utils';
 import { SubmitterListPageComponent } from './submitter-list-page.component';
 
 @Component({
@@ -18,7 +18,7 @@ import { SubmitterListPageComponent } from './submitter-list-page.component';
   templateUrl: './submitter-list.component.html',
   styleUrls: ['./submitter-list.component.css']
 })
-export class SubmitterListComponent extends SubmitterCreator implements AfterViewInit, OnChanges, OnInit {
+export class SubmitterListComponent extends SubmitterCreator implements AfterViewInit, OnChanges, OnInit, ListPage<ApiSubmitter> {
   @Input() parent: SubmitterListPageComponent;
   @Input() dataset: string;
   @Input() submitters: ApiSubmitter[];
@@ -39,29 +39,23 @@ export class SubmitterListComponent extends SubmitterCreator implements AfterVie
   }
 
   ngAfterViewInit() {
-    this.init();
+    ListPageHelper.init(this, this.submitters);
   }
 
   ngOnInit() {
-    this.init();
+    ListPageHelper.init(this, this.submitters);
   }
 
   ngOnChanges() {
-    this.init();
-  }
-
-  init() {
-    this.datasource.paginator = this.paginator;
-    this.datasource.sort = this.sort;
-    this.datasource.data = this.submitters;
+    ListPageHelper.init(this, this.submitters);
   }
 
   pagesizeoptions(): number[] {
-    return [15, 30, 100, 500, this.submitters.length];
+    return ListPageHelper.pagesizeoptions(this.submitters);
   }
 
   applyFilter(filterValue: string) {
-    this.datasource.filter = filterValue.trim().toLowerCase();
+    ListPageHelper.applyFilter(this, filterValue);
   }
 
   submitterUB(): UrlBuilder {

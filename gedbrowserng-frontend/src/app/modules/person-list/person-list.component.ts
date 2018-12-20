@@ -9,7 +9,7 @@ import { PersonCreator } from '../../bases';
 import { NewPersonDialogComponent } from '../../components';
 import { ApiPerson, NewPersonDialogData } from '../../models';
 import { PersonService, NewPersonLinkService } from '../../services';
-import { UrlBuilder, NewPersonHelper } from '../../utils';
+import { UrlBuilder, NewPersonHelper, ListPage, ListPageHelper } from '../../utils';
 import { PersonListPageComponent } from './person-list-page.component';
 
 @Component({
@@ -17,7 +17,7 @@ import { PersonListPageComponent } from './person-list-page.component';
   templateUrl: './person-list.component.html',
   styleUrls: ['./person-list.component.css']
 })
-export class PersonListComponent extends PersonCreator implements AfterViewInit, OnChanges, OnInit {
+export class PersonListComponent extends PersonCreator implements AfterViewInit, OnChanges, OnInit, ListPage<ApiPerson> {
   @Input() p: PersonListPageComponent;
   @Input() dataset: string;
   @Input() persons: ApiPerson[];
@@ -68,29 +68,23 @@ export class PersonListComponent extends PersonCreator implements AfterViewInit,
   }
 
   ngAfterViewInit() {
-    this.init();
+    ListPageHelper.init(this, this.persons);
   }
 
   ngOnInit() {
-    this.init();
+    ListPageHelper.init(this, this.persons);
   }
 
   ngOnChanges() {
-    this.init();
-  }
-
-  init() {
-    this.datasource.paginator = this.paginator;
-    this.datasource.sort = this.sort;
-    this.datasource.data = this.persons;
+    ListPageHelper.init(this, this.persons);
   }
 
   pagesizeoptions(): number[] {
-    return [15, 30, 100, 500, this.persons.length];
+    return ListPageHelper.pagesizeoptions(this.persons);
   }
 
   applyFilter(filterValue: string) {
-    this.datasource.filter = filterValue.trim().toLowerCase();
+    ListPageHelper.applyFilter(this, filterValue);
   }
 
   openCreatePersonDialog(): void {
