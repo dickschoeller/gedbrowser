@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 import { ApiAttribute, ApiPerson } from '../../models';
-import { PersonService, NewPersonLinkService } from '../../services';
+import { PersonService } from '../../services';
 import { HasFamily } from '../../interfaces/has-family';
 import { PersonGetter } from './person-getter';
 import { RefreshPerson } from '../../interfaces';
@@ -16,9 +16,8 @@ export class PersonParentComponent extends PersonGetter implements OnInit, OnCha
   @Input() parent: HasFamily & RefreshPerson;
   @Input() attribute: ApiAttribute;
 
-  constructor(newPersonLinkService: NewPersonLinkService,
-    personService: PersonService) {
-    super(newPersonLinkService, personService);
+  constructor(personService: PersonService) {
+    super(personService);
     this.famMemberType = 'spouses';
   }
 

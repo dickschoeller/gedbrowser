@@ -9,7 +9,7 @@ import { SubmitterCreator } from '../../bases/submitter-creator';
 import { NewSubmitterDialogComponent } from '../../components/';
 import { NewSubmitterDialogData } from '../../models';
 import { ApiSubmitter } from '../../models';
-import { SubmitterService, NewSubmitterLinkService } from '../../services';
+import { SubmitterService } from '../../services';
 import { NewSubmitterHelper, UrlBuilder, ListPage, ListPageHelper } from '../../utils';
 import { SubmitterListPageComponent } from './submitter-list-page.component';
 
@@ -31,11 +31,10 @@ export class SubmitterListComponent extends SubmitterCreator implements AfterVie
 
   constructor(
     private router: Router,
-    private submitterService: SubmitterService,
-    public newSubmitterLinkService: NewSubmitterLinkService,
+    public submitterService: SubmitterService,
     public dialog: MatDialog,
   ) {
-    super(newSubmitterLinkService, dialog);
+    super(submitterService, dialog);
   }
 
   ngAfterViewInit() {

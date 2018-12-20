@@ -1,6 +1,6 @@
 import { RefreshPerson } from '../../interfaces';
 import {ApiPerson} from '../../models';
-import {PersonService, NewPersonLinkService} from '../../services';
+import {PersonService } from '../../services';
 import {UrlBuilder, LifespanUtil} from '../../utils';
 
 export abstract class PersonGetter implements RefreshPerson {
@@ -8,8 +8,7 @@ export abstract class PersonGetter implements RefreshPerson {
   person: ApiPerson;
   famMemberType: string;
 
-  constructor(public newPersonLinkService: NewPersonLinkService,
-    private personService: PersonService) {}
+  constructor(private personService: PersonService) {}
 
   abstract refreshPerson(): void;
   abstract familyString(): string;
@@ -28,7 +27,7 @@ export abstract class PersonGetter implements RefreshPerson {
 
   unlink(): void {
     const ub: UrlBuilder = new UrlBuilder(this.dataset, 'families', this.famMemberType);
-    this.newPersonLinkService.delete(ub, this.familyString(), this.person)
+    this.personService.deleteLink(ub, this.familyString(), this.person)
       .subscribe((data: ApiPerson) => { this.refreshPerson(); });
   }
 

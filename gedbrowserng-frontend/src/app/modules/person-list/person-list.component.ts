@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { PersonCreator } from '../../bases';
 import { NewPersonDialogComponent } from '../../components';
 import { ApiPerson, NewPersonDialogData } from '../../models';
-import { PersonService, NewPersonLinkService } from '../../services';
+import { PersonService } from '../../services';
 import { UrlBuilder, NewPersonHelper, ListPage, ListPageHelper } from '../../utils';
 import { PersonListPageComponent } from './person-list-page.component';
 
@@ -30,11 +30,10 @@ export class PersonListComponent extends PersonCreator implements AfterViewInit,
 
   constructor(
     private router: Router,
-    private personService: PersonService,
-    public newPersonLinkService: NewPersonLinkService,
+    public personService: PersonService,
     public dialog: MatDialog
   ) {
-    super(newPersonLinkService);
+    super(personService);
     this.datasource.sortingDataAccessor = (item, property) => {
       switch (property) {
         case 'birthdate': return this.dateCleanup(item.lifespan.birthDate);

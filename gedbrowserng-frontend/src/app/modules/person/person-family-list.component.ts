@@ -5,7 +5,7 @@ import { HasPerson, LinkCheck, Saveable } from '../../interfaces';
 import { LinkPersonDialogComponent } from '../../components';
 import { ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData, LinkPersonItem } from '../../models';
 import { LifespanUtil, UrlBuilder, NewPersonHelper } from '../../utils';
-import { NewPersonLinkService, PersonService } from '../../services';
+import { PersonService } from '../../services';
 
 /**
  * Implements a the list of families on a person page
@@ -30,9 +30,8 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
   childSex = 'M';
   _ub: UrlBuilder;
 
-  constructor(newPersonLinkService: NewPersonLinkService,
-    private personService: PersonService) {
-    super(newPersonLinkService);
+  constructor(public personService: PersonService) {
+    super(personService);
   }
 
   init() {
@@ -73,7 +72,7 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
   linkChildren(data: LinkPersonDialogData) {
     this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
     const selected: Array<LinkPersonItem> = data.selected.splice(0, 1);
-    this.newPersonLinkService.put(this.personUB(), this.personAnchor(), selected[0].person)
+    this.personService.putLink(this.personUB(), this.personAnchor(), selected[0].person)
       .subscribe((person: ApiPerson) => {
         this.linkChildrenToMainPerson(data);
       });
@@ -91,7 +90,7 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
     const fams = mainPerson.fams[mainPerson.fams.length - 1];
     const ub = new UrlBuilder(this.dataset, 'families', 'children');
     for (const selected of data.selected) {
-      this.newPersonLinkService.put(ub, fams.string, selected.person)
+      this.personService.putLink(ub, fams.string, selected.person)
         .subscribe((p: ApiPerson) => { this.refreshPerson(); });
     }
   }

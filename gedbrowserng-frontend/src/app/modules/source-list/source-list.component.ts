@@ -9,7 +9,7 @@ import { SourceCreator } from '../../bases';
 import { NewSourceDialogComponent } from '../../components';
 import { NewSourceDialogData } from '../../models';
 import { ApiSource } from '../../models';
-import { SourceService, NewSourceLinkService } from '../../services';
+import { SourceService } from '../../services';
 import { NewSourceHelper, UrlBuilder, ListPage, ListPageHelper } from '../../utils';
 import { SourceListPageComponent } from './source-list-page.component';
 
@@ -31,11 +31,10 @@ export class SourceListComponent extends SourceCreator implements AfterViewInit,
 
   constructor(
     private router: Router,
-    private sourceService: SourceService,
-    public newSourceLinkService: NewSourceLinkService,
+    public sourceService: SourceService,
     public dialog: MatDialog,
   ) {
-    super(newSourceLinkService, dialog);
+    super(sourceService, dialog);
   }
 
   ngAfterViewInit() {

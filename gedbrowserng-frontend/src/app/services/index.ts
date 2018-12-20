@@ -8,8 +8,4 @@ export * from './source.service';
 export * from './submitter.service';
 export * from './service-base';
 export * from './link-person-helper';
-export * from './new-note-link.service';
-export * from './new-person-link.service';
-export * from './new-source-link.service';
-export * from './new-submitter-link.service';
 export * from './crud-related';

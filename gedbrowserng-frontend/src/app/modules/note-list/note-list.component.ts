@@ -9,7 +9,7 @@ import { NoteCreator } from '../../bases';
 import { NewNoteDialogComponent } from '../../components';
 import { NewNoteDialogData } from '../../models';
 import { ApiNote, NewPersonDialogData } from '../../models';
-import { NoteService, NewNoteLinkService } from '../../services';
+import { NoteService } from '../../services';
 import { NewNoteHelper, UrlBuilder, ListPage, ListPageHelper } from '../../utils';
 import { NoteListPageComponent } from './note-list-page.component';
 
@@ -31,11 +31,10 @@ export class NoteListComponent extends NoteCreator implements AfterViewInit, OnC
 
   constructor(
     private router: Router,
-    private noteService: NoteService,
-    public newNoteLinkService: NewNoteLinkService,
+    public noteService: NoteService,
     public dialog: MatDialog,
   ) {
-    super(newNoteLinkService, dialog);
+    super(noteService, dialog);
   }
 
   ngAfterViewInit() {

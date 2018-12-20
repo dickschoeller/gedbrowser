@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData, AttributeDialogData, SelectItem } from '../../models';
-import { FamilyService, PersonService, NewPersonLinkService } from '../../services';
+import { FamilyService, PersonService } from '../../services';
 import { UrlBuilder, NewPersonHelper } from '../../utils';
 import { InitablePersonCreator } from '../../bases';
 import { HasAttributeList, HasPerson, RefreshPerson, LinkCheck, Saveable } from '../../interfaces';
@@ -61,9 +61,8 @@ export class PersonFamilyComponent extends InitablePersonCreator
   surname: string;
 
   constructor(private familyService: FamilyService,
-    private personService: PersonService,
-    newPersonLinkService: NewPersonLinkService) {
-    super(newPersonLinkService);
+    public personService: PersonService) {
+    super(personService);
   }
 
   init(): void {
@@ -128,7 +127,7 @@ export class PersonFamilyComponent extends InitablePersonCreator
 
   unlink(): void {
     const ub: UrlBuilder = new UrlBuilder(this.dataset, 'families', 'spouses');
-    this.newPersonLinkService.delete(ub, this.family.string, this.person)
+    this.personService.deleteLink(ub, this.family.string, this.person)
       .subscribe((data: ApiPerson) => { this.parent.refreshPerson(); });
   }
 

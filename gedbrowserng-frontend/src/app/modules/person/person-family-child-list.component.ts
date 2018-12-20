@@ -4,7 +4,7 @@ import { InitablePersonCreator } from '../../bases';
 import { HasFamily, HasPerson, RefreshPerson, Saveable, LinkCheck } from '../../interfaces';
 import { LinkPersonDialogComponent } from '../../components';
 import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData } from '../../models';
-import { NewPersonLinkService, PersonService } from '../../services';
+import { PersonService } from '../../services';
 import { UrlBuilder, LifespanUtil } from '../../utils';
 
 /**
@@ -28,9 +28,8 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator
   sex = 'M';
   surname: string;
 
-  constructor(newPersonLinkService: NewPersonLinkService,
-    private personService: PersonService) {
-    super(newPersonLinkService);
+  constructor(public personService: PersonService) {
+    super(personService);
   }
 
   init(): void {
@@ -87,7 +86,7 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator
 
   linkChild(data: LinkPersonDialogData) {
     for (const item of data.selected) {
-      this.newPersonLinkService.put(this.personUB(), this.personAnchor(), item.person)
+      this.personService.putLink(this.personUB(), this.personAnchor(), item.person)
         .subscribe((person: ApiPerson) => { this.refreshPerson(); });
     }
   }

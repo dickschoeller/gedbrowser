@@ -3,21 +3,21 @@ import { MatDialog, MatDialogRef, } from '@angular/material';
 import { RefreshSource } from '../interfaces';
 import { ApiSource, NewSourceDialogData } from '../models';
 import { NewSourceHelper, UrlBuilder } from '../utils';
-import { NewSourceLinkService } from '../services';
 import { NewSourceDialogComponent } from '../components/new-source-dialog';
+import { SourceService } from '../services';
 
 export abstract class SourceCreator implements RefreshSource {
   data: NewSourceDialogData;
 
   constructor(
-    public newSourceLinkService: NewSourceLinkService,
+    public sourceService: SourceService,
     public dialog: MatDialog,
   ) {}
 
   createSource(data: NewSourceDialogData): void {
     if (data != null && data !== undefined) {
       const newSource: ApiSource = NewSourceHelper.buildSource(data);
-      this.newSourceLinkService.post(this.sourceUB(), this.sourceAnchor(), newSource)
+      this.sourceService.postLink(this.sourceUB(), this.sourceAnchor(), newSource)
         .subscribe((source: ApiSource) => this.refreshSource(source));
     }
   }

@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 import { HasAttributeList } from '../../interfaces';
 import { SourceCreator } from '../../bases';
 import { ApiObject, ApiSource, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
-import { SourceService, NewSourceLinkService, ServiceBase } from '../../services';
+import { SourceService } from '../../services';
 import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
 
 @Component({
@@ -18,10 +18,9 @@ export class SourceButtonComponent extends SourceCreator {
 
   constructor(
     public service: SourceService,
-    public newSourceLinkService: NewSourceLinkService,
     public dialog: MatDialog,
   ) {
-    super(newSourceLinkService, dialog);
+    super(service, dialog);
   }
 
   sourceUB(): UrlBuilder {

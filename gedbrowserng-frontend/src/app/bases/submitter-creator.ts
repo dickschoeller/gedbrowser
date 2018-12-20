@@ -3,21 +3,21 @@ import { MatDialog, MatDialogRef, } from '@angular/material';
 import { RefreshSubmitter } from '../interfaces';
 import { ApiSubmitter, NewSubmitterDialogData } from '../models';
 import { NewSubmitterHelper, UrlBuilder } from '../utils';
-import { NewSubmitterLinkService } from '../services';
 import { NewSubmitterDialogComponent } from '../components/new-submitter-dialog';
+import { SubmitterService } from '../services';
 
 export abstract class SubmitterCreator implements RefreshSubmitter {
   data: NewSubmitterDialogData;
 
   constructor(
-    public newSubmitterLinkService: NewSubmitterLinkService,
+    public submitterService: SubmitterService,
     public dialog: MatDialog,
   ) {}
 
   createSubmitter(data: NewSubmitterDialogData): void {
     if (data != null && data !== undefined) {
       const newSubmitter: ApiSubmitter = NewSubmitterHelper.buildSubmitter(data);
-      this.newSubmitterLinkService.post(this.submitterUB(), this.submitterAnchor(), newSubmitter)
+      this.submitterService.postLink(this.submitterUB(), this.submitterAnchor(), newSubmitter)
         .subscribe((submitter: ApiSubmitter) => this.refreshSubmitter(submitter));
     }
   }
