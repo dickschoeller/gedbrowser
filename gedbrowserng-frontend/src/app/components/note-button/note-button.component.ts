@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 import { HasAttributeList } from '../../interfaces';
 import { NoteCreator } from '../../bases';
 import { ApiObject, ApiNote, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
-import { NoteService, NewNoteLinkService, ServiceBase } from '../../services';
+import { NoteService } from '../../services';
 import { UrlBuilder, NewNoteHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
 
 @Component({
@@ -16,12 +16,8 @@ export class NoteButtonComponent extends NoteCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
-  constructor(
-    public service: NoteService,
-    public newNoteLinkService: NewNoteLinkService,
-    public dialog: MatDialog,
-  ) {
-    super(newNoteLinkService, dialog);
+  constructor(public service: NoteService, public dialog: MatDialog) {
+    super(service, dialog);
   }
 
   noteUB(): UrlBuilder {

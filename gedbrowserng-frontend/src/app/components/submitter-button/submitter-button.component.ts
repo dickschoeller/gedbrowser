@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 import { HasAttributeList } from '../../interfaces';
 import { SubmitterCreator } from '../../bases';
 import { ApiObject, ApiSubmitter, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
-import { SubmitterService, NewSubmitterLinkService } from '../../services';
+import { SubmitterService } from '../../services';
 import { UrlBuilder, NewSubmitterHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
 
 @Component({
@@ -18,10 +18,9 @@ export class SubmitterButtonComponent extends SubmitterCreator {
 
   constructor(
     public service: SubmitterService,
-    public newSubmitterLinkService: NewSubmitterLinkService,
     public dialog: MatDialog,
   ) {
-    super(newSubmitterLinkService, dialog);
+    super(service, dialog);
   }
 
   submitterUB(): UrlBuilder {

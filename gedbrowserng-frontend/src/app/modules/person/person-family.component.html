@@ -14,7 +14,7 @@
             (emitOK)="createPerson($event)"></app-new-person>
         <app-link-person
             [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
-            (emitOK)="linkParent($event)"></app-link-person>
+            (emitOK)="linkPerson($event)"></app-link-person>
         <button mat-icon-button matTooltip="Unlink self from family" color="accent" (click)="unlink()">
           <mat-icon matListIcon>link_off</mat-icon></button>
       </span>

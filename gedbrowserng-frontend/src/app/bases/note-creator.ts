@@ -3,19 +3,19 @@ import { MatDialog, MatDialogRef, } from '@angular/material';
 import { RefreshNote } from '../interfaces/refresh-note';
 import { ApiNote, NewNoteDialogData } from '../models';
 import { UrlBuilder, NewNoteHelper } from '../utils';
-import { NewNoteLinkService } from '../services';
 import { NewNoteDialogComponent } from '../components/new-note-dialog';
+import { NoteService } from '../services';
 
 export abstract class NoteCreator implements RefreshNote {
   data: NewNoteDialogData;
 
-  constructor(public newNoteLinkService: NewNoteLinkService,
+  constructor(public noteService: NoteService,
     public dialog: MatDialog) {}
 
   createNote(data: NewNoteDialogData): void {
     if (data != null && data !== undefined) {
       const newNote: ApiNote = NewNoteHelper.buildNote(data);
-      this.newNoteLinkService.post(this.noteUB(), this.noteAnchor(), newNote)
+      this.noteService.postLink(this.noteUB(), this.noteAnchor(), newNote)
         .subscribe((note: ApiNote) => this.refreshNote(note));
     }
   }

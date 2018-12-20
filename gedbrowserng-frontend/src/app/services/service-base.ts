@@ -13,8 +13,8 @@ export abstract class ServiceBase<T extends ApiObject> implements ApiService<T> 
 
   abstract url(db: string);
 
-  post(db: string, source: T): Observable<T> {
-    return this.http.post<T>(this.url(db), source);
+  post(db: string, data: T): Observable<T> {
+    return this.http.post<T>(this.url(db), data);
   }
 
   getAll(db: string): Observable<Array<T>> {
@@ -25,12 +25,24 @@ export abstract class ServiceBase<T extends ApiObject> implements ApiService<T> 
     return this.http.get<T>(this.url(db) + '/' + id);
   }
 
-  put(db: string, source: T): Observable<T> {
-    return this.http.put<T>(this.url(db) + '/' + source.string, source);
+  put(db: string, data: T): Observable<T> {
+    return this.http.put<T>(this.url(db) + '/' + data.string, data);
   }
 
-  delete(db: string, source: T): Observable<T> {
-    return this.http.delete<T>(this.url(db) + '/' + source.string);
+  delete(db: string, data: T): Observable<T> {
+    return this.http.delete<T>(this.url(db) + '/' + data.string);
+  }
+
+  postLink(ub: UrlBuilder, id: string, data: T): Observable<T> {
+    return this.http.post<T>(ub.url(id), data);
+  }
+
+  putLink(ub: UrlBuilder, id: string, data: T): Observable<T> {
+    return this.http.put<T>(ub.url(id), data);
+  }
+
+  deleteLink(ub: UrlBuilder, id: string, data: T): Observable<T> {
+    return this.http.delete<T>(ub.url(id, data.string));
   }
 
   baseUrl(db: string) {

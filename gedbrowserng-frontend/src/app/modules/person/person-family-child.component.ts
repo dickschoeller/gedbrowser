@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 import { ApiAttribute, ApiPerson } from '../../models';
-import { PersonService, NewPersonLinkService } from '../../services';
+import { PersonService } from '../../services';
 import { HasFamily } from '../../interfaces/has-family';
 import { HasPerson } from '../../interfaces/has-person';
 import { PersonGetter } from './person-getter';
@@ -29,9 +29,8 @@ export class PersonFamilyChildComponent extends PersonGetter
   @Input() index: number;
   person: ApiPerson;
 
-  constructor(newPersonLinkService: NewPersonLinkService,
-    personService: PersonService) {
-    super(newPersonLinkService, personService);
+  constructor(personService: PersonService) {
+    super(personService);
     this.famMemberType = 'children';
   }
 

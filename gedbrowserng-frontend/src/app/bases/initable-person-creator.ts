@@ -1,14 +1,14 @@
-import {OnInit, OnChanges} from '@angular/core';
+import { OnInit, OnChanges } from '@angular/core';
 
-import {NewPersonHelper} from '../utils';
-import {NewPersonLinkService} from '../services';
-import {PersonCreator} from './person-creator';
+import { NewPersonHelper } from '../utils';
+import { PersonService } from '../services';
+import { PersonCreator } from './person-creator';
 
 export abstract class InitablePersonCreator extends PersonCreator implements OnInit, OnChanges {
   nph = new NewPersonHelper();
 
-  constructor(public newPersonLinkService: NewPersonLinkService) {
-    super(newPersonLinkService);
+  constructor(public personService: PersonService) {
+    super(personService);
   }
 
   ngOnInit(): void {

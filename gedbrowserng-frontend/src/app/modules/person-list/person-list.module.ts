@@ -3,16 +3,20 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
-import { DataViewModule } from 'primeng/dataview';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { ComponentsModule } from '../../components';
 
 import { PersonListPageComponent } from './person-list-page.component';
 import { PersonListComponent } from './person-list.component';
-import { PersonListItemComponent } from './person-list-item.component';
 import { PersonListResolverService } from './person-list-resolver.service';
 
 const personRouting: ModuleWithProviders = RouterModule.forChild([
@@ -31,16 +35,20 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
     CommonModule,
 
     MatButtonModule,
+    MatCardModule,
     MatIconModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSortModule,
+    MatTableModule,
     MatTooltipModule,
-
-    DataViewModule,
+    MatToolbarModule,
 
     ComponentsModule,
   ],
   declarations: [
     PersonListComponent,
-    PersonListItemComponent,
     PersonListPageComponent
   ],
   providers: [

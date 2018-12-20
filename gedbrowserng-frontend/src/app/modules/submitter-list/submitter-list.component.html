@@ -1,17 +1,50 @@
 <app-main-layout [dataset]="dataset">
-  <p-dataView [value]="submitters" [style]="{'min-width':'500px'}" [paginator]="true" [rows]="30"
-      paginatorPosition="both" pageLinks="10" [rowsPerPageOptions]="[10, 30, 100, 10000]"
-      [alwaysShowPaginator]="false">
-    <p-header><span>Submitter List</span>
-      <span class="bump-out">
-        <button mat-icon-button matTooltip="New submitter" color="primary" (click)="openCreateSubmitterDialog()">
-          <mat-icon matListIcon>add_box</mat-icon></button>
-      </span>
-    </p-header>
-    <ng-template let-submitter pTemplate="listItem">
-      <div class="main-list">
-        <app-submitter-list-item [parent]="this" [submitter]="submitter" [dataset]="dataset"></app-submitter-list-item>
+  <mat-card>
+    <mat-card-title><mat-icon matListIcon>contacts</mat-icon> Submitters</mat-card-title>
+    <mat-card-content>
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <mat-card class="inner-card">
+            <mat-card-title>
+              <mat-toolbar>
+                <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+                <span class="example-fill-remaining-space"></span>
+                <span>
+                  <button (click)="openCreateSubmitterDialog()" mat-icon-button color="primary"
+                      matTooltip="Add submitter"><mat-icon>add_box</mat-icon></button>
+                </span>
+              </mat-toolbar>
+            </mat-card-title>
+                <mat-table #table [dataSource]="datasource" matSort>
+                  <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Submitter </mat-header-cell>
+                    <mat-cell *matCellDef="let submitter" (click)="navigate(submitter.string)" style="cursor: pointer;">{{ submitter.name }}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="string">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                    <mat-cell *matCellDef="let submitter" (click)="navigate(submitter.string)" style="cursor: pointer;">[{{ submitter.string }}]</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="delete">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+                    <mat-cell *matCellDef="let submitter">
+                      <span class="hidden">
+                        <button mat-icon-button matTooltip="Delete submitter" color="warn" (click)="delete(submitter)">
+                        <mat-icon matListIcon>delete</mat-icon></button>
+                      </span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row class="parent" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-paginator #paginator [pageSize]="15" [pageSizeOptions]="pagesizeoptions()"
+                    [showFirstLastButtons]="true">
+                </mat-paginator>
+          </mat-card>
+        </div>
       </div>
-    </ng-template>
-  </p-dataView>
+    </mat-card-content>
+  </mat-card>
 </app-main-layout>

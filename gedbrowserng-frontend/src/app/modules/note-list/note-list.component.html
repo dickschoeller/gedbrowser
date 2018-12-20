@@ -1,17 +1,50 @@
 <app-main-layout [dataset]="dataset">
-  <p-dataView [value]="notes" [style]="{'min-width':'500px'}" [paginator]="true" [rows]="30"
-      paginatorPosition="both" pageLinks="10" [rowsPerPageOptions]="[10, 30, 100, 10000]"
-      [alwaysShowPaginator]="false">
-    <p-header><span>Note List</span>
-      <span class="bump-out">
-        <button mat-icon-button matTooltip="New note" color="primary" (click)="openCreateNoteDialog()">
-          <mat-icon matListIcon>note_add</mat-icon></button>
-      </span>
-    </p-header>
-    <ng-template let-note pTemplate="listItem">
-      <div class="main-list">
-        <app-note-list-item [parent]="this" [note]="note" [dataset]="dataset"></app-note-list-item>
+  <mat-card>
+    <mat-card-title><mat-icon matListIcon>comment</mat-icon> Notes</mat-card-title>
+    <mat-card-content>
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <mat-card class="inner-card">
+            <mat-card-title>
+              <mat-toolbar>
+                <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+                <span class="example-fill-remaining-space"></span>
+                <span>
+                  <button (click)="openCreateNoteDialog()" mat-icon-button color="primary"
+                      matTooltip="Add note"><mat-icon>add_comment</mat-icon></button>
+                </span>
+              </mat-toolbar>
+            </mat-card-title>
+                <mat-table #table [dataSource]="datasource" matSort>
+                  <ng-container matColumnDef="tail">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Note </mat-header-cell>
+                    <mat-cell *matCellDef="let note" (click)="navigate(note.string)" style="cursor: pointer;">{{ note.tail.substr(0,80).replace('\n',' ') }}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="string">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                    <mat-cell *matCellDef="let note" (click)="navigate(note.string)" style="cursor: pointer;">[{{ note.string }}]</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="delete">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+                    <mat-cell *matCellDef="let note">
+                      <span class="hidden">
+                        <button mat-icon-button matTooltip="Delete note" color="warn" (click)="delete(note)">
+                        <mat-icon matListIcon>delete</mat-icon></button>
+                      </span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row class="parent" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-paginator #paginator [pageSize]="15" [pageSizeOptions]="pagesizeoptions()"
+                    [showFirstLastButtons]="true">
+                </mat-paginator>
+          </mat-card>
+        </div>
       </div>
-    </ng-template>
-  </p-dataView>
+    </mat-card-content>
+  </mat-card>
 </app-main-layout>

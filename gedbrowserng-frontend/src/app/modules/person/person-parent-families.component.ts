@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { InitablePersonCreator } from '../../bases';
 import { HasLifespan, HasPerson, Saveable, RefreshPerson } from '../../interfaces';
 import { ApiAttribute, ApiPerson, ApiFamily, LinkPersonDialogData } from '../../models';
-import { PersonService, NewPersonLinkService } from '../../services';
+import { PersonService } from '../../services';
 import { UrlBuilder } from '../../utils';
 
 @Component({
@@ -23,9 +23,8 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator
     return this.person.surname;
   }
 
-  constructor(private personService: PersonService,
-    newPersonLinkService: NewPersonLinkService) {
-    super(newPersonLinkService);
+  constructor(public personService: PersonService) {
+    super(personService);
   }
 
   init(): void {

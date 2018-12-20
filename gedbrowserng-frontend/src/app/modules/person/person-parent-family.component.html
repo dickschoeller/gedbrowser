@@ -11,7 +11,7 @@
               (emitOK)="createPerson($event)"></app-new-person>
           <app-link-person
               [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
-              (emitOK)="linkParent($event)"></app-link-person>
+              (emitOK)="linkPerson($event)"></app-link-person>
         </span>
       </mat-toolbar-row>
       <mat-toolbar-row *ngIf="family?.spouses.length == 0">
@@ -20,7 +20,7 @@
               (emitOK)="createPerson($event)"></app-new-person>
           <app-link-person
               [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
-              (emitOK)="linkParent($event)"></app-link-person>
+              (emitOK)="linkPerson($event)"></app-link-person>
       </mat-toolbar-row>
     </mat-toolbar>
   </mat-card-title>
