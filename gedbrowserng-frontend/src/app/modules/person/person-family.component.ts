@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData, AttributeDialogData, SelectItem } from '../../models';
 import { FamilyService, PersonService } from '../../services';

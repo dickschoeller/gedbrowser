@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import {ApiFamily} from '../models';
+import { ApiFamily } from '../models';
 
-import {ApiService} from './api-service';
-import {ServiceBase} from './service-base';
+import { ApiService } from './api-service';
+import { ServiceBase } from './service-base';
 
 /**
  * Service for obtaining family objects.

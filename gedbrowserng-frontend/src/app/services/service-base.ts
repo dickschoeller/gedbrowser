@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-
-import { ApiObject } from '../models';
+import { Observable } from 'rxjs';
 
 import { ApiService } from './api-service';
+import { ApiObject } from '../models';
 import { UrlBuilder } from '../utils/urlbuilder';
 
 @Injectable()

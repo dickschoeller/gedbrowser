@@ -31,7 +31,7 @@ export class LinkPersonComponent {
         data: { dataset: this.dataset, titleString: this.label, multi: this.multi }
       });
 
-    dialogRef.afterOpen().subscribe(() => {
+    dialogRef.afterOpened().subscribe(() => {
       this.dataset = dialogRef.componentInstance.data.dataset;
       this.lph.onLinkChildDialogOpen(dialogRef.componentInstance, this.parent);
     });

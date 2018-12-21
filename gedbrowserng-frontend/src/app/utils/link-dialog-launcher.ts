@@ -14,7 +14,7 @@ export class LinkDialogLauncher {
   public static openDialog(that: any, title: string, lh: LinkDialogActions) {
     const dialogRef = LinkDialogLauncher.open(that, title);
 
-    dialogRef.afterOpen().subscribe(() => {
+    dialogRef.afterOpened().subscribe(() => {
       lh.onOpen(that.service, dialogRef.componentInstance, that.parent.attributes);
     });
 
