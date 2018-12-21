@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { saveAs } from 'file-saver/FileSaver';
-
-import { SaveService } from './services';
 
 @Component({
   selector: 'app-root',

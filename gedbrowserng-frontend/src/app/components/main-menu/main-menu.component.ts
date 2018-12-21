@@ -1,7 +1,4 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { saveAs } from 'file-saver/FileSaver';
-
-import { SaveService, DatasetsService } from '../../services';
 
 @Component({
   selector: 'app-main-menu',
@@ -13,9 +10,7 @@ export class MainMenuComponent implements OnInit, OnChanges {
   @Output() emitToggle = new EventEmitter();
   title: string;
 
-  constructor(
-    private datasetService: DatasetsService,
-    private saveService: SaveService) { }
+  constructor() { }
 
   ngOnInit() {
     this.init();

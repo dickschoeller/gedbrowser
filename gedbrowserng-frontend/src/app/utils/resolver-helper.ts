@@ -1,5 +1,5 @@
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 export class ResolverHelper<T> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot, service): Observable<T> {

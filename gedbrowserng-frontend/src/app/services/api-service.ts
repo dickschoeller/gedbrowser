@@ -1,6 +1,6 @@
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
-import {ApiObject} from '../models';
+import { ApiObject } from '../models';
 
 /**
  * Standard CRUD operations for our API.
