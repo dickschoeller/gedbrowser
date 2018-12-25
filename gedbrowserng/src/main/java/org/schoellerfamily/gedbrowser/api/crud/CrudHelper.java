@@ -21,7 +21,8 @@ public class CrudHelper {
         if (sex(person, "F")) {
             return new ApiAttribute("wife", person.getString());
         }
-        return new ApiAttribute("spouse", person.getString());
+        // TODO This should really be "spouse" but not supported everywhere
+        return new ApiAttribute("husband", person.getString());
     }
 
     /**

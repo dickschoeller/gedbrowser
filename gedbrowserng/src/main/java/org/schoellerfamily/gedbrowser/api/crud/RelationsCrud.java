@@ -119,9 +119,20 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
      */
     private ApiAttribute findFamsAttribute(final ApiFamily family,
             final ApiPerson person) {
+        final String fid = family.getString();
+        return findFamsAttribute(fid, person);
+    }
+
+
+    /**
+     * @param fid the family that should be pointed to by fams
+     * @param person the person we are searching
+     * @return the fams attribute
+     */
+    protected ApiAttribute findFamsAttribute(final String fid,
+            final ApiPerson person) {
         for (final ApiAttribute fams : person.getFams()) {
-            if (fams.getString().equals(family.getString())) {
-                person.getFams().remove(fams);
+            if (fams.getString().equals(fid)) {
                 return fams;
             }
         }
@@ -137,6 +148,16 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
     protected final ApiPerson crudUpdate(final String db,
             final ApiFamily newFamily, final ApiPerson... newPersons) {
         familyCrud().updateOne(db, newFamily.getString(), newFamily);
+        return crudUpdate(db, newPersons);
+    }
+
+    /**
+     * @param db the name of the db to update
+     * @param newPersons the persons linked to the family
+     * @return the person
+     */
+    protected final ApiPerson crudUpdate(final String db,
+            final ApiPerson... newPersons) {
         ApiPerson person = null;
         for (final ApiPerson newPerson : newPersons) {
             person = personCrud()
