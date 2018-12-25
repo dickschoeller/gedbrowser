@@ -61,6 +61,7 @@ export class SideMenuComponent implements OnInit, OnChanges {
       this.uploadService.uploadGedFile(value).subscribe(
         (result) => {
           this.filesControl.setValue(values);
+          this.init();
         },
         (error) => {
           alert('Error, unable to upload ' + value.name);
