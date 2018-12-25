@@ -5,10 +5,6 @@ import java.util.List;
 import org.schoellerfamily.gedbrowser.api.crud.SubmitterCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,24 +21,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
-public class SubmittersController {
-    /** */
-    @Autowired
-    private transient GedDocumentFileLoader loader;
-
-    /** */
-    @Autowired
-    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
-
-    /** */
-    @Autowired
-    private transient RepositoryManagerMongo repositoryManager;
-
+public class SubmittersController extends CrudInvoker {
     /**
      * @return the CRUD object for manipulating submitters
      */
     private SubmitterCrud submitterCrud() {
-        return new SubmitterCrud(loader, toDocConverter, repositoryManager);
+        return new SubmitterCrud(getLoader(), getConverter(), getManager());
     }
 
     /**

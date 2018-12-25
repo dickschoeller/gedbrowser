@@ -13,6 +13,8 @@ export class UrlBuilder {
   baseUrl(): string {
     if (this.db === '') {
       return '/gedbrowserng/v1/dbs';
+    } else if (this.db === undefined) {
+      return '/gedbrowserng/v1';
     }
     return '/gedbrowserng/v1/dbs/' + this.db;
   }

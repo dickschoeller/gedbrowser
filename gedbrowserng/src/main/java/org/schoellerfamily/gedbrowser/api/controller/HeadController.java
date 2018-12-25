@@ -2,10 +2,6 @@ package org.schoellerfamily.gedbrowser.api.controller;
 
 import org.schoellerfamily.gedbrowser.api.crud.HeadCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
-import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,24 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
-public class HeadController {
-    /** */
-    @Autowired
-    private transient GedDocumentFileLoader loader;
-
-    /** */
-    @Autowired
-    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
-
-    /** */
-    @Autowired
-    private transient RepositoryManagerMongo repositoryManager;
-
+public class HeadController extends CrudInvoker {
     /**
      * @return the CRUD object for manipulating the DB header
      */
     private HeadCrud headCrud() {
-        return new HeadCrud(loader, toDocConverter, repositoryManager);
+        return new HeadCrud(getLoader(), getConverter(), getManager());
     }
 
     /**

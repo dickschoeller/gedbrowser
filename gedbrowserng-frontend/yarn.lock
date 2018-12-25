@@ -198,6 +198,12 @@
   dependencies:
     tslib "^1.9.0"
 
+"@iplab/ngx-file-upload@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@iplab/ngx-file-upload/-/ngx-file-upload-1.1.3.tgz#13d48cc357d6ef5dd7eab63c51ba0e447a495066"
+  dependencies:
+    tslib "^1.9.0"
+
 "@ngtools/webpack@7.1.4":
   version "7.1.4"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-7.1.4.tgz#632ece6ed8e05fe743554cc935be36a653376f01"
