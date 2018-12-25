@@ -63,9 +63,7 @@ export class SideMenuComponent implements OnInit, OnChanges {
           this.filesControl.setValue(values);
         },
         (error) => {
-          alert('error unable to upload ' + value.name + '\n'
-            + 'error: ' + JSON.stringify(error)
-          );
+          alert('Error, unable to upload ' + value.name);
           this.filesControl.setValue(values);
         }
       );

@@ -39,28 +39,37 @@ public final class FileSystemStorageService implements StorageService {
      */
     @Override
     public void store(final MultipartFile file) {
+        final String filename = validateFile(file);
         final Path rootLocation = Paths.get(this.gedbrowserHome);
-        final String filename = StringUtils
-                .cleanPath(file.getOriginalFilename());
-        try {
-            if (file.isEmpty()) {
-                throw new StorageException(
-                        "Failed to store empty file " + filename);
-            }
-            if (filename.contains("..")) {
-                // This is a security check
-                throw new StorageException(
-                        "Cannot store file with relative path outside current"
-                        + " directory "
-                        + filename);
-            }
-            try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, rootLocation.resolve(filename),
+        try (InputStream inputStream = file.getInputStream()) {
+            Files.copy(inputStream, rootLocation.resolve(filename),
                     StandardCopyOption.REPLACE_EXISTING);
-            }
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
+    }
+
+    /**
+     * Extract the filename and validate it.
+     *
+     * @param file the input file
+     * @return the filename
+     */
+    private String validateFile(final MultipartFile file) {
+        final String filename = StringUtils
+                .cleanPath(file.getOriginalFilename());
+        if (file.isEmpty()) {
+            throw new StorageException(
+                    "Failed to store empty file " + filename);
+        }
+        if (filename.contains("..")) {
+            // This is a security check
+            throw new StorageException(
+                    "Cannot store file with relative path outside current"
+                    + " directory "
+                    + filename);
+        }
+        return filename;
     }
 
     /**
