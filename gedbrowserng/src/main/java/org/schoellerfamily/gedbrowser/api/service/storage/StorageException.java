@@ -12,7 +12,7 @@ public class StorageException extends RuntimeException {
      *
      * @param message the message string associated with the exception
      */
-    public StorageException(String message) {
+    public StorageException(final String message) {
         super(message);
     }
 
@@ -22,7 +22,7 @@ public class StorageException extends RuntimeException {
      * @param message the message string associated with the exception
      * @param cause the originating exception
      */
-    public StorageException(String message, Throwable cause) {
+    public StorageException(final String message, final Throwable cause) {
         super(message, cause);
     }
 }

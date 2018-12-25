@@ -28,11 +28,10 @@ public final class FileSystemStorageService implements StorageService {
 
     /**
      * Constructor.
-     *
-     * @param properties holder for the configuration properties
      */
     @Autowired
     public FileSystemStorageService() {
+        // Intentionally empty
     }
 
     /**
@@ -41,23 +40,25 @@ public final class FileSystemStorageService implements StorageService {
     @Override
     public void store(final MultipartFile file) {
         final Path rootLocation = Paths.get(this.gedbrowserHome);
-        final String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        final String filename = StringUtils
+                .cleanPath(file.getOriginalFilename());
         try {
             if (file.isEmpty()) {
-                throw new StorageException("Failed to store empty file " + filename);
+                throw new StorageException(
+                        "Failed to store empty file " + filename);
             }
             if (filename.contains("..")) {
                 // This is a security check
                 throw new StorageException(
-                        "Cannot store file with relative path outside current directory "
-                                + filename);
+                        "Cannot store file with relative path outside current"
+                        + " directory "
+                        + filename);
             }
             try (InputStream inputStream = file.getInputStream()) {
                 Files.copy(inputStream, rootLocation.resolve(filename),
                     StandardCopyOption.REPLACE_EXISTING);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
     }
@@ -70,8 +71,7 @@ public final class FileSystemStorageService implements StorageService {
         final Path rootLocation = Paths.get(this.gedbrowserHome);
         try {
             Files.createDirectories(rootLocation);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new StorageException("Could not initialize storage", e);
         }
     }

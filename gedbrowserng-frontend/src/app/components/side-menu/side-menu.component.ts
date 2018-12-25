@@ -32,31 +32,7 @@ export class SideMenuComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.init();
-    this.fileUploadControl.setListVisibility(true);
-    this.filesControl.valueChanges.subscribe((values: File[]) => {
-      if (values.length === 0) {
-        return;
-      }
-      const length = values.length;
-      const value: File = values.shift();
-      if (value.type !== 'ged' && value.type !== 'application/x-gedcom') {
-        alert('won\'t upload ' + value.name + '. unsupported file type: ' + value.type);
-        this.filesControl.setValue(values);
-        return;
-      }
-      this.uploadService.uploadGedFile(value).subscribe(
-        (result) => {
-          alert('done uploading ' + value.name);
-          this.filesControl.setValue(values);
-        },
-        (error) => {
-          alert('error unable to upload ' + value.name + '\n'
-            + 'error: ' + JSON.stringify(error)
-          );
-          this.filesControl.setValue(values);
-        }
-      );
-    });
+    this.initFileUpload();
   }
 
   ngOnChanges() {
@@ -68,6 +44,32 @@ export class SideMenuComponent implements OnInit, OnChanges {
       (results: Array<string>) => { this.setupItems(results); }
     );
     this.title = 'gedbrowserng - ' + this.dataset;
+  }
+
+  private initFileUpload(): void {
+    this.fileUploadControl.setListVisibility(true);
+    this.filesControl.valueChanges.subscribe((values: File[]) => {
+      if (values.length === 0) {
+        return;
+      }
+      const value: File = values.shift();
+      if (value.type !== 'ged' && value.type !== 'application/x-gedcom') {
+        alert('won\'t upload ' + value.name + '. unsupported file type.');
+        this.filesControl.setValue(values);
+        return;
+      }
+      this.uploadService.uploadGedFile(value).subscribe(
+        (result) => {
+          this.filesControl.setValue(values);
+        },
+        (error) => {
+          alert('error unable to upload ' + value.name + '\n'
+            + 'error: ' + JSON.stringify(error)
+          );
+          this.filesControl.setValue(values);
+        }
+      );
+    });
   }
 
   setupItems(dbs: Array<string>): void {

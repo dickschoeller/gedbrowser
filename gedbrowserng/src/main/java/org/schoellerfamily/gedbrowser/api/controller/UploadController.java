@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 /**
  * @author Dick Schoeller
  */
@@ -51,17 +49,26 @@ public class UploadController {
         return new HeadCrud(loader, toDocConverter, repositoryManager);
     }
 
-    @RequestMapping(value = "/v1/upload", method = RequestMethod.POST, consumes= "multipart/form-data")
+    /**
+     * Controller for uploading new GEDCOM files.
+     *
+     * @param file the file being sent
+     * @return the head object for that file
+     */
+    @RequestMapping(value = "/v1/upload",
+            method = RequestMethod.POST,
+            consumes = "multipart/form-data")
     @ResponseBody
-    public final ApiHead upload(@RequestParam("file") MultipartFile file)
-            throws JsonProcessingException {
+    public final ApiHead upload(
+            @RequestParam("file") final MultipartFile file) {
         if (file == null) {
             logger.info("in file upload: file is null");
             return null;
         }
         logger.info("in file upload: " + file.getOriginalFilename());
         storageService.store(file);
-        final String name = file.getOriginalFilename().replaceAll("\\.ged", "");
+        final String name =
+                file.getOriginalFilename().replaceAll("\\.ged", "");
         return headCrud().readHead(name);
     }
 }
