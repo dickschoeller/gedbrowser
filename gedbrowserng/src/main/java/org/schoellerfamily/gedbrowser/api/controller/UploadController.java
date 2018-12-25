@@ -5,9 +5,6 @@ import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.crud.HeadCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
 import org.schoellerfamily.gedbrowser.api.service.storage.StorageService;
-import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,20 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
-public class UploadController {
+public class UploadController extends CrudInvoker {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
-    /** */
-    @Autowired
-    private transient GedDocumentFileLoader loader;
-
-    /** */
-    @Autowired
-    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
-
-    /** */
-    @Autowired
-    private transient RepositoryManagerMongo repositoryManager;
 
     /** */
     @Autowired
@@ -46,7 +32,7 @@ public class UploadController {
      * @return the CRUD object for manipulating the DB header
      */
     private HeadCrud headCrud() {
-        return new HeadCrud(loader, toDocConverter, repositoryManager);
+        return new HeadCrud(getLoader(), getConverter(), getManager());
     }
 
     /**
