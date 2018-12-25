@@ -1,1 +1,32 @@
+form {
+  padding-left: 20px;
+  padding-right: 20px; 
+}
 
+file-upload.has-files div.placeholder {
+  display: none;
+}
+
+file-upload.has-files mat-icon.placeholder {
+  display: none;
+}
+
+file-upload {
+  outline-color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+file-upload.ng-touched.ng-valid {
+  outline-color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+file-upload.ng-touched.ng-valid.has-files {
+  outline-color: #00ff00 !important;
+  background-color: #f4fdf4 !important;
+}
+
+file-upload.ng-touched.ng-invalid.has-files {
+  outline-color: #ff0000 !important;
+  background-color: #fdf4f4 !important;
+}

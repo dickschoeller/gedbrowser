@@ -1,7 +1,9 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { saveAs } from 'file-saver';
+import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload';
 
-import { SaveService, DatasetsService } from '../../services';
+import { SaveService, DatasetsService, UploadService } from '../../services';
 
 @Component({
   selector: 'app-side-menu',
@@ -12,13 +14,49 @@ export class SideMenuComponent implements OnInit, OnChanges {
   @Input() dataset: string;
   title: string;
   dbs: Array<string> = new Array<string>();
+  public fileUploadControl = new FileUploadControl();
+  public readonly filesControl = new FormControl(
+    null,
+    [
+      FileUploadValidators.accept(['.ged']),
+      FileUploadValidators.filesLimit(1)
+    ]
+  );
+  public readonly uploadForm = new FormGroup({ files: this.filesControl });
 
   constructor(
     private datasetService: DatasetsService,
-    private saveService: SaveService) { }
+    private saveService: SaveService,
+    private uploadService: UploadService,
+  ) { }
 
   ngOnInit() {
     this.init();
+    this.fileUploadControl.setListVisibility(true);
+    this.filesControl.valueChanges.subscribe((values: File[]) => {
+      if (values.length === 0) {
+        return;
+      }
+      const length = values.length;
+      const value: File = values.shift();
+      if (value.type !== 'ged' && value.type !== 'application/x-gedcom') {
+        alert('won\'t upload ' + value.name + '. unsupported file type: ' + value.type);
+        this.filesControl.setValue(values);
+        return;
+      }
+      this.uploadService.uploadGedFile(value).subscribe(
+        (result) => {
+          alert('done uploading ' + value.name);
+          this.filesControl.setValue(values);
+        },
+        (error) => {
+          alert('error unable to upload ' + value.name + '\n'
+            + 'error: ' + JSON.stringify(error)
+          );
+          this.filesControl.setValue(values);
+        }
+      );
+    });
   }
 
   ngOnChanges() {
@@ -55,5 +93,4 @@ export class SideMenuComponent implements OnInit, OnChanges {
     const blob = new Blob([response], {type: 'text/plain'});
     saveAs(blob, this.dataset + '.ged');
   }
-
 }

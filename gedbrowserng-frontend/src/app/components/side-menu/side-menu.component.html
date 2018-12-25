@@ -4,9 +4,22 @@
   <a mat-list-item [routerLink]="['/' + dataset + '/notes']"><mat-icon matListIcon>comment</mat-icon> Notes</a>
   <a mat-list-item [routerLink]="['/' + dataset + '/sources']"><mat-icon matListIcon>collections_bookmark</mat-icon> Sources</a>
   <a mat-list-item [routerLink]="['/' + dataset + '/submitters']"><mat-icon matListIcon>contacts</mat-icon> Submitters</a>
-  <a mat-list-item (click)="saveFile()"><mat-icon matListIcon>save_alt</mat-icon> Save</a>
+  <a mat-list-item (click)="saveFile()"><mat-icon matListIcon>cloud_download</mat-icon> Save</a>
   <a mat-list-item [matMenuTriggerFor]="dbPickerMenu"><mat-icon matListIcon>folder_open</mat-icon> Pick dataset</a>
+  <!-- mat-list-item>
+    <wa-mat-file-upload #fileUpload="waMatFileUpload" placeholder="File"
+        [multiple]="false" [preview]="true" [selectedText]="selectedText"
+        (change)="onFileChange(fileUpload)">Upload GEDCOM file</wa-mat-file-upload>
+  </mat-list-item -->
 </mat-nav-list>
+<form [formGroup]="uploadForm">
+  <file-upload formControlName="files">
+    <ng-template #placeholder>
+      <mat-icon matListIcon class="placeholder">cloud_upload</mat-icon>
+      <div class="placeholder">Upload GEDCOM file</div>
+    </ng-template>
+  </file-upload>
+</form>
 <mat-menu #dbPickerMenu="matMenu" [overlapTrigger]="false">
   <button *ngFor="let db of dbs" mat-menu-item [routerLink]="['/' + db + '/persons']">{{ db }}</button>
 </mat-menu>

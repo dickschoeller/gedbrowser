@@ -9,3 +9,4 @@ export * from './submitter.service';
 export * from './service-base';
 export * from './link-person-helper';
 export * from './crud-related';
+export * from './upload.service';

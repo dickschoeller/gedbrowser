@@ -21,6 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { OrderListModule } from 'primeng/orderlist';
 
 import { NgxGalleryModule } from 'ngx-gallery';
+import { FileUploadModule } from '@iplab/ngx-file-upload';
 
 import {
   AttributeListComponent,
@@ -70,7 +71,8 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
 
     OrderListModule,
 
-    NgxGalleryModule
+    NgxGalleryModule,
+    FileUploadModule,
   ],
   declarations: [
     AttributeListComponent,

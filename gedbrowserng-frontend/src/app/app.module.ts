@@ -39,7 +39,8 @@ import {
   PersonService,
   SourceService,
   SubmitterService,
-  SaveService
+  SaveService,
+  UploadService,
 } from './services';
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
@@ -86,7 +87,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     PersonService,
     SourceService,
     SubmitterService,
-    SaveService
+    SaveService,
+    UploadService,
   ],
   bootstrap: [AppComponent]
 })
