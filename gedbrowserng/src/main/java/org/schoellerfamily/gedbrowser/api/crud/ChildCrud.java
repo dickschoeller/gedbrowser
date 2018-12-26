@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.api.crud;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
@@ -76,10 +77,14 @@ public final class ChildCrud extends RelationsCrud {
             final ApiPerson person) {
         logger.info(
                 "Entering create child in db: " + db + " for family " + id);
-        final ApiFamily family = readFamily(db, id);
-        final ApiPerson newPerson = createPerson(db, person);
-        addChildToFamily(family, newPerson);
-        return crudUpdate(db, family, newPerson);
+        try {
+            final ApiFamily family = readFamily(db, id);
+            final ApiPerson newPerson = createPerson(db, person);
+            addChildToFamily(family, newPerson);
+            return crudUpdate(db, family, newPerson);
+        } catch (ObjectNotFoundException e) {
+            return null;
+        }
     }
 
     /**
@@ -94,10 +99,14 @@ public final class ChildCrud extends RelationsCrud {
                 "Entering link person: " + person.getString()
                 + " in db: " + db
                 + " as a child of family: " + id);
-        final ApiFamily family = readFamily(db, id);
         final ApiPerson foundPerson = readPerson(db, person.getString());
-        addChildToFamily(family, foundPerson);
-        return crudUpdate(db, family, foundPerson);
+        try {
+            final ApiFamily family = readFamily(db, id);
+            addChildToFamily(family, foundPerson);
+            return crudUpdate(db, family, foundPerson);
+        } catch (ObjectNotFoundException e) {
+            return foundPerson;
+        }
     }
 
     /**
@@ -110,21 +119,25 @@ public final class ChildCrud extends RelationsCrud {
             final String child) {
         logger.info("Entering unlink person: " + child
                 + " in db: " + db + " from family: " + id);
-        final ApiFamily family = readFamily(db, id);
         final ApiPerson childPerson = readPerson(db, child);
-        removeChildFromFamily(family, childPerson);
-        removeFamilyFromChild(family, childPerson);
-        return crudUpdate(db, family, childPerson);
+        removeFamilyFromChild(id, childPerson);
+        try {
+            final ApiFamily family = readFamily(db, id);
+            removeChildFromFamily(family, child);
+            return crudUpdate(db, family, childPerson);
+        } catch (ObjectNotFoundException e) {
+            return crudUpdate(db, childPerson);
+        }
     }
 
     /**
-     * @param family the family referred to by the famc link to remove
+     * @param fid the family referred to by the famc link to remove
      * @param person the person to remove from
      */
-    private void removeFamilyFromChild(final ApiFamily family,
+    protected void removeFamilyFromChild(final String fid,
             final ApiPerson person) {
         for (final ApiAttribute famc : person.getFamc()) {
-            if (famc.getString().equals(family.getString())) {
+            if (famc.getString().equals(fid)) {
                 person.getFamc().remove(famc);
                 break;
             }
@@ -133,12 +146,12 @@ public final class ChildCrud extends RelationsCrud {
 
     /**
      * @param family the family to remove from
-     * @param person the person who referred to by the child link to remove
+     * @param cid the person who referred to by the child link to remove
      */
     private void removeChildFromFamily(final ApiFamily family,
-            final ApiPerson person) {
+            final String cid) {
         for (final ApiAttribute childlink : family.getChildren()) {
-            if (childlink.getString().equals(person.getString())) {
+            if (childlink.getString().equals(cid)) {
                 family.getChildren().remove(childlink);
                 break;
             }
