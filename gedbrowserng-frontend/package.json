@@ -29,6 +29,7 @@
     "@angular/router": "7.1.4",
     "@iplab/ngx-file-upload": "^1.1.8",
     "core-js": "^2.6.2",
+    "diff": "^4.0.1",
     "file-saver": "^2.0.0",
     "font-awesome": "^4.7.0",
     "ngx-gallery": "^5.9.1",
