@@ -19,16 +19,12 @@
         </mat-toolbar>
       </mat-card-title>
       <mat-card-content>
-        <p-orderList [value]="children" dragdrop="true" dragdropScope="children"
-            [responsive]="false" [listStyle]="{'height':'100%','width':'100%','border':'0'}"
-            (onReorder)="save()">
-          <ng-template let-child let-i="index" pTemplate="item">
-            <div>
-              <app-person-family-child [child]="child" [index]="i"
-                  [parent]="this" [dataset]="dataset"></app-person-family-child>
-            </div>
-          </ng-template>
-        </p-orderList>
+        <div cdkDropList class="child-list" (cdkDropListDropped)="drop($event)">
+          <div class="child-box" *ngFor="let child of children; let i=index" cdkDrag>
+            <app-person-family-child [child]="child" [index]="i"
+                [parent]="this" [dataset]="dataset"></app-person-family-child>
+          </div>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>

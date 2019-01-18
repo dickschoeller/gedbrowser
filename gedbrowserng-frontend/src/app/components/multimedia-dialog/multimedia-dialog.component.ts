@@ -1,4 +1,6 @@
 import { Component, Inject, Input, EventEmitter, OnInit, Output } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { MultimediaDialogData, MultimediaFileData, MultimediaFormat, MultimediaSourceType } from '../../models';
@@ -40,5 +42,9 @@ export class MultimediaDialogComponent implements OnInit {
       sourceTypes.push({ label: sourceTypeString, value: MultimediaSourceType[sourceTypeString] });
     }
     return sourceTypes;
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.data.files, event.previousIndex, event.currentIndex);
   }
 }

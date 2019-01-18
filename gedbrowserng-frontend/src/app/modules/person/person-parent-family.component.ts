@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
 import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData } from '../../models';
@@ -62,5 +63,11 @@ export class PersonParentFamilyComponent extends InitablePersonCreator
 
   spouseLinked(): boolean {
     return false;
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.family.children, event.previousIndex, event.currentIndex);
+    this.service.put(this.dataset, this.family)
+      .subscribe((family: ApiFamily) => { this.family = family; } );
   }
 }

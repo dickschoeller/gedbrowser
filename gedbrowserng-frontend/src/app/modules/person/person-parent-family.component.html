@@ -35,15 +35,12 @@
         </mat-toolbar>
       </mat-card-title>
       <mat-card-content>
-      <p-orderList [value]="family?.children" dragdrop="false"
-          [responsive]="false" [listStyle]="{'height':'100%','width':'100%','border':'0'}">
-        <ng-template let-child let-i="index" pTemplate="item">
-          <div>
+        <div cdkDropList class="child-list" (cdkDropListDropped)="drop($event)">
+          <div class="child-box" *ngFor="let child of family?.children; let i=index" cdkDrag>
             <app-person-family-child [dataset]="dataset" [parent]="this"
                 [child]="child" [index]="i"></app-person-family-child>
           </div>
-        </ng-template>
-      </p-orderList>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>
