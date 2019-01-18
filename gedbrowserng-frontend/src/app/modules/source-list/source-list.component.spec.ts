@@ -2,8 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 
-import {DataViewModule} from 'primeng/dataview';
-
 import {SourceService} from '../../services';
 import {SourceListComponent} from './source-list.component';
 import {SourceListItemComponent} from './source-list-item.component';
@@ -21,7 +19,6 @@ describe('SourceListComponent', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,
-        DataViewModule,
       ],
       providers: [
         SourceService,

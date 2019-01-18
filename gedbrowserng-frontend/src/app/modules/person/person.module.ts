@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -9,9 +11,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
-import { DataViewModule } from 'primeng/dataview';
-import { OrderListModule } from 'primeng/orderlist';
 
 import { ComponentsModule } from '../../components';
 
@@ -46,6 +45,8 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
     personRouting,
     CommonModule,
 
+    DragDropModule,
+
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
@@ -53,9 +54,6 @@ const personRouting: ModuleWithProviders = RouterModule.forChild([
     MatIconModule,
     MatToolbarModule,
     MatTooltipModule,
-
-    DataViewModule,
-    OrderListModule,
 
     ComponentsModule,
   ],

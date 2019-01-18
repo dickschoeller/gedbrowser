@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
 import { HasLifespan, HasPerson, Saveable, RefreshPerson } from '../../interfaces';
@@ -63,6 +64,11 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator
 
   lifespanDateString(): string {
     return this.parent.lifespanDateString();
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.person.famc, event.previousIndex, event.currentIndex);
+    this.parent.save();
   }
 
   save(): void {

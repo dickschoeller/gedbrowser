@@ -2,8 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 
-import {DataViewModule} from 'primeng/dataview';
-
 import {PersonService} from '../../services';
 import {PersonListComponent} from './person-list.component';
 import {PersonListItemComponent} from './person-list-item.component';
@@ -22,7 +20,6 @@ describe('PersonListComponent', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,
-        DataViewModule,
       ],
       providers: [
         PersonService,

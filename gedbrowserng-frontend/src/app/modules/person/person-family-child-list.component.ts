@@ -4,8 +4,9 @@ import { InitablePersonCreator } from '../../bases';
 import { HasFamily, HasPerson, RefreshPerson, Saveable, LinkCheck } from '../../interfaces';
 import { LinkPersonDialogComponent } from '../../components';
 import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData } from '../../models';
-import { PersonService } from '../../services';
+import { PersonService, FamilyService } from '../../services';
 import { UrlBuilder, LifespanUtil } from '../../utils';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 /**
  * Implements a child list within a family on a person page.
@@ -28,7 +29,8 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator
   sex = 'M';
   surname: string;
 
-  constructor(public personService: PersonService) {
+  constructor(public personService: PersonService,
+    public familyService: FamilyService) {
     super(personService);
   }
 
@@ -99,8 +101,13 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator
     return this.family.string;
   }
 
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.family.children, event.previousIndex, event.currentIndex);
+    this.familyService.put(this.dataset, this.family)
+      .subscribe((family: ApiFamily) => { this.children = family.children; } );
+  }
+
   save(): void {
     this.parent.save();
   }
 }
-

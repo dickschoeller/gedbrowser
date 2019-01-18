@@ -2,8 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 
-import {DataViewModule} from 'primeng/dataview';
-
 import {SubmitterService} from '../../services';
 import {SubmitterListComponent} from './submitter-list.component';
 import {SubmitterListItemComponent} from './submitter-list-item.component';
@@ -20,7 +18,6 @@ describe('SubmitterListComponent', () => {
       ],
       imports: [
         RouterTestingModule,
-        DataViewModule,
         HttpClientTestingModule,
       ],
       providers: [

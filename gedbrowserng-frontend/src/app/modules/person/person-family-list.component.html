@@ -1,18 +1,15 @@
 <mat-card>
-  <mat-card-title>Spouses and Children</mat-card-title>
+  <mat-card-title>
+    <mat-toolbar>Spouses and Children</mat-toolbar>
+  </mat-card-title>
   <mat-card-content>
-    <p-orderList [value]="person.fams" [responsive]="false"
-        [listStyle]="{'height':'100%','width':'100%','border':'0'}"
-        (onReorder)="parent.save()"
-        dragdrop="true" dragdropScope="person.fams">
-      <ng-template let-attribute let-i="index" pTemplate="item">
-        <div>
-          <app-person-family
-              [dataset]="dataset" [parent]="this" [string]="attribute.string"
-              [index]="i"></app-person-family>
-        </div>
-      </ng-template>
-    </p-orderList>
+    <div cdkDropList class="family-list" (cdkDropListDropped)="drop($event)">
+      <div class="family-box" *ngFor="let attribute of person.fams; let i=index" cdkDrag>
+        <app-person-family
+            [dataset]="dataset" [parent]="this" [string]="attribute.string"
+            [index]="i"></app-person-family>
+      </div>
+    </div>
     <app-new-person
         [sex]="partnerSex" [surname]="partnerSurname" [label]="'Create spouse'"
         color="primary"
