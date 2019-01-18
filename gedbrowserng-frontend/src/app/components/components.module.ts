@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 import { MatButtonModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -17,8 +19,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
-import { OrderListModule } from 'primeng/orderlist';
 
 import { NgxGalleryModule } from 'ngx-gallery';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
@@ -56,6 +56,8 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
     RouterModule,
     BrowserModule,
 
+    DragDropModule,
+
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
@@ -68,8 +70,6 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
     MatSidenavModule,
     MatToolbarModule,
     MatTooltipModule,
-
-    OrderListModule,
 
     NgxGalleryModule,
     FileUploadModule,

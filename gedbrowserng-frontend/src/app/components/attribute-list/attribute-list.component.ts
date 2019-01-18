@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
 import { AttributeDialogHelper, AttributeAnalyzer } from '../../utils';
@@ -58,6 +59,11 @@ export class AttributeListComponent extends HasAttributeDialog implements OnInit
 
   options(): Array<SelectItem> {
     return this.parent.options();
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.attributes, event.previousIndex, event.currentIndex);
+    this.save();
   }
 
   save() {

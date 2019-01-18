@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
 import { HasPerson, LinkCheck, Saveable } from '../../interfaces';
@@ -108,5 +109,10 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
   createChild(data: NewPersonDialogData): void {
     this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
     this.createPerson(data);
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.person.fams, event.previousIndex, event.currentIndex);
+    this.parent.save();
   }
 }
