@@ -1,0 +1,15 @@
+gedbrowser:
+    home: /var/lib/gedbrowser
+
+server:
+    servlet-path: /gedbrowserng
+
+spring:
+  profiles:
+    active: test
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+  
+jwt:
+  expires_in: 8

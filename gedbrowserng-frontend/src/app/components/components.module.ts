@@ -46,6 +46,7 @@ import { SourceButtonComponent } from './source-button';
 import { SubmitterButtonComponent } from './submitter-button';
 import { SideMenuComponent } from './side-menu';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { UserButtonsComponent } from './user-buttons/user-buttons.component';
 
 @NgModule({
   imports: [
@@ -96,6 +97,7 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
     SubmitterButtonComponent,
     SideMenuComponent,
     MainLayoutComponent,
+    UserButtonsComponent,
   ],
   exports: [
     AttributeListComponent,

@@ -1,20 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
   <parent>
+    <groupId>org.schoellerfamily.gedbrowser</groupId>
     <artifactId>gedbrowser-top</artifactId>
     <version>1.3.0-M6-SNAPSHOT</version>
-    <groupId>org.schoellerfamily.gedbrowser</groupId>
     <relativePath>..</relativePath>
   </parent>
 
-  <artifactId>gedbrowserng</artifactId>
+  <artifactId>gedbrowser-security</artifactId>
+  <name>gedbrowser-security</name>
+
+  <packaging>jar</packaging>
+  <url>http://www.schoellerfamily.org</url>
+
+  <organization>
+     <name>Schoeller Family Software</name>
+     <url>http://www.schoellerfamily.org</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+
+  <scm>
+    <url>https://github.com/dickschoeller/gedbrowser</url>
+  </scm>
 
   <properties>
-    <main.basedir>${project.parent.basedir}</main.basedir>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <start-class>org.schoellerfamily.gedbrowser.api.Application</start-class>
     <config-dir>${project.parent.basedir}/config</config-dir>
   </properties>
 
@@ -33,75 +51,43 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.schoellerfamily.gedbrowser</groupId>
-      <artifactId>gedbrowser-datamodel</artifactId>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.schoellerfamily.gedbrowser</groupId>
-      <artifactId>gedbrowser-reader</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.schoellerfamily.gedbrowser</groupId>
-      <artifactId>gedbrowser-writer</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.schoellerfamily.gedbrowser</groupId>
-      <artifactId>gedbrowser-mongo-dao</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.schoellerfamily.gedbrowser</groupId>
-      <artifactId>gedbrowser-dao</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.schoellerfamily.gedbrowser</groupId>
-      <artifactId>gedbrowserng-frontend</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.schoellerfamily.gedbrowser</groupId>
-      <artifactId>gedbrowser-security</artifactId>
-    </dependency>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-actuator</artifactId>
+      <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-actuator-docs</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.data</groupId>
-      <artifactId>spring-data-mongodb</artifactId>
+      <groupId>com.fasterxml.jackson.jaxrs</groupId>
+      <artifactId>jackson-jaxrs-json-provider</artifactId>
     </dependency>
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+      <version>0.9.0</version>
     </dependency>
-
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <scope>runtime</scope>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
     </dependency>
 
-    <!-- Testing dependencies -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -118,8 +104,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>spring-mock-mvc</artifactId>
+      <version>3.0.5</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -207,46 +194,8 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <mainClass>${start-class}</mainClass>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>com.spotify</groupId>
-        <artifactId>docker-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>build</id>
-            <phase>install</phase>
-            <goals>
-              <goal>build</goal>
-            </goals>
-            <configuration>
-              <imageTags>
-                <imageTag>snapshot</imageTag>
-              </imageTags>
-              <imageName>${docker.image.prefix}/${project.artifactId}:${docker.image.tag}</imageName>
-              <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-              <skipDockerBuild>false</skipDockerBuild>
-              <resources>
-                <resource>
-                  <targetPath>/</targetPath>
-                  <directory>${project.build.directory}</directory>
-                  <include>${project.build.finalName}.jar</include>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-        </executions>
+        <groupId>org.eluder.coveralls</groupId>
+        <artifactId>coveralls-maven-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
