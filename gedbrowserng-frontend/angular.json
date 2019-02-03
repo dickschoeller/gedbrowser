@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "frontend": {
+    "gedbrowserng-frontend": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -48,18 +48,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "frontend:build"
+            "browserTarget": "gedbrowserng-frontend:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "frontend:build:production"
+              "browserTarget": "gedbrowserng-frontend:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "frontend:build"
+            "browserTarget": "gedbrowserng-frontend:build"
           }
         },
         "test": {
@@ -93,7 +93,7 @@
         }
       }
     },
-    "frontend-e2e": {
+    "gedbrowserng-frontend-e2e": {
       "root": "e2e",
       "sourceRoot": "e2e",
       "projectType": "application",
@@ -102,7 +102,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "frontend:serve"
+            "devServerTarget": "gedbrowserng-frontend:serve"
           }
         },
         "lint": {
@@ -119,7 +119,7 @@
       }
     }
   },
-  "defaultProject": "frontend",
+  "defaultProject": "gedbrowserng-frontend",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

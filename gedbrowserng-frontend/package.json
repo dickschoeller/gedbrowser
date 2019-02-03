@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod --output-path ui-src/META-INF/resources",
+    "build": "ng build --prod --optimization=false --outputPath=ui-src/META-INF/resources",
     "test": "ng test --watch false",
     "test-watch": "ng test",
     "lint": "ng lint",
@@ -21,6 +21,7 @@
     "@angular/common": "7.1.4",
     "@angular/compiler": "7.1.4",
     "@angular/core": "7.1.4",
+    "@angular/flex-layout": "^7.0.0-beta.23",
     "@angular/forms": "7.1.4",
     "@angular/http": "7.1.4",
     "@angular/material": "^7.2.2",

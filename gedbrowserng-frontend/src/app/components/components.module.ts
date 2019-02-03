@@ -47,6 +47,7 @@ import { SubmitterButtonComponent } from './submitter-button';
 import { SideMenuComponent } from './side-menu';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { UserButtonsComponent } from './user-buttons/user-buttons.component';
+import { AccountMenuComponent } from './account-menu/account-menu.component';
 
 @NgModule({
   imports: [
@@ -98,6 +99,7 @@ import { UserButtonsComponent } from './user-buttons/user-buttons.component';
     SideMenuComponent,
     MainLayoutComponent,
     UserButtonsComponent,
+    AccountMenuComponent,
   ],
   exports: [
     AttributeListComponent,
@@ -121,6 +123,7 @@ import { UserButtonsComponent } from './user-buttons/user-buttons.component';
     SubmitterButtonComponent,
     SideMenuComponent,
     MainLayoutComponent,
+    UserButtonsComponent,
   ]
 })
 

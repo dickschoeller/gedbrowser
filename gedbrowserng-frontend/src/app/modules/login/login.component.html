@@ -1,0 +1,25 @@
+<div class="content">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <mat-card elevation="5" fxFlex>
+      <mat-card-title>{{ title }}</mat-card-title>
+      <mat-card-subtitle>gedbrowserng</mat-card-subtitle>
+
+      <mat-card-content>
+        <p [class]="notification.msgType" *ngIf="notification">{{ notification.msgBody }}</p>
+
+        <form *ngIf="!submitted" [formGroup]="form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+          <mat-form-field>
+            <input matInput formControlName="username" required placeholder="username">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="password" required type="password" placeholder="password">
+          </mat-form-field>
+          <button type="submit" [disabled]="!loginForm.form.valid" mat-raised-button color="primary">Login</button>
+        </form>
+        <br/>
+
+        <mat-spinner *ngIf="submitted" mode="indeterminate"></mat-spinner>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

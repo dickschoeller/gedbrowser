@@ -19,3 +19,4 @@ export * from './new-source-dialog-data';
 export * from './new-submitter-dialog-data';
 export * from './select-item';
 export * from './user.model';
+export * from './display-message';
