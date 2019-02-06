@@ -83,7 +83,11 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             throws IOException, ServletException {
 
         final String authToken = tokenHelper.getToken(request);
-        if (authToken != null && !skipPathRequest(request, pathsToSkip)) {
+        if (authToken == null || skipPathRequest(request, pathsToSkip)) {
+            logger.debug("Going anonymous");
+            SecurityContextHolder.getContext()
+                    .setAuthentication(new AnonAuthentication());
+        } else {
             // get username from token
             try {
                 final String username =
@@ -92,7 +96,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 final UserDetails userDetails =
                         userDetailsService.loadUserByUsername(username);
                 // create authentication
-                TokenBasedAuthentication authentication =
+                final TokenBasedAuthentication authentication =
                         new TokenBasedAuthentication(userDetails);
                 authentication.setToken(authToken);
                 SecurityContextHolder.getContext()
@@ -102,10 +106,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext()
                         .setAuthentication(new AnonAuthentication());
             }
-        } else {
-            logger.debug("Going anonymous");
-            SecurityContextHolder.getContext()
-                    .setAuthentication(new AnonAuthentication());
         }
 
         chain.doFilter(request, response);
@@ -119,11 +119,11 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private boolean skipPathRequest(final HttpServletRequest request,
             final List<String> paths) {
         Assert.notNull(paths, "path cannot be null.");
-        List<RequestMatcher> m =
+        final List<RequestMatcher> m =
                 paths.stream()
                 .map(path -> new AntPathRequestMatcher(path))
                 .collect(Collectors.toList());
-        OrRequestMatcher matchers = new OrRequestMatcher(m);
+        final OrRequestMatcher matchers = new OrRequestMatcher(m);
         return matchers.matches(request);
     }
 }

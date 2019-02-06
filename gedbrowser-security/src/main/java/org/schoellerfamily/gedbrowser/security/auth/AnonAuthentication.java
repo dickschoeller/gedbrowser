@@ -9,6 +9,9 @@ public final class AnonAuthentication extends AbstractAuthenticationToken {
     /** */
     private static final long serialVersionUID = 1L;
 
+    /** */
+    private static final int HASH_ROOT = 7;
+
     /**
      * Constructor.
      */
@@ -45,8 +48,7 @@ public final class AnonAuthentication extends AbstractAuthenticationToken {
      */
     @Override
     public int hashCode() {
-        final int hash = 7;
-        return hash;
+        return HASH_ROOT;
     }
 
     /**
@@ -60,9 +62,6 @@ public final class AnonAuthentication extends AbstractAuthenticationToken {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        return true;
+        return (getClass() == obj.getClass());
     }
 }
