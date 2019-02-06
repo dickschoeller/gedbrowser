@@ -24,6 +24,7 @@ engines:
     config: config/checkstyle.xml
   pmd:
     enabled: true
+    channel: "beta"
     config: config/pmd-5.xml
 ratings:
   paths:
