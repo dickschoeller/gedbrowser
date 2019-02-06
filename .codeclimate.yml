@@ -26,7 +26,7 @@ engines:
   pmd:
     enabled: true
     channel: "beta"
-    config: config/pmd-5.xml
+    config: config/pmd.xml
 ratings:
   paths:
   - "**.css"
