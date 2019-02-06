@@ -24,8 +24,8 @@ public class AuthorityServiceImpl implements AuthorityService {
     @Override
     public final List<Authority> findById(final Long id) {
 //      Authority auth = this.authorityRepository.findOne(id);
-      List<Authority> auths = new ArrayList<>();
-      Authority auth = new Authority();
+      final List<Authority> auths = new ArrayList<>();
+      final Authority auth = new Authority();
       auth.setUserRoleName(UserRoleName.values()[id.intValue()]);
       auths.add(auth);
       return auths;
@@ -40,7 +40,7 @@ public class AuthorityServiceImpl implements AuthorityService {
         final Authority authority = new Authority();
         authority.setUserRoleName(UserRoleName.valueOf(name));
 
-        List<Authority> authorities = new ArrayList<>();
+        final List<Authority> authorities = new ArrayList<>();
         authorities.add(authority);
         return authorities;
     }

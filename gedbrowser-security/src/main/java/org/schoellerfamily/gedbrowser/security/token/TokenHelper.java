@@ -126,15 +126,13 @@ public final class TokenHelper {
      * @return the new token
      */
     public String refreshToken(final String token) {
-        String refreshedToken;
         try {
             final Claims claims = getClaimsFromToken(token);
             claims.setIssuedAt(generateCurrentDate());
-            refreshedToken = generateToken(claims);
+            return generateToken(claims);
         } catch (Exception e) {
-            refreshedToken = null;
+            return null;
         }
-        return refreshedToken;
     }
 
     /**
@@ -168,7 +166,7 @@ public final class TokenHelper {
         /**
          *  Getting the token from Cookie store
          */
-        Cookie authCookie = getCookieValueByName(request, authCookieName);
+        final Cookie authCookie = getCookieValueByName(request, authCookieName);
         if (authCookie != null) {
             return authCookie.getValue();
         }
@@ -176,7 +174,7 @@ public final class TokenHelper {
          *  Getting the token from Authentication header
          *  e.g Bearer your_token
          */
-        String authHeader = request.getHeader(authHeaderName);
+        final String authHeader = request.getHeader(authHeaderName);
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             final int len = "Bearer ".length();
             return authHeader.substring(len);

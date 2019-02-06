@@ -41,6 +41,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${gedbrowser.home:/var/lib/gedbrowser}")
     private transient String gedbrowserHome;
 
+    /** */
+    @Autowired
+    private CustomUserDetailsService jwtUserDetailsService;
+
+    /** */
+    @Autowired
+    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
+    /** */
+    @Autowired
+    private LogoutSuccess logoutSuccess;
+
+    /** */
+    @Autowired
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
+
+    /** */
+    @Autowired
+    private AuthenticationFailureHandler authenticationFailureHandler;
+
     /**
      * This is the bean to get the definitions of users that we need
      * throughout the application.
@@ -96,18 +116,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             } };
     }
 
-    /** */
-    @Autowired
-    private CustomUserDetailsService jwtUserDetailsService;
-
-    /** */
-    @Autowired
-    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
-
-    /** */
-    @Autowired
-    private LogoutSuccess logoutSuccess;
-
     /**
      * @param authenticationManagerBuilder the builder
      * @throws Exception if something goes wrong
@@ -119,14 +127,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationManagerBuilder.userDetailsService(jwtUserDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
-
-    /** */
-    @Autowired
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
-
-    /** */
-    @Autowired
-    private AuthenticationFailureHandler authenticationFailureHandler;
 
     /**
      * {@inheritDoc}

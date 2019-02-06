@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public final void resetCredentials() {
-        for (User user : users) {
+        for (final User user : users) {
             user.setPassword(passwordEncoder.encode("123"));
             users.add(user);
         }
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public final List<User> findAll() throws AccessDeniedException {
       final List<User> result = new ArrayList<>();
-      for (User user: users) {
+      for (final User user: users) {
           result.add(user);
       }
       return result;

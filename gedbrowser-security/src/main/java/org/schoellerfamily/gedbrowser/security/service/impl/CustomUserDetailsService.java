@@ -62,18 +62,18 @@ public class CustomUserDetailsService implements UserDetailsService {
                 SecurityContextHolder.getContext().getAuthentication();
         final String username = currentUser.getName();
 
-        if (authenticationManager != null) {
+        if (authenticationManager == null) {
+            logger.debug(
+                    "No authentication manager set. can't change Password!");
+
+            return;
+        } else {
             logger.debug("Re-authenticating user '" + username
                     + "' for password change request.");
 
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username,
                             oldPassword));
-        } else {
-            logger.debug(
-                    "No authentication manager set. can't change Password!");
-
-            return;
         }
 
         logger.debug("Changing password for user '" + username + "'");

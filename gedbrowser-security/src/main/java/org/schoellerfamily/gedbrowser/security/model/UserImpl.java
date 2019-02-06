@@ -192,11 +192,19 @@ public final class UserImpl implements User {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         final List<GrantedAuthority> authorities = new ArrayList<>();
-        for (UserRoleName role : roles) {
-            final Authority authority = new Authority();
-            authority.setUserRoleName(role);
-            authorities.add(authority);
+        for (final UserRoleName role : roles) {
+            authorities.add(createAuthority(role));
         }
         return authorities;
+    }
+
+    /**
+     * @param role the role to map to an authority
+     * @return the authority
+     */
+    private Authority createAuthority(final UserRoleName role) {
+        final Authority authority = new Authority();
+        authority.setUserRoleName(role);
+        return authority;
     }
 }
