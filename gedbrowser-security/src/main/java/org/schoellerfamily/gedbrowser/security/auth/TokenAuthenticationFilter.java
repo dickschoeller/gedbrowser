@@ -88,27 +88,34 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext()
                     .setAuthentication(new AnonAuthentication());
         } else {
-            // get username from token
-            try {
-                final String username =
-                        tokenHelper.getUsernameFromToken(authToken);
-                // get user
-                final UserDetails userDetails =
-                        userDetailsService.loadUserByUsername(username);
-                // create authentication
-                final TokenBasedAuthentication authentication =
-                        new TokenBasedAuthentication(userDetails);
-                authentication.setToken(authToken);
-                SecurityContextHolder.getContext()
-                        .setAuthentication(authentication);
-            } catch (Exception e) {
-                logger.debug("Caught exception, going anonymous", e);
-                SecurityContextHolder.getContext()
-                        .setAuthentication(new AnonAuthentication());
-            }
+            processToken(authToken);
         }
 
         chain.doFilter(request, response);
+    }
+
+    /**
+     * @param authToken the token
+     */
+    private void processToken(final String authToken) {
+        // get username from token
+        try {
+            final String username =
+                    tokenHelper.getUsernameFromToken(authToken);
+            // get user
+            final UserDetails userDetails =
+                    userDetailsService.loadUserByUsername(username);
+            // create authentication
+            final TokenBasedAuthentication authentication =
+                    new TokenBasedAuthentication(userDetails);
+            authentication.setToken(authToken);
+            SecurityContextHolder.getContext()
+                    .setAuthentication(authentication);
+        } catch (Exception e) {
+            logger.debug("Caught exception, going anonymous", e);
+            SecurityContextHolder.getContext()
+                    .setAuthentication(new AnonAuthentication());
+        }
     }
 
     /**

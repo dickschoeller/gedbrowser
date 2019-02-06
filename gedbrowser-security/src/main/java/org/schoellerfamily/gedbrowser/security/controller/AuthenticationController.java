@@ -56,23 +56,33 @@ public class AuthenticationController {
         final boolean canTokenBeRefreshed =
                 tokenHelper.canTokenBeRefreshed(authToken);
         if (authToken != null && canTokenBeRefreshed) {
-            // TODO check user password last update
-            final String refreshedToken = tokenHelper.refreshToken(authToken);
-
-            final Cookie authCookie = new Cookie(cookie, (refreshedToken));
-            authCookie.setPath("/");
-            authCookie.setHttpOnly(true);
-            authCookie.setMaxAge(expiresIn);
-            // Add cookie to response
-            response.addCookie(authCookie);
-
-            final UserTokenState userTokenState = new UserTokenStateImpl(
-                    refreshedToken, expiresIn);
-            return ResponseEntity.ok(userTokenState);
+            return doRefresh(response, authToken);
         } else {
             final UserTokenState userTokenState = new UserTokenStateImpl();
             return ResponseEntity.accepted().body(userTokenState);
         }
+    }
+
+    /**
+     * @param response the http response
+     * @param authToken the authentication token
+     * @return the response
+     */
+    private ResponseEntity<?> doRefresh(final HttpServletResponse response,
+            final String authToken) {
+        // TODO check user password last update
+        final String refreshedToken = tokenHelper.refreshToken(authToken);
+
+        final Cookie authCookie = new Cookie(cookie, (refreshedToken));
+        authCookie.setPath("/");
+        authCookie.setHttpOnly(true);
+        authCookie.setMaxAge(expiresIn);
+        // Add cookie to response
+        response.addCookie(authCookie);
+
+        final UserTokenState userTokenState = new UserTokenStateImpl(
+                refreshedToken, expiresIn);
+        return ResponseEntity.ok(userTokenState);
     }
 
     /**
