@@ -105,7 +105,7 @@ public class UserControllerTest {
     @Test
     public final void testWhoami2()
             throws RestClientException, URISyntaxException {
-        logger.info("Test whomai");
+        logger.info("Test whomai 2");
         final HttpHeaders headers = loginHelper.buildHeaders(
                 loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
         final User user = userHelper.whoami(headers);
@@ -121,7 +121,7 @@ public class UserControllerTest {
     @Test
     public final void testWhoamiNotLoggedIn()
             throws RestClientException, URISyntaxException {
-        logger.info("Test whomai");
+        logger.info("Test whomai not logged in");
         final ResponseEntity<? extends User> response = userHelper
                 .whoamiResponse(new HttpHeaders());
         assertEquals("Should have failed", HttpStatus.FORBIDDEN,
@@ -135,7 +135,7 @@ public class UserControllerTest {
     @Test
     public final void testGetUserGuest()
             throws RestClientException, URISyntaxException {
-        logger.info("Test get user");
+        logger.info("Test get user guest");
         final HttpHeaders headers =
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final User user = userHelper.getUser(headers, "guest");
@@ -151,7 +151,7 @@ public class UserControllerTest {
     @Test
     public final void testGetUserGuestNotLoggedIn()
             throws RestClientException, URISyntaxException {
-        logger.info("Test get user");
+        logger.info("Test get user guest, not logged in");
         final HttpHeaders headers = new HttpHeaders();
         final ResponseEntity<? extends User> response =
                 userHelper.getUserResponse(headers, "guest");
@@ -165,6 +165,7 @@ public class UserControllerTest {
     @Test
     public final void testRefresh()
             throws RestClientException, URISyntaxException {
+        logger.info("Test refresh");
         final HttpHeaders headers =
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         ResponseEntity<String> response = refresh(headers);
@@ -179,6 +180,7 @@ public class UserControllerTest {
     @Test
     public final void testExpiredRefresh() throws RestClientException,
             URISyntaxException, InterruptedException {
+        logger.info("Test expired refresh");
         final HttpHeaders headers =
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final int threeSeconds = 10000;
@@ -196,7 +198,7 @@ public class UserControllerTest {
     @Test
     public final void testGetUserSchoeller() throws RestClientException,
             URISyntaxException, UnsupportedEncodingException {
-        logger.info("Test get user");
+        logger.info("Test get user schoeller");
         final HttpHeaders headers =
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         String requestName =
@@ -234,7 +236,7 @@ public class UserControllerTest {
     @Test
     public final void testGetUsersNotAdmin() throws RestClientException,
             URISyntaxException, UnsupportedEncodingException {
-        logger.info("Test get users");
+        logger.info("Test get users not admin");
         final HttpHeaders headers =
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final String usersString = userHelper.getUsersString(headers);
@@ -249,6 +251,7 @@ public class UserControllerTest {
      */
     @Test
     public void testSignup() throws RestClientException, URISyntaxException {
+        logger.info("Test signup");
         final String url = baseUrl() + "signup";
         final HttpHeaders headers = buildHeaders();
         final UserRequest userRequest = new UserRequest();
@@ -268,6 +271,7 @@ public class UserControllerTest {
     @Test
     public void testSignupExistingUser()
             throws RestClientException, URISyntaxException {
+        logger.info("Test signup existing user");
         final String url = baseUrl() + "signup";
         final HttpHeaders headers = buildHeaders();
         final UserRequest userRequest = new UserRequest();
