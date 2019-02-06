@@ -24,7 +24,7 @@ engines:
     config: config/checkstyle.xml
   pmd:
     enabled: true
-    config: config/pmd.xml
+    config: config/pmd-5.xml
 ratings:
   paths:
   - "**.css"
