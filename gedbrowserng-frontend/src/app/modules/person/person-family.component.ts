@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData, AttributeDialogData, SelectItem } from '../../models';
-import { FamilyService, PersonService } from '../../services';
+import { FamilyService, PersonService, UserService } from '../../services';
 import { UrlBuilder, NewPersonHelper } from '../../utils';
 import { InitablePersonCreator } from '../../bases';
 import { HasAttributeList, HasPerson, RefreshPerson, LinkCheck, Saveable } from '../../interfaces';
@@ -19,123 +19,128 @@ import { HasAttributeList, HasPerson, RefreshPerson, LinkCheck, Saveable } from 
  *  family the family identified by the ID
  */
 @Component({
-  selector: 'app-person-family',
-  templateUrl: './person-family.component.html',
-  styleUrls: ['./person-family.component.css']
+    selector: 'app-person-family',
+    templateUrl: './person-family.component.html',
+    styleUrls: ['./person-family.component.css']
 })
 export class PersonFamilyComponent extends InitablePersonCreator
-  implements HasAttributeList, LinkCheck, Saveable {
-  @Input() dataset: string;
-  @Input() parent: HasPerson & RefreshPerson;
-  @Input() string: string;
-  @Input() index: number;
-  get person(): ApiPerson {
-    return this.parent.person;
-  }
+    implements HasAttributeList, LinkCheck, Saveable {
+    @Input() dataset: string;
+    @Input() parent: HasPerson & RefreshPerson;
+    @Input() string: string;
+    @Input() index: number;
+    get person(): ApiPerson {
+        return this.parent.person;
+    }
 
-  family: ApiFamily;
-  attributes: Array<ApiAttribute>;
-  initialized = false;
-  _options: Array<SelectItem> = [
-      {value: 'Annulment', label: 'Annulment'},
-      {value: 'Census', label: 'Census'},
-      {value: 'Children Count', label: 'Children Count'},
-      {value: 'Divorce', label: 'Divorce'},
-      {value: 'Divorce Filed', label: 'Divorce Filed'},
-      {value: 'Event', label: 'Event'},
-      {value: 'Engagement', label: 'Engagement'},
-      {value: 'Marriage', label: 'Marriage'},
-      {value: 'Marriage Bann', label: 'Marriage Bann'},
-      {value: 'Marriage Contract', label: 'Marriage Contract'},
-      {value: 'Marriage License', label: 'Marriage License'},
-      {value: 'Marriage Settlement', label: 'Marriage Settlement'},
-      {value: 'Note', label: 'Note'},
-      {value: 'Multimedia', label: 'Multimedia'},
-      {value: 'Residence', label: 'Residence'},
-      {value: 'Restriction', label: 'Restriction'},
-      {value: 'Sealing Child', label: 'Sealing Child'},
-      {value: 'Sealing Spouse', label: 'Sealing Spouse'},
-      {value: 'Source', label: 'Source'},
+    family: ApiFamily;
+    attributes: Array<ApiAttribute>;
+    initialized = false;
+    _options: Array<SelectItem> = [
+        { value: 'Annulment', label: 'Annulment' },
+        { value: 'Census', label: 'Census' },
+        { value: 'Children Count', label: 'Children Count' },
+        { value: 'Divorce', label: 'Divorce' },
+        { value: 'Divorce Filed', label: 'Divorce Filed' },
+        { value: 'Event', label: 'Event' },
+        { value: 'Engagement', label: 'Engagement' },
+        { value: 'Marriage', label: 'Marriage' },
+        { value: 'Marriage Bann', label: 'Marriage Bann' },
+        { value: 'Marriage Contract', label: 'Marriage Contract' },
+        { value: 'Marriage License', label: 'Marriage License' },
+        { value: 'Marriage Settlement', label: 'Marriage Settlement' },
+        { value: 'Note', label: 'Note' },
+        { value: 'Multimedia', label: 'Multimedia' },
+        { value: 'Residence', label: 'Residence' },
+        { value: 'Restriction', label: 'Restriction' },
+        { value: 'Sealing Child', label: 'Sealing Child' },
+        { value: 'Sealing Spouse', label: 'Sealing Spouse' },
+        { value: 'Source', label: 'Source' },
     ];
-  sex: string;
-  surname: string;
+    sex: string;
+    surname: string;
 
-  constructor(private familyService: FamilyService,
-    public personService: PersonService) {
-    super(personService);
-  }
-
-  init(): void {
-    this.familyService.getOne(this.dataset, this.string)
-      .subscribe((family: ApiFamily) => {
-        this.family = family;
-        this.attributes = family.attributes;
-        this.initialized = true;
-    });
-    this.surname = '?';
-    this.sex = NewPersonHelper.guessPartnerSex(this.person);
-  }
-
-  familyString() {
-    return this.family.string;
-  }
-
-  spouse(): ApiAttribute {
-    if (this.family === undefined) {
-      return null;
+    constructor(private familyService: FamilyService,
+        public personService: PersonService,
+        private userService: UserService) {
+        super(personService);
     }
-    for (const attribute of this.family.spouses) {
-      if (!this.isThisPerson(attribute)) {
-        return attribute;
-      }
+
+    init(): void {
+        this.familyService.getOne(this.dataset, this.string)
+            .subscribe((family: ApiFamily) => {
+                this.family = family;
+                this.attributes = family.attributes;
+                this.initialized = true;
+            });
+        this.surname = '?';
+        this.sex = NewPersonHelper.guessPartnerSex(this.person);
     }
-    return null;
-  }
 
-  private isThisPerson(attribute: ApiAttribute): boolean {
-    return (attribute.string === this.person.string);
-  }
+    familyString() {
+        return this.family.string;
+    }
 
-  personUB(): UrlBuilder {
-      return new UrlBuilder(this.dataset, 'families', 'spouses');
-  }
+    spouse(): ApiAttribute {
+        if (this.family === undefined) {
+            return null;
+        }
+        for (const attribute of this.family.spouses) {
+            if (!this.isThisPerson(attribute)) {
+                return attribute;
+            }
+        }
+        return null;
+    }
 
-  personAnchor() {
-    return this.family.string;
-  }
+    private isThisPerson(attribute: ApiAttribute): boolean {
+        return (attribute.string === this.person.string);
+    }
 
-  refreshPerson() {
-    this.ngOnInit();
-  }
+    personUB(): UrlBuilder {
+        return new UrlBuilder(this.dataset, 'families', 'spouses');
+    }
 
-  save() {
-    this.familyService.put(this.dataset, this.family).subscribe(
-      (data: ApiFamily) => this.family = data);
-  }
+    personAnchor() {
+        return this.family.string;
+    }
 
-  options(): Array<SelectItem> {
-    return this._options;
-  }
+    refreshPerson() {
+        this.ngOnInit();
+    }
 
-  defaultData(): AttributeDialogData {
-    return {
-      insert: true, index: 0, type: 'Marriage', text: '', date: '',
-      place: '', note: '', originalType: '', originalText: '',
-      originalDate: '', originalPlace: '', originalNote: ''
-    };
-  }
+    save() {
+        this.familyService.put(this.dataset, this.family).subscribe(
+            (data: ApiFamily) => this.family = data);
+    }
 
-  unlink(): void {
-    const ub: UrlBuilder = new UrlBuilder(this.dataset, 'families', 'spouses');
-    this.personService.deleteLink(ub, this.family.string, this.person)
-      .subscribe((data: ApiPerson) => { this.parent.refreshPerson(); });
-  }
+    options(): Array<SelectItem> {
+        return this._options;
+    }
 
-  spouseLinked(person: ApiPerson): boolean {
-    return false;
-  }
+    defaultData(): AttributeDialogData {
+        return {
+            insert: true, index: 0, type: 'Marriage', text: '', date: '',
+            place: '', note: '', originalType: '', originalText: '',
+            originalDate: '', originalPlace: '', originalNote: ''
+        };
+    }
 
-  childLinked(person: ApiPerson): boolean {
-    return false;
-  }
+    unlink(): void {
+        const ub: UrlBuilder = new UrlBuilder(this.dataset, 'families', 'spouses');
+        this.personService.deleteLink(ub, this.family.string, this.person)
+            .subscribe((data: ApiPerson) => { this.parent.refreshPerson(); });
+    }
+
+    spouseLinked(person: ApiPerson): boolean {
+        return false;
+    }
+
+    childLinked(person: ApiPerson): boolean {
+        return false;
+    }
+
+    hasSignedIn() {
+        return !!this.userService.currentUser;
+    }
 }

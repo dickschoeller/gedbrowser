@@ -3,7 +3,7 @@
     <a [routerLink]="['/' + dataset + '/persons', person.string]" class="name">{{ person.indexName }} {{ lifespanYearString() }} [{{ person.string }}]</a>
   </span>
   <span class="example-fill-remaining-space"></span>
-  <span class="hidden">
+  <span class="hidden" *ngIf="hasSignedIn()">
     <button mat-icon-button matTooltip="Unlink" color="warn" (click)="unlink()">
       <mat-icon matListIcon>link_off</mat-icon></button>
   </span>

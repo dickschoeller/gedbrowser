@@ -6,7 +6,7 @@
         <mat-toolbar>
           Children
           <span class="example-fill-remaining-space"></span>
-          <span>
+          <span *ngIf="hasSignedIn()">
             <app-new-person
                 [sex]="sex" [surname]="surname" [label]="'Create child'"
                 color="primary"
@@ -19,8 +19,10 @@
         </mat-toolbar>
       </mat-card-title>
       <mat-card-content>
-        <div cdkDropList class="child-list" (cdkDropListDropped)="drop($event)">
-          <div class="child-box" *ngFor="let child of children; let i=index" cdkDrag>
+        <div cdkDropList class="child-list" (cdkDropListDropped)="drop($event)"
+            [cdkDropListDisabled]="!hasSignedIn()">
+          <div cdkDrag class="{{ hasSignedIn() ? 'child-box' : ''"
+              *ngFor="let child of children; let i=index">
             <app-person-family-child [child]="child" [index]="i"
                 [parent]="this" [dataset]="dataset"></app-person-family-child>
           </div>

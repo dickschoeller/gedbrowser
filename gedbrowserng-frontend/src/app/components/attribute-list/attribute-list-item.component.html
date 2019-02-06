@@ -8,7 +8,7 @@
   <app-attribute-list-item-detail-list [dataset]="dataset" [attributes]="attribute?.attributes">
     </app-attribute-list-item-detail-list>
   <span class="example-fill-remaining-space"></span>
-  <span *ngIf="attributeUtil.editable()" class="hidden">
+  <span *ngIf="attributeUtil.editable() && hasSignedIn()" class="hidden">
     <button mat-icon-button matTooltip="Edit" color="primary" (click)="edit()">
       <mat-icon matListIcon>edit</mat-icon></button>
     <app-multimedia-edit-button *ngIf="attributeUtil.multimedia()"

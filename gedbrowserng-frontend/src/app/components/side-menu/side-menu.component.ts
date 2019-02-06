@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { saveAs } from 'file-saver';
 import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload';
 
-import { SaveService, DatasetsService, UploadService } from '../../services';
+import { SaveService, DatasetsService, UploadService, UserService } from '../../services';
 
 @Component({
   selector: 'app-side-menu',
@@ -28,6 +28,7 @@ export class SideMenuComponent implements OnInit, OnChanges {
     private datasetService: DatasetsService,
     private saveService: SaveService,
     private uploadService: UploadService,
+    private userService: UserService,
   ) { }
 
   ngOnInit() {
@@ -94,4 +95,8 @@ export class SideMenuComponent implements OnInit, OnChanges {
     const blob = new Blob([response], {type: 'text/plain'});
     saveAs(blob, this.dataset + '.ged');
   }
+
+    hasSignedIn() {
+        return !!this.userService.currentUser;
+    }
 }

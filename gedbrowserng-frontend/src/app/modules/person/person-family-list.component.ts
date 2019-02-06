@@ -6,7 +6,7 @@ import { HasPerson, LinkCheck, Saveable } from '../../interfaces';
 import { LinkPersonDialogComponent } from '../../components';
 import { ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData, LinkPersonItem } from '../../models';
 import { LifespanUtil, UrlBuilder, NewPersonHelper } from '../../utils';
-import { PersonService } from '../../services';
+import { PersonService, UserService } from '../../services';
 
 /**
  * Implements a the list of families on a person page
@@ -15,104 +15,109 @@ import { PersonService } from '../../services';
  *  person: the person this page is for
  */
 @Component({
-  selector: 'app-person-family-list',
-  templateUrl: './person-family-list.component.html',
-  styleUrls: ['./person-family-list.component.css']
+    selector: 'app-person-family-list',
+    templateUrl: './person-family-list.component.html',
+    styleUrls: ['./person-family-list.component.css']
 })
 export class PersonFamilyListComponent extends InitablePersonCreator implements LinkCheck {
-  @Input() dataset: string;
-  @Input() parent: HasPerson & Saveable;
-  get person(): ApiPerson {
-    return this.parent.person;
-  }
-  partnerSurname: string;
-  childSurname: string;
-  partnerSex: string;
-  childSex = 'M';
-  _ub: UrlBuilder;
-
-  constructor(public personService: PersonService) {
-    super(personService);
-  }
-
-  init() {
-    this.partnerSex = NewPersonHelper.guessPartnerSex(this.person);
-    if (this.partnerSex === 'M') {
-      this.childSurname = '?';
-    } else {
-      this.childSurname = this.person.surname;
+    @Input() dataset: string;
+    @Input() parent: HasPerson & Saveable;
+    get person(): ApiPerson {
+        return this.parent.person;
     }
-    this.partnerSurname = '?';
-  }
+    partnerSurname: string;
+    childSurname: string;
+    partnerSex: string;
+    childSex = 'M';
+    _ub: UrlBuilder;
 
-  personUB(): UrlBuilder {
-    return this._ub;
-  }
-
-  personAnchor(): string {
-    return this.person.string;
-  }
-
-  refreshPerson(): void {
-    this.personService.getOne(this.dataset, this.person.string).subscribe(
-      (person: ApiPerson) => this.updatePerson(person));
-  }
-
-  private updatePerson(person: ApiPerson) {
-    this.parent.person = person;
-  }
-
-  spouseLinked(person: ApiPerson): boolean {
-    return this.person.string === person.string;
-  }
-
-  childLinked(person: ApiPerson): boolean {
-    return false;
-  }
-
-  linkChildren(data: LinkPersonDialogData) {
-    this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
-    const selected: Array<LinkPersonItem> = data.selected.splice(0, 1);
-    this.personService.putLink(this.personUB(), this.personAnchor(), selected[0].person)
-      .subscribe((person: ApiPerson) => {
-        this.linkChildrenToMainPerson(data);
-      });
-  }
-
-  private linkChildrenToMainPerson(data: LinkPersonDialogData) {
-    this.personService.getOne(this.dataset, this.person.string)
-      .subscribe((mainPerson: ApiPerson) => {
-        this.linkRemainingChildren(data, mainPerson);
-      });
-  }
-
-  private linkRemainingChildren(data: LinkPersonDialogData, mainPerson: ApiPerson): void {
-    this.updatePerson(mainPerson);
-    const fams = mainPerson.fams[mainPerson.fams.length - 1];
-    const ub = new UrlBuilder(this.dataset, 'families', 'children');
-    for (const selected of data.selected) {
-      this.personService.putLink(ub, fams.string, selected.person)
-        .subscribe((p: ApiPerson) => { this.refreshPerson(); });
+    constructor(public personService: PersonService,
+        private userService: UserService) {
+        super(personService);
     }
-  }
 
-  linkSpouse(data: LinkPersonDialogData) {
-    this._ub = new UrlBuilder(this.dataset, 'persons', 'spouses');
-    this.linkPerson(data);
-  }
+    init() {
+        this.partnerSex = NewPersonHelper.guessPartnerSex(this.person);
+        if (this.partnerSex === 'M') {
+            this.childSurname = '?';
+        } else {
+            this.childSurname = this.person.surname;
+        }
+        this.partnerSurname = '?';
+    }
 
-  createSpouse(data: NewPersonDialogData): void {
-    this._ub = new UrlBuilder(this.dataset, 'persons', 'spouses');
-    this.createPerson(data);
-  }
+    personUB(): UrlBuilder {
+        return this._ub;
+    }
 
-  createChild(data: NewPersonDialogData): void {
-    this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
-    this.createPerson(data);
-  }
+    personAnchor(): string {
+        return this.person.string;
+    }
 
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.person.fams, event.previousIndex, event.currentIndex);
-    this.parent.save();
-  }
+    refreshPerson(): void {
+        this.personService.getOne(this.dataset, this.person.string).subscribe(
+            (person: ApiPerson) => this.updatePerson(person));
+    }
+
+    private updatePerson(person: ApiPerson) {
+        this.parent.person = person;
+    }
+
+    spouseLinked(person: ApiPerson): boolean {
+        return this.person.string === person.string;
+    }
+
+    childLinked(person: ApiPerson): boolean {
+        return false;
+    }
+
+    linkChildren(data: LinkPersonDialogData) {
+        this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
+        const selected: Array<LinkPersonItem> = data.selected.splice(0, 1);
+        this.personService.putLink(this.personUB(), this.personAnchor(), selected[0].person)
+            .subscribe((person: ApiPerson) => {
+                this.linkChildrenToMainPerson(data);
+            });
+    }
+
+    private linkChildrenToMainPerson(data: LinkPersonDialogData) {
+        this.personService.getOne(this.dataset, this.person.string)
+            .subscribe((mainPerson: ApiPerson) => {
+                this.linkRemainingChildren(data, mainPerson);
+            });
+    }
+
+    private linkRemainingChildren(data: LinkPersonDialogData, mainPerson: ApiPerson): void {
+        this.updatePerson(mainPerson);
+        const fams = mainPerson.fams[mainPerson.fams.length - 1];
+        const ub = new UrlBuilder(this.dataset, 'families', 'children');
+        for (const selected of data.selected) {
+            this.personService.putLink(ub, fams.string, selected.person)
+                .subscribe((p: ApiPerson) => { this.refreshPerson(); });
+        }
+    }
+
+    linkSpouse(data: LinkPersonDialogData) {
+        this._ub = new UrlBuilder(this.dataset, 'persons', 'spouses');
+        this.linkPerson(data);
+    }
+
+    createSpouse(data: NewPersonDialogData): void {
+        this._ub = new UrlBuilder(this.dataset, 'persons', 'spouses');
+        this.createPerson(data);
+    }
+
+    createChild(data: NewPersonDialogData): void {
+        this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
+        this.createPerson(data);
+    }
+
+    drop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.person.fams, event.previousIndex, event.currentIndex);
+        this.parent.save();
+    }
+
+    hasSignedIn() {
+        return !!this.userService.currentUser;
+    }
 }
