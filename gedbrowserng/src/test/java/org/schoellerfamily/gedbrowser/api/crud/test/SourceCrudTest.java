@@ -85,7 +85,8 @@ public class SourceCrudTest {
         then(attributes.get(1).getTail()).isEqualTo("1841 England Census");
         then(attributes.get(2).getType()).isEqualTo("attribute");
         then(attributes.get(2).getString()).isEqualTo("Published");
-        then(attributes.get(2).getTail()).isEqualTo("Provo, UT, USA: The Generations Network, Inc., 2006");
+        then(attributes.get(2).getTail()).isEqualTo(
+                "Provo, UT, USA: The Generations Network, Inc., 2006");
     }
 
     /** */
@@ -96,17 +97,21 @@ public class SourceCrudTest {
         final ApiSource firstSource = list.get(0);
         then(firstSource.getString()).isEqualTo("S2");
         then(firstSource.getImages()).isEmpty();
-        then(firstSource.getTitle()).isEqualTo("Schoeller, Melissa Robinson, birth certificate");
+        then(firstSource.getTitle()).isEqualTo(
+                "Schoeller, Melissa Robinson, birth certificate");
         final List<ApiAttribute> attributes = firstSource.getAttributes();
         then(attributes.get(0).getType()).isEqualTo("attribute");
         then(attributes.get(0).getString()).isEqualTo("Title");
-        then(attributes.get(0).getTail()).isEqualTo("Schoeller, Melissa Robinson, birth certificate");
+        then(attributes.get(0).getTail()).isEqualTo(
+                "Schoeller, Melissa Robinson, birth certificate");
         then(attributes.get(1).getType()).isEqualTo("attribute");
         then(attributes.get(1).getString()).isEqualTo("Abbreviation");
-        then(attributes.get(1).getTail()).isEqualTo("SchoellerMelissaBirthCert");
+        then(attributes.get(1).getTail()).isEqualTo(
+                "SchoellerMelissaBirthCert");
         then(attributes.get(2).getType()).isEqualTo("attribute");
         then(attributes.get(2).getString()).isEqualTo("Note");
-        then(attributes.get(2).getTail()).isEqualTo("We have the original of this document");
+        then(attributes.get(2).getTail()).isEqualTo(
+                "We have the original of this document");
     }
 
     /** */
@@ -116,17 +121,21 @@ public class SourceCrudTest {
         final ApiSource firstSource = crud.readSource("mini-schoeller", "S2");
         then(firstSource.getString()).isEqualTo("S2");
         then(firstSource.getImages()).isEmpty();
-        then(firstSource.getTitle()).isEqualTo("Schoeller, Melissa Robinson, birth certificate");
+        then(firstSource.getTitle()).isEqualTo(
+                "Schoeller, Melissa Robinson, birth certificate");
         final List<ApiAttribute> attributes = firstSource.getAttributes();
         then(attributes.get(0).getType()).isEqualTo("attribute");
         then(attributes.get(0).getString()).isEqualTo("Title");
-        then(attributes.get(0).getTail()).isEqualTo("Schoeller, Melissa Robinson, birth certificate");
+        then(attributes.get(0).getTail()).isEqualTo(
+                "Schoeller, Melissa Robinson, birth certificate");
         then(attributes.get(1).getType()).isEqualTo("attribute");
         then(attributes.get(1).getString()).isEqualTo("Abbreviation");
-        then(attributes.get(1).getTail()).isEqualTo("SchoellerMelissaBirthCert");
+        then(attributes.get(1).getTail()).isEqualTo(
+                "SchoellerMelissaBirthCert");
         then(attributes.get(2).getType()).isEqualTo("attribute");
         then(attributes.get(2).getString()).isEqualTo("Note");
-        then(attributes.get(2).getTail()).isEqualTo("We have the original of this document");
+        then(attributes.get(2).getTail()).isEqualTo(
+                "We have the original of this document");
     }
 
     /** */

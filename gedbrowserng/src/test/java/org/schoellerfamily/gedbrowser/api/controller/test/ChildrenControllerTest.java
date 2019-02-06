@@ -98,8 +98,8 @@ public class ChildrenControllerTest {
         final HttpEntity<ApiPerson> personReq =
                 new HttpEntity<>(secondChild, helper.getHeaders());
         testRestTemplate.put(new URI(familiesUrl + "/children"), personReq);
-        final ResponseEntity<ApiFamily> familyEntity =
-                testRestTemplate.getForEntity(new URI(familiesUrl), ApiFamily.class);
+        final ResponseEntity<ApiFamily> familyEntity = testRestTemplate
+                .getForEntity(new URI(familiesUrl), ApiFamily.class);
         assertEquals("check ID",
                 familyEntity.getBody().getChildren().get(1).getString(),
                 secondChild.getString());
@@ -120,7 +120,8 @@ public class ChildrenControllerTest {
         final HttpEntity<ApiPerson> personReq =
                 new HttpEntity<>(child, headers);
         final ResponseEntity<ApiPerson> childEntity = testRestTemplate.exchange(
-                new URI(helper.getPersonsUrl() + "/" + parent.getString() + "/children"),
+                new URI(helper.getPersonsUrl() + "/" + parent.getString()
+                        + "/children"),
                 HttpMethod.PUT, personReq, ApiPerson.class);
         final ApiPerson gotChild = childEntity.getBody();
         then(gotChild.getString()).isEqualTo(child.getString());
@@ -153,7 +154,13 @@ public class ChildrenControllerTest {
         assertEquals("not in family", 0, gotChild.getFamc().size());
     }
 
-    private ApiPerson createChildOfParent(final ApiPerson parent) throws URISyntaxException {
+    /**
+     * @param parent the parent
+     * @return the child
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    private ApiPerson createChildOfParent(final ApiPerson parent)
+            throws URISyntaxException {
         final String childUrl = helper.getPersonsUrl() + "/"
                 + parent.getString() + "/children";
         logger.info("childUrl: " + childUrl);

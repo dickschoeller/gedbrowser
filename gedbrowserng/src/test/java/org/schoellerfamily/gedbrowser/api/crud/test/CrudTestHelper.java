@@ -19,6 +19,10 @@ public class CrudTestHelper {
     /** */
     private final FamilyCrud familyCrud;
 
+    /**
+     * @param personCrud the person CRUD object
+     * @param familyCrud the family CRUD object
+     */
     CrudTestHelper(final PersonCrud personCrud, final FamilyCrud familyCrud) {
         this.personCrud = personCrud;
         this.familyCrud = familyCrud;
@@ -65,7 +69,7 @@ public class CrudTestHelper {
      * @param famID the ID of the family to read
      * @return the family
      */
-    public ApiFamily readFamily(String famID) {
+    public ApiFamily readFamily(final String famID) {
         return familyCrud.readFamily(getDb(), famID);
     }
 
@@ -74,28 +78,28 @@ public class CrudTestHelper {
      * @return the newly created person
      */
     public ApiPerson createAlexander() {
-        final ApiPerson.Builder builder = new ApiPerson.Builder()
+        final ApiPerson.Builder builder1 = new ApiPerson.Builder()
                 .id("")
                 .add(new ApiAttribute("name", "Alexander/Romanov/", ""))
                 .add(new ApiAttribute("attribute", "Sex", "M"))
                 .surname("Romanov")
                 .indexName("Romanov, Alexander")
                 .build();
-        return new ApiPerson(builder);
+        return new ApiPerson(builder1);
     }
 
     /**
      * @return the newly created person
      */
     public ApiPerson createAlexandra() {
-        final ApiPerson.Builder builder = new ApiPerson.Builder()
+        final ApiPerson.Builder builder1 = new ApiPerson.Builder()
                 .id("")
                 .add(new ApiAttribute("name", "Alexandra/Romanov/", ""))
                 .add(new ApiAttribute("attribute", "Sex", "F"))
                 .surname("Romanov")
                 .indexName("Romanov, Alexandra")
                 .build();
-        return new ApiPerson(builder);
+        return new ApiPerson(builder1);
     }
 
 }

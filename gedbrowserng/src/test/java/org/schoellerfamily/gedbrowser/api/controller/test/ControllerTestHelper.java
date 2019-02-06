@@ -29,8 +29,10 @@ public class ControllerTestHelper {
 
     /**
      * @param port the port for this test
+     * @param testRestTemplate the template for RESTful requests
      */
-    ControllerTestHelper(final int port, final TestRestTemplate testRestTemplate) {
+    ControllerTestHelper(final int port,
+            final TestRestTemplate testRestTemplate) {
         this.testRestTemplate = testRestTemplate;
         baseUrl = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/";
         personsUrl = baseUrl + "persons";
@@ -74,7 +76,8 @@ public class ControllerTestHelper {
      */
     public ApiPerson createPerson() throws URISyntaxException {
         final ApiPerson person = buildPerson();
-        final HttpEntity<ApiPerson> personReq = new HttpEntity<>(person, headers);
+        final HttpEntity<ApiPerson> personReq = new HttpEntity<>(person,
+                headers);
         final ResponseEntity<ApiPerson> personEntity = testRestTemplate
                 .postForEntity(new URI(personsUrl), personReq, ApiPerson.class);
         return personEntity.getBody();
@@ -92,7 +95,8 @@ public class ControllerTestHelper {
      * @return the newly gotten person
      * @throws URISyntaxException if there is a problem with the URL
      */
-    public ApiPerson getPerson(final ApiPerson person) throws URISyntaxException {
+    public ApiPerson getPerson(final ApiPerson person)
+            throws URISyntaxException {
         final ResponseEntity<ApiPerson> entity = testRestTemplate.getForEntity(
                 new URI(personsUrl + "/" + person.getString()),
                 ApiPerson.class);

@@ -35,7 +35,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class SubmissionCrudTest {
     /** Logger. */
@@ -75,9 +75,11 @@ public class SubmissionCrudTest {
         final List<ApiSubmission> list = crud.readAll(helper.getDb());
         final ApiSubmission firstSubmission = list.get(0);
         then(firstSubmission.getString()).isEqualTo("B1");
-        final ApiAttribute firstAttribute = firstSubmission.getAttributes().get(0);
+        final ApiAttribute firstAttribute = firstSubmission.getAttributes()
+                .get(0);
         then(firstAttribute.getType()).isEqualTo("attribute");
-        then(firstAttribute.getString()).isEqualTo("Generations of descendants");
+        then(firstAttribute.getString())
+                .isEqualTo("Generations of descendants");
         then(firstAttribute.getTail()).isEqualTo("2");
     }
 
@@ -93,10 +95,12 @@ public class SubmissionCrudTest {
     @Test
     public final void testGetSubmissionsGl120368B1() {
         logger.info("Beginning testGetSubmissionsGl120368B1");
-        final ApiSubmission submission = crud.readSubmission(helper.getDb(), "B1");
+        final ApiSubmission submission = crud.readSubmission(helper.getDb(),
+                "B1");
         final ApiAttribute firstAttribute = submission.getAttributes().get(0);
         then(firstAttribute.getType()).isEqualTo("attribute");
-        then(firstAttribute.getString()).isEqualTo("Generations of descendants");
+        then(firstAttribute.getString())
+                .isEqualTo("Generations of descendants");
         then(firstAttribute.getTail()).isEqualTo("2");
     }
 
@@ -105,11 +109,14 @@ public class SubmissionCrudTest {
     public final void testGetSubmissionsGl120368Xyzzy() {
         logger.info("Beginning testGetSubmissionsGl120368Xyzzy");
         try {
-            final ApiSubmission submission = crud.readSubmission(helper.getDb(), "Xyzzy");
-            fail("The submission should not be found: " + submission.getString());
+            final ApiSubmission submission = crud.readSubmission(helper.getDb(),
+                    "Xyzzy");
+            fail("The submission should not be found: "
+                    + submission.getString());
         } catch (ObjectNotFoundException e) {
             assertEquals("Mismatched message",
-                    "Object Xyzzy of type submission not found", e.getMessage());
+                    "Object Xyzzy of type submission not found",
+                    e.getMessage());
         }
     }
 
@@ -148,7 +155,8 @@ public class SubmissionCrudTest {
                     + submission.getString());
         } catch (ObjectNotFoundException e) {
             assertEquals("Mismatched message",
-                    "Object XXXXXXX of type submission not found", e.getMessage());
+                    "Object XXXXXXX of type submission not found",
+                    e.getMessage());
         }
     }
 
@@ -160,8 +168,8 @@ public class SubmissionCrudTest {
             crud.deleteSubmission("XYZZY", "SUBM1");
             fail("The dataset should not be found: XYZZY, when getting SUBM1");
         } catch (DataSetNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Data set XYZZY not found", e.getMessage());
+            assertEquals("Mismatched message", "Data set XYZZY not found",
+                    e.getMessage());
         }
     }
 
@@ -171,14 +179,16 @@ public class SubmissionCrudTest {
         logger.info("Beginning testUpdateSubmissionWithNote");
         final List<ApiAttribute> attributes = new ArrayList<>();
         attributes.add(new ApiAttribute("attribute", "Note", "first note"));
-        final ApiSubmission inSubmission =
-                new ApiSubmission("submission", "", attributes);
-        final ApiSubmission outSubmission = crud.createSubmission(helper.getDb(), inSubmission);
+        final ApiSubmission inSubmission = new ApiSubmission("submission", "",
+                attributes);
+        final ApiSubmission outSubmission = crud
+                .createSubmission(helper.getDb(), inSubmission);
         then(outSubmission.getType()).isEqualTo(inSubmission.getType());
-        final ApiAttribute aNote =
-                new ApiAttribute("attribute", "Note", "this is a note");
+        final ApiAttribute aNote = new ApiAttribute("attribute", "Note",
+                "this is a note");
         outSubmission.getAttributes().add(aNote);
-        final ApiSubmission updatedSubmission = crud.updateOne(helper.getDb(), outSubmission.getString(), outSubmission);
+        final ApiSubmission updatedSubmission = crud.updateOne(helper.getDb(),
+                outSubmission.getString(), outSubmission);
         assertEquals("attribute should be present", aNote,
                 updatedSubmission.getAttributes().get(1));
     }

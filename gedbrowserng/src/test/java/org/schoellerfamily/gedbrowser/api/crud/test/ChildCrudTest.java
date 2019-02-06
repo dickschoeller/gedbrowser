@@ -121,6 +121,10 @@ public class ChildCrudTest {
         assertEquals("not in family", 0, gotChild.getFamc().size());
     }
 
+    /**
+     * @param parent the parent
+     * @return the child
+     */
     private ApiPerson createChildOfParent(final ApiPerson parent) {
         final ApiPerson child = helper.buildPerson();
         return crud.createChild(helper.getDb(), parent.getString(), child);
@@ -131,7 +135,8 @@ public class ChildCrudTest {
     public final void testCreateChildInFamily() {
         logger.info("Beginning testCreateChildInFamily");
         final ApiPerson reqPerson = helper.createAlexandra();
-        final ApiPerson resPerson = crud.createChildInFamily(helper.getDb(), "F1", reqPerson);
+        final ApiPerson resPerson =
+                crud.createChildInFamily(helper.getDb(), "F1", reqPerson);
 
         then(resPerson.getType()).isEqualTo(reqPerson.getType());
         then(resPerson.getSurname()).isEqualTo(reqPerson.getSurname());
@@ -144,7 +149,8 @@ public class ChildCrudTest {
     public final void testCreateChildInFamily2() {
         logger.info("Beginning testCreateChildInFamily2");
         final ApiPerson reqPerson = helper.createAlexander();
-        final ApiPerson resPerson = crud.createChildInFamily(helper.getDb(), "F4", reqPerson);
+        final ApiPerson resPerson =
+                crud.createChildInFamily(helper.getDb(), "F4", reqPerson);
         then(resPerson.getType()).isEqualTo(reqPerson.getType());
         then(resPerson.getSurname()).isEqualTo(reqPerson.getSurname());
         then(resPerson.getIndexName()).isEqualTo(reqPerson.getIndexName());

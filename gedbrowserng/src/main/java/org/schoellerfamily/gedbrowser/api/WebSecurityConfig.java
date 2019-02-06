@@ -141,7 +141,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and().addFilterBefore(jwtAuthenticationTokenFilter(),
                     BasicAuthenticationFilter.class)
                 .authorizeRequests()
-                // Temporary to get tests to pass while working on access control
+                // TODO Temporary to get tests to pass while working on access
+                // control
                 .antMatchers("/gedbrowserng/v1/dbs/**").permitAll()
                 //
                 .anyRequest()
@@ -151,7 +152,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
             .and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/gedbrowserng/v1/logout"))
+                .logoutRequestMatcher(
+                        new AntPathRequestMatcher("/gedbrowserng/v1/logout"))
                 .logoutSuccessHandler(logoutSuccess)
                 .deleteCookies(cookie);
     }
@@ -169,7 +171,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         if ("test".equals(activeProfile)) {
             return http.csrf().disable();
         } else {
-            return http.csrf().ignoringAntMatchers("/gedbrowserng/v1/login", "/gedbrowserng/v1/signup")
+            return http.csrf().ignoringAntMatchers(
+                        "/gedbrowserng/v1/login",
+                        "/gedbrowserng/v1/signup")
                     .csrfTokenRepository(
                             CookieCsrfTokenRepository.withHttpOnlyFalse())
                     .and();

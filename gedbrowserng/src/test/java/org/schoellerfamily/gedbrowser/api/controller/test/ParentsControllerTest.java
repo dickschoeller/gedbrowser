@@ -31,7 +31,7 @@ import org.springframework.web.client.RestClientException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class ParentsControllerTest {
     /** Logger. */
@@ -61,8 +61,10 @@ public class ParentsControllerTest {
     }
 
     /**
-     * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
+     * @throws RestClientException
+     *             if we can't talk to rest server
+     * @throws URISyntaxException
+     *             if there is a problem with the URL
      */
     @Test
     public final void testCreateParent()
@@ -78,13 +80,18 @@ public class ParentsControllerTest {
                 parent.getFams().get(0).getString());
     }
 
-    private ApiPerson createParentOfChild(
-            final ApiPerson child) throws URISyntaxException {
+    /**
+     * @param child the child that's getting a parent
+     * @return the parent
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    private ApiPerson createParentOfChild(final ApiPerson child)
+            throws URISyntaxException {
         final String childUrl = helper.getPersonsUrl() + "/" + child.getString()
                 + "/parents";
         final ApiPerson childReqBody = helper.buildPerson();
-        final HttpEntity<ApiPerson> childReq =
-                new HttpEntity<>(childReqBody, helper.getHeaders());
+        final HttpEntity<ApiPerson> childReq = new HttpEntity<>(childReqBody,
+                helper.getHeaders());
         final ResponseEntity<ApiPerson> childEntity = testRestTemplate
                 .postForEntity(new URI(childUrl), childReq, ApiPerson.class);
         then(childEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -92,8 +99,10 @@ public class ParentsControllerTest {
     }
 
     /**
-     * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
+     * @throws RestClientException
+     *             if we can't talk to rest server
+     * @throws URISyntaxException
+     *             if there is a problem with the URL
      */
     @Test
     public final void testLinkParent()
@@ -105,18 +114,25 @@ public class ParentsControllerTest {
         then(gotParent.getFams().size()).isEqualTo(1);
         final ApiPerson gotChild = helper.getPerson(child);
         then(gotParent.getFams().size()).isEqualTo(1);
-        assertEquals("check ids",
-                gotParent.getFams().get(0).getString(),
+        assertEquals("check ids", gotParent.getFams().get(0).getString(),
                 gotChild.getFamc().get(0).getString());
     }
 
+    /**
+     * @param parent the parent
+     * @param child the child
+     * @return the parent
+     * @throws URISyntaxException if there is a URL problem
+     */
     private ApiPerson linkParentOfChild(final ApiPerson parent,
             final ApiPerson child) throws URISyntaxException {
-        final HttpEntity<ApiPerson> personReq =
-                new HttpEntity<>(parent, helper.getHeaders());
-        final ResponseEntity<ApiPerson> parentEntity = testRestTemplate.exchange(
-                new URI(helper.getPersonsUrl() + "/" + child.getString() + "/parents"),
-                HttpMethod.PUT, personReq, ApiPerson.class);
+        final HttpEntity<ApiPerson> personReq = new HttpEntity<>(parent,
+                helper.getHeaders());
+        final ResponseEntity<ApiPerson> parentEntity = testRestTemplate
+                .exchange(
+                        new URI(helper.getPersonsUrl() + "/" + child.getString()
+                                + "/parents"),
+                        HttpMethod.PUT, personReq, ApiPerson.class);
         final ApiPerson gotParent = parentEntity.getBody();
         return gotParent;
     }

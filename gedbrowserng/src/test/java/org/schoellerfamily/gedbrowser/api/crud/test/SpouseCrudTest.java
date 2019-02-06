@@ -46,6 +46,7 @@ public class SpouseCrudTest {
     @Autowired
     private transient RepositoryManagerMongo repositoryManager;
 
+    /** */
     private SpouseCrud crud;
 
     /** */
@@ -86,7 +87,8 @@ public class SpouseCrudTest {
         final String fam = child.getFamc().get(0).getString();
 
         final ApiPerson p2 = helper.createPerson();
-        final ApiPerson gotP2 = crud.linkSpouseInFamily(helper.getDb(), fam, p2);
+        final ApiPerson gotP2 =
+                crud.linkSpouseInFamily(helper.getDb(), fam, p2);
         then(gotP2.getString()).isEqualTo(p2.getString());
         then(gotP2.getFams().size()).isEqualTo(1);
         final ApiPerson gotP1 = helper.getPerson(p1);
@@ -104,7 +106,8 @@ public class SpouseCrudTest {
         final String fam = child.getFamc().get(0).getString();
 
         final ApiPerson p2 = helper.createPerson();
-        final ApiPerson gotP2 = crud.linkSpouseInFamily(helper.getDb(), fam, p2);
+        final ApiPerson gotP2 =
+                crud.linkSpouseInFamily(helper.getDb(), fam, p2);
         then(gotP2.getString()).isEqualTo(p2.getString());
         then(gotP2.getFams().size()).isEqualTo(1);
         final ApiPerson gotP1 = helper.getPerson(p1);
@@ -117,10 +120,16 @@ public class SpouseCrudTest {
         assertEquals("check ids", gotP2again.getFams().get(0).getString(), fam);
     }
 
+    /**
+     * @param parent the parent
+     * @return the child
+     */
     private ApiPerson createChildOfParent(final ApiPerson parent) {
         final ApiPerson childReqPerson = helper.buildPerson();
-        final ChildCrud childCrud = new ChildCrud(loader, toDocConverter, repositoryManager);
-        return childCrud.createChild(helper.getDb(), parent.getString(), childReqPerson);
+        final ChildCrud childCrud =
+                new ChildCrud(loader, toDocConverter, repositoryManager);
+        return childCrud.createChild(helper.getDb(),
+                parent.getString(), childReqPerson);
     }
 
     /** */

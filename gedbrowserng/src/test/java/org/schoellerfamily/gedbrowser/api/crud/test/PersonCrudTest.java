@@ -92,7 +92,8 @@ public class PersonCrudTest {
         then(firstPerson.getString()).isEqualTo("I1");
         final ApiAttribute firstAttribute = firstPerson.getAttributes().get(0);
         then(firstAttribute.getType()).isEqualTo("name");
-        then(firstAttribute.getString()).isEqualTo("Melissa Robinson/Schoeller/");
+        then(firstAttribute.getString()).isEqualTo(
+                "Melissa Robinson/Schoeller/");
         then(firstAttribute.getTail()).isEmpty();
     }
 
@@ -114,7 +115,8 @@ public class PersonCrudTest {
         logger.info("Beginning testGetPersonsMiniSchoellerXyzzy");
         try {
             crud.readPerson("mini-schoeller", "Xyzzy");
-            fail("should not have found person Xyzzy in data set mini-schoeller");
+            fail("should not have found person "
+                    + "Xyzzy in data set mini-schoeller");
         } catch (ObjectNotFoundException e) {
             assertEquals("Mismatched message",
                     "Object Xyzzy of type person not found", e.getMessage());
@@ -127,7 +129,8 @@ public class PersonCrudTest {
         logger.info("Beginning testCreatePersonsSimple");
         final ApiPerson.Builder builder = new ApiPerson.Builder().build();
         final ApiPerson reqPerson = new ApiPerson(builder);
-        final ApiPerson resPerson = crud.createPerson(helper.getDb(), reqPerson);
+        final ApiPerson resPerson = crud.createPerson(helper.getDb(),
+                reqPerson);
         then(resPerson.getType()).isEqualTo(reqPerson.getType());
         then(resPerson.getSurname()).isEqualTo(reqPerson.getSurname());
         then(resPerson.getIndexName()).isEqualTo(reqPerson.getIndexName());
@@ -139,7 +142,8 @@ public class PersonCrudTest {
     public final void testCreatePersonsWithName() {
         logger.info("Beginning testCreatePersonsWithName");
         final ApiPerson reqPerson = createRJS();
-        final ApiPerson resPerson = crud.createPerson(helper.getDb(), reqPerson);
+        final ApiPerson resPerson =
+                crud.createPerson(helper.getDb(), reqPerson);
         then(resPerson.getType()).isEqualTo(reqPerson.getType());
         then(resPerson.getSurname()).isEqualTo(reqPerson.getSurname());
         then(resPerson.getIndexName()).isEqualTo(reqPerson.getIndexName());
@@ -165,7 +169,8 @@ public class PersonCrudTest {
     public final void testDeletePerson() {
         logger.info("Beginning testDeletePerson");
         final ApiPerson reqPerson = createRJS();
-        final ApiPerson resPerson = crud.createPerson(helper.getDb(), reqPerson);
+        final ApiPerson resPerson =
+                crud.createPerson(helper.getDb(), reqPerson);
         final String id = resPerson.getString();
         crud.readPerson(helper.getDb(), id);
         final ApiPerson deletedPerson = crud.deletePerson(helper.getDb(), id);
@@ -186,7 +191,8 @@ public class PersonCrudTest {
     public final void testDeleteSpouseLinkedPerson() {
         logger.info("Beginning testDeleteSpouseLinkedPerson");
         final ApiPerson reqPerson = createRJS();
-        final ApiPerson resPerson = crud.createPerson(helper.getDb(), reqPerson);
+        final ApiPerson resPerson =
+                crud.createPerson(helper.getDb(), reqPerson);
         final String id = resPerson.getString();
         final ApiPerson childReqPerson = helper.createAlexander();
         final ChildCrud childCrud = new ChildCrud(loader, toDocConverter,
@@ -225,7 +231,8 @@ public class PersonCrudTest {
     public final void testDeleteChildLinkedPerson() {
         logger.info("Beginning testDeleteChildLinkedPerson");
         final ApiPerson reqPerson = createRJS();
-        final ApiPerson resPerson = crud.createPerson(helper.getDb(), reqPerson);
+        final ApiPerson resPerson =
+                crud.createPerson(helper.getDb(), reqPerson);
         final String id = resPerson.getString();
         final ApiPerson childReqPerson = helper.createAlexander();
         final ChildCrud childCrud = new ChildCrud(loader, toDocConverter,
@@ -235,10 +242,13 @@ public class PersonCrudTest {
         final String fam = child.getFamc().get(0).getString();
         final String childId = child.getString();
         final ApiPerson p2 = helper.createAlexandra();
-        final SpouseCrud spouseCrud = new SpouseCrud(loader, toDocConverter, repositoryManager);
-        final ApiPerson gotP2 = spouseCrud.createSpouseInFamily(helper.getDb(), fam, p2);
+        final SpouseCrud spouseCrud =
+                new SpouseCrud(loader, toDocConverter, repositoryManager);
+        final ApiPerson gotP2 =
+                spouseCrud.createSpouseInFamily(helper.getDb(), fam, p2);
         then(gotP2.getFams().get(0).getString()).isEqualTo(fam);
-        final ApiPerson deletedPerson = crud.deletePerson(helper.getDb(), childId);
+        final ApiPerson deletedPerson =
+                crud.deletePerson(helper.getDb(), childId);
         then(deletedPerson.getString()).isEqualTo(childId);
         try {
             crud.readPerson(helper.getDb(), childId);
@@ -274,7 +284,8 @@ public class PersonCrudTest {
         logger.info("Beginning testDeletePersonNotFound");
         try {
             crud.deletePerson("XYZZY", "XXXXXXX");
-            fail("should not have found data set XYZZY while looking for person XXXXXXX");
+            fail("should not have found data set "
+                    + "XYZZY while looking for person XXXXXXX");
         } catch (DataSetNotFoundException e) {
             assertEquals("Mismatched message",
                     "Data set XYZZY not found", e.getMessage());
@@ -286,7 +297,8 @@ public class PersonCrudTest {
     public final void testUpdatePersonWithNote() {
         logger.info("Beginning testUpdatePersonWithNote");
         final ApiPerson reqPerson = createRJS();
-        final ApiPerson resPerson = crud.createPerson(helper.getDb(), reqPerson);
+        final ApiPerson resPerson =
+                crud.createPerson(helper.getDb(), reqPerson);
         then(resPerson.getType()).isEqualTo(reqPerson.getType());
 
         final ApiAttribute aNote = new ApiAttribute("attribute", "Note",
