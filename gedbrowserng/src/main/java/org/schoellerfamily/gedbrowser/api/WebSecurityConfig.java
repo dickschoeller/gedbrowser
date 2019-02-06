@@ -96,24 +96,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
 //        return new BCryptPasswordEncoder();
-        return new PasswordEncoder() {
-
-            @Override
-            public String encode(final CharSequence rawPassword) {
-                return rawPassword.toString();
-            }
-
-            @Override
-            public boolean matches(final CharSequence rawPassword,
-                    final String encodedPassword) {
-                if (encodedPassword == null && rawPassword == null) {
-                    return true;
-                }
-                if (encodedPassword == null || rawPassword == null) {
-                    return false;
-                }
-                return encodedPassword.equals(rawPassword.toString());
-            } };
+        return new DummyEncoder();
     }
 
     /**
@@ -177,6 +160,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .csrfTokenRepository(
                             CookieCsrfTokenRepository.withHttpOnlyFalse())
                     .and();
+        }
+    }
+
+    /**
+     * @author Dick Schoeller
+     */
+    private static final class DummyEncoder implements PasswordEncoder {
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String encode(final CharSequence rawPassword) {
+            return rawPassword.toString();
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean matches(final CharSequence rawPassword,
+                final String encodedPassword) {
+            if (encodedPassword == null && rawPassword == null) {
+                return true;
+            }
+            if (encodedPassword == null || rawPassword == null) {
+                return false;
+            }
+            return encodedPassword.equals(rawPassword.toString());
         }
     }
 }
