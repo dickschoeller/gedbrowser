@@ -21,11 +21,9 @@ engines:
       - NOPMD
   checkstyle:
     enabled: true
-    channel: "beta"
     config: config/checkstyle.xml
   pmd:
     enabled: true
-    channel: "beta"
     config: config/pmd.xml
 ratings:
   paths:
