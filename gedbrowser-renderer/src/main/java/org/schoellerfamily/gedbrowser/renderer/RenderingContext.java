@@ -3,10 +3,11 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderFacade;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderStub;
+import org.schoellerfamily.gedbrowser.datamodel.users.User;
+import org.schoellerfamily.gedbrowser.datamodel.users.UserFacade;
+import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfoFacade;
-import org.schoellerfamily.gedbrowser.renderer.user.User;
-import org.schoellerfamily.gedbrowser.renderer.user.UserFacade;
 import org.schoellerfamily.gedbrowser.renderer.user.UserImpl;
 
 /**
@@ -89,7 +90,7 @@ public final class RenderingContext
         if (user == null) {
             return false;
         }
-        return user.hasRole("USER");
+        return user.hasRole(UserRoleName.USER);
     }
 
     /**
@@ -99,7 +100,7 @@ public final class RenderingContext
         if (user == null) {
             return false;
         }
-        return user.hasRole("ADMIN");
+        return user.hasRole(UserRoleName.ADMIN);
     }
 
     /**

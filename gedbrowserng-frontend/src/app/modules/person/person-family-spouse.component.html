@@ -3,7 +3,7 @@
     class="name">{{ person.indexName }} {{ lifespanYearString() }} [{{ person.string }}]</a>
 </span>
 <span *ngIf="person" class="example-fill-remaining-space"></span>
-<span>
+<span *ngIf="hasSignedIn()">
   <button mat-icon-button matTooltip="Unlink spouse" color="warn" (click)="unlink()">
     <mat-icon matListIcon>link_off</mat-icon></button>
 </span>

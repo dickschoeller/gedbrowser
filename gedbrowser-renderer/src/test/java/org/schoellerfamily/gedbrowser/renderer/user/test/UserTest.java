@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.renderer.user.UserImpl;
 
 /**
@@ -127,7 +128,7 @@ public final class UserTest {
     public void testOneRoleContent() {
         final UserImpl user = new UserImpl();
         user.addRole("USER");
-        assertEquals("Mismatched role", "USER", user.getRoles()[0]);
+        assertEquals("Mismatched role", UserRoleName.USER, user.getRoles()[0]);
     }
 
     /** */

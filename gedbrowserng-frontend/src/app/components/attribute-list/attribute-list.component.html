@@ -3,7 +3,7 @@
     <mat-toolbar>
       Attributes
       <span class="example-fill-remaining-space"></span>
-      <span>
+      <span *ngIf="hasSignedIn()">
         <button (click)="openCreateAttributeDialog()" mat-icon-button color="primary"
             matTooltip="Add attribute"><mat-icon>add_box</mat-icon></button>
         <app-note-button *ngIf="showNotes" [parent]="this" [dataset]="dataset"></app-note-button>
@@ -13,8 +13,10 @@
     </mat-toolbar>
   </mat-card-title>
   <mat-card-content>
-    <div cdkDropList class="attribute-list" (cdkDropListDropped)="drop($event)">
-      <div class="attribute-box" *ngFor="let attribute of attributes; let i=index" cdkDrag>
+    <div cdkDropList class="attribute-list" (cdkDropListDropped)="drop($event)"
+        [cdkDropListDisabled]="!hasSignedIn()">
+      <div cdkDrag class="{{ hasSignedIn() ? 'attribute-box' : '' }}"
+          *ngFor="let attribute of attributes; let i=index">
         <app-attribute-list-item
             [parent]="parent" [dataset]="dataset" [attribute]="attribute"
             [attributeList]="attributes" [index]="i"></app-attribute-list-item>

@@ -4,7 +4,7 @@ import { InitablePersonCreator } from '../../bases';
 import { HasFamily, HasPerson, RefreshPerson, Saveable, LinkCheck } from '../../interfaces';
 import { LinkPersonDialogComponent } from '../../components';
 import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData } from '../../models';
-import { PersonService, FamilyService } from '../../services';
+import { PersonService, FamilyService, UserService } from '../../services';
 import { UrlBuilder, LifespanUtil } from '../../utils';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -15,99 +15,104 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
  *  children: the attributes referring to the children
  */
 @Component({
-  selector: 'app-person-family-child-list',
-  templateUrl: './person-family-child-list.component.html',
-  styleUrls: ['./person-family-child-list.component.css']
+    selector: 'app-person-family-child-list',
+    templateUrl: './person-family-child-list.component.html',
+    styleUrls: ['./person-family-child-list.component.css']
 })
 export class PersonFamilyChildListComponent extends InitablePersonCreator
-  implements HasFamily, Saveable, LinkCheck {
-  @Input() dataset: string;
-  @Input() parent: RefreshPerson & HasPerson & Saveable;
-  @Input() family: ApiFamily;
-  @Input() children: Array<ApiAttribute>;
+    implements HasFamily, Saveable, LinkCheck {
+    @Input() dataset: string;
+    @Input() parent: RefreshPerson & HasPerson & Saveable;
+    @Input() family: ApiFamily;
+    @Input() children: Array<ApiAttribute>;
 
-  sex = 'M';
-  surname: string;
+    sex = 'M';
+    surname: string;
 
-  constructor(public personService: PersonService,
-    public familyService: FamilyService) {
-    super(personService);
-  }
-
-  init(): void {
-    const h = this.husbandId();
-    if (h !== '') {
-      this.personService.getOne(this.dataset, h)
-        .subscribe((person: ApiPerson) => {
-          this.surname = person.surname;
-        });
-    } else {
-      this.surname = this.parent.person.surname;
+    constructor(public personService: PersonService,
+        public familyService: FamilyService,
+        private userService: UserService) {
+        super(personService);
     }
-  }
 
-  private husbandId(): string {
-    for (const spouse of this.family.spouses) {
-      if (spouse.type === 'husband') {
-        return spouse.string;
-      }
+    init(): void {
+        const h = this.husbandId();
+        if (h !== '') {
+            this.personService.getOne(this.dataset, h)
+                .subscribe((person: ApiPerson) => {
+                    this.surname = person.surname;
+                });
+        } else {
+            this.surname = this.parent.person.surname;
+        }
     }
-    return '';
-  }
 
-  personUB(): UrlBuilder {
-    return new UrlBuilder(this.dataset, 'families', 'children');
-  }
-
-  personAnchor(): string {
-    return this.family.string;
-  }
-
-  refreshPerson(): void {
-    this.personService.getOne(this.dataset, this.parent.person.string).subscribe(
-      (person: any) => this.parent.refreshPerson());
-  }
-
-  spouseLinked(person: ApiPerson): boolean {
-    for (const spouse of this.family.spouses) {
-      if (spouse.string === person.string) {
-        return true;
-      }
+    private husbandId(): string {
+        for (const spouse of this.family.spouses) {
+            if (spouse.type === 'husband') {
+                return spouse.string;
+            }
+        }
+        return '';
     }
-    return false;
-  }
 
-  childLinked(person: ApiPerson): boolean {
-    for (const child of this.children) {
-      if (child.string === person.string) {
-        return true;
-      }
+    personUB(): UrlBuilder {
+        return new UrlBuilder(this.dataset, 'families', 'children');
     }
-    return false;
-  }
 
-  linkChild(data: LinkPersonDialogData) {
-    for (const item of data.selected) {
-      this.personService.putLink(this.personUB(), this.personAnchor(), item.person)
-        .subscribe((person: ApiPerson) => { this.refreshPerson(); });
+    personAnchor(): string {
+        return this.family.string;
     }
-  }
 
-  preferredSurname(): string {
-    return this.parent.person.surname;
-  }
+    refreshPerson(): void {
+        this.personService.getOne(this.dataset, this.parent.person.string).subscribe(
+            (person: any) => this.parent.refreshPerson());
+    }
 
-  familyString(): string {
-    return this.family.string;
-  }
+    spouseLinked(person: ApiPerson): boolean {
+        for (const spouse of this.family.spouses) {
+            if (spouse.string === person.string) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.family.children, event.previousIndex, event.currentIndex);
-    this.familyService.put(this.dataset, this.family)
-      .subscribe((family: ApiFamily) => { this.children = family.children; } );
-  }
+    childLinked(person: ApiPerson): boolean {
+        for (const child of this.children) {
+            if (child.string === person.string) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-  save(): void {
-    this.parent.save();
-  }
+    linkChild(data: LinkPersonDialogData) {
+        for (const item of data.selected) {
+            this.personService.putLink(this.personUB(), this.personAnchor(), item.person)
+                .subscribe((person: ApiPerson) => { this.refreshPerson(); });
+        }
+    }
+
+    preferredSurname(): string {
+        return this.parent.person.surname;
+    }
+
+    familyString(): string {
+        return this.family.string;
+    }
+
+    drop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.family.children, event.previousIndex, event.currentIndex);
+        this.familyService.put(this.dataset, this.family)
+            .subscribe((family: ApiFamily) => { this.children = family.children; });
+    }
+
+    save(): void {
+        this.parent.save();
+    }
+
+    hasSignedIn() {
+        return !!this.userService.currentUser;
+    }
 }

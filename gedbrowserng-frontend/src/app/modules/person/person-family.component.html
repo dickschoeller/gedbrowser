@@ -3,12 +3,12 @@
     <mat-toolbar color="primary">Family {{ index + 1 }}<span *ngIf="spouse()">&nbsp;-&nbsp;</span>
       <app-person-family-spouse *ngIf="spouse()"
           [dataset]="dataset" [parent]="this" [attribute]="spouse()"></app-person-family-spouse>
-      <span *ngIf="spouse()">
+      <span *ngIf="spouse() && hasSignedIn()">
         <button mat-icon-button matTooltip="Unlink self from family" color="accent" (click)="unlink()">
           <mat-icon matListIcon>link_off</mat-icon></button>
       </span>
       <span *ngIf="!spouse()" class="example-fill-remaining-space"></span>
-      <span *ngIf="!spouse()">
+      <span *ngIf="!spouse() && hasSignedIn()">
         <app-new-person
             [sex]="sex" [surname]="surname" [label]="'Create spouse'"
             (emitOK)="createPerson($event)"></app-new-person>

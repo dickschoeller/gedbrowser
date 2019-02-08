@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 
 /**
  * Some base rendering behaviors outside of the context of GedObject rendering.
@@ -91,7 +92,7 @@ public abstract class RenderingContextRenderer implements Renderer {
      * @return true if the user has the role
      */
     public final boolean hasRole(final String role) {
-        return renderingContext.hasRole(role);
+        return renderingContext.hasRole(UserRoleName.valueOf(role));
     }
 
     /**

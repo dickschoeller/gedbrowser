@@ -341,7 +341,8 @@ public class FamilyControllerTest {
         logger.info("Attribute list size: " + attributesPutResponse.size());
         then(attributesPutResponse.size()).isEqualTo(2);
         for (final ApiAttribute a : attributesPutResponse) {
-            logger.info("attribute: " + a.getType() + " " + a.getString() + " " + a.getTail());
+            logger.info("attribute: " + a.getType() + " " + a.getString() + " "
+                    + a.getTail());
         }
         assertEquals("attribute should be present", aNote,
                 attributesPutResponse.get(1));

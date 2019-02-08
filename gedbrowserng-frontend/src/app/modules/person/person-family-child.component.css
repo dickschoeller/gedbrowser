@@ -1,1 +1,3 @@
-@import '../../app.component.css';
+div.parent {
+    min-height: 40px;
+}

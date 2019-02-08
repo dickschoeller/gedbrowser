@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.renderer.href.HeaderHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.IndexHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.PlacesHrefRenderer;
@@ -51,7 +52,7 @@ public final class LivingRenderer extends GedRenderer<Root>
     public List<Bucket> getBuckets() {
         logger.info("Starting LivingRenderer.getBuckets()");
         final List<Bucket> bucketList = new ArrayList<>();
-        if (getRenderingContext().hasRole("ADMIN")) {
+        if (getRenderingContext().hasRole(UserRoleName.ADMIN)) {
             final Root root = getGedObject();
             final List<Person> living = new ArrayList<>();
             final Map<Integer, Set<Person>> buckets = new HashMap<>();

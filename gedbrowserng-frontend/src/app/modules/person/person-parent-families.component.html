@@ -3,7 +3,7 @@
     <mat-toolbar>
     Parents and Siblings
     <span class="example-fill-remaining-space"></span>
-    <span *ngIf="!person.famc.length">
+    <span *ngIf="!person.famc.length && hasSignedIn()">
       <app-new-person
           [sex]="sex" [surname]="surname" [label]="'Create parent'"
           color="primary"
@@ -16,8 +16,10 @@
     </mat-toolbar>
   </mat-card-title>
   <mat-card-content>
-    <div cdkDropList class="family-list" (cdkDropListDropped)="drop($event)">
-      <div class="family-box" *ngFor="let attribute of person?.famc let i=index" cdkDrag>
+    <div cdkDropList class="family-list" (cdkDropListDropped)="drop($event)"
+        [cdkDropListDisabled]="!hasSignedIn()">
+      <div cdkDrag class="{{ hasSignedIn() ? 'family-box' : ''"
+          *ngFor="let attribute of person?.famc let i=index">
         <app-person-parent-family
             [dataset]="dataset" [parent]="this" [attribute]="attribute"></app-person-parent-family>
       </div>

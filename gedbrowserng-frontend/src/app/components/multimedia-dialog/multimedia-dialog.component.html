@@ -8,8 +8,10 @@
   </mat-form-field>
   <br/>
   <div>
-    <div cdkDropList class="file-list" (cdkDropListDropped)="drop($event)">
-      <div class="file-box" *ngFor="let file of data.files; let i=index" cdkDrag>
+    <div cdkDropList class="file-list" (cdkDropListDropped)="drop($event)"
+        [cdkDropListDisabled]="!hasSignedIn()">
+      <div cdkDrag class="{{ hasSignedIn() ? 'file-box' : ''"
+          *ngFor="let file of data.files; let i=index">
         <br/>
         <mat-form-field>
           <mat-placeholder>File URL</mat-placeholder>

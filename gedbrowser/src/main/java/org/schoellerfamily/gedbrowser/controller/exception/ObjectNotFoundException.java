@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller.exception;
 
+import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 
 /**
@@ -91,7 +92,7 @@ public class ObjectNotFoundException extends RuntimeException {
      * @return true if the user has the role
      */
     public boolean hasRole(final String role) {
-        return context.hasRole(role);
+        return context.hasRole(UserRoleName.valueOf(role));
     }
 
     /**

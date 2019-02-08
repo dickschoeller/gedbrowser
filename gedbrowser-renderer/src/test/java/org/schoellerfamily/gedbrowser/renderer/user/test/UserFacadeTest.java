@@ -6,8 +6,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.renderer.user.User;
-import org.schoellerfamily.gedbrowser.renderer.user.UserFacade;
+import org.schoellerfamily.gedbrowser.datamodel.users.User;
+import org.schoellerfamily.gedbrowser.datamodel.users.UserFacade;
+import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.renderer.user.UserImpl;
 
 /**
@@ -165,7 +166,7 @@ public class UserFacadeTest {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         userImpl.addRole("USER");
-        assertEquals("Mismatched role", "USER", user.getRoles()[0]);
+        assertEquals("Mismatched role", UserRoleName.USER, user.getRoles()[0]);
     }
 
     /** */
@@ -176,7 +177,7 @@ public class UserFacadeTest {
         userImpl.addRole("USER");
         userImpl.addRole("ADMIN");
         userImpl.addRole("IDIOT");
-        assertTrue("Should have admin role", user.hasRole("ADMIN"));
+        assertTrue("Should have admin role", user.hasRole(UserRoleName.ADMIN));
     }
 
     /** */
@@ -186,7 +187,7 @@ public class UserFacadeTest {
         final User user = new UserFacadeImpl(userImpl);
         userImpl.addRole("USER");
         userImpl.addRole("IDIOT");
-        assertFalse("Should not have admin role", user.hasRole("ADMIN"));
+        assertFalse("Should not have admin role", user.hasRole(UserRoleName.ADMIN));
     }
 
     /** */

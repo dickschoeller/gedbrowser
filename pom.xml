@@ -133,6 +133,7 @@
     <module>gedbrowser-mongo-dao</module>
     <module>gedbrowser-reader</module>
     <module>gedbrowser-renderer</module>
+    <module>gedbrowser-security</module>
     <module>gedbrowser-writer</module>
     <module>gedbrowserng</module>
     <module>gedbrowserng-frontend</module>
@@ -436,6 +437,11 @@
         <artifactId>gedbrowser-renderer</artifactId>
         <version>${gedbrowser.version}</version>
       </dependency>
+    <dependency>
+        <groupId>org.schoellerfamily.gedbrowser</groupId>
+        <artifactId>gedbrowser-security</artifactId>
+        <version>${gedbrowser.version}</version>
+    </dependency>
       <dependency>
         <groupId>org.schoellerfamily.gedbrowser</groupId>
         <artifactId>gedbrowser-writer</artifactId>

@@ -5,9 +5,10 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.Users;
 import org.schoellerfamily.gedbrowser.UsersConfiguration;
-import org.schoellerfamily.gedbrowser.renderer.user.User;
+import org.schoellerfamily.gedbrowser.datamodel.users.User;
+import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
+import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -25,7 +26,7 @@ public final class UsersConfigurationTest {
     public void testUserFile() {
         final String userFile = gedbrowserHome + "/testUserFile.csv";
         final UsersConfiguration uc = new UsersConfiguration();
-        final Users users = uc.readUserFile(userFile);
+        final Users<? extends User> users = uc.readUserFile(userFile);
         final int expected = 2;
         final int actual = users.size();
         assertEquals("Found file should have two", expected, actual);
@@ -36,7 +37,7 @@ public final class UsersConfigurationTest {
     public void testUserFileNotFound() {
         final String userFile = gedbrowserHome + "/XYX";
         final UsersConfiguration uc = new UsersConfiguration();
-        final Users users = uc.readUserFile(userFile);
+        final Users<? extends User> users = uc.readUserFile(userFile);
         final int expected = 1;
         final int actual = users.size();
         assertEquals("Not found file should have only one",
@@ -48,8 +49,9 @@ public final class UsersConfigurationTest {
     public void testUserFileNotFoundContainsGues() {
         final String userFile = gedbrowserHome + "/XYX";
         final UsersConfiguration uc = new UsersConfiguration();
-        final Users users = uc.readUserFile(userFile);
+        final Users<? extends User> users = uc.readUserFile(userFile);
         final User guest = users.get("guest");
-        assertTrue("Should have role USER", guest.hasRole("USER"));
+        assertTrue("Should have role USER",
+                guest.hasRole(UserRoleName.USER));
     }
 }

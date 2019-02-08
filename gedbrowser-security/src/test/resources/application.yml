@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    active: test
+jwt:
+  expires_in: 8

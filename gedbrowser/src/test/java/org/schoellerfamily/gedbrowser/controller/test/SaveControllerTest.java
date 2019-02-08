@@ -5,7 +5,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.Application;
-import org.schoellerfamily.gedbrowser.Users;
+import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 import org.schoellerfamily.gedbrowser.renderer.user.UserImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
@@ -35,7 +35,7 @@ public class SaveControllerTest {
      * The data of known users.
      */
     @Autowired
-    private Users users;
+    private Users<UserImpl> users;
 
     /**
      * Server port.

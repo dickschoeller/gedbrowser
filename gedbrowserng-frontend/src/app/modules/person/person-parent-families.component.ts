@@ -4,7 +4,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { InitablePersonCreator } from '../../bases';
 import { HasLifespan, HasPerson, Saveable, RefreshPerson } from '../../interfaces';
 import { ApiAttribute, ApiPerson, ApiFamily, LinkPersonDialogData } from '../../models';
-import { PersonService } from '../../services';
+import { PersonService, UserService } from '../../services';
 import { UrlBuilder } from '../../utils';
 
 @Component({
@@ -24,7 +24,8 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator
     return this.person.surname;
   }
 
-  constructor(public personService: PersonService) {
+  constructor(public personService: PersonService,
+    private userService: UserService) {
     super(personService);
   }
 
@@ -74,4 +75,8 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator
   save(): void {
     this.parent.save();
   }
+
+    hasSignedIn() {
+        return !!this.userService.currentUser;
+    }
 }

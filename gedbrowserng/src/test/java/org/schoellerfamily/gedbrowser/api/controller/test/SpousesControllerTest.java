@@ -146,6 +146,11 @@ public class SpousesControllerTest {
         assertEquals("check ids", gotP2again.getFams().get(0).getString(), fam);
     }
 
+    /**
+     * @param parent the parent
+     * @return the child
+     * @throws URISyntaxException if there is a problem with the URL
+     */
     private ApiPerson createChildOfParent(final ApiPerson parent)
             throws URISyntaxException {
         final String childUrl = helper.getPersonsUrl() + "/"

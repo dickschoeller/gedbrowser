@@ -247,7 +247,7 @@ public final class GedRendererTest {
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 anonymousContext);
-        assertFalse("Expected admin to be false", renderer.hasRole("Admin"));
+        assertFalse("Expected admin to be false", renderer.hasRole("ADMIN"));
     }
 
     /** */

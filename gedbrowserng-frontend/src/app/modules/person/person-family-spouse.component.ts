@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 import { ApiAttribute, ApiPerson } from '../../models';
-import { PersonService } from '../../services';
+import { PersonService, UserService } from '../../services';
 import { HasFamily } from '../../interfaces/has-family';
 import { PersonGetter } from './person-getter';
 import { RefreshPerson } from '../../interfaces';
@@ -16,34 +16,39 @@ import { RefreshPerson } from '../../interfaces';
  *  person: the person identified by the attribute
  */
 @Component({
-  selector: 'app-person-family-spouse',
-  templateUrl: './person-family-spouse.component.html',
-  styleUrls: ['./person-family-spouse.component.css']
+    selector: 'app-person-family-spouse',
+    templateUrl: './person-family-spouse.component.html',
+    styleUrls: ['./person-family-spouse.component.css']
 })
 export class PersonFamilySpouseComponent extends PersonGetter
-  implements OnInit, OnChanges {
-  @Input() dataset: string;
-  @Input() parent: RefreshPerson & HasFamily;
-  @Input() attribute: ApiAttribute;
+    implements OnInit, OnChanges {
+    @Input() dataset: string;
+    @Input() parent: RefreshPerson & HasFamily;
+    @Input() attribute: ApiAttribute;
 
-  constructor(personService: PersonService) {
-    super(personService);
-    this.famMemberType = 'spouses';
-  }
+    constructor(personService: PersonService,
+        private userService: UserService) {
+        super(personService);
+        this.famMemberType = 'spouses';
+    }
 
-  ngOnInit() {
-    this.init(this.dataset, this.attribute.string);
-  }
+    ngOnInit() {
+        this.init(this.dataset, this.attribute.string);
+    }
 
-  ngOnChanges() {
-    this.init(this.dataset, this.attribute.string);
-  }
+    ngOnChanges() {
+        this.init(this.dataset, this.attribute.string);
+    }
 
-  familyString(): string {
-    return this.parent.familyString();
-  }
+    familyString(): string {
+        return this.parent.familyString();
+    }
 
-  refreshPerson(): void {
-    this.parent.refreshPerson();
-  }
+    refreshPerson(): void {
+        this.parent.refreshPerson();
+    }
+
+    hasSignedIn() {
+        return !!this.userService.currentUser;
+    }
 }

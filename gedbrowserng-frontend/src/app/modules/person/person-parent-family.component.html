@@ -35,8 +35,10 @@
         </mat-toolbar>
       </mat-card-title>
       <mat-card-content>
-        <div cdkDropList class="child-list" (cdkDropListDropped)="drop($event)">
-          <div class="child-box" *ngFor="let child of family?.children; let i=index" cdkDrag>
+        <div cdkDropList class="child-list" (cdkDropListDropped)="drop($event)"
+            [cdkDropListDisabled]="!hasSignedIn()">
+          <div cdkDrag class="{{ hasSignedIn() ? 'child-box' : ''"
+              *ngFor="let child of family?.children; let i=index">
             <app-person-family-child [dataset]="dataset" [parent]="this"
                 [child]="child" [index]="i"></app-person-family-child>
           </div>

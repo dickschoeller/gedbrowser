@@ -32,7 +32,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class FamilyCrudTest {
     /** Logger. */
@@ -80,7 +80,8 @@ public class FamilyCrudTest {
         final ApiAttribute firstAttribute = firstFamily.getAttributes().get(0);
         then(firstAttribute.getString()).isEqualTo("Marriage");
         then(firstAttribute.getAttributes().get(0).getType()).isEqualTo("date");
-        then(firstAttribute.getAttributes().get(0).getString()).isEqualTo("27 MAY 1984");
+        then(firstAttribute.getAttributes().get(0).getString())
+                .isEqualTo("27 MAY 1984");
     }
 
     /** */
@@ -104,13 +105,19 @@ public class FamilyCrudTest {
         then(firstAttribute.getType()).isEqualTo("attribute");
         then(firstAttribute.getString()).isEqualTo("Marriage");
         then(firstAttribute.getAttributes().get(0).getType()).isEqualTo("date");
-        then(firstAttribute.getAttributes().get(0).getString()).isEqualTo("27 MAY 1984");
-        then(firstAttribute.getAttributes().get(1).getType()).isEqualTo("place");
-        then(firstAttribute.getAttributes().get(1).getString()).startsWith("Temple Emanu-el");
-        then(firstAttribute.getAttributes().get(2).getType()).isEqualTo("attribute");
-        then(firstAttribute.getAttributes().get(2).getString()).isEqualTo("Note");
+        then(firstAttribute.getAttributes().get(0).getString())
+                .isEqualTo("27 MAY 1984");
+        then(firstAttribute.getAttributes().get(1).getType())
+                .isEqualTo("place");
+        then(firstAttribute.getAttributes().get(1).getString())
+                .startsWith("Temple Emanu-el");
+        then(firstAttribute.getAttributes().get(2).getType())
+                .isEqualTo("attribute");
+        then(firstAttribute.getAttributes().get(2).getString())
+                .isEqualTo("Note");
         then(firstAttribute.getAttributes().get(2).getTail()).contains(
-                "Wayne Franklin", "Dale Matcovitch", "Carol Robinson Sacerdote");
+                "Wayne Franklin", "Dale Matcovitch",
+                "Carol Robinson Sacerdote");
     }
 
     /** */
@@ -147,7 +154,8 @@ public class FamilyCrudTest {
         final ApiFamily outFamily = crud.createFamily("gl120368", inFamily);
         then(outFamily.getType()).isEqualTo("family");
         then(outFamily.getString()).startsWith("F");
-        then(outFamily.getAttributes().get(0).getString()).isEqualTo("Marriage");
+        then(outFamily.getAttributes().get(0).getString())
+                .isEqualTo("Marriage");
     }
 
     /** */
@@ -190,8 +198,8 @@ public class FamilyCrudTest {
             final ApiFamily family = crud.deleteFamily("XYZZY", "SUBM1");
             fail("The family should not be found: " + family.getString());
         } catch (DataSetNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Data set XYZZY not found", e.getMessage());
+            assertEquals("Mismatched message", "Data set XYZZY not found",
+                    e.getMessage());
         }
     }
 
@@ -214,12 +222,13 @@ public class FamilyCrudTest {
         then(familyPostResponse.getAttributes().size()).isEqualTo(2);
         final ApiFamily familyPutResponse = crud.updateOne("gl120368",
                 familyPostResponse.getString(), familyPostResponse);
-        final List<ApiAttribute> attributesPutResponse =
-                familyPutResponse.getAttributes();
+        final List<ApiAttribute> attributesPutResponse = familyPutResponse
+                .getAttributes();
         logger.info("Attribute list size: " + attributesPutResponse.size());
         then(attributesPutResponse.size()).isEqualTo(2);
         for (final ApiAttribute a : attributesPutResponse) {
-            logger.info("attribute: " + a.getType() + " " + a.getString() + " " + a.getTail());
+            logger.info("attribute: " + a.getType() + " " + a.getString() + " "
+                    + a.getTail());
         }
         assertEquals("attribute should be present", aNote,
                 attributesPutResponse.get(1));

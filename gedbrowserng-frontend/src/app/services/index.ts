@@ -10,3 +10,8 @@ export * from './service-base';
 export * from './link-person-helper';
 export * from './crud-related';
 export * from './upload.service';
+export * from './auth-api.service';
+export * from './user.service';
+export * from './foo.service';
+export * from './auth.service';
+export * from './config.service';
