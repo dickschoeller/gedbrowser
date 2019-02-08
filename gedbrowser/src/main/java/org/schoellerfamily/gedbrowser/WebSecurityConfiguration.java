@@ -81,6 +81,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
      * @param roles the user's roles
      * @return the names of the user's roles
      */
+    @SuppressWarnings({ "PMD.UseVarargs" })
     private String[] createRoleStrings(final UserRoleName[] roles) {
         return new String[roles.length];
     }

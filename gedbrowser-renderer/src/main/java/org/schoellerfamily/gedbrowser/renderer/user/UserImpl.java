@@ -119,6 +119,7 @@ public final class UserImpl implements User {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings({ "PMD.OptimizableToArrayCall" })
     public UserRoleName[] getRoles() {
         return roles.toArray(new UserRoleName[0]);
     }
