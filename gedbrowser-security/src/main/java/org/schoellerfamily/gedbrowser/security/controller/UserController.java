@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.schoellerfamily.gedbrowser.security.exception.ResourceConflictException;
-import org.schoellerfamily.gedbrowser.security.model.User;
+import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
 import org.schoellerfamily.gedbrowser.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class UserController {
      */
     @RequestMapping(method = GET, value = "/users/{username:.+}")
     @PreAuthorize("hasRole('USER')")
-    public User loadById(@PathVariable final String username) {
+    public SecurityUser loadById(@PathVariable final String username) {
         return userService.findByUsername(username);
     }
 
@@ -49,7 +49,7 @@ public class UserController {
      */
     @RequestMapping(method = GET, value = "/users")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<User> loadAll() {
+    public List<SecurityUser> loadAll() {
         return userService.findAll();
     }
 
@@ -73,31 +73,31 @@ public class UserController {
     public ResponseEntity<?> addUser(
             @RequestBody final UserRequest userRequest,
             final UriComponentsBuilder ucBuilder) {
-        final User existUser =
+        final SecurityUser existUser =
                 userService.findByUsername(userRequest.getUsername());
         if (existUser != null) {
           throw new ResourceConflictException(
                   1L, /* userRequest.getId(),*/ "Username already exists");
         }
-        final User user = this.userService.save(userRequest);
+        final SecurityUser user = this.userService.save(userRequest);
         // TODO I think creating the header has no effect.
         final HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/v1/user/{userUsername}")
                 .buildAndExpand(user.getUsername()).toUri());
-        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+        return new ResponseEntity<SecurityUser>(user, HttpStatus.CREATED);
     }
 
     /**
      * We are not using userService.findByUsername here(we could), so it is good
-     * that we are making sure that the user has role "ROLE_USER" to access this
+     * that we are making sure that the user has role "USER" to access this
      * endpoint.
      *
      * @return the current user
      */
     @RequestMapping("/whoami")
     @PreAuthorize("hasRole('USER')")
-    public User user() {
-        return (User) SecurityContextHolder
+    public SecurityUser user() {
+        return (SecurityUser) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();

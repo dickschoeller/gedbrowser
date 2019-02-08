@@ -6,9 +6,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.schoellerfamily.gedbrowser.security.auth.AnonAuthentication;
 import org.schoellerfamily.gedbrowser.security.auth.TokenBasedAuthentication;
-import org.schoellerfamily.gedbrowser.security.model.User;
+import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserImpl;
-import org.schoellerfamily.gedbrowser.security.model.Users;
+import org.schoellerfamily.gedbrowser.security.model.SecurityUsers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.context.SecurityContext;
@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public abstract class AbstractTest {
     /** */
     @Autowired
-    private Users users;
+    private SecurityUsers users;
 
     /** */
     @Autowired
@@ -52,7 +52,7 @@ public abstract class AbstractTest {
     /**
      * @param user the user
      */
-    protected void mockAuthenticatedUser(final User user) {
+    protected void mockAuthenticatedUser(final SecurityUser user) {
         mockAuthentication(new TokenBasedAuthentication(user));
     }
 
@@ -67,7 +67,7 @@ public abstract class AbstractTest {
     /**
      * @return the user
      */
-    protected User buildTestAnonUser() {
+    protected SecurityUser buildTestAnonUser() {
         final UserImpl user = new UserImpl();
         user.setUsername("anon");
         return user;
@@ -76,7 +76,7 @@ public abstract class AbstractTest {
     /**
      * @return the user
      */
-    protected User buildTestUser() {
+    protected SecurityUser buildTestUser() {
         final UserImpl user = new UserImpl();
         user.addRole("USER");
         user.setUsername("user");
@@ -86,7 +86,7 @@ public abstract class AbstractTest {
     /**
      * @return the user
      */
-    protected User buildTestAdmin() {
+    protected SecurityUser buildTestAdmin() {
         final UserImpl admin = new UserImpl();
         admin.setUsername("admin");
         admin.addRole("ADMIN");
@@ -97,14 +97,14 @@ public abstract class AbstractTest {
     /**
      * @return the users
      */
-    public Users getUsers() {
+    public SecurityUsers getUsers() {
         return users;
     }
 
     /**
      * @param users the users to set
      */
-    public void setUsers(final Users users) {
+    public void setUsers(final SecurityUsers users) {
         this.users = users;
     }
 

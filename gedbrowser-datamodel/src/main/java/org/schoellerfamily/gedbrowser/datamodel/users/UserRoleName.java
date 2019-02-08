@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.security.model;
+package org.schoellerfamily.gedbrowser.datamodel.users;
 
 /**
  * Roles. Any access without roles is read-only and limited data
@@ -10,9 +10,9 @@ public enum UserRoleName {
     /**
      * The role associated with logged in user capabilities.
      */
-    ROLE_USER,
+    USER,
     /**
      * The role associated with administrator capabilities.
      */
-    ROLE_ADMIN
+    ADMIN
 }

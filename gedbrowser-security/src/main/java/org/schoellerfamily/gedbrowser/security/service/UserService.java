@@ -2,7 +2,7 @@ package org.schoellerfamily.gedbrowser.security.service;
 
 import java.util.List;
 
-import org.schoellerfamily.gedbrowser.security.model.User;
+import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
 
 /**
@@ -28,14 +28,14 @@ public interface UserService {
      * @param username the name
      * @return the user
      */
-    User findByUsername(String username);
+    SecurityUser findByUsername(String username);
 
     /**
      * Get the list of all users.
      *
      * @return list of all users
      */
-    List<User> findAll();
+    List<SecurityUser> findAll();
 
     /**
      * Save a user (can create or update).
@@ -43,5 +43,5 @@ public interface UserService {
      * @param user the user request
      * @return the updated user
      */
-    User save(UserRequest user);
+    SecurityUser save(UserRequest user);
 }

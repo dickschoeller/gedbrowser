@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  * @author Dick Schoeller
  */
-public final class UserImpl implements User {
+public final class UserImpl implements SecurityUser {
     /** */
     private static final long serialVersionUID = 1L;
 
@@ -34,7 +35,7 @@ public final class UserImpl implements User {
     /** */
     private String email;
     /** */
-    private String password;
+    private String password = null;
     /** */
     private final Set<UserRoleName> roles = new HashSet<>();
 
@@ -127,7 +128,7 @@ public final class UserImpl implements User {
      */
     public void addRole(final String role) {
         try {
-            final UserRoleName valueOf = UserRoleName.valueOf("ROLE_" + role);
+            final UserRoleName valueOf = UserRoleName.valueOf(role);
             roles.add(valueOf);
         } catch (IllegalArgumentException e) {
             logger.warn("Tried to add an unknown role type: " + role);

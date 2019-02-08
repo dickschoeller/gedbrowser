@@ -15,7 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.schoellerfamily.gedbrowser.security.model.User;
+import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
 import org.schoellerfamily.gedbrowser.security.test.Application;
@@ -92,7 +92,7 @@ public class UserControllerTest {
         logger.info("Test whomai");
         final HttpHeaders headers =
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
-        final User user = userHelper.whoami(headers);
+        final SecurityUser user = userHelper.whoami(headers);
         final String username = user.getUsername();
         logger.info("I am " + username);
         assertEquals("Mismatched user", "guest", username);
@@ -108,7 +108,7 @@ public class UserControllerTest {
         logger.info("Test whomai 2");
         final HttpHeaders headers = loginHelper.buildHeaders(
                 loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
-        final User user = userHelper.whoami(headers);
+        final SecurityUser user = userHelper.whoami(headers);
         final String username = user.getUsername();
         logger.info("I am " + username);
         assertEquals("Mismatched user", "schoeller@comcast.net", username);
@@ -122,7 +122,7 @@ public class UserControllerTest {
     public final void testWhoamiNotLoggedIn()
             throws RestClientException, URISyntaxException {
         logger.info("Test whomai not logged in");
-        final ResponseEntity<? extends User> response = userHelper
+        final ResponseEntity<? extends SecurityUser> response = userHelper
                 .whoamiResponse(new HttpHeaders());
         assertEquals("Should have failed", HttpStatus.FORBIDDEN,
                 response.getStatusCode());
@@ -138,7 +138,7 @@ public class UserControllerTest {
         logger.info("Test get user guest");
         final HttpHeaders headers =
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
-        final User user = userHelper.getUser(headers, "guest");
+        final SecurityUser user = userHelper.getUser(headers, "guest");
         final String username = user.getUsername();
         logger.info("I got " + username);
         assertEquals("Mismatched user", "guest", username);
@@ -153,7 +153,7 @@ public class UserControllerTest {
             throws RestClientException, URISyntaxException {
         logger.info("Test get user guest, not logged in");
         final HttpHeaders headers = new HttpHeaders();
-        final ResponseEntity<? extends User> response =
+        final ResponseEntity<? extends SecurityUser> response =
                 userHelper.getUserResponse(headers, "guest");
         assertEquals("", HttpStatus.FORBIDDEN, response.getStatusCode());
     }
@@ -203,7 +203,7 @@ public class UserControllerTest {
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         String requestName =
                 URLEncoder.encode("schoeller@comcast.net", "UTF-8");
-        final User user = userHelper.getUser(headers, requestName);
+        final SecurityUser user = userHelper.getUser(headers, requestName);
         final String username = user.getUsername();
         logger.info("I got " + username);
         assertEquals("Mismatched user", "schoeller@comcast.net", username);
@@ -222,7 +222,7 @@ public class UserControllerTest {
                 loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
         final List<UserImpl> users = userHelper.getUsers(headers);
         logger.info("List contains:");
-        for (User user: users) {
+        for (SecurityUser user: users) {
             logger.info("   " + user.getUsername());
         }
         assertEquals("Wrong count", 2, users.size());
@@ -260,7 +260,7 @@ public class UserControllerTest {
         userRequest.setEmail("newuser@nomail.net");
         userRequest.setFirstname("New");
         userRequest.setLastname("User");
-        final User user = post(url, headers, userRequest);
+        final SecurityUser user = post(url, headers, userRequest);
         assertEquals("Wrong user found", "newuser", user.getUsername());
     }
 
@@ -346,7 +346,7 @@ public class UserControllerTest {
      * @throws RestClientException if there is a problem with the REST call
      * @throws URISyntaxException there is a problem with the URL
      */
-    private User post(final String url, final HttpHeaders headers,
+    private SecurityUser post(final String url, final HttpHeaders headers,
             final UserRequest userRequest)
                     throws RestClientException, URISyntaxException {
         final HttpEntity<UserRequest> requestEntity =

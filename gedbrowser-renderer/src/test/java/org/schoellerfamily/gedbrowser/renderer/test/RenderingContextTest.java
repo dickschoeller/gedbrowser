@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,7 +123,7 @@ public class RenderingContextTest {
     @Test
     public final void testHasRole() {
         assertTrue("Expected user role",
-                RenderingContext.user(appInfo).hasRole("USER"));
+                RenderingContext.user(appInfo).hasRole(UserRoleName.USER));
     }
 
     /** */
@@ -171,6 +172,6 @@ public class RenderingContextTest {
     @Test
     public final void testNullUserHasRole() {
         final RenderingContext rc = new RenderingContext(null, null, null);
-        assertFalse("Expected hasn't role user", rc.hasRole("USER"));
+        assertFalse("Expected hasn't role user", rc.hasRole(UserRoleName.USER));
     }
 }

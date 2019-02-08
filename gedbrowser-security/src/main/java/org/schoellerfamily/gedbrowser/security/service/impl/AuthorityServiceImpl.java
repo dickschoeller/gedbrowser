@@ -3,8 +3,8 @@ package org.schoellerfamily.gedbrowser.security.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.security.model.Authority;
-import org.schoellerfamily.gedbrowser.security.model.UserRoleName;
 import org.schoellerfamily.gedbrowser.security.service.AuthorityService;
 // import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

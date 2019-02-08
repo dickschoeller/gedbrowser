@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.security.model;
 
+import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -41,6 +42,6 @@ public final class Authority implements GrantedAuthority {
         if (userRoleName == null) {
             return null;
         }
-        return userRoleName.name();
+        return "ROLE_" + userRoleName.name();
     }
 }

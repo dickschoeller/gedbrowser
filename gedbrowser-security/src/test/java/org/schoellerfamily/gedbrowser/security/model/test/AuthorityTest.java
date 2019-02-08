@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.security.model.Authority;
-import org.schoellerfamily.gedbrowser.security.model.UserRoleName;
 
 /**
  * @author Dick Schoeller
@@ -29,7 +29,7 @@ public class AuthorityTest {
     @Test
     public void testSetGet() {
         final Authority authority = new Authority();
-        authority.setUserRoleName(UserRoleName.ROLE_USER);
+        authority.setUserRoleName(UserRoleName.USER);
         assertEquals("Should be USER", "ROLE_USER", authority.getAuthority());
     }
 }

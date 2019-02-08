@@ -1,6 +1,8 @@
 package org.schoellerfamily.gedbrowser;
 
-import org.schoellerfamily.gedbrowser.renderer.user.User;
+import org.schoellerfamily.gedbrowser.datamodel.users.User;
+import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
+import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +27,7 @@ import org.springframework.security.web.authentication
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     /** The user details that we know about. */
     @Autowired
-    private Users users;
+    private Users<? extends User> users;
 
     /** Base path in URL. */
     @Value("${server.servlet-path}")
@@ -65,8 +67,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             AuthenticationManagerBuilder> configurer =
             auth.inMemoryAuthentication();
         for (final User user : users) {
+            final UserRoleName[] roles = user.getRoles();
+            final String[] roleStrings = new String[roles.length];
+            for (int i = 0; i < roles.length; i++) {
+                roleStrings[i] = roles[i].toString().replace("ROLES_", "");
+            }
             configurer.withUser(user.getUsername())
-                    .password(user.getPassword()).roles(user.getRoles());
+                    .password(user.getPassword()).roles(roleStrings);
         }
     }
 }

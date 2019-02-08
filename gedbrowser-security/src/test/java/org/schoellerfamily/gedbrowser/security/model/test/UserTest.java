@@ -7,8 +7,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.security.model.UserImpl;
-import org.schoellerfamily.gedbrowser.security.model.UserRoleName;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
@@ -130,7 +130,7 @@ public final class UserTest {
     public void testOneRoleContent() {
         final UserImpl user = new UserImpl();
         user.addRole("USER");
-        assertEquals("Mismatched role", UserRoleName.ROLE_USER,
+        assertEquals("Mismatched role", UserRoleName.USER,
                 user.getRoles()[0]);
     }
 
@@ -142,7 +142,7 @@ public final class UserTest {
         user.addRole("ADMIN");
         user.addRole("IDIOT");
         assertTrue("Should have admin role",
-                user.hasRole(UserRoleName.ROLE_ADMIN));
+                user.hasRole(UserRoleName.ADMIN));
     }
 
     /** */
@@ -152,7 +152,7 @@ public final class UserTest {
         user.addRole("USER");
         user.addRole("IDIOT");
         assertFalse("Should not have admin role",
-                user.hasRole(UserRoleName.ROLE_ADMIN));
+                user.hasRole(UserRoleName.ADMIN));
     }
 
     /** */

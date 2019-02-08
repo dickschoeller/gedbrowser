@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.schoellerfamily.gedbrowser.security.model.User;
+import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
@@ -38,7 +38,8 @@ public class UserTestHelper {
      * @return the user
      * @throws URISyntaxException if there is a URL problem
      */
-    public User whoami(final HttpHeaders headers) throws URISyntaxException {
+    public SecurityUser whoami(final HttpHeaders headers)
+            throws URISyntaxException {
         return whoamiResponse(headers).getBody();
     }
 
@@ -47,7 +48,7 @@ public class UserTestHelper {
      * @return the response
      * @throws URISyntaxException if there is a URL problem
      */
-    public ResponseEntity<? extends User> whoamiResponse(
+    public ResponseEntity<? extends SecurityUser> whoamiResponse(
             final HttpHeaders headers) throws URISyntaxException {
         final String url = baseUrl() + "whoami";
         final HttpEntity<UserImpl> requestEntity =
@@ -74,8 +75,8 @@ public class UserTestHelper {
      * @return the User
      * @throws URISyntaxException if the URI is bogus
      */
-    public User getUser(final HttpHeaders headers, final String requestName)
-            throws URISyntaxException {
+    public SecurityUser getUser(final HttpHeaders headers,
+            final String requestName) throws URISyntaxException {
         return getUserResponse(headers, requestName).getBody();
     }
 
@@ -85,7 +86,7 @@ public class UserTestHelper {
      * @return the response
      * @throws URISyntaxException if the URI is bogus
      */
-    public ResponseEntity<? extends User> getUserResponse(
+    public ResponseEntity<? extends SecurityUser> getUserResponse(
             final HttpHeaders headers, final String requestName)
             throws URISyntaxException {
         final String url = baseUrl() + "users/" + requestName;

@@ -2,8 +2,8 @@ package org.schoellerfamily.gedbrowser.security.service.impl;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.security.model.User;
-import org.schoellerfamily.gedbrowser.security.model.Users;
+import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
+import org.schoellerfamily.gedbrowser.security.model.SecurityUsers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     /** */
     @Autowired
-    private Users users;
+    private SecurityUsers users;
 
     /** */
     @Autowired
@@ -41,7 +41,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException {
-        final User user = users.get(username);
+        final SecurityUser user = users.get(username);
         if (user == null) {
             throw new UsernameNotFoundException(String
                     .format("No user found with username '%s'.", username));
@@ -78,7 +78,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         logger.debug("Changing password for user '" + username + "'");
 
-        final User user = (User) loadUserByUsername(username);
+        final SecurityUser user = (SecurityUser) loadUserByUsername(username);
 
         user.setPassword(passwordEncoder.encode(newPassword));
         users.add(user);

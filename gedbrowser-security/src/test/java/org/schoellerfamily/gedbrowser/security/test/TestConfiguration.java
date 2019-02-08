@@ -1,7 +1,10 @@
 package org.schoellerfamily.gedbrowser.security.test;
 
 import org.schoellerfamily.gedbrowser.security.auth.TokenAuthenticationFilter;
-import org.schoellerfamily.gedbrowser.security.model.Users;
+import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
+import org.schoellerfamily.gedbrowser.security.model.SecurityUsers;
+import org.schoellerfamily.gedbrowser.security.model.UserImpl;
+import org.schoellerfamily.gedbrowser.users.UsersReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,9 +27,22 @@ public class TestConfiguration {
      * @return the Users object
      */
     @Bean
-    public Users users() {
+    public SecurityUsers users() {
         final String userFile = gedbrowserHome + "/testUserFile.csv";
-        return Users.Builder.build(userFile);
+        return readUserFile(userFile);
+    }
+
+    /**
+     * @param userFile the user file to read
+     * @return the set of users from the user file
+     */
+    private SecurityUsers readUserFile(final String userFile) {
+        final UsersReader<SecurityUser, SecurityUsers> usersReader =
+                new UsersReader<>();
+        return (SecurityUsers) usersReader.readUserFile(userFile,
+                () -> new SecurityUsers(),
+                () -> new UserImpl()
+        );
     }
 
     /**

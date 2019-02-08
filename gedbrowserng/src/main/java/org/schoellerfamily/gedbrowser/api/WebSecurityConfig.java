@@ -1,12 +1,17 @@
 package org.schoellerfamily.gedbrowser.api;
 
+import org.schoellerfamily.gedbrowser.datamodel.users.User;
+import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 import org.schoellerfamily.gedbrowser.security.auth.AuthenticationFailureHandler;
 import org.schoellerfamily.gedbrowser.security.auth.AuthenticationSuccessHandler;
 import org.schoellerfamily.gedbrowser.security.auth.LogoutSuccess;
 import org.schoellerfamily.gedbrowser.security.auth.RestAuthenticationEntryPoint;
 import org.schoellerfamily.gedbrowser.security.auth.TokenAuthenticationFilter;
-import org.schoellerfamily.gedbrowser.security.model.Users;
+import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
+import org.schoellerfamily.gedbrowser.security.model.SecurityUsers;
+import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.schoellerfamily.gedbrowser.security.service.impl.CustomUserDetailsService;
+import org.schoellerfamily.gedbrowser.users.UsersReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -68,9 +73,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @return the Users object
      */
     @Bean
-    public Users users() {
+    public SecurityUsers users() {
         final String userFile = gedbrowserHome + "/userFile.csv";
-        return Users.Builder.build(userFile);
+        return readUserFile(userFile);
+    }
+
+    /**
+     * @param userFile the user file to read
+     * @return the set of users from the user file
+     */
+    private SecurityUsers readUserFile(final String userFile) {
+        final UsersReader<SecurityUser, SecurityUsers> usersReader =
+                new UsersReader<>();
+        return (SecurityUsers) usersReader.readUserFile(userFile,
+                () -> new SecurityUsers(),
+                () -> new UserImpl()
+        );
     }
 
     /**

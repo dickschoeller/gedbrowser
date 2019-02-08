@@ -1,23 +1,23 @@
-package org.schoellerfamily.gedbrowser;
+package org.schoellerfamily.gedbrowser.security.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.schoellerfamily.gedbrowser.renderer.user.User;
+import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 
 /**
  * @author Dick Schoeller
  */
-public final class Users implements Iterable<User> {
+public final class SecurityUsers implements Users<SecurityUser> {
     /** Holds the known users. */
-    private final Map<String, User> users = new HashMap<>();
+    private final Map<String, SecurityUser> users = new HashMap<>();
 
     /**
      * @param user the user to add
      * @return that user
      */
-    public User add(final User user) {
+    public SecurityUser add(final SecurityUser user) {
         return users.put(user.getUsername(), user);
     }
 
@@ -25,7 +25,7 @@ public final class Users implements Iterable<User> {
      * @param user the user to remove
      * @return that user
      */
-    public User remove(final User user) {
+    public SecurityUser remove(final SecurityUser user) {
         return users.remove(user.getUsername());
     }
 
@@ -33,7 +33,7 @@ public final class Users implements Iterable<User> {
      * @param username the username of the user we are getting
      * @return that user
      */
-    public User get(final String username) {
+    public SecurityUser get(final String username) {
         return users.get(username);
     }
 
@@ -47,7 +47,7 @@ public final class Users implements Iterable<User> {
     /**
      * @return the iterator for the value collection
      */
-    public Iterator<User> iterator() {
+    public Iterator<SecurityUser> iterator() {
         return users.values().iterator();
     }
 

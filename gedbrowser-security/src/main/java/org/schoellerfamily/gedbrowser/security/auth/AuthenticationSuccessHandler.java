@@ -9,7 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.schoellerfamily.gedbrowser.security.model.User;
+import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserTokenState;
 import org.schoellerfamily.gedbrowser.security.model.UserTokenStateImpl;
 import org.schoellerfamily.gedbrowser.security.token.TokenHelper;
@@ -50,7 +50,7 @@ public class AuthenticationSuccessHandler
             final Authentication authentication)
             throws IOException, ServletException {
         clearAuthenticationAttributes(request);
-        final User user = (User) authentication.getPrincipal();
+        final SecurityUser user = (SecurityUser) authentication.getPrincipal();
 
         final String jws = tokenHelper.generateToken(user.getUsername());
 

@@ -6,7 +6,7 @@ import static org.junit.Assert.fail;
 import java.util.List;
 
 import org.junit.Test;
-import org.schoellerfamily.gedbrowser.security.model.User;
+import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
 import org.schoellerfamily.gedbrowser.security.service.UserService;
 import org.schoellerfamily.gedbrowser.security.test.AbstractTest;
@@ -51,8 +51,8 @@ public class UserServiceTest extends AbstractTest {
         request.setLastname("Dummy");
         request.setPassword("password");
         userService.save(request);
-        final List<User> list = userService.findAll();
-        for (User u : list) {
+        final List<SecurityUser> list = userService.findAll();
+        for (SecurityUser u : list) {
             if ("dummy".equals(u.getUsername())) {
                 return;
             }
@@ -82,7 +82,7 @@ public class UserServiceTest extends AbstractTest {
      */
     @Test
     public void testFindByUsernameWithoutUser() throws AccessDeniedException {
-        final User user = userService.findByUsername("guest");
+        final SecurityUser user = userService.findByUsername("guest");
         assertEquals("Username doesn't match", "guest", user.getUsername());
     }
 
@@ -92,7 +92,7 @@ public class UserServiceTest extends AbstractTest {
     @Test
     public void testFindByUsernameWithUser() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestUser());
-        final User user = userService.findByUsername("guest");
+        final SecurityUser user = userService.findByUsername("guest");
         assertEquals("Username doesn't match", "guest", user.getUsername());
     }
 
@@ -102,7 +102,7 @@ public class UserServiceTest extends AbstractTest {
     @Test
     public void testFindByUsernameWithAdmin() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestAdmin());
-        final User user = userService.findByUsername("guest");
+        final SecurityUser user = userService.findByUsername("guest");
         assertEquals("Username doesn't match", "guest", user.getUsername());
     }
 
@@ -117,7 +117,7 @@ public class UserServiceTest extends AbstractTest {
         request.setFirstname("John");
         request.setLastname("User");
         request.setPassword("password");
-        final User user = userService.save(request);
+        final SecurityUser user = userService.save(request);
         assertEquals("Username doesn't match", "user", user.getUsername());
     }
 }
