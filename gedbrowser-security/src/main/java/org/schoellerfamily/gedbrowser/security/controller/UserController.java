@@ -80,7 +80,6 @@ public class UserController {
                   1L, /* userRequest.getId(),*/ "Username already exists");
         }
         final SecurityUser user = this.userService.save(userRequest);
-        // TODO I think creating the header has no effect.
         final HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/v1/user/{userUsername}")
                 .buildAndExpand(user.getUsername()).toUri());

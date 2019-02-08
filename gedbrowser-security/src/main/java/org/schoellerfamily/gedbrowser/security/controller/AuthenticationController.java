@@ -70,7 +70,6 @@ public class AuthenticationController {
      */
     private ResponseEntity<?> doRefresh(final HttpServletResponse response,
             final String authToken) {
-        // TODO check user password last update
         final String refreshedToken = tokenHelper.refreshToken(authToken);
 
         final Cookie authCookie = new Cookie(cookie, (refreshedToken));

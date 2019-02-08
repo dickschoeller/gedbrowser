@@ -140,8 +140,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and().addFilterBefore(jwtAuthenticationTokenFilter(),
                     BasicAuthenticationFilter.class)
                 .authorizeRequests()
-                // TODO Temporary to get tests to pass while working on access
-                // control
                 .antMatchers("/gedbrowserng/v1/dbs/**").permitAll()
                 //
                 .anyRequest()
