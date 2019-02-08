@@ -68,12 +68,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             auth.inMemoryAuthentication();
         for (final User user : users) {
             final UserRoleName[] roles = user.getRoles();
-            final String[] roleStrings = new String[roles.length];
+            final String[] roleStrings = createRoleStrings(roles);
             for (int i = 0; i < roles.length; i++) {
                 roleStrings[i] = roles[i].toString().replace("ROLES_", "");
             }
             configurer.withUser(user.getUsername())
                     .password(user.getPassword()).roles(roleStrings);
         }
+    }
+
+    /**
+     * @param roles the user's roles
+     * @return the names of the user's roles
+     */
+    private String[] createRoleStrings(final UserRoleName[] roles) {
+        return new String[roles.length];
     }
 }

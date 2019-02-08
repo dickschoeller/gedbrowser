@@ -1,7 +1,5 @@
 package org.schoellerfamily.gedbrowser.api;
 
-import org.schoellerfamily.gedbrowser.datamodel.users.User;
-import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 import org.schoellerfamily.gedbrowser.security.auth.AuthenticationFailureHandler;
 import org.schoellerfamily.gedbrowser.security.auth.AuthenticationSuccessHandler;
 import org.schoellerfamily.gedbrowser.security.auth.LogoutSuccess;

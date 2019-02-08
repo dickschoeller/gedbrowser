@@ -28,14 +28,19 @@ public final class UserImpl implements SecurityUser {
 
     /** */
     private String username;
+
     /** */
     private String firstname;
+
     /** */
     private String lastname;
+
     /** */
     private String email;
+
     /** */
-    private String password = null;
+    private String password;
+
     /** */
     private final Set<UserRoleName> roles = new HashSet<>();
 

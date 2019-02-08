@@ -19,92 +19,106 @@ public final class UserImpl implements User {
 
     /** */
     private String username;
+
     /** */
     private String firstname;
+
     /** */
     private String lastname;
+
     /** */
     private String email;
+
     /** */
     private String password;
+
     /** */
     private final Set<UserRoleName> roles = new HashSet<>();
 
     /**
-     * @return the username
+     * {@inheritDoc}
      */
+    @Override
     public String getUsername() {
         return username;
     }
 
     /**
-     * @param username the username
+     * {@inheritDoc}
      */
+    @Override
     public void setUsername(final String username) {
         this.username = username;
     }
 
     /**
-     * @return the user's first name
+     * {@inheritDoc}
      */
+    @Override
     public String getFirstname() {
         return firstname;
     }
 
     /**
-     * @param firstname the user's first name
+     * {@inheritDoc}
      */
+    @Override
     public void setFirstname(final String firstname) {
         this.firstname = firstname;
     }
 
     /**
-     * @return the user's last name
+     * {@inheritDoc}
      */
+    @Override
     public String getLastname() {
         return lastname;
     }
 
     /**
-     * @param lastname the user's last name
+     * {@inheritDoc}
      */
+    @Override
     public void setLastname(final String lastname) {
         this.lastname = lastname;
     }
 
     /**
-     * @return the user's email address
+     * {@inheritDoc}
      */
+    @Override
     public String getEmail() {
         return email;
     }
 
     /**
-     * @param email the user's email address
+     * {@inheritDoc}
      */
+    @Override
     public void setEmail(final String email) {
         this.email = email;
     }
 
     /**
-     * @return the user's password
+     * {@inheritDoc}
      */
+    @Override
     public String getPassword() {
         return password;
     }
 
     /**
-     * @param password the user's password
+     * {@inheritDoc}
      */
+    @Override
     public void setPassword(final String password) {
         this.password = password;
     }
 
     /**
-     * The roles supported are user and admin.
-     *
-     * @return the set of roles for this user
+     * {@inheritDoc}
      */
+    @Override
     public UserRoleName[] getRoles() {
         return roles.toArray(new UserRoleName[0]);
     }
@@ -117,8 +131,9 @@ public final class UserImpl implements User {
     }
 
     /**
-     * @param role the role to add to the role set
+     * {@inheritDoc}
      */
+    @Override
     public void addRole(final String role) {
         try {
             roles.add(UserRoleName.valueOf(role));
@@ -144,6 +159,10 @@ public final class UserImpl implements User {
         return roles.contains(UserRoleName.valueOf(role));
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean hasRole(final UserRoleName role) {
         return roles.contains(role);
     }
