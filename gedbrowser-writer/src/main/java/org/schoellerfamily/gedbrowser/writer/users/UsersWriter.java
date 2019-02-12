@@ -36,7 +36,7 @@ public class UsersWriter {
     }
 
     /**
-     * 
+     * Write the users file.
      */
     public void write() {
         logger.info("writing " + users.size() + " users in " + userfilename);
@@ -48,7 +48,7 @@ public class UsersWriter {
         try (FileOutputStream fstream = new FileOutputStream(userfilename);
                 BufferedOutputStream bstream = new BufferedOutputStream(
                         fstream)) {
-            writeTheLines(bstream, users);
+            writeTheLines(bstream);
         } catch (IOException e) {
             logger.error("Problem writing user file", e);
         }
@@ -76,6 +76,7 @@ public class UsersWriter {
     }
 
     /**
+     * @param filename the name of the file being backedup
      * @return the filename.n that doesn't exist
      */
     private File generateBackupFilename(final String filename) {
@@ -102,11 +103,10 @@ public class UsersWriter {
      * stream.
      *
      * @param stream the stream to write to
-     * @param users the users to write
      * @throws IOException if there is a problem writing to the stream
      */
-    private void writeTheLines(final BufferedOutputStream stream,
-            final Users<? extends User> users) throws IOException {
+    private void writeTheLines(final BufferedOutputStream stream)
+            throws IOException {
         for (final User user : users) {
             final String string = createLine(user);
             stream.write(string.getBytes(StandardCharsets.UTF_8));
@@ -114,6 +114,10 @@ public class UsersWriter {
         }
     }
 
+    /**
+     * @param user the user to create row for
+     * @return the row string
+     */
     private String createLine(final User user) {
         logger.debug("creating line for " + user.getUsername());
         String string =
@@ -127,7 +131,12 @@ public class UsersWriter {
         }
         return string;
     }
-    
+
+    /**
+     * @param input the input string
+     * @param separator the separator to append
+     * @return the concatenated string
+     */
     private String token(final String input, final String separator) {
         if (input == null) {
             return separator;
