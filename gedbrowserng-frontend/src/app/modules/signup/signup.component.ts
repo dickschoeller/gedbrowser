@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -11,11 +11,11 @@ import {
 } from '../../services';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class SignupComponent implements OnInit, OnDestroy {
     title = 'Login';
     form: FormGroup;
 
@@ -54,7 +54,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.route.paramMap.subscribe(params => this.returnUrl = params.get('returnUrl') || '/');
         this.form = this.formBuilder.group({
             username: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64)])],
-            password: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])]
+            password: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])],
+            firstname: [''],
+            lastname: [''],
+            email: ['', Validators.compose([Validators.email])]
         });
     }
 
@@ -63,38 +66,26 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.ngUnsubscribe.complete();
     }
 
-    onResetCredentials() {
-        this.userService.resetCredentials()
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe(res => {
-                if (res.result === 'success') {
-                    alert('Password has been reset to 123 for all accounts');
-                } else {
-                    alert('Server error');
-                }
-            });
-    }
-
     onSubmit() {
-        /**
-         * Innocent until proven guilty
-         */
         this.notification = undefined;
         this.submitted = true;
 
-        this.authService.login(this.form.value)
+        this.authService.signup(this.form.value)
             // show me the animation
             .pipe(delay(1000))
             .subscribe(
                 () => {
-                    this.userService.getMyInfo().subscribe();
-                    this.router.navigate([this.returnUrl]);
+                    this.authService.login(this.form.value).subscribe(() => {
+                        this.userService.getMyInfo().subscribe();
+                        this.router.navigate([this.returnUrl]);
+                    });
                 },
-                () => {
+                error => {
                     this.submitted = false;
+                    console.log('Sign up error: ' + JSON.stringify(error));
                     this.notification = {
                         msgType: 'error',
-                        msgBody: 'Incorrect username or password.'
+                        msgBody: error['error'].errorMessage
                     };
                 }
             );

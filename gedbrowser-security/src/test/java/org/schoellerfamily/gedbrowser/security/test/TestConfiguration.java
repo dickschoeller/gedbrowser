@@ -40,7 +40,7 @@ public class TestConfiguration {
         final UsersReader<SecurityUser, SecurityUsers> usersReader =
                 new UsersReader<>();
         return (SecurityUsers) usersReader.readUserFile(userFile,
-                () -> new SecurityUsers(),
+                () -> new SecurityUsers(userFile),
                 () -> new UserImpl()
         );
     }

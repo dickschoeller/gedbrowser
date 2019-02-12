@@ -84,7 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         final UsersReader<SecurityUser, SecurityUsers> usersReader =
                 new UsersReader<>();
         return (SecurityUsers) usersReader.readUserFile(userFile,
-                () -> new SecurityUsers(),
+                () -> new SecurityUsers(userFile),
                 () -> new UserImpl()
         );
     }
@@ -140,8 +140,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and().addFilterBefore(jwtAuthenticationTokenFilter(),
                     BasicAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/gedbrowserng/v1/dbs/**").permitAll()
-                //
                 .anyRequest()
                 .authenticated()
             .and().formLogin()

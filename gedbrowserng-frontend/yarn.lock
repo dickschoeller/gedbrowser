@@ -579,16 +579,16 @@ angular-ide-loader@^0.9.12:
     slashes "1.0.5"
     typescript "^2.1.0-dev.20160920"
 
-angular-ide@^0.9.56:
-  version "0.9.56"
-  resolved "https://registry.yarnpkg.com/angular-ide/-/angular-ide-0.9.56.tgz#cea9edeb8aaf0fb205924a39df8506929c22041b"
+angular-ide@^0.9.58:
+  version "0.9.59"
+  resolved "https://registry.yarnpkg.com/angular-ide/-/angular-ide-0.9.59.tgz#1b6d3f513a76e9c414fdf226cb668da4c6200251"
   dependencies:
     angular-ide-loader "^0.9.12"
     chalk "1.1.3"
     chokidar "1.6.1"
     commander "2.9.0"
     debug "2.6.9"
-    decompress-zip "0.3.0"
+    decompress-zip "0.3.2"
     fs-extra "2.1.2"
     homedir "0.6.0"
     intercept-stdout "0.1.2"
@@ -2168,9 +2168,9 @@ decode-uri-component@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
 
-decompress-zip@0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/decompress-zip/-/decompress-zip-0.3.0.tgz#ae3bcb7e34c65879adfe77e19c30f86602b4bdb0"
+decompress-zip@0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/decompress-zip/-/decompress-zip-0.3.2.tgz#f3fa2841666abce394604f4a9e8a7085c202d464"
   dependencies:
     binary "^0.3.0"
     graceful-fs "^4.1.3"

@@ -13,22 +13,23 @@ import {
 import { RouterModule } from '@angular/router';
 
 import { GuestGuard } from '../../guards';
-import { LoginComponent } from './login.component';
+import { SignupComponent } from './signup.component';
 
-const loginRouting: ModuleWithProviders = RouterModule.forChild([
+const signupRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'login',
-        component: LoginComponent,
-        canActivate: [GuestGuard]
+        path: 'signup',
+        component: SignupComponent,
+        canActivate: [GuestGuard],
+        pathMatch: 'full',
     }
 ]);
 
 @NgModule({
     declarations: [
-        LoginComponent
+        SignupComponent
     ],
     imports: [
-        loginRouting,
+        signupRouting,
         CommonModule,
         FlexLayoutModule,
         FormsModule,
@@ -41,4 +42,4 @@ const loginRouting: ModuleWithProviders = RouterModule.forChild([
         MatTooltipModule,
     ]
 })
-export class LoginModule { }
+export class SignupModule { }
