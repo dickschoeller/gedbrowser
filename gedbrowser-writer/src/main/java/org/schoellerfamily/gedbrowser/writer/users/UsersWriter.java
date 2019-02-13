@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.users.User;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
+import org.schoellerfamily.gedbrowser.writer.util.Backup;
 
 /**
  * @author Dick Schoeller
@@ -41,7 +42,7 @@ public class UsersWriter {
     public void write() {
         logger.info("writing " + users.size() + " users in " + userfilename);
         try {
-            backup(userfilename);
+            Backup.backup(userfilename);
         } catch (IOException e) {
             logger.error("Problem backing up old copy of user file", e);
         }
@@ -54,49 +55,6 @@ public class UsersWriter {
         }
     }
 
-
-    /**
-     * Save the existing version of the file by renaming it to something ending
-     * with .&lt;number&gt;.
-     *
-     * @param filename the full path to create
-     * @throws IOException if the rename fails
-     */
-    private void backup(final String filename) throws IOException {
-        final File dest = createFile(filename);
-        if (dest.exists()) {
-            final File backupFile = generateBackupFilename(filename);
-            logger.debug("backing up user file from " + filename + " to "
-                    + backupFile.getName());
-            if (!dest.renameTo(backupFile)) {
-                throw new IOException("Could not rename file from "
-                        + dest.getName() + " to " + backupFile.getName());
-            }
-        }
-    }
-
-    /**
-     * @param filename the name of the file being backedup
-     * @return the filename.n that doesn't exist
-     */
-    private File generateBackupFilename(final String filename) {
-        int i = 1;
-        while (true) {
-            final File backupFile = createFile(filename + "." + i);
-            if (!backupFile.exists()) {
-                return backupFile;
-            }
-            i++;
-        }
-    }
-
-    /**
-     * @param filename the name of the file to create
-     * @return the file object
-     */
-    private File createFile(final String filename) {
-        return new File(filename);
-    }
 
     /**
      * Loop through the lines from the line creator and write them to the
@@ -126,7 +84,14 @@ public class UsersWriter {
         return builder.toString();
     }
 
-    private void appendUserInfoFields(final StringBuilder builder, final User user) {
+    /**
+     * Append the core fields of the user to the string.
+     *
+     * @param builder the string builder
+     * @param user the user whose core fields we'll add to the string
+     */
+    private void appendUserInfoFields(final StringBuilder builder,
+            final User user) {
         append(builder, user.getUsername(), ",");
         append(builder, user.getFirstname(), ",");
         append(builder, user.getLastname(), ",");
@@ -155,7 +120,7 @@ public class UsersWriter {
      * @param builder the builder
      * @param user the user whose roles are appended
      */
-    private void appendRoles(StringBuilder builder, final User user) {
+    private void appendRoles(final StringBuilder builder, final User user) {
         for (final UserRoleName role : user.getRoles()) {
             append(builder, ",", role.name());
         }
