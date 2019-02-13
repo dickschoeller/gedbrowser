@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.writer.users;
 
 import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
