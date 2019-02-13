@@ -120,14 +120,18 @@ public class UsersWriter {
      */
     private String createLine(final User user) {
         logger.debug("creating line for " + user.getUsername());
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
+        appendUserInfoFields(builder, user);
+        appendRoles(builder, user);
+        return builder.toString();
+    }
+
+    private void appendUserInfoFields(final StringBuilder builder, final User user) {
         append(builder, user.getUsername(), ",");
         append(builder, user.getFirstname(), ",");
         append(builder, user.getLastname(), ",");
         append(builder, user.getEmail(), ",");
         append(builder, user.getPassword(), "");
-        appendRoles(builder, user);
-        return builder.toString();
     }
 
     /**

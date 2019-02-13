@@ -6,18 +6,17 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
+import org.schoellerfamily.gedbrowser.security.model.SecurityUsers;
 import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
-import org.schoellerfamily.gedbrowser.security.model.SecurityUsers;
 import org.schoellerfamily.gedbrowser.security.service.UserService;
 import org.schoellerfamily.gedbrowser.writer.users.UsersWriter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  * @author Dick Schoeller
@@ -33,10 +32,6 @@ public class UserServiceImpl implements UserService {
     /** */
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    /** */
-    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
-    private String gedbrowserHome;
 
     /**
      * {@inheritDoc}
