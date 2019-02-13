@@ -26,7 +26,7 @@ public final class SecurityUsers implements Users<SecurityUser> {
     }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     public SecurityUser add(final SecurityUser user) {
@@ -34,7 +34,7 @@ public final class SecurityUsers implements Users<SecurityUser> {
     }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     public SecurityUser remove(final SecurityUser user) {
@@ -42,7 +42,7 @@ public final class SecurityUsers implements Users<SecurityUser> {
     }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     public SecurityUser get(final String username) {
@@ -50,7 +50,7 @@ public final class SecurityUsers implements Users<SecurityUser> {
     }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     public void clear() {
@@ -58,7 +58,7 @@ public final class SecurityUsers implements Users<SecurityUser> {
     }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     public Iterator<SecurityUser> iterator() {
@@ -66,7 +66,7 @@ public final class SecurityUsers implements Users<SecurityUser> {
     }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     public int size() {
