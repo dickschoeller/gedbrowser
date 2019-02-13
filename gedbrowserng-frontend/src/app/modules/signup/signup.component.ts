@@ -36,22 +36,25 @@ export class SignupComponent implements OnInit, OnDestroy {
     private ngUnsubscribe: Subject<void> = new Subject<void>();
 
     constructor(
-        private userService: UserService,
         private authService: AuthService,
-        private router: Router,
+        private userService: UserService,
         private route: ActivatedRoute,
+        private router: Router,
         private formBuilder: FormBuilder
     ) {
 
     }
 
     ngOnInit() {
-        this.route.params.pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe((params: DisplayMessage) => {
-                this.notification = params;
-            });
+        this.route.params.pipe(takeUntil(this.ngUnsubscribe)).subscribe((message: DisplayMessage) => {
+            this.notification = message;
+        });
         // get return url from route parameters or default to '/'
         this.route.paramMap.subscribe(params => this.returnUrl = params.get('returnUrl') || '/');
+        this.initForm();
+    }
+
+    private initForm() {
         this.form = this.formBuilder.group({
             username: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64)])],
             password: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])],

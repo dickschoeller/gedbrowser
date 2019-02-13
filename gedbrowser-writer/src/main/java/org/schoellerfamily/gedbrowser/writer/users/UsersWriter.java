@@ -120,27 +120,40 @@ public class UsersWriter {
      */
     private String createLine(final User user) {
         logger.debug("creating line for " + user.getUsername());
-        String string =
-                token(user.getUsername(), ",")
-                + token(user.getFirstname(), ",")
-                + token(user.getLastname(), ",")
-                + token(user.getEmail(), ",")
-                + token(user.getPassword(), "");
-        for (final UserRoleName role : user.getRoles()) {
-            string += "," + role.name();
-        }
-        return string;
+        StringBuilder builder = new StringBuilder();
+        append(builder, user.getUsername(), ",");
+        append(builder, user.getFirstname(), ",");
+        append(builder, user.getLastname(), ",");
+        append(builder, user.getEmail(), ",");
+        append(builder, user.getPassword(), "");
+        appendRoles(builder, user);
+        return builder.toString();
     }
 
     /**
-     * @param input the input string
-     * @param separator the separator to append
-     * @return the concatenated string
+     * Append a token and separator to the builder.
+     *
+     * @param builder the builder
+     * @param string the token
+     * @param separator the separator
      */
-    private String token(final String input, final String separator) {
-        if (input == null) {
-            return separator;
+    private void append(final StringBuilder builder, final String string,
+            final String separator) {
+        if (string != null) {
+            builder.append(string);
         }
-        return input + separator;
+        builder.append(separator);
+    }
+
+    /**
+     * Append roles to the builder.
+     *
+     * @param builder the builder
+     * @param user the user whose roles are appended
+     */
+    private void appendRoles(StringBuilder builder, final User user) {
+        for (final UserRoleName role : user.getRoles()) {
+            append(builder, ",", role.name());
+        }
     }
 }
