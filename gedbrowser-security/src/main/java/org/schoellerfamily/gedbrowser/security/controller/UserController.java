@@ -12,7 +12,7 @@ import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
 import org.schoellerfamily.gedbrowser.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+// import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -80,9 +80,9 @@ public class UserController {
                   1L, /* userRequest.getId(),*/ "Username already exists");
         }
         final SecurityUser user = this.userService.save(userRequest);
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/v1/user/{userUsername}")
-                .buildAndExpand(user.getUsername()).toUri());
+//        final HttpHeaders headers = new HttpHeaders();
+//        headers.setLocation(ucBuilder.path("/v1/user/{userUsername}")
+//                .buildAndExpand(user.getUsername()).toUri());
         return new ResponseEntity<SecurityUser>(user, HttpStatus.CREATED);
     }
 

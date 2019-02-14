@@ -4,13 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
+import org.schoellerfamily.gedbrowser.security.model.SecurityUsers;
 import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.schoellerfamily.gedbrowser.users.UsersReader;
-import org.schoellerfamily.gedbrowser.security.model.SecurityUsers;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -21,14 +23,33 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { Application.class })
 public final class UsersConfigurationTest {
+    /**
+     * The name of the user file for tests.
+     */
+    private static final String TEST_USER_FILE_CSV = "testUserFile.csv";
+
     /** */
     @Value("${gedbrowser.home:/var/lib/gedbrowser}")
     private transient String gedbrowserHome;
 
     /** */
+    @Before
+    public void before() {
+        SecurityTestHelper.resetUserFile(
+                gedbrowserHome + "/" + TEST_USER_FILE_CSV);
+    }
+
+    /** */
+    @After
+    public void after() {
+        SecurityTestHelper.resetUserFile(
+                gedbrowserHome + "/" + TEST_USER_FILE_CSV);
+    }
+
+    /** */
     @Test
     public void testUserFile() {
-        final String userFile = gedbrowserHome + "/testUserFile.csv";
+        final String userFile = gedbrowserHome + "/" + TEST_USER_FILE_CSV;
         final SecurityUsers users = readUserFile(userFile);
         final int expected = 2;
         final int actual = users.size();
@@ -59,7 +80,7 @@ public final class UsersConfigurationTest {
     /** */
     @Test
     public void testUsersClear() {
-        final String userFile = gedbrowserHome + "/testUserFile.csv";
+        final String userFile = gedbrowserHome + "/" + TEST_USER_FILE_CSV;
         final SecurityUsers users = readUserFile(userFile);
         final int expected = 0;
         users.clear();
@@ -71,7 +92,7 @@ public final class UsersConfigurationTest {
     /** */
     @Test
     public void testUsersAdd() {
-        final String userFile = gedbrowserHome + "/testUserFile.csv";
+        final String userFile = gedbrowserHome + "/" + TEST_USER_FILE_CSV;
         final SecurityUsers users = readUserFile(userFile);
         final int expected = 3;
         final UserImpl user = new UserImpl();
@@ -86,7 +107,7 @@ public final class UsersConfigurationTest {
     /** */
     @Test
     public void testUsersGet() {
-        final String userFile = gedbrowserHome + "/testUserFile.csv";
+        final String userFile = gedbrowserHome + "/" + TEST_USER_FILE_CSV;
         final SecurityUsers users = readUserFile(userFile);
         final UserImpl user = new UserImpl();
         user.setUsername("add-username");
@@ -99,7 +120,7 @@ public final class UsersConfigurationTest {
     /** */
     @Test
     public void testUsersAddRemoveGet() {
-        final String userFile = gedbrowserHome + "/testUserFile.csv";
+        final String userFile = gedbrowserHome + "/" + TEST_USER_FILE_CSV;
         final SecurityUsers users = readUserFile(userFile);
         final UserImpl user = new UserImpl();
         user.setUsername("add-username");
@@ -113,7 +134,7 @@ public final class UsersConfigurationTest {
     /** */
     @Test
     public void testUsersIterator() {
-        final String userFile = gedbrowserHome + "/testUserFile.csv";
+        final String userFile = gedbrowserHome + "/" + TEST_USER_FILE_CSV;
         final SecurityUsers users = readUserFile(userFile);
         for (SecurityUser user: users) {
             assertTrue(
@@ -130,7 +151,7 @@ public final class UsersConfigurationTest {
         final UsersReader<SecurityUser, SecurityUsers> usersReader =
                 new UsersReader<>();
         return (SecurityUsers) usersReader.readUserFile(userFile,
-                () -> new SecurityUsers(),
+                () -> new SecurityUsers(userFile),
                 () -> new UserImpl()
         );
     }

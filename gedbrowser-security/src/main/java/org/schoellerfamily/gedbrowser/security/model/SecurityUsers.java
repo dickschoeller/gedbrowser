@@ -14,47 +14,69 @@ public final class SecurityUsers implements Users<SecurityUser> {
     private final Map<String, SecurityUser> users = new HashMap<>();
 
     /**
-     * @param user the user to add
-     * @return that user
+     * The name of the file for persisting the users.
      */
+    private final String userFileName;
+
+    /**
+     * @param userFileName the name of the file for persisting the users
+     */
+    public SecurityUsers(final String userFileName) {
+        this.userFileName = userFileName;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public SecurityUser add(final SecurityUser user) {
         return users.put(user.getUsername(), user);
     }
 
     /**
-     * @param user the user to remove
-     * @return that user
+     * {@inheritDoc}
      */
+    @Override
     public SecurityUser remove(final SecurityUser user) {
         return users.remove(user.getUsername());
     }
 
     /**
-     * @param username the username of the user we are getting
-     * @return that user
+     * {@inheritDoc}
      */
+    @Override
     public SecurityUser get(final String username) {
         return users.get(username);
     }
 
     /**
-     * Resets to an empty set.
+     * {@inheritDoc}
      */
+    @Override
     public void clear() {
         users.clear();
     }
 
     /**
-     * @return the iterator for the value collection
+     * {@inheritDoc}
      */
+    @Override
     public Iterator<SecurityUser> iterator() {
         return users.values().iterator();
     }
 
     /**
-     * @return the iterator for the value collection
+     * {@inheritDoc}
      */
+    @Override
     public int size() {
         return users.values().size();
+    }
+
+    /**
+     * @return the name of the file persisting the users
+     */
+    public String getUserFileName() {
+        return userFileName;
     }
 }

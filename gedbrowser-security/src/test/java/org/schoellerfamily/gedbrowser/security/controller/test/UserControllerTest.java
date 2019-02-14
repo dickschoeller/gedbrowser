@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +20,9 @@ import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
 import org.schoellerfamily.gedbrowser.security.test.Application;
+import org.schoellerfamily.gedbrowser.security.test.SecurityTestHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -57,6 +60,10 @@ public class UserControllerTest {
     @LocalServerPort
     private int port;
 
+    /** */
+    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
+    private String gedbrowserHome;
+
     /**
      * Handles login/logout for the tests.
      */
@@ -73,13 +80,22 @@ public class UserControllerTest {
     private UserTestHelper userHelper;
 
     /**
-     * Initialize the login helper.
+     * Initialize the helpers. Reset user file before.
      */
     @Before
     public void before() {
         loginHelper = new LoginTestHelper(testRestTemplate, port);
         passwordHelper = new PasswordTestHelper(testRestTemplate, port);
         userHelper = new UserTestHelper(testRestTemplate, port);
+        SecurityTestHelper.resetUserFile(gedbrowserHome + "/testUserFile.csv");
+    }
+
+    /**
+     * Reset user file after.
+     */
+    @After
+    public void after() {
+        SecurityTestHelper.resetUserFile(gedbrowserHome + "/testUserFile.csv");
     }
 
     /**

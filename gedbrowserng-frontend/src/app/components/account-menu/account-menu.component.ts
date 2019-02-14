@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, UserService } from '../../services';
+import { AuthService, UserService, User } from '../../services';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AccountMenuComponent implements OnInit {
 
-    user: any;
+    user: User;
 
     constructor(
         private authService: AuthService,

@@ -4,6 +4,7 @@ export * from './note';
 export * from './note-list';
 export * from './person';
 export * from './person-list';
+export * from './signup';
 export * from './source';
 export * from './source-list';
 export * from './submitter';
