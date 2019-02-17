@@ -1,6 +1,6 @@
 FROM openjdk:8
 VOLUME /tmp
-ADD gedbrowser-1.3.0-M6-SNAPSHOT.jar gedbrowser.jar
+ADD gedbrowser-1.3.0-M6.jar gedbrowser.jar
 ADD config/letsencrypt.cer letsencrypt.cer
 EXPOSE 8080
 EXPOSE 8081
