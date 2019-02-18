@@ -8,7 +8,7 @@
 
   <groupId>org.schoellerfamily.gedbrowser</groupId>
   <artifactId>gedbrowser-top</artifactId>
-  <version>1.3.0-M6</version>
+  <version>1.3.0-RC1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <url>http://www.schoellerfamily.org</url>
 
@@ -50,7 +50,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <gedbrowser.version>1.3.0-M6</gedbrowser.version>
+    <gedbrowser.version>1.3.0-RC1-SNAPSHOT</gedbrowser.version>
 
     <!-- These all step forward together -->
     <spring.version>4.3.21.RELEASE</spring.version>
@@ -114,7 +114,7 @@
 
     <docker-plugin.version>1.2.0</docker-plugin.version>
     <docker.image.prefix>dickschoeller</docker.image.prefix>
-    <docker.image.tag>1.3.0-M6</docker.image.tag>
+    <docker.image.tag>1.3.0-RC1-SNAPSHOT</docker.image.tag>
 
     <config-dir>${project.basedir}/config</config-dir>
     <server.port>8080</server.port>
