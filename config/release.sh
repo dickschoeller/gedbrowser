@@ -85,3 +85,5 @@ git add -A
 git status
 
 echo "We are leaving you in development, with updated pom files, ready to commit."
+echo "These should be commited and pushed directly."
+echo "Do not push before committing as it will break the release build"
