@@ -95,12 +95,12 @@
     <htmlunit-driver.version>2.33.3</htmlunit-driver.version>
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
-    <jacoco-plugin.version>0.8.2</jacoco-plugin.version>
-    <spotbugs-plugin.version>3.1.10</spotbugs-plugin.version>
+    <jacoco-plugin.version>0.8.3</jacoco-plugin.version>
+    <spotbugs-plugin.version>3.1.11</spotbugs-plugin.version>
     <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
-    <checkstyle-version>8.15</checkstyle-version>
+    <checkstyle-version>8.18</checkstyle-version>
     <pmd-plugin.version>3.11.0</pmd-plugin.version>
-    <pmd-version>6.10.0</pmd-version>
+    <pmd-version>6.12.0</pmd-version>
     <build-helper-plugin.version>3.0.0</build-helper-plugin.version>
     <jxr-plugin.version>3.0.0</jxr-plugin.version>
     <compiler-plugin.version>3.8.0</compiler-plugin.version>
