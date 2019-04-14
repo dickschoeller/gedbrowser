@@ -82,7 +82,7 @@ public class NoteCrudTest {
     @Test
     public final void testReadNotesGl120368N13() {
         logger.info("Beginning testReadNotesGl120368N13");
-        final ApiNote resNote = crud.readNote(helper.getDb(), "N13");
+        final ApiNote resNote = crud.readOne(helper.getDb(), "N13");
         then(resNote.getString()).isEqualTo("N13");
         final String expected = "_P_CCINFO 1-1319\n"
                 + "Suffolk County Record Office, Parish Register, St Mary"
@@ -97,7 +97,7 @@ public class NoteCrudTest {
     @Test
     public final void testReadNotesGl120368N66() {
         logger.info("Beginning testReadNotesGl120368N66");
-        final ApiNote resNote = crud.readNote(helper.getDb(), "N66");
+        final ApiNote resNote = crud.readOne(helper.getDb(), "N66");
         then(resNote.getString()).isEqualTo("N66");
         then(resNote.getTail()).isEqualTo("_P_CCINFO 1-1319");
         final ApiAttribute changed = resNote.getAttributes().get(0);
@@ -112,7 +112,7 @@ public class NoteCrudTest {
     @Test
     public final void testReadNotesGl120368N1932() {
         logger.info("Beginning testReadNotesGl120368N1932");
-        final ApiNote resNote = crud.readNote(helper.getDb(), "N1932");
+        final ApiNote resNote = crud.readOne(helper.getDb(), "N1932");
         then(resNote.getString()).isEqualTo("N1932");
         final String expected = "Prince Philip, born at Mon Repos, Corfu 10"
                 + " June 1921, renounced his rights to the throne of Greece"
@@ -157,7 +157,7 @@ public class NoteCrudTest {
     public final void testReadNotesGl120368Xyzzy() {
         logger.info("Beginning testReadNotesGl120368N1932");
         try {
-            final ApiNote resNote = crud.readNote(helper.getDb(), "Xyzzy");
+            final ApiNote resNote = crud.readOne(helper.getDb(), "Xyzzy");
             fail("The note should not be found: " + resNote.getString());
         } catch (ObjectNotFoundException e) {
             assertEquals("Mismatched message",
@@ -170,7 +170,7 @@ public class NoteCrudTest {
     public final void testCreateNotesSimple() {
         logger.info("Beginning testCreateNotesSimple");
         final ApiNote reqNote = new ApiNote("note", "", "testing");
-        final ApiNote resNote = crud.createNote(helper.getDb(), reqNote);
+        final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
         then(resNote.getTail()).isEqualTo(reqNote.getTail());
     }
 
@@ -179,11 +179,11 @@ public class NoteCrudTest {
     public final void testDeleteNote() {
         logger.info("Beginning testDeleteNote");
         final ApiNote reqNote = new ApiNote("note", "", "this is a note");
-        final ApiNote resNote = crud.createNote(helper.getDb(), reqNote);
+        final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
         final String id = resNote.getString();
-        final ApiNote deletedNote = crud.deleteNote(helper.getDb(), id);
+        final ApiNote deletedNote = crud.deleteOne(helper.getDb(), id);
         try {
-            final ApiNote foundNote = crud.readNote(helper.getDb(),
+            final ApiNote foundNote = crud.readOne(helper.getDb(),
                     deletedNote.getString());
             fail("should not have found note " + foundNote.getString());
         } catch (ObjectNotFoundException e) {
@@ -198,7 +198,7 @@ public class NoteCrudTest {
     public final void testDeleteNoteNotFound() {
         logger.info("Beginning testDeleteNoteNotFound");
         try {
-            final ApiNote foundNote = crud.readNote(helper.getDb(), "XXXXXXX");
+            final ApiNote foundNote = crud.readOne(helper.getDb(), "XXXXXXX");
             fail("should not have found note " + foundNote.getString());
         } catch (ObjectNotFoundException e) {
             assertEquals("Mismatched message",
@@ -211,7 +211,7 @@ public class NoteCrudTest {
     public final void testDeleteNoteDatabaseNotFound() {
         logger.info("Beginning testDeleteNoteDatabaseNotFound");
         try {
-            final ApiNote foundNote = crud.readNote("XYZZY", "N1");
+            final ApiNote foundNote = crud.readOne("XYZZY", "N1");
             fail("should not have found note " + foundNote.getString());
         } catch (DataSetNotFoundException e) {
             assertEquals("Mismatched message",
@@ -227,7 +227,7 @@ public class NoteCrudTest {
         attributes.add(new ApiAttribute("attribute", "Note", "first note"));
         final ApiNote reqNote = new ApiNote("note", "", attributes,
                 "Top level note");
-        final ApiNote resNote = crud.createNote(helper.getDb(), reqNote);
+        final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
         then(resNote.getType()).isEqualTo(reqNote.getType());
 
         final ApiAttribute aNote = new ApiAttribute("attribute", "Note",

@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.api.controller;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.crud.HeadCrud;
+import org.schoellerfamily.gedbrowser.api.crud.ObjectCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
 import org.schoellerfamily.gedbrowser.api.service.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class UploadController extends CrudInvoker {
     /**
      * @return the CRUD object for manipulating the DB header
      */
-    private HeadCrud headCrud() {
+    private ObjectCrud<ApiHead> crud() {
         return new HeadCrud(getLoader(), getConverter(), getManager());
     }
 
@@ -55,6 +56,6 @@ public class UploadController extends CrudInvoker {
         storageService.store(file);
         final String name =
                 file.getOriginalFilename().replaceAll("\\.ged", "");
-        return headCrud().readHead(name);
+        return crud().readOne(name, "");
     }
 }

@@ -102,9 +102,11 @@ public final class GeoServiceGeocodingResult {
      *
      * @return the array of components
      */
-    @SuppressWarnings("PMD.MethodReturnsInternalArray")
     public AddressComponent[] getAddressComponents() {
-        return addressComponents;
+        if (addressComponents == null) {
+            return null;
+        }
+        return Arrays.copyOf(addressComponents, addressComponents.length);
     }
 
     /**
@@ -165,9 +167,11 @@ public final class GeoServiceGeocodingResult {
      *
      * @return the types
      */
-    @SuppressWarnings("PMD.MethodReturnsInternalArray")
     public AddressType[] getTypes() {
-        return types;
+        if (types == null) {
+            return null;
+        }
+        return Arrays.copyOf(types, types.length);
     }
 
     /**

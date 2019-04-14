@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.gedbrowser.api.crud.ObjectCrud;
 import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,7 +30,7 @@ public class PersonsController extends CrudInvoker {
     /**
      * @return the CRUD object for manipulating persons
      */
-    private PersonCrud personCrud() {
+    private ObjectCrud<ApiPerson> crud() {
         return new PersonCrud(getLoader(), getConverter(), getManager());
     }
 
@@ -41,9 +41,9 @@ public class PersonsController extends CrudInvoker {
      */
     @PostMapping(value = "/v1/dbs/{db}/persons")
     @ResponseBody
-    public ApiObject createPerson(@PathVariable final String db,
+    public ApiPerson create(@PathVariable final String db,
             @RequestBody final ApiPerson person) {
-        return personCrud().createPerson(db, person);
+        return crud().createOne(db, person);
     }
 
     /**
@@ -52,9 +52,9 @@ public class PersonsController extends CrudInvoker {
      */
     @GetMapping(value = "/v1/dbs/{db}/persons")
     @ResponseBody
-    public List<ApiPerson> readPersons(
+    public List<ApiPerson> read(
             @PathVariable final String db) {
-        return personCrud().readAll(db);
+        return crud().readAll(db);
     }
 
     /**
@@ -64,11 +64,11 @@ public class PersonsController extends CrudInvoker {
      */
     @GetMapping(value = "/v1/dbs/{db}/persons/{id}")
     @ResponseBody
-    public ApiPerson readPerson(
+    public ApiPerson read(
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("entering read person: " + id);
-        return personCrud().readPerson(db, id);
+        return crud().readOne(db, id);
     }
 
     /**
@@ -79,11 +79,11 @@ public class PersonsController extends CrudInvoker {
      */
     @PutMapping(value = "/v1/dbs/{db}/persons/{id}")
     @ResponseBody
-    public ApiObject updatePerson(@PathVariable final String db,
+    public ApiPerson update(@PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
         logger.info("entering update person: " + id);
-        return personCrud().updateOne(db, id, person);
+        return crud().updateOne(db, id, person);
     }
 
     /**
@@ -93,10 +93,10 @@ public class PersonsController extends CrudInvoker {
      */
     @DeleteMapping(value = "/v1/dbs/{db}/persons/{id}")
     @ResponseBody
-    public ApiPerson deletePerson(
+    public ApiPerson delete(
             @PathVariable final String db,
             @PathVariable final String id) {
         logger.info("entering delete person: " + id);
-        return personCrud().deletePerson(db, id);
+        return crud().deleteOne(db, id);
     }
 }

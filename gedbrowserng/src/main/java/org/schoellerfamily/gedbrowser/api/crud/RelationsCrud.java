@@ -32,7 +32,7 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
      */
     protected final ApiPerson createPerson(final String db,
             final ApiPerson person) {
-        return personCrud().createPerson(db, person);
+        return personCrud().createOne(db, person);
     }
 
     /**
@@ -41,7 +41,7 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
      * @return the person returned from the db
      */
     protected final ApiPerson readPerson(final String db, final String id) {
-        return personCrud().readPerson(db, id);
+        return personCrud().readOne(db, id);
     }
 
     /**
@@ -49,7 +49,7 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
      * @return the family returned from the db
      */
     protected final ApiFamily createFamily(final String db) {
-        return familyCrud().createFamily(db, new ApiFamily());
+        return familyCrud().createOne(db, new ApiFamily());
     }
 
     /**
@@ -58,7 +58,7 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
      * @return the family returned from the db
      */
     protected final ApiFamily readFamily(final String db, final String id) {
-        return familyCrud().readFamily(db, id);
+        return familyCrud().readOne(db, id);
     }
 
     /**

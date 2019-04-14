@@ -118,7 +118,7 @@ public class SourceCrudTest {
     @Test
     public final void testReadSourcesMiniSchoellerS2() {
         logger.info("Beginning testReadSourcesMiniSchoellerS2");
-        final ApiSource firstSource = crud.readSource("mini-schoeller", "S2");
+        final ApiSource firstSource = crud.readOne("mini-schoeller", "S2");
         then(firstSource.getString()).isEqualTo("S2");
         then(firstSource.getImages()).isEmpty();
         then(firstSource.getTitle()).isEqualTo(
@@ -143,7 +143,7 @@ public class SourceCrudTest {
     public final void testReadSourcesMiniSchoellerXyzzy() {
         logger.info("Beginning testReadSourcesMiniSchoellerXyzzy");
         try {
-            final ApiSource source = crud.readSource("mini-schoeller", "Xyzzy");
+            final ApiSource source = crud.readOne("mini-schoeller", "Xyzzy");
             fail("The source should not be found: " + source.getString());
         } catch (ObjectNotFoundException e) {
             assertEquals("Mismatched message",
@@ -156,7 +156,7 @@ public class SourceCrudTest {
     public final void testCreateSourcesSimple() {
         logger.info("Beginning testCreateSourcesSimple");
         final ApiSource inSource = new ApiSource("source", "", "Unknown");
-        final ApiSource newSource = crud.createSource(helper.getDb(), inSource);
+        final ApiSource newSource = crud.createOne(helper.getDb(), inSource);
         then(newSource.getType()).isEqualTo(inSource.getType());
     }
 
@@ -165,13 +165,13 @@ public class SourceCrudTest {
     public final void testDeleteSource() {
         logger.info("Beginning testDeleteSource");
         final ApiSource reqSource = new ApiSource("source", "", "Unknown");
-        final ApiSource resSource = crud.createSource(helper.getDb(),
+        final ApiSource resSource = crud.createOne(helper.getDb(),
                 reqSource);
         final String id = resSource.getString();
-        final ApiSource deletedSource = crud.deleteSource(helper.getDb(), id);
+        final ApiSource deletedSource = crud.deleteOne(helper.getDb(), id);
 
         try {
-            final ApiSource foundSource = crud.readSource("mini-schoeller",
+            final ApiSource foundSource = crud.readOne("mini-schoeller",
                     deletedSource.getString());
             fail("The source should not be found: " + foundSource.getString());
         } catch (ObjectNotFoundException e) {
@@ -187,7 +187,7 @@ public class SourceCrudTest {
         logger.info("Beginning testDeleteSourceNotFound");
         try {
             final ApiSource deletedSource =
-                    crud.deleteSource(helper.getDb(), "XXXXXXX");
+                    crud.deleteOne(helper.getDb(), "XXXXXXX");
             fail("The source should not be found: "
                     + deletedSource.getString());
         } catch (ObjectNotFoundException e) {
@@ -202,7 +202,7 @@ public class SourceCrudTest {
         logger.info("Beginning testDeleteSubmitterDatabaseNotFound");
         try {
             final ApiSource deletedSource =
-                    crud.deleteSource("XYZZY", "S1");
+                    crud.deleteOne("XYZZY", "S1");
             fail("The dataset XYZZY should not be found,"
                     + " while looking for source "
                     + deletedSource.getString());
@@ -220,7 +220,7 @@ public class SourceCrudTest {
         attributes.add(new ApiAttribute("attribute", "Note", "first note"));
         final ApiSource inSource = new ApiSource("source", "", attributes,
                 "Unknown");
-        final ApiSource newSource = crud.createSource(helper.getDb(), inSource);
+        final ApiSource newSource = crud.createOne(helper.getDb(), inSource);
 
         final ApiAttribute aNote = new ApiAttribute("attribute", "Note",
                 "this is a note");

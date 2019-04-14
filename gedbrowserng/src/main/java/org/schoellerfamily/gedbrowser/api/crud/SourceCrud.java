@@ -18,7 +18,9 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
  */
 public class SourceCrud
     extends OperationsEnabler<Source, SourceDocument>
-    implements CrudOperations<Source, SourceDocument, ApiSource>, LinkCrud {
+    implements CrudOperations<Source, SourceDocument, ApiSource>,
+        ObjectCrud<ApiSource>,
+        LinkCrud {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -54,7 +56,8 @@ public class SourceCrud
      * @param source the data for the source
      * @return the source as created
      */
-    public ApiSource createSource(final String db,
+    @Override
+    public ApiSource createOne(final String db,
             final ApiSource source) {
         logger.info("Entering create source in db: " + db);
         return create(readRoot(db), source, (i, id) -> new ApiSource(i, id));
@@ -64,6 +67,7 @@ public class SourceCrud
      * @param db the name of the db to access
      * @return the list of sources
      */
+    @Override
     public List<ApiSource> readAll(
             final String db) {
         logger.info("Entering sources, db: " + db);
@@ -75,7 +79,8 @@ public class SourceCrud
      * @param id the ID of the source
      * @return the source
      */
-    public ApiSource readSource(
+    @Override
+    public ApiSource readOne(
             final String db,
             final String id) {
         logger.info("Entering source, db: " + db + ", id: " + id);
@@ -88,6 +93,7 @@ public class SourceCrud
      * @param source the data for the source
      * @return the source as created
      */
+    @Override
     public ApiSource updateOne(final String db,
             final String id,
             final ApiSource source) {
@@ -103,7 +109,8 @@ public class SourceCrud
      * @param id the ID of the source
      * @return the deleted object
      */
-    public ApiSource deleteSource(
+    @Override
+    public ApiSource deleteOne(
             final String db,
             final String id) {
         unlinkFrom(db, id);

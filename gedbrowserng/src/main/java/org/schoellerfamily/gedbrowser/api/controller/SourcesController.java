@@ -2,8 +2,8 @@ package org.schoellerfamily.gedbrowser.api.controller;
 
 import java.util.List;
 
+import org.schoellerfamily.gedbrowser.api.crud.ObjectCrud;
 import org.schoellerfamily.gedbrowser.api.crud.SourceCrud;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,7 +25,7 @@ public class SourcesController extends CrudInvoker {
     /**
      * @return the CRUD object for manipulating persons
      */
-    private SourceCrud sourceCrud() {
+    private ObjectCrud<ApiSource> crud() {
         return new SourceCrud(getLoader(), getConverter(), getManager());
     }
 
@@ -36,9 +36,10 @@ public class SourcesController extends CrudInvoker {
      */
     @PostMapping(value = "/v1/dbs/{db}/sources")
     @ResponseBody
-    public ApiObject createSource(@PathVariable final String db,
+    public ApiSource create(
+            @PathVariable final String db,
             @RequestBody final ApiSource source) {
-        return sourceCrud().createSource(db, source);
+        return crud().createOne(db, source);
     }
 
     /**
@@ -47,9 +48,9 @@ public class SourcesController extends CrudInvoker {
      */
     @GetMapping(value = "/v1/dbs/{db}/sources")
     @ResponseBody
-    public List<ApiSource> readSources(
+    public List<ApiSource> read(
             @PathVariable final String db) {
-        return sourceCrud().readAll(db);
+        return crud().readAll(db);
     }
 
     /**
@@ -59,10 +60,10 @@ public class SourcesController extends CrudInvoker {
      */
     @GetMapping(value = "/v1/dbs/{db}/sources/{id}")
     @ResponseBody
-    public ApiSource readSource(
+    public ApiSource read(
             @PathVariable final String db,
             @PathVariable final String id) {
-        return sourceCrud().readSource(db, id);
+        return crud().readOne(db, id);
     }
 
     /**
@@ -73,10 +74,11 @@ public class SourcesController extends CrudInvoker {
      */
     @PutMapping(value = "/v1/dbs/{db}/sources/{id}")
     @ResponseBody
-    public ApiObject updateSource(@PathVariable final String db,
+    public ApiSource update(
+            @PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiSource source) {
-        return sourceCrud().updateOne(db, id, source);
+        return crud().updateOne(db, id, source);
     }
 
     /**
@@ -86,9 +88,9 @@ public class SourcesController extends CrudInvoker {
      */
     @DeleteMapping(value = "/v1/dbs/{db}/sources/{id}")
     @ResponseBody
-    public ApiSource deleteSource(
+    public ApiSource delete(
             @PathVariable final String db,
             @PathVariable final String id) {
-        return sourceCrud().deleteSource(db, id);
+        return crud().deleteOne(db, id);
     }
 }

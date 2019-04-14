@@ -3,8 +3,8 @@ package org.schoellerfamily.gedbrowser.api.controller;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.api.crud.FamilyCrud;
+import org.schoellerfamily.gedbrowser.api.crud.ObjectCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +25,7 @@ public final class FamiliesController extends CrudInvoker {
     /**
      * @return the CRUD object for manipulating families
      */
-    private FamilyCrud familyCrud() {
+    private ObjectCrud<ApiFamily> crud() {
         return new FamilyCrud(getLoader(), getConverter(), getManager());
     }
 
@@ -36,9 +36,10 @@ public final class FamiliesController extends CrudInvoker {
      */
     @PostMapping(value = "/v1/dbs/{db}/families")
     @ResponseBody
-    public ApiObject createFamily(@PathVariable final String db,
+    public ApiFamily create(
+            @PathVariable final String db,
             @RequestBody final ApiFamily family) {
-        return familyCrud().createFamily(db, family);
+        return crud().createOne(db, family);
     }
 
     /**
@@ -47,9 +48,9 @@ public final class FamiliesController extends CrudInvoker {
      */
     @GetMapping(value = "/v1/dbs/{db}/families")
     @ResponseBody
-    public List<ApiFamily> readFamilies(
+    public List<ApiFamily> read(
             @PathVariable final String db) {
-        return familyCrud().readAll(db);
+        return crud().readAll(db);
     }
 
     /**
@@ -59,10 +60,10 @@ public final class FamiliesController extends CrudInvoker {
      */
     @GetMapping(value = "/v1/dbs/{db}/families/{id}")
     @ResponseBody
-    public ApiFamily readFamily(
+    public ApiFamily read(
             @PathVariable final String db,
             @PathVariable final String id) {
-        return familyCrud().readFamily(db, id);
+        return crud().readOne(db, id);
     }
 
     /**
@@ -73,10 +74,11 @@ public final class FamiliesController extends CrudInvoker {
      */
     @PutMapping(value = "/v1/dbs/{db}/families/{id}")
     @ResponseBody
-    public ApiObject updateFamily(@PathVariable final String db,
+    public ApiFamily update(
+            @PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiFamily family) {
-        return familyCrud().updateOne(db, id, family);
+        return crud().updateOne(db, id, family);
     }
 
     /**
@@ -86,9 +88,9 @@ public final class FamiliesController extends CrudInvoker {
      */
     @DeleteMapping(value = "/v1/dbs/{db}/families/{id}")
     @ResponseBody
-    public ApiFamily deleteFamily(
+    public ApiFamily delete(
             @PathVariable final String db,
             @PathVariable final String id) {
-        return familyCrud().deleteFamily(db, id);
+        return crud().deleteOne(db, id);
     }
 }

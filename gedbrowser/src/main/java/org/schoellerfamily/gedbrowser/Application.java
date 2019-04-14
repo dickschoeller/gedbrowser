@@ -21,8 +21,7 @@ public class Application {
      * @throws InterruptedException if thread sleep fails at end
      */
     public static void main(final String[] args) throws InterruptedException {
-        SpringApplication.run(
-                org.schoellerfamily.gedbrowser.Application.class, args);
+        SpringApplication.run(Application.class, args);
         Thread.sleep(TWENTY_SECONDS);
     }
 

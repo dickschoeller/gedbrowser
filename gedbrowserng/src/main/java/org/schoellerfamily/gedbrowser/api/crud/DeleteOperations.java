@@ -60,4 +60,11 @@ public interface DeleteOperations<X extends GedObject,
         ((CrudRepository<Y, String>) repo).delete(oldDoc);
         return convert(oldDoc);
     }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the ID of the object
+     * @return the deleted object
+     */
+    Z deleteOne(String db, String id);
 }

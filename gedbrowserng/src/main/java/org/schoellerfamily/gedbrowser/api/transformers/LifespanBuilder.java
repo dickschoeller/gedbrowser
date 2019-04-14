@@ -21,9 +21,7 @@ public interface LifespanBuilder {
         final String birthYear = year(document, "Birth");
         final String deathYear = year(document, "Death");
 
-        final ApiLifespan lifespan =
-                new ApiLifespan(birthDate, deathDate, birthYear, deathYear);
-        return lifespan;
+        return new ApiLifespan(birthDate, deathDate, birthYear, deathYear);
     }
 
     /**

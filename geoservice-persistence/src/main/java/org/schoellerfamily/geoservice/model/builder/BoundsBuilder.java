@@ -28,8 +28,7 @@ public interface BoundsBuilder extends LatLngBuilder {
             return new Bounds();
         }
         final List<LngLatAlt> list = coordinates.get(0);
-        final Bounds bounds = toBounds(list.get(2), list.get(0));
-        return bounds;
+        return toBounds(list.get(2), list.get(0));
     }
 
     /**

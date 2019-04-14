@@ -2,8 +2,8 @@ package org.schoellerfamily.gedbrowser.api.controller;
 
 import java.util.List;
 
+import org.schoellerfamily.gedbrowser.api.crud.ObjectCrud;
 import org.schoellerfamily.gedbrowser.api.crud.SubmitterCrud;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,7 +25,7 @@ public class SubmittersController extends CrudInvoker {
     /**
      * @return the CRUD object for manipulating submitters
      */
-    private SubmitterCrud submitterCrud() {
+    private ObjectCrud<ApiSubmitter> crud() {
         return new SubmitterCrud(getLoader(), getConverter(), getManager());
     }
 
@@ -36,9 +36,10 @@ public class SubmittersController extends CrudInvoker {
      */
     @PostMapping(value = "/v1/dbs/{db}/submitters")
     @ResponseBody
-    public ApiObject createSubmitter(@PathVariable final String db,
+    public ApiSubmitter create(
+            @PathVariable final String db,
             @RequestBody final ApiSubmitter submitter) {
-        return submitterCrud().createSubmitter(db, submitter);
+        return crud().createOne(db, submitter);
     }
 
     /**
@@ -47,9 +48,9 @@ public class SubmittersController extends CrudInvoker {
      */
     @GetMapping(value = "/v1/dbs/{db}/submitters")
     @ResponseBody
-    public List<ApiSubmitter> readSubmitters(
+    public List<ApiSubmitter> read(
             @PathVariable final String db) {
-        return submitterCrud().readAll(db);
+        return crud().readAll(db);
     }
 
     /**
@@ -59,10 +60,10 @@ public class SubmittersController extends CrudInvoker {
      */
     @GetMapping(value = "/v1/dbs/{db}/submitters/{id}")
     @ResponseBody
-    public ApiSubmitter readSubmitter(
+    public ApiSubmitter read(
             @PathVariable final String db,
             @PathVariable final String id) {
-        return submitterCrud().readSubmitter(db, id);
+        return crud().readOne(db, id);
     }
 
     /**
@@ -73,10 +74,11 @@ public class SubmittersController extends CrudInvoker {
      */
     @PutMapping(value = "/v1/dbs/{db}/submitters/{id}")
     @ResponseBody
-    public ApiObject updateSubmitter(@PathVariable final String db,
+    public ApiSubmitter update(
+            @PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiSubmitter submitter) {
-        return submitterCrud().updateOne(db, id, submitter);
+        return crud().updateOne(db, id, submitter);
     }
 
     /**
@@ -89,6 +91,6 @@ public class SubmittersController extends CrudInvoker {
     public ApiSubmitter deleteSubmitter(
             @PathVariable final String db,
             @PathVariable final String id) {
-        return submitterCrud().deleteSubmitter(db, id);
+        return crud().deleteOne(db, id);
     }
 }

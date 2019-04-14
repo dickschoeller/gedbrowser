@@ -101,7 +101,7 @@ public class PersonCrudTest {
     @Test
     public final void testGetPersonsMiniSchoellerI2() {
         logger.info("Beginning testGetPersonsMiniSchoellerI2");
-        final ApiPerson firstPerson = crud.readPerson("mini-schoeller", "I2");
+        final ApiPerson firstPerson = crud.readOne("mini-schoeller", "I2");
         then(firstPerson.getString()).isEqualTo("I2");
         final ApiAttribute firstAttribute = firstPerson.getAttributes().get(0);
         then(firstAttribute.getType()).isEqualTo("name");
@@ -114,7 +114,7 @@ public class PersonCrudTest {
     public final void testGetPersonsMiniSchoellerXyzzy() {
         logger.info("Beginning testGetPersonsMiniSchoellerXyzzy");
         try {
-            crud.readPerson("mini-schoeller", "Xyzzy");
+            crud.readOne("mini-schoeller", "Xyzzy");
             fail("should not have found person "
                     + "Xyzzy in data set mini-schoeller");
         } catch (ObjectNotFoundException e) {
@@ -129,7 +129,7 @@ public class PersonCrudTest {
         logger.info("Beginning testCreatePersonsSimple");
         final ApiPerson.Builder builder = new ApiPerson.Builder().build();
         final ApiPerson reqPerson = new ApiPerson(builder);
-        final ApiPerson resPerson = crud.createPerson(helper.getDb(),
+        final ApiPerson resPerson = crud.createOne(helper.getDb(),
                 reqPerson);
         then(resPerson.getType()).isEqualTo(reqPerson.getType());
         then(resPerson.getSurname()).isEqualTo(reqPerson.getSurname());
@@ -143,7 +143,7 @@ public class PersonCrudTest {
         logger.info("Beginning testCreatePersonsWithName");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson =
-                crud.createPerson(helper.getDb(), reqPerson);
+                crud.createOne(helper.getDb(), reqPerson);
         then(resPerson.getType()).isEqualTo(reqPerson.getType());
         then(resPerson.getSurname()).isEqualTo(reqPerson.getSurname());
         then(resPerson.getIndexName()).isEqualTo(reqPerson.getIndexName());
@@ -170,13 +170,13 @@ public class PersonCrudTest {
         logger.info("Beginning testDeletePerson");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson =
-                crud.createPerson(helper.getDb(), reqPerson);
+                crud.createOne(helper.getDb(), reqPerson);
         final String id = resPerson.getString();
-        crud.readPerson(helper.getDb(), id);
-        final ApiPerson deletedPerson = crud.deletePerson(helper.getDb(), id);
+        crud.readOne(helper.getDb(), id);
+        final ApiPerson deletedPerson = crud.deleteOne(helper.getDb(), id);
         then(deletedPerson.getString()).isEqualTo(id);
         try {
-            crud.readPerson(helper.getDb(), id);
+            crud.readOne(helper.getDb(), id);
             fail("should not have found person " + id + " in data set "
                     + helper.getDb());
         } catch (ObjectNotFoundException e) {
@@ -192,7 +192,7 @@ public class PersonCrudTest {
         logger.info("Beginning testDeleteSpouseLinkedPerson");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson =
-                crud.createPerson(helper.getDb(), reqPerson);
+                crud.createOne(helper.getDb(), reqPerson);
         final String id = resPerson.getString();
         final ApiPerson childReqPerson = helper.createAlexander();
         final ChildCrud childCrud = new ChildCrud(loader, toDocConverter,
@@ -207,12 +207,12 @@ public class PersonCrudTest {
                 fam, p2);
         then(fam).isEqualTo(gotP2.getFams().get(0).getString());
 
-        ApiPerson readPerson = crud.readPerson(helper.getDb(), id);
+        ApiPerson readPerson = crud.readOne(helper.getDb(), id);
         then(readPerson.getString()).isEqualTo(id);
-        ApiPerson deletedPerson = crud.deletePerson(helper.getDb(), id);
+        ApiPerson deletedPerson = crud.deleteOne(helper.getDb(), id);
         then(deletedPerson.getString()).isEqualTo(id);
         try {
-            crud.readPerson(helper.getDb(), id);
+            crud.readOne(helper.getDb(), id);
             fail("should not have found person " + id + " in data set "
                     + helper.getDb());
         } catch (ObjectNotFoundException e) {
@@ -220,7 +220,7 @@ public class PersonCrudTest {
                     "Object " + id + " of type person not found",
                     e.getMessage());
         }
-        final ApiFamily readFamily = familyCrud.readFamily(helper.getDb(), fam);
+        final ApiFamily readFamily = familyCrud.readOne(helper.getDb(), fam);
         then(readFamily.getSpouses().size()).isEqualTo(1);
         then(readFamily.getSpouses().get(0).getString())
                 .isEqualTo(gotP2.getString());
@@ -232,7 +232,7 @@ public class PersonCrudTest {
         logger.info("Beginning testDeleteChildLinkedPerson");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson =
-                crud.createPerson(helper.getDb(), reqPerson);
+                crud.createOne(helper.getDb(), reqPerson);
         final String id = resPerson.getString();
         final ApiPerson childReqPerson = helper.createAlexander();
         final ChildCrud childCrud = new ChildCrud(loader, toDocConverter,
@@ -248,10 +248,10 @@ public class PersonCrudTest {
                 spouseCrud.createSpouseInFamily(helper.getDb(), fam, p2);
         then(gotP2.getFams().get(0).getString()).isEqualTo(fam);
         final ApiPerson deletedPerson =
-                crud.deletePerson(helper.getDb(), childId);
+                crud.deleteOne(helper.getDb(), childId);
         then(deletedPerson.getString()).isEqualTo(childId);
         try {
-            crud.readPerson(helper.getDb(), childId);
+            crud.readOne(helper.getDb(), childId);
             fail("should not have found person " + childId + " in data set "
                     + helper.getDb());
         } catch (ObjectNotFoundException e) {
@@ -259,7 +259,7 @@ public class PersonCrudTest {
                     "Object " + childId + " of type person not found",
                     e.getMessage());
         }
-        final ApiFamily readFamily = familyCrud.readFamily(helper.getDb(), fam);
+        final ApiFamily readFamily = familyCrud.readOne(helper.getDb(), fam);
         then(readFamily.getChildren().size()).isEqualTo(0);
     }
 
@@ -268,7 +268,7 @@ public class PersonCrudTest {
     public final void testDeletePersonNotFound() {
         logger.info("Beginning testDeletePersonNotFound");
         try {
-            crud.deletePerson(helper.getDb(), "XXXXXXX");
+            crud.deleteOne(helper.getDb(), "XXXXXXX");
             fail("should not have found person XXXXXXX in data set "
                     + helper.getDb());
         } catch (ObjectNotFoundException e) {
@@ -283,7 +283,7 @@ public class PersonCrudTest {
         logger.info("Beginning testDeletePersonDatabaseNotFound");
         logger.info("Beginning testDeletePersonNotFound");
         try {
-            crud.deletePerson("XYZZY", "XXXXXXX");
+            crud.deleteOne("XYZZY", "XXXXXXX");
             fail("should not have found data set "
                     + "XYZZY while looking for person XXXXXXX");
         } catch (DataSetNotFoundException e) {
@@ -298,7 +298,7 @@ public class PersonCrudTest {
         logger.info("Beginning testUpdatePersonWithNote");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson =
-                crud.createPerson(helper.getDb(), reqPerson);
+                crud.createOne(helper.getDb(), reqPerson);
         then(resPerson.getType()).isEqualTo(reqPerson.getType());
 
         final ApiAttribute aNote = new ApiAttribute("attribute", "Note",

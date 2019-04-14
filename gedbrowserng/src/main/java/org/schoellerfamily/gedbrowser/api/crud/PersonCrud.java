@@ -19,7 +19,8 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
  */
 public class PersonCrud
     extends OperationsEnabler<Person, PersonDocument>
-    implements CrudOperations<Person, PersonDocument, ApiPerson> {
+    implements CrudOperations<Person, PersonDocument, ApiPerson>,
+        ObjectCrud<ApiPerson> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -57,7 +58,8 @@ public class PersonCrud
      * @param person the data for the person
      * @return the person as created
      */
-    public ApiPerson createPerson(final String db, final ApiPerson person) {
+    @Override
+    public ApiPerson createOne(final String db, final ApiPerson person) {
         logger.info("Entering create person in db: " + db);
         return create(readRoot(db), person, (i, id) -> new ApiPerson(i, id));
     }
@@ -66,6 +68,7 @@ public class PersonCrud
      * @param db the name of the db to access
      * @return the list of persons
      */
+    @Override
     public List<ApiPerson> readAll(final String db) {
         logger.info("Entering read /dbs/" + db + "/persons");
         return getD2dm().convert(read(db));
@@ -76,7 +79,8 @@ public class PersonCrud
      * @param id the ID of the person
      * @return the person
      */
-    public ApiPerson readPerson(final String db, final String id) {
+    @Override
+    public ApiPerson readOne(final String db, final String id) {
         logger.info("Entering read /dbs/" + db + "/persons/" + id);
         return getD2dm().convert(read(db, id));
     }
@@ -87,6 +91,7 @@ public class PersonCrud
      * @param person the data for the person
      * @return the person as created
      */
+    @Override
     public ApiPerson updateOne(final String db, final String id,
             final ApiPerson person) {
         logger.info("Entering update person: " + id + " in db: " + db);
@@ -102,9 +107,10 @@ public class PersonCrud
      * @param id the ID of the person
      * @return the deleted person object
      */
-    public ApiPerson deletePerson(final String db, final String id) {
+    @Override
+    public ApiPerson deleteOne(final String db, final String id) {
         logger.info("Entering delete person: " + id + " from db: " + db);
-        ApiPerson person = readPerson(db, id);
+        ApiPerson person = readOne(db, id);
         person = unlinkFamc(db, person);
         /* person = */
         unlinkFams(db, person);

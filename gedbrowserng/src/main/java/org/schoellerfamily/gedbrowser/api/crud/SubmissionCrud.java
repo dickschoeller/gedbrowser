@@ -16,8 +16,9 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
  * @author Dick Schoeller
  */
 public class SubmissionCrud
-        extends OperationsEnabler<Submission, SubmissionDocument> implements
-        CrudOperations<Submission, SubmissionDocument, ApiSubmission> {
+    extends OperationsEnabler<Submission, SubmissionDocument>
+    implements CrudOperations<Submission, SubmissionDocument, ApiSubmission>,
+        ObjectCrud<ApiSubmission> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -53,7 +54,8 @@ public class SubmissionCrud
      * @param submission the data for the submission
      * @return the submission as created
      */
-    public ApiSubmission createSubmission(final String db,
+    @Override
+    public ApiSubmission createOne(final String db,
             final ApiSubmission submission) {
         logger.info("Entering create submission in db: " + db);
         return create(readRoot(db), submission, (i,
@@ -64,6 +66,7 @@ public class SubmissionCrud
      * @param db the name of the db to access
      * @return the list of submissions
      */
+    @Override
     public List<ApiSubmission> readAll(final String db) {
         logger.info("Entering submissions, db: " + db);
         return getD2dm().convert(read(db));
@@ -74,7 +77,8 @@ public class SubmissionCrud
      * @param id the ID of the submission
      * @return the submission
      */
-    public ApiSubmission readSubmission(final String db, final String id) {
+    @Override
+    public ApiSubmission readOne(final String db, final String id) {
         logger.info("Entering submission, db: " + db + ", id: " + id);
         return getD2dm().convert(read(db, id));
     }
@@ -85,6 +89,7 @@ public class SubmissionCrud
      * @param submission the data for the submission
      * @return the submission as created
      */
+    @Override
     public ApiSubmission updateOne(final String db, final String id,
             final ApiSubmission submission) {
         logger.info("Entering update submission in db: " + db);
@@ -99,7 +104,8 @@ public class SubmissionCrud
      * @param id the ID of the submission
      * @return the deleted object
      */
-    public ApiSubmission deleteSubmission(final String db, final String id) {
+    @Override
+    public ApiSubmission deleteOne(final String db, final String id) {
         return delete(readRoot(db), id);
     }
 }

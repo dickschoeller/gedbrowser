@@ -17,7 +17,8 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
  */
 public class NoteCrud
     extends OperationsEnabler<Note, NoteDocument>
-    implements CrudOperations<Note, NoteDocument, ApiNote> {
+    implements CrudOperations<Note, NoteDocument, ApiNote>,
+        ObjectCrud<ApiNote> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -53,7 +54,8 @@ public class NoteCrud
      * @param note the data for the note
      * @return the note as created
      */
-    public ApiNote createNote(final String db,
+    @Override
+    public ApiNote createOne(final String db,
             final ApiNote note) {
         logger.info("Entering create note in db: " + db);
         return create(readRoot(db), note, (i, id) ->
@@ -64,6 +66,7 @@ public class NoteCrud
      * @param db the name of the db to access
      * @return the list of notes
      */
+    @Override
     public List<ApiNote> readAll(
             final String db) {
         logger.info("Entering notes, db: " + db);
@@ -75,7 +78,8 @@ public class NoteCrud
      * @param id the ID of the note
      * @return the note
      */
-    public ApiNote readNote(
+    @Override
+    public ApiNote readOne(
             final String db,
             final String id) {
         logger.info("Entering note, db: " + db + ", id: " + id);
@@ -89,6 +93,7 @@ public class NoteCrud
      * @param note the data for the note
      * @return the note as created
      */
+    @Override
     public ApiNote updateOne(final String db,
             final String id,
             final ApiNote note) {
@@ -104,7 +109,8 @@ public class NoteCrud
      * @param id the ID of the note
      * @return the deleted object
      */
-    public ApiNote deleteNote(
+    @Override
+    public ApiNote deleteOne(
             final String db,
             final String id) {
         return delete(readRoot(db), id);

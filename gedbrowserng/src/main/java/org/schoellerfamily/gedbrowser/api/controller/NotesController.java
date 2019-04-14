@@ -3,8 +3,8 @@ package org.schoellerfamily.gedbrowser.api.controller;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.api.crud.NoteCrud;
+import org.schoellerfamily.gedbrowser.api.crud.ObjectCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +25,7 @@ public class NotesController extends CrudInvoker {
     /**
      * @return the CRUD object for manipulating notes
      */
-    private NoteCrud noteCrud() {
+    private ObjectCrud<ApiNote> crud() {
         return new NoteCrud(getLoader(), getConverter(), getManager());
     }
 
@@ -36,9 +36,10 @@ public class NotesController extends CrudInvoker {
      */
     @PostMapping(value = "/v1/dbs/{db}/notes")
     @ResponseBody
-    public ApiObject createNote(@PathVariable final String db,
+    public ApiNote create(
+            @PathVariable final String db,
             @RequestBody final ApiNote note) {
-        return noteCrud().createNote(db, note);
+        return crud().createOne(db, note);
     }
 
     /**
@@ -47,9 +48,9 @@ public class NotesController extends CrudInvoker {
      */
     @GetMapping(value = "/v1/dbs/{db}/notes")
     @ResponseBody
-    public List<ApiNote> readNotes(
+    public List<ApiNote> read(
             @PathVariable final String db) {
-        return noteCrud().readAll(db);
+        return crud().readAll(db);
     }
 
     /**
@@ -59,10 +60,10 @@ public class NotesController extends CrudInvoker {
      */
     @GetMapping(value = "/v1/dbs/{db}/notes/{id}")
     @ResponseBody
-    public ApiNote readNote(
+    public ApiNote read(
             @PathVariable final String db,
             @PathVariable final String id) {
-        return noteCrud().readNote(db, id);
+        return crud().readOne(db, id);
     }
 
     /**
@@ -73,10 +74,11 @@ public class NotesController extends CrudInvoker {
      */
     @PutMapping(value = "/v1/dbs/{db}/notes/{id}")
     @ResponseBody
-    public ApiObject updateNote(@PathVariable final String db,
+    public ApiNote update(
+            @PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiNote note) {
-        return noteCrud().updateOne(db, id, note);
+        return crud().updateOne(db, id, note);
     }
 
     /**
@@ -86,9 +88,9 @@ public class NotesController extends CrudInvoker {
      */
     @DeleteMapping(value = "/v1/dbs/{db}/notes/{id}")
     @ResponseBody
-    public ApiNote deleteNote(
+    public ApiNote delete(
             @PathVariable final String db,
             @PathVariable final String id) {
-        return noteCrud().deleteNote(db, id);
+        return crud().deleteOne(db, id);
     }
 }
