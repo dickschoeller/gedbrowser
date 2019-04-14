@@ -95,7 +95,7 @@ public class SubmissionCrudTest {
     @Test
     public final void testGetSubmissionsGl120368B1() {
         logger.info("Beginning testGetSubmissionsGl120368B1");
-        final ApiSubmission submission = crud.readSubmission(helper.getDb(),
+        final ApiSubmission submission = crud.readOne(helper.getDb(),
                 "B1");
         final ApiAttribute firstAttribute = submission.getAttributes().get(0);
         then(firstAttribute.getType()).isEqualTo("attribute");
@@ -109,7 +109,7 @@ public class SubmissionCrudTest {
     public final void testGetSubmissionsGl120368Xyzzy() {
         logger.info("Beginning testGetSubmissionsGl120368Xyzzy");
         try {
-            final ApiSubmission submission = crud.readSubmission(helper.getDb(),
+            final ApiSubmission submission = crud.readOne(helper.getDb(),
                     "Xyzzy");
             fail("The submission should not be found: "
                     + submission.getString());
@@ -126,7 +126,7 @@ public class SubmissionCrudTest {
         logger.info("Beginning testCreateSubmissionsSimple");
         final ApiSubmission inSubmission = new ApiSubmission("submission", "");
         final ApiSubmission outSubmission = crud
-                .createSubmission(helper.getDb(), inSubmission);
+                .createOne(helper.getDb(), inSubmission);
         then(outSubmission.getType()).isEqualTo(inSubmission.getType());
     }
 
@@ -136,11 +136,11 @@ public class SubmissionCrudTest {
         logger.info("Beginning testDeleteSubmission");
         final ApiSubmission inSubmission = new ApiSubmission("submission", "");
         final ApiSubmission outSubmission = crud
-                .createSubmission(helper.getDb(), inSubmission);
+                .createOne(helper.getDb(), inSubmission);
         final String id = outSubmission.getString();
 
         final ApiSubmission deletedSubmission = crud
-                .deleteSubmission(helper.getDb(), id);
+                .deleteOne(helper.getDb(), id);
         then(deletedSubmission.getString()).isEqualTo(id);
     }
 
@@ -150,7 +150,7 @@ public class SubmissionCrudTest {
         logger.info("Beginning testDeleteSubmissionNotFound");
         try {
             final ApiSubmission submission = crud
-                    .deleteSubmission(helper.getDb(), "XXXXXXX");
+                    .deleteOne(helper.getDb(), "XXXXXXX");
             fail("The submission should not be found: "
                     + submission.getString());
         } catch (ObjectNotFoundException e) {
@@ -165,7 +165,7 @@ public class SubmissionCrudTest {
     public final void testDeleteSubmissionDatabaseNotFound() {
         logger.info("Beginning testDeleteSubmissionDatabaseNotFound");
         try {
-            crud.deleteSubmission("XYZZY", "SUBM1");
+            crud.deleteOne("XYZZY", "SUBM1");
             fail("The dataset should not be found: XYZZY, when getting SUBM1");
         } catch (DataSetNotFoundException e) {
             assertEquals("Mismatched message", "Data set XYZZY not found",
@@ -182,7 +182,7 @@ public class SubmissionCrudTest {
         final ApiSubmission inSubmission = new ApiSubmission("submission", "",
                 attributes);
         final ApiSubmission outSubmission = crud
-                .createSubmission(helper.getDb(), inSubmission);
+                .createOne(helper.getDb(), inSubmission);
         then(outSubmission.getType()).isEqualTo(inSubmission.getType());
         final ApiAttribute aNote = new ApiAttribute("attribute", "Note",
                 "this is a note");

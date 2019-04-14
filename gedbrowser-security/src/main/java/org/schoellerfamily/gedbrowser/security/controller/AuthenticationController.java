@@ -100,9 +100,11 @@ public class AuthenticationController {
     }
 
     /**
+     * This will probably eventually be private or public, not default.
+     *
      * @author Dick Schoeller
      */
-    static final class PasswordChanger {
+    /* default */ static final class PasswordChanger {
         /** */
         private String oldPassword;
         /** */

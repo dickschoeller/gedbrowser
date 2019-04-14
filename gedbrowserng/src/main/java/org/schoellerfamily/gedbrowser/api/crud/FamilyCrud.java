@@ -17,7 +17,8 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
  */
 public class FamilyCrud
     extends OperationsEnabler<Family, FamilyDocument>
-    implements CrudOperations<Family, FamilyDocument, ApiFamily> {
+    implements CrudOperations<Family, FamilyDocument, ApiFamily>,
+        ObjectCrud<ApiFamily> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -53,7 +54,8 @@ public class FamilyCrud
      * @param family the data for the family
      * @return the family as created
      */
-    public ApiFamily createFamily(final String db, final ApiFamily family) {
+    @Override
+    public ApiFamily createOne(final String db, final ApiFamily family) {
         logger.info("Entering create family in db: " + db);
         return create(readRoot(db), family,
                 (i, id) -> new ApiFamily(i, id));
@@ -63,6 +65,7 @@ public class FamilyCrud
      * @param db the name of the db to access
      * @return the list of families
      */
+    @Override
     public List<ApiFamily> readAll(final String db) {
         logger.info("Entering read /dbs/" + db + "/families");
         return convert(read(db));
@@ -73,7 +76,8 @@ public class FamilyCrud
      * @param id the ID of the family
      * @return the family
      */
-    public ApiFamily readFamily(final String db, final String id) {
+    @Override
+    public ApiFamily readOne(final String db, final String id) {
         logger.info("Entering read /dbs/" + db + "/families/" + id);
         return convert(read(db, id));
     }
@@ -84,6 +88,7 @@ public class FamilyCrud
      * @param family the data for the family
      * @return the family as created
      */
+    @Override
     public ApiFamily updateOne(final String db, final String id,
             final ApiFamily family) {
         logger.info("Entering update family in db: " + db);
@@ -112,7 +117,8 @@ public class FamilyCrud
      * @param id the ID of the family
      * @return the deleted object
      */
-    public ApiFamily deleteFamily(final String db, final String id) {
+    @Override
+    public ApiFamily deleteOne(final String db, final String id) {
         return delete(readRoot(db), id);
     }
 }

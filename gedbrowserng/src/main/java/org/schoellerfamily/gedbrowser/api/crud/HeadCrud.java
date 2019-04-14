@@ -18,7 +18,8 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
  */
 public class HeadCrud
     extends OperationsEnabler<Head, HeadDocument>
-    implements CrudOperations<Head, HeadDocument, ApiHead> {
+    implements CrudOperations<Head, HeadDocument, ApiHead>,
+        ObjectCrud<ApiHead> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -51,18 +52,39 @@ public class HeadCrud
 
     /**
      * @param db the name of the db to access
+     * @param head a head object to create
+     * @return the head
+     * @throws UnsupportedOperationException always
+     */
+    public ApiHead createOne(final String db, final ApiHead head) {
+        throw new UnsupportedOperationException(
+                "Can't create a head through the crud operations");
+    }
+
+    /**
+     * @param db the name of the db to access
      * @return the one head
      */
-    public ApiHead readHead(final String db) {
+    public ApiHead readOne(final String db) {
         logger.info("Entering head, db: " + db);
         return (ApiHead) getD2dm().convert(read(db)).get(0);
     }
 
+    /**
+     * @param db the name of the db to access
+     * @param id the id is not used here (just filling an API)
+     * @return the one head
+     */
+    @Override
+    public ApiHead readOne(final String db, final String id) {
+        return readOne(db);
+    }
 
     /**
      * @param db the name of the db to access
      * @return the list of heads
      */
+    @Override
     public List<ApiHead> readAll(final String db) {
         logger.info("Entering all head, db: " + db);
         final List<ApiHead> list = new ArrayList<>();
@@ -86,9 +108,21 @@ public class HeadCrud
      * @param head the data for the head
      * @return the head as created
      */
+    @Override
     public ApiHead updateOne(final String db, final String id,
             final ApiHead head) {
         logger.info("Entering update head in db: " + db);
         return updateHead(db, head);
+    }
+
+    /**
+     * @param db the name of the db to access
+     * @param id the id of a head object to delete
+     * @return the head
+     * @throws UnsupportedOperationException always
+     */
+    public ApiHead deleteOne(final String db, final String id) {
+        throw new UnsupportedOperationException(
+                "Can't delete a head through the crud operations");
     }
 }

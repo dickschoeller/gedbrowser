@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
 import org.schoellerfamily.gedbrowser.api.crud.HeadCrud;
+import org.schoellerfamily.gedbrowser.api.crud.ObjectCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,7 +19,7 @@ public class HeadController extends CrudInvoker {
     /**
      * @return the CRUD object for manipulating the DB header
      */
-    private HeadCrud headCrud() {
+    private ObjectCrud<ApiHead> crud() {
         return new HeadCrud(getLoader(), getConverter(), getManager());
     }
 
@@ -28,7 +29,7 @@ public class HeadController extends CrudInvoker {
      */
     @GetMapping(value = "/v1/dbs/{db}")
     @ResponseBody
-    public ApiHead readHead(@PathVariable final String db) {
-        return headCrud().readHead(db);
+    public ApiHead read(@PathVariable final String db) {
+        return crud().readOne(db, "");
     }
 }

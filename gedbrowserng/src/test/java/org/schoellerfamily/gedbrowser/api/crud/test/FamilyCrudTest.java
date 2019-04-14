@@ -88,7 +88,7 @@ public class FamilyCrudTest {
     @Test
     public final void testGetFamiliesGl120368F1593() {
         logger.info("Beginning testGetFamiliesGl120368F1593");
-        final ApiFamily family = crud.readFamily("gl120368", "F1593");
+        final ApiFamily family = crud.readOne("gl120368", "F1593");
         then(family.getString()).isEqualTo("F1593");
         final ApiAttribute firstAttribute = family.getAttributes().get(0);
         then(firstAttribute.getType()).isEqualTo("sourcelink");
@@ -99,7 +99,7 @@ public class FamilyCrudTest {
     @Test
     public final void testGetFamiliesMiniSchoellerF1() {
         logger.info("Beginning testGetFamiliesMiniSchoellerF1");
-        final ApiFamily family = crud.readFamily("mini-schoeller", "F1");
+        final ApiFamily family = crud.readOne("mini-schoeller", "F1");
         then(family.getString()).isEqualTo("F1");
         final ApiAttribute firstAttribute = family.getAttributes().get(0);
         then(firstAttribute.getType()).isEqualTo("attribute");
@@ -125,7 +125,7 @@ public class FamilyCrudTest {
     public final void testGetFamiliesMiniSchoellerXyzzy() {
         logger.info("Beginning testGetFamiliesMiniSchoellerXyzzy");
         try {
-            final ApiFamily family = crud.readFamily("mini-schoeller", "Xyzzy");
+            final ApiFamily family = crud.readOne("mini-schoeller", "Xyzzy");
             fail("The family should not be found: " + family.getString());
         } catch (ObjectNotFoundException e) {
             assertEquals("Mismatched message",
@@ -138,7 +138,7 @@ public class FamilyCrudTest {
     public final void testCreateFamiliesSimple() {
         logger.info("Beginning testCreateFamiliesSimple");
         final ApiFamily inFamily = new ApiFamily("family", "");
-        final ApiFamily outFamily = crud.createFamily("gl120368", inFamily);
+        final ApiFamily outFamily = crud.createOne("gl120368", inFamily);
         then(outFamily.getType()).isEqualTo("family");
         then(outFamily.getAttributes()).isEmpty();
         then(outFamily.getString()).startsWith("F");
@@ -151,7 +151,7 @@ public class FamilyCrudTest {
         final List<ApiAttribute> attributes = new ArrayList<>();
         attributes.add(new ApiAttribute("attribute", "Marriage", ""));
         final ApiFamily inFamily = new ApiFamily("family", "", attributes);
-        final ApiFamily outFamily = crud.createFamily("gl120368", inFamily);
+        final ApiFamily outFamily = crud.createOne("gl120368", inFamily);
         then(outFamily.getType()).isEqualTo("family");
         then(outFamily.getString()).startsWith("F");
         then(outFamily.getAttributes().get(0).getString())
@@ -163,12 +163,12 @@ public class FamilyCrudTest {
     public final void testDeleteFamily() {
         logger.info("Beginning testDeleteFamily");
         final ApiFamily inFamily = new ApiFamily("family", "");
-        final ApiFamily outFamily = crud.createFamily("gl120368", inFamily);
+        final ApiFamily outFamily = crud.createOne("gl120368", inFamily);
         final String id = outFamily.getString();
-        final ApiFamily deletedFamily = crud.deleteFamily("gl120368", id);
+        final ApiFamily deletedFamily = crud.deleteOne("gl120368", id);
         then(deletedFamily.getString()).isEqualTo(id);
         try {
-            final ApiFamily family = crud.readFamily("gl120368", id);
+            final ApiFamily family = crud.readOne("gl120368", id);
             fail("The family should not be found: " + family.getString());
         } catch (ObjectNotFoundException e) {
             assertEquals("Mismatched message",
@@ -182,7 +182,7 @@ public class FamilyCrudTest {
     public final void testDeleteFamilyNotFound() {
         logger.info("Beginning testDeleteFamilyNotFound");
         try {
-            final ApiFamily family = crud.deleteFamily("gl120368", "XXXXXXX");
+            final ApiFamily family = crud.deleteOne("gl120368", "XXXXXXX");
             fail("The family should not be found: " + family.getString());
         } catch (ObjectNotFoundException e) {
             assertEquals("Mismatched message",
@@ -195,7 +195,7 @@ public class FamilyCrudTest {
     public final void testDeleteFamilyDatabaseNotFound() {
         logger.info("Beginning testDeleteFamilyDatabaseNotFound");
         try {
-            final ApiFamily family = crud.deleteFamily("XYZZY", "SUBM1");
+            final ApiFamily family = crud.deleteOne("XYZZY", "SUBM1");
             fail("The family should not be found: " + family.getString());
         } catch (DataSetNotFoundException e) {
             assertEquals("Mismatched message", "Data set XYZZY not found",
@@ -211,7 +211,7 @@ public class FamilyCrudTest {
         attributes.add(new ApiAttribute("attribute", "Marriage", ""));
         final ApiFamily inFamily = new ApiFamily("family", "", attributes);
         inFamily.getChildren().add(new ApiAttribute("child", "I1"));
-        final ApiFamily familyPostResponse = crud.createFamily("gl120368",
+        final ApiFamily familyPostResponse = crud.createOne("gl120368",
                 inFamily);
         then(familyPostResponse.getType()).isEqualTo(inFamily.getType());
         then(familyPostResponse.getAttributes().size()).isEqualTo(1);

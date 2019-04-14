@@ -47,7 +47,7 @@ public class CrudTestHelper {
      * @return a newly created, very simple person
      */
     public ApiPerson createPerson() {
-        return personCrud.createPerson(getDb(), buildPerson());
+        return personCrud.createOne(getDb(), buildPerson());
     }
 
     /**
@@ -62,7 +62,7 @@ public class CrudTestHelper {
      * @return the newly gotten person
      */
     public ApiPerson getPerson(final ApiPerson person) {
-        return personCrud.readPerson(getDb(), person.getString());
+        return personCrud.readOne(getDb(), person.getString());
     }
 
     /**
@@ -70,7 +70,7 @@ public class CrudTestHelper {
      * @return the family
      */
     public ApiFamily readFamily(final String famID) {
-        return familyCrud.readFamily(getDb(), famID);
+        return familyCrud.readOne(getDb(), famID);
     }
 
 

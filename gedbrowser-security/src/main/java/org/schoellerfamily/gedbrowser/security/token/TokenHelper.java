@@ -96,7 +96,7 @@ public final class TokenHelper {
      * @param claims the claims
      * @return the token
      */
-    String generateToken(final Map<String, Object> claims) {
+    private String generateToken(final Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate())

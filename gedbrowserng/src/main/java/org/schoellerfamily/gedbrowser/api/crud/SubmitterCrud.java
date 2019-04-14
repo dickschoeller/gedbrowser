@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmitterDocument;
@@ -17,8 +16,9 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
  * @author Dick Schoeller
  */
 public class SubmitterCrud
-        extends OperationsEnabler<Submitter, SubmitterDocument>
-        implements CrudOperations<Submitter, SubmitterDocument, ApiSubmitter> {
+    extends OperationsEnabler<Submitter, SubmitterDocument>
+    implements CrudOperations<Submitter, SubmitterDocument, ApiSubmitter>,
+        ObjectCrud<ApiSubmitter> {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -54,7 +54,8 @@ public class SubmitterCrud
      * @param submitter the data for the submitter
      * @return the submitter as created
      */
-    public ApiObject createSubmitter(final String db,
+    @Override
+    public ApiSubmitter createOne(final String db,
             final ApiSubmitter submitter) {
         logger.info("Entering create submitter in db: " + db);
         return create(readRoot(db), submitter,
@@ -66,6 +67,7 @@ public class SubmitterCrud
      * @param db the name of the db to access
      * @return the list of submitters
      */
+    @Override
     public List<ApiSubmitter> readAll(final String db) {
         logger.info("Entering submitters, db: " + db);
         return convert(read(db));
@@ -76,7 +78,8 @@ public class SubmitterCrud
      * @param id the ID of the submitter
      * @return the person
      */
-    public ApiSubmitter readSubmitter(final String db, final String id) {
+    @Override
+    public ApiSubmitter readOne(final String db, final String id) {
         logger.info("Entering submitter, db: " + db + ", id: " + id);
         return convert(read(db, id));
     }
@@ -87,6 +90,7 @@ public class SubmitterCrud
      * @param submitter the data for the submitter
      * @return the submitter as created
      */
+    @Override
     public ApiSubmitter updateOne(final String db, final String id,
             final ApiSubmitter submitter) {
         logger.info("Entering update submitter in db: " + db);
@@ -101,7 +105,8 @@ public class SubmitterCrud
      * @param id the ID of the submitter
      * @return the deleted object
      */
-    public ApiSubmitter deleteSubmitter(final String db, final String id) {
+    @Override
+    public ApiSubmitter deleteOne(final String db, final String id) {
         return delete(readRoot(db), id);
     }
 }

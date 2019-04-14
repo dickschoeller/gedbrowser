@@ -109,4 +109,11 @@ public interface ReadOperations <X extends GedObject,
      * @return the list of API objects
      */
     List<Z> readAll(String db);
+
+    /**
+     * @param db the dataset name
+     * @param id the ID of the object we want
+     * @return the object
+     */
+    Z readOne(String db, String id);
 }

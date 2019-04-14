@@ -91,4 +91,11 @@ public interface CreateOperations<X extends GedObject,
             return null;
         }
     }
+
+    /**
+     * @param db the name of the db to access
+     * @param object the data for the object
+     * @return the object as created
+     */
+    Z createOne(String db, Z object);
 }
