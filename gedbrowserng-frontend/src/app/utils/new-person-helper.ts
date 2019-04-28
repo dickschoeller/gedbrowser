@@ -63,10 +63,6 @@ export class NewPersonHelper {
     };
   }
 
-  private static empty(result): boolean {
-    return (result === null || result === undefined);
-  }
-
   public static guessPartnerSex(person: ApiPerson): string {
     for (const a of person.attributes) {
       if (a.string === 'Sex') {

@@ -3,17 +3,17 @@ import { MatDialog } from '@angular/material';
 
 import { HasAttributeList } from '../../interfaces';
 import { ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
-import { AttributeDialogHelper, AttributeAnalyzer, NameUtil, UrlBuilder } from '../../utils';
+import { UserService } from '../../services';
+import { AttributeDialogHelper, AttributeAnalyzer } from '../../utils';
 
 import { HasAttributeDialog } from './has-attribute-dialog';
-import { UserService } from '../../services';
 
 @Component({
     selector: 'app-attribute-list-item',
     templateUrl: './attribute-list-item.component.html',
     styleUrls: ['./attribute-list-item.component.css']
 })
-export class AttributeListItemComponent extends HasAttributeDialog implements HasAttributeList {
+export class AttributeListItemComponent extends HasAttributeDialog {
     @Input() attribute: ApiAttribute;
     @Input() attributeList: Array<ApiAttribute>;
     @Input() index: number;

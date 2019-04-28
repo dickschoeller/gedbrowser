@@ -3,7 +3,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
 import { HasLifespan, HasPerson, Saveable, RefreshPerson } from '../../interfaces';
-import { ApiAttribute, ApiPerson, ApiFamily, LinkPersonDialogData } from '../../models';
+import { ApiPerson } from '../../models';
 import { PersonService, UserService } from '../../services';
 import { UrlBuilder } from '../../utils';
 
@@ -16,9 +16,7 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator
   implements HasLifespan, HasPerson, RefreshPerson, Saveable {
   @Input() dataset: string;
   @Input() parent: HasPerson & HasLifespan & Saveable;
-  get person(): ApiPerson {
-    return this.parent.person;
-  }
+  @Input() person: ApiPerson;
   sex = 'M';
   get surname(): string {
     return this.person.surname;

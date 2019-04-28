@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Observable } from 'rxjs';
 
-import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData, AttributeDialogData, SelectItem } from '../../models';
+import { ApiAttribute, ApiFamily, ApiPerson, AttributeDialogData, SelectItem } from '../../models';
 import { FamilyService, PersonService, UserService } from '../../services';
 import { UrlBuilder, NewPersonHelper } from '../../utils';
 import { InitablePersonCreator } from '../../bases';
@@ -29,14 +28,12 @@ export class PersonFamilyComponent extends InitablePersonCreator
     @Input() parent: HasPerson & RefreshPerson;
     @Input() string: string;
     @Input() index: number;
-    get person(): ApiPerson {
-        return this.parent.person;
-    }
+    @Input() person: ApiPerson;
 
     family: ApiFamily;
     attributes: Array<ApiAttribute>;
     initialized = false;
-    _options: Array<SelectItem> = [
+    private _options: Array<SelectItem> = [
         { value: 'Annulment', label: 'Annulment' },
         { value: 'Census', label: 'Census' },
         { value: 'Children Count', label: 'Children Count' },

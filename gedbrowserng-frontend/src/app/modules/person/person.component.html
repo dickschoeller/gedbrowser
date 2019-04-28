@@ -12,10 +12,10 @@
           <app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="person.images"></app-multimedia-gallery>
         </div>
         <div class="ui-g-6">
-          <app-person-family-list [dataset]="dataset" [parent]="this"></app-person-family-list>
+          <app-person-family-list [dataset]="dataset" [person]="person" [parent]="this"></app-person-family-list>
         </div>
         <div class="ui-g-6">
-          <app-person-parent-families [dataset]="dataset" [parent]="this"></app-person-parent-families>
+          <app-person-parent-families [dataset]="dataset" [person]="person" [parent]="this"></app-person-parent-families>
         </div>
       </div>
     </mat-card-content>
