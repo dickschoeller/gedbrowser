@@ -11,7 +11,7 @@ export abstract class HasAttributeDialog implements HasAttributeList {
     const dialogRef = this.dialog.open(
       NewAttributeDialogComponent,
       {
-        data: { options: this.options(), data: this.defaultData() }
+        data: { options: this.options(), default: this.defaultData() }
       });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -8,7 +8,7 @@
       <div cdkDrag class="{{ hasSignedIn() ? 'family-box' : ''"
           *ngFor="let attribute of person.fams; let i=index">
         <app-person-family
-            [dataset]="dataset" [parent]="this" [string]="attribute.string"
+            [dataset]="dataset" [person]="person" [parent]="this" [string]="attribute.string"
             [index]="i"></app-person-family>
       </div>
     </div>

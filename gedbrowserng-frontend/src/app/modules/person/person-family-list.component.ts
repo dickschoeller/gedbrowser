@@ -3,9 +3,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
 import { HasPerson, LinkCheck, Saveable } from '../../interfaces';
-import { LinkPersonDialogComponent } from '../../components';
-import { ApiAttribute, ApiFamily, ApiPerson, NewPersonDialogData, LinkPersonDialogData, LinkPersonItem } from '../../models';
-import { LifespanUtil, UrlBuilder, NewPersonHelper } from '../../utils';
+import { ApiPerson, NewPersonDialogData, LinkPersonDialogData, LinkPersonItem } from '../../models';
+import { UrlBuilder, NewPersonHelper } from '../../utils';
 import { PersonService, UserService } from '../../services';
 
 /**
@@ -22,9 +21,7 @@ import { PersonService, UserService } from '../../services';
 export class PersonFamilyListComponent extends InitablePersonCreator implements LinkCheck {
     @Input() dataset: string;
     @Input() parent: HasPerson & Saveable;
-    get person(): ApiPerson {
-        return this.parent.person;
-    }
+    @Input() person: ApiPerson;
     partnerSurname: string;
     childSurname: string;
     partnerSex: string;
