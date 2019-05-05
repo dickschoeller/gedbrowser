@@ -20,10 +20,6 @@ public final class UserImpl extends HasRoles implements SecurityUser {
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** Logger. */
-    @JsonIgnore
-    private final transient Log logger = LogFactory.getLog(getClass());
-
     /** */
     private String username;
 
