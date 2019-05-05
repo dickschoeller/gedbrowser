@@ -35,6 +35,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  *
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.CommentSize" })
 public abstract class AbstractGedObjectFactory {
     /** */
     /* default */ static final AttributeFactory ATTR_FACTORY =
@@ -567,7 +568,8 @@ public abstract class AbstractGedObjectFactory {
     }
 
     /**
-     * Factory method creates the appropriate GedObject from provided strings.
+     * Factory method creates the appropriate GedObject from the provided
+     * strings.
      *
      * @param parent the parent GedObject
      * @param xref an optional ID string
@@ -582,7 +584,8 @@ public abstract class AbstractGedObjectFactory {
     }
 
     /**
-     * Factory method creates the appropriate GedObject from provided strings.
+     * Factory method creates the appropriate GedObject from the provided
+     * strings.
      *
      * @param parent the parent GedObject
      * @param objectId an objectId
