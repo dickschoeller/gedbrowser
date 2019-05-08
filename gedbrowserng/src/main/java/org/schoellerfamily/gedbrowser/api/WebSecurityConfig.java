@@ -11,7 +11,6 @@ import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.schoellerfamily.gedbrowser.security.service.impl.CustomUserDetailsService;
 import org.schoellerfamily.gedbrowser.users.UsersReader;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,16 +32,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /** */
-    @Value("${jwt.cookie:AUTH-TOKEN}")
-    private String cookie;
-
-    /** */
-    @Value("${spring.profiles.active:production}")
-    private String activeProfile;
-
-    /** */
-    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
-    private transient String gedbrowserHome;
+    @Autowired
+    private PropertiesConfigurationService config;
 
     /** */
     @Autowired
@@ -72,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public SecurityUsers users() {
-        final String userFile = gedbrowserHome + "/userFile.csv";
+        final String userFile = config.gedbrowserHome() + "/userFile.csv";
         return readUserFile(userFile);
     }
 
@@ -150,7 +141,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(
                         new AntPathRequestMatcher("/gedbrowserng/v1/logout"))
                 .logoutSuccessHandler(logoutSuccess)
-                .deleteCookies(cookie);
+                .deleteCookies(config.cookie());
     }
 
     /**
@@ -163,7 +154,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     private HttpSecurity handleCsrf(final HttpSecurity http)
             throws Exception {
-        if ("test".equals(activeProfile)) {
+        if ("test".equals(config.activeProfile())) {
             return http.csrf().disable();
         } else {
             return http.csrf().ignoringAntMatchers(

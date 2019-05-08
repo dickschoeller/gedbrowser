@@ -26,7 +26,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     TrailerDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -64,12 +64,8 @@ import com.mongodb.MongoClient;
 @SuppressWarnings("PMD.ExcessiveImports")
 public class MongoConfiguration {
     /** */
-    @Value("${spring.data.mongodb.host:localhost}")
-    private transient String host;
-
-    /** */
-    @Value("${spring.data.mongodb.port:27017}")
-    private transient int port;
+    @Autowired
+    private PropertiesConfigurationService config;
 
     /**
      * Get a MongoDbFactory for accessing the gedbrowser database.
@@ -79,7 +75,8 @@ public class MongoConfiguration {
      */
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
-        return new SimpleMongoDbFactory(new MongoClient(host, port),
+        return new SimpleMongoDbFactory(
+                new MongoClient(config.mongoHost(), config.mongoPort()),
                 "gedbrowser-1_2_2");
     }
 
