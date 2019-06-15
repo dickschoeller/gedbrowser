@@ -11,3 +11,4 @@ echo $GOOGLE_GEOCODING_KEY > /home/travis/gedbrowser/google-geocoding-key
 echo $GOOGLE_MAPPING_KEY >> /home/travis/gedbrowser/google-geocoding-key
 docker run -v /home/travis/data:/data/db --name mongo -p 28001:27017 -d mongo 2>&1 | grep 'Status'
 docker pull java:8 2>&1 | grep 'Status'
+(cd gedbrowserng;npm install typescript@">=3.4 < 3.5")
