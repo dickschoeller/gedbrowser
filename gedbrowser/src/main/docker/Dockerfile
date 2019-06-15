@@ -8,9 +8,5 @@ ENV spring.data.mongodb.host=mongo
 ENV geoservice.host=geoservice
 ENV geoservice.port=8080
 RUN bash -c 'touch /gedbrowser.jar'
-RUN echo JAVA_HOME=$JAVA_HOME
-RUN ls $JAVA_HOME/jre
-RUN ls $JAVA_HOME/jre/lib
-RUN ls $JAVA_HOME/jre/security
-RUN echo "yes" | keytool -import -trustcacerts -file letsencrypt.cer -alias letsencrypt -keystore /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/cacerts -storepass changeit
+RUN echo "yes" | keytool -import -trustcacerts -file letsencrypt.cer -alias letsencrypt -keystore $JAVA_HOME/jre/lib/security/cacerts -storepass changeit
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom","-jar","/gedbrowser.jar"]
