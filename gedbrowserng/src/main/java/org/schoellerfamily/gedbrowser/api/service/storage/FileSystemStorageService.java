@@ -70,17 +70,17 @@ public final class FileSystemStorageService implements StorageService {
         }
         return filename;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void init() {
-        final Path rootLocation = Paths.get(config.gedbrowserHome());
-        try {
-            Files.createDirectories(rootLocation);
-        } catch (IOException e) {
-            throw new StorageException("Could not initialize storage", e);
-        }
-    }
+//
+//    /**
+//     * {@inheritDoc}
+//     */
+//    @Override
+//    public void init() {
+//        final Path rootLocation = Paths.get(config.gedbrowserHome());
+//        try {
+//            Files.createDirectories(rootLocation);
+//        } catch (IOException e) {
+//            throw new StorageException("Could not initialize storage", e);
+//        }
+//    }
 }

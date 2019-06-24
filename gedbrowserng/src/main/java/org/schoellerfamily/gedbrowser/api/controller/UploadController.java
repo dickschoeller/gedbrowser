@@ -3,7 +3,6 @@ package org.schoellerfamily.gedbrowser.api.controller;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.crud.HeadCrud;
-import org.schoellerfamily.gedbrowser.api.crud.ObjectCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
 import org.schoellerfamily.gedbrowser.api.service.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +29,14 @@ public class UploadController extends CrudInvoker {
     private transient StorageService storageService;
 
     /**
-     * @return the CRUD object for manipulating the DB header
+     * Read the head object associated with the name. Public only for testing.
+     *
+     * @param name the name
+     * @return the head
      */
-    private ObjectCrud<ApiHead> crud() {
-        return new HeadCrud(getLoader(), getConverter(), getManager());
+    public ApiHead readOne(final String name) {
+        return new HeadCrud(getLoader(), getConverter(), getManager())
+                .readOne(name, "");
     }
 
     /**
@@ -48,14 +51,10 @@ public class UploadController extends CrudInvoker {
     @ResponseBody
     public final ApiHead upload(
             @RequestParam("file") final MultipartFile file) {
-        if (file == null) {
-            logger.info("in file upload: file is null");
-            return null;
-        }
         logger.info("in file upload: " + file.getOriginalFilename());
         storageService.store(file);
         final String name =
                 file.getOriginalFilename().replaceAll("\\.ged", "");
-        return crud().readOne(name, "");
+        return readOne(name);
     }
 }
