@@ -8,12 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Dick Schoeller
  */
 public interface StorageService {
-
-    /**
-     * Initialize the service.
-     */
-    void init();
-
     /**
      * Store a file.
      *
