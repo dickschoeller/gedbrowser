@@ -138,6 +138,10 @@ patch:
     - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
         patched: '2019-07-04T08:33:01.743Z'
     - snyk > snyk-mvn-plugin > lodash:
+        patched: '2019-07-05T22:05:43.152Z'
+    - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        patched: '2019-07-05T22:05:43.152Z'
+    - snyk > snyk-mvn-plugin > lodash:
         patched: '2019-07-05T22:05:30.238Z'
     - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
         patched: '2019-07-05T22:05:30.238Z'
