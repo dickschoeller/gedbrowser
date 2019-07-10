@@ -145,3 +145,89 @@ patch:
         patched: '2019-07-05T22:05:30.238Z'
     - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
         patched: '2019-07-05T22:05:30.238Z'
+    - '@angular-devkit/build-angular > istanbul-instrumenter-loader > istanbul-lib-instrument > babel-generator > lodash':
+        patched: '2019-07-10T10:58:47.875Z'
+    - snyk > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - snyk > inquirer > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - snyk > snyk-config > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - snyk > @snyk/dep-graph > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - '@angular/cli > inquirer > lodash':
+        patched: '2019-07-10T10:58:47.875Z'
+    - '@angular-devkit/build-angular > webpack-merge > lodash':
+        patched: '2019-07-10T10:58:47.875Z'
+    - '@angular-devkit/build-angular > stats-webpack-plugin > lodash':
+        patched: '2019-07-10T10:58:47.875Z'
+    - '@angular-devkit/build-angular > webpack-dev-server > http-proxy-middleware > lodash':
+        patched: '2019-07-10T10:58:47.875Z'
+    - karma > log4js > streamroller > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - '@angular-devkit/build-angular > source-map-loader > async > lodash':
+        patched: '2019-07-10T10:58:47.875Z'
+    - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - '@angular-devkit/build-angular > node-sass > sass-graph > lodash':
+        patched: '2019-07-10T10:58:47.875Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > async > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - '@angular-devkit/build-angular > istanbul-instrumenter-loader > istanbul-lib-instrument > babel-template > lodash':
+        patched: '2019-07-10T10:58:47.875Z'
+    - karma > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > @babel/types > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > @babel/generator > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > @babel/traverse > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - '@angular-devkit/build-angular > node-sass > gaze > globule > lodash':
+        patched: '2019-07-10T10:58:47.875Z'
+    - '@angular-devkit/build-angular > istanbul-instrumenter-loader > istanbul-lib-instrument > babel-types > lodash':
+        patched: '2019-07-10T10:58:47.875Z'
+    - karma > log4js > streamroller > async > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - '@angular-devkit/build-angular > istanbul-instrumenter-loader > istanbul-lib-instrument > babel-traverse > lodash':
+        patched: '2019-07-10T10:58:47.875Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > @babel/traverse > @babel/generator > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > @babel/template > @babel/types > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - '@angular-devkit/build-angular > istanbul-instrumenter-loader > istanbul-lib-instrument > babel-template > babel-types > lodash':
+        patched: '2019-07-10T10:58:47.875Z'
+    - '@angular-devkit/build-angular > istanbul-instrumenter-loader > istanbul-lib-instrument > babel-generator > babel-types > lodash':
+        patched: '2019-07-10T10:58:47.875Z'
+    - '@angular-devkit/build-angular > istanbul-instrumenter-loader > istanbul-lib-instrument > babel-traverse > babel-types > lodash':
+        patched: '2019-07-10T10:58:47.875Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > @babel/traverse > @babel/types > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - '@angular-devkit/build-angular > istanbul-instrumenter-loader > istanbul-lib-instrument > babel-template > babel-traverse > lodash':
+        patched: '2019-07-10T10:58:47.875Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > @babel/generator > @babel/types > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - '@angular-devkit/build-angular > istanbul-instrumenter-loader > istanbul-lib-instrument > babel-template > babel-traverse > babel-types > lodash':
+        patched: '2019-07-10T10:58:47.875Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2019-07-10T10:58:47.875Z'
