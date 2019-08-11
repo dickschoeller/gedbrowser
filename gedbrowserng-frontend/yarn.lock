@@ -8324,15 +8324,7 @@ tapable@^1.0.0, tapable@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-1.1.1.tgz#4d297923c5a72a42360de2ab52dadfaaec00018e"
 
-tar-fs@1.13.2:
-  version "1.13.2"
-  resolved "https://registry.yarnpkg.com/tar-fs/-/tar-fs-1.13.2.tgz#433e879f9538d7e1e883ba914904f339c6414835"
-  dependencies:
-    mkdirp "^0.5.0"
-    pump "^1.0.0"
-    tar-stream "^1.1.2"
-
-tar-fs@^1.16.3:
+tar-fs@1.13.2, tar-fs@^1.16.3:
   version "1.16.3"
   resolved "https://registry.yarnpkg.com/tar-fs/-/tar-fs-1.16.3.tgz#966a628841da2c4010406a82167cbd5e0c72d509"
   dependencies:
