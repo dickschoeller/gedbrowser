@@ -194,7 +194,7 @@
           <version>${failsafe.version}</version>
           <configuration>
             <skip>${skip.integration.tests}</skip>
-	    <useSystemClassLoader>false</useSystemClassLoader>
+            <useSystemClassLoader>false</useSystemClassLoader>
           </configuration>
         </plugin>
         <plugin>
@@ -208,7 +208,7 @@
           <version>${surefire.version}</version>
           <configuration>
             <skip>${skip.unit.tests}</skip>
-	    <useSystemClassLoader>false</useSystemClassLoader>
+            <useSystemClassLoader>false</useSystemClassLoader>
           </configuration>
         </plugin>
         <plugin>
