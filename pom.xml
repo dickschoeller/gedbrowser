@@ -77,7 +77,8 @@
     <!-- might try 0.9.1 of google -->
     <google-maps-services.version>0.2.11</google-maps-services.version>
     <jackson-core.version>2.9.6</jackson-core.version>
-    <jackson-databind.version>2.10.0.pr3</jackson-databind.version>
+    <!-- don't upgrade -->
+    <jackson-databind.version>2.9.9.2</jackson-databind.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.10.1</joda-time.version>
     <sauce_junit.version>2.1.25</sauce_junit.version>
