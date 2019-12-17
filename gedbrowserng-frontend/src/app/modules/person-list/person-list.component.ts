@@ -22,8 +22,8 @@ export class PersonListComponent extends PersonCreator implements AfterViewInit,
   @Input() dataset: string;
   @Input() persons: ApiPerson[];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns = ['indexName', 'birthdate', 'deathdate', 'string', 'delete'];
   datasource = new MatTableDataSource<ApiPerson>(this.persons);
