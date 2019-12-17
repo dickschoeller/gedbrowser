@@ -13,6 +13,7 @@ Allow field shadowing with constructor and setter arguments
 <module name="Checker">
   <property name="fileExtensions" value="java, xml, properties, html, yml, txt, css"/>
   <property name="severity" value="warning"/>
+  <module name="LineLength"/>
   <module name="TreeWalker">
     <module name="SuppressWarningsHolder">
         <property name="aliasList" value="ParameterNumberCheck=paramnum"/>
@@ -38,7 +39,6 @@ Allow field shadowing with constructor and setter arguments
     <module name="UnusedImports"/>
     <module name="MethodLength"/>
     <module name="ParameterNumber"/>
-    <module name="LineLength"/>
     <module name="EmptyForIteratorPad"/>
     <module name="MethodParamPad"/>
     <module name="NoWhitespaceAfter"/>
