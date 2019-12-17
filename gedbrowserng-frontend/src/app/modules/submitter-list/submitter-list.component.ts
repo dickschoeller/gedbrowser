@@ -23,8 +23,8 @@ export class SubmitterListComponent extends SubmitterCreator implements AfterVie
   @Input() dataset: string;
   @Input() submitters: ApiSubmitter[];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns = ['name', 'string', 'delete'];
   datasource = new MatTableDataSource<ApiSubmitter>(this.submitters);
