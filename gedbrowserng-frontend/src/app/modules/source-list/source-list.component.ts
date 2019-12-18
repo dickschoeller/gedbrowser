@@ -23,8 +23,8 @@ export class SourceListComponent extends SourceCreator implements AfterViewInit,
   @Input() dataset: string;
   @Input() sources: Array<ApiSource>;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns = ['title', 'string', 'delete'];
   datasource = new MatTableDataSource<ApiSource>(this.sources);

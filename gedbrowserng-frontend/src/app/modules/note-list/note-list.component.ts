@@ -23,8 +23,8 @@ export class NoteListComponent extends NoteCreator implements AfterViewInit, OnC
   @Input() dataset: string;
   @Input() notes: Array<ApiNote>;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns = ['tail', 'string', 'delete'];
   datasource = new MatTableDataSource<ApiNote>(this.notes);

@@ -78,11 +78,11 @@
     <google-maps-services.version>0.2.11</google-maps-services.version>
     <jackson-core.version>2.9.6</jackson-core.version>
     <!-- don't upgrade -->
-    <jackson-databind.version>2.9.9.2</jackson-databind.version>
+    <jackson-databind.version>2.9.10.1</jackson-databind.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.10.1</joda-time.version>
     <sauce_junit.version>2.1.25</sauce_junit.version>
-    <geojson-jackson.version>1.8.1</geojson-jackson.version>
+    <geojson-jackson.version>1.12</geojson-jackson.version>
     <log4j-over-slf4j.version>1.7.25</log4j-over-slf4j.version>
     <jcl-over-slf4j.version>1.7.25</jcl-over-slf4j.version>
     <logback-classic.version>1.2.3</logback-classic.version>
@@ -98,8 +98,8 @@
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
     <jacoco-plugin.version>0.8.3</jacoco-plugin.version>
     <spotbugs-plugin.version>3.1.11</spotbugs-plugin.version>
-    <checkstyle-plugin.version>3.0.0</checkstyle-plugin.version>
-    <checkstyle-version>8.18</checkstyle-version>
+    <checkstyle-plugin.version>3.1.0</checkstyle-plugin.version>
+    <checkstyle-version>8.27</checkstyle-version>
     <pmd-plugin.version>3.11.0</pmd-plugin.version>
     <pmd-version>6.12.0</pmd-version>
     <build-helper-plugin.version>3.0.0</build-helper-plugin.version>

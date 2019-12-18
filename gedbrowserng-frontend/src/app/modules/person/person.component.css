@@ -1,5 +1,3 @@
-@import '../../app.component.css';
-
 button[icon="fa-angle-up"] {
   display: none !important;
 }
