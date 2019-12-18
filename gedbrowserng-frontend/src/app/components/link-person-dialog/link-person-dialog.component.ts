@@ -15,7 +15,7 @@ export class LinkPersonDialogComponent
   implements OnInit, OnChanges {
   @Input() titleString: string;
   persons: Array<ApiPerson>;
-  @ViewChild(MatSelectionList) selectionList: MatSelectionList;
+  @ViewChild(MatSelectionList, {static: true}) selectionList: MatSelectionList;
 
   constructor(private route: ActivatedRoute,
     public dialogRef: MatDialogRef<LinkPersonDialogComponent>,
