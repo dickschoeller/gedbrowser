@@ -82,7 +82,7 @@
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.10.1</joda-time.version>
     <sauce_junit.version>2.1.25</sauce_junit.version>
-    <geojson-jackson.version>1.8.1</geojson-jackson.version>
+    <geojson-jackson.version>1.12</geojson-jackson.version>
     <log4j-over-slf4j.version>1.7.25</log4j-over-slf4j.version>
     <jcl-over-slf4j.version>1.7.25</jcl-over-slf4j.version>
     <logback-classic.version>1.2.3</logback-classic.version>
