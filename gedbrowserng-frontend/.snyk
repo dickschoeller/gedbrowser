@@ -293,3 +293,6 @@ patch:
         patched: '2019-10-04T08:31:15.861Z'
     - npm > libnpm > libnpmsearch > npm-registry-fetch > make-fetch-happen > https-proxy-agent:
         patched: '2019-10-04T08:31:15.861Z'
+  'npm:extend:20180424':
+    - snyk > proxy-agent > pac-proxy-agent > get-uri > extend:
+        patched: '2020-01-07T13:26:09.403Z'
