@@ -18,9 +18,6 @@ Allow field shadowing with constructor and setter arguments
     <module name="SuppressWarningsHolder">
         <property name="aliasList" value="ParameterNumberCheck=paramnum"/>
     </module>
-    <module name="JavadocMethod">
-      <property name="suppressLoadErrors" value="true"/>
-    </module>
     <module name="JavadocType"/>
     <module name="JavadocVariable"/>
     <module name="JavadocStyle"/>
