@@ -33,7 +33,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /** */
     @Autowired
-    private PropertiesConfigurationService config;
+    private SecurityPropertiesService securityProperties;
 
     /** */
     @Autowired
@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public SecurityUsers users() {
-        final String userFile = config.getUserFile();
+        final String userFile = securityProperties.userFile();
         return readUserFile(userFile);
     }
 
@@ -141,7 +141,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     private HttpSecurity configureCsrf(final HttpSecurity http)
             throws Exception {
-        if ("test".equals(config.activeProfile())) {
+        if ("test".equals(securityProperties.activeProfile())) {
             return http.csrf().disable();
         } else {
             return http.csrf().ignoringAntMatchers(
@@ -222,7 +222,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(
                         new AntPathRequestMatcher("/gedbrowserng/v1/logout"))
                 .logoutSuccessHandler(logoutSuccess)
-                .deleteCookies(config.cookie())
+                .deleteCookies(securityProperties.cookie())
                 .and();
     }
 

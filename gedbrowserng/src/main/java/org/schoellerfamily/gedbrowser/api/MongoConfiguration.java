@@ -70,7 +70,7 @@ import com.mongodb.MongoClient;
 public class MongoConfiguration {
     /** */
     @Autowired
-    private PropertiesConfigurationService config;
+    private MongoPropertiesService mongoProperties;
 
     /** */
     @Autowired
@@ -85,7 +85,7 @@ public class MongoConfiguration {
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
         return new SimpleMongoDbFactory(
-                new MongoClient(config.mongoHost(), config.mongoPort()),
+                new MongoClient(mongoProperties.mongoHost(), mongoProperties.mongoPort()),
                 "gedbrowser-1_2_2");
     }
 
