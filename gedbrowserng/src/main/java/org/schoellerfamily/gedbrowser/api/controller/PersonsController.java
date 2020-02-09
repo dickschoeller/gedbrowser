@@ -95,14 +95,35 @@ public class PersonsController extends CrudInvoker {
             @PathVariable final String db,
             @PathVariable final String id) {
         final Person person = ((PersonCrud) crud()).read(db, id).getGedObject();
-        if (!new RequestUserUtil(request, userService).hasUser()
-                && new LivingEstimator(person, provider).estimate()) {
-            final Builder builder =
-                    new ApiPerson.Builder().id(id).indexName("Living").surname("").build();
-            return new ApiPerson(builder);
+        if (shouldHideLiving(request, person)) {
+            return createDummyLivingPerson(id);
         }
         logger.info("entering read person: " + id);
         return crud().readOne(db, id);
+    }
+
+    /**
+     * Determine whether to return dummy "living" person.
+     *
+     * @param request the request, used to identify user authorization
+     * @param person the person, used to check if living
+     * @return true if the person is living and should be hidden
+     */
+    private boolean shouldHideLiving(final HttpServletRequest request, final Person person) {
+        return !new RequestUserUtil(request, userService).hasUser()
+                && new LivingEstimator(person, provider).estimate();
+    }
+
+    /**
+     * Create a minimal person for return, who is only identified as living.
+     *
+     * @param id the person ID
+     * @return the dummy person
+     */
+    private ApiPerson createDummyLivingPerson(final String id) {
+        final Builder builder =
+                new ApiPerson.Builder().id(id).indexName("Living").surname("").build();
+        return new ApiPerson(builder);
     }
 
     /**

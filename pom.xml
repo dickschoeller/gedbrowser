@@ -281,6 +281,9 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-checkstyle-plugin</artifactId>
           <version>${checkstyle-plugin.version}</version>
+          <configuration>
+            <excludes>**/pom.xml</excludes>
+          </configuration>
           <dependencies>
             <dependency>
               <groupId>com.puppycrawl.tools</groupId>
