@@ -282,7 +282,7 @@
           <artifactId>maven-checkstyle-plugin</artifactId>
           <version>${checkstyle-plugin.version}</version>
           <configuration>
-            <excludes>**/pom.xml</excludes>
+            <excludes>pom.xml</excludes>
           </configuration>
           <dependencies>
             <dependency>
