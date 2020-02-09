@@ -28,6 +28,10 @@ public class PropertiesConfigurationService {
     @Value("${spring.data.mongodb.port:27017}")
     private transient int port;
 
+    /** */
+    @Value("${gedbrowser.userFile:userFile.csv}")
+    private String userFile;
+
     /**
      * Get the name of the cookie with the authentication token.
      * Defaults to AUTH-TOKEN.
@@ -69,5 +73,13 @@ public class PropertiesConfigurationService {
      */
     public int mongoPort() {
         return port;
+    }
+
+    /**
+     * Get the userFile value.
+     * @return
+     */
+    public String getUserFile() {
+        return gedbrowserHome + "/" + userFile;
     }
 }

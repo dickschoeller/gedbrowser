@@ -2,6 +2,8 @@ package org.schoellerfamily.gedbrowser.api.crud.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -9,10 +11,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
+import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.crud.ChildCrud;
 import org.schoellerfamily.gedbrowser.api.crud.FamilyCrud;
 import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
 import org.schoellerfamily.gedbrowser.api.crud.SpouseCrud;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
@@ -118,6 +122,58 @@ public class SpouseCrudTest {
         final ApiPerson gotP2again = helper.getPerson(gotP2);
         then(gotP1again.getFams().size()).isEqualTo(0);
         assertEquals("check ids", gotP2again.getFams().get(0).getString(), fam);
+    }
+
+    @Test
+    public final void testUnlinkSpouseInFamilyAndFamilyNotFound() {
+        logger.info("Beginning testUnlinkSpouseInFamily");
+        final ApiPerson p1 = helper.createPerson();
+        final ApiPerson child = createChildOfParent(p1);
+        final String fam = child.getFamc().get(0).getString();
+
+        final ApiPerson p2 = helper.createPerson();
+        final ApiPerson gotP2 =
+                crud.linkSpouseInFamily(helper.getDb(), fam, p2);
+        then(gotP2.getString()).isEqualTo(p2.getString());
+        then(gotP2.getFams().size()).isEqualTo(1);
+        final ApiPerson gotP1 = helper.getPerson(p1);
+        then(gotP1.getFams().size()).isEqualTo(1);
+
+        final ApiPerson p1back =
+                crud.unlinkSpouseInFamily(helper.getDb(), "XXXXX", gotP1.getString());
+        boolean found = false;
+        for (final ApiAttribute famsBack : p1back.getFams()) {
+            final String fid = famsBack.getString();
+            if (fid.equals(fam)) {
+                found = true;
+                break;
+            }
+        }
+        assertTrue("Shoud have found the original family undeleted", found);
+    }
+
+    @Test
+    public final void testUnlinkSpouseInFamilyAndSpouseNotFound() {
+        logger.info("Beginning testUnlinkSpouseInFamily");
+        final ApiPerson p1 = helper.createPerson();
+        final ApiPerson child = createChildOfParent(p1);
+        final String fam = child.getFamc().get(0).getString();
+
+        final ApiPerson p2 = helper.createPerson();
+        final ApiPerson gotP2 =
+                crud.linkSpouseInFamily(helper.getDb(), fam, p2);
+        then(gotP2.getString()).isEqualTo(p2.getString());
+        then(gotP2.getFams().size()).isEqualTo(1);
+        final ApiPerson gotP1 = helper.getPerson(p1);
+        then(gotP1.getFams().size()).isEqualTo(1);
+
+        try {
+            crud.unlinkSpouseInFamily(helper.getDb(), fam, "XXXXX");
+            fail("Should have thrown");
+        } catch (ObjectNotFoundException e) {
+            assertEquals("exception message mismatch",
+                    "Object XXXXX of type person not found", e.getMessage());
+        }
     }
 
     /**

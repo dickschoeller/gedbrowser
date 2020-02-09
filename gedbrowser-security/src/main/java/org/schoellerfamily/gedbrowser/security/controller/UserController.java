@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.schoellerfamily.gedbrowser.security.exception.ResourceConflictException;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
@@ -40,7 +42,8 @@ public class UserController {
      */
     @RequestMapping(method = GET, value = "/users/{username:.+}")
     @PreAuthorize("hasRole('USER')")
-    public SecurityUser loadById(@PathVariable final String username) {
+    public SecurityUser loadById(final HttpServletRequest request,
+            @PathVariable final String username) {
         return userService.findByUsername(username);
     }
 
@@ -49,7 +52,7 @@ public class UserController {
      */
     @RequestMapping(method = GET, value = "/users")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<SecurityUser> loadAll() {
+    public List<SecurityUser> loadAll(final HttpServletRequest request) {
         return userService.findAll();
     }
 
@@ -80,9 +83,6 @@ public class UserController {
                   1L, /* userRequest.getId(),*/ "Username already exists");
         }
         final SecurityUser user = this.userService.save(userRequest);
-//        final HttpHeaders headers = new HttpHeaders();
-//        headers.setLocation(ucBuilder.path("/v1/user/{userUsername}")
-//                .buildAndExpand(user.getUsername()).toUri());
         return new ResponseEntity<SecurityUser>(user, HttpStatus.CREATED);
     }
 

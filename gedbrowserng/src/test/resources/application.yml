@@ -1,5 +1,6 @@
 gedbrowser:
     home: /var/lib/gedbrowser
+    userFile: testUserFile.csv
 
 server:
     servlet-path: /gedbrowserng

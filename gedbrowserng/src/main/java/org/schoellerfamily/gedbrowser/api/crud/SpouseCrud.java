@@ -52,8 +52,7 @@ public class SpouseCrud extends RelationsCrud {
      * @param person the data for the spouse (use the id to read from the db)
      * @return the person returned from the db
      */
-    public ApiPerson linkSpouse(final String db, final String id,
-            final ApiPerson person) {
+    public ApiPerson linkSpouse(final String db, final String id, final ApiPerson person) {
         logger.info("Entering link person: " + person.getString()
                 + " as spouse in db: " + db + " of person " + id);
         final ApiPerson oldPerson = readPerson(db, id);
@@ -90,8 +89,7 @@ public class SpouseCrud extends RelationsCrud {
      * @param person the data for the spouse (use the id to read from db)
      * @return the person returned from the db
      */
-    public ApiPerson linkSpouseInFamily(final String db, final String id,
-            final ApiPerson person) {
+    public ApiPerson linkSpouseInFamily(final String db, final String id, final ApiPerson person) {
         logger.info("Entering link person: " + person.getString() + " in db: "
                 + db + " as spouse in family " + id);
         final ApiPerson newPerson = readPerson(db, person.getString());
@@ -110,8 +108,7 @@ public class SpouseCrud extends RelationsCrud {
      * @param sid the id of the spouse to remove
      * @return the person returned from the db
      */
-    public ApiPerson unlinkSpouseInFamily(final String db, final String id,
-            final String sid) {
+    public ApiPerson unlinkSpouseInFamily(final String db, final String id, final String sid) {
         logger.info("Entering unlink person: " + sid + " in db: " + db
                 + " from being a spouse in family " + id);
         final ApiPerson person = readPerson(db, sid);
@@ -131,8 +128,7 @@ public class SpouseCrud extends RelationsCrud {
      * {@inheritDoc}
      */
     @Override
-    public boolean isTheLinkWeAreLookingFor(final ApiAttribute attribute,
-            final String id) {
+    public boolean isTheLinkWeAreLookingFor(final ApiAttribute attribute, final String id) {
         return ("husband".equals(attribute.getType())
                 || "wife".equals(attribute.getType()))
                 && attribute.getString().equals(id);

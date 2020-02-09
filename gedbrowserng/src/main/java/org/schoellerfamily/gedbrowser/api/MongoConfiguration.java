@@ -2,6 +2,8 @@ package org.schoellerfamily.gedbrowser.api;
 
 import java.net.UnknownHostException;
 
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
@@ -26,7 +28,11 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     TrailerDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
+import org.schoellerfamily.gedbrowser.security.service.UserService;
+import org.schoellerfamily.gedbrowser.security.util.UserProvider;
+import org.schoellerfamily.gedbrowser.security.util.UserProviderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -66,6 +72,13 @@ public class MongoConfiguration {
     /** */
     @Autowired
     private PropertiesConfigurationService config;
+
+    @Autowired
+    private UserService service;
+
+    /** */
+    @Value("${user.management:real")
+    private transient String userManagement;
 
     /**
      * Get a MongoDbFactory for accessing the gedbrowser database.
@@ -146,5 +159,18 @@ public class MongoConfiguration {
     @Bean
     public GedObjectToGedDocumentMongoConverter toGedDocumentConverter() {
         return new GedObjectToGedDocumentMongoConverter();
+    }
+
+    @Bean
+    public UserProvider userProvider() {
+        return new UserProviderImpl(service);
+    }
+
+    /**
+     * @return a calendar provider of REAL today
+     */
+    @Bean
+    public CalendarProvider calendarProvider() {
+        return new CalendarProviderImpl();
     }
 }

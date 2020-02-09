@@ -8,11 +8,13 @@ import java.net.URISyntaxException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
+import org.schoellerfamily.gedbrowser.api.test.LoginTestHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -53,6 +55,19 @@ public class PersonControllerTest {
      */
     @LocalServerPort
     private int port;
+    /**
+     * Creates a login session for the test.
+     */
+    private LoginTestHelper helper;
+
+    /**
+     * Initialize the login helper.
+     */
+    @Before
+    public void before() {
+        helper = new LoginTestHelper(testRestTemplate, port);
+    }
+
 
     /** */
     @Test
@@ -94,13 +109,16 @@ public class PersonControllerTest {
         then(entity.getBody()).startsWith(bodyFragment);
     }
 
-    /** */
+    /**
+     * @throws URISyntaxException should be never 
+     * @throws RestClientException should be never
+     */
     @Test
-    public final void testGetPersonsMiniSchoellerI2() {
+    public final void testGetPersonsMiniSchoellerI2() throws RestClientException, URISyntaxException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I2";
         final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
+                testRestTemplate.exchange(url, HttpMethod.GET, helper.adminEntity(), String.class);
         final String bodyFragment =
                 "{\n"
                 + "  \"type\" : \"person\",\n"
@@ -135,7 +153,7 @@ public class PersonControllerTest {
             throws RestClientException, URISyntaxException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
-        final HttpHeaders headers = new HttpHeaders();
+        final HttpHeaders headers = helper.adminLogin();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         final ApiPerson.Builder builder = new ApiPerson.Builder().build();
         final ApiPerson reqBody = new ApiPerson(builder);
@@ -159,7 +177,7 @@ public class PersonControllerTest {
             throws RestClientException, URISyntaxException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
-        final HttpHeaders headers = new HttpHeaders();
+        final HttpHeaders headers = helper.adminLogin();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         final ApiPerson reqBody = createRJS();
         final HttpEntity<ApiPerson> req =
@@ -222,7 +240,7 @@ public class PersonControllerTest {
     @Test
     public final void testDeletePerson()
             throws RestClientException, URISyntaxException {
-        final HttpHeaders headers = new HttpHeaders();
+        final HttpHeaders headers = helper.adminLogin();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
         // Create a person.
@@ -245,7 +263,7 @@ public class PersonControllerTest {
                 .getForEntity(deleteUrl, ApiPerson.class);
         then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(deleteUrl, HttpMethod.DELETE, null, String.class);
+                .exchange(deleteUrl, HttpMethod.DELETE, helper.adminEntity(), String.class);
         then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         final ResponseEntity<ApiPerson> postDeleteEntity = testRestTemplate
                 .getForEntity(deleteUrl, ApiPerson.class);
@@ -257,9 +275,43 @@ public class PersonControllerTest {
      * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
+    public final void testDeletePersonNotAdmin()
+            throws RestClientException, URISyntaxException {
+        final HttpHeaders headers = helper.adminLogin();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        // Create a person.
+        // We want to be sure we know the structure of the person
+        // we are modifying.
+        final String url = "http://localhost:" + port
+                + "/gedbrowserng/v1/dbs/gl120368/persons";
+        final ApiPerson reqBody = createRJS();
+        final HttpEntity<ApiPerson> req =
+                new HttpEntity<>(reqBody, headers);
+        final ResponseEntity<ApiPerson> personEntity = testRestTemplate
+                .postForEntity(new URI(url), req, ApiPerson.class);
+        then(personEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        // Capture information about new person.
+        final ApiPerson resBody = personEntity.getBody();
+        final String id = resBody.getString();
+
+        final String deleteUrl = url + "/" + id;
+        final ResponseEntity<ApiPerson> preDeleteEntity = testRestTemplate
+                .getForEntity(deleteUrl, ApiPerson.class);
+        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ResponseEntity<String> deleteEntity = testRestTemplate
+                .exchange(deleteUrl, HttpMethod.DELETE, helper.userEntity(), String.class);
+        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
+    }
+
+    /**
+     * @throws RestClientException if we can't talk to rest server
+     * @throws URISyntaxException if there is a problem with the URL
+     */
+    @Test
     public final void testDeleteSpouseLinkedPerson()
             throws RestClientException, URISyntaxException {
-        final HttpHeaders headers = new HttpHeaders();
+        final HttpHeaders headers = helper.adminLogin();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
         // Create a person.
@@ -310,7 +362,7 @@ public class PersonControllerTest {
                 .getForEntity(deleteUrl, ApiPerson.class);
         then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(deleteUrl, HttpMethod.DELETE, null, String.class);
+                .exchange(deleteUrl, HttpMethod.DELETE, helper.adminEntity(), String.class);
         then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         final ResponseEntity<ApiPerson> postDeleteEntity = testRestTemplate
                 .getForEntity(deleteUrl, ApiPerson.class);
@@ -324,7 +376,7 @@ public class PersonControllerTest {
     @Test
     public final void testDeleteChildLinkedPerson()
             throws RestClientException, URISyntaxException {
-        final HttpHeaders headers = new HttpHeaders();
+        final HttpHeaders headers = helper.adminLogin();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
         // Create a person.
@@ -375,7 +427,7 @@ public class PersonControllerTest {
                 .getForEntity(deleteUrl, ApiPerson.class);
         then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(deleteUrl, HttpMethod.DELETE, null, String.class);
+                .exchange(deleteUrl, HttpMethod.DELETE, helper.adminEntity(), String.class);
         then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         final ResponseEntity<ApiPerson> entityAfterDelete = testRestTemplate
                 .getForEntity(deleteUrl, ApiPerson.class);
@@ -389,18 +441,16 @@ public class PersonControllerTest {
     @Test
     public final void testDeletePersonNotFound()
             throws RestClientException, URISyntaxException {
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons/XXXXXXX";
         final ResponseEntity<ApiPerson> preDeleteEntity = testRestTemplate
                 .getForEntity(url, ApiPerson.class);
         then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(url, HttpMethod.DELETE, null, String.class);
+                .exchange(url, HttpMethod.DELETE, helper.adminEntity(), String.class);
         then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
+
 
     /**
      * @throws RestClientException if we can't talk to rest server
@@ -409,16 +459,13 @@ public class PersonControllerTest {
     @Test
     public final void testDeleteSubmitterDatabaseNotFound()
             throws RestClientException, URISyntaxException {
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/XYZZY/persons/SUBM1";
         final ResponseEntity<ApiPerson> preDeleteEntity = testRestTemplate
                 .getForEntity(url, ApiPerson.class);
         then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(url, HttpMethod.DELETE, null, String.class);
+                .exchange(url, HttpMethod.DELETE, helper.adminEntity(), String.class);
         then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
@@ -431,7 +478,7 @@ public class PersonControllerTest {
             throws RestClientException, URISyntaxException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
-        final HttpHeaders headers = new HttpHeaders();
+        final HttpHeaders headers = helper.adminLogin();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         final ApiPerson reqBody = createRJS();
         final HttpEntity<ApiPerson> req =
@@ -447,7 +494,7 @@ public class PersonControllerTest {
         resBody.getAttributes().add(
                 aNote);
         final HttpEntity<ApiPerson> putRequestEntity =
-                new HttpEntity<ApiPerson>(resBody);
+                new HttpEntity<ApiPerson>(resBody, helper.adminLogin());
         final ResponseEntity<ApiPerson> putResponseEntity =
                 testRestTemplate.exchange(
                 url + "/" + resBody.getString(),

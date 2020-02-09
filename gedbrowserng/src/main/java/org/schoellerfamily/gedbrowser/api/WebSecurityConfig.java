@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public SecurityUsers users() {
-        final String userFile = config.gedbrowserHome() + "/userFile.csv";
+        final String userFile = config.getUserFile();
         return readUserFile(userFile);
     }
 

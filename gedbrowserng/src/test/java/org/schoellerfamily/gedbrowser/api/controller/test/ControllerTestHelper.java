@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.api.controller.test;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
+import org.schoellerfamily.gedbrowser.api.test.LoginTestHelper;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -13,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 /**
  * @author Dick Schoeller
  */
-public class ControllerTestHelper {
+public final class ControllerTestHelper {
     /** */
     private final TestRestTemplate testRestTemplate;
     /** */
@@ -37,9 +39,19 @@ public class ControllerTestHelper {
         baseUrl = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/";
         personsUrl = baseUrl + "persons";
         familiesUrl = baseUrl + "families";
-        headers = new HttpHeaders();
+        headers = adminLogin(port, testRestTemplate);
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        builder = new ApiPerson.Builder().build();
+        ApiAttribute attribute = new ApiAttribute("attribute", "Death");
+        builder = new ApiPerson.Builder().add(attribute).build();
+    }
+
+    private HttpHeaders adminLogin(final int port, final TestRestTemplate testRestTemplate) {
+        try {
+            final LoginTestHelper helper = new LoginTestHelper(testRestTemplate, port);
+            return helper.adminLogin();
+        } catch (URISyntaxException e) {
+            return new HttpHeaders();
+        }
     }
 
     /**
