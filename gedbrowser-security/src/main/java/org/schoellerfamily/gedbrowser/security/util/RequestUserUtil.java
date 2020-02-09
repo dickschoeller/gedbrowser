@@ -13,17 +13,26 @@ import org.schoellerfamily.gedbrowser.security.service.UserService;
 /**
  * @author Dick Schoeller
  */
-public class RequestUserUtil implements UserFacade {
+public final class RequestUserUtil implements UserFacade {
+    /** Hold the request. */
     private final HttpServletRequest request;
+
+    /** Hold the service. */
     private final UserService userService;
 
-    public RequestUserUtil(final HttpServletRequest request, UserService userService) {
+    /**
+     * Constructor.
+     *
+     * @param request the request that tells us which user to search for
+     * @param userService the suer service to get the user from
+     */
+    public RequestUserUtil(final HttpServletRequest request, final UserService userService) {
         this.request = request;
         this.userService = userService;
     }
 
     @Override
-    public final User getUser() {
+    public User getUser() {
         final Principal userPrincipal = request.getUserPrincipal();
         if (userPrincipal == null) {
             return null;
@@ -36,10 +45,11 @@ public class RequestUserUtil implements UserFacade {
     }
 
     /**
-     * Short cut to check user role
+     * Short cut to check user role.
+     *
      * @return true if has user
      */
-    public final boolean hasUser() {
+    public boolean hasUser() {
         if (getUser() == null) {
             return false;
         }
@@ -47,10 +57,11 @@ public class RequestUserUtil implements UserFacade {
     }
 
     /**
-     * Short cut to check admin role
+     * Short cut to check admin role.
+     *
      * @return true if has admin
      */
-    public final boolean hasAdmin() {
+    public boolean hasAdmin() {
         if (getUser() == null) {
             return false;
         }

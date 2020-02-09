@@ -83,6 +83,7 @@ public class PersonsController extends CrudInvoker {
     }
 
     /**
+     * @param request the servlet request coming in
      * @param db the name of the db to access
      * @param id the ID of the person
      * @return the person
@@ -90,13 +91,14 @@ public class PersonsController extends CrudInvoker {
     @GetMapping(value = "/v1/dbs/{db}/persons/{id}")
     @ResponseBody
     public ApiPerson read(
-            HttpServletRequest request,
+            final HttpServletRequest request,
             @PathVariable final String db,
             @PathVariable final String id) {
-        final Person person = ((PersonCrud)crud()).read(db, id).getGedObject();
-        if (!new RequestUserUtil(request, userService).hasUser() &&
-                new LivingEstimator(person, provider).estimate()) {
-            final Builder builder = new ApiPerson.Builder().id(id).indexName("Living").surname("").build();
+        final Person person = ((PersonCrud) crud()).read(db, id).getGedObject();
+        if (!new RequestUserUtil(request, userService).hasUser()
+                && new LivingEstimator(person, provider).estimate()) {
+            final Builder builder =
+                    new ApiPerson.Builder().id(id).indexName("Living").surname("").build();
             return new ApiPerson(builder);
         }
         logger.info("entering read person: " + id);
@@ -104,6 +106,7 @@ public class PersonsController extends CrudInvoker {
     }
 
     /**
+     * @param request the servlet request coming in
      * @param db the name of the db to access
      * @param id the id of the person to update
      * @param person the data for the person
@@ -112,7 +115,7 @@ public class PersonsController extends CrudInvoker {
     @PutMapping(value = "/v1/dbs/{db}/persons/{id}")
     @ResponseBody
     public ApiPerson update(
-            HttpServletRequest request,
+            final HttpServletRequest request,
             @PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
@@ -125,6 +128,7 @@ public class PersonsController extends CrudInvoker {
     }
 
     /**
+     * @param request the servlet request coming in
      * @param db the name of the db to access
      * @param id the ID of the person
      * @return the deleted person object
@@ -132,7 +136,7 @@ public class PersonsController extends CrudInvoker {
     @DeleteMapping(value = "/v1/dbs/{db}/persons/{id}")
     @ResponseBody
     public ApiPerson delete(
-            HttpServletRequest request,
+            final HttpServletRequest request,
             @PathVariable final String db,
             @PathVariable final String id) {
         final RequestUserUtil requestUserUtil = new RequestUserUtil(request, userService);

@@ -73,6 +73,7 @@ public class MongoConfiguration {
     @Autowired
     private PropertiesConfigurationService config;
 
+    /** */
     @Autowired
     private UserService service;
 
