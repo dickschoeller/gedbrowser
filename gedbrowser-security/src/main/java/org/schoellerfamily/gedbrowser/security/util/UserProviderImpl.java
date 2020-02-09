@@ -22,6 +22,9 @@ public final class UserProviderImpl implements UserProvider {
         this.service = service;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User getUser(final HttpServletRequest request) {
         return new RequestUserUtil(request, service).getUser();

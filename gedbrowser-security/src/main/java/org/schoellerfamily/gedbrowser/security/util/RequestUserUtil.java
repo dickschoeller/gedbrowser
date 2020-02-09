@@ -31,6 +31,9 @@ public final class RequestUserUtil implements UserFacade {
         this.userService = userService;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User getUser() {
         final Principal userPrincipal = request.getUserPrincipal();

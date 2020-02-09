@@ -32,7 +32,6 @@ import org.schoellerfamily.gedbrowser.security.service.UserService;
 import org.schoellerfamily.gedbrowser.security.util.UserProvider;
 import org.schoellerfamily.gedbrowser.security.util.UserProviderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -76,10 +75,6 @@ public class MongoConfiguration {
     /** */
     @Autowired
     private UserService service;
-
-    /** */
-    @Value("${user.management:real")
-    private transient String userManagement;
 
     /**
      * Get a MongoDbFactory for accessing the gedbrowser database.
@@ -162,6 +157,11 @@ public class MongoConfiguration {
         return new GedObjectToGedDocumentMongoConverter();
     }
 
+    /**
+     * Get an object that helps look up users.
+     *
+     * @return user provider
+     */
     @Bean
     public UserProvider userProvider() {
         return new UserProviderImpl(service);
