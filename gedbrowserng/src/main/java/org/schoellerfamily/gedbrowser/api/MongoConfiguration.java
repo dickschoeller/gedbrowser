@@ -2,6 +2,8 @@ package org.schoellerfamily.gedbrowser.api;
 
 import java.net.UnknownHostException;
 
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
@@ -26,6 +28,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     TrailerDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
+import org.schoellerfamily.gedbrowser.security.service.UserService;
+import org.schoellerfamily.gedbrowser.security.util.UserProvider;
+import org.schoellerfamily.gedbrowser.security.util.UserProviderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -65,7 +70,11 @@ import com.mongodb.MongoClient;
 public class MongoConfiguration {
     /** */
     @Autowired
-    private PropertiesConfigurationService config;
+    private MongoPropertiesService mongoProperties;
+
+    /** */
+    @Autowired
+    private UserService service;
 
     /**
      * Get a MongoDbFactory for accessing the gedbrowser database.
@@ -76,7 +85,7 @@ public class MongoConfiguration {
     @Bean
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
         return new SimpleMongoDbFactory(
-                new MongoClient(config.mongoHost(), config.mongoPort()),
+                new MongoClient(mongoProperties.mongoHost(), mongoProperties.mongoPort()),
                 "gedbrowser-1_2_2");
     }
 
@@ -146,5 +155,23 @@ public class MongoConfiguration {
     @Bean
     public GedObjectToGedDocumentMongoConverter toGedDocumentConverter() {
         return new GedObjectToGedDocumentMongoConverter();
+    }
+
+    /**
+     * Get an object that helps look up users.
+     *
+     * @return user provider
+     */
+    @Bean
+    public UserProvider userProvider() {
+        return new UserProviderImpl(service);
+    }
+
+    /**
+     * @return a calendar provider of REAL today
+     */
+    @Bean
+    public CalendarProvider calendarProvider() {
+        return new CalendarProviderImpl();
     }
 }

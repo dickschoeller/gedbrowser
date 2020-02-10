@@ -107,7 +107,6 @@
 
         <rule ref="category/java/multithreading.xml/AvoidSynchronizedAtMethodLevel" />
         <rule ref="category/java/multithreading.xml/NonThreadSafeSingleton" />
-        <rule ref="category/java/multithreading.xml/UnsynchronizedStaticDateFormatter" />
         <rule ref="category/java/multithreading.xml/UseNotifyAllInsteadOfNotify" />
 
         <rule ref="category/java/bestpractices.xml/AbstractClassWithoutAbstractMethod" />
@@ -137,22 +136,11 @@
         <rule ref="category/java/design.xml/ExcessiveMethodLength" />
         <rule ref="category/java/design.xml/ExcessiveParameterList" />
         <rule ref="category/java/design.xml/ExcessivePublicCount" />
-        <rule ref="category/java/design.xml/ModifiedCyclomaticComplexity" />
-        <rule ref="category/java/design.xml/NcssConstructorCount" />
-        <rule ref="category/java/design.xml/NcssMethodCount" />
-        <rule ref="category/java/design.xml/NcssTypeCount" />
         <rule ref="category/java/design.xml/NPathComplexity" />
-        <rule ref="category/java/design.xml/StdCyclomaticComplexity" />
         <rule ref="category/java/design.xml/TooManyFields" />
         <rule ref="category/java/design.xml/TooManyMethods">
             <properties><property name="maxmethods" value="15"/></properties>
         </rule>
-
-        <!-- braces -->
-        <rule ref="category/java/codestyle.xml/ForLoopsMustUseBraces" />
-        <rule ref="category/java/codestyle.xml/IfElseStmtsMustUseBraces" />
-        <rule ref="category/java/codestyle.xml/IfStmtsMustUseBraces" />
-        <rule ref="category/java/codestyle.xml/WhileLoopsMustUseBraces" />
 
 	<!-- comments -->
         <rule ref="category/java/codestyle.xml/CommentDefaultAccessModifier" />

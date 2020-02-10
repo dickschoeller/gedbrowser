@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import org.schoellerfamily.gedbrowser.api.PropertiesConfigurationService;
+import org.schoellerfamily.gedbrowser.api.GedbrowserPropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 public final class FileSystemStorageService implements StorageService {
     /** */
     @Autowired
-    private PropertiesConfigurationService config;
+    private GedbrowserPropertiesService gedbrowserProperties;
 
     /**
      * Constructor.
@@ -39,7 +39,7 @@ public final class FileSystemStorageService implements StorageService {
     @Override
     public void store(final MultipartFile file) {
         final String filename = validateFile(file);
-        final Path rootLocation = Paths.get(config.gedbrowserHome());
+        final Path rootLocation = Paths.get(gedbrowserProperties.gedbrowserHome());
         try (InputStream inputStream = file.getInputStream()) {
             Files.copy(inputStream, rootLocation.resolve(filename),
                     StandardCopyOption.REPLACE_EXISTING);
