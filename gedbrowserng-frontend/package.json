@@ -39,7 +39,7 @@
     "ngx-page-scroll": "^7.0.0",
     "ngx-page-scroll-core": "^7.0.0",
     "npm": "^6.13.4",
-    "primeng": "^9.0.0-rc.2",
+    "primeng": "^9.0.0",
     "rxjs": "^6.5.3",
     "snyk": "^1.275.0",
     "sshpk": "^1.16.1",
