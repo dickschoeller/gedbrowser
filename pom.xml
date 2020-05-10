@@ -76,13 +76,18 @@
     <cglib.version>3.3.0</cglib.version>
     <!-- might try 0.9.1 of google -->
     <google-maps-services.version>0.2.11</google-maps-services.version>
-    <jackson-core.version>2.9.6</jackson-core.version>
+    <!-- jackson-core.version>2.9.6</jackson-core.version -->
     <!-- don't upgrade -->
-    <jackson-databind.version>2.9.10.1</jackson-databind.version>
+    <!-- jackson-databind.version>2.9.10.1</jackson-databind.version -->
+    <jackson-core.version>2.10.0</jackson-core.version>
+    <jackson-databind.version>2.10.0</jackson-databind.version>
+    <!-- -->
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.10.5</joda-time.version>
     <sauce_junit.version>2.1.25</sauce_junit.version>
-    <geojson-jackson.version>1.12</geojson-jackson.version>
+    <!-- -->
+    <geojson-jackson.version>1.14</geojson-jackson.version>
+    <!-- -->
     <log4j-over-slf4j.version>1.7.30</log4j-over-slf4j.version>
     <jcl-over-slf4j.version>1.7.30</jcl-over-slf4j.version>
     <logback-classic.version>1.2.3</logback-classic.version>
