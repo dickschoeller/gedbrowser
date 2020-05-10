@@ -83,14 +83,13 @@ public class PersonsController extends CrudInvoker {
      */
     @GetMapping(value = "/v1/dbs/{db}/persons")
     @ResponseBody
-    public List<ApiPerson> read(
-            final HttpServletRequest request,
+    public List<ApiPerson> read(final HttpServletRequest request,
             @PathVariable final String db) {
         final List<PersonDocument> allPersons = ((PersonCrud) crud()).read(db);
-        return hide(request, db, allPersons);
+        return hide(request, allPersons);
     }
 
-    private List<ApiPerson> hide(final HttpServletRequest request, final String db,
+    private List<ApiPerson> hide(final HttpServletRequest request,
             final List<PersonDocument> allPersons) {
         logger.info("Start hiding list of persons");
         final List<ApiPerson> list = new ArrayList<>();
@@ -99,13 +98,13 @@ public class PersonsController extends CrudInvoker {
         final boolean hasAdmin = requestUserUtil.hasAdmin();
         for (final PersonDocument doc : allPersons) {
             final Person person = doc.getGedObject();
-            if (shouldHideLiving(person, hasUser)) {
-                continue;
-            }
             if (shouldHideConfidential(person, hasAdmin)) {
                 continue;
             }
-            OperationsEnabler<?, ?> enabler = (OperationsEnabler<?, ?>) crud();
+            if (shouldHideLiving(person, hasUser)) {
+                continue;
+            }
+            final OperationsEnabler<?, ?> enabler = (OperationsEnabler<?, ?>) crud();
             list.add((ApiPerson) enabler.getD2dm().convert(doc));
         }
         logger.info("Done hiding list of persons");
@@ -126,11 +125,11 @@ public class PersonsController extends CrudInvoker {
             @PathVariable final String id) {
         final Person person = ((PersonCrud) crud()).read(db, id).getGedObject();
         final RequestUserUtil util = new RequestUserUtil(request, userService);
-        if (shouldHideLiving(person, util.hasUser())) {
-            return createDummyLivingPerson(id);
-        }
         if (shouldHideConfidential(person, util.hasAdmin())) {
             throw new ObjectNotFoundException("person not found", "ApiPerson", db, id);
+        }
+        if (shouldHideLiving(person, util.hasUser())) {
+            return createDummyLivingPerson(id);
         }
         logger.info("entering read person: " + id);
         return crud().readOne(db, id);
