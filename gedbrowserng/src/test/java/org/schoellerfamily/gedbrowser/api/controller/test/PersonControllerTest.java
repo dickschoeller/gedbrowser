@@ -68,14 +68,17 @@ public class PersonControllerTest {
         helper = new LoginTestHelper(testRestTemplate, port);
     }
 
-
-    /** */
+    /**
+     * @throws RestClientException should be never
+     * @throws URISyntaxException should be never
+     */
     @Test
-    public final void testGetPersonsGl120368() {
+    public final void testGetPersonsGl120368()
+            throws RestClientException, URISyntaxException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
         final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
+                testRestTemplate.exchange(url, HttpMethod.GET, helper.adminEntity(), String.class);
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"person\",\n"
@@ -90,13 +93,41 @@ public class PersonControllerTest {
                 .startsWith(bodyFragment);
     }
 
-    /** */
+    /**
+     * @throws RestClientException should be never
+     * @throws URISyntaxException should be never
+     */
     @Test
-    public final void testGetPersonsMiniSchoeller() {
+    public final void testGetPersonsGl120368NotLoggedIn()
+            throws RestClientException, URISyntaxException {
+        final String url = "http://localhost:" + port
+                + "/gedbrowserng/v1/dbs/gl120368/persons";
+        final ResponseEntity<String> entity =
+                testRestTemplate.getForEntity(url, String.class);
+        final String bodyFragment =
+                "[ {\n"
+                + "  \"type\" : \"person\",\n"
+                + "  \"string\" : \"I6\",\n"
+                + "  \"attributes\" : [ {\n"
+                + "    \"type\" : \"name\",\n"
+                + "    \"string\" : \"Reginald Amass /Williams/\",\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n";
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(entity.getBody().substring(0, TRUNCATE_LENGTH))
+                .startsWith(bodyFragment);
+    }
+
+    /**
+     * @throws RestClientException should be never
+     * @throws URISyntaxException should be never
+     */
+    @Test
+    public final void testGetPersonsMiniSchoeller() throws RestClientException, URISyntaxException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons";
         final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
+                testRestTemplate.exchange(url, HttpMethod.GET, helper.adminEntity(), String.class);
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"person\",\n"
@@ -109,9 +140,30 @@ public class PersonControllerTest {
         then(entity.getBody()).startsWith(bodyFragment);
     }
 
+    /** */
+    @Test
+    public final void testGetPersonsMiniSchoellerNotLoggedIn() {
+        final String url = "http://localhost:" + port
+                + "/gedbrowserng/v1/dbs/mini-schoeller/persons";
+        final ResponseEntity<String> entity =
+                testRestTemplate.getForEntity(url, String.class);
+        final String bodyFragment =
+                "[ {\n"
+                + "  \"type\" : \"person\",\n"
+                + "  \"string\" : \"I7\",\n"
+                + "  \"attributes\" : [ {\n"
+                + "    \"type\" : \"name\",\n"
+                + "    \"string\" : \"Arnold/Robinson/\",\n"
+                + "    \"attributes\" : [ ],\n"
+                + "    \"tail\" : \"\"\n"
+                + "  },";
+        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(entity.getBody()).startsWith(bodyFragment);
+    }
+
     /**
-     * @throws URISyntaxException should be never 
      * @throws RestClientException should be never
+     * @throws URISyntaxException should be never
      */
     @Test
     public final void testGetPersonsMiniSchoellerI2() throws RestClientException, URISyntaxException {

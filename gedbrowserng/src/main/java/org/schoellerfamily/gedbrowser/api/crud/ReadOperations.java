@@ -96,12 +96,17 @@ public interface ReadOperations <X extends GedObject,
      * @return the list of objects of the requested type
      */
     default List<Y> read(final RootDocument root) {
-        final List<Y> all = new ArrayList<>();
-        for (final Y document : getRepository().findAll(root)) {
-            all.add(document);
+        try {
+            final List<Y> all = new ArrayList<>();
+            final Iterable<Y> a = getRepository().findAll(root);
+            for (final Y document : a) {
+                all.add(document);
+            }
+            all.sort(new GetStringComparator());
+            return all;
+        } catch (RuntimeException e) {
+            throw e;
         }
-        all.sort(new GetStringComparator());
-        return all;
     }
 
     /**

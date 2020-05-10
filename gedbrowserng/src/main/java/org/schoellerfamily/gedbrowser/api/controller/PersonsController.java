@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,11 +9,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
+import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.crud.ObjectCrud;
+import org.schoellerfamily.gedbrowser.api.crud.OperationsEnabler;
 import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson.Builder;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
+import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.security.service.UserService;
 import org.schoellerfamily.gedbrowser.security.util.RequestUserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,14 +77,39 @@ public class PersonsController extends CrudInvoker {
     }
 
     /**
+     * @param request the servlet request coming in
      * @param db the name of the db to access
      * @return the list of persons
      */
     @GetMapping(value = "/v1/dbs/{db}/persons")
     @ResponseBody
     public List<ApiPerson> read(
+            final HttpServletRequest request,
             @PathVariable final String db) {
-        return crud().readAll(db);
+        final List<PersonDocument> allPersons = ((PersonCrud) crud()).read(db);
+        return hide(request, db, allPersons);
+    }
+
+    private List<ApiPerson> hide(final HttpServletRequest request, final String db,
+            final List<PersonDocument> allPersons) {
+        logger.info("Start hiding list of persons");
+        final List<ApiPerson> list = new ArrayList<>();
+        final RequestUserUtil requestUserUtil = new RequestUserUtil(request, userService);
+        final boolean hasUser = requestUserUtil.hasUser();
+        final boolean hasAdmin = requestUserUtil.hasAdmin();
+        for (final PersonDocument doc : allPersons) {
+            final Person person = doc.getGedObject();
+            if (shouldHideLiving(person, hasUser)) {
+                continue;
+            }
+            if (shouldHideConfidential(person, hasAdmin)) {
+                continue;
+            }
+            OperationsEnabler<?, ?> enabler = (OperationsEnabler<?, ?>) crud();
+            list.add((ApiPerson) enabler.getD2dm().convert(doc));
+        }
+        logger.info("Done hiding list of persons");
+        return list;
     }
 
     /**
@@ -95,23 +125,28 @@ public class PersonsController extends CrudInvoker {
             @PathVariable final String db,
             @PathVariable final String id) {
         final Person person = ((PersonCrud) crud()).read(db, id).getGedObject();
-        if (shouldHideLiving(request, person)) {
+        final RequestUserUtil util = new RequestUserUtil(request, userService);
+        if (shouldHideLiving(person, util.hasUser())) {
             return createDummyLivingPerson(id);
+        }
+        if (shouldHideConfidential(person, util.hasAdmin())) {
+            throw new ObjectNotFoundException("person not found", "ApiPerson", db, id);
         }
         logger.info("entering read person: " + id);
         return crud().readOne(db, id);
     }
 
-    /**
-     * Determine whether to return dummy "living" person.
-     *
-     * @param request the request, used to identify user authorization
-     * @param person the person, used to check if living
-     * @return true if the person is living and should be hidden
-     */
-    private boolean shouldHideLiving(final HttpServletRequest request, final Person person) {
-        return !new RequestUserUtil(request, userService).hasUser()
-                && new LivingEstimator(person, provider).estimate();
+    private boolean shouldHideConfidential(final Person person, final boolean hasAdmin) {
+        if (hasAdmin) {
+            return false;
+        }
+        final PersonVisitor visitor = new PersonVisitor();
+        person.accept(visitor);
+        return visitor.isConfidential();
+    }
+
+    private boolean shouldHideLiving(final Person person, final boolean hasUser) {
+        return !hasUser && new LivingEstimator(person, provider).estimate();
     }
 
     /**
