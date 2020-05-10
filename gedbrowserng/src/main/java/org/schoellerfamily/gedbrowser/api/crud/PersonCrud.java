@@ -82,7 +82,8 @@ public class PersonCrud
     @Override
     public ApiPerson readOne(final String db, final String id) {
         logger.info("Entering read /dbs/" + db + "/persons/" + id);
-        return getD2dm().convert(read(db, id));
+        final PersonDocument read = read(db, id);
+        return getD2dm().convert(read);
     }
 
     /**

@@ -53,9 +53,7 @@ public final class LivingEstimator {
      * @return estimated living or dead
      */
     public boolean estimate() {
-        final PersonVisitor visitor = new PersonVisitor();
-        person.accept(visitor);
-        if (visitor.hasDeathAttribute()) {
+        if (hasDeathAttribute()) {
             // Death attribute found, we're out of here.
             return false;
         } else {
@@ -69,6 +67,18 @@ public final class LivingEstimator {
             final Period p = new Period(date, today);
             return p.getYears() < VERY_OLD_AGE;
         }
+    }
+
+    /**
+     * Just does the hasDeathAttribute check. This will allow us to compare dead
+     * with estimated dead.
+     *
+     * @return true if the person has the death attribute
+     */
+    public boolean hasDeathAttribute() {
+        final PersonVisitor visitor = new PersonVisitor();
+        person.accept(visitor);
+        return visitor.hasDeathAttribute();
     }
 
     /**

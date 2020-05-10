@@ -45,9 +45,9 @@ public final class ControllerTestHelper {
         builder = new ApiPerson.Builder().add(attribute).build();
     }
 
-    private HttpHeaders adminLogin(final int port, final TestRestTemplate testRestTemplate) {
+    private HttpHeaders adminLogin(final int port, final TestRestTemplate template) {
         try {
-            final LoginTestHelper helper = new LoginTestHelper(testRestTemplate, port);
+            final LoginTestHelper helper = new LoginTestHelper(template, port);
             return helper.adminLogin();
         } catch (URISyntaxException e) {
             return new HttpHeaders();

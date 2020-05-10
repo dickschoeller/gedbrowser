@@ -65,11 +65,22 @@ public final class IndexRenderer extends GedRenderer<Root>
             }
             final String html = createGedRenderer(person).getIndexName();
             final String liHtml = "<li id=\"" + person.getString() + "\">"
-                    + html + "</li>";
+                    + html
+                    + indicateDeadWithoutRecord(person)
+                    + "</li>";
             names.add(liHtml);
         }
         logger.info("Ending getIndexNameHtmls");
         return names;
+    }
+
+    private String indicateDeadWithoutRecord(final Person person) {
+        final LivingEstimator le = new LivingEstimator(person,
+                getRenderingContext());
+        if (!le.estimate() && !le.hasDeathAttribute()) {
+            return " <b>no death record</b>";
+        }
+        return "";
     }
 
     /**

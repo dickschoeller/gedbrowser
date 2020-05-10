@@ -76,30 +76,24 @@
     <cglib.version>3.3.0</cglib.version>
     <!-- might try 0.9.1 of google -->
     <google-maps-services.version>0.2.11</google-maps-services.version>
-    <!-- jackson-core.version>2.9.6</jackson-core.version -->
-    <!-- don't upgrade -->
-    <!-- jackson-databind.version>2.9.10.1</jackson-databind.version -->
     <jackson-core.version>2.10.0</jackson-core.version>
     <jackson-databind.version>2.10.0</jackson-databind.version>
-    <!-- -->
     <gedcom4j.version>4.0.1</gedcom4j.version>
-    <joda-time.version>2.10.5</joda-time.version>
+    <joda-time.version>2.10.6</joda-time.version>
     <sauce_junit.version>2.1.25</sauce_junit.version>
-    <!-- -->
     <geojson-jackson.version>1.14</geojson-jackson.version>
-    <!-- -->
     <log4j-over-slf4j.version>1.7.30</log4j-over-slf4j.version>
     <jcl-over-slf4j.version>1.7.30</jcl-over-slf4j.version>
     <logback-classic.version>1.2.3</logback-classic.version>
     <anselcharset.version>1.1</anselcharset.version>
     <commons-io.version>2.6</commons-io.version>
     <commons-logging.version>1.2</commons-logging.version>
-    <commons-lang3.version>3.9</commons-lang3.version>
-    <assertj.version>3.15.0</assertj.version>
+    <commons-lang3.version>3.10</commons-lang3.version>
+    <assertj.version>3.16.1</assertj.version>
 
     <selenium.version>3.141.59</selenium.version>
     <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
-    <htmlunit-driver.version>2.37.0</htmlunit-driver.version>
+    <htmlunit-driver.version>2.40.0</htmlunit-driver.version>
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
     <jacoco-plugin.version>0.8.5</jacoco-plugin.version>
