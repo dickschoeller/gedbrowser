@@ -1,7 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title
-     th:text="'Source not found - ' + ${error.exception.sourceId} + ' - ' + ${error.exception.datasetName}">Source
+     th:text="'Source not found - ' + ${error.exception.sourceId} + ' - '
+             + ${error.exception.datasetName}">Source
      not found - S99999 - schoeller</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
@@ -13,7 +14,8 @@
     <div class="middle">
     <div class="inner">
     <h1 th:utext="${error.message}">Source</h1>
-    <h2 class="name"><span th:utext="${error.exception.sourceId}">S1</span> not found in dataset <span  th:utext="${error.exception.datasetName}"></span></h2>
+    <h2 class="name"><span th:utext="${error.exception.sourceId}">S1</span> not found
+             in dataset <span  th:utext="${error.exception.datasetName}"></span></h2>
 
     <div th:replace="fragments/footer :: footer-error">&nbsp;</div>
 

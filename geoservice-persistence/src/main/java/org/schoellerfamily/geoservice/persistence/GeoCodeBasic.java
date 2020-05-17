@@ -274,6 +274,11 @@ public abstract class GeoCodeBasic implements GeoCode {
             names.add(name);
         }
 
+        appendNamesToBuilder(builder, names);
+        return builder.toString();
+    }
+
+    private void appendNamesToBuilder(final StringBuilder builder, final SortedSet<String> names) {
         for (final String name : names) {
             final GeoDocument geoDocument = getDocument(name);
             builder.append(geoDocument.getName());
@@ -282,16 +287,19 @@ public abstract class GeoCodeBasic implements GeoCode {
                 builder.append(geoDocument.getModernName());
             }
             builder.append("|");
-            if (geoDocument.getResult() == null) {
-                builder.append("NOT FOUND");
-                builder.append("|");
-            } else {
-                builder.append(geoDocument.getResult().geometry.location);
-                builder.append("|");
-                builder.append(geoDocument.getResult().formattedAddress);
-            }
+            appendResultToBuilder(builder, geoDocument);
             builder.append("\n");
         }
-        return builder.toString();
+    }
+
+    private void appendResultToBuilder(final StringBuilder builder, final GeoDocument geoDocument) {
+        if (geoDocument.getResult() == null) {
+            builder.append("NOT FOUND");
+            builder.append("|");
+        } else {
+            builder.append(geoDocument.getResult().geometry.location);
+            builder.append("|");
+            builder.append(geoDocument.getResult().formattedAddress);
+        }
     }
 }

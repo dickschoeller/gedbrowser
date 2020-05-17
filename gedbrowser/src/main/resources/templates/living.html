@@ -18,7 +18,8 @@
     <h2 th:if="!${model.hasRole('ADMIN')}">Administrators Only!</h2>
     <h3 th:if="${model.hasRole('ADMIN')}">A tabulation of people estimated to be living</h3>
     <ul th:if="${model.hasRole('ADMIN')}">
-        <li th:each="bucket : ${model.buckets}"><a th:name="${bucket.lower}"></a><span th:utext="${bucket.lower} + ' - ' + ${bucket.upper}" class="label">0 to 9</span>
+        <li th:each="bucket : ${model.buckets}"><a th:name="${bucket.lower}"></a><span
+                 th:utext="${bucket.lower} + ' - ' + ${bucket.upper}" class="label">0 to 9</span>
             <ul>
                 <li th:each="person : ${bucket.persons}" th:utext="${person.indexName}">name</li>
             </ul>

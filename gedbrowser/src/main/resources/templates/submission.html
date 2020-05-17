@@ -17,7 +17,8 @@
     <div th:if="${not model.getAttributes().isEmpty()}">
         <hr class="attributes"/>
         <ul>
-            <li th:each="attribute : ${model.getAttributes()}" th:utext="${attribute.listItemContents}"></li>
+            <li th:each="attribute : ${model.getAttributes()}"
+                th:utext="${attribute.listItemContents}"></li>
         </ul>
     </div>
 

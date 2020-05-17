@@ -1,7 +1,12 @@
 package org.schoellerfamily.gedbrowser.datamodel.util;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.StringTokenizer;
+
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * @author Dick Schoeller
@@ -19,6 +24,17 @@ public final class DateParser extends SimpleDateParser {
     private static final String FROM = "FROM";
     /** */
     private static final String BET = "BET";
+
+    /**
+     * List of prefixes handled by strip and simple approximation.
+     */
+    private static final List<Pair<String, Approximation>> LIST = new ArrayList<>();
+    static {
+        LIST.add(new ImmutablePair<>(ABT, Approximation.ABOUT));
+        LIST.add(new ImmutablePair<>(EST, Approximation.ABOUT));
+        LIST.add(new ImmutablePair<>(BEF, Approximation.BEFORE));
+        LIST.add(new ImmutablePair<>(AFT, Approximation.AFTER));
+    }
 
     /** */
     private final String inputString;
@@ -83,21 +99,11 @@ public final class DateParser extends SimpleDateParser {
         final String dateString = inputString;
 
         approximation = Approximation.EXACT;
-        if (startsWithIgnoreCase(dateString, ABT)) {
-            approximation = Approximation.ABOUT;
-            return stripPrefix(dateString, ABT);
-        }
-        if (startsWithIgnoreCase(dateString, EST)) {
-            approximation = Approximation.ABOUT;
-            return stripPrefix(dateString, EST);
-        }
-        if (startsWithIgnoreCase(dateString, BEF)) {
-            approximation = Approximation.BEFORE;
-            return stripPrefix(dateString, BEF);
-        }
-        if (startsWithIgnoreCase(dateString, AFT)) {
-            approximation = Approximation.AFTER;
-            return stripPrefix(dateString, AFT);
+        for (final Pair<String, Approximation> pair : LIST) {
+            if (startsWithIgnoreCase(dateString, pair.getLeft())) {
+                approximation = pair.getRight();
+                return stripPrefix(dateString, pair.getLeft());
+            }
         }
         if (dateString.charAt(0) == '(') {
             approximation = Approximation.ABOUT;
@@ -146,6 +152,21 @@ public final class DateParser extends SimpleDateParser {
             // be treated as a plain string with no approximation semantics.
             return "";
         }
+        string = handleBizzareApproximations(string);
+        string = truncateAt(string, "-");
+        string = truncateAt(string, " TO ");
+        if (string.length() <= 2) {
+            // Probably like 10-11 Nov 2017
+            string = stripPrefix(dateString, "(").trim();
+            string = stripSuffix(string, ")").trim();
+            string = removeBeginningAt(string, "-");
+            string = removeBeginningAt(string, " TO ");
+        }
+        return string;
+    }
+
+    private String handleBizzareApproximations(final String inString) {
+        String string = inString;
         if (startsWithIgnoreCase(string, ABT)) {
             string = stripPrefix(string, ABT).trim();
             approximation = DateParser.Approximation.ABOUT;
@@ -160,15 +181,6 @@ public final class DateParser extends SimpleDateParser {
         }
         if (startsWithIgnoreCase(string, FROM)) {
             string = stripPrefix(string, FROM).trim();
-        }
-        string = truncateAt(string, "-");
-        string = truncateAt(string, " TO ");
-        if (string.length() <= 2) {
-            // Probably like 10-11 Nov 2017
-            string = stripPrefix(dateString, "(").trim();
-            string = stripSuffix(string, ")").trim();
-            string = removeBeginningAt(string, "-");
-            string = removeBeginningAt(string, " TO ");
         }
         return string;
     }
