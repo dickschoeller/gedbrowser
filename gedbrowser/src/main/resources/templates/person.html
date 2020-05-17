@@ -60,7 +60,7 @@
 
     <p class="parent" th:if="${not model.parents.fatherNameHtml.isEmpty()}">
         <span class="parent label">Father:</span>
-        <!-- FIXME utext is necessary because all nameHtml variants contain HTML formatting -->
+        <!-- utext is necessary because all nameHtml variants contain HTML formatting -->
         <span id="father" th:utext="${model.parents.fatherNameHtml}">Joe Doe</span>
     </p>
     <p class="parent" th:if="${not model.parents.motherNameHtml.isEmpty()}">
@@ -75,13 +75,13 @@
         <p th:id="'family-' + ${iterStat.count} + '-spouse'"
            class="spouse"
            th:if="${not family.getSpouse(model).nameHtml.isEmpty()}">
-            <!-- FIXME utext is necessary because all nameHtml variants contain HTML formatting -->
+            <!-- utext is necessary because all nameHtml variants contain HTML formatting -->
             <span class="spouse label">Spouse:</span><span
                           th:utext="${family.getSpouse(model).nameHtml}"></span>
         </p>
         <ul th:id="'family-' + ${iterStat.count} + '-attributes'"
                           th:if="${not family.getAttributes().isEmpty()}">
-            <!-- FIXME utext is necessary because many listItemContents variants
+            <!-- utext is necessary because many listItemContents variants
                  contain HTML formatting -->
             <li th:id="'family-' + ${iterStat.count} + '-attribute-' + ${familyAttrStat.count}"
                 th:each="attribute,familyAttrStat : ${family.getAttributes()}"
@@ -90,7 +90,7 @@
         <div th:if="${not family.children.isEmpty()}">
             <span class="children label">Children:</span>
             <ol class="children">
-                <!-- FIXME utext is necessary because all nameHtml variants contain HTML formatting -->
+                <!-- utext is necessary because all nameHtml variants contain HTML formatting -->
                 <li th:id="'family-' + ${iterStat.count} + '-child-' + ${childStat.count}"
                     th:each="child,childStat : ${family.children}"
                     th:utext="${child.nameHtml}">
@@ -103,7 +103,7 @@
         <hr class="attributes"/>
         <h3 class="attributes">Attributes</h3>
         <ul>
-            <!-- FIXME utext is necessary because many listItemContents variants
+            <!-- utext is necessary because many listItemContents variants
                  contain HTML formatting -->
             <li th:id="'attribute-' + ${attrStat.count}"
                 th:each="attribute,attrStat : ${model.getAttributes()}"
