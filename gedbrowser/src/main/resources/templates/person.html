@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title
-     th:text="${model.wholeName} + ' ' + ${model.lifeSpanString} + ' - ' + ${model.idString} + ' - ' + ${model.gedObject.dbName}">John
+     th:text="${model.wholeName} + ' ' + ${model.lifeSpanString} + ' - ' + ${model.idString}
+             + ' - ' + ${model.gedObject.dbName}">John
      Doe (1 JAN 1900 - 31 DEC 2000) - I9999 - schoeller</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
@@ -22,16 +23,19 @@
         var places1 = [[${places}]];
         var bounds = new google.maps.LatLngBounds();
         for (i = 0; i < places1.length; i++) {
-            var latlng = new google.maps.LatLng(places1[i].location.latitude, places1[i].location.longitude);
+            var latlng = new google.maps.LatLng(places1[i].location.latitude,
+                    places1[i].location.longitude);
             var marker = new google.maps.Marker({
                 position: latlng,
                 map: map,
                 title: places1[i].placeName
               });
             bounds.extend(marker.getPosition());
-            var sw = new google.maps.LatLng(places1[i].southwest.latitude, places1[i].southwest.longitude);
+            var sw = new google.maps.LatLng(places1[i].southwest.latitude,
+                    places1[i].southwest.longitude);
             bounds.extend(sw);
-            var ne = new google.maps.LatLng(places1[i].northeast.latitude, places1[i].northeast.longitude);
+            var ne = new google.maps.LatLng(places1[i].northeast.latitude,
+                    places1[i].northeast.longitude);
             bounds.extend(ne);
         }
         map.fitBounds(bounds);
@@ -72,10 +76,13 @@
            class="spouse"
            th:if="${not family.getSpouse(model).nameHtml.isEmpty()}">
             <!-- FIXME utext is necessary because all nameHtml variants contain HTML formatting -->
-            <span class="spouse label">Spouse:</span><span th:utext="${family.getSpouse(model).nameHtml}"></span>
+            <span class="spouse label">Spouse:</span><span
+                          th:utext="${family.getSpouse(model).nameHtml}"></span>
         </p>
-        <ul th:id="'family-' + ${iterStat.count} + '-attributes'"  th:if="${not family.getAttributes().isEmpty()}">
-            <!-- FIXME utext is necessary because many listItemContents variants contain HTML formatting -->
+        <ul th:id="'family-' + ${iterStat.count} + '-attributes'"
+                          th:if="${not family.getAttributes().isEmpty()}">
+            <!-- FIXME utext is necessary because many listItemContents variants
+                 contain HTML formatting -->
             <li th:id="'family-' + ${iterStat.count} + '-attribute-' + ${familyAttrStat.count}"
                 th:each="attribute,familyAttrStat : ${family.getAttributes()}"
                 th:utext="${attribute.listItemContents}"></li>
@@ -96,7 +103,8 @@
         <hr class="attributes"/>
         <h3 class="attributes">Attributes</h3>
         <ul>
-            <!-- FIXME utext is necessary because many listItemContents variants contain HTML formatting -->
+            <!-- FIXME utext is necessary because many listItemContents variants
+                 contain HTML formatting -->
             <li th:id="'attribute-' + ${attrStat.count}"
                 th:each="attribute,attrStat : ${model.getAttributes()}"
                 th:utext="${attribute.listItemContents}"></li>

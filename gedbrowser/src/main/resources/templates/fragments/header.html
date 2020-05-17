@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/resources/css/bootstrap.min.css}"/>
 </head>
 <body>
 
@@ -12,16 +13,20 @@
             <span><a th:href="${model.indexHref}" id="index-menu">Index</a></span>
             <span><a th:href="${model.sourcesHref}" id="sources-menu">Sources</a></span>
             <span><a th:href="${model.submittersHref}" id="submitters-menu">Submitters</a></span>
-            <span><a th:if="${model.hasRole('ADMIN')}" th:href="${model.saveHref}" id="save-menu" th:attr="download=${model.saveFilename}">Save</a></span>
-            <span><a th:if="${model.hasRole('ADMIN')}" th:href="${model.livingHref}" id="living-menu">Living</a></span>
-            <span><a th:if="${model.hasRole('ADMIN')}" th:href="${model.placesHref}" id="places-menu">Places</a></span>
+            <span><a th:if="${model.hasRole('ADMIN')}" th:href="${model.saveHref}"
+                     id="save-menu" th:attr="download=${model.saveFilename}">Save</a></span>
+            <span><a th:if="${model.hasRole('ADMIN')}" th:href="${model.livingHref}"
+                     id="living-menu">Living</a></span>
+            <span><a th:if="${model.hasRole('ADMIN')}" th:href="${model.placesHref}"
+                     id="places-menu">Places</a></span>
         </span>
         <div  th:if="${#httpServletRequest.remoteUser} != null" class="right">
             <form th:action="@{logout}" method="post">
                 <input class="menubar" type="submit" th:value="'Logout ' + ${model.userFirstname}"/>
             </form>
         </div>
-        <span th:if="${#httpServletRequest.remoteUser} == null" class="right" th:inline="text"><a th:href="@{login}">Login</a></span>
+        <span th:if="${#httpServletRequest.remoteUser} == null" class="right"
+              th:inline="text"><a th:href="@{login}">Login</a></span>
     </div>
 
     <!-- Bad enough error that the context is lost. DB not found, 404 or 500 error. -->
@@ -34,7 +39,8 @@
                 <input class="menubar" type="submit" th:value="'Logout ' + ${error.userFirstname}"/>
             </form>
         </div>
-        <span th:if="${#httpServletRequest.remoteUser} == null" class="right" th:inline="text"><a th:href="@{login}">Login</a></span>
+        <span th:if="${#httpServletRequest.remoteUser} == null" class="right"
+              th:inline="text"><a th:href="@{login}">Login</a></span>
     </div>
 
     <!-- DB is good, syntax is good, but object not found. -->
@@ -45,17 +51,24 @@
             <span><a th:href="${error.exception.headerHref}" id="header-menu">Header</a></span>
             <span><a th:href="${error.exception.indexHref}" id="index-menu">Index</a></span>
             <span><a th:href="${error.exception.sourcesHref}" id="sources-menu">Sources</a></span>
-            <span><a th:href="${error.exception.submittersHref}" id="submitters-menu">Submitters</a></span>
-            <span><a th:if="${error.exception.hasRole('ADMIN')}" th:href="${error.exception.saveHref}" id="save-menu">Save</a></span>
-            <span><a th:if="${error.exception.hasRole('ADMIN')}" th:href="${error.exception.livingHref}" id="living-menu">Living</a></span>
-            <span><a th:if="${error.exception.hasRole('ADMIN')}" th:href="${error.exception.placesHref}" id="places-menu">Places</a></span>
+            <span><a th:href="${error.exception.submittersHref}"
+                     id="submitters-menu">Submitters</a></span>
+            <span><a th:if="${error.exception.hasRole('ADMIN')}" th:href="${error.exception.saveHref}"
+                     id="save-menu">Save</a></span>
+            <span><a th:if="${error.exception.hasRole('ADMIN')}"
+                     th:href="${error.exception.livingHref}"
+                     id="living-menu">Living</a></span>
+            <span><a th:if="${error.exception.hasRole('ADMIN')}"
+                     th:href="${error.exception.placesHref}"
+                     id="places-menu">Places</a></span>
         </span>
         <div  th:if="${#httpServletRequest.remoteUser} != null" class="right">
             <form th:action="@{logout}" method="post">
                 <input class="menubar" type="submit" th:value="'Logout ' + ${error.userFirstname}"/>
             </form>
         </div>
-        <span th:if="${#httpServletRequest.remoteUser} == null" class="right" th:inline="text"><a th:href="@{login}">Login</a></span>
+        <span th:if="${#httpServletRequest.remoteUser} == null" class="right"
+              th:inline="text"><a th:href="@{login}">Login</a></span>
     </div>
 
 </body>

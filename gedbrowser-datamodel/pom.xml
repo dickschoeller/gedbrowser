@@ -39,6 +39,10 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
     <!-- Need to fix dependency on commons-beanutils before using this. (,1.9.1 -->
     <!-- dependency>
       <groupId>org.gedcom4j</groupId>

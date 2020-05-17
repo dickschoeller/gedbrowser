@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title
-     th:text="${model.titleString} + ' - ' + ${model.idString} + ' - ' + ${model.gedObject.dbName}">Church
+     th:text="${model.titleString} + ' - ' + ${model.idString} + ' - '
+             + ${model.gedObject.dbName}">Church
      Record - S9999 - schoeller</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
@@ -14,12 +15,15 @@
     <div class="middle">
     <div class="inner">
 
-    <h3 class="attributes" th:text="'Source: ' + ${model.idString} + ' - ' + ${model.titleString}"></h3>
+    <h3 class="attributes" th:text="'Source: ' + ${model.idString}
+                                   + ' - ' + ${model.titleString}"></h3>
     <div th:if="${not model.getAttributes().isEmpty()}">
         <hr class="attributes"/>
         <ul>
-            <!-- FIXME utext is necessary because many listItemContents variants contain HTML formatting -->
-            <li th:each="attribute : ${model.getAttributes()}" th:utext="${attribute.listItemContents}"></li>
+            <!-- FIXME utext is necessary because many listItemContents variants
+                 contain HTML formatting -->
+            <li th:each="attribute : ${model.getAttributes()}"
+                th:utext="${attribute.listItemContents}"></li>
         </ul>
     </div>
 

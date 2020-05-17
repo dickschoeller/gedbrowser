@@ -1,7 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title
-     th:text="'Note not found - ' + ${error.exception.noteId} + ' - ' + ${error.exception.datasetName}">Note
+     th:text="'Note not found - ' + ${error.exception.noteId} + ' - '
+             + ${error.exception.datasetName}">Note
      not found - N99999 - schoeller</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" href="css/gedbrowser.css" rel="stylesheet" />
@@ -13,7 +14,8 @@
     <div class="middle">
     <div class="inner">
     <h1 th:utext="${error.message}">Note</h1>
-    <h2 class="name"><span th:utext="${error.exception.noteId}">N1</span> not found in dataset <span  th:utext="${error.exception.datasetName}"></span></h2>
+    <h2 class="name"><span th:utext="${error.exception.noteId}">N1</span>
+     not found in dataset <span  th:utext="${error.exception.datasetName}"></span></h2>
 
     <div th:replace="fragments/footer :: footer-error">&nbsp;</div>
 

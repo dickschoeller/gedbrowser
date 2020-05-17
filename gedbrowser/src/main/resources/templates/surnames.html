@@ -17,11 +17,14 @@
     <h2>Index</h2>
     <h3>Pick an initial letter</h3>
     <span th:each="letter : ${model.letters}" th:utext="${letter} + ' &nbsp; '">[ A ]</span>
-    <h3 th:utext="'Index of names beginning with ' + ${model.base}">Index of names beginning with ${model.base}</h3>
+    <h3 th:utext="'Index of names beginning with ' + ${model.base}">Index of names beginning
+             with ${model.base}</h3>
     <ul>
-        <li th:each="surname : ${model.surnames}"><a th:name="${surname}"></a><span th:utext="${surname}" class="label">surname</span>
+        <li th:each="surname : ${model.surnames}"><a th:name="${surname}"></a><span
+            th:utext="${surname}" class="label">surname</span>
             <ul>
-                <li th:each="name : ${model.getIndexNameHtmls(surname)}" th:utext="${name}" th:remove="tag">name</li>
+                <li th:each="name : ${model.getIndexNameHtmls(surname)}" th:utext="${name}"
+                    th:remove="tag">name</li>
             </ul>
         </li>
     </ul>
