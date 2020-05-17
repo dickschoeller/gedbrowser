@@ -3,7 +3,6 @@ package org.schoellerfamily.gedbrowser.datamodel.util;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -82,6 +81,9 @@ public final class DateParser extends SimpleDateParser {
         return parseCalendar(dateString);
     }
 
+    /**
+     * List of prefixes handled by strip and simple approximation.
+     */
     private static final List<Pair<String, Approximation>> LIST = new ArrayList<>();
     static {
         LIST.add(new ImmutablePair<>(ABT, Approximation.ABOUT));
