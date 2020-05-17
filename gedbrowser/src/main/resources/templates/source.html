@@ -20,7 +20,7 @@
     <div th:if="${not model.getAttributes().isEmpty()}">
         <hr class="attributes"/>
         <ul>
-            <!-- FIXME utext is necessary because many listItemContents variants
+            <!-- utext is necessary because many listItemContents variants
                  contain HTML formatting -->
             <li th:each="attribute : ${model.getAttributes()}"
                 th:utext="${attribute.listItemContents}"></li>

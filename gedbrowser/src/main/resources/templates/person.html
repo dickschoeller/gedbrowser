@@ -51,7 +51,7 @@
     <div class="middle">
     <div class="inner">
 
-    <!-- FIXME utext is necessary because titleName contains HTML formatting -->
+    <!-- utext is necessary because titleName contains HTML formatting -->
     <h2 class="name"
         th:utext="${model.idString} + ': ' + ${model.wholeName} + ' ' + ${model.lifeSpanString}">I0:
         John <span class="surname">Doe</span> (1000-1070)</h2>
@@ -65,7 +65,7 @@
     </p>
     <p class="parent" th:if="${not model.parents.motherNameHtml.isEmpty()}">
         <span class="parent label">Mother:</span>
-        <!-- FIXME utext is necessary because all nameHtml variants contain HTML formatting -->
+        <!-- utext is necessary because all nameHtml variants contain HTML formatting -->
         <span id="mother" th:utext="${model.parents.motherNameHtml}">Rhonda Roe</span>
     </p>
 
