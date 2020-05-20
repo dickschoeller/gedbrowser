@@ -23,8 +23,7 @@ public class UsersReaderTest {
 
     @Test
     public void test() {
-        final Logger logger = Logger.getLogger(getClass().getName());
-        logger.info("TEST_USER_FILE_CSV=" + TEST_USER_FILE_CSV);
+        System.out.println("TEST_USER_FILE_CSV=" + TEST_USER_FILE_CSV);
         final Users<User> users = readUserFile(TEST_USER_FILE_CSV);
         final int expected = 2;
         final int actual = users.size();
