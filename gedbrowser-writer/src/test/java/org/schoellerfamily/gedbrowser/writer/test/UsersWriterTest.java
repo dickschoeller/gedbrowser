@@ -17,7 +17,8 @@ import org.schoellerfamily.gedbrowser.writer.users.UsersWriter;
  */
 public class UsersWriterTest {
 
-    private static final String TEST_USER_FILE_CSV = "/var/lib/gedbrowser/temp.tmp";
+    private static final String TEST_USER_FILE_CSV = System.getProperty("gedbrowser.home",
+            "/var/lib/gedbrowser") + "/temp.tmp";
 
     @Test
     public void test() {

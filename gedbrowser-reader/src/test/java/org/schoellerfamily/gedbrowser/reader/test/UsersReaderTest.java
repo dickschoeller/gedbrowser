@@ -2,8 +2,6 @@ package org.schoellerfamily.gedbrowser.reader.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.logging.Logger;
-
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.datamodel.users.User;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserImpl;
@@ -23,7 +21,6 @@ public class UsersReaderTest {
 
     @Test
     public void test() {
-        System.out.println("TEST_USER_FILE_CSV=" + TEST_USER_FILE_CSV);
         final Users<User> users = readUserFile(TEST_USER_FILE_CSV);
         final int expected = 2;
         final int actual = users.size();
