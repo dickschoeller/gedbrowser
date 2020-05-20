@@ -1,11 +1,10 @@
-package org.schoellerfamily.gedbrowser.renderer.user;
+package org.schoellerfamily.gedbrowser.datamodel.users;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 
 /**
  * @author Dick Schoeller

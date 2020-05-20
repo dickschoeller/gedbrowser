@@ -5,10 +5,10 @@ import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderFacade;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.datamodel.users.User;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserFacade;
+import org.schoellerfamily.gedbrowser.datamodel.users.UserImpl;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfoFacade;
-import org.schoellerfamily.gedbrowser.renderer.user.UserImpl;
 
 /**
  * Keep track of the user context that we are rendering under.

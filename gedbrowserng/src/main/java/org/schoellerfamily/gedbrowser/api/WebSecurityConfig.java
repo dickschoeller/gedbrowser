@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.api;
 
+import org.schoellerfamily.gedbrowser.reader.users.UsersReader;
 import org.schoellerfamily.gedbrowser.security.auth.AuthenticationFailureHandler;
 import org.schoellerfamily.gedbrowser.security.auth.AuthenticationSuccessHandler;
 import org.schoellerfamily.gedbrowser.security.auth.LogoutSuccess;
@@ -9,7 +10,6 @@ import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUsers;
 import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.schoellerfamily.gedbrowser.security.service.impl.CustomUserDetailsService;
-import org.schoellerfamily.gedbrowser.users.UsersReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
