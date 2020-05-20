@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser;
 
+import org.schoellerfamily.gedbrowser.datamodel.users.UserImpl;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 import org.schoellerfamily.gedbrowser.datamodel.users.UsersImpl;
-import org.schoellerfamily.gedbrowser.renderer.user.UserImpl;
-import org.schoellerfamily.gedbrowser.users.UsersReader;
+import org.schoellerfamily.gedbrowser.reader.users.UsersReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -54,7 +54,6 @@ public class UsersWriter {
         }
     }
 
-
     /**
      * Loop through the lines from the line creator and write them to the
      * stream.

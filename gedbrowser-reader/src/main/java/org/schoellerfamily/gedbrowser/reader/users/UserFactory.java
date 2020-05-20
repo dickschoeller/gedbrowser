@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.users;
+package org.schoellerfamily.gedbrowser.reader.users;
 
 import org.schoellerfamily.gedbrowser.datamodel.users.User;
 

@@ -114,22 +114,22 @@ public interface UserFacade extends User {
      * {@inheritDoc}
      */
     @Override
-    default UserRoleName[] getRoles() {
+    default void setPassword(final String password) {
         if (getUser() == null) {
-            return new UserRoleName[0];
+            return;
         }
-        return getUser().getRoles();
+        getUser().setPassword(password);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    default void setPassword(final String password) {
+    default UserRoleName[] getRoles() {
         if (getUser() == null) {
-            return;
+            return new UserRoleName[0];
         }
-        getUser().setPassword(password);
+        return getUser().getRoles();
     }
 
     /**

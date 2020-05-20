@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.renderer.user.test;
+package org.schoellerfamily.gedbrowser.datamodel.users.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -6,8 +6,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.schoellerfamily.gedbrowser.datamodel.users.UserImpl;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
-import org.schoellerfamily.gedbrowser.renderer.user.UserImpl;
 
 /**
  * Test the User object. The only thing slightly complex is role management.

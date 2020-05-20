@@ -15,10 +15,21 @@ import org.schoellerfamily.gedbrowser.security.service.UserService;
  */
 public final class RequestUserUtil implements UserFacade {
     /** Hold the request. */
-    private final HttpServletRequest request;
+    private final Principal principal;
 
     /** Hold the service. */
     private final UserService userService;
+
+    /**
+     * Constructor. This constructor only for test use.
+     *
+     * @param principal the user principal that we're working with
+     * @param userService the suer service to get the user from
+     */
+    public RequestUserUtil(final Principal principal, final UserService userService) {
+        this.principal = principal;
+        this.userService = userService;
+    }
 
     /**
      * Constructor.
@@ -27,8 +38,7 @@ public final class RequestUserUtil implements UserFacade {
      * @param userService the suer service to get the user from
      */
     public RequestUserUtil(final HttpServletRequest request, final UserService userService) {
-        this.request = request;
-        this.userService = userService;
+        this(request.getUserPrincipal(), userService);
     }
 
     /**
@@ -36,11 +46,10 @@ public final class RequestUserUtil implements UserFacade {
      */
     @Override
     public User getUser() {
-        final Principal userPrincipal = request.getUserPrincipal();
-        if (userPrincipal == null) {
+        if (principal == null) {
             return null;
         }
-        final String username = userPrincipal.getName();
+        final String username = principal.getName();
         if (StringUtils.isEmpty(username)) {
             return null;
         }

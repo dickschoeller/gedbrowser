@@ -43,6 +43,14 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
     </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+    </dependency>
     <!-- Need to fix dependency on commons-beanutils before using this. (,1.9.1 -->
     <!-- dependency>
       <groupId>org.gedcom4j</groupId>

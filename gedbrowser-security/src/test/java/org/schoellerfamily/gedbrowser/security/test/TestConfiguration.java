@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.security.test;
 
+import org.schoellerfamily.gedbrowser.reader.users.UsersReader;
 import org.schoellerfamily.gedbrowser.security.auth.TokenAuthenticationFilter;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUsers;
 import org.schoellerfamily.gedbrowser.security.model.UserImpl;
-import org.schoellerfamily.gedbrowser.users.UsersReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

@@ -1,6 +1,4 @@
-package org.schoellerfamily.gedbrowser.renderer.user;
-
-import org.schoellerfamily.gedbrowser.datamodel.users.User;
+package org.schoellerfamily.gedbrowser.datamodel.users;
 
 /**
  * A basic user record.
