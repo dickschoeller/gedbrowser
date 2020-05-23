@@ -1,6 +1,6 @@
 FROM java:8
 VOLUME /tmp
-ADD gedbrowserng-1.3.0-RC2.jar gedbrowserng.jar
+ADD gedbrowserng-1.3.0-RC3-SNAPSHOT.jar gedbrowserng.jar
 EXPOSE 8080
 EXPOSE 8081
 ENV spring.data.mongodb.host=mongo
