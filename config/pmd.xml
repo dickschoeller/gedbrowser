@@ -14,7 +14,6 @@
         <rule ref="category/java/errorprone.xml/DontUseFloatTypeForLoopIndices" />
         <rule ref="category/java/errorprone.xml/JumbledIncrementer" />
         <rule ref="category/java/errorprone.xml/MisplacedNullCheck" />
-        <rule ref="category/java/errorprone.xml/OverrideBothEqualsAndHashcode" />
         <rule ref="category/java/errorprone.xml/ReturnFromFinallyBlock" />
         <rule ref="category/java/errorprone.xml/UnconditionalIfStatement" />
 
