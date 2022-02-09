@@ -60,7 +60,7 @@
     <spring-data-commons.version>1.13.23.RELEASE</spring-data-commons.version>
     <!-- -->
     <!-- Stay in 1.4.x until going to Spring 5 -->
-    <undertow.version>1.4.28.Final</undertow.version>
+    <undertow.version>2.1.6.Final</undertow.version>
 
     <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
 
