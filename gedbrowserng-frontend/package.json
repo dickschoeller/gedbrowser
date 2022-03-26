@@ -10,7 +10,7 @@
     "test-watch": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "snyk-protect": "snyk protect",
+    "snyk-protect": "snyk-protect",
     "prepare": "npm run snyk-protect"
   },
   "private": true,
@@ -41,13 +41,13 @@
     "npm": "^6.14.6",
     "primeng": "^9.0.0",
     "rxjs": "^6.5.3",
-    "snyk": "^1.425.4",
     "sshpk": "^1.16.1",
     "tar": "^5.0.5",
     "tar-fs": "^2.0.0",
     "tslib": "^1.10.0",
     "web-animations-js": "^2.3.2",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.803.20",
