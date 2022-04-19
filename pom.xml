@@ -57,7 +57,7 @@
     <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
     <spring-boot-maven.version>1.5.22.RELEASE</spring-boot-maven.version>
     <spring-data-mongodb.version>1.10.23.RELEASE</spring-data-mongodb.version>
-    <spring-data-commons.version>1.13.23.RELEASE</spring-data-commons.version>
+    <spring-data-commons.version>2.5.11</spring-data-commons.version>
     <!-- -->
     <!-- Stay in 1.4.x until going to Spring 5 -->
     <undertow.version>1.4.28.Final</undertow.version>
