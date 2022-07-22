@@ -75,7 +75,7 @@
     <junit.version>4.13.1</junit.version>
     <cglib.version>3.3.0</cglib.version>
     <!-- might try 0.9.1 of google -->
-    <google-maps-services.version>0.2.11</google-maps-services.version>
+    <google-maps-services.version>0.10.0</google-maps-services.version>
     <jackson-core.version>2.10.5</jackson-core.version>
     <jackson-databind.version>2.10.5.1</jackson-databind.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
