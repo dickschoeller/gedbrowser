@@ -29,7 +29,7 @@
     "@angular/platform-browser-dynamic": "8.2.14",
     "@angular/router": "8.2.14",
     "@iplab/ngx-file-upload": "^1.4.1",
-    "braces": "^3.0.2",
+    "braces": "^3.0.3",
     "core-js": "^3.5.0",
     "diff": "^4.0.1",
     "file-saver": "^2.0.2",
