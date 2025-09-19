@@ -38,7 +38,7 @@
     "ngx-gallery": "^5.10.0",
     "ngx-page-scroll": "^7.0.0",
     "ngx-page-scroll-core": "^7.0.0",
-    "npm": "^6.14.6",
+    "npm": "^7.0.0",
     "primeng": "^9.0.0",
     "rxjs": "^6.5.3",
     "snyk": "^1.425.4",
@@ -50,8 +50,8 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.803.20",
-    "@angular/cli": "8.3.10",
+    "@angular-devkit/build-angular": "^14.0.0",
+    "@angular/cli": "11.2.18",
     "@angular/compiler-cli": "8.2.14",
     "@angular/language-service": "8.2.14",
     "@types/jasmine": "~3.5.0",
