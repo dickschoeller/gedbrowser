@@ -100,9 +100,8 @@
     <spotbugs-plugin.version>4.9.8.1</spotbugs-plugin.version>
     <checkstyle-plugin.version>3.1.0</checkstyle-plugin.version>
     <checkstyle-version>8.29</checkstyle-version>
-    <!-- 3.13.0 of pmd-plugin should be there but not -->
-    <pmd-plugin.version>3.12.0</pmd-plugin.version>
-    <pmd-version>6.21.0</pmd-version>
+    <pmd-plugin.version>3.28.0</pmd-plugin.version>
+    <pmd-version>7.18.0</pmd-version>
     <build-helper-plugin.version>3.0.0</build-helper-plugin.version>
     <jxr-plugin.version>3.0.0</jxr-plugin.version>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
@@ -168,10 +167,10 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>${pmd-plugin.version}</version>
-        <configuration>
+          <configuration>
           <linkXRef>true</linkXRef>
           <sourceEncoding>utf-8</sourceEncoding>
-          <targetJdk>1.8</targetJdk>
+          <targetJdk>21</targetJdk>
           <rulesets>
             <ruleset>${config-dir}/pmd.xml</ruleset>
           </rulesets>
@@ -187,8 +186,7 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${compiler-plugin.version}</version>
           <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
+            <release>21</release>
           </configuration>
         </plugin>
         <plugin>
@@ -243,7 +241,7 @@
           <configuration>
             <linkXRef>true</linkXRef>
             <sourceEncoding>utf-8</sourceEncoding>
-            <targetJdk>1.8</targetJdk>
+            <targetJdk>21</targetJdk>
             <printFailingErrors>true</printFailingErrors>
             <failOnViolation>true</failOnViolation>
             <skipPmdError>false</skipPmdError>
