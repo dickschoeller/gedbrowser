@@ -8,6 +8,7 @@ import { PersonService, UserService } from '../../services';
 import { UrlBuilder } from '../../utils';
 
 @Component({
+  standalone: false,
   selector: 'app-person-parent-families',
   templateUrl: './person-parent-families.component.html',
   styleUrls: ['./person-parent-families.component.css']

@@ -7,7 +7,7 @@ import { ComponentsModule } from '../../components';
 import { HeadComponent } from './head.component';
 import { HeadResolverService } from './head-resolver.service';
 
-const sourceRouting: ModuleWithProviders = RouterModule.forChild([
+const sourceRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
   {
     path: ':dataset/head',
     component: HeadComponent,

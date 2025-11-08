@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog, MatDialogRef, } from '@angular/material';
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAction } from 'ngx-gallery';
+import { MatDialog, MatDialogRef, } from '@angular/material/dialog';
+import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAction } from 'ngx-gallery-15';
 
 import { HasMultimedia, Saveable } from '../../interfaces';
 import { ApiAttribute, MultimediaDialogData, MultimediaFileData, MultimediaFormat } from '../../models';
@@ -8,8 +8,8 @@ import { ImageUtil, StringUtil, MultimediaDialogHelper, ArrayUtil } from '../../
 import { MultimediaDialogComponent, } from '../multimedia-dialog';
 import { UserService } from '../../services';
 
-
 @Component({
+    standalone: false,
     selector: 'app-multimedia-gallery',
     templateUrl: './multimedia-gallery.component.html',
     styleUrls: ['./multimedia-gallery.component.css']

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 import { HasAttributeList } from '../../interfaces';
 import { ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
@@ -9,6 +9,7 @@ import { AttributeDialogHelper, AttributeAnalyzer } from '../../utils';
 import { HasAttributeDialog } from './has-attribute-dialog';
 
 @Component({
+    standalone: false,
     selector: 'app-attribute-list-item',
     templateUrl: './attribute-list-item.component.html',
     styleUrls: ['./attribute-list-item.component.css']
