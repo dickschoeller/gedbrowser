@@ -19,7 +19,7 @@
 
   <properties>
     <config-dir>${project.parent.basedir}/config</config-dir>
-    <spring-boot.version>2.1.9.RELEASE</spring-boot.version>
+    <spring-boot.version>2.7.18</spring-boot.version>
   </properties>
 
   <organization>
