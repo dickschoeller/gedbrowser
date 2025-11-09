@@ -19,6 +19,7 @@
 
   <properties>
     <config-dir>${project.parent.basedir}/config</config-dir>
+    <spring-boot.version>2.1.9.RELEASE</spring-boot.version>
   </properties>
 
   <organization>
@@ -139,7 +140,7 @@
         <!-- Import dependency management from Spring Boot -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>1.5.15.RELEASE</version>
+        <version>${spring-boot.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
