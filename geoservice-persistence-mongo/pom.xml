@@ -155,6 +155,11 @@
       <artifactId>spring-data-mongodb</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongodb-driver-sync</artifactId>
+      <version>4.6.1</version>
+    </dependency>
+    <dependency>
       <groupId>com.google.maps</groupId>
       <artifactId>google-maps-services</artifactId>
     </dependency>
@@ -168,8 +173,13 @@
     </dependency>
 
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
