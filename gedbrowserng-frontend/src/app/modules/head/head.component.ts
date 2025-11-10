@@ -8,6 +8,7 @@ import { AttributeDialogHelper } from '../../utils';
 import { HasAttributeList } from '../../interfaces';
 
 @Component({
+  standalone: false,
   selector: 'app-head',
   templateUrl: './head.component.html',
   styleUrls: ['./head.component.css']

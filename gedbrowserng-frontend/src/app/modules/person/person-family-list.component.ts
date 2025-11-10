@@ -14,6 +14,7 @@ import { PersonService, UserService } from '../../services';
  *  person: the person this page is for
  */
 @Component({
+    standalone: false,
     selector: 'app-person-family-list',
     templateUrl: './person-family-list.component.html',
     styleUrls: ['./person-family-list.component.css']
