@@ -44,13 +44,18 @@ public class CharsetScanner {
      * @return the Java charset name
      */
     public String charset(final String filename) {
-        try (InputStream fis = new StreamManager(filename).getInputStream();
-                Reader reader = new InputStreamReader(fis, "ASCII");
-                BufferedReader bufferedReader = new BufferedReader(reader)) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                if (isCharset(line)) {
-                    return extractCharsetFromLine(line);
+        try (InputStream fis = new StreamManager(filename).getInputStream()) {
+            if (fis == null) {
+                logger.warn("Could not open stream for: " + filename);
+                return "UTF-8";
+            }
+            try (Reader reader = new InputStreamReader(fis, "ASCII");
+                    BufferedReader bufferedReader = new BufferedReader(reader)) {
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    if (isCharset(line)) {
+                        return extractCharsetFromLine(line);
+                    }
                 }
             }
         } catch (IOException e) {
