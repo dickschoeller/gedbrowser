@@ -1,13 +1,14 @@
 import { Component, Inject, Input, EventEmitter, OnInit, Output } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { MultimediaDialogData, MultimediaFileData, MultimediaFormat, MultimediaSourceType } from '../../models';
 import { SelectItem } from '../../models/select-item';
 import { UserService } from '../../services';
 
 @Component({
+    standalone: false,
     selector: 'app-multimedia-dialog',
     templateUrl: './multimedia-dialog.component.html',
     styleUrls: ['./multimedia-dialog.component.css']
