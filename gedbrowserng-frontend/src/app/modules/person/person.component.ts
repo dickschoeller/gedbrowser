@@ -13,6 +13,7 @@ import { AttributeDialogHelper, LifespanUtil } from '../../utils';
  *  person: the person routed by the module
  */
 @Component({
+  standalone: false,
   selector: 'app-person',
   templateUrl: './person.component.html',
   styleUrls: ['./person.component.css']
