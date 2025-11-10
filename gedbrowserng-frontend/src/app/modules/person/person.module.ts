@@ -27,7 +27,7 @@ import { PersonParentFamiliesComponent } from './person-parent-families.componen
 import { PersonParentFamilyComponent } from './person-parent-family.component';
 import { PersonResolverService } from './person-resolver.service';
 
-const personRouting: ModuleWithProviders = RouterModule.forChild([
+const personRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
   {
     path: ':dataset/persons/:string',
     component: PersonComponent,

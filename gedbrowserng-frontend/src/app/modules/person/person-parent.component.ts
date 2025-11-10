@@ -7,6 +7,7 @@ import { PersonGetter } from './person-getter';
 import { RefreshPerson } from '../../interfaces';
 
 @Component({
+  standalone: false,
   selector: 'app-person-parent',
   templateUrl: './person-parent.component.html',
   styleUrls: ['./person-parent.component.css']
