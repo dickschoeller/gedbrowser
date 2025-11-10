@@ -14,6 +14,7 @@ import { NewNoteHelper, UrlBuilder, ListPage, ListPageHelper } from '../../utils
 import { NoteListPageComponent } from './note-list-page.component';
 
 @Component({
+  standalone: false,
   selector: 'app-note-list',
   templateUrl: './note-list.component.html',
   styleUrls: ['./note-list.component.css']
@@ -27,7 +28,7 @@ export class NoteListComponent extends NoteCreator implements AfterViewInit, OnC
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns = ['tail', 'string', 'delete'];
-  datasource = new MatTableDataSource<ApiNote>(this.notes);
+  datasource: MatTableDataSource<ApiNote>;
 
   constructor(
     private router: Router,
@@ -42,6 +43,7 @@ export class NoteListComponent extends NoteCreator implements AfterViewInit, OnC
   }
 
   ngOnInit() {
+    this.datasource = new MatTableDataSource<ApiNote>(this.notes);
     ListPageHelper.init(this, this.notes);
   }
 
