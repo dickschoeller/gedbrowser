@@ -1,11 +1,12 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 import { NewPersonDialogComponent } from '../../components';
 import { NewPersonDialogData } from '../../models';
 import { NewPersonHelper } from '../../utils';
 
 @Component({
+  standalone: false,
   selector: 'app-new-person',
   templateUrl: './new-person.component.html',
   styleUrls: ['./new-person.component.css']

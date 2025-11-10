@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog, MatDialogRef, } from '@angular/material';
+import { MatDialog, MatDialogRef, } from '@angular/material/dialog';
 
 import { Saveable } from '../../interfaces';
 import { ApiAttribute, MultimediaDialogData } from '../../models';
@@ -7,6 +7,7 @@ import { MultimediaDialogHelper } from '../../utils';
 import { MultimediaDialogComponent } from '../multimedia-dialog';
 
 @Component({
+  standalone: false,
   selector: 'app-multimedia-edit-button',
   templateUrl: './multimedia-edit-button.component.html',
   styleUrls: ['./multimedia-edit-button.component.css']
