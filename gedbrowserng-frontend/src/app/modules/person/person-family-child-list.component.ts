@@ -15,6 +15,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
  *  children: the attributes referring to the children
  */
 @Component({
+    standalone: false,
     selector: 'app-person-family-child-list',
     templateUrl: './person-family-child-list.component.html',
     styleUrls: ['./person-family-child-list.component.css']

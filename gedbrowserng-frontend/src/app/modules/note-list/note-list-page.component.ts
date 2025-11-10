@@ -7,6 +7,7 @@ import { NoteService } from '../../services';
 import { ApiComparators } from '../../utils';
 
 @Component({
+  standalone: false,
   selector: 'app-note-list-page',
   templateUrl: './note-list-page.component.html',
   styleUrls: ['./note-list-page.component.css']

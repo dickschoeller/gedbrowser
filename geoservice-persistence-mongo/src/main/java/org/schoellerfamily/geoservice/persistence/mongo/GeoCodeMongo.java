@@ -85,10 +85,14 @@ public final class GeoCodeMongo extends GeoCodeBasic {
      */
     @Override
     public GeoDocument getDocument(final String placeName) {
+        return getDocumentMongo(placeName);
+    }
+
+    private GeoDocumentMongo getDocumentMongo(final String placeName) {
         if (placeName == null) {
             return null;
         }
-        return geoDocumentRepository.find(placeName);
+        return (GeoDocumentMongo) geoDocumentRepository.find(placeName);
     }
 
     /**
@@ -96,9 +100,9 @@ public final class GeoCodeMongo extends GeoCodeBasic {
      */
     @Override
     public GeoDocument deleteDocument(final String placeName) {
-        final GeoDocument document = getDocument(placeName);
+        final GeoDocumentMongo document = getDocumentMongo(placeName);
         if (document != null) {
-            geoDocumentRepository.delete(placeName);
+            geoDocumentRepository.delete(document);
         }
         return document;
     }
