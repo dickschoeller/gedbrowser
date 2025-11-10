@@ -3,12 +3,12 @@
 </div>
 <div mat-dialog-content>
   <mat-form-field>
-    <mat-placeholder>Name</mat-placeholder>
+    <mat-label>Name</mat-label>
     <input matInput [(ngModel)]="data.name">
   </mat-form-field>
   <br/>
   <mat-form-field>
-    <mat-placeholder>Sex</mat-placeholder>
+    <mat-label>Sex</mat-label>
     <mat-select [(ngModel)]="data.sex">
       <mat-option value="">-- Unknown --</mat-option>
       <mat-option value="M">Male</mat-option>
@@ -17,22 +17,22 @@
   </mat-form-field>
   <br/>
   <mat-form-field>
-    <mat-placeholder>Birth date</mat-placeholder>
+    <mat-label>Birth date</mat-label>
     <input matInput [(ngModel)]="data.birthDate">
   </mat-form-field>
   <br/>
   <mat-form-field>
-    <mat-placeholder>Birth place</mat-placeholder>
+    <mat-label>Birth place</mat-label>
     <input matInput [(ngModel)]="data.birthPlace">
   </mat-form-field>
   <br/>
   <mat-form-field>
-    <mat-placeholder>Death date</mat-placeholder>
+    <mat-label>Death date</mat-label>
     <input matInput [(ngModel)]="data.deathDate">
   </mat-form-field>
   <br/>
   <mat-form-field>
-    <mat-placeholder>Death place</mat-placeholder>
+    <mat-label>Death place</mat-label>
     <input matInput [(ngModel)]="data.deathPlace">
   </mat-form-field>
   <br/>

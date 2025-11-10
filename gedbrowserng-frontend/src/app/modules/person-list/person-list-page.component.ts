@@ -6,6 +6,7 @@ import { PersonService } from '../../services';
 import { ApiComparators, NewPersonHelper } from '../../utils';
 
 @Component({
+  standalone: false,
   selector: 'app-person-list-page',
   templateUrl: './person-list-page.component.html',
   styleUrls: ['./person-list-page.component.css']

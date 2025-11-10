@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output, } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 import { LinkPersonDialogComponent } from '../../components';
 import { LinkCheck } from '../../interfaces/link-check';
@@ -7,6 +7,7 @@ import { LinkPersonDialogData } from '../../models';
 import { LinkPersonHelper, PersonService } from '../../services';
 
 @Component({
+  standalone: false,
   selector: 'app-link-person',
   templateUrl: './link-person.component.html',
   styleUrls: ['./link-person.component.css']

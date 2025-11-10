@@ -3,7 +3,7 @@
 </div>
 <div mat-dialog-content>
   <mat-form-field>
-    <mat-placeholder>Title</mat-placeholder>
+    <mat-label>Title</mat-label>
     <input matInput [(ngModel)]="data.title">
   </mat-form-field>
   <br/>
@@ -14,19 +14,19 @@
           *ngFor="let file of data.files; let i=index">
         <br/>
         <mat-form-field>
-          <mat-placeholder>File URL</mat-placeholder>
+          <mat-label>File URL</mat-label>
           <input matInput [(ngModel)]="file.fileUrl">
         </mat-form-field>
         <br/>
         <mat-form-field>
-          <mat-placeholder>Format</mat-placeholder>
+          <mat-label>Format</mat-label>
           <mat-select [(ngModel)]="file.format">
             <mat-option *ngFor="let format of formats" [value]="format.value">{{ format.label }}</mat-option>
           </mat-select>
         </mat-form-field>
         <br/>
         <mat-form-field>
-          <mat-placeholder>Format</mat-placeholder>
+          <mat-label>Format</mat-label>
           <mat-select [(ngModel)]="file.sourceType">
             <mat-option *ngFor="let type of sourceTypes" [value]="type.value">{{ type.label }}</mat-option>
           </mat-select>
@@ -36,7 +36,7 @@
   </div>
   <br/>
   <mat-form-field>
-    <mat-placeholder>Note</mat-placeholder>
+    <mat-label>Note</mat-label>
     <textarea matInput [rows]="8" [cols]="100" [(ngModel)]="data.note"
         autoresize="autoResize"></textarea>
   </mat-form-field>
