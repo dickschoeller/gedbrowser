@@ -1,9 +1,10 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { NewNoteDialogData } from '../../models';
 
 @Component({
+  standalone: false,
   selector: 'app-new-note-dialog',
   templateUrl: './new-note-dialog.component.html',
   styleUrls: ['./new-note-dialog.component.css']
