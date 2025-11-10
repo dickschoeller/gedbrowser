@@ -8,6 +8,7 @@ import { RefreshPerson, Saveable, HasPerson, HasFamily } from '../../interfaces'
 import { UrlBuilder } from '../../utils';
 
 @Component({
+    standalone: false,
     selector: 'app-person-parent-family',
     templateUrl: './person-parent-family.component.html',
     styleUrls: ['./person-parent-family.component.css']

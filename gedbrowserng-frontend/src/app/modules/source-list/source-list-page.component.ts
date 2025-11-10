@@ -7,6 +7,7 @@ import { SourceService } from '../../services';
 import { ApiComparators } from '../../utils';
 
 @Component({
+  standalone: false,
   selector: 'app-source-list-page',
   templateUrl: './source-list-page.component.html',
   styleUrls: ['./source-list-page.component.css']

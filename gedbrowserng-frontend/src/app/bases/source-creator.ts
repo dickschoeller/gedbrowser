@@ -1,4 +1,4 @@
-import { MatDialog, MatDialogRef, } from '@angular/material';
+import { MatDialog, MatDialogRef, } from '@angular/material/dialog';
 
 import { RefreshSource } from '../interfaces';
 import { ApiSource, NewSourceDialogData } from '../models';

@@ -16,6 +16,7 @@ import { RefreshPerson } from '../../interfaces';
  *  person: the person identified by the attribute
  */
 @Component({
+    standalone: false,
     selector: 'app-person-family-spouse',
     templateUrl: './person-family-spouse.component.html',
     styleUrls: ['./person-family-spouse.component.css']
