@@ -14,6 +14,7 @@ import { NewSourceHelper, UrlBuilder, ListPage, ListPageHelper } from '../../uti
 import { SourceListPageComponent } from './source-list-page.component';
 
 @Component({
+  standalone: false,
   selector: 'app-source-list',
   templateUrl: './source-list.component.html',
   styleUrls: ['./source-list.component.css']
@@ -27,7 +28,7 @@ export class SourceListComponent extends SourceCreator implements AfterViewInit,
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns = ['title', 'string', 'delete'];
-  datasource = new MatTableDataSource<ApiSource>(this.sources);
+  datasource: MatTableDataSource<ApiSource>;
 
   constructor(
     private router: Router,
@@ -42,6 +43,7 @@ export class SourceListComponent extends SourceCreator implements AfterViewInit,
   }
 
   ngOnInit() {
+    this.datasource = new MatTableDataSource<ApiSource>(this.sources);
     ListPageHelper.init(this, this.sources);
   }
 

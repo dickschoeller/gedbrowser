@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
@@ -10,6 +10,7 @@ import { HasAttributeDialog } from './has-attribute-dialog';
 import { UserService } from '../../services';
 
 @Component({
+    standalone: false,
     selector: 'app-attribute-list',
     templateUrl: './attribute-list.component.html',
     styleUrls: ['./attribute-list.component.css']

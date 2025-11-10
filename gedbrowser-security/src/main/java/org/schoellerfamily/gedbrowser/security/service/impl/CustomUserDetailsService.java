@@ -15,29 +15,22 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class CustomUserDetailsService implements UserDetailsService {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
+    /** */
+    private final SecurityUsers users;
 
     /** */
-    @Autowired
-    private SecurityUsers users;
+    private final PasswordEncoder passwordEncoder;
 
-    /** */
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    /** */
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException {
@@ -54,21 +47,23 @@ public class CustomUserDetailsService implements UserDetailsService {
      *
      * @param oldPassword old password
      * @param newPassword new password
+     * @param authenticationManager the authentication manager
      */
     public void changePassword(final String oldPassword,
-            final String newPassword) {
+            final String newPassword,
+            final AuthenticationManager authenticationManager) {
 
         final Authentication currentUser =
                 SecurityContextHolder.getContext().getAuthentication();
         final String username = currentUser.getName();
 
         if (authenticationManager == null) {
-            logger.debug(
+            log.debug(
                     "No authentication manager set. can't change Password!");
 
             return;
         } else {
-            logger.debug("Re-authenticating user '" + username
+            log.debug("Re-authenticating user '" + username
                     + "' for password change request.");
 
             authenticationManager.authenticate(
@@ -76,7 +71,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                             oldPassword));
         }
 
-        logger.debug("Changing password for user '" + username + "'");
+        log.debug("Changing password for user '" + username + "'");
 
         final SecurityUser user = (SecurityUser) loadUserByUsername(username);
 

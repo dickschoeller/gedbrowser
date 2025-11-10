@@ -1,21 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-    MatButtonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatProgressSpinnerModule,
-    MatTooltipModule,
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 
 import { GuestGuard } from '../../guards';
 import { LoginComponent } from './login.component';
 
-const loginRouting: ModuleWithProviders = RouterModule.forChild([
+const loginRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
     {
         path: 'login',
         component: LoginComponent,
@@ -30,7 +27,6 @@ const loginRouting: ModuleWithProviders = RouterModule.forChild([
     imports: [
         loginRouting,
         CommonModule,
-        FlexLayoutModule,
         FormsModule,
         ReactiveFormsModule,
         MatButtonModule,
