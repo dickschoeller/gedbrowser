@@ -16,17 +16,19 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
  */
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /** */
     @Value("${jwt.cookie:AUTH-TOKEN}")
@@ -36,60 +38,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${spring.profiles.active:production}")
     private String activeProfile;
 
-    /**
-     * @return the token authentication filter
-     */
-    @Bean
-    public TokenAuthenticationFilter jwtAuthenticationTokenFilter() {
-      return new TokenAuthenticationFilter();
-    }
+    /** */
+    private final CustomUserDetailsService jwtUserDetailsService;
 
-    /**
-     * {@inheritDoc}
-     */
+    /** */
+    private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
+    /** */
+    private final LogoutSuccess logoutSuccess;
+
+    /** */
+    private final PasswordEncoder passwordEncoder;
+
+    /** */
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
+
+    /** */
+    private final AuthenticationFailureHandler authenticationFailureHandler;
+
+    /** */
+    private final TokenAuthenticationFilter tokenAuthenticationFilter;
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
       return super.authenticationManagerBean();
     }
-
-    /**
-     * @return the encoder
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-        return new PasswordEncoder() {
-
-            @Override
-            public String encode(final CharSequence rawPassword) {
-                return rawPassword.toString();
-            }
-
-            @Override
-            public boolean matches(final CharSequence rawPassword,
-                    final String encodedPassword) {
-                if (encodedPassword == null && rawPassword == null) {
-                    return true;
-                }
-                if (encodedPassword == null || rawPassword == null) {
-                    return false;
-                }
-                return encodedPassword.equals(rawPassword.toString());
-            } };
-    }
-
-    /** */
-    @Autowired
-    private CustomUserDetailsService jwtUserDetailsService;
-
-    /** */
-    @Autowired
-    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
-
-    /** */
-    @Autowired
-    private LogoutSuccess logoutSuccess;
 
     /**
      * @param authenticationManagerBuilder the builder
@@ -100,20 +74,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             final AuthenticationManagerBuilder authenticationManagerBuilder)
             throws Exception {
         authenticationManagerBuilder.userDetailsService(jwtUserDetailsService)
-                .passwordEncoder(passwordEncoder());
+                .passwordEncoder(passwordEncoder);
     }
 
-    /** */
-    @Autowired
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
-
-    /** */
-    @Autowired
-    private AuthenticationFailureHandler authenticationFailureHandler;
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         handleCsrf(http)
@@ -121,7 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and().exceptionHandling()
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
-            .and().addFilterBefore(jwtAuthenticationTokenFilter(),
+            .and().addFilterBefore(tokenAuthenticationFilter,
                     BasicAuthenticationFilter.class)
                 .authorizeRequests()
                 .anyRequest()
