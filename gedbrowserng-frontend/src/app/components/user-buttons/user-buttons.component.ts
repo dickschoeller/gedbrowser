@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService, UserService } from '../../services';
 
 @Component({
+    standalone: false,
     selector: 'app-user-buttons',
     templateUrl: './user-buttons.component.html',
     styleUrls: ['./user-buttons.component.css']

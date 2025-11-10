@@ -10,7 +10,7 @@ import { ComponentsModule } from '../../components';
 import { SubmitterComponent } from './submitter.component';
 import { SubmitterResolverService } from './submitter-resolver.service';
 
-const submitterRouting: ModuleWithProviders = RouterModule.forChild([
+const submitterRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
   {
     path: ':dataset/submitters/:string',
     component: SubmitterComponent,
@@ -30,6 +30,9 @@ const submitterRouting: ModuleWithProviders = RouterModule.forChild([
     MatIconModule,
   ],
   declarations: [
+    SubmitterComponent,
+  ],
+  exports: [
     SubmitterComponent,
   ],
   providers: [

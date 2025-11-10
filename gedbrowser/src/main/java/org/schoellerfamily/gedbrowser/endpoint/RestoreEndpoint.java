@@ -7,14 +7,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.endpoint.Endpoint;
 import org.springframework.stereotype.Component;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 
 /**
  * @author Dick Schoeller
  */
 @Component
-public class RestoreEndpoint implements Endpoint<List<String>> {
+@Endpoint(id = "restore")
+public class RestoreEndpoint {
 
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
@@ -24,38 +26,16 @@ public class RestoreEndpoint implements Endpoint<List<String>> {
     private transient GedObjectFileLoader loader;
 
     /**
-     * {@inheritDoc}
+     * Exposed actuator read operation for restore.
+     *
+     * @return messages
      */
-    @Override
-    public final String getId() {
-        return "restore";
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
+    @ReadOperation
     public final List<String> invoke() {
         final List<String> messages = new ArrayList<>();
         logger.info("Invoke restore");
         loader.reloadAll();
         messages.add("Reloaded " + loader.details().size() + " datasets");
         return messages;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final boolean isEnabled() {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final boolean isSensitive() {
-        return true;
     }
 }

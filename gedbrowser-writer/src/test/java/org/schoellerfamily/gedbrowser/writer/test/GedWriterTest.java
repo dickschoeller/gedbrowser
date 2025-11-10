@@ -37,7 +37,7 @@ public class GedWriterTest {
     private transient GedLineToGedObjectTransformer g2g;
 
     /** */
-    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
+    @Value("${gedbrowser.home:#{ systemProperties['user.dir'] }/src/test/resources}")
     private transient String gedbrowserHome;
 
     /**
@@ -149,7 +149,6 @@ public class GedWriterTest {
      * @throws IOException because reader might throw.
      */
     private AbstractGedLine readFileTestSource() throws IOException {
-        return TestResourceReader.readFileTestSource(
-                "", inputFilename);
+        return TestResourceReader.readFileTestSource("", inputFilename);
     }
 }

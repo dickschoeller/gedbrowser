@@ -10,11 +10,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
-import org.schoellerfamily.gedbrowser.security.service.UserService;
+import org.schoellerfamily.gedbrowser.security.service.impl.UserServiceImpl;
 import org.schoellerfamily.gedbrowser.security.test.AbstractTest;
 import org.schoellerfamily.gedbrowser.security.test.SecurityTestHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.access.AccessDeniedException;
 
 /**
@@ -24,10 +25,10 @@ public class UserServiceTest extends AbstractTest {
 
     /** */
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     /** */
-    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
+    @Value("${gedbrowser.home:#{ systemProperties['user.dir'] }/src/test/resources}")
     private String gedbrowserHome;
 
     /**

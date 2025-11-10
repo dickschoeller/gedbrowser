@@ -6,3 +6,4 @@ target/
 .pmd
 .checkstyle
 .springBeans
+.vscode/

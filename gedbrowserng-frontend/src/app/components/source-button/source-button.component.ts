@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 import { HasAttributeList } from '../../interfaces';
 import { SourceCreator } from '../../bases';
@@ -8,6 +8,7 @@ import { SourceService } from '../../services';
 import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
 
 @Component({
+  standalone: false,
   selector: 'app-source-button',
   templateUrl: './source-button.component.html',
   styleUrls: ['./source-button.component.css']
