@@ -8,7 +8,7 @@ import { ComponentsModule } from '../../components';
 import { SourceComponent } from './source.component';
 import { SourceResolverService } from './source-resolver.service';
 
-const sourceRouting: ModuleWithProviders = RouterModule.forChild([
+const sourceRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
   {
     path: ':dataset/sources/:string',
     component: SourceComponent,
