@@ -58,7 +58,7 @@ public class GedDocumentFileLoader {
     private transient GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /** */
-    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
+    @Value("${gedbrowser.home:#{ systemProperties['user.dir'] }/src/test/resources}")
     private transient String gedbrowserHome;
 
     /**

@@ -26,13 +26,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 import org.springframework.data.mongodb.repository.config.
     EnableMongoRepositories;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 
 /**
  * @author Dick Schoeller
@@ -71,11 +72,11 @@ public class MongoTestConfiguration {
      * @throws UnknownHostException because it must
      */
     @Bean
-    public MongoDbFactory mongoDbFactory() throws UnknownHostException {
-        final String databaseName =
-                "gebrowserTest_" + UUID.randomUUID().toString();
-        return new SimpleMongoDbFactory(
-                new MongoClient(host, port), databaseName);
+    public MongoDatabaseFactory mongoDbFactory() throws UnknownHostException {
+        final String databaseName = "gebrowserTest_" + UUID.randomUUID().toString();
+        final String connectionString = "mongodb://" + host + ":" + port;
+        final MongoClient client = MongoClients.create(connectionString);
+        return new SimpleMongoClientDatabaseFactory(client, databaseName);
     }
 
     /**
