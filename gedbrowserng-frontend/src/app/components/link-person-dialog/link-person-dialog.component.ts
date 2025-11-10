@@ -1,12 +1,13 @@
 import { Component, Inject, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatListOption, MatSelectionList } from '@angular/material/list';
 
 import { ApiPerson, LinkPersonItem, LinkPersonDialogData } from '../../models';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
+  standalone: false,
   selector: 'app-link-person-dialog',
   templateUrl: './link-person-dialog.component.html',
   styleUrls: ['./link-person-dialog.component.css']

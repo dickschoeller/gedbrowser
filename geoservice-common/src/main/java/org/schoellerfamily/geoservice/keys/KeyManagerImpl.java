@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import org.schoellerfamily.geoservice.exception.GeoCodeRuntimeException;
 
 /**
+ * Implementation of managing geocoding keys.
+ *
  * @author Dick Schoeller
  */
 public final class KeyManagerImpl implements KeyManager {

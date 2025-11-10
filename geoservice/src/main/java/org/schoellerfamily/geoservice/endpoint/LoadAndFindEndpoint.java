@@ -6,11 +6,14 @@ import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 
 /**
  * @author Dick Schoeller
  */
 @Component
+@Endpoint(id = "loadAndFind")
 public class LoadAndFindEndpoint extends BaseGeoCodeEndpoint {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
@@ -27,9 +30,13 @@ public class LoadAndFindEndpoint extends BaseGeoCodeEndpoint {
     /**
      * {@inheritDoc}
      */
-    @Override
     public final String getId() {
         return "loadAndFind";
+    }
+
+    @ReadOperation
+    public java.util.List<String> invokeEndpoint() {
+        return super.invoke();
     }
 
     /**
