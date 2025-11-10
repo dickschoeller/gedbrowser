@@ -35,10 +35,23 @@ public class StreamManager {
      * @throws FileNotFoundException if the file can't be opened
      */
     public InputStream getInputStream() throws FileNotFoundException {
-        if (filename.charAt(0) == '/') {
-            return new FileInputStream(filename);
-        } else {
-            return getClass().getResourceAsStream(DATA_DIR + filename);
+        // Treat obvious filesystem paths (absolute/relative paths, files
+        // under src/ or target/, or Windows drive letters) as files. All
+        // other short names are treated as classpath resources under
+        // DATA_DIR.
+        if (filename == null) {
+            return null;
         }
+        final boolean looksLikeFile = filename.charAt(0) == '/' ||
+                filename.charAt(0) == '.' || filename.contains(":") ||
+                filename.contains("src/") || filename.contains("target/");
+        if (looksLikeFile) {
+            return new FileInputStream(filename);
+        }
+        final InputStream is = getClass().getResourceAsStream(DATA_DIR + filename);
+        if (is == null) {
+            throw new FileNotFoundException("Resource not found: " + DATA_DIR + filename);
+        }
+        return is;
     }
 }

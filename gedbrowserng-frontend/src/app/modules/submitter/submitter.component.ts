@@ -8,6 +8,7 @@ import { HasAttributeList } from '../../interfaces';
 import { AttributeDialogHelper } from '../../utils';
 
 @Component({
+  standalone: false,
   selector: 'app-submitter',
   templateUrl: './submitter.component.html',
   styleUrls: ['./submitter.component.css']

@@ -13,6 +13,7 @@ import { UrlBuilder, NewPersonHelper, ListPage, ListPageHelper } from '../../uti
 import { PersonListPageComponent } from './person-list-page.component';
 
 @Component({
+  standalone: false,
   selector: 'app-person-list',
   templateUrl: './person-list.component.html',
   styleUrls: ['./person-list.component.css']
@@ -26,7 +27,7 @@ export class PersonListComponent extends PersonCreator implements AfterViewInit,
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns = ['indexName', 'birthdate', 'deathdate', 'string', 'delete'];
-  datasource = new MatTableDataSource<ApiPerson>(this.persons);
+  datasource: MatTableDataSource<ApiPerson>;
 
   constructor(
     private router: Router,
@@ -70,7 +71,8 @@ export class PersonListComponent extends PersonCreator implements AfterViewInit,
     ListPageHelper.init(this, this.persons);
   }
 
-  ngOnInit() {
+  ngOnInit() { 
+    this.datasource = new MatTableDataSource<ApiPerson>(this.persons);
     ListPageHelper.init(this, this.persons);
   }
 
