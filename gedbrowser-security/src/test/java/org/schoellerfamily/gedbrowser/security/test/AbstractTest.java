@@ -7,8 +7,8 @@ import org.mockito.Mockito;
 import org.schoellerfamily.gedbrowser.security.auth.AnonAuthentication;
 import org.schoellerfamily.gedbrowser.security.auth.TokenBasedAuthentication;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
-import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUsers;
+import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.context.SecurityContext;
@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Dick Schoeller
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { Application.class })
+@SpringBootTest(classes = { Application.class, TestConfiguration.class, WebSecurityConfig.class })
 public abstract class AbstractTest {
     /** */
     @Autowired

@@ -15,6 +15,8 @@ import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
+import com.mongodb.client.MongoDatabase;
+
 /**
  * @author Dick Schoeller
  */
@@ -76,6 +78,7 @@ public final class RepositoryFixture {
      */
     public void clearRepository() {
         repositoryManager.reset();
-        mongoTemplate.getDb().dropDatabase();
+        MongoDatabase db = mongoTemplate.getDb();
+        db.drop();
     }
 }

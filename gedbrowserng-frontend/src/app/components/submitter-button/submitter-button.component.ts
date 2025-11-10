@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 import { HasAttributeList } from '../../interfaces';
 import { SubmitterCreator } from '../../bases';
@@ -8,6 +8,7 @@ import { SubmitterService } from '../../services';
 import { UrlBuilder, NewSubmitterHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
 
 @Component({
+  standalone: false,
   selector: 'app-submitter-button',
   templateUrl: './submitter-button.component.html',
   styleUrls: ['./submitter-button.component.css']
