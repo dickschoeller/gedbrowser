@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog, MatDialogRef, } from '@angular/material';
+import { MatDialog, MatDialogRef, } from '@angular/material/dialog';
 
 import { HasMultimedia } from '../../interfaces';
 import { ApiAttribute, MultimediaDialogData, MultimediaFileData } from '../../models';
@@ -7,6 +7,7 @@ import { StringUtil, MultimediaDialogHelper } from '../../utils';
 import { MultimediaDialogComponent } from '../multimedia-dialog';
 
 @Component({
+  standalone: false,
   selector: 'app-multimedia-add-button',
   templateUrl: './multimedia-add-button.component.html',
   styleUrls: ['./multimedia-add-button.component.css']

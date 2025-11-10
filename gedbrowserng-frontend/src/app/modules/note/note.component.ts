@@ -8,6 +8,7 @@ import { HasAttributeList } from '../../interfaces';
 import { StringUtil, AttributeDialogHelper } from '../../utils';
 
 @Component({
+  standalone: false,
   selector: 'app-note',
   templateUrl: './note.component.html',
   styleUrls: ['./note.component.css']

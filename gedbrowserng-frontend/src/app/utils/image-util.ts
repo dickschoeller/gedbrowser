@@ -1,4 +1,4 @@
-import { NgxGalleryImage, NgxGalleryOptions } from 'ngx-gallery';
+import { NgxGalleryImage, NgxGalleryOptions } from 'ngx-gallery-15';
 
 import { ApiAttribute } from '../models';
 
