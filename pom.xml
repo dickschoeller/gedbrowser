@@ -82,7 +82,7 @@
     <geojson-jackson.version>1.14</geojson-jackson.version>
     <log4j-over-slf4j.version>1.7.30</log4j-over-slf4j.version>
     <jcl-over-slf4j.version>1.7.30</jcl-over-slf4j.version>
-    <logback-classic.version>1.2.3</logback-classic.version>
+    <logback-classic.version>1.2.13</logback-classic.version>
     <anselcharset.version>1.1</anselcharset.version>
     <commons-io.version>2.14.0</commons-io.version>
     <commons-logging.version>1.2</commons-logging.version>
