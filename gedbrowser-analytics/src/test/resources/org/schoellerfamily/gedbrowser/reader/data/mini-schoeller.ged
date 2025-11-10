@@ -33,7 +33,6 @@
 1 EDUC BSEE
 2 DATE 17 MAY 1980
 2 PLAC Rensselaer Polytechnic Institute, Troy, New York, USA
-2 SOUR @S4@
 1 BIRT
 2 DATE 14 DEC 1958
 2 PLAC Womack Army Hospital, Fort Bragg, Manchester, Cumberland County, North Carolina, USA
@@ -253,7 +252,9 @@
 2 PLAC Temple Emanu-el, Providence, Providence County, Rhode Island, USA
 2 NOTE The ceremony performed by Rabbi Wayne Franklin and Cantor Ivan
 3 CONT Perlman.  The best man and matron of honor were Dale Matcovitch
-3 CONT and Carol Robinson Sacerdote.
+3 CONT and Carol Robinson Sacerdote. The witnesses were Mark
+3 CONT A. Friedman, fraternity brother of the groom and Donald S.
+3 CONT Friedman, a friend of bride and groom
 2 SOUR @S4@
 0 @F2@ FAM
 1 HUSB @I4@
