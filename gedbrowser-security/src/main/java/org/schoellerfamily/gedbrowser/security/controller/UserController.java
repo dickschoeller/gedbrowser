@@ -13,7 +13,6 @@ import org.schoellerfamily.gedbrowser.security.exception.ResourceConflictExcepti
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
 import org.schoellerfamily.gedbrowser.security.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,15 +25,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Dick Schoeller
  */
 @RestController
 @RequestMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequiredArgsConstructor
 public class UserController {
     /** */
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     /**
      * @param username the username
