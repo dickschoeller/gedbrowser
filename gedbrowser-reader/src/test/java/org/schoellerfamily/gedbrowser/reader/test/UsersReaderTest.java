@@ -17,7 +17,7 @@ public class UsersReaderTest {
      * The name of the user file for tests.
      */
     private static final String TEST_USER_FILE_CSV = System.getProperty("gedbrowser.home",
-            "/var/lib/gedbrowser") + "/testUserFile.csv";
+        System.getProperty("user.dir") + "/src/test/resources") + "/testUserFile.csv";
 
     @Test
     public void test() {

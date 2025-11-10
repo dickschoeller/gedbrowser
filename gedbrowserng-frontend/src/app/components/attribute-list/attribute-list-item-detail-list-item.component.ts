@@ -4,6 +4,7 @@ import { ApiAttribute } from '../../models';
 import { AttributeAnalyzer, ImageUtil } from '../../utils';
 
 @Component({
+  standalone: false,
   selector: 'app-attribute-list-item-detail-list-item',
   templateUrl: 'attribute-list-item-detail-list-item.component.html',
   styleUrls: ['./attribute-list-item-detail-list-item.component.css']

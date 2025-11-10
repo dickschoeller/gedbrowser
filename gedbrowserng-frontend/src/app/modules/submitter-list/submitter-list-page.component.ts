@@ -6,6 +6,7 @@ import { SubmitterService } from '../../services';
 import { ApiComparators } from '../../utils';
 
 @Component({
+  standalone: false,
   selector: 'app-submitter-list-page',
   templateUrl: './submitter-list-page.component.html',
   styleUrls: ['./submitter-list-page.component.css']

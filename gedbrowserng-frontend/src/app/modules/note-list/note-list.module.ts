@@ -19,7 +19,7 @@ import { NoteListPageComponent } from './note-list-page.component';
 import { NoteListComponent } from './note-list.component';
 import { NoteListResolverService } from './note-list-resolver.service';
 
-const noteRouting: ModuleWithProviders = RouterModule.forChild([
+const noteRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
   {
     path: ':dataset/notes',
     component: NoteListPageComponent,

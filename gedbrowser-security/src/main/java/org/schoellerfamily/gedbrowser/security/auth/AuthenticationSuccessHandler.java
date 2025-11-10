@@ -2,6 +2,8 @@ package org.schoellerfamily.gedbrowser.security.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.RequiredArgsConstructor;
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Component;
  * @author Dick Schoeller
  */
 @Component
+@RequiredArgsConstructor
 public class AuthenticationSuccessHandler
         extends SimpleUrlAuthenticationSuccessHandler {
     /** */
@@ -34,12 +37,10 @@ public class AuthenticationSuccessHandler
     private String cookie;
 
     /** */
-    @Autowired
-    private TokenHelper tokenHelper;
+    private final TokenHelper tokenHelper;
 
     /** */
-    @Autowired
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     /**
      * {@inheritDoc}

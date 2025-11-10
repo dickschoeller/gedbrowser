@@ -9,10 +9,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -25,14 +28,16 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequiredArgsConstructor
 public class AuthenticationController {
     /** */
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
 
     /** */
-    @Autowired
-    private TokenHelper tokenHelper;
+    private final AuthenticationManager authenticationManager;
+
+    /** */
+    private final TokenHelper tokenHelper;
 
     /** */
     @Value("${jwt.expires_in:600}")
@@ -93,7 +98,7 @@ public class AuthenticationController {
     public ResponseEntity<?> changePassword(
             @RequestBody final PasswordChanger passwordChanger) {
         userDetailsService.changePassword(passwordChanger.getOldPassword(),
-                passwordChanger.getNewPassword());
+                passwordChanger.getNewPassword(), authenticationManager);
         final Map<String, String> result = new HashMap<>();
         result.put("result", "success");
         return ResponseEntity.accepted().body(result);
