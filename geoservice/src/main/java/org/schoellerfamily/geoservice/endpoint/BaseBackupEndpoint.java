@@ -10,7 +10,6 @@ import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.actuate.endpoint.Endpoint;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -18,7 +17,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 /**
  * @author Dick Schoeller
  */
-public abstract class BaseBackupEndpoint implements Endpoint<List<String>> {
+public abstract class BaseBackupEndpoint {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
@@ -43,25 +42,18 @@ public abstract class BaseBackupEndpoint implements Endpoint<List<String>> {
             throws JsonParseException, JsonMappingException, IOException;
 
     /**
-     * {@inheritDoc}
+     * Return an identifier for logging. Subclasses currently implement
+     * {@code getId()} so keep that contract via an abstract method here.
+     *
+     * @return endpoint id
      */
-    @Override
-    public final boolean isEnabled() {
-        return true;
-    }
+    protected abstract String getId();
 
     /**
-     * {@inheritDoc}
+     * Do the invocation and return messages.
+     *
+     * @return messages
      */
-    @Override
-    public final boolean isSensitive() {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public final List<String> invoke() {
         logger.info("Invoke " + getId() + " from " + backupFileName);
         final List<String> messages = new ArrayList<>();
