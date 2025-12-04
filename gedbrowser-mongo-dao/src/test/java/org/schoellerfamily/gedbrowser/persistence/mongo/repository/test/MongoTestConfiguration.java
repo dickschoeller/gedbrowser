@@ -65,6 +65,10 @@ public class MongoTestConfiguration {
     @Value("${spring.data.mongodb.port:27017}")
     private transient int port;
 
+    /** */
+    @Value("${gedbrowser.home:#{ systemProperties['user.dir'] }/src/test/resources}")
+    private transient String gedbrowserHome;
+
     /**
      * Get a MongoDbFactory for accessing the gedbrowser database.
      *
@@ -97,16 +101,22 @@ public class MongoTestConfiguration {
      * @return the fixture
      */
     @Bean
-    public RepositoryFixture repositoryFixture() {
-        return new RepositoryFixture();
+    public RepositoryFixture repositoryFixture(
+            final RepositoryManagerMongo repositoryManager,
+            final MongoTemplate mongoTemplate,
+            final TestDataReader reader,
+            final GedObjectToGedDocumentMongoConverter toDocConverter,
+            final RootDocumentRepositoryMongo rootDocumentRepository) {
+        return new RepositoryFixture(repositoryManager, mongoTemplate, reader, toDocConverter, rootDocumentRepository);
     }
 
     /**
      * @return the finder
      */
     @Bean
-    public FinderStrategy finder() {
-        return new RepositoryFinderMongo();
+    public FinderStrategy finder(final RepositoryManagerMongo repositoryManager,
+            final GedObjectToGedDocumentMongoConverter toDocConverter) {
+        return new RepositoryFinderMongo(repositoryManager, toDocConverter);
     }
 
     /**
@@ -129,8 +139,8 @@ public class MongoTestConfiguration {
      * @return the data reader
      */
     @Bean
-    public TestDataReader reader() {
-        return new TestDataReader();
+    public TestDataReader reader(final GedLineToGedObjectTransformer g2g) {
+        return new TestDataReader(g2g);
     }
 
     /**
@@ -153,7 +163,13 @@ public class MongoTestConfiguration {
      * @return the loader
      */
     @Bean
-    public GedDocumentFileLoader gedDocumentFileLoader() {
-        return new GedDocumentFileLoader();
+    public GedDocumentFileLoader gedDocumentFileLoader(
+        final FinderStrategy finder,
+        final GedLineToGedObjectTransformer g2g,
+        final GedObjectToGedDocumentMongoConverter toDocConverter,
+        final RootDocumentRepositoryMongo rootDocumentRepository
+) {
+        return new GedDocumentFileLoader(
+            finder, g2g, toDocConverter, rootDocumentRepository, gedbrowserHome);
     }
 }
