@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.Application;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
@@ -55,7 +55,7 @@ public class LoginControllerTest {
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("<title>Login to GedBrowser</title>")
             .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
-                    + refererUrl + "\" />");
+                    + refererUrl + "\"/>");
     }
 
     /** */
@@ -72,7 +72,7 @@ public class LoginControllerTest {
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("<title>Login to GedBrowser</title>")
             .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
-                    + refererUrl + "\" />");
+                    + refererUrl + "\"/>");
     }
 
     /** */
@@ -86,7 +86,7 @@ public class LoginControllerTest {
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("<title>Login to GedBrowser</title>")
             .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
-                    + refererUrl + "\" />");
+                    + refererUrl + "\"/>");
     }
 
     /** */
@@ -100,7 +100,7 @@ public class LoginControllerTest {
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("<title>Login to GedBrowser</title>")
             .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
-                    + refererUrl + "\" />");
+                    + refererUrl + "\"/>");
     }
 
     /**
