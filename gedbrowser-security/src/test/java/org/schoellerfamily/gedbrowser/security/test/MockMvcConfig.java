@@ -3,7 +3,6 @@ package org.schoellerfamily.gedbrowser.security.test;
 import javax.annotation.PostConstruct;
 
 import org.schoellerfamily.gedbrowser.security.auth.TokenAuthenticationFilter;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 // import org.springframework.core.env.Environment;
 import org.springframework.test.web.servlet.MockMvc;
