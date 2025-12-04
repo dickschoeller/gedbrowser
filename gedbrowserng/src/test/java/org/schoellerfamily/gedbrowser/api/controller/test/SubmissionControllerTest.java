@@ -14,9 +14,9 @@ import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -126,7 +126,7 @@ public class SubmissionControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/submissions";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiSubmission reqBody = new ApiSubmission("submission", "");
         final HttpEntity<ApiSubmission> req =
                 new HttpEntity<>(reqBody, headers);
@@ -145,7 +145,7 @@ public class SubmissionControllerTest {
     public final void testDeleteSubmission()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         // Create a family.
         // We want to be sure we know the structure of the family
@@ -182,7 +182,7 @@ public class SubmissionControllerTest {
     public final void testDeleteSubmissionNotFound()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/submissions/XXXXXXX";
@@ -202,7 +202,7 @@ public class SubmissionControllerTest {
     public final void testDeleteSubmissionDatabaseNotFound()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/XYZZY/submissions/SUBM1";
@@ -224,7 +224,7 @@ public class SubmissionControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/submissions";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final List<ApiAttribute> attributes = new ArrayList<>();
         attributes.add(new ApiAttribute("attribute", "Note", "first note"));
         final ApiSubmission reqBody =

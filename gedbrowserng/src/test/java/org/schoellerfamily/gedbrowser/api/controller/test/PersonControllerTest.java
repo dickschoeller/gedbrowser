@@ -16,9 +16,9 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.test.LoginTestHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -206,7 +206,7 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
         final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson.Builder builder = new ApiPerson.Builder().build();
         final ApiPerson reqBody = new ApiPerson(builder);
         final HttpEntity<ApiPerson> req =
@@ -230,7 +230,7 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
         final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createRJS();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
@@ -293,7 +293,7 @@ public class PersonControllerTest {
     public final void testDeletePerson()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         // Create a person.
         // We want to be sure we know the structure of the person
@@ -330,7 +330,7 @@ public class PersonControllerTest {
     public final void testDeletePersonNotAdmin()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         // Create a person.
         // We want to be sure we know the structure of the person
@@ -364,7 +364,7 @@ public class PersonControllerTest {
     public final void testDeleteSpouseLinkedPerson()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         // Create a person.
         // We want to be sure we know the structure of the person
@@ -429,7 +429,7 @@ public class PersonControllerTest {
     public final void testDeleteChildLinkedPerson()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         // Create a person.
         // We want to be sure we know the structure of the person
@@ -531,7 +531,7 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
         final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createRJS();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
@@ -565,7 +565,7 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I1/spouses";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexander();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
@@ -589,7 +589,7 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I1/parents";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexander();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
@@ -613,7 +613,7 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I2/parents";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexandra();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
@@ -637,7 +637,7 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I9/children";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexander();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
@@ -661,7 +661,7 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I10/children";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexandra();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);

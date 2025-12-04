@@ -40,7 +40,7 @@ public final class ControllerTestHelper {
         personsUrl = baseUrl + "persons";
         familiesUrl = baseUrl + "families";
         headers = adminLogin(port, testRestTemplate);
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         ApiAttribute attribute = new ApiAttribute("attribute", "Death");
         builder = new ApiPerson.Builder().add(attribute).build();
     }

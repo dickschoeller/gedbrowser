@@ -46,9 +46,7 @@ public final class LoginTestHelper {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/login";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        final List<MediaType> accepts = new ArrayList<>();
-        accepts.add(MediaType.APPLICATION_JSON);
-        headers.setAccept(accepts);
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         final String loginString = "username=" + username + "&password="
                 + password;
         final HttpEntity<String> loginReq =
@@ -115,7 +113,7 @@ public final class LoginTestHelper {
      * Executes logout request.
      *
      * @param headers the headers
-     * @return the resposne entity
+     * @return the response entity
      * @throws URISyntaxException the URL is messed up
      */
     public ResponseEntity<String> logout(final HttpHeaders headers)
@@ -144,7 +142,7 @@ public final class LoginTestHelper {
     public HttpHeaders adminLogin() throws URISyntaxException {
         final HttpHeaders headers =
                 buildHeaders(login("schoeller@comcast.net", "HAHANOWAY"));
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         return headers;
     }
 
@@ -167,7 +165,7 @@ public final class LoginTestHelper {
     public HttpHeaders userLogin() throws URISyntaxException {
         final HttpHeaders headers =
                 buildHeaders(login("guest", "guest"));
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         return headers;
     }
 }

@@ -7,15 +7,18 @@ import java.net.HttpURLConnection;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.schoellerfamily.gedbrowser.api.controller.UploadController;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
 import org.schoellerfamily.gedbrowser.api.service.storage.StorageService;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,7 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * @author Richard Schoeller
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UploadControllerTest {
     /** */
     private InputStream is;
@@ -37,13 +40,25 @@ public class UploadControllerTest {
     private MockMvc mockMvc;
 
     /** */
-    @Spy
-    @InjectMocks
-    private UploadController controller = new UploadController();
+    @Mock
+    private StorageService service;
 
     /** */
     @Mock
-    private StorageService service;
+    private GedDocumentFileLoader loader;
+
+    /** */
+    @Mock
+    private GedObjectToGedDocumentMongoConverter toDocConverter;
+
+    /** */
+    @Mock
+    private RepositoryManagerMongo repositoryManager;
+
+    /** */
+    @Spy
+    @InjectMocks
+    private UploadController controller = new UploadController(loader, toDocConverter, repositoryManager, service);
 
     /** */
     @Before
