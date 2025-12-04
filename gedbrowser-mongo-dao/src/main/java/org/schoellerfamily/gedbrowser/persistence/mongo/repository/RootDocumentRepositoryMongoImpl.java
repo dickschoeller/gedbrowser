@@ -10,25 +10,25 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Dick Schoeller
+ *
  */
+@RequiredArgsConstructor
 public class RootDocumentRepositoryMongoImpl implements
     FindableDocument<Root, RootDocument> {
     /** */
-    @Autowired
-    private transient MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
     /** */
-    @Autowired
-    private transient FinderStrategy finder;
+    private final FinderStrategy finder;
     /** */
-    @Autowired
-    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
+    private final GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /**
      * {@inheritDoc}
@@ -68,9 +68,6 @@ public class RootDocumentRepositoryMongoImpl implements
                 new Query(Criteria.where("filename").is(filename));
         final List<RootDocumentMongo> rootDocumentsMongo =
                 mongoTemplate.find(searchQuery, RootDocumentMongo.class);
-        if (rootDocumentsMongo == null) {
-            return null;
-        }
         final List<RootDocument> rootDocuments = new ArrayList<>();
         for (final RootDocument rootDocument : rootDocumentsMongo) {
             final Root root =

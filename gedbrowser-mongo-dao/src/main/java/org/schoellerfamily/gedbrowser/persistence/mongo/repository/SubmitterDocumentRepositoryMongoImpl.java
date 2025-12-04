@@ -10,24 +10,25 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     SubmitterDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
  */
+@Component
+@RequiredArgsConstructor
 public class SubmitterDocumentRepositoryMongoImpl implements
     FindableDocument<Submitter, SubmitterDocument>,
     LastId<SubmitterDocumentMongo> {
     /** */
-    @Autowired
-    private transient MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
     /** */
-    @Autowired
-    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
-
+    private final GedDocumentMongoToGedObjectConverter toObjConverter;
     /**
      * {@inheritDoc}
      */
@@ -73,9 +74,6 @@ public class SubmitterDocumentRepositoryMongoImpl implements
                 new Query(Criteria.where("filename").is(filename));
         final List<SubmitterDocumentMongo> submitterDocumentsMongo =
                 mongoTemplate.find(searchQuery, SubmitterDocumentMongo.class);
-        if (submitterDocumentsMongo == null) {
-            return null;
-        }
         final List<SubmitterDocument> submitterDocuments = new ArrayList<>();
         for (final SubmitterDocument submitterDocument
                 : submitterDocumentsMongo) {

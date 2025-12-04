@@ -10,22 +10,24 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     TrailerDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
  */
+@Component
+@RequiredArgsConstructor
 public class TrailerDocumentRepositoryMongoImpl implements
     FindableDocument<Trailer, TrailerDocument> {
     /** */
-    @Autowired
-    private transient MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
     /** */
-    @Autowired
-    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
+    private final GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /**
      * {@inheritDoc}
@@ -71,9 +73,6 @@ public class TrailerDocumentRepositoryMongoImpl implements
                 new Query(Criteria.where("filename").is(filename));
         final List<TrailerDocumentMongo> trailerDocumentsMongo =
                 mongoTemplate.find(searchQuery, TrailerDocumentMongo.class);
-        if (trailerDocumentsMongo == null) {
-            return null;
-        }
         final List<TrailerDocument> trailerDocuments = new ArrayList<>();
         for (final TrailerDocument trailerDocument : trailerDocumentsMongo) {
             final Trailer trailer = (Trailer) toObjConverter.createGedObject(

@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.FinderObject;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -28,25 +26,26 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
+@Component
 @SuppressWarnings("PMD.ExcessiveImports")
+@RequiredArgsConstructor
+@Slf4j
 public final class RepositoryFinderMongo
         implements FinderStrategy {
-    /** Logger. */
-    private final Log logger = LogFactory.getLog(getClass());
+    /** */
+    private final RepositoryManagerMongo repositoryManager;
 
     /** */
-    @Autowired
-    private transient RepositoryManagerMongo repositoryManager;
-
-    /** */
-    @Autowired
-    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
+    private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /**
      * Ordered list of classes to process. This order represents the
@@ -133,16 +132,16 @@ public final class RepositoryFinderMongo
     public void insert(final FinderObject owner, final FinderObject fob) {
         final GedObject gob = (GedObject) fob;
         try {
-            logger.debug("Starting insert: " + gob.getString());
+            log.debug("Starting insert: {}", gob.getString());
             final GedDocumentMongo<?> gedDoc =
                     toDocConverter.createGedDocument(gob);
             final TopLevelGedDocumentMongoVisitor visitor =
                     new SaveVisitor(repositoryManager);
             gedDoc.accept(visitor);
         } catch (DataAccessException e) {
-            logger.error("Error saving: " + gob.getString(), e);
+            log.error("Error saving: {}", gob.getString(), e);
         }
-        logger.debug("Ending insert: " + gob.getString());
+        log.debug("Ending insert: {}", gob.getString());
     }
 
     /**
@@ -151,7 +150,7 @@ public final class RepositoryFinderMongo
     @Override
     public Collection<Person> findBySurname(final FinderObject owner,
             final String surname) {
-        logger.info("Starting findBySurname");
+        log.info("Starting findBySurname");
         final List<Person> persons = new ArrayList<>();
         if (owner instanceof Root) {
             final Root root = (Root) owner;
@@ -164,7 +163,7 @@ public final class RepositoryFinderMongo
                 persons.add(personDocument.getGedObject());
             }
         }
-        logger.info("Ending findBySurname");
+        log.info("Ending findBySurname");
         return persons;
     }
 
@@ -174,7 +173,7 @@ public final class RepositoryFinderMongo
     @Override
     public Collection<String> findBySurnamesBeginWith(final FinderObject owner,
             final String beginsWith) {
-        logger.info("Starting findBySurnamesBeginWith");
+        log.info("Starting findBySurnamesBeginWith");
         final Set<String> surnames = new TreeSet<>();
         if (owner instanceof Root) {
             final Root root = (Root) owner;
@@ -187,7 +186,7 @@ public final class RepositoryFinderMongo
                 surnames.add(personDocument.getSurname());
             }
         }
-        logger.info("Ending findBySurnamesBeginWith");
+        log.info("Ending findBySurnamesBeginWith");
         return surnames;
     }
 
@@ -197,7 +196,7 @@ public final class RepositoryFinderMongo
     @Override
     public Collection<String> findSurnameInitialLetters(
             final FinderObject owner) {
-        logger.info("Starting findSurnameInitialLetters");
+        log.info("Starting findSurnameInitialLetters");
         final Set<String> matches = new TreeSet<>();
         if (owner instanceof Root) {
             final Root root = (Root) owner;
@@ -212,7 +211,7 @@ public final class RepositoryFinderMongo
                 matches.add(firstLetter);
             }
         }
-        logger.info("Ending findSurnameInitialLetters");
+        log.info("Ending findSurnameInitialLetters");
         return matches;
     }
 
@@ -223,7 +222,7 @@ public final class RepositoryFinderMongo
     @Override
     public <T extends GedObject> Collection<T> find(final FinderObject owner,
             final Class<T> clazz) {
-        logger.info("Starting find all of type");
+        log.info("Starting find all of type");
         if (!(owner instanceof Root)) {
             throw new IllegalArgumentException("Owner must be root");
         }
@@ -238,7 +237,7 @@ public final class RepositoryFinderMongo
         for (final GedDocument<?> document : repo.findAll(rootDocument)) {
             matches.add((T) document.getGedObject());
         }
-        logger.info("Ending find all of type");
+        log.info("Ending find all of type");
         return matches;
     }
 }

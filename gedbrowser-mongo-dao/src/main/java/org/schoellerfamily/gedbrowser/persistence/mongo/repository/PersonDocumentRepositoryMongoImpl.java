@@ -7,8 +7,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.PersonComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
@@ -18,28 +16,28 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.
     FindableByNameDocument;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
+@Component
+@RequiredArgsConstructor
+@Slf4j
 @SuppressWarnings("PMD.TooManyMethods")
 public final class PersonDocumentRepositoryMongoImpl implements
         FindableByNameDocument<Person, PersonDocument>,
         LastId<PersonDocumentMongo> {
-    /** Logger. */
-    private final Log logger = LogFactory.getLog(getClass());
-
     /** */
-    @Autowired
-    private transient MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
     /** */
-    @Autowired
-    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
-
+    private final GedDocumentMongoToGedObjectConverter toObjConverter;
     /**
      * {@inheritDoc}
      */
@@ -163,7 +161,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
     @Override
     public Collection<PersonDocument> findByRootAndSurnameBeginsWith(
             final RootDocument rootDocument, final String beginsWith) {
-        logger.debug("Starting findByRootAndSurnameBeginsWith");
+        log.debug("Starting findByRootAndSurnameBeginsWith");
         if (rootDocument == null) {
             return Collections.emptyList();
         }
@@ -174,7 +172,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
             final Person person = personDocument.getGedObject();
             person.setParent(rootDocument.getGedObject());
         }
-        logger.debug("Ending findByRootAndSurnameBeginsWith");
+        log.debug("Ending findByRootAndSurnameBeginsWith");
         return personDocuments;
     }
 
@@ -209,7 +207,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
      *
      * @author Dick Schoeller
      */
-    private static class PersonDocumentComparator implements
+    private static final class PersonDocumentComparator implements
             Comparator<PersonDocument>, Serializable {
         /** */
         private static final long serialVersionUID = 3;
