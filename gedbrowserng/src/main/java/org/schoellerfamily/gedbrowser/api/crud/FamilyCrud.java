@@ -9,6 +9,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.persistence.domain.FamilyDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
@@ -38,7 +39,7 @@ public class FamilyCrud
      */
     @Override
     public FindableDocument<Family, FamilyDocument> getRepository() {
-        return getRepositoryManager().getFamilyDocumentRepository();
+        return ((FamilyDocumentRepositoryMongo) getRepositoryManager().get(Family.class));
     }
 
     /**
@@ -57,7 +58,7 @@ public class FamilyCrud
     @Override
     public ApiFamily createOne(final String db, final ApiFamily family) {
         logger.info("Entering create family in db: " + db);
-        return create(readRoot(db), family,
+        return create(readRoot(getRepositoryManager(), db), family,
                 (i, id) -> new ApiFamily(i, id));
     }
 
@@ -68,7 +69,7 @@ public class FamilyCrud
     @Override
     public List<ApiFamily> readAll(final String db) {
         logger.info("Entering read /dbs/" + db + "/families");
-        return convert(read(db));
+        return convert(read(getRepositoryManager(), db));
     }
 
     /**
@@ -79,7 +80,7 @@ public class FamilyCrud
     @Override
     public ApiFamily readOne(final String db, final String id) {
         logger.info("Entering read /dbs/" + db + "/families/" + id);
-        return convert(read(db, id));
+        return convert(read(getRepositoryManager(), db, id));
     }
 
     /**
@@ -96,9 +97,9 @@ public class FamilyCrud
             return null;
         }
         if (isLinked(family)) {
-            return update(readRoot(db), family);
+            return update(readRoot(getRepositoryManager(), db), family);
         }
-        return delete(readRoot(db), id);
+        return delete(readRoot(getRepositoryManager(), db), id);
     }
 
     /**
@@ -119,6 +120,6 @@ public class FamilyCrud
      */
     @Override
     public ApiFamily deleteOne(final String db, final String id) {
-        return delete(readRoot(db), id);
+        return delete(readRoot(getRepositoryManager(), db), id);
     }
 }

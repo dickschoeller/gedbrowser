@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.persistence.domain.SubmitterDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmitterDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
 /**
@@ -38,7 +39,7 @@ public class SubmitterCrud
      */
     @Override
     public FindableDocument<Submitter, SubmitterDocument> getRepository() {
-        return getRepositoryManager().getSubmitterDocumentRepository();
+        return ((SubmitterDocumentRepositoryMongo) getRepositoryManager().get(Submitter.class));
     }
 
     /**
@@ -58,7 +59,7 @@ public class SubmitterCrud
     public ApiSubmitter createOne(final String db,
             final ApiSubmitter submitter) {
         logger.info("Entering create submitter in db: " + db);
-        return create(readRoot(db), submitter,
+        return create(readRoot(getRepositoryManager(), db), submitter,
                 (i, id) -> new ApiSubmitter(i.getType(), id, i.getAttributes(),
                         i.getName()));
     }
@@ -70,7 +71,7 @@ public class SubmitterCrud
     @Override
     public List<ApiSubmitter> readAll(final String db) {
         logger.info("Entering submitters, db: " + db);
-        return convert(read(db));
+        return convert(read(getRepositoryManager(), db));
     }
 
     /**
@@ -81,7 +82,7 @@ public class SubmitterCrud
     @Override
     public ApiSubmitter readOne(final String db, final String id) {
         logger.info("Entering submitter, db: " + db + ", id: " + id);
-        return convert(read(db, id));
+        return convert(read(getRepositoryManager(), db, id));
     }
 
     /**
@@ -97,7 +98,7 @@ public class SubmitterCrud
         if (!id.equals(submitter.getString())) {
             return null;
         }
-        return update(readRoot(db), submitter);
+        return update(readRoot(getRepositoryManager(), db), submitter);
     }
 
     /**
@@ -107,6 +108,6 @@ public class SubmitterCrud
      */
     @Override
     public ApiSubmitter deleteOne(final String db, final String id) {
-        return delete(readRoot(db), id);
+        return delete(readRoot(getRepositoryManager(), db), id);
     }
 }

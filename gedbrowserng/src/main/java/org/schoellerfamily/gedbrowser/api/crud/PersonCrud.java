@@ -11,6 +11,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
@@ -40,7 +41,7 @@ public class PersonCrud
      */
     @Override
     public FindableDocument<Person, PersonDocument> getRepository() {
-        return getRepositoryManager().getPersonDocumentRepository();
+        return ((PersonDocumentRepositoryMongo) getRepositoryManager().get(Person.class));
     }
 
     /**
@@ -61,7 +62,7 @@ public class PersonCrud
     @Override
     public ApiPerson createOne(final String db, final ApiPerson person) {
         logger.info("Entering create person in db: " + db);
-        return create(readRoot(db), person, (i, id) -> new ApiPerson(i, id));
+        return create(readRoot(getRepositoryManager(), db), person, (i, id) -> new ApiPerson(i, id));
     }
 
     /**
@@ -71,7 +72,7 @@ public class PersonCrud
     @Override
     public List<ApiPerson> readAll(final String db) {
         logger.info("Entering read /dbs/" + db + "/persons");
-        return getD2dm().convert(read(db));
+        return getD2dm().convert(read(getRepositoryManager(), db));
     }
 
     /**
@@ -82,7 +83,7 @@ public class PersonCrud
     @Override
     public ApiPerson readOne(final String db, final String id) {
         logger.info("Entering read /dbs/" + db + "/persons/" + id);
-        final PersonDocument read = read(db, id);
+        final PersonDocument read = read(getRepositoryManager(), db, id);
         return getD2dm().convert(read);
     }
 
@@ -100,7 +101,7 @@ public class PersonCrud
             return null;
         }
         person.change();
-        return update(readRoot(db), person);
+        return update(readRoot(getRepositoryManager(), db), person);
     }
 
     /**
@@ -115,7 +116,7 @@ public class PersonCrud
         person = unlinkFamc(db, person);
         /* person = */
         unlinkFams(db, person);
-        return delete(readRoot(db), id);
+        return delete(readRoot(getRepositoryManager(), db), id);
     }
 
     /**

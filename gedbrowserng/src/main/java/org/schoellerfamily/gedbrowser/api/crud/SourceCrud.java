@@ -11,6 +11,7 @@ import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
 /**
@@ -40,7 +41,7 @@ public class SourceCrud
      */
     @Override
     public FindableDocument<Source, SourceDocument> getRepository() {
-        return getRepositoryManager().getSourceDocumentRepository();
+        return ((SourceDocumentRepositoryMongo) getRepositoryManager().get(Source.class));
     }
 
     /**
@@ -60,7 +61,7 @@ public class SourceCrud
     public ApiSource createOne(final String db,
             final ApiSource source) {
         logger.info("Entering create source in db: " + db);
-        return create(readRoot(db), source, (i, id) -> new ApiSource(i, id));
+        return create(readRoot(getRepositoryManager(), db), source, (i, id) -> new ApiSource(i, id));
     }
 
     /**
@@ -71,7 +72,7 @@ public class SourceCrud
     public List<ApiSource> readAll(
             final String db) {
         logger.info("Entering sources, db: " + db);
-        return getD2dm().convert(read(db));
+        return getD2dm().convert(read(getRepositoryManager(), db));
     }
 
     /**
@@ -84,7 +85,7 @@ public class SourceCrud
             final String db,
             final String id) {
         logger.info("Entering source, db: " + db + ", id: " + id);
-        return getD2dm().convert(read(db, id));
+        return getD2dm().convert(read(getRepositoryManager(), db, id));
     }
 
     /**
@@ -101,7 +102,7 @@ public class SourceCrud
         if (!id.equals(source.getString())) {
             return null;
         }
-        return update(readRoot(db), source);
+        return update(readRoot(getRepositoryManager(), db), source);
     }
 
     /**
@@ -114,7 +115,7 @@ public class SourceCrud
             final String db,
             final String id) {
         unlinkFrom(db, id);
-        return delete(readRoot(db), id);
+        return delete(readRoot(getRepositoryManager(), db), id);
     }
 
     /**

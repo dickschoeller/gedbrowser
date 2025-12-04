@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
 /**
@@ -46,8 +47,8 @@ public interface ReadOperations <X extends GedObject,
      * @param dbName the name of the database
      * @return the root object
      */
-    default RootDocument readRoot(final String dbName) {
-        final RootDocument root = getLoader().loadDocument(dbName);
+    default RootDocument readRoot(final RepositoryManagerMongo repositoryManager, final String dbName) {
+        final RootDocument root = getLoader().loadDocument(repositoryManager, dbName);
         if (root == null) {
             throw new DataSetNotFoundException(
                     "Data set " + dbName + " not found", dbName);
@@ -62,8 +63,8 @@ public interface ReadOperations <X extends GedObject,
      * @param idString the ID of the item to fetch
      * @return the found object
      */
-    default Y read(final String dbName, final String idString) {
-        final Y document = read(readRoot(dbName), idString);
+    default Y read(final RepositoryManagerMongo repositoryManager, final String dbName, final String idString) {
+        final Y document = read(readRoot(repositoryManager, dbName), idString);
         if (document == null) {
             final String type =
                     getGedClass().getSimpleName().toLowerCase(Locale.ENGLISH);
@@ -78,8 +79,8 @@ public interface ReadOperations <X extends GedObject,
      * @param dbName the name of the database
      * @return the list of persons
      */
-    default List<Y> read(final String dbName) {
-        return read(readRoot(dbName));
+    default List<Y> read(final RepositoryManagerMongo repositoryManager, final String dbName) {
+        return read(readRoot(repositoryManager, dbName));
     }
 
     /**

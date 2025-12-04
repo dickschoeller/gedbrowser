@@ -9,6 +9,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.persistence.domain.NoteDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.NoteDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
@@ -38,7 +39,7 @@ public class NoteCrud
      */
     @Override
     public FindableDocument<Note, NoteDocument> getRepository() {
-        return getRepositoryManager().getNoteDocumentRepository();
+        return ((NoteDocumentRepositoryMongo) getRepositoryManager().get(Note.class));
     }
 
     /**
@@ -58,7 +59,7 @@ public class NoteCrud
     public ApiNote createOne(final String db,
             final ApiNote note) {
         logger.info("Entering create note in db: " + db);
-        return create(readRoot(db), note, (i, id) ->
+        return create(readRoot(getRepositoryManager(), db), note, (i, id) ->
             new ApiNote(i.getType(), id, i.getAttributes(), i.getTail()));
     }
 
@@ -70,7 +71,7 @@ public class NoteCrud
     public List<ApiNote> readAll(
             final String db) {
         logger.info("Entering notes, db: " + db);
-        return getD2dm().convert(read(db));
+        return getD2dm().convert(read(getRepositoryManager(), db));
     }
 
     /**
@@ -83,7 +84,7 @@ public class NoteCrud
             final String db,
             final String id) {
         logger.info("Entering note, db: " + db + ", id: " + id);
-        return getD2dm().convert(read(db, id));
+        return getD2dm().convert(read(getRepositoryManager(), db, id));
     }
 
 
@@ -101,7 +102,7 @@ public class NoteCrud
         if (!id.equals(note.getString())) {
             return null;
         }
-        return update(readRoot(db), note);
+        return update(readRoot(getRepositoryManager(), db), note);
     }
 
     /**
@@ -113,6 +114,6 @@ public class NoteCrud
     public ApiNote deleteOne(
             final String db,
             final String id) {
-        return delete(readRoot(db), id);
+        return delete(readRoot(getRepositoryManager(), db), id);
     }
 }

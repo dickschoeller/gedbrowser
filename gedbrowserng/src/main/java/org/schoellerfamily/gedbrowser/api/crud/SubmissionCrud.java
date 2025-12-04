@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.persistence.domain.SubmissionDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmissionDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
 /**
@@ -38,7 +39,7 @@ public class SubmissionCrud
      */
     @Override
     public FindableDocument<Submission, SubmissionDocument> getRepository() {
-        return getRepositoryManager().getSubmissionDocumentRepository();
+        return ((SubmissionDocumentRepositoryMongo) getRepositoryManager().get(Submission.class));
     }
 
     /**
@@ -58,7 +59,7 @@ public class SubmissionCrud
     public ApiSubmission createOne(final String db,
             final ApiSubmission submission) {
         logger.info("Entering create submission in db: " + db);
-        return create(readRoot(db), submission, (i,
+        return create(readRoot(getRepositoryManager(), db), submission, (i,
                 id) -> new ApiSubmission(i.getType(), id, i.getAttributes()));
     }
 
@@ -69,7 +70,7 @@ public class SubmissionCrud
     @Override
     public List<ApiSubmission> readAll(final String db) {
         logger.info("Entering submissions, db: " + db);
-        return getD2dm().convert(read(db));
+        return getD2dm().convert(read(getRepositoryManager(), db));
     }
 
     /**
@@ -80,7 +81,7 @@ public class SubmissionCrud
     @Override
     public ApiSubmission readOne(final String db, final String id) {
         logger.info("Entering submission, db: " + db + ", id: " + id);
-        return getD2dm().convert(read(db, id));
+        return getD2dm().convert(read(getRepositoryManager(), db, id));
     }
 
     /**
@@ -96,7 +97,7 @@ public class SubmissionCrud
         if (!id.equals(submission.getString())) {
             return null;
         }
-        return update(readRoot(db), submission);
+        return update(readRoot(getRepositoryManager(), db), submission);
     }
 
     /**
@@ -106,6 +107,6 @@ public class SubmissionCrud
      */
     @Override
     public ApiSubmission deleteOne(final String db, final String id) {
-        return delete(readRoot(db), id);
+        return delete(readRoot(getRepositoryManager(), db), id);
     }
 }
