@@ -11,75 +11,60 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.reader.CharsetScanner;
 import org.schoellerfamily.gedbrowser.reader.GedFile;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
+@Slf4j
+@RequiredArgsConstructor
 public class GedDocumentFileLoader {
-    /** Logger. */
-    private final Log logger = LogFactory.getLog(getClass());
-
-    /**
-     * Manages the persistence repository.
-     */
-    @Autowired
-    private transient RepositoryManagerMongo repositoryManager;
-
     /**
      * Implements finding other objects.
      */
-    @Autowired
-    private transient FinderStrategy finder;
+    private final FinderStrategy finder;
 
     /**
      * Converts AbstractGedLine hierarchy to GedObject hierarchy.
      */
-    @Autowired
-    private transient GedLineToGedObjectTransformer g2g;
+    private final GedLineToGedObjectTransformer g2g;
 
     /**
      * Implements conversion from GedObject to GedDocumentMongo.
      */
-    @Autowired
-    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
+    private final GedObjectToGedDocumentMongoConverter toDocConverter;
+
+    private final RootDocumentRepositoryMongo rootDocumentRepository;
 
     /** */
     @Value("${gedbrowser.home:#{ systemProperties['user.dir'] }/src/test/resources}")
-    private transient String gedbrowserHome;
-
-    /**
-     * Constructor.
-     */
-    public GedDocumentFileLoader() {
-        // Empty constructor.
-    }
+    private final String gedbrowserHome;
 
     /**
      * @param dbName the name of the database to load
      * @return the root object of the database
      */
-    public RootDocument loadDocument(final String dbName) {
-        logger.info("entering loadDocument(" + dbName + ")");
+    public RootDocument loadDocument(final RepositoryManagerMongo repositoryManager, final String dbName) {
+        log.info("entering loadDocument({})", dbName);
         final String filename = buildFileName(dbName);
-        final RootDocument rootDocument =
-                repositoryManager.getRootDocumentRepository()
-                    .findByFileAndString(filename, "Root");
+        final RootDocument rootDocument = rootDocumentRepository
+                .findByFileAndString(filename, "Root");
         if (rootDocument == null) {
-            return loadRepository(dbName);
+            return loadRepository(repositoryManager, dbName);
         }
 
         return rootDocument;
@@ -97,7 +82,7 @@ public class GedDocumentFileLoader {
      * @param dbName the name of the DB to load
      * @return the root object loaded
      */
-    protected RootDocument loadRepository(final String dbName) {
+    protected RootDocument loadRepository(final RepositoryManagerMongo repositoryManager, final String dbName) {
         Root root;
 
         final String filename = buildFileName(dbName);
@@ -111,7 +96,7 @@ public class GedDocumentFileLoader {
             gedFile.readToNext();
             root = createRoot(dbName, filename, gedFile);
         } catch (IOException e) {
-            logger.warn("Could not read file: " + filename);
+            log.warn("Could not read file: {}", filename);
             return null;
         }
 
@@ -119,9 +104,9 @@ public class GedDocumentFileLoader {
     }
 
     /**
-     * @param dbName the database name
+     * @param dbName   the database name
      * @param filename the file name
-     * @param gedFile the file object
+     * @param gedFile  the file object
      * @return the root object
      */
     private Root createRoot(final String dbName, final String filename,
@@ -135,16 +120,16 @@ public class GedDocumentFileLoader {
 
     /**
      * Save the root to the database.
+     * 
      * @param root the root GED object
      * @return the root document
      */
     private RootDocument save(final Root root) {
-        final RootDocumentMongo rootdoc =
-                (RootDocumentMongo) toDocConverter.createGedDocument(root);
+        final RootDocumentMongo rootdoc = (RootDocumentMongo) toDocConverter.createGedDocument(root);
         try {
-            repositoryManager.getRootDocumentRepository().save(rootdoc);
+            rootDocumentRepository.save(rootdoc);
         } catch (DataAccessException e) {
-            logger.error("Could not save root: " + root.getDbName(), e);
+            log.error("Could not save root: {}", root.getDbName(), e);
             return null;
         }
         return rootdoc;
@@ -153,33 +138,32 @@ public class GedDocumentFileLoader {
     /**
      * Reset the data.
      */
-    public final void reset() {
+    public final void reset(final RepositoryManagerMongo repositoryManager) {
+        rootDocumentRepository.deleteAll();
         repositoryManager.reset();
     }
 
     /**
      * Reload all of the data sets.
      */
-    public final void reloadAll() {
+    public final void reloadAll(final RepositoryManagerMongo repositoryManager) {
         final List<String> list = new ArrayList<>();
-        for (final RootDocument mongo : repositoryManager
-                .getRootDocumentRepository().findAll()) {
+        for (final RootDocument mongo : rootDocumentRepository.findAll()) {
             list.add(mongo.getDbName());
         }
-        reset();
+        reset(repositoryManager);
         for (final String dbname : list) {
-            loadDocument(dbname);
+            loadDocument(repositoryManager, dbname);
         }
     }
 
     /**
      * @return list of name value pairs for the data sets currently loaded
      */
-    public final List<Map<String, Object>> details() {
+    public final List<Map<String, Object>> details(final RepositoryManagerMongo repositoryManager) {
         final List<Map<String, Object>> list = new ArrayList<>();
-        for (final RootDocument mongo : repositoryManager
-                .getRootDocumentRepository().findAll()) {
-            list.add(details(mongo.getDbName()));
+        for (final RootDocument mongo : rootDocumentRepository.findAll()) {
+            list.add(details(repositoryManager, mongo.getDbName()));
         }
         return list;
     }
@@ -188,13 +172,14 @@ public class GedDocumentFileLoader {
      * @param dbname name of a dataset
      * @return the name value pairs describing this dataset
      */
-    public final Map<String, Object> details(final String dbname) {
+    public final Map<String, Object> details(final RepositoryManagerMongo repositoryManager,
+        final String dbname) {
         final Map<String, Object> map = new HashMap<>();
-        final RootDocument doc = repositoryManager.getRootDocumentRepository()
+        final RootDocument doc = rootDocumentRepository
                 .findByFileAndString(buildFileName(dbname), "Root");
         map.put("dbname", doc.getDbName());
         map.put("filename", doc.getFilename());
-        putCounts(map, doc);
+        putCounts(repositoryManager, map, doc);
         return map;
     }
 
@@ -202,8 +187,9 @@ public class GedDocumentFileLoader {
      * @param map the map with details
      * @param doc the root document
      */
-    private void putCounts(final Map<String, Object> map,
-            final RootDocument doc) {
+    private void putCounts(final RepositoryManagerMongo repositoryManager,
+        final Map<String, Object> map,
+        final RootDocument doc) {
         map.put("persons",
                 repositoryManager.getPersonDocumentRepository().count(doc));
         map.put("families",
