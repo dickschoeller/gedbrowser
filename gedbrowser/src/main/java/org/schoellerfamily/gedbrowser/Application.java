@@ -1,14 +1,14 @@
 package org.schoellerfamily.gedbrowser;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author Dick Schoeller
  */
+@SpringBootApplication
 @ComponentScan
-@EnableAutoConfiguration
 public class Application {
     /** Sleep during shutdown to let everything finish. */
     private static final int TWENTY_SECONDS = 20000;
