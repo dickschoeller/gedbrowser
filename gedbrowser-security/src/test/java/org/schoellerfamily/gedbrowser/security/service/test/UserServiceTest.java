@@ -15,7 +15,6 @@ import org.schoellerfamily.gedbrowser.security.test.AbstractTest;
 import org.schoellerfamily.gedbrowser.security.test.SecurityTestHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.access.AccessDeniedException;
 
 /**
