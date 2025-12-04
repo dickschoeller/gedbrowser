@@ -18,9 +18,11 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson.Builder;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.security.service.UserService;
 import org.schoellerfamily.gedbrowser.security.util.RequestUserUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,29 +34,39 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Dick Schoeller
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
-public class PersonsController extends CrudInvoker {
+@RequiredArgsConstructor
+public class PersonsController {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     /** */
-    @Autowired
-    private transient CalendarProvider provider;
+    private final CalendarProvider provider;
+
+    /** */
+    private final RepositoryManagerMongo repositoryManager;
+
+    /** */
+    private final GedDocumentFileLoader loader;
+
+    /** */
+    private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /**
      * @return the CRUD object for manipulating persons
      */
     private ObjectCrud<ApiPerson> crud() {
-        return new PersonCrud(getLoader(), getConverter(), getManager());
+        return new PersonCrud(loader, toDocConverter, repositoryManager);
     }
 
     /**
@@ -85,7 +97,7 @@ public class PersonsController extends CrudInvoker {
     @ResponseBody
     public List<ApiPerson> read(final HttpServletRequest request,
             @PathVariable final String db) {
-        final List<PersonDocument> allPersons = ((PersonCrud) crud()).read(db);
+        final List<PersonDocument> allPersons = ((PersonCrud) crud()).read(repositoryManager, db);
         return hide(request, allPersons);
     }
 
@@ -123,7 +135,7 @@ public class PersonsController extends CrudInvoker {
             final HttpServletRequest request,
             @PathVariable final String db,
             @PathVariable final String id) {
-        final Person person = ((PersonCrud) crud()).read(db, id).getGedObject();
+        final Person person = ((PersonCrud) crud()).read(repositoryManager, db, id).getGedObject();
         final RequestUserUtil util = new RequestUserUtil(request, userService);
         if (shouldHideConfidential(person, util.hasAdmin())) {
             throw new ObjectNotFoundException("person not found", "ApiPerson", db, id);

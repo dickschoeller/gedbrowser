@@ -4,6 +4,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.crud.ChildCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,21 +16,33 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Dick Schoeller
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
-public final class ChildrenController extends CrudInvoker {
+@RequiredArgsConstructor
+public final class ChildrenController {
     /** Logger. */
     private final transient Log logger = LogFactory.getLog(getClass());
+
+    /** */
+    private final GedDocumentFileLoader loader;
+
+    /** */
+    private final GedObjectToGedDocumentMongoConverter toDocConverter;
+
+    /** */
+    private final RepositoryManagerMongo repositoryManager;
 
     /**
      * @return the CRUD object for manipulating spouses
      */
     private ChildCrud childCrud() {
-        return new ChildCrud(getLoader(), getConverter(), getManager());
+        return new ChildCrud(loader, toDocConverter, repositoryManager);
     }
 
     /**
