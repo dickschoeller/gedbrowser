@@ -35,12 +35,4 @@ public class MyErrorController implements ErrorController {
         logger.debug("Exiting error");
         return "error";
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final String getErrorPath() {
-        return "/error";
-    }
 }

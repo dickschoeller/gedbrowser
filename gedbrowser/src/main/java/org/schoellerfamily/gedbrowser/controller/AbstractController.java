@@ -6,8 +6,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
-import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.NoteNotFoundException;
+import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.SourceNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.SubmissionNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.SubmitterNotFoundException;
@@ -15,6 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.users.User;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.renderer.GedResourceNotFoundRenderer;
 import org.schoellerfamily.gedbrowser.renderer.Renderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
@@ -51,6 +52,9 @@ public abstract class AbstractController {
     @Autowired
     private transient CalendarProvider provider;
 
+    @Autowired
+    protected transient RepositoryManagerMongo repositoryManager;
+
     /**
      * @return the rendering context
      */
@@ -67,7 +71,7 @@ public abstract class AbstractController {
      * @return the root object
      */
     protected final Root fetchRoot(final String dbName) {
-        final Root root = (Root) loader.load(dbName);
+        final Root root = (Root) loader.load(repositoryManager, dbName);
         if (root == null) {
             throw new DataSetNotFoundException(
                     "Data set " + dbName + " not found", dbName);

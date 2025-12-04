@@ -6,10 +6,11 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Dick Schoeller
@@ -25,6 +26,9 @@ public class RestoreEndpoint {
     @Autowired
     private transient GedObjectFileLoader loader;
 
+    @Autowired
+    private transient RepositoryManagerMongo repositoryManager;
+
     /**
      * Exposed actuator read operation for restore.
      *
@@ -34,8 +38,8 @@ public class RestoreEndpoint {
     public final List<String> invoke() {
         final List<String> messages = new ArrayList<>();
         logger.info("Invoke restore");
-        loader.reloadAll();
-        messages.add("Reloaded " + loader.details().size() + " datasets");
+        loader.reloadAll(repositoryManager);
+        messages.add("Reloaded " + loader.details(repositoryManager).size() + " datasets");
         return messages;
     }
 }

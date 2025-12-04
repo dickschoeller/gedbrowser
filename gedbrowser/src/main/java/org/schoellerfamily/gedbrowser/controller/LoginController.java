@@ -28,7 +28,7 @@ public class LoginController {
     private transient ApplicationInfo appInfo;
 
     /** Base path in URL. */
-    @Value("${server.servlet-path}")
+    @Value("${server.servlet.context-path}")
     private transient String servletPath;
 
     /**

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;
@@ -31,6 +32,9 @@ public class ApplicationHealthIndicator implements HealthIndicator {
     @Autowired
     private transient GedObjectFileLoader loader;
 
+    @Autowired
+    private transient RepositoryManagerMongo repositoryManager;
+
     /**
      * {@inheritDoc}
      */
@@ -40,7 +44,7 @@ public class ApplicationHealthIndicator implements HealthIndicator {
         final Builder builder = Health.up();
         logger.debug("    " + appInfo.getVersion());
         builder.withDetail("version", appInfo.getVersion());
-        final List<Map<String, Object>> details = loader.details();
+        final List<Map<String, Object>> details = loader.details(repositoryManager);
         logger.debug("    " + details.size() + " datasets");
         builder.withDetail("datasets", details);
         builder.up();

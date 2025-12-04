@@ -30,7 +30,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private Users<? extends User> users;
 
     /** Base path in URL. */
-    @Value("${server.servlet-path}")
+    @Value("${server.servlet.context-path}")
     private transient String servletPath;
 
     /**
