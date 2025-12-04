@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -22,17 +23,13 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     /** */
     private final SecurityUsers users;
 
     /** */
     private final PasswordEncoder passwordEncoder;
-
-    public UserServiceImpl(final SecurityUsers users, final PasswordEncoder passwordEncoder) {
-    	this.users = users;
-    	this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public void resetCredentials() {
