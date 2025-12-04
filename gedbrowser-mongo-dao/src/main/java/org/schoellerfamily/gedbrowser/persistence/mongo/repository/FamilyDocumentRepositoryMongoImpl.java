@@ -10,25 +10,24 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     FamilyDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Dick Schoeller
  */
 @Component
+@RequiredArgsConstructor
 public class FamilyDocumentRepositoryMongoImpl implements
     FindableDocument<Family, FamilyDocument>, LastId<FamilyDocumentMongo> {
     /** */
-    @Autowired
-    private transient MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
     /** */
-    @Autowired
-    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
-
+    private final GedDocumentMongoToGedObjectConverter toObjConverter;
     /**
      * {@inheritDoc}
      */
@@ -73,9 +72,6 @@ public class FamilyDocumentRepositoryMongoImpl implements
                 new Query(Criteria.where("filename").is(filename));
         final List<FamilyDocumentMongo> familyDocumentsMongo =
                 mongoTemplate.find(searchQuery, FamilyDocumentMongo.class);
-        if (familyDocumentsMongo == null) {
-            return null;
-        }
         final List<FamilyDocument> familyDocuments = new ArrayList<>();
         for (final FamilyDocument familyDocument : familyDocumentsMongo) {
             final Family family = (Family) toObjConverter.createGedObject(
