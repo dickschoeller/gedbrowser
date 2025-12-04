@@ -10,6 +10,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 
 /**
  * @author Dick Schoeller
@@ -120,7 +121,7 @@ public final class LoginTestHelper {
      * @return the resposne entity
      * @throws URISyntaxException the URL is messed up
      */
-    public ResponseEntity<String> logout(final HttpHeaders headers)
+    public ResponseEntity<String> logout(@NonNull final HttpHeaders headers)
             throws URISyntaxException {
         final String url = "http://localhost:" + port + "/v1/logout";
         final HttpEntity<String> logoutRequest =
