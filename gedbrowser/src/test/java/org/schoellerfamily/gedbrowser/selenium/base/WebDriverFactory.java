@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.selenium.base;
 
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.logging.Level;
 
@@ -65,10 +66,10 @@ public class WebDriverFactory {
                     "http://%s:%s@localhost:4445/wd/hub",
                     env.getProperty("SAUCE_USERNAME"),
                     env.getProperty("SAUCE_ACCESS_KEY"));
-            return new URL(urlString);
+            return URI.create(urlString).toURL();
         } else {
             logger.info("Get localhost URL");
-            return new URL("http://localhost:4445/wd/hub");
+            return URI.create("http://localhost:4445/wd/hub").toURL();
         }
     }
 
