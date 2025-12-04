@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.schoellerfamily.gedbrowser.security.token.TokenHelper;
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -77,8 +78,13 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
      * {@inheritDoc}
      */
     @Override
-    public void doFilterInternal(final HttpServletRequest request,
-            final HttpServletResponse response, final FilterChain chain)
+    public void doFilterInternal(
+            @NonNull
+            final HttpServletRequest request,
+            @NonNull
+            final HttpServletResponse response,
+            @NonNull
+            final FilterChain chain)
             throws IOException, ServletException {
 
         final String authToken = tokenHelper.getToken(request);
