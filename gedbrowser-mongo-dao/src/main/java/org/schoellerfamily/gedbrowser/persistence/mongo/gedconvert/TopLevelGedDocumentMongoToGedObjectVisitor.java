@@ -137,7 +137,7 @@ public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
      */
     @Override
     public final void visit(
-    		@NonNull final GedDocumentMongo<? extends GedObject> document) {
+        @NonNull final GedDocumentMongo<? extends GedObject> document) {
         throw new PersistenceException(
                 "whoops: " + document.getClass().getSimpleName());
     }
