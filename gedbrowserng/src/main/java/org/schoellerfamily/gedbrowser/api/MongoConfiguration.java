@@ -4,6 +4,7 @@ import java.net.UnknownHostException;
 
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
+import org.schoellerfamily.gedbrowser.api.controller.ApplicationInfoImpl;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
@@ -28,6 +29,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     TrailerDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -66,18 +68,18 @@ import lombok.RequiredArgsConstructor;
                 },
                 type = FilterType.ASSIGNABLE_TYPE))
 @SuppressWarnings("PMD.ExcessiveImports")
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class MongoConfiguration {
     /** */
     @Value("${spring.data.mongodb.host:localhost}")
-    private String host;
+    private final String host;
 
     /** */
     @Value("${spring.data.mongodb.port:27017}")
-    private int port;
+    private final int port;
 
     @Value("${gedbrowser.home:/var/lib/gedbrowser}")
-    private String gedbrowserHome;
+    private final String gedbrowserHome;
 
     /**
      * Get a MongoDbFactory for accessing the gedbrowser database.
@@ -171,5 +173,13 @@ public class MongoConfiguration {
     @Bean
     public CalendarProvider calendarProvider() {
         return new CalendarProviderImpl();
+    }
+
+    /**
+     * @return the application info provider
+     */
+    @Bean
+    public ApplicationInfo appInfo() {
+        return new ApplicationInfoImpl();
     }
 }
