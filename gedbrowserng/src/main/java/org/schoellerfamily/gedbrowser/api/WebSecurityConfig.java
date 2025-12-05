@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -29,9 +31,10 @@ import lombok.RequiredArgsConstructor;
  * @author Dick Schoeller
  */
 @Configuration
+@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig {
     /** */
     private final CustomUserDetailsService jwtUserDetailsService;
 
@@ -74,33 +77,37 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * {@inheritDoc}
+     * Register a DaoAuthenticationProvider so AuthenticationManager can use
+     * the provided UserDetailsService and PasswordEncoder.
      */
     @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-      return super.authenticationManagerBean();
+    public DaoAuthenticationProvider authenticationProvider(
+            final PasswordEncoder passwordEncoder) {
+        final DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(jwtUserDetailsService);
+        provider.setPasswordEncoder(passwordEncoder);
+        return provider;
     }
 
     /**
-     * @param authenticationManagerBuilder the builder
-     * @throws Exception if something goes wrong
+     * Expose the AuthenticationManager from AuthenticationConfiguration.
      */
-    @Autowired
-    public void configureGlobal(
-            final AuthenticationManagerBuilder authenticationManagerBuilder,
-            final PasswordEncoder passwordEncoder)
+    @Bean
+    public AuthenticationManager authenticationManager(
+            final AuthenticationConfiguration authenticationConfiguration)
             throws Exception {
-        authenticationManagerBuilder.userDetailsService(jwtUserDetailsService)
-                .passwordEncoder(passwordEncoder);
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    protected void configure(final HttpSecurity httpSecurity) throws Exception {
-        configureCsrf(httpSecurity)
+    /**
+     * Configure the security filter chain using the modern approach.
+     */
+    @Bean
+    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
+        configureCsrf(http)
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and().exceptionHandling()
@@ -111,13 +118,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
             .and().formLogin()
-                .loginPage(contextPath + "/v1/login")
+                .loginProcessingUrl("/v1/login")
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
             .and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher(contextPath + "/v1/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/v1/logout"))
                 .logoutSuccessHandler(logoutSuccess)
                 .deleteCookies(cookie);
+
+        return http.build();
     }
 
     /**
@@ -132,9 +141,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         if ("test".equals(activeProfile)) {
             return http.csrf().disable();
         } else {
-            return http.csrf().ignoringAntMatchers(
-                        contextPath + "/v1/login",
-                        contextPath + "/v1/signup")
+                return http.csrf().ignoringAntMatchers(
+                    "/v1/login",
+                    "/v1/signup")
                     .csrfTokenRepository(
                             CookieCsrfTokenRepository.withHttpOnlyFalse())
                     .and();
