@@ -1,0 +1,40 @@
+package org.schoellerfamily.gedbrowser.api.endpoint;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * @author Dick Schoeller
+ */
+@Component
+@Endpoint(id = "restore")
+@RequiredArgsConstructor
+@Slf4j
+public class RestoreEndpoint {
+    private final GedObjectFileLoader loader;
+
+    private final RepositoryManagerMongo repositoryManager;
+
+    /**
+     * Exposed actuator read operation for restore.
+     *
+     * @return messages
+     */
+    @ReadOperation
+    public final List<String> invoke() {
+        final List<String> messages = new ArrayList<>();
+        log.info("Invoke restore");
+        loader.reloadAll(repositoryManager);
+        messages.add("Reloaded " + loader.details(repositoryManager).size() + " datasets");
+        return messages;
+    }
+}
