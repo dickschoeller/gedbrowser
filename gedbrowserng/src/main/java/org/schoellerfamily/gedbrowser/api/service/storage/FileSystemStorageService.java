@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Service
 @RequiredArgsConstructor
-public final class FileSystemStorageService implements StorageService {
+public class FileSystemStorageService implements StorageService {
     /** */
     private final GedbrowserPropertiesService gedbrowserProperties;
 
