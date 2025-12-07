@@ -3,16 +3,16 @@ package org.schoellerfamily.geoservice.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.schoellerfamily.geoservice.model.builder.GeocodeResultBuilder;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Controller for RESTful web service to request geocoding for a historical
@@ -23,15 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Dick Schoeller
  */
 @RestController
+@RequiredArgsConstructor
+@Slf4j
 public class GeoCodeEntryController {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
-
     /**
      * The geocode cache that underlies this service.
      */
-    @Autowired
-    private transient GeoCode gcc;
+    private final GeoCode gcc;
 
     /**
      * @param name the historical name of the place
@@ -45,9 +43,9 @@ public class GeoCodeEntryController {
             @RequestParam(value = "modernName", required = false)
                 final String modernName) {
         if (modernName == null || modernName.isEmpty()) {
-            logger.debug("Find location: \"" + name + "\"");
+            log.debug("Find location: \"" + name + "\"");
         } else {
-            logger.debug(
+            log.debug(
                     "Find location: \"" + name + "\", \"" + modernName + "\"");
         }
         String findName;
