@@ -9,7 +9,7 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.schoellerfamily.geoservice.model.builder.GeocodeResultBuilder;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -24,10 +24,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  * @author Dick Schoeller
  */
-public final class GeoCodeBackup {
+@Component
+public class GeoCodeBackup {
     /** */
-    @Autowired
-    private transient GeoCode gcd;
+    private final GeoCode gcd;
 
     /** */
     private final ObjectMapper mapper = new ObjectMapper();
@@ -35,7 +35,8 @@ public final class GeoCodeBackup {
     /**
      * Constructor.
      */
-    public GeoCodeBackup() {
+    public GeoCodeBackup(final GeoCode gcd) {
+        this.gcd = gcd;
         mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
     }
 
