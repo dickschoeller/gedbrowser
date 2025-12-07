@@ -8,12 +8,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
@@ -26,14 +29,15 @@ import com.mongodb.MongoClient;
                 GeoDocumentRepositoryMongo.class
         },
         type = FilterType.ASSIGNABLE_TYPE))
+@RequiredArgsConstructor
 public class MongoConfiguration {
     /** */
     @Value("${spring.data.mongodb.host:localhost}")
-    private transient String host;
+    private final String host;
 
     /** */
     @Value("${spring.data.mongodb.port:27017}")
-    private transient int port;
+    private final int port;
 
     /**
      * Get a MongoDbFactory for accessing the gedbrowser database.
@@ -42,9 +46,10 @@ public class MongoConfiguration {
      * @throws UnknownHostException because it must
      */
     @Bean
-    public MongoDbFactory mongoDbFactory() throws UnknownHostException {
-        return new SimpleMongoDbFactory(new MongoClient(host, port),
-                "geoservice");
+    public MongoDatabaseFactory mongoDbFactory() throws UnknownHostException {
+        final String connectionString = "mongodb://" + host + ":" + port;
+        final MongoClient client = MongoClients.create(connectionString);
+        return new SimpleMongoClientDatabaseFactory(client, "geoservice");
     }
 
     /**
