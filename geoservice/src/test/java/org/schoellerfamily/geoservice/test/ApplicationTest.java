@@ -8,10 +8,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.geoservice.Application;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalManagementPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
@@ -38,7 +38,7 @@ public class ApplicationTest {
     /**
      * Management port.
      */
-    @Value("${local.management.port}")
+    @LocalManagementPort
     private int mgt;
 
     /**
@@ -143,7 +143,7 @@ public class ApplicationTest {
     public final void testReturn200WhenSendingRequestToInfoEndpoint() {
         @SuppressWarnings("rawtypes")
         final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
-                "http://localhost:" + mgt + "/info", Map.class);
+                "http://localhost:" + mgt + "/actuator/info", Map.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
@@ -153,7 +153,7 @@ public class ApplicationTest {
     public final void testReturn200WhenSendingRequestToHealthEndpoint() {
         @SuppressWarnings("rawtypes")
         final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
-                "http://localhost:" + mgt + "/health", Map.class);
+                "http://localhost:" + mgt + "/actuator/health", Map.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
