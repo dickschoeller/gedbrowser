@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.geoservice.persistence.GeoCode;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
  */
+@RequiredArgsConstructor
 public abstract class BaseGeoCodeEndpoint {
 
     /** */
-    @Autowired
-    private GeoCode gcc;
+    private final GeoCode gcc;
 
     /**
      * Do the appropriate load action.
