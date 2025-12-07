@@ -5,30 +5,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
+@RequiredArgsConstructor
+@Slf4j
 public abstract class BaseBackupEndpoint {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
+    /** */
+    private final GeoCode gcc;
 
     /** */
-    @Autowired
-    private GeoCode gcc;
-
-    /** */
-    @Value("${geoservice.backupfile:"
-            + "/var/lib/gedbrowser/geoservice-backup.json}")
-    private transient String backupFileName;
+    private final String backupFileName;
 
     /**
      * Do the backup related action.
@@ -55,7 +50,7 @@ public abstract class BaseBackupEndpoint {
      * @return messages
      */
     public final List<String> invoke() {
-        logger.info("Invoke " + getId() + " from " + backupFileName);
+        log.info("Invoke {} from {}", getId(), backupFileName);
         final List<String> messages = new ArrayList<>();
         try {
             action(new File(backupFileName));
@@ -65,7 +60,7 @@ public abstract class BaseBackupEndpoint {
             messages.add("Invoccation of " + getId() + " failed to/from "
                     + backupFileName);
             messages.add("Exception: " + e.getMessage());
-            logger.error("Invoccation of " + getId() + " failed", e);
+            log.error("Invoccation of {} failed", getId(), e);
         }
         messages.add(gcc.size() + " locations in the cache");
         messages.add(
