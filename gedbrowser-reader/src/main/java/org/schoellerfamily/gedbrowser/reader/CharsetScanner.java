@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Reads the top of a GEDCOM file, looking for the CHAR tag to determine how
@@ -21,9 +21,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
  *
  * @author Dick Schoeller
  */
+@Slf4j
 public class CharsetScanner {
-    /** Logger. */
-    private final Log logger = LogFactory.getLog(getClass());
 
     /**
      * Holds the mapping between GEDCOM known charsets and Java known charsets.
@@ -45,8 +44,8 @@ public class CharsetScanner {
      */
     public String charset(final String filename) {
         try (InputStream fis = new StreamManager(filename).getInputStream()) {
-            if (fis == null) {
-                logger.warn("Could not open stream for: " + filename);
+                if (fis == null) {
+                log.warn("Could not open stream for: {}", filename);
                 return "UTF-8";
             }
             try (Reader reader = new InputStreamReader(fis, "ASCII");
@@ -59,7 +58,7 @@ public class CharsetScanner {
                 }
             }
         } catch (IOException e) {
-            logger.warn("Could not read file: " + filename);
+            log.warn("Could not read file: {}", filename);
         }
         return "UTF-8";
     }
