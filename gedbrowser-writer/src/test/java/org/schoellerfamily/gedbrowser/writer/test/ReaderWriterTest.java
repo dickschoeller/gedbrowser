@@ -8,8 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -25,6 +24,7 @@ import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor
  * @author Dick Schoeller
  */
 @RunWith(Parameterized.class)
+@Slf4j
 public class ReaderWriterTest {
     /**
      * The file name to use in the test.
@@ -33,10 +33,7 @@ public class ReaderWriterTest {
             "mini-schoeller.ged";
 // Tests can be done with these others.
 //            "/var/lib/gedbrowser/schoeller.ged";
-//            "gl120368.ged";
-
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
+//            "gl120368.ged";);
 
     /** */
     private final String message;
@@ -122,7 +119,7 @@ public class ReaderWriterTest {
     /** */
     @Test
     public void testLine() {
-        logger.info("Actual line: " + actual);
+        log.info("Actual line: " + actual);
         assertEquals(message, expected, actual);
     }
 }

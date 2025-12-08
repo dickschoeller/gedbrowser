@@ -9,8 +9,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +30,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
+@Slf4j
 public class GedWriterTest {
     /** */
     @Autowired
@@ -44,9 +44,6 @@ public class GedWriterTest {
      * The file name to use in the test.
      */
     private String inputFilename;
-
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     private Root root;
@@ -62,7 +59,7 @@ public class GedWriterTest {
         inputFilename = gedbrowserHome + "/mini-schoeller.ged";
         final AbstractGedLine top = readFileTestSource();
         root = g2g.create(top);
-        logger.info("dbName: " + root.getDbName());
+        log.info("dbName: " + root.getDbName());
         filename = root.getDbName() + ".ged";
         root.setFilename("/tmp/" + filename);
         cleanTemp(filename);
@@ -97,8 +94,8 @@ public class GedWriterTest {
      * @throws IOException if there are problems reading or writing files
      */
     private void assertSuccess() throws IOException {
-        logger.info("originalFilename: " + inputFilename);
-        logger.info("filename: " + filename);
+        log.info("originalFilename: " + inputFilename);
+        log.info("filename: " + filename);
         final File original = new File(inputFilename);
         final File result = new File("/tmp/" + filename);
         assertTrue("File content should match",
@@ -132,12 +129,12 @@ public class GedWriterTest {
             }
         });
         if (files == null) {
-            logger.info("No files found matching " + baseFilename + " in /tmp");
+            log.info("No files found matching " + baseFilename + " in /tmp");
             return;
         }
         for (final File delFile : files) {
             if (!delFile.delete()) {
-                logger.error("Can't delete file " + delFile.getName());
+                log.error("Can't delete file " + delFile.getName());
             }
         }
     }

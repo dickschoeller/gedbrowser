@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -35,9 +34,8 @@ import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor
  * @author Dick Schoeller
  */
 @RunWith(Parameterized.class)
+@Slf4j
 public class GedWriterLinesTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     private final String message;
@@ -199,7 +197,7 @@ public class GedWriterLinesTest {
     /** */
     @Test
     public void testLine() {
-        logger.info("Actual line: " + actual);
+        log.info("Actual line: " + actual);
         assertEquals(message, expected, actual);
     }
 }

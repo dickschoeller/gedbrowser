@@ -5,8 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.datamodel.users.User;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
@@ -15,9 +14,8 @@ import org.schoellerfamily.gedbrowser.writer.util.Backup;
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public class UsersWriter {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     private final Users<? extends User> users;
@@ -39,18 +37,18 @@ public class UsersWriter {
      * Write the users file.
      */
     public void write() {
-        logger.info("writing " + users.size() + " users in " + userfilename);
+        log.info("writing " + users.size() + " users in " + userfilename);
         try {
             Backup.backup(userfilename);
         } catch (IOException e) {
-            logger.error("Problem backing up old copy of user file", e);
+            log.error("Problem backing up old copy of user file", e);
         }
         try (FileOutputStream fstream = new FileOutputStream(userfilename);
                 BufferedOutputStream bstream = new BufferedOutputStream(
                         fstream)) {
             writeTheLines(bstream);
         } catch (IOException e) {
-            logger.error("Problem writing user file", e);
+            log.error("Problem writing user file", e);
         }
     }
 
@@ -75,7 +73,7 @@ public class UsersWriter {
      * @return the row string
      */
     private String createLine(final User user) {
-        logger.debug("creating line for " + user.getUsername());
+        log.debug("creating line for " + user.getUsername());
         final StringBuilder builder = new StringBuilder();
         appendUserInfoFields(builder, user);
         appendRoles(builder, user);

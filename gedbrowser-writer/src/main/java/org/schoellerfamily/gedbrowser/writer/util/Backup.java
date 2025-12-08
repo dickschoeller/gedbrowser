@@ -3,16 +3,13 @@ package org.schoellerfamily.gedbrowser.writer.util;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public final class Backup {
-    /** Logger. */
-    private static final transient Log LOGGER =
-            LogFactory.getLog(Backup.class);
 
     /**
      * Private constructor.
@@ -31,7 +28,7 @@ public final class Backup {
         final File dest = createFile(filename);
         if (dest.exists()) {
             final File backupFile = generateBackupFilename(filename);
-            LOGGER.debug("backing up file from " + filename + " to "
+            log.debug("backing up file from " + filename + " to "
                     + backupFile.getName());
             if (!dest.renameTo(backupFile)) {
                 throw new IOException("Could not rename file from "
