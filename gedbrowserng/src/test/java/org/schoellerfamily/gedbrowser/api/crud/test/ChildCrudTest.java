@@ -66,7 +66,7 @@ public class ChildCrudTest {
         log.info("Beginning testCreateChildInFamily2");
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = createChildOfParent(parent);
-        log.info("famc: " + child.getFamc().get(0).getString());
+        log.info("famc: {}", child.getFamc().get(0).getString());
         final ApiPerson gotParent = helper.getPerson(parent);
         assertEquals("Child should be in family",
                 child.getFamc().get(0).getString(),
@@ -80,7 +80,7 @@ public class ChildCrudTest {
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = createChildOfParent(parent);
         String famID = child.getFamc().get(0).getString();
-        log.info("famc: " + famID);
+        log.info("famc: {}", famID);
 
         final ApiPerson secondChild = helper.createPerson();
         crud.linkChildInFamily(helper.getDb(), famID, secondChild);
@@ -114,7 +114,7 @@ public class ChildCrudTest {
 
         final ApiPerson child = createChildOfParent(parent);
         final String famID = child.getFamc().get(0).getString();
-        log.info("famc: " + famID);
+        log.info("famc: {}", famID);
         crud.unlinkChild(helper.getDb(), famID, child.getString());
         final ApiPerson gotChild = helper.getPerson(child);
         assertEquals("not in family", 0, gotChild.getFamc().size());

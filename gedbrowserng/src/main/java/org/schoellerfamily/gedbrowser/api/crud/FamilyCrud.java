@@ -56,7 +56,7 @@ public class FamilyCrud
      */
     @Override
     public ApiFamily createOne(final String db, final ApiFamily family) {
-        log.info("Entering create family in db: " + db);
+        log.info("Entering create family in db: {}", db);
         return create(readRoot(getRepositoryManager(), db), family,
                 (i, id) -> new ApiFamily(i, id));
     }
@@ -67,7 +67,7 @@ public class FamilyCrud
      */
     @Override
     public List<ApiFamily> readAll(final String db) {
-        log.info("Entering read /dbs/" + db + "/families");
+        log.info("Entering read /dbs/{}/families", db);
         return convert(read(getRepositoryManager(), db));
     }
 
@@ -78,7 +78,7 @@ public class FamilyCrud
      */
     @Override
     public ApiFamily readOne(final String db, final String id) {
-        log.info("Entering read /dbs/" + db + "/families/" + id);
+        log.info("Entering read /dbs/{}/families/{}", db, id);
         return convert(read(getRepositoryManager(), db, id));
     }
 
@@ -91,7 +91,7 @@ public class FamilyCrud
     @Override
     public ApiFamily updateOne(final String db, final String id,
             final ApiFamily family) {
-        log.info("Entering update family in db: " + db);
+        log.info("Entering update family in db: {}", db);
         if (!id.equals(family.getString())) {
             return null;
         }

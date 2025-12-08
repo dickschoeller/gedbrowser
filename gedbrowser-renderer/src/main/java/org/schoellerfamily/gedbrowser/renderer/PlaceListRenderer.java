@@ -95,8 +95,7 @@ public final class PlaceListRenderer {
         if (features.size() > 2) {
             final Feature viewportFeature = features.get(2);
             if (viewportFeature == null) {
-                log.info("Features size > 2 but viewport null for: "
-                        + item.getPlaceName());
+                log.info("Features size > 2 but viewport null for: {}", item.getPlaceName());
             } else {
                 final Polygon viewportPolygon = (Polygon) viewportFeature
                         .getGeometry();

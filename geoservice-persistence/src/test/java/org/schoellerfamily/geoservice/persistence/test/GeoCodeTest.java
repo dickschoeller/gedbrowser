@@ -634,7 +634,7 @@ public final class GeoCodeTest {
         boolean retval = true;
         for (final String check : expected) {
             if (!actual.contains(check)) {
-                log.info("Missing not found: " + check);
+                log.info("Missing not found: {}", check);
                 retval = false;
             }
         }

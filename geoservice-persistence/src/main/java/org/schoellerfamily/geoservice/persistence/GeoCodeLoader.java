@@ -32,7 +32,7 @@ public class GeoCodeLoader {
      * @param filename the name of the file to load
      */
     public final void load(final String filename) {
-        log.debug("Loading the cache from places file: " + filename);
+        log.debug("Loading the cache from places file: {}", filename);
         try (
             InputStream fis = new FileInputStream(filename);
         ) {
@@ -68,7 +68,7 @@ public class GeoCodeLoader {
      * @param filename the name of the file to load
      */
     public final void loadAndFind(final String filename) {
-        log.debug("Loading the cache from places file: " + filename);
+        log.debug("Loading the cache from places file: {}", filename);
         try (
             InputStream fis = new FileInputStream(filename);
         ) {

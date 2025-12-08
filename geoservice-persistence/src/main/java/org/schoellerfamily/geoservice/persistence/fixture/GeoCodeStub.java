@@ -42,7 +42,7 @@ public final class GeoCodeStub extends GeoCodeBasic {
      */
     @Override
     public long size() {
-        log.debug("Geocode cache contains " + map.size() + " entries");
+        log.debug("Geocode cache contains {} entries", map.size());
         return map.size();
     }
 

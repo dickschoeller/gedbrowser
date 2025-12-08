@@ -37,7 +37,7 @@ public class UsersWriter {
      * Write the users file.
      */
     public void write() {
-        log.info("writing " + users.size() + " users in " + userfilename);
+        log.info("writing {} users in {}", users.size(), userfilename);
         try {
             Backup.backup(userfilename);
         } catch (IOException e) {
@@ -73,7 +73,7 @@ public class UsersWriter {
      * @return the row string
      */
     private String createLine(final User user) {
-        log.debug("creating line for " + user.getUsername());
+        log.debug("creating line for {}", user.getUsername());
         final StringBuilder builder = new StringBuilder();
         appendUserInfoFields(builder, user);
         appendRoles(builder, user);

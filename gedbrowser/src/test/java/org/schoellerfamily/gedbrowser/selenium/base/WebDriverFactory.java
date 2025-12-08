@@ -77,8 +77,7 @@ public class WebDriverFactory {
      * @return the capabilities structure
      */
     private DesiredCapabilities getCapabilities(final TestName testName) {
-        log.info("Capabilities name: " + browserName + ", version: "
-                + browserVersion + ", platform: " + platform);
+        log.info("Capabilities name: {}, version: {}, platform: {}", browserName, browserVersion, platform);
         final DesiredCapabilities capabilities = new DesiredCapabilities(
                 browserName, browserVersion, Platform.fromString(platform));
         if ("firefox".equals(browserName)) {

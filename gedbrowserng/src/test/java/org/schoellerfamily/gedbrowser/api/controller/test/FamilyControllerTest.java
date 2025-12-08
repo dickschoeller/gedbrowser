@@ -341,11 +341,10 @@ public class FamilyControllerTest {
         final ApiFamily familyPutResponse = putResponseEntity.getBody();
         final List<ApiAttribute> attributesPutResponse =
                 familyPutResponse.getAttributes();
-        log.info("Attribute list size: " + attributesPutResponse.size());
+        log.info("Attribute list size: {}", attributesPutResponse.size());
         then(attributesPutResponse.size()).isEqualTo(2);
         for (final ApiAttribute a : attributesPutResponse) {
-            log.info("attribute: " + a.getType() + " " + a.getString() + " "
-                    + a.getTail());
+            log.info("attribute: {} {} {}", a.getType(), a.getString(), a.getTail());
         }
         assertEquals("attribute should be present", aNote,
                 attributesPutResponse.get(1));

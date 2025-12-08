@@ -35,7 +35,7 @@ public class HasRoles {
         try {
             roles.add(UserRoleName.valueOf(role));
         } catch (Exception e) {
-            log.warn("Tried to add unrecognized role: " + role);
+            log.warn("Tried to add unrecognized role: {}", role);
         }
     }
 

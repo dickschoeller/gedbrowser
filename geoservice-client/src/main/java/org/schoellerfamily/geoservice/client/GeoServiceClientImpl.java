@@ -37,20 +37,19 @@ public final class GeoServiceClientImpl implements GeoServiceClient {
      */
     @Override
     public GeoServiceItem get(final String placeName) {
-        log.debug("Get: " + placeName);
+        log.debug("Get: {}", placeName);
         final String url = protocol + "://" + host + ":" + port
                 + "/geocode?name=" + placeName;
         try {
             return restTemplate.getForObject(url, GeoServiceItem.class);
         } catch (RestClientException rce) {
             if (log.isDebugEnabled()) {
-                log.debug(
-                    "Unable to get geocode from geoservice at " + url, rce);
+                log.debug("Unable to get geocode from geoservice at {}", url, rce);
             } else {
-                log.error("Unable to get geocode from geoservice at " + url);
-                log.error("host: " + host);
-                log.error("port: " + port);
-                log.error("protocol: " + protocol);
+                log.error("Unable to get geocode from geoservice at {}", url);
+                log.error("host: {}", host);
+                log.error("port: {}", port);
+                log.error("protocol: {}", protocol);
             }
             return new GeoServiceItem(placeName, placeName, null);
         }

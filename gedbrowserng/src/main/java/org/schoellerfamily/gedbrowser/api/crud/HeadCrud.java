@@ -66,7 +66,7 @@ public class HeadCrud
      * @return the one head
      */
     public ApiHead readOne(final String db) {
-        log.info("Entering head, db: " + db);
+        log.info("Entering head, db: {}", db);
         return (ApiHead) getD2dm().convert(read(getRepositoryManager(), db)).get(0);
     }
 
@@ -86,7 +86,7 @@ public class HeadCrud
      */
     @Override
     public List<ApiHead> readAll(final String db) {
-        log.info("Entering all head, db: " + db);
+        log.info("Entering all head, db: {}", db);
         final List<ApiHead> list = new ArrayList<>();
         list.add((ApiHead) getD2dm().convert(read(getRepositoryManager(), db)).get(0));
         return list;
@@ -98,7 +98,7 @@ public class HeadCrud
      * @return the head as created
      */
     public ApiHead updateHead(final String db, final ApiHead head) {
-        log.info("Entering update head in db: " + db);
+        log.info("Entering update head in db: {}", db);
         return update(readRoot(getRepositoryManager(), db), head);
     }
 
@@ -111,7 +111,7 @@ public class HeadCrud
     @Override
     public ApiHead updateOne(final String db, final String id,
             final ApiHead head) {
-        log.info("Entering update head in db: " + db);
+        log.info("Entering update head in db: {}", db);
         return updateHead(db, head);
     }
 

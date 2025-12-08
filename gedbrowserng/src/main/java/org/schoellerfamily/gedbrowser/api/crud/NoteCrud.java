@@ -57,7 +57,7 @@ public class NoteCrud
     @Override
     public ApiNote createOne(final String db,
             final ApiNote note) {
-        log.info("Entering create note in db: " + db);
+        log.info("Entering create note in db: {}", db);
         return create(readRoot(getRepositoryManager(), db), note, (i, id) ->
             new ApiNote(i.getType(), id, i.getAttributes(), i.getTail()));
     }
@@ -69,7 +69,7 @@ public class NoteCrud
     @Override
     public List<ApiNote> readAll(
             final String db) {
-        log.info("Entering notes, db: " + db);
+        log.info("Entering notes, db: {}", db);
         return getD2dm().convert(read(getRepositoryManager(), db));
     }
 
@@ -82,7 +82,7 @@ public class NoteCrud
     public ApiNote readOne(
             final String db,
             final String id) {
-        log.info("Entering note, db: " + db + ", id: " + id);
+        log.info("Entering note, db: {}, id: {}", db, id);
         return getD2dm().convert(read(getRepositoryManager(), db, id));
     }
 
@@ -97,7 +97,7 @@ public class NoteCrud
     public ApiNote updateOne(final String db,
             final String id,
             final ApiNote note) {
-        log.info("Entering update note in db: " + db);
+        log.info("Entering update note in db: {}", db);
         if (!id.equals(note.getString())) {
             return null;
         }

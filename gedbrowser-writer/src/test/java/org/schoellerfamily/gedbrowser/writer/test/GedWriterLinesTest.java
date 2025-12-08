@@ -197,7 +197,7 @@ public class GedWriterLinesTest {
     /** */
     @Test
     public void testLine() {
-        log.info("Actual line: " + actual);
+        log.info("Actual line: {}", actual);
         assertEquals(message, expected, actual);
     }
 }

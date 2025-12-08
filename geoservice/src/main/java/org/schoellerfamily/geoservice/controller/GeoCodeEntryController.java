@@ -43,10 +43,9 @@ public class GeoCodeEntryController {
             @RequestParam(value = "modernName", required = false)
                 final String modernName) {
         if (modernName == null || modernName.isEmpty()) {
-            log.debug("Find location: \"" + name + "\"");
+            log.debug("Find location: \"{}\"", name);
         } else {
-            log.debug(
-                    "Find location: \"" + name + "\", \"" + modernName + "\"");
+            log.debug("Find location: \"{}\", \"{}\"", name, modernName);
         }
         String findName;
         try {

@@ -54,11 +54,10 @@ public class Application {
     public CommandLineRunner run() throws Exception {
         return args -> {
             for (final String arg : args) {
-                log.info("Get geocode for: " + arg);
+                log.info("Get geocode for: {}", arg);
                 final GeoServiceItem item =
                         client.get(arg);
-                log.info(
-                        "found item:" + mapper.writerWithDefaultPrettyPrinter()
+                log.info("found item:{}", mapper.writerWithDefaultPrettyPrinter()
                                 .writeValueAsString(item));
             }
         };

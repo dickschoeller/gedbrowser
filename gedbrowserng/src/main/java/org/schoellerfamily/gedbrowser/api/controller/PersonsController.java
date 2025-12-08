@@ -141,7 +141,7 @@ public class PersonsController {
         if (shouldHideLiving(person, util.hasUser())) {
             return createDummyLivingPerson(id);
         }
-        log.info("entering read person: " + id);
+        log.info("entering read person: {}", id);
         return crud().readOne(db, id);
     }
 
@@ -188,7 +188,7 @@ public class PersonsController {
         if (!requestUserUtil.hasAdmin()) {
             throw new AccessDeniedException("go away");
         }
-        log.info("entering update person: " + id);
+        log.info("entering update person: {}", id);
         return crud().updateOne(db, id, person);
     }
 
@@ -208,7 +208,7 @@ public class PersonsController {
         if (!requestUserUtil.hasAdmin()) {
             throw new AccessDeniedException("go away");
         }
-        log.info("entering delete person: " + id);
+        log.info("entering delete person: {}", id);
         return crud().deleteOne(db, id);
     }
 }

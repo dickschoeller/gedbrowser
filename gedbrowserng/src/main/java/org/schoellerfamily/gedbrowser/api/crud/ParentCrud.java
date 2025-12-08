@@ -34,8 +34,7 @@ public class ParentCrud extends RelationsCrud {
      */
     public ApiPerson createParent(final String db, final String id,
             final ApiPerson person) {
-        log.info(
-                "Entering create parent in db: " + db + " for person " + id);
+        log.info("Entering create parent in db: {} for person {}", db, id);
         final ApiPerson oldPerson = readPerson(db, id);
         final ApiPerson newPerson = createPerson(db, person);
         final ApiFamily family = createFamily(db);
@@ -52,10 +51,7 @@ public class ParentCrud extends RelationsCrud {
      */
     public ApiPerson linkParent(final String db, final String id,
             final ApiPerson person) {
-        log.info(
-                "Entering link person: " + person.getString()
-                + " in db: " + db
-                + " as parent of person " + id);
+        log.info("Entering link person: {} in db: {} as parent of person {}", person.getString(), db, id);
         final ApiPerson oldPerson = readPerson(db, id);
         final ApiPerson newPerson = readPerson(db, person.getString());
         final ApiFamily family = createFamily(db);

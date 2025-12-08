@@ -59,7 +59,7 @@ public class GedWriterTest {
         inputFilename = gedbrowserHome + "/mini-schoeller.ged";
         final AbstractGedLine top = readFileTestSource();
         root = g2g.create(top);
-        log.info("dbName: " + root.getDbName());
+        log.info("dbName: {}", root.getDbName());
         filename = root.getDbName() + ".ged";
         root.setFilename("/tmp/" + filename);
         cleanTemp(filename);
@@ -94,8 +94,8 @@ public class GedWriterTest {
      * @throws IOException if there are problems reading or writing files
      */
     private void assertSuccess() throws IOException {
-        log.info("originalFilename: " + inputFilename);
-        log.info("filename: " + filename);
+        log.info("originalFilename: {}", inputFilename);
+        log.info("filename: {}", filename);
         final File original = new File(inputFilename);
         final File result = new File("/tmp/" + filename);
         assertTrue("File content should match",
@@ -129,12 +129,12 @@ public class GedWriterTest {
             }
         });
         if (files == null) {
-            log.info("No files found matching " + baseFilename + " in /tmp");
+            log.info("No files found matching {} in /tmp", baseFilename);
             return;
         }
         for (final File delFile : files) {
             if (!delFile.delete()) {
-                log.error("Can't delete file " + delFile.getName());
+                log.error("Can't delete file {}", delFile.getName());
             }
         }
     }

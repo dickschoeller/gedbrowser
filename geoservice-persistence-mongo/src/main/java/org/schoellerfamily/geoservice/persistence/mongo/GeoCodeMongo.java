@@ -54,7 +54,7 @@ public final class GeoCodeMongo extends GeoCodeBasic {
     @Override
     public long size() {
         final long count = geoDocumentRepository.count();
-        log.debug("Geocode cache contains " + count + " entries");
+        log.debug("Geocode cache contains {} entries", count);
         return count;
     }
 

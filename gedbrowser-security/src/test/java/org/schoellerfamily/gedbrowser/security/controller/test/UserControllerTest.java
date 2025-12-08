@@ -109,7 +109,7 @@ public class UserControllerTest {
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final SecurityUser user = userHelper.whoami(headers);
         final String username = user.getUsername();
-        log.info("I am " + username);
+        log.info("I am {}", username);
         assertEquals("Mismatched user", "guest", username);
     }
 
@@ -125,7 +125,7 @@ public class UserControllerTest {
                 loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
         final SecurityUser user = userHelper.whoami(headers);
         final String username = user.getUsername();
-        log.info("I am " + username);
+        log.info("I am {}", username);
         assertEquals("Mismatched user", "schoeller@comcast.net", username);
     }
 
@@ -155,7 +155,7 @@ public class UserControllerTest {
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final SecurityUser user = userHelper.getUser(headers, "guest");
         final String username = user.getUsername();
-        log.info("I got " + username);
+        log.info("I got {}", username);
         assertEquals("Mismatched user", "guest", username);
     }
 
@@ -220,7 +220,7 @@ public class UserControllerTest {
                 URLEncoder.encode("schoeller@comcast.net", "UTF-8");
         final SecurityUser user = userHelper.getUser(headers, requestName);
         final String username = user.getUsername();
-        log.info("I got " + username);
+        log.info("I got {}", username);
         assertEquals("Mismatched user", "schoeller@comcast.net", username);
     }
 
@@ -238,7 +238,7 @@ public class UserControllerTest {
         final List<UserImpl> users = userHelper.getUsers(headers);
         log.info("List contains:");
         for (SecurityUser user: users) {
-            log.info("   " + user.getUsername());
+            log.info("   {}", user.getUsername());
         }
         assertEquals("Wrong count", 2, users.size());
     }

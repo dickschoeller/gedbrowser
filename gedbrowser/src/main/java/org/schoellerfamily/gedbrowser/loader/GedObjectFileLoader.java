@@ -33,7 +33,7 @@ public final class GedObjectFileLoader extends GedDocumentFileLoader {
      */
     public GedObject load(final RepositoryManagerMongo repositoryManagerMongo,
         final String dbName) {
-        log.info("entering load(" + dbName + ")");
+        log.info("entering load({})", dbName);
         final RootDocument rootDocument = loadDocument(repositoryManagerMongo, dbName);
         if (rootDocument == null) {
             return null;

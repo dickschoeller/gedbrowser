@@ -41,10 +41,10 @@ public class ApplicationHealthIndicator implements HealthIndicator {
     public final Health health() {
         log.debug("Health");
         final Builder builder = Health.up();
-        log.debug("    " + appInfo.getVersion());
+        log.debug("    {}", appInfo.getVersion());
         builder.withDetail("version", appInfo.getVersion());
         final List<Map<String, Object>> details = loader.details(repositoryManager);
-        log.debug("    " + details.size() + " datasets");
+        log.debug("    {} datasets", details.size());
         builder.withDetail("datasets", details);
         builder.up();
         return builder.build();

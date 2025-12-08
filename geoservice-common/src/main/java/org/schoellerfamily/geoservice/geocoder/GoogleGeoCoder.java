@@ -29,14 +29,14 @@ public final class GoogleGeoCoder implements GeoCoder {
      */
     @Override
     public GeocodingResult[] geocode(final String placeName) {
-        log.debug("Querying Google APIs for place: " + placeName);
+        log.debug("Querying Google APIs for place: {}", placeName);
         final GeoApiContext context =
             new GeoApiContext.Builder().apiKey(key).build();
         GeocodingResult[] results;
         try {
             results = GeocodingApi.geocode(context, placeName).await();
         } catch (Exception e) {
-            log.error("Problem querying the place: " + placeName, e);
+            log.error("Problem querying the place: {}", placeName, e);
             results = new GeocodingResult[0];
         }
         return results;

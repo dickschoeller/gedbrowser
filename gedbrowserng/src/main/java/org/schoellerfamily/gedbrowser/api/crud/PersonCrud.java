@@ -60,7 +60,7 @@ public class PersonCrud
      */
     @Override
     public ApiPerson createOne(final String db, final ApiPerson person) {
-        log.info("Entering create person in db: " + db);
+        log.info("Entering create person in db: {}", db);
         return create(readRoot(getRepositoryManager(), db), person, (i, id) -> new ApiPerson(i, id));
     }
 
@@ -70,7 +70,7 @@ public class PersonCrud
      */
     @Override
     public List<ApiPerson> readAll(final String db) {
-        log.info("Entering read /dbs/" + db + "/persons");
+        log.info("Entering read /dbs/{}/persons", db);
         return getD2dm().convert(read(getRepositoryManager(), db));
     }
 
@@ -81,7 +81,7 @@ public class PersonCrud
      */
     @Override
     public ApiPerson readOne(final String db, final String id) {
-        log.info("Entering read /dbs/" + db + "/persons/" + id);
+        log.info("Entering read /dbs/{}/persons/{}", db, id);
         final PersonDocument read = read(getRepositoryManager(), db, id);
         return getD2dm().convert(read);
     }
@@ -95,7 +95,7 @@ public class PersonCrud
     @Override
     public ApiPerson updateOne(final String db, final String id,
             final ApiPerson person) {
-        log.info("Entering update person: " + id + " in db: " + db);
+        log.info("Entering update person: {} in db: {}", id, db);
         if (!id.equals(person.getString())) {
             return null;
         }
@@ -110,7 +110,7 @@ public class PersonCrud
      */
     @Override
     public ApiPerson deleteOne(final String db, final String id) {
-        log.info("Entering delete person: " + id + " from db: " + db);
+        log.info("Entering delete person: {} from db: {}", id, db);
         ApiPerson person = readOne(db, id);
         person = unlinkFamc(db, person);
         /* person = */

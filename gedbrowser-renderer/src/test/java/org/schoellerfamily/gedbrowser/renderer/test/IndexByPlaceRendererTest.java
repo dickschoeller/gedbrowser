@@ -124,12 +124,12 @@ public class IndexByPlaceRendererTest {
         final IndexByPlaceRenderer ir = new IndexByPlaceRenderer(root,
                 client, adminContext);
         final Map<String, Set<PersonRenderer>> map = ir.getWholeIndex();
-        log.info("schoeller.ged contains " + map.size() + " places");
+        log.info("schoeller.ged contains {} places", map.size());
         for (final Map.Entry<String, Set<PersonRenderer>> entry
                 : map.entrySet()) {
             log.info(entry.getKey());
             for (final PersonRenderer person : entry.getValue()) {
-                log.info("    " + person.getIndexName());
+                log.info("    {}", person.getIndexName());
             }
         }
         log.info("done testIndexAsAdminSchoeller");

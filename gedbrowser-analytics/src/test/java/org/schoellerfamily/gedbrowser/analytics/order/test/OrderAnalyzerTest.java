@@ -356,7 +356,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         if (!result.isCorrect()) {
             log.info(indexName);
             for (final String message : result.getMismatches()) {
-                log.info("   " + message);
+                log.info("   {}", message);
                 assertFalse(
                         "If has today (" + today.toString()
                         + ") something is wrong",

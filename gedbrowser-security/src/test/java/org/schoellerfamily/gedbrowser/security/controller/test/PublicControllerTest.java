@@ -44,7 +44,7 @@ public class PublicControllerTest {
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
         final String actual = entity.getBody();
-        log.debug("string: " + actual);
+        log.debug("string: {}", actual);
         assertEquals("unexpected controller response",
                 "{\"foo\":\"bar\"}", actual);
     }

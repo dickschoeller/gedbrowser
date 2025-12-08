@@ -60,15 +60,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
             return;
         } else {
-            log.debug("Re-authenticating user '" + username
-                    + "' for password change request.");
+            log.debug("Re-authenticating user '{}' for password change request.", username);
 
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username,
                             oldPassword));
         }
 
-        log.debug("Changing password for user '" + username + "'");
+        log.debug("Changing password for user '{}'", username);
 
         final SecurityUser user = (SecurityUser) loadUserByUsername(username);
 

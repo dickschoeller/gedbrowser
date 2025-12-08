@@ -38,7 +38,7 @@ public final class StubGeoCoder implements GeoCoder {
      */
     @Override
     public GeocodingResult[] geocode(final String placeName) {
-        log.debug("Stub geocode for: " + placeName);
+        log.debug("Stub geocode for: {}", placeName);
         if (unknowns.contains(placeName)
                 || "XYZZY".equals(placeName)
                 || "PLUGH".equals(placeName)

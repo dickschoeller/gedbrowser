@@ -59,7 +59,7 @@ public class SaveController {
 
             final String contents = new GedWriter(root).writeString();
             final String filename = db + ".ged";
-            log.info("filename: " + filename);
+            log.info("filename: {}", filename);
             final HttpHeaders headers = new HttpHeaders();
             headers.setAccessControlExposeHeaders(List.of("Content-Disposition"));
             headers.set(

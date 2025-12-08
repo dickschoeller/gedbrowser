@@ -28,8 +28,7 @@ public final class Backup {
         final File dest = createFile(filename);
         if (dest.exists()) {
             final File backupFile = generateBackupFilename(filename);
-            log.debug("backing up file from " + filename + " to "
-                    + backupFile.getName());
+            log.debug("backing up file from {} to {}", filename, backupFile.getName());
             if (!dest.renameTo(backupFile)) {
                 throw new IOException("Could not rename file from "
                         + dest.getName() + " to " + backupFile.getName());

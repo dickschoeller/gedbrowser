@@ -59,7 +59,7 @@ public class SourceCrud
     @Override
     public ApiSource createOne(final String db,
             final ApiSource source) {
-        log.info("Entering create source in db: " + db);
+        log.info("Entering create source in db: {}", db);
         return create(readRoot(getRepositoryManager(), db), source, (i, id) -> new ApiSource(i, id));
     }
 
@@ -70,7 +70,7 @@ public class SourceCrud
     @Override
     public List<ApiSource> readAll(
             final String db) {
-        log.info("Entering sources, db: " + db);
+        log.info("Entering sources, db: {}", db);
         return getD2dm().convert(read(getRepositoryManager(), db));
     }
 
@@ -83,7 +83,7 @@ public class SourceCrud
     public ApiSource readOne(
             final String db,
             final String id) {
-        log.info("Entering source, db: " + db + ", id: " + id);
+        log.info("Entering source, db: {}, id: {}", db, id);
         return getD2dm().convert(read(getRepositoryManager(), db, id));
     }
 
@@ -97,7 +97,7 @@ public class SourceCrud
     public ApiSource updateOne(final String db,
             final String id,
             final ApiSource source) {
-        log.info("Entering update source in db: " + db);
+        log.info("Entering update source in db: {}", db);
         if (!id.equals(source.getString())) {
             return null;
         }

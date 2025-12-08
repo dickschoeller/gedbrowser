@@ -87,7 +87,7 @@ public abstract class AbstractController {
     public final ModelAndView personNotFoundError(
             final HttpServletRequest request,
             final PersonNotFoundException exception) {
-        log.info("Handling exception: " + exception.getMessage());
+        log.info("Handling exception: {}", exception.getMessage());
         return createModelAndViewForException(request, exception,
                 "personNotFound", HttpStatus.NOT_FOUND);
     }
@@ -102,7 +102,7 @@ public abstract class AbstractController {
     public final ModelAndView noteNotFoundError(
             final HttpServletRequest request,
             final NoteNotFoundException exception) {
-        log.info("Handling exception: " + exception.getMessage());
+        log.info("Handling exception: {}", exception.getMessage());
         return createModelAndViewForException(request, exception,
                 "noteNotFound", HttpStatus.NOT_FOUND);
     }
@@ -117,7 +117,7 @@ public abstract class AbstractController {
     public final ModelAndView sourceNotFoundError(
             final HttpServletRequest request,
             final SourceNotFoundException exception) {
-        log.info("Handling exception: " + exception.getMessage());
+        log.info("Handling exception: {}", exception.getMessage());
         return createModelAndViewForException(request, exception,
                 "sourceNotFound", HttpStatus.NOT_FOUND);
     }
@@ -132,7 +132,7 @@ public abstract class AbstractController {
     public final ModelAndView submissionNotFoundError(
             final HttpServletRequest request,
             final SubmissionNotFoundException exception) {
-        log.info("Handling exception: " + exception.getMessage());
+        log.info("Handling exception: {}", exception.getMessage());
         return createModelAndViewForException(request, exception,
                 "submissionNotFound", HttpStatus.NOT_FOUND);
     }
@@ -147,7 +147,7 @@ public abstract class AbstractController {
     public final ModelAndView submitterNotFoundError(
             final HttpServletRequest request,
             final SubmitterNotFoundException exception) {
-        log.info("Handling exception: " + exception.getMessage());
+        log.info("Handling exception: {}", exception.getMessage());
         return createModelAndViewForException(request, exception,
                 "submitterNotFound", HttpStatus.NOT_FOUND);
     }
@@ -162,7 +162,7 @@ public abstract class AbstractController {
     public final ModelAndView dataSetNotFoundError(
             final HttpServletRequest request,
             final DataSetNotFoundException exception) {
-        log.info("Handling exception: " + exception.getMessage());
+        log.info("Handling exception: {}", exception.getMessage());
         return createModelAndViewForException(request, exception,
                 "dataSetNotFound", HttpStatus.NOT_FOUND);
     }

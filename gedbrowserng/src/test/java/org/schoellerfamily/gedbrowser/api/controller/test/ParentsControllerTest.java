@@ -70,9 +70,9 @@ public class ParentsControllerTest {
             throws RestClientException, URISyntaxException {
         final ApiPerson child = helper.createPerson();
         final ApiPerson parent = createParentOfChild(child);
-        log.info("fams: " + parent.getFams().get(0).getString());
+        log.info("fams: {}", parent.getFams().get(0).getString());
         final ApiPerson gotChild = helper.getPerson(child);
-        log.info("famc: " + gotChild.getFamc().get(0).getString());
+        log.info("famc: {}", gotChild.getFamc().get(0).getString());
 
         assertEquals("Child should be in family",
                 gotChild.getFamc().get(0).getString(),

@@ -393,8 +393,7 @@ public class PersonControllerTest {
         final ApiPerson child = childEntity.getBody();
 
         final String fam = child.getFamc().get(0).getString();
-        log.info(
-                "The new child, " + child.getString() + ", in family " + fam);
+        log.info("The new child, {}, in family {}", child.getString(), fam);
 
         final ApiPerson p2 = createAlexandra();
         final HttpEntity<ApiPerson> personReq = new HttpEntity<>(p2,
@@ -402,7 +401,7 @@ public class PersonControllerTest {
         final String familiesUrl = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families/";
         final String fspUrl = familiesUrl + fam + "/spouses";
-        log.info("fspUrl: " + fspUrl);
+        log.info("fspUrl: {}", fspUrl);
         final ResponseEntity<ApiPerson> pe = testRestTemplate.exchange(
                 new URI(fspUrl), HttpMethod.POST,
                 personReq, ApiPerson.class);
@@ -458,8 +457,7 @@ public class PersonControllerTest {
 
         final String fam = child.getFamc().get(0).getString();
         final String childId = child.getString();
-        log.info(
-                "The new child, " + childId + ", in family " + fam);
+        log.info("The new child, {}, in family {}", childId, fam);
 
         final ApiPerson p2 = createAlexandra();
         final HttpEntity<ApiPerson> personReq = new HttpEntity<>(p2,
@@ -467,7 +465,7 @@ public class PersonControllerTest {
         final String familiesUrl = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families/";
         final String fspUrl = familiesUrl + fam + "/spouses";
-        log.info("fspUrl: " + fspUrl);
+        log.info("fspUrl: {}", fspUrl);
         final ResponseEntity<ApiPerson> pe = testRestTemplate.exchange(
                 new URI(fspUrl), HttpMethod.POST,
                 personReq, ApiPerson.class);

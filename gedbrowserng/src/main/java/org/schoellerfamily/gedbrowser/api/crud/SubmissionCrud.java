@@ -57,7 +57,7 @@ public class SubmissionCrud
     @Override
     public ApiSubmission createOne(final String db,
             final ApiSubmission submission) {
-        log.info("Entering create submission in db: " + db);
+        log.info("Entering create submission in db: {}", db);
         return create(readRoot(getRepositoryManager(), db), submission, (i,
                 id) -> new ApiSubmission(i.getType(), id, i.getAttributes()));
     }
@@ -68,7 +68,7 @@ public class SubmissionCrud
      */
     @Override
     public List<ApiSubmission> readAll(final String db) {
-        log.info("Entering submissions, db: " + db);
+        log.info("Entering submissions, db: {}", db);
         return getD2dm().convert(read(getRepositoryManager(), db));
     }
 
@@ -79,7 +79,7 @@ public class SubmissionCrud
      */
     @Override
     public ApiSubmission readOne(final String db, final String id) {
-        log.info("Entering submission, db: " + db + ", id: " + id);
+        log.info("Entering submission, db: {}, id: {}", db, id);
         return getD2dm().convert(read(getRepositoryManager(), db, id));
     }
 
@@ -92,7 +92,7 @@ public class SubmissionCrud
     @Override
     public ApiSubmission updateOne(final String db, final String id,
             final ApiSubmission submission) {
-        log.info("Entering update submission in db: " + db);
+        log.info("Entering update submission in db: {}", db);
         if (!id.equals(submission.getString())) {
             return null;
         }

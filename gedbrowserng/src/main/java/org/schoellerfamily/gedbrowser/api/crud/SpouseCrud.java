@@ -35,7 +35,7 @@ public class SpouseCrud extends RelationsCrud {
      */
     public ApiPerson createSpouse(final String db, final String id,
             final ApiPerson person) {
-        log.info("Entering create spouse in db: " + db + " of person " + id);
+        log.info("Entering create spouse in db: {} of person {}", db, id);
         final ApiPerson oldPerson = readPerson(db, id);
         final ApiPerson newPerson = createPerson(db, person);
         final ApiFamily family = createFamily(db);
@@ -52,8 +52,7 @@ public class SpouseCrud extends RelationsCrud {
      * @return the person returned from the db
      */
     public ApiPerson linkSpouse(final String db, final String id, final ApiPerson person) {
-        log.info("Entering link person: " + person.getString()
-                + " as spouse in db: " + db + " of person " + id);
+        log.info("Entering link person: {} as spouse in db: {} of person {}", person.getString(), db, id);
         final ApiPerson oldPerson = readPerson(db, id);
         final ApiPerson newPerson = readPerson(db, person.getString());
         final ApiFamily family = createFamily(db);
@@ -71,7 +70,7 @@ public class SpouseCrud extends RelationsCrud {
      */
     public ApiPerson createSpouseInFamily(final String db, final String id,
             final ApiPerson person) {
-        log.info("Entering create spouse in db: " + db + " in family " + id);
+        log.info("Entering create spouse in db: {} in family {}", db, id);
         final ApiPerson newPerson = createPerson(db, person);
         try {
             final ApiFamily family = readFamily(db, id);
@@ -89,8 +88,7 @@ public class SpouseCrud extends RelationsCrud {
      * @return the person returned from the db
      */
     public ApiPerson linkSpouseInFamily(final String db, final String id, final ApiPerson person) {
-        log.info("Entering link person: " + person.getString() + " in db: "
-                + db + " as spouse in family " + id);
+        log.info("Entering link person: {} in db: {} as spouse in family {}", person.getString(), db, id);
         final ApiPerson newPerson = readPerson(db, person.getString());
         try {
             final ApiFamily family = readFamily(db, id);
@@ -108,8 +106,7 @@ public class SpouseCrud extends RelationsCrud {
      * @return the person returned from the db
      */
     public ApiPerson unlinkSpouseInFamily(final String db, final String id, final String sid) {
-        log.info("Entering unlink person: " + sid + " in db: " + db
-                + " from being a spouse in family " + id);
+        log.info("Entering unlink person: {} in db: {} from being a spouse in family {}", sid, db, id);
         final ApiPerson person = readPerson(db, sid);
         try {
             final ApiFamily family = readFamily(db, id);

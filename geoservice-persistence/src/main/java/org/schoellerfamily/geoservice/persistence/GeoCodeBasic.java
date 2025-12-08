@@ -28,7 +28,7 @@ public abstract class GeoCodeBasic implements GeoCode {
      */
     @Override
     public final GeoCodeItem find(final String placeName) {
-        log.debug("find(\"" + placeName + "\")");
+        log.debug("find(\"{}\")", placeName);
         final GeoDocument geoDocument = getDocument(placeName);
         GeoCodeItem gcce;
         if (geoDocument != null) {
@@ -74,8 +74,7 @@ public abstract class GeoCodeBasic implements GeoCode {
         if (modernPlaceName == null || modernPlaceName.isEmpty()) {
             return find(placeName);
         }
-        log.debug(
-                "find(\"" + placeName + "\", \"" + modernPlaceName + "\")");
+        log.debug("find(\"{}\", \"{}\")", placeName, modernPlaceName);
         final GeoDocument geoDocument = getDocument(placeName);
         if (geoDocument != null) {
             // We found one.
@@ -181,7 +180,7 @@ public abstract class GeoCodeBasic implements GeoCode {
     public final int countNotFound() {
         log.debug("Count the places that couldn't be found");
         final int count = notFoundKeys().size();
-        log.debug(count + " places not found");
+        log.debug("{} places not found", count);
         return count;
     }
 
@@ -212,7 +211,7 @@ public abstract class GeoCodeBasic implements GeoCode {
                 if (name.equals(mName)) {
                     log.debug(name);
                 } else {
-                    log.debug(name + "|" + mName);
+                    log.debug("{}|{}", name, mName);
                 }
             }
         }
@@ -235,10 +234,10 @@ public abstract class GeoCodeBasic implements GeoCode {
     public final GeoCodeItem delete(final GeoCodeItem item) {
         final String placeName = item.getPlaceName();
         if (get(placeName) == null) {
-            log.debug("Didn't find for removal: " + placeName);
+            log.debug("Didn't find for removal: {}", placeName);
         } else {
             deleteDocument(placeName);
-            log.debug("Removed: " + placeName);
+            log.debug("Removed: {}", placeName);
         }
         return item;
     }

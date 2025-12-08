@@ -23,7 +23,7 @@ public final class SecurityTestHelper {
      * @param userFile the path of the file to reset
      */
     public static void resetUserFile(final String userFile) {
-        log.info("resetting " + userFile);
+        log.info("resetting {}", userFile);
         final String[] strings = {
                 "schoeller@comcast.net,Richard,Schoeller,"
                 + "schoeller@comcast.net,HAHANOWAY,USER,ADMIN\n",

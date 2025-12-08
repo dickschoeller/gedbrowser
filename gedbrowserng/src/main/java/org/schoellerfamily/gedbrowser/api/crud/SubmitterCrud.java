@@ -57,7 +57,7 @@ public class SubmitterCrud
     @Override
     public ApiSubmitter createOne(final String db,
             final ApiSubmitter submitter) {
-        log.info("Entering create submitter in db: " + db);
+        log.info("Entering create submitter in db: {}", db);
         return create(readRoot(getRepositoryManager(), db), submitter,
                 (i, id) -> new ApiSubmitter(i.getType(), id, i.getAttributes(),
                         i.getName()));
@@ -69,7 +69,7 @@ public class SubmitterCrud
      */
     @Override
     public List<ApiSubmitter> readAll(final String db) {
-        log.info("Entering submitters, db: " + db);
+        log.info("Entering submitters, db: {}", db);
         return convert(read(getRepositoryManager(), db));
     }
 
@@ -80,7 +80,7 @@ public class SubmitterCrud
      */
     @Override
     public ApiSubmitter readOne(final String db, final String id) {
-        log.info("Entering submitter, db: " + db + ", id: " + id);
+        log.info("Entering submitter, db: {}, id: {}", db, id);
         return convert(read(getRepositoryManager(), db, id));
     }
 
@@ -93,7 +93,7 @@ public class SubmitterCrud
     @Override
     public ApiSubmitter updateOne(final String db, final String id,
             final ApiSubmitter submitter) {
-        log.info("Entering update submitter in db: " + db);
+        log.info("Entering update submitter in db: {}", db);
         if (!id.equals(submitter.getString())) {
             return null;
         }
