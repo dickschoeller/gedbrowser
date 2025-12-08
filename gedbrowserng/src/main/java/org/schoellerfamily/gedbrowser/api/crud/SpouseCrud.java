@@ -1,7 +1,5 @@
 package org.schoellerfamily.gedbrowser.api.crud;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
@@ -10,12 +8,13 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGe
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public class SpouseCrud extends RelationsCrud {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * @param loader the file loader that we will use
@@ -36,7 +35,7 @@ public class SpouseCrud extends RelationsCrud {
      */
     public ApiPerson createSpouse(final String db, final String id,
             final ApiPerson person) {
-        logger.info("Entering create spouse in db: " + db + " of person " + id);
+        log.info("Entering create spouse in db: " + db + " of person " + id);
         final ApiPerson oldPerson = readPerson(db, id);
         final ApiPerson newPerson = createPerson(db, person);
         final ApiFamily family = createFamily(db);
@@ -53,7 +52,7 @@ public class SpouseCrud extends RelationsCrud {
      * @return the person returned from the db
      */
     public ApiPerson linkSpouse(final String db, final String id, final ApiPerson person) {
-        logger.info("Entering link person: " + person.getString()
+        log.info("Entering link person: " + person.getString()
                 + " as spouse in db: " + db + " of person " + id);
         final ApiPerson oldPerson = readPerson(db, id);
         final ApiPerson newPerson = readPerson(db, person.getString());
@@ -72,7 +71,7 @@ public class SpouseCrud extends RelationsCrud {
      */
     public ApiPerson createSpouseInFamily(final String db, final String id,
             final ApiPerson person) {
-        logger.info("Entering create spouse in db: " + db + " in family " + id);
+        log.info("Entering create spouse in db: " + db + " in family " + id);
         final ApiPerson newPerson = createPerson(db, person);
         try {
             final ApiFamily family = readFamily(db, id);
@@ -90,7 +89,7 @@ public class SpouseCrud extends RelationsCrud {
      * @return the person returned from the db
      */
     public ApiPerson linkSpouseInFamily(final String db, final String id, final ApiPerson person) {
-        logger.info("Entering link person: " + person.getString() + " in db: "
+        log.info("Entering link person: " + person.getString() + " in db: "
                 + db + " as spouse in family " + id);
         final ApiPerson newPerson = readPerson(db, person.getString());
         try {
@@ -109,7 +108,7 @@ public class SpouseCrud extends RelationsCrud {
      * @return the person returned from the db
      */
     public ApiPerson unlinkSpouseInFamily(final String db, final String id, final String sid) {
-        logger.info("Entering unlink person: " + sid + " in db: " + db
+        log.info("Entering unlink person: " + sid + " in db: " + db
                 + " from being a spouse in family " + id);
         final ApiPerson person = readPerson(db, sid);
         try {

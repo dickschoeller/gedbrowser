@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
@@ -23,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Emits GEDCOM to the HTTP connection to download the GEDCOM state.
@@ -33,9 +32,8 @@ import lombok.RequiredArgsConstructor;
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class SaveController {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     private final GedDocumentFileLoader loader;
@@ -54,25 +52,25 @@ public class SaveController {
     @ResponseBody
     public final ResponseEntity<String> save(@PathVariable final String db,
             final HttpServletResponse response) {
-        logger.info("Starting save");
+        log.info("Starting save");
         // check here whether authorized.
         try {
             final Root root = fetchRoot(db);
 
             final String contents = new GedWriter(root).writeString();
             final String filename = db + ".ged";
-            logger.info("filename: " + filename);
+            log.info("filename: " + filename);
             final HttpHeaders headers = new HttpHeaders();
             headers.setAccessControlExposeHeaders(List.of("Content-Disposition"));
             headers.set(
                     "Content-Disposition", "attachment; filename=" + filename);
             headers.setContentType(MediaType.TEXT_PLAIN);
-            logger.info("Exiting save");
+            log.info("Exiting save");
             return new ResponseEntity<>(contents, headers, HttpStatus.OK);
         } catch (DataSetNotFoundException e) {
             final HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.TEXT_PLAIN);
-            logger.info("Exiting save");
+            log.info("Exiting save");
             return new ResponseEntity<>(
                     e.getMessage(), headers, HttpStatus.NOT_FOUND);
         }

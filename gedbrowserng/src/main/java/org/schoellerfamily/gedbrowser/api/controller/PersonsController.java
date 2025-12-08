@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
@@ -35,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
@@ -43,9 +42,8 @@ import lombok.RequiredArgsConstructor;
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class PersonsController {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     private final UserService userService;
@@ -103,7 +101,7 @@ public class PersonsController {
 
     private List<ApiPerson> hide(final HttpServletRequest request,
             final List<PersonDocument> allPersons) {
-        logger.info("Start hiding list of persons");
+        log.info("Start hiding list of persons");
         final List<ApiPerson> list = new ArrayList<>();
         final RequestUserUtil requestUserUtil = new RequestUserUtil(request, userService);
         final boolean hasUser = requestUserUtil.hasUser();
@@ -119,7 +117,7 @@ public class PersonsController {
             final OperationsEnabler<?, ?> enabler = (OperationsEnabler<?, ?>) crud();
             list.add((ApiPerson) enabler.getD2dm().convert(doc));
         }
-        logger.info("Done hiding list of persons");
+        log.info("Done hiding list of persons");
         return list;
     }
 
@@ -143,7 +141,7 @@ public class PersonsController {
         if (shouldHideLiving(person, util.hasUser())) {
             return createDummyLivingPerson(id);
         }
-        logger.info("entering read person: " + id);
+        log.info("entering read person: " + id);
         return crud().readOne(db, id);
     }
 
@@ -190,7 +188,7 @@ public class PersonsController {
         if (!requestUserUtil.hasAdmin()) {
             throw new AccessDeniedException("go away");
         }
-        logger.info("entering update person: " + id);
+        log.info("entering update person: " + id);
         return crud().updateOne(db, id, person);
     }
 
@@ -210,7 +208,7 @@ public class PersonsController {
         if (!requestUserUtil.hasAdmin()) {
             throw new AccessDeniedException("go away");
         }
-        logger.info("entering delete person: " + id);
+        log.info("entering delete person: " + id);
         return crud().deleteOne(db, id);
     }
 }

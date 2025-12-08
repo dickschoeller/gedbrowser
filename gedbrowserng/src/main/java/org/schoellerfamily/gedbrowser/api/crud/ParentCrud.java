@@ -1,7 +1,5 @@
 package org.schoellerfamily.gedbrowser.api.crud;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
@@ -9,12 +7,13 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGe
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public class ParentCrud extends RelationsCrud {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * @param loader the file loader that we will use
@@ -35,7 +34,7 @@ public class ParentCrud extends RelationsCrud {
      */
     public ApiPerson createParent(final String db, final String id,
             final ApiPerson person) {
-        logger.info(
+        log.info(
                 "Entering create parent in db: " + db + " for person " + id);
         final ApiPerson oldPerson = readPerson(db, id);
         final ApiPerson newPerson = createPerson(db, person);
@@ -53,7 +52,7 @@ public class ParentCrud extends RelationsCrud {
      */
     public ApiPerson linkParent(final String db, final String id,
             final ApiPerson person) {
-        logger.info(
+        log.info(
                 "Entering link person: " + person.getString()
                 + " in db: " + db
                 + " as parent of person " + id);

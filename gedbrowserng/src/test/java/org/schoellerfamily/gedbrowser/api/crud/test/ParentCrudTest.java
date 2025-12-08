@@ -1,10 +1,8 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.BDDAssertions.*;
+import static org.junit.Assert.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +19,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
@@ -29,9 +29,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@Slf4j
 public class ParentCrudTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -68,9 +67,9 @@ public class ParentCrudTest {
         final ApiPerson child = helper.createPerson();
         final ApiPerson parent = crud.createParent(helper.getDb(),
                 child.getString(), helper.buildPerson());
-        logger.info("fams: " + parent.getFams().get(0).getString());
+        log.info("fams: " + parent.getFams().get(0).getString());
         final ApiPerson gotChild = helper.getPerson(child);
-        logger.info("famc: " + gotChild.getFamc().get(0).getString());
+        log.info("famc: " + gotChild.getFamc().get(0).getString());
 
         assertEquals("Child should be in family",
                 gotChild.getFamc().get(0).getString(),
@@ -95,7 +94,7 @@ public class ParentCrudTest {
     /** */
     @Test
     public final void testGetPersonsMiniSchoellerI2AddParent() {
-        logger.info("Beginning testGetPersonsMiniSchoellerI2AddParent");
+        log.info("Beginning testGetPersonsMiniSchoellerI2AddParent");
         final ApiPerson reqParent = helper.createAlexander();
         final ApiPerson resParent = crud.createParent("mini-schoeller", "I1",
                 reqParent);
@@ -107,7 +106,7 @@ public class ParentCrudTest {
     /** */
     @Test
     public final void testGetPersonsMiniSchoellerI2AddParent2() {
-        logger.info("Beginning testGetPersonsMiniSchoellerI2AddParent2");
+        log.info("Beginning testGetPersonsMiniSchoellerI2AddParent2");
         final ApiPerson reqParent = helper.createAlexandra();
         final ApiPerson resParent = crud.createParent("mini-schoeller", "I2",
                 reqParent);

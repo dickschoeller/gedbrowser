@@ -3,8 +3,6 @@ package org.schoellerfamily.gedbrowser.api.crud;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -15,15 +13,16 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumen
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public class PersonCrud
     extends OperationsEnabler<Person, PersonDocument>
     implements CrudOperations<Person, PersonDocument, ApiPerson>,
         ObjectCrud<ApiPerson> {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * @param loader the file loader that we will use
@@ -61,7 +60,7 @@ public class PersonCrud
      */
     @Override
     public ApiPerson createOne(final String db, final ApiPerson person) {
-        logger.info("Entering create person in db: " + db);
+        log.info("Entering create person in db: " + db);
         return create(readRoot(getRepositoryManager(), db), person, (i, id) -> new ApiPerson(i, id));
     }
 
@@ -71,7 +70,7 @@ public class PersonCrud
      */
     @Override
     public List<ApiPerson> readAll(final String db) {
-        logger.info("Entering read /dbs/" + db + "/persons");
+        log.info("Entering read /dbs/" + db + "/persons");
         return getD2dm().convert(read(getRepositoryManager(), db));
     }
 
@@ -82,7 +81,7 @@ public class PersonCrud
      */
     @Override
     public ApiPerson readOne(final String db, final String id) {
-        logger.info("Entering read /dbs/" + db + "/persons/" + id);
+        log.info("Entering read /dbs/" + db + "/persons/" + id);
         final PersonDocument read = read(getRepositoryManager(), db, id);
         return getD2dm().convert(read);
     }
@@ -96,7 +95,7 @@ public class PersonCrud
     @Override
     public ApiPerson updateOne(final String db, final String id,
             final ApiPerson person) {
-        logger.info("Entering update person: " + id + " in db: " + db);
+        log.info("Entering update person: " + id + " in db: " + db);
         if (!id.equals(person.getString())) {
             return null;
         }
@@ -111,7 +110,7 @@ public class PersonCrud
      */
     @Override
     public ApiPerson deleteOne(final String db, final String id) {
-        logger.info("Entering delete person: " + id + " from db: " + db);
+        log.info("Entering delete person: " + id + " from db: " + db);
         ApiPerson person = readOne(db, id);
         person = unlinkFamc(db, person);
         /* person = */

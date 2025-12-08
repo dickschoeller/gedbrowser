@@ -2,8 +2,6 @@ package org.schoellerfamily.gedbrowser.api.crud;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
@@ -14,16 +12,17 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public class SourceCrud
     extends OperationsEnabler<Source, SourceDocument>
     implements CrudOperations<Source, SourceDocument, ApiSource>,
         ObjectCrud<ApiSource>,
         LinkCrud {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * @param loader the file loader that we will use
@@ -60,7 +59,7 @@ public class SourceCrud
     @Override
     public ApiSource createOne(final String db,
             final ApiSource source) {
-        logger.info("Entering create source in db: " + db);
+        log.info("Entering create source in db: " + db);
         return create(readRoot(getRepositoryManager(), db), source, (i, id) -> new ApiSource(i, id));
     }
 
@@ -71,7 +70,7 @@ public class SourceCrud
     @Override
     public List<ApiSource> readAll(
             final String db) {
-        logger.info("Entering sources, db: " + db);
+        log.info("Entering sources, db: " + db);
         return getD2dm().convert(read(getRepositoryManager(), db));
     }
 
@@ -84,7 +83,7 @@ public class SourceCrud
     public ApiSource readOne(
             final String db,
             final String id) {
-        logger.info("Entering source, db: " + db + ", id: " + id);
+        log.info("Entering source, db: " + db + ", id: " + id);
         return getD2dm().convert(read(getRepositoryManager(), db, id));
     }
 
@@ -98,7 +97,7 @@ public class SourceCrud
     public ApiSource updateOne(final String db,
             final String id,
             final ApiSource source) {
-        logger.info("Entering update source in db: " + db);
+        log.info("Entering update source in db: " + db);
         if (!id.equals(source.getString())) {
             return null;
         }

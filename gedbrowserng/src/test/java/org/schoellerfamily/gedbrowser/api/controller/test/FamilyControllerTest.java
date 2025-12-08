@@ -1,15 +1,13 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.BDDAssertions.*;
+import static org.junit.Assert.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
@@ -30,6 +28,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestClientException;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
@@ -38,9 +38,8 @@ import org.springframework.web.client.RestClientException;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@Slf4j
 public class FamilyControllerTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * Not sure what this is good for.
@@ -342,10 +341,10 @@ public class FamilyControllerTest {
         final ApiFamily familyPutResponse = putResponseEntity.getBody();
         final List<ApiAttribute> attributesPutResponse =
                 familyPutResponse.getAttributes();
-        logger.info("Attribute list size: " + attributesPutResponse.size());
+        log.info("Attribute list size: " + attributesPutResponse.size());
         then(attributesPutResponse.size()).isEqualTo(2);
         for (final ApiAttribute a : attributesPutResponse) {
-            logger.info("attribute: " + a.getType() + " " + a.getString() + " "
+            log.info("attribute: " + a.getType() + " " + a.getString() + " "
                     + a.getTail());
         }
         assertEquals("attribute should be present", aNote,

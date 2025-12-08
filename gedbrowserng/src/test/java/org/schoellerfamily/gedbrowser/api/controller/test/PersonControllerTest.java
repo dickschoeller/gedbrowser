@@ -7,8 +7,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,9 +37,8 @@ import org.springframework.web.client.RestClientException;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@Slf4j
 public class PersonControllerTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     private static final int TRUNCATE_LENGTH = 500;
@@ -395,7 +393,7 @@ public class PersonControllerTest {
         final ApiPerson child = childEntity.getBody();
 
         final String fam = child.getFamc().get(0).getString();
-        logger.info(
+        log.info(
                 "The new child, " + child.getString() + ", in family " + fam);
 
         final ApiPerson p2 = createAlexandra();
@@ -404,7 +402,7 @@ public class PersonControllerTest {
         final String familiesUrl = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families/";
         final String fspUrl = familiesUrl + fam + "/spouses";
-        logger.info("fspUrl: " + fspUrl);
+        log.info("fspUrl: " + fspUrl);
         final ResponseEntity<ApiPerson> pe = testRestTemplate.exchange(
                 new URI(fspUrl), HttpMethod.POST,
                 personReq, ApiPerson.class);
@@ -460,7 +458,7 @@ public class PersonControllerTest {
 
         final String fam = child.getFamc().get(0).getString();
         final String childId = child.getString();
-        logger.info(
+        log.info(
                 "The new child, " + childId + ", in family " + fam);
 
         final ApiPerson p2 = createAlexandra();
@@ -469,7 +467,7 @@ public class PersonControllerTest {
         final String familiesUrl = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families/";
         final String fspUrl = familiesUrl + fam + "/spouses";
-        logger.info("fspUrl: " + fspUrl);
+        log.info("fspUrl: " + fspUrl);
         final ResponseEntity<ApiPerson> pe = testRestTemplate.exchange(
                 new URI(fspUrl), HttpMethod.POST,
                 personReq, ApiPerson.class);

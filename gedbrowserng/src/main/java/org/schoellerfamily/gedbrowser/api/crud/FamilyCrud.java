@@ -2,8 +2,6 @@ package org.schoellerfamily.gedbrowser.api.crud;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.persistence.domain.FamilyDocument;
@@ -13,15 +11,16 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumen
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public class FamilyCrud
     extends OperationsEnabler<Family, FamilyDocument>
     implements CrudOperations<Family, FamilyDocument, ApiFamily>,
         ObjectCrud<ApiFamily> {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * @param loader the file loader that we will use
@@ -57,7 +56,7 @@ public class FamilyCrud
      */
     @Override
     public ApiFamily createOne(final String db, final ApiFamily family) {
-        logger.info("Entering create family in db: " + db);
+        log.info("Entering create family in db: " + db);
         return create(readRoot(getRepositoryManager(), db), family,
                 (i, id) -> new ApiFamily(i, id));
     }
@@ -68,7 +67,7 @@ public class FamilyCrud
      */
     @Override
     public List<ApiFamily> readAll(final String db) {
-        logger.info("Entering read /dbs/" + db + "/families");
+        log.info("Entering read /dbs/" + db + "/families");
         return convert(read(getRepositoryManager(), db));
     }
 
@@ -79,7 +78,7 @@ public class FamilyCrud
      */
     @Override
     public ApiFamily readOne(final String db, final String id) {
-        logger.info("Entering read /dbs/" + db + "/families/" + id);
+        log.info("Entering read /dbs/" + db + "/families/" + id);
         return convert(read(getRepositoryManager(), db, id));
     }
 
@@ -92,7 +91,7 @@ public class FamilyCrud
     @Override
     public ApiFamily updateOne(final String db, final String id,
             final ApiFamily family) {
-        logger.info("Entering update family in db: " + db);
+        log.info("Entering update family in db: " + db);
         if (!id.equals(family.getString())) {
             return null;
         }

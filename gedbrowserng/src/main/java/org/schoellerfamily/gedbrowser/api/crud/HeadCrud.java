@@ -3,8 +3,6 @@ package org.schoellerfamily.gedbrowser.api.crud;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
@@ -14,15 +12,16 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentR
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public class HeadCrud
     extends OperationsEnabler<Head, HeadDocument>
     implements CrudOperations<Head, HeadDocument, ApiHead>,
         ObjectCrud<ApiHead> {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * @param loader the file loader that we will use
@@ -67,7 +66,7 @@ public class HeadCrud
      * @return the one head
      */
     public ApiHead readOne(final String db) {
-        logger.info("Entering head, db: " + db);
+        log.info("Entering head, db: " + db);
         return (ApiHead) getD2dm().convert(read(getRepositoryManager(), db)).get(0);
     }
 
@@ -87,7 +86,7 @@ public class HeadCrud
      */
     @Override
     public List<ApiHead> readAll(final String db) {
-        logger.info("Entering all head, db: " + db);
+        log.info("Entering all head, db: " + db);
         final List<ApiHead> list = new ArrayList<>();
         list.add((ApiHead) getD2dm().convert(read(getRepositoryManager(), db)).get(0));
         return list;
@@ -99,7 +98,7 @@ public class HeadCrud
      * @return the head as created
      */
     public ApiHead updateHead(final String db, final ApiHead head) {
-        logger.info("Entering update head in db: " + db);
+        log.info("Entering update head in db: " + db);
         return update(readRoot(getRepositoryManager(), db), head);
     }
 
@@ -112,7 +111,7 @@ public class HeadCrud
     @Override
     public ApiHead updateOne(final String db, final String id,
             final ApiHead head) {
-        logger.info("Entering update head in db: " + db);
+        log.info("Entering update head in db: " + db);
         return updateHead(db, head);
     }
 

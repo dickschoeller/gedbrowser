@@ -1,14 +1,12 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.BDDAssertions.*;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +26,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
@@ -36,9 +36,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@Slf4j
 public class NoteCrudTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -70,7 +69,7 @@ public class NoteCrudTest {
     /** */
     @Test
     public final void testReadNotesGl120368() {
-        logger.info("Beginning testReadNotesGl120368");
+        log.info("Beginning testReadNotesGl120368");
         final List<ApiNote> list = crud.readAll(helper.getDb());
         then(list.get(0).getString()).isEqualTo("N1");
         then(list.get(0).getTail()).isEqualTo("_P_CCINFO 1-1319");
@@ -81,7 +80,7 @@ public class NoteCrudTest {
     /** */
     @Test
     public final void testReadNotesGl120368N13() {
-        logger.info("Beginning testReadNotesGl120368N13");
+        log.info("Beginning testReadNotesGl120368N13");
         final ApiNote resNote = crud.readOne(helper.getDb(), "N13");
         then(resNote.getString()).isEqualTo("N13");
         final String expected = "_P_CCINFO 1-1319\n"
@@ -96,7 +95,7 @@ public class NoteCrudTest {
     /** */
     @Test
     public final void testReadNotesGl120368N66() {
-        logger.info("Beginning testReadNotesGl120368N66");
+        log.info("Beginning testReadNotesGl120368N66");
         final ApiNote resNote = crud.readOne(helper.getDb(), "N66");
         then(resNote.getString()).isEqualTo("N66");
         then(resNote.getTail()).isEqualTo("_P_CCINFO 1-1319");
@@ -111,7 +110,7 @@ public class NoteCrudTest {
     /** */
     @Test
     public final void testReadNotesGl120368N1932() {
-        logger.info("Beginning testReadNotesGl120368N1932");
+        log.info("Beginning testReadNotesGl120368N1932");
         final ApiNote resNote = crud.readOne(helper.getDb(), "N1932");
         then(resNote.getString()).isEqualTo("N1932");
         final String expected = "Prince Philip, born at Mon Repos, Corfu 10"
@@ -155,7 +154,7 @@ public class NoteCrudTest {
     /** */
     @Test
     public final void testReadNotesGl120368Xyzzy() {
-        logger.info("Beginning testReadNotesGl120368N1932");
+        log.info("Beginning testReadNotesGl120368N1932");
         try {
             final ApiNote resNote = crud.readOne(helper.getDb(), "Xyzzy");
             fail("The note should not be found: " + resNote.getString());
@@ -168,7 +167,7 @@ public class NoteCrudTest {
     /** */
     @Test
     public final void testCreateNotesSimple() {
-        logger.info("Beginning testCreateNotesSimple");
+        log.info("Beginning testCreateNotesSimple");
         final ApiNote reqNote = new ApiNote("note", "", "testing");
         final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
         then(resNote.getTail()).isEqualTo(reqNote.getTail());
@@ -177,7 +176,7 @@ public class NoteCrudTest {
     /** */
     @Test
     public final void testDeleteNote() {
-        logger.info("Beginning testDeleteNote");
+        log.info("Beginning testDeleteNote");
         final ApiNote reqNote = new ApiNote("note", "", "this is a note");
         final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
         final String id = resNote.getString();
@@ -196,7 +195,7 @@ public class NoteCrudTest {
     /** */
     @Test
     public final void testDeleteNoteNotFound() {
-        logger.info("Beginning testDeleteNoteNotFound");
+        log.info("Beginning testDeleteNoteNotFound");
         try {
             final ApiNote foundNote = crud.readOne(helper.getDb(), "XXXXXXX");
             fail("should not have found note " + foundNote.getString());
@@ -209,7 +208,7 @@ public class NoteCrudTest {
     /** */
     @Test
     public final void testDeleteNoteDatabaseNotFound() {
-        logger.info("Beginning testDeleteNoteDatabaseNotFound");
+        log.info("Beginning testDeleteNoteDatabaseNotFound");
         try {
             final ApiNote foundNote = crud.readOne("XYZZY", "N1");
             fail("should not have found note " + foundNote.getString());
@@ -222,7 +221,7 @@ public class NoteCrudTest {
     /** */
     @Test
     public final void testUpdateNoteWithNote() {
-        logger.info("Beginning testUpdateNoteWithNote");
+        log.info("Beginning testUpdateNoteWithNote");
         final List<ApiAttribute> attributes = new ArrayList<>();
         attributes.add(new ApiAttribute("attribute", "Note", "first note"));
         final ApiNote reqNote = new ApiNote("note", "", attributes,
