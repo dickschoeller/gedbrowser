@@ -3,16 +3,13 @@ package org.schoellerfamily.gedbrowser.datamodel.users;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public class HasRoles {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
-
     /** */
     private final Set<UserRoleName> roles = new HashSet<>();
 
@@ -38,7 +35,7 @@ public class HasRoles {
         try {
             roles.add(UserRoleName.valueOf(role));
         } catch (Exception e) {
-            logger.warn("Tried to add unrecognized role: " + role);
+            log.warn("Tried to add unrecognized role: " + role);
         }
     }
 
