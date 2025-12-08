@@ -11,11 +11,11 @@ import org.springframework.context.annotation.Configuration;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
-// @RequiredArgsConstructor
+@RequiredArgsConstructor
 public class UsersConfiguration {
     /** */
     @Value("${gedbrowser.userFile:/var/lib/gedbrowser/userFile.csv}")
-    private String userFile;
+    private final String userFile;
 
     /**
      * This is the bean to get the definitions of users that we need
