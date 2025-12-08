@@ -1,9 +1,7 @@
 package org.schoellerfamily.gedbrowser.security.controller.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.security.test.Application;
@@ -15,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
@@ -22,9 +22,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
+@Slf4j
 public class PublicControllerTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * Not sure what this is good for.
@@ -45,7 +44,7 @@ public class PublicControllerTest {
         final ResponseEntity<String> entity =
                 testRestTemplate.getForEntity(url, String.class);
         final String actual = entity.getBody();
-        logger.debug("string: " + actual);
+        log.debug("string: " + actual);
         assertEquals("unexpected controller response",
                 "{\"foo\":\"bar\"}", actual);
     }

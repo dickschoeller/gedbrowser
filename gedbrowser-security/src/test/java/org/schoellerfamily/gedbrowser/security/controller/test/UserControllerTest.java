@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.security.controller.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -10,8 +9,6 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -38,6 +35,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestClientException;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
@@ -45,9 +44,8 @@ import org.springframework.web.client.RestClientException;
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
+@Slf4j
 public class UserControllerTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * Not sure what this is good for.
@@ -106,12 +104,12 @@ public class UserControllerTest {
     @Test
     public final void testWhoami()
             throws RestClientException, URISyntaxException {
-        logger.info("Test whomai");
+        log.info("Test whomai");
         final HttpHeaders headers =
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final SecurityUser user = userHelper.whoami(headers);
         final String username = user.getUsername();
-        logger.info("I am " + username);
+        log.info("I am " + username);
         assertEquals("Mismatched user", "guest", username);
     }
 
@@ -122,12 +120,12 @@ public class UserControllerTest {
     @Test
     public final void testWhoami2()
             throws RestClientException, URISyntaxException {
-        logger.info("Test whomai 2");
+        log.info("Test whomai 2");
         final HttpHeaders headers = loginHelper.buildHeaders(
                 loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
         final SecurityUser user = userHelper.whoami(headers);
         final String username = user.getUsername();
-        logger.info("I am " + username);
+        log.info("I am " + username);
         assertEquals("Mismatched user", "schoeller@comcast.net", username);
     }
 
@@ -138,7 +136,7 @@ public class UserControllerTest {
     @Test
     public final void testWhoamiNotLoggedIn()
             throws RestClientException, URISyntaxException {
-        logger.info("Test whomai not logged in");
+        log.info("Test whomai not logged in");
         final ResponseEntity<? extends SecurityUser> response = userHelper
                 .whoamiResponse(new HttpHeaders());
         assertEquals("Should have failed", HttpStatus.FORBIDDEN,
@@ -152,12 +150,12 @@ public class UserControllerTest {
     @Test
     public final void testGetUserGuest()
             throws RestClientException, URISyntaxException {
-        logger.info("Test get user guest");
+        log.info("Test get user guest");
         final HttpHeaders headers =
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final SecurityUser user = userHelper.getUser(headers, "guest");
         final String username = user.getUsername();
-        logger.info("I got " + username);
+        log.info("I got " + username);
         assertEquals("Mismatched user", "guest", username);
     }
 
@@ -168,7 +166,7 @@ public class UserControllerTest {
     @Test
     public final void testGetUserGuestNotLoggedIn()
             throws RestClientException, URISyntaxException {
-        logger.info("Test get user guest, not logged in");
+        log.info("Test get user guest, not logged in");
         final HttpHeaders headers = new HttpHeaders();
         final ResponseEntity<? extends SecurityUser> response =
                 userHelper.getUserResponse(headers, "guest");
@@ -182,7 +180,7 @@ public class UserControllerTest {
     @Test
     public final void testRefresh()
             throws RestClientException, URISyntaxException {
-        logger.info("Test refresh");
+        log.info("Test refresh");
         final HttpHeaders headers =
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         ResponseEntity<String> response = refresh(headers);
@@ -197,7 +195,7 @@ public class UserControllerTest {
     @Test
     public final void testExpiredRefresh() throws RestClientException,
             URISyntaxException, InterruptedException {
-        logger.info("Test expired refresh");
+        log.info("Test expired refresh");
         final HttpHeaders headers =
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final int threeSeconds = 10000;
@@ -215,14 +213,14 @@ public class UserControllerTest {
     @Test
     public final void testGetUserSchoeller() throws RestClientException,
             URISyntaxException, UnsupportedEncodingException {
-        logger.info("Test get user schoeller");
+        log.info("Test get user schoeller");
         final HttpHeaders headers =
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         String requestName =
                 URLEncoder.encode("schoeller@comcast.net", "UTF-8");
         final SecurityUser user = userHelper.getUser(headers, requestName);
         final String username = user.getUsername();
-        logger.info("I got " + username);
+        log.info("I got " + username);
         assertEquals("Mismatched user", "schoeller@comcast.net", username);
     }
 
@@ -234,13 +232,13 @@ public class UserControllerTest {
     @Test
     public final void testGetUsers() throws RestClientException,
             URISyntaxException, UnsupportedEncodingException {
-        logger.info("Test get users");
+        log.info("Test get users");
         final HttpHeaders headers = loginHelper.buildHeaders(
                 loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
         final List<UserImpl> users = userHelper.getUsers(headers);
-        logger.info("List contains:");
+        log.info("List contains:");
         for (SecurityUser user: users) {
-            logger.info("   " + user.getUsername());
+            log.info("   " + user.getUsername());
         }
         assertEquals("Wrong count", 2, users.size());
     }
@@ -254,7 +252,7 @@ public class UserControllerTest {
     @Ignore("Figure out later why this test fails")
     public final void testGetUsersNotAdmin() throws RestClientException,
             URISyntaxException, UnsupportedEncodingException {
-        logger.info("Test get users not admin");
+        log.info("Test get users not admin");
         final HttpHeaders headers =
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final String usersString = userHelper.getUsersString(headers);
@@ -269,7 +267,7 @@ public class UserControllerTest {
      */
     @Test
     public void testSignup() throws RestClientException, URISyntaxException {
-        logger.info("Test signup");
+        log.info("Test signup");
         final String url = baseUrl() + "signup";
         final HttpHeaders headers = buildHeaders();
         final UserRequest userRequest = new UserRequest();
@@ -289,7 +287,7 @@ public class UserControllerTest {
     @Test
     public void testSignupExistingUser()
             throws RestClientException, URISyntaxException {
-        logger.info("Test signup existing user");
+        log.info("Test signup existing user");
         final String url = baseUrl() + "signup";
         final HttpHeaders headers = buildHeaders();
         final UserRequest userRequest = new UserRequest();
@@ -312,7 +310,7 @@ public class UserControllerTest {
     @Test
     public final void testResetCredentials()
             throws RestClientException, URISyntaxException {
-        logger.info("Test reset-credentials");
+        log.info("Test reset-credentials");
         final HttpHeaders headers1 = loginHelper.buildHeaders(
                 loginHelper.login("guest", "guest"));
         assertEquals("Should have accepted the reset", HttpStatus.ACCEPTED,
@@ -404,7 +402,7 @@ public class UserControllerTest {
     @Test
     public final void testChangePasswordAndBack()
             throws RestClientException, URISyntaxException {
-        logger.info("Test reset-credentials");
+        log.info("Test reset-credentials");
         final HttpHeaders headers =
                 loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final ResponseEntity<String> changeResponse =

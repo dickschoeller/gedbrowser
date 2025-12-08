@@ -89,7 +89,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
         final String authToken = tokenHelper.getToken(request);
         if (authToken == null || skipPathRequest(request, pathsToSkip)) {
-            logger.debug("Going anonymous");
+            log.debug("Going anonymous");
             SecurityContextHolder.getContext()
                     .setAuthentication(new AnonAuthentication());
         } else {
@@ -117,7 +117,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext()
                     .setAuthentication(authentication);
         } catch (Exception e) {
-            logger.debug("Caught exception, going anonymous", e);
+            log.debug("Caught exception, going anonymous", e);
             SecurityContextHolder.getContext()
                     .setAuthentication(new AnonAuthentication());
         }
