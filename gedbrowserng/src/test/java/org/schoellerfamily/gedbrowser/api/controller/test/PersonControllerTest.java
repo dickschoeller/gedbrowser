@@ -1,10 +1,11 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.BDDAssertions.*;
+import static org.junit.Assert.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Optional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,7 +26,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import java.util.Optional;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestClientException;
@@ -216,8 +216,8 @@ public class PersonControllerTest {
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiPerson> entity = testRestTemplate
                 .postForEntity(new URI(url), req, ApiPerson.class);
-        final ApiPerson resBody = entity.getBody();
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ApiPerson resBody = entity.getBody();
         then(resBody.getType()).isEqualTo(reqBody.getType());
         then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
         then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());

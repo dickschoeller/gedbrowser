@@ -29,8 +29,8 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
-import org.springframework.data.mongodb.repository.config.
-    EnableMongoRepositories;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.lang.NonNull;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -76,10 +76,14 @@ public class MongoTestConfiguration {
      * @throws UnknownHostException because it must
      */
     @Bean
+    @NonNull
     public MongoDatabaseFactory mongoDbFactory() throws UnknownHostException {
         final String databaseName = "gebrowserTest_" + UUID.randomUUID().toString();
         final String connectionString = "mongodb://" + host + ":" + port;
         final MongoClient client = MongoClients.create(connectionString);
+        if (client == null) {
+            throw new IllegalStateException("Could not connect to MongoDB at: {}".formatted(connectionString));
+        }
         return new SimpleMongoClientDatabaseFactory(client, databaseName);
     }
 
