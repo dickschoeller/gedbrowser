@@ -25,6 +25,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import java.util.Optional;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestClientException;
@@ -89,7 +90,8 @@ public class PersonControllerTest {
                 + "    \"attributes\" : [ ],\n"
                 + "    \"tail\" : \"\"\n";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody().substring(0, TRUNCATE_LENGTH))
+        then(Optional.ofNullable(entity.getBody())
+                .map(b -> b.substring(0, TRUNCATE_LENGTH)).orElse(""))
                 .startsWith(bodyFragment);
     }
 
@@ -114,7 +116,8 @@ public class PersonControllerTest {
                 + "    \"attributes\" : [ ],\n"
                 + "    \"tail\" : \"\"\n";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody().substring(0, TRUNCATE_LENGTH))
+        then(Optional.ofNullable(entity.getBody())
+                .map(b -> b.substring(0, TRUNCATE_LENGTH)).orElse(""))
                 .startsWith(bodyFragment);
     }
 
@@ -137,7 +140,7 @@ public class PersonControllerTest {
                 + "    \"string\" : \"Melissa Robinson/Schoeller/\",\n"
                 + "    \"attributes\" : [ {\n";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).startsWith(bodyFragment);
+        then(Optional.ofNullable(entity.getBody()).orElse("")).startsWith(bodyFragment);
     }
 
     /** */
@@ -552,7 +555,8 @@ public class PersonControllerTest {
                 url + "/" + resBody.getString(),
                 HttpMethod.PUT, putRequestEntity, ApiPerson.class);
         assertEquals("attribute should be present", aNote,
-                putResponseEntity.getBody().getAttributes().get(2));
+                java.util.Optional.ofNullable(putResponseEntity.getBody())
+                        .map(b -> b.getAttributes().get(2)).orElse(null));
     }
 
     /**

@@ -58,7 +58,9 @@ public class UploadServiceTest {
                 .postForEntity(url, entity, ApiHead.class);
         assertEquals("Status mismatch",
                 HttpStatus.OK, response.getStatusCode());
-        assertEquals("Type mismatch", "Header", response.getBody().getString());
+        assertEquals("Type mismatch", "Header",
+                java.util.Optional.ofNullable(response.getBody())
+                        .map(b -> b.getString()).orElse(null));
     }
 
     /** */
@@ -77,7 +79,9 @@ public class UploadServiceTest {
                 .postForEntity(url, entity, ApiHead.class);
         assertEquals("Status mismatch",
                 HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertEquals("Type mismatch", "", response.getBody().getString());
+        assertEquals("Type mismatch", "",
+                java.util.Optional.ofNullable(response.getBody())
+                        .map(b -> b.getString()).orElse(null));
     }
 
     /** */
@@ -96,7 +100,9 @@ public class UploadServiceTest {
                 .postForEntity(url, entity, ApiHead.class);
         assertEquals("Status mismatch",
                 HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertEquals("Type mismatch", "", response.getBody().getString());
+        assertEquals("Type mismatch", "",
+                java.util.Optional.ofNullable(response.getBody())
+                        .map(b -> b.getString()).orElse(null));
     }
 
     /**

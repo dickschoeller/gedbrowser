@@ -10,6 +10,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import java.util.Optional;
 
 /**
  * @author Dick Schoeller
@@ -98,11 +99,14 @@ public final class LoginTestHelper {
      */
     public HttpHeaders buildHeaders(
             final ResponseEntity<LoginResponse> loginResponse) {
-        final String accessToken = loginResponse.getBody().getAccessToken();
+        final String accessToken = Optional.ofNullable(loginResponse.getBody())
+            .map(LoginResponse::getAccessToken).orElse(null);
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+        if (accessToken != null) {
+            headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+        }
         final List<MediaType> accepts = new ArrayList<>();
         accepts.add(MediaType.APPLICATION_JSON);
         headers.setAccept(accepts);

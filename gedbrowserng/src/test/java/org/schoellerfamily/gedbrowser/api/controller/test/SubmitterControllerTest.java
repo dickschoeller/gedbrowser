@@ -236,6 +236,7 @@ public class SubmitterControllerTest {
                 url + "/" + resBody.getString(),
                 HttpMethod.PUT, putRequestEntity, ApiSubmitter.class);
         assertEquals("attribute should be present", aNote,
-                putResponseEntity.getBody().getAttributes().get(1));
+                java.util.Optional.ofNullable(putResponseEntity.getBody())
+                        .map(b -> b.getAttributes().get(1)).orElse(null));
     }
 }

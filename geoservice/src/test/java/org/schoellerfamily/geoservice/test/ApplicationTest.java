@@ -3,6 +3,7 @@ package org.schoellerfamily.geoservice.test;
 import static org.assertj.core.api.BDDAssertions.then;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -77,7 +78,9 @@ public class ApplicationTest {
         final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
                 "http://localhost:" + port + "/geocode?name=Bethlehem,%20PA",
                 Map.class);
-        then(entity.getBody().get("placeName")).isEqualTo("Bethlehem, PA");
+        then(Optional.ofNullable(entity.getBody())
+            .map(b -> b.get("placeName")).orElse(null))
+            .isEqualTo("Bethlehem, PA");
     }
 
     /** */
@@ -89,7 +92,9 @@ public class ApplicationTest {
                 + "/geocode?name=Bethlehem,%20PA"
                 + "&modernName=Bethlehem,%20PA",
                 Map.class);
-        then(entity.getBody().get("placeName")).isEqualTo("Bethlehem, PA");
+        then(Optional.ofNullable(entity.getBody())
+            .map(b -> b.get("placeName")).orElse(null))
+            .isEqualTo("Bethlehem, PA");
     }
 
     /** */
@@ -99,8 +104,9 @@ public class ApplicationTest {
         final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
                 "http://localhost:" + port + "/geocode?name=Allentown,%20PA",
                 Map.class);
-        then(entity.getBody().get("modernPlaceName"))
-                .isEqualTo("Allentown, PA");
+        then(Optional.ofNullable(entity.getBody())
+            .map(b -> b.get("modernPlaceName")).orElse(null))
+            .isEqualTo("Allentown, PA");
     }
 
     /** */
@@ -112,8 +118,9 @@ public class ApplicationTest {
                 + "/geocode?name=Bethlehem,%20Pennsylvania"
                 + "&modernName=Bethlehem,%20PA",
                 Map.class);
-        then(entity.getBody().get("modernPlaceName"))
-                .isEqualTo("Bethlehem, PA");
+        then(Optional.ofNullable(entity.getBody())
+            .map(b -> b.get("modernPlaceName")).orElse(null))
+            .isEqualTo("Bethlehem, PA");
     }
 
     /** */
@@ -124,7 +131,8 @@ public class ApplicationTest {
                 "http://localhost:" + port + "/geocode?name=Bethlehem,%20PA",
                 Map.class);
 
-        then(entity.getBody().get("result")).isNotNull();
+        then(Optional.ofNullable(entity.getBody())
+            .map(b -> b.get("result")).orElse(null)).isNotNull();
     }
 
     /** */
@@ -135,7 +143,8 @@ public class ApplicationTest {
                 "http://localhost:" + this.port + "/geocode?name=XYZZY",
                 Map.class);
 
-        then(entity.getBody().get("result")).isNull();
+        then(Optional.ofNullable(entity.getBody())
+            .map(b -> b.get("result")).orElse(null)).isNull();
     }
 
     /** */

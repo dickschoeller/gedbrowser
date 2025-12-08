@@ -99,7 +99,8 @@ public class ChildrenControllerTest {
         final ResponseEntity<ApiFamily> familyEntity = testRestTemplate
                 .getForEntity(new URI(familiesUrl), ApiFamily.class);
         assertEquals("check ID",
-                familyEntity.getBody().getChildren().get(1).getString(),
+                java.util.Optional.ofNullable(familyEntity.getBody())
+                        .map(b -> b.getChildren().get(1).getString()).orElse(null),
                 secondChild.getString());
 
     }
