@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -20,15 +18,16 @@ import org.schoellerfamily.gedbrowser.renderer.href.SaveHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public final class LivingRenderer extends GedRenderer<Root>
         implements HeaderHrefRenderer<Root>, IndexHrefRenderer<Root>,
         PlacesHrefRenderer<Root>, SaveHrefRenderer<Root>,
         SubmittersHrefRenderer<Root>, SourcesHrefRenderer<Root> {
-    /** Logger. */
-    private final Log logger = LogFactory.getLog(getClass());
 
     /** The size of a bucket. */
     private static final int AGE_BUCKET_SIZE = 10;
@@ -50,7 +49,7 @@ public final class LivingRenderer extends GedRenderer<Root>
      * @return the buckets by 10 year bands
      */
     public List<Bucket> getBuckets() {
-        logger.info("Starting LivingRenderer.getBuckets()");
+        log.info("Starting LivingRenderer.getBuckets()");
         final List<Bucket> bucketList = new ArrayList<>();
         if (getRenderingContext().hasRole(UserRoleName.ADMIN)) {
             final Root root = getGedObject();
@@ -65,7 +64,7 @@ public final class LivingRenderer extends GedRenderer<Root>
                 bucketList.add(bucket);
             }
         }
-        logger.info("Exiting LivingRenderer.getBuckets()");
+        log.info("Exiting LivingRenderer.getBuckets()");
         return bucketList;
     }
 
