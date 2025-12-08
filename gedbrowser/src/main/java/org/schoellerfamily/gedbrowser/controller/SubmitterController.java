@@ -57,9 +57,7 @@ public class SubmitterController extends GeoDataController {
         final RenderingContext context = createRenderingContext();
         final Submitter submitter = (Submitter) root.find(idString);
         if (submitter == null) {
-            throw new SubmitterNotFoundException(
-                    "Submitter " + idString + " not found", idString, dbName,
-                    context);
+            throw new SubmitterNotFoundException("Submitter %s not found".formatted(idString), idString, dbName, context);
         }
 
         final GedRenderer<?> submitterRenderer = new GedRendererFactory()

@@ -83,8 +83,7 @@ public class SaveController {
     protected final Root fetchRoot(final String dbName) {
         final RootDocument rootDocument = loader.loadDocument(repositoryManager, dbName);
         if (rootDocument == null) {
-            throw new DataSetNotFoundException(
-                    "Data set " + dbName + " not found", dbName);
+            throw new DataSetNotFoundException("Data set %s not found".formatted(dbName), dbName);
         }
         return rootDocument.getGedObject();
     }

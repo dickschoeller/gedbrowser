@@ -57,9 +57,7 @@ public class SubmissionController extends DatedDataController {
         final RenderingContext context = createRenderingContext();
         final Submission submission = (Submission) root.find(idString);
         if (submission == null) {
-            throw new SubmissionNotFoundException(
-                    "Submission " + idString + " not found", idString, dbName,
-                    context);
+            throw new SubmissionNotFoundException("Submission %s not found".formatted(idString), idString, dbName, context);
         }
 
         final GedRenderer<?> submissionRenderer = new GedRendererFactory()

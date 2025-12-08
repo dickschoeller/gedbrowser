@@ -54,9 +54,7 @@ public class NoteController extends DatedDataController {
         final RenderingContext context = createRenderingContext();
         final Note note = (Note) root.find(idString);
         if (note == null) {
-            throw new NoteNotFoundException(
-                    "Note " + idString + " not found", idString, dbName,
-                    context);
+            throw new NoteNotFoundException("Note %s not found".formatted(idString), idString, dbName, context);
         }
 
         final GedRenderer<?> noteRenderer = new GedRendererFactory()

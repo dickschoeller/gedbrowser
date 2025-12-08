@@ -50,8 +50,7 @@ public interface ReadOperations <X extends GedObject,
     default RootDocument readRoot(final RepositoryManagerMongo repositoryManager, final String dbName) {
         final RootDocument root = getLoader().loadDocument(repositoryManager, dbName);
         if (root == null) {
-            throw new DataSetNotFoundException(
-                    "Data set " + dbName + " not found", dbName);
+            throw new DataSetNotFoundException("Data set %s not found".formatted(dbName), dbName);
         }
         return root;
     }
@@ -68,9 +67,7 @@ public interface ReadOperations <X extends GedObject,
         if (document == null) {
             final String type =
                     getGedClass().getSimpleName().toLowerCase(Locale.ENGLISH);
-            throw new ObjectNotFoundException(
-                    "Object " + idString + " of type " + type + " not found",
-                    type, idString, dbName);
+            throw new ObjectNotFoundException("Object %s of type %s not found".formatted(idString, type), type, idString, dbName);
         }
         return document;
     }

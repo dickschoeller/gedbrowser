@@ -51,8 +51,7 @@ public final class KeyManagerImpl implements KeyManager {
             geocodingKey = sb.toString();
             return geocodingKey;
         } catch (IOException e) {
-            throw new GeoCodeRuntimeException(
-                    "Couldn't open key file: " + fileName, e);
+            throw new GeoCodeRuntimeException("Couldn't open key file: %s".formatted(fileName), e);
         }
     }
 
@@ -78,8 +77,7 @@ public final class KeyManagerImpl implements KeyManager {
             mapKey = sb.toString();
             return mapKey;
         } catch (IOException e) {
-            throw new GeoCodeRuntimeException(
-                    "Couldn't read key file: " + fileName, e);
+            throw new GeoCodeRuntimeException("Couldn't read key file: %s".formatted(fileName), e);
         }
     }
 }

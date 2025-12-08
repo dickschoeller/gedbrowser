@@ -83,9 +83,7 @@ public class PersonController extends GeoDataController {
         final Root root = fetchRoot(dbName);
         final Person person = (Person) root.find(idString);
         if (person == null) {
-            throw new PersonNotFoundException(
-                    "Person " + idString + " not found", idString,
-                    root.getDbName(), context);
+            throw new PersonNotFoundException("Person %s not found".formatted(idString), idString, root.getDbName(), context);
         }
         return person;
     }

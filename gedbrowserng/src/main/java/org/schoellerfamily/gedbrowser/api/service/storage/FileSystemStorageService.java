@@ -37,7 +37,7 @@ public class FileSystemStorageService implements StorageService {
             Files.copy(inputStream, rootLocation.resolve(filename),
                     StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            throw new StorageException("Failed to store file " + filename, e);
+            throw new StorageException("Failed to store file %s".formatted(filename), e);
         }
     }
 
@@ -51,15 +51,11 @@ public class FileSystemStorageService implements StorageService {
         final String filename = StringUtils
                 .cleanPath(file.getOriginalFilename());
         if (file.isEmpty()) {
-            throw new StorageException(
-                    "Failed to store empty file " + filename);
+            throw new StorageException("Failed to store empty file %s".formatted(filename));
         }
         if (filename.contains("..")) {
             // This is a security check
-            throw new StorageException(
-                    "Cannot store file with relative path outside current"
-                    + " directory "
-                    + filename);
+            throw new StorageException("Cannot store file with relative path outside current directory %s".formatted(filename));
         }
         return filename;
     }

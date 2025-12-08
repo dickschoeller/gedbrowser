@@ -57,9 +57,7 @@ public class SourceController extends DatedDataController {
         final RenderingContext context = createRenderingContext();
         final Source source = (Source) root.find(idString);
         if (source == null) {
-            throw new SourceNotFoundException(
-                    "Source " + idString + " not found", idString, dbName,
-                    context);
+            throw new SourceNotFoundException("Source %s not found".formatted(idString), idString, dbName, context);
         }
 
         final GedRenderer<?> sourceRenderer = new GedRendererFactory()

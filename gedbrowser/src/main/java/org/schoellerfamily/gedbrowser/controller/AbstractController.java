@@ -71,8 +71,7 @@ public abstract class AbstractController {
     protected final Root fetchRoot(final String dbName) {
         final Root root = (Root) loader.load(repositoryManager, dbName);
         if (root == null) {
-            throw new DataSetNotFoundException(
-                    "Data set " + dbName + " not found", dbName);
+            throw new DataSetNotFoundException("Data set %s not found".formatted(dbName), dbName);
         }
         return root;
     }
