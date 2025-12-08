@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SourcesRenderer;
@@ -17,9 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Dick Schoeller
  */
 @Controller
+@Slf4j
 public class SourcesController extends DatedDataController {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -42,7 +40,7 @@ public class SourcesController extends DatedDataController {
                 required = false,
                 defaultValue = "schoeller") final String dbName,
             final Model model) {
-        logger.debug("Entering sources");
+        log.debug("Entering sources");
 
         final Root root = fetchRoot(dbName);
 
@@ -53,7 +51,7 @@ public class SourcesController extends DatedDataController {
         model.addAttribute("model", gedRenderer);
         model.addAttribute("appInfo", appInfo);
 
-        logger.debug("Exiting sources");
+        log.debug("Exiting sources");
         return "sources";
     }
 }

@@ -3,8 +3,6 @@ package org.schoellerfamily.gedbrowser.endpoint;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
@@ -14,15 +12,16 @@ import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Add our own information to the health indicator.
  *
  * @author Dick Schoeller
  */
 @Component
+@Slf4j
 public class ApplicationHealthIndicator implements HealthIndicator {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -40,12 +39,12 @@ public class ApplicationHealthIndicator implements HealthIndicator {
      */
     @Override
     public final Health health() {
-        logger.debug("Health");
+        log.debug("Health");
         final Builder builder = Health.up();
-        logger.debug("    " + appInfo.getVersion());
+        log.debug("    " + appInfo.getVersion());
         builder.withDetail("version", appInfo.getVersion());
         final List<Map<String, Object>> details = loader.details(repositoryManager);
-        logger.debug("    " + details.size() + " datasets");
+        log.debug("    " + details.size() + " datasets");
         builder.withDetail("datasets", details);
         builder.up();
         return builder.build();

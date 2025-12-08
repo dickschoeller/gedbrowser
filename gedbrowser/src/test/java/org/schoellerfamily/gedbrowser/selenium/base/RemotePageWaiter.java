@@ -1,9 +1,7 @@
 package org.schoellerfamily.gedbrowser.selenium.base;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -12,12 +10,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public class RemotePageWaiter implements PageWaiter {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     private final long timeout;
@@ -45,7 +44,7 @@ public class RemotePageWaiter implements PageWaiter {
     @Override
     public void waitForPageLoaded(final WebDriver driver,
             final int multiplier) {
-        logger.debug("Waiting for readyState");
+        log.debug("Waiting for readyState");
         final ExpectedCondition<Boolean> expectation =
                 new ExpectedCondition<Boolean>() {
             /**
@@ -65,7 +64,7 @@ public class RemotePageWaiter implements PageWaiter {
         } catch (Throwable error) {
             fail("Timeout waiting for Page Load Request to complete.");
         }
-        logger.debug("Waiting for maintainerMail");
+        log.debug("Waiting for maintainerMail");
         final Wait<WebDriver> wait2 =
                 new WebDriverWait(driver, timeout * multiplier);
         try {
@@ -90,7 +89,7 @@ public class RemotePageWaiter implements PageWaiter {
     @Override
     public void waitForPageLoaded(final WebDriver driver, final String newUrl,
             final int multiplier) {
-        logger.debug("Waiting for new URL");
+        log.debug("Waiting for new URL");
         final Wait<WebDriver> wait3 = new WebDriverWait(driver,
                 timeout * multiplier);
         try {

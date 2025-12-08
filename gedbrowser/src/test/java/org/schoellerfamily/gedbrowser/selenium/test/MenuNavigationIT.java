@@ -5,8 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.net.MalformedURLException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -40,9 +39,8 @@ import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 @ContextConfiguration(classes = SeleniumConfig.class)
 @SuppressWarnings("PMD.ExcessiveImports")
 @Disabled("Selenium tests currently failing in setup phase")
+@Slf4j
 public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Value("${server.host:localhost}")
@@ -96,7 +94,7 @@ public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
     @Override
     public String getSessionId() {
         if (sessionId == null) {
-            logger.warn("********************** "
+            log.warn("********************** "
                     + "SESSION ID IS NULL"
                     + " *********************");
             return "";
@@ -112,7 +110,7 @@ public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
         if (driver == null) {
             driver = driverFactory.webDriver(testName);
         } else {
-            logger.warn("********************** "
+            log.warn("********************** "
                     + "DRIVER ALREADY SET UP"
                     + " *********************");
         }
@@ -120,7 +118,7 @@ public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
             sessionId = driver.getSessionId();
         }
         if (sessionId == null) {
-            logger.warn("********************** "
+            log.warn("********************** "
                     + "SESSION ID IS NULL IN SETUP"
                     + " *********************");
         }

@@ -1,7 +1,5 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
@@ -15,13 +13,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
 @Controller
+@Slf4j
 public class HeadController extends DatedDataController {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Value("${gedbrowser.home}")
@@ -44,7 +43,7 @@ public class HeadController extends DatedDataController {
                 required = false,
                 defaultValue = "schoeller") final String dbName,
             final Model model) {
-        logger.debug("Entering head");
+        log.debug("Entering head");
 
         final RenderingContext context = createRenderingContext();
 

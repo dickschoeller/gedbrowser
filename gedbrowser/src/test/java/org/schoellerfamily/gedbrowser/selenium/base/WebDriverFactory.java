@@ -5,8 +5,6 @@ import java.net.URI;
 import java.net.URL;
 import java.util.logging.Level;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.rules.TestName;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.logging.LogType;
@@ -18,12 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public class WebDriverFactory {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -61,14 +60,14 @@ public class WebDriverFactory {
      */
     private URL getRemoteUrl() throws MalformedURLException {
         if (useSauceLabs()) {
-            logger.info("Getting Saunce Labs URL");
+            log.info("Getting Saunce Labs URL");
             final String urlString = String.format(
                     "http://%s:%s@localhost:4445/wd/hub",
                     env.getProperty("SAUCE_USERNAME"),
                     env.getProperty("SAUCE_ACCESS_KEY"));
             return URI.create(urlString).toURL();
         } else {
-            logger.info("Get localhost URL");
+            log.info("Get localhost URL");
             return URI.create("http://localhost:4445/wd/hub").toURL();
         }
     }
@@ -78,7 +77,7 @@ public class WebDriverFactory {
      * @return the capabilities structure
      */
     private DesiredCapabilities getCapabilities(final TestName testName) {
-        logger.info("Capabilities name: " + browserName + ", version: "
+        log.info("Capabilities name: " + browserName + ", version: "
                 + browserVersion + ", platform: " + platform);
         final DesiredCapabilities capabilities = new DesiredCapabilities(
                 browserName, browserVersion, Platform.fromString(platform));

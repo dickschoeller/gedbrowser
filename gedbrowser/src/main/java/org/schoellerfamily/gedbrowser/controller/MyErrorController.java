@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.renderer.ErrorRenderer;
 import org.schoellerfamily.gedbrowser.renderer.Renderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
@@ -15,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Dick Schoeller
  */
 @Controller
+@Slf4j
 public class MyErrorController implements ErrorController {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -29,10 +27,10 @@ public class MyErrorController implements ErrorController {
      */
     @RequestMapping(value = "/error")
     public final String error(final Model model) {
-        logger.debug("Entering error");
+        log.debug("Entering error");
         final Renderer renderer = new ErrorRenderer(applicationInfo);
         model.addAttribute("error", renderer);
-        logger.debug("Exiting error");
+        log.debug("Exiting error");
         return "error";
     }
 }

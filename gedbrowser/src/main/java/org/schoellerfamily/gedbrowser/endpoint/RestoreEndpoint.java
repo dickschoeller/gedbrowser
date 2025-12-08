@@ -3,8 +3,7 @@ package org.schoellerfamily.gedbrowser.endpoint;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +16,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Endpoint(id = "restore")
+@Slf4j
 public class RestoreEndpoint {
-
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -37,7 +34,7 @@ public class RestoreEndpoint {
     @ReadOperation
     public final List<String> invoke() {
         final List<String> messages = new ArrayList<>();
-        logger.info("Invoke restore");
+        log.info("Invoke restore");
         loader.reloadAll(repositoryManager);
         messages.add("Reloaded " + loader.details(repositoryManager).size() + " datasets");
         return messages;

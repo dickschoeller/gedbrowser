@@ -5,8 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.net.MalformedURLException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -37,9 +36,8 @@ import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 @ContextConfiguration(classes = SeleniumConfig.class)
 @SuppressWarnings("PMD.ExcessiveImports")
 @Disabled("Selenium tests currently failing in setup phase")
+@Slf4j
 public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     private static final boolean PRINT_NAVIGATION = "true"
@@ -97,7 +95,7 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     @Override
     public String getSessionId() {
         if (sessionId == null) {
-            logger.warn("********************** "
+            log.warn("********************** "
                     + "SESSION ID IS NULL"
                     + " *********************");
             return "";
@@ -113,7 +111,7 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
         if (driver == null) {
             driver = driverFactory.webDriver(testName);
         } else {
-            logger.warn("********************** "
+            log.warn("********************** "
                     + "DRIVER ALREADY SET UP"
                     + " *********************");
         }
@@ -121,7 +119,7 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
             sessionId = driver.getSessionId();
         }
         if (sessionId == null) {
-            logger.warn("********************** "
+            log.warn("********************** "
                     + "SESSION ID IS NULL IN SETUP"
                     + " *********************");
         }
@@ -290,7 +288,7 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
      */
     private void println(final String string) {
         if (PRINT_NAVIGATION) {
-            logger.info(string);
+            log.info(string);
         }
     }
 
@@ -299,7 +297,7 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
      */
     private void println() {
         if (PRINT_NAVIGATION) {
-            logger.info("");
+            log.info("");
         }
     }
 
