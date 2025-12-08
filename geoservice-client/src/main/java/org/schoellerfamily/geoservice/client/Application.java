@@ -1,7 +1,5 @@
 package org.schoellerfamily.geoservice.client;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,16 +11,16 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Main program for playing with the GeoService client class.
  *
  * @author Dick Schoeller
  */
 @SpringBootApplication
+@Slf4j
 public class Application {
-    /** Logger. */
-    private final transient Log logger =
-            LogFactory.getLog(Application.class);
 
     /** */
     @Autowired
@@ -56,10 +54,10 @@ public class Application {
     public CommandLineRunner run() throws Exception {
         return args -> {
             for (final String arg : args) {
-                logger.info("Get geocode for: " + arg);
+                log.info("Get geocode for: " + arg);
                 final GeoServiceItem item =
                         client.get(arg);
-                logger.info(
+                log.info(
                         "found item:" + mapper.writerWithDefaultPrettyPrinter()
                                 .writeValueAsString(item));
             }
