@@ -222,10 +222,10 @@ public class NoteCrudTest {
     @Test
     public final void testUpdateNoteWithNote() {
         log.info("Beginning testUpdateNoteWithNote");
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Note", "first note"));
+        final List<ApiAttribute> attributes = List.of(
+            new ApiAttribute("attribute", "Note", "first note"));
         final ApiNote reqNote = new ApiNote("note", "", attributes,
-                "Top level note");
+            "Top level note");
         final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
         then(resNote.getType()).isEqualTo(reqNote.getType());
 

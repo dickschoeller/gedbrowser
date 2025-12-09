@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -67,10 +66,10 @@ public class ApiSubmitterTest {
     /** */
     @Test
     public void testConstructorWithAttributes() {
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("a string", "attribute", ""));
-        final ApiSubmitter o =
-                new ApiSubmitter("type", "string", attributes, "? ?");
+        final List<ApiAttribute> attributes = List.of(
+                new ApiAttribute("a string", "attribute", "")
+        );
+        final ApiSubmitter o = new ApiSubmitter("type", "string", attributes, "? ?");
         assertEquals("attributes size mismatch", 1, o.getAttributes().size());
     }
 

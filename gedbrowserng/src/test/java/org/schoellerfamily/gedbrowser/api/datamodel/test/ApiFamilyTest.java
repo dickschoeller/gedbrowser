@@ -67,8 +67,8 @@ public class ApiFamilyTest {
     /** */
     @Test
     public void testConstructorWithAttributes() {
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("a string", "attribute", ""));
+        final List<ApiAttribute> attributes = List.of(
+            new ApiAttribute("a string", "attribute", ""));
         final ApiFamily o = new ApiFamily("type", "string", attributes);
         assertEquals("attributes size mismatch", 1, o.getAttributes().size());
     }

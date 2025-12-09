@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.api.crud;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
@@ -124,11 +123,10 @@ public class PersonCrud
      * @return the modified person
      */
     private ApiPerson unlinkFamc(final String db, final ApiPerson person) {
-        final List<String> famcList = new ArrayList<>();
         ApiPerson newPerson = person;
-        for (final ApiAttribute a : newPerson.getFamc()) {
-            famcList.add(a.getString());
-        }
+        final List<String> famcList = newPerson.getFamc().stream()
+                .map(ApiAttribute::getString)
+                .toList();
         for (final String famc : famcList) {
             newPerson = childCrud().unlinkChild(
                     db, famc, newPerson.getString());
@@ -142,11 +140,10 @@ public class PersonCrud
      * @return the modified person
      */
     private ApiPerson unlinkFams(final String db, final ApiPerson person) {
-        final List<String> famsList = new ArrayList<>();
         ApiPerson newPerson = person;
-        for (final ApiAttribute a : newPerson.getFams()) {
-            famsList.add(a.getString());
-        }
+        final List<String> famsList = newPerson.getFams().stream()
+                .map(ApiAttribute::getString)
+                .toList();
         for (final String fams : famsList) {
             newPerson = spouseCrud().unlinkSpouseInFamily(
                     db, fams, newPerson.getString());

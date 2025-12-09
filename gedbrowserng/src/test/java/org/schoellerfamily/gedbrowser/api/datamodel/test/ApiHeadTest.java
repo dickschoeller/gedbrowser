@@ -66,8 +66,8 @@ public class ApiHeadTest {
     /** */
     @Test
     public void testConstructorWithAttributes() {
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("a string", "attribute", ""));
+        final List<ApiAttribute> attributes = List.of(
+            new ApiAttribute("a string", "attribute", ""));
         final ApiHead o = new ApiHead("type", "string", attributes);
         assertEquals("attributes mismatch", 1, o.getAttributes().size());
     }

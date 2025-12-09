@@ -147,8 +147,8 @@ public class FamilyCrudTest {
     @Test
     public final void testCreateFamiliesWithMarriage() {
         log.info("Beginning testCreateFamiliesWithMarriage");
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Marriage", ""));
+        final List<ApiAttribute> attributes = List.of(
+            new ApiAttribute("attribute", "Marriage", ""));
         final ApiFamily inFamily = new ApiFamily("family", "", attributes);
         final ApiFamily outFamily = crud.createOne("gl120368", inFamily);
         then(outFamily.getType()).isEqualTo("family");
@@ -206,8 +206,8 @@ public class FamilyCrudTest {
     @Test
     public final void testUpdateFamilyWithNote() {
         log.info("Beginning testUpdateFamilyWithNote");
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Marriage", ""));
+        final List<ApiAttribute> attributes = List.of(
+            new ApiAttribute("attribute", "Marriage", ""));
         final ApiFamily inFamily = new ApiFamily("family", "", attributes);
         inFamily.getChildren().add(new ApiAttribute("child", "I1"));
         final ApiFamily familyPostResponse = crud.createOne("gl120368",

@@ -215,10 +215,10 @@ public class SourceCrudTest {
     @Test
     public final void testUpdateSourceWithNote() {
         log.info("Beginning testUpdateSourceWithNote");
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Note", "first note"));
-        final ApiSource inSource = new ApiSource("source", "", attributes,
-                "Unknown");
+        final List<ApiAttribute> attributes = List.of(
+                new ApiAttribute("attribute", "Note", "first note"));
+        final ApiSource inSource = new ApiSource("source", "",
+                attributes, "Unknown");
         final ApiSource newSource = crud.createOne(helper.getDb(), inSource);
 
         final ApiAttribute aNote = new ApiAttribute("attribute", "Note",

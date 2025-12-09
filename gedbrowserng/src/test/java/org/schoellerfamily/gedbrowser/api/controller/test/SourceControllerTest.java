@@ -290,8 +290,8 @@ public class SourceControllerTest {
                 + "/gedbrowserng/v1/dbs/gl120368/sources";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Note", "first note"));
+        final List<ApiAttribute> attributes = List.of(
+                new ApiAttribute("attribute", "Note", "first note"));
         final ApiSource reqBody = new ApiSource("source", "", attributes,
                 "Unknown");
         final HttpEntity<ApiSource> req =

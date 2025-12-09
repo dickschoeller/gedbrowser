@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -102,21 +101,18 @@ public class PersonsController {
     private List<ApiPerson> hide(final HttpServletRequest request,
             final List<PersonDocument> allPersons) {
         log.info("Start hiding list of persons");
-        final List<ApiPerson> list = new ArrayList<>();
         final RequestUserUtil requestUserUtil = new RequestUserUtil(request, userService);
         final boolean hasUser = requestUserUtil.hasUser();
         final boolean hasAdmin = requestUserUtil.hasAdmin();
-        for (final PersonDocument doc : allPersons) {
-            final Person person = doc.getGedObject();
-            if (shouldHideConfidential(person, hasAdmin)) {
-                continue;
-            }
-            if (shouldHideLiving(person, hasUser)) {
-                continue;
-            }
-            final OperationsEnabler<?, ?> enabler = (OperationsEnabler<?, ?>) crud();
-            list.add((ApiPerson) enabler.getD2dm().convert(doc));
-        }
+        final OperationsEnabler<?, ?> enabler = (OperationsEnabler<?, ?>) crud();
+        final List<ApiPerson> list = allPersons.stream()
+            .filter(doc -> {
+                final Person person = doc.getGedObject();
+                return !shouldHideConfidential(person, hasAdmin)
+                    && !shouldHideLiving(person, hasUser);
+            })
+            .map(doc -> (ApiPerson) enabler.getD2dm().convert(doc))
+            .toList();
         log.info("Done hiding list of persons");
         return list;
     }

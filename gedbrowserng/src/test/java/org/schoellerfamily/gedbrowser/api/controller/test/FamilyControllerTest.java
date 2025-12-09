@@ -213,8 +213,8 @@ public class FamilyControllerTest {
                 + "/gedbrowserng/v1/dbs/gl120368/families";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Marriage", ""));
+        final List<ApiAttribute> attributes = List.of(
+                new ApiAttribute("attribute", "Marriage", ""));
         final ApiFamily reqBody = new ApiFamily("family", "", attributes);
         final HttpEntity<ApiFamily> req =
                 new HttpEntity<>(reqBody, headers);
@@ -313,8 +313,8 @@ public class FamilyControllerTest {
                 + "/gedbrowserng/v1/dbs/gl120368/families";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Marriage", ""));
+        final List<ApiAttribute> attributes = List.of(
+                new ApiAttribute("attribute", "Marriage", ""));
         final ApiFamily familyRequest = new ApiFamily("family", "", attributes);
         familyRequest.getChildren().add(new ApiAttribute("child", "I1"));
         final HttpEntity<ApiFamily> req =

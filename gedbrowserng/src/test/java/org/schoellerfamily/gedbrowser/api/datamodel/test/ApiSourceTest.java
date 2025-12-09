@@ -67,8 +67,8 @@ public class ApiSourceTest {
     /** */
     @Test
     public void testConstructorWithAttributes() {
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("a string", "attribute", ""));
+        final List<ApiAttribute> attributes =
+            List.of(new ApiAttribute("a string", "attribute", ""));
         final ApiSource o = new ApiSource("type", "string", attributes,
                 "Unknown");
         assertEquals("attributes size mismatch", 1, o.getAttributes().size());

@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
 import org.springframework.stereotype.Controller;
@@ -35,10 +35,12 @@ public final class DatasetsController {
     @ResponseBody
     public List<String> dbs() {
         log.info("Gettting list of DBs");
-        final List<String> list = new ArrayList<>();
-        for (final RootDocument mongo : ((RootDocumentRepositoryMongo) repositoryManager.get(Root.class)).findAll()) {
-            list.add(mongo.getDbName());
-        }
+        final Iterable<RootDocumentMongo> all =
+            ((RootDocumentRepositoryMongo) repositoryManager.get(Root.class)).findAll();
+        final List<String> list =
+            StreamSupport.stream(all.spliterator(), false)
+                .map(m -> m.getDbName())
+                .toList();
         log.info("length: {}", list.size());
         return list;
     }

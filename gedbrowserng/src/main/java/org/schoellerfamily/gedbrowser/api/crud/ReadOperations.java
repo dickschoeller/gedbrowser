@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.api.crud;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -95,13 +94,10 @@ public interface ReadOperations <X extends GedObject,
      */
     default List<Y> read(final RootDocument root) {
         try {
-            final List<Y> all = new ArrayList<>();
             final Iterable<Y> a = getRepository().findAll(root);
-            for (final Y document : a) {
-                all.add(document);
-            }
-            all.sort(new GetStringComparator());
-            return all;
+            return java.util.stream.StreamSupport.stream(a.spliterator(), false)
+                    .sorted(new GetStringComparator())
+                    .toList();
         } catch (RuntimeException e) {
             throw e;
         }

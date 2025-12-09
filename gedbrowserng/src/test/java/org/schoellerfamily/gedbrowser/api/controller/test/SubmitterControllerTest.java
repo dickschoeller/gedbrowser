@@ -213,8 +213,8 @@ public class SubmitterControllerTest {
                 + "/gedbrowserng/v1/dbs/gl120368/submitters";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Note", "first note"));
+        final List<ApiAttribute> attributes = List.of(
+                new ApiAttribute("attribute", "Note", "first note"));
         final ApiSubmitter reqBody =
                 new ApiSubmitter("submitter", "", attributes, "? ?");
         final HttpEntity<ApiSubmitter> req =

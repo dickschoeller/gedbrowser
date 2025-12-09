@@ -175,8 +175,8 @@ public class SubmissionCrudTest {
     @Test
     public final void testUpdateSubmissionWithNote() {
         log.info("Beginning testUpdateSubmissionWithNote");
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Note", "first note"));
+        final List<ApiAttribute> attributes = List.of(
+                new ApiAttribute("attribute", "Note", "first note"));
         final ApiSubmission inSubmission = new ApiSubmission("submission", "",
                 attributes);
         final ApiSubmission outSubmission = crud

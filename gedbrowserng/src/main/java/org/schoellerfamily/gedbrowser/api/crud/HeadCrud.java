@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.api.crud;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
@@ -87,9 +86,7 @@ public class HeadCrud
     @Override
     public List<ApiHead> readAll(final String db) {
         log.info("Entering all head, db: {}", db);
-        final List<ApiHead> list = new ArrayList<>();
-        list.add((ApiHead) getD2dm().convert(read(getRepositoryManager(), db)).get(0));
-        return list;
+        return List.of((ApiHead) getD2dm().convert(read(getRepositoryManager(), db)).get(0));
     }
 
     /**
