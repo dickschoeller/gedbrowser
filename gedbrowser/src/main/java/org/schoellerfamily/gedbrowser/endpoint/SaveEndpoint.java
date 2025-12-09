@@ -1,12 +1,12 @@
 package org.schoellerfamily.gedbrowser.endpoint;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
@@ -24,8 +24,6 @@ public class SaveEndpoint {
     @ReadOperation
     public final List<String> invoke() {
         log.info("Invoke save");
-        final List<String> messages = new ArrayList<>();
-        messages.add("Currently a NO-OP");
-        return messages;
+        return List.of("Currently a NO-OP");
     }
 }
