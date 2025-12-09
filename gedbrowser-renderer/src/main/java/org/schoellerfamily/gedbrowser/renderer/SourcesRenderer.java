@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -63,12 +62,10 @@ public class SourcesRenderer extends GedRenderer<Root>
     public Collection<SourceRenderer> getSources() {
         log.info("Starting getSources");
         final Collection<Source> sources = getGedObject().getFinder()
-                .find(getGedObject(), Source.class);
-        final List<SourceRenderer> renderers = new ArrayList<>();
-        for (final Source source : sources) {
-            renderers.add((SourceRenderer) createGedRenderer(source));
-        }
-        renderers.sort(new SourceRendererComparator());
-        return renderers;
+            .find(getGedObject(), Source.class);
+        return sources.stream()
+            .map(source -> (SourceRenderer) createGedRenderer(source))
+            .sorted(new SourceRendererComparator())
+            .toList();
     }
 }

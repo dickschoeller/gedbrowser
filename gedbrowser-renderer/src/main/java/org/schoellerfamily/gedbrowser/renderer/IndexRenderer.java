@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -56,18 +55,16 @@ public final class IndexRenderer extends GedRenderer<Root>
         log.info("Starting getIndexNameHtmls");
         final Collection<Person> persons = getGedObject()
                 .findBySurname(surname);
-        final List<String> names = new ArrayList<>();
-        for (final Person person : persons) {
-            if (isHidden(person)) {
-                continue;
-            }
-            final String html = createGedRenderer(person).getIndexName();
-            final String liHtml = "<li id=\"" + person.getString() + "\">"
-                    + html
-                    + indicateDeadWithoutRecord(person)
-                    + "</li>";
-            names.add(liHtml);
-        }
+        final List<String> names = persons.stream()
+                .filter(person -> !isHidden(person))
+                .map(person -> {
+                    final String html = createGedRenderer(person).getIndexName();
+                    return "<li id=\"" + person.getString() + "\">"
+                            + html
+                            + indicateDeadWithoutRecord(person)
+                            + "</li>";
+                })
+                .toList();
         log.info("Ending getIndexNameHtmls");
         return names;
     }
@@ -115,14 +112,13 @@ public final class IndexRenderer extends GedRenderer<Root>
      */
     public Collection<String> getLetters() {
         log.info("Starting getLetters");
-        final List<String> indexLetters = new ArrayList<>();
-        for (final String letter : getGedObject().findSurnameInitialLetters()) {
-            final String link = "<a id=\"letter-" + letter
-                    + "\" href=\"surnames?db="
-                    + getGedObject().getDbName() + "&amp;letter=" + letter
-                    + "\" class=\"name\">" + "[" + letter + "]" + "</a>";
-            indexLetters.add(link);
-        }
+        final List<String> indexLetters = getGedObject()
+            .findSurnameInitialLetters().stream()
+            .map(letter -> "<a id=\"letter-" + letter
+                + "\" href=\"surnames?db="
+                + getGedObject().getDbName() + "&amp;letter=" + letter
+                + "\" class=\"name\">" + "[" + letter + "]" + "</a>")
+            .toList();
         log.info("Ending getLetters");
         return indexLetters;
     }

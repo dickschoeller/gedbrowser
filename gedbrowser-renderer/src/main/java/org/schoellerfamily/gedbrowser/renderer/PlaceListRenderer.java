@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -71,14 +70,11 @@ public final class PlaceListRenderer {
      * @return the list of geocode results
      */
     private List<PlaceInfo> geoCodePlaces(final Collection<String> places) {
-        final List<PlaceInfo> items = new ArrayList<>(places.size());
-        for (final String placeName : places) {
-            final GeoServiceItem item = client.get(placeName);
-            if (item.getResult() != null) {
-                items.add(createPlaceInfo(item));
-            }
-        }
-        return items;
+        return places.stream()
+                .map(client::get)
+                .filter(item -> item.getResult() != null)
+                .map(this::createPlaceInfo)
+                .toList();
     }
 
     /**

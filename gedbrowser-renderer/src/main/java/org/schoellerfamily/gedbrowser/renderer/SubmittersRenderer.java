@@ -1,9 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
-import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.renderer.href.HeaderHrefRenderer;
@@ -12,6 +10,8 @@ import org.schoellerfamily.gedbrowser.renderer.href.PlacesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SaveHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
@@ -39,11 +39,9 @@ public class SubmittersRenderer extends GedRenderer<Root>
     public Collection<SubmitterRenderer> getSubmitters() {
         log.info("Starting getSubmitters");
         final Collection<Submitter> submitters = getGedObject().getFinder()
-                .find(getGedObject(), Submitter.class);
-        final Collection<SubmitterRenderer> renderers = new ArrayList<>();
-        for (final Submitter submitter : submitters) {
-            renderers.add((SubmitterRenderer) createGedRenderer(submitter));
-        }
-        return renderers;
+            .find(getGedObject(), Submitter.class);
+        return submitters.stream()
+            .map(submitter -> (SubmitterRenderer) createGedRenderer(submitter))
+            .toList();
     }
 }

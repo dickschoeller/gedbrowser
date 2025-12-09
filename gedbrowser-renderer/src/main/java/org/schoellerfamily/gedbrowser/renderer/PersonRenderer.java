@@ -89,7 +89,7 @@ public final class PersonRenderer extends GedRenderer<Person>
                     (FamilyRenderer) createGedRenderer(family);
             rendererList.add(familyRenderer);
         }
-        return rendererList;
+        return rendererList.stream().toList();
     }
 
     /**
