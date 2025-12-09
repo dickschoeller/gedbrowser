@@ -1,13 +1,11 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmissionDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    SubmissionDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmissionDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -73,14 +71,13 @@ public class SubmissionDocumentRepositoryMongoImpl implements
                 new Query(Criteria.where("filename").is(filename));
         final List<SubmissionDocumentMongo> submissionDocumentsMongo =
                 mongoTemplate.find(searchQuery, SubmissionDocumentMongo.class);
-        final List<SubmissionDocument> submissionDocuments = new ArrayList<>();
-        for (final SubmissionDocument submDocument : submissionDocumentsMongo) {
-            final Submission submission = (Submission) toObjConverter
-                    .createGedObject(null, submDocument);
-            submDocument.setGedObject(submission);
-            submissionDocuments.add(submDocument);
-        }
-        return submissionDocuments;
+        return submissionDocumentsMongo.stream()
+            .map(submDocument -> {
+                final Submission submission = (Submission) toObjConverter
+                        .createGedObject(null, submDocument);
+                submDocument.setGedObject(submission);
+                return (SubmissionDocument) submDocument;
+            }).toList();
     }
 
     /**

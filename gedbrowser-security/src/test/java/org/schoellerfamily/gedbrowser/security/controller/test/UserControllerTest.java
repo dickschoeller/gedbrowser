@@ -6,7 +6,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -348,9 +347,7 @@ public class UserControllerTest {
     private HttpHeaders buildHeaders() {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        final List<MediaType> accepts = new ArrayList<>();
-        accepts.add(MediaType.APPLICATION_JSON);
-        headers.setAccept(accepts);
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         return headers;
     }
 

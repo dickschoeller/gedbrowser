@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -27,16 +26,14 @@ public class CharsetScanner {
     /**
      * Holds the mapping between GEDCOM known charsets and Java known charsets.
      */
-    private static final Map<String, String> CHARSET_MAP = new HashMap<>();
-    static {
-        CHARSET_MAP.put("ansel", "ANSEL");
-        CHARSET_MAP.put("ansi", "Cp1252");
-        CHARSET_MAP.put("cp1252", "Cp1252");
-        CHARSET_MAP.put("unicode", "UTF-16");
-        CHARSET_MAP.put("utf-8", "UTF-8");
-        CHARSET_MAP.put("utf8", "UTF-8");
-        CHARSET_MAP.put("ascii", "ASCII");
-    }
+    private static final Map<String, String> CHARSET_MAP = Map.of(
+        "ansel", "ANSEL",
+        "ansi", "Cp1252",
+        "cp1252", "Cp1252",
+        "unicode", "UTF-16",
+        "utf-8", "UTF-8",
+        "utf8", "UTF-8",
+        "ascii", "ASCII");
 
     /**
      * @param filename the name of the file to scan

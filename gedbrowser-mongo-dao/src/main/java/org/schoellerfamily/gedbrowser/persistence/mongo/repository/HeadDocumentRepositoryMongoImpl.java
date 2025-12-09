@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.Head;
@@ -73,14 +72,13 @@ public class HeadDocumentRepositoryMongoImpl implements
                 new Query(Criteria.where("filename").is(filename));
         final List<HeadDocumentMongo> headDocumentsMongo =
                 mongoTemplate.find(searchQuery, HeadDocumentMongo.class);
-        final List<HeadDocument> headDocuments = new ArrayList<>();
-        for (final HeadDocument headDocument : headDocumentsMongo) {
-            final Head head =
-                    (Head) toObjConverter.createGedObject(null, headDocument);
-            headDocument.setGedObject(head);
-            headDocuments.add(headDocument);
-        }
-        return headDocuments;
+        return headDocumentsMongo.stream()
+            .map(headDocument -> {
+                final Head head =
+                        (Head) toObjConverter.createGedObject(null, headDocument);
+                headDocument.setGedObject(head);
+                return (HeadDocument) headDocument;
+            }).toList();
     }
 
     /**

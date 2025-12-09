@@ -6,12 +6,12 @@ import java.util.Map;
 import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -21,18 +21,17 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class ApplicationHealthIndicator implements HealthIndicator {
 
     /** */
-    @Autowired
-    private transient ApplicationInfo appInfo;
+    private final ApplicationInfo appInfo;
 
     /** */
-    @Autowired
-    private transient GedObjectFileLoader loader;
+    private final GedObjectFileLoader loader;
 
-    @Autowired
-    private transient RepositoryManagerMongo repositoryManager;
+    /** */
+    private final RepositoryManagerMongo repositoryManager;
 
     /**
      * {@inheritDoc}

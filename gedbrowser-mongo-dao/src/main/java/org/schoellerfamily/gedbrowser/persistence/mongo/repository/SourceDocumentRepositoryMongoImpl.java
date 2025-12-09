@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.Source;
@@ -72,14 +71,13 @@ public class SourceDocumentRepositoryMongoImpl implements
                 new Query(Criteria.where("filename").is(filename));
         final List<SourceDocumentMongo> sourceDocumentsMongo =
                 mongoTemplate.find(searchQuery, SourceDocumentMongo.class);
-        final List<SourceDocument> sourceDocuments = new ArrayList<>();
-        for (final SourceDocument sourceDocument : sourceDocumentsMongo) {
-            final Source source = (Source) toObjConverter.createGedObject(
-                    null, sourceDocument);
-            sourceDocument.setGedObject(source);
-            sourceDocuments.add(sourceDocument);
-        }
-        return sourceDocuments;
+        return sourceDocumentsMongo.stream()
+            .map(sourceDocument -> {
+                final Source source = (Source) toObjConverter.createGedObject(
+                        null, sourceDocument);
+                sourceDocument.setGedObject(source);
+                return (SourceDocument) sourceDocument;
+            }).toList();
     }
 
     /**

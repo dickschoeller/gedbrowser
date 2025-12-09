@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.Family;
@@ -72,14 +71,13 @@ public class FamilyDocumentRepositoryMongoImpl implements
                 new Query(Criteria.where("filename").is(filename));
         final List<FamilyDocumentMongo> familyDocumentsMongo =
                 mongoTemplate.find(searchQuery, FamilyDocumentMongo.class);
-        final List<FamilyDocument> familyDocuments = new ArrayList<>();
-        for (final FamilyDocument familyDocument : familyDocumentsMongo) {
-            final Family family = (Family) toObjConverter.createGedObject(
-                    null, familyDocument);
-            familyDocument.setGedObject(family);
-            familyDocuments.add(familyDocument);
-        }
-        return familyDocuments;
+        return familyDocumentsMongo.stream()
+            .map(familyDocument -> {
+                final Family family = (Family) toObjConverter.createGedObject(
+                        null, familyDocument);
+                familyDocument.setGedObject(family);
+                return (FamilyDocument) familyDocument;
+            }).toList();
     }
 
     /**

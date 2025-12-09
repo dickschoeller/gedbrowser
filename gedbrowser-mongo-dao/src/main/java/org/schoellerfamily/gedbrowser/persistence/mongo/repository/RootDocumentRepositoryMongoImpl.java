@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -68,14 +67,13 @@ public class RootDocumentRepositoryMongoImpl implements
                 new Query(Criteria.where("filename").is(filename));
         final List<RootDocumentMongo> rootDocumentsMongo =
                 mongoTemplate.find(searchQuery, RootDocumentMongo.class);
-        final List<RootDocument> rootDocuments = new ArrayList<>();
-        for (final RootDocument rootDocument : rootDocumentsMongo) {
-            final Root root =
-                    (Root) toObjConverter.createGedObject(null, rootDocument);
-            rootDocument.setGedObject(root);
-            rootDocuments.add(rootDocument);
-        }
-        return rootDocuments;
+        return rootDocumentsMongo.stream()
+            .map(rootDocument -> {
+                final Root root =
+                        (Root) toObjConverter.createGedObject(null, rootDocument);
+                rootDocument.setGedObject(root);
+                return (RootDocument) rootDocument;
+            }).toList();
     }
 
     /**

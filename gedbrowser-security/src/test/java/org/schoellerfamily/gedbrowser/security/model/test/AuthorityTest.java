@@ -14,22 +14,23 @@ public class AuthorityTest {
     /** */
     @Test
     public void testDefault() {
-        final Authority authority = new Authority();
+        final Authority authority = Authority.builder().build();
         assertNull("Should be null", authority.getAuthority());
     }
 
     /** */
     @Test
     public void testDefaultUserRoleName() {
-        final Authority authority = new Authority();
+        final Authority authority = Authority.builder().build();
         assertNull("Should be null", authority.getUserRoleName());
     }
 
     /** */
     @Test
     public void testSetGet() {
-        final Authority authority = new Authority();
-        authority.setUserRoleName(UserRoleName.USER);
+        final Authority authority = Authority.builder()
+                .userRoleName(UserRoleName.USER)
+                .build();
         assertEquals("Should be USER", "ROLE_USER", authority.getAuthority());
     }
 }

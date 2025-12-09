@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
@@ -74,15 +73,13 @@ public class SubmitterDocumentRepositoryMongoImpl implements
                 new Query(Criteria.where("filename").is(filename));
         final List<SubmitterDocumentMongo> submitterDocumentsMongo =
                 mongoTemplate.find(searchQuery, SubmitterDocumentMongo.class);
-        final List<SubmitterDocument> submitterDocuments = new ArrayList<>();
-        for (final SubmitterDocument submitterDocument
-                : submitterDocumentsMongo) {
-            final Submitter submitter = (Submitter) toObjConverter
-                    .createGedObject(null, submitterDocument);
-            submitterDocument.setGedObject(submitter);
-            submitterDocuments.add(submitterDocument);
-        }
-        return submitterDocuments;
+        return submitterDocumentsMongo.stream()
+            .map(submitterDocument -> {
+                final Submitter submitter = (Submitter) toObjConverter
+                        .createGedObject(null, submitterDocument);
+                submitterDocument.setGedObject(submitter);
+                return (SubmitterDocument) submitterDocument;
+            }).toList();
     }
 
     /**

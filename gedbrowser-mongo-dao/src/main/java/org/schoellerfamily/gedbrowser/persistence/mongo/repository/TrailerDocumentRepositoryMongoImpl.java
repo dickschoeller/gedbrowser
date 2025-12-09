@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
@@ -73,14 +72,13 @@ public class TrailerDocumentRepositoryMongoImpl implements
                 new Query(Criteria.where("filename").is(filename));
         final List<TrailerDocumentMongo> trailerDocumentsMongo =
                 mongoTemplate.find(searchQuery, TrailerDocumentMongo.class);
-        final List<TrailerDocument> trailerDocuments = new ArrayList<>();
-        for (final TrailerDocument trailerDocument : trailerDocumentsMongo) {
-            final Trailer trailer = (Trailer) toObjConverter.createGedObject(
-                    null, trailerDocument);
-            trailerDocument.setGedObject(trailer);
-            trailerDocuments.add(trailerDocument);
-        }
-        return trailerDocuments;
+        return trailerDocumentsMongo.stream()
+            .map(trailerDocument -> {
+                final Trailer trailer = (Trailer) toObjConverter.createGedObject(
+                        null, trailerDocument);
+                trailerDocument.setGedObject(trailer);
+                return (TrailerDocument) trailerDocument;
+            }).toList();
     }
 
     /**

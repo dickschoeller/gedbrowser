@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.security.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -99,9 +98,7 @@ public class AuthenticationController {
             @RequestBody final PasswordChanger passwordChanger) {
         userDetailsService.changePassword(passwordChanger.getOldPassword(),
                 passwordChanger.getNewPassword(), authenticationManager);
-        final Map<String, String> result = new HashMap<>();
-        result.put("result", "success");
-        return ResponseEntity.accepted().body(result);
+        return ResponseEntity.accepted().body(Map.of("result", "success"));
     }
 
     /**

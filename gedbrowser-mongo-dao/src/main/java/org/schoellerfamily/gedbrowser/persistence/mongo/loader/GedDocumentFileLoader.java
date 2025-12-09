@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.StreamSupport;
 
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
@@ -161,11 +162,9 @@ public class GedDocumentFileLoader {
      * @return list of name value pairs for the data sets currently loaded
      */
     public final List<Map<String, Object>> details(final RepositoryManagerMongo repositoryManager) {
-        final List<Map<String, Object>> list = new ArrayList<>();
-        for (final RootDocument mongo : rootDocumentRepository.findAll()) {
-            list.add(details(repositoryManager, mongo.getDbName()));
-        }
-        return list;
+        return StreamSupport.stream(rootDocumentRepository.findAll().spliterator(), false)
+            .map(mongo -> details(repositoryManager, mongo.getDbName()))
+            .toList();
     }
 
     /**
@@ -174,27 +173,14 @@ public class GedDocumentFileLoader {
      */
     public final Map<String, Object> details(final RepositoryManagerMongo repositoryManager,
         final String dbname) {
-        final Map<String, Object> map = new HashMap<>();
         final RootDocument doc = rootDocumentRepository
                 .findByFileAndString(buildFileName(dbname), "Root");
-        map.put("dbname", doc.getDbName());
-        map.put("filename", doc.getFilename());
-        putCounts(repositoryManager, map, doc);
-        return map;
-    }
-
-    /**
-     * @param map the map with details
-     * @param doc the root document
-     */
-    private void putCounts(final RepositoryManagerMongo repositoryManager,
-        final Map<String, Object> map,
-        final RootDocument doc) {
-        map.put("persons",
-                repositoryManager.getPersonDocumentRepository().count(doc));
-        map.put("families",
-                repositoryManager.getFamilyDocumentRepository().count(doc));
-        map.put("sources",
-                repositoryManager.getSourceDocumentRepository().count(doc));
+        return Map.of(
+            "dbname", doc.getDbName(),
+            "filename", doc.getFilename(),
+            "persons", repositoryManager.getPersonDocumentRepository().count(doc),
+            "families", repositoryManager.getFamilyDocumentRepository().count(doc),
+            "sources", repositoryManager.getSourceDocumentRepository().count(doc)
+        );
     }
 }

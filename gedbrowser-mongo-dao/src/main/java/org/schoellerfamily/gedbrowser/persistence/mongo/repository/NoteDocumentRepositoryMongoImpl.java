@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.Note;
@@ -72,14 +71,13 @@ public class NoteDocumentRepositoryMongoImpl implements
                 new Query(Criteria.where("filename").is(filename));
         final List<NoteDocumentMongo> noteDocumentsMongo =
                 mongoTemplate.find(searchQuery, NoteDocumentMongo.class);
-        final List<NoteDocument> noteDocuments = new ArrayList<>();
-        for (final NoteDocument noteDocument : noteDocumentsMongo) {
-            final Note note = (Note) toObjConverter.createGedObject(
-                    null, noteDocument);
-            noteDocument.setGedObject(note);
-            noteDocuments.add(noteDocument);
-        }
-        return noteDocuments;
+        return noteDocumentsMongo.stream()
+            .map(noteDocument -> {
+                final Note note = (Note) toObjConverter.createGedObject(
+                        null, noteDocument);
+                noteDocument.setGedObject(note);
+                return (NoteDocument) noteDocument;
+            }).toList();
     }
 
     /**

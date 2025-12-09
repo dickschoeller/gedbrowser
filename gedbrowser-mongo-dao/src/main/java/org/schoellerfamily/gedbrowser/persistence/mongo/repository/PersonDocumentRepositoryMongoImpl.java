@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -197,9 +196,10 @@ public final class PersonDocumentRepositoryMongoImpl implements
      */
     private Collection<PersonDocument> copy(
             final Collection<PersonDocumentMongo> in) {
-        final List<PersonDocument> out = new ArrayList<>(in);
-        Collections.sort(out, new PersonDocumentComparator());
-        return out;
+        return in.stream()
+            .sorted(new PersonDocumentComparator())
+            .map(doc -> (PersonDocument) doc)
+            .toList();
     }
 
     /**
