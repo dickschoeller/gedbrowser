@@ -1,8 +1,6 @@
 package org.schoellerfamily.geoservice.persistence.fixture;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -61,11 +59,9 @@ public final class GeoCodeStub extends GeoCodeBasic {
     public Iterable<? extends GeoDocument> findAllDocuments() {
         final SortedSet<String> names = new TreeSet<>();
         names.addAll(map.keySet());
-        final List<GeoDocument> list = new ArrayList<>();
-        for (final String name : names) {
-            list.add(getDocument(name));
-        }
-        return list;
+        return names.stream()
+            .map(this::getDocument)
+            .toList();
     }
 
     /**

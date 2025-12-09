@@ -49,11 +49,10 @@ public class GeoCodeBackup {
     public void backup(final File resultFile)
             throws JsonGenerationException, JsonMappingException, IOException {
         final GeocodeResultBuilder builder = new GeocodeResultBuilder();
-        final List<GeoServiceItem> list = new ArrayList<>();
-        for (final String key : gcd.allKeys()) {
-            final GeoCodeItem gci = gcd.find(key);
-            list.add(builder.toGeoServiceItem(gci));
-        }
+        final List<GeoServiceItem> list = gcd.allKeys().stream()
+            .map(gcd::find)
+            .map(builder::toGeoServiceItem)
+            .toList();
         mapper.writeValue(resultFile, list);
     }
 
