@@ -1,11 +1,10 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.BDDAssertions.*;
+import static org.junit.Assert.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;

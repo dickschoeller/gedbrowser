@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.api.endpoint;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
@@ -31,10 +30,8 @@ public class RestoreEndpoint {
      */
     @ReadOperation
     public final List<String> invoke() {
-        final List<String> messages = new ArrayList<>();
         log.info("Invoke restore");
         loader.reloadAll(repositoryManager);
-        messages.add("Reloaded " + loader.details(repositoryManager).size() + " datasets");
-        return messages;
+        return List.of("Reloaded %d datasets".formatted(loader.details(repositoryManager).size()));
     }
 }

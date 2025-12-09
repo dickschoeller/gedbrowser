@@ -2,15 +2,14 @@ package org.schoellerfamily.gedbrowser.api.test;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import java.util.Optional;
 
 /**
  * @author Dick Schoeller
@@ -107,8 +106,7 @@ public final class LoginTestHelper {
         if (accessToken != null) {
             headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
         }
-        final List<MediaType> accepts = new ArrayList<>();
-        accepts.add(MediaType.APPLICATION_JSON);
+        final List<MediaType> accepts = List.of(MediaType.APPLICATION_JSON);
         headers.setAccept(accepts);
         return headers;
     }

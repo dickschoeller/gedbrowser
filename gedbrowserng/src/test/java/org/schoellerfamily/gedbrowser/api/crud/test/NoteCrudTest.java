@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.core.api.BDDAssertions.*;
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;

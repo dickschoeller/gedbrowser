@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.BDDAssertions.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

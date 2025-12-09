@@ -2,7 +2,6 @@ package org.schoellerfamily.gedbrowser.security.controller.test;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,8 +47,7 @@ public final class LoginTestHelper {
         final String url = "http://localhost:" + port + "/v1/login";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        final List<MediaType> accepts = new ArrayList<>();
-        accepts.add(MediaType.APPLICATION_JSON);
+        final List<MediaType> accepts = List.of(MediaType.APPLICATION_JSON);
         headers.setAccept(accepts);
         final String loginString = "username=" + username + "&password="
                 + password;
