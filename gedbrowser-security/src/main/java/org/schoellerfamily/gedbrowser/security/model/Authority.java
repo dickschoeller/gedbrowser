@@ -5,9 +5,13 @@ import org.springframework.security.core.GrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Builder;
+import lombok.Getter;
+
 /**
  * @author Dick Schoeller
  */
+@Builder
 public final class Authority implements GrantedAuthority {
     /** */
     private static final long serialVersionUID = 1L;
@@ -15,24 +19,9 @@ public final class Authority implements GrantedAuthority {
     /**
      * The role represented by this authority.
      */
-    private UserRoleName userRoleName;
-
-    /**
-     * Set the user role.
-     *
-     * @param name the role
-     */
-    public void setUserRoleName(final UserRoleName name) {
-        this.userRoleName = name;
-    }
-
-    /**
-     * @return the role
-     */
+    @Getter
     @JsonIgnore
-    public UserRoleName getUserRoleName() {
-        return userRoleName;
-    }
+    private final UserRoleName userRoleName;
 
     /**
      * {@inheritDoc}

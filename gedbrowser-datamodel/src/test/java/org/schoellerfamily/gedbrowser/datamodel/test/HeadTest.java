@@ -49,11 +49,11 @@ public final class HeadTest {
         builder.createAttribute(date, "TIME", "22:04");
         final Attribute chars = builder.createAttribute(head, "CHAR", "ANSI");
 
-        final Map<String, Attribute> attributeChecks = new HashMap<>();
-        attributeChecks.put("Should contain version", vers);
-        attributeChecks.put("Should contain gedc item", gedc);
-        attributeChecks.put("Should contain dest", dest);
-        attributeChecks.put("Should contain charset", chars);
+        final Map<String, Attribute> attributeChecks = Map.of(
+            "Should contain version", vers,
+            "Should contain gedc item", gedc,
+            "Should contain dest", dest,
+            "Should contain charset", chars);
         assertHeadValid(head, soLink, suLink, date, attributeChecks);
     }
 

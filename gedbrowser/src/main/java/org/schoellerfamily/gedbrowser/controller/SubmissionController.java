@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import static org.schoellerfamily.gedbrowser.controller.AbstractController.*;
+
 import org.schoellerfamily.gedbrowser.controller.exception.SubmissionNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
@@ -16,13 +16,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
 @Controller
+@Slf4j
 public class SubmissionController extends DatedDataController {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -49,16 +50,14 @@ public class SubmissionController extends DatedDataController {
                 required = false,
                 defaultValue = "schoeller") final String dbName,
             final Model model) {
-        logger.debug("Entering source");
+        log.debug("Entering source");
 
         final Root root = fetchRoot(dbName);
 
         final RenderingContext context = createRenderingContext();
         final Submission submission = (Submission) root.find(idString);
         if (submission == null) {
-            throw new SubmissionNotFoundException(
-                    "Submission " + idString + " not found", idString, dbName,
-                    context);
+            throw new SubmissionNotFoundException("Submission %s not found".formatted(idString), idString, dbName, context);
         }
 
         final GedRenderer<?> submissionRenderer = new GedRendererFactory()
@@ -68,7 +67,7 @@ public class SubmissionController extends DatedDataController {
         model.addAttribute("submissionString", submission.getString());
         model.addAttribute("model", submissionRenderer);
         model.addAttribute("appInfo", appInfo);
-        logger.debug("Exiting submission");
+        log.debug("Exiting submission");
         return "submission";
     }
 }

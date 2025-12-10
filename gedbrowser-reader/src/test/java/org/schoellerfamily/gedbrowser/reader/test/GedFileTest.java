@@ -1,13 +1,11 @@
 package org.schoellerfamily.gedbrowser.reader.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -24,14 +22,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
+@Slf4j
 public final class GedFileTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -45,10 +44,10 @@ public final class GedFileTest {
     @Test
     public void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = readFileTestSource();
-        logger.info(top.toString());
+        log.info(top.toString());
         final Root root = g2g.create(top);
         final String out = root.toString();
-        logger.info(out);
+        log.info(out);
 
         final Person melissa = (Person) root.find("I1");
         final PersonNavigator meliNavigator = new PersonNavigator(melissa);
@@ -56,7 +55,7 @@ public final class GedFileTest {
         final PersonNavigator dickNavigator = new PersonNavigator(dick);
         final List<Person> spouses = dickNavigator.getSpouses();
         assertEquals("Dick only has one spouse", 1, spouses.size());
-        logger.info(spouses.get(0));
+        log.info(spouses.get(0).toString());
     }
 
     /**

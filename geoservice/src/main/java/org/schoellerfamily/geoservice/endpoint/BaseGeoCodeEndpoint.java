@@ -1,20 +1,19 @@
 package org.schoellerfamily.geoservice.endpoint;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.geoservice.persistence.GeoCode;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.endpoint.Endpoint;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
  */
-public abstract class BaseGeoCodeEndpoint implements Endpoint<List<String>> {
+@RequiredArgsConstructor
+public abstract class BaseGeoCodeEndpoint {
 
     /** */
-    @Autowired
-    private GeoCode gcc;
+    private final GeoCode gcc;
 
     /**
      * Do the appropriate load action.
@@ -31,34 +30,26 @@ public abstract class BaseGeoCodeEndpoint implements Endpoint<List<String>> {
     }
 
     /**
-     * {@inheritDoc}
+     * Return an identifier for logging. Subclasses currently implement
+     * {@code getId()} so keep that contract via an abstract method here.
+     *
+     * @return endpoint id
      */
-    @Override
-    public final boolean isEnabled() {
-        return true;
-    }
+    protected abstract String getId();
 
     /**
-     * {@inheritDoc}
+     * Do the invocation and return messages.
+     *
+     * @return messages
      */
-    @Override
-    public final boolean isSensitive() {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public final List<String> invoke() {
-        final List<String> messages = new ArrayList<>();
         geoCodeAction();
-        messages.add("Load complete");
         final long totalLocations = gcc.size();
-        messages.add(totalLocations + " locations in the cache");
-        final long codedLocations = totalLocations
-                - gcc.countNotFound();
-        messages.add(codedLocations + " geocoded locations in cache");
-        return messages;
+        final long codedLocations = totalLocations - gcc.countNotFound();
+        return List.of(
+            "Load complete",
+            "%d locations in the cache".formatted(totalLocations),
+            "%d geocoded locations in cache".formatted(codedLocations)
+        );
     }
 }

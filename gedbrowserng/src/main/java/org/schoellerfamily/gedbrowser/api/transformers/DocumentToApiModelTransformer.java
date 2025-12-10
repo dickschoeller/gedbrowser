@@ -44,7 +44,7 @@ public class DocumentToApiModelTransformer {
             listOut.add(convert(family));
         }
         listOut.sort(new GetStringComparator());
-        return listOut;
+        return listOut.stream().toList();
     }
 
     /**

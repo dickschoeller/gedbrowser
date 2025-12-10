@@ -1,21 +1,26 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.schoellerfamily.gedbrowser.api.controller.UploadController;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
+import org.schoellerfamily.gedbrowser.api.service.storage.FileSystemStorageService;
 import org.schoellerfamily.gedbrowser.api.service.storage.StorageService;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,7 +34,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * @author Richard Schoeller
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UploadControllerTest {
     /** */
     private InputStream is;
@@ -37,13 +42,19 @@ public class UploadControllerTest {
     private MockMvc mockMvc;
 
     /** */
-    @Spy
-    @InjectMocks
-    private UploadController controller = new UploadController();
+    private StorageService service = mock(FileSystemStorageService.class);
 
     /** */
-    @Mock
-    private StorageService service;
+    private GedDocumentFileLoader loader = mock(GedDocumentFileLoader.class);
+
+    /** */
+    private GedObjectToGedDocumentMongoConverter toDocConverter = mock(GedObjectToGedDocumentMongoConverter.class);
+
+    /** */
+    private RepositoryManagerMongo repositoryManager = mock(RepositoryManagerMongo.class);
+
+    /** */
+    private UploadController controller = spy(new UploadController(loader, toDocConverter, repositoryManager, service));
 
     /** */
     @Before
@@ -60,10 +71,12 @@ public class UploadControllerTest {
     public void testUploadController() throws Exception {
         final MockMultipartFile mockMultipartFile = new MockMultipartFile(
                 "file", "mini-schoeller.ged", "multipart/form-data", is);
-        Mockito.doNothing().when(service).store(mockMultipartFile);
+        doNothing()
+            .when(service).store(mockMultipartFile);
         final ApiHead o =
                 new ApiHead("type", "string that you would never get");
-        Mockito.doReturn(o).when(controller).readOne("mini-schoeller");
+        doReturn(o)
+            .when(controller).readOne(anyString());
         final MvcResult result = mockMvc.perform(
                 MockMvcRequestBuilders
                     .fileUpload("/v1/upload")
@@ -75,7 +88,7 @@ public class UploadControllerTest {
                 .andReturn();
         final ObjectMapper mapper = new ObjectMapper();
         final String json = mapper.writeValueAsString(o);
-        assertEquals("head object doesn't match",
-                json, result.getResponse().getContentAsString());
+        assertEquals(json, result.getResponse().getContentAsString(),
+            "head object doesn't match");
     }
 }

@@ -1,12 +1,9 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
@@ -18,9 +15,11 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson.Builder;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.security.service.UserService;
 import org.schoellerfamily.gedbrowser.security.util.RequestUserUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,29 +31,39 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
-public class PersonsController extends CrudInvoker {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
+@RequiredArgsConstructor
+@Slf4j
+public class PersonsController {
 
     /** */
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     /** */
-    @Autowired
-    private transient CalendarProvider provider;
+    private final CalendarProvider provider;
+
+    /** */
+    private final RepositoryManagerMongo repositoryManager;
+
+    /** */
+    private final GedDocumentFileLoader loader;
+
+    /** */
+    private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /**
      * @return the CRUD object for manipulating persons
      */
     private ObjectCrud<ApiPerson> crud() {
-        return new PersonCrud(getLoader(), getConverter(), getManager());
+        return new PersonCrud(loader, toDocConverter, repositoryManager);
     }
 
     /**
@@ -85,29 +94,26 @@ public class PersonsController extends CrudInvoker {
     @ResponseBody
     public List<ApiPerson> read(final HttpServletRequest request,
             @PathVariable final String db) {
-        final List<PersonDocument> allPersons = ((PersonCrud) crud()).read(db);
+        final List<PersonDocument> allPersons = ((PersonCrud) crud()).read(repositoryManager, db);
         return hide(request, allPersons);
     }
 
     private List<ApiPerson> hide(final HttpServletRequest request,
             final List<PersonDocument> allPersons) {
-        logger.info("Start hiding list of persons");
-        final List<ApiPerson> list = new ArrayList<>();
+        log.info("Start hiding list of persons");
         final RequestUserUtil requestUserUtil = new RequestUserUtil(request, userService);
         final boolean hasUser = requestUserUtil.hasUser();
         final boolean hasAdmin = requestUserUtil.hasAdmin();
-        for (final PersonDocument doc : allPersons) {
-            final Person person = doc.getGedObject();
-            if (shouldHideConfidential(person, hasAdmin)) {
-                continue;
-            }
-            if (shouldHideLiving(person, hasUser)) {
-                continue;
-            }
-            final OperationsEnabler<?, ?> enabler = (OperationsEnabler<?, ?>) crud();
-            list.add((ApiPerson) enabler.getD2dm().convert(doc));
-        }
-        logger.info("Done hiding list of persons");
+        final OperationsEnabler<?, ?> enabler = (OperationsEnabler<?, ?>) crud();
+        final List<ApiPerson> list = allPersons.stream()
+            .filter(doc -> {
+                final Person person = doc.getGedObject();
+                return !shouldHideConfidential(person, hasAdmin)
+                    && !shouldHideLiving(person, hasUser);
+            })
+            .map(doc -> (ApiPerson) enabler.getD2dm().convert(doc))
+            .toList();
+        log.info("Done hiding list of persons");
         return list;
     }
 
@@ -123,7 +129,7 @@ public class PersonsController extends CrudInvoker {
             final HttpServletRequest request,
             @PathVariable final String db,
             @PathVariable final String id) {
-        final Person person = ((PersonCrud) crud()).read(db, id).getGedObject();
+        final Person person = ((PersonCrud) crud()).read(repositoryManager, db, id).getGedObject();
         final RequestUserUtil util = new RequestUserUtil(request, userService);
         if (shouldHideConfidential(person, util.hasAdmin())) {
             throw new ObjectNotFoundException("person not found", "ApiPerson", db, id);
@@ -131,7 +137,7 @@ public class PersonsController extends CrudInvoker {
         if (shouldHideLiving(person, util.hasUser())) {
             return createDummyLivingPerson(id);
         }
-        logger.info("entering read person: " + id);
+        log.info("entering read person: {}", id);
         return crud().readOne(db, id);
     }
 
@@ -178,7 +184,7 @@ public class PersonsController extends CrudInvoker {
         if (!requestUserUtil.hasAdmin()) {
             throw new AccessDeniedException("go away");
         }
-        logger.info("entering update person: " + id);
+        log.info("entering update person: {}", id);
         return crud().updateOne(db, id, person);
     }
 
@@ -198,7 +204,7 @@ public class PersonsController extends CrudInvoker {
         if (!requestUserUtil.hasAdmin()) {
             throw new AccessDeniedException("go away");
         }
-        logger.info("entering delete person: " + id);
+        log.info("entering delete person: {}", id);
         return crud().deleteOne(db, id);
     }
 }

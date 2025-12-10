@@ -2,12 +2,11 @@ package org.schoellerfamily.gedbrowser.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
-import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.NoteNotFoundException;
+import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.SourceNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.SubmissionNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.SubmitterNotFoundException;
@@ -15,6 +14,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.users.User;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.renderer.GedResourceNotFoundRenderer;
 import org.schoellerfamily.gedbrowser.renderer.Renderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
@@ -31,9 +31,8 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
+@Slf4j
 public abstract class AbstractController {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -51,11 +50,14 @@ public abstract class AbstractController {
     @Autowired
     private transient CalendarProvider provider;
 
+    @Autowired
+    protected transient RepositoryManagerMongo repositoryManager;
+
     /**
      * @return the rendering context
      */
     protected final RenderingContext createRenderingContext() {
-        logger.debug("Creating RenderingContext");
+        log.debug("Creating RenderingContext");
         final Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
         final User user = users.get(authentication.getName());
@@ -67,10 +69,9 @@ public abstract class AbstractController {
      * @return the root object
      */
     protected final Root fetchRoot(final String dbName) {
-        final Root root = (Root) loader.load(dbName);
+        final Root root = (Root) loader.load(repositoryManager, dbName);
         if (root == null) {
-            throw new DataSetNotFoundException(
-                    "Data set " + dbName + " not found", dbName);
+            throw new DataSetNotFoundException("Data set %s not found".formatted(dbName), dbName);
         }
         return root;
     }
@@ -85,7 +86,7 @@ public abstract class AbstractController {
     public final ModelAndView personNotFoundError(
             final HttpServletRequest request,
             final PersonNotFoundException exception) {
-        logger.info("Handling exception: " + exception.getMessage());
+        log.info("Handling exception: {}", exception.getMessage());
         return createModelAndViewForException(request, exception,
                 "personNotFound", HttpStatus.NOT_FOUND);
     }
@@ -100,7 +101,7 @@ public abstract class AbstractController {
     public final ModelAndView noteNotFoundError(
             final HttpServletRequest request,
             final NoteNotFoundException exception) {
-        logger.info("Handling exception: " + exception.getMessage());
+        log.info("Handling exception: {}", exception.getMessage());
         return createModelAndViewForException(request, exception,
                 "noteNotFound", HttpStatus.NOT_FOUND);
     }
@@ -115,7 +116,7 @@ public abstract class AbstractController {
     public final ModelAndView sourceNotFoundError(
             final HttpServletRequest request,
             final SourceNotFoundException exception) {
-        logger.info("Handling exception: " + exception.getMessage());
+        log.info("Handling exception: {}", exception.getMessage());
         return createModelAndViewForException(request, exception,
                 "sourceNotFound", HttpStatus.NOT_FOUND);
     }
@@ -130,7 +131,7 @@ public abstract class AbstractController {
     public final ModelAndView submissionNotFoundError(
             final HttpServletRequest request,
             final SubmissionNotFoundException exception) {
-        logger.info("Handling exception: " + exception.getMessage());
+        log.info("Handling exception: {}", exception.getMessage());
         return createModelAndViewForException(request, exception,
                 "submissionNotFound", HttpStatus.NOT_FOUND);
     }
@@ -145,7 +146,7 @@ public abstract class AbstractController {
     public final ModelAndView submitterNotFoundError(
             final HttpServletRequest request,
             final SubmitterNotFoundException exception) {
-        logger.info("Handling exception: " + exception.getMessage());
+        log.info("Handling exception: {}", exception.getMessage());
         return createModelAndViewForException(request, exception,
                 "submitterNotFound", HttpStatus.NOT_FOUND);
     }
@@ -160,7 +161,7 @@ public abstract class AbstractController {
     public final ModelAndView dataSetNotFoundError(
             final HttpServletRequest request,
             final DataSetNotFoundException exception) {
-        logger.info("Handling exception: " + exception.getMessage());
+        log.info("Handling exception: {}", exception.getMessage());
         return createModelAndViewForException(request, exception,
                 "dataSetNotFound", HttpStatus.NOT_FOUND);
     }
@@ -174,7 +175,7 @@ public abstract class AbstractController {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public final ModelAndView error(final HttpServletRequest request,
             final Exception exception) {
-        logger.error("Handling exception", exception);
+        log.error("Handling exception", exception);
         return createModelAndViewForException(request, exception, "exception",
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
