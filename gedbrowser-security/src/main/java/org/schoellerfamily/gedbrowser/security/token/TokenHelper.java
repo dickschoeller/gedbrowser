@@ -3,8 +3,8 @@ package org.schoellerfamily.gedbrowser.security.token;
 import java.util.Date;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.joda.time.DateTime;
 //import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.security.util;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.schoellerfamily.gedbrowser.datamodel.users.User;
 import org.schoellerfamily.gedbrowser.security.service.UserService;
