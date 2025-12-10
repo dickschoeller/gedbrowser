@@ -3,7 +3,6 @@ package org.schoellerfamily.gedbrowser.datamodel.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;

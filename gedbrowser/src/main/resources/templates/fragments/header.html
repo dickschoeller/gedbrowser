@@ -17,12 +17,12 @@
             <span><a th:if="${model.hasRole('ADMIN')}" th:href="${model.livingHref}" id="living-menu">Living</a></span>
             <span><a th:if="${model.hasRole('ADMIN')}" th:href="${model.placesHref}" id="places-menu">Places</a></span>
         </span>
-        <div  th:if="${#httpServletRequest.remoteUser} != null" class="right">
+        <div  th:if="${(#httpServletRequest != null and #httpServletRequest.remoteUser != null) or (httpServletRequest != null and httpServletRequest.remoteUser != null)}" class="right">
             <form th:action="@{logout}" method="post">
                 <input class="menubar" type="submit" th:value="'Logout ' + ${model.userFirstname}"/>
             </form>
         </div>
-        <span th:if="${#httpServletRequest.remoteUser} == null" class="right"
+        <span th:if="${not ((#httpServletRequest != null and #httpServletRequest.remoteUser != null) or (httpServletRequest != null and httpServletRequest.remoteUser != null))}" class="right"
               th:inline="text"><a th:href="@{login}">Login</a></span>
     </div>
 
@@ -31,12 +31,12 @@
         <span class="left">
             <span><a th:href="${error.homeUrl}">Home</a></span>
         </span>
-        <div  th:if="${#httpServletRequest.remoteUser} != null" class="right">
+        <div  th:if="${(#httpServletRequest != null and #httpServletRequest.remoteUser != null) or (httpServletRequest != null and httpServletRequest.remoteUser != null)}" class="right">
             <form th:action="@{logout}" method="post">
                 <input class="menubar" type="submit" th:value="'Logout ' + ${error.userFirstname}"/>
             </form>
         </div>
-        <span th:if="${#httpServletRequest.remoteUser} == null" class="right"
+        <span th:if="${not ((#httpServletRequest != null and #httpServletRequest.remoteUser != null) or (httpServletRequest != null and httpServletRequest.remoteUser != null))}" class="right"
               th:inline="text"><a th:href="@{login}">Login</a></span>
     </div>
 
@@ -53,12 +53,12 @@
             <span><a th:if="${error.exception.hasRole('ADMIN')}" th:href="${error.exception.livingHref}" id="living-menu">Living</a></span>
             <span><a th:if="${error.exception.hasRole('ADMIN')}" th:href="${error.exception.placesHref}" id="places-menu">Places</a></span>
         </span>
-        <div  th:if="${#httpServletRequest.remoteUser} != null" class="right">
+        <div  th:if="${(#httpServletRequest != null and #httpServletRequest.remoteUser != null) or (httpServletRequest != null and httpServletRequest.remoteUser != null)}" class="right">
             <form th:action="@{logout}" method="post">
                 <input class="menubar" type="submit" th:value="'Logout ' + ${error.userFirstname}"/>
             </form>
         </div>
-        <span th:if="${#httpServletRequest.remoteUser} == null" class="right"
+        <span th:if="${not ((#httpServletRequest != null and #httpServletRequest.remoteUser != null) or (httpServletRequest != null and httpServletRequest.remoteUser != null))}" class="right"
               th:inline="text"><a th:href="@{login}">Login</a></span>
     </div>
 

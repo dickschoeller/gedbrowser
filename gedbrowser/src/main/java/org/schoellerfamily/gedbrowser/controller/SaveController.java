@@ -2,7 +2,7 @@ package org.schoellerfamily.gedbrowser.controller;
 
 import static org.schoellerfamily.gedbrowser.controller.AbstractController.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;

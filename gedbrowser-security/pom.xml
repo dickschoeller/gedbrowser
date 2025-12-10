@@ -35,7 +35,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <config-dir>${project.parent.basedir}/config</config-dir>
-    <spring-boot.version>2.7.18</spring-boot.version>
+    <spring-boot.version>3.0.13</spring-boot.version>
   </properties>
 
   <dependencyManagement>
@@ -149,6 +149,10 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
     </dependency>
   </dependencies>
 

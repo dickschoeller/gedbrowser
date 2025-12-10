@@ -5,7 +5,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.schoellerfamily.gedbrowser.security.exception.ResourceConflictException;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
