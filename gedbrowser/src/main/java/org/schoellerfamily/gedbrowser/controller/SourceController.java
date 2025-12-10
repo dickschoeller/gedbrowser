@@ -1,7 +1,5 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import static org.schoellerfamily.gedbrowser.controller.AbstractController.*;
-
 import org.schoellerfamily.gedbrowser.controller.exception.SourceNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
