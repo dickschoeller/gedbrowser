@@ -1,15 +1,18 @@
 gedbrowser:
     home: /var/lib/gedbrowser
-    userFile: testUserFile.csv
+    userFile: ../gedbrowserng/src/test/resources/testUserFile.csv
 
 server:
-    servlet-path: /gedbrowserng
+    servlet:
+        context-path: /gedbrowserng
 
 spring:
-  profiles:
-    active: test
-  jackson:
-    serialization:
-      INDENT_OUTPUT: true
+    profiles:
+        active: test
+    main:
+        allow-bean-definition-overriding: true
+    jackson:
+        serialization:
+            INDENT_OUTPUT: true
 jwt:
-  expires_in: 8
+    expires_in: 8

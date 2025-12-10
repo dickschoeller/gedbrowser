@@ -1,9 +1,10 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.crud.ChildCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,21 +14,33 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
-public final class ChildrenController extends CrudInvoker {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
+@RequiredArgsConstructor
+@Slf4j
+public final class ChildrenController {
+
+    /** */
+    private final GedDocumentFileLoader loader;
+
+    /** */
+    private final GedObjectToGedDocumentMongoConverter toDocConverter;
+
+    /** */
+    private final RepositoryManagerMongo repositoryManager;
 
     /**
      * @return the CRUD object for manipulating spouses
      */
     private ChildCrud childCrud() {
-        return new ChildCrud(getLoader(), getConverter(), getManager());
+        return new ChildCrud(loader, toDocConverter, repositoryManager);
     }
 
     /**
@@ -41,7 +54,7 @@ public final class ChildrenController extends CrudInvoker {
     public ApiPerson createChild(@PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
-        logger.info("Entering ceateChild");
+        log.info("Entering ceateChild");
         return childCrud().createChild(db, id, person);
     }
 
@@ -56,7 +69,7 @@ public final class ChildrenController extends CrudInvoker {
     public ApiPerson linkChild(@PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
-        logger.info("Entering ceateChild");
+        log.info("Entering ceateChild");
         return childCrud().linkChild(db, id, person);
     }
 
@@ -71,7 +84,7 @@ public final class ChildrenController extends CrudInvoker {
     public ApiPerson createChildInFamily(@PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
-        logger.info("Entering ceateChildInFamily");
+        log.info("Entering ceateChildInFamily");
         return childCrud().createChildInFamily(db, id, person);
     }
 
@@ -86,7 +99,7 @@ public final class ChildrenController extends CrudInvoker {
     public ApiPerson linkChildInFamily(@PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
-        logger.info("Entering linkChildInFamily");
+        log.info("Entering linkChildInFamily");
         return childCrud().linkChildInFamily(db, id, person);
     }
 
@@ -101,7 +114,7 @@ public final class ChildrenController extends CrudInvoker {
     public ApiPerson unlinkChild(@PathVariable final String db,
             @PathVariable final String id,
             @PathVariable final String child) {
-        logger.info("Entering linkChildInFamily");
+        log.info("Entering linkChildInFamily");
         return childCrud().unlinkChild(db, id, child);
     }
 }

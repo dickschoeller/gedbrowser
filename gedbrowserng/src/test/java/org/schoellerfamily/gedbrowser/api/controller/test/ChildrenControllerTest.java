@@ -6,8 +6,6 @@ import static org.junit.Assert.assertEquals;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,9 +13,9 @@ import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -28,6 +26,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestClientException;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
@@ -36,10 +36,8 @@ import org.springframework.web.client.RestClientException;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@Slf4j
 public class ChildrenControllerTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
-
     /**
      * Not sure what this is good for.
      */
@@ -72,7 +70,7 @@ public class ChildrenControllerTest {
             throws RestClientException, URISyntaxException {
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = createChildOfParent(parent);
-        logger.info("famc: " + child.getFamc().get(0).getString());
+        log.info("famc: {}", child.getFamc().get(0).getString());
 
         final ApiPerson gotParent = helper.getPerson(parent);
         assertEquals("Child should be in family",
@@ -91,7 +89,7 @@ public class ChildrenControllerTest {
 
         final ApiPerson child = createChildOfParent(parent);
         String famID = child.getFamc().get(0).getString();
-        logger.info("famc: " + famID);
+        log.info("famc: {}", famID);
 
         final ApiPerson secondChild = helper.createPerson();
         final String familiesUrl = helper.getFamiliesUrl() + "/" + famID;
@@ -101,7 +99,8 @@ public class ChildrenControllerTest {
         final ResponseEntity<ApiFamily> familyEntity = testRestTemplate
                 .getForEntity(new URI(familiesUrl), ApiFamily.class);
         assertEquals("check ID",
-                familyEntity.getBody().getChildren().get(1).getString(),
+                java.util.Optional.ofNullable(familyEntity.getBody())
+                        .map(b -> b.getChildren().get(1).getString()).orElse(null),
                 secondChild.getString());
 
     }
@@ -114,7 +113,7 @@ public class ChildrenControllerTest {
     public final void testLinkChild()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = helper.createPerson();
         final HttpEntity<ApiPerson> personReq =
@@ -144,7 +143,7 @@ public class ChildrenControllerTest {
         final ApiPerson parent = helper.createPerson();
 
         final ApiPerson child = createChildOfParent(parent);
-        logger.info("famc: " + child.getFamc().get(0).getString());
+        log.info("famc: {}", child.getFamc().get(0).getString());
 
 
         testRestTemplate.delete(
@@ -163,7 +162,7 @@ public class ChildrenControllerTest {
             throws URISyntaxException {
         final String childUrl = helper.getPersonsUrl() + "/"
                 + parent.getString() + "/children";
-        logger.info("childUrl: " + childUrl);
+        log.info("childUrl: {}", childUrl);
         final ApiPerson childReqBody = helper.buildPerson();
         final HttpEntity<ApiPerson> childReq =
                 new HttpEntity<>(childReqBody, helper.getHeaders());

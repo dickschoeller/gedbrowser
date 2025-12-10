@@ -7,8 +7,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonConfidentialVisitor;
@@ -20,18 +18,19 @@ import org.schoellerfamily.gedbrowser.renderer.href.SaveHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
-import org.schoellerfamily.geoservice.model.GeoServiceItemComparator;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
+import org.schoellerfamily.geoservice.model.GeoServiceItemComparator;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public final class IndexByPlaceRenderer extends GedRenderer<Root>
     implements HeaderHrefRenderer<Root>, IndexHrefRenderer<Root>,
         PlacesHrefRenderer<Root>, SaveHrefRenderer<Root>,
         SourcesHrefRenderer<Root>, SubmittersHrefRenderer<Root> {
-    /** Logger. */
-    private final Log logger = LogFactory.getLog(getClass());
 
     /** */
     private final GeoServiceClient client;
@@ -60,10 +59,10 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
      * @return the complete index
      */
     private Map<String, Set<PersonRenderer>> createWholeIndex() {
-        logger.info("In getWholeIndex");
+        log.info("In getWholeIndex");
         final Map<String, Set<PersonRenderer>> aMap = new TreeMap<>();
         if (!getRenderingContext().isUser()) {
-            logger.info("Leaving getWholeIndex not logged in");
+            log.info("Leaving getWholeIndex not logged in");
             return aMap;
         }
         final Collection<Person> persons = getGedObject().find(Person.class);
@@ -73,7 +72,7 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
             }
             locatePerson(aMap, person);
         }
-        logger.info("Leaving getWholeIndex");
+        log.info("Leaving getWholeIndex");
         return aMap;
     }
 
@@ -175,7 +174,7 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
      * @return persons in the place
      */
     public Set<PersonRenderer> getPersonsAtPlace(final String place) {
-        logger.info("In getPersonsAtPlace");
+        log.info("In getPersonsAtPlace");
         return getWholeIndex().get(place);
     }
 

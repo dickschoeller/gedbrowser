@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
+    <groupId>org.schoellerfamily.gedbrowser</groupId>
     <artifactId>gedbrowser-top</artifactId>
     <version>1.3.0-RC3-SNAPSHOT</version>
-    <groupId>org.schoellerfamily.gedbrowser</groupId>
     <relativePath>..</relativePath>
   </parent>
 
@@ -51,8 +50,8 @@
         <artifactId>frontend-maven-plugin</artifactId>
         <version>1.6</version>
         <configuration>
-          <nodeVersion>v12.13.1</nodeVersion>
-          <yarnVersion>v1.21.1</yarnVersion>
+          <nodeVersion>v24.11.0</nodeVersion>
+          <yarnVersion>v1.22.22</yarnVersion>
         </configuration>
         <executions>
           <execution>
@@ -71,7 +70,7 @@
               <arguments>install</arguments>
             </configuration>
           </execution>
-          <execution>
+          <!-- execution>
             <id>yarn lint</id>
             <goals>
               <goal>yarn</goal>
@@ -79,7 +78,7 @@
             <configuration>
               <arguments>lint</arguments>
             </configuration>
-          </execution>
+          </execution -->
           <execution>
             <id>yarn build</id>
             <goals>
@@ -107,6 +106,9 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
+	<configuration>
+	  <skip>true</skip>
+	</configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

@@ -1,9 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -66,8 +64,8 @@ public class ApiHeadTest {
     /** */
     @Test
     public void testConstructorWithAttributes() {
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("a string", "attribute", ""));
+        final List<ApiAttribute> attributes = List.of(
+            new ApiAttribute("a string", "attribute", ""));
         final ApiHead o = new ApiHead("type", "string", attributes);
         assertEquals("attributes mismatch", 1, o.getAttributes().size());
     }

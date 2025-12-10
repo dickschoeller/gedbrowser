@@ -1,14 +1,11 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.BDDAssertions.*;
+import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +25,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
@@ -36,9 +35,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@Slf4j
 public class SourceCrudTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -70,7 +68,7 @@ public class SourceCrudTest {
     /** */
     @Test
     public final void testReadSourcesGl120368() {
-        logger.info("Beginning testReadSourcesGl120368");
+        log.info("Beginning testReadSourcesGl120368");
         final List<ApiSource> list = crud.readAll(helper.getDb());
         final ApiSource firstSource = list.get(0);
         then(firstSource.getString()).isEqualTo("S1688");
@@ -92,7 +90,7 @@ public class SourceCrudTest {
     /** */
     @Test
     public final void testReadSourcesMiniSchoeller() {
-        logger.info("Beginning testReadSourcesMiniSchoeller");
+        log.info("Beginning testReadSourcesMiniSchoeller");
         final List<ApiSource> list = crud.readAll("mini-schoeller");
         final ApiSource firstSource = list.get(0);
         then(firstSource.getString()).isEqualTo("S2");
@@ -117,7 +115,7 @@ public class SourceCrudTest {
     /** */
     @Test
     public final void testReadSourcesMiniSchoellerS2() {
-        logger.info("Beginning testReadSourcesMiniSchoellerS2");
+        log.info("Beginning testReadSourcesMiniSchoellerS2");
         final ApiSource firstSource = crud.readOne("mini-schoeller", "S2");
         then(firstSource.getString()).isEqualTo("S2");
         then(firstSource.getImages()).isEmpty();
@@ -141,7 +139,7 @@ public class SourceCrudTest {
     /** */
     @Test
     public final void testReadSourcesMiniSchoellerXyzzy() {
-        logger.info("Beginning testReadSourcesMiniSchoellerXyzzy");
+        log.info("Beginning testReadSourcesMiniSchoellerXyzzy");
         try {
             final ApiSource source = crud.readOne("mini-schoeller", "Xyzzy");
             fail("The source should not be found: " + source.getString());
@@ -154,7 +152,7 @@ public class SourceCrudTest {
     /** */
     @Test
     public final void testCreateSourcesSimple() {
-        logger.info("Beginning testCreateSourcesSimple");
+        log.info("Beginning testCreateSourcesSimple");
         final ApiSource inSource = new ApiSource("source", "", "Unknown");
         final ApiSource newSource = crud.createOne(helper.getDb(), inSource);
         then(newSource.getType()).isEqualTo(inSource.getType());
@@ -163,7 +161,7 @@ public class SourceCrudTest {
     /** */
     @Test
     public final void testDeleteSource() {
-        logger.info("Beginning testDeleteSource");
+        log.info("Beginning testDeleteSource");
         final ApiSource reqSource = new ApiSource("source", "", "Unknown");
         final ApiSource resSource = crud.createOne(helper.getDb(),
                 reqSource);
@@ -184,7 +182,7 @@ public class SourceCrudTest {
     /** */
     @Test
     public final void testDeleteSourceNotFound() {
-        logger.info("Beginning testDeleteSourceNotFound");
+        log.info("Beginning testDeleteSourceNotFound");
         try {
             final ApiSource deletedSource =
                     crud.deleteOne(helper.getDb(), "XXXXXXX");
@@ -199,7 +197,7 @@ public class SourceCrudTest {
     /** */
     @Test
     public final void testDeleteSubmitterDatabaseNotFound() {
-        logger.info("Beginning testDeleteSubmitterDatabaseNotFound");
+        log.info("Beginning testDeleteSubmitterDatabaseNotFound");
         try {
             final ApiSource deletedSource =
                     crud.deleteOne("XYZZY", "S1");
@@ -215,11 +213,11 @@ public class SourceCrudTest {
     /** */
     @Test
     public final void testUpdateSourceWithNote() {
-        logger.info("Beginning testUpdateSourceWithNote");
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Note", "first note"));
-        final ApiSource inSource = new ApiSource("source", "", attributes,
-                "Unknown");
+        log.info("Beginning testUpdateSourceWithNote");
+        final List<ApiAttribute> attributes = List.of(
+                new ApiAttribute("attribute", "Note", "first note"));
+        final ApiSource inSource = new ApiSource("source", "",
+                attributes, "Unknown");
         final ApiSource newSource = crud.createOne(helper.getDb(), inSource);
 
         final ApiAttribute aNote = new ApiAttribute("attribute", "Note",

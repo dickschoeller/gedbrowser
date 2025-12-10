@@ -2,25 +2,25 @@ package org.schoellerfamily.gedbrowser.api.crud;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.persistence.domain.NoteDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.NoteDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public class NoteCrud
     extends OperationsEnabler<Note, NoteDocument>
     implements CrudOperations<Note, NoteDocument, ApiNote>,
         ObjectCrud<ApiNote> {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * @param loader the file loader that we will use
@@ -38,7 +38,7 @@ public class NoteCrud
      */
     @Override
     public FindableDocument<Note, NoteDocument> getRepository() {
-        return getRepositoryManager().getNoteDocumentRepository();
+        return ((NoteDocumentRepositoryMongo) getRepositoryManager().get(Note.class));
     }
 
     /**
@@ -57,8 +57,8 @@ public class NoteCrud
     @Override
     public ApiNote createOne(final String db,
             final ApiNote note) {
-        logger.info("Entering create note in db: " + db);
-        return create(readRoot(db), note, (i, id) ->
+        log.info("Entering create note in db: {}", db);
+        return create(readRoot(getRepositoryManager(), db), note, (i, id) ->
             new ApiNote(i.getType(), id, i.getAttributes(), i.getTail()));
     }
 
@@ -69,8 +69,8 @@ public class NoteCrud
     @Override
     public List<ApiNote> readAll(
             final String db) {
-        logger.info("Entering notes, db: " + db);
-        return getD2dm().convert(read(db));
+        log.info("Entering notes, db: {}", db);
+        return getD2dm().convert(read(getRepositoryManager(), db));
     }
 
     /**
@@ -82,8 +82,8 @@ public class NoteCrud
     public ApiNote readOne(
             final String db,
             final String id) {
-        logger.info("Entering note, db: " + db + ", id: " + id);
-        return getD2dm().convert(read(db, id));
+        log.info("Entering note, db: {}, id: {}", db, id);
+        return getD2dm().convert(read(getRepositoryManager(), db, id));
     }
 
 
@@ -97,11 +97,11 @@ public class NoteCrud
     public ApiNote updateOne(final String db,
             final String id,
             final ApiNote note) {
-        logger.info("Entering update note in db: " + db);
+        log.info("Entering update note in db: {}", db);
         if (!id.equals(note.getString())) {
             return null;
         }
-        return update(readRoot(db), note);
+        return update(readRoot(getRepositoryManager(), db), note);
     }
 
     /**
@@ -113,6 +113,6 @@ public class NoteCrud
     public ApiNote deleteOne(
             final String db,
             final String id) {
-        return delete(readRoot(db), id);
+        return delete(readRoot(getRepositoryManager(), db), id);
     }
 }

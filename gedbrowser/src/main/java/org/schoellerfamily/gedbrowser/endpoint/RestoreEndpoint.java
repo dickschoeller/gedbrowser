@@ -1,61 +1,40 @@
 package org.schoellerfamily.gedbrowser.endpoint;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.endpoint.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
 @Component
-public class RestoreEndpoint implements Endpoint<List<String>> {
-
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
+@Endpoint(id = "restore")
+@Slf4j
+public class RestoreEndpoint {
 
     /** */
     @Autowired
     private transient GedObjectFileLoader loader;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final String getId() {
-        return "restore";
-    }
+    @Autowired
+    private transient RepositoryManagerMongo repositoryManager;
 
     /**
-     * {@inheritDoc}
+     * Exposed actuator read operation for restore.
+     *
+     * @return messages
      */
-    @Override
+    @ReadOperation
     public final List<String> invoke() {
-        final List<String> messages = new ArrayList<>();
-        logger.info("Invoke restore");
-        loader.reloadAll();
-        messages.add("Reloaded " + loader.details().size() + " datasets");
-        return messages;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final boolean isEnabled() {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final boolean isSensitive() {
-        return true;
+        log.info("Invoke restore");
+        loader.reloadAll(repositoryManager);
+        return List.of("Reloaded %d datasets".formatted(loader.details(repositoryManager).size()));
     }
 }
