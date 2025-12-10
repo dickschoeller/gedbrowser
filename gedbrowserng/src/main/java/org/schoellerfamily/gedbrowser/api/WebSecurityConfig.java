@@ -99,9 +99,6 @@ public class WebSecurityConfig {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    /**
      * Configure the security filter chain using the modern approach.
      */
     @Bean
@@ -140,7 +137,7 @@ public class WebSecurityConfig {
         if ("test".equals(activeProfile)) {
             return http.csrf().disable();
         } else {
-                return http.csrf().ignoringAntMatchers(
+                return http.csrf().ignoringRequestMatchers(
                     "/v1/login",
                     "/v1/signup")
                     .csrfTokenRepository(

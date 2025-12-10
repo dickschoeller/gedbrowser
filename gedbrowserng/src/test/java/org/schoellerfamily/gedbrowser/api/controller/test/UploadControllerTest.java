@@ -78,8 +78,7 @@ public class UploadControllerTest {
         doReturn(o)
             .when(controller).readOne(anyString());
         final MvcResult result = mockMvc.perform(
-                MockMvcRequestBuilders
-                    .fileUpload("/v1/upload")
+                MockMvcRequestBuilders.multipart("/v1/upload")
                     .file(mockMultipartFile)
                     .contentType(MediaType.MULTIPART_FORM_DATA))
                 .andExpect(MockMvcResultMatchers
