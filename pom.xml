@@ -80,9 +80,8 @@
     <joda-time.version>2.10.6</joda-time.version>
     <sauce_junit.version>2.1.25</sauce_junit.version>
     <geojson-jackson.version>1.14</geojson-jackson.version>
-    <log4j-over-slf4j.version>1.7.30</log4j-over-slf4j.version>
-    <jcl-over-slf4j.version>1.7.30</jcl-over-slf4j.version>
-    <logback-classic.version>1.2.13</logback-classic.version>
+    <slf4j.version>2.0.9</slf4j.version>
+    <logback.version>1.4.11</logback.version>
     <anselcharset.version>1.1</anselcharset.version>
     <commons-io.version>2.14.0</commons-io.version>
     <commons-logging.version>1.2</commons-logging.version>
@@ -522,6 +521,12 @@
         <version>${spring-data-commons.version}</version>
       </dependency>
       <dependency>
+        <groupId>jakarta.servlet</groupId>
+        <artifactId>jakarta.servlet-api</artifactId>
+        <version>6.1.0</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
         <groupId>cglib</groupId>
         <artifactId>cglib</artifactId>
         <version>${cglib.version}</version>
@@ -633,17 +638,27 @@
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>log4j-over-slf4j</artifactId>
-        <version>${log4j-over-slf4j.version}</version>
+        <version>${slf4j.version}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>jcl-over-slf4j</artifactId>
-        <version>${log4j-over-slf4j.version}</version>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
       </dependency>
       <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
-        <version>${logback-classic.version}</version>
+        <version>${logback.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-core</artifactId>
+        <version>${logback.version}</version>
       </dependency>
       <dependency>
         <groupId>org.clojars.rayne</groupId>
