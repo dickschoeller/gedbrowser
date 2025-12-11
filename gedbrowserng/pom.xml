@@ -17,7 +17,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <start-class>org.schoellerfamily.gedbrowser.api.Application</start-class>
     <config-dir>${project.parent.basedir}/config</config-dir>
-    <spring-boot.version>3.0.13</spring-boot.version>
   </properties>
 
   <dependencyManagement>
