@@ -1,19 +1,16 @@
 package org.schoellerfamily.gedbrowser.security.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.schoellerfamily.gedbrowser.security.exception.ResourceConflictException;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
 import org.schoellerfamily.gedbrowser.security.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,15 +23,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Dick Schoeller
  */
 @RestController
 @RequestMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequiredArgsConstructor
 public class UserController {
     /** */
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     /**
      * @param username the username
@@ -62,9 +61,7 @@ public class UserController {
     @RequestMapping(method = GET, value = "/reset-credentials")
     public ResponseEntity<Map<String, String>> resetCredentials() {
       userService.resetCredentials();
-      final Map<String, String> result = new HashMap<>();
-      result.put("result", "success");
-      return ResponseEntity.accepted().body(result);
+      return ResponseEntity.accepted().body(Map.of("result", "success"));
     }
 
     /**

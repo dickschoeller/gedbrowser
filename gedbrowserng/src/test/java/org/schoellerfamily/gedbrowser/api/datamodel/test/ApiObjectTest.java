@@ -1,10 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -68,8 +65,7 @@ public class ApiObjectTest {
     /** */
     @Test
     public void testConstructorWithAttributes() {
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("a string", "attribute", ""));
+        final List<ApiAttribute> attributes = List.of(new ApiAttribute("a string", "attribute", ""));
         final ApiObject o = new ApiObject("type", "string", attributes);
         assertEquals("attributes mismatch", 1, o.getAttributes().size());
     }
@@ -187,12 +183,10 @@ public class ApiObjectTest {
     /** */
     @Test
     public void testEqualsWithAttributes() {
-        final List<ApiAttribute> expectedAttributes = new ArrayList<>();
-        expectedAttributes.add(new ApiAttribute("atype", "string", "tail"));
+        final List<ApiAttribute> expectedAttributes = List.of(new ApiAttribute("atype", "string", "tail"));
         final ApiObject expected =
                 new ApiObject("type", "string", expectedAttributes);
-        final List<ApiAttribute> actualAttributes = new ArrayList<>();
-        actualAttributes.add(new ApiAttribute("atype", "string", "tail"));
+        final List<ApiAttribute> actualAttributes = List.of(new ApiAttribute("atype", "string", "tail"));
         final ApiObject actual =
                 new ApiObject("type", "string", actualAttributes);
         assertEquals("Should match", expected, actual);
@@ -201,12 +195,10 @@ public class ApiObjectTest {
     /** */
     @Test
     public void testNotEqualsBecauseOfAttributes() {
-        final List<ApiAttribute> expectedAttributes = new ArrayList<>();
-        expectedAttributes.add(new ApiAttribute("atype", "string", "tail"));
+        final List<ApiAttribute> expectedAttributes = List.of(new ApiAttribute("atype", "string", "tail"));
         final ApiObject expected =
                 new ApiObject("type", "string", expectedAttributes);
-        final List<ApiAttribute> actualAttributes = new ArrayList<>();
-        actualAttributes.add(new ApiAttribute("atype1", "string", "tail"));
+        final List<ApiAttribute> actualAttributes = List.of(new ApiAttribute("atype1", "string", "tail"));
         final ApiObject actual =
                 new ApiObject("type", "string", actualAttributes);
         assertNotEquals("Should not match", expected, actual);
@@ -215,12 +207,10 @@ public class ApiObjectTest {
     /** */
     @Test
     public void testNotEqualsBecauseOfAttributeTail() {
-        final List<ApiAttribute> expectedAttributes = new ArrayList<>();
-        expectedAttributes.add(new ApiAttribute("atype", "string", "tail"));
+        final List<ApiAttribute> expectedAttributes = List.of(new ApiAttribute("atype", "string", "tail"));
         final ApiObject expected =
                 new ApiObject("type", "string", expectedAttributes);
-        final List<ApiAttribute> actualAttributes = new ArrayList<>();
-        actualAttributes.add(new ApiAttribute("atype", "string", "tail1"));
+        final List<ApiAttribute> actualAttributes = List.of(new ApiAttribute("atype", "string", "tail1"));
         final ApiObject actual =
                 new ApiObject("type", "string", actualAttributes);
         assertNotEquals("Should not match", expected, actual);
@@ -229,12 +219,10 @@ public class ApiObjectTest {
     /** */
     @Test
     public void testNotEqualsBecauseOfAttributeNullTail() {
-        final List<ApiAttribute> expectedAttributes = new ArrayList<>();
-        expectedAttributes.add(new ApiAttribute("atype", "string", "tail"));
+        final List<ApiAttribute> expectedAttributes = List.of(new ApiAttribute("atype", "string", "tail"));
         final ApiObject expected =
                 new ApiObject("type", "string", expectedAttributes);
-        final List<ApiAttribute> actualAttributes = new ArrayList<>();
-        actualAttributes.add(new ApiAttribute("atype", "string", null));
+        final List<ApiAttribute> actualAttributes = List.of(new ApiAttribute("atype", "string", null));
         final ApiObject actual =
                 new ApiObject("type", "string", actualAttributes);
         assertNotEquals("Should not match", expected, actual);
@@ -242,12 +230,10 @@ public class ApiObjectTest {
 
     /** */
     @Test public void testHashEquals() {
-        final List<ApiAttribute> expectedAttributes = new ArrayList<>();
-        expectedAttributes.add(new ApiAttribute("atype", "string", "tail"));
+        final List<ApiAttribute> expectedAttributes = List.of(new ApiAttribute("atype", "string", "tail"));
         final ApiObject expected =
                 new ApiObject("type", "string", expectedAttributes);
-        final List<ApiAttribute> actualAttributes = new ArrayList<>();
-        actualAttributes.add(new ApiAttribute("atype", "string", "tail"));
+        final List<ApiAttribute> actualAttributes = List.of(new ApiAttribute("atype", "string", "tail"));
         final ApiObject actual =
                 new ApiObject("type", "string", actualAttributes);
         assertEquals("Should match", expected.hashCode(), actual.hashCode());
@@ -255,12 +241,10 @@ public class ApiObjectTest {
 
     /** */
     @Test public void testHashNotEquals() {
-        final List<ApiAttribute> expectedAttributes = new ArrayList<>();
-        expectedAttributes.add(new ApiAttribute("atype", "string", "tail1"));
+        final List<ApiAttribute> expectedAttributes = List.of(new ApiAttribute("atype", "string", "tail1"));
         final ApiObject expected =
                 new ApiObject("type", "string", expectedAttributes);
-        final List<ApiAttribute> actualAttributes = new ArrayList<>();
-        actualAttributes.add(new ApiAttribute("atype", "string", "tail"));
+        final List<ApiAttribute> actualAttributes = List.of(new ApiAttribute("atype", "string", "tail"));
         final ApiObject actual =
                 new ApiObject("type", "string", actualAttributes);
         assertNotEquals("Should not match",
@@ -269,12 +253,10 @@ public class ApiObjectTest {
 
     /** */
     @Test public void testHashNotEqualsNullType() {
-        final List<ApiAttribute> expectedAttributes = new ArrayList<>();
-        expectedAttributes.add(new ApiAttribute("atype", "string", "tail"));
+        final List<ApiAttribute> expectedAttributes = List.of(new ApiAttribute("atype", "string", "tail"));
         final ApiObject expected =
                 new ApiObject("type", "string", expectedAttributes);
-        final List<ApiAttribute> actualAttributes = new ArrayList<>();
-        actualAttributes.add(new ApiAttribute(null, "string", "tail"));
+        final List<ApiAttribute> actualAttributes = List.of(new ApiAttribute(null, "string", "tail"));
         final ApiObject actual =
                 new ApiObject("type", "string", actualAttributes);
         assertNotEquals("Should not match",
@@ -283,12 +265,10 @@ public class ApiObjectTest {
 
     /** */
     @Test public void testHashNotEqualsNullString() {
-        final List<ApiAttribute> expectedAttributes = new ArrayList<>();
-        expectedAttributes.add(new ApiAttribute("atype", "string", "tail"));
+        final List<ApiAttribute> expectedAttributes = List.of(new ApiAttribute("atype", "string", "tail"));
         final ApiObject expected =
                 new ApiObject("type", "string", expectedAttributes);
-        final List<ApiAttribute> actualAttributes = new ArrayList<>();
-        actualAttributes.add(new ApiAttribute("atype", null, "tail"));
+        final List<ApiAttribute> actualAttributes = List.of(new ApiAttribute("atype", null, "tail"));
         final ApiObject actual =
                 new ApiObject("type", "string", actualAttributes);
         assertNotEquals("Should not match",
@@ -298,12 +278,10 @@ public class ApiObjectTest {
     /** */
     @Test
     public void testHashNotEqualsBecauseOfAttributeNullTail() {
-        final List<ApiAttribute> expectedAttributes = new ArrayList<>();
-        expectedAttributes.add(new ApiAttribute("atype", "string", "tail"));
+        final List<ApiAttribute> expectedAttributes = List.of(new ApiAttribute("atype", "string", "tail"));
         final ApiObject expected =
                 new ApiObject("type", "string", expectedAttributes);
-        final List<ApiAttribute> actualAttributes = new ArrayList<>();
-        actualAttributes.add(new ApiAttribute("atype", "string", null));
+        final List<ApiAttribute> actualAttributes = List.of(new ApiAttribute("atype", "string", null));
         final ApiObject actual =
                 new ApiObject("type", "string", actualAttributes);
         assertNotEquals("Should not match",

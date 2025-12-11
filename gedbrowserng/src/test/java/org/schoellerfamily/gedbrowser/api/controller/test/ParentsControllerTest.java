@@ -1,22 +1,20 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.BDDAssertions.*;
+import static org.junit.Assert.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -24,6 +22,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestClientException;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
@@ -33,9 +33,8 @@ import org.springframework.web.client.RestClientException;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@Slf4j
 public class ParentsControllerTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * Not sure what this is good for.
@@ -71,9 +70,9 @@ public class ParentsControllerTest {
             throws RestClientException, URISyntaxException {
         final ApiPerson child = helper.createPerson();
         final ApiPerson parent = createParentOfChild(child);
-        logger.info("fams: " + parent.getFams().get(0).getString());
+        log.info("fams: {}", parent.getFams().get(0).getString());
         final ApiPerson gotChild = helper.getPerson(child);
-        logger.info("famc: " + gotChild.getFamc().get(0).getString());
+        log.info("famc: {}", gotChild.getFamc().get(0).getString());
 
         assertEquals("Child should be in family",
                 gotChild.getFamc().get(0).getString(),

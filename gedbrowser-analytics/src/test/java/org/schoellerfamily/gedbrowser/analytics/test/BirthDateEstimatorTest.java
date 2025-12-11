@@ -1,11 +1,8 @@
 package org.schoellerfamily.gedbrowser.analytics.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.LocalDate;
@@ -430,19 +427,11 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     public void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = readFileTestSource();
         final Root root = g2g.create(top);
-        final List<Person> unhandled = new ArrayList<>();
-        for (final String letter : root.findSurnameInitialLetters()) {
-            for (final String surname : root.findBySurnamesBeginWith(letter)) {
-                for (final Person person : root.findBySurname(surname)) {
-                    final BirthDateEstimator estimator =
-                            createBirthEstimator(person);
-                    final LocalDate localDate = estimator.estimateBirthDate();
-                    if (localDate == null) {
-                        unhandled.add(person);
-                    }
-                }
-            }
-        }
+        final List<Person> unhandled = root.findSurnameInitialLetters().stream()
+                .flatMap(letter -> root.findBySurnamesBeginWith(letter).stream())
+                .flatMap(surname -> root.findBySurname(surname).stream())
+                .filter(person -> createBirthEstimator(person).estimateBirthDate() == null)
+                .toList();
         final int max = Math.min(unhandled.size(), 50);
         if (max != 0) {
             System.out.println("Found " + unhandled.size()

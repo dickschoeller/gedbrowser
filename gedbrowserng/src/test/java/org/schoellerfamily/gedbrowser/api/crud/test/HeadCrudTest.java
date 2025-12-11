@@ -1,11 +1,9 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.BDDAssertions.*;
+import static org.junit.Assert.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +19,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
@@ -29,9 +29,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@Slf4j
 public class HeadCrudTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -58,7 +57,7 @@ public class HeadCrudTest {
     /** */
     @Test
     public final void testGetHeadGl120368() {
-        logger.info("beginning testGetHeadGl120368");
+        log.info("beginning testGetHeadGl120368");
         final ApiHead head = crud.readOne("gl120368");
         then(head.getType()).isEqualTo("head");
         then(head.getString()).isEqualTo("Header");
@@ -67,7 +66,7 @@ public class HeadCrudTest {
     /** */
     @Test
     public final void testGetHeadMiniSchoeller() {
-        logger.info("beginning testGetHeadMiniSchoeller");
+        log.info("beginning testGetHeadMiniSchoeller");
         final ApiHead head = crud.readOne("mini-schoeller");
         then(head.getType()).isEqualTo("head");
         then(head.getString()).isEqualTo("Header");
@@ -76,7 +75,7 @@ public class HeadCrudTest {
     /** */
     @Test
     public final void testGetHeadBadDataSet() {
-        logger.info("beginning testGetHeadBadDataSet");
+        log.info("beginning testGetHeadBadDataSet");
         try {
             crud.readOne("XYZZY");
             fail("should have thrown exception");

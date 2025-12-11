@@ -36,7 +36,7 @@ public interface AttributesRenderer<T extends GedObject> {
                 list.add(renderer);
             }
         }
-        return list;
+        return list.stream().toList();
     }
 
 }

@@ -1,13 +1,11 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -30,14 +28,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
+@Slf4j
 public class IndexByPlaceRendererTest {
-    /** Logger. */
-    private final Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -121,19 +120,19 @@ public class IndexByPlaceRendererTest {
         // Takes about .4 seconds
         final Root root = reader.readFileTestSource(
                 "/var/lib/gedbrowser/schoeller.ged");
-        logger.info("starting testIndexAsAdminSchoeller");
+        log.info("starting testIndexAsAdminSchoeller");
         final IndexByPlaceRenderer ir = new IndexByPlaceRenderer(root,
                 client, adminContext);
         final Map<String, Set<PersonRenderer>> map = ir.getWholeIndex();
-        logger.info("schoeller.ged contains " + map.size() + " places");
+        log.info("schoeller.ged contains {} places", map.size());
         for (final Map.Entry<String, Set<PersonRenderer>> entry
                 : map.entrySet()) {
-            logger.info(entry.getKey());
+            log.info(entry.getKey());
             for (final PersonRenderer person : entry.getValue()) {
-                logger.info("    " + person.getIndexName());
+                log.info("    {}", person.getIndexName());
             }
         }
-        logger.info("done testIndexAsAdminSchoeller");
+        log.info("done testIndexAsAdminSchoeller");
         final int expected = 950;
         assertEquals("maps size wrong", expected, map.size());
     }

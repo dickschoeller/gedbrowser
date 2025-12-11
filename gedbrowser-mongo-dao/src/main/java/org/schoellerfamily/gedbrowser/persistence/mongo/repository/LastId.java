@@ -7,6 +7,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.lang.NonNull;
 
 /**
  * @param <T> the GedDocumentMongo type we are dealing with
@@ -21,7 +22,9 @@ public interface LastId<T extends GedDocumentMongo<?>> {
      * @return the last matching ID
      */
     default String lastId(final MongoTemplate mongoTemplate,
-            final Class<T> clazz, final String filename,
+            @NonNull
+            final Class<T> clazz,
+            final String filename,
             final String baseId) {
         final Query query = new Query(Criteria
                 .where("filename").is(filename)
@@ -45,7 +48,9 @@ public interface LastId<T extends GedDocumentMongo<?>> {
      * @return the last matching ID
      */
     default String newId(final MongoTemplate mongoTemplate,
-            final Class<T> clazz, final String filename,
+            @NonNull
+            final Class<T> clazz,
+            final String filename,
             final String baseId) {
         String last = lastId(mongoTemplate, clazz, filename, baseId);
         String number = last.replace(baseId, "");

@@ -1,15 +1,11 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.BDDAssertions.*;
+import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +25,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
@@ -37,9 +35,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@Slf4j
 public class SubmissionCrudTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -71,7 +68,7 @@ public class SubmissionCrudTest {
     /** */
     @Test
     public final void testGetSubmissionsGl120368() {
-        logger.info("Beginning testGetSubmissionsGl120368");
+        log.info("Beginning testGetSubmissionsGl120368");
         final List<ApiSubmission> list = crud.readAll(helper.getDb());
         final ApiSubmission firstSubmission = list.get(0);
         then(firstSubmission.getString()).isEqualTo("B1");
@@ -86,7 +83,7 @@ public class SubmissionCrudTest {
     /** */
     @Test
     public final void testGetSubmissionsMiniSchoeller() {
-        logger.info("Beginning testGetSubmissionsMiniSchoeller");
+        log.info("Beginning testGetSubmissionsMiniSchoeller");
         final List<ApiSubmission> list = crud.readAll("mini-schoeller");
         assertTrue("should be no submissions", list.isEmpty());
     }
@@ -94,7 +91,7 @@ public class SubmissionCrudTest {
     /** */
     @Test
     public final void testGetSubmissionsGl120368B1() {
-        logger.info("Beginning testGetSubmissionsGl120368B1");
+        log.info("Beginning testGetSubmissionsGl120368B1");
         final ApiSubmission submission = crud.readOne(helper.getDb(),
                 "B1");
         final ApiAttribute firstAttribute = submission.getAttributes().get(0);
@@ -107,7 +104,7 @@ public class SubmissionCrudTest {
     /** */
     @Test
     public final void testGetSubmissionsGl120368Xyzzy() {
-        logger.info("Beginning testGetSubmissionsGl120368Xyzzy");
+        log.info("Beginning testGetSubmissionsGl120368Xyzzy");
         try {
             final ApiSubmission submission = crud.readOne(helper.getDb(),
                     "Xyzzy");
@@ -123,7 +120,7 @@ public class SubmissionCrudTest {
     /** */
     @Test
     public final void testCreateSubmissionsSimple() {
-        logger.info("Beginning testCreateSubmissionsSimple");
+        log.info("Beginning testCreateSubmissionsSimple");
         final ApiSubmission inSubmission = new ApiSubmission("submission", "");
         final ApiSubmission outSubmission = crud
                 .createOne(helper.getDb(), inSubmission);
@@ -133,7 +130,7 @@ public class SubmissionCrudTest {
     /** */
     @Test
     public final void testDeleteSubmission() {
-        logger.info("Beginning testDeleteSubmission");
+        log.info("Beginning testDeleteSubmission");
         final ApiSubmission inSubmission = new ApiSubmission("submission", "");
         final ApiSubmission outSubmission = crud
                 .createOne(helper.getDb(), inSubmission);
@@ -147,7 +144,7 @@ public class SubmissionCrudTest {
     /** */
     @Test
     public final void testDeleteSubmissionNotFound() {
-        logger.info("Beginning testDeleteSubmissionNotFound");
+        log.info("Beginning testDeleteSubmissionNotFound");
         try {
             final ApiSubmission submission = crud
                     .deleteOne(helper.getDb(), "XXXXXXX");
@@ -163,7 +160,7 @@ public class SubmissionCrudTest {
     /** */
     @Test
     public final void testDeleteSubmissionDatabaseNotFound() {
-        logger.info("Beginning testDeleteSubmissionDatabaseNotFound");
+        log.info("Beginning testDeleteSubmissionDatabaseNotFound");
         try {
             crud.deleteOne("XYZZY", "SUBM1");
             fail("The dataset should not be found: XYZZY, when getting SUBM1");
@@ -176,9 +173,9 @@ public class SubmissionCrudTest {
     /** */
     @Test
     public final void testUpdateSubmissionWithNote() {
-        logger.info("Beginning testUpdateSubmissionWithNote");
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Note", "first note"));
+        log.info("Beginning testUpdateSubmissionWithNote");
+        final List<ApiAttribute> attributes = List.of(
+                new ApiAttribute("attribute", "Note", "first note"));
         final ApiSubmission inSubmission = new ApiSubmission("submission", "",
                 attributes);
         final ApiSubmission outSubmission = crud

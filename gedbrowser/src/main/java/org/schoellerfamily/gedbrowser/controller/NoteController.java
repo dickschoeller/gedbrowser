@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.controller.exception.NoteNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -20,9 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Dick Schoeller
  */
 @Controller
+@Slf4j
 public class NoteController extends DatedDataController {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -49,16 +47,14 @@ public class NoteController extends DatedDataController {
                 required = false,
                 defaultValue = "schoeller") final String dbName,
             final Model model) {
-        logger.debug("Entering source");
+        log.debug("Entering source");
 
         final Root root = fetchRoot(dbName);
 
         final RenderingContext context = createRenderingContext();
         final Note note = (Note) root.find(idString);
         if (note == null) {
-            throw new NoteNotFoundException(
-                    "Note " + idString + " not found", idString, dbName,
-                    context);
+            throw new NoteNotFoundException("Note %s not found".formatted(idString), idString, dbName, context);
         }
 
         final GedRenderer<?> noteRenderer = new GedRendererFactory()
@@ -68,7 +64,7 @@ public class NoteController extends DatedDataController {
         model.addAttribute("noteString", note.getString());
         model.addAttribute("model", noteRenderer);
         model.addAttribute("appInfo", appInfo);
-        logger.debug("Exiting source");
+        log.debug("Exiting source");
         return "note";
     }
 }

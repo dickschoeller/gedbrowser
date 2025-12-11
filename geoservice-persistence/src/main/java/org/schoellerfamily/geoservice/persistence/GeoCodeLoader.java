@@ -7,9 +7,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Provides the means to pre-load the cache with some expected places. This is
@@ -18,9 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Dick Schoeller
  */
+@Slf4j
 public class GeoCodeLoader {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -33,13 +32,13 @@ public class GeoCodeLoader {
      * @param filename the name of the file to load
      */
     public final void load(final String filename) {
-        logger.debug("Loading the cache from places file: " + filename);
+        log.debug("Loading the cache from places file: {}", filename);
         try (
             InputStream fis = new FileInputStream(filename);
         ) {
             load(fis);
         } catch (IOException e) {
-            logger.error("Problem reading places file", e);
+            log.error("Problem reading places file", e);
         }
     }
 
@@ -69,13 +68,13 @@ public class GeoCodeLoader {
      * @param filename the name of the file to load
      */
     public final void loadAndFind(final String filename) {
-        logger.debug("Loading the cache from places file: " + filename);
+        log.debug("Loading the cache from places file: {}", filename);
         try (
             InputStream fis = new FileInputStream(filename);
         ) {
             loadAndFind(fis);
         } catch (IOException e) {
-            logger.error("Problem reading places file", e);
+            log.error("Problem reading places file", e);
         }
     }
 
@@ -113,7 +112,7 @@ public class GeoCodeLoader {
      * @param loader what to do with each line
      */
     private void load(final InputStream istream, final Loader loader) {
-        logger.debug("Loading the cache from input stream");
+        log.debug("Loading the cache from input stream");
         String line;
         try (
             InputStreamReader isr =
@@ -129,7 +128,7 @@ public class GeoCodeLoader {
                 }
             }
         } catch (IOException e) {
-            logger.error("Problem reading places stream", e);
+            log.error("Problem reading places stream", e);
         }
     }
 }

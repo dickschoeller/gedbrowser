@@ -1,14 +1,9 @@
 package org.schoellerfamily.gedbrowser.analytics.order.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,14 +22,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
+@Slf4j
 public final class OrderAnalyzerTest implements AnalyzerTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -358,9 +354,9 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
                 person);
         final OrderAnalyzerResult result = orderAnalyzer.analyze();
         if (!result.isCorrect()) {
-            logger.info(indexName);
+            log.info(indexName);
             for (final String message : result.getMismatches()) {
-                logger.info("   " + message);
+                log.info("   {}", message);
                 assertFalse(
                         "If has today (" + today.toString()
                         + ") something is wrong",
