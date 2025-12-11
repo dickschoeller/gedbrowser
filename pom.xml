@@ -166,7 +166,6 @@
         <version>${pmd-plugin.version}</version>
           <configuration>
           <linkXRef>true</linkXRef>
-          <sourceEncoding>utf-8</sourceEncoding>
           <targetJdk>21</targetJdk>
           <rulesets>
             <ruleset>${config-dir}/pmd.xml</ruleset>
@@ -237,7 +236,6 @@
           </dependencies>
           <configuration>
             <linkXRef>true</linkXRef>
-            <sourceEncoding>utf-8</sourceEncoding>
             <targetJdk>21</targetJdk>
             <printFailingErrors>true</printFailingErrors>
             <failOnViolation>true</failOnViolation>
@@ -514,6 +512,16 @@
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-mongodb</artifactId>
         <version>${spring-data-mongodb.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>mongodb-driver-sync</artifactId>
+        <version>4.9.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>mongodb-driver-core</artifactId>
+        <version>4.9.1</version>
       </dependency>
       <dependency>
         <groupId>org.springframework.data</groupId>
