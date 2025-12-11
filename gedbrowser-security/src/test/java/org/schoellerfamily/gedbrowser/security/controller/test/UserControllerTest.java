@@ -138,7 +138,7 @@ public class UserControllerTest {
         log.info("Test whomai not logged in");
         final ResponseEntity<? extends SecurityUser> response = userHelper
                 .whoamiResponse(new HttpHeaders());
-        assertEquals("Should have failed", HttpStatus.FORBIDDEN,
+        assertEquals("Should have failed", HttpStatus.UNAUTHORIZED,
                 response.getStatusCode());
     }
 
@@ -169,7 +169,7 @@ public class UserControllerTest {
         final HttpHeaders headers = new HttpHeaders();
         final ResponseEntity<? extends SecurityUser> response =
                 userHelper.getUserResponse(headers, "guest");
-        assertEquals("", HttpStatus.FORBIDDEN, response.getStatusCode());
+        assertEquals("", HttpStatus.UNAUTHORIZED, response.getStatusCode());
     }
 
     /**
