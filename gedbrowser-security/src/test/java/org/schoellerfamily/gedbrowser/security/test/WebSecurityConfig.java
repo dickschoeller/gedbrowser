@@ -43,7 +43,7 @@ public class WebSecurityConfig {
     private String activeProfile;
 
     /** */
-    private final CustomUserDetailsService jwtUserDetailsService;
+    private final CustomUserDetailsService customUserDetailsService;
 
     /** */
     private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
@@ -60,20 +60,6 @@ public class WebSecurityConfig {
     /** */
     private final TokenAuthenticationFilter tokenAuthenticationFilter;
 
-    /** */
-    private final TokenHelper tokenHelper;
-
-    /** */
-	private final UserDetailsService userDetailsService;
-
-    /**
-     * @return the token authentication filter
-     */
-    @Bean
-    public TokenAuthenticationFilter jwtAuthenticationTokenFilter() {
-      return new TokenAuthenticationFilter(tokenHelper, userDetailsService);
-    }
-
     /**
      * Register a DaoAuthenticationProvider so AuthenticationManager can use
      * the provided UserDetailsService and PasswordEncoder.
@@ -82,7 +68,7 @@ public class WebSecurityConfig {
     public DaoAuthenticationProvider authenticationProvider(
             final PasswordEncoder passwordEncoder) {
         final DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(jwtUserDetailsService);
+        provider.setUserDetailsService(customUserDetailsService);
         provider.setPasswordEncoder(passwordEncoder);
         return provider;
     }

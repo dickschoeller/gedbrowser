@@ -354,7 +354,7 @@ public class PersonControllerTest {
         then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         final ResponseEntity<String> deleteEntity = testRestTemplate
                 .exchange(deleteUrl, HttpMethod.DELETE, helper.userEntity(), String.class);
-        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
+        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
     }
 
     /**

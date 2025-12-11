@@ -2,6 +2,10 @@ package org.schoellerfamily.gedbrowser.security.token;
 
 import java.util.Date;
 import java.util.Map;
+import java.security.Key;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import javax.crypto.spec.SecretKeySpec;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +20,7 @@ import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
 /**
  * @author Dick Schoeller
@@ -51,6 +56,30 @@ public final class TokenHelper {
             SignatureAlgorithm.HS512;
 
     /**
+     * Create a signing Key from the configured secret.
+     * Use io.jsonwebtoken.security.Keys.hmacShaKeyFor to produce an appropriate
+     * HMAC key for HS512. If the configured secret is too short, derive
+     * a 64-byte key by hashing the secret with SHA-512 so we always meet
+     * the HS512 key length requirement.
+     *
+     * @return the signing key
+     */
+    private Key getSigningKey() {
+        try {
+            byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
+            final int minBytes = 64; // 512 bits / 8
+            if (keyBytes.length < minBytes) {
+                final MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
+                keyBytes = sha512.digest(keyBytes);
+            }
+            return Keys.hmacShaKeyFor(keyBytes);
+        } catch (Exception e) {
+            // Fallback: wrap raw bytes (may fail at runtime if too short)
+            return new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA512");
+        }
+    }
+
+    /**
      * @param token the token
      * @return the user name
      */
@@ -73,8 +102,23 @@ public final class TokenHelper {
                 .setSubject(username)
                 .setIssuedAt(generateCurrentDate())
                 .setExpiration(generateExpirationDate())
-                .signWith(SIGNATURE_ALGORITHM, secret)
+                .signWith(getSigningKey(), SIGNATURE_ALGORITHM)
                 .compact();
+    }
+
+    /**
+     * Parse the token and return its claims, letting parsing exceptions propagate
+     * to the caller (for tests or callers that need to react to ExpiredJwtException).
+     *
+     * @param token the token
+     * @return the claims
+     */
+    public Claims parseClaimsOrThrow(final String token) {
+        return Jwts.parser()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     /**
@@ -84,12 +128,16 @@ public final class TokenHelper {
     private Claims getClaimsFromToken(final String token) {
         try {
             return Jwts.parser()
-                    .setSigningKey(this.secret)
+                    .setSigningKey(getSigningKey())
+                    .build()
                     .parseClaimsJws(token)
                     .getBody();
-        } catch (Exception e) {
-            return null;
-        }
+         } catch (io.jsonwebtoken.ExpiredJwtException eje) {
+             // Let callers who care about expiration handle it explicitly
+             throw eje;
+         } catch (Exception e) {
+             return null;
+         }
     }
 
     /**
@@ -100,7 +148,7 @@ public final class TokenHelper {
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate())
-                .signWith(SIGNATURE_ALGORITHM, secret)
+                .signWith(getSigningKey(), SIGNATURE_ALGORITHM)
                 .compact();
     }
 
@@ -128,8 +176,13 @@ public final class TokenHelper {
     public String refreshToken(final String token) {
         try {
             final Claims claims = getClaimsFromToken(token);
-            claims.setIssuedAt(generateCurrentDate());
-            return generateToken(claims);
+            // Rebuild token with updated issuedAt/expiration rather than mutating Claims
+            return Jwts.builder()
+                    .setClaims(claims)
+                    .setIssuedAt(generateCurrentDate())
+                    .setExpiration(generateExpirationDate())
+                    .signWith(getSigningKey(), SIGNATURE_ALGORITHM)
+                    .compact();
         } catch (Exception e) {
             return null;
         }

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
@@ -53,11 +52,11 @@
     <gedbrowser.version>1.3.0-RC3-SNAPSHOT</gedbrowser.version>
 
     <!-- These all step forward together -->
-    <spring.version>6.0.14</spring.version>
-    <spring-boot.version>3.0.13</spring-boot.version>
-    <spring-boot-maven.version>3.0.13</spring-boot-maven.version>
-    <spring-data-mongodb.version>4.0.12</spring-data-mongodb.version>
-    <spring-data-commons.version>3.0.12</spring-data-commons.version>
+    <spring.version>6.0.21</spring.version>
+    <spring-boot.version>3.1.12</spring-boot.version>
+    <spring-boot-maven.version>3.1.12</spring-boot-maven.version>
+    <spring-data-mongodb.version>4.1.12</spring-data-mongodb.version>
+    <spring-data-commons.version>3.1.12</spring-data-commons.version>
     <!-- -->
     <!-- Stay in 1.4.x until going to Spring 5 -->
     <undertow.version>2.3.20.Final</undertow.version>
@@ -74,8 +73,9 @@
     <cglib.version>3.3.0</cglib.version>
     <!-- might try 0.9.1 of google -->
     <google-maps-services.version>0.10.0</google-maps-services.version>
-    <jackson-core.version>2.15.0</jackson-core.version>
-    <jackson-databind.version>2.15.0</jackson-databind.version>
+    <jackson-core.version>2.20.1</jackson-core.version>
+    <jackson-databind.version>2.20.1</jackson-databind.version>
+    <jackson-annotations.version>2.20</jackson-annotations.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.10.6</joda-time.version>
     <sauce_junit.version>2.1.25</sauce_junit.version>
@@ -166,7 +166,6 @@
         <version>${pmd-plugin.version}</version>
           <configuration>
           <linkXRef>true</linkXRef>
-          <sourceEncoding>utf-8</sourceEncoding>
           <targetJdk>21</targetJdk>
           <rulesets>
             <ruleset>${config-dir}/pmd.xml</ruleset>
@@ -237,7 +236,6 @@
           </dependencies>
           <configuration>
             <linkXRef>true</linkXRef>
-            <sourceEncoding>utf-8</sourceEncoding>
             <targetJdk>21</targetJdk>
             <printFailingErrors>true</printFailingErrors>
             <failOnViolation>true</failOnViolation>
@@ -516,6 +514,16 @@
         <version>${spring-data-mongodb.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>mongodb-driver-sync</artifactId>
+        <version>4.9.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>mongodb-driver-core</artifactId>
+        <version>4.9.1</version>
+      </dependency>
+      <dependency>
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-commons</artifactId>
         <version>${spring-data-commons.version}</version>
@@ -605,7 +613,7 @@
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-annotations</artifactId>
-        <version>${jackson-core.version}</version>
+        <version>${jackson-annotations.version}</version>
       </dependency>
       <dependency>
         <groupId>org.gedcom4j</groupId>
