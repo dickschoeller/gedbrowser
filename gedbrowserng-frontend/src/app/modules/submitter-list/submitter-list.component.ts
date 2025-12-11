@@ -14,6 +14,7 @@ import { NewSubmitterHelper, UrlBuilder, ListPage, ListPageHelper } from '../../
 import { SubmitterListPageComponent } from './submitter-list-page.component';
 
 @Component({
+  standalone: false,
   selector: 'app-submitter-list',
   templateUrl: './submitter-list.component.html',
   styleUrls: ['./submitter-list.component.css']
@@ -27,7 +28,7 @@ export class SubmitterListComponent extends SubmitterCreator implements AfterVie
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns = ['name', 'string', 'delete'];
-  datasource = new MatTableDataSource<ApiSubmitter>(this.submitters);
+  datasource: MatTableDataSource<ApiSubmitter>;
 
   constructor(
     private router: Router,
@@ -42,6 +43,7 @@ export class SubmitterListComponent extends SubmitterCreator implements AfterVie
   }
 
   ngOnInit() {
+    this.datasource = new MatTableDataSource<ApiSubmitter>(this.submitters);
     ListPageHelper.init(this, this.submitters);
   }
 

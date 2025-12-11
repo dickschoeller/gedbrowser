@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserImpl;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 
 /**
  * @author Dick Schoeller
@@ -38,7 +40,7 @@ public class UserTestHelper {
      * @return the user
      * @throws URISyntaxException if there is a URL problem
      */
-    public SecurityUser whoami(final HttpHeaders headers)
+    public SecurityUser whoami(@NonNull final HttpHeaders headers)
             throws URISyntaxException {
         return whoamiResponse(headers).getBody();
     }
@@ -49,7 +51,8 @@ public class UserTestHelper {
      * @throws URISyntaxException if there is a URL problem
      */
     public ResponseEntity<? extends SecurityUser> whoamiResponse(
-            final HttpHeaders headers) throws URISyntaxException {
+        @NonNull
+        final HttpHeaders headers) throws URISyntaxException {
         final String url = baseUrl() + "whoami";
         final HttpEntity<UserImpl> requestEntity =
                 new HttpEntity<UserImpl>(headers);
@@ -62,11 +65,10 @@ public class UserTestHelper {
      * @return the JSON string of users
      * @throws URISyntaxException if there is a problem with the URL
      */
-    public String getUsersString(final HttpHeaders headers)
+    public String getUsersString(@NonNull final HttpHeaders headers)
             throws URISyntaxException {
         final String url = baseUrl() + "users";
-        final String usersString = getString(url, headers);
-        return usersString;
+        return getString(url, headers);
     }
 
     /**
@@ -87,15 +89,14 @@ public class UserTestHelper {
      * @throws URISyntaxException if the URI is bogus
      */
     public ResponseEntity<? extends SecurityUser> getUserResponse(
-            final HttpHeaders headers, final String requestName)
+            @NonNull
+            final HttpHeaders headers,
+            final String requestName)
             throws URISyntaxException {
         final String url = baseUrl() + "users/" + requestName;
         final HttpEntity<UserImpl> requestEntity =
                 new HttpEntity<UserImpl>(headers);
-        final ResponseEntity<UserImpl> responseEntity = testRestTemplate
-                .exchange(new URI(url), HttpMethod.GET, requestEntity,
-                        UserImpl.class);
-        return responseEntity;
+        return testRestTemplate.exchange(new URI(url), HttpMethod.GET, requestEntity,UserImpl.class);
     }
 
     /**
@@ -103,18 +104,17 @@ public class UserTestHelper {
      * @return the User
      * @throws URISyntaxException if the URI is bogus
      */
-    public List<UserImpl> getUsers(final HttpHeaders headers)
+    public List<UserImpl> getUsers(@NonNull final HttpHeaders headers)
             throws URISyntaxException {
         final String url = baseUrl() + "users";
-        final HttpEntity<ArrayList<UserImpl>> requestEntity =
-                new HttpEntity<ArrayList<UserImpl>>(headers);
-        final ParameterizedTypeReference<ArrayList<UserImpl>> ref =
-                new ParameterizedTypeReference<ArrayList<UserImpl>>() { };
-        final ResponseEntity<ArrayList<UserImpl>> responseEntity =
+        final HttpEntity<List<UserImpl>> requestEntity =
+                new HttpEntity<List<UserImpl>>(headers);
+        final ParameterizedTypeReference<List<UserImpl>> ref =
+                new ParameterizedTypeReference<List<UserImpl>>() { };
+        final ResponseEntity<List<UserImpl>> responseEntity =
                 testRestTemplate
                     .exchange(new URI(url), HttpMethod.GET, requestEntity, ref);
-        final List<UserImpl> users = responseEntity.getBody();
-        return users;
+        return responseEntity.getBody();
     }
 
     /**
@@ -130,7 +130,12 @@ public class UserTestHelper {
      * @return the string format of the response body
      * @throws URISyntaxException if the URI is bogus
      */
-    private String getString(final String url, final HttpHeaders headers)
+    @NonNull
+    private String getString(
+        @NonNull
+        final String url,
+        @NonNull
+        final HttpHeaders headers)
             throws URISyntaxException {
         final HttpEntity<String> requestEntity = new HttpEntity<String>(
                 headers);
@@ -138,6 +143,6 @@ public class UserTestHelper {
                 new ParameterizedTypeReference<String>() { };
         final ResponseEntity<String> responseEntity = testRestTemplate
                 .exchange(new URI(url), HttpMethod.GET, requestEntity, ref);
-        return responseEntity.getBody();
+        return Optional.ofNullable(responseEntity.getBody()).orElse("");
     }
 }

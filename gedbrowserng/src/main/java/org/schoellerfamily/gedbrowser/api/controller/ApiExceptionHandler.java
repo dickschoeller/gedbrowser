@@ -1,7 +1,8 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
-import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
+import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
+import org.schoellerfamily.gedbrowser.api.service.storage.StorageException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,5 +45,20 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         newex.setStackTrace(new StackTraceElement[0]);
         return handleExceptionInternal(ex, newex, new HttpHeaders(),
                 HttpStatus.NOT_FOUND, request);
+    }
+
+    /**
+     * @param ex the exception being handled
+     * @param request the request that it is associated with
+     * @return the response
+     */
+    @ExceptionHandler(value = { StorageException.class })
+    protected ResponseEntity<Object> handleStorageException(
+            final StorageException ex, final WebRequest request) {
+        final StorageException newex = new StorageException(
+                ex.getMessage());
+        newex.setStackTrace(new StackTraceElement[0]);
+        return handleExceptionInternal(ex, newex, new HttpHeaders(),
+                HttpStatus.BAD_REQUEST, request);
     }
 }

@@ -22,8 +22,6 @@ public class PublicController {
      */
     @RequestMapping(method = GET, value = "/foo")
     public Map<String, String> getFoo() {
-        final Map<String, String> fooObj = new HashMap<>();
-        fooObj.put("foo", "bar");
-        return fooObj;
+        return Map.of("foo", "bar");
     }
 }

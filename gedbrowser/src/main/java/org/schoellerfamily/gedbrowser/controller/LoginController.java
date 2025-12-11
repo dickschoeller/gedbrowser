@@ -1,10 +1,8 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,23 +10,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
 @Controller
+@Slf4j
 public class LoginController {
     /** Key to find the login referer in the session attributes. */
     private static final String SESSION_REFERER_KEY = "SESSION_REFERER";
-
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
 
     /** Base path in URL. */
-    @Value("${server.servlet-path}")
+    @Value("${server.servlet.context-path}")
     private transient String servletPath;
 
     /**
@@ -39,12 +37,12 @@ public class LoginController {
     @RequestMapping("/login")
     public final String login(final Model model,
             final HttpServletRequest request) {
-        logger.debug("Entering login");
+        log.debug("Entering login");
         final String referer = loginDestinationUrl(request);
         model.addAttribute("referer", referer);
         request.getSession().setAttribute(SESSION_REFERER_KEY, referer);
         model.addAttribute("appInfo", appInfo);
-        logger.debug("Exiting login");
+        log.debug("Exiting login");
         return "login";
     }
 
@@ -56,12 +54,12 @@ public class LoginController {
     @RequestMapping("/logout")
     public final String logout(final Model model,
             final HttpServletRequest request) {
-        logger.debug("Entering logout");
+        log.debug("Entering logout");
         final String referer = loginDestinationUrl(request);
         model.addAttribute("referer", referer);
         request.getSession().setAttribute(SESSION_REFERER_KEY, referer);
         model.addAttribute("appInfo", appInfo);
-        logger.debug("Exiting logout");
+        log.debug("Exiting logout");
         return "login";
     }
 

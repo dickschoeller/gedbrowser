@@ -4,6 +4,7 @@ import java.net.UnknownHostException;
 
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
+import org.schoellerfamily.gedbrowser.api.controller.ApplicationInfoImpl;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
@@ -28,23 +29,23 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     TrailerDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
-import org.schoellerfamily.gedbrowser.security.service.UserService;
-import org.schoellerfamily.gedbrowser.security.util.UserProvider;
-import org.schoellerfamily.gedbrowser.security.util.UserProviderImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
-import org.springframework.data.mongodb.repository.config.
-    EnableMongoRepositories;
+import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.web.client.RestTemplate;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
@@ -67,14 +68,18 @@ import com.mongodb.MongoClient;
                 },
                 type = FilterType.ASSIGNABLE_TYPE))
 @SuppressWarnings("PMD.ExcessiveImports")
+@RequiredArgsConstructor
 public class MongoConfiguration {
     /** */
-    @Autowired
-    private MongoPropertiesService mongoProperties;
+    @Value("${spring.data.mongodb.host:localhost}")
+    private final String host;
 
     /** */
-    @Autowired
-    private UserService service;
+    @Value("${spring.data.mongodb.port:27017}")
+    private final int port;
+
+    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
+    private final String gedbrowserHome;
 
     /**
      * Get a MongoDbFactory for accessing the gedbrowser database.
@@ -83,10 +88,11 @@ public class MongoConfiguration {
      * @throws UnknownHostException because it must
      */
     @Bean
-    public MongoDbFactory mongoDbFactory() throws UnknownHostException {
-        return new SimpleMongoDbFactory(
-                new MongoClient(mongoProperties.mongoHost(), mongoProperties.mongoPort()),
-                "gedbrowser-1_2_2");
+    public MongoDatabaseFactory mongoDbFactory() throws UnknownHostException {
+        final String databaseName = "gebrowser-1_2_2";
+        final String connectionString = "mongodb://" + host + ":" + port;
+        final MongoClient client = MongoClients.create(connectionString);
+        return new SimpleMongoClientDatabaseFactory(client, databaseName);
     }
 
     /**
@@ -101,19 +107,14 @@ public class MongoConfiguration {
     }
 
     /**
-     * @return the finder
-     */
-    @Bean
-    public FinderStrategy finder() {
-        return new RepositoryFinderMongo();
-    }
-
-    /**
      * @return the loader
      */
     @Bean
-    public GedDocumentFileLoader loader() {
-        return new GedDocumentFileLoader();
+    public GedDocumentFileLoader loader(final FinderStrategy finder,
+            final GedLineToGedObjectTransformer g2g,
+            final GedObjectToGedDocumentMongoConverter toDocConverter,
+            final RootDocumentRepositoryMongo rootDocumentRepository) {
+        return new GedDocumentFileLoader(finder, g2g, toDocConverter, rootDocumentRepository, gedbrowserHome);
     }
 
     /**
@@ -123,14 +124,6 @@ public class MongoConfiguration {
     @Bean
     public RestTemplate restTemplate(final RestTemplateBuilder builder) {
         return builder.build();
-    }
-
-    /**
-     * @return the repository manager
-     */
-    @Bean
-    public RepositoryManagerMongo repositoryManager() {
-        return new RepositoryManagerMongo();
     }
 
     /**
@@ -158,13 +151,20 @@ public class MongoConfiguration {
     }
 
     /**
-     * Get an object that helps look up users.
-     *
-     * @return user provider
+     * @return the finder
      */
     @Bean
-    public UserProvider userProvider() {
-        return new UserProviderImpl(service);
+    public FinderStrategy finder(final RepositoryManagerMongo repositoryManager,
+            final GedObjectToGedDocumentMongoConverter toDocConverter) {
+        return new RepositoryFinderMongo(repositoryManager, toDocConverter);
+    }
+
+    /**
+     * @return the repository manager
+     */
+    @Bean
+    public RepositoryManagerMongo repositoryManager() {
+        return new RepositoryManagerMongo();
     }
 
     /**
@@ -173,5 +173,13 @@ public class MongoConfiguration {
     @Bean
     public CalendarProvider calendarProvider() {
         return new CalendarProviderImpl();
+    }
+
+    /**
+     * @return the application info provider
+     */
+    @Bean
+    public ApplicationInfo appInfo() {
+        return new ApplicationInfoImpl();
     }
 }

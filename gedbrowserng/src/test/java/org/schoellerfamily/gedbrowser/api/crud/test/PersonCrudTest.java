@@ -1,13 +1,11 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.BDDAssertions.*;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +27,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
@@ -37,9 +37,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@Slf4j
 public class PersonCrudTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -73,7 +72,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testGetPersonsGl120368() {
-        logger.info("Beginning testReadSourcesGl120368");
+        log.info("Beginning testReadSourcesGl120368");
         final List<ApiPerson> list = crud.readAll(helper.getDb());
         final ApiPerson firstPerson = list.get(0);
         then(firstPerson.getString()).isEqualTo("I1");
@@ -86,7 +85,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testGetPersonsMiniSchoeller() {
-        logger.info("Beginning testGetPersonsMiniSchoeller");
+        log.info("Beginning testGetPersonsMiniSchoeller");
         final List<ApiPerson> list = crud.readAll("mini-schoeller");
         final ApiPerson firstPerson = list.get(0);
         then(firstPerson.getString()).isEqualTo("I1");
@@ -100,7 +99,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testGetPersonsMiniSchoellerI2() {
-        logger.info("Beginning testGetPersonsMiniSchoellerI2");
+        log.info("Beginning testGetPersonsMiniSchoellerI2");
         final ApiPerson firstPerson = crud.readOne("mini-schoeller", "I2");
         then(firstPerson.getString()).isEqualTo("I2");
         final ApiAttribute firstAttribute = firstPerson.getAttributes().get(0);
@@ -112,7 +111,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testGetPersonsMiniSchoellerXyzzy() {
-        logger.info("Beginning testGetPersonsMiniSchoellerXyzzy");
+        log.info("Beginning testGetPersonsMiniSchoellerXyzzy");
         try {
             crud.readOne("mini-schoeller", "Xyzzy");
             fail("should not have found person "
@@ -126,7 +125,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testCreatePersonsSimple() {
-        logger.info("Beginning testCreatePersonsSimple");
+        log.info("Beginning testCreatePersonsSimple");
         final ApiPerson.Builder builder = new ApiPerson.Builder().build();
         final ApiPerson reqPerson = new ApiPerson(builder);
         final ApiPerson resPerson = crud.createOne(helper.getDb(),
@@ -140,7 +139,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testCreatePersonsWithName() {
-        logger.info("Beginning testCreatePersonsWithName");
+        log.info("Beginning testCreatePersonsWithName");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson =
                 crud.createOne(helper.getDb(), reqPerson);
@@ -167,7 +166,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testDeletePerson() {
-        logger.info("Beginning testDeletePerson");
+        log.info("Beginning testDeletePerson");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson =
                 crud.createOne(helper.getDb(), reqPerson);
@@ -189,7 +188,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testDeleteSpouseLinkedPerson() {
-        logger.info("Beginning testDeleteSpouseLinkedPerson");
+        log.info("Beginning testDeleteSpouseLinkedPerson");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson =
                 crud.createOne(helper.getDb(), reqPerson);
@@ -229,7 +228,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testDeleteChildLinkedPerson() {
-        logger.info("Beginning testDeleteChildLinkedPerson");
+        log.info("Beginning testDeleteChildLinkedPerson");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson =
                 crud.createOne(helper.getDb(), reqPerson);
@@ -266,7 +265,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testDeletePersonNotFound() {
-        logger.info("Beginning testDeletePersonNotFound");
+        log.info("Beginning testDeletePersonNotFound");
         try {
             crud.deleteOne(helper.getDb(), "XXXXXXX");
             fail("should not have found person XXXXXXX in data set "
@@ -280,8 +279,8 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testDeletePersonDatabaseNotFound() {
-        logger.info("Beginning testDeletePersonDatabaseNotFound");
-        logger.info("Beginning testDeletePersonNotFound");
+        log.info("Beginning testDeletePersonDatabaseNotFound");
+        log.info("Beginning testDeletePersonNotFound");
         try {
             crud.deleteOne("XYZZY", "XXXXXXX");
             fail("should not have found data set "
@@ -295,7 +294,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testUpdatePersonWithNote() {
-        logger.info("Beginning testUpdatePersonWithNote");
+        log.info("Beginning testUpdatePersonWithNote");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson =
                 crud.createOne(helper.getDb(), reqPerson);

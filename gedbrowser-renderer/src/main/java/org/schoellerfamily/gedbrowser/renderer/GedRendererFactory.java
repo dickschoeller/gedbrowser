@@ -42,85 +42,38 @@ public final class GedRendererFactory {
     /**
      * Dispatcher for factory.
      */
-    private static Map<Class<?>, RendererBuilder> builders = new HashMap<>();
-    static {
-        builders.put(Husband.class, (g, f, r) -> {
-            return new HusbandRenderer((Husband) g, f, r);
-        });
-        builders.put(Wife.class, (g, f, r) -> {
-            return new WifeRenderer((Wife) g, f, r);
-        });
-        builders.put(Person.class, (g, f, r) -> {
-            return new PersonRenderer((Person) g, f, r);
-        });
-        builders.put(Place.class, (g, f, r) -> {
-            return new PlaceRenderer((Place) g, f, r);
-        });
-        builders.put(Name.class, (g, f, r) -> {
+    private static Map<Class<?>, RendererBuilder> builders = Map.ofEntries(
+        Map.entry((Class<?>)Husband.class, (RendererBuilder)(g, f, r) -> new HusbandRenderer((Husband) g, f, r)),
+        Map.entry((Class<?>)Wife.class, (RendererBuilder)(g, f, r) -> new WifeRenderer((Wife) g, f, r)),
+        Map.entry((Class<?>)Person.class, (RendererBuilder)(g, f, r) -> new PersonRenderer((Person) g, f, r)),
+        Map.entry((Class<?>)Place.class, (RendererBuilder)(g, f, r) -> new PlaceRenderer((Place) g, f, r)),
+        Map.entry((Class<?>)Note.class, (RendererBuilder)(g, f, r) -> new NoteRenderer((Note) g, f, r)),
+        Map.entry((Class<?>)NoteLink.class, (RendererBuilder)(g, f, r) -> new NoteLinkRenderer((NoteLink) g, f, r)),
+        Map.entry((Class<?>)Attribute.class, (RendererBuilder)(g, f, r) -> new AttributeRenderer((Attribute) g, f, r)),
+        Map.entry((Class<?>)Multimedia.class, (RendererBuilder)(g, f, r) -> new MultimediaRenderer((Multimedia) g, f, r)),
+        Map.entry((Class<?>)Child.class, (RendererBuilder)(g, f, r) -> new ChildRenderer((Child) g, f, r)),
+        Map.entry((Class<?>)Date.class, (RendererBuilder)(g, f, r) -> new DateRenderer((Date) g, f, r)),
+        Map.entry((Class<?>)FamC.class, (RendererBuilder)(g, f, r) -> new FamCRenderer((FamC) g, f, r)),
+        Map.entry((Class<?>)Family.class, (RendererBuilder)(g, f, r) -> new FamilyRenderer((Family) g, f, r)),
+        Map.entry((Class<?>)FamS.class, (RendererBuilder)(g, f, r) -> new FamSRenderer((FamS) g, f, r)),
+        Map.entry((Class<?>)Head.class, (RendererBuilder)(g, f, r) -> new HeadRenderer((Head) g, f, r)),
+        Map.entry((Class<?>)Root.class, (RendererBuilder)(g, f, r) -> new RootRenderer((Root) g, f, r)),
+        Map.entry((Class<?>)Source.class, (RendererBuilder)(g, f, r) -> new SourceRenderer((Source) g, f, r)),
+        Map.entry((Class<?>)SourceLink.class, (RendererBuilder)(g, f, r) -> new SourceLinkRenderer((SourceLink) g, f, r)),
+        Map.entry((Class<?>)Submission.class, (RendererBuilder)(g, f, r) -> new SubmissionRenderer((Submission) g, f, r)),
+        Map.entry((Class<?>)SubmissionLink.class, (RendererBuilder)(g, f, r) -> new SubmissionLinkRenderer((SubmissionLink) g, f, r)),
+        Map.entry((Class<?>)Submitter.class, (RendererBuilder)(g, f, r) -> new SubmitterRenderer((Submitter) g, f, r)),
+        Map.entry((Class<?>)SubmitterLink.class, (RendererBuilder)(g, f, r) -> new SubmitterLinkRenderer((SubmitterLink) g, f, r)),
+        Map.entry((Class<?>)Trailer.class, (RendererBuilder)(g, f, r) -> new TrailerRenderer((Trailer) g, f, r)),
+        Map.entry((Class<?>)Link.class, (RendererBuilder)(g, f, r) -> new LinkRenderer((Link) g, f, r)),
+        Map.entry((Class<?>)Name.class, (RendererBuilder)(g, f, r) -> {
             if (g.getParent() != null
                     && g.getParent().getClass().equals(Submitter.class)) {
                 return new SimpleNameRenderer((Name) g, f, r);
             }
             return new NameRenderer((Name) g, f, r);
-        });
-        builders.put(Note.class, (g, f, r) -> {
-            return new NoteRenderer((Note) g, f, r);
-        });
-        builders.put(NoteLink.class, (g, f, r) -> {
-            return new NoteLinkRenderer((NoteLink) g, f, r);
-        });
-        builders.put(Attribute.class, (g, f, r) -> {
-            return new AttributeRenderer((Attribute) g, f, r);
-        });
-        builders.put(Multimedia.class, (g, f, r) -> {
-            return new MultimediaRenderer((Multimedia) g, f, r);
-        });
-        builders.put(Child.class, (g, f, r) -> {
-            return new ChildRenderer((Child) g, f, r);
-        });
-        builders.put(Date.class, (g, f, r) -> {
-            return new DateRenderer((Date) g, f, r);
-        });
-        builders.put(FamC.class, (g, f, r) -> {
-            return new FamCRenderer((FamC) g, f, r);
-        });
-        builders.put(Family.class, (g, f, r) -> {
-            return new FamilyRenderer((Family) g, f, r);
-        });
-        builders.put(FamS.class, (g, f, r) -> {
-            return new FamSRenderer((FamS) g, f, r);
-        });
-        builders.put(Head.class, (g, f, r) -> {
-            return new HeadRenderer((Head) g, f, r);
-        });
-        builders.put(Root.class, (g, f, r) -> {
-            return new RootRenderer((Root) g, f, r);
-        });
-        builders.put(Source.class, (g, f, r) -> {
-            return new SourceRenderer((Source) g, f, r);
-        });
-        builders.put(SourceLink.class, (g, f, r) -> {
-            return new SourceLinkRenderer((SourceLink) g, f, r);
-        });
-        builders.put(Submission.class, (g, f, r) -> {
-            return new SubmissionRenderer((Submission) g, f, r);
-        });
-        builders.put(SubmissionLink.class, (g, f, r) -> {
-            return new SubmissionLinkRenderer((SubmissionLink) g, f, r);
-        });
-        builders.put(Submitter.class, (g, f, r) -> {
-            return new SubmitterRenderer((Submitter) g, f, r);
-        });
-        builders.put(SubmitterLink.class, (g, f, r) -> {
-            return new SubmitterLinkRenderer((SubmitterLink) g, f, r);
-        });
-        builders.put(Trailer.class, (g, f, r) -> {
-            return new TrailerRenderer((Trailer) g, f, r);
-        });
-        builders.put(Link.class, (g, f, r) -> {
-            return new LinkRenderer((Link) g, f, r);
-        });
-    }
+        }));
+    
 
     /**
      * Interface for builders for the factory.

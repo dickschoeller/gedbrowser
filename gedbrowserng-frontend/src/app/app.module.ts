@@ -51,7 +51,7 @@ import {
 
 import { LoginGuard, GuestGuard, AdminGuard } from './guards';
 
-const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
+const rootRouting: ModuleWithProviders<RouterModule> = RouterModule.forRoot([], { useHash: true });
 
 export function initUserFactory(userService: UserService) {
     return () => userService.initUser();
@@ -82,16 +82,6 @@ export function initUserFactory(userService: UserService) {
     ],
     declarations: [
         AppComponent,
-    ],
-    entryComponents: [
-        LinkDialogComponent,
-        LinkPersonDialogComponent,
-        MultimediaDialogComponent,
-        NewAttributeDialogComponent,
-        NewNoteDialogComponent,
-        NewPersonDialogComponent,
-        NewSourceDialogComponent,
-        NewSubmitterDialogComponent,
     ],
     providers: [
         AuthApiService,

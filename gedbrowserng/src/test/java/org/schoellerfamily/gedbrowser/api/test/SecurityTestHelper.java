@@ -5,16 +5,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author dick
  */
+@Slf4j
 public final class SecurityTestHelper {
-    /** Logger. */
-    private static final transient Log LOGGER =
-            LogFactory.getLog(SecurityTestHelper.class);
 
     /**
      * Private constructor.
@@ -26,7 +23,7 @@ public final class SecurityTestHelper {
      * @param userFile the path of the file to reset
      */
     public static void resetUserFile(final String userFile) {
-        LOGGER.info("resetting " + userFile);
+        log.info("resetting {}", userFile);
         final String[] strings = {
                 "schoeller@comcast.net,Richard,Schoeller,"
                 + "schoeller@comcast.net,HAHANOWAY,USER,ADMIN\n",
@@ -38,7 +35,7 @@ public final class SecurityTestHelper {
                 bstream.write(string.getBytes(StandardCharsets.UTF_8));
             }
         } catch (IOException e) {
-            LOGGER.error("Problem writing user file", e);
+            log.error("Problem writing user file", e);
         }
     }
 

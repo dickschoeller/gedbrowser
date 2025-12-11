@@ -1,7 +1,5 @@
 package org.schoellerfamily.gedbrowser.api.crud;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
@@ -10,12 +8,13 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGe
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public final class ChildCrud extends RelationsCrud {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * @param loader the file loader that we will use
@@ -36,8 +35,7 @@ public final class ChildCrud extends RelationsCrud {
      */
     public ApiPerson createChild(final String db, final String id,
             final ApiPerson person) {
-        logger.info(
-                "Entering create child in db: " + db + " for person " + id);
+        log.info("Entering create child in db: {} for person {}", db, id);
         final ApiPerson oldPerson = readPerson(db, id);
         final ApiPerson newPerson = createPerson(db, person);
         final ApiFamily newFamily = createFamily(db);
@@ -54,11 +52,7 @@ public final class ChildCrud extends RelationsCrud {
      */
     public ApiPerson linkChild(final String db, final String id,
             final ApiPerson person) {
-        logger.info(
-                "Entering link person: " + person.getString()
-                + " in db: " + db
-                + " as a child of person: " + id
-                + ", creating a new family");
+        log.info("Entering link person: {} in db: {} as a child of person: {}, creating a new family", person.getString(), db, id);
         final ApiPerson oldPerson = readPerson(db, id);
         final ApiPerson newPerson = readPerson(db, person.getString());
         final ApiFamily family = createFamily(db);
@@ -75,8 +69,7 @@ public final class ChildCrud extends RelationsCrud {
      */
     public ApiPerson createChildInFamily(final String db, final String id,
             final ApiPerson person) {
-        logger.info(
-                "Entering create child in db: " + db + " for family " + id);
+        log.info("Entering create child in db: {} for family {}", db, id);
         try {
             final ApiFamily family = readFamily(db, id);
             final ApiPerson newPerson = createPerson(db, person);
@@ -95,10 +88,7 @@ public final class ChildCrud extends RelationsCrud {
      */
     public ApiPerson linkChildInFamily(final String db, final String id,
             final ApiPerson person) {
-        logger.info(
-                "Entering link person: " + person.getString()
-                + " in db: " + db
-                + " as a child of family: " + id);
+        log.info("Entering link person: {} in db: {} as a child of family: {}", person.getString(), db, id);
         final ApiPerson foundPerson = readPerson(db, person.getString());
         try {
             final ApiFamily family = readFamily(db, id);
@@ -117,8 +107,7 @@ public final class ChildCrud extends RelationsCrud {
      */
     public ApiPerson unlinkChild(final String db, final String id,
             final String child) {
-        logger.info("Entering unlink person: " + child
-                + " in db: " + db + " from family: " + id);
+        log.info("Entering unlink person: {} in db: {} from family: {}", child, db, id);
         final ApiPerson childPerson = readPerson(db, child);
         removeFamilyFromChild(id, childPerson);
         try {

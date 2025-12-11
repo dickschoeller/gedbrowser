@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMon
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmissionDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
+import org.springframework.lang.NonNull;
 
 /**
  * @author Dick Schoeller
@@ -20,61 +21,61 @@ public interface TopLevelGedDocumentMongoVisitor {
      *
      * @param document the document
      */
-    void visit(PersonDocumentMongo document);
+    void visit(@NonNull PersonDocumentMongo document);
 
     /**
      * Visit and process on a family document.
      *
      * @param document the document
      */
-    void visit(FamilyDocumentMongo document);
+    void visit(@NonNull FamilyDocumentMongo document);
 
     /**
      * Visit and process on a source document.
      *
      * @param document the document
      */
-    void visit(SourceDocumentMongo document);
+    void visit(@NonNull SourceDocumentMongo document);
 
     /**
      * Visit and process on a head document.
      *
      * @param document the document
      */
-    void visit(HeadDocumentMongo document);
+    void visit(@NonNull HeadDocumentMongo document);
 
     /**
      * Visit and process on a submission document.
      *
      * @param document the document
      */
-    void visit(SubmissionDocumentMongo document);
+    void visit(@NonNull SubmissionDocumentMongo document);
 
     /**
      * Visit and process on a submitter document.
      *
      * @param document the document
      */
-    void visit(SubmitterDocumentMongo document);
+    void visit(@NonNull SubmitterDocumentMongo document);
 
     /**
      * Visit and process on a trailer document.
      *
      * @param document the document
      */
-    void visit(TrailerDocumentMongo document);
+    void visit(@NonNull TrailerDocumentMongo document);
 
     /**
      * Visit and process on a note document.
      *
      * @param document the document
      */
-    void visit(NoteDocumentMongo document);
+    void visit(@NonNull NoteDocumentMongo document);
 
     /**
      * Visit and process on a generic document.
      *
      * @param document the document
      */
-    void visit(GedDocumentMongo<? extends GedObject> document);
+    void visit(@NonNull GedDocumentMongo<? extends GedObject> document);
 }

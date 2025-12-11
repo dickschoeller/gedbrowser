@@ -7,9 +7,9 @@ import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -58,7 +58,9 @@ public class UploadServiceTest {
                 .postForEntity(url, entity, ApiHead.class);
         assertEquals("Status mismatch",
                 HttpStatus.OK, response.getStatusCode());
-        assertEquals("Type mismatch", "Header", response.getBody().getString());
+        assertEquals("Type mismatch", "Header",
+                java.util.Optional.ofNullable(response.getBody())
+                        .map(b -> b.getString()).orElse(null));
     }
 
     /** */
@@ -76,8 +78,10 @@ public class UploadServiceTest {
         final ResponseEntity<ApiHead> response = testRestTemplate
                 .postForEntity(url, entity, ApiHead.class);
         assertEquals("Status mismatch",
-                HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertEquals("Type mismatch", "", response.getBody().getString());
+                HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Type mismatch", "",
+                java.util.Optional.ofNullable(response.getBody())
+                        .map(b -> b.getString()).orElse(null));
     }
 
     /** */
@@ -95,8 +99,10 @@ public class UploadServiceTest {
         final ResponseEntity<ApiHead> response = testRestTemplate
                 .postForEntity(url, entity, ApiHead.class);
         assertEquals("Status mismatch",
-                HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertEquals("Type mismatch", "", response.getBody().getString());
+                HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Type mismatch", "",
+                java.util.Optional.ofNullable(response.getBody())
+                        .map(b -> b.getString()).orElse(null));
     }
 
     /**

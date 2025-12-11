@@ -69,12 +69,12 @@ public final class GeoServiceBounds {
         final Polygon polygon = new Polygon();
         feature.setGeometry(polygon);
         polygon.setBbox(bbox);
-        final List<LngLatAlt> elements = new ArrayList<>(5);
-        elements.add(new LngLatAlt(bbox[SW_LNG], bbox[SW_LAT]));
-        elements.add(new LngLatAlt(bbox[NE_LNG], bbox[SW_LAT]));
-        elements.add(new LngLatAlt(bbox[NE_LNG], bbox[NE_LAT]));
-        elements.add(new LngLatAlt(bbox[SW_LNG], bbox[NE_LAT]));
-        elements.add(new LngLatAlt(bbox[SW_LNG], bbox[SW_LAT]));
+        final List<LngLatAlt> elements = List.of(
+            new LngLatAlt(bbox[SW_LNG], bbox[SW_LAT]),
+            new LngLatAlt(bbox[NE_LNG], bbox[SW_LAT]),
+            new LngLatAlt(bbox[NE_LNG], bbox[NE_LAT]),
+            new LngLatAlt(bbox[SW_LNG], bbox[NE_LAT]),
+            new LngLatAlt(bbox[SW_LNG], bbox[SW_LAT]));
         polygon.add(elements);
         feature.setBbox(bbox);
         return feature;

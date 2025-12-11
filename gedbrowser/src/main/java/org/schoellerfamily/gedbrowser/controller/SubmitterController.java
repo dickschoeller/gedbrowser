@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import static org.schoellerfamily.gedbrowser.controller.GeoDataController.*;
+
 import org.schoellerfamily.gedbrowser.controller.exception.SubmitterNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
@@ -16,13 +16,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
 @Controller
-public class SubmitterController extends DatedDataController {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
+@Slf4j
+public class SubmitterController extends GeoDataController {
 
     /** */
     @Autowired
@@ -49,16 +50,14 @@ public class SubmitterController extends DatedDataController {
                 required = false,
                 defaultValue = "schoeller") final String dbName,
             final Model model) {
-        logger.debug("Entering submitter");
+        log.debug("Entering submitter");
 
         final Root root = fetchRoot(dbName);
 
         final RenderingContext context = createRenderingContext();
         final Submitter submitter = (Submitter) root.find(idString);
         if (submitter == null) {
-            throw new SubmitterNotFoundException(
-                    "Submitter " + idString + " not found", idString, dbName,
-                    context);
+            throw new SubmitterNotFoundException("Submitter %s not found".formatted(idString), idString, dbName, context);
         }
 
         final GedRenderer<?> submitterRenderer = new GedRendererFactory()
@@ -68,7 +67,7 @@ public class SubmitterController extends DatedDataController {
         model.addAttribute("sourceString", submitter.getString());
         model.addAttribute("model", submitterRenderer);
         model.addAttribute("appInfo", appInfo);
-        logger.debug("Exiting submitter");
+        log.debug("Exiting submitter");
         return "submitter";
     }
 }

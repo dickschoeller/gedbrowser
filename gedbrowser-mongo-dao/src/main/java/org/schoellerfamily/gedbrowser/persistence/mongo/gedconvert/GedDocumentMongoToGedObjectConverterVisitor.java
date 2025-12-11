@@ -13,14 +13,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.MultimediaDocumen
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NameDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PlaceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
 
 /**
  * @author Dick Schoeller
  */
 public final class GedDocumentMongoToGedObjectConverterVisitor
-        extends GedLinkDocumentMongoToGedObjectConverterVisitor
-        implements GedDocumentMongoVisitor {
+        extends GedLinkDocumentMongoToGedObjectConverterVisitor {
     /**
      * @param parent the parent of the object we are going to create
      */
