@@ -4,21 +4,20 @@ import java.util.Collection;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.maps.model.GeocodingResult;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.CommentSize")
+@Slf4j
 public abstract class GeoCodeBasic implements GeoCode {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** The key string to use for talking to Google's map APIs. */
     @Autowired
@@ -29,7 +28,7 @@ public abstract class GeoCodeBasic implements GeoCode {
      */
     @Override
     public final GeoCodeItem find(final String placeName) {
-        logger.debug("find(\"" + placeName + "\")");
+        log.debug("find(\"{}\")", placeName);
         final GeoDocument geoDocument = getDocument(placeName);
         GeoCodeItem gcce;
         if (geoDocument != null) {
@@ -75,8 +74,7 @@ public abstract class GeoCodeBasic implements GeoCode {
         if (modernPlaceName == null || modernPlaceName.isEmpty()) {
             return find(placeName);
         }
-        logger.debug(
-                "find(\"" + placeName + "\", \"" + modernPlaceName + "\")");
+        log.debug("find(\"{}\", \"{}\")", placeName, modernPlaceName);
         final GeoDocument geoDocument = getDocument(placeName);
         if (geoDocument != null) {
             // We found one.
@@ -180,9 +178,9 @@ public abstract class GeoCodeBasic implements GeoCode {
      */
     @Override
     public final int countNotFound() {
-        logger.debug("Count the places that couldn't be found");
+        log.debug("Count the places that couldn't be found");
         final int count = notFoundKeys().size();
-        logger.debug(count + " places not found");
+        log.debug("{} places not found", count);
         return count;
     }
 
@@ -203,7 +201,7 @@ public abstract class GeoCodeBasic implements GeoCode {
      */
     @Override
     public final Collection<String> notFoundKeys() {
-        logger.debug("Captures the places that couldn't be found");
+        log.debug("Captures the places that couldn't be found");
         final SortedSet<String> notFoundSet = new TreeSet<>();
         for (final GeoDocument gdm : findAllDocuments()) {
             final String name = gdm.getName();
@@ -211,9 +209,9 @@ public abstract class GeoCodeBasic implements GeoCode {
                 notFoundSet.add(name);
                 final String mName = gdm.getModernName();
                 if (name.equals(mName)) {
-                    logger.debug(name);
+                    log.debug(name);
                 } else {
-                    logger.debug(name + "|" + mName);
+                    log.debug("{}|{}", name, mName);
                 }
             }
         }
@@ -236,10 +234,10 @@ public abstract class GeoCodeBasic implements GeoCode {
     public final GeoCodeItem delete(final GeoCodeItem item) {
         final String placeName = item.getPlaceName();
         if (get(placeName) == null) {
-            logger.debug("Didn't find for removal: " + placeName);
+            log.debug("Didn't find for removal: {}", placeName);
         } else {
             deleteDocument(placeName);
-            logger.debug("Removed: " + placeName);
+            log.debug("Removed: {}", placeName);
         }
         return item;
     }

@@ -1,24 +1,24 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.BDDAssertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Optional;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.test.LoginTestHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -26,20 +26,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestClientException;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@Slf4j
 public class PersonControllerTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     private static final int TRUNCATE_LENGTH = 500;
@@ -63,7 +62,7 @@ public class PersonControllerTest {
     /**
      * Initialize the login helper.
      */
-    @Before
+    @BeforeEach
     public void before() {
         helper = new LoginTestHelper(testRestTemplate, port);
     }
@@ -89,7 +88,8 @@ public class PersonControllerTest {
                 + "    \"attributes\" : [ ],\n"
                 + "    \"tail\" : \"\"\n";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody().substring(0, TRUNCATE_LENGTH))
+        then(Optional.ofNullable(entity.getBody())
+                .map(b -> b.substring(0, TRUNCATE_LENGTH)).orElse(""))
                 .startsWith(bodyFragment);
     }
 
@@ -114,7 +114,8 @@ public class PersonControllerTest {
                 + "    \"attributes\" : [ ],\n"
                 + "    \"tail\" : \"\"\n";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody().substring(0, TRUNCATE_LENGTH))
+        then(Optional.ofNullable(entity.getBody())
+                .map(b -> b.substring(0, TRUNCATE_LENGTH)).orElse(""))
                 .startsWith(bodyFragment);
     }
 
@@ -137,7 +138,7 @@ public class PersonControllerTest {
                 + "    \"string\" : \"Melissa Robinson/Schoeller/\",\n"
                 + "    \"attributes\" : [ {\n";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).startsWith(bodyFragment);
+        then(Optional.ofNullable(entity.getBody()).orElse("")).startsWith(bodyFragment);
     }
 
     /** */
@@ -206,15 +207,15 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
         final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson.Builder builder = new ApiPerson.Builder().build();
         final ApiPerson reqBody = new ApiPerson(builder);
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
         final ResponseEntity<ApiPerson> entity = testRestTemplate
                 .postForEntity(new URI(url), req, ApiPerson.class);
-        final ApiPerson resBody = entity.getBody();
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ApiPerson resBody = entity.getBody();
         then(resBody.getType()).isEqualTo(reqBody.getType());
         then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
         then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
@@ -230,7 +231,7 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
         final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createRJS();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
@@ -293,7 +294,7 @@ public class PersonControllerTest {
     public final void testDeletePerson()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         // Create a person.
         // We want to be sure we know the structure of the person
@@ -330,7 +331,7 @@ public class PersonControllerTest {
     public final void testDeletePersonNotAdmin()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         // Create a person.
         // We want to be sure we know the structure of the person
@@ -353,7 +354,7 @@ public class PersonControllerTest {
         then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         final ResponseEntity<String> deleteEntity = testRestTemplate
                 .exchange(deleteUrl, HttpMethod.DELETE, helper.userEntity(), String.class);
-        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
+        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
     }
 
     /**
@@ -364,7 +365,7 @@ public class PersonControllerTest {
     public final void testDeleteSpouseLinkedPerson()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         // Create a person.
         // We want to be sure we know the structure of the person
@@ -392,8 +393,7 @@ public class PersonControllerTest {
         final ApiPerson child = childEntity.getBody();
 
         final String fam = child.getFamc().get(0).getString();
-        logger.info(
-                "The new child, " + child.getString() + ", in family " + fam);
+        log.info("The new child, {}, in family {}", child.getString(), fam);
 
         final ApiPerson p2 = createAlexandra();
         final HttpEntity<ApiPerson> personReq = new HttpEntity<>(p2,
@@ -401,7 +401,7 @@ public class PersonControllerTest {
         final String familiesUrl = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families/";
         final String fspUrl = familiesUrl + fam + "/spouses";
-        logger.info("fspUrl: " + fspUrl);
+        log.info("fspUrl: {}", fspUrl);
         final ResponseEntity<ApiPerson> pe = testRestTemplate.exchange(
                 new URI(fspUrl), HttpMethod.POST,
                 personReq, ApiPerson.class);
@@ -429,7 +429,7 @@ public class PersonControllerTest {
     public final void testDeleteChildLinkedPerson()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         // Create a person.
         // We want to be sure we know the structure of the person
@@ -457,8 +457,7 @@ public class PersonControllerTest {
 
         final String fam = child.getFamc().get(0).getString();
         final String childId = child.getString();
-        logger.info(
-                "The new child, " + childId + ", in family " + fam);
+        log.info("The new child, {}, in family {}", childId, fam);
 
         final ApiPerson p2 = createAlexandra();
         final HttpEntity<ApiPerson> personReq = new HttpEntity<>(p2,
@@ -466,7 +465,7 @@ public class PersonControllerTest {
         final String familiesUrl = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families/";
         final String fspUrl = familiesUrl + fam + "/spouses";
-        logger.info("fspUrl: " + fspUrl);
+        log.info("fspUrl: {}", fspUrl);
         final ResponseEntity<ApiPerson> pe = testRestTemplate.exchange(
                 new URI(fspUrl), HttpMethod.POST,
                 personReq, ApiPerson.class);
@@ -531,7 +530,7 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
         final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createRJS();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
@@ -551,8 +550,10 @@ public class PersonControllerTest {
                 testRestTemplate.exchange(
                 url + "/" + resBody.getString(),
                 HttpMethod.PUT, putRequestEntity, ApiPerson.class);
-        assertEquals("attribute should be present", aNote,
-                putResponseEntity.getBody().getAttributes().get(2));
+        assertEquals(aNote,
+                java.util.Optional.ofNullable(putResponseEntity.getBody())
+                        .map(b -> b.getAttributes().get(2)).orElse(null),
+                "attribute should be present");
     }
 
     /**
@@ -565,7 +566,7 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I1/spouses";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexander();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
@@ -589,7 +590,7 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I1/parents";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexander();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
@@ -613,7 +614,7 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I2/parents";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexandra();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
@@ -637,7 +638,7 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I9/children";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexander();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
@@ -661,7 +662,7 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I10/children";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexandra();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);

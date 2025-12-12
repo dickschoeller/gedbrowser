@@ -8,13 +8,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.schoellerfamily.geoservice.Application;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalManagementPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -28,21 +26,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoadEndpointTest {
-    // The assert check is suppressed because using BDD assertions, which don't
-    // match the PMD check.
-    /** */
-    private static final int FIFTEEN_MINUTES = 15 * 60 * 1000;
-
-    /** */
-    private static final int THIRTY_SECONDS = 30 * 1000;
-
-    /** */
-    private static final int TWO_SECONDS = 2 * 1000;
-
     /**
      * Management port.
      */
-    @Value("${local.management.port}")
+    @LocalManagementPort
     private int mgt;
 
     /**
@@ -54,14 +41,8 @@ public class LoadEndpointTest {
     /** */
     @Test
     public final void testAReturn200WhenSendingRequestToClearEndpoint() {
-        final ClientHttpRequestFactory requestFactory = testRestTemplate
-                .getRestTemplate().getRequestFactory();
-        final OkHttp3ClientHttpRequestFactory rf =
-                (OkHttp3ClientHttpRequestFactory) requestFactory;
-        rf.setConnectTimeout(TWO_SECONDS);
-        rf.setReadTimeout(THIRTY_SECONDS);
         final ResponseEntity<String> entity = testRestTemplate.getForEntity(
-                "http://localhost:" + this.mgt + "/clear", String.class);
+                "http://localhost:" + this.mgt + "/actuator/clear", String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("Load complete")
@@ -71,14 +52,8 @@ public class LoadEndpointTest {
     /** */
     @Test
     public final void testBReturn200WhenSendingRequestToLoadEndpoint() {
-        final ClientHttpRequestFactory requestFactory = testRestTemplate
-                .getRestTemplate().getRequestFactory();
-        final OkHttp3ClientHttpRequestFactory rf =
-                (OkHttp3ClientHttpRequestFactory) requestFactory;
-        rf.setConnectTimeout(TWO_SECONDS);
-        rf.setReadTimeout(THIRTY_SECONDS);
         final ResponseEntity<String> entity = testRestTemplate.getForEntity(
-                "http://localhost:" + this.mgt + "/load", String.class);
+                "http://localhost:" + this.mgt + "/actuator/load", String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("Load complete")
@@ -88,14 +63,8 @@ public class LoadEndpointTest {
     /** */
     @Test
     public final void testCReturn200WhenSendingRequestToClearEndpoint() {
-        final ClientHttpRequestFactory requestFactory = testRestTemplate
-                .getRestTemplate().getRequestFactory();
-        final OkHttp3ClientHttpRequestFactory rf =
-                (OkHttp3ClientHttpRequestFactory) requestFactory;
-        rf.setConnectTimeout(TWO_SECONDS);
-        rf.setReadTimeout(THIRTY_SECONDS);
         final ResponseEntity<String> entity = testRestTemplate.getForEntity(
-                "http://localhost:" + this.mgt + "/clear", String.class);
+                "http://localhost:" + this.mgt + "/actuator/clear", String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("Load complete")
@@ -105,14 +74,8 @@ public class LoadEndpointTest {
     /** */
     @Test
     public final void testDReturn200WhenSendingRequestToLoadAndFindEndpoint() {
-        final ClientHttpRequestFactory requestFactory = testRestTemplate
-                .getRestTemplate().getRequestFactory();
-        final OkHttp3ClientHttpRequestFactory rf =
-                (OkHttp3ClientHttpRequestFactory) requestFactory;
-        rf.setConnectTimeout(TWO_SECONDS);
-        rf.setReadTimeout(FIFTEEN_MINUTES);
         final ResponseEntity<String> entity = testRestTemplate.getForEntity(
-                "http://localhost:" + this.mgt + "/loadAndFind", String.class);
+                "http://localhost:" + this.mgt + "/actuator/loadAndFind", String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("Load complete")

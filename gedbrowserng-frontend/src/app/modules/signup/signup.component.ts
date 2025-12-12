@@ -11,6 +11,7 @@ import {
 } from '../../services';
 
 @Component({
+  standalone: false,
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']

@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.renderer.IndexByPlaceRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
@@ -18,9 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Dick Schoeller
  */
 @Controller
+@Slf4j
 public class PlaceIndexController extends DatedDataController {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -47,7 +45,7 @@ public class PlaceIndexController extends DatedDataController {
                 required = false,
                 defaultValue = "schoeller") final String dbName,
             final Model model) {
-        logger.debug("Entering surnames");
+        log.debug("Entering surnames");
 
         final Root root = fetchRoot(dbName);
 

@@ -1,53 +1,29 @@
 package org.schoellerfamily.gedbrowser.endpoint;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.boot.actuate.endpoint.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
 @Component
-public class SaveEndpoint implements Endpoint<List<String>> {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
+@Endpoint(id = "save")
+@Slf4j
+public class SaveEndpoint {
 
     /**
-     * {@inheritDoc}
+     * Exposed actuator read operation for save.
+     *
+     * @return messages
      */
-    @Override
-    public final String getId() {
-        return "save";
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
+    @ReadOperation
     public final List<String> invoke() {
-        logger.info("Invoke save");
-        final List<String> messages = new ArrayList<>();
-        messages.add("Currently a NO-OP");
-        return messages;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final boolean isEnabled() {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final boolean isSensitive() {
-        return true;
+        log.info("Invoke save");
+        return List.of("Currently a NO-OP");
     }
 }

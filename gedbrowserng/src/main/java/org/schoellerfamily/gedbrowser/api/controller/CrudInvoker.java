@@ -1,31 +1,30 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
+@RequiredArgsConstructor
 public abstract class CrudInvoker {
     /** */
-    @Autowired
-    private transient GedDocumentFileLoader loader;
+    private final GedObjectFileLoader loader;
 
     /** */
-    @Autowired
-    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
+    private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /** */
-    @Autowired
-    private transient RepositoryManagerMongo repositoryManager;
+    private final RepositoryManagerMongo repositoryManager;
 
     /**
      * @return the file loader
      */
-    protected GedDocumentFileLoader getLoader() {
+    protected GedObjectFileLoader getLoader() {
         return loader;
     }
 
