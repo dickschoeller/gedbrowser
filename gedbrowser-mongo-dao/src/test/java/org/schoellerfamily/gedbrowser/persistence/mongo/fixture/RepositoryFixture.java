@@ -10,39 +10,33 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SaveVisitor;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.mongodb.client.MongoDatabase;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Dick Schoeller
  */
+@RequiredArgsConstructor
 public final class RepositoryFixture {
     /** */
-    @Autowired
-    private transient RepositoryManagerMongo repositoryManager;
+    private final RepositoryManagerMongo repositoryManager;
 
     /** */
-    @Autowired
-    private transient MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
 
     /** */
-    @Autowired
-    private transient TestDataReader reader;
+    private final TestDataReader reader;
 
     /** */
-    @Autowired
-    private transient GedObjectToGedDocumentMongoConverter toDocConverter;
+    private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
-    /**
-     * This is private because this is a singleton.
-     */
-    public RepositoryFixture() {
-        // Empty constructor.
-    }
+    private final RootDocumentRepositoryMongo rootDocumentRepository;
 
     /**
      * Clear and reload all of the tables in the repository.
@@ -59,7 +53,7 @@ public final class RepositoryFixture {
 
         final RootDocumentMongo rootdoc =
                 (RootDocumentMongo) toDocConverter.createGedDocument(root);
-        repositoryManager.getRootDocumentRepository().save(rootdoc);
+        rootDocumentRepository.save(rootdoc);
 
         final Map<String, GedObject> map = root.getObjects();
         final TopLevelGedDocumentMongoVisitor visitor =
@@ -77,6 +71,7 @@ public final class RepositoryFixture {
      * Clear out all of the tables in the repository.
      */
     public void clearRepository() {
+        rootDocumentRepository.deleteAll();
         repositoryManager.reset();
         MongoDatabase db = mongoTemplate.getDb();
         db.drop();

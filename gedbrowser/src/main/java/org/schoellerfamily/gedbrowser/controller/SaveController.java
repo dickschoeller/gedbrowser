@@ -1,9 +1,5 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.writer.GedWriter;
@@ -12,15 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Emits GEDCOM to the HTTP connection to download the GEDCOM state.
  *
  * @author Dick Schoeller
  */
 @Controller
+@Slf4j
 public class SaveController extends AbstractController {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * Connects HTML template file with data for saving the GEDCOM file.
@@ -36,7 +34,7 @@ public class SaveController extends AbstractController {
                 required = false,
                 defaultValue = "schoeller") final String dbName,
             final HttpServletResponse response) {
-        logger.debug("Entering save");
+        log.debug("Entering save");
 
         final RenderingContext context = createRenderingContext();
 
@@ -49,7 +47,7 @@ public class SaveController extends AbstractController {
         }
 
         final String contents = new GedWriter(root).writeString();
-        logger.debug("Exiting save");
+        log.debug("Exiting save");
         return contents;
     }
 

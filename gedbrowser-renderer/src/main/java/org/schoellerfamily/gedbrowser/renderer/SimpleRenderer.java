@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * Contains a few common methods used in simple renderers.
@@ -26,13 +25,10 @@ public interface SimpleRenderer {
      * @return either a space or an empty string
      */
     default String separate(final String... args) {
-        final List<String> argList = new ArrayList<>();
-        for (final String arg : args) {
-            if (!arg.isEmpty()) {
-                argList.add(arg);
-            }
-        }
-        return String.join(" ", argList);
+        return String.join(" ",
+            Arrays.stream(args)
+                .filter(arg -> !arg.isEmpty())
+                .toList());
     }
 
     /**

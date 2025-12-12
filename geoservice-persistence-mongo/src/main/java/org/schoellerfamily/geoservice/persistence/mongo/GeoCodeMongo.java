@@ -1,7 +1,5 @@
 package org.schoellerfamily.geoservice.persistence.mongo;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.geoservice.persistence.GeoCodeBasic;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
@@ -10,6 +8,8 @@ import org.schoellerfamily.geoservice.persistence.mongo.domain.GeoDocumentMongoF
 import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * This class implements the cache that allows applications to work with the
  * Google geocoding APIs, without running the queries per day limitations.
@@ -17,9 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.CommentSize", "PMD.TooManyMethods" })
+@Slf4j
 public final class GeoCodeMongo extends GeoCodeBasic {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -30,7 +29,7 @@ public final class GeoCodeMongo extends GeoCodeBasic {
      */
     public GeoCodeMongo() {
         super();
-        logger.debug("Initializing GeoCodeCache");
+        log.debug("Initializing GeoCodeCache");
     }
 
     /**
@@ -55,7 +54,7 @@ public final class GeoCodeMongo extends GeoCodeBasic {
     @Override
     public long size() {
         final long count = geoDocumentRepository.count();
-        logger.debug("Geocode cache contains " + count + " entries");
+        log.debug("Geocode cache contains {} entries", count);
         return count;
     }
 

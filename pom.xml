@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
@@ -53,11 +52,11 @@
     <gedbrowser.version>1.3.0-RC3-SNAPSHOT</gedbrowser.version>
 
     <!-- These all step forward together -->
-    <spring.version>6.1.20</spring.version>
-    <spring-boot.version>2.7.18</spring-boot.version>
-    <spring-boot-maven.version>2.7.18</spring-boot-maven.version>
-    <spring-data-mongodb.version>3.4.18</spring-data-mongodb.version>
-    <spring-data-commons.version>2.7.18</spring-data-commons.version>
+    <spring.version>6.2.14</spring.version>
+    <spring-boot.version>3.4.12</spring-boot.version>
+    <spring-boot-maven.version>3.4.12</spring-boot-maven.version>
+    <spring-data-mongodb.version>4.4.12</spring-data-mongodb.version>
+    <spring-data-commons.version>3.4.12</spring-data-commons.version>
     <!-- -->
     <!-- Stay in 1.4.x until going to Spring 5 -->
     <undertow.version>2.3.20.Final</undertow.version>
@@ -74,15 +73,15 @@
     <cglib.version>3.3.0</cglib.version>
     <!-- might try 0.9.1 of google -->
     <google-maps-services.version>0.10.0</google-maps-services.version>
-    <jackson-core.version>2.15.0</jackson-core.version>
-    <jackson-databind.version>2.15.0</jackson-databind.version>
+    <jackson-core.version>2.20.1</jackson-core.version>
+    <jackson-databind.version>2.20.1</jackson-databind.version>
+    <jackson-annotations.version>2.20</jackson-annotations.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.10.6</joda-time.version>
     <sauce_junit.version>2.1.25</sauce_junit.version>
     <geojson-jackson.version>1.14</geojson-jackson.version>
-    <log4j-over-slf4j.version>1.7.30</log4j-over-slf4j.version>
-    <jcl-over-slf4j.version>1.7.30</jcl-over-slf4j.version>
-    <logback-classic.version>1.2.3</logback-classic.version>
+    <slf4j.version>2.0.17</slf4j.version>
+    <logback.version>1.5.21</logback.version>
     <anselcharset.version>1.1</anselcharset.version>
     <commons-io.version>2.14.0</commons-io.version>
     <commons-logging.version>1.2</commons-logging.version>
@@ -104,8 +103,8 @@
     <jxr-plugin.version>3.0.0</jxr-plugin.version>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <source-plugin.version>3.2.1</source-plugin.version>
-    <failsafe.version>2.22.2</failsafe.version>
-    <surefire.version>2.22.2</surefire.version>
+    <failsafe.version>3.5.4</failsafe.version>
+    <surefire.version>3.5.4</surefire.version>
     <javadoc-plugin.version>3.1.1</javadoc-plugin.version>
     <gpg-plugin.version>1.6</gpg-plugin.version>
     <nexus-staging-plugin.version>1.6.8</nexus-staging-plugin.version>
@@ -167,7 +166,6 @@
         <version>${pmd-plugin.version}</version>
           <configuration>
           <linkXRef>true</linkXRef>
-          <sourceEncoding>utf-8</sourceEncoding>
           <targetJdk>21</targetJdk>
           <rulesets>
             <ruleset>${config-dir}/pmd.xml</ruleset>
@@ -185,6 +183,9 @@
           <version>${compiler-plugin.version}</version>
           <configuration>
             <release>21</release>
+            <compilerArgs>
+              <arg>-parameters</arg>
+            </compilerArgs>
           </configuration>
         </plugin>
         <plugin>
@@ -238,7 +239,6 @@
           </dependencies>
           <configuration>
             <linkXRef>true</linkXRef>
-            <sourceEncoding>utf-8</sourceEncoding>
             <targetJdk>21</targetJdk>
             <printFailingErrors>true</printFailingErrors>
             <failOnViolation>true</failOnViolation>
@@ -517,9 +517,25 @@
         <version>${spring-data-mongodb.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>mongodb-driver-sync</artifactId>
+        <version>5.2.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>mongodb-driver-core</artifactId>
+        <version>5.2.1</version>
+      </dependency>
+      <dependency>
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-commons</artifactId>
         <version>${spring-data-commons.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.servlet</groupId>
+        <artifactId>jakarta.servlet-api</artifactId>
+        <version>6.1.0</version>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>cglib</groupId>
@@ -600,7 +616,7 @@
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-annotations</artifactId>
-        <version>${jackson-core.version}</version>
+        <version>${jackson-annotations.version}</version>
       </dependency>
       <dependency>
         <groupId>org.gedcom4j</groupId>
@@ -633,17 +649,27 @@
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>log4j-over-slf4j</artifactId>
-        <version>${log4j-over-slf4j.version}</version>
+        <version>${slf4j.version}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>jcl-over-slf4j</artifactId>
-        <version>${log4j-over-slf4j.version}</version>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
       </dependency>
       <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
-        <version>${logback-classic.version}</version>
+        <version>${logback.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-core</artifactId>
+        <version>${logback.version}</version>
       </dependency>
       <dependency>
         <groupId>org.clojars.rayne</groupId>
@@ -699,6 +725,24 @@
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
         <version>1.18.42</version>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <scope>test</scope>
+        <version>5.11.4</version>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-params</artifactId>
+        <scope>test</scope>
+        <version>5.11.4</version>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.vintage</groupId>
+        <artifactId>junit-vintage-engine</artifactId>
+        <scope>test</scope>
+        <version>5.11.4</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

@@ -1,20 +1,19 @@
 package org.schoellerfamily.gedbrowser.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.BDDAssertions.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.Application;
+import org.schoellerfamily.gedbrowser.test.TestConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
@@ -23,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
  * @author Dick Schoeller
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = Application.class,
+@SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
@@ -55,7 +54,7 @@ public class LoginControllerTest {
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("<title>Login to GedBrowser</title>")
             .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
-                    + refererUrl + "\" />");
+                    + refererUrl + "\"/>");
     }
 
     /** */
@@ -72,7 +71,7 @@ public class LoginControllerTest {
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("<title>Login to GedBrowser</title>")
             .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
-                    + refererUrl + "\" />");
+                    + refererUrl + "\"/>");
     }
 
     /** */
@@ -86,7 +85,7 @@ public class LoginControllerTest {
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("<title>Login to GedBrowser</title>")
             .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
-                    + refererUrl + "\" />");
+                    + refererUrl + "\"/>");
     }
 
     /** */
@@ -100,7 +99,7 @@ public class LoginControllerTest {
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("<title>Login to GedBrowser</title>")
             .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
-                    + refererUrl + "\" />");
+                    + refererUrl + "\"/>");
     }
 
     /**
@@ -111,9 +110,7 @@ public class LoginControllerTest {
      */
     private void setReferer(final RestTemplate restTemplate,
             final String refererUrl) {
-        final List<ClientHttpRequestInterceptor> interceptors =
-                new ArrayList<>();
-        interceptors.add(new RefererInterceptor(refererUrl));
-        restTemplate.setInterceptors(interceptors);
+        restTemplate.setInterceptors(
+                List.of(new RefererInterceptor(refererUrl)));
     }
 }

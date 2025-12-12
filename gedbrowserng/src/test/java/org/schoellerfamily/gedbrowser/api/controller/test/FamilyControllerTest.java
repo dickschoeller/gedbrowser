@@ -1,15 +1,12 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.BDDAssertions.*;
+import static org.junit.Assert.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.gedbrowser.api.Application;
@@ -17,9 +14,9 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -30,6 +27,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestClientException;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
@@ -38,9 +37,8 @@ import org.springframework.web.client.RestClientException;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@Slf4j
 public class FamilyControllerTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * Not sure what this is good for.
@@ -100,7 +98,9 @@ public class FamilyControllerTest {
                 + "      \"tail\" : \"The ceremony performed by Rabbi Wayne"
                 + " Franklin and Cantor Ivan\\nPerlman.  The best man and"
                 + " matron of honor were Dale Matcovitch\\nand Carol Robinson"
-                + " Sacerdote.\"\n"
+                + " Sacerdote. The witnesses were Mark\\nA. Friedman, fraternity"
+                + " brother of the groom and Donald S.\\nFriedman, a friend of"
+                + " bride and groom\"\n"
                 + "    }, {";
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).startsWith(bodyFragment);
@@ -160,7 +160,9 @@ public class FamilyControllerTest {
                 + "      \"tail\" : \"The ceremony performed by Rabbi Wayne"
                 + " Franklin and Cantor Ivan\\nPerlman.  The best man and"
                 + " matron of honor were Dale Matcovitch\\nand Carol Robinson"
-                + " Sacerdote.\"\n"
+                + " Sacerdote. The witnesses were Mark\\nA. Friedman, fraternity"
+                + " brother of the groom and Donald S.\\nFriedman, a friend of"
+                + " bride and groom\"\n"
                 + "    },";
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -188,7 +190,7 @@ public class FamilyControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiFamily reqBody = new ApiFamily("family", "");
         final HttpEntity<ApiFamily> req =
                 new HttpEntity<>(reqBody, headers);
@@ -209,9 +211,9 @@ public class FamilyControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Marriage", ""));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        final List<ApiAttribute> attributes = List.of(
+                new ApiAttribute("attribute", "Marriage", ""));
         final ApiFamily reqBody = new ApiFamily("family", "", attributes);
         final HttpEntity<ApiFamily> req =
                 new HttpEntity<>(reqBody, headers);
@@ -230,7 +232,7 @@ public class FamilyControllerTest {
     public final void testDeleteFamily()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         // Create a family.
         // We want to be sure we know the structure of the family
@@ -267,7 +269,7 @@ public class FamilyControllerTest {
     public final void testDeleteFamilyNotFound()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families/XXXXXXX";
@@ -287,7 +289,7 @@ public class FamilyControllerTest {
     public final void testDeleteFamilyDatabaseNotFound()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/XYZZY/families/SUBM1";
@@ -309,9 +311,9 @@ public class FamilyControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Marriage", ""));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        final List<ApiAttribute> attributes = List.of(
+                new ApiAttribute("attribute", "Marriage", ""));
         final ApiFamily familyRequest = new ApiFamily("family", "", attributes);
         familyRequest.getChildren().add(new ApiAttribute("child", "I1"));
         final HttpEntity<ApiFamily> req =
@@ -338,11 +340,10 @@ public class FamilyControllerTest {
         final ApiFamily familyPutResponse = putResponseEntity.getBody();
         final List<ApiAttribute> attributesPutResponse =
                 familyPutResponse.getAttributes();
-        logger.info("Attribute list size: " + attributesPutResponse.size());
+        log.info("Attribute list size: {}", attributesPutResponse.size());
         then(attributesPutResponse.size()).isEqualTo(2);
         for (final ApiAttribute a : attributesPutResponse) {
-            logger.info("attribute: " + a.getType() + " " + a.getString() + " "
-                    + a.getTail());
+            log.info("attribute: {} {} {}", a.getType(), a.getString(), a.getTail());
         }
         assertEquals("attribute should be present", aNote,
                 attributesPutResponse.get(1));
@@ -358,7 +359,7 @@ public class FamilyControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families/F1/spouses";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexandra();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
@@ -382,7 +383,7 @@ public class FamilyControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families/F2/spouses";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexander();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
@@ -406,7 +407,7 @@ public class FamilyControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families/F1/children";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexandra();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);
@@ -430,7 +431,7 @@ public class FamilyControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families/F4/children";
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexander();
         final HttpEntity<ApiPerson> req =
                 new HttpEntity<>(reqBody, headers);

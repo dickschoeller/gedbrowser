@@ -3,15 +3,16 @@ package org.schoellerfamily.geoservice.test;
 import static org.assertj.core.api.BDDAssertions.then;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schoellerfamily.geoservice.Application;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalManagementPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
@@ -38,7 +39,7 @@ public class ApplicationTest {
     /**
      * Management port.
      */
-    @Value("${local.management.port}")
+    @LocalManagementPort
     private int mgt;
 
     /**
@@ -77,7 +78,9 @@ public class ApplicationTest {
         final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
                 "http://localhost:" + port + "/geocode?name=Bethlehem,%20PA",
                 Map.class);
-        then(entity.getBody().get("placeName")).isEqualTo("Bethlehem, PA");
+        then(Optional.ofNullable(entity.getBody())
+            .map(b -> b.get("placeName")).orElse(null))
+            .isEqualTo("Bethlehem, PA");
     }
 
     /** */
@@ -89,7 +92,9 @@ public class ApplicationTest {
                 + "/geocode?name=Bethlehem,%20PA"
                 + "&modernName=Bethlehem,%20PA",
                 Map.class);
-        then(entity.getBody().get("placeName")).isEqualTo("Bethlehem, PA");
+        then(Optional.ofNullable(entity.getBody())
+            .map(b -> b.get("placeName")).orElse(null))
+            .isEqualTo("Bethlehem, PA");
     }
 
     /** */
@@ -99,8 +104,9 @@ public class ApplicationTest {
         final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
                 "http://localhost:" + port + "/geocode?name=Allentown,%20PA",
                 Map.class);
-        then(entity.getBody().get("modernPlaceName"))
-                .isEqualTo("Allentown, PA");
+        then(Optional.ofNullable(entity.getBody())
+            .map(b -> b.get("modernPlaceName")).orElse(null))
+            .isEqualTo("Allentown, PA");
     }
 
     /** */
@@ -112,8 +118,9 @@ public class ApplicationTest {
                 + "/geocode?name=Bethlehem,%20Pennsylvania"
                 + "&modernName=Bethlehem,%20PA",
                 Map.class);
-        then(entity.getBody().get("modernPlaceName"))
-                .isEqualTo("Bethlehem, PA");
+        then(Optional.ofNullable(entity.getBody())
+            .map(b -> b.get("modernPlaceName")).orElse(null))
+            .isEqualTo("Bethlehem, PA");
     }
 
     /** */
@@ -124,7 +131,8 @@ public class ApplicationTest {
                 "http://localhost:" + port + "/geocode?name=Bethlehem,%20PA",
                 Map.class);
 
-        then(entity.getBody().get("result")).isNotNull();
+        then(Optional.ofNullable(entity.getBody())
+            .map(b -> b.get("result")).orElse(null)).isNotNull();
     }
 
     /** */
@@ -135,7 +143,8 @@ public class ApplicationTest {
                 "http://localhost:" + this.port + "/geocode?name=XYZZY",
                 Map.class);
 
-        then(entity.getBody().get("result")).isNull();
+        then(Optional.ofNullable(entity.getBody())
+            .map(b -> b.get("result")).orElse(null)).isNull();
     }
 
     /** */
@@ -143,7 +152,7 @@ public class ApplicationTest {
     public final void testReturn200WhenSendingRequestToInfoEndpoint() {
         @SuppressWarnings("rawtypes")
         final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
-                "http://localhost:" + mgt + "/info", Map.class);
+                "http://localhost:" + mgt + "/actuator/info", Map.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
@@ -153,7 +162,7 @@ public class ApplicationTest {
     public final void testReturn200WhenSendingRequestToHealthEndpoint() {
         @SuppressWarnings("rawtypes")
         final ResponseEntity<Map> entity = testRestTemplate.getForEntity(
-                "http://localhost:" + mgt + "/health", Map.class);
+                "http://localhost:" + mgt + "/actuator/health", Map.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }

@@ -17,8 +17,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.NoteDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     PersonDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    RepositoryFinderMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     RootDocumentRepositoryMongo;
@@ -42,14 +40,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 import org.springframework.data.mongodb.repository.config.
     EnableMongoRepositories;
 import org.springframework.web.client.RestTemplate;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
@@ -72,18 +73,22 @@ import com.mongodb.MongoClient;
                 },
                 type = FilterType.ASSIGNABLE_TYPE))
 @SuppressWarnings("PMD.ExcessiveImports")
+@RequiredArgsConstructor
 public class MongoConfiguration {
     /** */
     @Value("${spring.data.mongodb.host:localhost}")
-    private transient String host;
+    private final String host;
 
     /** */
     @Value("${spring.data.mongodb.port:27017}")
-    private transient int port;
+    private final int port;
 
     /** */
     @Value("${geoservice.keyfile:/var/lib/gedbrowser/google-geocoding-key}")
-    private transient String keyfile;
+    private final String keyfile;
+
+    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
+    private final String gedbrowserHome;
 
     /**
      * Get a MongoDbFactory for accessing the gedbrowser database.
@@ -92,9 +97,11 @@ public class MongoConfiguration {
      * @throws UnknownHostException because it must
      */
     @Bean
-    public MongoDbFactory mongoDbFactory() throws UnknownHostException {
-        return new SimpleMongoDbFactory(new MongoClient(host, port),
-                "gedbrowser-1_2_2");
+    public MongoDatabaseFactory mongoDbFactory() throws UnknownHostException {
+        final String databaseName = "gedbrowser-1_2_2";
+        final String connectionString = "mongodb://" + host + ":" + port;
+        final MongoClient client = MongoClients.create(connectionString);
+        return new SimpleMongoClientDatabaseFactory(client, databaseName);
     }
 
     /**
@@ -109,19 +116,14 @@ public class MongoConfiguration {
     }
 
     /**
-     * @return the finder
-     */
-    @Bean
-    public FinderStrategy finder() {
-        return new RepositoryFinderMongo();
-    }
-
-    /**
      * @return the loader
      */
     @Bean
-    public GedObjectFileLoader loader() {
-        return new GedObjectFileLoader();
+    public GedObjectFileLoader loader(final FinderStrategy finder,
+            final GedLineToGedObjectTransformer g2g,
+            final GedObjectToGedDocumentMongoConverter toDocConverter,
+            final RootDocumentRepositoryMongo rootDocumentRepository) {
+        return new GedObjectFileLoader(finder, g2g, toDocConverter, rootDocumentRepository, gedbrowserHome);
     }
 
     /**
@@ -173,22 +175,6 @@ public class MongoConfiguration {
     }
 
     /**
-     * @return the repository manager
-     */
-    @Bean
-    public RepositoryManagerMongo repositoryManager() {
-        return new RepositoryManagerMongo();
-    }
-
-    /**
-     * @return convert for AbstractGedLine hierarchy to GedObject hierarchy
-     */
-    @Bean
-    public GedLineToGedObjectTransformer g2g() {
-        return new GedLineToGedObjectTransformer();
-    }
-
-    /**
      * @return the converter
      */
     @Bean
@@ -202,5 +188,13 @@ public class MongoConfiguration {
     @Bean
     public GedObjectToGedDocumentMongoConverter toGedDocumentConverter() {
         return new GedObjectToGedDocumentMongoConverter();
+    }
+
+    /**
+     * @return the repository manager
+     */
+    @Bean
+    public RepositoryManagerMongo repositoryManager() {
+        return new RepositoryManagerMongo();
     }
 }

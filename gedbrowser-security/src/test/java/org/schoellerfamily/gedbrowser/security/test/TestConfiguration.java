@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.security.test;
 
 import org.schoellerfamily.gedbrowser.reader.users.UsersReader;
-import org.schoellerfamily.gedbrowser.security.auth.TokenAuthenticationFilter;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUsers;
 import org.schoellerfamily.gedbrowser.security.model.UserImpl;
@@ -10,15 +9,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Dick Schoeller
  */
 @Configuration
 @ComponentScan("org.schoellerfamily.gedbrowser.security")
+@RequiredArgsConstructor
 public class TestConfiguration {
     /** */
-    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
-    private transient String gedbrowserHome;
+    @Value("${gedbrowser.home:#{ systemProperties['user.dir'] }/src/test/resources}")
+    private String gedbrowserHome;
 
     /**
      * This is the bean to get the definitions of users that we need
@@ -43,13 +45,5 @@ public class TestConfiguration {
                 () -> new SecurityUsers(userFile),
                 () -> new UserImpl()
         );
-    }
-
-    /**
-     * @return the token authentication filter
-     */
-    @Bean
-    public TokenAuthenticationFilter jwtAuthenticationTokenFilter() {
-      return new TokenAuthenticationFilter();
     }
 }

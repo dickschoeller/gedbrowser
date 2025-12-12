@@ -1,0 +1,25 @@
+spring:
+    profiles:
+        active: test
+    main:
+        allow-bean-definition-overriding: true
+    data:
+        mongodb:
+            host: localhost
+            port: 27017
+gedbrowser:
+    home: src/test/resources
+geoserivce:
+    keyfile: src/test/resources/google-geocoding-key
+server:
+    servlet:
+        context-path: /gedbrowser
+management:
+    server:
+        port: 8081
+    security:
+        enabled: false
+    endpoints:
+        web:
+            exposure:
+                include: health,info,restore

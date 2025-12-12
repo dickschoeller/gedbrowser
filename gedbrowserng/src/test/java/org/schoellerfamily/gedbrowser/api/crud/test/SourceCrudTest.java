@@ -1,17 +1,14 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
+import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
@@ -20,29 +17,30 @@ import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
 import org.schoellerfamily.gedbrowser.api.crud.SourceCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@Slf4j
 public class SourceCrudTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
-    private transient GedDocumentFileLoader loader;
+    private transient GedObjectFileLoader loader;
 
     /** */
     @Autowired
@@ -59,7 +57,7 @@ public class SourceCrudTest {
     private CrudTestHelper helper;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         helper = new CrudTestHelper(
                 new PersonCrud(loader, toDocConverter, repositoryManager),
@@ -70,7 +68,7 @@ public class SourceCrudTest {
     /** */
     @Test
     public final void testReadSourcesGl120368() {
-        logger.info("Beginning testReadSourcesGl120368");
+        log.info("Beginning testReadSourcesGl120368");
         final List<ApiSource> list = crud.readAll(helper.getDb());
         final ApiSource firstSource = list.get(0);
         then(firstSource.getString()).isEqualTo("S1688");
@@ -92,7 +90,7 @@ public class SourceCrudTest {
     /** */
     @Test
     public final void testReadSourcesMiniSchoeller() {
-        logger.info("Beginning testReadSourcesMiniSchoeller");
+        log.info("Beginning testReadSourcesMiniSchoeller");
         final List<ApiSource> list = crud.readAll("mini-schoeller");
         final ApiSource firstSource = list.get(0);
         then(firstSource.getString()).isEqualTo("S2");
@@ -117,7 +115,7 @@ public class SourceCrudTest {
     /** */
     @Test
     public final void testReadSourcesMiniSchoellerS2() {
-        logger.info("Beginning testReadSourcesMiniSchoellerS2");
+        log.info("Beginning testReadSourcesMiniSchoellerS2");
         final ApiSource firstSource = crud.readOne("mini-schoeller", "S2");
         then(firstSource.getString()).isEqualTo("S2");
         then(firstSource.getImages()).isEmpty();
@@ -141,20 +139,19 @@ public class SourceCrudTest {
     /** */
     @Test
     public final void testReadSourcesMiniSchoellerXyzzy() {
-        logger.info("Beginning testReadSourcesMiniSchoellerXyzzy");
+        log.info("Beginning testReadSourcesMiniSchoellerXyzzy");
         try {
             final ApiSource source = crud.readOne("mini-schoeller", "Xyzzy");
             fail("The source should not be found: " + source.getString());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object Xyzzy of type source not found", e.getMessage());
+            assertEquals("Object Xyzzy of type source not found", e.getMessage(), "Mismatched message");
         }
     }
 
     /** */
     @Test
     public final void testCreateSourcesSimple() {
-        logger.info("Beginning testCreateSourcesSimple");
+        log.info("Beginning testCreateSourcesSimple");
         final ApiSource inSource = new ApiSource("source", "", "Unknown");
         final ApiSource newSource = crud.createOne(helper.getDb(), inSource);
         then(newSource.getType()).isEqualTo(inSource.getType());
@@ -163,7 +160,7 @@ public class SourceCrudTest {
     /** */
     @Test
     public final void testDeleteSource() {
-        logger.info("Beginning testDeleteSource");
+        log.info("Beginning testDeleteSource");
         final ApiSource reqSource = new ApiSource("source", "", "Unknown");
         final ApiSource resSource = crud.createOne(helper.getDb(),
                 reqSource);
@@ -175,31 +172,29 @@ public class SourceCrudTest {
                     deletedSource.getString());
             fail("The source should not be found: " + foundSource.getString());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message", "Object "
-                    + deletedSource.getString() + " of type source not found",
-                    e.getMessage());
+            assertEquals("Object " + deletedSource.getString() + " of type source not found",
+                    e.getMessage(), "Mismatched message");
         }
     }
 
     /** */
     @Test
     public final void testDeleteSourceNotFound() {
-        logger.info("Beginning testDeleteSourceNotFound");
+        log.info("Beginning testDeleteSourceNotFound");
         try {
             final ApiSource deletedSource =
                     crud.deleteOne(helper.getDb(), "XXXXXXX");
             fail("The source should not be found: "
                     + deletedSource.getString());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object XXXXXXX of type source not found", e.getMessage());
+            assertEquals("Object XXXXXXX of type source not found", e.getMessage(), "Mismatched message");
         }
     }
 
     /** */
     @Test
     public final void testDeleteSubmitterDatabaseNotFound() {
-        logger.info("Beginning testDeleteSubmitterDatabaseNotFound");
+        log.info("Beginning testDeleteSubmitterDatabaseNotFound");
         try {
             final ApiSource deletedSource =
                     crud.deleteOne("XYZZY", "S1");
@@ -207,19 +202,18 @@ public class SourceCrudTest {
                     + " while looking for source "
                     + deletedSource.getString());
         } catch (DataSetNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Data set XYZZY not found", e.getMessage());
+            assertEquals("Data set XYZZY not found", e.getMessage(), "Mismatched message");
         }
     }
 
     /** */
     @Test
     public final void testUpdateSourceWithNote() {
-        logger.info("Beginning testUpdateSourceWithNote");
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Note", "first note"));
-        final ApiSource inSource = new ApiSource("source", "", attributes,
-                "Unknown");
+        log.info("Beginning testUpdateSourceWithNote");
+        final List<ApiAttribute> attributes = List.of(
+                new ApiAttribute("attribute", "Note", "first note"));
+        final ApiSource inSource = new ApiSource("source", "",
+                attributes, "Unknown");
         final ApiSource newSource = crud.createOne(helper.getDb(), inSource);
 
         final ApiAttribute aNote = new ApiAttribute("attribute", "Note",
@@ -227,7 +221,6 @@ public class SourceCrudTest {
         newSource.getAttributes().add(aNote);
         final ApiSource updatedSource = crud.updateOne(helper.getDb(),
                 newSource.getString(), newSource);
-        assertEquals("attribute should be present", aNote,
-                updatedSource.getAttributes().get(1));
+        assertEquals(aNote, updatedSource.getAttributes().get(1), "attribute should be present");
     }
 }

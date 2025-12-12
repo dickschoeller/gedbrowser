@@ -1,11 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -20,12 +18,11 @@ import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public final class IndexRenderer extends GedRenderer<Root>
         implements HeaderHrefRenderer<Root>, IndexHrefRenderer<Root>,
         PlacesHrefRenderer<Root>, SaveHrefRenderer<Root>,
         SourcesHrefRenderer<Root>, SubmittersHrefRenderer<Root> {
-    /** Logger. */
-    private final Log logger = LogFactory.getLog(getClass());
 
     /** */
     private final String base;
@@ -55,22 +52,20 @@ public final class IndexRenderer extends GedRenderer<Root>
      * @return the collection of nameHtml results
      */
     public Collection<String> getIndexNameHtmls(final String surname) {
-        logger.info("Starting getIndexNameHtmls");
+        log.info("Starting getIndexNameHtmls");
         final Collection<Person> persons = getGedObject()
                 .findBySurname(surname);
-        final List<String> names = new ArrayList<>();
-        for (final Person person : persons) {
-            if (isHidden(person)) {
-                continue;
-            }
-            final String html = createGedRenderer(person).getIndexName();
-            final String liHtml = "<li id=\"" + person.getString() + "\">"
-                    + html
-                    + indicateDeadWithoutRecord(person)
-                    + "</li>";
-            names.add(liHtml);
-        }
-        logger.info("Ending getIndexNameHtmls");
+        final List<String> names = persons.stream()
+                .filter(person -> !isHidden(person))
+                .map(person -> {
+                    final String html = createGedRenderer(person).getIndexName();
+                    return "<li id=\"" + person.getString() + "\">"
+                            + html
+                            + indicateDeadWithoutRecord(person)
+                            + "</li>";
+                })
+                .toList();
+        log.info("Ending getIndexNameHtmls");
         return names;
     }
 
@@ -116,16 +111,15 @@ public final class IndexRenderer extends GedRenderer<Root>
      *         base.
      */
     public Collection<String> getLetters() {
-        logger.info("Starting getLetters");
-        final List<String> indexLetters = new ArrayList<>();
-        for (final String letter : getGedObject().findSurnameInitialLetters()) {
-            final String link = "<a id=\"letter-" + letter
-                    + "\" href=\"surnames?db="
-                    + getGedObject().getDbName() + "&amp;letter=" + letter
-                    + "\" class=\"name\">" + "[" + letter + "]" + "</a>";
-            indexLetters.add(link);
-        }
-        logger.info("Ending getLetters");
+        log.info("Starting getLetters");
+        final List<String> indexLetters = getGedObject()
+            .findSurnameInitialLetters().stream()
+            .map(letter -> "<a id=\"letter-" + letter
+                + "\" href=\"surnames?db="
+                + getGedObject().getDbName() + "&amp;letter=" + letter
+                + "\" class=\"name\">" + "[" + letter + "]" + "</a>")
+            .toList();
+        log.info("Ending getLetters");
         return indexLetters;
     }
 

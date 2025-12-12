@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.renderer.DefaultRenderer;
@@ -14,12 +14,12 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class NullListItemRendererTest {
     /** */
@@ -30,7 +30,7 @@ public final class NullListItemRendererTest {
     private transient NullListItemRenderer nsr;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         final RenderingContext anonymousContext =
                 RenderingContext.anonymous(appInfo);
@@ -45,9 +45,6 @@ public final class NullListItemRendererTest {
      */
     private GedObject createGedObject() {
         return new GedObject() {
-            /**
-             * {@inheritDoc}
-             */
             @Override
             public void accept(final GedObjectVisitor visitor) {
                 visitor.visit(this);
@@ -61,7 +58,7 @@ public final class NullListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         final String string =
                 nsr.renderAsListItem(builder, false, 0).toString();
-        assertEquals("Expected empty string", "", string);
+        assertEquals("", string, "Expected empty string");
     }
 
     /** */
@@ -70,7 +67,7 @@ public final class NullListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         final String string =
                 nsr.renderAsListItem(builder, false, 2).toString();
-        assertEquals("Expected empty string", "", string);
+        assertEquals("", string, "Expected empty string");
     }
 
     /** */
@@ -79,7 +76,7 @@ public final class NullListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         final String string =
                 nsr.renderAsListItem(builder, true, 0).toString();
-        assertEquals("Expected empty string", "", string);
+        assertEquals("", string, "Expected empty string");
     }
 
     /** */
@@ -88,6 +85,6 @@ public final class NullListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         final String string =
                 nsr.renderAsListItem(builder, true, 2).toString();
-        assertEquals("Expected empty string", "", string);
+        assertEquals("", string, "Expected empty string");
     }
 }

@@ -1,23 +1,21 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,21 +23,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestClientException;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@Slf4j
 public class ChildrenControllerTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
-
     /**
      * Not sure what this is good for.
      */
@@ -58,7 +56,7 @@ public class ChildrenControllerTest {
     /**
      * Set up some base objects.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         helper = new ControllerTestHelper(port, testRestTemplate);
     }
@@ -72,12 +70,11 @@ public class ChildrenControllerTest {
             throws RestClientException, URISyntaxException {
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = createChildOfParent(parent);
-        logger.info("famc: " + child.getFamc().get(0).getString());
+        log.info("famc: {}", child.getFamc().get(0).getString());
 
         final ApiPerson gotParent = helper.getPerson(parent);
-        assertEquals("Child should be in family",
-                child.getFamc().get(0).getString(),
-                gotParent.getFams().get(0).getString());
+        assertEquals(child.getFamc().get(0).getString(),
+                gotParent.getFams().get(0).getString(), "Child should be in family");
     }
 
     /**
@@ -91,7 +88,7 @@ public class ChildrenControllerTest {
 
         final ApiPerson child = createChildOfParent(parent);
         String famID = child.getFamc().get(0).getString();
-        logger.info("famc: " + famID);
+        log.info("famc: {}", famID);
 
         final ApiPerson secondChild = helper.createPerson();
         final String familiesUrl = helper.getFamiliesUrl() + "/" + famID;
@@ -100,9 +97,10 @@ public class ChildrenControllerTest {
         testRestTemplate.put(new URI(familiesUrl + "/children"), personReq);
         final ResponseEntity<ApiFamily> familyEntity = testRestTemplate
                 .getForEntity(new URI(familiesUrl), ApiFamily.class);
-        assertEquals("check ID",
-                familyEntity.getBody().getChildren().get(1).getString(),
-                secondChild.getString());
+        assertEquals(secondChild.getString(),
+                java.util.Optional.ofNullable(familyEntity.getBody())
+                        .map(b -> b.getChildren().get(1).getString()).orElse(null),
+                "check ID");
 
     }
 
@@ -114,7 +112,7 @@ public class ChildrenControllerTest {
     public final void testLinkChild()
             throws RestClientException, URISyntaxException {
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = helper.createPerson();
         final HttpEntity<ApiPerson> personReq =
@@ -128,9 +126,8 @@ public class ChildrenControllerTest {
         then(gotChild.getFamc().size()).isEqualTo(1);
         final ApiPerson gotParent = helper.getPerson(parent);
         then(gotParent.getFams().size()).isEqualTo(1);
-        assertEquals("check ids",
-                gotParent.getFams().get(0).getString(),
-                gotChild.getFamc().get(0).getString());
+        assertEquals(gotParent.getFams().get(0).getString(),
+                gotChild.getFamc().get(0).getString(), "check ids");
     }
 
     /**
@@ -144,14 +141,14 @@ public class ChildrenControllerTest {
         final ApiPerson parent = helper.createPerson();
 
         final ApiPerson child = createChildOfParent(parent);
-        logger.info("famc: " + child.getFamc().get(0).getString());
+        log.info("famc: {}", child.getFamc().get(0).getString());
 
 
         testRestTemplate.delete(
                 new URI(familiesUrl + "/" + child.getFamc().get(0).getString()
                         + "/children/" + child.getString()));
         final ApiPerson gotChild = helper.getPerson(child);
-        assertEquals("not in family", 0, gotChild.getFamc().size());
+        assertEquals(0, gotChild.getFamc().size(), "not in family");
     }
 
     /**
@@ -163,7 +160,7 @@ public class ChildrenControllerTest {
             throws URISyntaxException {
         final String childUrl = helper.getPersonsUrl() + "/"
                 + parent.getString() + "/children";
-        logger.info("childUrl: " + childUrl);
+        log.info("childUrl: {}", childUrl);
         final ApiPerson childReqBody = helper.buildPerson();
         final HttpEntity<ApiPerson> childReq =
                 new HttpEntity<>(childReqBody, helper.getHeaders());
