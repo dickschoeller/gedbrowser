@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM openjdk:21
 VOLUME /tmp
 ADD gedbrowser-1.3.0-RC3-SNAPSHOT.jar gedbrowser.jar
 ADD config/letsencrypt.cer letsencrypt.cer

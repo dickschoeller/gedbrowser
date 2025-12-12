@@ -1,4 +1,4 @@
-FROM java:8
+FROM java:21
 VOLUME /tmp
 ADD geoservice-1.3.0-RC3-SNAPSHOT.jar geoservice.jar
 EXPOSE 8080

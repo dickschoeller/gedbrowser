@@ -1,27 +1,27 @@
 package org.schoellerfamily.gedbrowser.security.test;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.schoellerfamily.gedbrowser.security.auth.AnonAuthentication;
 import org.schoellerfamily.gedbrowser.security.auth.TokenBasedAuthentication;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
-import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUsers;
+import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { Application.class })
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = { Application.class, TestConfiguration.class, WebSecurityConfig.class })
 public abstract class AbstractTest {
     /** */
     @Autowired
@@ -35,7 +35,7 @@ public abstract class AbstractTest {
     private SecurityContext securityContext;
 
     /** */
-    @Before
+    @BeforeEach
     public final void beforeAbstractTest() {
         securityContext = Mockito.mock(SecurityContext.class);
         SecurityContextHolder.setContext(securityContext);
@@ -44,7 +44,7 @@ public abstract class AbstractTest {
     }
 
     /** */
-    @After
+    @AfterEach
     public final void afterAbstractTest() {
         SecurityContextHolder.clearContext();
     }

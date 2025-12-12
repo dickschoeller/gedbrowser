@@ -29,7 +29,7 @@ public final class UsersConfigurationTest {
     private static final String TEST_USER_FILE_CSV = "testUserFile.csv";
 
     /** */
-    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
+    @Value("${gedbrowser.home:#{ systemProperties['user.dir'] }/src/test/resources}")
     private transient String gedbrowserHome;
 
     /** */

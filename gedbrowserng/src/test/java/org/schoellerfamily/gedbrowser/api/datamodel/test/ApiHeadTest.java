@@ -1,12 +1,11 @@
 package org.schoellerfamily.gedbrowser.api.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
 
@@ -18,65 +17,65 @@ public class ApiHeadTest {
     @Test
     public void testDefaultConstructorType() {
         final ApiHead o = new ApiHead();
-        assertEquals("type mismatch", "", o.getType());
+        assertEquals("", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorString() {
         final ApiHead o = new ApiHead();
-        assertEquals("string mismatch", "", o.getString());
+        assertEquals("", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorAttributes() {
         final ApiHead o = new ApiHead();
-        assertTrue("attributes mismatch", o.getAttributes().isEmpty());
+        assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
     /** */
     @Test
     public void testConstructorType() {
         final ApiHead o = new ApiHead("type", "string");
-        assertEquals("type mismatch", "type", o.getType());
+        assertEquals("type", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
     public void testConstructorString() {
         final ApiHead o = new ApiHead("type", "string");
-        assertEquals("string mismatch", "string", o.getString());
+        assertEquals("string", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
     public void testConstructorNoAttributes() {
         final ApiHead o = new ApiHead("type", "string");
-        assertTrue("attributes mismatch", o.getAttributes().isEmpty());
+        assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
     /** */
     @Test
     public void testConstructorNullAttributes() {
         final ApiHead o = new ApiHead("type", "string", null);
-        assertTrue("attributes mismatch", o.getAttributes().isEmpty());
+        assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
     /** */
     @Test
     public void testConstructorWithAttributes() {
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("a string", "attribute", ""));
+        final List<ApiAttribute> attributes = List.of(
+            new ApiAttribute("a string", "attribute", ""));
         final ApiHead o = new ApiHead("type", "string", attributes);
-        assertEquals("attributes mismatch", 1, o.getAttributes().size());
+        assertEquals(1, o.getAttributes().size(), "attributes mismatch");
     }
 
     /** */
     @Test
     public void testIsType() {
         final ApiHead o = new ApiHead("type", "string");
-        assertTrue("isType mismatch", o.isType("type"));
+        assertTrue(o.isType("type"), "isType mismatch");
     }
 
     /** */
@@ -85,7 +84,7 @@ public class ApiHeadTest {
         final ApiHead o = new ApiHead("type", "string");
         final ApiTestVisitor visitor = new ApiTestVisitor();
         o.accept(visitor);
-        assertEquals("Method mismatch", "head", visitor.getMethodCalled());
+        assertEquals("head", visitor.getMethodCalled(), "Method mismatch");
     }
 
 }

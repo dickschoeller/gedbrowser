@@ -3,6 +3,7 @@ import { AuthService, UserService, User } from '../../services';
 import { Router } from '@angular/router';
 
 @Component({
+    standalone: false,
     selector: 'app-account-menu',
     templateUrl: './account-menu.component.html',
     styleUrls: ['./account-menu.component.css']

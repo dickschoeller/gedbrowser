@@ -69,7 +69,7 @@ public final class SourceRenderer extends GedRenderer<Source>
                 list.add(attributeRenderer);
             }
         }
-        return list;
+        return list.stream().toList();
     }
 
     /**

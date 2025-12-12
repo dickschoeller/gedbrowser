@@ -3,15 +3,16 @@ package org.schoellerfamily.gedbrowser.endpoint;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Add our own information to the health indicator.
@@ -19,29 +20,30 @@ import org.springframework.stereotype.Component;
  * @author Dick Schoeller
  */
 @Component
+@Slf4j
+@RequiredArgsConstructor
 public class ApplicationHealthIndicator implements HealthIndicator {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
-    @Autowired
-    private transient ApplicationInfo appInfo;
+    private final ApplicationInfo appInfo;
 
     /** */
-    @Autowired
-    private transient GedObjectFileLoader loader;
+    private final GedObjectFileLoader loader;
+
+    /** */
+    private final RepositoryManagerMongo repositoryManager;
 
     /**
      * {@inheritDoc}
      */
     @Override
     public final Health health() {
-        logger.debug("Health");
+        log.debug("Health");
         final Builder builder = Health.up();
-        logger.debug("    " + appInfo.getVersion());
+        log.debug("    {}", appInfo.getVersion());
         builder.withDetail("version", appInfo.getVersion());
-        final List<Map<String, Object>> details = loader.details();
-        logger.debug("    " + details.size() + " datasets");
+        final List<Map<String, Object>> details = loader.details(repositoryManager);
+        log.debug("    {} datasets", details.size());
         builder.withDetail("datasets", details);
         builder.up();
         return builder.build();

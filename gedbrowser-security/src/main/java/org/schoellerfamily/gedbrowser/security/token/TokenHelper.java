@@ -1,21 +1,25 @@
 package org.schoellerfamily.gedbrowser.security.token;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.time.Instant;
+import java.util.Date;
+import java.util.Map;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
-import org.joda.time.DateTime;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.Map;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @author Dick Schoeller
@@ -46,9 +50,29 @@ public final class TokenHelper {
 //    @Autowired
 //    private UserDetailsService userDetailsService;
 
-    /** */
-    private static final SignatureAlgorithm SIGNATURE_ALGORITHM =
-            SignatureAlgorithm.HS512;
+    /**
+     * Create a signing Key from the configured secret.
+     * Use io.jsonwebtoken.security.Keys.hmacShaKeyFor to produce an appropriate
+     * HMAC key for HS512. If the configured secret is too short, derive
+     * a 64-byte key by hashing the secret with SHA-512 so we always meet
+     * the HS512 key length requirement.
+     *
+     * @return the signing key
+     */
+    private SecretKey getSigningKey() {
+        try {
+            byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
+            final int minBytes = 64; // 512 bits / 8
+            if (keyBytes.length < minBytes) {
+                final MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
+                keyBytes = sha512.digest(keyBytes);
+            }
+            return Keys.hmacShaKeyFor(keyBytes);
+        } catch (Exception e) {
+            // Fallback: wrap raw bytes (may fail at runtime if too short)
+            return new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA512");
+        }
+    }
 
     /**
      * @param token the token
@@ -58,6 +82,9 @@ public final class TokenHelper {
         try {
             final Claims claims = this.getClaimsFromToken(token);
             return claims.getSubject();
+        } catch (io.jsonwebtoken.ExpiredJwtException eje) {
+            // Let callers who care about expiration handle it explicitly
+            throw eje;
         } catch (Exception e) {
             return null;
         }
@@ -68,13 +95,29 @@ public final class TokenHelper {
      * @return the token
      */
     public String generateToken(final String username) {
-        return Jwts.builder()
-                .setIssuer(appName)
-                .setSubject(username)
-                .setIssuedAt(generateCurrentDate())
-                .setExpiration(generateExpirationDate())
-                .signWith(SIGNATURE_ALGORITHM, secret)
+        final String token = Jwts.builder()
+                .issuer(appName)
+                .subject(username)
+                .issuedAt(generateCurrentDate())
+                .expiration(generateExpirationDate())
+                .signWith(getSigningKey())
                 .compact();
+		return token;
+    }
+
+    /**
+     * Parse the token and return its claims, letting parsing exceptions propagate
+     * to the caller (for tests or callers that need to react to ExpiredJwtException).
+     *
+     * @param token the token
+     * @return the claims
+     */
+    public Claims parseClaimsOrThrow(final String token) {
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     /**
@@ -84,12 +127,16 @@ public final class TokenHelper {
     private Claims getClaimsFromToken(final String token) {
         try {
             return Jwts.parser()
-                    .setSigningKey(this.secret)
-                    .parseClaimsJws(token)
-                    .getBody();
-        } catch (Exception e) {
-            return null;
-        }
+                    .verifyWith(getSigningKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+         } catch (io.jsonwebtoken.ExpiredJwtException eje) {
+             // Let callers who care about expiration handle it explicitly
+             throw eje;
+         } catch (Exception e) {
+             return null;
+         }
     }
 
     /**
@@ -98,9 +145,9 @@ public final class TokenHelper {
      */
     private String generateToken(final Map<String, Object> claims) {
         return Jwts.builder()
-                .setClaims(claims)
-                .setExpiration(generateExpirationDate())
-                .signWith(SIGNATURE_ALGORITHM, secret)
+                .claims(claims)
+                .expiration(generateExpirationDate())
+                .signWith(getSigningKey())
                 .compact();
     }
 
@@ -128,8 +175,13 @@ public final class TokenHelper {
     public String refreshToken(final String token) {
         try {
             final Claims claims = getClaimsFromToken(token);
-            claims.setIssuedAt(generateCurrentDate());
-            return generateToken(claims);
+            // Rebuild token with updated issuedAt/expiration rather than mutating Claims
+            return Jwts.builder()
+                    .claims(claims)
+                    .issuedAt(generateCurrentDate())
+                    .expiration(generateExpirationDate())
+                    .signWith(getSigningKey())
+                    .compact();
         } catch (Exception e) {
             return null;
         }
@@ -139,7 +191,7 @@ public final class TokenHelper {
      * @return the current time
      */
     private long getCurrentTimeMillis() {
-        return DateTime.now().getMillis();
+        return Instant.now().toEpochMilli();
     }
 
     /**
