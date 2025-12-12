@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.endpoint;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.info.Info.Builder;
@@ -14,9 +13,8 @@ import org.springframework.stereotype.Component;
  * @author Dick Schoeller
  */
 @Component
-public final class ApplicationInfoContributor implements InfoContributor {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
+@Slf4j
+public class ApplicationInfoContributor implements InfoContributor {
 
     /** */
     @Autowired
@@ -27,7 +25,7 @@ public final class ApplicationInfoContributor implements InfoContributor {
      */
     @Override
     public void contribute(final Builder builder) {
-        logger.info("Contribute to info");
+        log.info("Contribute to info");
         builder.withDetail("app", appInfo.getInfoMap());
     }
 }

@@ -1,16 +1,14 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
@@ -21,29 +19,30 @@ import org.schoellerfamily.gedbrowser.api.crud.SpouseCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@Slf4j
 public class PersonCrudTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
-    private transient GedDocumentFileLoader loader;
+    private transient GedObjectFileLoader loader;
 
     /** */
     @Autowired
@@ -63,7 +62,7 @@ public class PersonCrudTest {
     private FamilyCrud familyCrud;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         crud = new PersonCrud(loader, toDocConverter, repositoryManager);
         familyCrud = new FamilyCrud(loader, toDocConverter, repositoryManager);
@@ -73,7 +72,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testGetPersonsGl120368() {
-        logger.info("Beginning testReadSourcesGl120368");
+        log.info("Beginning testReadSourcesGl120368");
         final List<ApiPerson> list = crud.readAll(helper.getDb());
         final ApiPerson firstPerson = list.get(0);
         then(firstPerson.getString()).isEqualTo("I1");
@@ -86,7 +85,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testGetPersonsMiniSchoeller() {
-        logger.info("Beginning testGetPersonsMiniSchoeller");
+        log.info("Beginning testGetPersonsMiniSchoeller");
         final List<ApiPerson> list = crud.readAll("mini-schoeller");
         final ApiPerson firstPerson = list.get(0);
         then(firstPerson.getString()).isEqualTo("I1");
@@ -100,7 +99,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testGetPersonsMiniSchoellerI2() {
-        logger.info("Beginning testGetPersonsMiniSchoellerI2");
+        log.info("Beginning testGetPersonsMiniSchoellerI2");
         final ApiPerson firstPerson = crud.readOne("mini-schoeller", "I2");
         then(firstPerson.getString()).isEqualTo("I2");
         final ApiAttribute firstAttribute = firstPerson.getAttributes().get(0);
@@ -112,21 +111,21 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testGetPersonsMiniSchoellerXyzzy() {
-        logger.info("Beginning testGetPersonsMiniSchoellerXyzzy");
+        log.info("Beginning testGetPersonsMiniSchoellerXyzzy");
         try {
             crud.readOne("mini-schoeller", "Xyzzy");
             fail("should not have found person "
                     + "Xyzzy in data set mini-schoeller");
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object Xyzzy of type person not found", e.getMessage());
+            assertEquals("Object Xyzzy of type person not found",
+                    e.getMessage(), "Mismatched message");
         }
     }
 
     /** */
     @Test
     public final void testCreatePersonsSimple() {
-        logger.info("Beginning testCreatePersonsSimple");
+        log.info("Beginning testCreatePersonsSimple");
         final ApiPerson.Builder builder = new ApiPerson.Builder().build();
         final ApiPerson reqPerson = new ApiPerson(builder);
         final ApiPerson resPerson = crud.createOne(helper.getDb(),
@@ -140,7 +139,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testCreatePersonsWithName() {
-        logger.info("Beginning testCreatePersonsWithName");
+        log.info("Beginning testCreatePersonsWithName");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson =
                 crud.createOne(helper.getDb(), reqPerson);
@@ -167,7 +166,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testDeletePerson() {
-        logger.info("Beginning testDeletePerson");
+        log.info("Beginning testDeletePerson");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson =
                 crud.createOne(helper.getDb(), reqPerson);
@@ -180,16 +179,15 @@ public class PersonCrudTest {
             fail("should not have found person " + id + " in data set "
                     + helper.getDb());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object " + id + " of type person not found",
-                    e.getMessage());
+            assertEquals("Object " + id + " of type person not found",
+                    e.getMessage(), "Mismatched message");
         }
     }
 
     /** */
     @Test
     public final void testDeleteSpouseLinkedPerson() {
-        logger.info("Beginning testDeleteSpouseLinkedPerson");
+        log.info("Beginning testDeleteSpouseLinkedPerson");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson =
                 crud.createOne(helper.getDb(), reqPerson);
@@ -216,9 +214,8 @@ public class PersonCrudTest {
             fail("should not have found person " + id + " in data set "
                     + helper.getDb());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object " + id + " of type person not found",
-                    e.getMessage());
+            assertEquals("Object " + id + " of type person not found",
+                    e.getMessage(), "Mismatched message");
         }
         final ApiFamily readFamily = familyCrud.readOne(helper.getDb(), fam);
         then(readFamily.getSpouses().size()).isEqualTo(1);
@@ -229,7 +226,7 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testDeleteChildLinkedPerson() {
-        logger.info("Beginning testDeleteChildLinkedPerson");
+        log.info("Beginning testDeleteChildLinkedPerson");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson =
                 crud.createOne(helper.getDb(), reqPerson);
@@ -255,9 +252,8 @@ public class PersonCrudTest {
             fail("should not have found person " + childId + " in data set "
                     + helper.getDb());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object " + childId + " of type person not found",
-                    e.getMessage());
+            assertEquals("Object " + childId + " of type person not found",
+                    e.getMessage(), "Mismatched message");
         }
         final ApiFamily readFamily = familyCrud.readOne(helper.getDb(), fam);
         then(readFamily.getChildren().size()).isEqualTo(0);
@@ -266,36 +262,36 @@ public class PersonCrudTest {
     /** */
     @Test
     public final void testDeletePersonNotFound() {
-        logger.info("Beginning testDeletePersonNotFound");
+        log.info("Beginning testDeletePersonNotFound");
         try {
             crud.deleteOne(helper.getDb(), "XXXXXXX");
             fail("should not have found person XXXXXXX in data set "
                     + helper.getDb());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object XXXXXXX of type person not found", e.getMessage());
+            assertEquals("Object XXXXXXX of type person not found",
+                    e.getMessage(), "Mismatched message");
         }
     }
 
     /** */
     @Test
     public final void testDeletePersonDatabaseNotFound() {
-        logger.info("Beginning testDeletePersonDatabaseNotFound");
-        logger.info("Beginning testDeletePersonNotFound");
+        log.info("Beginning testDeletePersonDatabaseNotFound");
+        log.info("Beginning testDeletePersonNotFound");
         try {
             crud.deleteOne("XYZZY", "XXXXXXX");
             fail("should not have found data set "
                     + "XYZZY while looking for person XXXXXXX");
         } catch (DataSetNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Data set XYZZY not found", e.getMessage());
+            assertEquals("Data set XYZZY not found",
+                    e.getMessage(), "Mismatched message");
         }
     }
 
     /** */
     @Test
     public final void testUpdatePersonWithNote() {
-        logger.info("Beginning testUpdatePersonWithNote");
+        log.info("Beginning testUpdatePersonWithNote");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson =
                 crud.createOne(helper.getDb(), reqPerson);
@@ -306,7 +302,7 @@ public class PersonCrudTest {
         resPerson.getAttributes().add(aNote);
         final ApiPerson updatedPerson = crud.updateOne(helper.getDb(),
                 resPerson.getString(), resPerson);
-        assertEquals("attribute should be present", aNote,
-                updatedPerson.getAttributes().get(2));
+        assertEquals(aNote, updatedPerson.getAttributes().get(2),
+                "attribute should be present");
     }
 }

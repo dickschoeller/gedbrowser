@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.domain.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -32,13 +32,13 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGe
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.test.MongoTestConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 public final class BadLoadTest {
     /** */
@@ -58,8 +58,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -71,8 +70,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -84,8 +82,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -97,8 +94,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -110,8 +106,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -123,8 +118,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -136,8 +130,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -149,8 +142,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -162,8 +154,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -175,8 +166,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -188,8 +178,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -201,8 +190,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -214,8 +202,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, attr);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -227,8 +214,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -240,8 +226,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -253,8 +238,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -266,8 +250,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -279,8 +262,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 
@@ -292,8 +274,7 @@ public final class BadLoadTest {
             ad.loadGedObject(toDocConverter, root);
             fail("Expected to throw persistence exception");
         } catch (PersistenceException e) {
-            assertEquals("Expected a wrong type exception",
-                    "Wrong type", e.getMessage());
+            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
         }
     }
 }

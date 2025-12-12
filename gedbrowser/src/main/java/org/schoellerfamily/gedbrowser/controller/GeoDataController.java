@@ -2,8 +2,7 @@ package org.schoellerfamily.gedbrowser.controller;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
 import org.schoellerfamily.gedbrowser.renderer.PlaceListRenderer;
@@ -16,9 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
+@Slf4j
 public abstract class GeoDataController extends DatedDataController {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -48,9 +46,9 @@ public abstract class GeoDataController extends DatedDataController {
      * @param places the places
      */
     private void logPlaces(final List<PlaceInfo> places) {
-        if (logger.isDebugEnabled()) {
+        if (log.isDebugEnabled()) {
             for (final PlaceInfo place : places) {
-                this.logger.debug(place);
+                log.debug(place.toString());
             }
         }
     }

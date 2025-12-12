@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 
@@ -46,13 +45,10 @@ public final class SimpleNameNameIndexRenderer
      */
     @Override
     public String separate(final String... args) {
-        final List<String> argList = new ArrayList<>();
-        for (final String arg : args) {
-            if (!arg.isEmpty()) {
-                argList.add(arg);
-            }
-        }
-        return String.join(", ", argList);
+        return String.join(", ",
+            Arrays.stream(args)
+                .filter(arg -> !arg.isEmpty())
+                .toList());
     }
 
     /**

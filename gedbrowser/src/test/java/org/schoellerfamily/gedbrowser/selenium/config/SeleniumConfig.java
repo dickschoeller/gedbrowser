@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.selenium.config;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
 import org.schoellerfamily.gedbrowser.selenium.base.RemotePageWaiter;
 import org.schoellerfamily.gedbrowser.selenium.base.WebDriverFactory;
@@ -13,9 +12,8 @@ import org.springframework.context.annotation.Configuration;
  * @author Dick Schoeller
  */
 @Configuration
+@Slf4j
 public class SeleniumConfig {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Value("${selenium.timeout:30}")
@@ -34,7 +32,7 @@ public class SeleniumConfig {
      */
     @Bean
     public PageWaiter pageWaiter() {
-        logger.info("Getting page waiter with timeout: " + timeout);
+        log.info("Getting page waiter with timeout: {}", timeout);
         return new RemotePageWaiter(timeout);
     }
 }

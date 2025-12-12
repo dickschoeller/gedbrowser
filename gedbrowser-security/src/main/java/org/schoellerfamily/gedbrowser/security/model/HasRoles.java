@@ -4,22 +4,17 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public class HasRoles implements Serializable {
     /** */
     private static final long serialVersionUID = 1L;
-
-    /** Logger. */
-    @JsonIgnore
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     private final Set<UserRoleName> roles = new HashSet<>();
@@ -40,7 +35,7 @@ public class HasRoles implements Serializable {
             final UserRoleName valueOf = UserRoleName.valueOf(role);
             roles.add(valueOf);
         } catch (IllegalArgumentException e) {
-            logger.warn("Tried to add an unknown role type: " + role);
+            log.warn("Tried to add an unknown role type: {}", role);
         }
     }
 

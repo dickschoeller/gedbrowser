@@ -1,38 +1,42 @@
 package org.schoellerfamily.gedbrowser.security.controller;
 
+import java.util.Map;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.schoellerfamily.gedbrowser.security.model.UserTokenState;
 import org.schoellerfamily.gedbrowser.security.model.UserTokenStateImpl;
 import org.schoellerfamily.gedbrowser.security.service.impl.CustomUserDetailsService;
 import org.schoellerfamily.gedbrowser.security.token.TokenHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
  */
 @RestController
 @RequestMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequiredArgsConstructor
 public class AuthenticationController {
     /** */
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
 
     /** */
-    @Autowired
-    private TokenHelper tokenHelper;
+    private final AuthenticationManager authenticationManager;
+
+    /** */
+    private final TokenHelper tokenHelper;
 
     /** */
     @Value("${jwt.expires_in:600}")
@@ -93,10 +97,8 @@ public class AuthenticationController {
     public ResponseEntity<?> changePassword(
             @RequestBody final PasswordChanger passwordChanger) {
         userDetailsService.changePassword(passwordChanger.getOldPassword(),
-                passwordChanger.getNewPassword());
-        final Map<String, String> result = new HashMap<>();
-        result.put("result", "success");
-        return ResponseEntity.accepted().body(result);
+                passwordChanger.getNewPassword(), authenticationManager);
+        return ResponseEntity.accepted().body(Map.of("result", "success"));
     }
 
     /**
