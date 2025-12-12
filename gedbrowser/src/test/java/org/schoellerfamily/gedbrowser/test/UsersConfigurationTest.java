@@ -1,21 +1,21 @@
 package org.schoellerfamily.gedbrowser.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.UsersConfiguration;
 import org.schoellerfamily.gedbrowser.datamodel.users.User;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 public final class UsersConfigurationTest {
     /** */
     @Value("${gedbrowser.home:/var/lib/gedbrowser}")
@@ -29,7 +29,7 @@ public final class UsersConfigurationTest {
         final Users<? extends User> users = uc.readUserFile(userFile);
         final int expected = 2;
         final int actual = users.size();
-        assertEquals("Found file should have two", expected, actual);
+        assertEquals(expected, actual, "Found file should have two");
     }
 
     /** */
@@ -40,8 +40,7 @@ public final class UsersConfigurationTest {
         final Users<? extends User> users = uc.readUserFile(userFile);
         final int expected = 1;
         final int actual = users.size();
-        assertEquals("Not found file should have only one",
-                expected, actual);
+        assertEquals(expected, actual, "Not found file should have only one");
     }
 
     /** */
@@ -51,7 +50,6 @@ public final class UsersConfigurationTest {
         final UsersConfiguration uc = new UsersConfiguration();
         final Users<? extends User> users = uc.readUserFile(userFile);
         final User guest = users.get("guest");
-        assertTrue("Should have role USER",
-                guest.hasRole(UserRoleName.USER));
+        assertTrue(guest.hasRole(UserRoleName.USER), "Should have role USER");
     }
 }

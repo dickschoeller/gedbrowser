@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.Head;
@@ -10,22 +9,24 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     HeadDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
  */
+@Component
+@RequiredArgsConstructor
 public class HeadDocumentRepositoryMongoImpl implements
     FindableDocument<Head, HeadDocument> {
     /** */
-    @Autowired
-    private transient MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
     /** */
-    @Autowired
-    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
+    private final GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /**
      * {@inheritDoc}
@@ -71,17 +72,13 @@ public class HeadDocumentRepositoryMongoImpl implements
                 new Query(Criteria.where("filename").is(filename));
         final List<HeadDocumentMongo> headDocumentsMongo =
                 mongoTemplate.find(searchQuery, HeadDocumentMongo.class);
-        if (headDocumentsMongo == null) {
-            return null;
-        }
-        final List<HeadDocument> headDocuments = new ArrayList<>();
-        for (final HeadDocument headDocument : headDocumentsMongo) {
-            final Head head =
-                    (Head) toObjConverter.createGedObject(null, headDocument);
-            headDocument.setGedObject(head);
-            headDocuments.add(headDocument);
-        }
-        return headDocuments;
+        return headDocumentsMongo.stream()
+            .map(headDocument -> {
+                final Head head =
+                        (Head) toObjConverter.createGedObject(null, headDocument);
+                headDocument.setGedObject(head);
+                return (HeadDocument) headDocument;
+            }).toList();
     }
 
     /**

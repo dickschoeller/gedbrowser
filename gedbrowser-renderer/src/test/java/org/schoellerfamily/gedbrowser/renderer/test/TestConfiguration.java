@@ -26,8 +26,8 @@ public class TestConfiguration {
      * @return the data reader
      */
     @Bean
-    TestDataReader reader() {
-        return new TestDataReader();
+    TestDataReader reader(final GedLineToGedObjectTransformer g2g) {
+        return new TestDataReader(g2g);
     }
 
     /**

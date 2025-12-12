@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.datamodel.util;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -28,13 +27,11 @@ public final class DateParser extends SimpleDateParser {
     /**
      * List of prefixes handled by strip and simple approximation.
      */
-    private static final List<Pair<String, Approximation>> LIST = new ArrayList<>();
-    static {
-        LIST.add(new ImmutablePair<>(ABT, Approximation.ABOUT));
-        LIST.add(new ImmutablePair<>(EST, Approximation.ABOUT));
-        LIST.add(new ImmutablePair<>(BEF, Approximation.BEFORE));
-        LIST.add(new ImmutablePair<>(AFT, Approximation.AFTER));
-    }
+    private static final List<Pair<String, Approximation>> LIST = List.of(
+        new ImmutablePair<>(ABT, Approximation.ABOUT),
+        new ImmutablePair<>(EST, Approximation.ABOUT),
+        new ImmutablePair<>(BEF, Approximation.BEFORE),
+        new ImmutablePair<>(AFT, Approximation.AFTER));
 
     /** */
     private final String inputString;

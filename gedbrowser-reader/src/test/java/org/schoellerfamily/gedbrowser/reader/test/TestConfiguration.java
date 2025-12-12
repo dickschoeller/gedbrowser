@@ -22,7 +22,7 @@ public class TestConfiguration {
      * @return convert for AbstractGedLine hierarchy to GedObject hierarchy
      */
     @Bean
-    public TestDataReader reader() {
-        return new TestDataReader();
+    public TestDataReader reader(final GedLineToGedObjectTransformer g2g) {
+        return new TestDataReader(g2g);
     }
 }

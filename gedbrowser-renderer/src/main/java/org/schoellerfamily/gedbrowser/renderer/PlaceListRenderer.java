@@ -1,12 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
 import org.geojson.LngLatAlt;
@@ -20,14 +17,15 @@ import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Generates the collection of places for a provided person.
  *
  * @author Dick Schoeller
  */
+@Slf4j
 public final class PlaceListRenderer {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
     /** */
     private final Person person;
     /** */
@@ -72,14 +70,11 @@ public final class PlaceListRenderer {
      * @return the list of geocode results
      */
     private List<PlaceInfo> geoCodePlaces(final Collection<String> places) {
-        final List<PlaceInfo> items = new ArrayList<>(places.size());
-        for (final String placeName : places) {
-            final GeoServiceItem item = client.get(placeName);
-            if (item.getResult() != null) {
-                items.add(createPlaceInfo(item));
-            }
-        }
-        return items;
+        return places.stream()
+                .map(client::get)
+                .filter(item -> item.getResult() != null)
+                .map(this::createPlaceInfo)
+                .toList();
     }
 
     /**
@@ -96,8 +91,7 @@ public final class PlaceListRenderer {
         if (features.size() > 2) {
             final Feature viewportFeature = features.get(2);
             if (viewportFeature == null) {
-                logger.info("Features size > 2 but viewport null for: "
-                        + item.getPlaceName());
+                log.info("Features size > 2 but viewport null for: {}", item.getPlaceName());
             } else {
                 final Polygon viewportPolygon = (Polygon) viewportFeature
                         .getGeometry();

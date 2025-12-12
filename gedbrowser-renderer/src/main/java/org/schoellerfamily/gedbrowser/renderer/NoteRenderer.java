@@ -72,7 +72,7 @@ public final class NoteRenderer extends GedRenderer<Note>
                 list.add(attributeRenderer);
             }
         }
-        return list;
+        return list.stream().toList();
     }
 
     /**

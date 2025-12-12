@@ -1,16 +1,15 @@
 package org.schoellerfamily.gedbrowser.analytics.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.joda.time.LocalDate;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.analytics.BirthDateEstimator;
 import org.schoellerfamily.gedbrowser.analytics.order.test.AnalyzerTest;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -26,13 +25,13 @@ import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestResourceReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessiveClassLength" })
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class BirthDateEstimatorTest implements AnalyzerTest {
     /** */
@@ -68,10 +67,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1960;
         final int birthMonth = 7;
         final int birthDay = 11;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -81,7 +80,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertNull("Expected a null date", actual);
+        assertNull(actual, "Expected a null date");
     }
 
     /** */
@@ -101,10 +100,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1962;
         final int birthMonth = 7;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -127,10 +126,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1964;
         final int birthMonth = 7;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -147,7 +146,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertNull("Expected a null date", actual);
+        assertNull(actual, "Expected a null date");
     }
 
     /** */
@@ -166,10 +165,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1962;
         final int birthMonth = 7;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -190,10 +189,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1964;
         final int birthMonth = 7;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -210,7 +209,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person3);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertNull("Expected a null date", actual);
+        assertNull(actual, "Expected a null date");
     }
 
     /** */
@@ -229,10 +228,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1959;
         final int birthMonth = 1;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -247,7 +246,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person2);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertNull("Expected a null date", actual);
+        assertNull(actual, "Expected a null date");
     }
 
     /** */
@@ -272,10 +271,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1955;
         final int birthMonth = 1;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -301,10 +300,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1986;
         final int birthMonth = 5;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -326,10 +325,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1988;
         final int birthMonth = 5;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -349,10 +348,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1931;
         final int birthMonth = 7;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -370,10 +369,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1933;
         final int birthMonth = 7;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -391,10 +390,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1965;
         final int birthMonth = 7;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -412,10 +411,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1955;
         final int birthMonth = 7;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /**
@@ -430,19 +429,11 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     public void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = readFileTestSource();
         final Root root = g2g.create(top);
-        final List<Person> unhandled = new ArrayList<>();
-        for (final String letter : root.findSurnameInitialLetters()) {
-            for (final String surname : root.findBySurnamesBeginWith(letter)) {
-                for (final Person person : root.findBySurname(surname)) {
-                    final BirthDateEstimator estimator =
-                            createBirthEstimator(person);
-                    final LocalDate localDate = estimator.estimateBirthDate();
-                    if (localDate == null) {
-                        unhandled.add(person);
-                    }
-                }
-            }
-        }
+        final List<Person> unhandled = root.findSurnameInitialLetters().stream()
+                .flatMap(letter -> root.findBySurnamesBeginWith(letter).stream())
+                .flatMap(surname -> root.findBySurname(surname).stream())
+                .filter(person -> createBirthEstimator(person).estimateBirthDate() == null)
+                .toList();
         final int max = Math.min(unhandled.size(), 50);
         if (max != 0) {
             System.out.println("Found " + unhandled.size()
@@ -457,7 +448,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
                 break;
             }
         }
-        assertEquals("Shouldn't have found any unhandled dates", 0, max);
+        assertEquals(0, max, "Shouldn't have found any unhandled dates");
     }
 
     /** */
@@ -470,10 +461,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1960;
         final int birthMonth = 7;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -486,10 +477,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1960;
         final int birthMonth = 7;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -502,10 +493,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1947;
         final int birthMonth = 7;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -518,10 +509,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1947;
         final int birthMonth = 7;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -534,10 +525,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1885;
         final int birthMonth = 1;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -550,10 +541,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1885;
         final int birthMonth = 1;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -564,7 +555,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertNull("Changed event should return null", actual);
+        assertNull(actual, "Changed event should return null");
     }
 
     /** */
@@ -577,10 +568,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1935;
         final int birthMonth = 1;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -591,7 +582,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertNull("No date event should return null", actual);
+        assertNull(actual, "No date event should return null");
     }
 
     /** */
@@ -602,7 +593,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
         final LocalDate actual = estimator.estimateBirthDate();
-        assertNull("Bad date event should return null", actual);
+        assertNull(actual, "Bad date event should return null");
     }
 
     /** */
@@ -615,10 +606,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1960;
         final int birthMonth = 7;
         final int birthDay = 11;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -631,10 +622,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1935;
         final int birthMonth = 1;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /** */
@@ -647,10 +638,10 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
         final int birthYear = 1935;
         final int birthMonth = 1;
         final int birthDay = 1;
-        final LocalDate expected =
-                new LocalDate(birthYear, birthMonth, birthDay);
+        Calendar cal = new Calendar.Builder().setDate(birthYear, birthMonth - 1, birthDay).build();
+        final LocalDate expected = new LocalDate(cal);
         final LocalDate actual = estimator.estimate();
-        assertMatch(expected, actual);
+        assertEquals(expected, actual, "Dates should match");
     }
 
     /**
@@ -663,25 +654,6 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
     private BirthDateEstimator createBirthEstimator(final Person person) {
         return new BirthDateEstimator(
                 person);
-    }
-
-    /**
-     * @param expected expected date
-     * @param actual actual date
-     */
-    private void assertMatch(final LocalDate expected, final LocalDate actual) {
-        assertTrue(mismatchString(expected, actual),
-                expected.isEqual(actual));
-    }
-
-    /**
-     * @param expected expected date
-     * @param actual actual date
-     * @return string describing the mismatch
-     */
-    private String mismatchString(final LocalDate expected,
-            final LocalDate actual) {
-        return "Don't match! expected: " + expected + ", actual: " + actual;
     }
 
     /**

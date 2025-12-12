@@ -5,6 +5,9 @@ import java.util.List;
 import org.schoellerfamily.gedbrowser.api.crud.NoteCrud;
 import org.schoellerfamily.gedbrowser.api.crud.ObjectCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,18 +18,30 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Dick Schoeller
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
-public class NotesController extends CrudInvoker {
+@RequiredArgsConstructor
+public class NotesController {
+    /** */
+    private final GedObjectFileLoader loader;
+
+    /** */
+    private final GedObjectToGedDocumentMongoConverter toDocConverter;
+
+    /** */
+    private final RepositoryManagerMongo repositoryManager;
+
     /**
      * @return the CRUD object for manipulating notes
      */
     private ObjectCrud<ApiNote> crud() {
-        return new NoteCrud(getLoader(), getConverter(), getManager());
+        return new NoteCrud(loader, toDocConverter, repositoryManager);
     }
 
     /**
