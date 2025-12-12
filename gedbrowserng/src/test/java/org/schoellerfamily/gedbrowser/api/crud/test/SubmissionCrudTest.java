@@ -1,18 +1,15 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
+import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
@@ -21,29 +18,30 @@ import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
 import org.schoellerfamily.gedbrowser.api.crud.SubmissionCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@Slf4j
 public class SubmissionCrudTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
-    private transient GedDocumentFileLoader loader;
+    private transient GedObjectFileLoader loader;
 
     /** */
     @Autowired
@@ -60,7 +58,7 @@ public class SubmissionCrudTest {
     private CrudTestHelper helper;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         helper = new CrudTestHelper(
                 new PersonCrud(loader, toDocConverter, repositoryManager),
@@ -71,7 +69,7 @@ public class SubmissionCrudTest {
     /** */
     @Test
     public final void testGetSubmissionsGl120368() {
-        logger.info("Beginning testGetSubmissionsGl120368");
+        log.info("Beginning testGetSubmissionsGl120368");
         final List<ApiSubmission> list = crud.readAll(helper.getDb());
         final ApiSubmission firstSubmission = list.get(0);
         then(firstSubmission.getString()).isEqualTo("B1");
@@ -86,15 +84,15 @@ public class SubmissionCrudTest {
     /** */
     @Test
     public final void testGetSubmissionsMiniSchoeller() {
-        logger.info("Beginning testGetSubmissionsMiniSchoeller");
+        log.info("Beginning testGetSubmissionsMiniSchoeller");
         final List<ApiSubmission> list = crud.readAll("mini-schoeller");
-        assertTrue("should be no submissions", list.isEmpty());
+        assertTrue(list.isEmpty(), "should be no submissions");
     }
 
     /** */
     @Test
     public final void testGetSubmissionsGl120368B1() {
-        logger.info("Beginning testGetSubmissionsGl120368B1");
+        log.info("Beginning testGetSubmissionsGl120368B1");
         final ApiSubmission submission = crud.readOne(helper.getDb(),
                 "B1");
         final ApiAttribute firstAttribute = submission.getAttributes().get(0);
@@ -107,23 +105,22 @@ public class SubmissionCrudTest {
     /** */
     @Test
     public final void testGetSubmissionsGl120368Xyzzy() {
-        logger.info("Beginning testGetSubmissionsGl120368Xyzzy");
+        log.info("Beginning testGetSubmissionsGl120368Xyzzy");
         try {
             final ApiSubmission submission = crud.readOne(helper.getDb(),
                     "Xyzzy");
             fail("The submission should not be found: "
                     + submission.getString());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object Xyzzy of type submission not found",
-                    e.getMessage());
+            assertEquals("Object Xyzzy of type submission not found",
+                    e.getMessage(), "Mismatched message");
         }
     }
 
     /** */
     @Test
     public final void testCreateSubmissionsSimple() {
-        logger.info("Beginning testCreateSubmissionsSimple");
+        log.info("Beginning testCreateSubmissionsSimple");
         final ApiSubmission inSubmission = new ApiSubmission("submission", "");
         final ApiSubmission outSubmission = crud
                 .createOne(helper.getDb(), inSubmission);
@@ -133,7 +130,7 @@ public class SubmissionCrudTest {
     /** */
     @Test
     public final void testDeleteSubmission() {
-        logger.info("Beginning testDeleteSubmission");
+        log.info("Beginning testDeleteSubmission");
         final ApiSubmission inSubmission = new ApiSubmission("submission", "");
         final ApiSubmission outSubmission = crud
                 .createOne(helper.getDb(), inSubmission);
@@ -147,38 +144,37 @@ public class SubmissionCrudTest {
     /** */
     @Test
     public final void testDeleteSubmissionNotFound() {
-        logger.info("Beginning testDeleteSubmissionNotFound");
+        log.info("Beginning testDeleteSubmissionNotFound");
         try {
             final ApiSubmission submission = crud
                     .deleteOne(helper.getDb(), "XXXXXXX");
             fail("The submission should not be found: "
                     + submission.getString());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object XXXXXXX of type submission not found",
-                    e.getMessage());
+            assertEquals("Object XXXXXXX of type submission not found",
+                    e.getMessage(), "Mismatched message");
         }
     }
 
     /** */
     @Test
     public final void testDeleteSubmissionDatabaseNotFound() {
-        logger.info("Beginning testDeleteSubmissionDatabaseNotFound");
+        log.info("Beginning testDeleteSubmissionDatabaseNotFound");
         try {
             crud.deleteOne("XYZZY", "SUBM1");
             fail("The dataset should not be found: XYZZY, when getting SUBM1");
         } catch (DataSetNotFoundException e) {
-            assertEquals("Mismatched message", "Data set XYZZY not found",
-                    e.getMessage());
+            assertEquals("Data set XYZZY not found",
+                    e.getMessage(), "Mismatched message");
         }
     }
 
     /** */
     @Test
     public final void testUpdateSubmissionWithNote() {
-        logger.info("Beginning testUpdateSubmissionWithNote");
-        final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Note", "first note"));
+        log.info("Beginning testUpdateSubmissionWithNote");
+        final List<ApiAttribute> attributes = List.of(
+                new ApiAttribute("attribute", "Note", "first note"));
         final ApiSubmission inSubmission = new ApiSubmission("submission", "",
                 attributes);
         final ApiSubmission outSubmission = crud
@@ -189,7 +185,8 @@ public class SubmissionCrudTest {
         outSubmission.getAttributes().add(aNote);
         final ApiSubmission updatedSubmission = crud.updateOne(helper.getDb(),
                 outSubmission.getString(), outSubmission);
-        assertEquals("attribute should be present", aNote,
-                updatedSubmission.getAttributes().get(1));
+        assertEquals(aNote,
+                java.util.Optional.ofNullable(updatedSubmission.getAttributes().get(1))
+                        .orElse(null), "attribute should be present");
     }
 }

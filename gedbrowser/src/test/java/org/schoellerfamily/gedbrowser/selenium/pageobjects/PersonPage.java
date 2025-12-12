@@ -2,8 +2,7 @@ package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -12,9 +11,8 @@ import org.openqa.selenium.WebElement;
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyMethods", "PMD.CommentSize", "PMD.GodClass" })
+@Slf4j
 public final class PersonPage extends PageBase implements MenuPageFacade {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** The menu item handler. */
     private final MenuPage menuPage = new MenuPageImpl(this);
@@ -609,7 +607,7 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
      */
     private void println(final String string) {
         if (PRINT_NAVIGATION) {
-            logger.info(string);
+            log.info(string);
         }
     }
 }

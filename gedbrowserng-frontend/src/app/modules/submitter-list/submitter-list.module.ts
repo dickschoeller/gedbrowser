@@ -19,7 +19,7 @@ import { SubmitterListPageComponent } from './submitter-list-page.component';
 import { SubmitterListComponent } from './submitter-list.component';
 import { SubmitterListResolverService } from './submitter-list-resolver.service';
 
-const submitterRouting: ModuleWithProviders = RouterModule.forChild([
+const submitterRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
   {
     path: ':dataset/submitters',
     component: SubmitterListPageComponent,

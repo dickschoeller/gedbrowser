@@ -3,21 +3,19 @@ package org.schoellerfamily.geoservice.geocoder;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.Geometry;
 import com.google.maps.model.LatLng;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Stub version of the Geocoding wrapper. Works with some canned behaviors.
  *
  * @author Dick Schoeller
  */
+@Slf4j
 public final class StubGeoCoder implements GeoCoder {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     private final Set<String> unknowns;
@@ -40,7 +38,7 @@ public final class StubGeoCoder implements GeoCoder {
      */
     @Override
     public GeocodingResult[] geocode(final String placeName) {
-        logger.debug("Stub geocode for: " + placeName);
+        log.debug("Stub geocode for: {}", placeName);
         if (unknowns.contains(placeName)
                 || "XYZZY".equals(placeName)
                 || "PLUGH".equals(placeName)

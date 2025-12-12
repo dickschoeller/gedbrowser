@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.Family;
@@ -48,14 +47,10 @@ public final class FamilyRenderer extends GedRenderer<Family>
         final Family family = getGedObject();
         final FamilyNavigator navigator = new FamilyNavigator(family);
         final List<Person> children = navigator.getChildren();
-        final List<PersonRenderer> rendererList =
-                new ArrayList<PersonRenderer>(children.size());
-        for (final Person child : children) {
-            final PersonRenderer personRenderer =
-                    (PersonRenderer) createGedRenderer(child);
-            rendererList.add(personRenderer);
-        }
-        return rendererList;
+        return children.stream()
+                .map(this::createGedRenderer)
+                .map(renderer -> (PersonRenderer) renderer)
+                .toList();
     }
     /**
      * Get the standard amount of indent for this construct.

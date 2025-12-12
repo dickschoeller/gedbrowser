@@ -1,34 +1,33 @@
 package org.schoellerfamily.gedbrowser.api.crud;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public class HeadCrud
     extends OperationsEnabler<Head, HeadDocument>
     implements CrudOperations<Head, HeadDocument, ApiHead>,
         ObjectCrud<ApiHead> {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * @param loader the file loader that we will use
      * @param toDocConverter the document converter
      * @param repositoryManager the repository manager
      */
-    public HeadCrud(final GedDocumentFileLoader loader,
+    public HeadCrud(final GedObjectFileLoader loader,
             final GedObjectToGedDocumentMongoConverter toDocConverter,
             final RepositoryManagerMongo repositoryManager) {
         super(loader, toDocConverter, repositoryManager);
@@ -39,7 +38,7 @@ public class HeadCrud
      */
     @Override
     public FindableDocument<Head, HeadDocument> getRepository() {
-        return getRepositoryManager().getHeadDocumentRepository();
+        return ((HeadDocumentRepositoryMongo) getRepositoryManager().get(Head.class));
     }
 
     /**
@@ -66,8 +65,8 @@ public class HeadCrud
      * @return the one head
      */
     public ApiHead readOne(final String db) {
-        logger.info("Entering head, db: " + db);
-        return (ApiHead) getD2dm().convert(read(db)).get(0);
+        log.info("Entering head, db: {}", db);
+        return (ApiHead) getD2dm().convert(read(getRepositoryManager(), db)).get(0);
     }
 
     /**
@@ -86,10 +85,8 @@ public class HeadCrud
      */
     @Override
     public List<ApiHead> readAll(final String db) {
-        logger.info("Entering all head, db: " + db);
-        final List<ApiHead> list = new ArrayList<>();
-        list.add((ApiHead) getD2dm().convert(read(db)).get(0));
-        return list;
+        log.info("Entering all head, db: {}", db);
+        return List.of((ApiHead) getD2dm().convert(read(getRepositoryManager(), db)).get(0));
     }
 
     /**
@@ -98,8 +95,8 @@ public class HeadCrud
      * @return the head as created
      */
     public ApiHead updateHead(final String db, final ApiHead head) {
-        logger.info("Entering update head in db: " + db);
-        return update(readRoot(db), head);
+        log.info("Entering update head in db: {}", db);
+        return update(readRoot(getRepositoryManager(), db), head);
     }
 
     /**
@@ -111,7 +108,7 @@ public class HeadCrud
     @Override
     public ApiHead updateOne(final String db, final String id,
             final ApiHead head) {
-        logger.info("Entering update head in db: " + db);
+        log.info("Entering update head in db: {}", db);
         return updateHead(db, head);
     }
 

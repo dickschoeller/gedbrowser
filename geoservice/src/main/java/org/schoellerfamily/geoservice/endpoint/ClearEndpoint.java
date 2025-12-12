@@ -1,23 +1,33 @@
 package org.schoellerfamily.geoservice.endpoint;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.geoservice.persistence.GeoCode;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
 @Component
+@Endpoint(id = "clear")
+@Slf4j
 public class ClearEndpoint extends BaseGeoCodeEndpoint {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
+    public ClearEndpoint(final GeoCode gcc) {
+        super(gcc);
+    }
 
     /**
      * {@inheritDoc}
      */
-    @Override
     public final String getId() {
         return "clear";
+    }
+
+    @ReadOperation
+    public java.util.List<String> invokeEndpoint() {
+        return super.invoke();
     }
 
     /**
@@ -25,7 +35,7 @@ public class ClearEndpoint extends BaseGeoCodeEndpoint {
      */
     @Override
     public void geoCodeAction() {
-        logger.info("Invoke clear");
+        log.info("Invoke clear");
         getGeoCode().clear();
     }
 }

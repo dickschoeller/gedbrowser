@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.api.crud;
 
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransformer;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 
 /**
@@ -26,7 +26,7 @@ public abstract class OperationsEnabler<
      * @param toDocConverter the document converter
      * @param repositoryManager the repository manager
      */
-    public OperationsEnabler(final GedDocumentFileLoader loader,
+    public OperationsEnabler(final GedObjectFileLoader loader,
             final GedObjectToGedDocumentMongoConverter toDocConverter,
             final RepositoryManagerMongo repositoryManager) {
         super(loader, toDocConverter, repositoryManager);

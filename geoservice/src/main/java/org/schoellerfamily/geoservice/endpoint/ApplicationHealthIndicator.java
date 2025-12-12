@@ -5,11 +5,12 @@ import java.util.Map;
 
 import org.schoellerfamily.geoservice.controller.ApplicationInfo;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Add our own information to the health indicator.
@@ -17,15 +18,13 @@ import org.springframework.stereotype.Component;
  * @author Dick Schoeller
  */
 @Component
+@RequiredArgsConstructor
 public class ApplicationHealthIndicator implements HealthIndicator {
     /** */
-    @Autowired
-    private GeoCode gcc;
+    private final GeoCode gcc;
 
     /** */
-    @Autowired
-    private transient ApplicationInfo appInfo;
-
+    private final ApplicationInfo appInfo;
     /**
      * {@inheritDoc}
      */

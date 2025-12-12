@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.security.exception.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.security.exception.ResourceConflictException;
 
 /**
@@ -13,7 +13,7 @@ public class ResourceConfliectExceptionTest {
     @Test
     public void testMessage() {
         final Exception e = new ResourceConflictException(1L, "message");
-        assertEquals("Messages don't match", "message", e.getMessage());
+        assertEquals("message", e.getMessage(), "Messages don't match");
     }
 
     /** */
@@ -21,6 +21,6 @@ public class ResourceConfliectExceptionTest {
     public void testId() {
         final ResourceConflictException e =
                 new ResourceConflictException(1L, "message");
-        assertEquals("Ids don't match", Long.valueOf(1L), e.getResourceId());
+        assertEquals(Long.valueOf(1L), e.getResourceId(), "Ids don't match");
     }
 }

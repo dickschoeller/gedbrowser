@@ -1,10 +1,6 @@
 package org.schoellerfamily.gedbrowser.datamodel.finder;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
 import java.util.TreeSet;
 
 import org.schoellerfamily.gedbrowser.datamodel.FinderObject;
@@ -79,17 +75,10 @@ public final class RootFinder implements FinderStrategy {
         final Root root = (Root) owner;
         final RootVisitor visitor = new RootVisitor();
         root.accept(visitor);
-        final List<Person> matches = new ArrayList<>();
-        for (final Person person : visitor.getPersons()) {
-            final String personSurname = person.getSurname();
-            if (personSurname.equals(surname)) {
-                matches.add(person);
-            }
-        }
-
-        Collections.sort(matches, new PersonComparator());
-
-        return matches;
+        return visitor.getPersons().stream()
+            .filter(person -> person.getSurname().equals(surname))
+            .sorted(new PersonComparator())
+            .toList();
     }
 
     /**
@@ -101,14 +90,10 @@ public final class RootFinder implements FinderStrategy {
         final Root root = (Root) owner;
         final RootVisitor visitor = new RootVisitor();
         root.accept(visitor);
-        final Set<String> matches = new TreeSet<>();
-        for (final Person person : visitor.getPersons()) {
-            final String personSurname = person.getSurname();
-            if (personSurname.startsWith(beginsWith)) {
-                matches.add(personSurname);
-            }
-        }
-        return matches;
+        return visitor.getPersons().stream()
+            .map(Person::getSurname)
+            .filter(personSurname -> personSurname.startsWith(beginsWith))
+            .collect(java.util.stream.Collectors.toCollection(TreeSet::new));
     }
 
     /**
@@ -120,12 +105,9 @@ public final class RootFinder implements FinderStrategy {
         final Root root = (Root) owner;
         final RootVisitor visitor = new RootVisitor();
         root.accept(visitor);
-        final Set<String> matches = new TreeSet<>();
-        for (final Person person : visitor.getPersons()) {
-            final String firstLetter = person.getSurname().substring(0, 1);
-            matches.add(firstLetter);
-        }
-        return matches;
+        return visitor.getPersons().stream()
+            .map(person -> person.getSurname().substring(0, 1))
+            .collect(java.util.stream.Collectors.toCollection(TreeSet::new));
     }
 
     /**
@@ -135,12 +117,9 @@ public final class RootFinder implements FinderStrategy {
     public <T extends GedObject> Collection<T> find(final FinderObject owner,
             final Class<T> clazz) {
         final Root root = (Root) owner;
-        final Collection<T> results = new ArrayList<>();
-        for (final GedObject gob : root.getObjects().values()) {
-            if (gob.getClass().equals(clazz)) {
-                results.add(clazz.cast(gob));
-            }
-        }
-        return results;
+        return root.getObjects().values().stream()
+            .filter(gob -> gob.getClass().equals(clazz))
+            .map(clazz::cast)
+            .toList();
     }
 }
