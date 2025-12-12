@@ -15,4 +15,4 @@ spring:
         serialization:
             INDENT_OUTPUT: true
 jwt:
-    expires_in: 8
+    expires_in: 600

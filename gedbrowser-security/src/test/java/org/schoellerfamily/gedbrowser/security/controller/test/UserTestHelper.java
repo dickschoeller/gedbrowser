@@ -2,7 +2,6 @@ package org.schoellerfamily.gedbrowser.security.controller.test;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -96,7 +95,8 @@ public class UserTestHelper {
         final String url = baseUrl() + "users/" + requestName;
         final HttpEntity<UserImpl> requestEntity =
                 new HttpEntity<UserImpl>(headers);
-        return testRestTemplate.exchange(new URI(url), HttpMethod.GET, requestEntity,UserImpl.class);
+        final ResponseEntity<UserImpl> response = testRestTemplate.exchange(new URI(url), HttpMethod.GET, requestEntity,UserImpl.class);
+		return response;
     }
 
     /**
@@ -111,9 +111,7 @@ public class UserTestHelper {
                 new HttpEntity<List<UserImpl>>(headers);
         final ParameterizedTypeReference<List<UserImpl>> ref =
                 new ParameterizedTypeReference<List<UserImpl>>() { };
-        final ResponseEntity<List<UserImpl>> responseEntity =
-                testRestTemplate
-                    .exchange(new URI(url), HttpMethod.GET, requestEntity, ref);
+        final ResponseEntity<List<UserImpl>> responseEntity = testRestTemplate.exchange(new URI(url), HttpMethod.GET, requestEntity, ref);
         return responseEntity.getBody();
     }
 

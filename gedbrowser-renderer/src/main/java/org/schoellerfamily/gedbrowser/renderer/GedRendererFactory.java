@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;

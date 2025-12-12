@@ -107,17 +107,6 @@ public class MongoConfiguration {
     }
 
     /**
-     * @return the loader
-     */
-    @Bean
-    public GedDocumentFileLoader loader(final FinderStrategy finder,
-            final GedLineToGedObjectTransformer g2g,
-            final GedObjectToGedDocumentMongoConverter toDocConverter,
-            final RootDocumentRepositoryMongo rootDocumentRepository) {
-        return new GedDocumentFileLoader(finder, g2g, toDocConverter, rootDocumentRepository, gedbrowserHome);
-    }
-
-    /**
      * @param builder the rest template builder that Spring provides
      * @return the rest template
      */

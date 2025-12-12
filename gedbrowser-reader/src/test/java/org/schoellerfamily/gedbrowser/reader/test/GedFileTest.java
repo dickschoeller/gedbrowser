@@ -1,13 +1,13 @@
 package org.schoellerfamily.gedbrowser.reader.test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
@@ -20,14 +20,14 @@ import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestResourceReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 @Slf4j
 public final class GedFileTest {
@@ -54,7 +54,7 @@ public final class GedFileTest {
         final Person dick = meliNavigator.getFather();
         final PersonNavigator dickNavigator = new PersonNavigator(dick);
         final List<Person> spouses = dickNavigator.getSpouses();
-        assertEquals("Dick only has one spouse", 1, spouses.size());
+        assertEquals(1, spouses.size(), "Dick only has one spouse");
         log.info(spouses.get(0).toString());
     }
 
@@ -69,9 +69,8 @@ public final class GedFileTest {
         final Root root = g2g.create(top);
         final Head head = (Head) root.find("Header");
         final List<String> headsCheckResults = checkHeads(head);
-        assertEquals(
-                "Problems in head:\n" + formatResult(headsCheckResults),
-                0, headsCheckResults.size());
+        assertEquals(0, headsCheckResults.size(),
+                "Problems in head:\n" + formatResult(headsCheckResults));
     }
 
     /**
@@ -199,9 +198,9 @@ public final class GedFileTest {
     private void assertMatch(final AbstractGedLine line,
             final int expectedLevel, final String expectedTag,
             final String expectedTail, final String expectedXref) {
-        assertEquals("Level mismatch", expectedLevel, line.getLevel());
-        assertEquals("Tag mismatch", expectedTag, line.getTag());
-        assertEquals("Tail mismatch", expectedTail, line.getTail());
-        assertEquals("Xref mismatch", expectedXref, line.getXref());
+        assertEquals(expectedLevel, line.getLevel(), "Level mismatch");
+        assertEquals(expectedTag, line.getTag(), "Tag mismatch");
+        assertEquals(expectedTail, line.getTail(), "Tail mismatch");
+        assertEquals(expectedXref, line.getXref(), "Xref mismatch");
     }
 }

@@ -1,14 +1,14 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestClientException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
@@ -53,7 +53,7 @@ public class SpousesControllerTest {
     /**
      * Set up some base objects.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         helper = new ControllerTestHelper(port, testRestTemplate);
     }
@@ -79,8 +79,9 @@ public class SpousesControllerTest {
         then(gotP1.getFams().size()).isEqualTo(1);
         final ApiPerson gotP2 = helper.getPerson(p2);
         then(gotP2.getFams().size()).isEqualTo(1);
-        assertEquals("check ids", gotP1.getFams().get(0).getString(),
-                gotP2.getFams().get(0).getString());
+        assertEquals(gotP1.getFams().get(0).getString(),
+            gotP2.getFams().get(0).getString(),
+            "check ids");
     }
 
     /**
@@ -107,8 +108,9 @@ public class SpousesControllerTest {
         then(gotP2.getFams().size()).isEqualTo(1);
         final ApiPerson gotP1 = helper.getPerson(p1);
         then(gotP1.getFams().size()).isEqualTo(1);
-        assertEquals("check ids", gotP1.getFams().get(0).getString(),
-                gotP2.getFams().get(0).getString());
+        assertEquals(gotP1.getFams().get(0).getString(),
+            gotP2.getFams().get(0).getString(),
+            "check ids");
     }
 
     /**
@@ -141,7 +143,8 @@ public class SpousesControllerTest {
         final ApiPerson gotP1again = helper.getPerson(gotP1);
         final ApiPerson gotP2again = helper.getPerson(gotP2);
         then(gotP1again.getFams().size()).isEqualTo(0);
-        assertEquals("check ids", gotP2again.getFams().get(0).getString(), fam);
+        assertEquals(gotP2again.getFams().get(0).getString(), fam,
+            "check ids");
     }
 
     /**

@@ -1,34 +1,34 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
 import static org.assertj.core.api.Assertions.fail;
-import static org.assertj.core.api.BDDAssertions.*;
-import static org.junit.Assert.*;
+import static org.assertj.core.api.BDDAssertions.then;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.crud.FamilyCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
@@ -38,7 +38,7 @@ public class FamilyCrudTest {
 
     /** */
     @Autowired
-    private transient GedDocumentFileLoader loader;
+    private transient GedObjectFileLoader loader;
 
     /** */
     @Autowired
@@ -52,7 +52,7 @@ public class FamilyCrudTest {
     private FamilyCrud crud;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         crud = new FamilyCrud(loader, toDocConverter, repositoryManager);
     }
@@ -126,8 +126,7 @@ public class FamilyCrudTest {
             final ApiFamily family = crud.readOne("mini-schoeller", "Xyzzy");
             fail("The family should not be found: " + family.getString());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object Xyzzy of type family not found", e.getMessage());
+            assertEquals("Object Xyzzy of type family not found", e.getMessage(), "Mismatched message");
         }
     }
 
@@ -169,9 +168,7 @@ public class FamilyCrudTest {
             final ApiFamily family = crud.readOne("gl120368", id);
             fail("The family should not be found: " + family.getString());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object " + id + " of type family not found",
-                    e.getMessage());
+            assertEquals("Object " + id + " of type family not found", e.getMessage(), "Mismatched message");
         }
     }
 
@@ -183,8 +180,7 @@ public class FamilyCrudTest {
             final ApiFamily family = crud.deleteOne("gl120368", "XXXXXXX");
             fail("The family should not be found: " + family.getString());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object XXXXXXX of type family not found", e.getMessage());
+            assertEquals("Object XXXXXXX of type family not found", e.getMessage(), "Mismatched message");
         }
     }
 
@@ -196,8 +192,7 @@ public class FamilyCrudTest {
             final ApiFamily family = crud.deleteOne("XYZZY", "SUBM1");
             fail("The family should not be found: " + family.getString());
         } catch (DataSetNotFoundException e) {
-            assertEquals("Mismatched message", "Data set XYZZY not found",
-                    e.getMessage());
+            assertEquals("Data set XYZZY not found", e.getMessage(), "Mismatched message");
         }
     }
 
@@ -227,7 +222,6 @@ public class FamilyCrudTest {
         for (final ApiAttribute a : attributesPutResponse) {
             log.info("attribute: {} {} {}", a.getType(), a.getString(), a.getTail());
         }
-        assertEquals("attribute should be present", aNote,
-                attributesPutResponse.get(1));
+        assertEquals(aNote, attributesPutResponse.get(1), "attribute should be present");
     }
 }

@@ -1,13 +1,13 @@
 package org.schoellerfamily.gedbrowser.reader.test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
@@ -22,7 +22,7 @@ import org.schoellerfamily.gedbrowser.reader.GedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 @Slf4j
 public final class GedLineTest {
@@ -380,7 +380,7 @@ public final class GedLineTest {
         final PersonNavigator dickNavigator = new PersonNavigator(dick);
         final List<Person> spouses = dickNavigator.getSpouses();
         log.info(spouses.get(0).toString());
-        assertEquals("Dick only has one spouse", 1, spouses.size());
+        assertEquals(1, spouses.size(), "Dick only has one spouse");
     }
 
     /**
@@ -403,7 +403,7 @@ public final class GedLineTest {
                         noteLink.getToString());
             }
         }
-        assertEquals("Note body mismatch", "This is a note", note.getTail());
+        assertEquals("This is a note", note.getTail(), "Note body mismatch");
     }
 
     /**
@@ -430,8 +430,7 @@ public final class GedLineTest {
                 }
             }
         }
-        assertEquals("getString mismatch", "SUBMISSION",
-                submission.getString());
+        assertEquals("SUBMISSION", submission.getString(), "getString mismatch");
     }
 
     /**
@@ -443,7 +442,7 @@ public final class GedLineTest {
      */
     private void checkEquals(final String message, final String expected,
             final String actual) {
-        assertEquals(message, expected, actual);
+        assertEquals(expected, actual, message);
     }
 
     /**

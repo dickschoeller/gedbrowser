@@ -1,31 +1,31 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
-import static org.assertj.core.api.BDDAssertions.*;
-import static org.junit.Assert.*;
+import static org.assertj.core.api.BDDAssertions.then;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.crud.ChildCrud;
 import org.schoellerfamily.gedbrowser.api.crud.FamilyCrud;
 import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
@@ -35,7 +35,7 @@ public class ChildCrudTest {
 
     /** */
     @Autowired
-    private transient GedDocumentFileLoader loader;
+    private transient GedObjectFileLoader loader;
 
     /** */
     @Autowired
@@ -52,7 +52,7 @@ public class ChildCrudTest {
     private CrudTestHelper helper;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         helper = new CrudTestHelper(
                 new PersonCrud(loader, toDocConverter, repositoryManager),
@@ -68,9 +68,8 @@ public class ChildCrudTest {
         final ApiPerson child = createChildOfParent(parent);
         log.info("famc: {}", child.getFamc().get(0).getString());
         final ApiPerson gotParent = helper.getPerson(parent);
-        assertEquals("Child should be in family",
-                child.getFamc().get(0).getString(),
-                gotParent.getFams().get(0).getString());
+        assertEquals(child.getFamc().get(0).getString(),
+                gotParent.getFams().get(0).getString(), "Child should be in family");
     }
 
     /** */
@@ -86,8 +85,7 @@ public class ChildCrudTest {
         crud.linkChildInFamily(helper.getDb(), famID, secondChild);
 
         final ApiFamily family = helper.readFamily(famID);
-        assertEquals(family.getChildren().get(1).getString(),
-                secondChild.getString());
+        assertEquals(secondChild.getString(), family.getChildren().get(1).getString());
     }
 
     /** */
@@ -102,9 +100,8 @@ public class ChildCrudTest {
         then(gotChild.getFamc().size()).isEqualTo(1);
         final ApiPerson gotParent = helper.getPerson(parent);
         then(gotParent.getFams().size()).isEqualTo(1);
-        assertEquals("check ids",
-                gotParent.getFams().get(0).getString(),
-                gotChild.getFamc().get(0).getString());
+        assertEquals(gotParent.getFams().get(0).getString(),
+                gotChild.getFamc().get(0).getString(), "check ids");
     }
 
     /** */
@@ -117,7 +114,7 @@ public class ChildCrudTest {
         log.info("famc: {}", famID);
         crud.unlinkChild(helper.getDb(), famID, child.getString());
         final ApiPerson gotChild = helper.getPerson(child);
-        assertEquals("not in family", 0, gotChild.getFamc().size());
+        assertEquals(0, gotChild.getFamc().size(), "not in family");
     }
 
     /**

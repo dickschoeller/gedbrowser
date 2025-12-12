@@ -40,7 +40,7 @@ public class UserController {
      * @return the user object
      */
     @RequestMapping(method = GET, value = "/users/{username:.+}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public SecurityUser loadById(final HttpServletRequest request,
             @PathVariable final String username) {
         return userService.findByUsername(username);

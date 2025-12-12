@@ -3,8 +3,8 @@ package org.schoellerfamily.gedbrowser.api.controller;
 import org.schoellerfamily.gedbrowser.api.crud.ParentCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ParentsController {
     /** */
-    private final GedDocumentFileLoader loader;
+    private final GedObjectFileLoader loader;
 
     /** */
     private final GedObjectToGedDocumentMongoConverter toDocConverter;

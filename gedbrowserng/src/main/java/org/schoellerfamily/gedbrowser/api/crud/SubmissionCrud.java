@@ -3,10 +3,10 @@ package org.schoellerfamily.gedbrowser.api.crud;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmissionDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmissionDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
@@ -27,7 +27,7 @@ public class SubmissionCrud
      * @param toDocConverter the document converter
      * @param repositoryManager the repository manager
      */
-    public SubmissionCrud(final GedDocumentFileLoader loader,
+    public SubmissionCrud(final GedObjectFileLoader loader,
             final GedObjectToGedDocumentMongoConverter toDocConverter,
             final RepositoryManagerMongo repositoryManager) {
         super(loader, toDocConverter, repositoryManager);

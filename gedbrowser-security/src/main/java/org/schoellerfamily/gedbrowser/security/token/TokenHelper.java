@@ -1,16 +1,14 @@
 package org.schoellerfamily.gedbrowser.security.token;
 
-import java.util.Date;
-import java.util.Map;
-import java.security.Key;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.time.Instant;
+import java.util.Date;
+import java.util.Map;
+
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-
-import org.joda.time.DateTime;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.security.core.userdetails.UserDetails;
@@ -19,8 +17,9 @@ import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @author Dick Schoeller
@@ -51,10 +50,6 @@ public final class TokenHelper {
 //    @Autowired
 //    private UserDetailsService userDetailsService;
 
-    /** */
-    private static final SignatureAlgorithm SIGNATURE_ALGORITHM =
-            SignatureAlgorithm.HS512;
-
     /**
      * Create a signing Key from the configured secret.
      * Use io.jsonwebtoken.security.Keys.hmacShaKeyFor to produce an appropriate
@@ -64,7 +59,7 @@ public final class TokenHelper {
      *
      * @return the signing key
      */
-    private Key getSigningKey() {
+    private SecretKey getSigningKey() {
         try {
             byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
             final int minBytes = 64; // 512 bits / 8
@@ -87,6 +82,9 @@ public final class TokenHelper {
         try {
             final Claims claims = this.getClaimsFromToken(token);
             return claims.getSubject();
+        } catch (io.jsonwebtoken.ExpiredJwtException eje) {
+            // Let callers who care about expiration handle it explicitly
+            throw eje;
         } catch (Exception e) {
             return null;
         }
@@ -97,13 +95,14 @@ public final class TokenHelper {
      * @return the token
      */
     public String generateToken(final String username) {
-        return Jwts.builder()
-                .setIssuer(appName)
-                .setSubject(username)
-                .setIssuedAt(generateCurrentDate())
-                .setExpiration(generateExpirationDate())
-                .signWith(getSigningKey(), SIGNATURE_ALGORITHM)
+        final String token = Jwts.builder()
+                .issuer(appName)
+                .subject(username)
+                .issuedAt(generateCurrentDate())
+                .expiration(generateExpirationDate())
+                .signWith(getSigningKey())
                 .compact();
+		return token;
     }
 
     /**
@@ -115,10 +114,10 @@ public final class TokenHelper {
      */
     public Claims parseClaimsOrThrow(final String token) {
         return Jwts.parser()
-                .setSigningKey(getSigningKey())
+                .verifyWith(getSigningKey())
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     /**
@@ -128,10 +127,10 @@ public final class TokenHelper {
     private Claims getClaimsFromToken(final String token) {
         try {
             return Jwts.parser()
-                    .setSigningKey(getSigningKey())
+                    .verifyWith(getSigningKey())
                     .build()
-                    .parseClaimsJws(token)
-                    .getBody();
+                    .parseSignedClaims(token)
+                    .getPayload();
          } catch (io.jsonwebtoken.ExpiredJwtException eje) {
              // Let callers who care about expiration handle it explicitly
              throw eje;
@@ -146,9 +145,9 @@ public final class TokenHelper {
      */
     private String generateToken(final Map<String, Object> claims) {
         return Jwts.builder()
-                .setClaims(claims)
-                .setExpiration(generateExpirationDate())
-                .signWith(getSigningKey(), SIGNATURE_ALGORITHM)
+                .claims(claims)
+                .expiration(generateExpirationDate())
+                .signWith(getSigningKey())
                 .compact();
     }
 
@@ -178,10 +177,10 @@ public final class TokenHelper {
             final Claims claims = getClaimsFromToken(token);
             // Rebuild token with updated issuedAt/expiration rather than mutating Claims
             return Jwts.builder()
-                    .setClaims(claims)
-                    .setIssuedAt(generateCurrentDate())
-                    .setExpiration(generateExpirationDate())
-                    .signWith(getSigningKey(), SIGNATURE_ALGORITHM)
+                    .claims(claims)
+                    .issuedAt(generateCurrentDate())
+                    .expiration(generateExpirationDate())
+                    .signWith(getSigningKey())
                     .compact();
         } catch (Exception e) {
             return null;
@@ -192,7 +191,7 @@ public final class TokenHelper {
      * @return the current time
      */
     private long getCurrentTimeMillis() {
-        return DateTime.now().getMillis();
+        return Instant.now().toEpochMilli();
     }
 
     /**

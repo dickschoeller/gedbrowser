@@ -2,9 +2,9 @@ package org.schoellerfamily.gedbrowser.api.controller;
 
 import org.schoellerfamily.gedbrowser.api.crud.HeadCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.api.service.storage.StorageService;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UploadController {
     /** */
-    private final GedDocumentFileLoader loader;
+    private final GedObjectFileLoader loader;
 
     /** */
     private final GedObjectToGedDocumentMongoConverter toDocConverter;
