@@ -1,31 +1,31 @@
 package org.schoellerfamily.geoservice.endpoint;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
 @Component
 @Endpoint(id = "loadAndFind")
+@Slf4j
 public class LoadAndFindEndpoint extends BaseGeoCodeEndpoint {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
+    private final GeoCodeLoader loader;
+    private final String loadFile;
 
-    /** */
-    @Autowired
-    private GeoCodeLoader loader;
-
-    /** */
-    @Value("${geoservice.loadfile:"
-            + "/var/lib/gedbrowser/geoservice-loadfile.txt}")
-    private transient String loadFile;
+    public LoadAndFindEndpoint(final GeoCode gcc, final GeoCodeLoader loader,
+        @Value("${geoservice.loadfile:/var/lib/gedbrowser/geoservice-loadfile.txt}")
+        final String loadFile) {
+        super(gcc);
+        this.loader = loader;
+        this.loadFile = loadFile;
+    }
 
     /**
      * {@inheritDoc}
@@ -44,7 +44,7 @@ public class LoadAndFindEndpoint extends BaseGeoCodeEndpoint {
      */
     @Override
     public void geoCodeAction() {
-        logger.info("Invoke load and find from: " + loadFile);
+        log.info("Invoke load and find from: {}", loadFile);
         loader.loadAndFind(loadFile);
     }
 }

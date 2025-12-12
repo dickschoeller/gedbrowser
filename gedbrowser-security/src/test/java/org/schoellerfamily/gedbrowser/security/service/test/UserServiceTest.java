@@ -1,13 +1,14 @@
 package org.schoellerfamily.gedbrowser.security.service.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
 import org.schoellerfamily.gedbrowser.security.service.impl.UserServiceImpl;
@@ -15,7 +16,6 @@ import org.schoellerfamily.gedbrowser.security.test.AbstractTest;
 import org.schoellerfamily.gedbrowser.security.test.SecurityTestHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.access.AccessDeniedException;
 
 /**
@@ -34,7 +34,7 @@ public class UserServiceTest extends AbstractTest {
     /**
      * Reset test file before.
      */
-    @Before
+    @BeforeEach
     public void before() {
         SecurityTestHelper.resetUserFile(gedbrowserHome + "/testUserFile.csv");
     }
@@ -42,7 +42,7 @@ public class UserServiceTest extends AbstractTest {
     /**
      * Reset test file after.
      */
-    @After
+    @AfterEach
     public void after() {
         SecurityTestHelper.resetUserFile(gedbrowserHome + "/testUserFile.csv");
     }
@@ -50,18 +50,18 @@ public class UserServiceTest extends AbstractTest {
     /**
      * @throws AccessDeniedException if we can't get it
      */
-    @Test(expected = AccessDeniedException.class)
+    @Test
     public void testFindAllWithoutUser() throws AccessDeniedException {
-        userService.findAll();
+        assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(() -> userService.findAll());
     }
 
     /**
      * @throws AccessDeniedException if we can't get it
      */
-    @Test(expected = AccessDeniedException.class)
+    @Test
     public void testFindAllWithUser() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestUser());
-        userService.findAll();
+        assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(() -> userService.findAll());
     }
 
     /**
@@ -108,7 +108,7 @@ public class UserServiceTest extends AbstractTest {
     @Test
     public void testFindByUsernameWithoutUser() throws AccessDeniedException {
         final SecurityUser user = userService.findByUsername("guest");
-        assertEquals("Username doesn't match", "guest", user.getUsername());
+        assertEquals("guest", user.getUsername(), "Username doesn't match");
     }
 
     /**
@@ -118,7 +118,7 @@ public class UserServiceTest extends AbstractTest {
     public void testFindByUsernameWithUser() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestUser());
         final SecurityUser user = userService.findByUsername("guest");
-        assertEquals("Username doesn't match", "guest", user.getUsername());
+        assertEquals("guest", user.getUsername(), "Username doesn't match");
     }
 
     /**
@@ -128,7 +128,7 @@ public class UserServiceTest extends AbstractTest {
     public void testFindByUsernameWithAdmin() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestAdmin());
         final SecurityUser user = userService.findByUsername("guest");
-        assertEquals("Username doesn't match", "guest", user.getUsername());
+        assertEquals("guest", user.getUsername(), "Username doesn't match");
     }
 
     /**
@@ -143,6 +143,6 @@ public class UserServiceTest extends AbstractTest {
         request.setLastname("User");
         request.setPassword("password");
         final SecurityUser user = userService.save(request);
-        assertEquals("Username doesn't match", "user", user.getUsername());
+        assertEquals("user", user.getUsername(), "Username doesn't match");
     }
 }

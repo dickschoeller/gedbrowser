@@ -6,17 +6,17 @@ import org.schoellerfamily.gedbrowser.security.auth.LogoutSuccess;
 import org.schoellerfamily.gedbrowser.security.auth.RestAuthenticationEntryPoint;
 import org.schoellerfamily.gedbrowser.security.auth.TokenAuthenticationFilter;
 import org.schoellerfamily.gedbrowser.security.service.impl.CustomUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig {
     /** */
     @Value("${jwt.cookie:AUTH-TOKEN}")
     private String cookie;
@@ -39,16 +39,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private String activeProfile;
 
     /** */
-    private final CustomUserDetailsService jwtUserDetailsService;
+    private final CustomUserDetailsService customUserDetailsService;
 
     /** */
     private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     /** */
     private final LogoutSuccess logoutSuccess;
-
-    /** */
-    private final PasswordEncoder passwordEncoder;
 
     /** */
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
@@ -59,26 +56,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /** */
     private final TokenAuthenticationFilter tokenAuthenticationFilter;
 
+    /**
+     * Register a DaoAuthenticationProvider so AuthenticationManager can use
+     * the provided UserDetailsService and PasswordEncoder.
+     */
     @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-      return super.authenticationManagerBean();
+    public DaoAuthenticationProvider authenticationProvider(
+            final PasswordEncoder passwordEncoder) {
+        final DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(customUserDetailsService);
+        provider.setPasswordEncoder(passwordEncoder);
+        return provider;
     }
 
     /**
-     * @param authenticationManagerBuilder the builder
-     * @throws Exception if something goes wrong
+     * Expose the AuthenticationManager from AuthenticationConfiguration.
      */
-    @Autowired
-    public void configureGlobal(
-            final AuthenticationManagerBuilder authenticationManagerBuilder)
+    @Bean
+    public AuthenticationManager authenticationManager(
+            final AuthenticationConfiguration authenticationConfiguration)
             throws Exception {
-        authenticationManagerBuilder.userDetailsService(jwtUserDetailsService)
-                .passwordEncoder(passwordEncoder);
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
-    @Override
-    protected void configure(final HttpSecurity http) throws Exception {
+    /**
+     * Configure the security filter chain using the modern approach.
+     */
+    @Bean
+    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         handleCsrf(http)
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -97,6 +102,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/v1/logout"))
                 .logoutSuccessHandler(logoutSuccess)
                 .deleteCookies(cookie);
+
+        return http.build();
     }
 
     /**
@@ -112,7 +119,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         if ("test".equals(activeProfile)) {
             return http.csrf().disable();
         } else {
-            return http.csrf().ignoringAntMatchers("/v1/login", "/v1/signup")
+            return http.csrf().ignoringRequestMatchers("/v1/login", "/v1/signup")
                     .csrfTokenRepository(
                             CookieCsrfTokenRepository.withHttpOnlyFalse())
                     .and();

@@ -4,8 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.CharsetScanner;
 import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor;
@@ -14,9 +13,8 @@ import org.schoellerfamily.gedbrowser.writer.util.Backup;
 /**
  * @author Richard Schoeller
  */
+@Slf4j
 public class GedWriter {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     private final GedObjectToGedWriterVisitor visitor =
@@ -40,7 +38,7 @@ public class GedWriter {
         try {
             Backup.backup(root.getFilename());
         } catch (IOException e) {
-            logger.error("Problem backing up old copy of GEDCOM file", e);
+            log.error("Problem backing up old copy of GEDCOM file", e);
         }
         final String filename = root.getFilename();
         final String charset = new CharsetScanner().charset(root);
@@ -49,7 +47,7 @@ public class GedWriter {
                         fstream)) {
             writeTheLines(bstream, charset);
         } catch (IOException e) {
-            logger.error("Problem writing GEDCOM file", e);
+            log.error("Problem writing GEDCOM file", e);
         }
     }
 

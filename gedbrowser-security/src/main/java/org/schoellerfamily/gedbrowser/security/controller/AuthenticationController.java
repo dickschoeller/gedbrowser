@@ -1,10 +1,15 @@
 package org.schoellerfamily.gedbrowser.security.controller;
 
+import java.util.Map;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.schoellerfamily.gedbrowser.security.model.UserTokenState;
 import org.schoellerfamily.gedbrowser.security.model.UserTokenStateImpl;
 import org.schoellerfamily.gedbrowser.security.service.impl.CustomUserDetailsService;
 import org.schoellerfamily.gedbrowser.security.token.TokenHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Dick Schoeller
@@ -99,9 +98,7 @@ public class AuthenticationController {
             @RequestBody final PasswordChanger passwordChanger) {
         userDetailsService.changePassword(passwordChanger.getOldPassword(),
                 passwordChanger.getNewPassword(), authenticationManager);
-        final Map<String, String> result = new HashMap<>();
-        result.put("result", "success");
-        return ResponseEntity.accepted().body(result);
+        return ResponseEntity.accepted().body(Map.of("result", "success"));
     }
 
     /**

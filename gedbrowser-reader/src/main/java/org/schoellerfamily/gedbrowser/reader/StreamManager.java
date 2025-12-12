@@ -50,7 +50,7 @@ public class StreamManager {
         }
         final InputStream is = getClass().getResourceAsStream(DATA_DIR + filename);
         if (is == null) {
-            throw new FileNotFoundException("Resource not found: " + DATA_DIR + filename);
+            throw new FileNotFoundException("Resource not found: %s%s".formatted(DATA_DIR, filename));
         }
         return is;
     }

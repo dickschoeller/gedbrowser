@@ -1,9 +1,6 @@
 package org.schoellerfamily.gedbrowser.security.test;
 
-import javax.annotation.PostConstruct;
-
 import org.schoellerfamily.gedbrowser.security.auth.TokenAuthenticationFilter;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 // import org.springframework.core.env.Environment;
 import org.springframework.test.web.servlet.MockMvc;
@@ -14,6 +11,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import io.restassured.RestAssured;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -47,7 +45,7 @@ public class MockMvcConfig {
      */
     private MockMvc mockMvc() {
         DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(wac);
-        return builder.addFilters(filter)
+        return builder.addFilter(filter, "", "")
                 .build();
     }
 

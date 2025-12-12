@@ -5,12 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.schoellerfamily.gedbrowser.security.token.TokenHelper;
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -77,13 +78,18 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
      * {@inheritDoc}
      */
     @Override
-    public void doFilterInternal(final HttpServletRequest request,
-            final HttpServletResponse response, final FilterChain chain)
+    public void doFilterInternal(
+            @NonNull
+            final HttpServletRequest request,
+            @NonNull
+            final HttpServletResponse response,
+            @NonNull
+            final FilterChain chain)
             throws IOException, ServletException {
 
         final String authToken = tokenHelper.getToken(request);
         if (authToken == null || skipPathRequest(request, pathsToSkip)) {
-            logger.debug("Going anonymous");
+            log.debug("Going anonymous");
             SecurityContextHolder.getContext()
                     .setAuthentication(new AnonAuthentication());
         } else {
@@ -111,7 +117,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext()
                     .setAuthentication(authentication);
         } catch (Exception e) {
-            logger.debug("Caught exception, going anonymous", e);
+            log.debug("Caught exception, going anonymous", e);
             SecurityContextHolder.getContext()
                     .setAuthentication(new AnonAuthentication());
         }

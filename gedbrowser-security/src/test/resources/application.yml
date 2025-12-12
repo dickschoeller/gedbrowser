@@ -1,7 +1,7 @@
 spring:
-  profiles:
-    active: test
-  main:
-    allow-bean-definition-overriding: true
+    profiles:
+        active: test
+    main:
+        allow-bean-definition-overriding: true
 jwt:
-  expires_in: 8
+    expires_in: 120

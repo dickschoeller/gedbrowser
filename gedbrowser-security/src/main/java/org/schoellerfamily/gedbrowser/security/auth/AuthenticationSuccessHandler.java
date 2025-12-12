@@ -1,25 +1,24 @@
 package org.schoellerfamily.gedbrowser.security.auth;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import lombok.RequiredArgsConstructor;
-
 import java.io.IOException;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserTokenState;
 import org.schoellerfamily.gedbrowser.security.model.UserTokenStateImpl;
 import org.schoellerfamily.gedbrowser.security.token.TokenHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
@@ -30,11 +29,11 @@ public class AuthenticationSuccessHandler
         extends SimpleUrlAuthenticationSuccessHandler {
     /** */
     @Value("${jwt.expires_in:600}")
-    private int expiresIn;
+    private final int expiresIn;
 
     /** */
     @Value("${jwt.cookie:AUTH-TOKEN}")
-    private String cookie;
+    private final String cookie;
 
     /** */
     private final TokenHelper tokenHelper;

@@ -5,15 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Reads the top of a GEDCOM file, looking for the CHAR tag to determine how
@@ -21,23 +20,20 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
  *
  * @author Dick Schoeller
  */
+@Slf4j
 public class CharsetScanner {
-    /** Logger. */
-    private final Log logger = LogFactory.getLog(getClass());
 
     /**
      * Holds the mapping between GEDCOM known charsets and Java known charsets.
      */
-    private static final Map<String, String> CHARSET_MAP = new HashMap<>();
-    static {
-        CHARSET_MAP.put("ansel", "ANSEL");
-        CHARSET_MAP.put("ansi", "Cp1252");
-        CHARSET_MAP.put("cp1252", "Cp1252");
-        CHARSET_MAP.put("unicode", "UTF-16");
-        CHARSET_MAP.put("utf-8", "UTF-8");
-        CHARSET_MAP.put("utf8", "UTF-8");
-        CHARSET_MAP.put("ascii", "ASCII");
-    }
+    private static final Map<String, String> CHARSET_MAP = Map.of(
+        "ansel", "ANSEL",
+        "ansi", "Cp1252",
+        "cp1252", "Cp1252",
+        "unicode", "UTF-16",
+        "utf-8", "UTF-8",
+        "utf8", "UTF-8",
+        "ascii", "ASCII");
 
     /**
      * @param filename the name of the file to scan
@@ -45,8 +41,8 @@ public class CharsetScanner {
      */
     public String charset(final String filename) {
         try (InputStream fis = new StreamManager(filename).getInputStream()) {
-            if (fis == null) {
-                logger.warn("Could not open stream for: " + filename);
+                if (fis == null) {
+                log.warn("Could not open stream for: {}", filename);
                 return "UTF-8";
             }
             try (Reader reader = new InputStreamReader(fis, "ASCII");
@@ -59,7 +55,7 @@ public class CharsetScanner {
                 }
             }
         } catch (IOException e) {
-            logger.warn("Could not read file: " + filename);
+            log.warn("Could not read file: {}", filename);
         }
         return "UTF-8";
     }

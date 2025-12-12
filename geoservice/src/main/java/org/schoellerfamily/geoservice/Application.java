@@ -1,6 +1,5 @@
 package org.schoellerfamily.geoservice;
 
-import org.schoellerfamily.geoservice.backup.GeoCodeBackup;
 import org.schoellerfamily.geoservice.controller.ApplicationInfo;
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.geocoder.GoogleGeoCoder;
@@ -13,8 +12,9 @@ import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
 import org.schoellerfamily.geoservice.persistence.mongo.GeoCodeMongo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * Main module of a Spring Boot application to provide cached geocode lookups
@@ -22,7 +22,8 @@ import org.springframework.context.annotation.Bean;
  *
  * @author Dick Schoeller
  */
-@SpringBootApplication
+@ComponentScan(basePackages = { "org.schoellerfamily.geoservice" })
+@EnableAutoConfiguration
 public class Application {
     /** */
     @Value("${geoservice.keyfile:/var/lib/gedbrowser/google-geocoding-key}")
@@ -41,14 +42,6 @@ public class Application {
     @Bean
     public GeoCode persistenceManager() {
         return new GeoCodeMongo();
-    }
-
-    /**
-     * @return the backup manager
-     */
-    @Bean
-    public GeoCodeBackup backupManager() {
-        return new GeoCodeBackup();
     }
 
     /**

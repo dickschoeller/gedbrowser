@@ -1,6 +1,5 @@
 package org.schoellerfamily.geoservice.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -59,21 +58,19 @@ public final class ApplicationInfo {
      * @return the map that feeds the contributor.
      */
     public Map<String, Object> getInfoMap() {
-        final Map<String, Object> infoMap = new HashMap<>();
-        infoMap.put("name", NAME);
-        infoMap.put("version", VERSION);
-        infoMap.put("URL", APPLICATION_URL);
-        infoMap.put("maintainer", getMaintainerMap());
-        return infoMap;
+        return Map.of(
+            "name", NAME,
+            "version", VERSION,
+            "URL", APPLICATION_URL,
+            "maintainer", getMaintainerMap());
     }
 
     /**
      * @return the maintainer part of the info
      */
     private Map<String, Object> getMaintainerMap() {
-        final Map<String, Object> maintainerMap = new HashMap<>();
-        maintainerMap.put("name", MAINTAINER_NAME);
-        maintainerMap.put("email", MAINTAINER_EMAIL);
-        return maintainerMap;
+        return Map.of(
+            "name", MAINTAINER_NAME,
+            "email", MAINTAINER_EMAIL);
     }
 }

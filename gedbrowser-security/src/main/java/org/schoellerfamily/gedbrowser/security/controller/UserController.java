@@ -1,13 +1,11 @@
 package org.schoellerfamily.gedbrowser.security.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.schoellerfamily.gedbrowser.security.exception.ResourceConflictException;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
@@ -42,7 +40,7 @@ public class UserController {
      * @return the user object
      */
     @RequestMapping(method = GET, value = "/users/{username:.+}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public SecurityUser loadById(final HttpServletRequest request,
             @PathVariable final String username) {
         return userService.findByUsername(username);
@@ -63,9 +61,7 @@ public class UserController {
     @RequestMapping(method = GET, value = "/reset-credentials")
     public ResponseEntity<Map<String, String>> resetCredentials() {
       userService.resetCredentials();
-      final Map<String, String> result = new HashMap<>();
-      result.put("result", "success");
-      return ResponseEntity.accepted().body(result);
+      return ResponseEntity.accepted().body(Map.of("result", "success"));
     }
 
     /**

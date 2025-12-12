@@ -5,8 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import lombok.RequiredArgsConstructor;
-
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class PasswordEncoderConfig {
