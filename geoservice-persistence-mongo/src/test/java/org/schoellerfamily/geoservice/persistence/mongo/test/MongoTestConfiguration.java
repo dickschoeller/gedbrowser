@@ -15,13 +15,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
-import org.springframework.data.mongodb.repository.config.
-    EnableMongoRepositories;
+import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+
+import lombok.RequiredArgsConstructor;
+
 
 /**
  * Standard Spring configuration for tests of the MongoDB persistence layer.
@@ -35,14 +38,15 @@ import com.mongodb.MongoClient;
         includeFilters = @ComponentScan.Filter(
                 value = { GeoDocumentRepositoryMongo.class },
                 type = FilterType.ASSIGNABLE_TYPE))
+@RequiredArgsConstructor
 public class MongoTestConfiguration {
     /** */
     @Value("${spring.data.mongodb.host:localhost}")
-    private transient String host;
+    private final String host;
 
     /** */
     @Value("${spring.data.mongodb.port:27017}")
-    private transient int port;
+    private final int port;
 
     /**
      * @return the persistence manager
@@ -68,11 +72,11 @@ public class MongoTestConfiguration {
      * @throws UnknownHostException because it must
      */
     @Bean
-    public MongoDbFactory mongoDbFactory() throws UnknownHostException {
-        final String databaseName =
-                "geoserviceTest_" + UUID.randomUUID().toString();
-        return new SimpleMongoDbFactory(
-                new MongoClient(host, port), databaseName);
+    public MongoDatabaseFactory mongoDbFactory() throws UnknownHostException {
+        final String databaseName = "geoserviceTest_" + UUID.randomUUID().toString();
+        final String connectionString = "mongodb://" + host + ":" + port;
+        final MongoClient client = MongoClients.create(connectionString);
+        return new SimpleMongoClientDatabaseFactory(client, databaseName);
     }
 
     /**

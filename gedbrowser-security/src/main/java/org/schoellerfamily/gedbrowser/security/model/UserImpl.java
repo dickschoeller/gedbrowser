@@ -1,8 +1,7 @@
 package org.schoellerfamily.gedbrowser.security.model;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.springframework.security.core.GrantedAuthority;
@@ -151,11 +150,9 @@ public final class UserImpl extends HasRoles implements SecurityUser {
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        final List<GrantedAuthority> authorities = new ArrayList<>();
-        for (final UserRoleName role : getRoles()) {
-            authorities.add(createAuthority(role));
-        }
-        return authorities;
+        return Arrays.stream(getRoles())
+            .map(this::createAuthority)
+            .toList();
     }
 
     /**
@@ -163,8 +160,8 @@ public final class UserImpl extends HasRoles implements SecurityUser {
      * @return the authority
      */
     private Authority createAuthority(final UserRoleName role) {
-        final Authority authority = new Authority();
-        authority.setUserRoleName(role);
-        return authority;
+        return Authority.builder()
+            .userRoleName(role)
+            .build();
     }
 }

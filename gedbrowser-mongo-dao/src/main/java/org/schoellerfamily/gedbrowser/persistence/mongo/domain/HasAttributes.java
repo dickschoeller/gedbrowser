@@ -15,8 +15,8 @@ public abstract class HasAttributes<G extends GedObject>
         implements GedDocument<G> {
 
     /** */
-    private final List<GedDocument<? extends GedObject>> attributes =
-            new ArrayList<>();
+    private List<GedDocument<? extends GedObject>> attributes =
+        new ArrayList<>();
 
     /**
      * {@inheritDoc}

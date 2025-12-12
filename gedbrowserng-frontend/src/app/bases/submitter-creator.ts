@@ -1,4 +1,4 @@
-import { MatDialog, MatDialogRef, } from '@angular/material';
+import { MatDialog, MatDialogRef, } from '@angular/material/dialog';
 
 import { RefreshSubmitter } from '../interfaces';
 import { ApiSubmitter, NewSubmitterDialogData } from '../models';

@@ -1,17 +1,15 @@
 package org.schoellerfamily.gedbrowser.analytics.order.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.joda.time.LocalDate;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzer;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzerResult;
 import org.schoellerfamily.gedbrowser.analytics.test.TestConfiguration;
@@ -25,16 +23,17 @@ import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestResourceReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
+@Slf4j
 public final class OrderAnalyzerTest implements AnalyzerTest {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -67,8 +66,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
     public void testEmptyPersonIsOK() {
         final Person person = personBuilder().createPerson();
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertTrue("Expected good order when there are no events",
-                result.isCorrect());
+        assertTrue(result.isCorrect(), "Expected good order when there are no events");
     }
 
     /** */
@@ -77,8 +75,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Occupation");
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertTrue("Expected good order when there are only undated events",
-                result.isCorrect());
+        assertTrue(result.isCorrect(), "Expected good order when there are only undated events");
     }
 
     /** */
@@ -87,8 +84,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Occupation", "8 JAN 2017");
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertTrue("Expected good order when there is only 1 event",
-                result.isCorrect());
+        assertTrue(result.isCorrect(), "Expected good order when there is only 1 event");
     }
     /** */
     @Test
@@ -97,8 +93,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Occupation", "8 JAN 2017");
         personBuilder().createPersonEvent(person, "Education", "8 JAN 2017");
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertTrue("Expected good order when events are same date",
-                result.isCorrect());
+        assertTrue(result.isCorrect(), "Expected good order when events are same date");
     }
 
     /** */
@@ -108,8 +103,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Education", "8 JAN 2017");
         personBuilder().createPersonEvent(person, "Occupation", "7 JAN 2017");
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertFalse("Expected bad order when events are out of order",
-                result.isCorrect());
+        assertFalse(result.isCorrect(), "Expected bad order when events are out of order");
     }
 
     /** */
@@ -119,8 +113,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Occupation", "7 JAN 2017");
         personBuilder().createPersonEvent(person, "Education", "8 JAN 2017");
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertTrue("Expected good order when events are in order",
-                result.isCorrect());
+        assertTrue(result.isCorrect(), "Expected good order when events are in order");
     }
 
     /** */
@@ -130,8 +123,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Education", "8 JAN 2017");
         personBuilder().createPersonEvent(person, "Occupation", "7 JAN 2017");
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertFalse("Expected mismatch strings when events are out of order",
-                result.getMismatches().isEmpty());
+        assertFalse(result.getMismatches().isEmpty(), "Expected mismatch strings when events are out of order");
     }
 
     /** */
@@ -144,8 +136,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         final String expected = "Date order: Occupation dated  on 2017-01-07 "
                 + "occurs after Education dated  on 2017-01-08";
         final String actual = result.getMismatches().get(0);
-        assertEquals("Expected mismatch strings when events are out of order",
-                expected, actual);
+        assertEquals(expected, actual, "Expected mismatch strings when events are out of order");
     }
 
     /** */
@@ -155,8 +146,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Birth");
         personBuilder().createPersonEvent(person, "Education");
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertTrue("Expected correct when birth events before others",
-                result.isCorrect());
+        assertTrue(result.isCorrect(), "Expected correct when birth events before others");
     }
 
     /** */
@@ -166,8 +156,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Education");
         personBuilder().createPersonEvent(person, "Baptism");
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertFalse("Expected incorrect with birth events are after others",
-                result.isCorrect());
+        assertFalse(result.isCorrect(), "Expected incorrect with birth events are after others");
     }
 
     /** */
@@ -177,8 +166,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Education");
         personBuilder().createPersonEvent(person, "Christening");
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertFalse("Expected incorrect with birth events are after others",
-                result.isCorrect());
+        assertFalse(result.isCorrect(), "Expected incorrect with birth events are after others");
     }
 
     /** */
@@ -188,8 +176,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Education");
         personBuilder().createPersonEvent(person, "Naming");
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertFalse("Expected incorrect with birth events are after others",
-                result.isCorrect());
+        assertFalse(result.isCorrect(), "Expected incorrect with birth events are after others");
     }
 
     /** */
@@ -199,8 +186,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Education");
         personBuilder().createPersonEvent(person, "Birth");
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertFalse("Expected incorrect with birth events are after others",
-                result.isCorrect());
+        assertFalse(result.isCorrect(), "Expected incorrect with birth events are after others");
     }
 
     /** */
@@ -213,8 +199,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         final String expected = "Logical order: Birth (undated) after non "
                 + "birth event, Education";
         final String actual = result.getMismatches().get(0);
-        assertEquals("Expected mismatch string with birth events after others",
-                expected, actual);
+        assertEquals(expected, actual, "Expected mismatch string with birth events after others");
     }
 
     /** */
@@ -224,8 +209,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Baptism");
         personBuilder().createPersonEvent(person, "Birth");
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertFalse("Expected incorrect with birth events are after others",
-                result.isCorrect());
+        assertFalse(result.isCorrect(), "Expected incorrect with birth events are after others");
     }
 
     /** */
@@ -236,8 +220,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Baptism");
         personBuilder().createPersonEvent(person, "Naming");
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertTrue("Expected correct with birth, baptism, naming",
-                result.isCorrect());
+        assertTrue(result.isCorrect(), "Expected correct with birth, baptism, naming");
     }
 
     /** */
@@ -248,8 +231,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Birth");
         personBuilder().createPersonEvent(person, "Naming");
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertTrue("Expected correct with birth, baptism, naming",
-                result.isCorrect());
+        assertTrue(result.isCorrect(), "Expected correct with birth, baptism, naming");
     }
 
     /** */
@@ -260,29 +242,28 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Birth", "8 JAN 2017");
         personBuilder().createPersonEvent(person, "Naming");
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertTrue("Expected correct with birth, birth date, naming",
-                result.isCorrect());
+        assertTrue(result.isCorrect(), "Expected correct with birth, birth date, naming");
     }
 
     //    /** */
-//    @Test
-//    public void testPersonWithNonDeathAfterDeathMismatchString() {
-//        final Person person = builder.createPerson1();
-//        builder.createPersonEvent(person, "Education");
-//        builder.createPersonEvent(person, "Birth");
-//        final OrderAnalyzer orderAnalyzer = new OrderAnalyzer(person);
-//        final OrderAnalyzerResult result = orderAnalyzer.analyze();
-//        final String actual = result.getMismatches().get(0);
-//        assertTrue("Expected mismatch string with birth events after others",
-//                actual.contains("after non birth events"));
-//    }
+    //    @Test
+    //    public void testPersonWithNonDeathAfterDeathMismatchString() {
+    //        final Person person = builder.createPerson1();
+    //        builder.createPersonEvent(person, "Education");
+    //        builder.createPersonEvent(person, "Birth");
+    //        final OrderAnalyzer orderAnalyzer = new OrderAnalyzer(person);
+    //        final OrderAnalyzerResult result = orderAnalyzer.analyze();
+    //        final String actual = result.getMismatches().get(0);
+    //        assertTrue("Expected mismatch string with birth events after others",
+    //                actual.contains("after non birth events"));
+    //    }
     /** */
     @Test
     public void testMinDateFirstNull() {
         final int year = 2017;
         final LocalDate date2 = new LocalDate(year, 1, 2);
         final LocalDate minDate = OrderAnalyzer.minDate(null, date2);
-        assertEquals("Date should match", date2, minDate);
+        assertEquals(date2, minDate, "Date should match");
     }
 
     /** */
@@ -291,14 +272,14 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         final int year = 2017;
         final LocalDate date1 = new LocalDate(year, 1, 1);
         final LocalDate minDate = OrderAnalyzer.minDate(date1, null);
-        assertEquals("Date should match", date1, minDate);
+        assertEquals(date1, minDate, "Date should match");
     }
 
     /** */
     @Test
     public void testMinDateBothNull() {
         final LocalDate minDate = OrderAnalyzer.minDate(null, null);
-        assertNull("Date should be null", minDate);
+        assertNull(minDate, "Date should be null");
     }
 
     /** */
@@ -308,7 +289,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         final LocalDate date1 = new LocalDate(year, 1, 1);
         final LocalDate date2 = new LocalDate(year, 1, 2);
         final LocalDate minDate = OrderAnalyzer.minDate(date1, date2);
-        assertEquals("Date should match", date1, minDate);
+        assertEquals(date1, minDate, "Date should match");
     }
 
     /** */
@@ -318,7 +299,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         final LocalDate date1 = new LocalDate(year, 1, 2);
         final LocalDate date2 = new LocalDate(year, 1, 1);
         final LocalDate minDate = OrderAnalyzer.minDate(date1, date2);
-        assertEquals("Date should match", date2, minDate);
+        assertEquals(date2, minDate, "Date should match");
     }
 
     // TODO will need checks of marriages before birth or after death
@@ -358,13 +339,12 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
                 person);
         final OrderAnalyzerResult result = orderAnalyzer.analyze();
         if (!result.isCorrect()) {
-            logger.info(indexName);
+            log.info(indexName);
             for (final String message : result.getMismatches()) {
-                logger.info("   " + message);
+                log.info("   {}", message);
                 assertFalse(
-                        "If has today (" + today.toString()
-                        + ") something is wrong",
-                        message.contains(today.toString()));
+                        message.contains(today.toString()),
+                        "If has today (" + today.toString() + ") something is wrong");
             }
         }
     }

@@ -2,11 +2,13 @@ package org.schoellerfamily.gedbrowser.reader;
 
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Dick Schoeller
  *
  */
+@Component
 public final class GedLineToGedObjectTransformer {
     /** */
     private final GedObjectFactory factory = new GedObjectFactory();

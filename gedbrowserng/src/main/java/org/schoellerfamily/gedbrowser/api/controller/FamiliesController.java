@@ -5,6 +5,9 @@ import java.util.List;
 import org.schoellerfamily.gedbrowser.api.crud.FamilyCrud;
 import org.schoellerfamily.gedbrowser.api.crud.ObjectCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,18 +18,30 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Dick Schoeller
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
-public final class FamiliesController extends CrudInvoker {
+@RequiredArgsConstructor
+public final class FamiliesController {
+    /** */
+    private final GedObjectFileLoader loader;
+
+    /** */
+    private final GedObjectToGedDocumentMongoConverter toDocConverter;
+
+    /** */
+    private final RepositoryManagerMongo repositoryManager;
+
     /**
      * @return the CRUD object for manipulating families
      */
     private ObjectCrud<ApiFamily> crud() {
-        return new FamilyCrud(getLoader(), getConverter(), getManager());
+        return new FamilyCrud(loader, toDocConverter, repositoryManager);
     }
 
     /**

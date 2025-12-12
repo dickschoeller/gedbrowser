@@ -1,9 +1,19 @@
 gedbrowser:
     home: /var/lib/gedbrowser
-    userFile: userFile.csv
+    userFile: /var/lib/gedbrowser/userFile.csv
 
 server:
-    servlet-path: /gedbrowserng
+    servlet:
+        context-path: /gedbrowserng
+
+spring:
+    profiles:
+        active: test
+    main:
+        allow-bean-definition-overriding: true
+    jackson:
+        serialization:
+            INDENT_OUTPUT: true
 
 logging:
     level:
@@ -18,13 +28,11 @@ logging:
                         core:
                             index: OFF
 
-spring:
-    jackson:
-        serialization:
-            INDENT_OUTPUT: true
-
 endpoints:
     health:
+        sensitive: false
+        enabled: true
+    info:
         sensitive: false
         enabled: true
 
@@ -32,3 +40,9 @@ management:
     port: 8081
     security:
         enabled: false
+    server:
+        port: 8081
+    endpoints:
+        web:
+            exposure:
+                include: health,info,mappings,restore

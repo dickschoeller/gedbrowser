@@ -6,6 +6,7 @@ import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload'
 import { SaveService, DatasetsService, UploadService, UserService } from '../../services';
 
 @Component({
+  standalone: false,
   selector: 'app-side-menu',
   templateUrl: './side-menu.component.html',
   styleUrls: ['./side-menu.component.css']

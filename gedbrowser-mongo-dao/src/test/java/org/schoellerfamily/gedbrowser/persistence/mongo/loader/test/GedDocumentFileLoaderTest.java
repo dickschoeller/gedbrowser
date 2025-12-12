@@ -13,6 +13,7 @@ import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.test.MongoTestConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,56 +36,59 @@ public class GedDocumentFileLoaderTest {
     @Autowired
     private transient RepositoryManagerMongo repositoryManager;
 
+    @Autowired
+    private transient RootDocumentRepositoryMongo rootDocumentRepository;
+
     /** */
-    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
+    @Value("${gedbrowser.home:#{ systemProperties['user.dir'] }/src/test/resources}")
     private transient String gedbrowserHome;
 
     /** */
     @Test
     public void testReset() {
-        loader.loadDocument("mini-schoeller");
-        loader.reset();
+        loader.loadDocument(repositoryManager, "mini-schoeller");
+        loader.reset(repositoryManager);
         assertRepositoryEmpty();
     }
 
     /** */
     @Test
     public void testLoad() {
-        loader.reset();
-        assertJustThisOne(loader.loadDocument("mini-schoeller"));
+        loader.reset(repositoryManager);
+        assertJustThisOne(loader.loadDocument(repositoryManager, "mini-schoeller"));
     }
 
     /** */
     @Test
     public void testBadLoad() {
-        loader.reset();
-        assertNull("Should be not found", loader.loadDocument("foofy"));
+        loader.reset(repositoryManager);
+        assertNull("Should be not found", loader.loadDocument(repositoryManager, "foofy"));
     }
 
     /** */
     @Test
     public void testReloadAll() {
-        loader.reset();
-        loader.loadDocument("mini-schoeller");
-        loader.reloadAll();
+        loader.reset(repositoryManager);
+        loader.loadDocument(repositoryManager, "mini-schoeller");
+        loader.reloadAll(repositoryManager);
         assertRepositoryHasOne();
     }
 
     /** */
     @Test
     public void testDetails() {
-        loader.reset();
-        loader.loadDocument("mini-schoeller");
-        final Map<String, Object> details = loader.details("mini-schoeller");
+        loader.reset(repositoryManager);
+        loader.loadDocument(repositoryManager, "mini-schoeller");
+        final Map<String, Object> details = loader.details(repositoryManager, "mini-schoeller");
         assertDetails(details);
     }
 
     /** */
     @Test
     public void testAllDetails() {
-        loader.reset();
-        loader.loadDocument("mini-schoeller");
-        for (final Map<String, Object> details : loader.details()) {
+        loader.reset(repositoryManager);
+        loader.loadDocument(repositoryManager, "mini-schoeller");
+        for (final Map<String, Object> details : loader.details(repositoryManager)) {
             assertDetails(details);
         }
     }
@@ -112,11 +116,11 @@ public class GedDocumentFileLoaderTest {
     /** */
     @Test
     public void testReload() {
-        loader.reset();
+        loader.reset(repositoryManager);
         final RootDocument rootDocument1 =
-                loader.loadDocument("mini-schoeller");
+                loader.loadDocument(repositoryManager, "mini-schoeller");
         final RootDocument resultDoc =
-                loader.loadDocument("mini-schoeller");
+                loader.loadDocument(repositoryManager, "mini-schoeller");
         checkSame(rootDocument1, resultDoc);
         assertJustThisOne(resultDoc);
     }
@@ -170,6 +174,6 @@ public class GedDocumentFileLoaderTest {
      * @return all of the root documents in the repository
      */
     private Iterable<RootDocumentMongo> findAll() {
-        return repositoryManager.getRootDocumentRepository().findAll();
+        return rootDocumentRepository.findAll();
     }
 }

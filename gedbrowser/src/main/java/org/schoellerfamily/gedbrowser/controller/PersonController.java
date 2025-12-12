@@ -2,8 +2,7 @@ package org.schoellerfamily.gedbrowser.controller;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.controller.exception.PersonNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -23,9 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Dick Schoeller
  */
 @Controller
+@Slf4j
 public class PersonController extends GeoDataController {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Value("${gedbrowser.home}")
@@ -52,7 +50,7 @@ public class PersonController extends GeoDataController {
                 required = false,
                 defaultValue = "schoeller") final String dbName,
             final Model model) {
-        logger.debug("Entering person");
+        log.debug("Entering person");
 
         final RenderingContext context = createRenderingContext();
 
@@ -70,7 +68,7 @@ public class PersonController extends GeoDataController {
         model.addAttribute("showMap", showMap);
         model.addAttribute("appInfo", appInfo);
 
-        logger.debug("Exiting person");
+        log.debug("Exiting person");
         return "person";
     }
 
@@ -85,9 +83,7 @@ public class PersonController extends GeoDataController {
         final Root root = fetchRoot(dbName);
         final Person person = (Person) root.find(idString);
         if (person == null) {
-            throw new PersonNotFoundException(
-                    "Person " + idString + " not found", idString,
-                    root.getDbName(), context);
+            throw new PersonNotFoundException("Person %s not found".formatted(idString), idString, root.getDbName(), context);
         }
         return person;
     }

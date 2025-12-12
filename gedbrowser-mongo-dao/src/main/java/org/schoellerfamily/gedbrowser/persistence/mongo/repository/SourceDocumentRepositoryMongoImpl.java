@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.Source;
@@ -10,23 +9,24 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
     SourceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
  */
+@Component
+@RequiredArgsConstructor
 public class SourceDocumentRepositoryMongoImpl implements
     FindableDocument<Source, SourceDocument>, LastId<SourceDocumentMongo> {
     /** */
-    @Autowired
-    private transient MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
     /** */
-    @Autowired
-    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
-
+    private final GedDocumentMongoToGedObjectConverter toObjConverter;
     /**
      * {@inheritDoc}
      */
@@ -71,17 +71,13 @@ public class SourceDocumentRepositoryMongoImpl implements
                 new Query(Criteria.where("filename").is(filename));
         final List<SourceDocumentMongo> sourceDocumentsMongo =
                 mongoTemplate.find(searchQuery, SourceDocumentMongo.class);
-        if (sourceDocumentsMongo == null) {
-            return null;
-        }
-        final List<SourceDocument> sourceDocuments = new ArrayList<>();
-        for (final SourceDocument sourceDocument : sourceDocumentsMongo) {
-            final Source source = (Source) toObjConverter.createGedObject(
-                    null, sourceDocument);
-            sourceDocument.setGedObject(source);
-            sourceDocuments.add(sourceDocument);
-        }
-        return sourceDocuments;
+        return sourceDocumentsMongo.stream()
+            .map(sourceDocument -> {
+                final Source source = (Source) toObjConverter.createGedObject(
+                        null, sourceDocument);
+                sourceDocument.setGedObject(source);
+                return (SourceDocument) sourceDocument;
+            }).toList();
     }
 
     /**

@@ -2,14 +2,15 @@ package org.schoellerfamily.gedbrowser.security.controller.test;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 
 /**
  * @author Dick Schoeller
@@ -46,16 +47,13 @@ public final class LoginTestHelper {
         final String url = "http://localhost:" + port + "/v1/login";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        final List<MediaType> accepts = new ArrayList<>();
-        accepts.add(MediaType.APPLICATION_JSON);
+        final List<MediaType> accepts = List.of(MediaType.APPLICATION_JSON);
         headers.setAccept(accepts);
         final String loginString = "username=" + username + "&password="
                 + password;
         final HttpEntity<String> loginReq =
                 new HttpEntity<>(loginString, headers);
-        final ResponseEntity<LoginResponse> responseEntity = template
-                .postForEntity(new URI(url), loginReq, LoginResponse.class);
-        return responseEntity;
+        return template.postForEntity(new URI(url), loginReq, LoginResponse.class);
     }
 
     /**
@@ -100,15 +98,18 @@ public final class LoginTestHelper {
      * @param loginResponse the login response
      * @return the headers
      */
+    @NonNull
     public HttpHeaders buildHeaders(
             final ResponseEntity<LoginResponse> loginResponse) {
-        final String accessToken = loginResponse.getBody().getAccessToken();
+        final String accessToken = Optional.ofNullable(loginResponse.getBody())
+            .map(LoginResponse::getAccessToken).orElse(null);
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
-        final List<MediaType> accepts = new ArrayList<>();
-        accepts.add(MediaType.APPLICATION_JSON);
+        if (accessToken != null) {
+            headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+        }
+        final List<MediaType> accepts = List.of(MediaType.APPLICATION_JSON);
         headers.setAccept(accepts);
         return headers;
     }
@@ -120,13 +121,11 @@ public final class LoginTestHelper {
      * @return the resposne entity
      * @throws URISyntaxException the URL is messed up
      */
-    public ResponseEntity<String> logout(final HttpHeaders headers)
+    public ResponseEntity<String> logout(@NonNull final HttpHeaders headers)
             throws URISyntaxException {
         final String url = "http://localhost:" + port + "/v1/logout";
         final HttpEntity<String> logoutRequest =
                 new HttpEntity<>(headers);
-        final ResponseEntity<String> responseEntity = template
-                .postForEntity(new URI(url), logoutRequest, String.class);
-        return responseEntity;
+        return template.postForEntity(new URI(url), logoutRequest, String.class);
     }
 }

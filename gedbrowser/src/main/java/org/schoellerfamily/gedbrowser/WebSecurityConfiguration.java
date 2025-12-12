@@ -5,40 +5,39 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders
-    .AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication
-    .configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
-import org.springframework.security.config.annotation.web.builders
-    .HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration
-    .EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration
-    .WebSecurityConfigurerAdapter;
-import org.springframework.security.web.authentication
-    .SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
  */
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+@RequiredArgsConstructor
+public class WebSecurityConfiguration {
     /** The user details that we know about. */
     @Autowired
-    private Users<? extends User> users;
+    private final Users<? extends User> users;
 
     /** Base path in URL. */
-    @Value("${server.servlet-path}")
-    private transient String servletPath;
+    @Value("${server.servlet.context-path}")
+    private final transient String servletPath;
+
 
     /**
-     * {@inheritDoc}
+     * Configure the security filter chain using the modern approach.
      */
-    @Override
-    protected final void configure(final HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/**").permitAll().anyRequest()
+    @Bean
+    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
+        http.authorizeRequests().requestMatchers("/**").permitAll().anyRequest()
                 .authenticated();
 
         // TODO haven't figured out how to retain referer after login error.
@@ -54,6 +53,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.logout().deleteCookies("JSESSIONID").invalidateHttpSession(true)
                 .logoutUrl(servletPath + "/logout")
                 .logoutSuccessUrl(servletPath + "/login").permitAll();
+
+        return http.build();
     }
 
     /**

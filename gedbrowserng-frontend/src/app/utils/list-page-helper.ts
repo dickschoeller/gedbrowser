@@ -1,4 +1,5 @@
-import { MatSort, MatPaginator } from '@angular/material';
+import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 export class ListPageHelper {
   public static init<T>(page: ListPage<T>, data: T[]) {

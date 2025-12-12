@@ -1,33 +1,32 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmissionDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.domain.
-    SubmissionDocumentMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmissionDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
  */
+@Component
+@RequiredArgsConstructor
 public class SubmissionDocumentRepositoryMongoImpl implements
     FindableDocument<Submission, SubmissionDocument>,
     LastId<SubmissionDocumentMongo> {
     /** */
-    @Autowired
-    private transient MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
     /** */
-    @Autowired
-    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
-
+    private final GedDocumentMongoToGedObjectConverter toObjConverter;
     /**
      * {@inheritDoc}
      */
@@ -72,17 +71,13 @@ public class SubmissionDocumentRepositoryMongoImpl implements
                 new Query(Criteria.where("filename").is(filename));
         final List<SubmissionDocumentMongo> submissionDocumentsMongo =
                 mongoTemplate.find(searchQuery, SubmissionDocumentMongo.class);
-        if (submissionDocumentsMongo == null) {
-            return null;
-        }
-        final List<SubmissionDocument> submissionDocuments = new ArrayList<>();
-        for (final SubmissionDocument submDocument : submissionDocumentsMongo) {
-            final Submission submission = (Submission) toObjConverter
-                    .createGedObject(null, submDocument);
-            submDocument.setGedObject(submission);
-            submissionDocuments.add(submDocument);
-        }
-        return submissionDocuments;
+        return submissionDocumentsMongo.stream()
+            .map(submDocument -> {
+                final Submission submission = (Submission) toObjConverter
+                        .createGedObject(null, submDocument);
+                submDocument.setGedObject(submission);
+                return (SubmissionDocument) submDocument;
+            }).toList();
     }
 
     /**
