@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.crud;
 
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 
 /**
@@ -13,7 +13,7 @@ public interface NewCruds {
     /**
      * @return the associated file loader
      */
-    GedDocumentFileLoader getLoader();
+	GedObjectFileLoader getLoader();
 
     /**
      * @return the associated document converter

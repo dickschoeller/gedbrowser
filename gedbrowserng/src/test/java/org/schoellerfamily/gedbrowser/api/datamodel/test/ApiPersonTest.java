@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.api.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
@@ -17,21 +17,21 @@ public class ApiPersonTest {
     @Test
     public void testDefaultConstructorType() {
         final ApiPerson o = new ApiPerson();
-        assertEquals("type mismatch", "", o.getType());
+        assertEquals("", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorString() {
         final ApiPerson o = new ApiPerson();
-        assertEquals("string mismatch", "", o.getString());
+        assertEquals("", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorAttributes() {
         final ApiPerson o = new ApiPerson();
-        assertTrue("attributes mismatch", o.getAttributes().isEmpty());
+        assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
     /** */
@@ -44,35 +44,35 @@ public class ApiPersonTest {
         .surname("surname")
         .build();
         final ApiPerson o = new ApiPerson(builder);
-        assertEquals("type mismatch", "type", o.getType());
+        assertEquals("type", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
     public void testConstructorString() {
         final ApiPerson o = createPerson();
-        assertEquals("string mismatch", "string", o.getString());
+        assertEquals("string", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
     public void testConstructorIndexName() {
         final ApiPerson o = createPerson();
-        assertEquals("indexname mismatch", "index name", o.getIndexName());
+        assertEquals("index name", o.getIndexName(), "indexname mismatch");
     }
 
     /** */
     @Test
     public void testConstructorSurname() {
         final ApiPerson o = createPerson();
-        assertEquals("surname mismatch", "surname", o.getSurname());
+        assertEquals("surname", o.getSurname(), "surname mismatch");
     }
 
     /** */
     @Test
     public void testConstructorNoAttributes() {
         final ApiPerson o = createPerson();
-        assertTrue("attributes mismatch", o.getAttributes().isEmpty());
+        assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
     /** */
@@ -83,7 +83,7 @@ public class ApiPersonTest {
                 .add(new ApiAttribute("a string", "attribute", ""))
                 .build();
         final ApiPerson o = new ApiPerson(builder);
-        assertEquals("attributes mismatch", 1, o.getAttributes().size());
+        assertEquals(1, o.getAttributes().size(), "attributes mismatch");
     }
 
     /** */
@@ -94,7 +94,7 @@ public class ApiPersonTest {
                 .add(new ApiAttribute("a string", "attribute", ""))
                 .build();
         final ApiPerson o = new ApiPerson(builder);
-        assertTrue("type mismatch", o.isType("person"));
+        assertTrue(o.isType("person"), "type mismatch");
     }
 
     /** */
@@ -103,14 +103,14 @@ public class ApiPersonTest {
         final ApiPerson o = createPerson();
         final ApiTestVisitor visitor = new ApiTestVisitor();
         o.accept(visitor);
-        assertEquals("Method mismatch", "person", visitor.getMethodCalled());
+        assertEquals("person", visitor.getMethodCalled(), "Method mismatch");
     }
 
     /** */
     @Test
     public void testEqualsSame() {
         final ApiPerson expected = createPerson();
-        assertEquals("Should match", expected, expected);
+        assertEquals(expected, expected, "Should match");
     }
 
     /** */
@@ -118,7 +118,7 @@ public class ApiPersonTest {
     public void testEqualsSimple() {
         final ApiPerson expected = createPerson();
         final ApiPerson actual = createPerson();
-        assertEquals("Should match", expected, actual);
+        assertEquals(expected, actual, "Should match");
     }
 
     /** */
@@ -126,7 +126,7 @@ public class ApiPersonTest {
     public void testNotEqualsClass() {
         final ApiPerson expected = createPerson();
         final ApiNote actual = new ApiNote("type", "string", "tail");
-        assertNotEquals("Should not match", expected, actual);
+        assertNotEquals(expected, actual, "Should not match");
     }
 
     /** */
@@ -139,7 +139,7 @@ public class ApiPersonTest {
                 .surname("surname");
         final ApiPerson expected = new ApiPerson(builder);
         final ApiPerson actual = new ApiPerson(builder);
-        assertEquals("Should match", expected, actual);
+        assertEquals(expected, actual, "Should match");
     }
 
     /** */
@@ -152,7 +152,7 @@ public class ApiPersonTest {
                 .surname("surname");
         final ApiPerson expected = new ApiPerson(builder);
         final ApiPerson actual = createPerson();
-        assertNotEquals("Should not match", expected, actual);
+        assertNotEquals(expected, actual, "Should not match");
     }
 
     /** */
@@ -165,7 +165,7 @@ public class ApiPersonTest {
                 .indexName(null)
                 .surname("surname");
         final ApiPerson actual = new ApiPerson(builder);
-        assertNotEquals("Should not match", expected, actual);
+        assertNotEquals(expected, actual, "Should not match");
     }
 
     /** */
@@ -178,7 +178,7 @@ public class ApiPersonTest {
                 .surname(null);
         final ApiPerson expected = new ApiPerson(builder);
         final ApiPerson actual = new ApiPerson(builder);
-        assertEquals("Should match", expected, actual);
+        assertEquals(expected, actual, "Should match");
     }
 
     /** */
@@ -191,7 +191,7 @@ public class ApiPersonTest {
                 .surname(null);
         final ApiPerson expected = new ApiPerson(builder);
         final ApiPerson actual = createPerson();
-        assertNotEquals("Should not match", expected, actual);
+        assertNotEquals(expected, actual, "Should not match");
     }
 
     /** */
@@ -204,7 +204,7 @@ public class ApiPersonTest {
                 .indexName("index name")
                 .surname(null);
         final ApiPerson actual = new ApiPerson(builder);
-        assertNotEquals("Should not match", expected, actual);
+        assertNotEquals(expected, actual, "Should not match");
     }
 
     /** */
@@ -212,7 +212,7 @@ public class ApiPersonTest {
     public void testEqualsHash() {
         final ApiPerson expected = createPerson();
         final ApiPerson actual = createPerson();
-        assertEquals("Should match", expected.hashCode(), actual.hashCode());
+        assertEquals(expected.hashCode(), actual.hashCode(), "Should match");
     }
 
     /** */
@@ -225,7 +225,7 @@ public class ApiPersonTest {
                 .surname("surname");
         final ApiPerson expected = new ApiPerson(builder);
         final ApiPerson actual = new ApiPerson(builder);
-        assertEquals("Should match", expected.hashCode(), actual.hashCode());
+        assertEquals(expected.hashCode(), actual.hashCode(), "Should match");
     }
 
     /** */
@@ -238,7 +238,7 @@ public class ApiPersonTest {
                 .surname(null);
         final ApiPerson expected = new ApiPerson(builder);
         final ApiPerson actual = new ApiPerson(builder);
-        assertEquals("Should match", expected.hashCode(), actual.hashCode());
+        assertEquals(expected.hashCode(), actual.hashCode(), "Should match");
     }
 
     /** */
@@ -252,8 +252,7 @@ public class ApiPersonTest {
                 .surname(null);
         final ApiPerson expected = new ApiPerson(builder);
         final ApiPerson actual = createPerson();
-        assertNotEquals("Should not match", expected.hashCode(),
-                actual.hashCode());
+        assertNotEquals(expected.hashCode(), actual.hashCode(), "Should not match");
     }
 
     /** */
@@ -267,8 +266,7 @@ public class ApiPersonTest {
                 .indexName("index name")
                 .surname(null);
         final ApiPerson actual = new ApiPerson(builder);
-        assertNotEquals("Should not match", expected.hashCode(),
-                actual.hashCode());
+        assertNotEquals(expected.hashCode(), actual.hashCode(), "Should not match");
     }
 
     /** */
@@ -281,8 +279,7 @@ public class ApiPersonTest {
                 "attribute", "File", "foo.jpg");
         multimedia.getAttributes().add(file);
         o.addAttribute(multimedia);
-        assertTrue("Should contain multimedia",
-                o.getImages().contains(multimedia));
+        assertTrue(o.getImages().contains(multimedia), "Should contain multimedia");
     }
 
     /** */
@@ -295,14 +292,14 @@ public class ApiPersonTest {
                 "attribute", "File", "foo.jpg");
         multimedia.getAttributes().add(file);
         o.addAttribute(multimedia);
-        assertEquals("Should contain 1 image", 1, o.getImages().size());
+        assertEquals(1, o.getImages().size(), "Should contain 1 image");
     }
 
     /** */
     @Test
     public void testNoImages() {
         final ApiPerson o = createPerson();
-        assertEquals("Should contain 0 images", 0, o.getImages().size());
+        assertEquals(0, o.getImages().size(), "Should contain 0 images");
     }
 
     /**
@@ -322,13 +319,11 @@ public class ApiPersonTest {
     @Test
     public void testHash() {
         final ApiPerson o = createPerson();
-        final ApiAttribute multimedia = new ApiAttribute(
-                "multimedia", "Multimedia");
-        final ApiAttribute file = new ApiAttribute(
-                "attribute", "File", "foo.jpg");
+        final ApiAttribute multimedia = new ApiAttribute("multimedia", "Multimedia");
+        final ApiAttribute file = new ApiAttribute("attribute", "File", "foo.jpg");
         multimedia.getAttributes().add(file);
         o.addAttribute(multimedia);
         final int expected = 33764385;
-        assertEquals("Hash should be", expected, o.hashCode());
+        assertEquals(expected, o.hashCode(), "Hash should be");
     }
 }

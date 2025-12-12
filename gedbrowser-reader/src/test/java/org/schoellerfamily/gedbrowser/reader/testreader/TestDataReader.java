@@ -6,15 +6,18 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
  */
+@Component
+@RequiredArgsConstructor
 public final class TestDataReader {
     /** */
-    @Autowired
-    private transient GedLineToGedObjectTransformer g2g;
+    private final GedLineToGedObjectTransformer g2g;
 
     /**
      * Embed some GEDCOM right here in the source. That allows us to test
@@ -380,13 +383,6 @@ public final class TestDataReader {
             "1 OCCU a part-time ski instructor.  Full certified PSIA-E",
             "2 DATE BETWEEN 1977 AND 1988", "2 SOUR @S28@", "1 FAMS @F1@",
             "1 FAMC @F2@", "0 TRLR" };
-
-    /**
-     * Private default constructor to prevent instantiation.
-     */
-    public TestDataReader() {
-        // Empty
-    }
 
     /**
      * Prepare data for tests with a biggish data set.

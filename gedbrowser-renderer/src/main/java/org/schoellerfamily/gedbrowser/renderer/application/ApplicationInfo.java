@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.renderer.application;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -45,13 +44,11 @@ public interface ApplicationInfo {
      * @return the map that feeds the contributor.
      */
     default Map<String, Object> getInfoMap() {
-        final Map<String, Object> infoMap = new HashMap<>();
-        infoMap.put("name", getApplicationName());
-        infoMap.put("version", getVersion());
-        infoMap.put("URL", getApplicationURL());
-        final Map<String, Object> maintainerMap = getMaintainerMap();
-        infoMap.put("maintainer", maintainerMap);
-        return infoMap;
+        return Map.of(
+            "name", getApplicationName(),
+            "version", getVersion(),
+            "URL", getApplicationURL(),
+            "maintainer", getMaintainerMap());
     }
 
 
@@ -59,9 +56,8 @@ public interface ApplicationInfo {
      * @return the maintainer part of the info
      */
     default Map<String, Object> getMaintainerMap() {
-        final Map<String, Object> maintainerMap = new HashMap<>();
-        maintainerMap.put("name", getMaintainerName());
-        maintainerMap.put("email", getMaintainerEmail());
-        return maintainerMap;
+        return Map.of(
+            "name", getMaintainerName(),
+            "email", getMaintainerEmail());
     }
 }

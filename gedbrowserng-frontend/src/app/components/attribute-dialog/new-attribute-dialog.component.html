@@ -3,29 +3,29 @@
 </div>
 <div mat-dialog-content>
   <mat-form-field>
-    <mat-placeholder>Attribute type</mat-placeholder>
+    <mat-label>Attribute type</mat-label>
     <mat-select [(ngModel)]="data.default.type">
       <mat-option *ngFor="let option of data.options" [value]="option.value">{{ option.label }}</mat-option>
     </mat-select>
   </mat-form-field>
   <br/>
   <mat-form-field>
-    <mat-placeholder>Text</mat-placeholder>
+    <mat-label>Text</mat-label>
     <input matInput [(ngModel)]="data.default.text">
   </mat-form-field>
   <br/>
   <mat-form-field>
-    <mat-placeholder>Date</mat-placeholder>
+    <mat-label>Date</mat-label>
     <input matInput [(ngModel)]="data.default.date">
   </mat-form-field>
   <br/>
   <mat-form-field>
-    <mat-placeholder>Place</mat-placeholder>
+    <mat-label>Place</mat-label>
     <input matInput [(ngModel)]="data.default.place">
   </mat-form-field>
   <br/>
   <mat-form-field>
-    <mat-placeholder>Note</mat-placeholder>
+    <mat-label>Note</mat-label>
     <textarea matInput [rows]="8" [cols]="100" [(ngModel)]="data.default.note"
         autoResize="autoResize"></textarea>
   </mat-form-field>

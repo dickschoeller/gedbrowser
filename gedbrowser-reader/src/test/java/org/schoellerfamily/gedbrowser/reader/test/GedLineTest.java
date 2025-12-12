@@ -1,15 +1,13 @@
 package org.schoellerfamily.gedbrowser.reader.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
@@ -24,15 +22,18 @@ import org.schoellerfamily.gedbrowser.reader.GedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Test GedLine.
  *
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
+@Slf4j
 public final class GedLineTest {
     /**
      * Embed some GEDCOM right here in the source. That allows us to test
@@ -355,8 +356,6 @@ public final class GedLineTest {
             "3 TITL The 1924 Lucky Bag",
             "0 TRLR" };
 
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -370,18 +369,18 @@ public final class GedLineTest {
     @Test
     public void testFactoryGedLineArray() throws IOException {
         final AbstractGedLine top = readArrayTestSource();
-        logger.info(top.toString());
+        log.info(top.toString());
         final Root root = g2g.create(top);
         final String out = root.toString();
-        logger.info(out);
+        log.info(out);
 
         final Person melissa = (Person) root.find("I1");
         final PersonNavigator meliNavigator = new PersonNavigator(melissa);
         final Person dick = meliNavigator.getFather();
         final PersonNavigator dickNavigator = new PersonNavigator(dick);
         final List<Person> spouses = dickNavigator.getSpouses();
-        logger.info(spouses.get(0).toString());
-        assertEquals("Dick only has one spouse", 1, spouses.size());
+        log.info(spouses.get(0).toString());
+        assertEquals(1, spouses.size(), "Dick only has one spouse");
     }
 
     /**
@@ -404,7 +403,7 @@ public final class GedLineTest {
                         noteLink.getToString());
             }
         }
-        assertEquals("Note body mismatch", "This is a note", note.getTail());
+        assertEquals("This is a note", note.getTail(), "Note body mismatch");
     }
 
     /**
@@ -431,8 +430,7 @@ public final class GedLineTest {
                 }
             }
         }
-        assertEquals("getString mismatch", "SUBMISSION",
-                submission.getString());
+        assertEquals("SUBMISSION", submission.getString(), "getString mismatch");
     }
 
     /**
@@ -444,7 +442,7 @@ public final class GedLineTest {
      */
     private void checkEquals(final String message, final String expected,
             final String actual) {
-        assertEquals(message, expected, actual);
+        assertEquals(expected, actual, message);
     }
 
     /**

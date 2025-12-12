@@ -18,7 +18,6 @@ public class RepositoryManagerMongo extends MappedRepositoryManagerMongo
      * @param clazz the class of ged object
      * @return the repository
      */
-    @SuppressWarnings("unchecked")
     public final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
         get(final Class<? extends GedObject> clazz) {
         return (FindableDocument<? extends GedObject, ? extends GedDocument<?>>)

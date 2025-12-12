@@ -1,17 +1,17 @@
 package org.schoellerfamily.gedbrowser.api.crud;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
 /**
@@ -35,7 +35,7 @@ public interface ReadOperations <X extends GedObject,
     /**
      * @return the loader
      */
-    GedDocumentFileLoader getLoader();
+    GedObjectFileLoader getLoader();
 
     /**
      * @return the data model class
@@ -46,11 +46,10 @@ public interface ReadOperations <X extends GedObject,
      * @param dbName the name of the database
      * @return the root object
      */
-    default RootDocument readRoot(final String dbName) {
-        final RootDocument root = getLoader().loadDocument(dbName);
+    default RootDocument readRoot(final RepositoryManagerMongo repositoryManager, final String dbName) {
+        final RootDocument root = getLoader().loadDocument(repositoryManager, dbName);
         if (root == null) {
-            throw new DataSetNotFoundException(
-                    "Data set " + dbName + " not found", dbName);
+            throw new DataSetNotFoundException("Data set %s not found".formatted(dbName), dbName);
         }
         return root;
     }
@@ -62,14 +61,12 @@ public interface ReadOperations <X extends GedObject,
      * @param idString the ID of the item to fetch
      * @return the found object
      */
-    default Y read(final String dbName, final String idString) {
-        final Y document = read(readRoot(dbName), idString);
+    default Y read(final RepositoryManagerMongo repositoryManager, final String dbName, final String idString) {
+        final Y document = read(readRoot(repositoryManager, dbName), idString);
         if (document == null) {
             final String type =
                     getGedClass().getSimpleName().toLowerCase(Locale.ENGLISH);
-            throw new ObjectNotFoundException(
-                    "Object " + idString + " of type " + type + " not found",
-                    type, idString, dbName);
+            throw new ObjectNotFoundException("Object %s of type %s not found".formatted(idString, type), type, idString, dbName);
         }
         return document;
     }
@@ -78,8 +75,8 @@ public interface ReadOperations <X extends GedObject,
      * @param dbName the name of the database
      * @return the list of persons
      */
-    default List<Y> read(final String dbName) {
-        return read(readRoot(dbName));
+    default List<Y> read(final RepositoryManagerMongo repositoryManager, final String dbName) {
+        return read(readRoot(repositoryManager, dbName));
     }
 
     /**
@@ -97,13 +94,10 @@ public interface ReadOperations <X extends GedObject,
      */
     default List<Y> read(final RootDocument root) {
         try {
-            final List<Y> all = new ArrayList<>();
             final Iterable<Y> a = getRepository().findAll(root);
-            for (final Y document : a) {
-                all.add(document);
-            }
-            all.sort(new GetStringComparator());
-            return all;
+            return java.util.stream.StreamSupport.stream(a.spliterator(), false)
+                    .sorted(new GetStringComparator())
+                    .toList();
         } catch (RuntimeException e) {
             throw e;
         }

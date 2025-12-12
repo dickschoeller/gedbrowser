@@ -81,14 +81,9 @@ public final class PersonRenderer extends GedRenderer<Person>
         }
 
         final List<Family> families = navigator.getFamilies();
-        final List<FamilyRenderer> rendererList =
-                new ArrayList<FamilyRenderer>(families.size());
-
-        for (final Family family : families) {
-            final FamilyRenderer familyRenderer =
-                    (FamilyRenderer) createGedRenderer(family);
-            rendererList.add(familyRenderer);
-        }
+        final List<FamilyRenderer> rendererList = families.stream()
+            .map(family -> (FamilyRenderer) createGedRenderer(family))
+            .toList();
         return rendererList;
     }
 
@@ -98,12 +93,11 @@ public final class PersonRenderer extends GedRenderer<Person>
      * @return the list of attribute renderers.
      */
     public List<GedRenderer<?>> getAttributes() {
-        final List<GedRenderer<?>> rendererList =
-                new ArrayList<GedRenderer<?>>();
         if (isConfidential() || isHiddenLiving()) {
-            return rendererList;
+            return List.of();
         }
         final Person person = getGedObject();
+        final List<GedRenderer<?>> rendererList = new ArrayList<GedRenderer<?>>();
         for (final GedObject attribute : person.getAttributes()) {
             final GedRenderer<?> attributeRenderer =
                     createGedRenderer(attribute);

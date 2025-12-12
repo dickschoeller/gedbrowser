@@ -1,4 +1,4 @@
-FROM java:8
+FROM java:21
 VOLUME /tmp
 ADD gedbrowserng-1.3.0-RC3-SNAPSHOT.jar gedbrowserng.jar
 EXPOSE 8080

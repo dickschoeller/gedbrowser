@@ -1,12 +1,13 @@
 import { Component, Inject, Input, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatListOption } from '@angular/material/list';
 
 import { LinkDialogInterface } from '../../interfaces';
 import { LinkDialogData, LinkItem } from '../../models';
 
 @Component({
+  standalone: false,
   selector: 'app-link-dialog',
   templateUrl: './link-dialog.component.html',
   styleUrls: ['./link-dialog.component.css']
