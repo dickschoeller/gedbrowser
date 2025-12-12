@@ -1,22 +1,22 @@
 package org.schoellerfamily.gedbrowser.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.controller.ApplicationInfoImpl;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 public final class ApplicationInfoTest {
     /** */
@@ -43,43 +43,42 @@ public final class ApplicationInfoTest {
     /** */
     @Test
     public void testApplicationInfoURL() {
-        assertEquals("Application URL mismatch",
-                "https://github.com/dickschoeller/gedbrowser",
-                appInfo.getApplicationURL());
+        assertEquals("https://github.com/dickschoeller/gedbrowser",
+                appInfo.getApplicationURL(), "Application URL mismatch");
     }
 
     /** */
     @Test
     public void testApplicationInfoMaintainerEmail() {
-        assertEquals("Maintainer email mismatch",
-                "schoeller@comcast.net", appInfo.getMaintainerEmail());
+        assertEquals("schoeller@comcast.net", appInfo.getMaintainerEmail(),
+                "Maintainer email mismatch");
     }
 
     /** */
     @Test
     public void testApplicationInfoMaintainerName() {
-        assertEquals("Maintainer name mismatch",
-                "Richard Schoeller", appInfo.getMaintainerName());
+        assertEquals("Richard Schoeller", appInfo.getMaintainerName(),
+                "Maintainer name mismatch");
     }
 
     /** */
     @Test
     public void testApplicationInfoName() {
-        assertEquals("Application name mismatch",
-                "gedbrowser", appInfo.getApplicationName());
+        assertEquals("gedbrowser", appInfo.getApplicationName(),
+                "Application name mismatch");
     }
 
     /** */
     @Test
     public void testApplicationInfoVersion() {
-        assertEquals("Version mismatch",
-                "1.3.0-RC3-SNAPSHOT", appInfo.getVersion());
+        assertEquals("1.3.0-RC3-SNAPSHOT", appInfo.getVersion(),
+                "Version mismatch");
     }
 
     /** */
     @Test
     public void testApplicationInfoHomeURL() {
-        assertEquals("Home URL mismatch",
-                "http://www.schoellerfamily.org/", appInfo.getHomeURL());
+        assertEquals("http://www.schoellerfamily.org/", appInfo.getHomeURL(),
+                "Home URL mismatch");
     }
 }

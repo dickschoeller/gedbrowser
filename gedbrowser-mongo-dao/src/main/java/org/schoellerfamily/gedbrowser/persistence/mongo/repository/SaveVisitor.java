@@ -11,6 +11,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmissionDocumen
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
+import org.springframework.lang.NonNull;
 
 /**
  * @author Dick Schoeller
@@ -23,7 +24,7 @@ public class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
     /**
      * @param repositoryManager the repository manager
      */
-    public SaveVisitor(final RepositoryManagerMongo repositoryManager) {
+    public SaveVisitor(@NonNull final RepositoryManagerMongo repositoryManager) {
         this.repositoryManager = repositoryManager;
     }
 
@@ -31,7 +32,7 @@ public class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
      * {@inheritDoc}
      */
     @Override
-    public void visit(final PersonDocumentMongo document) {
+    public void visit(@NonNull final PersonDocumentMongo document) {
         repositoryManager.getPersonDocumentRepository().save(document);
     }
 
@@ -39,7 +40,7 @@ public class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
      * {@inheritDoc}
      */
     @Override
-    public void visit(final FamilyDocumentMongo document) {
+    public void visit(@NonNull final FamilyDocumentMongo document) {
         repositoryManager.getFamilyDocumentRepository().save(document);
     }
 
@@ -47,7 +48,7 @@ public class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
      * {@inheritDoc}
      */
     @Override
-    public void visit(final SourceDocumentMongo document) {
+    public void visit(@NonNull final SourceDocumentMongo document) {
         repositoryManager.getSourceDocumentRepository().save(document);
     }
 
@@ -55,7 +56,7 @@ public class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
      * {@inheritDoc}
      */
     @Override
-    public void visit(final HeadDocumentMongo document) {
+    public void visit(@NonNull final HeadDocumentMongo document) {
         repositoryManager.getHeadDocumentRepository().save(document);
     }
 
@@ -63,7 +64,7 @@ public class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
      * {@inheritDoc}
      */
     @Override
-    public void visit(final SubmissionDocumentMongo document) {
+    public void visit(@NonNull final SubmissionDocumentMongo document) {
         repositoryManager.getSubmissionDocumentRepository().save(document);
     }
 
@@ -71,7 +72,7 @@ public class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
      * {@inheritDoc}
      */
     @Override
-    public void visit(final SubmitterDocumentMongo document) {
+    public void visit(@NonNull final SubmitterDocumentMongo document) {
         repositoryManager.getSubmitterDocumentRepository().save(document);
     }
 
@@ -79,7 +80,7 @@ public class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
      * {@inheritDoc}
      */
     @Override
-    public void visit(final TrailerDocumentMongo document) {
+    public void visit(@NonNull final TrailerDocumentMongo document) {
         repositoryManager.getTrailerDocumentRepository().save(document);
     }
 
@@ -87,7 +88,7 @@ public class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
      * {@inheritDoc}
      */
     @Override
-    public void visit(final NoteDocumentMongo document) {
+    public void visit(@NonNull final NoteDocumentMongo document) {
         final NoteDocumentRepositoryMongo noteDocumentRepository =
                 repositoryManager.getNoteDocumentRepository();
         noteDocumentRepository.save(document);
@@ -97,7 +98,7 @@ public class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
      * {@inheritDoc}
      */
     @Override
-    public void visit(final GedDocumentMongo<? extends GedObject> document) {
+    public void visit(@NonNull final GedDocumentMongo<? extends GedObject> document) {
         // Intentionally empty.
     }
 }

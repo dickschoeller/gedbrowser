@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.logging.Logger;
 
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
@@ -15,14 +14,13 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public final class LivingEstimator {
-    /** Logger. */
-    private static final Logger LOGGER = Logger.getLogger(LivingEstimator.class
-            .getName());
-
     /** Divide output into buckets of 10 years. */
     private static final int AGE_BUCKET_SIZE = 10;
     /** Limit of age we will guess is living. */
@@ -36,7 +34,7 @@ public final class LivingEstimator {
     /**
      * Constructor.
      *
-     * @param person the person we are estimating
+     * @param person   the person we are estimating
      * @param provider the provider of "today" for comparisons
      */
     public LivingEstimator(final Person person,
@@ -92,7 +90,7 @@ public final class LivingEstimator {
             final List<Person> living, final List<Person> dead,
             final Map<Integer, Set<Person>> buckets,
             final CalendarProvider provider) {
-        LOGGER.entering("LivingEstimator", "fillBuckets");
+        log.info("Entering LivingEstimator.fillBuckets");
         for (final String letter : root.findSurnameInitialLetters()) {
             for (final String surname : root.findBySurnamesBeginWith(letter)) {
                 for (final Person person : root.findBySurname(surname)) {
@@ -107,7 +105,7 @@ public final class LivingEstimator {
                 }
             }
         }
-        LOGGER.exiting("LivingEstimator", "fillBuckets");
+        log.info("Exiting LivingEstimator.fillBuckets");
     }
 
     /**

@@ -3,17 +3,16 @@ package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public final class SourcePage extends PageBase implements MenuPageFacade {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     private static final boolean PRINT_NAVIGATION = "true"
@@ -89,7 +88,7 @@ public final class SourcePage extends PageBase implements MenuPageFacade {
      */
     private void println(final String string) {
         if (PRINT_NAVIGATION) {
-            logger.info(string);
+            log.info(string);
         }
     }
 }

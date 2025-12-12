@@ -18,6 +18,7 @@ import { HasAttributeList, HasPerson, RefreshPerson, LinkCheck, Saveable } from 
  *  family the family identified by the ID
  */
 @Component({
+    standalone: false,
     selector: 'app-person-family',
     templateUrl: './person-family.component.html',
     styleUrls: ['./person-family.component.css']

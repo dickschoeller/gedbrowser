@@ -27,3 +27,7 @@ management:
     port: 8081
     security:
         enabled: false
+    endpoints:
+        web:
+            exposure:
+                include: health,info,load,clear,loadAndFind,mappings,backup,restore

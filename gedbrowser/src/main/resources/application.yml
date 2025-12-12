@@ -2,7 +2,8 @@ gedbrowser:
     home: /var/lib/gedbrowser
 
 server:
-    servlet-path: /gedbrowser
+    servlet:
+        context-path: /gedbrowser
 
 logging:
     level:
@@ -28,6 +29,11 @@ endpoints:
         enabled: true
 
 management:
-    port: 8081
+    server:
+        port: 8081
     security:
         enabled: false
+    endpoints:
+        web:
+            exposure:
+                include: health,info,restore,mappings

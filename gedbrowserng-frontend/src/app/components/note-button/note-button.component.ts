@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 import { HasAttributeList } from '../../interfaces';
 import { NoteCreator } from '../../bases';
@@ -8,6 +8,7 @@ import { NoteService } from '../../services';
 import { UrlBuilder, NewNoteHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
 
 @Component({
+  standalone: false,
   selector: 'app-note-button',
   templateUrl: './note-button.component.html',
   styleUrls: ['./note-button.component.css']
