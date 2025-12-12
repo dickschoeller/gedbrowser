@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.security.exception.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.security.exception.ExceptionResponse;
 
 /**
@@ -13,14 +13,14 @@ public class ExceptionResponseTest {
     @Test
     public void testMessage() {
         final ExceptionResponse er = new ExceptionResponse("code", "message");
-        assertEquals("Messages don't match", "message", er.getErrorMessage());
+        assertEquals("message", er.getErrorMessage(), "Messages don't match");
     }
 
     /** */
     @Test
     public void testId() {
         final ExceptionResponse er = new ExceptionResponse("code", "message");
-        assertEquals("Codes don't match", "code", er.getErrorCode());
+        assertEquals("code", er.getErrorCode(), "Codes don't match");
     }
 
 }

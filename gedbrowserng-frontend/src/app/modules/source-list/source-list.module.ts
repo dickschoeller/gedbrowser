@@ -19,7 +19,7 @@ import { SourceListPageComponent } from './source-list-page.component';
 import { SourceListComponent } from './source-list.component';
 import { SourceListResolverService } from './source-list-resolver.service';
 
-const sourceRouting: ModuleWithProviders = RouterModule.forChild([
+const sourceRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
   {
     path: ':dataset/sources',
     component: SourceListPageComponent,

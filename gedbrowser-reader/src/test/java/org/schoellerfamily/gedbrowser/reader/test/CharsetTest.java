@@ -1,11 +1,11 @@
 package org.schoellerfamily.gedbrowser.reader.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
@@ -13,12 +13,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public class CharsetTest {
     /** */
@@ -36,10 +36,9 @@ public class CharsetTest {
         final Place subAttr = (Place) attr.getAttributes().get(0);
         final String place = subAttr.getString();
         assertEquals(
-                "String not converted correctly",
                 "slash l - uppercase (Ł), slash o - uppercase (Ø), slash d -"
-                + " uppercase (Đ), thorn - uppercase (Þ)",
-                place);
+                + " uppercase (Đ), thorn - uppercase (Þ)", place,
+                "String not converted correctly");
     }
 
     /**
@@ -53,8 +52,7 @@ public class CharsetTest {
         final Place subAttr = (Place) attr.getAttributes().get(1);
         final String place = subAttr.getString();
         assertEquals(
-                "String not converted correctly",
                 "South Australia on the Ábberton  1846 with daug & son in law",
-                place);
+                place, "String not converted correctly");
     }
 }

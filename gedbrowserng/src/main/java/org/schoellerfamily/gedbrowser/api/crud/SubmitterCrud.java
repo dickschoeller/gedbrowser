@@ -2,32 +2,32 @@ package org.schoellerfamily.gedbrowser.api.crud;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmitterDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmitterDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public class SubmitterCrud
     extends OperationsEnabler<Submitter, SubmitterDocument>
     implements CrudOperations<Submitter, SubmitterDocument, ApiSubmitter>,
         ObjectCrud<ApiSubmitter> {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * @param loader the file loader that we will use
      * @param toDocConverter the document converter
      * @param repositoryManager the repository manager
      */
-    public SubmitterCrud(final GedDocumentFileLoader loader,
+    public SubmitterCrud(final GedObjectFileLoader loader,
             final GedObjectToGedDocumentMongoConverter toDocConverter,
             final RepositoryManagerMongo repositoryManager) {
         super(loader, toDocConverter, repositoryManager);
@@ -38,7 +38,7 @@ public class SubmitterCrud
      */
     @Override
     public FindableDocument<Submitter, SubmitterDocument> getRepository() {
-        return getRepositoryManager().getSubmitterDocumentRepository();
+        return ((SubmitterDocumentRepositoryMongo) getRepositoryManager().get(Submitter.class));
     }
 
     /**
@@ -57,8 +57,8 @@ public class SubmitterCrud
     @Override
     public ApiSubmitter createOne(final String db,
             final ApiSubmitter submitter) {
-        logger.info("Entering create submitter in db: " + db);
-        return create(readRoot(db), submitter,
+        log.info("Entering create submitter in db: {}", db);
+        return create(readRoot(getRepositoryManager(), db), submitter,
                 (i, id) -> new ApiSubmitter(i.getType(), id, i.getAttributes(),
                         i.getName()));
     }
@@ -69,8 +69,8 @@ public class SubmitterCrud
      */
     @Override
     public List<ApiSubmitter> readAll(final String db) {
-        logger.info("Entering submitters, db: " + db);
-        return convert(read(db));
+        log.info("Entering submitters, db: {}", db);
+        return convert(read(getRepositoryManager(), db));
     }
 
     /**
@@ -80,8 +80,8 @@ public class SubmitterCrud
      */
     @Override
     public ApiSubmitter readOne(final String db, final String id) {
-        logger.info("Entering submitter, db: " + db + ", id: " + id);
-        return convert(read(db, id));
+        log.info("Entering submitter, db: {}, id: {}", db, id);
+        return convert(read(getRepositoryManager(), db, id));
     }
 
     /**
@@ -93,11 +93,11 @@ public class SubmitterCrud
     @Override
     public ApiSubmitter updateOne(final String db, final String id,
             final ApiSubmitter submitter) {
-        logger.info("Entering update submitter in db: " + db);
+        log.info("Entering update submitter in db: {}", db);
         if (!id.equals(submitter.getString())) {
             return null;
         }
-        return update(readRoot(db), submitter);
+        return update(readRoot(getRepositoryManager(), db), submitter);
     }
 
     /**
@@ -107,6 +107,6 @@ public class SubmitterCrud
      */
     @Override
     public ApiSubmitter deleteOne(final String db, final String id) {
-        return delete(readRoot(db), id);
+        return delete(readRoot(getRepositoryManager(), db), id);
     }
 }

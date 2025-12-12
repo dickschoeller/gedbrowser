@@ -19,7 +19,7 @@ import { PersonListPageComponent } from './person-list-page.component';
 import { PersonListComponent } from './person-list.component';
 import { PersonListResolverService } from './person-list-resolver.service';
 
-const personRouting: ModuleWithProviders = RouterModule.forChild([
+const personRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
   {
     path: ':dataset/persons',
     component: PersonListPageComponent,

@@ -1,7 +1,5 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.IndexRenderer;
@@ -13,14 +11,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
 @Controller
 @SuppressWarnings("PMD.CommentSize")
+@Slf4j
 public class IndexController extends DatedDataController {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /** */
     @Autowired
@@ -48,7 +47,7 @@ public class IndexController extends DatedDataController {
                 required = false,
                 defaultValue = "schoeller") final String dbName,
             final Model model) {
-        logger.debug("Entering surnames");
+        log.debug("Entering surnames");
 
         final Root root = fetchRoot(dbName);
 
@@ -59,7 +58,7 @@ public class IndexController extends DatedDataController {
         model.addAttribute("model", gedRenderer);
         model.addAttribute("appInfo", appInfo);
 
-        logger.debug("Exiting surnames");
+        log.debug("Exiting surnames");
         return "surnames";
     }
 }

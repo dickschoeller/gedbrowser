@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.crud;
 
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
@@ -12,7 +13,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
  */
 public class CrudParams {
     /** */
-    private final GedDocumentFileLoader loader;
+    private final GedObjectFileLoader loader;
 
     /** */
     private final GedObjectToGedDocumentMongoConverter toDocConverter;
@@ -25,7 +26,7 @@ public class CrudParams {
      * @param toDocConverter the document converter
      * @param repositoryManager the repository manager
      */
-    public CrudParams(final GedDocumentFileLoader loader,
+    public CrudParams(final GedObjectFileLoader loader,
             final GedObjectToGedDocumentMongoConverter toDocConverter,
             final RepositoryManagerMongo repositoryManager) {
         this.loader = loader;
@@ -38,7 +39,7 @@ public class CrudParams {
      *
      * @return the loader
      */
-    public final GedDocumentFileLoader getLoader() {
+    public final GedObjectFileLoader getLoader() {
         return loader;
     }
 

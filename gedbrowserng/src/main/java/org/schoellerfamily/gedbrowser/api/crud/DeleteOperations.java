@@ -53,9 +53,7 @@ public interface DeleteOperations<X extends GedObject,
         if (oldDoc == null) {
             final String type =
                     getGedClass().getSimpleName().toLowerCase(Locale.ENGLISH);
-            throw new ObjectNotFoundException(
-                    "Object " + id + " of type " + type + " not found",
-                    type, id, root.getDbName());
+            throw new ObjectNotFoundException("Object %s of type %s not found".formatted(id, type), type, id, root.getDbName());
         }
         ((CrudRepository<Y, String>) repo).delete(oldDoc);
         return convert(oldDoc);

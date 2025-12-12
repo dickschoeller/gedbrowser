@@ -8,7 +8,7 @@ import { ComponentsModule } from '../../components';
 import { NoteComponent } from './note.component';
 import { NoteResolverService } from './note-resolver.service';
 
-const noteRouting: ModuleWithProviders = RouterModule.forChild([
+const noteRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
   {
     path: ':dataset/notes/:string',
     component: NoteComponent,

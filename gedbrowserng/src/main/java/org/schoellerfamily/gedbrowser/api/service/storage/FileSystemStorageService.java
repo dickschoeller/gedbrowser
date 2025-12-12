@@ -8,10 +8,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import org.schoellerfamily.gedbrowser.api.GedbrowserPropertiesService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Implementation of StorageService that keeps the files in a known location
@@ -20,18 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Dick Schoeller
  */
 @Service
-public final class FileSystemStorageService implements StorageService {
+@RequiredArgsConstructor
+public class FileSystemStorageService implements StorageService {
     /** */
-    @Autowired
-    private GedbrowserPropertiesService gedbrowserProperties;
-
-    /**
-     * Constructor.
-     */
-    @Autowired
-    public FileSystemStorageService() {
-        // Intentionally empty
-    }
+    private final GedbrowserPropertiesService gedbrowserProperties;
 
     /**
      * {@inheritDoc}
@@ -44,7 +37,7 @@ public final class FileSystemStorageService implements StorageService {
             Files.copy(inputStream, rootLocation.resolve(filename),
                     StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            throw new StorageException("Failed to store file " + filename, e);
+            throw new StorageException("Failed to store file %s".formatted(filename), e);
         }
     }
 
@@ -58,15 +51,11 @@ public final class FileSystemStorageService implements StorageService {
         final String filename = StringUtils
                 .cleanPath(file.getOriginalFilename());
         if (file.isEmpty()) {
-            throw new StorageException(
-                    "Failed to store empty file " + filename);
+            throw new StorageException("Failed to store empty file %s".formatted(filename));
         }
         if (filename.contains("..")) {
             // This is a security check
-            throw new StorageException(
-                    "Cannot store file with relative path outside current"
-                    + " directory "
-                    + filename);
+            throw new StorageException("Cannot store file with relative path outside current directory %s".formatted(filename));
         }
         return filename;
     }

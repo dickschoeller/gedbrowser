@@ -2,34 +2,34 @@ package org.schoellerfamily.gedbrowser.api.crud;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
+@Slf4j
 public class SourceCrud
     extends OperationsEnabler<Source, SourceDocument>
     implements CrudOperations<Source, SourceDocument, ApiSource>,
         ObjectCrud<ApiSource>,
         LinkCrud {
-    /** Logger. */
-    private final transient Log logger = LogFactory.getLog(getClass());
 
     /**
      * @param loader the file loader that we will use
      * @param toDocConverter the document converter
      * @param repositoryManager the repository manager
      */
-    public SourceCrud(final GedDocumentFileLoader loader,
+    public SourceCrud(final GedObjectFileLoader loader,
             final GedObjectToGedDocumentMongoConverter toDocConverter,
             final RepositoryManagerMongo repositoryManager) {
         super(loader, toDocConverter, repositoryManager);
@@ -40,7 +40,7 @@ public class SourceCrud
      */
     @Override
     public FindableDocument<Source, SourceDocument> getRepository() {
-        return getRepositoryManager().getSourceDocumentRepository();
+        return ((SourceDocumentRepositoryMongo) getRepositoryManager().get(Source.class));
     }
 
     /**
@@ -59,8 +59,8 @@ public class SourceCrud
     @Override
     public ApiSource createOne(final String db,
             final ApiSource source) {
-        logger.info("Entering create source in db: " + db);
-        return create(readRoot(db), source, (i, id) -> new ApiSource(i, id));
+        log.info("Entering create source in db: {}", db);
+        return create(readRoot(getRepositoryManager(), db), source, (i, id) -> new ApiSource(i, id));
     }
 
     /**
@@ -70,8 +70,8 @@ public class SourceCrud
     @Override
     public List<ApiSource> readAll(
             final String db) {
-        logger.info("Entering sources, db: " + db);
-        return getD2dm().convert(read(db));
+        log.info("Entering sources, db: {}", db);
+        return getD2dm().convert(read(getRepositoryManager(), db));
     }
 
     /**
@@ -83,8 +83,8 @@ public class SourceCrud
     public ApiSource readOne(
             final String db,
             final String id) {
-        logger.info("Entering source, db: " + db + ", id: " + id);
-        return getD2dm().convert(read(db, id));
+        log.info("Entering source, db: {}, id: {}", db, id);
+        return getD2dm().convert(read(getRepositoryManager(), db, id));
     }
 
     /**
@@ -97,11 +97,11 @@ public class SourceCrud
     public ApiSource updateOne(final String db,
             final String id,
             final ApiSource source) {
-        logger.info("Entering update source in db: " + db);
+        log.info("Entering update source in db: {}", db);
         if (!id.equals(source.getString())) {
             return null;
         }
-        return update(readRoot(db), source);
+        return update(readRoot(getRepositoryManager(), db), source);
     }
 
     /**
@@ -114,7 +114,7 @@ public class SourceCrud
             final String db,
             final String id) {
         unlinkFrom(db, id);
-        return delete(readRoot(db), id);
+        return delete(readRoot(getRepositoryManager(), db), id);
     }
 
     /**
