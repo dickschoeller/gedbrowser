@@ -3,10 +3,10 @@ package org.schoellerfamily.gedbrowser.api.crud;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.persistence.domain.NoteDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.NoteDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
@@ -27,7 +27,7 @@ public class NoteCrud
      * @param toDocConverter the document converter
      * @param repositoryManager the repository manager
      */
-    public NoteCrud(final GedDocumentFileLoader loader,
+    public NoteCrud(final GedObjectFileLoader loader,
             final GedObjectToGedDocumentMongoConverter toDocConverter,
             final RepositoryManagerMongo repositoryManager) {
         super(loader, toDocConverter, repositoryManager);

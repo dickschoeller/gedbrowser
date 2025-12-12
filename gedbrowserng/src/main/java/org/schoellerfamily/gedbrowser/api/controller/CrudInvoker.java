@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public abstract class CrudInvoker {
     /** */
-    private final GedDocumentFileLoader loader;
+    private final GedObjectFileLoader loader;
 
     /** */
     private final GedObjectToGedDocumentMongoConverter toDocConverter;
@@ -24,7 +24,7 @@ public abstract class CrudInvoker {
     /**
      * @return the file loader
      */
-    protected GedDocumentFileLoader getLoader() {
+    protected GedObjectFileLoader getLoader() {
         return loader;
     }
 

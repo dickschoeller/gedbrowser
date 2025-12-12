@@ -3,9 +3,7 @@ package org.schoellerfamily.gedbrowser.renderer;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.renderer.href.HeaderHrefRenderer;
@@ -14,6 +12,8 @@ import org.schoellerfamily.gedbrowser.renderer.href.PlacesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SaveHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller

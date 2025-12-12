@@ -6,11 +6,11 @@ import java.util.Locale;
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
@@ -35,7 +35,7 @@ public interface ReadOperations <X extends GedObject,
     /**
      * @return the loader
      */
-    GedDocumentFileLoader getLoader();
+    GedObjectFileLoader getLoader();
 
     /**
      * @return the data model class

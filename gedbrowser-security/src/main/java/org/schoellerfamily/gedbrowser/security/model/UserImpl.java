@@ -2,7 +2,6 @@ package org.schoellerfamily.gedbrowser.security.model;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.springframework.security.core.GrantedAuthority;

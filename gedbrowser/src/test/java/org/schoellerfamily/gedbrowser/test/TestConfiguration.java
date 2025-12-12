@@ -14,7 +14,7 @@ public class TestConfiguration {
     @Bean
     public RestTemplateBuilder restTemplateBuilder() {
         return new RestTemplateBuilder()
-            .setConnectTimeout(Duration.ofMillis(5000))
+            .setConnectTimeout(Duration.ofMillis(60000))
             .setReadTimeout(Duration.ofMillis(120000));
     }
 }

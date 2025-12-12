@@ -1,6 +1,5 @@
 package org.schoellerfamily.geoservice.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.geojson.Feature;

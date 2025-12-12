@@ -17,7 +17,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.NoteDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     PersonDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryFinderMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
     RootDocumentRepositoryMongo;
@@ -189,15 +188,6 @@ public class MongoConfiguration {
     @Bean
     public GedObjectToGedDocumentMongoConverter toGedDocumentConverter() {
         return new GedObjectToGedDocumentMongoConverter();
-    }
-
-    /**
-     * @return the finder
-     */
-    @Bean
-    public FinderStrategy finder(final RepositoryManagerMongo repositoryManager,
-            final GedObjectToGedDocumentMongoConverter toDocConverter) {
-        return new RepositoryFinderMongo(repositoryManager, toDocConverter);
     }
 
     /**

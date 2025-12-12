@@ -183,6 +183,9 @@
           <version>${compiler-plugin.version}</version>
           <configuration>
             <release>21</release>
+            <compilerArgs>
+              <arg>-parameters</arg>
+            </compilerArgs>
           </configuration>
         </plugin>
         <plugin>
@@ -726,6 +729,12 @@
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
+        <scope>test</scope>
+        <version>5.10.5</version>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-params</artifactId>
         <scope>test</scope>
         <version>5.10.5</version>
       </dependency>

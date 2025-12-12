@@ -1,9 +1,5 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import static org.schoellerfamily.gedbrowser.controller.AbstractController.*;
-
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.writer.GedWriter;
@@ -12,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 /**

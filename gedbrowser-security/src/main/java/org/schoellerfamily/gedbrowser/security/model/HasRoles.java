@@ -4,10 +4,9 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller

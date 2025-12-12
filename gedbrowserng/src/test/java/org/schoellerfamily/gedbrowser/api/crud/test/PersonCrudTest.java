@@ -1,14 +1,14 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
-import static org.assertj.core.api.Assertions.fail;
-import static org.assertj.core.api.BDDAssertions.*;
-import static org.junit.Assert.*;
+import static org.assertj.core.api.BDDAssertions.then;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
@@ -19,20 +19,20 @@ import org.schoellerfamily.gedbrowser.api.crud.SpouseCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
@@ -42,7 +42,7 @@ public class PersonCrudTest {
 
     /** */
     @Autowired
-    private transient GedDocumentFileLoader loader;
+    private transient GedObjectFileLoader loader;
 
     /** */
     @Autowired
@@ -62,7 +62,7 @@ public class PersonCrudTest {
     private FamilyCrud familyCrud;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         crud = new PersonCrud(loader, toDocConverter, repositoryManager);
         familyCrud = new FamilyCrud(loader, toDocConverter, repositoryManager);
@@ -117,8 +117,8 @@ public class PersonCrudTest {
             fail("should not have found person "
                     + "Xyzzy in data set mini-schoeller");
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object Xyzzy of type person not found", e.getMessage());
+            assertEquals("Object Xyzzy of type person not found",
+                    e.getMessage(), "Mismatched message");
         }
     }
 
@@ -179,9 +179,8 @@ public class PersonCrudTest {
             fail("should not have found person " + id + " in data set "
                     + helper.getDb());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object " + id + " of type person not found",
-                    e.getMessage());
+            assertEquals("Object " + id + " of type person not found",
+                    e.getMessage(), "Mismatched message");
         }
     }
 
@@ -215,9 +214,8 @@ public class PersonCrudTest {
             fail("should not have found person " + id + " in data set "
                     + helper.getDb());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object " + id + " of type person not found",
-                    e.getMessage());
+            assertEquals("Object " + id + " of type person not found",
+                    e.getMessage(), "Mismatched message");
         }
         final ApiFamily readFamily = familyCrud.readOne(helper.getDb(), fam);
         then(readFamily.getSpouses().size()).isEqualTo(1);
@@ -254,9 +252,8 @@ public class PersonCrudTest {
             fail("should not have found person " + childId + " in data set "
                     + helper.getDb());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object " + childId + " of type person not found",
-                    e.getMessage());
+            assertEquals("Object " + childId + " of type person not found",
+                    e.getMessage(), "Mismatched message");
         }
         final ApiFamily readFamily = familyCrud.readOne(helper.getDb(), fam);
         then(readFamily.getChildren().size()).isEqualTo(0);
@@ -271,8 +268,8 @@ public class PersonCrudTest {
             fail("should not have found person XXXXXXX in data set "
                     + helper.getDb());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object XXXXXXX of type person not found", e.getMessage());
+            assertEquals("Object XXXXXXX of type person not found",
+                    e.getMessage(), "Mismatched message");
         }
     }
 
@@ -286,8 +283,8 @@ public class PersonCrudTest {
             fail("should not have found data set "
                     + "XYZZY while looking for person XXXXXXX");
         } catch (DataSetNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Data set XYZZY not found", e.getMessage());
+            assertEquals("Data set XYZZY not found",
+                    e.getMessage(), "Mismatched message");
         }
     }
 
@@ -305,7 +302,7 @@ public class PersonCrudTest {
         resPerson.getAttributes().add(aNote);
         final ApiPerson updatedPerson = crud.updateOne(helper.getDb(),
                 resPerson.getString(), resPerson);
-        assertEquals("attribute should be present", aNote,
-                updatedPerson.getAttributes().get(2));
+        assertEquals(aNote, updatedPerson.getAttributes().get(2),
+                "attribute should be present");
     }
 }

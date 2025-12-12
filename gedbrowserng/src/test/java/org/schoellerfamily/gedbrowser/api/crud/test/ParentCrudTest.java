@@ -1,30 +1,30 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
-import static org.assertj.core.api.BDDAssertions.*;
-import static org.junit.Assert.*;
+import static org.assertj.core.api.BDDAssertions.then;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.crud.FamilyCrud;
 import org.schoellerfamily.gedbrowser.api.crud.ParentCrud;
 import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
@@ -34,7 +34,7 @@ public class ParentCrudTest {
 
     /** */
     @Autowired
-    private transient GedDocumentFileLoader loader;
+    private transient GedObjectFileLoader loader;
 
     /** */
     @Autowired
@@ -53,7 +53,7 @@ public class ParentCrudTest {
     /**
      * Set up some base objects.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         helper = new CrudTestHelper(
                 new PersonCrud(loader, toDocConverter, repositoryManager),
@@ -71,9 +71,8 @@ public class ParentCrudTest {
         final ApiPerson gotChild = helper.getPerson(child);
         log.info("famc: {}", gotChild.getFamc().get(0).getString());
 
-        assertEquals("Child should be in family",
-                gotChild.getFamc().get(0).getString(),
-                parent.getFams().get(0).getString());
+        assertEquals(gotChild.getFamc().get(0).getString(),
+                parent.getFams().get(0).getString(), "Child should be in family");
     }
 
     /** */
@@ -87,8 +86,7 @@ public class ParentCrudTest {
         then(outParent.getFams().size()).isEqualTo(1);
         final ApiPerson gotChild = helper.getPerson(child);
         then(outParent.getFams().size()).isEqualTo(1);
-        assertEquals("check ids", outParent.getFams().get(0).getString(),
-                gotChild.getFamc().get(0).getString());
+        assertEquals(outParent.getFams().get(0).getString(), gotChild.getFamc().get(0).getString(), "check ids");
     }
 
     /** */

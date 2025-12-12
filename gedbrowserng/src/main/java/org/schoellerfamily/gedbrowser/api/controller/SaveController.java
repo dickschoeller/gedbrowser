@@ -2,12 +2,10 @@ package org.schoellerfamily.gedbrowser.api.controller;
 
 import java.util.List;
 
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.writer.GedWriter;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SaveController {
 
     /** */
-    private final GedDocumentFileLoader loader;
+    private final GedObjectFileLoader loader;
 
     private final RepositoryManagerMongo repositoryManager;
 

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class WebSecurityConfig {
     /** */
@@ -103,26 +103,28 @@ public class WebSecurityConfig {
      */
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
-        configureCsrf(http)
-            .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and().exceptionHandling()
-                .authenticationEntryPoint(restAuthenticationEntryPoint)
-            .and().addFilterBefore(jwtAuthenticationTokenFilter(),
-                    BasicAuthenticationFilter.class)
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated()
-            .and().formLogin()
-                .loginProcessingUrl("/v1/login")
-                .successHandler(authenticationSuccessHandler)
-                .failureHandler(authenticationFailureHandler)
-            .and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/v1/logout"))
-                .logoutSuccessHandler(logoutSuccess)
-                .deleteCookies(cookie);
+        // Apply CSRF configuration first (may disable in test profile)
+        final HttpSecurity configured = configureCsrf(http);
 
-        return http.build();
+        configured
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .exceptionHandling(ex -> ex.authenticationEntryPoint(restAuthenticationEntryPoint))
+            // Add the JWT filter before the basic authentication filter
+            .addFilterBefore(jwtAuthenticationTokenFilter(), BasicAuthenticationFilter.class)
+            // Use the newer authorizeHttpRequests API instead of deprecated authorizeRequests
+            .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+            // Configure form login with handlers
+            .formLogin(form -> form
+                    .loginProcessingUrl("/v1/login")
+                    .successHandler(authenticationSuccessHandler)
+                    .failureHandler(authenticationFailureHandler))
+            // Configure logout
+            .logout(logout -> logout
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/v1/logout"))
+                    .logoutSuccessHandler(logoutSuccess)
+                    .deleteCookies(cookie));
+
+        return configured.build();
     }
 
     /**

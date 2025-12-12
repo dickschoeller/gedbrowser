@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
@@ -29,7 +29,7 @@ public class SourceCrud
      * @param toDocConverter the document converter
      * @param repositoryManager the repository manager
      */
-    public SourceCrud(final GedDocumentFileLoader loader,
+    public SourceCrud(final GedObjectFileLoader loader,
             final GedObjectToGedDocumentMongoConverter toDocConverter,
             final RepositoryManagerMongo repositoryManager) {
         super(loader, toDocConverter, repositoryManager);

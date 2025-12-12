@@ -1,12 +1,12 @@
 package org.schoellerfamily.gedbrowser.analytics.test;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.joda.time.LocalDate;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.analytics.BirthDateFromParentsEstimator;
 import org.schoellerfamily.gedbrowser.analytics.order.test.AnalyzerTest;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
@@ -16,12 +16,12 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
     /** */
@@ -54,7 +54,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
     }
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         final Person person1 = createJRandom();
         person2 = createAnonymousSchoeller();
@@ -78,8 +78,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
     public void testFromBirthWithOnlyMarriage() {
         final Family family = family1;
         builder.createFamilyEvent(family, "Marriage", "10 MAY 1960");
-        assertNull("Should be null because no dates available to use",
-                estimator.estimateFromBirth(null));
+        assertNull(estimator.estimateFromBirth(null), "Should be null because no dates available to use");
     }
 
     /** */
@@ -139,8 +138,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         builder.addChildToFamily(family, child1);
         final BirthDateFromParentsEstimator e =
                 new BirthDateFromParentsEstimator(child1);
-        assertNull("Should not get a date without parents",
-                e.estimateFromBirth(null));
+        assertNull(e.estimateFromBirth(null), "Should not get a date without parents");
     }
 
     /** */
@@ -226,8 +224,8 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
     public void testFromMarriageWithOnlyFatherBirth() {
         final Person person = person2;
         builder.createPersonEvent(person, "Birth", "1 JAN 1935");
-        assertNull("Should be null because no dates available to use",
-                estimator.estimateFromMarriage(null));
+        assertNull(estimator.estimateFromMarriage(null),
+            "Should be null because no dates available to use");
     }
 
     /** */
@@ -235,8 +233,8 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
     public void testFromMarriageWithOnlyMotherBirth() {
         final Person person = person3;
         builder.createPersonEvent(person, "Birth", "1 JAN 1939");
-        assertNull("Should be null because no dates available to use",
-                estimator.estimateFromMarriage(null));
+        assertNull(estimator.estimateFromMarriage(null),
+            "Should be null because no dates available to use");
     }
 
     /** */
@@ -246,8 +244,8 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         builder.createPersonEvent(person, "Birth", "1 JAN 1935");
         final Person person1 = person3;
         builder.createPersonEvent(person1, "Birth", "1 JAN 1939");
-        assertNull("Should be null because no dates available to use",
-                estimator.estimateFromMarriage(null));
+        assertNull(estimator.estimateFromMarriage(null),
+            "Should be null because no dates available to use");
     }
 
     /** */
@@ -268,8 +266,8 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
      * @param actual actual date
      */
     private void assertMatch(final LocalDate expected, final LocalDate actual) {
-        assertTrue(mismatchString(expected, actual),
-                expected.isEqual(actual));
+        assertTrue(expected.isEqual(actual),
+            mismatchString(expected, actual));
     }
 
     /**

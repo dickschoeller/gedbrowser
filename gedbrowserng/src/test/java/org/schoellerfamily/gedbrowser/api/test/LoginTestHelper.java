@@ -51,7 +51,8 @@ public final class LoginTestHelper {
                 + password;
         final HttpEntity<String> loginReq =
                 new HttpEntity<>(loginString, headers);
-        return template.postForEntity(new URI(url), loginReq, LoginResponse.class);
+        final ResponseEntity<LoginResponse> responseEntity = template.postForEntity(new URI(url), loginReq, LoginResponse.class);
+		return responseEntity;
     }
 
     /**

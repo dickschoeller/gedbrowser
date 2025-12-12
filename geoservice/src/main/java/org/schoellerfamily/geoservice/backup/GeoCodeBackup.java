@@ -2,13 +2,11 @@ package org.schoellerfamily.geoservice.backup;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.schoellerfamily.geoservice.model.builder.GeocodeResultBuilder;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
-import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;

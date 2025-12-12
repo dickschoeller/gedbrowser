@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +17,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
@@ -56,11 +56,11 @@ public class UploadServiceTest {
                 new HttpEntity<>(body, headers);
         final ResponseEntity<ApiHead> response = testRestTemplate
                 .postForEntity(url, entity, ApiHead.class);
-        assertEquals("Status mismatch",
-                HttpStatus.OK, response.getStatusCode());
-        assertEquals("Type mismatch", "Header",
+        assertEquals(HttpStatus.OK, response.getStatusCode(), "Status mismatch");
+        assertEquals("Header",
                 java.util.Optional.ofNullable(response.getBody())
-                        .map(b -> b.getString()).orElse(null));
+                        .map(b -> b.getString()).orElse(null),
+                "Type mismatch");
     }
 
     /** */
@@ -77,11 +77,11 @@ public class UploadServiceTest {
                 new HttpEntity<>(body, headers);
         final ResponseEntity<ApiHead> response = testRestTemplate
                 .postForEntity(url, entity, ApiHead.class);
-        assertEquals("Status mismatch",
-                HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Type mismatch", "",
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode(), "Status mismatch");
+        assertEquals("",
                 java.util.Optional.ofNullable(response.getBody())
-                        .map(b -> b.getString()).orElse(null));
+                        .map(b -> b.getString()).orElse(null),
+                "Type mismatch");
     }
 
     /** */
@@ -98,11 +98,11 @@ public class UploadServiceTest {
                 new HttpEntity<>(body, headers);
         final ResponseEntity<ApiHead> response = testRestTemplate
                 .postForEntity(url, entity, ApiHead.class);
-        assertEquals("Status mismatch",
-                HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Type mismatch", "",
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode(), "Status mismatch");
+        assertEquals("",
                 java.util.Optional.ofNullable(response.getBody())
-                        .map(b -> b.getString()).orElse(null));
+                        .map(b -> b.getString()).orElse(null),
+                "Type mismatch");
     }
 
     /**

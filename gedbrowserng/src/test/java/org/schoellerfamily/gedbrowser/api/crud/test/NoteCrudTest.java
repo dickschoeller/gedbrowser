@@ -1,14 +1,14 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
 import static org.assertj.core.api.Assertions.fail;
-import static org.assertj.core.api.BDDAssertions.*;
-import static org.junit.Assert.*;
+import static org.assertj.core.api.BDDAssertions.then;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
@@ -17,20 +17,20 @@ import org.schoellerfamily.gedbrowser.api.crud.NoteCrud;
 import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
+import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
@@ -40,7 +40,7 @@ public class NoteCrudTest {
 
     /** */
     @Autowired
-    private transient GedDocumentFileLoader loader;
+    private transient GedObjectFileLoader loader;
 
     /** */
     @Autowired
@@ -57,7 +57,7 @@ public class NoteCrudTest {
     private CrudTestHelper helper;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         helper = new CrudTestHelper(
                 new PersonCrud(loader, toDocConverter, repositoryManager),
@@ -158,8 +158,7 @@ public class NoteCrudTest {
             final ApiNote resNote = crud.readOne(helper.getDb(), "Xyzzy");
             fail("The note should not be found: " + resNote.getString());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object Xyzzy of type note not found", e.getMessage());
+            assertEquals("Object Xyzzy of type note not found", e.getMessage(), "Mismatched message");
         }
     }
 
@@ -185,9 +184,7 @@ public class NoteCrudTest {
                     deletedNote.getString());
             fail("should not have found note " + foundNote.getString());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object " + id + " of type note not found",
-                    e.getMessage());
+            assertEquals("Object " + id + " of type note not found", e.getMessage(), "Mismatched message");
         }
     }
 
@@ -199,8 +196,7 @@ public class NoteCrudTest {
             final ApiNote foundNote = crud.readOne(helper.getDb(), "XXXXXXX");
             fail("should not have found note " + foundNote.getString());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Object XXXXXXX of type note not found", e.getMessage());
+            assertEquals("Object XXXXXXX of type note not found", e.getMessage(), "Mismatched message");
         }
     }
 
@@ -212,8 +208,7 @@ public class NoteCrudTest {
             final ApiNote foundNote = crud.readOne("XYZZY", "N1");
             fail("should not have found note " + foundNote.getString());
         } catch (DataSetNotFoundException e) {
-            assertEquals("Mismatched message",
-                    "Data set XYZZY not found", e.getMessage());
+            assertEquals("Data set XYZZY not found", e.getMessage(), "Mismatched message");
         }
     }
 
@@ -233,7 +228,6 @@ public class NoteCrudTest {
         resNote.getAttributes().add(aNote);
         final ApiNote updatedNote = crud.updateOne(helper.getDb(),
                 resNote.getString(), resNote);
-        assertEquals("attribute should be present", aNote,
-                updatedNote.getAttributes().get(1));
+        assertEquals(aNote, updatedNote.getAttributes().get(1), "attribute should be present");
     }
 }

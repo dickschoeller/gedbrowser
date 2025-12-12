@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.renderer.application;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

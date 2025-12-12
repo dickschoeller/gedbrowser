@@ -32,10 +32,12 @@ public class TokenHelperTest {
 
     /**
      * Test expired token.
+     * @throws InterruptedException won't happen
      */
     @Test
-    public void testGenerateTokenExpired() {
-        String token = tokenHelper.generateToken("fanjin");
+    public void testGenerateTokenExpired() throws InterruptedException {
+        final String token = tokenHelper.generateToken("fanjin");
+        Thread.sleep(2000);
         assertThatExceptionOfType(ExpiredJwtException.class).isThrownBy(() -> tokenHelper.parseClaimsOrThrow(token));
     }
 }

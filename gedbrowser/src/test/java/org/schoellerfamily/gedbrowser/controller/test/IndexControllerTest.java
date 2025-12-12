@@ -2,8 +2,8 @@ package org.schoellerfamily.gedbrowser.controller.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.Application;
 import org.schoellerfamily.gedbrowser.test.TestConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +13,20 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class IndexControllerTest implements MenuTestHelper {
-    /**
+    private static final String URL_TEMPLATE = "http://localhost:%d/gedbrowser/surnames?db=%s&letter=%s";
+
+	/**
      * Not sure what this is good for.
      */
     @Autowired
@@ -38,28 +40,26 @@ public class IndexControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testIndexControllerA() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser/surnames?db=gl120368&letter=A";
-        final ResponseEntity<String> entity = testRestTemplate.getForEntity(url,
-                String.class);
+    public final void testIndexControllerC() {
+        final String url = URL_TEMPLATE.formatted(port, "gl120368", "C");
+        final ResponseEntity<String> entity =
+            testRestTemplate.getForEntity(url, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Index - A - gl120368</title>")
+        then(entity.getBody()).contains("<title>Index - C - gl120368</title>")
             .contains("<span><a id=\"letter-?\""
                     + " href=\"surnames?db=gl120368&amp;letter=?\""
                     + " class=\"name\">[?]</a>   </span>")
-            .contains("<li id=\"I1983\"><a href=\"person?db=gl120368&amp;id=")
-            .contains(getMenu("A"));
+            .contains("<li id=\"I2508\"><a href=\"person?db=gl120368&amp;id=")
+            .contains(getMenu("C"));
     }
 
     /** */
     @Test
     public final void testIndexControllerB() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser/surnames?db=gl120368&letter=B";
-        final ResponseEntity<String> entity = testRestTemplate.getForEntity(url,
-                String.class);
+        final String url = URL_TEMPLATE.formatted(port, "gl120368", "B");
+        final ResponseEntity<String> entity =
+            testRestTemplate.getForEntity(url, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).contains("<title>Index - B - gl120368</title>")
@@ -73,10 +73,9 @@ public class IndexControllerTest implements MenuTestHelper {
     /** */
     @Test
     public final void testIndexControllerBadDataSet() {
-        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
-                "http://localhost:" + port
-                        + "/gedbrowser/surnames?db=XYZZY&letter=A",
-                String.class);
+        String url = URL_TEMPLATE.formatted(port, "XYZZY", "A");
+		final ResponseEntity<String> entity =
+		    testRestTemplate.getForEntity(url, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         then(entity.getBody()).contains("Data set not found");
@@ -85,10 +84,9 @@ public class IndexControllerTest implements MenuTestHelper {
     /** */
     @Test
     public final void testIndexControllerLetter() {
-        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
-                "http://localhost:" + port
-                        + "/gedbrowser/surnames?db=gl120368&letter=q",
-                String.class);
+        String url = URL_TEMPLATE.formatted(port, "gl120368", "q");
+		final ResponseEntity<String> entity =
+            testRestTemplate.getForEntity(url, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody())
