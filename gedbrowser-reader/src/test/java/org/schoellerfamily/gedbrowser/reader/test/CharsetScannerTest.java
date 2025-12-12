@@ -25,7 +25,7 @@ public class CharsetScannerTest {
     private transient TestDataReader reader;
 
     /** */
-    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
+    @Value("${gedbrowser.home:#{ systemProperties['user.dir'] }/src/test/resources}")
     private transient String gedbrowserHome;
 
     /** */
@@ -39,8 +39,7 @@ public class CharsetScannerTest {
     /** */
     @Test
     public void testFileANSI() {
-        final CharsetScanner scanner =
-                new CharsetScanner();
+        final CharsetScanner scanner = new CharsetScanner();
         assertEquals("Charset mismatch",
                 "Cp1252", scanner.charset(gedbrowserHome + "/gl120368.ged"));
     }

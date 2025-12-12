@@ -2,7 +2,6 @@ package org.schoellerfamily.gedbrowser.security.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.http.MediaType;
@@ -22,8 +21,6 @@ public class PublicController {
      */
     @RequestMapping(method = GET, value = "/foo")
     public Map<String, String> getFoo() {
-        final Map<String, String> fooObj = new HashMap<>();
-        fooObj.put("foo", "bar");
-        return fooObj;
+        return Map.of("foo", "bar");
     }
 }

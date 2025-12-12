@@ -1,13 +1,13 @@
 package org.schoellerfamily.gedbrowser.analytics.calendar.test;
 
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Calendar;
 
 import org.joda.time.LocalDate;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderFacade;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
@@ -80,7 +80,7 @@ public class CalendarProviderFacadeTest {
     /**
      * Prepare for the test.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         mockProvider =
                 new CalendarProviderFacadeImpl(new CalendarProviderMock());
@@ -93,8 +93,7 @@ public class CalendarProviderFacadeTest {
      */
     @Test
     public void testFacadeNow() {
-        assertSame("Should have passed through to the provider mock",
-                calendar, mockProvider.now());
+        assertSame(calendar, mockProvider.now(), "Should have passed through to the provider mock");
     }
 
     /**
@@ -102,8 +101,7 @@ public class CalendarProviderFacadeTest {
      */
     @Test
     public void testFacadeNowDate() {
-        assertSame("Should have passed through to the provider mock",
-                localDate, mockProvider.nowDate());
+        assertSame(localDate, mockProvider.nowDate(), "Should have passed through to the provider mock");
     }
 
     /**
@@ -129,10 +127,9 @@ public class CalendarProviderFacadeTest {
     public void testImplNowDate() {
         final LocalDate actual = implProvider.nowDate();
         assertTrue(
-                "actual and localDate should be the same,"
-                + " or actual is 1 day higher if test right at midnight",
                 actual.equals(localDate)
-                        || actual.equals(localDate.plusDays(1)));
+                        || actual.equals(localDate.plusDays(1)),
+                "actual and localDate should be the same, or actual is 1 day higher if test right at midnight");
     }
 
     /**
@@ -142,6 +139,6 @@ public class CalendarProviderFacadeTest {
      */
     private void assertLessThan(final String message, final long expected,
             final long actual) {
-        assertTrue(message, actual < expected);
+        assertTrue(actual < expected, message);
     }
 }

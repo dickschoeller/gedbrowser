@@ -1,6 +1,5 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.Note;
@@ -9,22 +8,24 @@ import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.NoteDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
  */
+@Component
+@RequiredArgsConstructor
 public class NoteDocumentRepositoryMongoImpl implements
     FindableDocument<Note, NoteDocument>, LastId<NoteDocumentMongo>  {
     /** */
-    @Autowired
-    private transient MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
     /** */
-    @Autowired
-    private transient GedDocumentMongoToGedObjectConverter toObjConverter;
+    private final GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /**
      * {@inheritDoc}
@@ -70,17 +71,13 @@ public class NoteDocumentRepositoryMongoImpl implements
                 new Query(Criteria.where("filename").is(filename));
         final List<NoteDocumentMongo> noteDocumentsMongo =
                 mongoTemplate.find(searchQuery, NoteDocumentMongo.class);
-        if (noteDocumentsMongo == null) {
-            return null;
-        }
-        final List<NoteDocument> noteDocuments = new ArrayList<>();
-        for (final NoteDocument noteDocument : noteDocumentsMongo) {
-            final Note note = (Note) toObjConverter.createGedObject(
-                    null, noteDocument);
-            noteDocument.setGedObject(note);
-            noteDocuments.add(noteDocument);
-        }
-        return noteDocuments;
+        return noteDocumentsMongo.stream()
+            .map(noteDocument -> {
+                final Note note = (Note) toObjConverter.createGedObject(
+                        null, noteDocument);
+                noteDocument.setGedObject(note);
+                return (NoteDocument) noteDocument;
+            }).toList();
     }
 
     /**
