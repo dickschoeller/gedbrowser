@@ -1,14 +1,14 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.text.DateFormat;
 import java.util.Locale;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
@@ -23,7 +23,7 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * Other than the constructor, these tests are and should be identical to the
@@ -31,7 +31,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class NullRendererTest {
     /** */
@@ -45,7 +45,7 @@ public final class NullRendererTest {
     private String homeUrl;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
         homeUrl = "http://www.schoellerfamily.org/";
@@ -58,9 +58,7 @@ public final class NullRendererTest {
     @Test
     public void testAttributeListOpenRenderer() {
         final NullRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getAttributeListOpenRenderer()
-                instanceof SimpleAttributeListOpenRenderer);
+        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
     }
 
     /**
@@ -70,8 +68,7 @@ public final class NullRendererTest {
     @Test
     public void testListItemRenderer() {
         final NullRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getListItemRenderer() instanceof NullListItemRenderer);
+        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer, "Wrong renderer type");
     }
 
     /**
@@ -81,8 +78,7 @@ public final class NullRendererTest {
     @Test
     public void testNameHtmlRenderer() {
         final NullRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
     }
 
     /**
@@ -92,8 +88,8 @@ public final class NullRendererTest {
     @Test
     public void testNameIndexRenderer() {
         final NullRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type", renderer
-                .getNameIndexRenderer() instanceof NullNameIndexRenderer);
+        assertTrue(renderer
+                .getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
     }
 
     /**
@@ -103,8 +99,7 @@ public final class NullRendererTest {
     @Test
     public void testPhraseRenderer() {
         final NullRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getPhraseRenderer() instanceof NullPhraseRenderer);
+        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer, "Wrong renderer type");
     }
 
     /** */
@@ -113,8 +108,7 @@ public final class NullRendererTest {
         final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root,
                 new GedRendererFactory(), anonymousContext);
-        assertEquals("Rendered string does not match expectation",
-                "\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
+        assertEquals("\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
                 + "    </p>\n" + "    <hr class=\"final\"/>\n"
                 + "    <table class=\"buttonrow\">\n"
                 + "    <tr class=\"buttonrow\">\n"
@@ -134,7 +128,7 @@ public final class NullRendererTest {
                 + "height=\"31\" width=\"88\"></a>\n" + "    </p>\n"
                 + "    </td>\n" + "    </tr>\n" + "    </table>\n"
                 + "    <p>\n" + "  </body>\n" + "</html>\n",
-                renderer.getTrailerHtml(""));
+                renderer.getTrailerHtml(""), "Rendered string does not match expectation");
     }
 
     /** */
@@ -160,8 +154,7 @@ public final class NullRendererTest {
                 + "    <link href=\"/gedbrowser/gedbrowser.css\" "
                 + "rel=\"stylesheet\" type=\"text/css\">\n" + "    <title>"
                 + title + "</title>\n" + "  </head>\n" + "  <body>\n";
-        assertEquals("Rendered string does not match expectation", testString,
-                renderer.getHeaderHtml(title, keywords));
+        assertEquals(testString, renderer.getHeaderHtml(title, keywords), "Rendered string does not match expectation");
     }
 
     /** */
@@ -170,8 +163,7 @@ public final class NullRendererTest {
         final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root,
                 new GedRendererFactory(), anonymousContext);
-        assertEquals("Rendered string does not match expectation",
-                "\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
+        assertEquals("\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
                 + "    </p>\n" + "    <hr class=\"final\"/>\n"
                 + "    <table class=\"buttonrow\">\n"
                 + "    <tr class=\"buttonrow\">\n"
@@ -191,7 +183,7 @@ public final class NullRendererTest {
                 + "height=\"31\" width=\"88\"></a>\n" + "    </p>\n"
                 + "    </td>\n" + "    </tr>\n" + "    </table>\n"
                 + "    <p>\n" + "  </body>\n" + "</html>\n",
-                renderer.getTrailerHtml());
+                renderer.getTrailerHtml(), "Rendered string does not match expectation");
     }
 
     /** */
@@ -200,8 +192,7 @@ public final class NullRendererTest {
         final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root,
                 new GedRendererFactory(), anonymousContext);
-        assertEquals("Rendered string does not match expectation",
-                "\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
+        assertEquals("\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
                 + "    <a href=\"?null+Header\">Header</a><br>\n"
                 + "    </p>\n" + "    <hr class=\"final\"/>\n"
                 + "    <table class=\"buttonrow\">\n"
@@ -222,7 +213,7 @@ public final class NullRendererTest {
                 + "height=\"31\" width=\"88\"></a>\n" + "    </p>\n"
                 + "    </td>\n" + "    </tr>\n" + "    </table>\n"
                 + "    <p>\n" + "  </body>\n" + "</html>\n",
-                renderer.getTrailerHtml("Header"));
+                renderer.getTrailerHtml("Header"), "Rendered string does not match expectation");
     }
 
     /** */
@@ -231,8 +222,7 @@ public final class NullRendererTest {
         final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root,
                 new GedRendererFactory(), anonymousContext);
-        assertEquals("Rendered string does not match expectation",
-                "\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
+        assertEquals("\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
                 + "    <a href=\"?" + root.getFilename()
                 + "+Surnames\">Surnames</a><br>\n" + "    </p>\n"
                 + "    <hr class=\"final\"/>\n"
@@ -254,7 +244,7 @@ public final class NullRendererTest {
                 + "height=\"31\" width=\"88\"></a>\n" + "    </p>\n"
                 + "    </td>\n" + "    </tr>\n" + "    </table>\n"
                 + "    <p>\n" + "  </body>\n" + "</html>\n",
-                renderer.getTrailerHtml("Surnames"));
+                renderer.getTrailerHtml("Surnames"), "Rendered string does not match expectation");
     }
 
     /** */
@@ -263,8 +253,7 @@ public final class NullRendererTest {
         final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root,
                 new GedRendererFactory(), anonymousContext);
-        assertEquals("Rendered string does not match expectation",
-                "\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
+        assertEquals("\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
                 + "    <a href=\"?" + root.getFilename()
                 + "+Index\">Index</a><br>\n" + "    </p>\n"
                 + "    <hr class=\"final\"/>\n"
@@ -286,7 +275,7 @@ public final class NullRendererTest {
                 + "height=\"31\" width=\"88\"></a>\n" + "    </p>\n"
                 + "    </td>\n" + "    </tr>\n" + "    </table>\n"
                 + "    <p>\n" + "  </body>\n" + "</html>\n",
-                renderer.getTrailerHtml("Index"));
+                renderer.getTrailerHtml("Index"), "Rendered string does not match expectation");
     }
 
     /**
@@ -295,8 +284,7 @@ public final class NullRendererTest {
     @Test
     public void testGetHomeUrl() {
         final NullRenderer renderer = createRenderer();
-        assertEquals("Home URL does not match expectation",
-                homeUrl, renderer.getHomeUrl());
+        assertEquals(homeUrl, renderer.getHomeUrl(), "Home URL does not match expectation");
     }
 
     /**

@@ -1,14 +1,14 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.Collection;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
@@ -24,12 +24,12 @@ import org.schoellerfamily.gedbrowser.renderer.SubmissionRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class SubmissionRendererTest {
     /** */
@@ -44,7 +44,7 @@ public final class SubmissionRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
@@ -56,9 +56,7 @@ public final class SubmissionRendererTest {
     @Test
     public void testAttributeListOpenRenderer() {
         final SubmissionRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getAttributeListOpenRenderer()
-                instanceof SimpleAttributeListOpenRenderer);
+        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
     }
 
     /**
@@ -68,9 +66,7 @@ public final class SubmissionRendererTest {
     @Test
     public void testListItemRenderer() {
         final SubmissionRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getListItemRenderer()
-                instanceof NullListItemRenderer);
+        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer, "Wrong renderer type");
     }
 
     /**
@@ -80,9 +76,7 @@ public final class SubmissionRendererTest {
     @Test
     public void testNameHtmlRenderer() {
         final SubmissionRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getNameHtmlRenderer()
-                instanceof NullNameHtmlRenderer);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
     }
 
     /**
@@ -92,9 +86,7 @@ public final class SubmissionRendererTest {
     @Test
     public void testNameIndexRenderer() {
         final SubmissionRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getNameIndexRenderer()
-                instanceof NullNameIndexRenderer);
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
     }
 
     /**
@@ -104,9 +96,7 @@ public final class SubmissionRendererTest {
     @Test
     public void testPhraseRenderer() {
         final SubmissionRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getPhraseRenderer()
-                instanceof NullPhraseRenderer);
+        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer, "Wrong renderer type");
     }
 
     /**
@@ -118,7 +108,7 @@ public final class SubmissionRendererTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submission submission = builder.createSubmission("S1");
         final SubmissionRenderer renderer = createRenderer(submission);
-        assertEquals("Submission ID mismatch", "S1", renderer.getIdString());
+        assertEquals("S1", renderer.getIdString(), "Submission ID mismatch");
     }
 
     /**
@@ -130,8 +120,7 @@ public final class SubmissionRendererTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submission submission = builder.createSubmission("S1");
         final SubmissionRenderer renderer = createRenderer(submission);
-        assertEquals("Submission ID mismatch", "S1",
-                renderer.getTitleString());
+        assertEquals("S1", renderer.getTitleString(), "Submission ID mismatch");
     }
 
     /**
@@ -141,8 +130,7 @@ public final class SubmissionRendererTest {
     @Test
     public void testNullIdString() {
         final SubmissionRenderer renderer = createRenderer();
-        assertEquals("Expected empty submission ID", "",
-                renderer.getIdString());
+        assertEquals("", renderer.getIdString(), "Expected empty submission ID");
     }
 
     /**
@@ -164,8 +152,7 @@ public final class SubmissionRendererTest {
         final Collection<Submission> submissions = root.find(Submission.class);
         for (final Submission submission : submissions) {
             final SubmissionRenderer renderer = createRenderer(submission);
-            assertEquals("head href mismatch",
-                    "head?db=gl120368", renderer.getHeaderHref());
+            assertEquals("head?db=gl120368", renderer.getHeaderHref(), "head href mismatch");
         }
     }
 
@@ -180,8 +167,7 @@ public final class SubmissionRendererTest {
         final Collection<Submission> submissions = root.find(Submission.class);
         for (final Submission submission : submissions) {
             final SubmissionRenderer renderer = createRenderer(submission);
-            assertEquals("save href mismatch",
-                    "save?db=gl120368", renderer.getSaveHref());
+            assertEquals("save?db=gl120368", renderer.getSaveHref(), "save href mismatch");
         }
     }
 
@@ -196,8 +182,7 @@ public final class SubmissionRendererTest {
         final Collection<Submission> submissions = root.find(Submission.class);
         for (final Submission submission : submissions) {
             final SubmissionRenderer renderer = createRenderer(submission);
-            assertEquals("save href mismatch",
-                    "gl120368.ged", renderer.getSaveFilename());
+            assertEquals("gl120368.ged", renderer.getSaveFilename(), "save href mismatch");
         }
     }
 
@@ -212,8 +197,7 @@ public final class SubmissionRendererTest {
         final Collection<Submission> submissions = root.find(Submission.class);
         for (final Submission submission : submissions) {
             final SubmissionRenderer renderer = createRenderer(submission);
-            assertEquals("index href mismatch",
-                    "surnames?db=gl120368&letter=A", renderer.getIndexHref());
+            assertEquals("surnames?db=gl120368&letter=A", renderer.getIndexHref(), "index href mismatch");
         }
     }
 
@@ -228,8 +212,7 @@ public final class SubmissionRendererTest {
         final Collection<Submission> submissions = root.find(Submission.class);
         for (final Submission submission : submissions) {
             final SubmissionRenderer renderer = createRenderer(submission);
-            assertEquals("living href mismatch",
-                    "living?db=gl120368", renderer.getLivingHref());
+            assertEquals("living?db=gl120368", renderer.getLivingHref(), "living href mismatch");
         }
     }
 
@@ -244,8 +227,7 @@ public final class SubmissionRendererTest {
         final Collection<Submission> submissions = root.find(Submission.class);
         for (final Submission submission : submissions) {
             final SubmissionRenderer renderer = createRenderer(submission);
-            assertEquals("sources href mismatch",
-                    "sources?db=gl120368", renderer.getSourcesHref());
+            assertEquals("sources?db=gl120368", renderer.getSourcesHref(), "sources href mismatch");
         }
     }
 
@@ -260,8 +242,7 @@ public final class SubmissionRendererTest {
         final Collection<Submission> submissions = root.find(Submission.class);
         for (final Submission submission : submissions) {
             final SubmissionRenderer renderer = createRenderer(submission);
-            assertEquals("submitters href mismatch",
-                    "submitters?db=gl120368", renderer.getSubmittersHref());
+            assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(), "submitters href mismatch");
         }
     }
 

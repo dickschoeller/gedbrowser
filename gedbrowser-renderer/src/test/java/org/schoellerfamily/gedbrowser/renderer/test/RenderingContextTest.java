@@ -1,22 +1,22 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public class RenderingContextTest {
     /** */
@@ -27,7 +27,7 @@ public class RenderingContextTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
@@ -35,140 +35,127 @@ public class RenderingContextTest {
     /** */
     @Test
     public final void testGetApplicationName() {
-        assertEquals("Application name mistmatch", "gedbrowser",
-                anonymousContext.getApplicationName());
+        assertEquals("gedbrowser", anonymousContext.getApplicationName(), "Application name mistmatch");
     }
 
     /** */
     @Test
     public final void testGetApplicationURL() {
-        assertEquals("Application URL mismatch",
-                "https://github.com/dickschoeller/gedbrowser",
-                anonymousContext.getApplicationURL());
+        assertEquals("https://github.com/dickschoeller/gedbrowser", anonymousContext.getApplicationURL(), "Application URL mismatch");
     }
 
     /** */
     @Test
     public final void testGetEmail() {
-        assertEquals("Email mismatch", "anon@gmail.com",
-                anonymousContext.getEmail());
+        assertEquals("anon@gmail.com", anonymousContext.getEmail(), "Email mismatch");
     }
 
     /** */
     @Test
     public final void testGetFirstname() {
-        assertEquals("First name mismatch", "Al",
-                anonymousContext.getFirstname());
+        assertEquals("Al", anonymousContext.getFirstname(), "First name mismatch");
     }
 
     /** */
     @Test
     public final void testGetHomeURL() {
-        assertEquals("Home URL misamtch", "http://www.schoellerfamily.org/",
-                anonymousContext.getHomeURL());
+        assertEquals("http://www.schoellerfamily.org/", anonymousContext.getHomeURL(), "Home URL misamtch");
     }
 
     /** */
     @Test
     public final void testGetLastname() {
-        assertEquals("Last name mismatch", "Anonymous",
-                anonymousContext.getLastname());
+        assertEquals("Anonymous", anonymousContext.getLastname(), "Last name mismatch");
     }
 
     /** */
     @Test
     public final void testGetMaintainerEmail() {
-        assertEquals("Maintainer email mismatch", "schoeller@comcast.net",
-                anonymousContext.getMaintainerEmail());
+        assertEquals("schoeller@comcast.net", anonymousContext.getMaintainerEmail(), "Maintainer email mismatch");
     }
 
     /** */
     @Test
     public final void testGetMaintainerName() {
-        assertEquals("Maintainer name mismatch", "Richard Schoeller",
-                anonymousContext.getMaintainerName());
+        assertEquals("Richard Schoeller", anonymousContext.getMaintainerName(), "Maintainer name mismatch");
     }
 
     /** */
     @Test
     public final void testGetPassword() {
-        assertNull("Expected null password", anonymousContext.getPassword());
+        assertNull(anonymousContext.getPassword(), "Expected null password");
     }
 
     /** */
     @Test
     public final void testGetUsername() {
-        assertEquals("Username mismatch", "Anonymous",
-                anonymousContext.getUsername());
+        assertEquals("Anonymous", anonymousContext.getUsername(), "Username mismatch");
     }
 
     /** */
     @Test
     public final void testGetVersion() {
-        assertEquals("Version mismatch", GedObject.VERSION,
-                anonymousContext.getVersion());
+        assertEquals(GedObject.VERSION, anonymousContext.getVersion(), "Version mismatch");
     }
 
     /** */
     @Test
     public final void testGetRoles() {
-        assertEquals("Expected empty roles", 0,
-                anonymousContext.getRoles().length);
+        assertEquals(0, anonymousContext.getRoles().length, "Expected empty roles");
     }
 
     /** */
     @Test
     public final void testHasRole() {
-        assertTrue("Expected user role",
-                RenderingContext.user(appInfo).hasRole(UserRoleName.USER));
+        assertTrue(RenderingContext.user(appInfo).hasRole(UserRoleName.USER), "Expected user role");
     }
 
     /** */
     @Test
     public final void testNullUserGetEmail() {
         final RenderingContext rc = new RenderingContext(null, null, null);
-        assertNull("Expected null email", rc.getEmail());
+        assertNull(rc.getEmail(), "Expected null email");
     }
 
     /** */
     @Test
     public final void testNullUserGetFirstname() {
         final RenderingContext rc = new RenderingContext(null, null, null);
-        assertNull("Expected null first name", rc.getFirstname());
+        assertNull(rc.getFirstname(), "Expected null first name");
     }
 
     /** */
     @Test
     public final void testNullUserGetLastname() {
         final RenderingContext rc = new RenderingContext(null, null, null);
-        assertNull("Expected null last name", rc.getLastname());
+        assertNull(rc.getLastname(), "Expected null last name");
     }
 
     /** */
     @Test
     public final void testNullUserGetPassword() {
         final RenderingContext rc = new RenderingContext(null, null, null);
-        assertNull("Expected null password", rc.getPassword());
+        assertNull(rc.getPassword(), "Expected null password");
     }
 
     /** */
     @Test
     public final void testNullUserGetUsername() {
         final RenderingContext rc = new RenderingContext(null, null, null);
-        assertNull("Expected null username",  rc.getUsername());
+        assertNull(rc.getUsername(), "Expected null username");
     }
 
     /** */
     @Test
     public final void testNullUserGetRoles() {
         final RenderingContext rc = new RenderingContext(null, null, null);
-        assertEquals("Expected empty roles", 0, rc.getRoles().length);
+        assertEquals(0, rc.getRoles().length, "Expected empty roles");
     }
 
     /** */
     @Test
     public final void testNullUserHasRole() {
         final RenderingContext rc = new RenderingContext(null, null, null);
-        assertFalse("Expected hasn't role user", rc.hasRole(UserRoleName.USER));
+        assertFalse(rc.hasRole(UserRoleName.USER), "Expected hasn't role user");
     }
 }

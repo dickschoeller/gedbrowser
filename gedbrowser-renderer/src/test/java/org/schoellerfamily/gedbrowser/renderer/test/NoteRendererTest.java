@@ -1,37 +1,37 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.Collection;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
+import org.schoellerfamily.gedbrowser.renderer.NoteNameIndexRenderer;
+import org.schoellerfamily.gedbrowser.renderer.NoteRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.SourceLinkRenderer;
-import org.schoellerfamily.gedbrowser.renderer.NoteNameIndexRenderer;
-import org.schoellerfamily.gedbrowser.renderer.NoteRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class NoteRendererTest {
     /** */
@@ -45,7 +45,7 @@ public final class NoteRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
@@ -57,9 +57,7 @@ public final class NoteRendererTest {
     @Test
     public void testAttributeListOpenRenderer() {
         final NoteRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getAttributeListOpenRenderer()
-                instanceof SimpleAttributeListOpenRenderer);
+        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
     }
 
     /**
@@ -69,9 +67,7 @@ public final class NoteRendererTest {
     @Test
     public void testListItemRenderer() {
         final NoteRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getListItemRenderer()
-                instanceof NullListItemRenderer);
+        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer, "Wrong renderer type");
     }
 
     /**
@@ -81,9 +77,7 @@ public final class NoteRendererTest {
     @Test
     public void testNameHtmlRenderer() {
         final NoteRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getNameHtmlRenderer()
-                instanceof NullNameHtmlRenderer);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
     }
 
     /**
@@ -93,9 +87,7 @@ public final class NoteRendererTest {
     @Test
     public void testNameIndexRenderer() {
         final NoteRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getNameIndexRenderer()
-                instanceof NoteNameIndexRenderer);
+        assertTrue(renderer.getNameIndexRenderer() instanceof NoteNameIndexRenderer, "Wrong renderer type");
     }
 
     /**
@@ -105,9 +97,7 @@ public final class NoteRendererTest {
     @Test
     public void testPhraseRenderer() {
         final NoteRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getPhraseRenderer()
-                instanceof NullPhraseRenderer);
+        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer, "Wrong renderer type");
     }
 
     /**
@@ -128,9 +118,7 @@ public final class NoteRendererTest {
         final NoteRenderer renderer = new NoteRenderer(note,
                 new GedRendererFactory(),
                 anonymousContext);
-        assertEquals("Mismatched title string",
-                "This is a note",
-                renderer.getTitleString());
+        assertEquals("This is a note", renderer.getTitleString(), "Mismatched title string");
     }
 
     /**
@@ -143,9 +131,8 @@ public final class NoteRendererTest {
         final NoteRenderer renderer = new NoteRenderer(note,
                 new GedRendererFactory(),
                 anonymousContext);
-        assertEquals("Mismatched title string",
-                "This is a note with a much longer string, and some",
-                renderer.getTitleString());
+        assertEquals("This is a note with a much longer string, and some",
+                renderer.getTitleString(), "Mismatched title string");
     }
 
     /**
@@ -158,7 +145,7 @@ public final class NoteRendererTest {
         final NoteRenderer renderer = new NoteRenderer(note,
                 new GedRendererFactory(),
                 anonymousContext);
-        assertEquals("Count is wrong", 1, renderer.getAttributes().size());
+        assertEquals(1, renderer.getAttributes().size(), "Count is wrong");
     }
 
     /**
@@ -172,8 +159,7 @@ public final class NoteRendererTest {
                 new GedRendererFactory(),
                 anonymousContext);
         for (final GedRenderer<?> aRenderer : renderer.getAttributes()) {
-            assertTrue("Wrong type of renderer",
-                    aRenderer instanceof SourceLinkRenderer);
+            assertTrue(aRenderer instanceof SourceLinkRenderer, "Wrong type of renderer");
         }
     }
 
@@ -187,9 +173,7 @@ public final class NoteRendererTest {
         final NoteRenderer renderer = new NoteRenderer(note,
                 new GedRendererFactory(),
                 anonymousContext);
-        assertEquals("Mismatched note ID",
-                "N1",
-                renderer.getIdString());
+        assertEquals("N1", renderer.getIdString(), "Mismatched note ID");
     }
 
     /**
@@ -210,8 +194,7 @@ public final class NoteRendererTest {
                 anonymousContext);
         int i = 0;
         for (final GedRenderer<?> attribute : renderer.getAttributes()) {
-            assertEquals("Rendered html doesn't match expectation",
-                    expects[i++], attribute.getListItemContents());
+            assertEquals(expects[i++], attribute.getListItemContents(), "Rendered html doesn't match expectation");
         }
     }
 
@@ -227,10 +210,9 @@ public final class NoteRendererTest {
         final NoteRenderer renderer = new NoteRenderer(note,
                 new GedRendererFactory(),
                 anonymousContext);
-        assertEquals("Mismatched index html string",
-                "<a href=\"note?db=null&amp;id=N1\" class=\"name\""
+        assertEquals("<a href=\"note?db=null&amp;id=N1\" class=\"name\""
                 + " id=\"note-N1\">This is a note (N1)</a>",
-                renderer.getIndexNameHtml());
+                renderer.getIndexNameHtml(), "Mismatched index html string");
     }
 
     /**
@@ -244,8 +226,7 @@ public final class NoteRendererTest {
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
             final NoteRenderer renderer = createRenderer(note);
-            assertEquals("head href mismatch",
-                    "head?db=gl120368", renderer.getHeaderHref());
+            assertEquals("head?db=gl120368", renderer.getHeaderHref(), "head href mismatch");
         }
     }
 
@@ -260,8 +241,7 @@ public final class NoteRendererTest {
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
             final NoteRenderer renderer = createRenderer(note);
-            assertEquals("save href mismatch",
-                    "save?db=gl120368", renderer.getSaveHref());
+            assertEquals("save?db=gl120368", renderer.getSaveHref(), "save href mismatch");
         }
     }
 
@@ -276,13 +256,12 @@ public final class NoteRendererTest {
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
             final NoteRenderer renderer = createRenderer(note);
-            assertEquals("save href mismatch",
-                    "gl120368.ged", renderer.getSaveFilename());
+            assertEquals("gl120368.ged", renderer.getSaveFilename(), "save href mismatch");
         }
     }
 
     /**
-     * Test whether the menu items are as expected.
+     * Test whether the menu items are as expected., "Rendered string does not match expectation"
      *
      * @throws IOException if can't read data file
      */
@@ -292,8 +271,7 @@ public final class NoteRendererTest {
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
             final NoteRenderer renderer = createRenderer(note);
-            assertEquals("index href mismatch",
-                    "surnames?db=gl120368&letter=A", renderer.getIndexHref());
+            assertEquals("surnames?db=gl120368&letter=A", renderer.getIndexHref(), "index href mismatch");
         }
     }
 
@@ -308,8 +286,7 @@ public final class NoteRendererTest {
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
             final NoteRenderer renderer = createRenderer(note);
-            assertEquals("living href mismatch",
-                    "living?db=gl120368", renderer.getLivingHref());
+            assertEquals("living?db=gl120368", renderer.getLivingHref(), "living href mismatch");
         }
     }
 
@@ -324,8 +301,7 @@ public final class NoteRendererTest {
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
             final NoteRenderer renderer = createRenderer(note);
-            assertEquals("sources href mismatch",
-                    "sources?db=gl120368", renderer.getSourcesHref());
+            assertEquals("sources?db=gl120368", renderer.getSourcesHref(), "sources href mismatch");
         }
     }
 
@@ -340,8 +316,7 @@ public final class NoteRendererTest {
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
             final NoteRenderer renderer = createRenderer(note);
-            assertEquals("submitters href mismatch",
-                    "submitters?db=gl120368", renderer.getSubmittersHref());
+            assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(), "submitters href mismatch");
         }
     }
 
@@ -356,8 +331,7 @@ public final class NoteRendererTest {
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
             final NoteRenderer renderer = createRenderer(note);
-            assertEquals("places href mismatch", "places?db=gl120368",
-                renderer.getPlacesHref());
+            assertEquals("places?db=gl120368", renderer.getPlacesHref(), "places href mismatch");
         }
     }
 

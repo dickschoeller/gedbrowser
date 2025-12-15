@@ -1,25 +1,25 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.DateFormat;
 import java.util.Locale;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.renderer.ErrorRenderer;
 import org.schoellerfamily.gedbrowser.renderer.Renderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public class ErrorRendererTest {
     /** */
@@ -35,7 +35,7 @@ public class ErrorRendererTest {
     private Renderer renderer;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         homeUrl = "http://www.schoellerfamily.org/";
         renderer = new ErrorRenderer(appInfo);
@@ -44,8 +44,7 @@ public class ErrorRendererTest {
     /** */
     @Test
     public void testGetTrailerHtmlEmpty() {
-        assertEquals("Rendered string does not match expectation",
-                "\n"
+        assertEquals("\n"
                 + "    <hr class=\"final\"/>\n"
                 + "    <hr class=\"final\"/>\n"
                 + "    <table class=\"buttonrow\">\n"
@@ -73,7 +72,7 @@ public class ErrorRendererTest {
                 + "    <p>\n"
                 + "  </body>\n"
                 + "</html>\n",
-                renderer.getTrailerHtml(""));
+                renderer.getTrailerHtml(""), "Rendered string does not match expectation");
     }
 
     /** */
@@ -101,15 +100,13 @@ public class ErrorRendererTest {
                 + "    <title>" + title + "</title>\n"
                 + "  </head>\n"
                 + "  <body>\n";
-        assertEquals("Rendered string does not match expectation",
-                testString, renderer.getHeaderHtml(title, keywords));
+        assertEquals(testString, renderer.getHeaderHtml(title, keywords), "Rendered string does not match expectation");
     }
 
     /** */
     @Test
     public void testGetTrailerHtml() {
-        assertEquals("Rendered string does not match expectation",
-                "\n"
+        assertEquals("\n"
                 + "    <hr class=\"final\"/>\n"
                 + "    <hr class=\"final\"/>\n"
                 + "    <table class=\"buttonrow\">\n"
@@ -137,14 +134,13 @@ public class ErrorRendererTest {
                 + "    <p>\n"
                 + "  </body>\n"
                 + "</html>\n",
-                renderer.getTrailerHtml());
+                renderer.getTrailerHtml(), "Rendered string does not match expectation");
     }
 
     /** */
     @Test
     public void testGetTrailerHtmlIndex() {
-        assertEquals("Rendered string does not match expectation",
-                "\n"
+        assertEquals("\n"
                 + "    <hr class=\"final\"/>\n"
                 + "    <hr class=\"final\"/>\n"
                 + "    <table class=\"buttonrow\">\n"
@@ -172,50 +168,43 @@ public class ErrorRendererTest {
                 + "    <p>\n"
                 + "  </body>\n"
                 + "</html>\n",
-                renderer.getTrailerHtml("Index"));
+                renderer.getTrailerHtml("Index"), "Rendered string does not match expectation");
     }
 
     /** */
     @Test
     public void testGetHomeUrl() {
-        assertEquals("Home URL does not match expectation",
-                homeUrl, renderer.getHomeUrl());
+        assertEquals(homeUrl, renderer.getHomeUrl(), "Home URL does not match expectation");
     }
 
     /** */
     @Test
     public void testGetName() {
-        assertEquals("Application name does not match expectation",
-                "gedbrowser", renderer.getApplicationName());
+        assertEquals("gedbrowser", renderer.getApplicationName(), "Application name does not match expectation");
     }
 
     /** */
     @Test
     public void testGetApplicationURL() {
-        assertEquals("Application URL does not match expectation",
-                "https://github.com/dickschoeller/gedbrowser",
-                renderer.getApplicationURL());
+        assertEquals("https://github.com/dickschoeller/gedbrowser", renderer.getApplicationURL(), "Application URL does not match expectation");
     }
 
     /** */
     @Test
     public void testGetMaintainerEmail() {
-        assertEquals("Maintainer email does not match expectation",
-                "schoeller@comcast.net", renderer.getMaintainerEmail());
+        assertEquals("schoeller@comcast.net", renderer.getMaintainerEmail(), "Maintainer email does not match expectation");
     }
 
     /** */
     @Test
     public void testGetMaintainerName() {
-        assertEquals("Maintainer email does not match expectation",
-                "Richard Schoeller", renderer.getMaintainerName());
+        assertEquals("Richard Schoeller", renderer.getMaintainerName(), "Maintainer email does not match expectation");
     }
 
     /** */
     @Test
     public void testGetVersion() {
-        assertEquals("Version does not match expectation",
-                GedObject.VERSION, renderer.getVersion());
+        assertEquals(GedObject.VERSION, renderer.getVersion(), "Version does not match expectation");
     }
 
     /**

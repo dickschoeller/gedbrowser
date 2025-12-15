@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -16,12 +16,12 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class MultimediaPhraseRendererTest {
     /** */
@@ -41,7 +41,7 @@ public final class MultimediaPhraseRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
@@ -84,8 +84,7 @@ public final class MultimediaPhraseRendererTest {
         final MultimediaPhraseRenderer apRenderer =
                 (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
-        assertEquals("Rendered string mismatch",
-                "<a href=\"file1.jpg\">Title 1</a>", string);
+        assertEquals("<a href=\"file1.jpg\">Title 1</a>", string, "Rendered string mismatch");
     }
 
     /** */
@@ -96,8 +95,7 @@ public final class MultimediaPhraseRendererTest {
         final MultimediaPhraseRenderer apRenderer =
                 (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
-        assertEquals("Rendered string mismatch",
-                "<a href=\"file2.html\">Title 2</a>", string);
+        assertEquals("<a href=\"file2.html\">Title 2</a>", string, "Rendered string mismatch");
     }
 
     /** */
@@ -108,7 +106,6 @@ public final class MultimediaPhraseRendererTest {
         final MultimediaPhraseRenderer apRenderer =
                 (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
-        assertEquals("Rendered string mismatch",
-                "<a href=\"file3.html\">Title 3</a>", string);
+        assertEquals("<a href=\"file3.html\">Title 3</a>", string, "Rendered string mismatch");
     }
 }

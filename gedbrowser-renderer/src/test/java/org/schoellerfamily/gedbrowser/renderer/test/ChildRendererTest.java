@@ -1,28 +1,23 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.renderer.ChildRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
-import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
-import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
-import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
-import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
-import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class ChildRendererTest {
     /** */
@@ -35,10 +30,10 @@ public final class ChildRendererTest {
     /**
      * Set up the renderer to test.
      */
-    @Before
+    @BeforeEach
     public void init() {
         renderer = new ChildRenderer(new Child(), new GedRendererFactory(),
-                RenderingContext.anonymous(appInfo));
+            RenderingContext.anonymous(appInfo));
     }
 
     /**
@@ -47,9 +42,9 @@ public final class ChildRendererTest {
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        assertTrue("Wrong renderer type",
-                renderer.getAttributeListOpenRenderer()
-                instanceof SimpleAttributeListOpenRenderer);
+        assertTrue(renderer.getAttributeListOpenRenderer()
+                instanceof org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer,
+                "Wrong renderer type");
     }
 
     /**
@@ -58,9 +53,8 @@ public final class ChildRendererTest {
      */
     @Test
     public void testListItemRenderer() {
-        assertTrue("Wrong renderer type",
-                renderer.getListItemRenderer()
-                instanceof NullListItemRenderer);
+        assertTrue(renderer.getListItemRenderer() instanceof org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer,
+                "Wrong renderer type");
     }
 
     /**
@@ -69,9 +63,8 @@ public final class ChildRendererTest {
      */
     @Test
     public void testNameHtmlRenderer() {
-        assertTrue("Wrong renderer type",
-                renderer.getNameHtmlRenderer()
-                instanceof NullNameHtmlRenderer);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer,
+                "Wrong renderer type");
     }
 
     /**
@@ -80,9 +73,8 @@ public final class ChildRendererTest {
      */
     @Test
     public void testNameIndeRenderer() {
-        assertTrue("Wrong renderer type",
-                renderer.getNameIndexRenderer()
-                instanceof NullNameIndexRenderer);
+        assertTrue(renderer.getNameIndexRenderer() instanceof org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer,
+                "Wrong renderer type");
     }
 
     /**
@@ -91,8 +83,7 @@ public final class ChildRendererTest {
      */
     @Test
     public void testPhraseRenderer() {
-        assertTrue("Wrong renderer type",
-                renderer.getPhraseRenderer()
-                instanceof NullPhraseRenderer);
+        assertTrue(renderer.getPhraseRenderer() instanceof org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer,
+                "Wrong renderer type");
     }
 }

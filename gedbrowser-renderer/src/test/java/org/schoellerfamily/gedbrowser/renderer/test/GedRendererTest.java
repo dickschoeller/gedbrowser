@@ -1,13 +1,15 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.text.DateFormat;
 import java.util.Locale;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -25,12 +27,12 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class GedRendererTest {
     /** */
@@ -47,7 +49,7 @@ public final class GedRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         homeUrl = "http://www.schoellerfamily.org/";
         anonymousContext = RenderingContext.anonymous(appInfo);
@@ -60,9 +62,7 @@ public final class GedRendererTest {
     @Test
     public void testAttributeListOpenRenderer() {
         final GedRenderer<GedObject> renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getAttributeListOpenRenderer()
-                instanceof SimpleAttributeListOpenRenderer);
+        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
     }
 
     /**
@@ -72,9 +72,7 @@ public final class GedRendererTest {
     @Test
     public void testListItemRenderer() {
         final GedRenderer<GedObject> renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getListItemRenderer()
-                instanceof NullListItemRenderer);
+        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer, "Wrong renderer type");
     }
 
     /**
@@ -84,9 +82,7 @@ public final class GedRendererTest {
     @Test
     public void testNameHtmlRenderer() {
         final GedRenderer<GedObject> renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getNameHtmlRenderer()
-                instanceof NullNameHtmlRenderer);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
     }
 
     /**
@@ -96,9 +92,7 @@ public final class GedRendererTest {
     @Test
     public void testNameIndexRenderer() {
         final GedRenderer<GedObject> renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getNameIndexRenderer()
-                instanceof NullNameIndexRenderer);
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
     }
 
     /**
@@ -108,9 +102,7 @@ public final class GedRendererTest {
     @Test
     public void testPhraseRenderer() {
         final GedRenderer<GedObject> renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getPhraseRenderer()
-                instanceof NullPhraseRenderer);
+        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer, "Wrong renderer type");
     }
 
     /**
@@ -129,8 +121,7 @@ public final class GedRendererTest {
         final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(root,
                 new GedRendererFactory(), anonymousContext) {
         };
-        assertEquals("Rendered string does not match expectation",
-                "\n"
+        assertEquals("\n"
                 + "    <hr class=\"final\"/>\n"
                 + "    <p>\n"
                 + "    </p>\n"
@@ -160,7 +151,7 @@ public final class GedRendererTest {
                 + "    <p>\n"
                 + "  </body>\n"
                 + "</html>\n",
-                renderer.getTrailerHtml(""));
+                renderer.getTrailerHtml(""), "Rendered string does not match expectation");
     }
 
     /** */
@@ -193,8 +184,7 @@ public final class GedRendererTest {
                 + "    <title>" + title + "</title>\n"
                 + "  </head>\n"
                 + "  <body>\n";
-        assertEquals("Rendered string does not match expectation",
-                testString, renderer.getHeaderHtml(title, keywords));
+        assertEquals(testString, renderer.getHeaderHtml(title, keywords), "Rendered string does not match expectation");
     }
 
     /** */
@@ -204,8 +194,7 @@ public final class GedRendererTest {
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 anonymousContext);
-        assertEquals("Rendered string does not match expectation",
-                "\n"
+        assertEquals("\n"
                 + "    <hr class=\"final\"/>\n"
                 + "    <p>\n"
                 + "    </p>\n"
@@ -235,7 +224,7 @@ public final class GedRendererTest {
                 + "    <p>\n"
                 + "  </body>\n"
                 + "</html>\n",
-                renderer.getTrailerHtml());
+                renderer.getTrailerHtml(), "Rendered string does not match expectation");
     }
 
     /** */
@@ -245,7 +234,7 @@ public final class GedRendererTest {
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 anonymousContext);
-        assertFalse("Expected admin to be false", renderer.hasRole("ADMIN"));
+        assertFalse(renderer.hasRole("ADMIN"), "Expected admin to be false");
     }
 
     /** */
@@ -264,7 +253,7 @@ public final class GedRendererTest {
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 context);
-        assertTrue("Expected user to be true", renderer.hasRole("USER"));
+        assertTrue(renderer.hasRole("USER"), "Expected user to be true");
     }
 
     /** */
@@ -274,7 +263,7 @@ public final class GedRendererTest {
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 anonymousContext);
-        assertFalse("Expected user to be false", renderer.hasRole("USER"));
+        assertFalse(renderer.hasRole("USER"), "Expected user to be false");
     }
 
     /** */
@@ -284,8 +273,7 @@ public final class GedRendererTest {
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 RenderingContext.user(appInfo));
-        assertEquals("Expected user to be Ursula",
-                "Ursula", renderer.getUserFirstname());
+        assertEquals("Ursula", renderer.getUserFirstname(), "Expected user to be Ursula");
     }
 
     /** */
@@ -295,8 +283,7 @@ public final class GedRendererTest {
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 anonymousContext);
-        assertEquals("Rendered string does not match expectation",
-                "\n"
+        assertEquals("\n"
                 + "    <hr class=\"final\"/>\n"
                 + "    <p>\n"
                 + "    <a href=\"?null+Header\">Header</a><br>\n"
@@ -327,7 +314,7 @@ public final class GedRendererTest {
                 + "    <p>\n"
                 + "  </body>\n"
                 + "</html>\n",
-                renderer.getTrailerHtml("Header"));
+                renderer.getTrailerHtml("Header"), "Rendered string does not match expectation");
     }
 
     /** */
@@ -337,7 +324,7 @@ public final class GedRendererTest {
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 anonymousContext);
-        assertEquals("Rendered string does not match expectation",
+        assertEquals(
                 "\n"
                 + "    <hr class=\"final\"/>\n"
                 + "    <p>\n"
@@ -370,7 +357,7 @@ public final class GedRendererTest {
                 + "    <p>\n"
                 + "  </body>\n"
                 + "</html>\n",
-                renderer.getTrailerHtml("Surnames"));
+                renderer.getTrailerHtml("Surnames"), "Rendered string does not match expectation");
     }
 
     /** */
@@ -380,7 +367,7 @@ public final class GedRendererTest {
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root,
                 new GedRendererFactory(),
                 anonymousContext);
-        assertEquals("Rendered string does not match expectation",
+        assertEquals(
                 "\n"
                 + "    <hr class=\"final\"/>\n"
                 + "    <p>\n"
@@ -413,7 +400,7 @@ public final class GedRendererTest {
                 + "    <p>\n"
                 + "  </body>\n"
                 + "</html>\n",
-                renderer.getTrailerHtml("Index"));
+                renderer.getTrailerHtml("Index"), "Rendered string does not match expectation");
     }
 
     /**
@@ -422,8 +409,7 @@ public final class GedRendererTest {
     @Test
     public void testGetHomeUrl() {
         final GedRenderer<GedObject> renderer = createRenderer();
-        assertEquals("Home URL does not match expectation",
-                homeUrl, renderer.getHomeUrl());
+        assertEquals(homeUrl, renderer.getHomeUrl(), "Home URL does not match expectation");
     }
 
     /**
@@ -432,8 +418,7 @@ public final class GedRendererTest {
     @Test
     public void testGetLivingHref() {
         final GedRenderer<GedObject> renderer = createRenderer();
-        assertEquals("Living href does not match expectation",
-                "living?db=null", renderer.getLivingHref());
+        assertEquals("living?db=null", renderer.getLivingHref(), "Living href does not match expectation");
     }
 
     /**
@@ -444,8 +429,7 @@ public final class GedRendererTest {
         final GedRenderer<GedObject> renderer = createRenderer();
         final CalendarProvider cp = renderer.getRenderingContext();
         final String nowString = cp.nowDate().toString("YYYYMMdd");
-        assertEquals("Should match fixed past date for testing",
-                "20151214", nowString);
+        assertEquals("20151214", nowString, "Should match fixed past date for testing");
     }
 
     /**

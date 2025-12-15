@@ -1,22 +1,22 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.renderer.GedResourceNotFoundRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public class GedResourceNotFoundRendererTest {
     /** */
@@ -32,7 +32,7 @@ public class GedResourceNotFoundRendererTest {
     private GedResourceNotFoundRenderer renderer;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         final RenderingContext context = RenderingContext.user(appInfo);
         throwable = new Exception("This is a test");
@@ -42,13 +42,12 @@ public class GedResourceNotFoundRendererTest {
     /** */
     @Test
     public void testGetMessage() {
-        assertEquals("Mismatched message",
-                "This is a test", renderer.getMessage());
+        assertEquals("This is a test", renderer.getMessage(), "Mismatched message");
     }
 
     /** */
     @Test
     public void testGetException() {
-        assertSame("Mismatched exception", throwable, renderer.getException());
+        assertSame(throwable, renderer.getException(), "Mismatched exception");
     }
 }

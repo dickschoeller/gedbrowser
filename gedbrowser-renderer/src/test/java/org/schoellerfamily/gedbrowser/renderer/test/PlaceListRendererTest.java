@@ -1,11 +1,11 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
@@ -20,12 +20,12 @@ import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfiguration.class)
 public final class PlaceListRendererTest {
     /** */
@@ -65,7 +65,7 @@ public final class PlaceListRendererTest {
         final PlaceListRenderer plr = new PlaceListRenderer(null, null,
                 RenderingContext.user(appInfo));
         final List<PlaceInfo> list = plr.render();
-        assertTrue("Should cleanly provide an empty list", list.isEmpty());
+        assertTrue(list.isEmpty(), "Should cleanly provide an empty list");
     }
 
     /** */
@@ -74,7 +74,7 @@ public final class PlaceListRendererTest {
         final PlaceListRenderer plr = new PlaceListRenderer(null, null,
                 createAdminContext());
         final List<PlaceInfo> list = plr.render();
-        assertTrue("Should cleanly provide an empty list", list.isEmpty());
+        assertTrue(list.isEmpty(), "Should cleanly provide an empty list");
     }
 
     /** */
@@ -84,7 +84,7 @@ public final class PlaceListRendererTest {
         final PlaceListRenderer plr = new PlaceListRenderer(person, null,
                 RenderingContext.user(appInfo));
         final List<PlaceInfo> list = plr.render();
-        assertTrue("Should cleanly provide an empty list", list.isEmpty());
+        assertTrue(list.isEmpty(), "Should cleanly provide an empty list");
     }
 
     /** */
@@ -94,7 +94,7 @@ public final class PlaceListRendererTest {
         final PlaceListRenderer plr = new PlaceListRenderer(person, null,
                 createAdminContext());
         final List<PlaceInfo> list = plr.render();
-        assertTrue("Should cleanly provide an empty list", list.isEmpty());
+        assertTrue(list.isEmpty(), "Should cleanly provide an empty list");
     }
 
     /** */
@@ -102,7 +102,7 @@ public final class PlaceListRendererTest {
     public void testNullPerson() {
         final PlaceListRenderer plr = createAdminRenderer(null);
         final List<PlaceInfo> list = plr.render();
-        assertTrue("Should cleanly provide an empty list", list.isEmpty());
+        assertTrue(list.isEmpty(), "Should cleanly provide an empty list");
     }
 
     /** */
@@ -111,7 +111,7 @@ public final class PlaceListRendererTest {
         final Person person = createJRandom();
         final PlaceListRenderer plr = createAdminRenderer(person);
         final List<PlaceInfo> list = plr.render();
-        assertTrue("Should cleanly provide an empty list", list.isEmpty());
+        assertTrue(list.isEmpty(), "Should cleanly provide an empty list");
     }
 
     /** */
@@ -121,7 +121,7 @@ public final class PlaceListRendererTest {
         builder.createPersonEvent(person, "Birth", "20 JAN 2017");
         final PlaceListRenderer plr = createAdminRenderer(person);
         final List<PlaceInfo> list = plr.render();
-        assertTrue("Should cleanly provide an empty list", list.isEmpty());
+        assertTrue(list.isEmpty(), "Should cleanly provide an empty list");
     }
 
     /** */
@@ -131,7 +131,7 @@ public final class PlaceListRendererTest {
         createBirth(person, "Needham, Massachusetts, USA");
         final PlaceListRenderer plr = createAdminRenderer(person);
         final List<PlaceInfo> list = plr.render();
-        assertEquals("Should contain 1 item", 1, list.size());
+        assertEquals(1, list.size(), "Should contain 1 item");
     }
 
     /** */
@@ -141,8 +141,7 @@ public final class PlaceListRendererTest {
         createBirth(person, "Needham, Massachusetts, USA");
         final PlaceListRenderer plr = createAdminRenderer(person);
         final List<PlaceInfo> list = plr.render();
-        assertEquals("Should contain Needham",
-                "Needham, Massachusetts, USA", list.get(0).getPlaceName());
+        assertEquals("Needham, Massachusetts, USA", list.get(0).getPlaceName(), "Should contain Needham");
     }
 
     /** */
@@ -154,7 +153,7 @@ public final class PlaceListRendererTest {
         final List<PlaceInfo> list = plr.render();
         final Double expected = Double.valueOf(42.2809285);
         final Double actual = list.get(0).getLocation().getLatitude();
-        assertEquals("Should contain Needham's latitude", expected, actual);
+        assertEquals(expected, actual, "Should contain Needham's latitude");
     }
 
     /** */
@@ -166,7 +165,7 @@ public final class PlaceListRendererTest {
         final List<PlaceInfo> list = plr.render();
         final Double expected = Double.valueOf(-71.2377548);
         final Double actual = list.get(0).getLocation().getLongitude();
-        assertEquals("Should contain Needham's longitude", expected, actual);
+        assertEquals(expected, actual, "Should contain Needham's longitude");
     }
 
     /** */
@@ -176,7 +175,7 @@ public final class PlaceListRendererTest {
         createBirth(person, "PLUGH");
         final PlaceListRenderer plr = createAdminRenderer(person);
         final List<PlaceInfo> list = plr.render();
-        assertTrue("Should be empty", list.isEmpty());
+        assertTrue(list.isEmpty(), "Should be empty");
     }
 
     /** */
@@ -188,7 +187,7 @@ public final class PlaceListRendererTest {
 
         final PlaceListRenderer plr = createAdminRenderer(person);
         final List<PlaceInfo> list = plr.render();
-        assertEquals("Should have one result", 1, list.size());
+        assertEquals(1, list.size(), "Should have one result");
     }
 
     /** */
@@ -204,7 +203,7 @@ public final class PlaceListRendererTest {
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
                 createAdminContext());
         final List<PlaceInfo> list = plr.render();
-        assertEquals("Should have one result", 1, list.size());
+        assertEquals(1, list.size(), "Should have one result");
     }
 
     /** */
@@ -220,7 +219,7 @@ public final class PlaceListRendererTest {
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
                 RenderingContext.user(appInfo));
         final List<PlaceInfo> list = plr.render();
-        assertEquals("Should have one result", 0, list.size());
+        assertEquals(0, list.size(), "Should have one result");
     }
 
     /** */
@@ -236,7 +235,7 @@ public final class PlaceListRendererTest {
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
                 RenderingContext.user(appInfo));
         final List<PlaceInfo> list = plr.render();
-        assertEquals("Should have one result", 0, list.size());
+        assertEquals(0, list.size(), "Should have one result");
     }
 
     /** */
@@ -248,7 +247,7 @@ public final class PlaceListRendererTest {
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
                 RenderingContext.anonymous(appInfo));
         final List<PlaceInfo> list = plr.render();
-        assertEquals("Should have one result", 0, list.size());
+        assertEquals(0, list.size(), "Should have one result");
     }
 
     /** */
@@ -261,7 +260,7 @@ public final class PlaceListRendererTest {
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
                 RenderingContext.anonymous(appInfo));
         final List<PlaceInfo> list = plr.render();
-        assertEquals("Should have one result", 1, list.size());
+        assertEquals(1, list.size(), "Should have one result");
     }
 
     /** */
@@ -274,7 +273,7 @@ public final class PlaceListRendererTest {
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
                 RenderingContext.anonymous(appInfo));
         final List<PlaceInfo> list = plr.render();
-        assertEquals("Should have one result", 2, list.size());
+        assertEquals(2, list.size(), "Should have one result");
     }
 
     /**
@@ -334,6 +333,6 @@ public final class PlaceListRendererTest {
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
                 RenderingContext.anonymous(appInfo));
         final List<PlaceInfo> list = plr.render();
-        assertEquals("Should have one result", 1, list.size());
+        assertEquals(1, list.size(), "Should have one result");
     }
 }

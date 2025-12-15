@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
@@ -13,12 +13,12 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleNameRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class SimpleNameNameIndexRendererTest {
     /** */
@@ -33,7 +33,7 @@ public final class SimpleNameNameIndexRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
@@ -47,9 +47,8 @@ public final class SimpleNameNameIndexRendererTest {
         final SimpleNameNameIndexRenderer nnir =
                 (SimpleNameNameIndexRenderer) nameRenderer
                     .getNameIndexRenderer();
-        assertEquals(UNEXPECTED_STRING,
-                " <span class=\"surname\">Schoeller</span>, Richard",
-                nnir.getIndexName());
+        assertEquals(" <span class=\"surname\">Schoeller</span>, Richard",
+                nnir.getIndexName(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -61,10 +60,8 @@ public final class SimpleNameNameIndexRendererTest {
         final SimpleNameNameIndexRenderer nnir =
                 (SimpleNameNameIndexRenderer) nameRenderer
                     .getNameIndexRenderer();
-        assertEquals(UNEXPECTED_STRING,
-                " <span class=\"surname\">Schoeller</span>,"
-                + " Karl Frederick, Jr.",
-                nnir.getIndexName());
+        assertEquals(" <span class=\"surname\">Schoeller</span>,"
+                + " Karl Frederick, Jr.", nnir.getIndexName(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -76,9 +73,8 @@ public final class SimpleNameNameIndexRendererTest {
         final SimpleNameNameIndexRenderer nnir =
                 (SimpleNameNameIndexRenderer) nameRenderer
                     .getNameIndexRenderer();
-        assertEquals(UNEXPECTED_STRING,
-                " <span class=\"surname\">Schoeller</span>",
-                nnir.getIndexName());
+        assertEquals(" <span class=\"surname\">Schoeller</span>",
+                nnir.getIndexName(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -90,7 +86,7 @@ public final class SimpleNameNameIndexRendererTest {
         final SimpleNameNameIndexRenderer nnir =
                 (SimpleNameNameIndexRenderer) nameRenderer
                     .getNameIndexRenderer();
-        assertEquals(UNEXPECTED_STRING, " ", nnir.getIndexName());
+        assertEquals(" ", nnir.getIndexName(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -102,7 +98,7 @@ public final class SimpleNameNameIndexRendererTest {
         final SimpleNameNameIndexRenderer nnir =
                 (SimpleNameNameIndexRenderer) nameRenderer
                     .getNameIndexRenderer();
-        assertEquals(UNEXPECTED_STRING, " ", nnir.getIndexName());
+        assertEquals(" ", nnir.getIndexName(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -114,9 +110,8 @@ public final class SimpleNameNameIndexRendererTest {
         final SimpleNameNameIndexRenderer nnir =
                 (SimpleNameNameIndexRenderer) nameRenderer
                     .getNameIndexRenderer();
-        assertEquals(UNEXPECTED_STRING,
-                " <span class=\"surname\">?</span>",
-                nnir.getIndexName());
+        assertEquals(" <span class=\"surname\">?</span>",
+                nnir.getIndexName(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -128,7 +123,7 @@ public final class SimpleNameNameIndexRendererTest {
         final SimpleNameNameIndexRenderer nnir =
                 (SimpleNameNameIndexRenderer) nameRenderer
                     .getNameIndexRenderer();
-        assertEquals(UNEXPECTED_STRING, " Foo, Bar", nnir.getIndexName());
+        assertEquals(" Foo, Bar", nnir.getIndexName(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -140,6 +135,6 @@ public final class SimpleNameNameIndexRendererTest {
         final SimpleNameNameIndexRenderer nnir =
                 (SimpleNameNameIndexRenderer) nameRenderer
                     .getNameIndexRenderer();
-        assertEquals(UNEXPECTED_STRING, " Foo Bar", nnir.getIndexName());
+        assertEquals(" Foo Bar", nnir.getIndexName(), UNEXPECTED_STRING);
     }
 }

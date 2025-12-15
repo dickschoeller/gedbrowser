@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.renderer.DateListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.DatePhraseRenderer;
@@ -17,12 +17,12 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class DateRendererTest {
     /** */
@@ -33,7 +33,7 @@ public final class DateRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
@@ -46,9 +46,7 @@ public final class DateRendererTest {
     public void testAttributeListOpenRenderer() {
         final DateRenderer renderer = new DateRenderer(new Date(null),
                 new GedRendererFactory(), anonymousContext);
-        assertTrue("Wrong renderer type",
-                renderer.getAttributeListOpenRenderer()
-                instanceof SimpleAttributeListOpenRenderer);
+        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
     }
 
     /**
@@ -59,9 +57,7 @@ public final class DateRendererTest {
     public void testListItemRenderer() {
         final DateRenderer renderer = new DateRenderer(new Date(null),
                 new GedRendererFactory(), anonymousContext);
-        assertTrue("Wrong renderer type",
-                renderer.getListItemRenderer()
-                instanceof DateListItemRenderer);
+        assertTrue(renderer.getListItemRenderer() instanceof DateListItemRenderer, "Wrong renderer type");
     }
 
     /**
@@ -72,9 +68,7 @@ public final class DateRendererTest {
     public void testNameHtmlRenderer() {
         final DateRenderer renderer = new DateRenderer(new Date(null),
                 new GedRendererFactory(), anonymousContext);
-        assertTrue("Wrong renderer type",
-                renderer.getNameHtmlRenderer()
-                instanceof NullNameHtmlRenderer);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
     }
 
     /**
@@ -85,9 +79,7 @@ public final class DateRendererTest {
     public void testNameIndexRenderer() {
         final DateRenderer renderer = new DateRenderer(new Date(null),
                 new GedRendererFactory(), anonymousContext);
-        assertTrue("Wrong renderer type",
-                renderer.getNameIndexRenderer()
-                instanceof NullNameIndexRenderer);
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
     }
 
     /**
@@ -98,8 +90,6 @@ public final class DateRendererTest {
     public void testPhraseRenderer() {
         final DateRenderer renderer = new DateRenderer(new Date(null),
                 new GedRendererFactory(), anonymousContext);
-        assertTrue("Wrong renderer type",
-                renderer.getPhraseRenderer()
-                instanceof DatePhraseRenderer);
+        assertTrue(renderer.getPhraseRenderer() instanceof DatePhraseRenderer, "Wrong renderer type");
     }
 }

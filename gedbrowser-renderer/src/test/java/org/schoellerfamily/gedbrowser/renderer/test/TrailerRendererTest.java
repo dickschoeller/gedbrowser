@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
@@ -17,12 +17,12 @@ import org.schoellerfamily.gedbrowser.renderer.TrailerRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class TrailerRendererTest {
     /** */
@@ -33,7 +33,7 @@ public final class TrailerRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
@@ -45,9 +45,7 @@ public final class TrailerRendererTest {
     @Test
     public void testAttributeListOpenRenderer() {
         final TrailerRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getAttributeListOpenRenderer()
-                instanceof SimpleAttributeListOpenRenderer);
+        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
     }
 
     /**
@@ -57,8 +55,7 @@ public final class TrailerRendererTest {
     @Test
     public void testListItemRenderer() {
         final TrailerRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getListItemRenderer() instanceof NullListItemRenderer);
+        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer, "Wrong renderer type");
     }
 
     /**
@@ -68,8 +65,7 @@ public final class TrailerRendererTest {
     @Test
     public void testNameHtmlRenderer() {
         final TrailerRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
     }
 
     /**
@@ -79,8 +75,8 @@ public final class TrailerRendererTest {
     @Test
     public void testNameIndexRenderer() {
         final TrailerRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type", renderer
-                .getNameIndexRenderer() instanceof NullNameIndexRenderer);
+        assertTrue(renderer
+                .getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
     }
 
     /**
@@ -90,8 +86,7 @@ public final class TrailerRendererTest {
     @Test
     public void testPhraseRenderer() {
         final TrailerRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getPhraseRenderer() instanceof NullPhraseRenderer);
+        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer, "Wrong renderer type");
     }
 
     /**

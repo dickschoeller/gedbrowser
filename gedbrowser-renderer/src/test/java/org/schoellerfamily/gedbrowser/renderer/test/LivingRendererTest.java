@@ -1,13 +1,15 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserImpl;
@@ -19,12 +21,12 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class LivingRendererTest {
     /** */
@@ -49,7 +51,7 @@ public final class LivingRendererTest {
     /**
      * @throws IOException if there is a problem reading the test data
      */
-    @Before
+    @BeforeEach
     public void init() throws IOException {
         root = reader.readBigTestSource();
         final UserImpl admin = new UserImpl();
@@ -69,16 +71,14 @@ public final class LivingRendererTest {
     @Test
     public void testRenderUserIndexHref() {
         final LivingRenderer renderer = new LivingRenderer(root, userContext);
-        assertEquals("The index link should refer to the letter A",
-                "surnames?db=null&letter=A", renderer.getIndexHref());
+        assertEquals("surnames?db=null&letter=A", renderer.getIndexHref(), "The index link should refer to the letter A");
     }
 
     /** */
     @Test
     public void testRenderAdminIndexHref() {
         final LivingRenderer renderer = new LivingRenderer(root, adminContext);
-        assertEquals("The index link should refer to the letter A",
-                "surnames?db=null&letter=A", renderer.getIndexHref());
+        assertEquals("surnames?db=null&letter=A", renderer.getIndexHref(), "The index link should refer to the letter A");
     }
 
     /**
@@ -87,8 +87,7 @@ public final class LivingRendererTest {
     @Test
     public void testRenderUserBuckets() {
         final LivingRenderer renderer = new LivingRenderer(root, userContext);
-        assertTrue("In user context, this is always empty",
-                renderer.getBuckets().isEmpty());
+        assertTrue(renderer.getBuckets().isEmpty(), "In user context, this is always empty");
     }
 
     /**
@@ -97,8 +96,7 @@ public final class LivingRendererTest {
     @Test
     public void testRenderAdminBuckets() {
         final LivingRenderer renderer = new LivingRenderer(root, adminContext);
-        assertFalse("In admin context, there should be some buckets",
-                renderer.getBuckets().isEmpty());
+        assertFalse(renderer.getBuckets().isEmpty(), "In admin context, there should be some buckets");
     }
 
     /** */
@@ -108,8 +106,7 @@ public final class LivingRendererTest {
         final int twentyToTwentyNine = 2;
         final List<PersonRenderer> persons = renderer.getBuckets()
                 .get(twentyToTwentyNine).getPersons();
-        assertFalse("In admin context, there should be someone in the bucket",
-                persons.isEmpty());
+        assertFalse(persons.isEmpty(), "In admin context, there should be someone in the bucket");
     }
 
     /**
@@ -125,8 +122,7 @@ public final class LivingRendererTest {
         int expUpper = increment - 1;
         int i = 0;
         for (final Bucket bucket : buckets) {
-            assertTrue("Bucket " + i++ + " is screwed up",
-                    checkBucketRanges(limit, expLower, expUpper, bucket));
+            assertTrue(checkBucketRanges(limit, expLower, expUpper, bucket), "Bucket " + i++ + " is screwed up");
             expLower += increment;
             expUpper += increment;
         }
@@ -161,8 +157,7 @@ public final class LivingRendererTest {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1,
                 userContext);
-        assertEquals("head href mismatch",
-                "head?db=gl120368", renderer.getHeaderHref());
+        assertEquals("head?db=gl120368", renderer.getHeaderHref(), "head href mismatch");
     }
 
     /**
@@ -175,8 +170,7 @@ public final class LivingRendererTest {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1,
                 userContext);
-        assertEquals("save href mismatch",
-                "save?db=gl120368", renderer.getSaveHref());
+        assertEquals("save?db=gl120368", renderer.getSaveHref(), "save href mismatch");
     }
 
     /**
@@ -189,8 +183,7 @@ public final class LivingRendererTest {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1,
                 userContext);
-        assertEquals("save href mismatch",
-                "gl120368.ged", renderer.getSaveFilename());
+        assertEquals("gl120368.ged", renderer.getSaveFilename(), "save href mismatch");
     }
 
     /**
@@ -203,8 +196,7 @@ public final class LivingRendererTest {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1,
                 userContext);
-        assertEquals("index href mismatch",
-                "surnames?db=gl120368&letter=A", renderer.getIndexHref());
+        assertEquals("surnames?db=gl120368&letter=A", renderer.getIndexHref(), "index href mismatch");
     }
 
     /**
@@ -217,8 +209,7 @@ public final class LivingRendererTest {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1,
                 userContext);
-        assertEquals("living href mismatch",
-                "living?db=gl120368", renderer.getLivingHref());
+        assertEquals("living?db=gl120368", renderer.getLivingHref(), "living href mismatch");
     }
 
     /**
@@ -231,8 +222,7 @@ public final class LivingRendererTest {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1,
                 userContext);
-        assertEquals("submitters href mismatch",
-                "sources?db=gl120368", renderer.getSourcesHref());
+        assertEquals("sources?db=gl120368", renderer.getSourcesHref(), "submitters href mismatch");
     }
 
     /**
@@ -245,8 +235,7 @@ public final class LivingRendererTest {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1,
                 userContext);
-        assertEquals("sources href mismatch",
-                "submitters?db=gl120368", renderer.getSubmittersHref());
+        assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(), "sources href mismatch");
     }
 
     /**
@@ -258,7 +247,6 @@ public final class LivingRendererTest {
     public void testPlacesMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1, userContext);
-        assertEquals("places href mismatch", "places?db=gl120368",
-                renderer.getPlacesHref());
+        assertEquals("places?db=gl120368", renderer.getPlacesHref(), "places href mismatch");
     }
 }

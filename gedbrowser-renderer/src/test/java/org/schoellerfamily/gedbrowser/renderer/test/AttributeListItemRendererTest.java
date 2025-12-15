@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
@@ -15,12 +15,12 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class AttributeListItemRendererTest {
     /** */
@@ -40,7 +40,7 @@ public final class AttributeListItemRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
@@ -65,9 +65,8 @@ public final class AttributeListItemRendererTest {
                 (AttributeListItemRenderer) aRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         apr.renderAsListItem(builder, false, 0);
-        assertEquals("Rendered html doesn't match expectation",
-                "<li><span class=\"label\">String:</span> </li>\n",
-                builder.toString());
+        assertEquals("<li><span class=\"label\">String:</span> </li>\n",
+                builder.toString(), "Rendered html doesn't match expectation");
     }
 
     /** */
@@ -79,9 +78,8 @@ public final class AttributeListItemRendererTest {
                 (AttributeListItemRenderer) aRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         apr.renderAsListItem(builder, false, 2);
-        assertEquals("Rendered html doesn't match expectation",
-                "<li><span class=\"label\">String:</span> Strung</li>\n",
-                builder.toString());
+        assertEquals("<li><span class=\"label\">String:</span> Strung</li>\n",
+                builder.toString(), "Rendered html doesn't match expectation");
     }
 
     /** */
@@ -93,8 +91,8 @@ public final class AttributeListItemRendererTest {
                 (AttributeListItemRenderer) aRenderer .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         apr.renderAsListItem(builder, true, 0);
-        assertEquals("Rendered html doesn't match expectation",
-                "<li><span class=\"label\">"
-                + "Sproing:</span> Spring, Stanky</li>\n", builder.toString());
+        assertEquals("<li><span class=\"label\">"
+                + "Sproing:</span> Spring, Stanky</li>\n", builder.toString(),
+                "Rendered html doesn't match expectation");
     }
 }

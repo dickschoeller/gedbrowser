@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.renderer.AttributeListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.AttributePhraseRenderer;
@@ -17,12 +17,12 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class AttributeRendererTest {
     /** */
@@ -33,7 +33,7 @@ public final class AttributeRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
@@ -47,9 +47,7 @@ public final class AttributeRendererTest {
         final AttributeRenderer renderer = new AttributeRenderer(
                 new Attribute(null), new GedRendererFactory(),
                 anonymousContext);
-        assertTrue("Wrong renderer type",
-                renderer.getAttributeListOpenRenderer()
-                instanceof SimpleAttributeListOpenRenderer);
+        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
     }
 
     /**
@@ -61,9 +59,7 @@ public final class AttributeRendererTest {
         final AttributeRenderer renderer = new AttributeRenderer(
                 new Attribute(null), new GedRendererFactory(),
                 anonymousContext);
-        assertTrue("Wrong renderer type",
-                renderer.getListItemRenderer()
-                instanceof AttributeListItemRenderer);
+        assertTrue(renderer.getListItemRenderer() instanceof AttributeListItemRenderer, "Wrong renderer type");
     }
 
     /**
@@ -75,9 +71,7 @@ public final class AttributeRendererTest {
         final AttributeRenderer renderer = new AttributeRenderer(
                 new Attribute(null), new GedRendererFactory(),
                 anonymousContext);
-        assertTrue("Wrong renderer type",
-                renderer.getNameHtmlRenderer()
-                instanceof NullNameHtmlRenderer);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
     }
 
     /**
@@ -89,9 +83,7 @@ public final class AttributeRendererTest {
         final AttributeRenderer renderer = new AttributeRenderer(
                 new Attribute(null), new GedRendererFactory(),
                 anonymousContext);
-        assertTrue("Wrong renderer type",
-                renderer.getNameIndexRenderer()
-                instanceof NullNameIndexRenderer);
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
     }
 
     /**
@@ -103,9 +95,7 @@ public final class AttributeRendererTest {
         final AttributeRenderer renderer = new AttributeRenderer(
                 new Attribute(null), new GedRendererFactory(),
                 anonymousContext);
-        assertTrue("Wrong renderer type",
-                renderer.getPhraseRenderer()
-                instanceof AttributePhraseRenderer);
+        assertTrue(renderer.getPhraseRenderer() instanceof AttributePhraseRenderer, "Wrong renderer type");
     }
     // TODO test render as page and renderAsListItem
 }

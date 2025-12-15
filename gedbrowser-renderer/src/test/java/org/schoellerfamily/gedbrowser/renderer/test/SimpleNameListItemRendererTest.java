@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
@@ -13,12 +13,12 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleNameRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class SimpleNameListItemRendererTest {
     /** */
@@ -35,7 +35,7 @@ public final class SimpleNameListItemRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
@@ -51,8 +51,7 @@ public final class SimpleNameListItemRendererTest {
                     .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, false, 0);
-        assertEquals(UNEXPECTED_STRING, "Richard Schoeller",
-                builder.toString());
+        assertEquals("Richard Schoeller", builder.toString(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -66,8 +65,7 @@ public final class SimpleNameListItemRendererTest {
                     .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, false, 0);
-        assertEquals(UNEXPECTED_STRING, "Karl Frederick Schoeller Jr.",
-                builder.toString());
+        assertEquals("Karl Frederick Schoeller Jr.", builder.toString(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -81,7 +79,7 @@ public final class SimpleNameListItemRendererTest {
                     .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, false, 1);
-        assertEquals(EXPECT_EMPTY, "", builder.toString());
+        assertEquals("", builder.toString(), EXPECT_EMPTY);
     }
 
     /** */
@@ -95,8 +93,7 @@ public final class SimpleNameListItemRendererTest {
                     .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, true, 0);
-        assertEquals(UNEXPECTED_STRING, "\nKarl Frederick Schoeller Jr.",
-                builder.toString());
+        assertEquals("\nKarl Frederick Schoeller Jr.", builder.toString(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -110,7 +107,7 @@ public final class SimpleNameListItemRendererTest {
                     .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, false, 0);
-        assertEquals(UNEXPECTED_STRING, "Schoeller", builder.toString());
+        assertEquals("Schoeller", builder.toString(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -124,7 +121,7 @@ public final class SimpleNameListItemRendererTest {
                     .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, false, 0);
-        assertEquals(UNEXPECTED_STRING, "", builder.toString());
+        assertEquals("", builder.toString(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -138,7 +135,7 @@ public final class SimpleNameListItemRendererTest {
                     .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, false, 0);
-        assertEquals(UNEXPECTED_STRING, "", builder.toString());
+        assertEquals("", builder.toString(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -152,7 +149,7 @@ public final class SimpleNameListItemRendererTest {
                     .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, false, 0);
-        assertEquals(UNEXPECTED_STRING, "Foo Bar", builder.toString());
+        assertEquals("Foo Bar", builder.toString(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -164,9 +161,8 @@ public final class SimpleNameListItemRendererTest {
         final SimpleNameListItemRenderer nlir =
                 (SimpleNameListItemRenderer) nameRenderer
                     .getListItemRenderer();
-        assertEquals(UNEXPECTED_STRING,
-                "<span class=\"label\">Name:</span> Richard Schoeller",
-                nlir.getListItemContents());
+        assertEquals("<span class=\"label\">Name:</span> Richard Schoeller",
+                nlir.getListItemContents(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -178,10 +174,9 @@ public final class SimpleNameListItemRendererTest {
         final SimpleNameListItemRenderer nlir =
                 (SimpleNameListItemRenderer) nameRenderer
                     .getListItemRenderer();
-        assertEquals(UNEXPECTED_STRING,
-                "<span class=\"label\">Name:</span>"
-                + " Karl Frederick Schoeller Jr.",
-                nlir.getListItemContents());
+        assertEquals("<span class=\"label\">Name:</span>"
+                + " Karl Frederick Schoeller Jr.", nlir.getListItemContents(),
+                UNEXPECTED_STRING);
     }
 
     /** */
@@ -193,10 +188,9 @@ public final class SimpleNameListItemRendererTest {
         final SimpleNameListItemRenderer nlir =
                 (SimpleNameListItemRenderer) nameRenderer
                     .getListItemRenderer();
-        assertEquals(EXPECT_EMPTY,
-                "<span class=\"label\">Name:</span>"
-                + " Karl Frederick Schoeller Jr.",
-                nlir.getListItemContents());
+        assertEquals("<span class=\"label\">Name:</span>"
+                + " Karl Frederick Schoeller Jr.", nlir.getListItemContents(),
+                EXPECT_EMPTY);
     }
 
     /** */
@@ -208,10 +202,9 @@ public final class SimpleNameListItemRendererTest {
         final SimpleNameListItemRenderer nlir =
                 (SimpleNameListItemRenderer) nameRenderer
                     .getListItemRenderer();
-        assertEquals(UNEXPECTED_STRING,
-                "<span class=\"label\">Name:</span>"
-                + " Karl Frederick Schoeller Jr.",
-                nlir.getListItemContents());
+        assertEquals("<span class=\"label\">Name:</span>"
+                + " Karl Frederick Schoeller Jr.", nlir.getListItemContents(),
+                UNEXPECTED_STRING);
     }
 
     /** */
@@ -223,9 +216,8 @@ public final class SimpleNameListItemRendererTest {
         final SimpleNameListItemRenderer nlir =
                 (SimpleNameListItemRenderer) nameRenderer
                     .getListItemRenderer();
-        assertEquals(UNEXPECTED_STRING,
-                "<span class=\"label\">Name:</span> Schoeller",
-                nlir.getListItemContents());
+        assertEquals("<span class=\"label\">Name:</span> Schoeller",
+                nlir.getListItemContents(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -237,9 +229,8 @@ public final class SimpleNameListItemRendererTest {
         final SimpleNameListItemRenderer nlir =
                 (SimpleNameListItemRenderer) nameRenderer
                     .getListItemRenderer();
-        assertEquals(UNEXPECTED_STRING,
-                "<span class=\"label\">Name:</span> ",
-                nlir.getListItemContents());
+        assertEquals("<span class=\"label\">Name:</span> ",
+                nlir.getListItemContents(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -251,9 +242,8 @@ public final class SimpleNameListItemRendererTest {
         final SimpleNameListItemRenderer nlir =
                 (SimpleNameListItemRenderer) nameRenderer
                     .getListItemRenderer();
-        assertEquals(UNEXPECTED_STRING,
-                "<span class=\"label\">Name:</span> ",
-                nlir.getListItemContents());
+        assertEquals("<span class=\"label\">Name:</span> ",
+                nlir.getListItemContents(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -265,8 +255,7 @@ public final class SimpleNameListItemRendererTest {
         final SimpleNameListItemRenderer nlir =
                 (SimpleNameListItemRenderer) nameRenderer
                     .getListItemRenderer();
-        assertEquals(UNEXPECTED_STRING,
-                "<span class=\"label\">Name:</span> Foo Bar",
-                nlir.getListItemContents());
+        assertEquals("<span class=\"label\">Name:</span> Foo Bar",
+                nlir.getListItemContents(), UNEXPECTED_STRING);
     }
 }

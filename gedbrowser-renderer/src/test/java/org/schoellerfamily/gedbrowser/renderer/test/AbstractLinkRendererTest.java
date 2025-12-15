@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.AbstractLink;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.renderer.AbstractLinkRenderer;
@@ -18,12 +18,12 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class AbstractLinkRendererTest {
     /** */
@@ -34,7 +34,7 @@ public final class AbstractLinkRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
@@ -46,9 +46,9 @@ public final class AbstractLinkRendererTest {
     @Test
     public void testAttributeListOpenRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
-        assertTrue("renderer is not of the right type",
-                renderer.getAttributeListOpenRenderer()
-                instanceof SimpleAttributeListOpenRenderer);
+        assertTrue(renderer.getAttributeListOpenRenderer()
+                instanceof SimpleAttributeListOpenRenderer,
+                "renderer is not of the right type");
     }
 
     /**
@@ -58,9 +58,9 @@ public final class AbstractLinkRendererTest {
     @Test
     public void testListItemRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
-        assertTrue("renderer is not of the right type",
-                renderer.getListItemRenderer()
-                instanceof NullListItemRenderer);
+        assertTrue(renderer.getListItemRenderer()
+                instanceof NullListItemRenderer,
+                "renderer is not of the right type");
     }
 
     /**
@@ -70,9 +70,9 @@ public final class AbstractLinkRendererTest {
     @Test
     public void testNameHtmlRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
-        assertTrue("renderer is not of the right type",
-                renderer.getNameHtmlRenderer()
-                instanceof NullNameHtmlRenderer);
+        assertTrue(renderer.getNameHtmlRenderer()
+                instanceof NullNameHtmlRenderer,
+                "renderer is not of the right type");
     }
 
     /**
@@ -82,9 +82,9 @@ public final class AbstractLinkRendererTest {
     @Test
     public void testNameIndexRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
-        assertTrue("renderer is not of the right type",
-                renderer.getNameIndexRenderer()
-                instanceof NullNameIndexRenderer);
+        assertTrue(renderer.getNameIndexRenderer()
+                instanceof NullNameIndexRenderer,
+                "renderer is not of the right type");
     }
 
     /**
@@ -94,9 +94,9 @@ public final class AbstractLinkRendererTest {
     @Test
     public void testPhraseRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
-        assertTrue("renderer is not of the right type",
-                renderer.getPhraseRenderer()
-                instanceof NullPhraseRenderer);
+        assertTrue(renderer.getPhraseRenderer()
+                instanceof NullPhraseRenderer,
+                "renderer is not of the right type");
     }
 
     /**

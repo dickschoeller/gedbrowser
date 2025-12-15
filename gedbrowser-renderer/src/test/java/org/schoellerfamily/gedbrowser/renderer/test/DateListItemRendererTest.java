@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -16,13 +16,13 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
+@ExtendWith(SpringExtension.class)
 public final class DateListItemRendererTest {
     /** */
     @Autowired
@@ -41,7 +41,7 @@ public final class DateListItemRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
@@ -63,9 +63,9 @@ public final class DateListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         dlir.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
-        assertEquals("Rendered string doesn't match expectation",
-                "<li><span class=\"label\">Date:</span>"
-                + " 14 December 1958 12:00</li>\n", string);
+        assertEquals("<li><span class=\"label\">Date:</span>"
+                + " 14 December 1958 12:00</li>\n", string,
+                "Rendered string doesn't match expectation");
     }
 
     /** */
@@ -78,10 +78,9 @@ public final class DateListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         dlir.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
-        assertEquals("Rendered string doesn't match expectation",
-                "<li><span class=\"label\">Date:</span>"
-                + " 14 December 1958</li>\n",
-                string);
+        assertEquals("<li><span class=\"label\">Date:</span>"
+                + " 14 December 1958</li>\n", string,
+                "Rendered string doesn't match expectation");
     }
 
     /** */
@@ -94,7 +93,7 @@ public final class DateListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         dlir.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
-        assertEquals("Expected empty string", "", string);
+        assertEquals("", string, "Expected empty string");
     }
 
     /** */
@@ -108,6 +107,6 @@ public final class DateListItemRendererTest {
         final StringBuilder builder = new StringBuilder();
         dlir.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
-        assertEquals("Expected empty string", "", string);
+        assertEquals("", string, "Expected empty string");
     }
 }

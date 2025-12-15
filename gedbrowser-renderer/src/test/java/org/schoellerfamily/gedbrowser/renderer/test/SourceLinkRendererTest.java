@@ -1,11 +1,11 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -19,12 +19,12 @@ import org.schoellerfamily.gedbrowser.renderer.SourceLinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class SourceLinkRendererTest {
     /** */
@@ -35,7 +35,7 @@ public final class SourceLinkRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
@@ -47,9 +47,7 @@ public final class SourceLinkRendererTest {
     @Test
     public void testAttributeListOpenRenderer() {
         final SourceLinkRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getAttributeListOpenRenderer()
-                instanceof SimpleAttributeListOpenRenderer);
+        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
     }
 
     /**
@@ -59,9 +57,7 @@ public final class SourceLinkRendererTest {
     @Test
     public void testListItemRenderer() {
         final SourceLinkRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getListItemRenderer()
-                instanceof SourceLinkListItemRenderer);
+        assertTrue(renderer.getListItemRenderer() instanceof SourceLinkListItemRenderer, "Wrong renderer type");
     }
 
     /**
@@ -71,9 +67,7 @@ public final class SourceLinkRendererTest {
     @Test
     public void testNameHtmlRenderer() {
         final SourceLinkRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getNameHtmlRenderer()
-                instanceof SourceLinkNameHtmlRenderer);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof SourceLinkNameHtmlRenderer, "Wrong renderer type");
     }
 
     /**
@@ -83,9 +77,7 @@ public final class SourceLinkRendererTest {
     @Test
     public void testNameIndexRenderer() {
         final SourceLinkRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getNameIndexRenderer()
-                instanceof NullNameIndexRenderer);
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
     }
 
     /**
@@ -95,9 +87,7 @@ public final class SourceLinkRendererTest {
     @Test
     public void testPhraseRenderer() {
         final SourceLinkRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getPhraseRenderer()
-                instanceof SourceLinkPhraseRenderer);
+        assertTrue(renderer.getPhraseRenderer() instanceof SourceLinkPhraseRenderer, "Wrong renderer type");
     }
 
     /**
@@ -106,7 +96,7 @@ public final class SourceLinkRendererTest {
     @Test
     public void testUnsetSourceLink() {
         final SourceLinkRenderer renderer = createRenderer();
-        assertEquals("Index name should be empty", "", renderer.getIndexName());
+        assertEquals("", renderer.getIndexName(), "Index name should be empty");
     }
 
     /**
@@ -115,7 +105,7 @@ public final class SourceLinkRendererTest {
     @Test
     public void testUnsetSourceHtmlLink() {
         final SourceLinkRenderer renderer = createRenderer();
-        assertEquals("Index name should be empty", "", renderer.getNameHtml());
+        assertEquals("", renderer.getNameHtml(), "Index name should be empty");
     }
 
     /**
@@ -126,7 +116,7 @@ public final class SourceLinkRendererTest {
         final SourceLinkRenderer renderer = new SourceLinkRenderer(
                 new SourceLink(null, "sourceLink", new ObjectId("S1")),
                 new GedRendererFactory(), anonymousContext);
-        assertEquals("Index name mismatch", "S1", renderer.getNameHtml());
+        assertEquals("S1", renderer.getNameHtml(), "Index name mismatch");
     }
 
     /**

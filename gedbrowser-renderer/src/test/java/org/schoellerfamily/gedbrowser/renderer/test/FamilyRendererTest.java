@@ -1,14 +1,14 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -28,12 +28,12 @@ import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class FamilyRendererTest {
     /** */
@@ -53,7 +53,7 @@ public final class FamilyRendererTest {
     private final transient GedObjectBuilder builder = new GedObjectBuilder();
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
         userContext = RenderingContext.user(appInfo);
@@ -68,9 +68,7 @@ public final class FamilyRendererTest {
         final Family family = builder.createFamily();
         final FamilyRenderer renderer = new FamilyRenderer(family,
                 new GedRendererFactory(), anonymousContext);
-        assertTrue("Wrong renderer type",
-                renderer.getAttributeListOpenRenderer()
-                instanceof SimpleAttributeListOpenRenderer);
+        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
     }
 
     /**
@@ -82,9 +80,7 @@ public final class FamilyRendererTest {
         final Family family = builder.createFamily();
         final FamilyRenderer renderer = new FamilyRenderer(family,
                 new GedRendererFactory(), anonymousContext);
-        assertTrue("Wrong renderer type",
-                renderer.getListItemRenderer()
-                instanceof NullListItemRenderer);
+        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer, "Wrong renderer type");
     }
 
     /**
@@ -96,9 +92,7 @@ public final class FamilyRendererTest {
         final Family family = builder.createFamily();
         final FamilyRenderer renderer = new FamilyRenderer(family,
                 new GedRendererFactory(), anonymousContext);
-        assertTrue("Wrong renderer type",
-                renderer.getNameHtmlRenderer()
-                instanceof NullNameHtmlRenderer);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
     }
 
     /**
@@ -110,9 +104,7 @@ public final class FamilyRendererTest {
         final Family family = builder.createFamily();
         final FamilyRenderer renderer = new FamilyRenderer(family,
                 new GedRendererFactory(), anonymousContext);
-        assertTrue("Wrong renderer type",
-                renderer.getNameIndexRenderer()
-                instanceof NullNameIndexRenderer);
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
     }
 
     /**
@@ -124,9 +116,7 @@ public final class FamilyRendererTest {
         final Family family = builder.createFamily();
         final FamilyRenderer renderer = new FamilyRenderer(family,
                 new GedRendererFactory(), anonymousContext);
-        assertTrue("Wrong renderer type",
-                renderer.getPhraseRenderer()
-                instanceof NullPhraseRenderer);
+        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer, "Wrong renderer type");
     }
 
     /**
@@ -143,11 +133,11 @@ public final class FamilyRendererTest {
         final Family family = navigator.getFamilies().get(0);
         final FamilyRenderer familyRenderer = createFamilyRenderer(family,
                 userContext);
-        assertEquals("Rendered html doesn't match expectation",
-                "<a href=\"person?db=null&amp;id=I3\" class=\"name\">"
+        assertEquals("<a href=\"person?db=null&amp;id=I3\" class=\"name\">"
                 + "Lisa Hope <span class=\"surname\">Robinson</span>"
                 + " (1960-) [I3]</a>",
-                familyRenderer.getSpouse(personRenderer).getNameHtml());
+                familyRenderer.getSpouse(personRenderer).getNameHtml(),
+                "Rendered html doesn't match expectation");
     }
 
     /**
@@ -164,9 +154,7 @@ public final class FamilyRendererTest {
         final Family family = navigator.getFamilies().get(0);
         final FamilyRenderer familyRenderer = createFamilyRenderer(family,
                 anonymousContext);
-        assertEquals("Rendered text doesn't match expdectation",
-                "Living",
-                familyRenderer.getSpouse(personRenderer).getNameHtml());
+        assertEquals("Living", familyRenderer.getSpouse(personRenderer).getNameHtml(), "Rendered text doesn't match expectation");
     }
 
     /**
@@ -201,8 +189,7 @@ public final class FamilyRendererTest {
                 + " Matcovitch<br/>\n"
                 + "and Carol Robinson Sacerdote.,"
                 + "  [<a href=\"source?db=null&amp;id=S4\">S4</a>]";
-        assertEquals("Rendered html doesn't match expectation",
-                expected, attributes.get(0).getListItemContents());
+        assertEquals(expected, attributes.get(0).getListItemContents(), "Rendered html doesn't match expectation");
     }
 
     /**
@@ -218,8 +205,7 @@ public final class FamilyRendererTest {
         final String expected = "<a href=\"person?db=null&amp;id=I1\""
                 + " class=\"name\">Melissa Robinson <span class=\"surname\">"
                 + "Schoeller</span> [I1]</a>";
-        assertEquals("Rendered html doesn't match expectation",
-                expected, children.get(0).getNameHtml());
+        assertEquals(expected, children.get(0).getNameHtml(), "Rendered html doesn't match expectation");
     }
 
     /**
@@ -233,8 +219,7 @@ public final class FamilyRendererTest {
                 new GedRendererFactory(), anonymousContext);
         final List<PersonRenderer> children = familyRenderer.getChildren();
         final String expected = "Living";
-        assertEquals("Rendered html doesn't match expectation",
-                expected, children.get(0).getNameHtml());
+        assertEquals(expected, children.get(0).getNameHtml(), "Rendered html doesn't match expectation");
     }
 
     // TODO could include some tests with empty spouses?

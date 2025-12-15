@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
@@ -15,12 +15,12 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class PersonNameIndexRendererTest {
     /** */
@@ -34,7 +34,7 @@ public final class PersonNameIndexRendererTest {
     private transient RenderingContext userContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person = builder.createPerson("I1");
@@ -50,10 +50,9 @@ public final class PersonNameIndexRendererTest {
                 new GedRendererFactory(), userContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Rendered html doesn't match expectation",
-                "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+        assertEquals("<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
                 + " <span class=\"surname\">?</span> (I1)</a>",
-                pnhr.getIndexName());
+                pnhr.getIndexName(), "Rendered html doesn't match expectation");
     }
 
     /** */
@@ -65,10 +64,9 @@ public final class PersonNameIndexRendererTest {
                 new GedRendererFactory(), userContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Rendered html doesn't match expectation",
-                "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+        assertEquals("<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
                 + " <span class=\"surname\">?</span> (I1)</a>",
-                pnhr.getIndexName());
+                pnhr.getIndexName(), "Rendered html doesn't match expectation");
     }
 
     /** */
@@ -80,10 +78,9 @@ public final class PersonNameIndexRendererTest {
                 new GedRendererFactory(), userContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Rendered html doesn't match expectation",
-                "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+        assertEquals("<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
                 + " <span class=\"surname\">Schoeller</span> (I1)</a>",
-                pnhr.getIndexName());
+                pnhr.getIndexName(), "Rendered html doesn't match expectation");
     }
 
     /** */
@@ -95,10 +92,9 @@ public final class PersonNameIndexRendererTest {
                 new GedRendererFactory(), userContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Rendered html doesn't match expectation",
-                "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+        assertEquals("<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
                 + " <span class=\"surname\">Schoeller</span>, Richard (I1)</a>",
-                pnhr.getIndexName());
+                pnhr.getIndexName(), "Rendered html doesn't match expectation");
     }
 
     /** */
@@ -110,10 +106,9 @@ public final class PersonNameIndexRendererTest {
                 new GedRendererFactory(), userContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Rendered html doesn't match expectation",
-                "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+        assertEquals("<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
                 + " <span class=\"surname\">Deng</span>, Shao Ping (I1)</a>",
-                pnhr.getIndexName());
+                pnhr.getIndexName(), "Rendered html doesn't match expectation");
     }
 
     /** */
@@ -125,11 +120,10 @@ public final class PersonNameIndexRendererTest {
                 new GedRendererFactory(), userContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Rendered html doesn't match expectation",
-                "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+        assertEquals("<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
                 + " <span class=\"surname\">Schoeller</span>, Karl Frederick,"
                 + " Sr. (I1)</a>",
-                pnhr.getIndexName());
+                pnhr.getIndexName(), "Rendered html doesn't match expectation");
     }
 
     /** */
@@ -141,7 +135,7 @@ public final class PersonNameIndexRendererTest {
                 new GedRendererFactory(), userContext);
         final PersonNameIndexRenderer pnhr =
                 (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Expected empty string", "", pnhr.getIndexName());
+        assertEquals("", pnhr.getIndexName(), "Expected empty string");
     }
 
 }

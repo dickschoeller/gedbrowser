@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
@@ -18,12 +18,12 @@ import org.schoellerfamily.gedbrowser.renderer.SourceLinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class SourceLinkPhraseRendererTest {
     /** */
@@ -37,7 +37,7 @@ public final class SourceLinkPhraseRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         /** */
         final Root root = new Root("Root");
@@ -61,8 +61,6 @@ public final class SourceLinkPhraseRendererTest {
                 sourceLink, new GedRendererFactory(), anonymousContext);
         final SourceLinkPhraseRenderer slpr =
                 (SourceLinkPhraseRenderer) slr.getPhraseRenderer();
-        assertEquals("Rendered html doesn't match expectation",
-                " [<a href=\"source?db=null&amp;id=S1\">S1</a>]",
-                slpr.renderAsPhrase());
+        assertEquals(" [<a href=\"source?db=null&amp;id=S1\">S1</a>]", slpr.renderAsPhrase(), "Rendered html doesn't match expectation");
     }
 }

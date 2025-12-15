@@ -1,13 +1,13 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.Collection;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
@@ -16,12 +16,12 @@ import org.schoellerfamily.gedbrowser.renderer.SubmittersRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class SubmittersRendererTest {
     /** */
@@ -36,7 +36,7 @@ public final class SubmittersRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
@@ -59,16 +59,14 @@ public final class SubmittersRendererTest {
      */
     private void assertSubmittersMatch(
             final Collection<SubmitterRenderer> renderers) {
-        assertEquals("should have only one entry", 1, renderers.size());
+        assertEquals(1, renderers.size(), "should have only one entry");
         for (final SubmitterRenderer subRenderer : renderers) {
-            assertEquals("Index name mismatch",
-                    "<a class=\"name\" href=\"submitter?db=null&amp;id=SUB1\">"
+            assertEquals("<a class=\"name\" href=\"submitter?db=null&amp;id=SUB1\">"
                     + "Richard Schoeller"
                     + " [SUB1]</a>",
-                    subRenderer.getIndexName());
-            assertEquals("HTML name mismatch",
-                    "Richard Schoeller",
-                    subRenderer.getNameHtml());
+                    subRenderer.getIndexName(), "Index name mismatch");
+            assertEquals("Richard Schoeller",
+                    subRenderer.getNameHtml(), "HTML name mismatch");
         }
     }
 
@@ -82,8 +80,8 @@ public final class SubmittersRendererTest {
         final Root root = reader.readFileTestSource();
         final SubmittersRenderer renderer = new SubmittersRenderer(root,
                 anonymousContext);
-        assertEquals("head href mismatch",
-                "head?db=gl120368", renderer.getHeaderHref());
+        assertEquals("head?db=gl120368", renderer.getHeaderHref(),
+                "head href mismatch");
     }
 
     /**
@@ -96,8 +94,8 @@ public final class SubmittersRendererTest {
         final Root root = reader.readFileTestSource();
         final SubmittersRenderer renderer = new SubmittersRenderer(root,
                 anonymousContext);
-        assertEquals("save href mismatch",
-                "save?db=gl120368", renderer.getSaveHref());
+        assertEquals("save?db=gl120368", renderer.getSaveHref(),
+                "save href mismatch");
     }
 
     /**
@@ -110,8 +108,8 @@ public final class SubmittersRendererTest {
         final Root root1 = reader.readFileTestSource();
         final SubmittersRenderer renderer = new SubmittersRenderer(root1,
                 anonymousContext);
-        assertEquals("save href mismatch",
-                "gl120368.ged", renderer.getSaveFilename());
+        assertEquals("gl120368.ged", renderer.getSaveFilename(),
+                "save href mismatch");
     }
 
     /**
@@ -124,8 +122,8 @@ public final class SubmittersRendererTest {
         final Root root = reader.readFileTestSource();
         final SubmittersRenderer renderer = new SubmittersRenderer(root,
                 anonymousContext);
-        assertEquals("index href mismatch",
-                "surnames?db=gl120368&letter=A", renderer.getIndexHref());
+        assertEquals("surnames?db=gl120368&letter=A", renderer.getIndexHref(),
+                "index href mismatch");
     }
 
     /**
@@ -138,8 +136,8 @@ public final class SubmittersRendererTest {
         final Root root = reader.readFileTestSource();
         final SubmittersRenderer renderer = new SubmittersRenderer(root,
                 anonymousContext);
-        assertEquals("living href mismatch",
-                "living?db=gl120368", renderer.getLivingHref());
+        assertEquals("living?db=gl120368", renderer.getLivingHref(),
+                "living href mismatch");
     }
 
     /**
@@ -152,8 +150,8 @@ public final class SubmittersRendererTest {
         final Root root = reader.readFileTestSource();
         final SubmittersRenderer renderer = new SubmittersRenderer(root,
                 anonymousContext);
-        assertEquals("submitters href mismatch",
-                "sources?db=gl120368", renderer.getSourcesHref());
+        assertEquals("sources?db=gl120368", renderer.getSourcesHref(),
+                "submitters href mismatch");
     }
 
     /**
@@ -166,7 +164,7 @@ public final class SubmittersRendererTest {
         final Root root = reader.readFileTestSource();
         final SubmittersRenderer renderer = new SubmittersRenderer(root,
                 anonymousContext);
-        assertEquals("sources href mismatch",
-                "submitters?db=gl120368", renderer.getSubmittersHref());
+        assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(),
+                "sources href mismatch");
     }
 }

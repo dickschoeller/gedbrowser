@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.renderer.DefaultRenderer;
@@ -14,12 +14,12 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class NullPhraseRendererTest {
     /** */
@@ -30,7 +30,7 @@ public final class NullPhraseRendererTest {
     private transient NullPhraseRenderer npr;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         final DefaultRenderer renderer = new DefaultRenderer(createGedObject(),
                 new GedRendererFactory(), RenderingContext.anonymous(appInfo));
@@ -55,6 +55,6 @@ public final class NullPhraseRendererTest {
     /** */
     @Test
     public void testRenderAsPhrase() {
-        assertEquals("Expected empty string", "", npr.renderAsPhrase());
+        assertEquals("", npr.renderAsPhrase(), "Expected empty string");
     }
 }

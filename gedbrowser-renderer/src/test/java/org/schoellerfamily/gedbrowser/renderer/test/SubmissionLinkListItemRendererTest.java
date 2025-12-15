@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
@@ -18,12 +18,12 @@ import org.schoellerfamily.gedbrowser.renderer.SubmissionLinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class SubmissionLinkListItemRendererTest {
     /** */
@@ -37,7 +37,7 @@ public final class SubmissionLinkListItemRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         final Root root = new Root("Root");
         /** */
@@ -63,10 +63,8 @@ public final class SubmissionLinkListItemRendererTest {
                 (SubmissionLinkListItemRenderer) slr.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, false, 0);
-        assertEquals("Rendered html doesn't match expectation",
-                "<span class=\"label\">Submission:</span> <a class=\"name\""
-                + " href=\"submission?db=null&amp;id=S1\">S1</a>",
-                builder.toString());
+        assertEquals("<span class=\"label\">Submission:</span> <a class=\"name\""
+                + " href=\"submission?db=null&amp;id=S1\">S1</a>", builder.toString(), "Rendered html doesn't match expectation");
     }
 
     /** */
@@ -79,10 +77,8 @@ public final class SubmissionLinkListItemRendererTest {
                 (SubmissionLinkListItemRenderer) slr.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, true, 0);
-        assertEquals("Rendered html doesn't match expectation",
-                "<span class=\"label\">Submission:</span> <a class=\"name\""
-                + " href=\"submission?db=null&amp;id=S1\">S1</a>",
-                builder.toString());
+        assertEquals("<span class=\"label\">Submission:</span> <a class=\"name\""
+                + " href=\"submission?db=null&amp;id=S1\">S1</a>", builder.toString(), "Rendered html doesn't match expectation");
     }
 
     /** */
@@ -95,10 +91,8 @@ public final class SubmissionLinkListItemRendererTest {
                 (SubmissionLinkListItemRenderer) slr.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, false, 2);
-        assertEquals("Rendered html doesn't match expectation",
-                "<span class=\"label\">Submission:</span> <a class=\"name\""
-                + " href=\"submission?db=null&amp;id=S1\">S1</a>",
-                builder.toString());
+        assertEquals("<span class=\"label\">Submission:</span> <a class=\"name\""
+                + " href=\"submission?db=null&amp;id=S1\">S1</a>", builder.toString(), "Rendered html doesn't match expectation");
     }
 
     /** */
@@ -109,9 +103,7 @@ public final class SubmissionLinkListItemRendererTest {
                 anonymousContext);
         final SubmissionLinkListItemRenderer lir =
                 (SubmissionLinkListItemRenderer) slr.getListItemRenderer();
-        assertEquals("contents don't match",
-                "<span class=\"label\">Submission:</span> <a class=\"name\""
-                + " href=\"submission?db=null&amp;id=S1\">S1</a>",
-                lir.getListItemContents());
+        assertEquals("<span class=\"label\">Submission:</span> <a class=\"name\""
+                + " href=\"submission?db=null&amp;id=S1\">S1</a>", lir.getListItemContents(), "contents don't match");
     }
 }

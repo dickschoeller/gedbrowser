@@ -1,13 +1,13 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.Collection;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.schoellerfamily.gedbrowser.renderer.IndexRenderer;
@@ -15,12 +15,12 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class IndexRendererTest {
     /** */
@@ -37,7 +37,7 @@ public final class IndexRendererTest {
     private RenderingContext userContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
         userContext = RenderingContext.user(appInfo);
@@ -74,7 +74,7 @@ public final class IndexRendererTest {
         final Collection<String> letters = ir.getLetters();
         int i = 0;
         for (final String letter : letters) {
-            assertEquals("Mismatch index letter", expects[i++], letter);
+            assertEquals(expects[i++], letter, "Mismatch index letter");
         }
     }
 
@@ -93,7 +93,7 @@ public final class IndexRendererTest {
         final Collection<String> surnames = ir.getSurnames();
         int i = 0;
         for (final String surname : surnames) {
-            assertEquals("Mismatch surname", expects[i++], surname);
+            assertEquals(expects[i++], surname, "Mismatch surname");
         }
     }
 
@@ -136,8 +136,7 @@ public final class IndexRendererTest {
         final Collection<String> indexNames = ir.getIndexNameHtmls("Schoeller");
         int i = 0;
         for (final String indexName : indexNames) {
-            assertEquals("Mismatch index name",
-                    expects[i++], indexName);
+            assertEquals(expects[i++], indexName, "Mismatch index name");
         }
     }
 
@@ -150,7 +149,7 @@ public final class IndexRendererTest {
         final IndexRenderer ir = new IndexRenderer(root, "S",
                 anonymousContext);
         final Collection<String> indexNames = ir.getIndexNameHtmls("Schoeller");
-        assertEquals("Expect empty", 0, indexNames.size());
+        assertEquals(0, indexNames.size(), "Expect empty");
     }
 
     /**
@@ -161,7 +160,7 @@ public final class IndexRendererTest {
         final Root root = reader.readBigTestSource();
         final IndexRenderer ir = new IndexRenderer(root, "S",
                 anonymousContext);
-        assertEquals("Mismatch index letter", "S", ir.getBase());
+        assertEquals("S", ir.getBase(), "Mismatch index letter");
     }
 
     /**
@@ -174,8 +173,8 @@ public final class IndexRendererTest {
         final Root root = reader.readFileTestSource();
         final IndexRenderer renderer = new IndexRenderer(root, "A",
                 anonymousContext);
-        assertEquals("head href mismatch",
-                "head?db=gl120368", renderer.getHeaderHref());
+        assertEquals("head?db=gl120368", renderer.getHeaderHref(),
+                "head href mismatch");
     }
 
     /**
@@ -188,8 +187,8 @@ public final class IndexRendererTest {
         final Root root = reader.readFileTestSource();
         final IndexRenderer renderer = new IndexRenderer(root, "A",
                 anonymousContext);
-        assertEquals("save href mismatch",
-                "gl120368.ged", renderer.getSaveFilename());
+        assertEquals("gl120368.ged", renderer.getSaveFilename(),
+                "save href mismatch");
     }
 
     /**
@@ -202,8 +201,8 @@ public final class IndexRendererTest {
         final Root root = reader.readFileTestSource();
         final IndexRenderer renderer = new IndexRenderer(root, "A",
                 anonymousContext);
-        assertEquals("save href mismatch",
-                "save?db=gl120368", renderer.getSaveHref());
+        assertEquals("save?db=gl120368", renderer.getSaveHref(),
+                "save href mismatch");
     }
 
     /**
@@ -216,8 +215,8 @@ public final class IndexRendererTest {
         final Root root = reader.readFileTestSource();
         final IndexRenderer renderer = new IndexRenderer(root, "A",
                 anonymousContext);
-        assertEquals("index href mismatch",
-                "surnames?db=gl120368&letter=A", renderer.getIndexHref());
+        assertEquals("surnames?db=gl120368&letter=A", renderer.getIndexHref(),
+                "index href mismatch");
     }
 
     /**
@@ -230,8 +229,7 @@ public final class IndexRendererTest {
         final Root root = reader.readFileTestSource();
         final IndexRenderer renderer = new IndexRenderer(root, "A",
                 anonymousContext);
-        assertEquals("living href mismatch",
-                "living?db=gl120368", renderer.getLivingHref());
+        assertEquals("living?db=gl120368", renderer.getLivingHref());
     }
 
     /**
@@ -244,8 +242,7 @@ public final class IndexRendererTest {
         final Root root = reader.readFileTestSource();
         final IndexRenderer renderer = new IndexRenderer(root, "A",
                 anonymousContext);
-        assertEquals("submitters href mismatch",
-                "sources?db=gl120368", renderer.getSourcesHref());
+        assertEquals("sources?db=gl120368", renderer.getSourcesHref(), "submitters href mismatch");
     }
 
     /**
@@ -258,8 +255,7 @@ public final class IndexRendererTest {
         final Root root = reader.readFileTestSource();
         final IndexRenderer renderer = new IndexRenderer(root, "A",
                 anonymousContext);
-        assertEquals("sources href mismatch",
-                "submitters?db=gl120368", renderer.getSubmittersHref());
+        assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(), "sources href mismatch");
     }
 
     /**
@@ -272,7 +268,6 @@ public final class IndexRendererTest {
         final Root root = reader.readFileTestSource();
         final IndexRenderer renderer = new IndexRenderer(root, "A",
                 anonymousContext);
-        assertEquals("places href mismatch", "places?db=gl120368",
-                renderer.getPlacesHref());
+        assertEquals("places?db=gl120368", renderer.getPlacesHref(), "places href mismatch");
     }
 }

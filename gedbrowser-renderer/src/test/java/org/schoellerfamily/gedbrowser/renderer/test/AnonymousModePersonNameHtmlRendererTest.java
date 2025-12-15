@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
@@ -15,7 +15,7 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * All of these tests should return Living. The reason is that the user created
@@ -28,7 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.CommentSize")
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class AnonymousModePersonNameHtmlRendererTest {
     /** */
@@ -42,7 +42,7 @@ public final class AnonymousModePersonNameHtmlRendererTest {
     private transient RenderingContext renderingContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person = builder.createPerson("I1");
@@ -58,7 +58,7 @@ public final class AnonymousModePersonNameHtmlRendererTest {
                 new GedRendererFactory(), renderingContext);
         final PersonNameHtmlRenderer pnhr =
                 (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();
-        assertEquals("Expected Living", "Living", pnhr.getNameHtml());
+        assertEquals("Living", pnhr.getNameHtml(), "Expected Living");
     }
 
     /** */
@@ -70,7 +70,7 @@ public final class AnonymousModePersonNameHtmlRendererTest {
                 new GedRendererFactory(), renderingContext);
         final PersonNameHtmlRenderer pnhr =
                 (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();
-        assertEquals("Expected Living", "Living", pnhr.getNameHtml());
+        assertEquals("Living", pnhr.getNameHtml(), "Expected Living");
     }
 
     /** */
@@ -82,7 +82,7 @@ public final class AnonymousModePersonNameHtmlRendererTest {
                 new GedRendererFactory(), renderingContext);
         final PersonNameHtmlRenderer pnhr =
                 (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();
-        assertEquals("Expected Living", "Living", pnhr.getNameHtml());
+        assertEquals("Living", pnhr.getNameHtml(), "Expected Living");
     }
 
     /** */
@@ -94,7 +94,7 @@ public final class AnonymousModePersonNameHtmlRendererTest {
                 new GedRendererFactory(), renderingContext);
         final PersonNameHtmlRenderer pnhr =
                 (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();
-        assertEquals("Expected Living", "Living", pnhr.getNameHtml());
+        assertEquals("Living", pnhr.getNameHtml(), "Expected Living");
     }
 
     /** */
@@ -106,7 +106,7 @@ public final class AnonymousModePersonNameHtmlRendererTest {
                 new GedRendererFactory(), renderingContext);
         final PersonNameHtmlRenderer pnhr =
                 (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();
-        assertEquals("Expected Living", "Living", pnhr.getNameHtml());
+        assertEquals("Living", pnhr.getNameHtml(), "Expected Living");
     }
 
     /** */
@@ -118,7 +118,7 @@ public final class AnonymousModePersonNameHtmlRendererTest {
                 new GedRendererFactory(), renderingContext);
         final PersonNameHtmlRenderer pnhr =
                 (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();
-        assertEquals("Expected Living", "Living", pnhr.getNameHtml());
+        assertEquals("Living", pnhr.getNameHtml(), "Expected Living");
     }
 
     /** */
@@ -130,6 +130,6 @@ public final class AnonymousModePersonNameHtmlRendererTest {
                 new GedRendererFactory(), renderingContext);
         final PersonNameHtmlRenderer pnhr =
                 (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();
-        assertEquals("Expected empty name", "", pnhr.getNameHtml());
+        assertEquals("", pnhr.getNameHtml(), "Expected empty name");
     }
 }

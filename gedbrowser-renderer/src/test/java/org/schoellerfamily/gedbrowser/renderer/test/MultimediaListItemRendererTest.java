@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -16,12 +16,12 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class MultimediaListItemRendererTest {
     /** */
@@ -41,7 +41,7 @@ public final class MultimediaListItemRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
@@ -85,12 +85,10 @@ public final class MultimediaListItemRendererTest {
                 (MultimediaListItemRenderer) aRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         apr.renderAsListItem(builder, false, 0);
-        assertEquals("Rendered string mismatch",
-                "<li><span class=\"label\">Multimedia:</span> Title 1<br/>\n"
+        assertEquals("<li><span class=\"label\">Multimedia:</span> Title 1<br/>\n"
                 + "<a href=\"file1.jpg\">"
                 + "<img height=\"300px\" src=\"file1.jpg\" title=\"Title 1\"/>"
-                + "</a></li>\n",
-                builder.toString());
+                + "</a></li>\n", builder.toString(), "Rendered string mismatch");
     }
 
     /** */
@@ -102,10 +100,8 @@ public final class MultimediaListItemRendererTest {
                 (MultimediaListItemRenderer) aRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         apr.renderAsListItem(builder, false, 2);
-        assertEquals("Rendered string mismatch",
-                "<li><span class=\"label\">Multimedia:</span> "
-                + "<a href=\"file2.html\">Title 2</a></li>\n",
-                builder.toString());
+        assertEquals("<li><span class=\"label\">Multimedia:</span> "
+                + "<a href=\"file2.html\">Title 2</a></li>\n", builder.toString(), "Rendered string mismatch");
     }
 
     /** */
@@ -117,10 +113,8 @@ public final class MultimediaListItemRendererTest {
                 (MultimediaListItemRenderer) aRenderer .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         apr.renderAsListItem(builder, true, 0);
-        assertEquals("Rendered string mismatch",
-                "<li><span class=\"label\">Multimedia:</span>"
-                + " <a href=\"file3.html\">Title 3</a></li>\n",
-                builder.toString());
+        assertEquals("<li><span class=\"label\">Multimedia:</span>"
+                + " <a href=\"file3.html\">Title 3</a></li>\n", builder.toString(), "Rendered string mismatch");
     }
 
     /** */
@@ -131,12 +125,10 @@ public final class MultimediaListItemRendererTest {
         final MultimediaListItemRenderer apr =
                 (MultimediaListItemRenderer) aRenderer.getListItemRenderer();
         final String contents = apr.getListItemContents();
-        assertEquals("Rendered string mismatch",
-                "<span class=\"label\">Multimedia:</span> Title 1<br/>\n"
+        assertEquals("<span class=\"label\">Multimedia:</span> Title 1<br/>\n"
                 + "<a href=\"file1.jpg\">"
                 + "<img height=\"300px\" src=\"file1.jpg\" title=\"Title 1\"/>"
-                + "</a>",
-                contents);
+                + "</a>", contents, "Rendered string mismatch");
     }
 
     /** */
@@ -147,10 +139,8 @@ public final class MultimediaListItemRendererTest {
         final MultimediaListItemRenderer apr =
                 (MultimediaListItemRenderer) aRenderer.getListItemRenderer();
         final String contents = apr.getListItemContents();
-        assertEquals("Rendered string mismatch",
-                "<span class=\"label\">Multimedia:</span> "
-                + "<a href=\"file2.html\">Title 2</a>",
-                contents);
+        assertEquals("<span class=\"label\">Multimedia:</span> "
+                + "<a href=\"file2.html\">Title 2</a>", contents, "Rendered string mismatch");
     }
 
     /** */
@@ -161,9 +151,7 @@ public final class MultimediaListItemRendererTest {
         final MultimediaListItemRenderer apr =
                 (MultimediaListItemRenderer) aRenderer .getListItemRenderer();
         final String contents = apr.getListItemContents();
-        assertEquals("Rendered string mismatch",
-                "<span class=\"label\">Multimedia:</span>"
-                + " <a href=\"file3.html\">Title 3</a>",
-                contents);
+        assertEquals("<span class=\"label\">Multimedia:</span>"
+                + " <a href=\"file3.html\">Title 3</a>", contents, "Rendered string mismatch");
     }
 }

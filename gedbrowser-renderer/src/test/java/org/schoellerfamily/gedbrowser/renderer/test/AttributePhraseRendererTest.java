@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
@@ -15,12 +15,12 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class AttributePhraseRendererTest {
     /** */
@@ -40,7 +40,7 @@ public final class AttributePhraseRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
@@ -64,7 +64,7 @@ public final class AttributePhraseRendererTest {
         final AttributePhraseRenderer apRenderer =
                 (AttributePhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
-        assertEquals("Expected empty string", "", string);
+        assertEquals("", string, "Expected empty string");
     }
 
     /** */
@@ -75,8 +75,7 @@ public final class AttributePhraseRendererTest {
         final AttributePhraseRenderer apRenderer =
                 (AttributePhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
-        assertEquals("Rendered string doesn't match expectation",
-                "Strung", string);
+        assertEquals("Strung", string, "Rendered string doesn't match expectation");
     }
 
     /** */
@@ -87,7 +86,6 @@ public final class AttributePhraseRendererTest {
         final AttributePhraseRenderer apRenderer =
                 (AttributePhraseRenderer) aRenderer.getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
-        assertEquals("Rendered string doesn't match expectation",
-                "Spring", string);
+        assertEquals("Spring", string, "Rendered string doesn't match expectation");
     }
 }

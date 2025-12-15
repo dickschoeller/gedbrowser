@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -18,12 +18,12 @@ import org.schoellerfamily.gedbrowser.renderer.SourceLinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class SourceLinkListItemRendererTest {
     /** */
@@ -37,7 +37,7 @@ public final class SourceLinkListItemRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person = builder.createPerson("I1");
@@ -64,10 +64,10 @@ public final class SourceLinkListItemRendererTest {
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, false, 0);
-        assertEquals("Rendered html doesn't match expectation",
+        assertEquals(
                 "<span class=\"label\">Source:</span> <a href=\"source?db=null"
                 + "&amp;id=S1\" class=\"name\" id=\"source-S1\">S1 (S1)</a>",
-                builder.toString());
+                builder.toString(), "Rendered html doesn't match expectation");
     }
 
     /** */
@@ -83,10 +83,10 @@ public final class SourceLinkListItemRendererTest {
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, false, 0);
-        assertEquals("Rendered html doesn't match expectation",
+        assertEquals(
                 "<span class=\"label\">Source:</span>"
                 + " <a href=\"source?db=null&amp;id=S2\""
                 + " class=\"name\" id=\"source-S2\">The title of S2 (S2)</a>",
-                builder.toString());
+                builder.toString(), "Rendered html doesn't match expectation");
     }
 }

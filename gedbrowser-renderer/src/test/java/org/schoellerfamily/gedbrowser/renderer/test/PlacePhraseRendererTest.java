@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
@@ -16,12 +16,12 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class PlacePhraseRendererTest {
     /** */
@@ -38,7 +38,7 @@ public final class PlacePhraseRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
@@ -57,8 +57,7 @@ public final class PlacePhraseRendererTest {
         final PlacePhraseRenderer ppRenderer =
                 (PlacePhraseRenderer) dRenderer.getPhraseRenderer();
         final String string = ppRenderer.renderAsPhrase();
-        assertEquals("Rendered string doesn't match expectation",
-                "Fayetteville, NC", string);
+        assertEquals("Fayetteville, NC", string, "Rendered string doesn't match expectation");
     }
 
     /** */
@@ -70,7 +69,7 @@ public final class PlacePhraseRendererTest {
         final PlacePhraseRenderer ppRenderer =
                 (PlacePhraseRenderer) dRenderer.getPhraseRenderer();
         final String string = ppRenderer.renderAsPhrase();
-        assertEquals("Expected empty string", "", string);
+        assertEquals("", string, "Expected empty string");
     }
 
     /** */
@@ -82,6 +81,6 @@ public final class PlacePhraseRendererTest {
         final PlacePhraseRenderer ppRenderer =
                 (PlacePhraseRenderer) dRenderer.getPhraseRenderer();
         final String string = ppRenderer.renderAsPhrase();
-        assertEquals("Expected empty string", "", string);
+        assertEquals("", string, "Expected empty string");
     }
 }

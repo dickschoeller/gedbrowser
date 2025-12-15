@@ -1,11 +1,11 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -19,12 +19,12 @@ import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class NoteLinkRendererTest {
     /** */
@@ -35,7 +35,7 @@ public final class NoteLinkRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
@@ -47,9 +47,7 @@ public final class NoteLinkRendererTest {
     @Test
     public void testAttributeListOpenRenderer() {
         final NoteLinkRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getAttributeListOpenRenderer()
-                instanceof SimpleAttributeListOpenRenderer);
+        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
     }
 
     /**
@@ -59,9 +57,7 @@ public final class NoteLinkRendererTest {
     @Test
     public void testListItemRenderer() {
         final NoteLinkRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getListItemRenderer()
-                instanceof NoteLinkListItemRenderer);
+        assertTrue(renderer.getListItemRenderer() instanceof NoteLinkListItemRenderer, "Wrong renderer type");
     }
 
     /**
@@ -71,9 +67,7 @@ public final class NoteLinkRendererTest {
     @Test
     public void testNameHtmlRenderer() {
         final NoteLinkRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getNameHtmlRenderer()
-                instanceof NullNameHtmlRenderer);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
     }
 
     /**
@@ -83,9 +77,7 @@ public final class NoteLinkRendererTest {
     @Test
     public void testNameIndexRenderer() {
         final NoteLinkRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getNameIndexRenderer()
-                instanceof NoteLinkNameIndexRenderer);
+        assertTrue(renderer.getNameIndexRenderer() instanceof NoteLinkNameIndexRenderer, "Wrong renderer type");
     }
 
     /**
@@ -95,9 +87,7 @@ public final class NoteLinkRendererTest {
     @Test
     public void testPhraseRenderer() {
         final NoteLinkRenderer renderer = createRenderer();
-        assertTrue("Wrong renderer type",
-                renderer.getPhraseRenderer()
-                instanceof NoteLinkPhraseRenderer);
+        assertTrue(renderer.getPhraseRenderer() instanceof NoteLinkPhraseRenderer, "Wrong renderer type");
     }
 
     /**
@@ -106,7 +96,7 @@ public final class NoteLinkRendererTest {
     @Test
     public void testUnsetNoteLink() {
         final NoteLinkRenderer renderer = createRenderer();
-        assertEquals("Index name should be empty", "", renderer.getIndexName());
+        assertEquals("", renderer.getIndexName(), "Index name should be empty");
     }
 
     /**
@@ -117,7 +107,7 @@ public final class NoteLinkRendererTest {
         final NoteLinkRenderer renderer = new NoteLinkRenderer(
                 new NoteLink(null, "notelink", new ObjectId("N1")),
                 new GedRendererFactory(), anonymousContext);
-        assertEquals("Index name mismatch", "N1", renderer.getIndexName());
+        assertEquals("N1", renderer.getIndexName(), "Index name mismatch");
     }
 
     /**

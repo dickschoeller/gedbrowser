@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -18,12 +18,12 @@ import org.schoellerfamily.gedbrowser.renderer.NoteLinkRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class NoteLinkListItemRendererTest {
     /** */
@@ -37,7 +37,7 @@ public final class NoteLinkListItemRendererTest {
     private RenderingContext anonymousContext;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person = builder.createPerson("I1");
@@ -64,10 +64,9 @@ public final class NoteLinkListItemRendererTest {
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, false, 0);
-        assertEquals("Rendered html doesn't match expectation",
-                "<span class=\"label\">Note:</span> <a href=\"note?db=null"
+        assertEquals("<span class=\"label\">Note:</span> <a href=\"note?db=null"
                 + "&amp;id=N1\" class=\"name\" id=\"note-N1\"> (N1)</a>",
-                builder.toString());
+                builder.toString(), "Rendered html doesn't match expectation");
     }
 
     /** */
@@ -83,10 +82,9 @@ public final class NoteLinkListItemRendererTest {
                 .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, false, 0);
-        assertEquals("Rendered html doesn't match expectation",
-                "<span class=\"label\">Note:</span>"
+        assertEquals("<span class=\"label\">Note:</span>"
                 + " <a href=\"note?db=null&amp;id=N2\""
                 + " class=\"name\" id=\"note-N2\">The title of N2 (N2)</a>",
-                builder.toString());
+                builder.toString(), "Rendered html doesn't match expectation");
     }
 }

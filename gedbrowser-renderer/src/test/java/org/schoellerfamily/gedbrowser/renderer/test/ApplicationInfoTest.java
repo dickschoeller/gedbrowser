@@ -1,11 +1,11 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Map;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 
 /**
@@ -16,52 +16,40 @@ public class ApplicationInfoTest {
     private ApplicationInfo appInfo;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         appInfo = new ApplicationInfo() {
-            /**
-             * {@inheritDoc}
-             */
+            /** {@inheritDoc} */
             @Override
             public String getApplicationName() {
                 return "renderer";
             }
 
-            /**
-             * {@inheritDoc}
-             */
+            /** {@inheritDoc} */
             @Override
             public String getVersion() {
                 return "1";
             }
 
-            /**
-             * {@inheritDoc}
-             */
+            /** {@inheritDoc} */
             @Override
             public String getMaintainerEmail() {
                 return "schoeller@comcast.net";
             }
 
-            /**
-             * {@inheritDoc}
-             */
+            /** {@inheritDoc} */
             @Override
             public String getMaintainerName() {
                 return "Richard Schoeller";
             }
 
-            /**
-             * {@inheritDoc}
-             */
+            /** {@inheritDoc} */
             @Override
             public String getApplicationURL() {
                 return "https://www.schoellerfamily.org/";
             }
 
-            /**
-             * {@inheritDoc}
-             */
+            /** {@inheritDoc} */
             @Override
             public String getHomeURL() {
                 return "https://www.schoellerfamily.org/";
@@ -73,22 +61,22 @@ public class ApplicationInfoTest {
     @Test
     public void testGetInfoMapName() {
         final Map<String, Object> infoMap = appInfo.getInfoMap();
-        assertEquals("Name mismatch", infoMap.get("name"), "renderer");
+        assertEquals("renderer", infoMap.get("name"), "Name mismatch");
     }
 
     /** */
     @Test
     public void testGetInfoMapVersion() {
         final Map<String, Object> infoMap = appInfo.getInfoMap();
-        assertEquals("Version mismatch", infoMap.get("version"), "1");
+        assertEquals("1", infoMap.get("version"), "Version mismatch");
     }
 
     /** */
     @Test
     public void testGetInfoMapURL() {
         final Map<String, Object> infoMap = appInfo.getInfoMap();
-        assertEquals("URL mismatch",
-                infoMap.get("URL"), "https://www.schoellerfamily.org/");
+        assertEquals("https://www.schoellerfamily.org/",
+                infoMap.get("URL"), "URL mismatch");
     }
 
     /** */
@@ -96,8 +84,8 @@ public class ApplicationInfoTest {
     public void testGetInfoMapMaintainerName() {
         final Map<String, Object> infoMap = appInfo.getInfoMap();
         final Map<?, ?> maintainerMap = (Map<?, ?>) infoMap.get("maintainer");
-        assertEquals("Maintainer name mismatch",
-                maintainerMap.get("name"), "Richard Schoeller");
+        assertEquals("Richard Schoeller",
+                maintainerMap.get("name"), "Maintainer name mismatch");
     }
 
     /** */
@@ -105,7 +93,7 @@ public class ApplicationInfoTest {
     public void testGetInfoMap() {
         final Map<String, Object> infoMap = appInfo.getInfoMap();
         final Map<?, ?> maintainerMap = (Map<?, ?>) infoMap.get("maintainer");
-        assertEquals("Maintainer email mismatch",
-                maintainerMap.get("email"), "schoeller@comcast.net");
+        assertEquals("schoeller@comcast.net",
+                maintainerMap.get("email"), "Maintainer email mismatch");
     }
 }

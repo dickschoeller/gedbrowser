@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 
 /**
@@ -13,7 +13,6 @@ public final class NullNameIndexRendererTest {
     @Test
     public void testGetNameIndex() {
         final NullNameIndexRenderer renderer = new NullNameIndexRenderer();
-        assertEquals("Expected empty string", "",
-                renderer.getIndexName());
+        assertEquals("", renderer.getIndexName(), "Expected empty string");
     }
 }
