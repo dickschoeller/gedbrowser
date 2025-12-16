@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.security.model.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.security.model.UserTokenState;
 import org.schoellerfamily.gedbrowser.security.model.UserTokenStateImpl;
 
@@ -14,16 +14,15 @@ public final class UserTokenStateTest {
     @Test
     public void testDefaultExpiration() {
         final UserTokenState userTokenState = new UserTokenStateImpl();
-        assertEquals("Default should be min Long", Long.valueOf(Long.MIN_VALUE),
-                userTokenState.getExpiresIn());
+        assertEquals(Long.valueOf(Long.MIN_VALUE),
+                userTokenState.getExpiresIn(), "Default should be min Long");
     }
 
     /** */
     @Test
     public void testDefaultToken() {
         final UserTokenState userTokenState = new UserTokenStateImpl();
-        assertEquals("Default should be empty string", "",
-                userTokenState.getAccessToken());
+        assertEquals("", userTokenState.getAccessToken(), "Default should be empty string");
     }
 
     /** */
@@ -31,8 +30,8 @@ public final class UserTokenStateTest {
     public void testInitializedExpiration() {
         final UserTokenState userTokenState =
                 new UserTokenStateImpl("token", 1L);
-        assertEquals("Value doesn't match what was passed to constructor",
-                Long.valueOf(1L), userTokenState.getExpiresIn());
+        assertEquals(Long.valueOf(1L), userTokenState.getExpiresIn(),
+                "Value doesn't match what was passed to constructor");
     }
 
     /** */
@@ -40,8 +39,8 @@ public final class UserTokenStateTest {
     public void testInitializedToken() {
         final UserTokenState userTokenState =
                 new UserTokenStateImpl("token", 1L);
-        assertEquals("Value doesn't match what was passed to constructor",
-                "token", userTokenState.getAccessToken());
+        assertEquals("token", userTokenState.getAccessToken(),
+                "Value doesn't match what was passed to constructor");
     }
 
     /** */
@@ -49,8 +48,8 @@ public final class UserTokenStateTest {
     public void testSetExpiration() {
         final UserTokenStateImpl userTokenState = new UserTokenStateImpl();
         userTokenState.setExpiresIn(1L);
-        assertEquals("Value doesn't match what was set", Long.valueOf(1L),
-                userTokenState.getExpiresIn());
+        assertEquals(Long.valueOf(1L), userTokenState.getExpiresIn(),
+                "Value doesn't match what was set");
     }
 
     /** */
@@ -58,7 +57,7 @@ public final class UserTokenStateTest {
     public void testSetToken() {
         final UserTokenStateImpl userTokenState = new UserTokenStateImpl();
         userTokenState.setAccessToken("token");
-        assertEquals("Value doesn't match what was set", "token",
-                userTokenState.getAccessToken());
+        assertEquals("token", userTokenState.getAccessToken(),
+                "Value doesn't match what was set");
     }
 }

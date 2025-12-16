@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.security.model.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.security.model.Authority;
 
@@ -15,14 +15,14 @@ public class AuthorityTest {
     @Test
     public void testDefault() {
         final Authority authority = Authority.builder().build();
-        assertNull("Should be null", authority.getAuthority());
+        assertNull(authority.getAuthority(), "Should be null");
     }
 
     /** */
     @Test
     public void testDefaultUserRoleName() {
         final Authority authority = Authority.builder().build();
-        assertNull("Should be null", authority.getUserRoleName());
+        assertNull(authority.getUserRoleName(), "Should be null");
     }
 
     /** */
@@ -31,6 +31,6 @@ public class AuthorityTest {
         final Authority authority = Authority.builder()
                 .userRoleName(UserRoleName.USER)
                 .build();
-        assertEquals("Should be USER", "ROLE_USER", authority.getAuthority());
+        assertEquals("ROLE_USER", authority.getAuthority(), "Should be USER");
     }
 }

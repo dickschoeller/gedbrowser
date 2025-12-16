@@ -1,16 +1,16 @@
 package org.schoellerfamily.gedbrowser.security.util.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
@@ -23,91 +23,91 @@ public class RequestUserUtilTest {
     public void testGood() {
         final StubPrincipal principal = new StubPrincipal("fred");
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
-        assertEquals("username wrong", principal.getName(), util.getUser().getUsername());
+        assertEquals(principal.getName(), util.getUser().getUsername(), "username wrong");
     }
 
     @Test
     public void testNullPrincipal() {
         final StubPrincipal principal = null;
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
-        assertNull("username wrong", util.getUser());
+        assertNull(util.getUser(), "username wrong");
     }
 
     @Test
     public void testNullName() {
         final StubPrincipal principal = new StubPrincipal(null);
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
-        assertNull("username wrong", util.getUser());
+        assertNull(util.getUser(), "username wrong");
     }
 
     @Test
     public void testEmptyName() {
         final StubPrincipal principal = new StubPrincipal("");
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
-        assertNull("username wrong", util.getUser());
+        assertNull(util.getUser(), "username wrong");
     }
 
     @Test
     public void testGoodHasUser() {
         final StubPrincipal principal = new StubPrincipal("fred");
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
-        assertTrue("should have user", util.hasUser());
+        assertTrue(util.hasUser(), "should have user");
     }
 
     @Test
     public void testNullPrincipalHasUser() {
         final StubPrincipal principal = null;
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
-        assertFalse("should not have user", util.hasUser());
+        assertFalse(util.hasUser(), "should not have user");
     }
 
     @Test
     public void testNullNameHasUser() {
         final StubPrincipal principal = new StubPrincipal(null);
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
-        assertFalse("should not have user", util.hasUser());
+        assertFalse(util.hasUser(), "should not have user");
     }
 
     @Test
     public void testEmptyNameHasUser() {
         final StubPrincipal principal = new StubPrincipal("");
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
-        assertFalse("should not have user", util.hasUser());
+        assertFalse(util.hasUser(), "should not have user");
     }
 
     @Test
     public void testGoodHasAdmin() {
         final StubPrincipal principal = new StubPrincipal("fred");
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
-        assertTrue("should have user", util.hasAdmin());
+        assertTrue(util.hasAdmin(), "should have user");
     }
 
     @Test
     public void testGoodHasFalseAdmin() {
         final StubPrincipal principal = new StubPrincipal("bob");
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
-        assertFalse("should have user", util.hasAdmin());
+        assertFalse(util.hasAdmin(), "should have user");
     }
 
     @Test
     public void testNullPrincipalHasAdmin() {
         final StubPrincipal principal = null;
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
-        assertFalse("should not have user", util.hasAdmin());
+        assertFalse(util.hasAdmin(), "should not have user");
     }
 
     @Test
     public void testNullNameHasAdmin() {
         final StubPrincipal principal = new StubPrincipal(null);
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
-        assertFalse("should not have user", util.hasAdmin());
+        assertFalse(util.hasAdmin(), "should not have user");
     }
 
     @Test
     public void testEmptyNameHasAdmin() {
         final StubPrincipal principal = new StubPrincipal("");
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
-        assertFalse("should not have user", util.hasAdmin());
+        assertFalse(util.hasAdmin(), "should not have user");
     }
 
     private class StubPrincipal implements Principal {

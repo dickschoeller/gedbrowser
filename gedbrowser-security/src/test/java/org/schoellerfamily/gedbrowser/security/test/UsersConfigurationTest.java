@@ -1,13 +1,13 @@
 package org.schoellerfamily.gedbrowser.security.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.reader.users.UsersReader;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
@@ -15,12 +15,12 @@ import org.schoellerfamily.gedbrowser.security.model.SecurityUsers;
 import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { Application.class })
 public final class UsersConfigurationTest {
     /**
@@ -33,14 +33,14 @@ public final class UsersConfigurationTest {
     private transient String gedbrowserHome;
 
     /** */
-    @Before
+    @BeforeEach
     public void before() {
         SecurityTestHelper.resetUserFile(
                 gedbrowserHome + "/" + TEST_USER_FILE_CSV);
     }
 
     /** */
-    @After
+    @AfterEach
     public void after() {
         SecurityTestHelper.resetUserFile(
                 gedbrowserHome + "/" + TEST_USER_FILE_CSV);
@@ -53,7 +53,7 @@ public final class UsersConfigurationTest {
         final SecurityUsers users = readUserFile(userFile);
         final int expected = 2;
         final int actual = users.size();
-        assertEquals("Found file should have two", expected, actual);
+        assertEquals(expected, actual, "Found file should have two");
     }
 
     /** */
@@ -63,8 +63,7 @@ public final class UsersConfigurationTest {
         final SecurityUsers users = readUserFile(userFile);
         final int expected = 1;
         final int actual = users.size();
-        assertEquals("Not found file should have only one",
-                expected, actual);
+        assertEquals(expected, actual, "Not found file should have only one");
     }
 
     /** */
@@ -73,8 +72,7 @@ public final class UsersConfigurationTest {
         final String userFile = gedbrowserHome + "/XYX";
         final SecurityUsers users = readUserFile(userFile);
         final SecurityUser guest = users.get("guest");
-        assertTrue("Should have role USER",
-                guest.hasRole(UserRoleName.USER));
+        assertTrue(guest.hasRole(UserRoleName.USER), "Should have role USER");
     }
 
     /** */
@@ -85,8 +83,7 @@ public final class UsersConfigurationTest {
         final int expected = 0;
         users.clear();
         final int actual = users.size();
-        assertEquals("Found file should have 0, because we did clear", expected,
-                actual);
+        assertEquals(expected, actual, "Found file should have 0, because we did clear");
     }
 
     /** */
@@ -100,8 +97,7 @@ public final class UsersConfigurationTest {
         user.setPassword("password");
         users.add(user);
         final int actual = users.size();
-        assertEquals("Found file should have 3, because we did add", expected,
-                actual);
+        assertEquals(expected, actual, "Found file should have 3, because we did add");
     }
 
     /** */
@@ -113,8 +109,7 @@ public final class UsersConfigurationTest {
         user.setUsername("add-username");
         user.setPassword("password");
         users.add(user);
-        assertEquals("Found file should have user, because we did add",
-                user, users.get("add-username"));
+        assertEquals(user, users.get("add-username"), "Found file should have user, because we did add");
     }
 
     /** */
@@ -127,8 +122,7 @@ public final class UsersConfigurationTest {
         user.setPassword("password");
         users.add(user);
         users.remove(user);
-        assertNull("Found file should not have user, because we did removed",
-                users.get("add-username"));
+        assertNull(users.get("add-username"), "Found file should not have user, because we did removed");
     }
 
     /** */
@@ -137,9 +131,8 @@ public final class UsersConfigurationTest {
         final String userFile = gedbrowserHome + "/" + TEST_USER_FILE_CSV;
         final SecurityUsers users = readUserFile(userFile);
         for (SecurityUser user: users) {
-            assertTrue(
-                    "Found file should not have user, because we did removed",
-                    user.getUsername() != null);
+            assertTrue(user.getUsername() != null,
+                    "Found file should not have user, because we did removed");
         }
     }
 

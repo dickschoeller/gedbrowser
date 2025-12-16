@@ -1,12 +1,12 @@
 package org.schoellerfamily.gedbrowser.security.model.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,42 +21,42 @@ public final class UserTest {
     @Test
     public void testDefaultUsername() {
         final UserImpl user = new UserImpl();
-        assertNull("Expected null user name", user.getUsername());
+        assertNull(user.getUsername(), "Expected null user name");
     }
 
     /** */
     @Test
     public void testDefaultFirstname() {
         final UserImpl user = new UserImpl();
-        assertNull("Expected null user first name", user.getFirstname());
+        assertNull(user.getFirstname(), "Expected null user first name");
     }
 
     /** */
     @Test
     public void testDefaultLastname() {
         final UserImpl user = new UserImpl();
-        assertNull("Expected null last name", user.getLastname());
+        assertNull(user.getLastname(), "Expected null last name");
     }
 
     /** */
     @Test
     public void testDefaultEmail() {
         final UserImpl user = new UserImpl();
-        assertNull("Expected null email address", user.getEmail());
+        assertNull(user.getEmail(), "Expected null email address");
     }
 
     /** */
     @Test
     public void testDefaultPassword() {
         final UserImpl user = new UserImpl();
-        assertNull("Expected null password", user.getPassword());
+        assertNull(user.getPassword(), "Expected null password");
     }
 
     /** */
     @Test
     public void testDefaultRoles() {
         final UserImpl user = new UserImpl();
-        assertEquals("Expected empty roles list", 0, user.getRoles().length);
+        assertEquals(0, user.getRoles().length, "Expected empty roles list");
     }
 
     /** */
@@ -64,7 +64,7 @@ public final class UserTest {
     public void testUsername() {
         final UserImpl user = new UserImpl();
         user.setUsername("test");
-        assertEquals("Username mismatch", "test", user.getUsername());
+        assertEquals("test", user.getUsername(), "Username mismatch");
     }
 
     /** */
@@ -72,7 +72,7 @@ public final class UserTest {
     public void testFirstname() {
         final UserImpl user = new UserImpl();
         user.setFirstname("first");
-        assertEquals("First name mismatch", "first", user.getFirstname());
+        assertEquals("first", user.getFirstname(), "First name mismatch");
     }
 
     /** */
@@ -80,7 +80,7 @@ public final class UserTest {
     public void testLastname() {
         final UserImpl user = new UserImpl();
         user.setLastname("last");
-        assertEquals("Last name mismatch", "last", user.getLastname());
+        assertEquals("last", user.getLastname(), "Last name mismatch");
     }
 
     /** */
@@ -88,7 +88,7 @@ public final class UserTest {
     public void testEmail() {
         final UserImpl user = new UserImpl();
         user.setEmail("test@test.com");
-        assertEquals("Email mismatch", "test@test.com", user.getEmail());
+        assertEquals("test@test.com", user.getEmail(), "Email mismatch");
     }
 
     /** */
@@ -96,7 +96,7 @@ public final class UserTest {
     public void testPassword() {
         final UserImpl user = new UserImpl();
         user.setPassword("password");
-        assertEquals("Password mismatch", "password", user.getPassword());
+        assertEquals("password", user.getPassword(), "Password mismatch");
     }
 
     /** */
@@ -104,7 +104,7 @@ public final class UserTest {
     public void testOneRole() {
         final UserImpl user = new UserImpl();
         user.addRole("USER");
-        assertEquals("Expected 1 role", 1, user.getRoles().length);
+        assertEquals(1, user.getRoles().length, "Expected 1 role");
     }
 
     /** */
@@ -113,7 +113,7 @@ public final class UserTest {
         final UserImpl user = new UserImpl();
         user.addRole("USER");
         user.addRole("ADMIN");
-        assertEquals("Expected 2 roles", 2, user.getRoles().length);
+        assertEquals(2, user.getRoles().length, "Expected 2 roles");
     }
 
     /** */
@@ -122,7 +122,7 @@ public final class UserTest {
         final UserImpl user = new UserImpl();
         user.addRole("USER");
         user.addRole("USER");
-        assertEquals("Expected 1 role", 1, user.getRoles().length);
+        assertEquals(1, user.getRoles().length, "Expected 1 role");
     }
 
     /** */
@@ -130,8 +130,7 @@ public final class UserTest {
     public void testOneRoleContent() {
         final UserImpl user = new UserImpl();
         user.addRole("USER");
-        assertEquals("Mismatched role", UserRoleName.USER,
-                user.getRoles()[0]);
+        assertEquals(UserRoleName.USER, user.getRoles()[0], "Mismatched role");
     }
 
     /** */
@@ -141,8 +140,7 @@ public final class UserTest {
         user.addRole("USER");
         user.addRole("ADMIN");
         user.addRole("IDIOT");
-        assertTrue("Should have admin role",
-                user.hasRole(UserRoleName.ADMIN));
+        assertTrue(user.hasRole(UserRoleName.ADMIN), "Should have admin role");
     }
 
     /** */
@@ -151,8 +149,7 @@ public final class UserTest {
         final UserImpl user = new UserImpl();
         user.addRole("USER");
         user.addRole("IDIOT");
-        assertFalse("Should not have admin role",
-                user.hasRole(UserRoleName.ADMIN));
+        assertFalse(user.hasRole(UserRoleName.ADMIN), "Should not have admin role");
     }
 
     /** */
@@ -162,35 +159,35 @@ public final class UserTest {
         user.addRole("USER");
         user.addRole("IDIOT");
         user.clearRoles();
-        assertEquals("Expected empty roles", 0, user.getRoles().length);
+        assertEquals(0, user.getRoles().length, "Expected empty roles");
     }
 
     /** */
     @Test
     public void testIsAccountNonExpired() {
         final UserImpl user = new UserImpl();
-        assertTrue("should always be true", user.isAccountNonExpired());
+        assertTrue(user.isAccountNonExpired(), "should always be true");
     }
 
     /** */
     @Test
     public void testIsAccountNonLocked() {
         final UserImpl user = new UserImpl();
-        assertTrue("should always be true", user.isAccountNonLocked());
+        assertTrue(user.isAccountNonLocked(), "should always be true");
     }
 
     /** */
     @Test
     public void testIsCredentialsNonExpired() {
         final UserImpl user = new UserImpl();
-        assertTrue("should always be true", user.isCredentialsNonExpired());
+        assertTrue(user.isCredentialsNonExpired(), "should always be true");
     }
 
     /** */
     @Test
     public void testIsEnabled() {
         final UserImpl user = new UserImpl();
-        assertTrue("should always be true", user.isEnabled());
+        assertTrue(user.isEnabled(), "should always be true");
     }
 
     /** */
@@ -199,7 +196,7 @@ public final class UserTest {
         final UserImpl user = new UserImpl();
         user.addRole("USER");
         user.addRole("ADMIN");
-        assertEquals("Expected 2 authorities", 2, user.getAuthorities().size());
+        assertEquals(2, user.getAuthorities().size(), "Expected 2 authorities");
     }
 
     /** */

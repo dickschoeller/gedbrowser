@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.security.model.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
 
 /**
@@ -14,42 +14,42 @@ public class UserRequestTest {
     @Test
     public void testDefaultUsername() {
         final UserRequest request = new UserRequest();
-        assertNull("should default to null", request.getUsername());
+        assertNull(request.getUsername(), "should default to null");
     }
 
     /** */
     @Test
     public void testDefaultFirstname() {
         final UserRequest request = new UserRequest();
-        assertNull("should default to null", request.getFirstname());
+        assertNull(request.getFirstname(), "should default to null");
     }
 
     /** */
     @Test
     public void testDefaultLastname() {
         final UserRequest request = new UserRequest();
-        assertNull("should default to null", request.getLastname());
+        assertNull(request.getLastname(), "should default to null");
     }
 
     /** */
     @Test
     public void testDefaultPassword() {
         final UserRequest request = new UserRequest();
-        assertNull("should default to null", request.getPassword());
+        assertNull(request.getPassword(), "should default to null");
     }
 
     /** */
     @Test
     public void testDefaultEmail() {
         final UserRequest request = new UserRequest();
-        assertNull("should default to null", request.getEmail());
+        assertNull(request.getEmail(), "should default to null");
     }
 
     /** */
     @Test
     public void testDefaultId() {
         final UserRequest request = new UserRequest();
-        assertNull("should default to null", request.getId());
+        assertNull(request.getId(), "should default to null");
     }
 
     /** */
@@ -57,7 +57,7 @@ public class UserRequestTest {
     public void testSetUsername() {
         final UserRequest request = new UserRequest();
         request.setUsername("user");
-        assertEquals("should match set value", "user", request.getUsername());
+        assertEquals("user", request.getUsername(), "should match set value");
     }
 
     /** */
@@ -65,7 +65,7 @@ public class UserRequestTest {
     public void testSetFirstname() {
         final UserRequest request = new UserRequest();
         request.setFirstname("first");
-        assertEquals("should match set value", "first", request.getFirstname());
+        assertEquals("first", request.getFirstname(), "should match set value");
     }
 
     /** */
@@ -73,7 +73,7 @@ public class UserRequestTest {
     public void testSetLastname() {
         final UserRequest request = new UserRequest();
         request.setLastname("last");
-        assertEquals("should match set value", "last", request.getLastname());
+        assertEquals("last", request.getLastname(), "should match set value");
     }
 
     /** */
@@ -81,7 +81,7 @@ public class UserRequestTest {
     public void testSetPassword() {
         final UserRequest request = new UserRequest();
         request.setPassword("pass");
-        assertEquals("should match set value", "pass", request.getPassword());
+        assertEquals("pass", request.getPassword(), "should match set value");
     }
 
     /** */
@@ -89,8 +89,8 @@ public class UserRequestTest {
     public void testSetEmail() {
         final UserRequest request = new UserRequest();
         request.setEmail("email@email.com");
-        assertEquals("should match set value",
-                "email@email.com", request.getEmail());
+        assertEquals("email@email.com", request.getEmail(),
+                "should match set value");
     }
 
     /** */
@@ -98,7 +98,7 @@ public class UserRequestTest {
     public void testSetId() {
         final UserRequest request = new UserRequest();
         request.setId(Long.MAX_VALUE);
-        assertEquals("should match set value", Long.valueOf(Long.MAX_VALUE),
-                request.getId());
+        assertEquals(Long.valueOf(Long.MAX_VALUE), request.getId(),
+                "should match set value");
     }
 }
