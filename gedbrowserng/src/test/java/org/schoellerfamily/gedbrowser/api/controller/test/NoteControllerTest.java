@@ -2,7 +2,6 @@ package org.schoellerfamily.gedbrowser.api.controller.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.net.URI;
 import java.net.URISyntaxException;

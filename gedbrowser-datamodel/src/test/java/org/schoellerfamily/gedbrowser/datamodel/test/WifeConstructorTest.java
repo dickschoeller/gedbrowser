@@ -3,14 +3,13 @@ package org.schoellerfamily.gedbrowser.datamodel.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.Arguments;
-import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
+import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 

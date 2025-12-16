@@ -2,7 +2,6 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
