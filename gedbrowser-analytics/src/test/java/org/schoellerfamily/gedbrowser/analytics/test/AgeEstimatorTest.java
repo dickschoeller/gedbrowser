@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.analytics.test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.analytics.AgeEstimator;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.order.test.AnalyzerTest;
@@ -13,12 +13,12 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public final class AgeEstimatorTest implements AnalyzerTest {
     /** */
@@ -54,8 +54,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 57;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 57",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 57");
     }
 
     /**
@@ -68,8 +68,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 55",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 55");
     }
 
     /**
@@ -82,8 +82,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 55",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 55");
     }
 
     /**
@@ -96,8 +96,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 54;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 54",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 54");
     }
 
     /**
@@ -110,8 +110,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 55",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 55");
     }
 
     /**
@@ -124,8 +124,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 55",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 55");
     }
 
     /**
@@ -138,8 +138,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 55",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 55");
     }
 
     /**
@@ -152,8 +152,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 55",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 55");
     }
 
     /**
@@ -166,8 +166,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 55",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 55");
     }
 
     /**
@@ -180,8 +180,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 54;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 54",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 54");
     }
 
     /**
@@ -194,8 +194,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 54;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 54",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 54");
     }
 
     /**
@@ -208,8 +208,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 54;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 54",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 54");
     }
 
     /**
@@ -222,8 +222,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 55",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 55");
     }
 
     /**
@@ -236,8 +236,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 55",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 55");
     }
 
     /**
@@ -250,8 +250,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 55;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 55",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 55");
     }
 
     /**
@@ -264,8 +264,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 54;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 55",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 55");
     }
 
     /**
@@ -278,8 +278,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
 
         final int ageAtReferenceDate = 54;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate does not match expected value of 54",
-                ageAtReferenceDate, estimator.estimateInYears());
+        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
+                "estimate does not match expected value of 54");
     }
 
     /**
@@ -291,8 +291,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
         builder.createPersonEvent(person, "Birth", "13 DEC 1960");
 
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate string doesn't match",
-                "55 years, 1 day", estimator.estimateInYearsMonthsDays());
+        assertEquals("55 years, 1 day", estimator.estimateInYearsMonthsDays(),
+                "estimate string doesn't match");
     }
 
     /**
@@ -304,9 +304,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
         builder.createPersonEvent(person, "Birth", "13 JAN 1961");
 
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate string doesn't match",
-                "54 years, 11 months, 1 day",
-                estimator.estimateInYearsMonthsDays());
+        assertEquals("54 years, 11 months, 1 day", estimator.estimateInYearsMonthsDays(),
+                "estimate string doesn't match");
     }
 
     /**
@@ -318,9 +317,8 @@ public final class AgeEstimatorTest implements AnalyzerTest {
         builder.createPersonEvent(person, "Birth", "16 DEC 1960");
 
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate string doesn't match",
-                "54 years, 11 months, 28 days",
-                estimator.estimateInYearsMonthsDays());
+        assertEquals("54 years, 11 months, 28 days", estimator.estimateInYearsMonthsDays(),
+                "estimate string doesn't match");
     }
 
     /**
@@ -332,8 +330,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
         builder.createPersonEvent(person, "Birth", "14 JAN 1961");
 
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("estimate string doesn't match",
-                "54 years, 11 months",
-                estimator.estimateInYearsMonthsDays());
+        assertEquals("54 years, 11 months", estimator.estimateInYearsMonthsDays(),
+                "estimate string doesn't match");
     }
 }

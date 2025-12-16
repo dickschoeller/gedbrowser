@@ -1,11 +1,11 @@
 package org.schoellerfamily.gedbrowser.analytics.test;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.joda.time.LocalDate;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.analytics.BirthDateFromChildrenEstimator;
 import org.schoellerfamily.gedbrowser.analytics.order.test.AnalyzerTest;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
@@ -15,12 +15,12 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 public class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
     /** */
@@ -163,7 +163,7 @@ public class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
         final BirthDateFromChildrenEstimator estimator =
                 new BirthDateFromChildrenEstimator(person1);
         final LocalDate actual = estimator.estimateFromSpousesAncestors(null);
-        assertNull("Expect a null when given this little", actual);
+        assertNull(actual, "Expect a null when given this little");
     }
 
     /** */
@@ -187,8 +187,7 @@ public class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
      * @param actual actual date
      */
     private void assertMatch(final LocalDate expected, final LocalDate actual) {
-        assertTrue(mismatchString(expected, actual),
-                expected.isEqual(actual));
+        assertTrue(expected.isEqual(actual), mismatchString(expected, actual));
     }
 
     /**
