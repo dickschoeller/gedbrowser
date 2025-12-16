@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.writer.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.users.User;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserImpl;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
@@ -26,7 +26,7 @@ public class UsersWriterTest {
         final Users<User> users = readUserFile(TEST_USER_FILE_CSV);
         final int expected = 3;
         final int actual = users.size();
-        assertEquals("Number of users is wrong", expected, actual);
+        assertEquals(expected, actual, "Number of users is wrong");
     }
 
     @Test
@@ -35,7 +35,7 @@ public class UsersWriterTest {
             writeUserFile(null);
             fail("Should throw null pointer exception");
         } catch (NullPointerException e) {
-            assertNull("Should be a null message", e.getMessage());
+            assertNull(e.getMessage(), "Should be a null message");
         }
     }
 
@@ -43,7 +43,7 @@ public class UsersWriterTest {
     public void testBad() {
         writeUserFile("/etc");
         final Users<User> users = readUserFile("/etc");
-        assertEquals("should be the one dummy because of failure", 1, users.size());
+        assertEquals(1, users.size(), "should be the one dummy because of failure");
     }
 
     /**

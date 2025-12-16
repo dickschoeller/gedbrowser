@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.writer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,10 +9,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
@@ -23,7 +20,6 @@ import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor
 /**
  * @author Dick Schoeller
  */
-@RunWith(Parameterized.class)
 @Slf4j
 public class ReaderWriterTest {
     /**
@@ -35,30 +31,13 @@ public class ReaderWriterTest {
 //            "/var/lib/gedbrowser/schoeller.ged";
 //            "gl120368.ged";);
 
-    /** */
-    private final String message;
-    /** */
-    private final String expected;
-    /** */
-    private final String actual;
-
     /**
-     * @param expected the expected line string
-     * @param actual the actual line string
+     * Build the list of expected/actual pairs.
+     *
+     * @return list of pairs
+     * @throws IOException if resource can't be read
      */
-    public ReaderWriterTest(final String expected,
-            final String actual) {
-        this.message = "Line mismatch";
-        this.expected = expected;
-        this.actual = actual;
-    }
-
-    /**
-     * @return create the table of expected and actual
-     * @throws IOException because of problems reading the file
-     */
-    @Parameters
-    public static Collection<String[]> data() throws IOException {
+    public static List<String[]> data() throws IOException {
         final AbstractGedLine top = readFileTestSource();
         final GedLineToGedObjectTransformer g2g =
                 new GedLineToGedObjectTransformer();
@@ -116,10 +95,19 @@ public class ReaderWriterTest {
                 "", FILE_NAME);
     }
 
-    /** */
+    /**
+     * Iterate all expected/actual pairs and assert equality.
+     *
+     * @throws Exception on IO/read errors
+     */
     @Test
-    public void testLine() {
-        log.info("Actual line: {}", actual);
-        assertEquals(message, expected, actual);
+    public void testLines() throws Exception {
+        final List<String[]> parameters = data();
+        for (final String[] param : parameters) {
+            final String expected = param[0];
+            final String actual = param[1];
+            log.info("Actual line: {}", actual);
+            assertEquals(expected, actual, "Line mismatch");
+        }
     }
 }

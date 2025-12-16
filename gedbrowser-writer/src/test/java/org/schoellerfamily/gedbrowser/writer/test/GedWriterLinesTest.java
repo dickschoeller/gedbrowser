@@ -1,16 +1,13 @@
 package org.schoellerfamily.gedbrowser.writer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
@@ -33,16 +30,8 @@ import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor
 /**
  * @author Dick Schoeller
  */
-@RunWith(Parameterized.class)
 @Slf4j
 public class GedWriterLinesTest {
-
-    /** */
-    private final String message;
-    /** */
-    private final String expected;
-    /** */
-    private final String actual;
 
     /**
      * This array contains the expected output and messages to go along with.
@@ -107,8 +96,7 @@ public class GedWriterLinesTest {
     /**
      * @return create the table of expected and actual
      */
-    @Parameters
-    public static Collection<String[]> data() {
+    public static List<String[]> data() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Root root = builder.getRoot();
         root.setFilename("huh.ged");
@@ -182,22 +170,16 @@ public class GedWriterLinesTest {
         return parameters;
     }
 
-    /**
-     * @param message the message string
-     * @param expected the expected line string
-     * @param actual the actual line string
-     */
-    public GedWriterLinesTest(final String message, final String expected,
-            final String actual) {
-        this.message = message;
-        this.expected = expected;
-        this.actual = actual;
-    }
-
     /** */
     @Test
-    public void testLine() {
-        log.info("Actual line: {}", actual);
-        assertEquals(message, expected, actual);
+    public void testLines() {
+        final List<String[]> parameters = data();
+        for (final String[] param : parameters) {
+            final String message = param[0];
+            final String expected = param[1];
+            final String actual = param[2];
+            log.info("Actual line: {}", actual);
+            assertEquals(expected, actual, message);
+        }
     }
 }

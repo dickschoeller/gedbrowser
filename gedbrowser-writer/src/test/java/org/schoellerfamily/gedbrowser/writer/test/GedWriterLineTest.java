@@ -1,12 +1,12 @@
 package org.schoellerfamily.gedbrowser.writer.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
@@ -35,7 +35,7 @@ public class GedWriterLineTest {
     private GedObjectToGedWriterVisitor gedLineCreator;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         gedLineCreator = new GedObjectToGedWriterVisitor();
@@ -83,7 +83,7 @@ public class GedWriterLineTest {
     public void testLineCount() {
         final Collection<GedWriterLine> lines = gedLineCreator.getLines();
         final int expected = 33;
-        assertEquals("Output size mismatch", expected, lines.size());
+        assertEquals(expected, lines.size(), "Output size mismatch");
     }
 
     /** */
@@ -91,8 +91,7 @@ public class GedWriterLineTest {
     public void testRootFilename() {
         final List<GedWriterLine> lines = gedLineCreator.getLines();
         final GedWriterFile file = (GedWriterFile) lines.get(0);
-        assertEquals("Should be the filename set above", "huh.ged",
-                file.getFilename());
+        assertEquals("huh.ged", file.getFilename(), "Should be the filename set above");
     }
 
     /** */
@@ -100,7 +99,6 @@ public class GedWriterLineTest {
     public void testRootDbName() {
         final List<GedWriterLine> lines = gedLineCreator.getLines();
         final GedWriterFile file = (GedWriterFile) lines.get(0);
-        assertEquals("Should be the DB name set above", "huh",
-                file.getDbName());
+        assertEquals("huh", file.getDbName(), "Should be the DB name set above");
     }
 }
