@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -25,7 +25,7 @@ public final class AttributeTest {
     private transient Person person1;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person1 = builder.createPerson(
@@ -36,7 +36,7 @@ public final class AttributeTest {
     @Test
     public void testString() {
         final Attribute job = new Attribute(person1, "Job", "Worked at SAP");
-        assertEquals("In should match out", "Worked at SAP", job.getTail());
+        assertEquals("Worked at SAP", job.getTail(), "In should match out");
     }
 
     /** */
@@ -44,8 +44,7 @@ public final class AttributeTest {
     public void testAppendString() {
         final Attribute job = new Attribute(person1, "Job", "Worked at SAP");
         job.appendString(" for 5 years");
-        assertEquals("Should have concatenated the segments",
-                "Worked at SAP for 5 years", job.getTail());
+        assertEquals("Worked at SAP for 5 years", job.getTail(), "Should have concatenated the segments");
     }
 
     /** */
@@ -56,7 +55,7 @@ public final class AttributeTest {
         dummy.insert(dummyDate);
         final GetDateVisitor visitor = new GetDateVisitor("Birth");
         dummy.accept(visitor);
-        assertEquals("Expected empty string", "", visitor.getDate());
+        assertEquals("", visitor.getDate(), "Expected empty string");
     }
 
     /** */
@@ -69,7 +68,7 @@ public final class AttributeTest {
         new Date(birth, POTTER_DAY);
         final GetDateVisitor visitor = new GetDateVisitor("Birth");
         birth.accept(visitor);
-        assertEquals("Expected empty string", "", visitor.getDate());
+        assertEquals("", visitor.getDate(), "Expected empty string");
     }
 
     /** */
@@ -83,8 +82,7 @@ public final class AttributeTest {
         birth.insert(date);
         final GetDateVisitor visitor = new GetDateVisitor("Birth");
         birth.accept(visitor);
-        assertEquals("Date's filled in. Should match", POTTER_DAY,
-                visitor.getDate());
+        assertEquals(POTTER_DAY, visitor.getDate(), "Date's filled in. Should match");
     }
 
     /** */
@@ -95,7 +93,7 @@ public final class AttributeTest {
         dummy.insert(dummyDate);
         final GetDateVisitor visitor = new GetDateVisitor("Death");
         dummy.accept(visitor);
-        assertEquals("Expected empty string", "", visitor.getDate());
+        assertEquals("", visitor.getDate(), "Expected empty string");
     }
 
     /** */
@@ -107,7 +105,7 @@ public final class AttributeTest {
         final Attribute death = new Attribute(person1, "Death");
         final GetDateVisitor visitor = new GetDateVisitor("Death");
         death.accept(visitor);
-        assertEquals("Expected empty string", "", visitor.getDate());
+        assertEquals("", visitor.getDate(), "Expected empty string");
     }
 
     /** */
@@ -121,8 +119,7 @@ public final class AttributeTest {
         death.insert(date);
         final GetDateVisitor visitor = new GetDateVisitor("Death");
         death.accept(visitor);
-        assertEquals("Date's filled in. Should match", HUNDRED_DAY,
-                visitor.getDate());
+        assertEquals(HUNDRED_DAY, visitor.getDate(), "Date's filled in. Should match");
     }
 
     /** */
@@ -136,7 +133,7 @@ public final class AttributeTest {
         dummy.insert(dummyDate);
         final GetDateVisitor visitor = new GetDateVisitor();
         dummy.accept(visitor);
-        assertEquals("Date mismatch", POTTER_DAY, visitor.getDate());
+        assertEquals(POTTER_DAY, visitor.getDate(), "Date mismatch");
     }
 
     /** */
@@ -147,7 +144,7 @@ public final class AttributeTest {
         dummy1.insert(dummyDate1);
         final GetDateVisitor visitor = new GetDateVisitor();
         dummy1.accept(visitor);
-        assertEquals("Expected empty date string", "", visitor.getDate());
+        assertEquals("", visitor.getDate(), "Expected empty date string");
     }
 
     /** */
@@ -156,7 +153,7 @@ public final class AttributeTest {
         final Attribute death = new Attribute(person1, "Death");
         final GetDateVisitor visitor = new GetDateVisitor();
         death.accept(visitor);
-        assertEquals("Expected empty date string", "", visitor.getDate());
+        assertEquals("", visitor.getDate(), "Expected empty date string");
     }
 
     /** */
@@ -209,8 +206,8 @@ public final class AttributeTest {
     private void assertMatch(final Attribute attribute,
             final GedObject expParent, final String expString,
             final String expTail) {
-        assertEquals("Parent mismatch", expParent, attribute.getParent());
-        assertEquals("String mismatch", expString, attribute.getString());
-        assertEquals("Tail mismatch", expTail, attribute.getTail());
+        assertEquals(expParent, attribute.getParent(), "Parent mismatch");
+        assertEquals(expString, attribute.getString(), "String mismatch");
+        assertEquals(expTail, attribute.getTail(), "Tail mismatch");
     }
 }

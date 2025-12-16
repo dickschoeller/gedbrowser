@@ -1,57 +1,26 @@
 package org.schoellerfamily.gedbrowser.datamodel.factory.test;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import java.util.Arrays;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.Arguments;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
 
-/**
- * @author Dick Schoeller
- */
-@RunWith(Parameterized.class)
 public class GedObjectFactoryTest {
-    /** */
-    private final GedObjectFactory factory;
-    /** */
-    private final GedObject parent;
-    /** */
-    private final String xref;
-    /** */
-    private final String tag;
-    /** */
-    private final String tail;
 
-    /**
-     * @param parent the parent of the object being created
-     * @param xref a cross reference string (can be null or empty)
-     * @param tag a tag (if null or empty defaults to ATTRIBUTE)
-     * @param tail additional text from the line (can be null or empty)
-     */
-    public GedObjectFactoryTest(final GedObject parent,
-            final String xref, final String tag, final String tail) {
-        this.factory = new GedObjectFactory();
-        this.parent = parent;
-        this.xref = xref;
-        this.tag = tag;
-        this.tail = tail;
-    }
-
-    /**
-     * @return the collection of test parameters
-     */
-    @Parameters
-    public static Object[][] params() {
+    public static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Root root = builder.getRoot();
 
-        return new Object[][] {
+        return Arrays.stream(new Object[][] {
             {null, null, null, null},
             {null, null, "ROOT", null},
             {null, "", "ROOT", null},
@@ -60,15 +29,16 @@ public class GedObjectFactoryTest {
             {root, null, "ROOT", null},
             {root, "", "ROOT", null},
             {root, null, "ROOT", ""},
-        };
+        }).map(Arguments::of);
     }
 
-
-    /** */
-    @Test
-    public void testFactory() {
+    @ParameterizedTest
+    @MethodSource("params")
+    public void testFactory(final GedObject parent, final String xref,
+            final String tag, final String tail) {
+        final GedObjectFactory factory = new GedObjectFactory();
         final GedObject gob = factory.create(parent, new ObjectId(xref), tag,
                 tail);
-        assertNull("should always return null", gob);
+        assertNull(gob, "should always return null");
     }
 }

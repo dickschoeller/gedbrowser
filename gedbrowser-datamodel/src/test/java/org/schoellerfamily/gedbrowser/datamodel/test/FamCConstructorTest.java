@@ -1,15 +1,13 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.stream.Stream;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.Arguments;
 import org.schoellerfamily.gedbrowser.datamodel.FamC;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -21,59 +19,14 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  *
  * @author Dick Schoeller
  */
-@RunWith(Parameterized.class)
-@SuppressWarnings("PMD.CommentSize")
 public final class FamCConstructorTest {
-    /** */
-    private final Person parent;
-    /** */
-    private final String string;
-    /** */
-    private final ObjectId tail;
-    /** */
-    private final Person expectedParent;
-    /** */
-    private final String expectedString;
-    /** */
-    private final String expectedToString;
-    /** */
-    private final String expectedFromString;
-    /** */
-    private FamC famc;
 
-    /**
-     * @param parent input parent value for constructor call
-     * @param string input string value for constructor call
-     * @param tail input tail value for constructor call
-     * @param expectedParent expected output parent from getter
-     * @param expectedString expected output string from getter
-     * @param expectedToString expected to string
-     * @param expectedFromString expected from string
-     */
-    public FamCConstructorTest(final Person parent,
-            final String string, final ObjectId tail,
-            final Person expectedParent,
-            final String expectedString, final String expectedToString,
-            final String expectedFromString) {
-                this.parent = parent;
-                this.string = string;
-                this.tail = tail;
-                this.expectedParent = expectedParent;
-                this.expectedString = expectedString;
-                this.expectedToString = expectedToString;
-                this.expectedFromString = expectedFromString;
-    }
-
-    /**
-     * @return collection of parameter arrays
-     */
-    @Parameters
-    public static Collection<Object[]> params() {
+    public static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson(
                 "I1", "J. Random/Schoeller/");
 
-        return Arrays.asList(new Object[][] {
+        return Arrays.stream(new Object[][] {
             {null, null, new ObjectId("I2"), null, "", "I2", ""},
             {person1, null, new ObjectId("I3"), person1, "",  "I3", "I1"},
             {null, "", new ObjectId("F1"), null, "", "F1", ""},
@@ -92,38 +45,46 @@ public final class FamCConstructorTest {
             {person1, "", null, person1, "", "", "I1"},
             {null, "FamC", null, null, "FamC", "", ""},
             {person1, "Lunk", null, person1, "Lunk", "", "I1"},
-        });
+        }).map(Arguments::of);
     }
 
-    /** */
-    @Before
-    public void init() {
-        famc = new FamC(parent, string, tail);
+    @ParameterizedTest
+    @MethodSource("params")
+    public void testParent(final Person parent, final String string,
+            final ObjectId tail, final Person expectedParent,
+            final String expectedString, final String expectedToString,
+            final String expectedFromString) {
+        final FamC famc = new FamC(parent, string, tail);
+        assertEquals(expectedParent, famc.getParent(), "Parent mismatch");
     }
 
-    /** */
-    @Test
-    public void testParent() {
-        assertEquals("Parent mismatch", expectedParent, famc.getParent());
+    @ParameterizedTest
+    @MethodSource("params")
+    public void testString(final Person parent, final String string,
+            final ObjectId tail, final Person expectedParent,
+            final String expectedString, final String expectedToString,
+            final String expectedFromString) {
+        final FamC famc = new FamC(parent, string, tail);
+        assertEquals(expectedString, famc.getString(), "String mismatch");
     }
 
-    /** */
-    @Test
-    public void testString() {
-        assertEquals("String mismatch", expectedString, famc.getString());
+    @ParameterizedTest
+    @MethodSource("params")
+    public void testToString(final Person parent, final String string,
+            final ObjectId tail, final Person expectedParent,
+            final String expectedString, final String expectedToString,
+            final String expectedFromString) {
+        final FamC famc = new FamC(parent, string, tail);
+        assertEquals(expectedToString, famc.getToString(), "To string mismtach");
     }
 
-    /** */
-    @Test
-    public void testToString() {
-        assertEquals("To string mismtach", expectedToString,
-                famc.getToString());
-    }
-
-    /** */
-    @Test
-    public void testFromString() {
-        assertEquals("From string mismatch", expectedFromString,
-                famc.getFromString());
+    @ParameterizedTest
+    @MethodSource("params")
+    public void testFromString(final Person parent, final String string,
+            final ObjectId tail, final Person expectedParent,
+            final String expectedString, final String expectedToString,
+            final String expectedFromString) {
+        final FamC famc = new FamC(parent, string, tail);
+        assertEquals(expectedFromString, famc.getFromString(), "From string mismatch");
     }
 }

@@ -1,12 +1,12 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
@@ -48,7 +48,7 @@ public final class PersonVisitorTest {
                 builder.createPerson("I1", "J. Random/Schoeller/");
         final PersonVisitor visitor = new PersonVisitor();
         person.accept(visitor);
-        assertFalse("Should be no family", visitor.getFamily().isSet());
+        assertFalse(visitor.getFamily().isSet(), "Should be no family");
     }
 
     /** */
@@ -60,7 +60,7 @@ public final class PersonVisitorTest {
         builder.addChildToFamily(family, person);
         final PersonVisitor visitor = new PersonVisitor();
         person.accept(visitor);
-        assertSame("Unmatched family", family, visitor.getFamily());
+        assertSame(family, visitor.getFamily(), "Unmatched family");
     }
 
     /** */
@@ -74,7 +74,7 @@ public final class PersonVisitorTest {
         builder.addChildToFamily(family2, person);
         final PersonVisitor visitor = new PersonVisitor();
         person.accept(visitor);
-        assertSame("Unmatched family", family, visitor.getFamily());
+        assertSame(family, visitor.getFamily(), "Unmatched family");
     }
 
     /** */
@@ -89,8 +89,8 @@ public final class PersonVisitorTest {
         final PersonVisitor visitor = new PersonVisitor();
         person.accept(visitor);
         final List<Family> familiesC = visitor.getFamiliesC();
-        assertTrue("Expected both families to be present",
-                familiesC.contains(family) && familiesC.contains(family2));
+        assertTrue(familiesC.contains(family) && familiesC.contains(family2),
+                "Expected both families to be present");
     }
 
     /** */
@@ -127,6 +127,6 @@ public final class PersonVisitorTest {
             }
         };
         gob.accept(visitor);
-        assertFalse("Found unexpected content", visitor.getFamily().isSet());
+        assertFalse(visitor.getFamily().isSet(), "Found unexpected content");
     }
 }

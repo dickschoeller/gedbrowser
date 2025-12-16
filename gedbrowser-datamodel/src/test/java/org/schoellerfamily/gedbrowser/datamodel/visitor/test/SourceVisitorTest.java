@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -47,7 +47,7 @@ public final class SourceVisitorTest {
         source.insert(title);
         final SourceVisitor visitor = new SourceVisitor();
         source.accept(visitor);
-        assertEquals("Found wrong title", "Title 9", visitor.getTitleString());
+        assertEquals("Title 9", visitor.getTitleString(), "Found wrong title");
     }
 
     /** */
@@ -60,7 +60,7 @@ public final class SourceVisitorTest {
         source.insert(title);
         final SourceVisitor visitor = new SourceVisitor();
         source.accept(visitor);
-        assertEquals("Found wrong title", "S1", visitor.getTitleString());
+        assertEquals("S1", visitor.getTitleString(), "Found wrong title");
     }
 
     /** */
@@ -71,14 +71,14 @@ public final class SourceVisitorTest {
         root.insert(source);
         final SourceVisitor visitor = new SourceVisitor();
         source.accept(visitor);
-        assertEquals("Found wrong title", "S1", visitor.getTitleString());
+        assertEquals("S1", visitor.getTitleString(), "Found wrong title");
     }
 
     /** */
     @Test
     public void testNoSource() {
         final SourceVisitor visitor = new SourceVisitor();
-        assertEquals("Found wrong title", "", visitor.getTitleString());
+        assertEquals("", visitor.getTitleString(), "Found wrong title");
     }
 
     /** */
@@ -116,6 +116,6 @@ public final class SourceVisitorTest {
                 visitor.visit(this);
             } };
         gob.accept(visitor);
-        assertEquals("Found wrong title", "", visitor.getTitleString());
+        assertEquals("", visitor.getTitleString(), "Found wrong title");
     }
 }

@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.datamodel.util.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
@@ -16,7 +16,7 @@ public final class GedObjectBuilderTrailerTest {
     public void testCreateTrailer() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Trailer trailer = builder.createTrailer();
-        assertEquals("Mismatched tag", "Trailer", trailer.getString());
+        assertEquals("Trailer", trailer.getString(), "Mismatched tag");
     }
 
 }

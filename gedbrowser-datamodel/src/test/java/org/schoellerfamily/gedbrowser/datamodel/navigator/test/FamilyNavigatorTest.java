@@ -1,13 +1,13 @@
 package org.schoellerfamily.gedbrowser.datamodel.navigator.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.FamC;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -28,7 +28,7 @@ public final class FamilyNavigatorTest {
     private transient Person person3;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         family1 = builder.createFamily("F1");
@@ -53,30 +53,28 @@ public final class FamilyNavigatorTest {
     @Test
     public void testGetFather() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
-        assertEquals("Father mismatch", person1, navigator.getFather());
+        assertEquals(person1, navigator.getFather(), "Father mismatch");
     }
 
     /** */
     @Test
     public void testGetHusband() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
-        assertEquals("Husband mismatch",
-                person1.getString(), navigator.getHusband().getToString());
+        assertEquals(person1.getString(), navigator.getHusband().getToString(), "Husband mismatch");
     }
 
     /** */
     @Test
     public void testGetMother() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
-        assertEquals("Mother mismatch", person2, navigator.getMother());
+        assertEquals(person2, navigator.getMother(), "Mother mismatch");
     }
 
     /** */
     @Test
     public void testGetWife() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
-        assertEquals("Wife mismatch",
-                person2.getString(), navigator.getWife().getToString());
+        assertEquals(person2.getString(), navigator.getWife().getToString(), "Wife mismatch");
     }
 
     /** */
@@ -84,8 +82,7 @@ public final class FamilyNavigatorTest {
     public void testGetChildren() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final List<Person> children = navigator.getChildren();
-        assertTrue("Expected child to be in children",
-                children.contains(person3) && children.size() == 1);
+        assertTrue(children.contains(person3) && children.size() == 1, "Expected child to be in children");
     }
 
     /** */
@@ -93,6 +90,6 @@ public final class FamilyNavigatorTest {
     public void testNullFamily() {
         final FamC famc = new FamC(null, "F8888", null);
         final FamilyNavigator navigator = new FamilyNavigator(famc);
-        assertFalse("Expected null", navigator.getFamily().isSet());
+        assertFalse(navigator.getFamily().isSet(), "Expected null");
     }
 }

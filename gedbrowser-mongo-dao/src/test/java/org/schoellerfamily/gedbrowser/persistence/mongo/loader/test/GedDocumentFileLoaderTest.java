@@ -1,14 +1,14 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.loader.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Iterator;
 import java.util.Map;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
@@ -18,12 +18,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.test.MongoTes
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 public class GedDocumentFileLoaderTest {
     /** */
@@ -62,7 +62,7 @@ public class GedDocumentFileLoaderTest {
     @Test
     public void testBadLoad() {
         loader.reset(repositoryManager);
-        assertNull("Should be not found", loader.loadDocument(repositoryManager, "foofy"));
+        assertNull(loader.loadDocument(repositoryManager, "foofy"), "Should be not found");
     }
 
     /** */
@@ -97,20 +97,14 @@ public class GedDocumentFileLoaderTest {
      * @param details the details map
      */
     private void assertDetails(final Map<String, Object> details) {
-        assertEquals("dbname mismatch", "mini-schoeller",
-                details.get("dbname"));
-        assertEquals("filename mismatch",
-                gedbrowserHome + "/mini-schoeller.ged",
-                details.get("filename"));
+        assertEquals("mini-schoeller", details.get("dbname"), "dbname mismatch");
+        assertEquals(gedbrowserHome + "/mini-schoeller.ged", details.get("filename"), "filename mismatch");
         final long expectedPersonsCount = 20;
         final long expectedFamiliesCount = 7;
         final long expectedSourceCount = 11;
-        assertEquals("person count mismatch",
-                expectedPersonsCount, details.get("persons"));
-        assertEquals("family count mismatch",
-                expectedFamiliesCount, details.get("families"));
-        assertEquals("sources count mismatch",
-                expectedSourceCount, details.get("sources"));
+        assertEquals(expectedPersonsCount, details.get("persons"), "person count mismatch");
+        assertEquals(expectedFamiliesCount, details.get("families"), "family count mismatch");
+        assertEquals(expectedSourceCount, details.get("sources"), "sources count mismatch");
     }
 
     /** */
@@ -144,8 +138,7 @@ public class GedDocumentFileLoaderTest {
      * @param doc2 second document
      */
     private void checkSame(final RootDocument doc1, final RootDocument doc2) {
-        assertEquals("should be the same DB object",
-                doc1.getIdString(), doc2.getIdString());
+        assertEquals(doc1.getIdString(), doc2.getIdString(), "should be the same DB object");
     }
 
     /**
@@ -167,7 +160,7 @@ public class GedDocumentFileLoaderTest {
             iterator.next();
             count++;
         }
-        assertEquals("Count should be 1", 1, count);
+        assertEquals(1, count, "Count should be 1");
     }
 
     /**

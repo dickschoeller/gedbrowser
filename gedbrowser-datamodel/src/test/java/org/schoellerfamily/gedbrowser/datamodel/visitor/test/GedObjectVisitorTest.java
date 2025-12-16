@@ -1,15 +1,14 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.stream.Stream;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.Arguments;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -40,17 +39,10 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 /**
  * @author Dick Schoeller
  */
-@RunWith(Parameterized.class)
 @SuppressWarnings("PMD.ExcessiveImports")
 public class GedObjectVisitorTest {
     /** */
     private final GedObjectVisitorStub visitor = new GedObjectVisitorStub();
-
-    /** */
-    private final GedObject visited;
-
-    /** */
-    private final String type;
 
     /**
      * @author Dick Schoeller
@@ -76,126 +68,98 @@ public class GedObjectVisitorTest {
             return type;
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Attribute attribute) {
             gob = attribute;
             type = "attribute";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Child child) {
             gob = child;
             type = "child";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Date date) {
             gob = date;
             type = "date";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final FamC famc) {
             gob = famc;
             type = "famc";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Family family) {
             gob = family;
             type = "family";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final FamS fams) {
             gob = fams;
             type = "fams";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Head head) {
             gob = head;
             type = "head";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Husband husband) {
             gob = husband;
             type = "husband";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Link link) {
             gob = link;
             type = "link";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Multimedia multimedia) {
             gob = multimedia;
             type = "multimedia";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Name name) {
             gob = name;
             type = "name";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Note note) {
             gob = note;
             type = "note";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final NoteLink noteLink) {
             gob = noteLink;
             type = "noteLink";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Person person) {
             gob = person;
@@ -203,98 +167,76 @@ public class GedObjectVisitorTest {
         }
 
         @Override
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         public void visit(final Place place) {
             gob = place;
             type = "place";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Root root) {
             gob = root;
             type = "root";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Source source) {
             gob = source;
             type = "source";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final SourceLink sourceLink) {
             gob = sourceLink;
             type = "sourceLink";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Submission submission) {
             gob = submission;
             type = "submission";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final SubmissionLink submissionLink) {
             gob = submissionLink;
             type = "submissionLink";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Submitter submitter) {
             gob = submitter;
             type = "submitter";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final SubmitterLink submitterLink) {
             gob = submitterLink;
             type = "submitterLink";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Trailer trailer) {
             gob = trailer;
             type = "trailer";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final Wife wife) {
             gob = wife;
             type = "wife";
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public void visit(final GedObject gedObject) {
             gob = gedObject;
@@ -303,29 +245,18 @@ public class GedObjectVisitorTest {
     };
 
     /**
-     * @param visited the visited object
-     * @param type the expected type name
+     * Provide parameter combinations: (visited, type)
+     *
+     * @return stream of arguments
      */
-    public GedObjectVisitorTest(final GedObject visited, final String type) {
-        this.visited = visited;
-        this.type = type;
-    }
-
-    /**
-     * @return collection of parameter arrays
-     */
-    @Parameters
-    public static Collection<Object[]> params() {
+    public static Stream<Arguments> params() {
         final GedObject generic = new GedObject() {
-            /**
-             * {@inheritDoc}
-             */
             @Override
             public void accept(final GedObjectVisitor v) {
                 v.visit(this);
             }
         };
-        return Arrays.asList(new Object[][] {
+        return Arrays.stream(new Object[][] {
             {new Attribute(), "attribute"},
             {new Child(), "child"},
             {new Date(null), "date"},
@@ -351,23 +282,24 @@ public class GedObjectVisitorTest {
             {new Trailer(), "trailer"},
             {new Wife(), "wife"},
             {generic, "unknown"},
-        });
+        }).map(Arguments::of);
     }
 
     /**
      * Basic test.
      */
-    @Test
-    public void testVisit() {
+    @ParameterizedTest
+    @MethodSource("params")
+    public void testVisit(final GedObject visited, final String type) {
         visited.accept(visitor);
-        checkSame();
-        assertEquals("Should match type", type, visitor.getType());
+        checkSame(visited);
+        assertEquals(type, visitor.getType(), "Should match type");
     }
 
     /**
      * Check that the visitor saw what we thought it saw.
      */
-    private void checkSame() {
-        assertSame("Should be same object", visited, visitor.getGedObject());
+    private void checkSame(final GedObject visited) {
+        assertSame(visited, visitor.getGedObject(), "Should be same object");
     }
 }

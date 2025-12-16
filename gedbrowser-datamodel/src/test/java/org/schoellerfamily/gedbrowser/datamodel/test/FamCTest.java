@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.FamC;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
@@ -25,7 +25,7 @@ public final class FamCTest {
     private transient FamC famC;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson(
@@ -66,27 +66,27 @@ public final class FamCTest {
     @Test
     public void testGetFatherNotSet() {
         final FamilyNavigator navigator = new FamilyNavigator(new FamC());
-        assertFalse("Father should be unset", navigator.getFather().isSet());
+        assertFalse(navigator.getFather().isSet(), "Father should be unset");
     }
 
     /** */
     @Test
     public void testGetFather() {
         final FamilyNavigator navigator = new FamilyNavigator(famC);
-        assertEquals("Person mismatch", person2, navigator.getFather());
+        assertEquals(person2, navigator.getFather(), "Person mismatch");
     }
 
     /** */
     @Test
     public void testGetMotherNotSet() {
         final FamilyNavigator navigator = new FamilyNavigator(new FamC());
-        assertFalse("Mother should be unset", navigator.getMother().isSet());
+        assertFalse(navigator.getMother().isSet(), "Mother should be unset");
     }
 
     /** */
     @Test
     public void testGetMother() {
         final FamilyNavigator navigator = new FamilyNavigator(famC);
-        assertEquals("Person mismatch", person3, navigator.getMother());
+        assertEquals(person3, navigator.getMother(), "Person mismatch");
     }
 }

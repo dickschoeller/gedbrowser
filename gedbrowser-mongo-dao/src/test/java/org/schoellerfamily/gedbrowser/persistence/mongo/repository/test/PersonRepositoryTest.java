@@ -1,16 +1,16 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
@@ -21,12 +21,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMo
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 public final class PersonRepositoryTest {
     /**
@@ -53,7 +53,7 @@ public final class PersonRepositoryTest {
     /**
      * @throws IOException because the reader does
      */
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
         rootDocument = new RootDocumentMongo();
@@ -63,7 +63,7 @@ public final class PersonRepositoryTest {
     }
 
     /** */
-    @After
+    @AfterEach
     public void tearDown() {
         repositoryFixture.clearRepository();
     }
@@ -75,8 +75,7 @@ public final class PersonRepositoryTest {
                 findByFileAndString(root.getFilename(), "I1");
         final Person person =
                 (Person) toObjConverter.createGedObject(root, perdoc);
-        assertEquals("Name mistmatch",
-                "Melissa Robinson/Schoeller/", person.getName().getString());
+        assertEquals("Melissa Robinson/Schoeller/", person.getName().getString(), "Name mistmatch");
     }
 
     /** */
@@ -86,8 +85,7 @@ public final class PersonRepositoryTest {
                 findByRootAndString(rootDocument, "I1");
         final Person person =
                 (Person) toObjConverter.createGedObject(root, perdoc);
-        assertEquals("Name mistmatch",
-                "Melissa Robinson/Schoeller/", person.getName().getString());
+        assertEquals("Melissa Robinson/Schoeller/", person.getName().getString(), "Name mistmatch");
     }
 
     /** */
@@ -97,8 +95,7 @@ public final class PersonRepositoryTest {
                 findByFileAndString(root.getFilename(), "I2");
         final Person person =
                 (Person) toObjConverter.createGedObject(root, perdoc);
-        assertEquals("Name mistmatch",
-                "Richard John/Schoeller/", person.getName().getString());
+        assertEquals("Richard John/Schoeller/", person.getName().getString(), "Name mistmatch");
     }
 
     /** */
@@ -108,8 +105,7 @@ public final class PersonRepositoryTest {
                 findByRootAndString(rootDocument, "I2");
         final Person person =
                 (Person) toObjConverter.createGedObject(root, perdoc);
-        assertEquals("Name mistmatch",
-                "Richard John/Schoeller/", person.getName().getString());
+        assertEquals("Richard John/Schoeller/", person.getName().getString(), "Name mistmatch");
     }
 
     /** */
@@ -125,8 +121,7 @@ public final class PersonRepositoryTest {
                 .findByRootAndSurname(rootDocument, "Schoeller");
         int i = 0;
         for (final PersonDocument perdoc : perdocs) {
-            assertEquals("Name mistmatch",
-                    names[i++], perdoc.getIndexName());
+            assertEquals(names[i++], perdoc.getIndexName(), "Name mistmatch");
         }
     }
 
@@ -135,8 +130,7 @@ public final class PersonRepositoryTest {
     public void testRootNullSurname() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
                 .findByRootAndSurname(rootDocument, null);
-        assertEquals("Bogus request should return empty",
-                0, perdocs.size());
+        assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
     /** */
@@ -144,8 +138,7 @@ public final class PersonRepositoryTest {
     public void testNullRootWithSurname() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
                 .findByRootAndSurname(null, "Schoeller");
-        assertEquals("Bogus request should return empty",
-                0, perdocs.size());
+        assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
     /** */
@@ -153,8 +146,7 @@ public final class PersonRepositoryTest {
     public void testNullRootNullSurname() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
                 .findByRootAndSurname(null, null);
-        assertEquals("Bogus request should return empty",
-                0, perdocs.size());
+        assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
     /** */
@@ -162,8 +154,7 @@ public final class PersonRepositoryTest {
     public void testFileNullSurname() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
                 .findByFileAndSurname(root.getFilename(), null);
-        assertEquals("Bogus request should return empty",
-                0, perdocs.size());
+        assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
     /** */
@@ -171,8 +162,7 @@ public final class PersonRepositoryTest {
     public void testNullFileWithSurname() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
                 .findByFileAndSurname(null, "Schoeller");
-        assertEquals("Bogus request should return empty",
-                0, perdocs.size());
+        assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
     /** */
@@ -180,8 +170,7 @@ public final class PersonRepositoryTest {
     public void testNullFileNullSurname() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
                 .findByFileAndSurname(null, null);
-        assertEquals("Bogus request should return empty",
-                0, perdocs.size());
+        assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
     /** */
@@ -197,8 +186,7 @@ public final class PersonRepositoryTest {
                 .findByFileAndSurname(root.getFilename(), "Schoeller");
         int i = 0;
         for (final PersonDocument perdoc : perdocs) {
-            assertEquals("Name mismatch",
-                    names[i++], perdoc.getIndexName());
+            assertEquals(names[i++], perdoc.getIndexName(), "Name mismatch");
         }
     }
 
@@ -218,8 +206,7 @@ public final class PersonRepositoryTest {
                 .findByFileAndSurnameBeginsWith(root.getFilename(), "S");
         int i = 0;
         for (final PersonDocument perdoc : perdocs) {
-            assertEquals("Name mismatch",
-                    names[i++], perdoc.getIndexName());
+            assertEquals(names[i++], perdoc.getIndexName(), "Name mismatch");
         }
     }
 
@@ -239,8 +226,7 @@ public final class PersonRepositoryTest {
                 .findByRootAndSurnameBeginsWith(rootDocument, "S");
         int i = 0;
         for (final PersonDocument perdoc : perdocs) {
-            assertEquals("Name mismatch",
-                    names[i++], perdoc.getIndexName());
+            assertEquals(names[i++], perdoc.getIndexName(), "Name mismatch");
         }
     }
 
@@ -249,7 +235,7 @@ public final class PersonRepositoryTest {
     public void testBogus() {
         final PersonDocument perdoc = personDocumentRepository.
                 findByFileAndString(root.getFilename(), "I999999");
-        assertNull("Bogus request should return null", perdoc);
+        assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
@@ -257,7 +243,7 @@ public final class PersonRepositoryTest {
     public void testBogusRoot() {
         final PersonDocument perdoc = personDocumentRepository.
                 findByRootAndString(rootDocument, "I999999");
-        assertNull("Bogus request should return null", perdoc);
+        assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
@@ -265,8 +251,7 @@ public final class PersonRepositoryTest {
     public void testFindByFileNotFound() {
         final Iterable<PersonDocument> persons = personDocumentRepository
                 .findAll("XYZZY");
-        assertEquals("Bogus request should return empty",
-                0, count(persons));
+        assertEquals(0, count(persons), "Bogus request should return empty");
     }
 
     /** */
@@ -274,8 +259,7 @@ public final class PersonRepositoryTest {
     public void testFindByFileNull() {
         final Iterable<PersonDocument> persons = personDocumentRepository
                 .findAll((String) null);
-        assertEquals("Bogus request should return empty",
-                0, count(persons));
+        assertEquals(0, count(persons), "Bogus request should return empty");
     }
 
     /** */
@@ -283,8 +267,7 @@ public final class PersonRepositoryTest {
     public void testFindByNullRoot() {
         final Iterable<PersonDocument> persons = personDocumentRepository
                 .findAll((RootDocument) null);
-        assertEquals("Bogus request should return empty",
-                0, count(persons));
+        assertEquals(0, count(persons), "Bogus request should return empty");
     }
 
     /** */
@@ -294,8 +277,7 @@ public final class PersonRepositoryTest {
         rootDocument1.setFilename("XYZZY.ged");
         final Iterable<PersonDocument> persons = personDocumentRepository
                 .findAll(rootDocument1);
-        assertEquals("Bogus request should return empty",
-                0, count(persons));
+        assertEquals(0, count(persons), "Bogus request should return empty");
     }
 
     /** */
@@ -303,8 +285,7 @@ public final class PersonRepositoryTest {
     public void testRootNullSurnameBegins() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
                 .findByRootAndSurnameBeginsWith(rootDocument, null);
-        assertEquals("Bogus request should return empty",
-                0, perdocs.size());
+        assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
     /** */
@@ -312,8 +293,7 @@ public final class PersonRepositoryTest {
     public void testNullRootWithSurnameBegins() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
                 .findByRootAndSurnameBeginsWith(null, "S");
-        assertEquals("Bogus request should return empty",
-                0, perdocs.size());
+        assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
     /** */
@@ -321,8 +301,7 @@ public final class PersonRepositoryTest {
     public void testNullRootNullSurnameBegins() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
                 .findByRootAndSurnameBeginsWith(null, null);
-        assertEquals("Bogus request should return empty",
-                0, perdocs.size());
+        assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
     /** */
@@ -330,8 +309,7 @@ public final class PersonRepositoryTest {
     public void testFileNullSurnameBegins() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
                 .findByFileAndSurnameBeginsWith(root.getFilename(), null);
-        assertEquals("Bogus request should return empty",
-                0, perdocs.size());
+        assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
     /** */
@@ -339,8 +317,7 @@ public final class PersonRepositoryTest {
     public void testNullFileWithSurnameBegins() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
                 .findByFileAndSurnameBeginsWith(null, "S");
-        assertEquals("Bogus request should return empty",
-                0, perdocs.size());
+        assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
     /** */
@@ -348,15 +325,14 @@ public final class PersonRepositoryTest {
     public void testNullFileNullSurnameBegins() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
                 .findByFileAndSurnameBeginsWith(null, null);
-        assertEquals("Bogus request should return empty",
-                0, perdocs.size());
+        assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
     /** */
     @Test
     public void testCountRoot() {
         final long count = personDocumentRepository.count(rootDocument);
-        assertEquals("Should be 16 persons", PERSON_COUNT, count);
+        assertEquals(PERSON_COUNT, count, "Should be 16 persons");
     }
 
     /** */
@@ -364,7 +340,7 @@ public final class PersonRepositoryTest {
     public void testCountFilename() {
         final long count =
                 personDocumentRepository.count(rootDocument.getFilename());
-        assertEquals("Should be 16 persons", PERSON_COUNT, count);
+        assertEquals(PERSON_COUNT, count, "Should be 16 persons");
     }
 
     /** */
@@ -377,7 +353,7 @@ public final class PersonRepositoryTest {
             checkEquals("Type string mismatch", "person", person.getType());
             count++;
         }
-        assertEquals("Should be 16 persons", PERSON_COUNT, count);
+        assertEquals(PERSON_COUNT, count, "Should be 16 persons");
     }
 
     /** */
@@ -390,21 +366,21 @@ public final class PersonRepositoryTest {
             checkEquals("Type string mismatch", "person", person.getType());
             count++;
         }
-        assertEquals("Should be 16 persons", PERSON_COUNT, count);
+        assertEquals(PERSON_COUNT, count, "Should be 16 persons");
     }
 
     /** */
     @Test
     public void testLastId() {
         final String string = personDocumentRepository.lastId(rootDocument);
-        assertEquals("", "I5266", string);
+        assertEquals("I5266", string, "");
     }
 
     /** */
     @Test
     public void testNewId() {
         final String string = personDocumentRepository.newId(rootDocument);
-        assertEquals("", "I5267", string);
+        assertEquals("I5267", string, "");
     }
 
     /**
@@ -416,7 +392,7 @@ public final class PersonRepositoryTest {
      */
     private void checkEquals(final String message, final Object expected,
             final Object actual) {
-        assertEquals(message, expected, actual);
+        assertEquals(expected, actual, message);
     }
 
     /**

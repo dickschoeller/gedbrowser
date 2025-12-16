@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.datamodel.util.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
@@ -29,7 +29,7 @@ public class PersonComparatorTest {
     private PersonComparator comparator;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person1 = builder.createPerson("I1",
@@ -60,8 +60,7 @@ public class PersonComparatorTest {
     /** */
     @Test
     public void testSamePerson() {
-        assertEquals("Same person should match", 0,
-                comparator.compare(person1, person1));
+        assertEquals(0, comparator.compare(person1, person1), "Same person should match");
     }
 
     /** */
@@ -69,8 +68,8 @@ public class PersonComparatorTest {
     public void testDifferentNamePositive() {
         final String person1IndexName = reportString(person1);
         final String person2IndexName = reportString(person2);
-        assertTrue(person1IndexName + " should be after " + person2IndexName,
-                comparator.compare(person1, person2) > 0);
+        assertTrue(comparator.compare(person1, person2) > 0,
+                person1IndexName + " should be after " + person2IndexName);
     }
 
     /** */
@@ -78,8 +77,8 @@ public class PersonComparatorTest {
     public void testDifferentNameNegative() {
         final String person1IndexName = reportString(person1);
         final String person2IndexName = reportString(person2);
-        assertTrue(person2IndexName + " should be before " + person1IndexName,
-                comparator.compare(person2, person1) < 0);
+        assertTrue(comparator.compare(person2, person1) < 0,
+                person2IndexName + " should be before " + person1IndexName);
     }
 
     /** */
@@ -87,8 +86,8 @@ public class PersonComparatorTest {
     public void testSameNameDifferentDatePositive() {
         final String person4IndexName = reportString(person4);
         final String person5IndexName = reportString(person5);
-        assertTrue(person5IndexName + " should be after " + person4IndexName,
-                comparator.compare(person5, person4) > 0);
+        assertTrue(comparator.compare(person5, person4) > 0,
+                person5IndexName + " should be after " + person4IndexName);
     }
 
     /** */
@@ -96,8 +95,8 @@ public class PersonComparatorTest {
     public void testSameNameDifferentDateNegative() {
         final String person4IndexName = reportString(person4);
         final String person5IndexName = reportString(person5);
-        assertTrue(person4IndexName + " should be before " + person5IndexName,
-                comparator.compare(person4, person5) < 0);
+        assertTrue(comparator.compare(person4, person5) < 0,
+                person4IndexName + " should be before " + person5IndexName);
     }
 
     /** */
@@ -105,8 +104,8 @@ public class PersonComparatorTest {
     public void testSameNameSameDatePositive() {
         final String person3IndexName = reportString(person3);
         final String person4IndexName = reportString(person4);
-        assertTrue(person4IndexName + " should be after " + person3IndexName,
-                comparator.compare(person4, person3) > 0);
+        assertTrue(comparator.compare(person4, person3) > 0,
+                person4IndexName + " should be after " + person3IndexName);
     }
 
     /** */
@@ -114,8 +113,8 @@ public class PersonComparatorTest {
     public void testSameNameSameDateNegative() {
         final String person3IndexName = reportString(person3);
         final String person4IndexName = reportString(person4);
-        assertTrue(person3IndexName + " should be before " + person4IndexName,
-                comparator.compare(person3, person4) < 0);
+        assertTrue(comparator.compare(person3, person4) < 0,
+                person3IndexName + " should be before " + person4IndexName);
     }
 
     /**

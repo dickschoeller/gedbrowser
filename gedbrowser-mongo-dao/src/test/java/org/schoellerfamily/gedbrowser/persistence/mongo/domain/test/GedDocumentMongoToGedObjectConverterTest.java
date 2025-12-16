@@ -1,11 +1,11 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.domain.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -69,7 +69,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessiveImports", "PMD.CouplingBetweenObjects" })
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(org.springframework.test.context.junit.jupiter.SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 public final class GedDocumentMongoToGedObjectConverterTest {
     /** */
@@ -82,7 +82,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final AttributeDocumentMongo gmd = new AttributeDocumentMongo();
         gmd.setString("Attribute");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", Attribute.class, ged.getClass());
+        assertEquals(Attribute.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -91,7 +91,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final ChildDocumentMongo gmd = new ChildDocumentMongo();
         gmd.setString("Child");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", Child.class, ged.getClass());
+        assertEquals(Child.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -100,7 +100,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final DateDocumentMongo gmd = new DateDocumentMongo();
         gmd.setString("Date");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", Date.class, ged.getClass());
+        assertEquals(Date.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -109,7 +109,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final FamilyDocumentMongo gmd = new FamilyDocumentMongo();
         gmd.setString("Family");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", Family.class, ged.getClass());
+        assertEquals(Family.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -118,7 +118,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final FamCDocumentMongo gmd = new FamCDocumentMongo();
         gmd.setString("FamC");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", FamC.class, ged.getClass());
+        assertEquals(FamC.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -127,7 +127,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final FamSDocumentMongo gmd = new FamSDocumentMongo();
         gmd.setString("FamS");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", FamS.class, ged.getClass());
+        assertEquals(FamS.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -136,7 +136,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final HeadDocumentMongo gmd = new HeadDocumentMongo();
         gmd.setString("Head");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", Head.class, ged.getClass());
+        assertEquals(Head.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -145,7 +145,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final HusbandDocumentMongo gmd = new HusbandDocumentMongo();
         gmd.setString("Husband");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", Husband.class, ged.getClass());
+        assertEquals(Husband.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -154,7 +154,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final NoteDocumentMongo gmd = new NoteDocumentMongo();
         gmd.setString("Note");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", Note.class, ged.getClass());
+        assertEquals(Note.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -163,7 +163,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final NoteLinkDocumentMongo gmd = new NoteLinkDocumentMongo();
         gmd.setString("NoteLink");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", NoteLink.class, ged.getClass());
+        assertEquals(NoteLink.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -172,7 +172,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final PersonDocumentMongo gmd = new PersonDocumentMongo();
         gmd.setString("Person");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", Person.class, ged.getClass());
+        assertEquals(Person.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -181,7 +181,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final PlaceDocumentMongo gmd = new PlaceDocumentMongo();
         gmd.setString("Place");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", Place.class, ged.getClass());
+        assertEquals(Place.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -190,7 +190,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final SourceDocumentMongo gmd = new SourceDocumentMongo();
         gmd.setString("Source");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", Source.class, ged.getClass());
+        assertEquals(Source.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -199,7 +199,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final SourceLinkDocumentMongo gmd = new SourceLinkDocumentMongo();
         gmd.setString("SourceLink");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", SourceLink.class, ged.getClass());
+        assertEquals(SourceLink.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -208,7 +208,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final SubmissionDocumentMongo gmd = new SubmissionDocumentMongo();
         gmd.setString("Submission");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", Submission.class, ged.getClass());
+        assertEquals(Submission.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -218,7 +218,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
                 new SubmissionLinkDocumentMongo();
         gmd.setString("SubmissionLink");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", SubmissionLink.class, ged.getClass());
+        assertEquals(SubmissionLink.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -227,7 +227,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final SubmitterDocumentMongo gmd = new SubmitterDocumentMongo();
         gmd.setString("Submitter");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", Submitter.class, ged.getClass());
+        assertEquals(Submitter.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -236,7 +236,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final SubmitterLinkDocumentMongo gmd = new SubmitterLinkDocumentMongo();
         gmd.setString("SubmitterLink");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", SubmitterLink.class, ged.getClass());
+        assertEquals(SubmitterLink.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -245,7 +245,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final TrailerDocumentMongo gmd = new TrailerDocumentMongo();
         gmd.setString("Trailer");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", Trailer.class, ged.getClass());
+        assertEquals(Trailer.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -254,7 +254,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final WifeDocumentMongo gmd = new WifeDocumentMongo();
         gmd.setString("Wife");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", Wife.class, ged.getClass());
+        assertEquals(Wife.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -263,7 +263,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final MultimediaDocumentMongo gmd = new MultimediaDocumentMongo();
         gmd.setString("Multimedia");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", Multimedia.class, ged.getClass());
+        assertEquals(Multimedia.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -272,7 +272,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
         final NameDocumentMongo gmd = new NameDocumentMongo();
         gmd.setString("Name");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
-        assertEquals("Wrong class", Name.class, ged.getClass());
+        assertEquals(Name.class, ged.getClass(), "Wrong class");
     }
 
     /** */
@@ -327,7 +327,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
             ged = toObjConverter.createGedObject(new Root(), gmd);
             fail("Should not get here");
         } catch (PersistenceException e) {
-            assertNull("Result should be null", ged);
+            assertNull(ged, "Result should be null");
         }
     }
 }

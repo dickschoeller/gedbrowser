@@ -1,13 +1,13 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -43,7 +43,7 @@ public final class FamilyTest {
     private transient Person person3;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         family1 = builder.createFamily("F1");
@@ -69,7 +69,7 @@ public final class FamilyTest {
     public void testGetSpouseFromHusband() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final Person spouse = navigator.getSpouse(person1);
-        assertEquals("Spouse mismatch", person2, spouse);
+        assertEquals(person2, spouse, "Spouse mismatch");
     }
 
     /** */
@@ -77,7 +77,7 @@ public final class FamilyTest {
     public void testGetSpouseFromWife() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final Person spouse = navigator.getSpouse(person2);
-        assertEquals("Spouse mismatch", person1, spouse);
+        assertEquals(person1, spouse, "Spouse mismatch");
     }
 
     /** */
@@ -85,8 +85,7 @@ public final class FamilyTest {
     public void testGetSpouseFromNonSpouse() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final Person spouse = navigator.getSpouse(person3);
-        assertFalse("Expected spouse to be unset when search from child",
-                spouse.isSet());
+        assertFalse(spouse.isSet(), "Expected spouse to be unset when search from child");
     }
 
     /** */
@@ -94,7 +93,7 @@ public final class FamilyTest {
     public void testGetSpousesContainsHusband() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final List<Person> spouses = navigator.getSpouses();
-        assertTrue("Expected to find husband", spouses.contains(person1));
+        assertTrue(spouses.contains(person1), "Expected to find husband");
     }
 
     /** */
@@ -102,7 +101,7 @@ public final class FamilyTest {
     public void testGetSpousesContainsWife() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final List<Person> spouses = navigator.getSpouses();
-        assertTrue("Expected to find wife", spouses.contains(person2));
+        assertTrue(spouses.contains(person2), "Expected to find wife");
     }
 
     /** */
@@ -110,8 +109,7 @@ public final class FamilyTest {
     public void testGetSpousesDoesNotContainNonSpouse() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final List<Person> spouses = navigator.getSpouses();
-        assertFalse("Did not expect to find child in spouses list",
-                spouses.contains(person3));
+        assertFalse(spouses.contains(person3), "Did not expect to find child in spouses list");
     }
 
     /** */
@@ -173,19 +171,13 @@ public final class FamilyTest {
     private void assertMatchUnusual(final Family fam, final GedObject gob,
             final Child chil, final Husband hus, final Wife wif,
             final Attribute marr, final SourceLink sl) {
-        assertEquals("Expected to find family", fam, gob);
-        assertEquals("Attribute size mismatch",
-                F1_ATTRS_LENGTH, fam.getAttributes().size());
-        assertTrue("Expected to find Child in attributes",
-                fam.getAttributes().contains(chil));
-        assertTrue("Expected to find Husband in attributes",
-                fam.getAttributes().contains(hus));
-        assertTrue("Expected to find Wife in attributes",
-                fam.getAttributes().contains(wif));
-        assertTrue("Expected to find Marriage in attributes",
-                fam.getAttributes().contains(marr));
-        assertTrue("Expected to find SourceLink in attributes",
-                marr.getAttributes().contains(sl));
+        assertEquals(fam, gob, "Expected to find family");
+        assertEquals(F1_ATTRS_LENGTH, fam.getAttributes().size(), "Attribute size mismatch");
+        assertTrue(fam.getAttributes().contains(chil), "Expected to find Child in attributes");
+        assertTrue(fam.getAttributes().contains(hus), "Expected to find Husband in attributes");
+        assertTrue(fam.getAttributes().contains(wif), "Expected to find Wife in attributes");
+        assertTrue(fam.getAttributes().contains(marr), "Expected to find Marriage in attributes");
+        assertTrue(marr.getAttributes().contains(sl), "Expected to find SourceLink in attributes");
     }
 
     /** */
@@ -199,7 +191,7 @@ public final class FamilyTest {
     @Test
     public void testEmptyToString() {
         final Family family = new Family();
-        assertEquals("Expected empty string", "", family.toString());
+        assertEquals("", family.toString(), "Expected empty string");
     }
 
     /** */
@@ -222,18 +214,14 @@ public final class FamilyTest {
     private void assertMatch(final Root localRoot, final Family family,
             final String string, final boolean fatherSet,
             final boolean motherSet, final int spousesSize) {
-        assertEquals("String mismatch", string, family.getString());
+        assertEquals(string, family.getString(), "String mismatch");
         if (localRoot != null) {
-            assertEquals("Did not find expected family",
-                    family, localRoot.find("F1"));
+            assertEquals(family, localRoot.find("F1"), "Did not find expected family");
         }
         final FamilyNavigator navigator = new FamilyNavigator(family);
-        assertEquals("Father set mismatch",
-                fatherSet, navigator.getFather().isSet());
-        assertEquals("Mother set mismatch",
-                motherSet, navigator.getMother().isSet());
+        assertEquals(fatherSet, navigator.getFather().isSet(), "Father set mismatch");
+        assertEquals(motherSet, navigator.getMother().isSet(), "Mother set mismatch");
         final List<Person> spouses = navigator.getSpouses();
-        assertEquals("Spouse list size mismatch",
-                spousesSize, spouses.size());
+        assertEquals(spousesSize, spouses.size(), "Spouse list size mismatch");
     }
 }

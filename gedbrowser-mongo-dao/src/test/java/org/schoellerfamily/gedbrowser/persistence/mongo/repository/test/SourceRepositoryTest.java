@@ -1,14 +1,14 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
@@ -18,12 +18,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMo
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 public final class SourceRepositoryTest {
     /**
@@ -50,7 +50,7 @@ public final class SourceRepositoryTest {
     /**
      * @throws IOException because the reader does
      */
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
         rootDocument = new RootDocumentMongo();
@@ -60,7 +60,7 @@ public final class SourceRepositoryTest {
     }
 
     /** */
-    @After
+    @AfterEach
     public void tearDown() {
         repositoryFixture.clearRepository();
     }
@@ -72,7 +72,7 @@ public final class SourceRepositoryTest {
                 findByFileAndString(root.getFilename(), "S2");
         final Source source =
                 (Source) toObjConverter.createGedObject(root, document);
-        assertEquals("Id mismatch", "S2", source.getString());
+        assertEquals("S2", source.getString(), "Id mismatch");
     }
 
     /** */
@@ -82,7 +82,7 @@ public final class SourceRepositoryTest {
                 findByRootAndString(rootDocument, "S2");
         final Source source =
                 (Source) toObjConverter.createGedObject(root, document);
-        assertEquals("Id mismatch", "S2", source.getString());
+        assertEquals("S2", source.getString(), "Id mismatch");
     }
 
     /** */
@@ -90,7 +90,7 @@ public final class SourceRepositoryTest {
     public void testBogus() {
         final SourceDocument perdoc = sourceDocumentRepository.
                 findByFileAndString(root.getFilename(), "S999999");
-        assertNull("Bogus request should return null", perdoc);
+        assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
@@ -98,21 +98,19 @@ public final class SourceRepositoryTest {
     public void testBogusRoot() {
         final SourceDocument perdoc = sourceDocumentRepository.
                 findByRootAndString(rootDocument, "S999999");
-        assertNull("Bogus request should return null", perdoc);
+        assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     public void testCountRoot() {
-        assertEquals("Should be 9 sources", SOURCE_COUNT,
-                sourceDocumentRepository.count(rootDocument));
+        assertEquals(SOURCE_COUNT, sourceDocumentRepository.count(rootDocument), "Should be 9 sources");
     }
 
     /** */
     @Test
     public void testCountFilename() {
-        assertEquals("Should be 9 sources", SOURCE_COUNT,
-                sourceDocumentRepository.count(rootDocument.getFilename()));
+        assertEquals(SOURCE_COUNT, sourceDocumentRepository.count(rootDocument.getFilename()), "Should be 9 sources");
     }
 
     /** */
@@ -125,7 +123,7 @@ public final class SourceRepositoryTest {
             checkEquals("Type string mismatch", "source", source.getType());
             count++;
         }
-        assertEquals("Should be 9 sources", SOURCE_COUNT, count);
+        assertEquals(SOURCE_COUNT, count, "Should be 9 sources");
     }
 
     /** */
@@ -138,21 +136,21 @@ public final class SourceRepositoryTest {
             checkEquals("Type string mismatch", "source", source.getType());
             count++;
         }
-        assertEquals("Should be 9 sources", SOURCE_COUNT, count);
+        assertEquals(SOURCE_COUNT, count, "Should be 9 sources");
     }
 
     /** */
     @Test
     public void testLastId() {
         final String string = sourceDocumentRepository.lastId(rootDocument);
-        assertEquals("", "S229", string);
+        assertEquals("S229", string, "");
     }
 
     /** */
     @Test
     public void testNewId() {
         final String string = sourceDocumentRepository.newId(rootDocument);
-        assertEquals("", "S230", string);
+        assertEquals("S230", string, "");
     }
 
     /**
@@ -164,6 +162,6 @@ public final class SourceRepositoryTest {
      */
     private void checkEquals(final String message, final Object expected,
             final Object actual) {
-        assertEquals(message, expected, actual);
+        assertEquals(expected, actual, message);
     }
 }

@@ -1,11 +1,11 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -67,17 +67,13 @@ public final class HeadTest {
             final SubmitterLink submitterLink,
             final Date date,
             final Map<String, Attribute> attributeChecks) {
-        assertEquals("Mismatch attribute count", ATTRIBUTE_COUNT,
-                head.getAttributes().size());
-        assertTrue("Should contain sourceLink",
-                head.getAttributes().contains(sourceLink));
-        assertTrue("Should contain submitterLink",
-                head.getAttributes().contains(submitterLink));
-        assertTrue("Should contain date", head.getAttributes().contains(date));
+        assertEquals(ATTRIBUTE_COUNT, head.getAttributes().size(), "Mismatch attribute count");
+        assertTrue(head.getAttributes().contains(sourceLink), "Should contain sourceLink");
+        assertTrue(head.getAttributes().contains(submitterLink), "Should contain submitterLink");
+        assertTrue(head.getAttributes().contains(date), "Should contain date");
         for (final Map.Entry<String, Attribute> entry : attributeChecks
                 .entrySet()) {
-            assertTrue(entry.getKey(),
-                    head.getAttributes().contains(entry.getValue()));
+            assertTrue(head.getAttributes().contains(entry.getValue()), entry.getKey());
         }
     }
 
@@ -90,8 +86,7 @@ public final class HeadTest {
         root.insert(head);
 
         final GedObject gob = root.find("Head");
-        assertTrue("Should have found head with head tag string",
-                head.equals(gob) && "Head".equals(head.getString()));
+        assertTrue(head.equals(gob) && "Head".equals(head.getString()), "Should have found head with head tag string");
     }
 
     /** */
@@ -103,8 +98,7 @@ public final class HeadTest {
         root.insert(head);
 
         final GedObject gob = root.find("Head");
-        assertTrue("Should have found the head with head tag string",
-                head.equals(gob) && "Head".equals(head.getString()));
+        assertTrue(head.equals(gob) && "Head".equals(head.getString()), "Should have found the head with head tag string");
     }
 
     /** */
@@ -112,7 +106,6 @@ public final class HeadTest {
     public void testHeadGedObjectStringString() {
         final Root root = new Root("Root");
         final Head head2 = new Head(root, "Head", "foo");
-        assertEquals("Combined string mismatch",
-                "Head" + " foo", head2.getString());
+        assertEquals("Head" + " foo", head2.getString(), "Combined string mismatch");
     }
 }

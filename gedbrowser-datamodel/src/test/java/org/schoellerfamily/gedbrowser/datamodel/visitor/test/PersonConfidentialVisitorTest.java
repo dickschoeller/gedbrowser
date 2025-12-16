@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonConfidentialVisitor;
@@ -23,7 +23,7 @@ public class PersonConfidentialVisitorTest {
         final PersonConfidentialVisitor visitor =
                 new PersonConfidentialVisitor();
         person.accept(visitor);
-        assertFalse("Should not be confidential", visitor.isConfidential());
+        assertFalse(visitor.isConfidential(), "Should not be confidential");
     }
 
     /** */
@@ -35,6 +35,6 @@ public class PersonConfidentialVisitorTest {
         final PersonConfidentialVisitor visitor =
                 new PersonConfidentialVisitor();
         person.accept(visitor);
-        assertTrue("Should be confidential", visitor.isConfidential());
+        assertTrue(visitor.isConfidential(), "Should be confidential");
     }
 }

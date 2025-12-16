@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Link;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
@@ -23,7 +23,7 @@ public final class LinkTest {
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         person1 = builder.createPerson("I1", "J. Random/Schoeller/");
         final Person person2 =
@@ -140,9 +140,7 @@ public final class LinkTest {
      */
     private void assertMatch(final Link link, final String expectedFromString,
             final String expectedToString) {
-        assertEquals("From string mismatch", expectedFromString,
-                link.getFromString());
-        assertEquals("To string mismatch", expectedToString,
-                link.getToString());
+        assertEquals(expectedFromString, link.getFromString(), "From string mismatch");
+        assertEquals(expectedToString, link.getToString(), "To string mismatch");
     }
 }

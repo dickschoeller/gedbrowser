@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.FamC;
 import org.schoellerfamily.gedbrowser.datamodel.FamS;
@@ -67,6 +67,6 @@ public final class GetDateVisitorTest {
             }
         };
         gob.accept(visitor);
-        assertEquals("Found unexpected content", "", visitor.getDate());
+        assertEquals("", visitor.getDate(), "Found unexpected content");
     }
 }

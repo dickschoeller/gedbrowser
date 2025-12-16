@@ -1,14 +1,13 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.stream.Stream;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -20,51 +19,17 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  *
  * @author Dick Schoeller
  */
-@RunWith(Parameterized.class)
 public final class AttributeConstructorTest {
-    /** */
-    private final GedObject parent;
-    /** */
-    private final String string;
-    /** */
-    private final String tail;
-    /** */
-    private final GedObject expectedParent;
-    /** */
-    private final String expectedString;
-    /** */
-    private final String expectedTail;
 
     /**
-     * @param parent input parent value for constructor call
-     * @param string input string value for constructor call
-     * @param tail input tail value for constructor call
-     * @param expectedParent expected output parent from getter
-     * @param expectedString expected output string from getter
-     * @param expectedTail expected output tail from getter
+     * @return stream of argument arrays
      */
-    public AttributeConstructorTest(final GedObject parent,
-            final String string, final String tail,
-            final GedObject expectedParent,
-            final String expectedString, final String expectedTail) {
-                this.parent = parent;
-                this.string = string;
-                this.tail = tail;
-                this.expectedParent = expectedParent;
-                this.expectedString = expectedString;
-                this.expectedTail = expectedTail;
-    }
-
-    /**
-     * @return collection of parameter arrays
-     */
-    @Parameters
-    public static Collection<Object[]> params() {
+    public static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson(
                 "I1", "J. Random/Schoeller/");
 
-        return Arrays.asList(new Object[][] {
+        return Arrays.stream(new Object[][] {
             {null, null, null, null, "", ""},
             {person1, null, null, person1, "", ""},
             {null, "", null, null, "", ""},
@@ -83,26 +48,38 @@ public final class AttributeConstructorTest {
             {person1, "", "strung", person1, "", "strung"},
             {null, "string", "strung", null, "string", "strung"},
             {person1, "string", "strung", person1, "string", "strung"},
-        });
+        }).map(Arguments::of);
     }
 
     /** */
-    @Test
-    public void testThreeArgumentConstructor() {
+    @ParameterizedTest
+    @MethodSource("params")
+    public void testThreeArgumentConstructor(final GedObject parent,
+            final String string, final String tail,
+            final GedObject expectedParent, final String expectedString,
+            final String expectedTail) {
         final Attribute attribute = new Attribute(parent, string, tail);
         assertMatch(attribute, expectedParent, expectedString, expectedTail);
     }
 
     /** */
-    @Test
-    public void testTwoArgumentConstructor() {
+    @ParameterizedTest
+    @MethodSource("params")
+    public void testTwoArgumentConstructor(final GedObject parent,
+            final String string, final String tail,
+            final GedObject expectedParent, final String expectedString,
+            final String expectedTail) {
         final Attribute attribute = new Attribute(parent, string);
         assertMatch(attribute, expectedParent, expectedString, "");
     }
 
     /** */
-    @Test
-    public void testOneArgumentConstructor() {
+    @ParameterizedTest
+    @MethodSource("params")
+    public void testOneArgumentConstructor(final GedObject parent,
+            final String string, final String tail,
+            final GedObject expectedParent, final String expectedString,
+            final String expectedTail) {
         final Attribute attribute = new Attribute(parent);
         assertMatch(attribute, expectedParent, "", "");
     }
@@ -118,8 +95,8 @@ public final class AttributeConstructorTest {
     private void assertMatch(final Attribute attribute,
             final GedObject expParent, final String expString,
             final String expTail) {
-        assertEquals("Parent mismatch", expParent, attribute.getParent());
-        assertEquals("String mismatch", expString, attribute.getString());
-        assertEquals("Tail mismatch", expTail, attribute.getTail());
+        assertEquals(expParent, attribute.getParent(), "Parent mismatch");
+        assertEquals(expString, attribute.getString(), "String mismatch");
+        assertEquals(expTail, attribute.getTail(), "Tail mismatch");
     }
 }

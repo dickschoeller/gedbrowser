@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.FamC;
@@ -36,28 +36,28 @@ public final class FamilyVisitorTest {
     @Test
     public void testUninitHusband() {
         final FamilyVisitor visitor = new FamilyVisitor();
-        assertFalse("Should be unset", visitor.getHusband().isSet());
+        assertFalse(visitor.getHusband().isSet(), "Should be unset");
     }
 
     /** */
     @Test
     public void testUninitWife() {
         final FamilyVisitor visitor = new FamilyVisitor();
-        assertFalse("Should be unset", visitor.getWife().isSet());
+        assertFalse(visitor.getWife().isSet(), "Should be unset");
     }
 
     /** */
     @Test
     public void testUninitChildren() {
         final FamilyVisitor visitor = new FamilyVisitor();
-        assertTrue("Should be empty", visitor.getChildren().isEmpty());
+        assertTrue(visitor.getChildren().isEmpty(), "Should be empty");
     }
 
     /** */
     @Test
     public void testUninitChildList() {
         final FamilyVisitor visitor = new FamilyVisitor();
-        assertTrue("Should be empty", visitor.getChildList().isEmpty());
+        assertTrue(visitor.getChildList().isEmpty(), "Should be empty");
     }
 
     /** */
@@ -93,7 +93,6 @@ public final class FamilyVisitorTest {
                 visitor.visit(this);
             } };
         gob.accept(visitor);
-        assertTrue("Found unexpected content",
-                visitor.getChildren().isEmpty());
+        assertTrue(visitor.getChildren().isEmpty(), "Found unexpected content");
     }
 }

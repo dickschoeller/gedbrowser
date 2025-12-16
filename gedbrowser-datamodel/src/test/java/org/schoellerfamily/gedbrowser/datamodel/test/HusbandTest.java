@@ -1,11 +1,11 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
@@ -28,7 +28,7 @@ public final class HusbandTest {
     private transient Husband husband2b;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person1 = builder.createPerson(
@@ -55,61 +55,61 @@ public final class HusbandTest {
     @Test
     public void testEmptyGetFather() {
         final Husband husband = new Husband();
-        assertFalse("Should not be set", husband.getFather().isSet());
+        assertFalse(husband.getFather().isSet(), "Should not be set");
     }
 
     /** */
     @Test
     public void testGetFather1() {
-        assertEquals("Person mismatch", person1, husband1.getFather());
+        assertEquals(person1, husband1.getFather(), "Person mismatch");
     }
 
     /** */
     @Test
     public void testGetFather2a() {
-        assertEquals("Person mismatch", person1, husband2a.getFather());
+        assertEquals(person1, husband2a.getFather(), "Person mismatch");
     }
 
     /** */
     @Test
     public void testGetFather2b() {
-        assertEquals("Person mismatch", person3, husband2b.getFather());
+        assertEquals(person3, husband2b.getFather(), "Person mismatch");
     }
 
     /** */
     @Test
     public void testGetSpouseIsSet1() {
-        assertTrue("Husband should be set", husband1.getSpouse().isSet());
+        assertTrue(husband1.getSpouse().isSet(), "Husband should be set");
     }
 
     /** */
     @Test
     public void testGetSpouseIsSet2a() {
-        assertTrue("Husband should be set", husband2a.getSpouse().isSet());
+        assertTrue(husband2a.getSpouse().isSet(), "Husband should be set");
     }
 
     /** */
     @Test
     public void testGetSpouseIsSet2b() {
-        assertTrue("Husband should be set", husband2b.getSpouse().isSet());
+        assertTrue(husband2b.getSpouse().isSet(), "Husband should be set");
     }
 
     /** */
     @Test
     public void testGetSpouse1() {
-        assertEquals("Person mismatch", person1, husband1.getSpouse());
+        assertEquals(person1, husband1.getSpouse(), "Person mismatch");
     }
 
     /** */
     @Test
     public void testGetSpouse2a() {
-        assertEquals("Person mismatch", person1, husband2a.getSpouse());
+        assertEquals(person1, husband2a.getSpouse(), "Person mismatch");
     }
 
     /** */
     @Test
     public void testGetSpouse2b() {
-        assertEquals("Person mismatch", person3, husband2b.getSpouse());
+        assertEquals(person3, husband2b.getSpouse(), "Person mismatch");
     }
 
     /** */
@@ -118,7 +118,7 @@ public final class HusbandTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily("F1");
         final Husband husband = new Husband(family, "Husband", null);
-        assertFalse("Father should not be set", husband.getFather().isSet());
+        assertFalse(husband.getFather().isSet(), "Father should not be set");
     }
 
     /** */
@@ -127,7 +127,7 @@ public final class HusbandTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily("F1");
         final Husband husband = new Husband(family, "Husband", null);
-        assertFalse("Father should not be set", husband.getFather().isSet());
+        assertFalse(husband.getFather().isSet(), "Father should not be set");
     }
 
     /** */
@@ -137,6 +137,6 @@ public final class HusbandTest {
         final Family family = builder.createFamily("F1");
         final Husband husband =
                 new Husband(family, "Husband", new ObjectId("@I3@"));
-        assertFalse("Father should not be set", husband.getFather().isSet());
+        assertFalse(husband.getFather().isSet(), "Father should not be set");
     }
 }

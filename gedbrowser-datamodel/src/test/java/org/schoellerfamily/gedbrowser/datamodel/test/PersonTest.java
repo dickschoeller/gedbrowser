@@ -1,14 +1,14 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
@@ -48,7 +48,7 @@ public final class PersonTest {
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         person1 = builder.createPerson("I1", "Richard John/Schoeller/");
         final Attribute attr =
@@ -110,144 +110,139 @@ public final class PersonTest {
     /** */
     @Test
     public void testDickGetIndexName() {
-        assertEquals(UNEXPECTED_STRING, "Schoeller, Richard John",
-                person1.getIndexName());
+        assertEquals("Schoeller, Richard John", person1.getIndexName(), UNEXPECTED_STRING);
     }
 
     /** */
     @Test
     public void testLisaGetIndexName() {
-        assertEquals(UNEXPECTED_STRING, "Robinson, Lisa Hope",
-                person2.getIndexName());
+        assertEquals("Robinson, Lisa Hope", person2.getIndexName(), UNEXPECTED_STRING);
     }
 
     /** */
     @Test
     public void testKarlGetIndexName() {
-        assertEquals(UNEXPECTED_STRING, "Schoeller, Karl Frederick, Jr.",
-                person3.getIndexName());
+        assertEquals("Schoeller, Karl Frederick, Jr.", person3.getIndexName(), UNEXPECTED_STRING);
     }
 
     /** */
     @Test
     public void testUnknownGetIndexName() {
-        assertEquals(UNEXPECTED_STRING, "?, ?", person4.getIndexName());
+        assertEquals("?, ?", person4.getIndexName(), UNEXPECTED_STRING);
     }
 
     /** */
     @Test
     public void testWhosisGetIndexName() {
-        assertEquals(UNEXPECTED_STRING, "Schoeller, Whosis, Jr./Huh?",
-                person5.getIndexName());
+        assertEquals("Schoeller, Whosis, Jr./Huh?", person5.getIndexName(), UNEXPECTED_STRING);
     }
 
     /** */
     @Test
     public void testDickGetSurname() {
-        assertEquals(UNEXPECTED_STRING, "Schoeller", person1.getSurname());
+        assertEquals("Schoeller", person1.getSurname(), UNEXPECTED_STRING);
     }
 
     /** */
     @Test
     public void testLisaGetSurname() {
-        assertEquals(UNEXPECTED_STRING, "Robinson", person2.getSurname());
+        assertEquals("Robinson", person2.getSurname(), UNEXPECTED_STRING);
     }
 
     /** */
     @Test
     public void testKarlGetSurname() {
-        assertEquals(UNEXPECTED_STRING, "Schoeller", person3.getSurname());
+        assertEquals("Schoeller", person3.getSurname(), UNEXPECTED_STRING);
     }
 
     /** */
     @Test
     public void testUnknownGetSurname() {
-        assertEquals(UNEXPECTED_STRING, "?", person4.getSurname());
+        assertEquals("?", person4.getSurname(), UNEXPECTED_STRING);
     }
 
     /** */
     @Test
     public void testWhosisGetSurname() {
-        assertEquals(UNEXPECTED_STRING, "Schoeller", person5.getSurname());
+        assertEquals("Schoeller", person5.getSurname(), UNEXPECTED_STRING);
     }
 
     /** */
     @Test
     public void testDickGetSurnameLetter() {
-        assertEquals(UNEXPECTED_STRING, "S", person1.getSurnameLetter());
+        assertEquals("S", person1.getSurnameLetter(), UNEXPECTED_STRING);
     }
 
     /** */
     @Test
     public void testLisaGetSurnameLetter() {
-        assertEquals(UNEXPECTED_STRING, "R", person2.getSurnameLetter());
+        assertEquals("R", person2.getSurnameLetter(), UNEXPECTED_STRING);
     }
 
     /** */
     @Test
     public void testKarlGetSurnameLetter() {
-        assertEquals(UNEXPECTED_STRING, "S", person3.getSurnameLetter());
+        assertEquals("S", person3.getSurnameLetter(), UNEXPECTED_STRING);
     }
 
     /** */
     @Test
     public void testUnknownGetSurnameLetter() {
-        assertEquals(UNEXPECTED_STRING, "?", person4.getSurnameLetter());
+        assertEquals("?", person4.getSurnameLetter(), UNEXPECTED_STRING);
     }
 
     /** */
     @Test
     public void testWhosisGetSurnameLetter() {
-        assertEquals(UNEXPECTED_STRING, "S", person5.getSurnameLetter());
+        assertEquals("S", person5.getSurnameLetter(), UNEXPECTED_STRING);
     }
 
     /** */
     @Test
     public void testDickGetBirthDate() {
-        assertEquals("Expected empty birth date", "", getBirthDate(person1));
+        assertEquals("", getBirthDate(person1), "Expected empty birth date");
     }
 
     /** */
     @Test
     public void testUnknownGetBirthDate() {
-        assertEquals("Expected empty birth date", "", getBirthDate(person4));
+        assertEquals("", getBirthDate(person4), "Expected empty birth date");
     }
 
     /** */
     @Test
     public void testWhosisGetBirthDate() {
-        assertEquals("Birth date mismatch",
-                "1 JAN 1900", getBirthDate(person5));
+        assertEquals("1 JAN 1900", getBirthDate(person5), "Birth date mismatch");
     }
 
     /** */
     @Test
     public void testDickGetBirthYear() {
-        assertEquals("Expected empty birth year", "", getBirthDate(person1));
+        assertEquals("", getBirthDate(person1), "Expected empty birth year");
     }
 
     /** */
     @Test
     public void testGetUnknownBirthYear() {
-        assertEquals("Expected empty birth year", "", getBirthDate(person4));
+        assertEquals("", getBirthDate(person4), "Expected empty birth year");
     }
 
     /** */
     @Test
     public void testWhosisGetBirthYear() {
-        assertEquals("Birth year mismatch", "1900", getBirthYear(person5));
+        assertEquals("1900", getBirthYear(person5), "Birth year mismatch");
     }
 
     /** */
     @Test
     public void testDickGetSortDate() {
-        assertEquals("Expected empty sort date", "", getBirthDate(person1));
+        assertEquals("", getBirthDate(person1), "Expected empty sort date");
     }
 
     /** */
     @Test
     public void testUnknownGetSortDate() {
-        assertEquals("Expected empty sort date", "", getBirthDate(person4));
+        assertEquals("", getBirthDate(person4), "Expected empty sort date");
     }
 
     /** */
@@ -255,44 +250,43 @@ public final class PersonTest {
     public void testWhosisGetSortDate() {
         final GetDateVisitor visitor = new GetDateVisitor("Birth");
         person5.accept(visitor);
-        assertEquals("Sort date mismatch", "19000101", visitor.getSortDate());
+        assertEquals("19000101", visitor.getSortDate(), "Sort date mismatch");
     }
 
     /** */
     @Test
     public void testDickGetDeathDate() {
-        assertEquals("Expected emtpy death date", "", getDeathDate(person1));
+        assertEquals("", getDeathDate(person1), "Expected emtpy death date");
     }
 
     /** */
     @Test
     public void testUnknownGetDeathDate() {
-        assertEquals("Expected emtpy death date", "", getDeathDate(person4));
+        assertEquals("", getDeathDate(person4), "Expected emtpy death date");
     }
 
     /** */
     @Test
     public void testWhosisGetDeathDate() {
-        assertEquals("Death date mismatch", "1 JAN 1950",
-                getDeathDate(person5));
+        assertEquals("1 JAN 1950", getDeathDate(person5), "Death date mismatch");
     }
 
     /** */
     @Test
     public void testDickGetDeathYear() {
-        assertEquals("Expected empty death year", "", getDeathYear(person1));
+        assertEquals("", getDeathYear(person1), "Expected empty death year");
     }
 
     /** */
     @Test
     public void testUnknownGetDeathYear() {
-        assertEquals("Expected empty death year", "", getDeathYear(person4));
+        assertEquals("", getDeathYear(person4), "Expected empty death year");
     }
 
     /** */
     @Test
     public void testWhosisGetDeathYear() {
-        assertEquals("Death year mismatch", "1950", getDeathYear(person5));
+        assertEquals("1950", getDeathYear(person5), "Death year mismatch");
     }
     /** */
     @Test
@@ -302,8 +296,7 @@ public final class PersonTest {
         person7.setString("");
         final PersonNavigator navigator = new PersonNavigator(person7);
         final List<Person> list6 = navigator.getSpouses();
-        assertEquals("Screwing with ID strings should have hidden these",
-                0, list6.size());
+        assertEquals(0, list6.size(), "Screwing with ID strings should have hidden these");
     }
 
     /** */
@@ -311,7 +304,7 @@ public final class PersonTest {
     public void testGetSpouses() {
         final PersonNavigator navigator = new PersonNavigator(person6);
         final List<Person> list6 = navigator.getSpouses();
-        assertTrue("Should have found spouse", list6.contains(person7));
+        assertTrue(list6.contains(person7), "Should have found spouse");
     }
 
     /** */
@@ -319,7 +312,7 @@ public final class PersonTest {
     public void testGetFathersChildren() {
         final PersonNavigator navigator = new PersonNavigator(person6);
         final List<Person> list6 = navigator.getChildren();
-        assertTrue("Expected to find person3", list6.contains(person3));
+        assertTrue(list6.contains(person3), "Expected to find person3");
     }
 
     /** */
@@ -327,29 +320,28 @@ public final class PersonTest {
     public void testGetMothersChildren() {
         final PersonNavigator navigator = new PersonNavigator(person7);
         final List<Person> list7 = navigator.getChildren();
-        assertTrue("Expected to find person3", list7.contains(person3));
+        assertTrue(list7.contains(person3), "Expected to find person3");
     }
 
     /** */
     @Test
     public void testPersonGedObjectMissingID() {
         final Person person = new Person();
-        assertTrue("Person string should be empty", person.getString()
-                .isEmpty());
+        assertTrue(person.getString().isEmpty(), "Person string should be empty");
     }
 
     /** */
     @Test
     public void testPersonGedObjectMissingIDNoFather() {
         final PersonNavigator navigator = new PersonNavigator(new Person());
-        assertFalse("Expected no father", navigator.getFather().isSet());
+        assertFalse(navigator.getFather().isSet(), "Expected no father");
     }
 
     /** */
     @Test
     public void testPersonGedObjectMissingIDNoMother() {
         final PersonNavigator navigator = new PersonNavigator(new Person());
-        assertFalse("Expected no mother", navigator.getMother().isSet());
+        assertFalse(navigator.getMother().isSet(), "Expected no mother");
     }
 
     /** */
@@ -358,7 +350,7 @@ public final class PersonTest {
         final Root localRoot = new Root("Root");
         final Person person = new Person(localRoot, new ObjectId("I1"));
         localRoot.insert(person);
-        assertEquals("Expected ID to match", "I1", person.getString());
+        assertEquals("I1", person.getString(), "Expected ID to match");
     }
 
     /** */
@@ -367,8 +359,7 @@ public final class PersonTest {
         final Root localRoot = new Root("Root");
         final Person person = new Person(localRoot, new ObjectId("I1"));
         localRoot.insert(person);
-        assertEquals("Expected to find person by ID",
-                person, localRoot.find("I1"));
+        assertEquals(person, localRoot.find("I1"), "Expected to find person by ID");
     }
 
     /** */
@@ -380,9 +371,7 @@ public final class PersonTest {
         final Collection<String> letters = person6.findSurnameInitialLetters();
         int i = 0;
         for (final String letter : letters) {
-            assertEquals(
-                    "Expected to find " + expected[i] + " among letters",
-                    expected[i++], letter);
+            assertEquals(expected[i++], letter, "Expected to find " + expected[i-1] + " among letters");
         }
     }
 
@@ -397,9 +386,7 @@ public final class PersonTest {
         final Collection<Person> persons = person6.findBySurname("Schoeller");
         int i = 0;
         for (final Person person : persons) {
-            assertEquals(
-                    "Expected to find " + expected[i] + " among Schoellers",
-                    expected[i++], person.getIndexName());
+            assertEquals(expected[i++], person.getIndexName(), "Expected to find " + expected[i-1] + " among Schoellers");
         }
     }
 
@@ -407,8 +394,7 @@ public final class PersonTest {
     @Test
     public void testBySurnameFinderNotFound() {
         final Collection<Person> persons = person6.findBySurname("Mumble");
-        assertEquals("Should have found no persons named Mumble",
-                0, persons.size());
+        assertEquals(0, persons.size(), "Should have found no persons named Mumble");
     }
 
     /** */
@@ -421,9 +407,7 @@ public final class PersonTest {
                 .findBySurnamesBeginWith("S");
         int i = 0;
         for (final String surname : surnames) {
-            assertEquals(
-                    "Expected to find " + expected[i] + " among S surnames",
-                    expected[i++], surname);
+            assertEquals(expected[i++], surname, "Expected to find " + expected[i-1] + " among S surnames");
         }
     }
 
@@ -435,7 +419,7 @@ public final class PersonTest {
         final Collection<Person> persons = person6.findBySurname("Name");
         int i = 0;
         for (final Person person : persons) {
-            assertEquals("ID out of order", expected[i++], person.getString());
+            assertEquals(expected[i++], person.getString(), "ID out of order");
         }
     }
 
@@ -444,8 +428,7 @@ public final class PersonTest {
     public void testBeginsWithNotFound() {
         final Collection<String> surnames = person6
                 .findBySurnamesBeginWith("Q");
-        assertTrue("Expected no surnames beginning with Q",
-                surnames.isEmpty());
+        assertTrue(surnames.isEmpty(), "Expected no surnames beginning with Q");
     }
 
     /** */
@@ -453,7 +436,7 @@ public final class PersonTest {
     public void testIsConfidential() {
         final PersonVisitor visitor = new PersonVisitor();
         person1.accept(visitor);
-        assertTrue("Should be confidential", visitor.isConfidential());
+        assertTrue(visitor.isConfidential(), "Should be confidential");
     }
 
     /** */
@@ -461,7 +444,7 @@ public final class PersonTest {
     public void testIsNotConfidential() {
         final PersonVisitor visitor = new PersonVisitor();
         person2.accept(visitor);
-        assertFalse("Should not be confidential", visitor.isConfidential());
+        assertFalse(visitor.isConfidential(), "Should not be confidential");
     }
 
     /** */
@@ -469,29 +452,25 @@ public final class PersonTest {
     public void testHasNotDeathAttribute() {
         final PersonVisitor visitor = new PersonVisitor();
         person2.accept(visitor);
-        assertFalse("Should not have death attribute",
-                visitor.hasDeathAttribute());
+        assertFalse(visitor.hasDeathAttribute(), "Should not have death attribute");
     }
 
     /** */
     @Test
     public void testEmptyDeathYear() {
-        assertTrue("Should not have death year",
-                getDeathYear(person2).isEmpty());
+        assertTrue(getDeathYear(person2).isEmpty(), "Should not have death year");
     }
 
     /** */
     @Test
     public void testEmptyDeathDate() {
-        assertTrue("Should not have death date",
-                getDeathDate(person2).isEmpty());
+        assertTrue(getDeathDate(person2).isEmpty(), "Should not have death date");
     }
 
     /** */
     @Test
     public void testEmptyBirthDate() {
-        assertTrue("Should not have birth date",
-                getBirthDate(person2).isEmpty());
+        assertTrue(getBirthDate(person2).isEmpty(), "Should not have birth date");
     }
 
     /** */
@@ -499,8 +478,7 @@ public final class PersonTest {
     public void testEmptySortDate() {
         final GetDateVisitor visitor = new GetDateVisitor("Birth");
         person2.accept(visitor);
-        assertTrue("Should not have sort date",
-                visitor.getSortDate().isEmpty());
+        assertTrue(visitor.getSortDate().isEmpty(), "Should not have sort date");
     }
 
     /** */
@@ -508,23 +486,21 @@ public final class PersonTest {
     public void testHasDeathAttribute() {
         final PersonVisitor visitor = new PersonVisitor();
         person4.accept(visitor);
-        assertTrue("Should have death attribute", visitor.hasDeathAttribute());
+        assertTrue(visitor.hasDeathAttribute(), "Should have death attribute");
     }
 
     /** */
     @Test
     public void testGetFamiliesCWith() {
         final PersonNavigator navigator = new PersonNavigator(person3);
-        assertFalse("Should have a FAMC",
-                navigator.getFamiliesC().isEmpty());
+        assertFalse(navigator.getFamiliesC().isEmpty(), "Should have a FAMC");
     }
 
     /** */
     @Test
     public void testGetFamiliesCWithout() {
         final PersonNavigator navigator = new PersonNavigator(person1);
-        assertTrue("Should not have a FAMC",
-                navigator.getFamiliesC().isEmpty());
+        assertTrue(navigator.getFamiliesC().isEmpty(), "Should not have a FAMC");
     }
 
     /**

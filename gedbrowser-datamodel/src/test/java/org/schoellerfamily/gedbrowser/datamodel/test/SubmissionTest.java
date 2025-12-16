@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
@@ -19,7 +19,7 @@ public class SubmissionTest {
     private GedObjectBuilder builder;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         builder = new GedObjectBuilder();
     }
@@ -32,15 +32,14 @@ public class SubmissionTest {
                 new Submission(root, new ObjectId("SUBN1"));
         root.insert(submission);
         final GedObject gob = root.find("SUBN1");
-        assertEquals("Found wrong submission", submission, gob);
+        assertEquals(submission, gob, "Found wrong submission");
     }
 
     /** */
     @Test
     public void testSubmissionGedObjectGetString() {
         final Submission submission = new Submission();
-        assertTrue("Submission string should be empty", submission.getString()
-                .isEmpty());
+        assertTrue(submission.getString().isEmpty(), "Expected empty string");
     }
 
     /** */
@@ -50,6 +49,6 @@ public class SubmissionTest {
         final Submission submission =
                 new Submission(root, new ObjectId("SUBN1"));
         root.insert(submission);
-        assertEquals("Expected submission 1", "SUBN1", submission.getString());
+        assertEquals("SUBN1", submission.getString(), "Mismatched tag");
     }
 }

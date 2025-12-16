@@ -1,15 +1,15 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 import java.util.Map;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -30,13 +30,13 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumen
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 public final class HeadRepositoryTest {
     /** */
@@ -76,7 +76,7 @@ public final class HeadRepositoryTest {
     /**
      * @throws IOException because the reader does
      */
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         repositoryFixture.clearRepository();
 
@@ -103,7 +103,7 @@ public final class HeadRepositoryTest {
     }
 
     /** */
-    @After
+    @AfterEach
     public void tearDown() {
         repositoryFixture.clearRepository();
     }
@@ -114,8 +114,7 @@ public final class HeadRepositoryTest {
         final HeadDocument headdoc = headDocumentRepository.
                 findByFileAndString(root.getFilename(), HEADER_STRING);
         final Head head = (Head) toObjConverter.createGedObject(root, headdoc);
-        assertEquals("Expected header string",
-                HEADER_STRING, head.getString());
+        assertEquals(HEADER_STRING, head.getString(), "Expected header string");
     }
 
     /** */
@@ -124,8 +123,7 @@ public final class HeadRepositoryTest {
         final HeadDocument headdoc = headDocumentRepository.
                 findByRootAndString(rootDocument, HEADER_STRING);
         final Head head = (Head) toObjConverter.createGedObject(root, headdoc);
-        assertEquals("Expected header string",
-                HEADER_STRING, head.getString());
+        assertEquals(HEADER_STRING, head.getString(), "Expected header string");
     }
 
     /** */
@@ -133,7 +131,7 @@ public final class HeadRepositoryTest {
     public void testBogus() {
         final HeadDocument headdoc = headDocumentRepository.
                 findByFileAndString(root.getFilename(), "BOGUS");
-        assertNull("Bogus request should return null", headdoc);
+        assertNull(headdoc, "Bogus request should return null");
     }
 
     /** */
@@ -141,22 +139,19 @@ public final class HeadRepositoryTest {
     public void testBogusRoot() {
         final HeadDocument headdoc = headDocumentRepository.
                 findByRootAndString(rootDocument, "BOGUS");
-        assertNull("Bogus request should return null", headdoc);
+        assertNull(headdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     public void testCountRoot() {
-        assertEquals("Should only be one head",
-                1, headDocumentRepository.count(rootDocument));
+        assertEquals(1, headDocumentRepository.count(rootDocument), "Should only be one head");
     }
 
     /** */
     @Test
     public void testCountFilename() {
-        assertEquals("Should only be one head",
-                1,
-                headDocumentRepository.count(rootDocument.getFilename()));
+        assertEquals(1, headDocumentRepository.count(rootDocument.getFilename()), "Should only be one head");
     }
 
     /** */
@@ -169,7 +164,7 @@ public final class HeadRepositoryTest {
             trailer.getType();
             count++;
         }
-        assertEquals("Should only be one head", 1, count);
+        assertEquals(1, count, "Should only be one head");
     }
 
     /** */
@@ -182,13 +177,13 @@ public final class HeadRepositoryTest {
             trailer.getType();
             count++;
         }
-        assertEquals("Should only be one head", 1, count);
+        assertEquals(1, count, "Should only be one head");
     }
 
     /** */
     @Test
     public void testLastId() {
         final String string = headDocumentRepository.lastId(rootDocument);
-        assertEquals("", "", string);
+        assertEquals("", string, "");
     }
 }

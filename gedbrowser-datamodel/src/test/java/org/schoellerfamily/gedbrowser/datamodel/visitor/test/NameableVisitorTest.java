@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -36,8 +36,7 @@ public final class NameableVisitorTest {
     @Test
     public void testUninit() {
         final NameableVisitor visitor = new NameableVisitor();
-        assertEquals("Found unexpected content",
-                "?, ?", visitor.getIndexName());
+        assertEquals("?, ?", visitor.getIndexName(), "Found unexpected content");
     }
 
     /** */
@@ -74,7 +73,6 @@ public final class NameableVisitorTest {
                 visitor.visit(this);
             } };
         gob.accept(visitor);
-        assertEquals("Found unexpected content",
-                "?, ?", visitor.getIndexName());
+        assertEquals("?, ?", visitor.getIndexName(), "Found unexpected content");
     }
 }

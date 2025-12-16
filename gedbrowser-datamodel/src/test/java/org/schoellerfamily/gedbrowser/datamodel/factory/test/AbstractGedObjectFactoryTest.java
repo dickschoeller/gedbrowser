@@ -1,12 +1,14 @@
 package org.schoellerfamily.gedbrowser.datamodel.factory.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import java.util.Arrays;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.Arguments;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -39,7 +41,6 @@ import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.
 /**
  * @author Dick Schoeller
  */
-@RunWith(Parameterized.class)
 @SuppressWarnings("PMD.ExcessiveImports")
 public final class AbstractGedObjectFactoryTest {
 
@@ -155,54 +156,28 @@ public final class AbstractGedObjectFactoryTest {
 
     /** */
     private GedObjectFactory factory;
-    /** */
-    private final GedObject parent;
-    /** */
-    private final String xref;
-    /** */
-    private final String tag;
-    /** */
-    private final String tail;
-    /** */
-    private final GedObject expected;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         factory = new GedObjectFactory();
     }
 
     /**
-     * @param parent the parent of the object being created
-     * @param xref a cross reference string (can be null or empty)
-     * @param tag a tag (if null or empty defaults to ATTRIBUTE)
-     * @param tail additional text from the line (can be null or empty)
-     * @param expected an object like the one we expect to create
-     */
-    public AbstractGedObjectFactoryTest(final GedObject parent,
-            final String xref, final String tag, final String tail,
-            final GedObject expected) {
-        this.parent = parent;
-        this.xref = xref;
-        this.tag = tag;
-        this.tail = tail;
-        this.expected = expected;
-    }
-    /**
      * @return the collection of test parameters
      */
-    @Parameters
-    @SuppressWarnings("PMD.MethodReturnsInternalArray")
-    public static Object[][] params() {
+    static Stream<Arguments> params() {
         PERSON.addAttribute(NOTE);
-        return PARAMETERS;
+        return Arrays.stream(PARAMETERS).map(Arguments::of);
     }
 
     /** */
-    @Test
-    public void testFactory() {
+    @ParameterizedTest
+    @MethodSource("params")
+    public void testFactory(final GedObject parent, final String xref,
+            final String tag, final String tail,
+            final GedObject expected) {
         final GedObject gob = factory.create(parent, xref, tag, tail);
-        assertEquals("Produced object doesn't match expectation",
-                expected, gob);
+        assertEquals(expected, gob, "Produced object doesn't match expectation");
     }
 }

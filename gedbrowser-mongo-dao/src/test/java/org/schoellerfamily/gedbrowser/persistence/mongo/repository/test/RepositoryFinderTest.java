@@ -1,20 +1,21 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
@@ -29,12 +30,12 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 public final class RepositoryFinderTest {
     /** */
@@ -60,13 +61,13 @@ public final class RepositoryFinderTest {
     /**
      * @throws IOException because the reader can
      */
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
     }
 
     /** */
-    @After
+    @AfterEach
     public void tearDown() {
         repositoryFixture.clearRepository();
     }
@@ -75,21 +76,21 @@ public final class RepositoryFinderTest {
     @Test
     public void testUntypedPerson() {
         final Person person = (Person) finder.find(root, "I1");
-        assertEquals("Mismatched ID", "I1", person.getString());
+        assertEquals("I1", person.getString(), "Mismatched ID");
     }
 
     /** */
     @Test
     public void testUntypedFamily() {
         final Family family = (Family) finder.find(root, "F1");
-        assertEquals("Mismatched ID", "F1", family.getString());
+        assertEquals("F1", family.getString(), "Mismatched ID");
     }
 
     /** */
     @Test
     public void testUntypedSource() {
         final Source source = (Source) finder.find(root, "S2");
-        assertEquals("Mismatched ID", "S2", source.getString());
+        assertEquals("S2", source.getString(), "Mismatched ID");
     }
 
     /** */
@@ -97,52 +98,49 @@ public final class RepositoryFinderTest {
     public void testUntypedSubmitter() {
         final Submitter submitter =
                 (Submitter) finder.find(root, "SUB1");
-        assertEquals("Mismatched tag string",
-                "SUB1", submitter.getString());
+        assertEquals("SUB1", submitter.getString(), "Mismatched tag string");
     }
 
     /** */
     @Test
     public void testUntypedHead() {
         final Head head = (Head) finder.find(root, HEADER_STRING);
-        assertEquals("Mismatched tag string",
-                HEADER_STRING, head.getString());
+        assertEquals(HEADER_STRING, head.getString(), "Mismatched tag string");
     }
 
     /** */
     @Test
     public void testUntypedTrailer() {
         final Trailer trailer = (Trailer) finder.find(root, TRAILER_STRING);
-        assertEquals("Mismatched tag string",
-                TRAILER_STRING, trailer.getString());
+        assertEquals(TRAILER_STRING, trailer.getString(), "Mismatched tag string");
     }
 
     /** */
     @Test
     public void testUntypedNotFound() {
         final GedObject ged = finder.find(root, "Bozo");
-        assertNull("Should not have found anything", ged);
+        assertNull(ged, "Should not have found anything");
     }
 
     /** */
     @Test
     public void testTypedPerson() {
         final Person person = (Person) finder.find(root, "I1", Person.class);
-        assertEquals("Mismatched ID", "I1", person.getString());
+        assertEquals("I1", person.getString(), "Mismatched ID");
     }
 
     /** */
     @Test
     public void testTypedFamily() {
         final Family family = (Family) finder.find(root, "F1", Family.class);
-        assertEquals("Mismatched ID", "F1", family.getString());
+        assertEquals("F1", family.getString(), "Mismatched ID");
     }
 
     /** */
     @Test
     public void testTypedSource() {
         final Source source = (Source) finder.find(root, "S2", Source.class);
-        assertEquals("Mismatched ID", "S2", source.getString());
+        assertEquals("S2", source.getString(), "Mismatched ID");
     }
 
     /** */
@@ -150,15 +148,14 @@ public final class RepositoryFinderTest {
     public void testTypedSubmitter() {
         final Submitter submitter =
                 (Submitter) finder.find(root, "SUB1", Submitter.class);
-        assertEquals("Mismatched tag string", "SUB1", submitter.getString());
+        assertEquals("SUB1", submitter.getString(), "Mismatched tag string");
     }
 
     /** */
     @Test
     public void testTypedHead() {
         final Head head = (Head) finder.find(root, HEADER_STRING, Head.class);
-        assertEquals("Mismatched tag string",
-                HEADER_STRING, head.getString());
+        assertEquals(HEADER_STRING, head.getString(), "Mismatched tag string");
     }
 
     /** */
@@ -166,80 +163,75 @@ public final class RepositoryFinderTest {
     public void testTypedTrailer() {
         final Trailer trailer = (Trailer) finder.find(
                 root, TRAILER_STRING, Trailer.class);
-        assertEquals("Mismatched tag string",
-                TRAILER_STRING, trailer.getString());
+        assertEquals(TRAILER_STRING, trailer.getString(), "Mismatched tag string");
     }
 
     /** */
     @Test
     public void testTypedNotFoundPerson() {
         final Person person = finder.find(root, "S1", Person.class);
-        assertNull("Should not have found anything", person);
+        assertNull(person, "Should not have found anything");
     }
 
     /** */
     @Test
     public void testTypedNotFoundFamily() {
         final Family family = finder.find(root, "I1", Family.class);
-        assertNull("Should not have found anything", family);
+        assertNull(family, "Should not have found anything");
     }
 
     /** */
     @Test
     public void testTypedNotFoundSource() {
         final Source source = finder.find(root, "F1", Source.class);
-        assertNull("Should not have found anything", source);
+        assertNull(source, "Should not have found anything");
     }
 
     /** */
     @Test
     public void testTypedNotFoundSubmitter() {
         final Submitter submitter = finder.find(root, "SUB2", Submitter.class);
-        assertNull("Should not have found anything", submitter);
+        assertNull(submitter, "Should not have found anything");
     }
 
     /** */
     @Test
     public void testTypedNotFoundHead() {
         final Head head = finder.find(root, TRAILER_STRING, Head.class);
-        assertNull("Should not have found anything", head);
+        assertNull(head, "Should not have found anything");
     }
 
     /** */
     @Test
     public void testTypedNotFoundTrailer() {
         final Trailer trailer = finder.find(root, "T1", Trailer.class);
-        assertNull("Should not have found anything", trailer);
+        assertNull(trailer, "Should not have found anything");
     }
 
     /** */
     @Test
     public void testGetFilenameFromRoot() {
-        assertEquals("Filename mismatch",
-                "bigtest.ged", finder.getFilename(root));
+        assertEquals("bigtest.ged", finder.getFilename(root), "Filename mismatch");
     }
 
     /** */
     @Test
     public void testGetFilenameFromNotRoot() {
         final Person person = (Person) finder.find(root, "I1", Person.class);
-        assertEquals("Filename mismatch",
-                "bigtest.ged", finder.getFilename(person));
+        assertEquals("bigtest.ged", finder.getFilename(person), "Filename mismatch");
     }
 
     /** */
     @Test
     public void testGetDbNameFromRoot() {
-        assertEquals("Filename mismatch",
-                "bigtest", finder.getDbName(root));
+        assertEquals("bigtest", finder.getDbName(root), "Filename mismatch");
     }
 
     /** */
     @Test
     public void testGetDbNameFromNotRoot() {
         final Person person = (Person) finder.find(root, "I1", Person.class);
-        assertEquals("DB name mismatch",
-                "bigtest", finder.getDbName(person));
+        assertEquals("bigtest", finder.getDbName(person), "DB name mismatch");
     }
 
     /** */
@@ -247,8 +239,7 @@ public final class RepositoryFinderTest {
     public void testInsertPerson() {
         final Person person = new Person(root, new ObjectId(BOGUS_ID));
         finder.insert(root, person);
-        assertEquals("Person mismatch",
-                person, finder.find(root, BOGUS_ID, Person.class));
+        assertEquals(person, finder.find(root, BOGUS_ID, Person.class), "Person mismatch");
     }
 
     /** */
@@ -256,8 +247,7 @@ public final class RepositoryFinderTest {
     public void testInsertFamily() {
         final Family family = new Family(root, new ObjectId(BOGUS_ID));
         finder.insert(root, family);
-        assertEquals("Family mismatch",
-                family, finder.find(root, BOGUS_ID, Family.class));
+        assertEquals(family, finder.find(root, BOGUS_ID, Family.class), "Family mismatch");
     }
 
     /** */
@@ -265,8 +255,7 @@ public final class RepositoryFinderTest {
     public void testInsertSource() {
         final Source source = new Source(root, new ObjectId(BOGUS_ID));
         finder.insert(root, source);
-        assertEquals("Source mismatch",
-                source, finder.find(root, BOGUS_ID, Source.class));
+        assertEquals(source, finder.find(root, BOGUS_ID, Source.class), "Source mismatch");
     }
 
     /** */
@@ -274,8 +263,7 @@ public final class RepositoryFinderTest {
     public void testInsertSubmitter() {
         final Submitter submitter = new Submitter(root, new ObjectId(BOGUS_ID));
         finder.insert(root, submitter);
-        assertEquals("Submitter mismatch",
-                submitter, finder.find(root, BOGUS_ID, Submitter.class));
+        assertEquals(submitter, finder.find(root, BOGUS_ID, Submitter.class), "Submitter mismatch");
     }
 
     /** */
@@ -294,7 +282,7 @@ public final class RepositoryFinderTest {
         final Head head = new Head(root, BOGUS_ID);
         finder.insert(root, head);
         final Head newHead = finder.find(root, BOGUS_ID, Head.class);
-        assertEquals("Tag string mismatch", "Header", newHead.getString());
+        assertEquals("Header", newHead.getString(), "Tag string mismatch");
     }
 
     /** */
@@ -302,8 +290,7 @@ public final class RepositoryFinderTest {
     public void testInsertTrailer() {
         final Trailer trailer = new Trailer(root, BOGUS_ID);
         finder.insert(root, trailer);
-        assertEquals("Should have found trailer",
-                trailer, finder.find(root, BOGUS_ID, Trailer.class));
+        assertEquals(trailer, finder.find(root, BOGUS_ID, Trailer.class), "Should have found trailer");
     }
 
     /** */
@@ -320,7 +307,7 @@ public final class RepositoryFinderTest {
         int i = 0;
         for (final Person person : persons) {
             final String indexName = person.getIndexName();
-            assertEquals("Name mismatch", names[i++], indexName);
+            assertEquals(names[i++], indexName, "Name mismatch");
         }
     }
 
@@ -329,8 +316,7 @@ public final class RepositoryFinderTest {
     public void testSurnameNotFound() {
         final Collection<Person> persons =
                 finder.findBySurname(root, "Mumble");
-        assertEquals("Should be empty list",
-                0, persons.size());
+        assertEquals(0, persons.size(), "Should be empty list");
     }
 
     /** */
@@ -344,7 +330,7 @@ public final class RepositoryFinderTest {
                 finder.findBySurnamesBeginWith(root, "S");
         int i = 0;
         for (final String surname : surnames) {
-            assertEquals("Surname mismatch", names[i++], surname);
+            assertEquals(names[i++], surname, "Surname mismatch");
         }
     }
 
@@ -353,8 +339,7 @@ public final class RepositoryFinderTest {
     public void testSurnamesBeginWithQ() {
         final Collection<String> surnames =
                 finder.findBySurnamesBeginWith(root, "Q");
-        assertEquals("Should have no surnames with Q",
-                0, surnames.size());
+        assertEquals(0, surnames.size(), "Should have no surnames with Q");
     }
 
     /** */
@@ -367,28 +352,24 @@ public final class RepositoryFinderTest {
                 finder.findSurnameInitialLetters(root);
         int i = 0;
         for (final String surname : letters) {
-            assertEquals("Surname mismatch", expected[i++], surname);
+            assertEquals(expected[i++], surname, "Surname mismatch");
         }
     }
 
     /** */
     @Test
     public void testWithWrongGedObjectForRoot() {
-        try {
+        final IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             final GedObjectBuilder builder = new GedObjectBuilder();
             finder.find(builder.createPerson(), "foo");
-            fail("Expected an exception here");
-        } catch (IllegalArgumentException e) {
-            assertEquals("Message mismatch",
-                    "Owner must be root", e.getMessage());
-        }
+        });
+        assertEquals("Owner must be root", e.getMessage(), "Message mismatch");
     }
 
     /** */
     @Test
     public void testWithWrongClassForClazz() {
-        assertNull("Should not have found anything",
-                finder.find(root, BOGUS_ID, GedObject.class));
+        assertNull(finder.find(root, BOGUS_ID, GedObject.class), "Should not have found anything");
     }
 
     /** */
@@ -397,27 +378,24 @@ public final class RepositoryFinderTest {
         final Collection<Person> persons = finder.find(root, Person.class);
         final int expected = 16;
         final int actual = persons.size();
-        assertEquals("Expected to find 16 people", expected, actual);
+        assertEquals(expected, actual, "Expected to find 16 people");
     }
 
     /** */
     @Test
     public void testFinderFindAllPersonsNotRoot() {
-        try {
+        assertThrows(IllegalArgumentException.class, () -> {
             final GedObjectBuilder builder = new GedObjectBuilder(root);
             final Person person = builder.createPerson();
             finder.find(person, Person.class);
-            fail("Should ahve thrown an exception");
-        } catch (IllegalArgumentException e) {
-            // This is a pass.
-        }
+        });
     }
 
     /** */
     @Test
     public void testFinderFindAllBadClass() {
         final Collection<GedObject> find = finder.find(root, GedObject.class);
-        assertNull("Should be null because asking for bogus class", find);
+        assertNull(find, "Should be null because asking for bogus class");
     }
 
     /** */
@@ -430,8 +408,7 @@ public final class RepositoryFinderTest {
         final Collection<Person> persons = finder.find(root, Person.class);
         for (final Person person : persons) {
             final String id = person.getString();
-            assertTrue("Person ID (" + id + ") not found in expectations",
-                    nameList.contains(id));
+            assertTrue(nameList.contains(id), "Person ID (" + id + ") not found in expectations");
         }
     }
 }

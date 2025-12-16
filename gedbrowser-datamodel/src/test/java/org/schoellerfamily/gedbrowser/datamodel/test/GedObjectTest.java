@@ -1,16 +1,16 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -73,7 +73,7 @@ public final class GedObjectTest {
     }
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         root = new Root("Root");
         root.setDbName("DBNAME");
@@ -83,8 +83,7 @@ public final class GedObjectTest {
     @Test
     public void testGedObjectDefaultEmptyString() {
         gob = new GedObjectWrapper(root);
-        assertEquals("Expected empty string",
-                "", gob.toString());
+        assertEquals("", gob.toString(), "Expected empty string");
     }
 
     /** */
@@ -92,7 +91,7 @@ public final class GedObjectTest {
     public void testGedObjectStringFind() {
         gob = new GedObjectWrapper(root, GOB_TAG);
         root.insert(gob);
-        assertEquals("Find should have matched", gob, gob.find(GOB_TAG));
+        assertEquals(gob, gob.find(GOB_TAG), "Find should have matched");
     }
 
     /** */
@@ -100,22 +99,21 @@ public final class GedObjectTest {
     public void testGedObjectGedObjectString() {
         gob = new GedObjectWrapper(root, GOB_TAG);
         root.insert(gob);
-        assertEquals("String mismatch", GOB_TAG, gob.toString());
+        assertEquals(GOB_TAG, gob.toString(), "String mismatch");
     }
 
     /** */
     @Test
     public void testGetStringEmtpy() {
         gob = new GedObjectWrapper(root);
-        assertEquals("Expected empty string", "", gob.getString());
+        assertEquals("", gob.getString(), "Expected empty string");
     }
 
     /** */
     @Test
     public void testGetString() {
         gob = new GedObjectWrapper(root, GOB_TAG);
-        assertEquals("String mismatch",
-                GOB_TAG, gob.getString());
+        assertEquals(GOB_TAG, gob.getString(), "String mismatch");
     }
 
     /** */
@@ -123,7 +121,7 @@ public final class GedObjectTest {
     public void testSetStringFromEmpty() {
         gob = new GedObjectWrapper(root);
         gob.setString(GOB_TAG);
-        assertEquals("String mismatch", GOB_TAG, gob.getString());
+        assertEquals(GOB_TAG, gob.getString(), "String mismatch");
     }
 
     /** */
@@ -131,14 +129,14 @@ public final class GedObjectTest {
     public void testSetStringFromString() {
         gob = new GedObjectWrapper(root, GOB_TAG);
         gob.setString("BOG");
-        assertEquals("String mismatch", "BOG", gob.getString());
+        assertEquals("BOG", gob.getString(), "String mismatch");
     }
 
     /** */
     public void testSetStringNullGivesEmpty() {
         gob = new GedObjectWrapper(root, GOB_TAG);
         gob.setString(null);
-        assertEquals("Expected empty string", "", gob.getString());
+        assertEquals("", gob.getString(), "Expected empty string");
     }
 
     /** */
@@ -146,14 +144,14 @@ public final class GedObjectTest {
     public void testAppendString() {
         gob = new GedObjectWrapper(root, GOB_TAG);
         gob.appendString("?");
-        assertEquals("String mismatch", "GOB?", gob.getString());
+        assertEquals("GOB?", gob.getString(), "String mismatch");
     }
 
     /** */
     @Test
     public void testHashCode() {
         gob = createGedObject();
-        assertEquals("Mismatched hash code", HASH_CODE_1, gob.hashCode());
+        assertEquals(HASH_CODE_1, gob.hashCode(), "Mismatched hash code");
     }
 
     /** */
@@ -162,7 +160,7 @@ public final class GedObjectTest {
         gob = createGedObject();
         final Attribute attribute = new Attribute(gob, ATTR_TAG, ATTR_NAME);
         gob.insert(attribute);
-        assertEquals("Mismatched hash code", HASH_CODE_1, gob.hashCode());
+        assertEquals(HASH_CODE_1, gob.hashCode(), "Mismatched hash code");
     }
 
     /** */
@@ -170,8 +168,7 @@ public final class GedObjectTest {
     public void testInsertFamily() {
         final Family family = new Family(root, new ObjectId("F777"));
         root.insert(family);
-        assertEquals("Should have found same family",
-                family, finder.find(family, "F777", Family.class));
+        assertEquals(family, finder.find(family, "F777", Family.class), "Should have found same family");
     }
 
     /**
@@ -185,14 +182,14 @@ public final class GedObjectTest {
     @Test
     public void testGetParentAfterCreate() {
         gob = new GedObjectWrapper(root, GOB_TAG);
-        assertEquals("Parent should be root", root, gob.getParent());
+        assertEquals(root, gob.getParent(), "Parent should be root");
     }
 
     /** */
     @Test
     public void testGetNullParent() {
         gob = new GedObjectWrapper(null, GOB_TAG);
-        assertNull("Parent should be null", gob.getParent());
+        assertNull(gob.getParent(), "Parent should be null");
     }
 
     /** */
@@ -200,14 +197,14 @@ public final class GedObjectTest {
     public void testSetParent() {
         gob = new GedObjectWrapper(null, GOB_TAG);
         gob.setParent(root);
-        assertEquals("Parent should be root", root, gob.getParent());
+        assertEquals(root, gob.getParent(), "Parent should be root");
     }
 
     /** */
     @Test
     public void testAddAttributesInitiallyEmpty() {
         gob = new GedObjectWrapper(root, GOB_TAG);
-        assertTrue("List should be empty", gob.getAttributes().isEmpty());
+        assertTrue(gob.getAttributes().isEmpty(), "List should be empty");
     }
 
     /** */
@@ -217,8 +214,7 @@ public final class GedObjectTest {
         final Attribute attribute = new Attribute(gob, ATTR_TAG, ATTR_NAME);
         gob.insert(attribute);
         final List<GedObject> attributes = gob.getAttributes();
-        assertTrue("Attribute list should only contain new attribute",
-                attributes.contains(attribute) && attributes.size() == 1);
+        assertTrue(attributes.contains(attribute) && attributes.size() == 1, "Attribute list should only contain new attribute");
     }
 
     /** */
@@ -230,8 +226,7 @@ public final class GedObjectTest {
         gob.insert(attribute);
 
         gob.removeAttribute(attribute);
-        assertTrue("Add remove attribute should be empty",
-                gob.getAttributes().isEmpty());
+        assertTrue(gob.getAttributes().isEmpty(), "Add remove attribute should be empty");
     }
 
     /** */
@@ -241,7 +236,7 @@ public final class GedObjectTest {
 
         final Attribute attribute = new Attribute(gob, ATTR_TAG, ATTR_NAME);
         gob.insert(attribute);
-        assertTrue("Should have attribute", gob.hasAttribute(attribute));
+        assertTrue(gob.hasAttribute(attribute), "Should have attribute");
     }
 
     /** */
@@ -251,36 +246,35 @@ public final class GedObjectTest {
 
         final Attribute attribute = new Attribute(gob, ATTR_TAG, ATTR_NAME);
         gob.insert(attribute);
-        assertTrue("Should have attributes", gob.hasAttributes());
+        assertTrue(gob.hasAttributes(), "Should have attributes");
     }
 
     /** */
     @Test
     public void testHasNoAttributes() {
         gob = new GedObjectWrapper(root, GOB_TAG);
-        assertFalse("Should have atttributes", gob.hasAttributes());
+        assertFalse(gob.hasAttributes(), "Should have atttributes");
     }
 
     /** */
     @Test
     public void testGetParentDbName() {
         gob = new GedObjectWrapper(root, GOB_TAG);
-        assertEquals("DB name mismatch", "DBNAME", finder.getDbName(gob));
+        assertEquals("DBNAME", finder.getDbName(gob), "DB name mismatch");
     }
 
     /** */
     @Test
     public void testFindInParentBySurnameNullParent() {
         gob = new GedObjectWrapper(null, GOB_TAG);
-        assertNull("Should not have found anything",
-                gob.findInParentBySurname("FOO"));
+        assertNull(gob.findInParentBySurname("FOO"), "Should not have found anything");
     }
 
     /** */
     @Test
     public void testGetNullParentDbName() {
         gob = new GedObjectWrapper(null, GOB_TAG);
-        assertNull("DB name should be null", finder.getDbName(gob));
+        assertNull(finder.getDbName(gob), "DB name should be null");
     }
 
     /** */
@@ -288,14 +282,14 @@ public final class GedObjectTest {
     public void testEqualsObject() {
         gob = new GedObjectWrapper(null, GOB_TAG);
         final GedObject gob1 = new GedObjectWrapper(null, GOB_TAG);
-        assertEquals("Objects should be equal", gob, gob1);
+        assertEquals(gob, gob1, "Objects should be equal");
     }
 
     /** */
     @Test
     public void testNotNull() {
         gob = new GedObjectWrapper(null, GOB_TAG);
-        assertNotNull("Object should not be null", gob);
+        assertNotNull(gob, "Object should not be null");
     }
 
     /** */
@@ -305,7 +299,7 @@ public final class GedObjectTest {
         final GedObject gob1 = new GedObjectWrapper(null, GOB_TAG);
         new Attribute(gob, "A");
         new Attribute(gob1, "A");
-        assertEquals("Objects should be equal", gob, gob1);
+        assertEquals(gob, gob1, "Objects should be equal");
     }
 
     /** */
@@ -317,7 +311,7 @@ public final class GedObjectTest {
         final Attribute attr2 = new Attribute(gob1, "A");
         gob.insert(attr1);
         gob1.insert(attr2);
-        assertEquals("Objects should be equal", gob, gob1);
+        assertEquals(gob, gob1, "Objects should be equal");
     }
 
     /** */
@@ -333,7 +327,7 @@ public final class GedObjectTest {
         gob1.insert(attr3);
         // Explicitly testing the equals method.
         final boolean equals = gob.equals(gob1);
-        assertTrue("Expected the objects to be equal", equals);
+        assertTrue(equals, "Expected the objects to be equal");
     }
 
     /** */
@@ -348,7 +342,7 @@ public final class GedObjectTest {
         final Attribute attr3 = new Attribute(gob1, "B");
         gob1.insert(attr3);
         gob1.removeAttribute(attr3);
-        assertEquals("Objects should be equal", gob, gob1);
+        assertEquals(gob, gob1, "Objects should be equal");
     }
 
     /** */
@@ -364,7 +358,7 @@ public final class GedObjectTest {
         gob1.insert(attr3);
         gob1.removeAttribute(attr3);
         gob1.setParent(root);
-        assertNotEquals("Expected mismatch with different parents", gob, gob1);
+        assertNotEquals(gob, gob1, "Expected mismatch with different parents");
     }
 
     /** */
@@ -372,7 +366,7 @@ public final class GedObjectTest {
     @SuppressWarnings("PMD.EqualsNull")
     public void testEqualsNull() {
         gob = new GedObjectWrapper(null, GOB_TAG);
-        assertFalse("Expected not equals", gob.equals(null));
+        assertFalse(gob.equals(null), "Expected not equals");
     }
 
     /** */
@@ -381,7 +375,7 @@ public final class GedObjectTest {
         gob = new GedObjectWrapper(new GedObjectWrapper(null, "bar"), GOB_TAG);
         final GedObject gob1 = new GedObjectWrapper(
                 new GedObjectWrapper(null, "foo"), GOB_TAG);
-        assertNotEquals("Expected not equals", gob, gob1);
+        assertNotEquals(gob, gob1, "Expected not equals");
     }
 
     /** */
@@ -406,14 +400,14 @@ public final class GedObjectTest {
     @Test
     public void testFindMostlyEmpty() {
         gob = new GedObjectWrapper(root);
-        assertNull("Expected null result", gob.find(GOB_TAG));
+        assertNull(gob.find(GOB_TAG), "Expected null result");
     }
 
     /** */
     @Test
     public void testFindUnaffectedBySetString() {
         gob = new GedObjectWrapper(root, GOB_TAG);
-        assertNull("Expected null result", gob.find(GOB_TAG));
+        assertNull(gob.find(GOB_TAG), "Expected null result");
     }
 
     /** */
@@ -421,7 +415,7 @@ public final class GedObjectTest {
     public void testFindAfterInsert() {
         gob = new GedObjectWrapper(root, GOB_TAG);
         root.insert(gob);
-        assertEquals("Object mismatch", gob, gob.find(GOB_TAG));
+        assertEquals(gob, gob.find(GOB_TAG), "Object mismatch");
     }
 
     /** */
@@ -430,7 +424,7 @@ public final class GedObjectTest {
         gob = new GedObjectWrapper(root);
         final Person person = new Person(root, new ObjectId("I1"));
         root.insert(person);
-        assertEquals("Person mismatch", person, gob.find("I1"));
+        assertEquals(person, gob.find("I1"), "Person mismatch");
     }
 
     /** */
@@ -440,14 +434,14 @@ public final class GedObjectTest {
         final Person person = new Person(root, new ObjectId("I1"));
         root.insert(person);
         gob = new GedObjectWrapper(null);
-        assertNull("Expected null", gob.find(GOB_TAG));
+        assertNull(gob.find(GOB_TAG), "Expected null");
     }
 
     /** */
     @Test
     public void testGetFilenameNullOnBasicCreation() {
         gob = new GedObjectWrapper(root);
-        assertNull("Expected null", gob.getFilename());
+        assertNull(gob.getFilename(), "Expected null");
     }
 
     /** */
@@ -455,7 +449,7 @@ public final class GedObjectTest {
     public void testGetFilenameAfterSet() {
         gob = new GedObjectWrapper(root);
         root.setFilename("filename.ged");
-        assertEquals("filename mismatch", "filename.ged", gob.getFilename());
+        assertEquals("filename.ged", gob.getFilename(), "filename mismatch");
     }
 
     /** */
@@ -463,14 +457,14 @@ public final class GedObjectTest {
     public void testGetDbName() {
         gob = new GedObjectWrapper(root);
         root.setDbName("filename");
-        assertEquals("db name mismatch", "filename", root.getDbName());
+        assertEquals("filename", root.getDbName(), "db name mismatch");
     }
 
     /** */
     @Test
     public void testGetFilenameNullOnNullParent() {
         gob = new GedObjectWrapper(null);
-        assertNull("expected null", gob.getFilename());
+        assertNull(gob.getFilename(), "expected null");
     }
 
     /** */
@@ -480,7 +474,6 @@ public final class GedObjectTest {
         final Attribute attribute = new Attribute(gob, ATTR_TAG, ATTR_NAME);
         gob.insert(attribute);
         final List<GedObject> attributes = gob.getAttributes();
-        assertTrue("Expected only the one attribute",
-                attributes.contains(attribute) && attributes.size() == 1);
+        assertTrue(attributes.contains(attribute) && attributes.size() == 1, "Expected only the one attribute");
     }
 }

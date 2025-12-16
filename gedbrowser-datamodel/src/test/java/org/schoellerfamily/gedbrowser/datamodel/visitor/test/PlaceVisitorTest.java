@@ -1,12 +1,12 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -51,7 +51,7 @@ public final class PlaceVisitorTest {
     private transient Person person6;
 
     /** */
-    @Before
+    @BeforeEach
     public void init() {
         root = new Root();
         final GedObjectBuilder builder = new GedObjectBuilder(root);
@@ -110,7 +110,7 @@ public final class PlaceVisitorTest {
         root.accept(visitor);
         final Collection<Place> placeStrings = visitor.getPlaces();
         final int expected = 3;
-        assertEquals("Wrong number of places", expected, placeStrings.size());
+        assertEquals(expected, placeStrings.size(), "Wrong number of places");
     }
 
     /** */
@@ -119,7 +119,7 @@ public final class PlaceVisitorTest {
         final PlaceVisitor visitor = new PlaceVisitor();
         person4.accept(visitor);
         final Collection<String> placeStrings = visitor.getPlaceStrings();
-        assertEquals("Wrong number of places", 2, placeStrings.size());
+        assertEquals(2, placeStrings.size(), "Wrong number of places");
     }
 
     /** */
@@ -128,7 +128,7 @@ public final class PlaceVisitorTest {
         final PlaceVisitor visitor = new PlaceVisitor();
         person6.accept(visitor);
         final Collection<String> placeStrings = visitor.getPlaceStrings();
-        assertEquals("Wrong number of places", 1, placeStrings.size());
+        assertEquals(1, placeStrings.size(), "Wrong number of places");
     }
 
     /** */
@@ -137,7 +137,7 @@ public final class PlaceVisitorTest {
         final PlaceVisitor visitor = new PlaceVisitor();
         family6.accept(visitor);
         final Collection<String> placeStrings = visitor.getPlaceStrings();
-        assertEquals("Wrong number of places", 1, placeStrings.size());
+        assertEquals(1, placeStrings.size(), "Wrong number of places");
     }
 
     /** */
@@ -173,7 +173,7 @@ public final class PlaceVisitorTest {
             }
         };
         gob.accept(visitor);
-        assertTrue("Found unexpected content", visitor.getPlaces().isEmpty());
+        assertTrue(visitor.getPlaces().isEmpty(), "Found unexpected content");
     }
 
 }

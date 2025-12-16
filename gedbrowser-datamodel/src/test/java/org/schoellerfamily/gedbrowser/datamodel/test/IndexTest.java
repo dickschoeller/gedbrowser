@@ -1,13 +1,13 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -62,7 +62,7 @@ public final class IndexTest {
     private final GedObjectBuilder builder = new GedObjectBuilder(root);
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         builder.createPerson("I1", "Richard John/Schoeller/");
         builder.createPerson("I2", "Lisa Hope/Robinson/");
@@ -98,8 +98,7 @@ public final class IndexTest {
     public void testGetNamesPerSurname1() {
         final Set<String> schoellerIndex = root.getIndex()
                 .getNamesPerSurname(SCHOELLER_SURNAME);
-        assertEquals("Schoeller count mismatch", SCHOELLERS_COUNT,
-                schoellerIndex.size());
+        assertEquals(SCHOELLERS_COUNT, schoellerIndex.size(), "Schoeller count mismatch");
     }
 
     /** */
@@ -107,8 +106,7 @@ public final class IndexTest {
     public void testGetNamesPerSurname2() {
         final Set<String> robinsonIndex = root.getIndex()
                 .getNamesPerSurname(ROBINSON_SURNAME);
-        assertEquals("Robinson count mismatch", ROBINSONS_COUNT,
-                robinsonIndex.size());
+        assertEquals(ROBINSONS_COUNT, robinsonIndex.size(), "Robinson count mismatch");
     }
 
     /** */
@@ -116,7 +114,7 @@ public final class IndexTest {
     public void testGetNamesPerSurname3() {
         final Set<String> moyerIndex = root.getIndex()
                 .getNamesPerSurname(MOYER_SURNAME);
-        assertEquals("Count not as expected", MOYER_COUNT, moyerIndex.size());
+        assertEquals(MOYER_COUNT, moyerIndex.size(), "Count not as expected");
     }
 
     /** */
@@ -124,15 +122,14 @@ public final class IndexTest {
     public void testGetNamesPerSurname4() {
         final Set<String> unknownIndex = root.getIndex()
                 .getNamesPerSurname("?");
-        assertEquals("Count not as expected", UNKNOWN_COUNT,
-                unknownIndex.size());
+        assertEquals(UNKNOWN_COUNT, unknownIndex.size(), "Count not as expected");
     }
 
     /** */
     @Test
     public void testGetNamesPerSurname5() {
         final Set<String> emptyIndex = root.getIndex().getNamesPerSurname(null);
-        assertEquals("Index should be empty", 0, emptyIndex.size());
+        assertEquals(0, emptyIndex.size(), "Index should be empty");
     }
 
     /** */
@@ -152,7 +149,7 @@ public final class IndexTest {
     @Test
     public void testGetSurnamesSize() {
         final Set<String> set = root.getIndex().getSurnames();
-        assertEquals("Surname count mismatch", SURNAME_COUNT, set.size());
+        assertEquals(SURNAME_COUNT, set.size(), "Surname count mismatch");
     }
 
     /** */
@@ -161,8 +158,7 @@ public final class IndexTest {
         final Set<String> set = root.getIndex().getSurnames();
         int arrayIndex = 0;
         for (final String surname : set) {
-            assertEquals("Surname anomaly", CHECK_SURNAMES[arrayIndex++],
-                    surname);
+            assertEquals(CHECK_SURNAMES[arrayIndex++], surname, "Surname anomaly");
         }
     }
 
@@ -183,7 +179,7 @@ public final class IndexTest {
     public void testGetIdsPerNameNullNull() {
         Set<String> emptySet;
         emptySet = root.getIndex().getIdsPerName(null, null);
-        assertEquals("Expected empty result set", 0, emptySet.size());
+        assertEquals(0, emptySet.size(), "Expected empty result set");
     }
 
     /** */
@@ -191,7 +187,7 @@ public final class IndexTest {
     public void testGetIdsPerNameSchoellerNull() {
         Set<String> emptySet;
         emptySet = root.getIndex().getIdsPerName(SCHOELLER_SURNAME, null);
-        assertEquals("Expected empty result set", 0, emptySet.size());
+        assertEquals(0, emptySet.size(), "Expected empty result set");
         try {
             emptySet.add(FOO);
             fail(SHOULD_THROW);
@@ -205,7 +201,7 @@ public final class IndexTest {
     public void testGetIdsPerNameNullBob() {
         Set<String> emptySet;
         emptySet = root.getIndex().getIdsPerName(null, "Bob");
-        assertEquals("Expected empty result set", 0, emptySet.size());
+        assertEquals(0, emptySet.size(), "Expected empty result set");
 
     }
 
@@ -214,7 +210,7 @@ public final class IndexTest {
     public void testGetIdsPerNameMe() {
         final Set<String> set = root.getIndex().getIdsPerName(SCHOELLER_SURNAME,
                 "Schoeller, Richard John");
-        assertTrue("There is only 1 me", 1 == set.size() && set.contains("I1"));
+        assertTrue(1 == set.size() && set.contains("I1"), "There is only 1 me");
     }
 
     /** */
@@ -222,7 +218,7 @@ public final class IndexTest {
     public void testGetIdsPerNameSchoellerBob() {
         final Set<String> set2 = root.getIndex()
                 .getIdsPerName(SCHOELLER_SURNAME, "Schoeller, Bob");
-        assertEquals("Expected empty result set", 0, set2.size());
+        assertEquals(0, set2.size(), "Expected empty result set");
     }
 
     /** */
@@ -230,8 +226,7 @@ public final class IndexTest {
     public void testGetIdsPerNameSchoellerJohn() {
         final Set<String> set = root.getIndex().getIdsPerName(SCHOELLER_SURNAME,
                 "Schoeller, John");
-        assertTrue("Results don't match",
-                2 == set.size() && set.contains("I8") && set.contains("I9"));
+        assertTrue(2 == set.size() && set.contains("I8") && set.contains("I9"), "Results don't match");
     }
 
     /** */
@@ -245,8 +240,7 @@ public final class IndexTest {
                 for (final String idString : root.getIndex()
                         .getIdsPerName(surname, indexName)) {
                     final String test = idString + " = " + indexName;
-                    assertEquals("Name Anomaly", CHECK_IDS_NAMES[arrayIndex++],
-                            test);
+                    assertEquals(CHECK_IDS_NAMES[arrayIndex++], test, "Name Anomaly");
                 }
             }
         }
@@ -255,14 +249,12 @@ public final class IndexTest {
     /** */
     @Test
     public void testJunkSurname() {
-        assertTrue("Expected empty result set", root.getIndex()
-                .getIdsPerName("Mumble", "Mumble, Bob").isEmpty());
+        assertTrue(root.getIndex().getIdsPerName("Mumble", "Mumble, Bob").isEmpty(), "Expected empty result set");
     }
 
     /** */
     @Test
     public void testSize() {
-        assertEquals("Surname count mismatch", SURNAME_COUNT,
-                root.getIndex().surnameCount());
+        assertEquals(SURNAME_COUNT, root.getIndex().surnameCount(), "Surname count mismatch");
     }
 }

@@ -1,15 +1,15 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Map;
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Index;
@@ -37,7 +37,7 @@ public final class RootTest {
     private transient Family family;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         root = new Root("Root");
         final GedObjectBuilder builder = new GedObjectBuilder(root);
@@ -66,31 +66,31 @@ public final class RootTest {
         person.insert(name2);
         final Person personx = new Person(root, new ObjectId("I3"));
         personx.insert(new Name(personx, "Patricia/Hayes/"));
-        assertEquals("Person mismatch", person, root.find("I2"));
+        assertEquals(person, root.find("I2"), "Person mismatch");
     }
 
     /** */
     @Test
     public void testFindI1() {
-        assertEquals("Person mismatch", person1, root.find("I1"));
+        assertEquals(person1, root.find("I1"), "Person mismatch");
     }
 
     /** */
     @Test
     public void testFindI2() {
-        assertEquals("Person mismatch", person2, root.find("I2"));
+        assertEquals(person2, root.find("I2"), "Person mismatch");
     }
 
     /** */
     @Test
     public void testFindI3() {
-        assertEquals("Person mismatch", person3, root.find("I3"));
+        assertEquals(person3, root.find("I3"), "Person mismatch");
     }
 
     /** */
     @Test
     public void testFindF1() {
-        assertEquals("Family mismatch", family, root.find("F1"));
+        assertEquals(family, root.find("F1"), "Family mismatch");
     }
 
     /** */
@@ -101,14 +101,13 @@ public final class RootTest {
         final Person person5 = new Person(root, new ObjectId("SQUIRT"));
         root.insert(person5);
         final Map<String, GedObject> objects = root.getObjects();
-        assertTrue("Content mismatch",
-                OBJECT_COUNT == objects.size()
+        assertTrue(OBJECT_COUNT == objects.size()
                         && objects.keySet().contains("I1")
                         && objects.keySet().contains("I2")
                         && objects.keySet().contains("I3")
                         && objects.keySet().contains("I4")
                         && objects.keySet().contains("SQUIRT")
-                        && objects.keySet().contains("F1"));
+                        && objects.keySet().contains("F1"), "Content mismatch");
     }
 
     /** */
@@ -117,40 +116,40 @@ public final class RootTest {
         final Root localRoot = new Root();
         localRoot.insert(null);
         final Map<String, GedObject> objects = root.getObjects();
-        assertFalse("Null object should not be inserted", objects.isEmpty());
+        assertFalse(objects.isEmpty(), "Null object should not be inserted");
     }
 
     /** */
     @Test
     public void testGetFilenameInitiallyNull() {
-        assertNull("Filename should initially be null", root.getFilename());
+        assertNull(root.getFilename(), "Filename should initially be null");
     }
 
     /** */
     @Test
     public void testSetGetFilename() {
         root.setFilename("foo.ged");
-        assertEquals("Filename should be set", "foo.ged", root.getFilename());
+        assertEquals("foo.ged", root.getFilename(), "Filename should be set");
     }
 
     /** */
     @Test
     public void testGetDbNameInitiallyNull() {
-        assertNull("DB name should initially be null", root.getDbName());
+        assertNull(root.getDbName(), "DB name should initially be null");
     }
 
     /** */
     @Test
     public void testSetGetDbName() {
         root.setDbName("foo");
-        assertEquals("DB name should be set", "foo", root.getDbName());
+        assertEquals("foo", root.getDbName(), "DB name should be set");
     }
 
     /** */
     @Test
     public void testIndexInitiallyEmpty() {
         final Index index = root.getIndex();
-        assertEquals("Index should be empty", 0, index.surnameCount());
+        assertEquals(0, index.surnameCount(), "Index should be empty");
     }
 
     /** */
@@ -161,8 +160,7 @@ public final class RootTest {
         final Set<String> npsSchoeller = index.getNamesPerSurname("Schoeller");
         final Set<String> npsHayes = index.getNamesPerSurname("Hayes");
         final Set<String> nullish = index.getNamesPerSurname("Mumble");
-        assertTrue("Counts don't match",
-                2 == index.surnameCount() && 2 == npsSchoeller.size()
-                        && 1 == npsHayes.size() && nullish.isEmpty());
+        assertTrue(2 == index.surnameCount() && 2 == npsSchoeller.size()
+                        && 1 == npsHayes.size() && nullish.isEmpty(), "Counts don't match");
     }
 }

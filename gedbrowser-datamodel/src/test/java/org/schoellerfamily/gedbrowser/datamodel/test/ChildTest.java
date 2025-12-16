@@ -1,15 +1,15 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
@@ -32,7 +32,7 @@ public final class ChildTest {
 
     /**
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
 
@@ -57,7 +57,7 @@ public final class ChildTest {
     public void testGetChildrenSize() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final List<Person> list = navigator.getChildren();
-        assertEquals("Expected only 1 person", 1, list.size());
+        assertEquals(1, list.size(), "Expected only 1 person");
     }
 
     /** */
@@ -65,33 +65,33 @@ public final class ChildTest {
     public void testGetChildrenContains() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final List<Person> list = navigator.getChildren();
-        assertTrue("Contents mismatch", list.contains(person3));
+        assertTrue(list.contains(person3), "Contents mismatch");
     }
 
     /** */
     @Test
     public void testGetChildMatch() {
-        assertSame("Mismatched person", person3, child1.getChild());
+        assertSame(person3, child1.getChild(), "Mismatched person");
     }
 
     /** */
     @Test
     public void testGetChildNullParentUnset() {
-        assertFalse("Expected null object", new Child().getChild().isSet());
+        assertFalse(new Child().getChild().isSet(), "Expected null object");
     }
 
     /** */
     @Test
     public void testGetFatherUnspecifiedParentUnset() {
         final FamilyNavigator navigator = new FamilyNavigator(new Child());
-        assertFalse("Expected null object", navigator.getFather().isSet());
+        assertFalse(navigator.getFather().isSet(), "Expected null object");
     }
 
     /** */
     @Test
     public void testGetMotherUnsetParentUnset() {
         final FamilyNavigator navigator = new FamilyNavigator(new Child());
-        assertFalse("Expected null object", navigator.getMother().isSet());
+        assertFalse(navigator.getMother().isSet(), "Expected null object");
     }
 
     /** */
@@ -101,7 +101,7 @@ public final class ChildTest {
         final Family family = builder.createFamily("F1");
         final Child child = new Child(family, "Child", new ObjectId("I3"));
         final FamilyNavigator navigator = new FamilyNavigator(child);
-        assertFalse("Expected null object", navigator.getFather().isSet());
+        assertFalse(navigator.getFather().isSet(), "Expected null object");
     }
 
     /** */
@@ -111,7 +111,7 @@ public final class ChildTest {
         final Family family = builder.createFamily("F1");
         final Child child = new Child(family, "Child", new ObjectId("I3"));
         final FamilyNavigator navigator = new FamilyNavigator(child);
-        assertFalse("Expected null object", navigator.getMother().isSet());
+        assertFalse(navigator.getMother().isSet(), "Expected null object");
     }
 
     /** */
@@ -120,14 +120,14 @@ public final class ChildTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily("F1");
         final Child child = new Child(family, "Child", new ObjectId("I3"));
-        assertFalse("Expected null object", child.getChild().isSet());
+        assertFalse(child.getChild().isSet(), "Expected null object");
     }
 
     /** */
     @Test
     public void testChildNullParentFind() {
         final Child child = new Child();
-        assertNull("Expected to not find", child.find("I1"));
+        assertNull(child.find("I1"), "Expected to not find");
     }
 
     /** */
@@ -153,9 +153,9 @@ public final class ChildTest {
      * @param idString the expected ID string
      */
     private void assertPerson1(final Child child, final String idString) {
-        assertEquals("Mismatched ID", idString, child.getString());
-        assertTrue("Expected empty string", child.getToString().isEmpty());
-        assertNull("Expected to not find", child.find(idString));
+        assertEquals(idString, child.getString(), "Mismatched ID");
+        assertTrue(child.getToString().isEmpty(), "Expected empty string");
+        assertNull(child.find(idString), "Expected to not find");
     }
 
     /** */
@@ -164,6 +164,6 @@ public final class ChildTest {
         final Root localRoot = new Root("Root");
         final Child child2 = new Child(localRoot, "I1", new ObjectId("I1"));
         localRoot.insert(child2);
-        assertEquals("Mismatched child", child2, child2.find("I1"));
+        assertEquals(child2, child2.find("I1"), "Mismatched child");
     }
 }

@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel.users.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.users.User;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserImpl;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
@@ -20,7 +20,7 @@ public class UsersImplTest {
         expected.setUsername("username");
         users.add(expected);
         final User actual = users.get("username");
-        assertSame("not the same", expected, actual);
+        assertSame(expected, actual, "Should be same impl");
     }
 
     @Test
@@ -34,7 +34,7 @@ public class UsersImplTest {
         }
         int i = 0;
         for (final User actual : users) {
-            assertEquals("not the same username", userNames[i++], actual.getUsername());
+            assertEquals(userNames[i++], actual.getUsername(), "not the same username");
         }
     }
 
@@ -47,7 +47,7 @@ public class UsersImplTest {
             impl.setUsername(userName);
             users.add(impl);
         }
-        assertEquals("size doesn't match", 2, users.size());
+        assertEquals(2, users.size(), "size doesn't match");
     }
 
     @Test
@@ -60,7 +60,7 @@ public class UsersImplTest {
             users.add(impl);
         }
         users.clear();
-        assertEquals("size doesn't match", 0, users.size());
+        assertEquals(0, users.size(), "size doesn't match");
     }
 
     @Test
@@ -73,6 +73,6 @@ public class UsersImplTest {
         impl2.setUsername("user2");
         users.add(impl2);
         users.remove(impl1);
-        assertEquals("size doesn't match", 1, users.size());
+        assertEquals(1, users.size(), "size doesn't match");
     }
 }

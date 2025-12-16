@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -46,7 +46,7 @@ public final class RootVisitorTest {
         builder.createPerson("I2", "Anonymous/Schoeller/");
         final RootVisitor visitor = new RootVisitor();
         root.accept(visitor);
-        assertEquals("Expected 2 persons", 2, visitor.getPersons().size());
+        assertEquals(2, visitor.getPersons().size(), "Expected 2 persons");
     }
 
     /** */
@@ -85,6 +85,6 @@ public final class RootVisitorTest {
             }
         };
         gob.accept(visitor);
-        assertTrue("Found unexpected content", visitor.getPersons().isEmpty());
+        assertTrue(visitor.getPersons().isEmpty(), "Found unexpected content");
     }
 }

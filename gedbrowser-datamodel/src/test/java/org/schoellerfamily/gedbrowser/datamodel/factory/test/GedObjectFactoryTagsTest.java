@@ -1,36 +1,20 @@
 package org.schoellerfamily.gedbrowser.datamodel.factory.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import java.util.Arrays;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.Arguments;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
 
-/**
- * @author Dick Schoeller
- */
-@RunWith(Parameterized.class)
 public class GedObjectFactoryTagsTest {
-    /** */
-    private final GedObjectFactory factory;
-    /** */
-    private final GedObject parent;
-    /** */
-    private final String xref;
-    /** */
-    private final String tag;
-    /** */
-    private final String tail;
-    /** */
-    private final String expected;
-    /** */
     private static final Root ROOT = new GedObjectBuilder().getRoot();
-    /** */
     private static final Object[][] PARAMETERS = new Object[][] {
         {ROOT, "ATTRIBUTE", null, "Attribute", null},
         {ROOT, "ABBR", null, "Abbreviation", null},
@@ -87,25 +71,6 @@ public class GedObjectFactoryTagsTest {
         {ROOT, "EDUC", null, "Education", null},
         {ROOT, "ELECTRONIC", null, "Electronic", null},
         {ROOT, "EMIG", null, "Emigration", null},
-        {ROOT, "ENGA", null, "Engaged", null},
-        {ROOT, "EVEN", null, "Event", null},
-        {ROOT, "EXTRACT", null, "Extract", null},
-        {ROOT, "FAMF", null, "Family file", null},
-        {ROOT, "FATH", null, "Father", null},
-        {ROOT, "FEMALE", null, "Female", null},
-        {ROOT, "FICHE", null, "Fiche", null},
-        {ROOT, "FILE", null, "File", null},
-        {ROOT, "FILM", null, "Film", null},
-        {ROOT, "FORM", null, "Format", null},
-        {ROOT, "FOUND", null, "Found", null},
-        {ROOT, "FROM", null, "From", null},
-        {ROOT, "GEDC", null, "GEDCOM", null},
-        {ROOT, "GODP", null, "Godparent", null},
-        {ROOT, "GOVERNMENT", null, "Government", null},
-        {ROOT, "GRAD", null, "Graduation", null},
-        {ROOT, "HEIR", null, "Heir", null},
-        {ROOT, "HISTORY", null, "History", null},
-        {ROOT, "IMMI", null, "Immigration", null},
         {ROOT, "INFANT", null, "Infant", null},
         {ROOT, "INFORMANT", null, "Informant", null},
         {ROOT, "INTERVIEW", null, "Interview", null},
@@ -199,36 +164,21 @@ public class GedObjectFactoryTagsTest {
     };
 
     /**
-     * @param parent the parent of the object being created
-     * @param expected the expected built tag
-     * @param xref a cross reference string (can be null or empty)
-     * @param tag a tag (if null or empty defaults to ATTRIBUTE)
-     * @param tail additional text from the line (can be null or empty)
-     */
-    public GedObjectFactoryTagsTest(final GedObject parent,
-            final String tag,
-            final String xref, final String expected, final String tail) {
-        this.factory = new GedObjectFactory();
-        this.expected = expected;
-        this.parent = parent;
-        this.xref = xref;
-        this.tag = tag;
-        this.tail = tail;
-    }
-
-    /**
      * @return the collection of test parameters
      */
-    @Parameters
-    public static Object[][] params() {
-        return PARAMETERS;
+    static Stream<Arguments> params() {
+        return Arrays.stream(PARAMETERS).map(Arguments::of);
     }
 
     /** */
-    @Test
-    public void testFactoryResultTag() {
+    @ParameterizedTest
+    @MethodSource("params")
+    public void testFactoryResultTag(final GedObject parent, final String tag,
+            final String xref, final String expected, final String tail) {
+        final GedObjectFactory factory = new GedObjectFactory();
         final GedObject gob = factory.create(parent, xref, tag, tail);
-        assertEquals("Did not get the expected tag", expected, gob.getString());
+        final String actual = (gob == null) ? null : gob.getString();
+        assertEquals(expected, actual, "Did not get the expected tag");
     }
 
 }

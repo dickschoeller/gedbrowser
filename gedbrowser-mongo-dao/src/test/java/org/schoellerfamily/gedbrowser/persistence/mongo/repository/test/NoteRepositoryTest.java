@@ -1,14 +1,14 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.persistence.domain.NoteDocument;
@@ -18,12 +18,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMo
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.NoteDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 public class NoteRepositoryTest {
     /**
@@ -50,7 +50,7 @@ public class NoteRepositoryTest {
     /**
      * @throws IOException because the reader does
      */
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
         rootDocument = new RootDocumentMongo();
@@ -60,7 +60,7 @@ public class NoteRepositoryTest {
     }
 
     /** */
-    @After
+    @AfterEach
     public void tearDown() {
         repositoryFixture.clearRepository();
     }
@@ -72,7 +72,7 @@ public class NoteRepositoryTest {
                 findByFileAndString(root.getFilename(), "N1");
         final Note note =
                 (Note) toObjConverter.createGedObject(root, famdoc);
-        assertEquals("Id mismatch", "N1", note.getString());
+        assertEquals("N1", note.getString(), "Id mismatch");
     }
 
     /** */
@@ -82,7 +82,7 @@ public class NoteRepositoryTest {
                 findByRootAndString(rootDocument, "N1");
         final Note note =
                 (Note) toObjConverter.createGedObject(root, famdoc);
-        assertEquals("Id mismatch", "N1", note.getString());
+        assertEquals("N1", note.getString(), "Id mismatch");
     }
 
     /** */
@@ -90,7 +90,7 @@ public class NoteRepositoryTest {
     public void testBogus() {
         final NoteDocument famdoc = noteDocumentRepository.
                 findByFileAndString(root.getFilename(), "N999999");
-        assertNull("Bogus request should return null", famdoc);
+        assertNull(famdoc, "Bogus request should return null");
     }
 
     /** */
@@ -98,21 +98,19 @@ public class NoteRepositoryTest {
     public void testBogusRoot() {
         final NoteDocument famdoc = noteDocumentRepository.
                 findByRootAndString(rootDocument, "N999999");
-        assertNull("Bogus request should return null", famdoc);
+        assertNull(famdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     public void testCountRoot() {
-        assertEquals("Should be 3 notes", NOTE_COUNT,
-                noteDocumentRepository.count(rootDocument));
+        assertEquals(NOTE_COUNT, noteDocumentRepository.count(rootDocument), "Should be 3 notes");
     }
 
     /** */
     @Test
     public void testCountFilename() {
-        assertEquals("Should be 3 notes", NOTE_COUNT,
-                noteDocumentRepository.count(rootDocument.getFilename()));
+        assertEquals(NOTE_COUNT, noteDocumentRepository.count(rootDocument.getFilename()), "Should be 3 notes");
     }
 
     /** */
@@ -125,7 +123,7 @@ public class NoteRepositoryTest {
             checkEquals("Type string mismatch", "note", note.getType());
             count++;
         }
-        assertEquals("Should be 3 notes", NOTE_COUNT, count);
+        assertEquals(NOTE_COUNT, count, "Should be 3 notes");
     }
 
     /** */
@@ -138,14 +136,14 @@ public class NoteRepositoryTest {
             checkEquals("Type string mismatch", "note", note.getType());
             count++;
         }
-        assertEquals("Should be 3 notes", NOTE_COUNT, count);
+        assertEquals(NOTE_COUNT, count, "Should be 3 notes");
     }
 
     /** */
     @Test
     public void testLastId() {
         final String string = noteDocumentRepository.lastId(rootDocument);
-        assertEquals("", "N3", string);
+        assertEquals("N3", string, "");
     }
 
     /**
@@ -157,6 +155,6 @@ public class NoteRepositoryTest {
      */
     private void checkEquals(final String message, final Object expected,
             final Object actual) {
-        assertEquals(message, expected, actual);
+        assertEquals(expected, actual, message);
     }
 }

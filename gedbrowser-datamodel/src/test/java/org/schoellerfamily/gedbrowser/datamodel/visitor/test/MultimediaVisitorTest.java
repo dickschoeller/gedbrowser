@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor.test;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.FamC;
@@ -64,8 +64,7 @@ public final class MultimediaVisitorTest {
                 visitor.visit(this);
             } };
         gob.accept(visitor);
-        assertNull("Found unexpected content",
-                visitor.getFilePath());
+        assertNull(visitor.getFilePath(), "Found unexpected content");
     }
 
     /** */
@@ -99,8 +98,7 @@ public final class MultimediaVisitorTest {
                 visitor.visit(this);
             } };
         gob.accept(visitor);
-        assertNull("Found unexpected content",
-                visitor.getFormat());
+        assertNull(visitor.getFormat(), "Found unexpected content");
     }
 
     /** */
@@ -134,7 +132,6 @@ public final class MultimediaVisitorTest {
                 visitor.visit(this);
             } };
         gob.accept(visitor);
-        assertNull("Found unexpected content",
-                visitor.getTitle());
+        assertNull(visitor.getTitle(), "Found unexpected content");
     }
 }

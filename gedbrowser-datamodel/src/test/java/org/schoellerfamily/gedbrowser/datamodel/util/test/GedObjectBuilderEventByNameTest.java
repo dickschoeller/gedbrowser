@@ -1,13 +1,15 @@
 package org.schoellerfamily.gedbrowser.datamodel.util.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import java.util.Arrays;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.AbstractLink;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
@@ -35,7 +37,6 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-@RunWith(Parameterized.class)
 @SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports",
         "PMD.CommentSize" })
 public class GedObjectBuilderEventByNameTest {
@@ -45,20 +46,6 @@ public class GedObjectBuilderEventByNameTest {
     private static Root root = builder.getRoot();
     /** */
     private static Person person = builder.createPerson("I99999", "Name/Me/");
-    /** */
-    private final GedObject parent;
-    /** */
-    private final String type;
-    /** */
-    private final String string;
-    /** */
-    private final String tail;
-    /** */
-    private final Class<? extends GedObject> clazz;
-    /** */
-    private final String expectedString;
-    /** */
-    private final String expectedToString;
 
     /** */
     private static final Object[][] PARAMETERS = {
@@ -105,41 +92,17 @@ public class GedObjectBuilderEventByNameTest {
 //        CONSTRUCTION_MAP.put("note", Construction.note);
 
     /**
-     * @param parent the parent of the object we are creating
-     * @param type the name of the type of event to build
-     * @param string a primary piece of string data
-     * @param tail additional string
-     * @param clazz expected class
-     * @param expectedString the expected output of getString
-     * @param expectedToString the expected output of getToString
+     * Provide parameter combinations: (visited, type)
+     *
+     * @return stream of arguments
      */
-    public GedObjectBuilderEventByNameTest(
-            final GedObject parent,
-            final String type,
-            final String string, final String tail,
-            final Class<? extends GedObject> clazz,
-            final String expectedString,
-            final String expectedToString) {
-        this.parent = parent;
-        this.type = type;
-        this.string = string;
-        this.tail = tail;
-        this.clazz = clazz;
-        this.expectedString = expectedString;
-        this.expectedToString = expectedToString;
-    }
-
-    /**
-     * @return the array of tests values
-     */
-    @Parameters
     @SuppressWarnings("PMD.MethodReturnsInternalArray")
-    public static Object[][] params() {
-        return PARAMETERS;
+    public static Stream<Arguments> params() {
+        return Arrays.stream(PARAMETERS).map(Arguments::of);
     }
 
     /** */
-    @BeforeClass
+    @BeforeAll
     public static void init() {
         builder = new GedObjectBuilder();
         root = builder.getRoot();
@@ -147,24 +110,36 @@ public class GedObjectBuilderEventByNameTest {
     }
 
     /** */
-    @Test
-    public void testClass() {
+    @ParameterizedTest
+    @MethodSource("params")
+    public void testClass(final GedObject parent, final String type,
+            final String string, final String tail,
+            final Class<? extends GedObject> clazz,
+            final String expectedString, final String expectedToString) {
         final GedObject gob = builder.createEvent(parent, type, string, tail);
-        assertEquals("wrong class", clazz, gob.getClass());
+        assertEquals(clazz, gob.getClass(), "wrong class");
     }
 
     /** */
-    @Test
-    public void testGetString() {
+    @ParameterizedTest
+    @MethodSource("params")
+    public void testGetString(final GedObject parent, final String type,
+            final String string, final String tail,
+            final Class<? extends GedObject> clazz,
+            final String expectedString, final String expectedToString) {
         final GedObject gob = builder.createEvent(parent, type, string, tail);
-        assertEquals("getString mismatch", expectedString, gob.getString());
+        assertEquals(expectedString, gob.getString(), "getString mismatch");
     }
 
     /** */
-    @Test
-    public void testGetToString() {
+    @ParameterizedTest
+    @MethodSource("params")
+    public void testGetToString(final GedObject parent, final String type,
+            final String string, final String tail,
+            final Class<? extends GedObject> clazz,
+            final String expectedString, final String expectedToString) {
         final GedObject gob = builder.createEvent(parent, type, string, tail);
-        assertToString(gob);
+        assertToString(gob, expectedToString);
     }
 
     /**
@@ -172,13 +147,11 @@ public class GedObjectBuilderEventByNameTest {
      *
      * @param gob the input object
      */
-    private void assertToString(final GedObject gob) {
+    private void assertToString(final GedObject gob, final String expectedToString) {
         if (gob instanceof AbstractLink) {
-            assertEquals("toString mismatch", expectedToString,
-                    ((AbstractLink) gob).getToString());
+            assertEquals(expectedToString, ((AbstractLink) gob).getToString(), "toString mismatch");
         } else {
-            assertNull("There is no toString, expectation better be null",
-                    expectedToString);
+            assertNull(expectedToString, "There is no toString, expectation better be null");
         }
     }
 }

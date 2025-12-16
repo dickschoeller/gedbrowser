@@ -1,11 +1,11 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -30,7 +30,7 @@ public final class WifeTest {
     private transient Wife wife2b;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson("I1");
@@ -52,67 +52,61 @@ public final class WifeTest {
     @Test
     public void testEmptyGetMother() {
         final Wife wife = new Wife();
-        assertFalse("Should not be set", wife.getMother().isSet());
+        assertFalse(wife.getMother().isSet(), "Should not be set");
     }
 
     /** */
     @Test
     public void testGetMother1() {
-        assertEquals("Person's mother doesn't match", person2,
-                wife1.getMother());
+        assertEquals(person2, wife1.getMother(), "Person's mother doesn't match");
     }
 
     /** */
     @Test
     public void testGetMother2a() {
-        assertEquals("Person's mother doesn't match", person2,
-                wife2a.getMother());
+        assertEquals(person2, wife2a.getMother(), "Person's mother doesn't match");
     }
 
     /** */
     @Test
     public void testGetMother2b() {
-        assertEquals("Person's mother doesn't match", person3,
-                wife2b.getMother());
+        assertEquals(person3, wife2b.getMother(), "Person's mother doesn't match");
     }
 
     /** */
     @Test
     public void testGetSpouse1Set() {
-        assertTrue("Person's spouse isn't set", wife1.getSpouse().isSet());
+        assertTrue(wife1.getSpouse().isSet(), "Person's spouse isn't set");
     }
 
     /** */
     @Test
     public void testGetSpouse2aSet() {
-        assertTrue("Person's spouse isn't set", wife2a.getSpouse().isSet());
+        assertTrue(wife2a.getSpouse().isSet(), "Person's spouse isn't set");
     }
 
     /** */
     @Test
     public void testGetSpouse2bSet() {
-        assertTrue("Person's spouse isn't set", wife2b.getSpouse().isSet());
+        assertTrue(wife2b.getSpouse().isSet(), "Person's spouse isn't set");
     }
 
     /** */
     @Test
     public void testGetSpouse1() {
-        assertEquals("Person's spouse doesn't match", person2,
-                wife1.getSpouse());
+        assertEquals(person2, wife1.getSpouse(), "Person's spouse doesn't match");
     }
 
     /** */
     @Test
     public void testGetSpouse2a() {
-        assertEquals("Person's spouse doesn't match", person2,
-                wife2a.getSpouse());
+        assertEquals(person2, wife2a.getSpouse(), "Person's spouse doesn't match");
     }
 
     /** */
     @Test
     public void testGetSpouse2b() {
-        assertEquals("Person's spouse doesn't match", person3,
-                wife2b.getSpouse());
+        assertEquals(person3, wife2b.getSpouse(), "Person's spouse doesn't match");
     }
 
     /** */
@@ -121,7 +115,7 @@ public final class WifeTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily("F1");
         final Wife wife = new Wife(family, "Wife", null);
-        assertFalse("Mother should not be set", wife.getMother().isSet());
+        assertFalse(wife.getMother().isSet(), "Mother should not be set");
     }
 
     /** */
@@ -130,7 +124,7 @@ public final class WifeTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily("F1");
         final Wife wife = new Wife(family, WIFE_TAG, null);
-        assertFalse("Mother should not be set", wife.getMother().isSet());
+        assertFalse(wife.getMother().isSet(), "Mother should not be set");
     }
 
     /** */
@@ -139,6 +133,6 @@ public final class WifeTest {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily("F1");
         final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
-        assertFalse("Mother should not be set", wife.getMother().isSet());
+        assertFalse(wife.getMother().isSet(), "Mother should not be set");
     }
 }

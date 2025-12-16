@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
@@ -19,7 +19,7 @@ public class NoteTest {
     private GedObjectBuilder builder;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         builder = new GedObjectBuilder();
     }
@@ -31,23 +31,21 @@ public class NoteTest {
         final Note note = new Note(root, new ObjectId("N1"));
         root.insert(note);
         final GedObject gob = root.find("N1");
-        assertEquals("Found wrong note", note, gob);
+        assertEquals(note, gob, "Found wrong note");
     }
 
     /** */
     @Test
     public void testNoteGedObjectGetString() {
         final Note note = new Note();
-        assertTrue("Note string should be empty", note.getString()
-                .isEmpty());
+        assertTrue(note.getString().isEmpty(), "Note string should be empty");
     }
 
     /** */
     @Test
     public void testNoteGedObjectGetTail() {
         final Note note = new Note();
-        assertTrue("Note string should be empty", note.getTail()
-                .isEmpty());
+        assertTrue(note.getTail().isEmpty(), "Note string should be empty");
     }
 
     /** */
@@ -55,8 +53,7 @@ public class NoteTest {
     public void testNoteGedObjectSetTailNull() {
         final Note note = new Note();
         note.setTail(null);
-        assertTrue("Note string should be empty", note.getTail()
-                .isEmpty());
+        assertTrue(note.getTail().isEmpty(), "Note string should be empty");
     }
 
     /** */
@@ -64,8 +61,7 @@ public class NoteTest {
     public void testNoteGedObjectSetTailEmpty() {
         final Note note = new Note();
         note.setTail("");
-        assertTrue("Note string should be empty", note.getTail()
-                .isEmpty());
+        assertTrue(note.getTail().isEmpty(), "Note string should be empty");
     }
 
     /** */
@@ -74,7 +70,7 @@ public class NoteTest {
         final Root root = builder.getRoot();
         final Note note = new Note(root, new ObjectId("N1"));
         root.insert(note);
-        assertEquals("Expected note 1", "N1", note.getString());
+        assertEquals("N1", note.getString(), "Expected note 1");
     }
 
     /** */
@@ -83,7 +79,7 @@ public class NoteTest {
         final Root root = builder.getRoot();
         final Note note = new Note(root, new ObjectId("N1"), "Some note text");
         root.insert(note);
-        assertEquals("Expected note 1", "Some note text", note.getTail());
+        assertEquals("Some note text", note.getTail(), "Expected note 1");
     }
 
     /** */
@@ -93,6 +89,6 @@ public class NoteTest {
         final Note note = new Note(root, new ObjectId("N1"), "Some note te");
         root.insert(note);
         note.appendString("xt");
-        assertEquals("Expected note 1", "Some note text", note.getTail());
+        assertEquals("Some note text", note.getTail(), "Expected note 1");
     }
 }

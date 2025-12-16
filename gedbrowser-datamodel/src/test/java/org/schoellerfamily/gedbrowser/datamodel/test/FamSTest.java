@@ -1,14 +1,14 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
@@ -36,7 +36,7 @@ public final class FamSTest {
     private transient FamS famS3;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person1 = builder.createPerson(
@@ -67,29 +67,28 @@ public final class FamSTest {
     @Test
     public void testGetSpouseFromSpouse() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
-        assertEquals("Person mismatch", person3, navigator.getSpouse(person2));
+        assertEquals(person3, navigator.getSpouse(person2), "Person mismatch");
     }
 
     /** */
     @Test
     public void testGetSpouseFromParent() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
-        assertEquals("Person mismatch", person2, navigator.getSpouse(person3));
+        assertEquals(person2, navigator.getSpouse(person3), "Person mismatch");
     }
 
     /** */
     @Test
     public void testGetSpouseNotSetFromUnrelated() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
-        assertFalse("Should be unset person when not from one of the spouses",
-                navigator.getSpouse(person1).isSet());
+        assertFalse(navigator.getSpouse(person1).isSet(), "Should be unset person when not from one of the spouses");
     }
 
     /** */
     @Test
     public void testGetSpouseIsParentFromNull() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
-        assertEquals("Person mismatch", person2, navigator.getSpouse(null));
+        assertEquals(person2, navigator.getSpouse(null), "Person mismatch");
     }
 
     /** */
@@ -97,7 +96,7 @@ public final class FamSTest {
     public void testGetFamilies() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
         final Family gottenFamily = navigator.getFamily();
-        assertSame("Mismatched family", family, gottenFamily);
+        assertSame(family, gottenFamily, "Mismatched family");
     }
 
     /** */
@@ -105,7 +104,7 @@ public final class FamSTest {
     public void testGetFamiliesUnsetWhenUnattached() {
         final FamS fams = new FamS(null, "F73", null);
         final FamilyNavigator navigator = new FamilyNavigator(fams);
-        assertFalse("Family should not be set", navigator.getFamily().isSet());
+        assertFalse(navigator.getFamily().isSet(), "Family should not be set");
     }
 
     /** */
@@ -113,7 +112,7 @@ public final class FamSTest {
     public void testGetChildrenFromHusband() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
         final List<Person> newList = navigator.getChildren();
-        assertTrue("List should contain person1", newList.contains(person1));
+        assertTrue(newList.contains(person1), "List should contain person1");
     }
 
     /** */
@@ -121,7 +120,7 @@ public final class FamSTest {
     public void testGetChildrenFromWife() {
         final FamilyNavigator navigator = new FamilyNavigator(famS3);
         final List<Person> newList = navigator.getChildren();
-        assertTrue("List should contain person1", newList.contains(person1));
+        assertTrue(newList.contains(person1), "List should contain person1");
     }
 
     // TODO we don't have a test where FamS.getSpouse returns a set person.

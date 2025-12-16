@@ -1,11 +1,11 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -29,7 +29,7 @@ public final class MultimediaTest {
     private String homeUrl;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         builder = new GedObjectBuilder();
         person1 = builder.createPerson(
@@ -53,8 +53,7 @@ public final class MultimediaTest {
     public void testBasicConstruct() {
         final Multimedia mm = new Multimedia(
                 person1, "Multimedia", homeUrl);
-        assertEquals("Mismatched tail",
-                homeUrl, mm.getTail());
+        assertEquals(homeUrl, mm.getTail(), "Mismatched tail");
     }
 
     /** */
@@ -64,7 +63,7 @@ public final class MultimediaTest {
                 builder.addMultimediaToPerson(
                         person1, homeUrl);
         mm.appendString("genealogy");
-        assertEquals("Mismatched tail", homeUrl + "genealogy", mm.getTail());
+        assertEquals(homeUrl + "genealogy", mm.getTail(), "Mismatched tail");
     }
 
     /**
@@ -76,9 +75,9 @@ public final class MultimediaTest {
     private void assertMatch(final Multimedia multimedia,
             final GedObject expParent, final String expString,
             final String expTail) {
-        assertEquals("Parent mismatch", expParent, multimedia.getParent());
-        assertEquals("String mismatch", expString, multimedia.getString());
-        assertEquals("Tail mismatch", expTail, multimedia.getTail());
+        assertEquals(expParent, multimedia.getParent(), "Parent mismatch");
+        assertEquals(expString, multimedia.getString(), "String mismatch");
+        assertEquals(expTail, multimedia.getTail(), "Tail mismatch");
     }
 
     /** */
@@ -129,7 +128,7 @@ public final class MultimediaTest {
         final Multimedia multimedia = new Multimedia();
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
-        assertEquals("File path mismatch", null, visitor.getFilePath());
+        assertEquals(null, visitor.getFilePath(), "File path mismatch");
     }
 
     /** */
@@ -150,8 +149,7 @@ public final class MultimediaTest {
         filePath.addAttribute(title);
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
-        assertEquals("File path mismatch",
-                filePathString, visitor.getFilePath());
+        assertEquals(filePathString, visitor.getFilePath(), "File path mismatch");
     }
 
     /** */
@@ -172,8 +170,7 @@ public final class MultimediaTest {
         filePath.addAttribute(title);
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
-        assertEquals("File format mismatch",
-                "jpg", visitor.getFormat());
+        assertEquals("jpg", visitor.getFormat(), "File format mismatch");
     }
 
     /** */
@@ -188,7 +185,7 @@ public final class MultimediaTest {
         multimedia.addAttribute(filePath);
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
-        assertEquals("File format mismatch", null, visitor.getFormat());
+        assertEquals(null, visitor.getFormat(), "File format mismatch");
     }
 
     /** */
@@ -197,7 +194,7 @@ public final class MultimediaTest {
         final Multimedia multimedia = new Multimedia();
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
-        assertEquals("File format mismatch", null, visitor.getFormat());
+        assertEquals(null, visitor.getFormat(), "File format mismatch");
     }
 
     /** */
@@ -218,7 +215,7 @@ public final class MultimediaTest {
         filePath.addAttribute(title);
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
-        assertEquals("File title mismatch", "The title", visitor.getTitle());
+        assertEquals("The title", visitor.getTitle(), "File title mismatch");
     }
 
     /** */
@@ -239,7 +236,7 @@ public final class MultimediaTest {
         multimedia.addAttribute(title);
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
-        assertEquals("File title mismatch", "The title", visitor.getTitle());
+        assertEquals("The title", visitor.getTitle(), "File title mismatch");
     }
 
     /** */
@@ -248,7 +245,7 @@ public final class MultimediaTest {
         final Multimedia multimedia = new Multimedia();
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
-        assertEquals("File title mismatch", null, visitor.getTitle());
+        assertEquals(null, visitor.getTitle(), "File title mismatch");
     }
 
     /** */
@@ -269,7 +266,7 @@ public final class MultimediaTest {
         filePath.addAttribute(title);
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
-        assertTrue("Expected is image", visitor.isImage());
+        assertTrue(visitor.isImage(), "Expected is image");
     }
 
     /** */
@@ -290,7 +287,7 @@ public final class MultimediaTest {
         filePath.addAttribute(title);
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
-        assertTrue("Expected is image", visitor.isImage());
+        assertTrue(visitor.isImage(), "Expected is image");
     }
 
     /** */
@@ -311,7 +308,7 @@ public final class MultimediaTest {
         filePath.addAttribute(title);
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
-        assertTrue("Expected is image", visitor.isImage());
+        assertTrue(visitor.isImage(), "Expected is image");
     }
 
     /** */
@@ -332,7 +329,7 @@ public final class MultimediaTest {
         filePath.addAttribute(title);
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
-        assertTrue("Expected is image", visitor.isImage());
+        assertTrue(visitor.isImage(), "Expected is image");
     }
 
     /** */
@@ -353,7 +350,7 @@ public final class MultimediaTest {
         filePath.addAttribute(title);
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
-        assertFalse("Expected is not image", visitor.isImage());
+        assertFalse(visitor.isImage(), "Expected is not image");
     }
 
     /** */
@@ -362,6 +359,6 @@ public final class MultimediaTest {
         final Multimedia multimedia = new Multimedia();
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
-        assertFalse("Expected is not image", visitor.isImage());
+        assertFalse(visitor.isImage(), "Expected is not image");
     }
 }

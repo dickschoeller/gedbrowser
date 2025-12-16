@@ -1,14 +1,14 @@
 package org.schoellerfamily.gedbrowser.datamodel.navigator.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -34,7 +34,7 @@ public final class PersonNavigatorTest {
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         person1 =
                 builder.createPerson("I1", "Richard John/Schoeller/");
@@ -95,37 +95,35 @@ public final class PersonNavigatorTest {
     @Test
     public void testPerson() {
         final PersonNavigator navigator = new PersonNavigator(person1);
-        assertSame("Expected same person", person1, navigator.getPerson());
+        assertSame(person1, navigator.getPerson(), "Expected same person");
     }
 
     /** */
     @Test
     public void testGetFather() {
         final PersonNavigator navigator = new PersonNavigator(person3);
-        assertEquals("Expected to find father", person6, navigator.getFather());
+        assertEquals(person6, navigator.getFather(), "Expected to find father");
     }
 
     /** */
     @Test
     public void testGetMother() {
         final PersonNavigator navigator = new PersonNavigator(person3);
-        assertEquals("Expected to find mother", person7, navigator.getMother());
+        assertEquals(person7, navigator.getMother(), "Expected to find mother");
     }
 
     /** */
     @Test
     public void testGetFatherUnset() {
         final PersonNavigator navigator = new PersonNavigator(person6);
-        assertFalse("Expected not to find father",
-                navigator.getFather().isSet());
+        assertFalse(navigator.getFather().isSet(), "Expected not to find father");
     }
 
     /** */
     @Test
     public void testGetMotherUnset() {
         final PersonNavigator navigator = new PersonNavigator(person6);
-        assertFalse("Expected not to find mother",
-                navigator.getMother().isSet());
+        assertFalse(navigator.getMother().isSet(), "Expected not to find mother");
     }
 
     /** */
@@ -133,8 +131,7 @@ public final class PersonNavigatorTest {
     public void testGetHusbandsFamily() {
         final PersonNavigator navigator = new PersonNavigator(person6);
         final List<Family> list6 = navigator.getFamilies();
-        assertTrue(
-                "Should have found husband's family", list6.contains(family6));
+        assertTrue(list6.contains(family6), "Should have found husband's family");
     }
 
     /** */
@@ -142,6 +139,6 @@ public final class PersonNavigatorTest {
     public void testGetWifesFamily() {
         final PersonNavigator navigator = new PersonNavigator(person7);
         final List<Family> list7 = navigator.getFamilies();
-        assertTrue("Should have found wife's family", list7.contains(family6));
+        assertTrue(list7.contains(family6), "Should have found wife's family");
     }
 }

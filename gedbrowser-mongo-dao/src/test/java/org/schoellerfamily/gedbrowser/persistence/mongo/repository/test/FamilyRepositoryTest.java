@@ -1,14 +1,14 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.persistence.domain.FamilyDocument;
@@ -18,12 +18,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMo
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 public final class FamilyRepositoryTest {
     /**
@@ -50,7 +50,7 @@ public final class FamilyRepositoryTest {
     /**
      * @throws IOException because the reader does
      */
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
         rootDocument = new RootDocumentMongo();
@@ -60,7 +60,7 @@ public final class FamilyRepositoryTest {
     }
 
     /** */
-    @After
+    @AfterEach
     public void tearDown() {
         repositoryFixture.clearRepository();
     }
@@ -72,7 +72,7 @@ public final class FamilyRepositoryTest {
                 findByFileAndString(root.getFilename(), "F1");
         final Family family =
                 (Family) toObjConverter.createGedObject(root, famdoc);
-        assertEquals("Id mismatch", "F1", family.getString());
+        assertEquals("F1", family.getString(), "Id mismatch");
     }
 
     /** */
@@ -82,7 +82,7 @@ public final class FamilyRepositoryTest {
                 findByRootAndString(rootDocument, "F1");
         final Family family =
                 (Family) toObjConverter.createGedObject(root, famdoc);
-        assertEquals("Id mismatch", "F1", family.getString());
+        assertEquals("F1", family.getString(), "Id mismatch");
     }
 
     /** */
@@ -90,7 +90,7 @@ public final class FamilyRepositoryTest {
     public void testBogus() {
         final FamilyDocument famdoc = familyDocumentRepository.
                 findByFileAndString(root.getFilename(), "F999999");
-        assertNull("Bogus request should return null", famdoc);
+        assertNull(famdoc, "Bogus request should return null");
     }
 
     /** */
@@ -98,21 +98,19 @@ public final class FamilyRepositoryTest {
     public void testBogusRoot() {
         final FamilyDocument famdoc = familyDocumentRepository.
                 findByRootAndString(rootDocument, "F999999");
-        assertNull("Bogus request should return null", famdoc);
+        assertNull(famdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     public void testCountRoot() {
-        assertEquals("Should be 6 families", FAMILY_COUNT,
-                familyDocumentRepository.count(rootDocument));
+        assertEquals(FAMILY_COUNT, familyDocumentRepository.count(rootDocument), "Should be 6 families");
     }
 
     /** */
     @Test
     public void testCountFilename() {
-        assertEquals("Should be 6 families", FAMILY_COUNT,
-                familyDocumentRepository.count(rootDocument.getFilename()));
+        assertEquals(FAMILY_COUNT, familyDocumentRepository.count(rootDocument.getFilename()), "Should be 6 families");
     }
 
     /** */
@@ -125,7 +123,7 @@ public final class FamilyRepositoryTest {
             checkEquals("Type string mismatch", "family", family.getType());
             count++;
         }
-        assertEquals("Should be 6 families", FAMILY_COUNT, count);
+        assertEquals(FAMILY_COUNT, count, "Should be 6 families");
     }
 
     /** */
@@ -138,21 +136,21 @@ public final class FamilyRepositoryTest {
             checkEquals("Type string mismatch", "family", family.getType());
             count++;
         }
-        assertEquals("Should be 6 families", FAMILY_COUNT, count);
+        assertEquals(FAMILY_COUNT, count, "Should be 6 families");
     }
 
     /** */
     @Test
     public void testLastId() {
         final String string = familyDocumentRepository.lastId(rootDocument);
-        assertEquals("", "F10", string);
+        assertEquals("F10", string, "");
     }
 
     /** */
     @Test
     public void testNewId() {
         final String string = familyDocumentRepository.newId(rootDocument);
-        assertEquals("", "F11", string);
+        assertEquals("F11", string, "");
     }
 
     /**
@@ -164,6 +162,6 @@ public final class FamilyRepositoryTest {
      */
     private void checkEquals(final String message, final Object expected,
             final Object actual) {
-        assertEquals(message, expected, actual);
+        assertEquals(expected, actual, message);
     }
 }

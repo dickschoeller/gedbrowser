@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.datamodel.util.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
@@ -17,7 +17,7 @@ public class GedObjectBuilderSubmissionTest {
     public void testCreateSubmissionSimple() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submission submission = builder.createSubmission("SUB1");
-        assertEquals("Mismatched tag", "SUB1", submission.getString());
+        assertEquals("SUB1", submission.getString(), "Mismatched tag");
     }
 
     /** */
@@ -25,7 +25,7 @@ public class GedObjectBuilderSubmissionTest {
     public void testCreateSubmissionSimpleNoId() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submission submission = builder.createSubmission(null);
-        assertEquals("Expected empty string", "", submission.getString());
+        assertEquals("", submission.getString(), "Expected empty string");
     }
 
     /** */
@@ -35,7 +35,7 @@ public class GedObjectBuilderSubmissionTest {
         final Submission submission = builder.createSubmission("SUB1");
         final SubmissionLink submissionLink = builder
                 .createSubmissionLink(submission);
-        assertEquals("Mismatched tag", "SUB1", submissionLink.getToString());
+        assertEquals("SUB1", submissionLink.getToString(), "Mismatched tag");
     }
 
     /** */
@@ -45,7 +45,7 @@ public class GedObjectBuilderSubmissionTest {
         final Submission submission = builder.createSubmission(null);
         final SubmissionLink submissionLink = builder
                 .createSubmissionLink(submission);
-        assertEquals("Expected empty string", "", submissionLink.getToString());
+        assertEquals("", submissionLink.getToString(), "Expected empty string");
     }
 
     /** */
@@ -55,8 +55,8 @@ public class GedObjectBuilderSubmissionTest {
         final Submission submission = builder.createSubmission("SUB1");
         final SubmissionLink submissionLink = builder
                 .createSubmissionLink(submission);
-        assertEquals("Mismatched parent", Head.class,
-                submissionLink.getParent().getClass());
+        assertEquals(Head.class, submissionLink.getParent().getClass(),
+                "Mismatched parent");
     }
 
     /** */
@@ -66,7 +66,7 @@ public class GedObjectBuilderSubmissionTest {
         final Submission submission = builder.createSubmission(null);
         final SubmissionLink submissionLink = builder
                 .createSubmissionLink(submission);
-        assertEquals("Mismatched parent", Head.class,
-                submissionLink.getParent().getClass());
+        assertEquals(Head.class, submissionLink.getParent().getClass(),
+                "Mismatched parent");
     }
 }

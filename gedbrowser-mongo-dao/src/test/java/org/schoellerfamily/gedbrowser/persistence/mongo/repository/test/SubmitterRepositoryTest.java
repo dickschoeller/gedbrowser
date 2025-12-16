@@ -1,14 +1,14 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmitterDocument;
@@ -18,12 +18,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMo
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmitterDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 public final class SubmitterRepositoryTest {
     /** */
@@ -46,7 +46,7 @@ public final class SubmitterRepositoryTest {
     /**
      * @throws IOException because the reader does
      */
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
         rootDocument = new RootDocumentMongo();
@@ -56,7 +56,7 @@ public final class SubmitterRepositoryTest {
     }
 
     /** */
-    @After
+    @AfterEach
     public void tearDown() {
         repositoryFixture.clearRepository();
     }
@@ -68,8 +68,7 @@ public final class SubmitterRepositoryTest {
                 findByFileAndString(root.getFilename(), "SUB1");
         final Submitter submitter =
                 (Submitter) toObjConverter.createGedObject(root, document);
-        assertEquals("Expected submitter string",
-                "SUB1", submitter.getString());
+        assertEquals("SUB1", submitter.getString(), "Expected submitter string");
     }
 
     /** */
@@ -79,8 +78,7 @@ public final class SubmitterRepositoryTest {
                 findByRootAndString(rootDocument, "SUB1");
         final Submitter submitter =
                 (Submitter) toObjConverter.createGedObject(root, document);
-        assertEquals("Expected submitter string",
-                "SUB1", submitter.getString());
+        assertEquals("SUB1", submitter.getString(), "Expected submitter string");
     }
 
     /** */
@@ -88,7 +86,7 @@ public final class SubmitterRepositoryTest {
     public void testBogus() {
         final SubmitterDocument perdoc = submitterDocumentRepository.
                 findByFileAndString(root.getFilename(), "Mumble");
-        assertNull("Bogus request should return null", perdoc);
+        assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
@@ -96,7 +94,7 @@ public final class SubmitterRepositoryTest {
     public void testBogusRoot() {
         final SubmitterDocument perdoc = submitterDocumentRepository.
                 findByRootAndString(rootDocument, "Mumble");
-        assertNull("Bogus request should return null", perdoc);
+        assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
@@ -104,7 +102,7 @@ public final class SubmitterRepositoryTest {
     public void testCountRoot() {
         final long expected = 1;
         final long count = submitterDocumentRepository.count(rootDocument);
-        assertEquals("Should be 1 submitter", expected, count);
+        assertEquals(expected, count, "Should be 1 submitter");
     }
 
     /** */
@@ -113,7 +111,7 @@ public final class SubmitterRepositoryTest {
         final long expected = 1;
         final long count =
                 submitterDocumentRepository.count(rootDocument.getFilename());
-        assertEquals("Should be 1 submitter", expected, count);
+        assertEquals(expected, count, "Should be 1 submitter");
     }
 
     /** */
@@ -123,12 +121,11 @@ public final class SubmitterRepositoryTest {
                 submitterDocumentRepository.findAll(rootDocument);
         int count = 0;
         for (final SubmitterDocument submitter : list) {
-            checkEquals("Type string mismatch",
-                    "submitter", submitter.getType());
+            checkEquals("Type string mismatch", "submitter", submitter.getType());
             count++;
         }
         final long expected = 1;
-        assertEquals("Should be 1 submitter", expected, count);
+        assertEquals(expected, count, "Should be 1 submitter");
     }
 
     /** */
@@ -138,19 +135,18 @@ public final class SubmitterRepositoryTest {
                 submitterDocumentRepository.findAll(rootDocument.getFilename());
         int count = 0;
         for (final SubmitterDocument submitter : list) {
-            checkEquals("Type string mismatch",
-                    "submitter", submitter.getType());
+            checkEquals("Type string mismatch", "submitter", submitter.getType());
             count++;
         }
         final long expected = 1;
-        assertEquals("Should be 1 submitter", expected, count);
+        assertEquals(expected, count, "Should be 1 submitter");
     }
 
     /** */
     @Test
     public void testLastId() {
         final String string = submitterDocumentRepository.lastId(rootDocument);
-        assertEquals("", "SUB1", string);
+        assertEquals("SUB1", string, "");
     }
 
     /**
@@ -162,6 +158,6 @@ public final class SubmitterRepositoryTest {
      */
     private void checkEquals(final String message, final Object expected,
             final Object actual) {
-        assertEquals(message, expected, actual);
+        assertEquals(expected, actual, message);
     }
 }

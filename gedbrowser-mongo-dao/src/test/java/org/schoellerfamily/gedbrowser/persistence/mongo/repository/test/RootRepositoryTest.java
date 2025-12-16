@@ -1,16 +1,17 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.util.Map;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
@@ -44,12 +45,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmitterDocu
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 @SuppressWarnings({ "PMD.ExcessiveImports" })
 public final class RootRepositoryTest {
@@ -95,7 +96,7 @@ public final class RootRepositoryTest {
     /**
      * @throws IOException because the reader can
      */
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
         rootDocument = new RootDocumentMongo();
@@ -105,7 +106,7 @@ public final class RootRepositoryTest {
     }
 
     /** */
-    @After
+    @AfterEach
     public void tearDown() {
         repositoryFixture.clearRepository();
     }
@@ -114,8 +115,7 @@ public final class RootRepositoryTest {
     @Test
     public void testPersons() {
         final long expectedPersonCount = 16L;
-        assertEquals("Count mismatch",
-                expectedPersonCount, personDocumentRepository.count());
+        assertEquals(expectedPersonCount, personDocumentRepository.count(), "Count mismatch");
     }
 
     /** */
@@ -125,16 +125,14 @@ public final class RootRepositoryTest {
                 findByFileAndString(root.getFilename(), "I1");
         final Person person = (Person) toObjConverter.
                 createGedObject(root, perdoc);
-        assertEquals("Name mismatch",
-                "Melissa Robinson/Schoeller/", person.getName().getString());
+        assertEquals("Melissa Robinson/Schoeller/", person.getName().getString(), "Name mismatch");
     }
 
     /** */
     @Test
     public void testFamilies() {
         final long expectedFamilyCount = 6L;
-        assertEquals("Count mismatch",
-                expectedFamilyCount, familyDocumentRepository.count());
+        assertEquals(expectedFamilyCount, familyDocumentRepository.count(), "Should be 6 families");
     }
 
     /** */
@@ -147,7 +145,7 @@ public final class RootRepositoryTest {
                 createGedObject(root, famdoc);
         final FamilyNavigator navigator = new FamilyNavigator(family);
         final Husband h = navigator.getHusband();
-        assertEquals("ID mismatch", "I2", h.getToString());
+        assertEquals("I2", h.getToString(), "ID mismatch");
     }
 
     /** */
@@ -160,15 +158,14 @@ public final class RootRepositoryTest {
                 createGedObject(root, famdoc);
         final FamilyNavigator navigator = new FamilyNavigator(family);
         final Wife w = navigator.getWife();
-        assertEquals("ID mismatch", "I3", w.getToString());
+        assertEquals("I3", w.getToString(), "ID mismatch");
     }
 
     /** */
     @Test
     public void testSources() {
         final long expectedSourceCount = 9L;
-        assertEquals("Count mismatch",
-                expectedSourceCount, sourceDocumentRepository.count());
+        assertEquals(expectedSourceCount, sourceDocumentRepository.count(), "Count mismatch");
     }
 
     /** */
@@ -178,7 +175,7 @@ public final class RootRepositoryTest {
                 findByFileAndString(root.getFilename(), "S2");
         final Source source = (Source) toObjConverter.
                 createGedObject(root, soudoc);
-        assertEquals("ID mismatch", "S2", source.getString());
+        assertEquals("S2", source.getString(), "ID mismatch");
     }
 
     /** */
@@ -189,7 +186,7 @@ public final class RootRepositoryTest {
                         root.getFilename(), root.getString());
         final Root newRoot =
                 (Root) toObjConverter.createGedObject(null, rootdoc);
-        assertEquals("Should return same root", newRoot, root);
+        assertEquals(newRoot, root, "Should return same root");
     }
 
     /** */
@@ -232,7 +229,7 @@ public final class RootRepositoryTest {
                         ged.getString());
         final Person person =
                 (Person) toObjConverter.createGedObject(root, perdoc);
-        assertEquals("wrong type", person, ged);
+        assertEquals(person, ged, "wrong type");
     }
 
     /**
@@ -244,7 +241,7 @@ public final class RootRepositoryTest {
                         ged.getString());
         final Source source =
                 (Source) toObjConverter.createGedObject(root, soudoc);
-        assertEquals("wrong type", source, ged);
+        assertEquals(source, ged, "wrong type");
     }
 
     /**
@@ -256,7 +253,7 @@ public final class RootRepositoryTest {
                         ged.getString());
         final Family family =
                 (Family) toObjConverter.createGedObject(root, famdoc);
-        assertEquals("wrong type", family, ged);
+        assertEquals(family, ged, "wrong type");
     }
 
     /**
@@ -268,7 +265,7 @@ public final class RootRepositoryTest {
                         ged.getString());
         final Head head =
                 (Head) toObjConverter.createGedObject(root, headoc);
-        assertEquals("wrong type", head, ged);
+        assertEquals(head, ged, "wrong type");
     }
 
     /**
@@ -280,7 +277,7 @@ public final class RootRepositoryTest {
                         ged.getString());
         final Trailer person =
                 (Trailer) toObjConverter.createGedObject(root, tradoc);
-        assertEquals("wrong type", person, ged);
+        assertEquals(person, ged, "wrong type");
     }
 
     /**
@@ -292,7 +289,7 @@ public final class RootRepositoryTest {
                         ged.getString());
         final Submission person =
                 (Submission) toObjConverter.createGedObject(root, subdoc);
-        assertEquals("wrong type", person, ged);
+        assertEquals(person, ged, "wrong type");
     }
 
     /**
@@ -304,7 +301,7 @@ public final class RootRepositoryTest {
                         ged.getString());
         final Submitter person =
                 (Submitter) toObjConverter.createGedObject(root, subdoc);
-        assertEquals("wrong type", person, ged);
+        assertEquals(person, ged, "wrong type");
     }
 
     /** */
@@ -313,7 +310,7 @@ public final class RootRepositoryTest {
         final RootDocument rootdoc =
                 rootDocumentRepository.findByFileAndString(
                         root.getFilename(), "Mumbles");
-        assertNull("Bogus request should return null", rootdoc);
+        assertNull(rootdoc, "Bogus request should return null");
     }
 
     /** */
@@ -322,30 +319,28 @@ public final class RootRepositoryTest {
         final RootDocument rootdoc =
                 rootDocumentRepository.findByFileAndString(
                         "Mumbles", root.getString());
-        assertNull("Bogus request should return null", rootdoc);
+        assertNull(rootdoc, "Bogus request should return null");
     }
 
     /** */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFindByRoot() {
-        rootDocumentRepository.findByRootAndString(
-                rootDocument, root.getString());
-        fail("should not get here");
+        assertThrows(IllegalArgumentException.class, () ->
+            rootDocumentRepository.findByRootAndString(rootDocument, root.getString())
+        );
     }
 
     /** */
     @Test
     public void testCountRoot() {
-        assertEquals("Should only be one root",
-                1, rootDocumentRepository.count(rootDocument));
+        assertEquals(1, rootDocumentRepository.count(rootDocument), "Should only be one root");
     }
 
     /** */
     @Test
     public void testCountFilename() {
-        assertEquals("Should only be one root",
-                1,
-                rootDocumentRepository.count(rootDocument.getFilename()));
+        assertEquals(1,
+                rootDocumentRepository.count(rootDocument.getFilename()), "Should only be one root");
     }
 
     /** */
@@ -358,7 +353,7 @@ public final class RootRepositoryTest {
             checkEquals("Type string mismatch", "root", root1.getType());
             count++;
         }
-        assertEquals("Should only be one root", 1, count);
+        assertEquals(1, count, "Should only be one root");
     }
 
     /** */
@@ -371,14 +366,14 @@ public final class RootRepositoryTest {
             checkEquals("Type string mismatch", "root", root1.getType());
             count++;
         }
-        assertEquals("Should only be one root", 1, count);
+        assertEquals(1, count, "Should only be one root");
     }
 
     /** */
     @Test
     public void testLastId() {
         final String string = rootDocumentRepository.lastId(rootDocument);
-        assertEquals("", "", string);
+        assertEquals("", string, "");
     }
 
     /**
@@ -390,6 +385,6 @@ public final class RootRepositoryTest {
      */
     private void checkEquals(final String message, final Object expected,
             final Object actual) {
-        assertEquals(message, expected, actual);
+        assertEquals(expected, actual, message);
     }
 }
