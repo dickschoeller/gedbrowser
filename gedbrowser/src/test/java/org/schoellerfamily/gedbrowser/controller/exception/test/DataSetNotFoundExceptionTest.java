@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.controller.exception.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 
 /**
@@ -14,7 +14,7 @@ public class DataSetNotFoundExceptionTest {
     private DataSetNotFoundException exception;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         exception = new DataSetNotFoundException("Data set not found", "xyzzy");
     }
@@ -22,14 +22,12 @@ public class DataSetNotFoundExceptionTest {
     /** */
     @Test
     public void testMessage() {
-        assertEquals("Message doesn't match", "Data set not found",
-                exception.getMessage());
+        assertEquals("Data set not found", exception.getMessage(), "Message doesn't match");
     }
 
     /** */
     @Test
     public void testDatasetName() {
-        assertEquals("Dataset name doesn't match", "xyzzy",
-                exception.getDatasetName());
+        assertEquals("xyzzy", exception.getDatasetName(), "Dataset name doesn't match");
     }
 }

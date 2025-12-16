@@ -61,15 +61,6 @@
     <!-- Stay in 1.4.x until going to Spring 5 -->
     <undertow.version>2.3.20.Final</undertow.version>
 
-    <!-- What is different/same in jUnit 5? -->
-    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
-    <!-- dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>5.2.0</version>
-      <scope>test</scope>
-    </dependency -->
-    <junit.version>4.13.1</junit.version>
     <cglib.version>3.3.0</cglib.version>
     <!-- might try 0.9.1 of google -->
     <google-maps-services.version>0.10.0</google-maps-services.version>
@@ -78,7 +69,12 @@
     <jackson-annotations.version>2.20</jackson-annotations.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.10.6</joda-time.version>
-    <sauce_junit.version>2.1.25</sauce_junit.version>
+
+    <junit-jupiter.version>5.12.2</junit-jupiter.version>
+    <saucebindings-junit5.version>1.5.0</saucebindings-junit5.version>
+    <selenium.version>4.13.0</selenium.version>
+    <htmlunit-driver.version>4.13.0</htmlunit-driver.version>
+
     <geojson-jackson.version>1.14</geojson-jackson.version>
     <slf4j.version>2.0.17</slf4j.version>
     <logback.version>1.5.21</logback.version>
@@ -88,9 +84,6 @@
     <commons-lang3.version>3.18.0</commons-lang3.version>
     <assertj.version>3.16.1</assertj.version>
 
-    <selenium.version>3.141.59</selenium.version>
-    <selenium-client-driver.version>1.0.2</selenium-client-driver.version>
-    <htmlunit-driver.version>2.40.0</htmlunit-driver.version>
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
     <jacoco-plugin.version>0.8.14</jacoco-plugin.version>
@@ -300,11 +293,51 @@
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
           <version>${jacoco-plugin.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+              <configuration>
+                <destFile>${project.build.directory}/jacoco-ut.exec</destFile>
+              </configuration>
+            </execution>
+            <execution>
+              <id>pre-integration-prepare</id>
+              <goals>
+                <goal>prepare-agent-integration</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>report</id>
+              <phase>post-integration-test</phase>
+              <goals>
+                <goal>merge</goal>
+              </goals>
+              <configuration>
+                <fileSets>
+                  <fileSet>
+                    <directory>${project.build.directory}</directory>
+                    <includes>
+                      <include>*.exec</include>
+                    </includes>
+                  </fileSet>
+                </fileSets>
+              </configuration>
+            </execution>
+            <execution>
+              <id>merged-report-generation</id>
+              <phase>verify</phase>
+              <goals>
+                <goal>report</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
-          <version>3.5.7</version>
+          <version>${spring-boot-maven.version}</version>
         </plugin>
         <plugin>
           <groupId>com.spotify</groupId>
@@ -543,11 +576,6 @@
         <version>${cglib.version}</version>
       </dependency>
       <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>${junit.version}</version>
-      </dependency>
-      <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-test</artifactId>
         <version>${spring.version}</version>
@@ -638,8 +666,8 @@
       </dependency>
       <dependency>
         <groupId>com.saucelabs</groupId>
-        <artifactId>sauce_junit</artifactId>
-        <version>${sauce_junit.version}</version>
+        <artifactId>saucebindings-junit5</artifactId>
+        <version>${saucebindings-junit5.version}</version>
       </dependency>
       <dependency>
         <groupId>de.grundid.opendatalab</groupId>
@@ -730,19 +758,19 @@
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
         <scope>test</scope>
-        <version>5.11.4</version>
+        <version>${junit-jupiter.version}</version>
       </dependency>
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-params</artifactId>
         <scope>test</scope>
-        <version>5.11.4</version>
+        <version>${junit-jupiter.version}</version>
       </dependency>
       <dependency>
         <groupId>org.junit.vintage</groupId>
         <artifactId>junit-vintage-engine</artifactId>
         <scope>test</scope>
-        <version>5.11.4</version>
+        <version>${junit-jupiter.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

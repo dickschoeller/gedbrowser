@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.selenium.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.net.MalformedURLException;
 
@@ -10,13 +10,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.rules.TestName;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
 import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
-import org.schoellerfamily.gedbrowser.selenium.base.SauceOnDemandWatcherFactory;
-import org.schoellerfamily.gedbrowser.selenium.base.TestWatcherFactory;
 import org.schoellerfamily.gedbrowser.selenium.base.WebDriverFactory;
 import org.schoellerfamily.gedbrowser.selenium.config.SeleniumConfig;
 import org.schoellerfamily.gedbrowser.selenium.pageobjects.IndexPage;
@@ -30,7 +29,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.saucebindings.junit5.SauceBindingsExtension;
 
 /**
  * @author Dick Schoeller
@@ -40,7 +39,7 @@ import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 @SuppressWarnings("PMD.ExcessiveImports")
 @Disabled("Selenium tests currently failing in setup phase")
 @Slf4j
-public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
+public class MenuNavigationIT {
 
     /** */
     @Value("${server.host:localhost}")
@@ -62,59 +61,40 @@ public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
     private RemoteWebDriver driver;
 
     /** */
+    private boolean driverManagedByExtension = false;
+
+    /** */
     private SessionId sessionId;
 
     /** */
     private PageFactory factory;
 
-    /**
-     * The factory that creates the appropriate test watcher based on current
-     * environment.
-     */
-    private final TestWatcherFactory watcherFactory =
-            new SauceOnDemandWatcherFactory(this);
-
-    /**
-     * JUnit Rule which will watch test results. Depending on the environment,
-     * this could be watcher that marks the Sauce Job as passed/failed when the
-     * test completes.
-     */
-//    @Rule
-//    public TestWatcher testWatcher = watcherFactory.createTestWatcher();
-
-    /**
-     * This rule makes the current test name available to various consumers.
-     */
-//    @Rule
-    public TestName testName = new TestName();
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getSessionId() {
-        if (sessionId == null) {
-            log.warn("********************** "
-                    + "SESSION ID IS NULL"
-                    + " *********************");
-            return "";
-        }
-        return sessionId.toString();
-    }
+    @RegisterExtension
+    public final SauceBindingsExtension sauceExtension = new SauceBindingsExtension();
 
     /**
      * @throws MalformedURLException if something goes awry
      */
     @BeforeEach
-    public void setUp() throws MalformedURLException {
+    public void setUp(final TestInfo testInfo) throws MalformedURLException {
+        final String methodName = testInfo.getTestMethod()
+                .map(m -> m.getName()).orElse("unknown");
         if (driver == null) {
-            driver = driverFactory.webDriver(testName);
+            // Try to use SauceBindingsExtension-managed driver first
+            if (sauceExtension != null && sauceExtension.getDriver() != null) {
+                driver = (RemoteWebDriver) sauceExtension.getDriver();
+                driverManagedByExtension = true;
+            } else {
+                // Fallback to local factory for developers running tests locally
+                driver = driverFactory.webDriver(methodName);
+                driverManagedByExtension = false;
+            }
         } else {
             log.warn("********************** "
                     + "DRIVER ALREADY SET UP"
                     + " *********************");
         }
-        if (sessionId == null) {
+        if (sessionId == null && driver != null) {
             sessionId = driver.getSessionId();
         }
         if (sessionId == null) {
@@ -146,8 +126,7 @@ public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
                 baseUrl() + "surnames?db=gl120368&letter=B",
                 currentUrlB);
         final PersonPage personPageBagley = indexPageB.clickPerson("I2561");
-        assertTrue("Wrong person",
-                personPageBagley.getTitle().contains("James BAGLEY"));
+        assertTrue(personPageBagley.getTitle().contains("James BAGLEY"), "Wrong person");
     }
 
     /**
@@ -184,9 +163,7 @@ public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
 
         final SubmitterPage submitterPage = submittersPage.clickSubmitter("U1");
         final String submitterUrl = submitterPage.getCurrentUrl();
-        assertEquals("Submitter URL mismatch",
-                baseUrl() + "submitter?db=gl120368&id=U1",
-                submitterUrl);
+        assertEquals(baseUrl() + "submitter?db=gl120368&id=U1", submitterUrl, "Submitter URL mismatch");
     }
 
     /**
@@ -194,7 +171,10 @@ public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
      */
     @AfterEach
     public void tearDown() {
-        driver.quit();
+        // Quit only if we created the driver locally.
+        if (!driverManagedByExtension && driver != null) {
+            driver.quit();
+        }
     }
 
     /**
@@ -206,7 +186,7 @@ public class MenuNavigationIT implements SauceOnDemandSessionIdProvider {
      */
     private void check(final String message, final String expected,
             final String actual) {
-        assertEquals(message, expected, actual);
+        assertEquals(expected, actual, message);
     }
 
     /**

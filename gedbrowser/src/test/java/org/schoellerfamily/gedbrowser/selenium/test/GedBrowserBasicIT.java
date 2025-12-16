@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.selenium.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.net.MalformedURLException;
 
@@ -10,13 +10,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.rules.TestName;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
 import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
-import org.schoellerfamily.gedbrowser.selenium.base.SauceOnDemandWatcherFactory;
-import org.schoellerfamily.gedbrowser.selenium.base.TestWatcherFactory;
 import org.schoellerfamily.gedbrowser.selenium.base.WebDriverFactory;
 import org.schoellerfamily.gedbrowser.selenium.config.SeleniumConfig;
 import org.schoellerfamily.gedbrowser.selenium.pageobjects.PageFactory;
@@ -27,7 +26,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.saucebindings.junit5.SauceBindingsExtension;
 
 /**
  * @author Dick Schoeller
@@ -37,7 +36,7 @@ import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 @SuppressWarnings("PMD.ExcessiveImports")
 @Disabled("Selenium tests currently failing in setup phase")
 @Slf4j
-public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
+public final class GedBrowserBasicIT {
 
     /** */
     private static final boolean PRINT_NAVIGATION = "true"
@@ -63,36 +62,21 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     private RemoteWebDriver driver;
 
     /** */
+    private boolean driverManagedByExtension = false;
+
+    /** */
     private SessionId sessionId;
 
     /** */
     private PageFactory factory;
 
-    /**
-     * The factory that creates the appropriate test watcher based on current
-     * environment.
-     */
-    private final TestWatcherFactory watcherFactory =
-            new SauceOnDemandWatcherFactory(this);
+    @RegisterExtension
+    public final SauceBindingsExtension sauceExtension = new SauceBindingsExtension();
 
     /**
-     * JUnit Rule which will watch test results. Depending on the environment,
-     * this could be watcher that marks the Sauce Job as passed/failed when the
-     * test completes.
+     * Return the current session id as a string. Kept as a plain method so
+     * external utilities can still call it if needed.
      */
-//    @Rule
-//    public TestWatcher testWatcher = watcherFactory.createTestWatcher();
-
-    /**
-     * This rule makes the current test name available to various consumers.
-     */
-//    @Rule
-    public TestName testName = new TestName();
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public String getSessionId() {
         if (sessionId == null) {
             log.warn("********************** "
@@ -107,15 +91,23 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
      * @throws MalformedURLException if something goes awry
      */
     @BeforeEach
-    public void setUp() throws MalformedURLException {
+    public void setUp(final TestInfo testInfo) throws MalformedURLException {
+        final String methodName = testInfo.getTestMethod()
+                .map(m -> m.getName()).orElse("unknown");
         if (driver == null) {
-            driver = driverFactory.webDriver(testName);
+            if (sauceExtension != null && sauceExtension.getDriver() != null) {
+                driver = (RemoteWebDriver) sauceExtension.getDriver();
+                driverManagedByExtension = true;
+            } else {
+                driver = driverFactory.webDriver(methodName);
+                driverManagedByExtension = false;
+            }
         } else {
             log.warn("********************** "
                     + "DRIVER ALREADY SET UP"
                     + " *********************");
         }
-        if (sessionId == null) {
+        if (sessionId == null && driver != null) {
             sessionId = driver.getSessionId();
         }
         if (sessionId == null) {
@@ -135,8 +127,7 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     @Test
     public void testChildLinkNavigation() {
         println("child link navigation test");
-        assertTrue("Navigation failed",
-                childNavigationExercise());
+        assertTrue(childNavigationExercise(), "Navigation failed");
         println();
     }
 
@@ -147,8 +138,7 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     @Test
     public void testFatherLinkNavigation() {
         println("father link navigation test");
-        assertTrue("Navigation failed",
-                fathersNavigationExercise());
+        assertTrue(fathersNavigationExercise(), "Navigation failed");
         println();
     }
 
@@ -159,8 +149,7 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
     @Test
     public void testMotherLinkNavigation() {
         println("mother link navigation test");
-        assertTrue("Navigation failed",
-                mothersNavigationExercise());
+        assertTrue(mothersNavigationExercise(), "Navigation failed");
         println();
     }
 
@@ -193,7 +182,8 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
             currentPerson = currentPerson.navigateChild(maryAmassFamilyIndex,
                     edwinChildIndex);
             check("Person ID mismatch", "I9", currentPerson.getId());
-            assertEquals("Person failed check", "", currentPerson.check());
+            check("Person failed check", "", currentPerson.check());
+            assertEquals("", currentPerson.check(), "Person failed check");
         } finally {
             // Close the browser
             factory.getDriver().quit();
@@ -233,7 +223,7 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
             println("    Navigating to father: I22");
             currentPerson = currentPerson.navigateFather();
             check("Person ID mismatch", "I22", currentPerson.getId());
-            assertEquals("Person failed check", "", currentPerson.check());
+            assertEquals("", currentPerson.check(), "Person failed check");
         } finally {
             // Close the browser
             factory.getDriver().quit();
@@ -266,7 +256,7 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
             println("    Navigating to mother: I616");
             currentPerson = currentPerson.navigateMother();
             check("Person ID mismatch", "I616", currentPerson.getId());
-            assertEquals("Person failed check", "", currentPerson.check());
+            assertEquals("", currentPerson.check(), "Person failed check");
         } finally {
             // Close the browser
             factory.getDriver().quit();
@@ -310,7 +300,7 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
      */
     private void check(final String message, final String expected,
             final String actual) {
-        assertEquals(message, expected, actual);
+        assertEquals(expected, actual, message);
     }
 
     /**
@@ -321,7 +311,7 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
      */
     private void check(final String message,
             final boolean actual) {
-        assertTrue(message, actual);
+        assertTrue(actual, message);
     }
 
     /**
@@ -329,6 +319,8 @@ public final class GedBrowserBasicIT implements SauceOnDemandSessionIdProvider {
      */
     @AfterEach
     public void tearDown() {
-        driver.quit();
+        if (!driverManagedByExtension && driver != null) {
+            driver.quit();
+        }
     }
 }

@@ -5,12 +5,10 @@ import java.net.URI;
 import java.net.URL;
 import java.util.logging.Level;
 
-import org.junit.rules.TestName;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,11 +43,12 @@ public class WebDriverFactory {
      * @return the webdriver
      * @throws MalformedURLException if there is a bogus URL
      */
-    public RemoteWebDriver webDriver(final TestName testName)
+    public RemoteWebDriver webDriver(final String testName)
             throws MalformedURLException {
         final RemoteWebDriver remoteWebDriver = new RemoteWebDriver(
                 getRemoteUrl(), getCapabilities(testName));
-        remoteWebDriver.setLogLevel(Level.OFF);
+        // RemoteWebDriver does not expose setLogLevel; logging preferences
+        // are applied via capabilities above.
         return remoteWebDriver;
     }
 
@@ -60,14 +59,12 @@ public class WebDriverFactory {
      */
     private URL getRemoteUrl() throws MalformedURLException {
         if (useSauceLabs()) {
-            log.info("Getting Saunce Labs URL");
-            final String urlString = String.format(
-                    "http://%s:%s@localhost:4445/wd/hub",
-                    env.getProperty("SAUCE_USERNAME"),
-                    env.getProperty("SAUCE_ACCESS_KEY"));
-            return URI.create(urlString).toURL();
+            log.info("Using Sauce Labs remote URL");
+            // Use official Sauce Labs endpoint. Authentication is normally
+            // handled via capability (sauce:options) or HTTP basic auth.
+            return URI.create("https://ondemand.saucelabs.com/wd/hub").toURL();
         } else {
-            log.info("Get localhost URL");
+            log.info("Using local Selenium Grid URL");
             return URI.create("http://localhost:4445/wd/hub").toURL();
         }
     }
@@ -76,28 +73,51 @@ public class WebDriverFactory {
      * @param testName pass the test name in for building the saucelabs info
      * @return the capabilities structure
      */
-    private DesiredCapabilities getCapabilities(final TestName testName) {
+    private MutableCapabilities getCapabilities(final String testName) {
         log.info("Capabilities name: {}, version: {}, platform: {}", browserName, browserVersion, platform);
-        final DesiredCapabilities capabilities = new DesiredCapabilities(
-                browserName, browserVersion, Platform.fromString(platform));
-        if ("firefox".equals(browserName)) {
-            capabilities.setCapability("marionette", true);
+        final MutableCapabilities capabilities = new MutableCapabilities();
+
+        // Standard W3C capability keys
+        capabilities.setCapability(CapabilityType.BROWSER_NAME, browserName);
+        if (browserVersion != null && !browserVersion.isEmpty()) {
+            capabilities.setCapability("browserVersion", browserVersion);
         }
+        if (platform != null && !platform.isEmpty()) {
+            // W3C uses "platformName" (string) instead of the old Platform enum
+            capabilities.setCapability("platformName", platform);
+        }
+
+        if ("firefox".equalsIgnoreCase(browserName)) {
+            // Keep legacy behaviour if needed by remote grid
+            capabilities.setCapability("moz:firefoxOptions", new MutableCapabilities());
+        }
+
         if (useSauceLabs()) {
-            capabilities.setCapability(
-                    "tunnel-identifier", env.getProperty("TRAVIS_JOB_NUMBER"));
-            capabilities.setCapability(
-                    "seleniumVersion", env.getProperty("selenium.version"));
-            final String travisBuildNumber =
-                    env.getProperty("TRAVIS_BUILD_NUMBER");
-            capabilities.setCapability("build", travisBuildNumber);
-            capabilities.setCapability("name",
-                    travisBuildNumber + "-" + browserName + "-" + platform + "-"
-                            + testName.getMethodName());
+            // Provide a minimal sauce:options block so Sauce receives username
+            // and access key if the environment requires it. Sauce Bindings
+            // will often enrich/override these when used.
+            final MutableCapabilities sauceOptions = new MutableCapabilities();
+            final String username = env.getProperty("SAUCE_USERNAME");
+            final String accessKey = env.getProperty("SAUCE_ACCESS_KEY");
+            if (username != null) {
+                sauceOptions.setCapability("username", username);
+            }
+            if (accessKey != null) {
+                sauceOptions.setCapability("accessKey", accessKey);
+            }
+            final String travisBuildNumber = env.getProperty("TRAVIS_BUILD_NUMBER");
+            if (travisBuildNumber != null) {
+                sauceOptions.setCapability("build", travisBuildNumber);
+                sauceOptions.setCapability("name", travisBuildNumber + "-" + browserName + "-" + platform + "-" + testName);
+            }
+            capabilities.setCapability("sauce:options", sauceOptions);
         }
+
         final LoggingPreferences prefs = new LoggingPreferences();
         prefs.enable(LogType.CLIENT, Level.OFF);
-        capabilities.setCapability(CapabilityType.LOGGING_PREFS, prefs);
+        // Use the W3C-compatible key for Chrome logging prefs. CapabilityType.LOGGING_PREFS
+        // may not be present in all Selenium 4 distributions, so set the string key.
+        capabilities.setCapability("goog:loggingPrefs", prefs);
         return capabilities;
     }
 

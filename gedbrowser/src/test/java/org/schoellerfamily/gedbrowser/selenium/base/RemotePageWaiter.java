@@ -1,6 +1,8 @@
 package org.schoellerfamily.gedbrowser.selenium.base;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -58,7 +60,7 @@ public class RemotePageWaiter implements PageWaiter {
             }
         };
         final Wait<WebDriver> wait =
-                new WebDriverWait(driver, timeout * multiplier);
+                new WebDriverWait(driver, Duration.ofSeconds(timeout * multiplier));
         try {
             wait.until(expectation);
         } catch (Throwable error) {
@@ -66,7 +68,7 @@ public class RemotePageWaiter implements PageWaiter {
         }
         log.debug("Waiting for maintainerMail");
         final Wait<WebDriver> wait2 =
-                new WebDriverWait(driver, timeout * multiplier);
+                new WebDriverWait(driver, Duration.ofSeconds(timeout * multiplier));
         try {
             wait2.until(ExpectedConditions
                     .presenceOfElementLocated(By.id("maintainerMail")));
@@ -91,7 +93,7 @@ public class RemotePageWaiter implements PageWaiter {
             final int multiplier) {
         log.debug("Waiting for new URL");
         final Wait<WebDriver> wait3 = new WebDriverWait(driver,
-                timeout * multiplier);
+        		Duration.ofSeconds(timeout * multiplier));
         try {
             wait3.until(ExpectedConditions.urlToBe(newUrl));
         } catch (Throwable error) {
