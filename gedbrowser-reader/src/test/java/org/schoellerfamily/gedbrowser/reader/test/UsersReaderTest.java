@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.reader.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.users.User;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserImpl;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
@@ -24,7 +24,7 @@ public class UsersReaderTest {
         final Users<User> users = readUserFile(TEST_USER_FILE_CSV);
         final int expected = 2;
         final int actual = users.size();
-        assertEquals("Number of users is wrong", expected, actual);
+        assertEquals(expected, actual, "Number of users is wrong");
     }
 
     @Test
@@ -32,7 +32,7 @@ public class UsersReaderTest {
         final Users<User> users = readUserFile("foo.bar");
         final int expected = 1;
         final int actual = users.size();
-        assertEquals("Number of users is wrong", expected, actual);
+        assertEquals(expected, actual, "Number of users is wrong");
     }
 
     /**
