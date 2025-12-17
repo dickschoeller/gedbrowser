@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.api.transformers.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
@@ -34,7 +34,7 @@ public class ApiModelToGedObjectVisitorTest {
 
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         builder = new GedObjectBuilder();
     }
@@ -47,7 +47,7 @@ public class ApiModelToGedObjectVisitorTest {
         final ApiHead apiHead = new ApiHead();
         apiHead.accept(visitor);
         final Head gob = (Head) visitor.getGedObject();
-        assertEquals("head mismatch", "Head", gob.getString());
+        assertEquals("Head", gob.getString(), "head mismatch");
     }
 
     /** */
@@ -63,7 +63,7 @@ public class ApiModelToGedObjectVisitorTest {
         final ApiPerson apiPerson = new ApiPerson(b);
         apiPerson.accept(visitor);
         final Person gob = (Person) visitor.getGedObject();
-        assertEquals("person mismatch", "I1", gob.getString());
+        assertEquals("I1", gob.getString(), "person mismatch");
     }
 
     /** */
@@ -82,7 +82,7 @@ public class ApiModelToGedObjectVisitorTest {
         apiPerson.accept(visitor);
         final Person gob = (Person) visitor.getGedObject();
         final Name name = gob.getName();
-        assertEquals("name mismatch", "Richard/Schoeller/", name.getString());
+        assertEquals("Richard/Schoeller/", name.getString(), "name mismatch");
     }
 
     /** */
@@ -94,7 +94,7 @@ public class ApiModelToGedObjectVisitorTest {
                 "family", "F1");
         apiFamily.accept(visitor);
         final Family gob = (Family) visitor.getGedObject();
-        assertEquals("family mismatch", "F1", gob.getString());
+        assertEquals("F1", gob.getString(), "family mismatch");
     }
 
     /** */
@@ -106,7 +106,7 @@ public class ApiModelToGedObjectVisitorTest {
                 "source", "S1", "Unknown");
         apiSource.accept(visitor);
         final Source gob = (Source) visitor.getGedObject();
-        assertEquals("source mismatch", "S1", gob.getString());
+        assertEquals("S1", gob.getString(), "source mismatch");
     }
 
     /** */
@@ -119,7 +119,7 @@ public class ApiModelToGedObjectVisitorTest {
                 new ApiAttribute("sourcelink", "S1", null);
         apiSource.accept(visitor);
         final SourceLink gob = (SourceLink) visitor.getGedObject();
-        assertEquals("source mismatch", "S1", gob.getToString());
+        assertEquals("S1", gob.getToString(), "source mismatch");
     }
 
     /** */
@@ -131,7 +131,7 @@ public class ApiModelToGedObjectVisitorTest {
                 "submission", "SUBN");
         apiSubmission.accept(visitor);
         final Submission gob = (Submission) visitor.getGedObject();
-        assertEquals("submission mismatch", "SUBN", gob.getString());
+        assertEquals("SUBN", gob.getString(), "submission mismatch");
     }
 
     /** */
@@ -143,7 +143,7 @@ public class ApiModelToGedObjectVisitorTest {
                 "submitter", "SUB1", "? ?");
         apiSubmitter.accept(visitor);
         final Submitter gob = (Submitter) visitor.getGedObject();
-        assertEquals("submitter mismatch", "SUB1", gob.getString());
+        assertEquals("SUB1", gob.getString(), "submitter mismatch");
     }
 
     /** */
@@ -155,7 +155,7 @@ public class ApiModelToGedObjectVisitorTest {
                 "object", "OBJECT1");
         apiSubmitter.accept(visitor);
         final GedObject gob = visitor.getGedObject();
-        assertEquals("object mismatch", "OBJECT1", gob.getString());
+        assertEquals("OBJECT1", gob.getString(), "object mismatch");
     }
 
     /** */
@@ -167,7 +167,6 @@ public class ApiModelToGedObjectVisitorTest {
                 "object", "OBJECT1");
         apiSubmitter.accept(visitor);
         final GedObject gob = visitor.getGedObject();
-        assertEquals("object type mismatch",
-                "Attribute", gob.getClass().getSimpleName());
+        assertEquals("Attribute", gob.getClass().getSimpleName(), "object type mismatch");
     }
 }

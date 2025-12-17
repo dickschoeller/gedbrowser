@@ -1,11 +1,11 @@
 package org.schoellerfamily.gedbrowser.api.transformers.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -29,7 +29,7 @@ public class DocumentToApiModelTest {
 
         document.accept(visitor);
         final ApiObject baseObject = visitor.getBaseObject();
-        assertEquals("type mismatch", "trailer", baseObject.getType());
+        assertEquals("trailer", baseObject.getType(), "type mismatch");
     }
 
     /** */
@@ -41,7 +41,7 @@ public class DocumentToApiModelTest {
 
         document.accept(visitor);
         final ApiObject baseObject = visitor.getBaseObject();
-        assertEquals("type mismatch", "TYPE", baseObject.getType());
+        assertEquals("TYPE", baseObject.getType(), "type mismatch");
     }
 
     /**

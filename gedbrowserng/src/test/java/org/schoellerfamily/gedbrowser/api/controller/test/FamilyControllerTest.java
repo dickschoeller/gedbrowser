@@ -1,14 +1,15 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.*;
-import static org.junit.Assert.*;
+import static org.assertj.core.api.BDDAssertions.then;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
@@ -24,15 +25,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.client.RestClientException;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
@@ -163,7 +163,7 @@ public class FamilyControllerTest {
                 + " Sacerdote. The witnesses were Mark\\nA. Friedman, fraternity"
                 + " brother of the groom and Donald S.\\nFriedman, a friend of"
                 + " bride and groom\"\n"
-                + "    },";
+                + "    },{";
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).startsWith(bodyFragment);
@@ -186,7 +186,7 @@ public class FamilyControllerTest {
      */
     @Test
     public final void testCreateFamiliesSimple()
-            throws RestClientException, URISyntaxException {
+            throws URISyntaxException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families";
         final HttpHeaders headers = new HttpHeaders();
@@ -207,7 +207,7 @@ public class FamilyControllerTest {
      */
     @Test
     public final void testCreateFamiliesWithMarriage()
-            throws RestClientException, URISyntaxException {
+            throws URISyntaxException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families";
         final HttpHeaders headers = new HttpHeaders();
@@ -230,7 +230,7 @@ public class FamilyControllerTest {
      */
     @Test
     public final void testDeleteFamily()
-            throws RestClientException, URISyntaxException {
+            throws URISyntaxException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -267,7 +267,7 @@ public class FamilyControllerTest {
      */
     @Test
     public final void testDeleteFamilyNotFound()
-            throws RestClientException, URISyntaxException {
+            throws URISyntaxException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -287,7 +287,7 @@ public class FamilyControllerTest {
      */
     @Test
     public final void testDeleteFamilyDatabaseNotFound()
-            throws RestClientException, URISyntaxException {
+            throws URISyntaxException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -307,7 +307,7 @@ public class FamilyControllerTest {
      */
     @Test
     public final void testUpdateFamilyWithNote()
-            throws RestClientException, URISyntaxException {
+            throws URISyntaxException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families";
         final HttpHeaders headers = new HttpHeaders();
@@ -345,8 +345,7 @@ public class FamilyControllerTest {
         for (final ApiAttribute a : attributesPutResponse) {
             log.info("attribute: {} {} {}", a.getType(), a.getString(), a.getTail());
         }
-        assertEquals("attribute should be present", aNote,
-                attributesPutResponse.get(1));
+        assertEquals(aNote, attributesPutResponse.get(1), "attribute should be present");
     }
 
     /**
@@ -355,7 +354,7 @@ public class FamilyControllerTest {
      */
     @Test
     public final void testCreateSpouseInFamily()
-            throws RestClientException, URISyntaxException {
+            throws URISyntaxException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families/F1/spouses";
         final HttpHeaders headers = new HttpHeaders();
@@ -379,7 +378,7 @@ public class FamilyControllerTest {
      */
     @Test
     public final void testCreateSpouseInFamily2()
-            throws RestClientException, URISyntaxException {
+            throws URISyntaxException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families/F2/spouses";
         final HttpHeaders headers = new HttpHeaders();
@@ -403,7 +402,7 @@ public class FamilyControllerTest {
      */
     @Test
     public final void testCreateChildInFamily()
-            throws RestClientException, URISyntaxException {
+            throws URISyntaxException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families/F1/children";
         final HttpHeaders headers = new HttpHeaders();
@@ -427,7 +426,7 @@ public class FamilyControllerTest {
      */
     @Test
     public final void testCreateChildInFamily2()
-            throws RestClientException, URISyntaxException {
+            throws URISyntaxException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/families/F4/children";
         final HttpHeaders headers = new HttpHeaders();
