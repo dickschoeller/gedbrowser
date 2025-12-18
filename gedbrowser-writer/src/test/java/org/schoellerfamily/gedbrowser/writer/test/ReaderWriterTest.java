@@ -4,11 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
@@ -16,6 +14,8 @@ import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestResourceReader;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
 import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller

@@ -3,10 +3,8 @@ package org.schoellerfamily.gedbrowser.writer.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
@@ -26,6 +24,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
 import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
