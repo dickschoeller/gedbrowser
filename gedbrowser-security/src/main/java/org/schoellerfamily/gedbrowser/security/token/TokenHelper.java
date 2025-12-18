@@ -4,7 +4,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.time.Instant;
 import java.util.Date;
-import java.util.Map;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -45,10 +44,6 @@ public final class TokenHelper {
     /** */
     @Value("${jwt.cookie:AUTH-TOKEN}")
     private String authCookieName;
-
-//    /** */
-//    @Autowired
-//    private UserDetailsService userDetailsService;
 
     /**
      * Create a signing Key from the configured secret.
@@ -140,28 +135,12 @@ public final class TokenHelper {
     }
 
     /**
-     * @param claims the claims
-     * @return the token
-     */
-    private String generateToken(final Map<String, Object> claims) {
-        return Jwts.builder()
-                .claims(claims)
-                .expiration(generateExpirationDate())
-                .signWith(getSigningKey())
-                .compact();
-    }
-
-    /**
      * @param token the token
      * @return true if the token can be refreshed
      */
     public Boolean canTokenBeRefreshed(final String token) {
         try {
-            final Date expirationDate =
-                    getClaimsFromToken(token).getExpiration();
-//            String username = getUsernameFromToken(token);
-//            final UserDetails userDetails =
-//                    userDetailsService.loadUserByUsername(username);
+            final Date expirationDate = getClaimsFromToken(token).getExpiration();
             return expirationDate.compareTo(generateCurrentDate()) > 0;
         } catch (Exception e) {
             return false;
@@ -175,7 +154,6 @@ public final class TokenHelper {
     public String refreshToken(final String token) {
         try {
             final Claims claims = getClaimsFromToken(token);
-            // Rebuild token with updated issuedAt/expiration rather than mutating Claims
             return Jwts.builder()
                     .claims(claims)
                     .issuedAt(generateCurrentDate())

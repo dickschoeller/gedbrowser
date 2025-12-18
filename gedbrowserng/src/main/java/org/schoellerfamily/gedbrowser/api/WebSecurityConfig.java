@@ -136,14 +136,19 @@ public class WebSecurityConfig {
      */
     private HttpSecurity configureCsrf(final HttpSecurity http) throws Exception {
         if ("test".equals(activeProfile)) {
-            return http.csrf().disable();
+            // Disable CSRF using the lambda-based CsrfConfigurer
+            http.csrf(csrf -> csrf.disable());
         } else {
-                return http.csrf().ignoringRequestMatchers(
-                    "/v1/login",
-                    "/v1/signup")
-                    .csrfTokenRepository(
-                            CookieCsrfTokenRepository.withHttpOnlyFalse())
-                    .and();
+            // Configure CSRF using the lambda-based API. Use PathPatternRequestMatcher
+            // for endpoints that should be ignored by CSRF protection and set a
+            // CookieCsrfTokenRepository with HttpOnly disabled for client access.
+            http.csrf(csrf -> csrf
+                    .ignoringRequestMatchers(
+                            PathPatternRequestMatcher.withDefaults().matcher("/v1/login"),
+                            PathPatternRequestMatcher.withDefaults().matcher("/v1/signup"))
+                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            );
         }
+        return http;
     }
 }

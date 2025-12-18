@@ -37,22 +37,29 @@ public class WebSecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
-        http.authorizeRequests().requestMatchers("/**").permitAll().anyRequest()
-                .authenticated();
+        // Use the lambda-based configuration APIs instead of the older chained style
+        http
+            .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/**").permitAll()
+                .anyRequest().authenticated())
+            // TODO haven't figured out how to retain referer after login error.
+            .formLogin(form -> {
+                final SavedRequestAwareAuthenticationSuccessHandler handler =
+                        new SavedRequestAwareAuthenticationSuccessHandler();
+                handler.setDefaultTargetUrl(servletPath + "/person?db=schoeller&id=I1");
+                handler.setAlwaysUseDefaultTargetUrl(false);
+                handler.setTargetUrlParameter("targetUrl");
 
-        // TODO haven't figured out how to retain referer after login error.
-        final SavedRequestAwareAuthenticationSuccessHandler handler =
-                new SavedRequestAwareAuthenticationSuccessHandler();
-        handler.setDefaultTargetUrl(servletPath + "/person?db=schoeller&id=I1");
-        handler.setAlwaysUseDefaultTargetUrl(false);
-        handler.setTargetUrlParameter("targetUrl");
-
-        http.formLogin().loginPage(servletPath + "/login")
-                .successHandler(handler)
-                .permitAll();
-        http.logout().deleteCookies("JSESSIONID").invalidateHttpSession(true)
-                .logoutUrl(servletPath + "/logout")
-                .logoutSuccessUrl(servletPath + "/login").permitAll();
+                form.loginPage(servletPath + "/login")
+                        .successHandler(handler)
+                        .permitAll();
+            })
+            .logout(logout -> logout
+                    .deleteCookies("JSESSIONID")
+                    .invalidateHttpSession(true)
+                    .logoutUrl(servletPath + "/logout")
+                    .logoutSuccessUrl(servletPath + "/login")
+                    .permitAll());
 
         return http.build();
     }

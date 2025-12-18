@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,10 +117,10 @@ public class GedObjectToGedDocumentMongoConverter
             throw new PersistenceException("Class not supported");
         }
         try {
-            final GedDocumentMongo<?> retval = mongoClass.newInstance();
+            final GedDocumentMongo<?> retval = mongoClass.getDeclaredConstructor().newInstance();
             retval.loadGedObject(this, ged);
             return retval;
-        } catch (InstantiationException | IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new PersistenceException(
                     "Could not instantiate class", e);
         }
