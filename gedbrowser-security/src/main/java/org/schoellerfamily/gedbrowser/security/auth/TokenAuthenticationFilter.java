@@ -3,25 +3,23 @@ package org.schoellerfamily.gedbrowser.security.auth;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 import org.schoellerfamily.gedbrowser.security.token.TokenHelper;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -131,10 +129,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private boolean skipPathRequest(final HttpServletRequest request,
             final List<String> paths) {
         Assert.notNull(paths, "path cannot be null.");
-        final List<RequestMatcher> m =
-                paths.stream()
-                .map(path -> new AntPathRequestMatcher(path))
-                .collect(Collectors.toList());
+        final List<RequestMatcher> m = paths.stream()
+            .map(path -> (RequestMatcher) PathPatternRequestMatcher.withDefaults().matcher(path))
+            .toList();
         final OrRequestMatcher matchers = new OrRequestMatcher(m);
         return matchers.matches(request);
     }

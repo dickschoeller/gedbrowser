@@ -22,7 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 
 import lombok.RequiredArgsConstructor;
 
@@ -119,7 +119,7 @@ public class WebSecurityConfig {
                     .failureHandler(authenticationFailureHandler))
             // Configure logout
             .logout(logout -> logout
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/v1/logout"))
+                    .logoutRequestMatcher(PathPatternRequestMatcher.withDefaults().matcher("/v1/logout"))
                     .logoutSuccessHandler(logoutSuccess)
                     .deleteCookies(cookie));
 
