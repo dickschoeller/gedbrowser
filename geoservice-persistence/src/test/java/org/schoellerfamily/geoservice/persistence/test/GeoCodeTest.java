@@ -1,6 +1,10 @@
 package org.schoellerfamily.geoservice.persistence.test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.InputStream;
 import java.util.Arrays;
@@ -8,9 +12,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.geocoder.StubGeoCoder;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
@@ -23,7 +27,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import com.google.maps.model.GeocodingResult;
@@ -34,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author Dick Schoeller
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 @SuppressWarnings({ "PMD.ExcessiveImports", "PMD.ExcessivePublicCount",
         "PMD.GodClass", "PMD.TooManyStaticImports" })
@@ -106,7 +110,7 @@ public final class GeoCodeTest {
     /**
      * Force debug logging during tests.
      */
-    @BeforeClass
+    @BeforeAll
     public static void setUp() {
         System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug");
     }
@@ -117,8 +121,7 @@ public final class GeoCodeTest {
         log.info("Entering testStupidNotFound");
         gcc.clear();
         final GeoCodeItem entry = gcc.find("XYZZY");
-        assertNull("Should not have found XYZZY",
-                entry.getGeocodingResult());
+        assertNull(entry.getGeocodingResult(), "Should not have found XYZZY");
     }
 
     /** */
@@ -127,8 +130,7 @@ public final class GeoCodeTest {
         log.info("Entering testModernStupidNotFound");
         gcc.clear();
         final GeoCodeItem entry = gcc.find("PLUGH", "XYZZY");
-        assertNull("Should not have found modern XYZZY",
-                entry.getGeocodingResult());
+        assertNull(entry.getGeocodingResult(), "Should not have found modern XYZZY");
     }
 
     /** */
@@ -138,8 +140,7 @@ public final class GeoCodeTest {
         gcc.clear();
         final GeoCodeItem entry = gcc
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
-        assertNotNull("Should have found 3341 Chaucer Lane",
-                entry.getGeocodingResult());
+        assertNotNull(entry.getGeocodingResult(), "Should have found 3341 Chaucer Lane");
     }
 
     /** */
@@ -149,7 +150,7 @@ public final class GeoCodeTest {
         gcc.clear();
         final GeoCodeItem entry1 = gcc.find("XYZZY");
         final GeoCodeItem entry2 = gcc.find("XYZZY");
-        assertEquals("Should be equal", entry1, entry2);
+        assertEquals(entry1, entry2, "Should be equal");
     }
 
     /** */
@@ -159,7 +160,7 @@ public final class GeoCodeTest {
         gcc.clear();
         final GeoCodeItem entry1 = gcc.find("XYZZY");
         final GeoCodeItem entry2 = gcc.find("XYZZY", "");
-        assertEquals("Should be equal", entry1, entry2);
+        assertEquals(entry1, entry2, "Should be equal");
     }
 
     /** */
@@ -169,7 +170,7 @@ public final class GeoCodeTest {
         gcc.clear();
         final GeoCodeItem entry1 = gcc.find("XYZZY");
         final GeoCodeItem entry2 = gcc.find("XYZZY", null);
-        assertEquals("Should be equal", entry1, entry2);
+        assertEquals(entry1, entry2, "Should be equal");
     }
 
     /** */
@@ -181,7 +182,7 @@ public final class GeoCodeTest {
                 .find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
         final GeoCodeItem entry2 = gcc
                 .find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
-        assertEquals("Should be equal", entry1, entry2);
+        assertEquals(entry1, entry2, "Should be equal");
     }
 
     /** */
@@ -193,7 +194,7 @@ public final class GeoCodeTest {
         final GeoCodeItem entry2 = gcc.find("XYZZY",
                 "3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
         final GeoCodeItem entry3 = gcc.find("XYZZY");
-        assertEquals("Should be equal", entry2, entry3);
+        assertEquals(entry2, entry3, "Should be equal");
     }
 
     /** */
@@ -205,7 +206,7 @@ public final class GeoCodeTest {
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeoCodeItem entry2 = gcc
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
-        assertEquals("Should be equal", entry1, entry2);
+        assertEquals(entry1, entry2, "Should be equal");
     }
 
     /** */
@@ -216,7 +217,7 @@ public final class GeoCodeTest {
         final GeoCodeItem entry1 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeoCodeItem entry2 = gcc.find("Old Home");
-        assertEquals("Should be equal", entry1, entry2);
+        assertEquals(entry1, entry2, "Should be equal");
     }
 
     /** */
@@ -228,7 +229,7 @@ public final class GeoCodeTest {
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeoCodeItem entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
-        assertEquals("Should be equal", entry1, entry2);
+        assertEquals(entry1, entry2, "Should be equal");
     }
 
     /** */
@@ -239,7 +240,7 @@ public final class GeoCodeTest {
         final GeoCodeItem entry1 = gcc.find("Old Home");
         final GeoCodeItem entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
-        assertNotEquals("Should NOT be equal", entry1, entry2);
+        assertNotEquals(entry1, entry2, "Should NOT be equal");
     }
 
     /** */
@@ -249,7 +250,7 @@ public final class GeoCodeTest {
         gcc.clear();
         final GeoCodeItem entry1 = gcc.find("Old Home");
         final GeoCodeItem entry2 = gcc.find("Old Home", "Blah Blah");
-        assertNotEquals("Should NOT be equal", entry1, entry2);
+        assertNotEquals(entry1, entry2, "Should NOT be equal");
     }
 
     /** */
@@ -260,7 +261,7 @@ public final class GeoCodeTest {
         final GeoCodeItem entry1 = gcc
                 .add(new GeoCodeItem("Old Home", "Blah Blah"));
         final GeoCodeItem entry2 = gcc.find("Old Home", "Blah Blah");
-        assertEquals("Should be equal", entry1, entry2);
+        assertEquals(entry1, entry2, "Should be equal");
     }
 
     /** */
@@ -272,7 +273,7 @@ public final class GeoCodeTest {
                 "3341 Chaucer Lane, Bethlehem, PA"));
         final GeoCodeItem entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA");
-        assertNotEquals("Should NOT be equal", entry1, entry2);
+        assertNotEquals(entry1, entry2, "Should NOT be equal");
     }
 
     /** */
@@ -283,7 +284,7 @@ public final class GeoCodeTest {
         final GeoCodeItem entry1 = gcc
                 .add(new GeoCodeItem("3341 Chaucer Lane, Bethlehem, PA"));
         final GeoCodeItem entry2 = gcc.find("3341 Chaucer Lane, Bethlehem, PA");
-        assertNotEquals("Should NOT be equal", entry1, entry2);
+        assertNotEquals(entry1, entry2, "Should NOT be equal");
     }
 
     /** */
@@ -293,7 +294,7 @@ public final class GeoCodeTest {
         gcc.clear();
         gcc.add(new GeoCodeItem("Old Home"));
         gcc.add(new GeoCodeItem("At Sea"));
-        assertEquals("Should be 2 items", 2, gcc.allKeys().size());
+        assertEquals(2, gcc.allKeys().size(), "Should be 2 items");
     }
 
     /** */
@@ -304,8 +305,8 @@ public final class GeoCodeTest {
         gcc.add(new GeoCodeItem("Old Home"));
         gcc.add(new GeoCodeItem("At Sea"));
         final Collection<String> keys = gcc.allKeys();
-        assertTrue("Should contain both items",
-                keys.contains("Old Home") && keys.contains("At Sea"));
+        assertTrue(keys.contains("Old Home") && keys.contains("At Sea"),
+                "Should contain both items");
     }
 
     /** */
@@ -316,7 +317,7 @@ public final class GeoCodeTest {
         gcc.find("XYZZY");
         final GeoCodeItem entry2 = gcc.find("XYZZY", "XYZZY");
         final GeoCodeItem entry3 = gcc.find("XYZZY", "XYZZY");
-        assertEquals("Should be equal", entry2, entry3);
+        assertEquals(entry2, entry3, "Should be equal");
     }
 
     /** */
@@ -327,8 +328,7 @@ public final class GeoCodeTest {
         gcc.find("XYZZY");
         gcc.find("XYZZY", "XYZZY");
         final GeoCodeItem entry3 = gcc.find("XYZZY", "XYZZY");
-        assertNull("Geocoding result should still be null",
-                entry3.getGeocodingResult());
+        assertNull(entry3.getGeocodingResult(), "Geocoding result should still be null");
     }
 
     /** */
@@ -340,7 +340,7 @@ public final class GeoCodeTest {
         final GeoCodeItem entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeoCodeItem entry3 = gcc.find("Old Home");
-        assertEquals("Should be equal", entry2, entry3);
+        assertEquals(entry2, entry3, "Should be equal");
     }
 
     /** */
@@ -351,7 +351,7 @@ public final class GeoCodeTest {
         final GeoCodeItem entry = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeocodingResult geocodingResult = entry.getGeocodingResult();
-        assertNotNull("geocoding result should not be null", geocodingResult);
+        assertNotNull(geocodingResult, "geocoding result should not be null");
     }
 
     /** */
@@ -364,8 +364,7 @@ public final class GeoCodeTest {
         final LatLng expected = new LatLng(40.65800200, -75.40644300);
         final GeocodingResult geocodingResult = entry.getGeocodingResult();
         final LatLng actual = geocodingResult.geometry.location;
-        assertEquals("there was a result, but the lat/long was wrong",
-                expected.toString(), actual.toString());
+        assertEquals(expected.toString(), actual.toString(), "there was a result, but the lat/long was wrong");
     }
 
     /** */
@@ -378,8 +377,7 @@ public final class GeoCodeTest {
                 .asList(testFixture.expectedNotFound());
         final Collection<String> expected = new HashSet<>(expectList);
         final Collection<String> actual = gcc.notFoundKeys();
-        assertTrue("Some differences in not found sets",
-                compareNotFound(expected, actual));
+        assertTrue(compareNotFound(expected, actual), "Some differences in not found sets");
     }
 
     /** */
@@ -392,8 +390,7 @@ public final class GeoCodeTest {
                 .asList(testFixture.expectedNotFound());
         final Collection<String> expected = new HashSet<>(expectList);
         final Collection<String> actual = gcc.notFoundKeys();
-        assertTrue("Some differences in not found sets",
-                compareNotFound(expected, actual));
+        assertTrue(compareNotFound(expected, actual), "Some differences in not found sets");
     }
 
     /** */
@@ -406,8 +403,7 @@ public final class GeoCodeTest {
                 .asList(testFixture.expectedNotFound());
         final Collection<String> expected = new HashSet<>(expectList);
         final Collection<String> actual = gcc.notFoundKeys();
-        assertTrue("Some differences in not found sets",
-                compareNotFound(expected, actual));
+        assertTrue(compareNotFound(expected, actual), "Some differences in not found sets");
     }
 
     /** */
@@ -417,8 +413,7 @@ public final class GeoCodeTest {
         gcc.clear();
         loader.load(getTestFileAsStream());
         final GeoCodeItem item = gcc.get("At Sea");
-        assertEquals("Failure indicates a parsing problem",
-                "Atlantic Ocean", item.getModernPlaceName());
+        assertEquals("Atlantic Ocean", item.getModernPlaceName(), "Failure indicates a parsing problem");
     }
 
     /** */
@@ -428,8 +423,7 @@ public final class GeoCodeTest {
         gcc.clear();
         loader.load(getTestFileName());
         final GeoCodeItem item = gcc.get("At Sea");
-        assertEquals("Failure indicates a parsing problem",
-                "Atlantic Ocean", item.getModernPlaceName());
+        assertEquals("Atlantic Ocean", item.getModernPlaceName(), "Failure indicates a parsing problem");
     }
 
     /** */
@@ -440,8 +434,7 @@ public final class GeoCodeTest {
         testFixture.loadTestAddresses();
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
-        assertTrue("Count too low at: " + count,
-                count >= testFixture.expectedLowBound());
+        assertTrue(count >= testFixture.expectedLowBound(), "Count too low at: " + count);
     }
 
     /** */
@@ -452,8 +445,7 @@ public final class GeoCodeTest {
         testFixture.loadTestAddresses();
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
-        assertTrue("Count too high at: " + count,
-                count <= testFixture.expectedHighBound());
+        assertTrue(count <= testFixture.expectedHighBound(), "Count too high at: " + count);
     }
 
     /** */
@@ -464,8 +456,7 @@ public final class GeoCodeTest {
         loader.load(getTestFileAsStream());
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
-        assertTrue("Count too low at: " + count,
-                count >= testFixture.expectedLowBound());
+        assertTrue(count >= testFixture.expectedLowBound(), "Count too low at: " + count);
     }
 
     /** */
@@ -476,8 +467,7 @@ public final class GeoCodeTest {
         loader.load(getTestFileName());
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
-        assertTrue("Count too low at: " + count,
-                count >= testFixture.expectedLowBound());
+        assertTrue(count >= testFixture.expectedLowBound(), "Count too low at: " + count);
     }
 
     /** */
@@ -488,8 +478,7 @@ public final class GeoCodeTest {
         loader.load(getTestFileAsStream());
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
-        assertTrue("Count too high at: " + count,
-                count <= testFixture.expectedHighBound());
+        assertTrue(count <= testFixture.expectedHighBound(), "Count too high at: " + count);
     }
 
     /** */
@@ -500,8 +489,7 @@ public final class GeoCodeTest {
         loader.load(getTestFileName());
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
-        assertTrue("Count too high at: " + count,
-                count <= testFixture.expectedHighBound());
+        assertTrue(count <= testFixture.expectedHighBound(), "Count too high at: " + count);
     }
 
     /** */
@@ -511,8 +499,7 @@ public final class GeoCodeTest {
         gcc.clear();
         testFixture.loadTestAddresses();
         final int expected = 19;
-        assertEquals("Should match known table size of 19",
-                expected, gcc.size());
+        assertEquals(expected, gcc.size(), "Should match known table size of 19");
     }
 
     /** */
@@ -522,8 +509,7 @@ public final class GeoCodeTest {
         gcc.clear();
         loader.load(getTestFileAsStream());
         final int expected = 19;
-        assertEquals("Should match known file size of 19",
-                expected, gcc.size());
+        assertEquals(expected, gcc.size(), "Should match known file size of 19");
     }
 
     /** */
@@ -533,8 +519,7 @@ public final class GeoCodeTest {
         gcc.clear();
         loader.load(getTestFileName());
         final int expected = 19;
-        assertEquals("Should match known file size of 19",
-                expected, gcc.size());
+        assertEquals(expected, gcc.size(), "Should match known file size of 19");
     }
 
     /** */
@@ -544,9 +529,8 @@ public final class GeoCodeTest {
         gcc.clear();
         loader.load(dummyFileName);
         final int expected = 0;
-        assertEquals(
-                "Should be 0 because of file not found, was: " + gcc.size(),
-                expected, gcc.size());
+        assertEquals(expected, gcc.size(),
+                "Should be 0 because of file not found, was: " + gcc.size());
     }
 
     /** */
@@ -556,9 +540,8 @@ public final class GeoCodeTest {
         gcc.clear();
         loader.loadAndFind(dummyFileName);
         final int expected = 0;
-        assertEquals(
-                "Should be 0 because of file not found, was: " + gcc.size(),
-                expected, gcc.size());
+        assertEquals(expected, gcc.size(),
+                "Should be 0 because of file not found, was: " + gcc.size());
     }
 
     /** */
@@ -569,8 +552,7 @@ public final class GeoCodeTest {
         testFixture.loadTestAddresses();
         gcc.dump();
         final int expected = 19;
-        assertEquals("Should match known table size of 19",
-                expected, gcc.size());
+        assertEquals(expected, gcc.size(), "Should match known table size of 19");
     }
 
     /** */
@@ -581,8 +563,7 @@ public final class GeoCodeTest {
         loader.load(getTestFileAsStream());
         gcc.dump();
         final int expected = 19;
-        assertEquals("Should match known file size of 19",
-                expected, gcc.size());
+        assertEquals(expected, gcc.size(), "Should match known file size of 19");
     }
 
     /** */
@@ -593,8 +574,7 @@ public final class GeoCodeTest {
         loader.load(getTestFileName());
         gcc.dump();
         final int expected = 19;
-        assertEquals("Should match known file size of 19",
-                expected, gcc.size());
+        assertEquals(expected, gcc.size(), "Should match known file size of 19");
     }
 
     /** */
@@ -605,8 +585,7 @@ public final class GeoCodeTest {
         loader.loadAndFind(getTestFileAsStream());
         gcc.dump();
         final int expected = 19;
-        assertEquals("Should match known file size of 19",
-                expected, gcc.size());
+        assertEquals(expected, gcc.size(), "Should match known file size of 19");
     }
 
     /** */
@@ -617,8 +596,7 @@ public final class GeoCodeTest {
         loader.loadAndFind(getTestFileName());
         gcc.dump();
         final int expected = 19;
-        assertEquals("Should match known file size of 19",
-                expected, gcc.size());
+        assertEquals(expected, gcc.size(), "Should match known file size of 19");
     }
 
     /**

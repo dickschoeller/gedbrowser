@@ -1,9 +1,9 @@
 package org.schoellerfamily.geoservice.persistence.fixture.test;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
 import org.schoellerfamily.geoservice.persistence.fixture.GeoDocumentStub;
@@ -16,56 +16,56 @@ public final class GeoDocumentStubTest {
     @Test
     public void testNoArgHasNullItem() {
         final GeoDocument doc = new GeoDocumentStub();
-        assertNull("Expected null item", doc.getGeoItem());
+        assertNull(doc.getGeoItem(), "Expected null item");
     }
 
     /** */
     @Test
     public void testNoArgHasNullName() {
         final GeoDocument doc = new GeoDocumentStub();
-        assertNull("Expected null name", doc.getName());
+        assertNull(doc.getName(), "Expected null name");
     }
 
     /** */
     @Test
     public void testNoArgHasNullModernName() {
         final GeoDocument doc = new GeoDocumentStub();
-        assertNull("Expected null modern name", doc.getModernName());
+        assertNull(doc.getModernName(), "Expected null modern name");
     }
 
     /** */
     @Test
     public void testNoArgHasNullResult() {
         final GeoDocument doc = new GeoDocumentStub();
-        assertNull("Expected null result", doc.getResult());
+        assertNull(doc.getResult(), "Expected null result");
     }
 
     /** */
     @Test
     public void testNullArgHasNullItem() {
         final GeoDocument doc = new GeoDocumentStub(null);
-        assertNull("Expected null item", doc.getGeoItem());
+        assertNull(doc.getGeoItem(), "Expected null item");
     }
 
     /** */
     @Test
     public void testNullArgHasNullName() {
         final GeoDocument doc = new GeoDocumentStub(null);
-        assertNull("Expected null name", doc.getName());
+        assertNull(doc.getName(), "Expected null name");
     }
 
     /** */
     @Test
     public void testNullArgHasNullModernName() {
         final GeoDocument doc = new GeoDocumentStub(null);
-        assertNull("Expected null modern name", doc.getModernName());
+        assertNull(doc.getModernName(), "Expected null modern name");
     }
 
     /** */
     @Test
     public void testNullArgHasNullResult() {
         final GeoDocument doc = new GeoDocumentStub(null);
-        assertNull("Expected null result", doc.getResult());
+        assertNull(doc.getResult(), "Expected null result");
     }
 
     /** */
@@ -73,7 +73,7 @@ public final class GeoDocumentStubTest {
     public void testItemHasItem() {
         final GeoCodeItem item = new GeoCodeItem();
         final GeoDocument doc = new GeoDocumentStub(item);
-        assertSame("Expected same item", item, doc.getGeoItem());
+        assertSame(item, doc.getGeoItem(), "Expected same item");
     }
 
     /** */
@@ -82,7 +82,7 @@ public final class GeoDocumentStubTest {
         final GeoCodeItem item = new GeoCodeItem();
         final GeoDocument doc = new GeoDocumentStub(null);
         doc.setGeoItem(item);
-        assertSame("Expected same item", item, doc.getGeoItem());
+        assertSame(item, doc.getGeoItem(), "Expected same item");
     }
 
     /** */
@@ -91,7 +91,7 @@ public final class GeoDocumentStubTest {
         final GeoCodeItem item = new GeoCodeItem();
         final GeoDocument doc = new GeoDocumentStub(null);
         doc.loadGeoCodeItem(item);
-        assertSame("Expected same item", item, doc.getGeoItem());
+        assertSame(item, doc.getGeoItem(), "Expected same item");
     }
 
     /** */
@@ -99,7 +99,7 @@ public final class GeoDocumentStubTest {
     public void testNullItemHasNullName() {
         final GeoCodeItem item = new GeoCodeItem();
         final GeoDocument doc = new GeoDocumentStub(item);
-        assertNull("Expected null name", doc.getName());
+        assertNull(doc.getName(), "Expected null name");
     }
 
     /** */
@@ -107,7 +107,7 @@ public final class GeoDocumentStubTest {
     public void testNullItemHasNullModernName() {
         final GeoCodeItem item = new GeoCodeItem();
         final GeoDocument doc = new GeoDocumentStub(item);
-        assertNull("Expected null modern name", doc.getModernName());
+        assertNull(doc.getModernName(), "Expected null modern name");
     }
 
     /** */
@@ -115,6 +115,6 @@ public final class GeoDocumentStubTest {
     public void testNullItemHasNullResult() {
         final GeoCodeItem item = new GeoCodeItem();
         final GeoDocument doc = new GeoDocumentStub(item);
-        assertNull("Expected null result", doc.getResult());
+        assertNull(doc.getResult(), "Expected null result");
     }
 }

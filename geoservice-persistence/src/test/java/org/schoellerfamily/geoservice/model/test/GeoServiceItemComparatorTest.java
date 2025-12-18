@@ -1,13 +1,13 @@
 package org.schoellerfamily.geoservice.model.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
 import org.geojson.LngLatAlt;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.geoservice.model.GeoServiceBounds;
 import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceGeometry;
@@ -23,7 +23,7 @@ public class GeoServiceItemComparatorTest extends GeocodeChecker {
     private GeoServiceGeocodingResult bgr;
 
     /** */
-    @Before
+    @BeforeEach
     public void setUp() {
         final double neLat = 10.00;
         final double neLng = 20.00;
@@ -45,7 +45,7 @@ public class GeoServiceItemComparatorTest extends GeocodeChecker {
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoServiceItem item1 = new GeoServiceItem("XYZZY", "ZZZZZ", bgr);
         final GeoServiceItemComparator c = new GeoServiceItemComparator();
-        assertTrue("Should be less than 0", c.compare(item0, item1) < 0);
+        assertTrue(c.compare(item0, item1) < 0, "Should be less than 0");
     }
 
     /** */
@@ -54,7 +54,7 @@ public class GeoServiceItemComparatorTest extends GeocodeChecker {
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoServiceItem item1 = new GeoServiceItem("ZZZZZ", "ZZZZZ", bgr);
         final GeoServiceItemComparator c = new GeoServiceItemComparator();
-        assertTrue("Should be greater than 0", c.compare(item1, item0) > 0);
+        assertTrue(c.compare(item1, item0) > 0, "Should be greater than 0");
     }
 
     /** */
@@ -63,7 +63,7 @@ public class GeoServiceItemComparatorTest extends GeocodeChecker {
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoServiceItem item1 = new GeoServiceItem("ZZZZZ", "ZZZZZ", bgr);
         final GeoServiceItemComparator c = new GeoServiceItemComparator();
-        assertTrue("Should be less than 0", c.compare(item0, item1) < 0);
+        assertTrue(c.compare(item0, item1) < 0, "Should be less than 0");
     }
 
     /** */
@@ -72,7 +72,7 @@ public class GeoServiceItemComparatorTest extends GeocodeChecker {
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoServiceItem item1 = new GeoServiceItem("XYZZY", "ZZZZZ", bgr);
         final GeoServiceItemComparator c = new GeoServiceItemComparator();
-        assertTrue("Should be greater than 0", c.compare(item1, item0) > 0);
+        assertTrue(c.compare(item1, item0) > 0, "Should be greater than 0");
     }
 
     /** */
@@ -81,7 +81,7 @@ public class GeoServiceItemComparatorTest extends GeocodeChecker {
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoServiceItem item1 = new GeoServiceItem("XYZZY", "PLUGH", null);
         final GeoServiceItemComparator c = new GeoServiceItemComparator();
-        assertEquals("Should be 0", 0, c.compare(item0, item1));
+        assertEquals(0, c.compare(item0, item1), "Should be 0");
     }
 
     /** */
@@ -91,6 +91,6 @@ public class GeoServiceItemComparatorTest extends GeocodeChecker {
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoServiceItem item1 = new GeoServiceItem("ZZZZZ", "PLUGH", null);
         final GeoServiceItemComparator c = new GeoServiceItemComparator();
-        assertEquals("Should be 0", 0, c.compare(item0, item1));
+        assertEquals(0, c.compare(item0, item1), "Should be 0");
     }
 }

@@ -1,9 +1,9 @@
 package org.schoellerfamily.geoservice.model.builder.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
 
@@ -11,7 +11,7 @@ import org.geojson.Feature;
 import org.geojson.FeatureCollection;
 import org.geojson.LngLatAlt;
 import org.geojson.Point;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.geoservice.model.GeoServiceBounds;
 import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceGeometry;
@@ -35,7 +35,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
     /** */
     @Test
     public void testToGeoCodeItemNull() {
-        assertNull("Null gets null", builder.toGeoCodeItem(null));
+        assertNull(builder.toGeoCodeItem(null), "Null gets null");
     }
 
     /** */
@@ -43,7 +43,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
     public void testToGeoCodeItemName() {
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", null);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertEquals("Mismatched name", "XYZZY", gci.getPlaceName());
+        assertEquals("XYZZY", gci.getPlaceName(), "Mismatched name");
     }
 
     /** */
@@ -51,8 +51,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
     public void testToGeoCodeItemModernName() {
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", null);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertEquals("Mismatched modern name", "PLUGH",
-                gci.getModernPlaceName());
+        assertEquals("PLUGH", gci.getModernPlaceName(), "Mismatched modern name");
     }
 
     /** */
@@ -60,7 +59,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
     public void testToGeoCodeItemNullResult() {
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", null);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertNull("Expected null result", gci.getGeocodingResult());
+        assertNull(gci.getGeocodingResult(), "Expected null result");
     }
 
     /** */
@@ -69,8 +68,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH",
                 new GeoServiceGeocodingResult());
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
     /** */
@@ -88,8 +86,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
                 addressComponents, null, null, null, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
     /** */
@@ -105,8 +102,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
                 addressComponents, null, null, null, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
     /**
@@ -132,8 +128,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
                 null, "formatted address", null, null, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
     /** */
@@ -143,8 +138,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
                 null, null, null, null, null, false, "ladkjsfdlaskjfdlfj");
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
     /** */
@@ -156,8 +150,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
                 null, null, postcodeLocalities, null, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
     /** */
@@ -169,8 +162,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
                 null, null, null, null, types, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
     /** */
@@ -181,8 +173,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
                 null, null, null, geometry, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
     /** */
@@ -197,8 +188,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
                 null, null, null, geometry, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
     /** */
@@ -211,8 +201,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
                 null, null, null, geometry, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
     /** */
@@ -221,13 +210,9 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
         final double lat = 10.00;
         final double lng = 20.00;
         final LngLatAlt northeast = new LngLatAlt(lng, lat);
-        try {
-            final Feature bounds = GeoServiceBounds.createBounds("bounds", null,
-                northeast);
-            fail("Should have thrown illegal argument exception: " + bounds);
-        } catch (IllegalArgumentException e) {
-            // Should have thrown
-        }
+        assertThrows(IllegalArgumentException.class, () ->
+            GeoServiceBounds.createBounds("bounds", null, northeast)
+        );
     }
 
     /** */
@@ -236,13 +221,9 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
         final double lat = 10.00;
         final double lng = 20.00;
         final LngLatAlt southwest = new LngLatAlt(lng, lat);
-        try {
-            final Feature bounds = GeoServiceBounds.createBounds("bounds",
-                    southwest, null);
-            fail("Should have thrown illegal argument exception: " + bounds);
-        } catch (IllegalArgumentException e) {
-            // Should have thrown
-        }
+        assertThrows(IllegalArgumentException.class, () ->
+            GeoServiceBounds.createBounds("bounds", southwest, null)
+        );
     }
 
     /** */
@@ -262,8 +243,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
                 null, null, null, geometry, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
     /** */
@@ -276,8 +256,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
                 null, null, null, geometry, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
     /** */
@@ -290,8 +269,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
                 null, null, null, geometry, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
     /** */
@@ -300,13 +278,9 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
         final double lat = 10.00;
         final double lng = 20.00;
         final LngLatAlt northeast = new LngLatAlt(lng, lat);
-        try {
-            final Feature viewport = GeoServiceBounds.createBounds("viewport",
-                    null, northeast);
-            fail("Should have thrown illegal argument exception: " + viewport);
-        } catch (IllegalArgumentException e) {
-            // Should have thrown
-        }
+        assertThrows(IllegalArgumentException.class, () ->
+            GeoServiceBounds.createBounds("viewport", null, northeast)
+        );
     }
 
     /** */
@@ -315,13 +289,9 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
         final double lat = 5.00;
         final double lng = 25.00;
         final LngLatAlt southwest = new LngLatAlt(lng, lat);
-        try {
-            final Feature viewport = GeoServiceBounds.createBounds("viewport",
-                    southwest, null);
-            fail("Should have thrown illegal argument exception: " + viewport);
-        } catch (IllegalArgumentException e) {
-            // Should have thrown
-        }
+        assertThrows(IllegalArgumentException.class, () ->
+            GeoServiceBounds.createBounds("viewport", southwest, null)
+        );
     }
 
     /** */
@@ -341,8 +311,7 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
                 null, null, null, geometry, null, false, null);
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoCodeItem gci = builder.toGeoCodeItem(bgci);
-        assertTrue("Failed comparison",
-                checker(gci.getGeocodingResult(), bgci.getResult()));
+        assertTrue(checker(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
     /** */
@@ -350,13 +319,13 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
     public void testPointToLatLng() {
         final Point point = new Point(1.0, 2.0);
         final LatLng latLng = builder.toLatLng(point);
-        assertTrue("coordinates should match", checker(latLng, point));
+        assertTrue(checker(latLng, point), "coordinates should match");
     }
 
     /** */
     @Test
     public void testPointToLatLngNull() {
-        assertNull("Expected null", builder.toLatLng((Point) null));
+        assertNull(builder.toLatLng((Point) null), "Expected null");
     }
 
     /** */
@@ -364,13 +333,13 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
     public void testLngLatAltToLatLng() {
         final LngLatAlt lngLatAlt = new LngLatAlt(1.0, 2.0);
         final LatLng latLng = builder.toLatLng(lngLatAlt);
-        assertTrue("coordinates should match", checker(latLng, lngLatAlt));
+        assertTrue(checker(latLng, lngLatAlt), "coordinates should match");
     }
 
     /** */
     @Test
     public void testLngLatAltToLatLngNull() {
-        assertNull("Expected null", builder.toLatLng((LngLatAlt) null));
+        assertNull(builder.toLatLng((LngLatAlt) null), "Expected null");
     }
 
     /** */
@@ -378,13 +347,13 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
     public void testLatLngToPoint() {
         final LatLng latLng = new LatLng(1.0, 2.0);
         final Point point = builder.toPoint(latLng);
-        assertTrue("coordinates should match", checker(latLng, point));
+        assertTrue(checker(latLng, point), "coordinates should match");
     }
 
     /** */
     @Test
     public void testLatLngToPointNull() {
-        assertNull("Expected null", builder.toPoint((LatLng) null));
+        assertNull(builder.toPoint((LatLng) null), "Expected null");
     }
 
     /** */
@@ -392,12 +361,12 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
     public void testLatLngToLngLatAlt() {
         final LatLng latLng = new LatLng(1.0, 2.0);
         final LngLatAlt lngLatAlt = builder.toLngLatAlt(latLng);
-        assertTrue("coordinates should match", checker(latLng, lngLatAlt));
+        assertTrue(checker(latLng, lngLatAlt), "coordinates should match");
     }
 
     /** */
     @Test
     public void testLatLngToLngLatAltNull() {
-        assertNull("Expected null", builder.toLngLatAlt((LatLng) null));
+        assertNull(builder.toLngLatAlt((LatLng) null), "Expected null");
     }
 }
