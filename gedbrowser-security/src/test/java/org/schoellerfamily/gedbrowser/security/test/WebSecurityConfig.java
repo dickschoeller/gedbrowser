@@ -20,7 +20,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import lombok.RequiredArgsConstructor;
 
@@ -84,26 +83,28 @@ public class WebSecurityConfig {
      */
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
-        handleCsrf(http)
-            .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and().exceptionHandling()
-                .authenticationEntryPoint(restAuthenticationEntryPoint)
-            .and().addFilterBefore(tokenAuthenticationFilter,
-                    BasicAuthenticationFilter.class)
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated()
-            .and().formLogin()
-                .loginPage("/v1/login")
-                .successHandler(authenticationSuccessHandler)
-                .failureHandler(authenticationFailureHandler)
-            .and().logout()
-                .logoutRequestMatcher(PathPatternRequestMatcher.withDefaults().matcher("/v1/logout"))
-                .logoutSuccessHandler(logoutSuccess)
-                .deleteCookies(cookie);
+        // Start with CSRF configuration (kept in helper)
+        final HttpSecurity configured = handleCsrf(http);
 
-        return http.build();
+        configured
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .exceptionHandling(ex -> ex.authenticationEntryPoint(restAuthenticationEntryPoint))
+            // Add the token filter before the basic authentication filter
+            .addFilterBefore(tokenAuthenticationFilter, BasicAuthenticationFilter.class)
+            // Use the newer authorizeHttpRequests API
+            .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+            // Configure form login
+            .formLogin(form -> form
+                    .loginPage("/v1/login")
+                    .successHandler(authenticationSuccessHandler)
+                    .failureHandler(authenticationFailureHandler))
+            // Configure logout using the PathPatternRequestMatcher builder
+            .logout(logout -> logout
+                    .logoutRequestMatcher(PathPatternRequestMatcher.withDefaults().matcher("/v1/logout"))
+                    .logoutSuccessHandler(logoutSuccess)
+                    .deleteCookies(cookie));
+
+        return configured.build();
     }
 
     /**
@@ -117,12 +118,19 @@ public class WebSecurityConfig {
     private HttpSecurity handleCsrf(final HttpSecurity http)
             throws Exception {
         if ("test".equals(activeProfile)) {
-            return http.csrf().disable();
+            // Use the lambda-based CsrfConfigurer to disable CSRF in test profile
+            http.csrf(csrf -> csrf.disable());
         } else {
-            return http.csrf().ignoringRequestMatchers("/v1/login", "/v1/signup")
-                    .csrfTokenRepository(
-                            CookieCsrfTokenRepository.withHttpOnlyFalse())
-                    .and();
+            // Configure CSRF using the lambda-based API. Use PathPatternRequestMatcher
+            // for endpoints that should be ignored by CSRF protection and set a
+            // CookieCsrfTokenRepository with HttpOnly disabled for client access.
+            http.csrf(csrf -> csrf
+                    .ignoringRequestMatchers(
+                            PathPatternRequestMatcher.withDefaults().matcher("/v1/login"),
+                            PathPatternRequestMatcher.withDefaults().matcher("/v1/signup"))
+                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            );
         }
+        return http;
     }
 }

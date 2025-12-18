@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.security.auth;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.schoellerfamily.gedbrowser.security.token.TokenHelper;
 import org.springframework.lang.NonNull;
@@ -129,9 +130,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private boolean skipPathRequest(final HttpServletRequest request,
             final List<String> paths) {
         Assert.notNull(paths, "path cannot be null.");
-        final List<RequestMatcher> m = paths.stream()
-            .map(path -> (RequestMatcher) PathPatternRequestMatcher.withDefaults().matcher(path))
-            .toList();
+        final List<RequestMatcher> m =
+                paths.stream()
+                .map(path -> PathPatternRequestMatcher.withDefaults().matcher(path))
+                .collect(Collectors.toUnmodifiableList());
         final OrRequestMatcher matchers = new OrRequestMatcher(m);
         return matchers.matches(request);
     }
