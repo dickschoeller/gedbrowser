@@ -1,11 +1,11 @@
 package org.schoellerfamily.geoservice.persistence.mongo.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,18 +15,18 @@ import java.util.HashSet;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
@@ -38,7 +38,7 @@ import com.google.maps.model.LatLng;
  */
 @SuppressWarnings({ "PMD.CommentSize", "PMD.GodClass",
     "PMD.TooManyStaticImports" })
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = MongoTestConfiguration.class)
 @Slf4j
 public final class GeoCodeMongoTest {
@@ -66,7 +66,7 @@ public final class GeoCodeMongoTest {
     /**
      * Force debug logging during tests.
      */
-    @BeforeClass
+    @BeforeAll
     public static void setUp() {
         System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug");
     }
@@ -74,13 +74,13 @@ public final class GeoCodeMongoTest {
     /**
      * @throws IOException if there is a problem loading data
      */
-    @Before
+    @BeforeEach
     public void init() throws IOException {
         testFixture.loadRepository();
     }
 
     /** */
-    @After
+    @AfterEach
     public void tearDown() {
         testFixture.clearRepository();
     }
@@ -91,8 +91,7 @@ public final class GeoCodeMongoTest {
     public void testStupidNotFound() {
         log.info("Entering testStupidNotFound");
         final GeoCodeItem entry = gcc.find("XYZZY");
-        assertNull("Should not have found XYZZY",
-                entry.getGeocodingResult());
+        assertNull(entry.getGeocodingResult(), "Should not have found XYZZY");
     }
 
     /**
@@ -101,8 +100,7 @@ public final class GeoCodeMongoTest {
     public void testModernStupidNotFound() {
         log.info("Entering testModernStupidNotFound");
         final GeoCodeItem entry = gcc.find("PLUGH", "XYZZY");
-        assertNull("Should not have found modern XYZZY",
-                entry.getGeocodingResult());
+        assertNull(entry.getGeocodingResult(), "Should not have found modern XYZZY");
     }
 
     /**
@@ -113,8 +111,7 @@ public final class GeoCodeMongoTest {
         final GeoCodeItem entry = gcc
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeocodingResult geocodingResult = entry.getGeocodingResult();
-        assertNotNull("Should have found 3341 Chaucer Lane",
-                geocodingResult);
+        assertNotNull(geocodingResult, "Should have found 3341 Chaucer Lane");
     }
 
     /**
@@ -124,7 +121,7 @@ public final class GeoCodeMongoTest {
         log.info("Entering testCacheStupid");
         final GeoCodeItem entry1 = gcc.find("XYZZY");
         final GeoCodeItem entry2 = gcc.find("XYZZY");
-        assertEquals("Should be equal", entry1, entry2);
+        assertEquals(entry1, entry2, "Should be equal");
     }
 
     /**
@@ -134,7 +131,7 @@ public final class GeoCodeMongoTest {
         log.info("Entering testModernEmpty");
         final GeoCodeItem entry1 = gcc.find("XYZZY");
         final GeoCodeItem entry2 = gcc.find("XYZZY", "");
-        assertEquals("Should be equal", entry1, entry2);
+        assertEquals(entry1, entry2, "Should be equal");
     }
 
     /**
@@ -144,7 +141,7 @@ public final class GeoCodeMongoTest {
         log.info("Entering testModernNull");
         final GeoCodeItem entry1 = gcc.find("XYZZY");
         final GeoCodeItem entry2 = gcc.find("XYZZY", null);
-        assertEquals("Should be equal", entry1, entry2);
+        assertEquals(entry1, entry2, "Should be equal");
     }
 
     /**
@@ -156,7 +153,7 @@ public final class GeoCodeMongoTest {
                 .find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
         final GeoCodeItem entry2 = gcc
                 .find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
-        assertEquals("Should be equal", entry1, entry2);
+        assertEquals(entry1, entry2, "Should be equal");
     }
 
     /**
@@ -168,7 +165,7 @@ public final class GeoCodeMongoTest {
         final GeoCodeItem entry2 = gcc.find("XYZZY",
                 "3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
         final GeoCodeItem entry3 = gcc.find("XYZZY");
-        assertEquals("Should be equal", entry2, entry3);
+        assertEquals(entry2, entry3, "Should be equal");
     }
 
     /**
@@ -180,7 +177,7 @@ public final class GeoCodeMongoTest {
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeoCodeItem entry2 = gcc
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
-        assertEquals("Should be equal", entry1, entry2);
+        assertEquals(entry1, entry2, "Should be equal");
     }
 
     /**
@@ -191,7 +188,7 @@ public final class GeoCodeMongoTest {
         final GeoCodeItem entry1 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeoCodeItem entry2 = gcc.find("Old Home");
-        assertEquals("Should be equal", entry1, entry2);
+        assertEquals(entry1, entry2, "Should be equal");
     }
 
     /**
@@ -203,7 +200,7 @@ public final class GeoCodeMongoTest {
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeoCodeItem entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
-        assertEquals("Should be equal", entry1, entry2);
+        assertEquals(entry1, entry2, "Should be equal");
     }
 
     /**
@@ -214,7 +211,7 @@ public final class GeoCodeMongoTest {
         final GeoCodeItem entry1 = gcc.find("Old Home");
         final GeoCodeItem entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
-        assertNotEquals("Should NOT be equal", entry1, entry2);
+        assertNotEquals(entry1, entry2, "Should NOT be equal");
     }
 
     /**
@@ -225,7 +222,7 @@ public final class GeoCodeMongoTest {
         gcc.find("XYZZY");
         final GeoCodeItem entry2 = gcc.find("XYZZY", "XYZZY");
         final GeoCodeItem entry3 = gcc.find("XYZZY", "XYZZY");
-        assertEquals("Should be equal", entry2, entry3);
+        assertEquals(entry2, entry3, "Should be equal");
     }
 
     /**
@@ -236,8 +233,7 @@ public final class GeoCodeMongoTest {
         gcc.find("XYZZY");
         gcc.find("XYZZY", "XYZZY");
         final GeoCodeItem entry3 = gcc.find("XYZZY", "XYZZY");
-        assertNull("Geocoding result should be null",
-                entry3.getGeocodingResult());
+        assertNull(entry3.getGeocodingResult(), "Geocoding result should be null");
     }
 
     /**
@@ -249,7 +245,7 @@ public final class GeoCodeMongoTest {
         final GeoCodeItem entry2 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeoCodeItem entry3 = gcc.find("Old Home");
-        assertEquals("Should be equal", entry2, entry3);
+        assertEquals(entry2, entry3, "Should be equal");
     }
 
     /**
@@ -260,8 +256,7 @@ public final class GeoCodeMongoTest {
         final GeoCodeItem entry = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeocodingResult geocodingResult = entry.getGeocodingResult();
-        assertNotNull("geocoding result should not be null",
-                geocodingResult);
+        assertNotNull(geocodingResult, "geocoding result should not be null");
     }
 
     /**
@@ -274,8 +269,8 @@ public final class GeoCodeMongoTest {
         final LatLng expected = new LatLng(40.65800200, -75.40644300);
         final GeocodingResult geocodingResult = entry.getGeocodingResult();
         final LatLng actual = geocodingResult.geometry.location;
-        assertEquals("there was a result, but the lat/long was wrong",
-                expected.toString(), actual.toString());
+        assertEquals(expected.toString(), actual.toString(),
+                "there was a result, but the lat/long was wrong");
     }
 
     /**
@@ -288,8 +283,7 @@ public final class GeoCodeMongoTest {
                 .asList(testFixture.expectedNotFound());
         final Collection<String> expected = new HashSet<>(expectList);
         final Collection<String> actual = gcc.notFoundKeys();
-        assertTrue("Some differences in not found sets",
-                compareNotFound(expected, actual));
+        assertTrue(compareNotFound(expected, actual), "Some differences in not found sets");
     }
 
     /**
@@ -303,8 +297,7 @@ public final class GeoCodeMongoTest {
                 .asList(testFixture.expectedNotFound());
         final Collection<String> expected = new HashSet<>(expectList);
         final Collection<String> actual = gcc.notFoundKeys();
-        assertTrue("Some differences in not found sets",
-                compareNotFound(expected, actual));
+        assertTrue(compareNotFound(expected, actual), "Some differences in not found sets");
     }
 
     /**
@@ -315,8 +308,7 @@ public final class GeoCodeMongoTest {
         testFixture.loadTestAddresses();
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
-        assertTrue("Count too low at: " + count,
-                count >= testFixture.expectedLowBound());
+        assertTrue(count >= testFixture.expectedLowBound(), "Count too low at: " + count);
     }
 
     /**
@@ -327,8 +319,7 @@ public final class GeoCodeMongoTest {
         testFixture.loadTestAddresses();
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
-        assertTrue("Count too high at: " + count,
-                count <= testFixture.expectedHighBound());
+        assertTrue(count <= testFixture.expectedHighBound(), "Count too high at: " + count);
     }
 
     /**
@@ -340,8 +331,7 @@ public final class GeoCodeMongoTest {
         loader.load(fis);
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
-        assertTrue("Count too low at: " + count,
-                count >= testFixture.expectedLowBound());
+        assertTrue(count >= testFixture.expectedLowBound(), "Count too low at: " + count);
     }
 
     /**
@@ -353,8 +343,7 @@ public final class GeoCodeMongoTest {
         loader.load(fis);
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
-        assertTrue("Count too high at: " + count,
-                count <= testFixture.expectedHighBound());
+        assertTrue(count <= testFixture.expectedHighBound(), "Count too high at: " + count);
     }
 
     /**
@@ -385,8 +374,7 @@ public final class GeoCodeMongoTest {
         log.info("Entering testSize");
         testFixture.loadTestAddresses();
         final int expected = 19;
-        assertEquals("Should match known table size of 19",
-                expected, gcc.size());
+        assertEquals(expected, gcc.size(), "Should match known table size of 19");
     }
 
     /**
@@ -397,8 +385,7 @@ public final class GeoCodeMongoTest {
         final InputStream fis = getTestFileAsStream();
         loader.load(fis);
         final int expected = 19;
-        assertEquals("Should match known file size of 19",
-                expected, gcc.size());
+        assertEquals(expected, gcc.size(), "Should match known file size of 19");
     }
 
     /**
@@ -408,9 +395,8 @@ public final class GeoCodeMongoTest {
         log.info("Entering testSizeFromFile");
         loader.load(dummyFileName);
         final int expected = 0;
-        assertEquals(
-                "Should be 0 because of file not found, was: " + gcc.size(),
-                expected, gcc.size());
+        assertEquals(expected, gcc.size(),
+                "Should be 0 because of file not found, was: " + gcc.size());
     }
 
     /**
@@ -421,8 +407,7 @@ public final class GeoCodeMongoTest {
         testFixture.loadTestAddresses();
         gcc.dump();
         final int expected = 19;
-        assertEquals("Should match known table size of 19",
-                expected, gcc.size());
+        assertEquals(expected, gcc.size(), "Should match known table size of 19");
     }
 
     /**
@@ -434,8 +419,7 @@ public final class GeoCodeMongoTest {
         loader.load(fis);
         gcc.dump();
         final int expected = 19;
-        assertEquals("Should match known file size of 19",
-                expected, gcc.size());
+        assertEquals(expected, gcc.size(), "Should match known file size of 19");
     }
 
     /**
@@ -445,8 +429,7 @@ public final class GeoCodeMongoTest {
         log.info("Entering testAllKeysSize");
         testFixture.loadTestAddresses();
         final int expected = 19;
-        assertEquals("Should match known table size of 19",
-                expected, gcc.allKeys().size());
+        assertEquals(expected, gcc.allKeys().size(), "Should match known table size of 19");
     }
 
     /**
@@ -455,8 +438,7 @@ public final class GeoCodeMongoTest {
     public void testAllKeys() {
         log.info("Entering testAllKeys");
         testFixture.loadTestAddresses();
-        assertTrue("Should contain search string",
-                gcc.allKeys().contains("America"));
+        assertTrue(gcc.allKeys().contains("America"), "Should contain search string");
     }
 
     /**
@@ -467,8 +449,7 @@ public final class GeoCodeMongoTest {
         testFixture.loadTestAddresses();
         final GeoCodeItem gci = gcc.find("America");
         gcc.delete(gci);
-        assertFalse("Should not contain search string",
-                gcc.allKeys().contains("America"));
+        assertFalse(gcc.allKeys().contains("America"), "Should not contain search string");
     }
 
     /** */
@@ -477,7 +458,7 @@ public final class GeoCodeMongoTest {
         final GeoCodeItem input = new GeoCodeItem("America");
         gcc.add(input);
         final GeoCodeItem output = gcc.get("America");
-        assertEquals("Items should match", input, output);
+        assertEquals(input, output, "Items should match");
     }
 
     /** */
@@ -486,7 +467,7 @@ public final class GeoCodeMongoTest {
         final GeoCodeItem input = new GeoCodeItem("America");
         gcc.add(input);
         final GeoCodeItem output = gcc.find("America");
-        assertNotEquals("Items should not match", input, output);
+        assertNotEquals(input, output, "Items should not match");
     }
 
     /** */
@@ -495,7 +476,7 @@ public final class GeoCodeMongoTest {
         final GeoCodeItem input = new GeoCodeItem("America", "America");
         gcc.add(input);
         final GeoCodeItem output = gcc.find("America", "America");
-        assertNotEquals("Items should not match", input, output);
+        assertNotEquals(input, output, "Items should not match");
     }
 
     /** */
@@ -504,9 +485,9 @@ public final class GeoCodeMongoTest {
         final GeoCodeItem input = new GeoCodeItem("XYZZY", "XYZZY");
         gcc.add(input);
         final GeoCodeItem output = gcc.find("XYZZY", "America");
-        assertTrue("Output should have result",
-                input.getGeocodingResult() == null
-                        && output.getGeocodingResult() != null);
+        assertTrue(input.getGeocodingResult() == null
+                        && output.getGeocodingResult() != null,
+                "Output should have result");
     }
 
     /** */
@@ -515,8 +496,8 @@ public final class GeoCodeMongoTest {
         final GeoCodeItem input = new GeoCodeItem("XYZZY", "XYZZY");
         gcc.add(input);
         final GeoCodeItem output = gcc.find("XYZZY", "America");
-        assertNotEquals("Items should not match",
-                input.getModernPlaceName(), output.getModernPlaceName());
+        assertNotEquals(input.getModernPlaceName(), output.getModernPlaceName(),
+                "Items should not match");
     }
 
     /** */
@@ -525,9 +506,9 @@ public final class GeoCodeMongoTest {
         final GeoCodeItem input = new GeoCodeItem("XYZZY", "XYZZY");
         gcc.add(input);
         final GeoCodeItem output = gcc.find("XYZZY", "PLUGH");
-        assertTrue("Output should not have result",
-                input.getGeocodingResult() == null
-                        && output.getGeocodingResult() == null);
+        assertTrue(input.getGeocodingResult() == null
+                        && output.getGeocodingResult() == null,
+                "Output should not have result");
     }
 
     /** */
@@ -536,8 +517,8 @@ public final class GeoCodeMongoTest {
         final GeoCodeItem input = new GeoCodeItem("XYZZY", "XYZZY");
         gcc.add(input);
         final GeoCodeItem output = gcc.find("XYZZY", "PLUGH");
-        assertNotEquals("Items should not match",
-                input.getModernPlaceName(), output.getModernPlaceName());
+        assertNotEquals(input.getModernPlaceName(), output.getModernPlaceName(),
+                "Items should not match");
     }
 
     /**

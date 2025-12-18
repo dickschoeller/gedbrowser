@@ -163,7 +163,7 @@ public class FamilyControllerTest {
                 + " Sacerdote. The witnesses were Mark\\nA. Friedman, fraternity"
                 + " brother of the groom and Donald S.\\nFriedman, a friend of"
                 + " bride and groom\"\n"
-                + "    },{";
+                + "    }, {";
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody()).startsWith(bodyFragment);

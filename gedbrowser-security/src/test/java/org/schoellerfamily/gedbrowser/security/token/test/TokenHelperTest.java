@@ -3,8 +3,8 @@ package org.schoellerfamily.gedbrowser.security.token.test;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import org.joda.time.DateTimeUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.security.token.TokenHelper;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -21,7 +21,7 @@ public class TokenHelperTest {
     /**
      * Setup token helper for testing.
      */
-    @Before
+    @BeforeEach
     public void init() {
         tokenHelper = new TokenHelper();
         final long twentyMillis = 20L;
