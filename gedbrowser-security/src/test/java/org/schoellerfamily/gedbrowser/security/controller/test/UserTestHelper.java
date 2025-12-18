@@ -18,6 +18,7 @@ import org.springframework.lang.NonNull;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("null")
 public class UserTestHelper {
     /** */
     private final int port;
@@ -76,7 +77,7 @@ public class UserTestHelper {
      * @return the User
      * @throws URISyntaxException if the URI is bogus
      */
-    public SecurityUser getUser(final HttpHeaders headers,
+	public SecurityUser getUser(final HttpHeaders headers,
             final String requestName) throws URISyntaxException {
         return getUserResponse(headers, requestName).getBody();
     }

@@ -14,6 +14,7 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("null")
 public class UserFacadeTest {
     /**
      * @author Dick Schoeller

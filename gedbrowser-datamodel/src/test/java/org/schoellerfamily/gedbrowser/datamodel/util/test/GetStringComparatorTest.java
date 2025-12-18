@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("null")
 public class GetStringComparatorTest {
     /** */
      private static final Object[][] PARAMETERS = {

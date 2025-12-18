@@ -17,6 +17,7 @@ import org.schoellerfamily.gedbrowser.reader.StreamManager;
  *
  * @author Dick Schoeller
  */
+@SuppressWarnings("null")
 public final class TestResourceReader {
     /**
      * Constructor.

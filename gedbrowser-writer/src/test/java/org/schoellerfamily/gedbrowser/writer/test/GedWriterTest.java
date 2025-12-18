@@ -31,6 +31,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 @Slf4j
+@SuppressWarnings("null")
 public class GedWriterTest {
     /** */
     @Autowired

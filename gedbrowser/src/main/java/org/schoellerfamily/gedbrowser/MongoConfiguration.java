@@ -45,6 +45,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 import org.springframework.data.mongodb.repository.config.
     EnableMongoRepositories;
+import org.springframework.lang.NonNull;
 import org.springframework.web.client.RestTemplate;
 
 import com.mongodb.client.MongoClient;
@@ -97,10 +98,15 @@ public class MongoConfiguration {
      * @throws UnknownHostException because it must
      */
     @Bean
+    @NonNull
     public MongoDatabaseFactory mongoDbFactory() throws UnknownHostException {
         final String databaseName = "gedbrowser-1_2_2";
         final String connectionString = "mongodb://" + host + ":" + port;
         final MongoClient client = MongoClients.create(connectionString);
+        if (client == null) {
+			throw new UnknownHostException(
+					"Could not connect to MongoDB at " + connectionString);
+		}
         return new SimpleMongoClientDatabaseFactory(client, databaseName);
     }
 

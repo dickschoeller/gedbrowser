@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.*;
+import static org.assertj.core.api.BDDAssertions.then;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
-@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "null" })
 public class LoginControllerTest {
 
     /**

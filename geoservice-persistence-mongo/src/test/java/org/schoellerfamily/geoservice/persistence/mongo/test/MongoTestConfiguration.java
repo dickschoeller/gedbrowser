@@ -39,6 +39,7 @@ import lombok.RequiredArgsConstructor;
                 value = { GeoDocumentRepositoryMongo.class },
                 type = FilterType.ASSIGNABLE_TYPE))
 @RequiredArgsConstructor
+@SuppressWarnings("null")
 public class MongoTestConfiguration {
     /** */
     @Value("${spring.data.mongodb.host:localhost}")

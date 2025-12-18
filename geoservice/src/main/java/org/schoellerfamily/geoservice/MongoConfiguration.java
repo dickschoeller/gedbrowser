@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.lang.NonNull;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -46,9 +47,13 @@ public class MongoConfiguration {
      * @throws UnknownHostException because it must
      */
     @Bean
+    @NonNull
     public MongoDatabaseFactory mongoDbFactory() throws UnknownHostException {
         final String connectionString = "mongodb://" + host + ":" + port;
         final MongoClient client = MongoClients.create(connectionString);
+        if (client == null) {
+			throw new UnknownHostException("Could not connect to MongoDB at " + connectionString);
+		}
         return new SimpleMongoClientDatabaseFactory(client, "geoservice");
     }
 

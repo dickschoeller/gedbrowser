@@ -46,9 +46,10 @@ public class SaveController {
      * @param response the servlet response object, needed for tweaking headers
      * @return a string identifying which HTML template to use.
      */
-    @GetMapping(value = "/v1/dbs/{db}/save",
+	@GetMapping(value = "/v1/dbs/{db}/save",
             produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
+    @SuppressWarnings("null")
     public final ResponseEntity<String> save(@PathVariable final String db,
             final HttpServletResponse response) {
         log.info("Starting save");
@@ -61,8 +62,7 @@ public class SaveController {
             log.info("filename: {}", filename);
             final HttpHeaders headers = new HttpHeaders();
             headers.setAccessControlExposeHeaders(List.of("Content-Disposition"));
-            headers.set(
-                    "Content-Disposition", "attachment; filename=" + filename);
+            headers.set("Content-Disposition", "attachment; filename=" + filename);
             headers.setContentType(MediaType.TEXT_PLAIN);
             log.info("Exiting save");
             return new ResponseEntity<>(contents, headers, HttpStatus.OK);
@@ -70,8 +70,7 @@ public class SaveController {
             final HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.TEXT_PLAIN);
             log.info("Exiting save");
-            return new ResponseEntity<>(
-                    e.getMessage(), headers, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), headers, HttpStatus.NOT_FOUND);
         }
     }
 

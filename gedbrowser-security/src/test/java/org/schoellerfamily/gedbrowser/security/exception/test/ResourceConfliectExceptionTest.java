@@ -8,6 +8,7 @@ import org.schoellerfamily.gedbrowser.security.exception.ResourceConflictExcepti
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("null")
 public class ResourceConfliectExceptionTest {
     /** */
     @Test

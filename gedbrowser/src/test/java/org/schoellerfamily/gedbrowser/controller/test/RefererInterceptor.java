@@ -29,6 +29,7 @@ public class RefererInterceptor implements ClientHttpRequestInterceptor {
      * {@inheritDoc}
      */
     @Override
+    @NonNull
     public ClientHttpResponse intercept(
             @NonNull
             final HttpRequest request,

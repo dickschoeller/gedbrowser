@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("null")
 @RequiredArgsConstructor
 public final class RepositoryFixture {
     /** */

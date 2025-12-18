@@ -7,6 +7,7 @@ import org.schoellerfamily.gedbrowser.api.service.storage.StorageService;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -61,10 +62,14 @@ public class UploadController {
     @ResponseBody
     public final ApiHead upload(
             @RequestParam("file") final MultipartFile file) {
-        log.info("in file upload: {}", file.getOriginalFilename());
+        final String originalFilename = file.getOriginalFilename();
+        if (ObjectUtils.isEmpty(originalFilename)) {
+			throw new IllegalArgumentException("File name is empty");
+		}
+		log.info("in file upload: {}", originalFilename);
         storageService.store(file);
-        final String name =
-                file.getOriginalFilename().replaceAll("\\.ged", "");
+        @SuppressWarnings("null")
+		final String name = originalFilename.replaceAll("\\.ged", "");
         return readOne(name);
     }
 }

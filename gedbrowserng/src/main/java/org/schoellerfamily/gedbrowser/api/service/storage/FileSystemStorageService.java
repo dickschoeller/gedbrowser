@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.schoellerfamily.gedbrowser.api.GedbrowserPropertiesService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -48,8 +49,12 @@ public class FileSystemStorageService implements StorageService {
      * @return the filename
      */
     private String validateFile(final MultipartFile file) {
-        final String filename = StringUtils
-                .cleanPath(file.getOriginalFilename());
+        final String originalFilename = file.getOriginalFilename();
+        if (ObjectUtils.isEmpty(originalFilename)) {
+			throw new StorageException("Failed to store file with empty name");
+		}
+        @SuppressWarnings("null")
+		final String filename = StringUtils.cleanPath(originalFilename);
         if (file.isEmpty()) {
             throw new StorageException("Failed to store empty file %s".formatted(filename));
         }

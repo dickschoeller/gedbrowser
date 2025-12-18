@@ -118,7 +118,10 @@ public class MongoTestConfiguration {
      * @return the finder
      */
     @Bean
-    public FinderStrategy finder(final RepositoryManagerMongo repositoryManager,
+    public FinderStrategy finder(
+    		@NonNull
+    		final RepositoryManagerMongo repositoryManager,
+    		@NonNull
             final GedObjectToGedDocumentMongoConverter toDocConverter) {
         return new RepositoryFinderMongo(repositoryManager, toDocConverter);
     }

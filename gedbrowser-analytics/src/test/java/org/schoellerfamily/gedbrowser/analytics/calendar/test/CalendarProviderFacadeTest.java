@@ -15,6 +15,7 @@ import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("null")
 public class CalendarProviderFacadeTest {
     /** */
     private final Calendar calendar = Calendar.getInstance();

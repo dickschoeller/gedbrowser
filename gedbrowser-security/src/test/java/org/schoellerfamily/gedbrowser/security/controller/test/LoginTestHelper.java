@@ -12,26 +12,19 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Dick Schoeller
  */
+@RequiredArgsConstructor
+@SuppressWarnings("null")
 public final class LoginTestHelper {
     /** */
     private final TestRestTemplate template;
 
     /** */
     private final int port;
-
-    /**
-     * Constructor.
-     *
-     * @param template the REST template
-     * @param port the port
-     */
-    public LoginTestHelper(final TestRestTemplate template, final int port) {
-        this.template = template;
-        this.port = port;
-    }
 
     /**
      * Login and return the entity. Other exposed methods will use this and then

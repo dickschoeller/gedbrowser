@@ -13,6 +13,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("null")
 public class TokenHelperTest {
 	private static String KEY = "mySecret";
     /** */

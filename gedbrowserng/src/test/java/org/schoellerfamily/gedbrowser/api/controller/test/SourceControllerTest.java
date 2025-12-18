@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.BDDAssertions.then;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -33,7 +33,7 @@ import org.springframework.web.client.RestClientException;
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
-@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "null" })
 public class SourceControllerTest {
     /**
      * Not sure what this is good for.

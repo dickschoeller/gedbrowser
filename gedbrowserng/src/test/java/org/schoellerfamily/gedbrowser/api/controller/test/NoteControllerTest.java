@@ -34,7 +34,7 @@ import org.springframework.web.client.RestClientException;
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
-@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "null" })
 public class NoteControllerTest {
     /**
      * Not sure what this is good for.

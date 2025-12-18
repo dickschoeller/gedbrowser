@@ -23,7 +23,7 @@ import org.springframework.test.context.TestPropertySource;
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
-@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "null" })
 @TestMethodOrder(MethodOrderer.MethodName.class)
 public class BackupRestoreEndpointTest {
     /**

@@ -35,6 +35,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Richard Schoeller
  */
 @ExtendWith(MockitoExtension.class)
+@SuppressWarnings("null")
 public class UploadControllerTest {
     /** */
     private InputStream is;

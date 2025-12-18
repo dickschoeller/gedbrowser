@@ -30,6 +30,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class,
     classes = { GeoCodeBackupTest.ContextConfiguration.class, GeoCodeBackup.class })
+@SuppressWarnings("null")
 public final class GeoCodeBackupTest {
     /** */
     @Autowired

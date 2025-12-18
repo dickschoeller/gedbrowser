@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
-@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+@SuppressWarnings({"PMD.JUnitTestsShouldIncludeAssert", "null"})
 @Slf4j
 public class SubmissionCrudTest {
 

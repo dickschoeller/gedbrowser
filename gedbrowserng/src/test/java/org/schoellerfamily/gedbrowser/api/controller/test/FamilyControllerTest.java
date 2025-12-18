@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
@@ -26,6 +25,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.web.client.RestClientException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,8 +36,8 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
-@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 @Slf4j
+@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "null" })
 public class FamilyControllerTest {
 
     /**

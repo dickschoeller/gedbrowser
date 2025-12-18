@@ -6,6 +6,7 @@ import org.schoellerfamily.gedbrowser.api.service.storage.StorageException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -23,7 +24,10 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = { ObjectNotFoundException.class })
     protected ResponseEntity<Object> handleObjectNotFound(
-            final ObjectNotFoundException ex, final WebRequest request) {
+    		@NonNull
+            final ObjectNotFoundException ex,
+            @NonNull
+            final WebRequest request) {
         final ObjectNotFoundException newex = new ObjectNotFoundException(
                 ex.getMessage(), ex.getObjectType(), ex.getId(),
                 ex.getDatasetName());
@@ -39,12 +43,14 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = { DataSetNotFoundException.class })
     protected ResponseEntity<Object> handleDataSetNotFound(
-            final DataSetNotFoundException ex, final WebRequest request) {
+    		@NonNull
+            final DataSetNotFoundException ex,
+            @NonNull
+            final WebRequest request) {
         final DataSetNotFoundException newex = new DataSetNotFoundException(
                 ex.getMessage(), ex.getDatasetName());
         newex.setStackTrace(new StackTraceElement[0]);
-        return handleExceptionInternal(ex, newex, new HttpHeaders(),
-                HttpStatus.NOT_FOUND, request);
+        return handleExceptionInternal(ex, newex, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
     /**
@@ -54,7 +60,10 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = { StorageException.class })
     protected ResponseEntity<Object> handleStorageException(
-            final StorageException ex, final WebRequest request) {
+    		@NonNull
+            final StorageException ex,
+            @NonNull
+            final WebRequest request) {
         final StorageException newex = new StorageException(
                 ex.getMessage());
         newex.setStackTrace(new StackTraceElement[0]);

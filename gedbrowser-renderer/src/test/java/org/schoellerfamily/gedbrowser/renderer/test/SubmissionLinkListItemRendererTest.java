@@ -25,6 +25,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
+@SuppressWarnings("null")
 public final class SubmissionLinkListItemRendererTest {
     /** */
     @Autowired

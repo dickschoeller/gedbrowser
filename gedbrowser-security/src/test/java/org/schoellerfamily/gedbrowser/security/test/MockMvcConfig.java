@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Configuration
 @RequiredArgsConstructor
+@SuppressWarnings("null")
 public class MockMvcConfig {
     /** */
     private final WebApplicationContext wac;

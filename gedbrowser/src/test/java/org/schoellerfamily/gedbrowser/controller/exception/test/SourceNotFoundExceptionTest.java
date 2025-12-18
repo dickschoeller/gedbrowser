@@ -14,6 +14,7 @@ import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("null")
 public class SourceNotFoundExceptionTest {
     /** */
     private SourceNotFoundException exception;
