@@ -102,7 +102,7 @@
     <gpg-plugin.version>1.6</gpg-plugin.version>
     <nexus-staging-plugin.version>1.6.8</nexus-staging-plugin.version>
     <!-- don't upgrade. eclipse doesn't like -->
-    <jar-plugin.version>3.1.1</jar-plugin.version>
+    <jar-plugin.version>3.5.0</jar-plugin.version>
 
     <docker-plugin.version>1.2.2</docker-plugin.version>
     <docker.image.prefix>dickschoeller</docker.image.prefix>
