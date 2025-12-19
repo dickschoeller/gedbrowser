@@ -52,57 +52,57 @@
     <gedbrowser.version>1.3.0-RC3-SNAPSHOT</gedbrowser.version>
 
     <!-- These all step forward together -->
-    <spring.version>6.2.14</spring.version>
-    <spring-boot.version>3.5.8</spring-boot.version>
-    <spring-boot-maven.version>3.5.8</spring-boot-maven.version>
-    <spring-data-mongodb.version>4.5.6</spring-data-mongodb.version>
-    <spring-data-commons.version>3.5.6</spring-data-commons.version>
+    <spring.version>6.2.15</spring.version>
+    <spring-boot.version>3.5.9</spring-boot.version>
+    <spring-boot-maven.version>3.5.9</spring-boot-maven.version>
+    <spring-data-mongodb.version>4.5.7</spring-data-mongodb.version>
+    <spring-data-commons.version>3.5.7</spring-data-commons.version>
     <!-- -->
     <!-- Stay in 1.4.x until going to Spring 5 -->
     <undertow.version>2.3.20.Final</undertow.version>
 
     <cglib.version>3.3.0</cglib.version>
     <!-- might try 0.9.1 of google -->
-    <google-maps-services.version>0.10.0</google-maps-services.version>
+    <google-maps-services.version>2.2.0</google-maps-services.version>
     <jackson-core.version>2.20.1</jackson-core.version>
     <jackson-databind.version>2.20.1</jackson-databind.version>
     <jackson-annotations.version>2.20</jackson-annotations.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
-    <joda-time.version>2.10.6</joda-time.version>
+    <joda-time.version>2.14.0</joda-time.version>
 
-    <junit-jupiter.version>5.12.2</junit-jupiter.version>
+    <junit-jupiter.version>5.14.1</junit-jupiter.version>
+    <junit-platform.version>1.14.1</junit-platform.version>
     <saucebindings-junit5.version>1.5.0</saucebindings-junit5.version>
-    <selenium.version>4.13.0</selenium.version>
+    <selenium.version>4.39.0</selenium.version>
     <htmlunit-driver.version>4.13.0</htmlunit-driver.version>
 
-    <geojson-jackson.version>1.14</geojson-jackson.version>
+    <geojson-jackson.version>3.0</geojson-jackson.version>
     <slf4j.version>2.0.17</slf4j.version>
-    <logback.version>1.5.21</logback.version>
+    <logback.version>1.5.22</logback.version>
     <anselcharset.version>1.1</anselcharset.version>
-    <commons-io.version>2.14.0</commons-io.version>
-    <commons-logging.version>1.2</commons-logging.version>
-    <commons-lang3.version>3.18.0</commons-lang3.version>
-    <assertj.version>3.16.1</assertj.version>
-
+    <commons-io.version>2.21.0</commons-io.version>
+    <commons-logging.version>1.3.5</commons-logging.version>
+    <commons-lang3.version>3.20.0</commons-lang3.version>
+    <assertj.version>3.27.6</assertj.version>
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
     <jacoco-plugin.version>0.8.14</jacoco-plugin.version>
     <spotbugs-plugin.version>4.9.8.2</spotbugs-plugin.version>
     <checkstyle-plugin.version>3.6.0</checkstyle-plugin.version>
-    <checkstyle-version>12.1.1</checkstyle-version>
+    <checkstyle-version>12.3.0</checkstyle-version>
     <pmd-plugin.version>3.28.0</pmd-plugin.version>
-    <pmd-version>7.18.0</pmd-version>
-    <build-helper-plugin.version>3.0.0</build-helper-plugin.version>
-    <jxr-plugin.version>3.0.0</jxr-plugin.version>
-    <compiler-plugin.version>3.8.1</compiler-plugin.version>
-    <source-plugin.version>3.2.1</source-plugin.version>
+    <pmd-version>7.19.0</pmd-version>
+    <build-helper-plugin.version>3.6.1</build-helper-plugin.version>
+    <jxr-plugin.version>3.6.0</jxr-plugin.version>
+    <compiler-plugin.version>3.14.1</compiler-plugin.version>
+    <source-plugin.version>3.4.0</source-plugin.version>
     <failsafe.version>3.5.4</failsafe.version>
     <surefire.version>3.5.4</surefire.version>
-    <javadoc-plugin.version>3.1.1</javadoc-plugin.version>
+    <javadoc-plugin.version>3.12.0</javadoc-plugin.version>
     <gpg-plugin.version>1.6</gpg-plugin.version>
-    <nexus-staging-plugin.version>1.6.8</nexus-staging-plugin.version>
+    <nexus-staging-plugin.version>1.7.0</nexus-staging-plugin.version>
     <!-- don't upgrade. eclipse doesn't like -->
-    <jar-plugin.version>3.1.1</jar-plugin.version>
+    <jar-plugin.version>3.5.0</jar-plugin.version>
 
     <docker-plugin.version>1.2.2</docker-plugin.version>
     <docker.image.prefix>dickschoeller</docker.image.prefix>
@@ -552,12 +552,12 @@
       <dependency>
         <groupId>org.mongodb</groupId>
         <artifactId>mongodb-driver-sync</artifactId>
-        <version>5.5.2</version>
+        <version>5.6.2</version>
       </dependency>
       <dependency>
         <groupId>org.mongodb</groupId>
         <artifactId>mongodb-driver-core</artifactId>
-        <version>5.5.2</version>
+        <version>5.6.2</version>
       </dependency>
       <dependency>
         <groupId>org.springframework.data</groupId>
@@ -719,6 +719,34 @@
         <artifactId>commons-lang3</artifactId>
         <version>${commons-lang3.version}</version>
       </dependency>
+      <!-- related to working forward on google-maps-services -->
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp</artifactId>
+        <version>4.12.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-stdlib</artifactId>
+        <version>1.6.20</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-stdlib-jdk7</artifactId>
+        <version>1.6.20</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-stdlib-jdk8</artifactId>
+        <version>1.6.20</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-stdlib-common</artifactId>
+        <version>1.6.20</version>
+      </dependency>
+      <!-- end of working forward on google-maps-services -->
+
       <dependency>
         <groupId>org.assertj</groupId>
         <artifactId>assertj-core</artifactId>
@@ -762,6 +790,12 @@
       </dependency>
       <dependency>
         <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <scope>test</scope>
+        <version>${junit-jupiter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-params</artifactId>
         <scope>test</scope>
         <version>${junit-jupiter.version}</version>
@@ -771,6 +805,21 @@
         <artifactId>junit-jupiter-api</artifactId>
         <version>${junit-jupiter.version}</version>
         <scope>test</scope>
+      </dependency>
+      <dependency>
+	<groupId>org.junit.platform</groupId>
+	<artifactId>junit-platform-commons</artifactId>
+	<version>${junit-platform.version}</version>
+      </dependency>
+      <dependency>
+	<groupId>org.junit.platform</groupId>
+	<artifactId>junit-platform-engine</artifactId>
+	<version>${junit-platform.version}</version>
+      </dependency>
+      <dependency>
+	<groupId>org.junit.platform</groupId>
+	<artifactId>junit-platform-launcher</artifactId>
+	<version>${junit-platform.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
