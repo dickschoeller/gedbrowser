@@ -81,9 +81,8 @@
     <anselcharset.version>1.1</anselcharset.version>
     <commons-io.version>2.21.0</commons-io.version>
     <commons-logging.version>1.2</commons-logging.version>
-    <commons-lang3.version>3.18.0</commons-lang3.version>
+    <commons-lang3.version>3.20.0</commons-lang3.version>
     <assertj.version>3.27.6</assertj.version>
-
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
     <jacoco-plugin.version>0.8.14</jacoco-plugin.version>
