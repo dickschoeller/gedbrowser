@@ -1797,10 +1797,10 @@
   resolved "https://registry.yarnpkg.com/@inquirer/type/-/type-3.0.10.tgz#11ed564ec78432a200ea2601a212d24af8150d50"
   integrity sha512-BvziSRxfz5Ov8ch0z/n3oijRSEcEsHnhggm4xFZe93DHcUCTlutlq9Ox4SVENAfcRD22UQq7T/atg9Wr3k09eA==
 
-"@iplab/ngx-file-upload@^20.0.0":
-  version "20.0.1"
-  resolved "https://registry.yarnpkg.com/@iplab/ngx-file-upload/-/ngx-file-upload-20.0.1.tgz#399602fed6cd2fe31c4180578d051555744cdc74"
-  integrity sha512-oL5N2Wdh0r5z+pThlN6kI3xN6NEq5EPYAiAN6jxbQaU/4Fkb5qdopmZxrt8cBThUhAwItcgslbK9dX4eU5zzTw==
+"@iplab/ngx-file-upload@^21.0.0":
+  version "21.0.0"
+  resolved "https://registry.yarnpkg.com/@iplab/ngx-file-upload/-/ngx-file-upload-21.0.0.tgz#17e9005cfb580ae849f8404dffc8999ce6189caf"
+  integrity sha512-yMlrl6FVYpwWPaJdbtjy+DfwQzpMmdfRYAooA7HXnb7d3pYvg2QGp9BSXt12UShT8vOAoDNk/guzEztbXkfLYA==
   dependencies:
     tslib "^2.3.0"
 
