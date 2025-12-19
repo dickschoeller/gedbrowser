@@ -93,7 +93,7 @@
     <pmd-plugin.version>3.28.0</pmd-plugin.version>
     <pmd-version>7.19.0</pmd-version>
     <build-helper-plugin.version>3.6.1</build-helper-plugin.version>
-    <jxr-plugin.version>3.0.0</jxr-plugin.version>
+    <jxr-plugin.version>3.6.0</jxr-plugin.version>
     <compiler-plugin.version>3.14.1</compiler-plugin.version>
     <source-plugin.version>3.4.0</source-plugin.version>
     <failsafe.version>3.5.4</failsafe.version>
