@@ -297,10 +297,10 @@
   dependencies:
     "@angular-eslint/bundled-angular-compiler" "20.7.0"
 
-"@angular/animations@20.3.10":
-  version "20.3.10"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-20.3.10.tgz#6f58413fcf499158b1f2600471381575be0c3399"
-  integrity sha512-WSKHyF82URlAQkYGWZjozZgSYj2ClH40GDunayz6kuRewup639iH91HE8sbFfVqKgqELKIAy2E0LhmtDKnMwZA==
+"@angular/animations@20.3.15":
+  version "20.3.15"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-20.3.15.tgz#4acd599812e0d409278207ad7afa1829a39fdea4"
+  integrity sha512-ikyKfhkxoqQA6JcBN0B9RaN6369sM1XYX81Id0lI58dmWCe7gYfrTp8ejqxxKftl514psQO3pkW8Gn1nJ131Gw==
   dependencies:
     tslib "^2.3.0"
 
@@ -370,17 +370,17 @@
     yargs "18.0.0"
     zod "4.1.13"
 
-"@angular/common@20.3.14":
-  version "20.3.14"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-20.3.14.tgz#62d7e693ae70d3ac41aa424c602c490c0e8d46c5"
-  integrity sha512-OOUvjTtnpktJLsNupA+GFT2q5zNocPdpOENA8aSrXvAheNybLjgi+otO3U3sQsvB1VwaoEZ9GT5O3lZlstnA/A==
+"@angular/common@20.3.15":
+  version "20.3.15"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-20.3.15.tgz#a261e9bb14124db6e791a59ca17f0dea2f938b1c"
+  integrity sha512-k4mCXWRFiOHK3bUKfWkRQQ8KBPxW8TAJuKLYCsSHPCpMz6u0eA1F0VlrnOkZVKWPI792fOaEAWH2Y4PTaXlUHw==
   dependencies:
     tslib "^2.3.0"
 
-"@angular/compiler-cli@20.3.10":
-  version "20.3.10"
-  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-20.3.10.tgz#5eee6440472817def18331f55396eacfb01aa7e3"
-  integrity sha512-9BemvpFxA26yIVdu8ROffadMkEdlk/AQQ2Jb486w7RPkrvUQ0pbEJukhv9aryJvhbMopT66S5H/j4ipOUMzmzQ==
+"@angular/compiler-cli@20.3.15":
+  version "20.3.15"
+  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-20.3.15.tgz#71c30ac343ee708efabb99d08305c4b3e8e6899a"
+  integrity sha512-8sJoxodxsfyZ8eJ5r6Bx7BCbazXYgsZ1+dE8t5u5rTQ6jNggwNtYEzkyReoD5xvP+MMtRkos3xpwq4rtFnpI6A==
   dependencies:
     "@babel/core" "7.28.3"
     "@jridgewell/sourcemap-codec" "^1.4.14"
@@ -398,10 +398,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@20.3.10":
-  version "20.3.10"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-20.3.10.tgz#6e1162cc361e68fcf36a8b65bc58d1c6b5f36092"
-  integrity sha512-g99Qe+NOVo72OLxowVF9NjCckswWYHmvO7MgeiZTDJbTjF9tXH96dMx7AWq76/GUinV10sNzDysVW16NoAbCRQ==
+"@angular/core@20.3.15":
+  version "20.3.15"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-20.3.15.tgz#a3984ccbb21f85df9ff7482f1c90dbdf62f5de67"
+  integrity sha512-NMbX71SlTZIY9+rh/SPhRYFJU0pMJYW7z/TBD4lqiO+b0DTOIg1k7Pg9ydJGqSjFO1Z4dQaA6TteNuF99TJCNw==
   dependencies:
     tslib "^2.3.0"
 
@@ -412,10 +412,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/language-service@20.3.10":
-  version "20.3.10"
-  resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-20.3.10.tgz#5faa1dd935fb6e4d3898574ad0602af5fb96475d"
-  integrity sha512-H4fcFkNSurMNEvDwpm6e/iM5Fv4adxwNS03ksFWlwyMoYUSodFx9qcd0QEKqfuT0vug4xqNNvRHViBZjkpV9zQ==
+"@angular/language-service@20.3.15":
+  version "20.3.15"
+  resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-20.3.15.tgz#d66d71076f342a96e5e73dd8eec0c57a7e4c33bc"
+  integrity sha512-oD5rvAsZYzNqdJqMTYYp6T9yITG6axTI/j64v3qxHe+Y/PlHKfNHXcjENpA+LcR5wq0wtIE+s96APykCq9ouEQ==
 
 "@angular/material@^20.2.12":
   version "20.2.14"
@@ -10325,7 +10325,7 @@ zod@4.1.13:
   resolved "https://registry.yarnpkg.com/zod/-/zod-4.2.1.tgz#07f0388c7edbfd5f5a2466181cb4adf5b5dbd57b"
   integrity sha512-0wZ1IRqGGhMP76gLqz8EyfBXKk0J2qo2+H3fi4mcUP/KtTocoX08nmIAHl1Z2kJIZbZee8KOpBCSNPRgauucjw==
 
-zone.js@~0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.9.1.tgz#e37c6e5c54c13fae4de26b5ffe8d8e9212da6d9b"
-  integrity sha512-GkPiJL8jifSrKReKaTZ5jkhrMEgXbXYC+IPo1iquBjayRa0q86w3Dipjn8b415jpitMExe9lV8iTsv8tk3DGag==
+zone.js@^0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.16.0.tgz#955b9e28846d76ca2ef7091c8f9e96f35f79e828"
+  integrity sha512-LqLPpIQANebrlxY6jKcYKdgN5DTXyyHAKnnWWjE5pPfEQ4n7j5zn7mOEEpwNZVKGqx3kKKmvplEmoBrvpgROTA==
