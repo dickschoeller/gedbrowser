@@ -75,7 +75,7 @@
     <selenium.version>4.13.0</selenium.version>
     <htmlunit-driver.version>4.13.0</htmlunit-driver.version>
 
-    <geojson-jackson.version>1.14</geojson-jackson.version>
+    <geojson-jackson.version>3.0</geojson-jackson.version>
     <slf4j.version>2.0.17</slf4j.version>
     <logback.version>1.5.21</logback.version>
     <anselcharset.version>1.1</anselcharset.version>
