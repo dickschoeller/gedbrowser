@@ -63,7 +63,7 @@
 
     <cglib.version>3.3.0</cglib.version>
     <!-- might try 0.9.1 of google -->
-    <google-maps-services.version>0.10.0</google-maps-services.version>
+    <google-maps-services.version>0.19.0</google-maps-services.version>
     <jackson-core.version>2.20.1</jackson-core.version>
     <jackson-databind.version>2.20.1</jackson-databind.version>
     <jackson-annotations.version>2.20</jackson-annotations.version>
