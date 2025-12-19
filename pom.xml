@@ -70,7 +70,7 @@
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.14.0</joda-time.version>
 
-    <junit-jupiter.version>5.12.2</junit-jupiter.version>
+    <junit-jupiter.version>5.14.1</junit-jupiter.version>
     <saucebindings-junit5.version>1.5.0</saucebindings-junit5.version>
     <selenium.version>4.13.0</selenium.version>
     <htmlunit-driver.version>4.13.0</htmlunit-driver.version>
