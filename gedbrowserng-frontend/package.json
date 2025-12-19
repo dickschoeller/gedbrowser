@@ -40,7 +40,6 @@
     "ngx-page-scroll": "^15.0.1",
     "ngx-page-scroll-core": "^15.0.1",
     "npm": "^11.6.1",
-    "polyfills": "^2.1.1",
     "primeicons": "^7.0.0",
     "primeng": "^20.3.0",
     "rxjs": "^7.8.2",
