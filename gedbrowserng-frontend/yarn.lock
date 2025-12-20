@@ -427,27 +427,6 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/platform-browser-dynamic@^21.0.0":
-  version "21.0.6"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-21.0.6.tgz#d8dd320071d5d8d6103db485e2647aebe43e41ac"
-  integrity sha512-7mvlvEx66C1cwbAbaeTnbfw1EeZwK5eRCT55pGW+Fsx+vg/8TVF/6NPEbYO65earwIp9Xqt9mGGtq+fPopsbSA==
-  dependencies:
-    tslib "^2.3.0"
-
-"@angular/platform-browser@^21.0.0":
-  version "21.0.6"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-21.0.6.tgz#d3746e31d7bbbe073d6cee430d980322c192745b"
-  integrity sha512-tPk8rlUEBPXIUPRYq6Xu7QhJgKtnVr0dOHHuhyi70biKTupr5VikpZC5X9dy2Q3H3zYbK6MHC6384YMuwfU2kg==
-  dependencies:
-    tslib "^2.3.0"
-
-"@angular/router@^21.0.0":
-  version "21.0.6"
-  resolved "https://registry.yarnpkg.com/@angular/router/-/router-21.0.6.tgz#cfb680e14dc07ab35f9d439cfe21ff4b0ca72190"
-  integrity sha512-HOfomKq7jRSgxt/uUvpdbB8RNaYuGB/FJQ3BfQCFfGw1O9L3B72b7Hilk6AcjCruul6cfv/kmT4EB6Vqi3dQtA==
-  dependencies:
-    tslib "^2.3.0"
-
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.27.1":
   version "7.27.1"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.27.1.tgz#200f715e66d52a23b221a9435534a91cc13ad5be"
@@ -1821,13 +1800,6 @@
   version "3.0.10"
   resolved "https://registry.yarnpkg.com/@inquirer/type/-/type-3.0.10.tgz#11ed564ec78432a200ea2601a212d24af8150d50"
   integrity sha512-BvziSRxfz5Ov8ch0z/n3oijRSEcEsHnhggm4xFZe93DHcUCTlutlq9Ox4SVENAfcRD22UQq7T/atg9Wr3k09eA==
-
-"@iplab/ngx-file-upload@^21.0.0":
-  version "21.0.0"
-  resolved "https://registry.yarnpkg.com/@iplab/ngx-file-upload/-/ngx-file-upload-21.0.0.tgz#17e9005cfb580ae849f8404dffc8999ce6189caf"
-  integrity sha512-yMlrl6FVYpwWPaJdbtjy+DfwQzpMmdfRYAooA7HXnb7d3pYvg2QGp9BSXt12UShT8vOAoDNk/guzEztbXkfLYA==
-  dependencies:
-    tslib "^2.3.0"
 
 "@isaacs/balanced-match@^4.0.1":
   version "4.0.1"
