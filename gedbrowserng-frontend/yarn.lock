@@ -7059,10 +7059,10 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-ngx-gallery-15@^19.0.0:
-  version "19.0.13"
-  resolved "https://registry.yarnpkg.com/ngx-gallery-15/-/ngx-gallery-15-19.0.13.tgz#4c5c67193c4ada07f4265cb55faab6ca42d25608"
-  integrity sha512-9ahAxei3FTi5DK/qF46goaeqmwLnlglbHGy7ZItbVoeTzLidg56uq/TE3Pq3wmEVNG4H+6mw4g8pHNd80c6B9A==
+ngx-gallery-15@^21.0.0:
+  version "21.0.7"
+  resolved "https://registry.yarnpkg.com/ngx-gallery-15/-/ngx-gallery-15-21.0.7.tgz#63418aa54379fe07b0ecad6346d6a591f3eb48c1"
+  integrity sha512-EYFt4BnTQ0k0YBTLB9UJXTgvUMRuOW9lLme70k82m8XReO3gml+6xZTzyVYhCisGhgLyRk6tXvOJCOvTpAr0+g==
   dependencies:
     tslib "^2.4.1"
 
