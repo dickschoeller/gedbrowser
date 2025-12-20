@@ -427,6 +427,27 @@
   dependencies:
     tslib "^2.3.0"
 
+"@angular/platform-browser-dynamic@^21.0.6":
+  version "21.0.6"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-21.0.6.tgz#d8dd320071d5d8d6103db485e2647aebe43e41ac"
+  integrity sha512-7mvlvEx66C1cwbAbaeTnbfw1EeZwK5eRCT55pGW+Fsx+vg/8TVF/6NPEbYO65earwIp9Xqt9mGGtq+fPopsbSA==
+  dependencies:
+    tslib "^2.3.0"
+
+"@angular/platform-browser@^21.0.6":
+  version "21.0.6"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-21.0.6.tgz#d3746e31d7bbbe073d6cee430d980322c192745b"
+  integrity sha512-tPk8rlUEBPXIUPRYq6Xu7QhJgKtnVr0dOHHuhyi70biKTupr5VikpZC5X9dy2Q3H3zYbK6MHC6384YMuwfU2kg==
+  dependencies:
+    tslib "^2.3.0"
+
+"@angular/router@^21.0.6":
+  version "21.0.6"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-21.0.6.tgz#cfb680e14dc07ab35f9d439cfe21ff4b0ca72190"
+  integrity sha512-HOfomKq7jRSgxt/uUvpdbB8RNaYuGB/FJQ3BfQCFfGw1O9L3B72b7Hilk6AcjCruul6cfv/kmT4EB6Vqi3dQtA==
+  dependencies:
+    tslib "^2.3.0"
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.27.1":
   version "7.27.1"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.27.1.tgz#200f715e66d52a23b221a9435534a91cc13ad5be"
@@ -1801,6 +1822,13 @@
   resolved "https://registry.yarnpkg.com/@inquirer/type/-/type-3.0.10.tgz#11ed564ec78432a200ea2601a212d24af8150d50"
   integrity sha512-BvziSRxfz5Ov8ch0z/n3oijRSEcEsHnhggm4xFZe93DHcUCTlutlq9Ox4SVENAfcRD22UQq7T/atg9Wr3k09eA==
 
+"@iplab/ngx-file-upload@^21.0.0":
+  version "21.0.0"
+  resolved "https://registry.yarnpkg.com/@iplab/ngx-file-upload/-/ngx-file-upload-21.0.0.tgz#17e9005cfb580ae849f8404dffc8999ce6189caf"
+  integrity sha512-yMlrl6FVYpwWPaJdbtjy+DfwQzpMmdfRYAooA7HXnb7d3pYvg2QGp9BSXt12UShT8vOAoDNk/guzEztbXkfLYA==
+  dependencies:
+    tslib "^2.3.0"
+
 "@isaacs/balanced-match@^4.0.1":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@isaacs/balanced-match/-/balanced-match-4.0.1.tgz#3081dadbc3460661b751e7591d7faea5df39dd29"
@@ -2413,13 +2441,13 @@
     "@parcel/watcher-win32-ia32" "2.5.1"
     "@parcel/watcher-win32-x64" "2.5.1"
 
-"@primeng/themes@^20.3.0":
-  version "20.4.0"
-  resolved "https://registry.yarnpkg.com/@primeng/themes/-/themes-20.4.0.tgz#6981d0a0f187f59b9287b75ee13a685fc66ac4b0"
-  integrity sha512-bh1yIRbCDAo+OLhQ+bm8sgwlZFRphwlR3/GXOdshJVurm5/Up+CWzoRqsZw/Q2RSrq0x3rDNA2pOTIYpcwgXbA==
+"@primeng/themes@^21.0.0":
+  version "21.0.2"
+  resolved "https://registry.yarnpkg.com/@primeng/themes/-/themes-21.0.2.tgz#472937f54302460e07f7417fb175e3651c1ac7bc"
+  integrity sha512-wSw8BtrNUZBmgU5umzMj9WQKVyrLRQkAYORnRYI4wD6+TXVb/J2kQLHCA26vHbXfI6pO4fruft9mySFWlzXk0Q==
   dependencies:
     "@primeuix/styled" "^0.7.4"
-    "@primeuix/themes" "^1.2.5"
+    "@primeuix/themes" "^2.0.2"
 
 "@primeuix/motion@^0.0.10":
   version "0.0.10"
@@ -2428,7 +2456,7 @@
   dependencies:
     "@primeuix/utils" "^0.6.3"
 
-"@primeuix/styled@^0.7.3", "@primeuix/styled@^0.7.4":
+"@primeuix/styled@^0.7.4":
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/@primeuix/styled/-/styled-0.7.4.tgz#d2108a7fad297dea60d549b2c10ed744dc0cbc0e"
   integrity sha512-QSO/NpOQg8e9BONWRBx9y8VGMCMYz0J/uKfNJEya/RGEu7ARx0oYW0ugI1N3/KB1AAvyGxzKBzGImbwg0KUiOQ==
@@ -2442,12 +2470,12 @@
   dependencies:
     "@primeuix/styled" "^0.7.4"
 
-"@primeuix/themes@^1.2.5":
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/@primeuix/themes/-/themes-1.2.5.tgz#fa7f9c7004561c255b2c95bf2daeee41e16c0eef"
-  integrity sha512-n3YkwJrHQaEESc/D/A/iD815sxp8cKnmzscA6a8Tm8YvMtYU32eCahwLLe6h5rywghVwxASWuG36XBgISYOIjQ==
+"@primeuix/themes@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@primeuix/themes/-/themes-2.0.2.tgz#48f138813364552cee3d78b327b438a3a9b5d675"
+  integrity sha512-prwQvA3tDGBz8yWSUenaJUttEMCEvPvxwOfFhDPmSe1vwsfVKL2Nmh5eZvtPFQnxmIOPsHZS7zc0/L3CzJ83Eg==
   dependencies:
-    "@primeuix/styled" "^0.7.3"
+    "@primeuix/styled" "^0.7.4"
 
 "@primeuix/utils@^0.6.1", "@primeuix/utils@^0.6.3":
   version "0.6.3"
