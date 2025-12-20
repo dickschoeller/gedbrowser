@@ -760,24 +760,6 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>io.rest-assured</groupId>
-        <artifactId>rest-assured</artifactId>
-        <version>5.5.6</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>io.rest-assured</groupId>
-        <artifactId>json-path</artifactId>
-        <version>6.0.0</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>io.rest-assured</groupId>
-        <artifactId>xml-path</artifactId>
-        <version>6.0.0</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
         <version>1.18.42</version>
