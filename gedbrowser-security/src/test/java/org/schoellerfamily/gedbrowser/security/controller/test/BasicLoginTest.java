@@ -10,13 +10,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.security.controller.test.LoginTestHelper.LoginResponse;
 import org.schoellerfamily.gedbrowser.security.test.Application;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.client.EntityExchangeResult;
+import org.springframework.test.web.servlet.client.RestTestClient;
 import org.springframework.web.client.RestClientException;
 
 /**
@@ -26,12 +27,10 @@ import org.springframework.web.client.RestClientException;
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
+@AutoConfigureRestTestClient
 public class BasicLoginTest {
-    /**
-     * Not sure what this is good for.
-     */
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private RestTestClient restTestClient;
 
     /**
      * Server port.
@@ -49,7 +48,7 @@ public class BasicLoginTest {
      */
     @BeforeEach
     public void before() {
-        helper = new LoginTestHelper(testRestTemplate, port);
+        helper = new LoginTestHelper(restTestClient, port);
     }
 
     /**
@@ -59,9 +58,9 @@ public class BasicLoginTest {
     @Test
     public final void testLoginController()
             throws RestClientException, URISyntaxException {
-        final ResponseEntity<LoginResponse> response =
+        final EntityExchangeResult<LoginResponse> response =
                 helper.login("guest", "guest");
-        assertEquals(HttpStatus.OK, response.getStatusCode(), "Mismatched login status");
+        assertEquals(HttpStatus.OK, response.getStatus(), "Mismatched login status");
         helper.logout(helper.buildHeaders(response));
     }
 
@@ -73,7 +72,7 @@ public class BasicLoginTest {
     public final void testLoginControllerBadUser()
             throws RestClientException, URISyntaxException {
         assertEquals(HttpStatus.UNAUTHORIZED,
-                helper.login("XYZZY", "guest").getStatusCode(), "Mismatched login status");
+                helper.login("XYZZY", "guest").getStatus(), "Mismatched login status");
     }
 
     /**
@@ -84,6 +83,6 @@ public class BasicLoginTest {
     public final void testLoginControllerBadPassword()
             throws RestClientException, URISyntaxException {
         assertEquals(HttpStatus.UNAUTHORIZED,
-                helper.login("guest", "XYZZY").getStatusCode(), "Mismatched login status");
+                helper.login("guest", "XYZZY").getStatus(), "Mismatched login status");
     }
 }
