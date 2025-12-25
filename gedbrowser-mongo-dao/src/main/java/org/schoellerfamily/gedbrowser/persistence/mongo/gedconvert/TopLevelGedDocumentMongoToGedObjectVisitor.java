@@ -21,7 +21,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmissionDocumen
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
-import org.springframework.lang.NonNull;
 
 /**
  * @author Dick Schoeller
@@ -71,7 +70,7 @@ public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public final void visit(@NonNull final PersonDocumentMongo document) {
+    public final void visit(final PersonDocumentMongo document) {
         gedObject = new Person(parent, new ObjectId(document.getString()));
     }
 
@@ -79,7 +78,7 @@ public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public final void visit(@NonNull final FamilyDocumentMongo document) {
+    public final void visit(final FamilyDocumentMongo document) {
         gedObject = new Family(parent, new ObjectId(document.getString()));
     }
 
@@ -87,7 +86,7 @@ public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public final void visit(@NonNull final SourceDocumentMongo document) {
+    public final void visit(final SourceDocumentMongo document) {
         gedObject = new Source(parent, new ObjectId(document.getString()));
     }
 
@@ -95,7 +94,7 @@ public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public final void visit(@NonNull final HeadDocumentMongo document) {
+    public final void visit(final HeadDocumentMongo document) {
         gedObject = new Head(parent, "Header");
     }
 
@@ -103,7 +102,7 @@ public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public final void visit(@NonNull final SubmissionDocumentMongo document) {
+    public final void visit(final SubmissionDocumentMongo document) {
         gedObject = new Submission(parent, new ObjectId(document.getString()));
     }
 
@@ -111,7 +110,7 @@ public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public final void visit(@NonNull final SubmitterDocumentMongo document) {
+    public final void visit(final SubmitterDocumentMongo document) {
         gedObject = new Submitter(parent, new ObjectId(document.getString()));
     }
 
@@ -119,7 +118,7 @@ public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public final void visit(@NonNull final TrailerDocumentMongo document) {
+    public final void visit(final TrailerDocumentMongo document) {
         gedObject = new Trailer(parent, document.getString());
     }
 
@@ -127,7 +126,7 @@ public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
      * {@inheritDoc}
      */
     @Override
-    public final void visit(@NonNull final NoteDocumentMongo document) {
+    public final void visit(final NoteDocumentMongo document) {
         gedObject = new Note(parent, new ObjectId(document.getString()),
                 document.getTail());
     }
@@ -137,7 +136,7 @@ public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
      */
     @Override
     public final void visit(
-        @NonNull final GedDocumentMongo<? extends GedObject> document) {
+        final GedDocumentMongo<? extends GedObject> document) {
         throw new PersistenceException("whoops: %s".formatted(document.getClass().getSimpleName()));
     }
 }
