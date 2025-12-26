@@ -9,11 +9,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.schoellerfamily.geoservice.Application;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalManagementPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.client.EntityExchangeResult;
+import org.springframework.test.web.servlet.client.RestTestClient;
 import org.springframework.test.context.TestPropertySource;
 
 /**
@@ -25,6 +26,7 @@ import org.springframework.test.context.TestPropertySource;
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "null" })
 @TestMethodOrder(MethodOrderer.MethodName.class)
+@AutoConfigureRestTestClient
 public class BackupRestoreEndpointTest {
     /**
      * Management port.
@@ -36,28 +38,31 @@ public class BackupRestoreEndpointTest {
      * Not sure what this is good for.
      */
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private RestTestClient restTestClient;
 
     /** */
     @Test
     public final void shouldReturn200WhenSendingRequestToBackupEndpoint() {
-        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
-                "http://localhost:" + mgt + "/actuator/backup",
-                String.class);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri("http://localhost:" + mgt + "/actuator/backup")
+                .exchange()
+                .returnResult(String.class);
 
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("backup succeeded to/from")
+        then(entity.getStatus()).isEqualTo(HttpStatus.OK);
+        then(entity.getResponseBody()).contains("backup succeeded to/from")
             .contains("locations in the cache");
     }
 
     /** */
     @Test
     public final void shouldReturn200WhenSendingRequestToRestoreEndpoint() {
-        final ResponseEntity<String> entity = testRestTemplate.getForEntity(
-                "http://localhost:" + this.mgt + "/actuator/restore", String.class);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri("http://localhost:" + this.mgt + "/actuator/restore")
+                .exchange()
+                .returnResult(String.class);
 
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("restore succeeded to/from")
+        then(entity.getStatus()).isEqualTo(HttpStatus.OK);
+        then(entity.getResponseBody()).contains("restore succeeded to/from")
             .contains("locations in the cache");
     }
 }
