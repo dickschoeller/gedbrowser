@@ -10,32 +10,22 @@ import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    FamilyDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    HeadDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.NoteDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    PersonDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    RootDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    SourceDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmissionDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    SubmitterDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    TrailerDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmitterDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
-import org.schoellerfamily.geoservice.client.GeoServiceClient;
-import org.schoellerfamily.geoservice.client.GeoServiceClientImpl;
 import org.schoellerfamily.geoservice.keys.KeyManager;
 import org.schoellerfamily.geoservice.keys.KeyManagerImpl;
 import org.schoellerfamily.geoservice.keys.KeyManagerStub;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -43,10 +33,8 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
-import org.springframework.data.mongodb.repository.config.
-    EnableMongoRepositories;
-import org.springframework.lang.NonNull;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.web.client.RestClient;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -98,7 +86,6 @@ public class MongoConfiguration {
      * @throws UnknownHostException because it must
      */
     @Bean
-    @NonNull
     public MongoDatabaseFactory mongoDbFactory() throws UnknownHostException {
         final String databaseName = "gedbrowser-1_2_2";
         final String connectionString = "mongodb://" + host + ":" + port;
@@ -141,20 +128,12 @@ public class MongoConfiguration {
     }
 
     /**
-     * @param builder the rest template builder that Spring provides
-     * @return the rest template
+     * @param builder the rest client builder that Spring provides
+     * @return the rest client
      */
     @Bean
-    public RestTemplate restTemplate(final RestTemplateBuilder builder) {
+    public RestClient restClient(final RestClient.Builder builder) {
         return builder.build();
-    }
-
-    /**
-     * @return the geoservice client
-     */
-    @Bean
-    public GeoServiceClient client() {
-        return new GeoServiceClientImpl();
     }
 
     // TODO change to configure tests with different configuration class
