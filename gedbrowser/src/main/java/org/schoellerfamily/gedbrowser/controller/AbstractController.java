@@ -1,8 +1,5 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-
-import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.NoteNotFoundException;
@@ -19,7 +16,6 @@ import org.schoellerfamily.gedbrowser.renderer.GedResourceNotFoundRenderer;
 import org.schoellerfamily.gedbrowser.renderer.Renderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,31 +23,26 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
 @Slf4j
+@RequiredArgsConstructor
 public abstract class AbstractController {
+    protected final ApplicationInfo appInfo;
 
-    /** */
-    @Autowired
-    private transient ApplicationInfo applicationInfo;
+    private final Users<? extends User> users;
 
-    /** */
-    @Autowired
-    private transient Users<? extends User> users;
+    private final GedObjectFileLoader loader;
 
-    /** */
-    @Autowired
-    private transient GedObjectFileLoader loader;
+    protected final CalendarProvider provider;
 
-    /** */
-    @Autowired
-    private transient CalendarProvider provider;
-
-    @Autowired
-    protected transient RepositoryManagerMongo repositoryManager;
+    protected final RepositoryManagerMongo repositoryManager;
 
     /**
      * @return the rendering context
@@ -61,7 +52,7 @@ public abstract class AbstractController {
         final Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
         final User user = users.get(authentication.getName());
-        return new RenderingContext(user, applicationInfo, provider);
+        return new RenderingContext(user, appInfo, provider);
     }
 
     /**
