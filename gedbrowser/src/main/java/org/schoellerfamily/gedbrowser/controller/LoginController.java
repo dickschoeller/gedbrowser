@@ -1,15 +1,14 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -17,17 +16,17 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class LoginController {
     /** Key to find the login referer in the session attributes. */
     private static final String SESSION_REFERER_KEY = "SESSION_REFERER";
 
     /** */
-    @Autowired
-    private transient ApplicationInfo appInfo;
+    private final ApplicationInfo appInfo;
 
     /** Base path in URL. */
     @Value("${server.servlet.context-path}")
-    private transient String servletPath;
+    private final String servletPath;
 
     /**
      * @param model Spring connection between the data model wrapper.

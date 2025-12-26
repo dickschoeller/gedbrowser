@@ -1,13 +1,19 @@
 package org.schoellerfamily.gedbrowser.controller;
 
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.controller.exception.SubmitterNotFoundException;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.datamodel.users.User;
+import org.schoellerfamily.gedbrowser.datamodel.users.Users;
+import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.schoellerfamily.geoservice.client.GeoServiceClient;
+import org.schoellerfamily.geoservice.keys.KeyManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,19 +23,39 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * Listens for requests for submitter pages.
+ *
  * @author Dick Schoeller
  */
 @Controller
 @Slf4j
 public class SubmitterController extends GeoDataController {
+    private final String gedbrowserHome;
 
-    /** */
-    @Autowired
-    private transient ApplicationInfo appInfo;
-
-    /** */
-    @Value("${gedbrowser.home}")
-    private transient String gedbrowserHome;
+    /**
+     * Constructor.
+     *
+     * @param appInfo the application info
+     * @param users info about the known application users
+     * @param loader enable loading gedcom files
+     * @param provider enable calendar processing
+     * @param repositoryManager enable data storage
+     * @param client enable interaction with geoservice
+     * @param keyManager enable interacting with google
+     * @param gedbrowserHome location of data files for initialization
+     */
+    public SubmitterController(final ApplicationInfo appInfo,
+            final Users<? extends User> users,
+            final GedObjectFileLoader loader,
+            final CalendarProvider provider,
+            final RepositoryManagerMongo repositoryManager,
+            final GeoServiceClient client,
+            final KeyManager keyManager,
+            @Value("${gedbrowser.home}")
+            final String gedbrowserHome) {
+        super(appInfo, users, loader, provider, repositoryManager, client, keyManager);
+        this.gedbrowserHome = gedbrowserHome;
+    }
 
     /**
      * Connects HTML template file with data for the source page.

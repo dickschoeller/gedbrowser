@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
+ * Exception thrown when a submission cannot be found.
+ *
  * @author Dick Schoeller
  */
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Submission not found")
@@ -13,6 +15,8 @@ public final class SubmissionNotFoundException extends ObjectNotFoundException {
     private static final long serialVersionUID = 1L;
 
     /**
+     * Constructor.
+     *
      * @param message the message to display
      * @param sourceId the ID of the source not found
      * @param datasetName the name of the dataset being searched

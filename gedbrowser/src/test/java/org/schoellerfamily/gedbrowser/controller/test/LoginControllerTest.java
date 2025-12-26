@@ -9,14 +9,18 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.Application;
 import org.schoellerfamily.gedbrowser.test.TestConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.test.web.servlet.client.EntityExchangeResult;
+import org.springframework.test.web.servlet.client.RestTestClient;
+import java.net.URI;
 
 /**
  * @author Dick Schoeller
@@ -25,6 +29,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
+@AutoConfigureRestTestClient
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "null" })
 public class LoginControllerTest {
 
@@ -32,7 +37,7 @@ public class LoginControllerTest {
      * Not sure what this is good for.
      */
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private RestTestClient restTestClient;
 
     /**
      * Server port.
@@ -79,11 +84,14 @@ public class LoginControllerTest {
     public final void testLoginEndpointNoReferrer() {
         final String refererUrl = "/gedbrowser/person?db=schoeller&amp;id=I1";
         final String url = "http://localhost:" + port + "/gedbrowser/login";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .exchange()
+                .returnResult(String.class);
 
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Login to GedBrowser</title>")
+        final HttpStatusCode status = entity.getStatus();
+        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        then(entity.getResponseBody()).contains("<title>Login to GedBrowser</title>")
             .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
                     + refererUrl + "\"/>");
     }
@@ -93,11 +101,14 @@ public class LoginControllerTest {
     public final void testLogoutEndpointNoReferrer() {
         final String refererUrl = "/gedbrowser/person?db=schoeller&amp;id=I1";
         final String url = "http://localhost:" + port + "/gedbrowser/logout";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .exchange()
+                .returnResult(String.class);
 
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Login to GedBrowser</title>")
+        final HttpStatusCode status = entity.getStatus();
+        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        then(entity.getResponseBody()).contains("<title>Login to GedBrowser</title>")
             .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
                     + refererUrl + "\"/>");
     }

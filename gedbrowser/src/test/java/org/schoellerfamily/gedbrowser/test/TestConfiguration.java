@@ -1,20 +1,30 @@
 package org.schoellerfamily.gedbrowser.test;
 
-import java.time.Duration;
-
-import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.web.client.RestClient;
 
 /**
  * @author Richard Schoeller
  */
 @Configuration
+@ComponentScan(basePackageClasses = { GeoServiceClient.class })
 public class TestConfiguration {
     @Bean
-    public RestTemplateBuilder restTemplateBuilder() {
-        return new RestTemplateBuilder()
-            .connectTimeout(Duration.ofMillis(60000))
-            .readTimeout(Duration.ofMillis(120000));
+    public RestClient.Builder restClientBuilder() {
+        return RestClient.builder();
+    }
+
+    @Bean
+    public RestClient restClient(final RestClient.Builder builder) {
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        factory.setConnectTimeout(60000);
+        factory.setReadTimeout(60000);
+        return builder
+            .requestFactory(factory)
+            .build();
     }
 }

@@ -1,12 +1,16 @@
 package org.schoellerfamily.gedbrowser.controller;
 
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.users.User;
+import org.schoellerfamily.gedbrowser.datamodel.users.Users;
+import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.renderer.GedRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,14 +25,29 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class HeadController extends DatedDataController {
-
     /** */
-    @Value("${gedbrowser.home}")
-    private transient String gedbrowserHome;
+    private final String gedbrowserHome;
 
-    /** */
-    @Autowired
-    private transient ApplicationInfo appInfo;
+    /**
+     * Constructor.
+     *
+     * @param appInfo the application info
+     * @param users info about the known application users
+     * @param loader enable loading gedcom files
+     * @param provider enable calendar processing
+     * @param repositoryManager enable data storage
+     * @param gedbrowserHome location of data files for initialization
+     */
+    public HeadController(final ApplicationInfo appInfo,
+            final Users<? extends User> users,
+            final GedObjectFileLoader loader,
+            final CalendarProvider provider,
+            final RepositoryManagerMongo repositoryManager,
+            @Value("${gedbrowser.home}")
+            final String gedbrowserHome) {
+        super(appInfo, users, loader, provider, repositoryManager);
+        this.gedbrowserHome = gedbrowserHome;
+    }
 
     /**
      * Connects HTML template file with data for the person page.
@@ -75,6 +94,4 @@ public class HeadController extends DatedDataController {
             final Head head) {
         return new GedRendererFactory().create(head, context);
     }
-
-
 }
