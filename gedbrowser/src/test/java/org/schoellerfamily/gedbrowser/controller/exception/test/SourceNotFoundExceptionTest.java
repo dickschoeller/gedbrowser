@@ -22,7 +22,7 @@ public class SourceNotFoundExceptionTest {
     /** */
     @BeforeEach
     public void setUp() {
-        final ApplicationInfo appInfo = new ApplicationInfoImpl();
+        final ApplicationInfo appInfo = new ApplicationInfoImpl(null, null, null, null);
         exception = new SourceNotFoundException("Source not found", "ID1",
                 "xyzzy", RenderingContext.user(appInfo));
     }

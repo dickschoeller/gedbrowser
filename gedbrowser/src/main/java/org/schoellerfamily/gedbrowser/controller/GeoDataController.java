@@ -18,6 +18,8 @@ import org.schoellerfamily.geoservice.keys.KeyManager;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * Base class for controllers that need geodata.
+ *
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
@@ -51,6 +53,8 @@ public abstract class GeoDataController extends DatedDataController {
     }
 
     /**
+     * Fetch the places for a person.
+     *
      * @param person the person we are displaying
      * @param renderingContext the current rendering context
      * @return the list of places for the person
@@ -78,6 +82,8 @@ public abstract class GeoDataController extends DatedDataController {
     }
 
     /**
+     * Get the maps key.
+     *
      * @return the key string for talking to the mapping services
      */
     protected final String getMapsKey() {

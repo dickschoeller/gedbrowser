@@ -35,12 +35,12 @@ public class SaveController extends AbstractController {
      * @param provider enable calendar processing
      * @param repositoryManager enable data storage
      */
-    public SaveController(final ApplicationInfo applicationInfo,
+    public SaveController(final ApplicationInfo appInfo,
             final Users<? extends User> users,
             final GedObjectFileLoader loader,
             final CalendarProvider provider,
             final RepositoryManagerMongo repositoryManager) {
-        super(applicationInfo, users, loader, provider, repositoryManager);
+        super(appInfo, users, loader, provider, repositoryManager);
     }
 
     /**

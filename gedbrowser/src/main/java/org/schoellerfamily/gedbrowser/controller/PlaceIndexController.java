@@ -47,7 +47,7 @@ public class PlaceIndexController extends DatedDataController {
             final CalendarProvider provider,
             final RepositoryManagerMongo repositoryManager,
             final GeoServiceClient client,
-            @Value("${gedbrowser.home}")
+            @Value("${gedbrowser.home:/var/lib/gedbrowser}")
             final String gedbrowserHome) {
         super(appInfo, users, loader, provider, repositoryManager);
         this.client = client;

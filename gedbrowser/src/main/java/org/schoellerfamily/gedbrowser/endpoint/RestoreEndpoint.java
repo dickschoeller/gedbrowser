@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * Endpoint to trigger a restore operation.
+ *
  * @author Dick Schoeller
  */
 @Component

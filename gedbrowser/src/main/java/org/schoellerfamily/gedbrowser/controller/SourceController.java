@@ -46,7 +46,7 @@ public class SourceController extends DatedDataController {
             final GedObjectFileLoader loader,
             final CalendarProvider provider,
             final RepositoryManagerMongo repositoryManager,
-            @Value("${gedbrowser.home}")
+            @Value("${gedbrowser.home:/var/lib/gedbrowser}")
             final String gedbrowserHome) {
         super(appInfo, users, loader, provider, repositoryManager);
         this.gedbrowserHome = gedbrowserHome;

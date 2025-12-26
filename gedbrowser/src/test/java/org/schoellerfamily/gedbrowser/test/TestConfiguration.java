@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.test;
 
+import org.schoellerfamily.gedbrowser.controller.ApplicationInfoImpl;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,7 +12,7 @@ import org.springframework.web.client.RestClient;
  * @author Richard Schoeller
  */
 @Configuration
-@ComponentScan(basePackageClasses = { GeoServiceClient.class })
+@ComponentScan(basePackageClasses = { GeoServiceClient.class, ApplicationInfoImpl.class })
 public class TestConfiguration {
     @Bean
     public RestClient.Builder restClientBuilder() {

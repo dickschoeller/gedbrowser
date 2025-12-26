@@ -17,27 +17,27 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import lombok.RequiredArgsConstructor;
 
 /**
+ * Configures web security for the application.
+ *
  * @author Dick Schoeller
  */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfiguration {
-    /** The user details that we know about. */
-    @Autowired
     private final Users<? extends User> users;
 
-    /** Base path in URL. */
-    @Value("${server.servlet.context-path}")
-    private final transient String servletPath;
-
+    @Value("${server.servlet.context-path:/gedbrowser}")
+    private final String servletPath;
 
     /**
      * Configure the security filter chain using the modern approach.
+     *
+     * @param http the security object
+     * @return the filter chain
      */
     @Bean
-    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
-        // Use the lambda-based configuration APIs instead of the older chained style
+    public SecurityFilterChain filterChain(final HttpSecurity http) {
         http
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/**").permitAll()
@@ -65,6 +65,8 @@ public class WebSecurityConfiguration {
     }
 
     /**
+     * Configure the in-memory authentication manager.
+     *
      * @param auth the authentication manager builder
      * @throws Exception if there is a problem
      */
@@ -86,6 +88,8 @@ public class WebSecurityConfiguration {
     }
 
     /**
+     * Create an array of role names from an array of roles.
+     *
      * @param roles the user's roles
      * @return the names of the user's roles
      */

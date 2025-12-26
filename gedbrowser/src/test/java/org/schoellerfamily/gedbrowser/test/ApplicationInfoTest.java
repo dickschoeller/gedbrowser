@@ -4,11 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.schoellerfamily.gedbrowser.Application;
 import org.schoellerfamily.gedbrowser.controller.ApplicationInfoImpl;
-import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
@@ -18,27 +17,11 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
+@SpringBootTest(classes = { Application.class, TestConfiguration.class })
 public final class ApplicationInfoTest {
     /** */
     @Autowired
-    private transient ApplicationInfo appInfo;
-
-    /**
-     * Setup the configurations for this test class.
-     *
-     * @author Dick Schoeller
-     */
-    @Configuration
-    static class ContextConfiguration {
-
-        /**
-         * @return the backup manager
-         */
-        @Bean
-        public ApplicationInfo appInfo() {
-            return new ApplicationInfoImpl();
-        }
-    }
+    private transient ApplicationInfoImpl appInfo;
 
     /** */
     @Test

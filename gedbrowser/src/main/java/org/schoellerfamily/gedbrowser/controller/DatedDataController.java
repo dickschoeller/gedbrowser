@@ -8,6 +8,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 
 /**
+ * Base class for controllers that need dated data.
+ *
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")

@@ -51,7 +51,7 @@ public class SubmitterController extends GeoDataController {
             final RepositoryManagerMongo repositoryManager,
             final GeoServiceClient client,
             final KeyManager keyManager,
-            @Value("${gedbrowser.home}")
+            @Value("${gedbrowser.home:/var/lib/gedbrowser}")
             final String gedbrowserHome) {
         super(appInfo, users, loader, provider, repositoryManager, client, keyManager);
         this.gedbrowserHome = gedbrowserHome;

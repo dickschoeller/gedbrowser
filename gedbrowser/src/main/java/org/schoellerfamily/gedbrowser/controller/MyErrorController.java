@@ -12,17 +12,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * Listen for requests for the error page.
+ *
  * @author Dick Schoeller
  */
 @Controller
 @Slf4j
 @RequiredArgsConstructor
 public class MyErrorController implements ErrorController {
-
-    /** */
     private final ApplicationInfo appInfo;
 
     /**
+     * Handle display of error conditions.
+     *
      * @param model Spring connection between the data model wrapper
      * @return error
      */

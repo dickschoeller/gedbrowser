@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SubmittersController extends DatedDataController {
     /** */
-    @Value("${gedbrowser.home}")
+    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
     private final String gedbrowserHome;
 
     /**
@@ -44,7 +44,7 @@ public class SubmittersController extends DatedDataController {
             final GedObjectFileLoader loader,
             final CalendarProvider provider,
             final RepositoryManagerMongo repositoryManager,
-            @Value("${gedbrowser.home}")
+            @Value("${gedbrowser.home:/var/lib/gedbrowser}")
             final String gedbrowserHome) {
         super(appInfo, users, loader, provider, repositoryManager);
         this.gedbrowserHome = gedbrowserHome;

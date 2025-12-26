@@ -9,12 +9,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * Configures beans for interacting with users data.
+ *
  * @author Dick Schoeller
  */
 @Configuration
 public class UsersConfiguration {
     /** */
-    @Value("${gedbrowser.home}")
+    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
     private transient String gedbrowserHome;
 
     /**
@@ -30,7 +32,9 @@ public class UsersConfiguration {
     }
 
     /**
-     * @param userFile the user file to read
+     * Read the user file.
+     *
+     * @param userFile the name of the user file to read
      * @return the set of users from the user file
      */
     public Users<UserImpl> readUserFile(final String userFile) {

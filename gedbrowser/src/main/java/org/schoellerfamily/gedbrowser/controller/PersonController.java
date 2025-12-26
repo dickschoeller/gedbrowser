@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * Listen for requests for the person page.
+ *
  * @author Dick Schoeller
  */
 @Controller
@@ -53,7 +55,7 @@ public class PersonController extends GeoDataController {
             final RepositoryManagerMongo repositoryManager,
             final GeoServiceClient client,
             final KeyManager keyManager,
-            @Value("${gedbrowser.home}")
+            @Value("${gedbrowser.home:/var/lib/gedbrowser}")
             final String gedbrowserHome) {
         super(appInfo, users, loader, provider, repositoryManager, client, keyManager);
         this.gedbrowserHome = gedbrowserHome;

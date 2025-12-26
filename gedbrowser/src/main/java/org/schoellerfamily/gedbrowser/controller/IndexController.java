@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * Listen for requests for the surnames index page.
+ *
  * @author Dick Schoeller
  */
 @Controller
@@ -42,7 +44,7 @@ public class IndexController extends DatedDataController {
             final GedObjectFileLoader loader,
             final CalendarProvider provider,
             final RepositoryManagerMongo repositoryManager,
-            @Value("${gedbrowser.home}")
+            @Value("${gedbrowser.home:/var/lib/gedbrowser}")
             final String gedbrowserHome) {
         super(appInfo, users, loader, provider, repositoryManager);
         this.gedbrowserHome = gedbrowserHome;

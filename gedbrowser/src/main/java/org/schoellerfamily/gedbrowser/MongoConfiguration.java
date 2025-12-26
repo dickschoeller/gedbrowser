@@ -5,7 +5,6 @@ import java.net.UnknownHostException;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderStub;
-import org.schoellerfamily.gedbrowser.controller.ApplicationInfoImpl;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
@@ -21,7 +20,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmissionDoc
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmitterDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
-import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.schoellerfamily.geoservice.keys.KeyManager;
 import org.schoellerfamily.geoservice.keys.KeyManagerImpl;
 import org.schoellerfamily.geoservice.keys.KeyManagerStub;
@@ -42,6 +40,8 @@ import com.mongodb.client.MongoClients;
 import lombok.RequiredArgsConstructor;
 
 /**
+ * Configuration class for MongoDB access.
+ *
  * @author Dick Schoeller
  */
 @Configuration
@@ -109,6 +109,12 @@ public class MongoConfiguration {
     }
 
     /**
+     * Create the GedObject file loader bean.
+     *
+     * @param finder the finder strategy
+     * @param g2g the line to object transformer
+     * @param toDocConverter the object to document converter
+     * @param rootDocumentRepository the root document repository
      * @return the loader
      */
     @Bean
@@ -120,14 +126,8 @@ public class MongoConfiguration {
     }
 
     /**
-     * @return the application info provider
-     */
-    @Bean
-    public ApplicationInfo appInfo() {
-        return new ApplicationInfoImpl();
-    }
-
-    /**
+     * Create the rest client bean.
+     *
      * @param builder the rest client builder that Spring provides
      * @return the rest client
      */
@@ -138,6 +138,8 @@ public class MongoConfiguration {
 
     // TODO change to configure tests with different configuration class
     /**
+     * Create the key manager bean.
+     *
      * @return the manager of google keys
      */
     @Bean
@@ -149,6 +151,8 @@ public class MongoConfiguration {
     }
 
     /**
+     * Create the calendar provider bean.
+     *
      * @return a calendar provider of REAL today
      */
     @Bean
@@ -160,6 +164,8 @@ public class MongoConfiguration {
     }
 
     /**
+     * Create the GedDocumentMongo to GedObject converter bean.
+     *
      * @return the converter
      */
     @Bean
@@ -168,6 +174,8 @@ public class MongoConfiguration {
     }
 
     /**
+     * Create the GedObject to GedDocumentMongo converter bean.
+     *
      * @return the converter
      */
     @Bean
@@ -176,6 +184,8 @@ public class MongoConfiguration {
     }
 
     /**
+     * Create the repository manager bean.
+     *
      * @return the repository manager
      */
     @Bean
