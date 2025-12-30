@@ -85,10 +85,10 @@ public class AttributeListHelper {
     public void addAttributes(final ApiPerson apiParent) {
         addToAttributes(apiParent.getAttributes());
         addToAttributes(apiParent.getImages());
-        addToAttributes(apiParent.getFamc());
-        addToAttributes(apiParent.getFams());
-        addToAttributes(apiParent.getRefn());
-        addToAttributes(apiParent.getChanged());
+        addToAttributes(apiParent.getFamcs());
+        addToAttributes(apiParent.getFamss());
+        addToAttributes(apiParent.getRefns());
+        addToAttributes(apiParent.getChanges());
     }
 
     /**
