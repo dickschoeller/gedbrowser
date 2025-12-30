@@ -60,7 +60,8 @@ public class SourceCrud
     public ApiSource createOne(final String db,
             final ApiSource source) {
         log.info("Entering create source in db: {}", db);
-        return create(readRoot(getRepositoryManager(), db), source, (i, id) -> new ApiSource(i, id));
+        return create(readRoot(getRepositoryManager(), db), source,
+            (i, id) -> i.toBuilder().string(id).build());
     }
 
     /**

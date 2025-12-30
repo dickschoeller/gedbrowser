@@ -2,8 +2,9 @@ package org.schoellerfamily.gedbrowser.api.crud;
 
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily.ApiFamilyBuilder;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson.ApiPersonBuilder;
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
@@ -36,13 +37,13 @@ public class SpouseCrud extends RelationsCrud {
     public ApiPerson createSpouse(final String db, final String id,
             final ApiPerson person) {
         log.info("Entering create spouse in db: {} of person {}", db, id);
-        final ApiPerson oldPerson = readPerson(db, id);
-        final ApiPerson newPerson = createPerson(db, person);
-        final ApiFamily family = createFamily(db);
+        final ApiPersonBuilder<?, ?> oldPerson = readPerson(db, id).toBuilder();
+        final ApiPersonBuilder<?, ?> newPerson = createPerson(db, person).toBuilder();
+        final ApiFamilyBuilder<?, ?> family = createFamily(db).toBuilder();
         addSpouseToFamily(family, newPerson);
         addSpouseToFamily(family, oldPerson);
 
-        return crudUpdate(db, family, oldPerson, newPerson);
+        return crudUpdate(db, family.build(), oldPerson.build(), newPerson.build());
     }
 
     /**
@@ -53,13 +54,13 @@ public class SpouseCrud extends RelationsCrud {
      */
     public ApiPerson linkSpouse(final String db, final String id, final ApiPerson person) {
         log.info("Entering link person: {} as spouse in db: {} of person {}", person.getString(), db, id);
-        final ApiPerson oldPerson = readPerson(db, id);
-        final ApiPerson newPerson = readPerson(db, person.getString());
-        final ApiFamily family = createFamily(db);
+        final ApiPersonBuilder<?, ?> oldPerson = readPerson(db, id).toBuilder();
+        final ApiPersonBuilder<?, ?> newPerson = readPerson(db, person.getString()).toBuilder();
+        final ApiFamilyBuilder<?, ?> family = createFamily(db).toBuilder();
         addSpouseToFamily(family, newPerson);
         addSpouseToFamily(family, oldPerson);
 
-        return crudUpdate(db, family, oldPerson, newPerson);
+        return crudUpdate(db, family.build(), oldPerson.build(), newPerson.build());
     }
 
     /**
@@ -71,13 +72,13 @@ public class SpouseCrud extends RelationsCrud {
     public ApiPerson createSpouseInFamily(final String db, final String id,
             final ApiPerson person) {
         log.info("Entering create spouse in db: {} in family {}", db, id);
-        final ApiPerson newPerson = createPerson(db, person);
+        final ApiPersonBuilder<?, ?> newPerson = createPerson(db, person).toBuilder();
         try {
-            final ApiFamily family = readFamily(db, id);
+            final ApiFamilyBuilder<?, ?> family = readFamily(db, id).toBuilder();
             addSpouseToFamily(family, newPerson);
-            return crudUpdate(db, family, newPerson);
+            return crudUpdate(db, family.build(), newPerson.build());
         } catch (ObjectNotFoundException e) {
-            return newPerson;
+            return newPerson.build();
         }
     }
 
@@ -89,13 +90,13 @@ public class SpouseCrud extends RelationsCrud {
      */
     public ApiPerson linkSpouseInFamily(final String db, final String id, final ApiPerson person) {
         log.info("Entering link person: {} in db: {} as spouse in family {}", person.getString(), db, id);
-        final ApiPerson newPerson = readPerson(db, person.getString());
+        final ApiPersonBuilder<?, ?> newPerson = readPerson(db, person.getString()).toBuilder();
         try {
-            final ApiFamily family = readFamily(db, id);
+            final ApiFamilyBuilder<?, ?> family = readFamily(db, id).toBuilder();
             addSpouseToFamily(family, newPerson);
-            return crudUpdate(db, family, newPerson);
+            return crudUpdate(db, family.build(), newPerson.build());
         } catch (ObjectNotFoundException e) {
-            return newPerson;
+            return newPerson.build();
         }
     }
 
@@ -107,16 +108,16 @@ public class SpouseCrud extends RelationsCrud {
      */
     public ApiPerson unlinkSpouseInFamily(final String db, final String id, final String sid) {
         log.info("Entering unlink person: {} in db: {} from being a spouse in family {}", sid, db, id);
-        final ApiPerson person = readPerson(db, sid);
+        final ApiPersonBuilder<?, ?> person = readPerson(db, sid).toBuilder();
         try {
-            final ApiFamily family = readFamily(db, id);
+            final ApiFamilyBuilder<?, ?> family = readFamily(db, id).toBuilder();
             removeSpouseFromFamily(family, person);
-            return crudUpdate(db, family, person);
+            return crudUpdate(db, family.build(), person.build());
         } catch (ObjectNotFoundException e) {
             final ApiAttribute fams = findFamsAttribute(id, person);
-            person.getFams().remove(fams);
-            crudUpdate(db, person);
-            return person;
+            person.getFamss().remove(fams);
+            crudUpdate(db, person.build());
+            return person.build();
         }
     }
 

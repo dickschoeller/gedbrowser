@@ -58,8 +58,8 @@ public class SubmissionCrud
     public ApiSubmission createOne(final String db,
             final ApiSubmission submission) {
         log.info("Entering create submission in db: {}", db);
-        return create(readRoot(getRepositoryManager(), db), submission, (i,
-                id) -> new ApiSubmission(i.getType(), id, i.getAttributes()));
+        return create(readRoot(getRepositoryManager(), db), submission,
+            (i, id) -> i.toBuilder().string(id).build());
     }
 
     /**

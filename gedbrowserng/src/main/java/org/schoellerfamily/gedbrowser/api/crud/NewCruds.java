@@ -13,7 +13,7 @@ public interface NewCruds {
     /**
      * @return the associated file loader
      */
-	GedObjectFileLoader getLoader();
+    GedObjectFileLoader getLoader();
 
     /**
      * @return the associated document converter
