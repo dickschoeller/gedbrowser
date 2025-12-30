@@ -17,7 +17,9 @@ import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
 import org.schoellerfamily.gedbrowser.api.crud.SourceCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource.ApiSourceBuilder;
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.api.test.TestConfiguration;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class,
+@SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
@@ -152,7 +154,7 @@ public class SourceCrudTest {
     @Test
     public final void testCreateSourcesSimple() {
         log.info("Beginning testCreateSourcesSimple");
-        final ApiSource inSource = new ApiSource("source", "", "Unknown");
+        final ApiSource inSource = ApiSource.builder().type("source").string("").title("Unknown").attributes(java.util.List.of()).build();
         final ApiSource newSource = crud.createOne(helper.getDb(), inSource);
         then(newSource.getType()).isEqualTo(inSource.getType());
     }
@@ -161,9 +163,8 @@ public class SourceCrudTest {
     @Test
     public final void testDeleteSource() {
         log.info("Beginning testDeleteSource");
-        final ApiSource reqSource = new ApiSource("source", "", "Unknown");
-        final ApiSource resSource = crud.createOne(helper.getDb(),
-                reqSource);
+        final ApiSource reqSource = ApiSource.builder().type("source").string("").title("Unknown").attributes(java.util.List.of()).build();
+        final ApiSource resSource = crud.createOne(helper.getDb(), reqSource);
         final String id = resSource.getString();
         final ApiSource deletedSource = crud.deleteOne(helper.getDb(), id);
 
@@ -211,16 +212,18 @@ public class SourceCrudTest {
     public final void testUpdateSourceWithNote() {
         log.info("Beginning testUpdateSourceWithNote");
         final List<ApiAttribute> attributes = List.of(
-                new ApiAttribute("attribute", "Note", "first note"));
-        final ApiSource inSource = new ApiSource("source", "",
-                attributes, "Unknown");
-        final ApiSource newSource = crud.createOne(helper.getDb(), inSource);
+                ApiAttribute.builder().type("attribute").string("Note").tail("first note").attributes(java.util.List.of()).build());
+        final ApiSource inSource = ApiSource.builder().type("source").string("").attributes(attributes).title("Unknown").build();
+        final ApiSourceBuilder<?, ?> newSource = crud.createOne(helper.getDb(), inSource).toBuilder();
 
-        final ApiAttribute aNote = new ApiAttribute("attribute", "Note",
-                "this is a note");
-        newSource.getAttributes().add(aNote);
+        final ApiAttribute aNote = ApiAttribute.builder()
+            .type("attribute")
+            .string("Note")
+            .tail("this is a note")
+            .build();
+        newSource.attribute(aNote);
         final ApiSource updatedSource = crud.updateOne(helper.getDb(),
-                newSource.getString(), newSource);
+                newSource.getString(), newSource.build());
         assertEquals(aNote, updatedSource.getAttributes().get(1), "attribute should be present");
     }
-}
+ }

@@ -1,23 +1,23 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
 import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.List;
 
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
-import org.schoellerfamily.gedbrowser.api.test.LoginTestHelper;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
+import org.schoellerfamily.gedbrowser.security.model.UserTokenState;
+import org.schoellerfamily.gedbrowser.security.model.UserTokenStateImpl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.client.EntityExchangeResult;
+import org.springframework.test.web.servlet.client.RestTestClient;
 
 /**
  * @author Dick Schoeller
  */
 public final class ControllerTestHelper {
     /** */
-    private final TestRestTemplate testRestTemplate;
+    private final RestTestClient restTestClient;
     /** */
     private final String baseUrl;
     /** */
@@ -27,31 +27,69 @@ public final class ControllerTestHelper {
     /** */
     private final HttpHeaders headers;
     /** */
-    private final ApiPerson.Builder builder;
+    private final ApiPerson.ApiPersonBuilder<?, ?> builder;
 
     /**
+     * RestTestClient-based constructor.
+     *
      * @param port the port for this test
-     * @param testRestTemplate the template for RESTful requests
+     * @param restTestClient the RestTestClient injected by Spring
      */
-    ControllerTestHelper(final int port,
-            final TestRestTemplate testRestTemplate) {
-        this.testRestTemplate = testRestTemplate;
+    public ControllerTestHelper(final int port,
+            final RestTestClient restTestClient) {
+        this.restTestClient = restTestClient;
         baseUrl = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/";
         personsUrl = baseUrl + "persons";
         familiesUrl = baseUrl + "families";
-        headers = adminLogin(port, testRestTemplate);
+        headers = adminLogin(port, restTestClient);
         headers.setContentType(MediaType.APPLICATION_JSON);
-        ApiAttribute attribute = new ApiAttribute("attribute", "Death");
-        builder = new ApiPerson.Builder().add(attribute).build();
+        final ApiAttribute attribute = ApiAttribute.builder()
+            .type("attribute")
+            .string("Death")
+            .build();
+        builder = ApiPerson.builder().attribute(attribute);
     }
 
-    private HttpHeaders adminLogin(final int port, final TestRestTemplate template) {
-        try {
-            final LoginTestHelper helper = new LoginTestHelper(template, port);
-            return helper.adminLogin();
-        } catch (URISyntaxException e) {
-            return new HttpHeaders();
-        }
+    private HttpHeaders adminLogin(final int port,
+            final RestTestClient client) {
+            final String url = "http://localhost:" + port + "/gedbrowserng/v1/login";
+            final String loginString = "username=schoeller@comcast.net&password=HAHANOWAY";
+            final EntityExchangeResult<UserTokenStateImpl> response = client.post()
+                    .uri(URI.create(url))
+                    .body(loginString)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+                    .exchange()
+                    .returnResult(UserTokenStateImpl.class);
+            final UserTokenState body = response.getResponseBody();
+            final HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            if (body != null && body.getAccessToken() != null) {
+                headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + body.getAccessToken());
+            }
+            headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+            return headers;
+    }
+
+    public HttpHeaders userLogin(final int port,
+            final RestTestClient client) {
+            final String url = "http://localhost:" + port + "/gedbrowserng/v1/login";
+            final String loginString = "username=guest&password=guest";
+            final EntityExchangeResult<UserTokenStateImpl> response = client.post()
+                    .uri(URI.create(url))
+                    .body(loginString)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+                    .exchange()
+                    .returnResult(UserTokenStateImpl.class);
+            final UserTokenState body = response.getResponseBody();
+            final HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            if (body != null && body.getAccessToken() != null) {
+                headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + body.getAccessToken());
+            }
+            headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+            return headers;
     }
 
     /**
@@ -78,40 +116,41 @@ public final class ControllerTestHelper {
     /**
      * @return the person builder
      */
-    public ApiPerson.Builder getPersonBuilder() {
+    public ApiPerson.ApiPersonBuilder<?, ?> getPersonBuilder() {
         return builder;
     }
 
     /**
      * @return a newly created, very simple person
-     * @throws URISyntaxException if there is a problem with URL syntax
      */
-    public ApiPerson createPerson() throws URISyntaxException {
+    public ApiPerson createPerson() {
         final ApiPerson person = buildPerson();
-        final HttpEntity<ApiPerson> personReq = new HttpEntity<>(person,
-                headers);
-        final ResponseEntity<ApiPerson> personEntity = testRestTemplate
-                .postForEntity(new URI(personsUrl), personReq, ApiPerson.class);
-        return personEntity.getBody();
+        final EntityExchangeResult<ApiPerson> personEntity = restTestClient.post()
+                .uri(URI.create(personsUrl))
+                .headers(h -> h.addAll(headers))
+                .body(person)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        return personEntity.getResponseBody();
     }
 
     /**
      * @return a new person object
      */
     public ApiPerson buildPerson() {
-        return new ApiPerson(builder);
+        return builder.build();
     }
 
     /**
      * @param person the person that we are "regetting"
      * @return the newly gotten person
-     * @throws URISyntaxException if there is a problem with the URL
      */
-    public ApiPerson getPerson(final ApiPerson person)
-            throws URISyntaxException {
-        final ResponseEntity<ApiPerson> entity = testRestTemplate.getForEntity(
-                new URI(personsUrl + "/" + person.getString()),
-                ApiPerson.class);
-        return entity.getBody();
+    public ApiPerson getPerson(final ApiPerson person) {
+        final EntityExchangeResult<ApiPerson> entity = restTestClient.get()
+                .uri(URI.create(personsUrl + "/" + person.getString()))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        return entity.getResponseBody();
     }
 }

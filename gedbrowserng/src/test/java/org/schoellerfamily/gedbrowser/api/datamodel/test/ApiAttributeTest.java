@@ -1,13 +1,13 @@
 package org.schoellerfamily.gedbrowser.api.datamodel.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
+
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 /**
  * @author Dick Schoeller
@@ -16,63 +16,96 @@ public class ApiAttributeTest {
     /** */
     @Test
     public void testDefaultConstructorType() {
-        final ApiAttribute o = new ApiAttribute();
+        final ApiAttribute o = ApiAttribute.builder()
+                .type("")
+                .string("")
+                .build();
         assertEquals("", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorString() {
-        final ApiAttribute o = new ApiAttribute();
+        final ApiAttribute o = ApiAttribute.builder()
+                .type("")
+                .string("")
+                .build();
         assertEquals("", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorTail() {
-        final ApiAttribute o = new ApiAttribute();
-        assertNull(o.getTail(), "tail mismatch");
+        final ApiAttribute o = ApiAttribute.builder()
+                .type("")
+                .string("")
+                .build();
+        assertEquals("", o.getTail(), "tail mismatch");
     }
 
     /** */
     @Test
     public void testConstructorType() {
-        final ApiAttribute o = new ApiAttribute("type", "string", "tail");
+        final ApiAttribute o = ApiAttribute.builder()
+                .type("type")
+                .string("string")
+                .tail("tail")
+                .build();
         assertEquals("type", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
     public void testConstructorString() {
-        final ApiAttribute o = new ApiAttribute("type", "string", "tail");
+        final ApiAttribute o = ApiAttribute.builder()
+                .type("type")
+                .string("string")
+                .tail("tail")
+                .build();
         assertEquals("string", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
     public void testConstructorTail() {
-        final ApiAttribute o = new ApiAttribute("type", "string", "tail");
+        final ApiAttribute o = ApiAttribute.builder()
+                .type("type")
+                .string("string")
+                .tail("tail")
+                .build();
         assertEquals("tail", o.getTail(), "tail mismatch");
     }
 
     /** */
     @Test
     public void testConstructorNullAttributes() {
-        final ApiAttribute o = new ApiAttribute("string", "type", null, "tail");
+        final ApiAttribute o = ApiAttribute.builder()
+                .type("type")
+                .string("string")
+                .tail("tail")
+                .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
     /** */
     @Test
     public void testIsType() {
-        final ApiAttribute o = new ApiAttribute("type", "string", "tail");
+        final ApiAttribute o = ApiAttribute.builder()
+                .type("type")
+                .string("string")
+                .tail("tail")
+                .build();
         assertTrue(o.isType("type"), "isType mismatch");
     }
 
     /** */
     @Test
     public void testAccept() {
-        final ApiAttribute o = new ApiAttribute("type", "string", "tail");
+        final ApiAttribute o = ApiAttribute.builder()
+                .type("type")
+                .string("string")
+                .tail("tail")
+                .build();
         final ApiTestVisitor visitor = new ApiTestVisitor();
         o.accept(visitor);
         assertEquals("attribute", visitor.getMethodCalled(), "Method mismatch");
@@ -80,54 +113,10 @@ public class ApiAttributeTest {
 
     /** */
     @Test
-    public void testEqualsSame() {
-        final ApiAttribute expected =
-                new ApiAttribute("type", "string", "tail");
-        assertEquals(expected, expected, "Should match");
-    }
-
-    /** */
-    @Test
-    public void testEqualsSimple() {
-        final ApiAttribute expected =
-                new ApiAttribute("type", "string", "tail");
-        final ApiAttribute actual = new ApiAttribute("type", "string", "tail");
-        assertEquals(expected, actual, "Should match");
-    }
-
-    /** */
-    @Test
-    public void testNotEqualsClass() {
-        final ApiAttribute expected =
-                new ApiAttribute("type", "string", "tail");
-        final ApiNote actual = new ApiNote("type", "string", "tail");
-        assertNotEquals(expected, actual, "Should not match");
-    }
-
-    /** */
-    @Test
-    public void testEqualsNullTail() {
-        final ApiAttribute expected =
-                new ApiAttribute("type", "string", null);
-        final ApiAttribute actual = new ApiAttribute("type", "string", null);
-        assertEquals(expected, actual, "Should match");
-    }
-
-    /** */
-    @Test
-    public void testNotEqualsNullTail() {
-        final ApiAttribute expected =
-                new ApiAttribute("type", "string", null);
-        final ApiAttribute actual = new ApiAttribute("type", "string", "tail");
-        assertNotEquals(expected, actual, "Should not match");
-    }
-
-    /** */
-    @Test
-    public void testNotEqualsTailNull() {
-        final ApiAttribute expected =
-                new ApiAttribute("type", "string", "tail");
-        final ApiAttribute actual = new ApiAttribute("type", "string", null);
-        assertNotEquals(expected, actual, "Should not match");
+    public void testHashAndEquals() {
+    	EqualsVerifier
+    	    .forClass(ApiAttribute.class)
+			.suppress(Warning.STRICT_INHERITANCE)
+    	    .verify();
     }
 }

@@ -4,7 +4,6 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,34 +12,36 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
+import org.schoellerfamily.gedbrowser.api.test.TestConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.client.EntityExchangeResult;
+import org.springframework.test.web.servlet.client.RestTestClient;
 import org.springframework.web.client.RestClientException;
 
 /**
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class,
+@SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "null" })
+@AutoConfigureRestTestClient
 public class NoteControllerTest {
     /**
-     * Not sure what this is good for.
+     * RestTestClient injected by Spring's test support.
      */
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private RestTestClient restTestClient;
 
     /**
      * Server port.
@@ -53,8 +54,11 @@ public class NoteControllerTest {
     public final void testReadNotesGl120368() {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/notes";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(String.class);
         final String bodyFragment =
                 "[ {\n"
                 + "  \"type\" : \"note\",\n"
@@ -68,8 +72,8 @@ public class NoteControllerTest {
                 + "  \"tail\" : \"_P_CCINFO 1-1319\"\n"
                 + "}, {\n";
 
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).startsWith(bodyFragment);
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        then(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
     /** */
@@ -77,8 +81,11 @@ public class NoteControllerTest {
     public final void testReadNotesGl120368N13() {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/notes/N13";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(String.class);
         final String bodyFragment =
                 "{\n"
                 + "  \"type\" : \"note\",\n"
@@ -92,8 +99,8 @@ public class NoteControllerTest {
                 + "baptised by George Smalley vicar on 23/3/1828.\"\n"
                 + "}";
 
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).startsWith(bodyFragment);
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        then(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
     /** */
@@ -101,8 +108,11 @@ public class NoteControllerTest {
     public final void testReadNotesGl120368N66() {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/notes/N66";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(String.class);
         final String bodyFragment =
                 "{\n"
                 + "  \"type\" : \"note\",\n"
@@ -126,8 +136,8 @@ public class NoteControllerTest {
                 + "  \"tail\" : \"_P_CCINFO 1-1319\"\n"
                 + "}";
 
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).startsWith(bodyFragment);
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        then(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
     /** */
@@ -135,8 +145,11 @@ public class NoteControllerTest {
     public final void testReadNotesGl120368N1932() {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/notes/N1932";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(String.class);
         final String bodyFragment =
                 "{\n"
                 + "  \"type\" : \"note\",\n"
@@ -195,8 +208,8 @@ public class NoteControllerTest {
                 + " de Gotha 1998; 1999; 2000).\"\n"
                 + "}";
 
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).startsWith(bodyFragment);
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        then(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
     /** */
@@ -205,39 +218,46 @@ public class NoteControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368"
                 + "/notes/Xyzzy";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(String.class);
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testCreateNotesSimple()
-             throws RestClientException, URISyntaxException {
+             throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/notes";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        final ApiNote reqBody = new ApiNote("note", "", "testing");
-        final HttpEntity<ApiNote> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiNote> entity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiNote.class);
-        final ApiNote resBody = entity.getBody();
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ApiNote reqBody = ApiNote.builder()
+                .type("note")
+                .string("")
+                .tail("testing")
+                .build();
+        final EntityExchangeResult<ApiNote> entity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiNote.class);
+        final ApiNote resBody = entity.getResponseBody();
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(resBody.getTail()).isEqualTo(reqBody.getTail());
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testDeleteNote()
-             throws RestClientException, URISyntaxException {
+             throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -246,102 +266,135 @@ public class NoteControllerTest {
         // we are modifying.
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/notes";
-        final ApiNote reqBody = new ApiNote("note", "", "this is a note");
-        final HttpEntity<ApiNote> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiNote> noteEntity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiNote.class);
-        then(noteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        // Capture information about new note.
-        final ApiNote resBody = noteEntity.getBody();
+        final ApiNote reqBody = ApiNote.builder()
+                .type("note")
+                .string("")
+                .tail("this is a note")
+                .build();
+        final EntityExchangeResult<ApiNote> noteEntity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiNote.class);
+        then(noteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final ApiNote resBody = noteEntity.getResponseBody();
         final String id = resBody.getString();
 
         final String deleteUrl = url + "/" + id;
-        final ResponseEntity<ApiNote> preDeleteEntity = testRestTemplate
-                .getForEntity(deleteUrl, ApiNote.class);
-        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(deleteUrl, HttpMethod.DELETE, null, String.class);
-        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ResponseEntity<ApiNote> postDeleteEntity = testRestTemplate
-                .getForEntity(deleteUrl, ApiNote.class);
-        then(postDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final EntityExchangeResult<ApiNote> preDeleteEntity = restTestClient.get()
+                .uri(URI.create(deleteUrl))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(ApiNote.class);
+        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
+                .uri(URI.create(deleteUrl))
+                .exchange()
+                .returnResult(String.class);
+        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final EntityExchangeResult<ApiNote> postDeleteEntity = restTestClient.get()
+                .uri(URI.create(deleteUrl))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(ApiNote.class);
+        then(postDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testDeleteNoteNotFound()
-             throws RestClientException, URISyntaxException {
+             throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/notes/XXXXXXX";
-        final ResponseEntity<ApiNote> preDeleteEntity = testRestTemplate
-                .getForEntity(url, ApiNote.class);
-        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(url, HttpMethod.DELETE, null, String.class);
-        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final EntityExchangeResult<ApiNote> preDeleteEntity = restTestClient.get()
+                .uri(URI.create(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(ApiNote.class);
+        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
+                .uri(URI.create(url))
+                .exchange()
+                .returnResult(String.class);
+        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testDeleteNoteDatabaseNotFound()
-             throws RestClientException, URISyntaxException {
+             throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/XYZZY/notes/SUBM1";
-        final ResponseEntity<ApiNote> preDeleteEntity = testRestTemplate
-                .getForEntity(url, ApiNote.class);
-        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(url, HttpMethod.DELETE, null, String.class);
-        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final EntityExchangeResult<ApiNote> preDeleteEntity = restTestClient.get()
+                .uri(URI.create(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(ApiNote.class);
+        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
+                .uri(URI.create(url))
+                .exchange()
+                .returnResult(String.class);
+        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testUpdateNoteWithNote()
-             throws RestClientException, URISyntaxException {
+             throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/notes";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         final List<ApiAttribute> attributes = new ArrayList<>();
-        attributes.add(new ApiAttribute("attribute", "Note", "first note"));
-        final ApiNote reqBody =
-                new ApiNote("note", "", attributes, "Top level note");
-        final HttpEntity<ApiNote> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiNote> entity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiNote.class);
-        final ApiNote resBody = entity.getBody();
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        attributes.add(ApiAttribute.builder()
+                .type("attribute")
+                .string("Note")
+                .tail("first note")
+                .build());
+        final ApiNote reqBody = ApiNote.builder()
+                .type("note")
+                .string("")
+                .attributes(attributes)
+                .tail("Top level note")
+                .build();
+        final EntityExchangeResult<ApiNote> entity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiNote.class);
+        final ApiNote resBody = entity.getResponseBody();
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(resBody.getType()).isEqualTo(reqBody.getType());
 
-        final ApiAttribute aNote =
-                new ApiAttribute("attribute", "Note", "this is a note");
-        resBody.getAttributes().add(
-                aNote);
-        final HttpEntity<ApiNote> putRequestEntity =
-                new HttpEntity<ApiNote>(resBody);
-        final ResponseEntity<ApiNote> putResponseEntity =
-                testRestTemplate.exchange(
-                url + "/" + resBody.getString(),
-                HttpMethod.PUT, putRequestEntity, ApiNote.class);
-        assertEquals(java.util.Optional.ofNullable(putResponseEntity.getBody())
+        final ApiAttribute aNote = ApiAttribute.builder()
+                .type("attribute")
+                .string("Note")
+                .tail("this is a note")
+                .build();
+        final ApiNote putRequestBody = resBody.toBuilder()
+        	.attribute(aNote)
+            .build();
+        final org.springframework.test.web.servlet.client.EntityExchangeResult<ApiNote> putResponseEntity = restTestClient.put()
+                .uri(URI.create(url + "/" + putRequestBody.getString()))
+                .body(putRequestBody)
+                .exchange()
+                .returnResult(ApiNote.class);
+        assertEquals(java.util.Optional.ofNullable(putResponseEntity.getResponseBody())
                         .map(b -> b.getAttributes().get(1)).orElse(null),
                 aNote, "attribute should be present");
      }

@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.datamodel.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -10,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 /**
  * @author Dick Schoeller
  */
@@ -17,72 +19,116 @@ public class ApiSourceTest {
     /** */
     @Test
     public void testDefaultConstructorType() {
-        final ApiSource o = new ApiSource();
+        final ApiSource o = ApiSource.builder()
+            .type("")
+            .string("")
+            .title("")
+            .build();
         assertEquals("", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorString() {
-        final ApiSource o = new ApiSource();
+        final ApiSource o = ApiSource.builder()
+            .type("")
+            .string("")
+            .title("")
+            .build();
         assertEquals("", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorAttributes() {
-        final ApiSource o = new ApiSource();
+        final ApiSource o = ApiSource.builder()
+            .type("")
+            .string("")
+            .title("")
+            .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
     /** */
     @Test
     public void testConstructorType() {
-        final ApiSource o = new ApiSource("type", "string", "Unknown");
+        final ApiSource o = ApiSource.builder()
+            .type("type")
+            .string("string")
+            .title("Unknown")
+            .build();
         assertEquals("type", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
     public void testConstructorString() {
-        final ApiSource o = new ApiSource("type", "string", "Unknown");
+        final ApiSource o = ApiSource.builder()
+            .type("type")
+            .string("string")
+            .title("Unknown")
+            .build();
         assertEquals("string", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
     public void testConstructorNoAttributes() {
-        final ApiSource o = new ApiSource("type", "string", "Unknown");
+        final ApiSource o = ApiSource.builder()
+            .type("type")
+            .string("string")
+            .title("Unknown")
+            .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes empty mismatch");
     }
 
     /** */
     @Test
     public void testConstructorNullAttributes() {
-        final ApiSource o = new ApiSource("type", "string", null);
+        final ApiSource o = ApiSource.builder()
+            .type("type")
+            .string("string")
+            .title("")
+            .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes empty mismatch");
     }
 
     /** */
     @Test
     public void testConstructorWithAttributes() {
-        final List<ApiAttribute> attributes =
-            List.of(new ApiAttribute("a string", "attribute", ""));
-        final ApiSource o = new ApiSource("type", "string", attributes, "Unknown");
+        final ApiSource o = ApiSource.builder()
+            .type("type")
+            .string("string")
+            .attributes(List.of(
+			    ApiAttribute.builder()
+			        .type("attribute")
+			        .string("a string")
+			        .tail("")
+			        .build()))
+            .title("Unknown")
+            .build();
         assertEquals(1, o.getAttributes().size(), "attributes size mismatch");
     }
 
     /** */
     @Test
     public void testIsType() {
-        final ApiSource o = new ApiSource("type", "string", "Unknown");
+        final ApiSource o = ApiSource.builder()
+            .type("type")
+            .string("string")
+            .title("Unknown")
+            .build();
         assertTrue(o.isType("type"), "isType mismatch");
     }
 
     /** */
     @Test
     public void testAccept() {
-        final ApiSource o = new ApiSource("type", "string", "Unknown");
+        final ApiSource o = ApiSource.builder()
+            .type("type")
+            .string("string")
+            .title("Unknown")
+            .build();
         final ApiTestVisitor visitor = new ApiTestVisitor();
         o.accept(visitor);
         assertEquals("source", visitor.getMethodCalled(), "Method mismatch");
@@ -91,13 +137,25 @@ public class ApiSourceTest {
     /** */
     @Test
     public void testImage() {
-        final ApiSource o = new ApiSource("type", "string", "title");
-        final ApiAttribute multimedia = new ApiAttribute(
-                "multimedia", "Multimedia");
-        final ApiAttribute file = new ApiAttribute(
-                "attribute", "File", "foo.jpg");
-        multimedia.getAttributes().add(file);
-        o.addAttribute(multimedia);
+        final ApiAttribute file = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("foo.jpg")
+            .attributes(List.of())
+            .build();
+        final ApiAttribute multimedia = ApiAttribute.builder()
+            .type("multimedia")
+            .string("Multimedia")
+            .attributes(List.of(file))
+            .build();
+        final ApiSource o = ApiSource.builder()
+            .type("type")
+            .string("string")
+            .title("title")
+            // GET SPLIT ATTRIBUTES WORKING IN BUILDER
+            .attributes(List.of(multimedia))
+            .image(multimedia)
+            .build();
         assertTrue(o.getImages().contains(multimedia), "Should contain multimedia");
     }
 
@@ -111,55 +169,39 @@ public class ApiSourceTest {
     /** */
     @Test
     public void testNoImages() {
-        final ApiSource o = new ApiSource("type", "string", "title");
+        final ApiSource o = ApiSource.builder().type("type").string("string").title("title").attributes(List.of()).build();
         assertEquals(0, o.getImages().size(), "Should contain 0 images");
     }
 
     /** */
     @Test
-    public void testHash() {
-        final ApiSource o = sourceWithMultimedia();
-        final int expected = 1050090841;
-        assertEquals(expected, o.hashCode(), "Hash should be");
-    }
-
-    /** */
-    @Test
-    public void testEquals() {
-        final ApiSource o1 = sourceWithMultimedia();
-        final ApiSource o2 = sourceWithMultimedia();
-        assertEquals(o1, o2, "Objects should be equal");
-    }
-
-    /** */
-    @Test
-    public void testSame() {
-        final ApiSource o1 = sourceWithMultimedia();
-        assertEquals(o1, o1, "Objects should be equal");
-    }
-
-    /** */
-    @Test
-    public void testNotEquals() {
-        final ApiSource o1 = sourceWithMultimedia();
-        final ApiSource o2 = sourceWithMultimedia();
-        final ApiAttribute a = new ApiAttribute(
-                "attribute", "Repository", "Needham Public Library");
-        o2.addAttribute(a);
-        assertNotEquals(o1, o2, "Objects should be unequal");
+    public void testHashAndEquals() {
+    	EqualsVerifier
+    	    .forClass(ApiSource.class)
+			.suppress(Warning.STRICT_INHERITANCE)
+    	    .verify();
     }
 
     /**
      * @return a new source
      */
     private ApiSource sourceWithMultimedia() {
-        final ApiSource o = new ApiSource("type", "string", "title");
-        final ApiAttribute multimedia = new ApiAttribute(
-                "multimedia", "Multimedia");
-        final ApiAttribute file = new ApiAttribute(
-                "attribute", "File", "foo.jpg");
-        multimedia.getAttributes().add(file);
-        o.addAttribute(multimedia);
-        return o;
+        final ApiAttribute multimedia = ApiAttribute.builder()
+		    .type("multimedia")
+		    .string("Multimedia")
+		    .attribute(ApiAttribute.builder()
+			    .type("attribute")
+			    .string("File")
+			    .tail("foo.jpg")
+			    .build())
+		    .build();
+		return ApiSource.builder()
+            .type("type")
+            .string("string")
+            .title("title")
+            // GET SPLIT ATTRIBUTES WORKING IN BUILDER
+            .attribute(multimedia)
+            .image(multimedia)
+            .build();
     }
 }
