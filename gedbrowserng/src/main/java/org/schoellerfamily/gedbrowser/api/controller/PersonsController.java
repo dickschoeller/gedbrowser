@@ -9,7 +9,6 @@ import org.schoellerfamily.gedbrowser.api.crud.ObjectCrud;
 import org.schoellerfamily.gedbrowser.api.crud.OperationsEnabler;
 import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson.Builder;
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
@@ -160,9 +159,11 @@ public class PersonsController {
      * @return the dummy person
      */
     private ApiPerson createDummyLivingPerson(final String id) {
-        final Builder builder =
-                new ApiPerson.Builder().id(id).indexName("Living").surname("").build();
-        return new ApiPerson(builder);
+        return ApiPerson.builder()
+            .string(id)
+            .indexName("Living")
+            .surname("")
+            .build();
     }
 
     /**
