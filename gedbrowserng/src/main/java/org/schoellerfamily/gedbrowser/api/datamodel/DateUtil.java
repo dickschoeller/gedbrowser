@@ -22,7 +22,10 @@ public class DateUtil {
                 .toUpperCase(Locale.ENGLISH);
         final int year = localDate.getYear();
         final String todayString = twoDigit(day) + " " + month + " " + year;
-        return new ApiAttribute("date", todayString);
+        return ApiAttribute.builder()
+            .type("date")
+            .string(todayString)
+            .build();
     }
 
     /**
