@@ -1,12 +1,10 @@
 package org.schoellerfamily.gedbrowser.security.auth;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.schoellerfamily.gedbrowser.security.token.TokenHelper;
-import org.springframework.lang.NonNull;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -62,7 +60,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     public static final String LOGOUT_MATCHER = "/auth/logout";
 
     /** */
-    private final List<String> pathsToSkip = Arrays.asList(
+    private final List<String> pathsToSkip = List.of(
             ROOT_MATCHER,
             HTML_MATCHER,
             FAVICON_MATCHER,
@@ -78,11 +76,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
      */
     @Override
     public void doFilterInternal(
-            @NonNull
             final HttpServletRequest request,
-            @NonNull
             final HttpServletResponse response,
-            @NonNull
             final FilterChain chain)
             throws IOException, ServletException {
 

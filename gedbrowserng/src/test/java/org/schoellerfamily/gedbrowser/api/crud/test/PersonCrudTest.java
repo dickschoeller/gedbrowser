@@ -19,7 +19,9 @@ import org.schoellerfamily.gedbrowser.api.crud.SpouseCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson.ApiPersonBuilder;
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.api.test.TestConfiguration;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class,
+@SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
@@ -126,10 +128,13 @@ public class PersonCrudTest {
     @Test
     public final void testCreatePersonsSimple() {
         log.info("Beginning testCreatePersonsSimple");
-        final ApiPerson.Builder builder = new ApiPerson.Builder().build();
-        final ApiPerson reqPerson = new ApiPerson(builder);
-        final ApiPerson resPerson = crud.createOne(helper.getDb(),
-                reqPerson);
+        final ApiPerson reqPerson = ApiPerson.builder()
+            .type("person")
+            .string("")
+            .surname("")
+            .indexName("")
+            .build();
+        final ApiPerson resPerson = crud.createOne(helper.getDb(), reqPerson);
         then(resPerson.getType()).isEqualTo(reqPerson.getType());
         then(resPerson.getSurname()).isEqualTo(reqPerson.getSurname());
         then(resPerson.getIndexName()).isEqualTo(reqPerson.getIndexName());
@@ -153,14 +158,15 @@ public class PersonCrudTest {
      * @return the newly created person
      */
     private ApiPerson createRJS() {
-        final ApiPerson.Builder builder = new ApiPerson.Builder()
-                .id("")
-                .add(new ApiAttribute("name", "Richard/Schoeller/", ""))
-                .add(new ApiAttribute("attribute", "Sex", "M"))
+        return ApiPerson.builder()
+                .type("person")
+                .string("")
+                .attribute(ApiAttribute.builder().type("name").string("Richard/Schoeller/").tail("").attributes(java.util.List.of()).build())
+                .attribute(ApiAttribute.builder().type("attribute").string("Sex").tail("M").attributes(java.util.List.of()).build())
                 .surname("Schoeller")
                 .indexName("Schoeller, Richard")
+                .attributes(java.util.List.of())
                 .build();
-        return new ApiPerson(builder);
     }
 
     /** */
@@ -197,13 +203,13 @@ public class PersonCrudTest {
                 repositoryManager);
         final ApiPerson child = childCrud.createChild(helper.getDb(), id,
                 childReqPerson);
-        final String fam = child.getFamc().get(0).getString();
+        final String fam = child.getFamcs().get(0).getString();
         final ApiPerson p2 = helper.createAlexandra();
         final SpouseCrud spouseCrud = new SpouseCrud(loader, toDocConverter,
                 repositoryManager);
         final ApiPerson gotP2 = spouseCrud.createSpouseInFamily(helper.getDb(),
                 fam, p2);
-        then(fam).isEqualTo(gotP2.getFams().get(0).getString());
+        then(fam).isEqualTo(gotP2.getFamss().get(0).getString());
 
         ApiPerson readPerson = crud.readOne(helper.getDb(), id);
         then(readPerson.getString()).isEqualTo(id);
@@ -236,14 +242,14 @@ public class PersonCrudTest {
                 repositoryManager);
         final ApiPerson child = childCrud.createChild(helper.getDb(), id,
                 childReqPerson);
-        final String fam = child.getFamc().get(0).getString();
+        final String fam = child.getFamcs().get(0).getString();
         final String childId = child.getString();
         final ApiPerson p2 = helper.createAlexandra();
         final SpouseCrud spouseCrud =
                 new SpouseCrud(loader, toDocConverter, repositoryManager);
         final ApiPerson gotP2 =
                 spouseCrud.createSpouseInFamily(helper.getDb(), fam, p2);
-        then(gotP2.getFams().get(0).getString()).isEqualTo(fam);
+        then(gotP2.getFamss().get(0).getString()).isEqualTo(fam);
         final ApiPerson deletedPerson =
                 crud.deleteOne(helper.getDb(), childId);
         then(deletedPerson.getString()).isEqualTo(childId);
@@ -293,15 +299,18 @@ public class PersonCrudTest {
     public final void testUpdatePersonWithNote() {
         log.info("Beginning testUpdatePersonWithNote");
         final ApiPerson reqPerson = createRJS();
-        final ApiPerson resPerson =
-                crud.createOne(helper.getDb(), reqPerson);
+        final ApiPersonBuilder<?, ?> resPerson =
+                crud.createOne(helper.getDb(), reqPerson).toBuilder();
         then(resPerson.getType()).isEqualTo(reqPerson.getType());
 
-        final ApiAttribute aNote = new ApiAttribute("attribute", "Note",
-                "this is a note");
-        resPerson.getAttributes().add(aNote);
+        final ApiAttribute aNote = ApiAttribute.builder()
+            .type("attribute")
+            .string("Note")
+            .tail("this is a note")
+            .build();
+        resPerson.attribute(aNote);
         final ApiPerson updatedPerson = crud.updateOne(helper.getDb(),
-                resPerson.getString(), resPerson);
+                resPerson.getString(), resPerson.build());
         assertEquals(aNote, updatedPerson.getAttributes().get(2),
                 "attribute should be present");
     }

@@ -4,7 +4,6 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -12,34 +11,36 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
+import org.schoellerfamily.gedbrowser.api.test.TestConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.client.EntityExchangeResult;
+import org.springframework.test.web.servlet.client.RestTestClient;
 import org.springframework.web.client.RestClientException;
 
 /**
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class,
+@SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "null" })
+@AutoConfigureRestTestClient
 public class SubmitterControllerTest {
     /**
-     * Not sure what this is good for.
+     * RestTestClient injected by Spring's test support.
      */
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private RestTestClient restTestClient;
 
     /**
      * Server port.
@@ -52,22 +53,18 @@ public class SubmitterControllerTest {
     public final void testGetSubmittersGl120368() {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/submitters";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        final String bodyFragment =
-                "{\n"
-                + "  \"type\" : \"submitter\",\n"
-                + "  \"string\" : \"U1\",\n"
-                + "  \"attributes\" : [ {\n"
-                + "    \"type\" : \"name\",\n"
-                + "    \"string\" : \"Phil Williams\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"\"\n"
-                + "  } ],\n"
-                + "  \"name\" : \"Phil Williams\"\n"
-                + "}";
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains(bodyFragment);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(String.class);
+        final HttpStatusCode status = entity.getStatus();
+        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        then(entity.getResponseBody())
+            .contains("\"type\" : \"submitter\"",
+            		"\"string\" : \"U1\"",
+            		"\"string\" : \"Phil Williams\"",
+            		"\"name\" : \"Phil Williams\"");
     }
 
     /** */
@@ -75,8 +72,11 @@ public class SubmitterControllerTest {
     public final void testGetSubmittersGl120368U1() {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/submitters/U1";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(String.class);
         final String bodyFragment =
                 "{\n"
                 + "  \"type\" : \"submitter\",\n"
@@ -89,8 +89,10 @@ public class SubmitterControllerTest {
                 + "  } ],\n"
                 + "  \"name\" : \"Phil Williams\"\n"
                 + "}";
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).isEqualTo(bodyFragment);
+
+        final HttpStatusCode status = entity.getStatus();
+        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        then(entity.getResponseBody()).isEqualTo(bodyFragment);
     }
 
     /** */
@@ -98,39 +100,46 @@ public class SubmitterControllerTest {
     public final void testGetSubmittersGl120368Xyzzy() {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/submitters/Xyzzy";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(String.class);
+
+        final HttpStatusCode status = entity.getStatus();
+        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testCreateSubmittersSimple()
-            throws RestClientException, URISyntaxException {
+            throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/submitters";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        final ApiSubmitter reqBody = new ApiSubmitter("submitter", "", "? ?");
-        final HttpEntity<ApiSubmitter> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiSubmitter> entity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiSubmitter.class);
-        final ApiSubmitter resBody = entity.getBody();
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ApiSubmitter reqBody = ApiSubmitter.builder().type("submitter").string("").build();
+        final EntityExchangeResult<ApiSubmitter> entity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiSubmitter.class);
+        final ApiSubmitter resBody = entity.getResponseBody();
+
+        final HttpStatusCode status = entity.getStatus();
+        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(resBody.getType()).isEqualTo(reqBody.getType());
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testDeleteSubmitter()
-            throws RestClientException, URISyntaxException {
+            throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -139,103 +148,130 @@ public class SubmitterControllerTest {
         // we are modifying.
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/submitters";
-        final ApiSubmitter reqBody = new ApiSubmitter("submitter", "", "? ?");
-        final HttpEntity<ApiSubmitter> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiSubmitter> submitterEntity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiSubmitter.class);
-        then(submitterEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ApiSubmitter reqBody = ApiSubmitter.builder().type("submitter").string("").build();
+        final EntityExchangeResult<ApiSubmitter> submitterEntity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiSubmitter.class);
+
+        final HttpStatusCode status1 = submitterEntity.getStatus();
+        then(status1).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         // Capture information about new submitter.
-        final ApiSubmitter resBody = submitterEntity.getBody();
+        final ApiSubmitter resBody = submitterEntity.getResponseBody();
         final String id = resBody.getString();
 
         final String deleteUrl = url + "/" + id;
-        final ResponseEntity<ApiSubmitter> preDeleteEntity = testRestTemplate
-                .getForEntity(deleteUrl, ApiSubmitter.class);
-        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(deleteUrl, HttpMethod.DELETE, null, String.class);
-        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ResponseEntity<ApiSubmitter> postDeleteEntity = testRestTemplate
-                .getForEntity(deleteUrl, ApiSubmitter.class);
-        then(postDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final EntityExchangeResult<ApiSubmitter> preDeleteEntity = restTestClient.get()
+                .uri(URI.create(deleteUrl))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(ApiSubmitter.class);
+
+        final HttpStatusCode status2 = preDeleteEntity.getStatus();
+        then(status2).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
+                .uri(URI.create(deleteUrl))
+                .exchange()
+                .returnResult(String.class);
+
+        final HttpStatusCode status3 = deleteEntity.getStatus();
+        then(status3).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final EntityExchangeResult<ApiSubmitter> postDeleteEntity = restTestClient.get()
+                .uri(URI.create(deleteUrl))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(ApiSubmitter.class);
+        final HttpStatusCode status4 = postDeleteEntity.getStatus();
+        then(status4).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testDeleteSubmitterNotFound()
-            throws RestClientException, URISyntaxException {
+            throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/submitters/XXXXXXX";
-        final ResponseEntity<ApiSubmitter> preDeleteEntity = testRestTemplate
-                .getForEntity(url, ApiSubmitter.class);
-        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(url, HttpMethod.DELETE, null, String.class);
-        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final EntityExchangeResult<ApiSubmitter> preDeleteEntity = restTestClient.get()
+                .uri(URI.create(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(ApiSubmitter.class);
+        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
+                .uri(URI.create(url))
+                .exchange()
+                .returnResult(String.class);
+        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testDeleteSubmitterDatabaseNotFound()
-            throws RestClientException, URISyntaxException {
+            throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/XYZZY/submitters/SUBM1";
-        final ResponseEntity<ApiSubmitter> preDeleteEntity = testRestTemplate
-                .getForEntity(url, ApiSubmitter.class);
-        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(url, HttpMethod.DELETE, null, String.class);
-        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final EntityExchangeResult<ApiSubmitter> preDeleteEntity = restTestClient.get()
+                .uri(URI.create(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(ApiSubmitter.class);
+        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
+                .uri(URI.create(url))
+                .exchange()
+                .returnResult(String.class);
+        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testUpdateSubmitterWithNote()
-            throws RestClientException, URISyntaxException {
+            throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/submitters";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         final List<ApiAttribute> attributes = List.of(
-                new ApiAttribute("attribute", "Note", "first note"));
+                ApiAttribute.builder().type("attribute").string("Note").tail("first note").build());
         final ApiSubmitter reqBody =
-                new ApiSubmitter("submitter", "", attributes, "? ?");
-        final HttpEntity<ApiSubmitter> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiSubmitter> entity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiSubmitter.class);
-        final ApiSubmitter resBody = entity.getBody();
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+                ApiSubmitter.builder().type("submitter").string("").attributes(attributes).build();
+        final EntityExchangeResult<ApiSubmitter> entity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiSubmitter.class);
+        final ApiSubmitter resBody = entity.getResponseBody();
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(resBody.getType()).isEqualTo(reqBody.getType());
 
         final ApiAttribute aNote =
-                new ApiAttribute("attribute", "Note", "this is a note");
-        resBody.getAttributes().add(
-                aNote);
-        final HttpEntity<ApiSubmitter> putRequestEntity =
-                new HttpEntity<ApiSubmitter>(resBody);
-        final ResponseEntity<ApiSubmitter> putResponseEntity =
-                testRestTemplate.exchange(
-                url + "/" + resBody.getString(),
-                HttpMethod.PUT, putRequestEntity, ApiSubmitter.class);
+                ApiAttribute.builder().type("attribute").string("Note").tail("this is a note").build();
+        final ApiSubmitter putRequestBody = resBody.toBuilder()
+        		.attribute(aNote)
+        		.build();
+        final EntityExchangeResult<ApiSubmitter> putResponseEntity = restTestClient.put()
+                .uri(URI.create(url + "/" + putRequestBody.getString()))
+                .headers(h -> h.addAll(headers))
+                .body(putRequestBody)
+                .exchange()
+                .returnResult(ApiSubmitter.class);
         assertEquals(aNote,
-                java.util.Optional.ofNullable(putResponseEntity.getBody())
+                java.util.Optional.ofNullable(putResponseEntity.getResponseBody())
                         .map(b -> b.getAttributes().get(1)).orElse(null),
                 "attribute should be present");
     }

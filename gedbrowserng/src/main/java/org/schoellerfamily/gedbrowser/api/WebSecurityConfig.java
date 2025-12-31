@@ -145,7 +145,9 @@ public class WebSecurityConfig {
             http.csrf(csrf -> csrf
                     .ignoringRequestMatchers(
                             PathPatternRequestMatcher.withDefaults().matcher("/v1/login"),
-                            PathPatternRequestMatcher.withDefaults().matcher("/v1/signup"))
+                            PathPatternRequestMatcher.withDefaults().matcher("/v1/signup"),
+                            PathPatternRequestMatcher.withDefaults().matcher("/gedbrowserng/v1/login"),
+                            PathPatternRequestMatcher.withDefaults().matcher("/gedbrowserng/v1/signup"))
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
             );
         }

@@ -26,7 +26,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.dao.DataAccessException;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
@@ -41,7 +40,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public final class RepositoryFinderMongo implements FinderStrategy {
     /** */
-	@NonNull
     private final RepositoryManagerMongo repositoryManager;
 
     /** */

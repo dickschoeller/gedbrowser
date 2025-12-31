@@ -1,26 +1,23 @@
 package org.schoellerfamily.gedbrowser.api.test;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.client.EntityExchangeResult;
+import org.springframework.test.web.servlet.client.RestTestClient;
 
 import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("null")
 @RequiredArgsConstructor
 public final class LoginTestHelper {
     /** */
-    private final TestRestTemplate template;
+    private final RestTestClient client;
 
     /** */
     private final int port;
@@ -32,20 +29,19 @@ public final class LoginTestHelper {
      * @param username the username
      * @param password the password
      * @return the entity
-     * @throws URISyntaxException if the URL is broken
      */
-    public ResponseEntity<LoginResponse> login(final String username,
-            final String password) throws URISyntaxException {
+    public EntityExchangeResult<LoginResponse> login(final String username,
+            final String password) {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/login";
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         final String loginString = "username=" + username + "&password="
                 + password;
-        final HttpEntity<String> loginReq =
-                new HttpEntity<>(loginString, headers);
-        final ResponseEntity<LoginResponse> responseEntity = template.postForEntity(new URI(url), loginReq, LoginResponse.class);
-		return responseEntity;
+        return client.post()
+            .uri(URI.create(url))
+            .body(loginString)
+            .accept(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+            .exchange()
+            .returnResult(LoginResponse.class);
     }
 
     /**
@@ -91,8 +87,9 @@ public final class LoginTestHelper {
      * @return the headers
      */
     public HttpHeaders buildHeaders(
-            final ResponseEntity<LoginResponse> loginResponse) {
-        final String accessToken = Optional.ofNullable(loginResponse.getBody())
+            final EntityExchangeResult<LoginResponse> loginResponse) {
+        final LoginResponse lr = loginResponse.getResponseBody();
+        final String accessToken = Optional.ofNullable(lr)
             .map(LoginResponse::getAccessToken).orElse(null);
 
         final HttpHeaders headers = new HttpHeaders();
@@ -110,33 +107,32 @@ public final class LoginTestHelper {
      *
      * @param headers the headers
      * @return the response entity
-     * @throws URISyntaxException the URL is messed up
      */
-    public ResponseEntity<String> logout(final HttpHeaders headers)
-            throws URISyntaxException {
+    public EntityExchangeResult<String> logout(final HttpHeaders headers) {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/logout";
-        final HttpEntity<String> logoutRequest = new HttpEntity<>(headers);
-        return template.postForEntity(new URI(url), logoutRequest, String.class);
+        return client.post()
+            .uri(URI.create(url))
+            .headers(h -> h.addAll(headers))
+            .exchange()
+            .returnResult(String.class);
     }
 
     /**
      * Login and return a request entity.
      *
      * @return the entity
-     * @throws URISyntaxException if there is a problem with the URL
      */
-    public <T> HttpEntity<T> adminEntity() throws URISyntaxException {
-        return new HttpEntity<T>(adminLogin());
+    public <T> org.springframework.http.HttpEntity<T> adminEntity() {
+        return new org.springframework.http.HttpEntity<T>(adminLogin());
     }
 
     /**
      * Login and return a built request header.
      *
      * @return the header
-     * @throws URISyntaxException if there is a problem with the URL
      */
-    public HttpHeaders adminLogin() throws URISyntaxException {
-        final HttpHeaders headers =
+    public org.springframework.http.HttpHeaders adminLogin() {
+        final org.springframework.http.HttpHeaders headers =
                 buildHeaders(login("schoeller@comcast.net", "HAHANOWAY"));
         headers.setContentType(MediaType.APPLICATION_JSON);
         return headers;
@@ -146,20 +142,18 @@ public final class LoginTestHelper {
      * Login and return a request entity.
      *
      * @return the entity
-     * @throws URISyntaxException if there is a problem with the URL
      */
-    public <T> HttpEntity<T> userEntity() throws URISyntaxException {
-        return new HttpEntity<T>(userLogin());
+    public <T> org.springframework.http.HttpEntity<T> userEntity() {
+        return new org.springframework.http.HttpEntity<T>(userLogin());
     }
 
     /**
      * Login and return a built request header.
      *
      * @return the header
-     * @throws URISyntaxException if there is a problem with the URL
      */
-    public HttpHeaders userLogin() throws URISyntaxException {
-        final HttpHeaders headers =
+    public org.springframework.http.HttpHeaders userLogin() {
+        final org.springframework.http.HttpHeaders headers =
                 buildHeaders(login("guest", "guest"));
         headers.setContentType(MediaType.APPLICATION_JSON);
         return headers;

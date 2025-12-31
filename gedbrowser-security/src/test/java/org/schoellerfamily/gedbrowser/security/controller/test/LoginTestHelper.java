@@ -5,12 +5,10 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
+import org.springframework.test.web.servlet.client.EntityExchangeResult;
+import org.springframework.test.web.servlet.client.RestTestClient;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,10 +16,9 @@ import lombok.RequiredArgsConstructor;
  * @author Dick Schoeller
  */
 @RequiredArgsConstructor
-@SuppressWarnings("null")
 public final class LoginTestHelper {
     /** */
-    private final TestRestTemplate template;
+    private final RestTestClient client;
 
     /** */
     private final int port;
@@ -35,18 +32,18 @@ public final class LoginTestHelper {
      * @return the entity
      * @throws URISyntaxException if the URL is broken
      */
-    public ResponseEntity<LoginResponse> login(final String username,
+    public EntityExchangeResult<LoginResponse> login(final String username,
             final String password) throws URISyntaxException {
         final String url = "http://localhost:" + port + "/v1/login";
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        final List<MediaType> accepts = List.of(MediaType.APPLICATION_JSON);
-        headers.setAccept(accepts);
         final String loginString = "username=" + username + "&password="
                 + password;
-        final HttpEntity<String> loginReq =
-                new HttpEntity<>(loginString, headers);
-        return template.postForEntity(new URI(url), loginReq, LoginResponse.class);
+        return client.post()
+            .uri(new URI(url))
+            .body(loginString)
+            .accept(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+            .exchange()
+            .returnResult(LoginResponse.class);
     }
 
     /**
@@ -91,11 +88,29 @@ public final class LoginTestHelper {
      * @param loginResponse the login response
      * @return the headers
      */
-    @NonNull
     public HttpHeaders buildHeaders(
-            final ResponseEntity<LoginResponse> loginResponse) {
-        final String accessToken = Optional.ofNullable(loginResponse.getBody())
+            final EntityExchangeResult<LoginResponse> loginResponse) {
+        String accessToken = Optional.ofNullable(loginResponse.getResponseBody())
             .map(LoginResponse::getAccessToken).orElse(null);
+
+        // If accessToken is not present in the parsed body, try extracting it
+        // from the Set-Cookie header (AUTH-TOKEN cookie).
+        if (accessToken == null) {
+            final String setCookie = loginResponse.getResponseHeaders()
+                    .getFirst(HttpHeaders.SET_COOKIE);
+            if (setCookie != null) {
+                final String cookieName = "AUTH-TOKEN";
+                final int idx = setCookie.indexOf(cookieName + "=");
+                if (idx >= 0) {
+                    final int start = idx + (cookieName + "=").length();
+                    int end = setCookie.indexOf(';', start);
+                    if (end < 0) {
+                        end = setCookie.length();
+                    }
+                    accessToken = setCookie.substring(start, end);
+                }
+            }
+        }
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -114,11 +129,13 @@ public final class LoginTestHelper {
      * @return the resposne entity
      * @throws URISyntaxException the URL is messed up
      */
-    public ResponseEntity<String> logout(@NonNull final HttpHeaders headers)
+    public EntityExchangeResult<String> logout(final HttpHeaders headers)
             throws URISyntaxException {
         final String url = "http://localhost:" + port + "/v1/logout";
-        final HttpEntity<String> logoutRequest =
-                new HttpEntity<>(headers);
-        return template.postForEntity(new URI(url), logoutRequest, String.class);
+        return client.post()
+            .uri(new URI(url))
+            .headers(h -> h.addAll(headers))
+            .exchange()
+            .returnResult(String.class);
     }
 }

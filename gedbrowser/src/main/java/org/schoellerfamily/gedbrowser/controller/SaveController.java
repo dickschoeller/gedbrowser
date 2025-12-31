@@ -1,7 +1,13 @@
 package org.schoellerfamily.gedbrowser.controller;
 
+import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.users.User;
+import org.schoellerfamily.gedbrowser.datamodel.users.Users;
+import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.writer.GedWriter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +25,23 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class SaveController extends AbstractController {
+
+    /**
+     * Constructor.
+     *
+     * @param appInfo the application info
+     * @param users info about the known application users
+     * @param loader enable loading gedcom files
+     * @param provider enable calendar processing
+     * @param repositoryManager enable data storage
+     */
+    public SaveController(final ApplicationInfo appInfo,
+            final Users<? extends User> users,
+            final GedObjectFileLoader loader,
+            final CalendarProvider provider,
+            final RepositoryManagerMongo repositoryManager) {
+        super(appInfo, users, loader, provider, repositoryManager);
+    }
 
     /**
      * Connects HTML template file with data for saving the GEDCOM file.

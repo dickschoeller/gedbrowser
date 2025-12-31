@@ -2,6 +2,8 @@ package org.schoellerfamily.gedbrowser.controller.test;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
+import java.net.URI;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.Application;
@@ -9,13 +11,15 @@ import org.schoellerfamily.gedbrowser.test.TestConfiguration;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserImpl;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.client.EntityExchangeResult;
+import org.springframework.test.web.servlet.client.RestTestClient;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 
 /**
  * @author Dick Schoeller
@@ -24,13 +28,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
+@AutoConfigureRestTestClient
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class SaveControllerTest {
     /**
      * Not sure what this is good for.
      */
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private RestTestClient restTestClient;
 
     /**
      * The data of known users.
@@ -57,10 +62,13 @@ public class SaveControllerTest {
 
         final String url = "http://localhost:" + port
                 + "/gedbrowser/save?db=gl120368";
-        final ResponseEntity<String> entity = testRestTemplate.getForEntity(url,
-                String.class);
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody())
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .exchange()
+                .returnResult(String.class);
+        final HttpStatusCode status = entity.getStatus();
+        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        then(entity.getResponseBody())
             .contains("0 HEAD")
             .contains("1 SOUR FAMILY_HISTORIAN")
             .contains("2 VERS 3.1")
@@ -90,11 +98,14 @@ public class SaveControllerTest {
 
         final String url = "http://localhost:" + port
                 + "/gedbrowser/save?db=XYZZY";
-        final ResponseEntity<String> entity = testRestTemplate.getForEntity(url,
-                String.class);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .exchange()
+                .returnResult(String.class);
 
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        then(entity.getBody()).contains("Data set not found");
+        final HttpStatusCode status = entity.getStatus();
+        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        then(entity.getResponseBody()).contains("Data set not found");
 
         // Turn off anonymous admin.
         users.remove(user);
@@ -105,11 +116,14 @@ public class SaveControllerTest {
     public final void testSaveControllerNotAdmin() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser/save?db=gl120368";
-        final ResponseEntity<String> entity = testRestTemplate.getForEntity(url,
-                String.class);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .exchange()
+                .returnResult(String.class);
 
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody())
+        final HttpStatusCode status = entity.getStatus();
+        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        then(entity.getResponseBody())
             .contains("Sorry, you aren't authorized to do that!");
     }
 }

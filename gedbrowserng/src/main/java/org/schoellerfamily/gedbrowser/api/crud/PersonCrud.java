@@ -60,7 +60,11 @@ public class PersonCrud
     @Override
     public ApiPerson createOne(final String db, final ApiPerson person) {
         log.info("Entering create person in db: {}", db);
-        return create(readRoot(getRepositoryManager(), db), person, (i, id) -> new ApiPerson(i, id));
+        return create(readRoot(getRepositoryManager(), db), person,
+            (i, id) -> i
+                .toBuilder()
+                .string(id)
+                .build());
     }
 
     /**
@@ -98,8 +102,10 @@ public class PersonCrud
         if (!id.equals(person.getString())) {
             return null;
         }
-        person.change();
-        return update(readRoot(getRepositoryManager(), db), person);
+        final ApiPerson changedPerson = person.toBuilder()
+            .changed()
+            .build();
+        return update(readRoot(getRepositoryManager(), db), changedPerson);
     }
 
     /**
@@ -124,7 +130,7 @@ public class PersonCrud
      */
     private ApiPerson unlinkFamc(final String db, final ApiPerson person) {
         ApiPerson newPerson = person;
-        final List<String> famcList = newPerson.getFamc().stream()
+        final List<String> famcList = newPerson.getFamcs().stream()
                 .map(ApiAttribute::getString)
                 .toList();
         for (final String famc : famcList) {
@@ -141,7 +147,7 @@ public class PersonCrud
      */
     private ApiPerson unlinkFams(final String db, final ApiPerson person) {
         ApiPerson newPerson = person;
-        final List<String> famsList = newPerson.getFams().stream()
+        final List<String> famsList = newPerson.getFamss().stream()
                 .map(ApiAttribute::getString)
                 .toList();
         for (final String fams : famsList) {

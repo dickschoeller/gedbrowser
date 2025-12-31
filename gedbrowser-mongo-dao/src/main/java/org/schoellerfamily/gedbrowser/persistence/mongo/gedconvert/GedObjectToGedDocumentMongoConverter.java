@@ -56,7 +56,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterDocument
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterLinkDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo;
-import org.springframework.lang.NonNull;
 
 /**
  * @author Dick Schoeller
@@ -107,7 +106,6 @@ public class GedObjectToGedDocumentMongoConverter
      * @param ged the GedObject that we are going to persist
      * @return the mongo document to represent it
      */
-    @NonNull
     private GedDocumentMongo<? extends GedObject> create(final GedObject ged) {
         if (ged == null) {
             throw new PersistenceException("Null ged object not supported");
@@ -144,7 +142,6 @@ public class GedObjectToGedDocumentMongoConverter
      * @param ged the GedObject that is being transformed
      * @return the mongo document produced
      */
-    @NonNull
     public <G extends GedObject> GedDocumentMongo<G> createGedDocument(
             final G ged) {
         @SuppressWarnings("unchecked")

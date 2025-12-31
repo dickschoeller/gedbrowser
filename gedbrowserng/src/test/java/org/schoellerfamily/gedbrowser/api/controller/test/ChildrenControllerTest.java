@@ -4,7 +4,6 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,18 +11,19 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
+import org.schoellerfamily.gedbrowser.api.test.TestConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.client.EntityExchangeResult;
+import org.springframework.test.web.servlet.client.RestTestClient;
 import org.springframework.web.client.RestClientException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,17 +32,18 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class,
+@SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @Slf4j
-@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "null" })
+@AutoConfigureRestTestClient
+@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
 public class ChildrenControllerTest {
     /**
-     * Not sure what this is good for.
+     * RestTestClient injected by Spring's test support.
      */
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private RestTestClient restTestClient;
 
     /**
      * Server port.
@@ -58,47 +59,50 @@ public class ChildrenControllerTest {
      */
     @BeforeEach
     public void setUp() {
-        helper = new ControllerTestHelper(port, testRestTemplate);
+        helper = new ControllerTestHelper(port, restTestClient);
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
-    public final void testCreateChild()
-            throws RestClientException, URISyntaxException {
+    public final void testCreateChild() throws RestClientException {
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = createChildOfParent(parent);
-        log.info("famc: {}", child.getFamc().get(0).getString());
+        log.info("famc: {}", child.getFamcs().get(0).getString());
 
         final ApiPerson gotParent = helper.getPerson(parent);
-        assertEquals(child.getFamc().get(0).getString(),
-                gotParent.getFams().get(0).getString(), "Child should be in family");
+        assertEquals(child.getFamcs().get(0).getString(),
+                gotParent.getFamss().get(0).getString(), "Child should be in family");
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
-    public final void testLinkChildInFamily()
-            throws RestClientException, URISyntaxException {
+    public final void testLinkChildInFamily() throws RestClientException {
         final ApiPerson parent = helper.createPerson();
 
         final ApiPerson child = createChildOfParent(parent);
-        String famID = child.getFamc().get(0).getString();
+        String famID = child.getFamcs().get(0).getString();
         log.info("famc: {}", famID);
 
         final ApiPerson secondChild = helper.createPerson();
         final String familiesUrl = helper.getFamiliesUrl() + "/" + famID;
-        final HttpEntity<ApiPerson> personReq =
-                new HttpEntity<>(secondChild, helper.getHeaders());
-        testRestTemplate.put(new URI(familiesUrl + "/children"), personReq);
-        final ResponseEntity<ApiFamily> familyEntity = testRestTemplate
-                .getForEntity(new URI(familiesUrl), ApiFamily.class);
+        // Use RestTestClient to put the child into the family
+        restTestClient.put()
+                .uri(URI.create(familiesUrl + "/children"))
+                .headers(h -> h.addAll(helper.getHeaders()))
+                .body(secondChild)
+                .exchange()
+                .returnResult(ApiFamily.class);
+        final EntityExchangeResult<ApiFamily> familyEntity = restTestClient.get()
+                .uri(URI.create(familiesUrl))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(ApiFamily.class);
         assertEquals(secondChild.getString(),
-                java.util.Optional.ofNullable(familyEntity.getBody())
+                java.util.Optional.ofNullable(familyEntity.getResponseBody())
                         .map(b -> b.getChildren().get(1).getString()).orElse(null),
                 "check ID");
 
@@ -106,68 +110,67 @@ public class ChildrenControllerTest {
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
-    public final void testLinkChild()
-            throws RestClientException, URISyntaxException {
+    public final void testLinkChild() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = helper.createPerson();
-        final HttpEntity<ApiPerson> personReq =
-                new HttpEntity<>(child, headers);
-        final ResponseEntity<ApiPerson> childEntity = testRestTemplate.exchange(
-                new URI(helper.getPersonsUrl() + "/" + parent.getString()
-                        + "/children"),
-                HttpMethod.PUT, personReq, ApiPerson.class);
-        final ApiPerson gotChild = childEntity.getBody();
+        final EntityExchangeResult<ApiPerson> childEntity = restTestClient.put()
+                .uri(URI.create(helper.getPersonsUrl() + "/" + parent.getString()
+                        + "/children"))
+                .headers(h -> h.addAll(headers))
+                .body(child)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        final ApiPerson gotChild = childEntity.getResponseBody();
         then(gotChild.getString()).isEqualTo(child.getString());
-        then(gotChild.getFamc().size()).isEqualTo(1);
+        then(gotChild.getFamcs().size()).isEqualTo(1);
         final ApiPerson gotParent = helper.getPerson(parent);
-        then(gotParent.getFams().size()).isEqualTo(1);
-        assertEquals(gotParent.getFams().get(0).getString(),
-                gotChild.getFamc().get(0).getString(), "check ids");
+        then(gotParent.getFamss().size()).isEqualTo(1);
+        assertEquals(gotParent.getFamss().get(0).getString(),
+                gotChild.getFamcs().get(0).getString(), "check ids");
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
-    public final void testUnlinkChild()
-            throws RestClientException, URISyntaxException {
+    public final void testUnlinkChild() throws RestClientException {
         final String familiesUrl = helper.getFamiliesUrl();
         final ApiPerson parent = helper.createPerson();
 
         final ApiPerson child = createChildOfParent(parent);
-        log.info("famc: {}", child.getFamc().get(0).getString());
+        log.info("famc: {}", child.getFamcs().get(0).getString());
 
 
-        testRestTemplate.delete(
-                new URI(familiesUrl + "/" + child.getFamc().get(0).getString()
-                        + "/children/" + child.getString()));
+        restTestClient.delete()
+                .uri(URI.create(familiesUrl + "/" + child.getFamcs().get(0).getString()
+                        + "/children/" + child.getString()))
+                .exchange();
         final ApiPerson gotChild = helper.getPerson(child);
-        assertEquals(0, gotChild.getFamc().size(), "not in family");
+        assertEquals(0, gotChild.getFamcs().size(), "not in family");
     }
 
     /**
      * @param parent the parent
      * @return the child
-     * @throws URISyntaxException if there is a problem with the URL
      */
-    private ApiPerson createChildOfParent(final ApiPerson parent)
-            throws URISyntaxException {
+    private ApiPerson createChildOfParent(final ApiPerson parent) {
         final String childUrl = helper.getPersonsUrl() + "/"
                 + parent.getString() + "/children";
         log.info("childUrl: {}", childUrl);
         final ApiPerson childReqBody = helper.buildPerson();
-        final HttpEntity<ApiPerson> childReq =
-                new HttpEntity<>(childReqBody, helper.getHeaders());
-        final ResponseEntity<ApiPerson> childEntity = testRestTemplate
-                .postForEntity(new URI(childUrl), childReq, ApiPerson.class);
-        then(childEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ApiPerson child = childEntity.getBody();
+        final EntityExchangeResult<ApiPerson> childEntity = restTestClient.post()
+                .uri(URI.create(childUrl))
+                .headers(h -> h.addAll(helper.getHeaders()))
+                .body(childReqBody)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(childEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final ApiPerson child = childEntity.getResponseBody();
         return child;
     }
 }

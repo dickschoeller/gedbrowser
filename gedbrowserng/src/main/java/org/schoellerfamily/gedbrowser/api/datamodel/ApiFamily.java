@@ -1,79 +1,40 @@
 package org.schoellerfamily.gedbrowser.api.datamodel;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Singular;
+import lombok.experimental.SuperBuilder;
+import lombok.extern.jackson.Jacksonized;
+import tools.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonPOJOBuilder;
+
 /**
+ * The family data model object for the API.
+ *
  * @author Dick Schoeller
  */
-public final class ApiFamily extends ApiHasImages {
-    /** */
-    private static final long serialVersionUID = 3L;
-
+@SuperBuilder(toBuilder = true)
+@Getter
+@EqualsAndHashCode(callSuper = true)
+@Jacksonized
+@JsonDeserialize(builder = ApiFamily.ApiFamilyBuilderImpl.class)
+@JsonPropertyOrder({ "children", "spouses" })
+public class ApiFamily extends ApiHasImages {
     /**
      * The list of child attributes of this object.
      */
-    private final List<ApiAttribute> children = new ArrayList<>();
+    @Singular
+    private final List<ApiAttribute> children;
 
     /**
      * The list of husband, wife, spouse attributes of this object.
      */
-    private final List<ApiAttribute> spouses = new ArrayList<>();
-
-    /**
-     * Constructor.
-     */
-    public ApiFamily() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param type a string describing the data type of this object
-     * @param string a string containing the primary value of this object
-     */
-    public ApiFamily(final String type, final String string) {
-        super(type, string);
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param type a string describing the data type of this object
-     * @param string a string containing the primary value of this object
-     * @param attributes the list of subordinate attributes of this object
-     */
-    public ApiFamily(final String type, final String string,
-            final List<ApiAttribute> attributes) {
-        super(type, string, attributes);
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param in a family to copy (except for the ID)
-     * @param string the ID of this object
-     */
-    public ApiFamily(final ApiFamily in, final String string) {
-        super(in, string);
-        this.children.addAll(in.children);
-        this.spouses.addAll(in.spouses);
-    }
-
-    /**
-     * @return the list of child attributes
-     */
-    public List<ApiAttribute> getChildren() {
-        return children;
-    }
-
-    /**
-     * @return the list of husband, wife, spouse attributes
-     */
-    public List<ApiAttribute> getSpouses() {
-        return spouses;
-    }
+    @Singular
+    private final List<ApiAttribute> spouses;
 
     /**
      * @param visitor the visitor
@@ -83,89 +44,50 @@ public final class ApiFamily extends ApiHasImages {
     }
 
     /**
-     * {@inheritDoc}
+     * The Builder for ApiFamily.
+     *
+     * @param <C> the class to be built
+     * @param <B> the type of the builder
      */
+    @JsonPOJOBuilder(withPrefix="")
+    public static abstract class ApiFamilyBuilder<C extends ApiFamily, B extends ApiFamilyBuilder<C, B>> extends ApiHasImagesBuilder<C, B> {
+        public B attribute(final ApiAttribute attribute) {
+            if (attribute.isType("husband") || attribute.isType("wife")
+                    || attribute.isType("spouse")) {
+                return spouse(attribute);
+            }
+            if (attribute.isType("child")) {
+                return child(attribute);
+            }
+            if (new ImageUtils().isImageWrapper(attribute)) {
+                return image(attribute);
+            }
+            return super.attribute(attribute);
+        }
+
+        public B attributes(final List<ApiAttribute> attributes) {
+            for (final ApiAttribute attribute : attributes) {
+                attribute(attribute);
+            }
+            return self();
+        }
+
+        public B addSpouse(final int index, final ApiAttribute spouse) {
+            this.spouses.add(index, spouse);
+            return self();
+        }
+
+        public List<ApiAttribute> getSpouses() {
+            return this.spouses;
+        }
+
+        public List<ApiAttribute> getChildren() {
+            return this.children;
+        }
+    }
+
     @Override
-    public void addAttribute(final ApiAttribute attribute) {
-        if (attribute.isType("husband") || attribute.isType("wife")
-                || attribute.isType("spouse")) {
-            spouses.add(attribute);
-            return;
-        }
-        if (attribute.isType("child")) {
-            children.add(attribute);
-            return;
-        }
-        if (new ImageUtils().isImageWrapper(attribute)) {
-            getImages().add(attribute);
-            return;
-        }
-        getAttributes().add(attribute);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + childrenHash();
-        result = prime * result + spousesHash();
-        return result;
-    }
-
-    /**
-     * @return hash code for the children list
-     */
-    private int childrenHash() {
-        if (children == null) {
-            return 0;
-        }
-        return children.hashCode();
-    }
-
-    /**
-     * @return hash code for the spouses list
-     */
-    private int spousesHash() {
-        if (spouses == null) {
-            return 0;
-        }
-        return spouses.hashCode();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        final ApiFamily other = (ApiFamily) obj;
-        if (!childrenEquals(other)) {
-            return false;
-        }
-        return spousesEquals(other);
-    }
-
-    /**
-     * @param other the other object to compare against
-     * @return true if the children lists match
-     */
-    private boolean childrenEquals(final ApiFamily other) {
-        return children.equals(other.children);
-    }
-
-    /**
-     * @param other the other object to compare against
-     * @return true if the spouses lists match
-     */
-    private boolean spousesEquals(final ApiFamily other) {
-        return spouses.equals(other.spouses);
+    public boolean canEqual(final Object other) {
+        return other.getClass() == ApiFamily.class;
     }
 }
