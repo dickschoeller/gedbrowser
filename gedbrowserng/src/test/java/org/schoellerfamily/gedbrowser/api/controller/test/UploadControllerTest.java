@@ -29,13 +29,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * @author Richard Schoeller
  */
 @ExtendWith(MockitoExtension.class)
-@SuppressWarnings("null")
 public class UploadControllerTest {
     /** */
     private InputStream is;
@@ -75,7 +74,10 @@ public class UploadControllerTest {
         doNothing()
             .when(service).store(mockMultipartFile);
         final ApiHead o =
-                new ApiHead("type", "string that you would never get");
+                ApiHead.builder()
+                    .type("type")
+                    .string("string that you would never get")
+                    .build();
         doReturn(o)
             .when(controller).readOne(anyString());
         final MvcResult result = mockMvc.perform(

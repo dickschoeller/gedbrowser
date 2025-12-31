@@ -7,7 +7,6 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.lang.NonNull;
 
 /**
  * @author Dick Schoeller
@@ -29,13 +28,9 @@ public class RefererInterceptor implements ClientHttpRequestInterceptor {
      * {@inheritDoc}
      */
     @Override
-    @NonNull
     public ClientHttpResponse intercept(
-            @NonNull
             final HttpRequest request,
-            @NonNull
             final byte[] body,
-            @NonNull
             final ClientHttpRequestExecution execution)
             throws IOException {
 

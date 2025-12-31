@@ -44,7 +44,7 @@ public class ApiModelToGedObjectVisitorTest {
     public void testHead() {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
-        final ApiHead apiHead = new ApiHead();
+        final ApiHead apiHead = ApiHead.builder().build();
         apiHead.accept(visitor);
         final Head gob = (Head) visitor.getGedObject();
         assertEquals("Head", gob.getString(), "head mismatch");
@@ -55,12 +55,11 @@ public class ApiModelToGedObjectVisitorTest {
     public void testPerson() {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
-        final ApiPerson.Builder b = new ApiPerson.Builder()
-                .id("I1")
-                .surname("Schoeller")
-                .indexName("Schoeller/Richard/")
-                .build();
-        final ApiPerson apiPerson = new ApiPerson(b);
+        final ApiPerson apiPerson = ApiPerson.builder()
+            .string("I1")
+            .surname("Schoeller")
+            .indexName("Schoeller/Richard/")
+            .build();
         apiPerson.accept(visitor);
         final Person gob = (Person) visitor.getGedObject();
         assertEquals("I1", gob.getString(), "person mismatch");
@@ -71,14 +70,19 @@ public class ApiModelToGedObjectVisitorTest {
     public void testPersonWithAttributes() {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
-        final ApiPerson.Builder b = new ApiPerson.Builder()
-                .id("I1")
+        final ApiPerson apiPerson = ApiPerson.builder()
+                .string("I1")
                 .surname("Schoeller")
-                .indexName("Richard/Schoeller/")
-                .add(new ApiAttribute("name", "Richard/Schoeller/", null))
-                .add(new ApiAttribute("1 JAN 1900", "date", ""))
+                .indexName("Schoeller/Richard/")
+                .attribute(ApiAttribute.builder()
+                    .type("name")
+                    .string("Richard/Schoeller/")
+                    .build())
+                .attribute(ApiAttribute.builder()
+                    .type("date")
+                    .string("1 JAN 1900")
+                    .build())
                 .build();
-        final ApiPerson apiPerson = new ApiPerson(b);
         apiPerson.accept(visitor);
         final Person gob = (Person) visitor.getGedObject();
         final Name name = gob.getName();
@@ -90,8 +94,10 @@ public class ApiModelToGedObjectVisitorTest {
     public void testFamily() {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
-        final ApiFamily apiFamily = new ApiFamily(
-                "family", "F1");
+        final ApiFamily apiFamily = ApiFamily.builder()
+            .type("family")
+            .string("F1")
+            .build();
         apiFamily.accept(visitor);
         final Family gob = (Family) visitor.getGedObject();
         assertEquals("F1", gob.getString(), "family mismatch");
@@ -102,8 +108,11 @@ public class ApiModelToGedObjectVisitorTest {
     public void testSource() {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
-        final ApiSource apiSource = new ApiSource(
-                "source", "S1", "Unknown");
+        final ApiSource apiSource = ApiSource.builder()
+            .type("source")
+            .string("S1")
+            .title("Unknown")
+            .build();
         apiSource.accept(visitor);
         final Source gob = (Source) visitor.getGedObject();
         assertEquals("S1", gob.getString(), "source mismatch");
@@ -115,8 +124,10 @@ public class ApiModelToGedObjectVisitorTest {
         final Person p = builder.createPerson("I1", "Richard/Schoeller/");
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder, p);
-        final ApiAttribute apiSource =
-                new ApiAttribute("sourcelink", "S1", null);
+        final ApiAttribute apiSource = ApiAttribute.builder()
+            .type("sourcelink")
+            .string("S1")
+            .build();
         apiSource.accept(visitor);
         final SourceLink gob = (SourceLink) visitor.getGedObject();
         assertEquals("S1", gob.getToString(), "source mismatch");
@@ -127,8 +138,10 @@ public class ApiModelToGedObjectVisitorTest {
     public void testSubmission() {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
-        final ApiSubmission apiSubmission = new ApiSubmission(
-                "submission", "SUBN");
+        final ApiSubmission apiSubmission = ApiSubmission.builder()
+            .type("submission")
+            .string("SUBN")
+            .build();
         apiSubmission.accept(visitor);
         final Submission gob = (Submission) visitor.getGedObject();
         assertEquals("SUBN", gob.getString(), "submission mismatch");
@@ -139,8 +152,11 @@ public class ApiModelToGedObjectVisitorTest {
     public void testSubmitter() {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
-        final ApiSubmitter apiSubmitter = new ApiSubmitter(
-                "submitter", "SUB1", "? ?");
+        final ApiSubmitter apiSubmitter = ApiSubmitter.builder()
+            .type("submitter")
+            .string("SUB1")
+            .name("? ?")
+            .build();
         apiSubmitter.accept(visitor);
         final Submitter gob = (Submitter) visitor.getGedObject();
         assertEquals("SUB1", gob.getString(), "submitter mismatch");
@@ -151,8 +167,10 @@ public class ApiModelToGedObjectVisitorTest {
     public void testBasicObject() {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
-        final ApiObject apiSubmitter = new ApiObject(
-                "object", "OBJECT1");
+        final ApiObject apiSubmitter = ApiObject.builder()
+            .type("object")
+            .string("OBJECT1")
+            .build();
         apiSubmitter.accept(visitor);
         final GedObject gob = visitor.getGedObject();
         assertEquals("OBJECT1", gob.getString(), "object mismatch");
@@ -163,8 +181,10 @@ public class ApiModelToGedObjectVisitorTest {
     public void testBasicObjectType() {
         final ApiModelToGedObjectVisitor visitor =
                 new ApiModelToGedObjectVisitor(builder);
-        final ApiObject apiSubmitter = new ApiObject(
-                "object", "OBJECT1");
+        final ApiObject apiSubmitter = ApiObject.builder()
+            .type("object")
+            .string("OBJECT1")
+            .build();
         apiSubmitter.accept(visitor);
         final GedObject gob = visitor.getGedObject();
         assertEquals("Attribute", gob.getClass().getSimpleName(), "object type mismatch");

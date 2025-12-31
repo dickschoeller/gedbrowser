@@ -1,8 +1,5 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-
-import lombok.extern.slf4j.Slf4j;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.controller.exception.NoteNotFoundException;
@@ -19,7 +16,6 @@ import org.schoellerfamily.gedbrowser.renderer.GedResourceNotFoundRenderer;
 import org.schoellerfamily.gedbrowser.renderer.Renderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,33 +23,35 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 /**
+ * Abstract base class for controllers.
+ *
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
 @Slf4j
+@RequiredArgsConstructor
 public abstract class AbstractController {
+	/** Contains application information, for display on every page. */
+    protected final ApplicationInfo appInfo;
 
-    /** */
-    @Autowired
-    private transient ApplicationInfo applicationInfo;
+    private final Users<? extends User> users;
 
-    /** */
-    @Autowired
-    private transient Users<? extends User> users;
+    private final GedObjectFileLoader loader;
 
-    /** */
-    @Autowired
-    private transient GedObjectFileLoader loader;
+    /** Processes calendar information for display. */
+    protected final CalendarProvider provider;
 
-    /** */
-    @Autowired
-    private transient CalendarProvider provider;
-
-    @Autowired
-    protected transient RepositoryManagerMongo repositoryManager;
+    /** Handles data storage. */
+    protected final RepositoryManagerMongo repositoryManager;
 
     /**
+     * Get the rendering context for the current request.
+     *
      * @return the rendering context
      */
     protected final RenderingContext createRenderingContext() {
@@ -61,10 +59,12 @@ public abstract class AbstractController {
         final Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
         final User user = users.get(authentication.getName());
-        return new RenderingContext(user, applicationInfo, provider);
+        return new RenderingContext(user, appInfo, provider);
     }
 
     /**
+     * Get the root object of the named DB.
+     *
      * @param dbName the name of the database
      * @return the root object
      */
@@ -77,6 +77,8 @@ public abstract class AbstractController {
     }
 
     /**
+     * Handle person not found exceptions.
+     *
      * @param request the request we're processing
      * @param exception the exception caught
      * @return the model and view
@@ -92,6 +94,8 @@ public abstract class AbstractController {
     }
 
     /**
+     * Handle note not found exceptions.
+     *
      * @param request the request we're processing
      * @param exception the exception caught
      * @return the model and view
@@ -107,6 +111,8 @@ public abstract class AbstractController {
     }
 
     /**
+     * Handle source not found exceptions.
+     *
      * @param request the request we're processing
      * @param exception the exception caught
      * @return the model and view
@@ -122,6 +128,8 @@ public abstract class AbstractController {
     }
 
     /**
+     * Handle submission not found exceptions.
+     *
      * @param request the request we're processing
      * @param exception the exception caught
      * @return the model and view
@@ -137,6 +145,8 @@ public abstract class AbstractController {
     }
 
     /**
+     * Handle submitter not found exceptions.
+     *
      * @param request the request we're processing
      * @param exception the exception caught
      * @return the model and view
@@ -152,6 +162,8 @@ public abstract class AbstractController {
     }
 
     /**
+     * Handle data set not found exceptions.
+     *
      * @param request the request we're processing
      * @param exception the exception caught
      * @return the model and view
@@ -167,6 +179,8 @@ public abstract class AbstractController {
     }
 
     /**
+     * Handle all other exceptions.
+     *
      * @param request the request we're processing
      * @param exception the exception caught
      * @return the model and view
@@ -180,13 +194,6 @@ public abstract class AbstractController {
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    /**
-     * @param request the http request being served
-     * @param exception the exception that occurred
-     * @param viewName the view we will put up in response
-     * @param status the status we are reporting
-     * @return the model and view for displaying the page
-     */
     private ModelAndView createModelAndViewForException(
             final HttpServletRequest request, final Exception exception,
             final String viewName, final HttpStatus status) {

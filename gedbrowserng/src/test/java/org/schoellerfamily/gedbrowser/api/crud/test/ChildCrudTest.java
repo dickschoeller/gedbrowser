@@ -13,6 +13,7 @@ import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.api.test.TestConfiguration;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class,
+@SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
@@ -66,10 +67,10 @@ public class ChildCrudTest {
         log.info("Beginning testCreateChildInFamily2");
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = createChildOfParent(parent);
-        log.info("famc: {}", child.getFamc().get(0).getString());
+        log.info("famc: {}", child.getFamcs().get(0).getString());
         final ApiPerson gotParent = helper.getPerson(parent);
-        assertEquals(child.getFamc().get(0).getString(),
-                gotParent.getFams().get(0).getString(), "Child should be in family");
+        assertEquals(child.getFamcs().get(0).getString(),
+                gotParent.getFamss().get(0).getString(), "Child should be in family");
     }
 
     /** */
@@ -78,7 +79,7 @@ public class ChildCrudTest {
         log.info("Beginning testLinkChildInFamily");
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = createChildOfParent(parent);
-        String famID = child.getFamc().get(0).getString();
+        String famID = child.getFamcs().get(0).getString();
         log.info("famc: {}", famID);
 
         final ApiPerson secondChild = helper.createPerson();
@@ -97,11 +98,11 @@ public class ChildCrudTest {
         final ApiPerson gotChild = crud.linkChild(helper.getDb(),
                 parent.getString(), child);
         then(gotChild.getString()).isEqualTo(child.getString());
-        then(gotChild.getFamc().size()).isEqualTo(1);
+        then(gotChild.getFamcs().size()).isEqualTo(1);
         final ApiPerson gotParent = helper.getPerson(parent);
-        then(gotParent.getFams().size()).isEqualTo(1);
-        assertEquals(gotParent.getFams().get(0).getString(),
-                gotChild.getFamc().get(0).getString(), "check ids");
+        then(gotParent.getFamss().size()).isEqualTo(1);
+        assertEquals(gotParent.getFamss().get(0).getString(),
+                gotChild.getFamcs().get(0).getString(), "check ids");
     }
 
     /** */
@@ -110,11 +111,11 @@ public class ChildCrudTest {
         final ApiPerson parent = helper.createPerson();
 
         final ApiPerson child = createChildOfParent(parent);
-        final String famID = child.getFamc().get(0).getString();
+        final String famID = child.getFamcs().get(0).getString();
         log.info("famc: {}", famID);
         crud.unlinkChild(helper.getDb(), famID, child.getString());
         final ApiPerson gotChild = helper.getPerson(child);
-        assertEquals(0, gotChild.getFamc().size(), "not in family");
+        assertEquals(0, gotChild.getFamcs().size(), "not in family");
     }
 
     /**
@@ -137,7 +138,7 @@ public class ChildCrudTest {
         then(resPerson.getType()).isEqualTo(reqPerson.getType());
         then(resPerson.getSurname()).isEqualTo(reqPerson.getSurname());
         then(resPerson.getIndexName()).isEqualTo(reqPerson.getIndexName());
-        then(resPerson.getFamc().get(0).getString()).isEqualTo("F1");
+        then(resPerson.getFamcs().get(0).getString()).isEqualTo("F1");
     }
 
     /** */
@@ -150,7 +151,7 @@ public class ChildCrudTest {
         then(resPerson.getType()).isEqualTo(reqPerson.getType());
         then(resPerson.getSurname()).isEqualTo(reqPerson.getSurname());
         then(resPerson.getIndexName()).isEqualTo(reqPerson.getIndexName());
-        then(resPerson.getFamc().get(0).getString()).isEqualTo("F4");
+        then(resPerson.getFamcs().get(0).getString()).isEqualTo("F4");
     }
 
     /** */

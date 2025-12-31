@@ -1,14 +1,14 @@
 package org.schoellerfamily.gedbrowser.api.datamodel.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
+
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 /**
  * @author Dick Schoeller
@@ -17,21 +17,33 @@ public class ApiSubmitterTest {
     /** */
     @Test
     public void testDefaultConstructorType() {
-        final ApiSubmitter o = new ApiSubmitter();
+        final ApiSubmitter o = ApiSubmitter.builder()
+            .type("")
+            .string("")
+            .name("")
+            .build();
         assertEquals("", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorString() {
-        final ApiSubmitter o = new ApiSubmitter();
+        final ApiSubmitter o = ApiSubmitter.builder()
+            .type("")
+            .string("")
+            .name("")
+            .build();
         assertEquals("", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorAttributes() {
-        final ApiSubmitter o = new ApiSubmitter();
+        final ApiSubmitter o = ApiSubmitter.builder()
+            .type("")
+            .string("")
+            .name("")
+            .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
@@ -59,17 +71,27 @@ public class ApiSubmitterTest {
     /** */
     @Test
     public void testConstructorNullAttributes() {
-        final ApiSubmitter o = new ApiSubmitter("type", "string", null, "? ?");
+        final ApiSubmitter o = ApiSubmitter.builder()
+            .type("type")
+            .string("string")
+            .name("? ?")
+            .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes empty mismatch");
     }
 
     /** */
     @Test
     public void testConstructorWithAttributes() {
-        final List<ApiAttribute> attributes = List.of(
-                new ApiAttribute("a string", "attribute", "")
-        );
-        final ApiSubmitter o = new ApiSubmitter("type", "string", attributes, "? ?");
+        final ApiSubmitter o = ApiSubmitter.builder()
+            .type("type")
+            .string("string")
+            .attribute(ApiAttribute.builder()
+                .type("attribute")
+                .string("a string")
+                .tail("")
+                .build())
+            .name("? ?")
+            .build();
         assertEquals(1, o.getAttributes().size(), "attributes size mismatch");
     }
 
@@ -91,42 +113,17 @@ public class ApiSubmitterTest {
 
     /** */
     @Test
-    public void testHash() {
-        final ApiSubmitter o = basicSubmitter();
-        final int expected = 1906865237;
-        assertEquals(expected, o.hashCode(), "Hash should be");
-    }
-
-    /** */
-    @Test
-    public void testEquals() {
-        final ApiSubmitter o1 = basicSubmitter();
-        final ApiSubmitter o2 = basicSubmitter();
-        assertEquals(o1, o2, "Objects should be equal");
-    }
-
-    /** */
-    @Test
-    public void testSame() {
-        final ApiSubmitter o1 = basicSubmitter();
-        assertEquals(o1, o1, "Objects should be equal");
-    }
-
-    /** */
-    @Test
-    public void testNotEquals() {
-        final ApiSubmitter o1 = basicSubmitter();
-        final ApiSubmitter o2 = basicSubmitter();
-        final ApiAttribute a = new ApiAttribute(
-                "attribute", "Repository", "Needham Public Library");
-        o2.getAttributes().add(a);
-        assertNotEquals(o1, o2, "Objects should be unequal");
+    public void testEqualsAndHash() {
+    	EqualsVerifier.forClass(ApiSubmitter.class)
+			.withNonnullFields("type", "string", "attributes", "name")
+			.suppress(Warning.STRICT_INHERITANCE)
+			.verify();
     }
 
     /**
      * @return a submitter
      */
     private ApiSubmitter basicSubmitter() {
-        return new ApiSubmitter("type", "string", "? ?");
+        return ApiSubmitter.builder().type("type").string("string").name("? ?").attributes(java.util.List.of()).build();
     }
 }

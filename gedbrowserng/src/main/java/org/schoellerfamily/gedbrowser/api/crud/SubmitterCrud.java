@@ -59,8 +59,7 @@ public class SubmitterCrud
             final ApiSubmitter submitter) {
         log.info("Entering create submitter in db: {}", db);
         return create(readRoot(getRepositoryManager(), db), submitter,
-                (i, id) -> new ApiSubmitter(i.getType(), id, i.getAttributes(),
-                        i.getName()));
+            (i, id) -> i.toBuilder().string(id).build());
     }
 
     /**

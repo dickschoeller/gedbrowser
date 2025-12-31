@@ -17,6 +17,7 @@ import org.schoellerfamily.gedbrowser.api.crud.SpouseCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.api.test.TestConfiguration;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class,
+@SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
@@ -74,10 +75,10 @@ public class SpouseCrudTest {
         final ApiPerson p2 = helper.createPerson();
         ApiPerson gotP1 = crud.linkSpouse(helper.getDb(), p2.getString(), p1);
         then(gotP1.getString()).isEqualTo(p1.getString());
-        then(gotP1.getFams().size()).isEqualTo(1);
+        then(gotP1.getFamss().size()).isEqualTo(1);
         final ApiPerson gotP2 = helper.getPerson(p2);
-        then(gotP2.getFams().size()).isEqualTo(1);
-        assertEquals(gotP1.getFams().get(0).getString(), gotP2.getFams().get(0).getString(), "check ids");
+        then(gotP2.getFamss().size()).isEqualTo(1);
+        assertEquals(gotP1.getFamss().get(0).getString(), gotP2.getFamss().get(0).getString(), "check ids");
     }
 
     /** */
@@ -86,16 +87,16 @@ public class SpouseCrudTest {
         log.info("Beginning testLinkSpouseInFamily");
         final ApiPerson p1 = helper.createPerson();
         final ApiPerson child = createChildOfParent(p1);
-        final String fam = child.getFamc().get(0).getString();
+        final String fam = child.getFamcs().get(0).getString();
 
         final ApiPerson p2 = helper.createPerson();
         final ApiPerson gotP2 =
                 crud.linkSpouseInFamily(helper.getDb(), fam, p2);
         then(gotP2.getString()).isEqualTo(p2.getString());
-        then(gotP2.getFams().size()).isEqualTo(1);
+        then(gotP2.getFamss().size()).isEqualTo(1);
         final ApiPerson gotP1 = helper.getPerson(p1);
-        then(gotP1.getFams().size()).isEqualTo(1);
-        assertEquals(gotP1.getFams().get(0).getString(), gotP2.getFams().get(0).getString(), "check ids");
+        then(gotP1.getFamss().size()).isEqualTo(1);
+        assertEquals(gotP1.getFamss().get(0).getString(), gotP2.getFamss().get(0).getString(), "check ids");
     }
 
     /** */
@@ -104,21 +105,21 @@ public class SpouseCrudTest {
         log.info("Beginning testUnlinkSpouseInFamily");
         final ApiPerson p1 = helper.createPerson();
         final ApiPerson child = createChildOfParent(p1);
-        final String fam = child.getFamc().get(0).getString();
+        final String fam = child.getFamcs().get(0).getString();
 
         final ApiPerson p2 = helper.createPerson();
         final ApiPerson gotP2 =
                 crud.linkSpouseInFamily(helper.getDb(), fam, p2);
         then(gotP2.getString()).isEqualTo(p2.getString());
-        then(gotP2.getFams().size()).isEqualTo(1);
+        then(gotP2.getFamss().size()).isEqualTo(1);
         final ApiPerson gotP1 = helper.getPerson(p1);
-        then(gotP1.getFams().size()).isEqualTo(1);
+        then(gotP1.getFamss().size()).isEqualTo(1);
 
         crud.unlinkSpouseInFamily(helper.getDb(), fam, gotP1.getString());
         final ApiPerson gotP1again = helper.getPerson(gotP1);
         final ApiPerson gotP2again = helper.getPerson(gotP2);
-        then(gotP1again.getFams().size()).isEqualTo(0);
-        assertEquals(gotP2again.getFams().get(0).getString(), fam, "check ids");
+        then(gotP1again.getFamss().size()).isEqualTo(0);
+        assertEquals(gotP2again.getFamss().get(0).getString(), fam, "check ids");
     }
 
     @Test
@@ -126,20 +127,20 @@ public class SpouseCrudTest {
         log.info("Beginning testUnlinkSpouseInFamily");
         final ApiPerson p1 = helper.createPerson();
         final ApiPerson child = createChildOfParent(p1);
-        final String fam = child.getFamc().get(0).getString();
+        final String fam = child.getFamcs().get(0).getString();
 
         final ApiPerson p2 = helper.createPerson();
         final ApiPerson gotP2 =
                 crud.linkSpouseInFamily(helper.getDb(), fam, p2);
         then(gotP2.getString()).isEqualTo(p2.getString());
-        then(gotP2.getFams().size()).isEqualTo(1);
+        then(gotP2.getFamss().size()).isEqualTo(1);
         final ApiPerson gotP1 = helper.getPerson(p1);
-        then(gotP1.getFams().size()).isEqualTo(1);
+        then(gotP1.getFamss().size()).isEqualTo(1);
 
         final ApiPerson p1back =
                 crud.unlinkSpouseInFamily(helper.getDb(), "XXXXX", gotP1.getString());
         boolean found = false;
-        for (final ApiAttribute famsBack : p1back.getFams()) {
+        for (final ApiAttribute famsBack : p1back.getFamss()) {
             final String fid = famsBack.getString();
             if (fid.equals(fam)) {
                 found = true;
@@ -154,15 +155,15 @@ public class SpouseCrudTest {
         log.info("Beginning testUnlinkSpouseInFamily");
         final ApiPerson p1 = helper.createPerson();
         final ApiPerson child = createChildOfParent(p1);
-        final String fam = child.getFamc().get(0).getString();
+        final String fam = child.getFamcs().get(0).getString();
 
         final ApiPerson p2 = helper.createPerson();
         final ApiPerson gotP2 =
                 crud.linkSpouseInFamily(helper.getDb(), fam, p2);
         then(gotP2.getString()).isEqualTo(p2.getString());
-        then(gotP2.getFams().size()).isEqualTo(1);
+        then(gotP2.getFamss().size()).isEqualTo(1);
         final ApiPerson gotP1 = helper.getPerson(p1);
-        then(gotP1.getFams().size()).isEqualTo(1);
+        then(gotP1.getFamss().size()).isEqualTo(1);
 
         try {
             crud.unlinkSpouseInFamily(helper.getDb(), fam, "XXXXX");
@@ -194,7 +195,7 @@ public class SpouseCrudTest {
         then(resSpouse.getType()).isEqualTo(reqSpouse.getType());
         then(resSpouse.getSurname()).isEqualTo(reqSpouse.getSurname());
         then(resSpouse.getIndexName()).isEqualTo(reqSpouse.getIndexName());
-        then(resSpouse.getFams().get(0).getString()).isEqualTo("F1");
+        then(resSpouse.getFamss().get(0).getString()).isEqualTo("F1");
     }
 
     /** */
@@ -207,7 +208,7 @@ public class SpouseCrudTest {
         then(resSpouse.getType()).isEqualTo(reqSpouse.getType());
         then(resSpouse.getSurname()).isEqualTo(reqSpouse.getSurname());
         then(resSpouse.getIndexName()).isEqualTo(reqSpouse.getIndexName());
-        then(resSpouse.getFams().get(0).getString()).isEqualTo("F2");
+        then(resSpouse.getFamss().get(0).getString()).isEqualTo("F2");
     }
 
     /** */

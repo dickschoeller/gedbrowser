@@ -1,35 +1,38 @@
 package org.schoellerfamily.gedbrowser.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * Listen for requests for the login page.
+ *
  * @author Dick Schoeller
  */
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class LoginController {
     /** Key to find the login referer in the session attributes. */
     private static final String SESSION_REFERER_KEY = "SESSION_REFERER";
 
-    /** */
-    @Autowired
-    private transient ApplicationInfo appInfo;
+    /** Provides information about the application for display. */
+    private final ApplicationInfo appInfo;
 
     /** Base path in URL. */
-    @Value("${server.servlet.context-path}")
-    private transient String servletPath;
+    @Value("${server.servlet.context-path:/gedbrowser}")
+    private final String servletPath;
 
     /**
+     * Handle login request.
+     *
      * @param model Spring connection between the data model wrapper.
      * @param request the servlet request
      * @return a string identifying which template to use.
@@ -47,6 +50,8 @@ public class LoginController {
     }
 
     /**
+     * Handle logout request.
+     *
      * @param model Spring connection between the data model wrapper.
      * @param request the servlet request
      * @return a string identifying which template to use.
@@ -85,6 +90,8 @@ public class LoginController {
     }
 
     /**
+     * Decide if we want to use this referer.
+     *
      * @param referer the referer string
      * @return true if it is one we would want to go to
      */

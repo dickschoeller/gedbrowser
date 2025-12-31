@@ -3,71 +3,61 @@ package org.schoellerfamily.gedbrowser.controller;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
 
 /**
+ * Implementation of ApplicationInfo that gets its data from application
+ * properties.
+ *
  * @author Dick Schoeller
  */
+@Component
+@RequiredArgsConstructor
 public final class ApplicationInfoImpl implements ApplicationInfo {
     /** */
     @Value("${gedbrowser.maintainer.email:schoeller@comcast.net}")
-    private transient String maintainerEmail;
+    private final String maintainerEmail;
 
     /** */
     @Value("${gedbrowser.maintainer.name:Richard Schoeller}")
-    private transient String maintainerName;
+    private final String maintainerName;
 
     /** */
     @Value("${gedbrowser.applicationurl:"
             + "https://github.com/dickschoeller/gedbrowser}")
-    private transient String applicationUrl;
+    private final String applicationUrl;
 
     /** */
     @Value("${gedbrowser.homeurl:http://www.schoellerfamily.org/}")
-    private transient String homeUrl;
+    private final String homeUrl;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getApplicationName() {
         return "gedbrowser";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getVersion() {
         return GedObject.VERSION;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getMaintainerEmail() {
         return maintainerEmail;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getMaintainerName() {
         return maintainerName;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getApplicationURL() {
         return applicationUrl;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getHomeURL() {
         return homeUrl;

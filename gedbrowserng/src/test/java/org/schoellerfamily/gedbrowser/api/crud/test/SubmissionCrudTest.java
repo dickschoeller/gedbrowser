@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,9 @@ import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
 import org.schoellerfamily.gedbrowser.api.crud.SubmissionCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission.ApiSubmissionBuilder;
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.api.test.TestConfiguration;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class,
+@SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings({"PMD.JUnitTestsShouldIncludeAssert", "null"})
@@ -121,7 +124,7 @@ public class SubmissionCrudTest {
     @Test
     public final void testCreateSubmissionsSimple() {
         log.info("Beginning testCreateSubmissionsSimple");
-        final ApiSubmission inSubmission = new ApiSubmission("submission", "");
+        final ApiSubmission inSubmission = ApiSubmission.builder().type("submission").string("").attributes(java.util.List.of()).build();
         final ApiSubmission outSubmission = crud
                 .createOne(helper.getDb(), inSubmission);
         then(outSubmission.getType()).isEqualTo(inSubmission.getType());
@@ -131,7 +134,7 @@ public class SubmissionCrudTest {
     @Test
     public final void testDeleteSubmission() {
         log.info("Beginning testDeleteSubmission");
-        final ApiSubmission inSubmission = new ApiSubmission("submission", "");
+        final ApiSubmission inSubmission = ApiSubmission.builder().type("submission").string("").attributes(java.util.List.of()).build();
         final ApiSubmission outSubmission = crud
                 .createOne(helper.getDb(), inSubmission);
         final String id = outSubmission.getString();
@@ -173,20 +176,28 @@ public class SubmissionCrudTest {
     @Test
     public final void testUpdateSubmissionWithNote() {
         log.info("Beginning testUpdateSubmissionWithNote");
-        final List<ApiAttribute> attributes = List.of(
-                new ApiAttribute("attribute", "Note", "first note"));
-        final ApiSubmission inSubmission = new ApiSubmission("submission", "",
-                attributes);
-        final ApiSubmission outSubmission = crud
-                .createOne(helper.getDb(), inSubmission);
+        final ApiSubmission inSubmission = ApiSubmission.builder()
+            .type("submission")
+            .string("")
+            .attribute(ApiAttribute.builder()
+                .type("attribute")
+                .string("Note")
+                .tail("first note")
+                .build())
+            .build();
+        final ApiSubmissionBuilder<?, ?> outSubmission = crud
+                .createOne(helper.getDb(), inSubmission).toBuilder();
         then(outSubmission.getType()).isEqualTo(inSubmission.getType());
-        final ApiAttribute aNote = new ApiAttribute("attribute", "Note",
-                "this is a note");
-        outSubmission.getAttributes().add(aNote);
+        final ApiAttribute aNote = ApiAttribute.builder()
+            .type("attribute")
+            .string("Note")
+            .tail("this is a note")
+            .build();
+        outSubmission.attribute(aNote);
         final ApiSubmission updatedSubmission = crud.updateOne(helper.getDb(),
-                outSubmission.getString(), outSubmission);
+                outSubmission.getString(), outSubmission.build());
         assertEquals(aNote,
-                java.util.Optional.ofNullable(updatedSubmission.getAttributes().get(1))
+                Optional.ofNullable(updatedSubmission.getAttributes().get(1))
                         .orElse(null), "attribute should be present");
     }
 }

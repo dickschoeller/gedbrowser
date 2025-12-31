@@ -58,7 +58,7 @@ public class FamilyCrud
     public ApiFamily createOne(final String db, final ApiFamily family) {
         log.info("Entering create family in db: {}", db);
         return create(readRoot(getRepositoryManager(), db), family,
-                (i, id) -> new ApiFamily(i, id));
+                (i, id) -> i.toBuilder().string(id).build());
     }
 
     /**

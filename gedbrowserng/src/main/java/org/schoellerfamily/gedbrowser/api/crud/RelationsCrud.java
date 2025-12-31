@@ -2,7 +2,9 @@ package org.schoellerfamily.gedbrowser.api.crud;
 
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily.ApiFamilyBuilder;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson.ApiPersonBuilder;
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
@@ -30,8 +32,7 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
      * @param person the data for the new person
      * @return the person returned from the db
      */
-    protected final ApiPerson createPerson(final String db,
-            final ApiPerson person) {
+    protected final ApiPerson createPerson(final String db, final ApiPerson person) {
         return personCrud().createOne(db, person);
     }
 
@@ -49,7 +50,7 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
      * @return the family returned from the db
      */
     protected final ApiFamily createFamily(final String db) {
-        return familyCrud().createOne(db, new ApiFamily());
+        return familyCrud().createOne(db, ApiFamily.builder().build());
     }
 
     /**
@@ -65,35 +66,35 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
      * @param family the family to add the person to
      * @param person the person to add
      */
-    protected final void addChildToFamily(final ApiFamily family,
-            final ApiPerson person) {
-        family.getChildren().add(helper.childAttribute(person));
-        person.getFamc().add(helper.famcAttribute(family));
+    protected final void addChildToFamily(final ApiFamilyBuilder<?, ?> family,
+            final ApiPersonBuilder<?, ?> person) {
+        family.child(helper.childAttribute(person));
+        person.famc(helper.famcAttribute(family));
     }
 
     /**
      * @param family the family to add the person to
      * @param person the person to add
      */
-    protected final void addSpouseToFamily(final ApiFamily family,
-            final ApiPerson person) {
+    protected final void addSpouseToFamily(final ApiFamilyBuilder<?, ?> family,
+            final ApiPersonBuilder<?, ?> person) {
+        person.fams(helper.famsAttribute(family));
         this.addSpouseAttribute(family, helper.spouseAttribute(person));
-        person.getFams().add(helper.famsAttribute(family));
     }
 
     /**
      * @param family the family from which we will remove a spouse
      * @param person the person to remove as a spouse
      */
-    protected final void removeSpouseFromFamily(final ApiFamily family,
-            final ApiPerson person) {
+    protected final void removeSpouseFromFamily(final ApiFamilyBuilder<?, ?> family,
+            final ApiPersonBuilder<?, ?> person) {
         final ApiAttribute spouse = findSpouseAttribute(family, person);
         if (spouse != null) {
             family.getSpouses().remove(spouse);
         }
         final ApiAttribute fams = findFamsAttribute(family, person);
         if (fams != null) {
-            person.getFams().remove(fams);
+            person.getFamss().remove(fams);
         }
     }
 
@@ -102,8 +103,8 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
      * @param person the person who should be a spouse
      * @return the spouse attribute
      */
-    private ApiAttribute findSpouseAttribute(final ApiFamily family,
-            final ApiPerson person) {
+    private ApiAttribute findSpouseAttribute(final ApiFamilyBuilder<?, ?> family,
+            final ApiPersonBuilder<?, ?> person) {
         for (final ApiAttribute spouse : family.getSpouses()) {
             if (spouse.getString().equals(person.getString())) {
                 return spouse;
@@ -117,10 +118,9 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
      * @param person the person we are searching
      * @return the fams attribute
      */
-    private ApiAttribute findFamsAttribute(final ApiFamily family,
-            final ApiPerson person) {
-        final String fid = family.getString();
-        return findFamsAttribute(fid, person);
+    private ApiAttribute findFamsAttribute(final ApiFamilyBuilder<?, ?> family,
+            final ApiPersonBuilder<?, ?> person) {
+        return findFamsAttribute(family.getString(), person);
     }
 
 
@@ -130,8 +130,8 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
      * @return the fams attribute
      */
     protected ApiAttribute findFamsAttribute(final String fid,
-            final ApiPerson person) {
-        for (final ApiAttribute fams : person.getFams()) {
+            final ApiPersonBuilder<?, ?> person) {
+        for (final ApiAttribute fams : person.getFamss()) {
             if (fams.getString().equals(fid)) {
                 return fams;
             }
@@ -160,8 +160,7 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
             final ApiPerson... newPersons) {
         ApiPerson person = null;
         for (final ApiPerson newPerson : newPersons) {
-            person = personCrud()
-                    .updateOne(db, newPerson.getString(), newPerson);
+            person = personCrud().updateOne(db, newPerson.getString(), newPerson);
         }
         return person;
     }
@@ -172,12 +171,12 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
      * @param newFamily the family to modify
      * @param spouseAttribute the spouse to add
      */
-    protected final void addSpouseAttribute(final ApiFamily newFamily,
+    protected final void addSpouseAttribute(final ApiFamilyBuilder<?, ?> newFamily,
             final ApiAttribute spouseAttribute) {
         if ("husband".equals(spouseAttribute.getType())) {
-            newFamily.getSpouses().add(0, spouseAttribute);
+            newFamily.addSpouse(0, spouseAttribute);
         } else {
-            newFamily.getSpouses().add(spouseAttribute);
+            newFamily.spouse(spouseAttribute);
         }
     }
 }

@@ -18,6 +18,7 @@ import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.api.test.TestConfiguration;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class,
+@SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
@@ -166,7 +167,7 @@ public class NoteCrudTest {
     @Test
     public final void testCreateNotesSimple() {
         log.info("Beginning testCreateNotesSimple");
-        final ApiNote reqNote = new ApiNote("note", "", "testing");
+        final ApiNote reqNote = ApiNote.builder().type("note").string("").tail("testing").attributes(java.util.List.of()).build();
         final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
         then(resNote.getTail()).isEqualTo(reqNote.getTail());
     }
@@ -175,7 +176,7 @@ public class NoteCrudTest {
     @Test
     public final void testDeleteNote() {
         log.info("Beginning testDeleteNote");
-        final ApiNote reqNote = new ApiNote("note", "", "this is a note");
+        final ApiNote reqNote = ApiNote.builder().type("note").string("").tail("this is a note").attributes(java.util.List.of()).build();
         final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
         final String id = resNote.getString();
         final ApiNote deletedNote = crud.deleteOne(helper.getDb(), id);
@@ -216,18 +217,28 @@ public class NoteCrudTest {
     @Test
     public final void testUpdateNoteWithNote() {
         log.info("Beginning testUpdateNoteWithNote");
-        final List<ApiAttribute> attributes = List.of(
-            new ApiAttribute("attribute", "Note", "first note"));
-        final ApiNote reqNote = new ApiNote("note", "", attributes,
-            "Top level note");
+        final ApiNote reqNote = ApiNote.builder()
+            .type("note")
+            .string("")
+            .attribute(ApiAttribute.builder()
+                .type("attribute")
+                .string("Note")
+                .tail("first note")
+                .build())
+            .tail("Top level note")
+            .build();
         final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
         then(resNote.getType()).isEqualTo(reqNote.getType());
+        
+        final ApiNote modNote = resNote.toBuilder()
+        	.attribute(ApiAttribute.builder()
+        	    .type("attribute")
+        	    .string("Note")
+        	    .tail("this is a note")
+        	    .build())
+            .build();
 
-        final ApiAttribute aNote = new ApiAttribute("attribute", "Note",
-                "this is a note");
-        resNote.getAttributes().add(aNote);
-        final ApiNote updatedNote = crud.updateOne(helper.getDb(),
-                resNote.getString(), resNote);
-        assertEquals(aNote, updatedNote.getAttributes().get(1), "attribute should be present");
+        final ApiNote updatedNote = crud.updateOne(helper.getDb(), modNote.getString(), modNote);
+        assertEquals(ApiAttribute.builder().type("attribute").string("Note").tail("this is a note").attributes(java.util.List.of()).build(), updatedNote.getAttributes().get(1), "attribute should be present");
     }
 }

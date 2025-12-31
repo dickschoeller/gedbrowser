@@ -1,6 +1,6 @@
-package org.schoellerfamily.gedbrowser.test;
+package org.schoellerfamily.gedbrowser.api.test;
 
-import org.schoellerfamily.gedbrowser.controller.ApplicationInfoImpl;
+import org.schoellerfamily.gedbrowser.api.controller.ApplicationInfoImpl;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,7 +9,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestClient;
 
 /**
- * @author Richard Schoeller
+ * @author Dick Schoeller
  */
 @Configuration
 @ComponentScan(basePackageClasses = { GeoServiceClient.class, ApplicationInfoImpl.class })

@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.api.crud.ParentCrud;
 import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.api.test.TestConfiguration;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class,
+@SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
@@ -67,12 +68,12 @@ public class ParentCrudTest {
         final ApiPerson child = helper.createPerson();
         final ApiPerson parent = crud.createParent(helper.getDb(),
                 child.getString(), helper.buildPerson());
-        log.info("fams: {}", parent.getFams().get(0).getString());
+        log.info("fams: {}", parent.getFamss().get(0).getString());
         final ApiPerson gotChild = helper.getPerson(child);
-        log.info("famc: {}", gotChild.getFamc().get(0).getString());
+        log.info("famc: {}", gotChild.getFamcs().get(0).getString());
 
-        assertEquals(gotChild.getFamc().get(0).getString(),
-                parent.getFams().get(0).getString(), "Child should be in family");
+        assertEquals(gotChild.getFamcs().get(0).getString(),
+                parent.getFamss().get(0).getString(), "Child should be in family");
     }
 
     /** */
@@ -83,10 +84,10 @@ public class ParentCrudTest {
         final ApiPerson outParent = crud.linkParent(helper.getDb(),
                 child.getString(), inParent);
         then(outParent.getString()).isEqualTo(inParent.getString());
-        then(outParent.getFams().size()).isEqualTo(1);
+        then(outParent.getFamss().size()).isEqualTo(1);
         final ApiPerson gotChild = helper.getPerson(child);
-        then(outParent.getFams().size()).isEqualTo(1);
-        assertEquals(outParent.getFams().get(0).getString(), gotChild.getFamc().get(0).getString(), "check ids");
+        then(outParent.getFamss().size()).isEqualTo(1);
+        assertEquals(outParent.getFamss().get(0).getString(), gotChild.getFamcs().get(0).getString(), "check ids");
     }
 
     /** */

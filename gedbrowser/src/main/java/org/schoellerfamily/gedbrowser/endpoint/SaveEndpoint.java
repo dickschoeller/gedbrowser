@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * Listen for save requests.
+ *
  * @author Dick Schoeller
  */
 @Component

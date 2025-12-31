@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
+ * Exception thrown when a submitter is not found.
+ *
  * @author Dick Schoeller
  */
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Submitter not found")
@@ -13,6 +15,8 @@ public class SubmitterNotFoundException extends ObjectNotFoundException {
     private static final long serialVersionUID = 1L;
 
     /**
+     * Constructor.
+     *
      * @param message the message to display
      * @param submitterId the ID of the submitter not found
      * @param datasetName the name of the dataset being searched
