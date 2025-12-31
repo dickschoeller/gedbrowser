@@ -48,6 +48,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>25</java.version>
 
     <gedbrowser.version>1.3.0-RC3-SNAPSHOT</gedbrowser.version>
 
@@ -159,7 +160,7 @@
         <version>${pmd-plugin.version}</version>
           <configuration>
           <linkXRef>true</linkXRef>
-          <targetJdk>21</targetJdk>
+          <targetJdk>${java.version}</targetJdk>
           <rulesets>
             <ruleset>${config-dir}/pmd.xml</ruleset>
           </rulesets>
@@ -175,7 +176,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${compiler-plugin.version}</version>
           <configuration>
-            <release>21</release>
+            <release>${java.version}</release>
+	    <proc>full</proc>
             <compilerArgs>
               <arg>-parameters</arg>
             </compilerArgs>
@@ -232,7 +234,7 @@
           </dependencies>
           <configuration>
             <linkXRef>true</linkXRef>
-            <targetJdk>21</targetJdk>
+            <targetJdk>${java.version}</targetJdk>
             <printFailingErrors>true</printFailingErrors>
             <failOnViolation>true</failOnViolation>
             <skipPmdError>false</skipPmdError>
