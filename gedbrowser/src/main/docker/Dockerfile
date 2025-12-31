@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21
+FROM eclipse-temurin:25
 VOLUME /tmp
 ADD gedbrowser-1.3.0-RC3-SNAPSHOT.jar gedbrowser.jar
 ADD config/letsencrypt.cer letsencrypt.cer

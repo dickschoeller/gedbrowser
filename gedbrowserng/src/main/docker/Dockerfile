@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21
+FROM eclipse-temurin:25
 VOLUME /tmp
 ADD gedbrowserng-1.3.0-RC3-SNAPSHOT.jar gedbrowserng.jar
 EXPOSE 8080
