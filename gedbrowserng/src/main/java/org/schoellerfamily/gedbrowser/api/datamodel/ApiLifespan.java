@@ -1,14 +1,26 @@
 package org.schoellerfamily.gedbrowser.api.datamodel;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.extern.jackson.Jacksonized;
+import tools.jackson.databind.annotation.JsonDeserialize;
 
 /**
+ * Represents the lifespan of a person to support easier rendering, without checking the whole
+ * attribute list.
+ *
  * @author Dick Schoeller
  */
-public final class ApiLifespan implements Serializable {
-    /** */
-    private static final long serialVersionUID = 1L;
-
+@Builder(toBuilder = true)
+@Getter
+@EqualsAndHashCode
+@Jacksonized
+@JsonDeserialize(builder = ApiLifespan.ApiLifespanBuilder.class)
+@JsonPropertyOrder({ "birthDate", "deathDate", "birthYear", "deathYear" })
+public final class ApiLifespan {
     /**
      * Holds the birth date, empty string means unknown.
      */
@@ -28,68 +40,4 @@ public final class ApiLifespan implements Serializable {
      * Holds the death year, null means unknown.
      */
     private final String deathYear;
-
-    /**
-     * Constructor.
-     */
-    public ApiLifespan() {
-        super();
-        birthDate = "";
-        deathDate = "";
-        birthYear = "";
-        deathYear = "";
-    }
-
-    /**
-     * @param birthDate the birth date
-     * @param deathDate the death date
-     * @param birthYear the birth year
-     * @param deathYear the death year
-     */
-    public ApiLifespan(final String birthDate, final String deathDate,
-            final String birthYear, final String deathYear) {
-        this.birthDate = defaultValue(birthDate);
-        this.deathDate = defaultValue(deathDate);
-        this.birthYear = defaultValue(birthYear);
-        this.deathYear = defaultValue(deathYear);
-    }
-
-    /**
-     * @param input the input string
-     * @return input or empty string if input is null
-     */
-    private static String defaultValue(final String input) {
-        if (input == null) {
-            return "";
-        }
-        return input;
-    }
-
-    /**
-     * @return the birth date
-     */
-    public String getBirthDate() {
-        return birthDate;
-    }
-
-    /**
-     * @return the death date
-     */
-    public String getDeathDate() {
-        return deathDate;
-    }
-
-    /**
-     * @return the birth year
-     */
-    public String getBirthYear() {
-        return birthYear;
-    }
-
-    /**
-     * @return the death year
-     */
-    public String getDeathYear() {
-        return deathYear;
-    }
 }

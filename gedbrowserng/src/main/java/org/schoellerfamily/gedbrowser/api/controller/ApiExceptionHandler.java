@@ -6,7 +6,6 @@ import org.schoellerfamily.gedbrowser.api.service.storage.StorageException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -24,9 +23,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = { ObjectNotFoundException.class })
     protected ResponseEntity<Object> handleObjectNotFound(
-    		@NonNull
             final ObjectNotFoundException ex,
-            @NonNull
             final WebRequest request) {
         final ObjectNotFoundException newex = new ObjectNotFoundException(
                 ex.getMessage(), ex.getObjectType(), ex.getId(),
@@ -43,9 +40,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = { DataSetNotFoundException.class })
     protected ResponseEntity<Object> handleDataSetNotFound(
-    		@NonNull
             final DataSetNotFoundException ex,
-            @NonNull
             final WebRequest request) {
         final DataSetNotFoundException newex = new DataSetNotFoundException(
                 ex.getMessage(), ex.getDatasetName());
@@ -60,9 +55,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = { StorageException.class })
     protected ResponseEntity<Object> handleStorageException(
-    		@NonNull
             final StorageException ex,
-            @NonNull
             final WebRequest request) {
         final StorageException newex = new StorageException(
                 ex.getMessage());

@@ -1,6 +1,9 @@
 package org.schoellerfamily.gedbrowser.security.auth;
 
+import java.util.Collection;
+
 import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * @author Dick Schoeller
@@ -16,7 +19,7 @@ public final class AnonAuthentication extends AbstractAuthenticationToken {
      * Constructor.
      */
     public AnonAuthentication() {
-        super(null);
+        super((Collection<? extends GrantedAuthority>)null);
     }
 
     /**

@@ -16,6 +16,7 @@ import org.schoellerfamily.gedbrowser.api.crud.FamilyCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
+import org.schoellerfamily.gedbrowser.api.test.TestConfiguration;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class,
+@SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
@@ -134,7 +135,10 @@ public class FamilyCrudTest {
     @Test
     public final void testCreateFamiliesSimple() {
         log.info("Beginning testCreateFamiliesSimple");
-        final ApiFamily inFamily = new ApiFamily("family", "");
+        final ApiFamily inFamily = ApiFamily.builder()
+            .type("family")
+            .string("")
+            .build();
         final ApiFamily outFamily = crud.createOne("gl120368", inFamily);
         then(outFamily.getType()).isEqualTo("family");
         then(outFamily.getAttributes()).isEmpty();
@@ -145,9 +149,16 @@ public class FamilyCrudTest {
     @Test
     public final void testCreateFamiliesWithMarriage() {
         log.info("Beginning testCreateFamiliesWithMarriage");
-        final List<ApiAttribute> attributes = List.of(
-            new ApiAttribute("attribute", "Marriage", ""));
-        final ApiFamily inFamily = new ApiFamily("family", "", attributes);
+        final ApiFamily inFamily = ApiFamily.builder()
+            .type("family")
+            .string("")
+            .attributes(List.of(
+                ApiAttribute.builder()
+                    .type("attribute")
+                    .string("Marriage")
+                    .tail("")
+                    .build()))
+            .build();
         final ApiFamily outFamily = crud.createOne("gl120368", inFamily);
         then(outFamily.getType()).isEqualTo("family");
         then(outFamily.getString()).startsWith("F");
@@ -159,7 +170,10 @@ public class FamilyCrudTest {
     @Test
     public final void testDeleteFamily() {
         log.info("Beginning testDeleteFamily");
-        final ApiFamily inFamily = new ApiFamily("family", "");
+        final ApiFamily inFamily = ApiFamily.builder()
+            .type("family")
+            .string("")
+            .build();
         final ApiFamily outFamily = crud.createOne("gl120368", inFamily);
         final String id = outFamily.getString();
         final ApiFamily deletedFamily = crud.deleteOne("gl120368", id);
@@ -201,22 +215,37 @@ public class FamilyCrudTest {
     public final void testUpdateFamilyWithNote() {
         log.info("Beginning testUpdateFamilyWithNote");
         final List<ApiAttribute> attributes = List.of(
-            new ApiAttribute("attribute", "Marriage", ""));
-        final ApiFamily inFamily = new ApiFamily("family", "", attributes);
-        inFamily.getChildren().add(new ApiAttribute("child", "I1"));
-        final ApiFamily familyPostResponse = crud.createOne("gl120368",
-                inFamily);
+            ApiAttribute.builder()
+                .type("attribute")
+                .string("Marriage")
+                .tail("")
+                .build());
+        final ApiFamily inFamily = ApiFamily.builder()
+            .type("family")
+            .string("")
+            .attributes(attributes)
+            .children(List.of(
+                ApiAttribute.builder()
+                    .type("child")
+                    .string("I1")
+                    .build()))
+            .build();
+        final ApiFamily familyPostResponse = crud.createOne("gl120368", inFamily);
         then(familyPostResponse.getType()).isEqualTo(inFamily.getType());
         then(familyPostResponse.getAttributes().size()).isEqualTo(1);
         then(familyPostResponse.getChildren().size()).isEqualTo(1);
-        final ApiAttribute aNote = new ApiAttribute("attribute", "Note",
-                "this is a note");
-        familyPostResponse.getAttributes().add(aNote);
-        then(familyPostResponse.getAttributes().size()).isEqualTo(2);
-        final ApiFamily familyPutResponse = crud.updateOne("gl120368",
-                familyPostResponse.getString(), familyPostResponse);
-        final List<ApiAttribute> attributesPutResponse = familyPutResponse
-                .getAttributes();
+        final ApiAttribute aNote = ApiAttribute.builder()
+            .type("attribute")
+            .string("Note")
+            .tail("this is a note")
+            .build();
+        final ApiFamily forPut = familyPostResponse.toBuilder()
+        	.attribute(aNote)
+            .build();
+        then(forPut.getAttributes().size()).isEqualTo(2);
+        final ApiFamily familyPutResponse =
+            crud.updateOne("gl120368", forPut.getString(), forPut);
+        final List<ApiAttribute> attributesPutResponse = familyPutResponse.getAttributes();
         log.info("Attribute list size: {}", attributesPutResponse.size());
         then(attributesPutResponse.size()).isEqualTo(2);
         for (final ApiAttribute a : attributesPutResponse) {

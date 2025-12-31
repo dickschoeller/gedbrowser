@@ -24,7 +24,6 @@ public class AuthenticationFailureHandler
             final HttpServletResponse response,
             final AuthenticationException exception)
             throws IOException, ServletException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
-                exception.getMessage());
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, exception.getMessage());
     }
 }

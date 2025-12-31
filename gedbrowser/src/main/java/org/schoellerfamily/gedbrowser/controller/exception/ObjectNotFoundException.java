@@ -4,22 +4,25 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 
 /**
+ * Exception thrown when an object is not found.
+ *
  * @author Dick Schoeller
  */
 public class ObjectNotFoundException extends RuntimeException {
-    /** */
     private static final long serialVersionUID = 3L;
 
-    /** */
+    /** Object ID */
     private final String id;
 
-    /** */
+    /** Dataset name */
     private final String datasetName;
 
-    /** */
+    /** Rendering context */
     private final RenderingContext context;
 
     /**
+     * Constructor.
+     *
      * @param message the message to display
      * @param id the ID of the object not found
      * @param datasetName the name of the dataset being searched
@@ -44,6 +47,8 @@ public class ObjectNotFoundException extends RuntimeException {
     }
 
     /**
+     * Get the name of the dataset.
+     *
      * @return get the name of the dataset being searched
      */
     public String getDatasetName() {
@@ -51,6 +56,8 @@ public class ObjectNotFoundException extends RuntimeException {
     }
 
     /**
+     * Get the href string to the index page for surnames beginning with A.
+     *
      * @return href string to the index page for surnames beginning with A.
      */
     public String getIndexHref() {
@@ -58,20 +65,26 @@ public class ObjectNotFoundException extends RuntimeException {
     }
 
     /**
-     * @return href string to the index page for surnames beginning with A.
+     * Get the href string to the header page.
+     *
+     * @return href string to the header page.
      */
     public String getHeaderHref() {
         return "head?db=" + datasetName;
     }
 
     /**
-     * @return href string to the index page for surnames beginning with A.
+     * Get the href string to the save page.
+     *
+     * @return href string to the save page.
      */
     public String getSaveHref() {
         return "save?db=" + datasetName;
     }
 
     /**
+     * Get the href string to the index page for sources.
+     *
      * @return href string to the index page for sources.
      */
     public String getSourcesHref() {
@@ -79,6 +92,8 @@ public class ObjectNotFoundException extends RuntimeException {
     }
 
     /**
+     * Get the href string to the index page for submitters.
+     *
      * @return href string to the index page for submitters.
      */
     public String getSubmittersHref() {
@@ -96,6 +111,8 @@ public class ObjectNotFoundException extends RuntimeException {
     }
 
     /**
+     * Get the href string to the living estimator.
+     *
      * @return the href string to the living estimator.
      */
     public String getLivingHref() {
@@ -103,7 +120,9 @@ public class ObjectNotFoundException extends RuntimeException {
     }
 
     /**
-     * @return the href string to the living estimator.
+     * Get the href string to the places report.
+     *
+     * @return the href string to the places report.
      */
     public String getPlacesHref() {
         return "places?db=" + datasetName;

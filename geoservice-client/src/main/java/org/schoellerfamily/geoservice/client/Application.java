@@ -5,9 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -38,11 +37,11 @@ public class Application {
     }
 
     /**
-     * @param builder the rest template builder that Spring provides
-     * @return the rest template
+     * @param builder the rest client builder that Spring provides
+     * @return the rest client
      */
     @Bean
-    public RestTemplate restTemplate(final RestTemplateBuilder builder) {
+    public RestClient restClient(final RestClient.Builder builder) {
         return builder.build();
     }
 

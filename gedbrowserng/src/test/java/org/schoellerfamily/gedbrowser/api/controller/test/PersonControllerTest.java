@@ -4,7 +4,6 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,19 +12,20 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
-import org.schoellerfamily.gedbrowser.api.test.LoginTestHelper;
+import org.schoellerfamily.gedbrowser.api.test.TestConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.client.EntityExchangeResult;
+import org.springframework.test.web.servlet.client.RestTestClient;
 import org.springframework.web.client.RestClientException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,112 +34,106 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class,
+@SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
-@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "null" })
+@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
 @Slf4j
+@AutoConfigureRestTestClient
 public class PersonControllerTest {
-
-    /** */
-    private static final int TRUNCATE_LENGTH = 500;
-
     /**
-     * Not sure what this is good for.
+     * RestTestClient injected by Spring's test support.
      */
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private RestTestClient restTestClient;
 
     /**
      * Server port.
      */
     @LocalServerPort
     private int port;
-    /**
-     * Creates a login session for the test.
-     */
-    private LoginTestHelper helper;
 
-    /**
-     * Initialize the login helper.
-     */
+	private ControllerTestHelper helper;
+
+	private HttpHeaders headers;
+
     @BeforeEach
-    public void before() {
-        helper = new LoginTestHelper(testRestTemplate, port);
+    void setUp() {
+    	helper = new ControllerTestHelper(port, restTestClient);
+    	headers = helper.getHeaders();
     }
 
     /**
      * @throws RestClientException should be never
-     * @throws URISyntaxException should be never
      */
     @Test
     public final void testGetPersonsGl120368()
-            throws RestClientException, URISyntaxException {
+            throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
-        final ResponseEntity<String> entity =
-                testRestTemplate.exchange(url, HttpMethod.GET, helper.adminEntity(), String.class);
-        final String bodyFragment =
-                "[ {\n"
-                + "  \"type\" : \"person\",\n"
-                + "  \"string\" : \"I1\",\n"
-                + "  \"attributes\" : [ {\n"
-                + "    \"type\" : \"name\",\n"
-                + "    \"string\" : \"Living /Williams/\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"\"\n";
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(Optional.ofNullable(entity.getBody())
-                .map(b -> b.substring(0, TRUNCATE_LENGTH)).orElse(""))
-                .startsWith(bodyFragment);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .exchange()
+                .returnResult(String.class);
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        then(entity.getResponseBody())
+            .contains(
+                "\"type\" : \"person\"",
+                "\"string\" : \"I1\"",
+                "\"attributes\" : [ {",
+                "\"type\" : \"name\"",
+                "\"string\" : \"Living /Williams/\"",
+                "\"attributes\" : [ ]",
+                "\"tail\" : \"\"");
     }
 
     /**
      * @throws RestClientException should be never
-     * @throws URISyntaxException should be never
      */
     @Test
     public final void testGetPersonsGl120368NotLoggedIn()
-            throws RestClientException, URISyntaxException {
+            throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        final String bodyFragment =
-                "[ {\n"
-                + "  \"type\" : \"person\",\n"
-                + "  \"string\" : \"I6\",\n"
-                + "  \"attributes\" : [ {\n"
-                + "    \"type\" : \"name\",\n"
-                + "    \"string\" : \"Reginald Amass /Williams/\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"\"\n";
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(Optional.ofNullable(entity.getBody())
-                .map(b -> b.substring(0, TRUNCATE_LENGTH)).orElse(""))
-                .startsWith(bodyFragment);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(String.class);
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        then(entity.getResponseBody())
+            .contains(
+                "\"type\" : \"person\"",
+                "\"string\" : \"I6\"",
+                "\"attributes\" : [ {",
+                "\"type\" : \"name\"",
+                "\"string\" : \"Reginald Amass /Williams/\"",
+                "\"attributes\" : [ ]",
+                "\"tail\" : \"\"");
     }
 
     /**
      * @throws RestClientException should be never
-     * @throws URISyntaxException should be never
      */
     @Test
-    public final void testGetPersonsMiniSchoeller() throws RestClientException, URISyntaxException {
+    public final void testGetPersonsMiniSchoeller() throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons";
-        final ResponseEntity<String> entity =
-                testRestTemplate.exchange(url, HttpMethod.GET, helper.adminEntity(), String.class);
-        final String bodyFragment =
-                "[ {\n"
-                + "  \"type\" : \"person\",\n"
-                + "  \"string\" : \"I1\",\n"
-                + "  \"attributes\" : [ {\n"
-                + "    \"type\" : \"name\",\n"
-                + "    \"string\" : \"Melissa Robinson/Schoeller/\",\n"
-                + "    \"attributes\" : [ {\n";
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(Optional.ofNullable(entity.getBody()).orElse("")).startsWith(bodyFragment);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .exchange()
+                .returnResult(String.class);
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        then(Optional.ofNullable(entity.getResponseBody()).orElse(""))
+                .contains(
+                    "\"type\" : \"person\"",
+                    "\"string\" : \"I1\"",
+                    "\"attributes\" : [ {",
+                    "\"type\" : \"name\"",
+                    "\"string\" : \"Melissa Robinson/Schoeller/\"",
+                    "\"attributes\" : [ {");
     }
 
     /** */
@@ -147,44 +141,43 @@ public class PersonControllerTest {
     public final void testGetPersonsMiniSchoellerNotLoggedIn() {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        final String bodyFragment =
-                "[ {\n"
-                + "  \"type\" : \"person\",\n"
-                + "  \"string\" : \"I7\",\n"
-                + "  \"attributes\" : [ {\n"
-                + "    \"type\" : \"name\",\n"
-                + "    \"string\" : \"Arnold/Robinson/\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"\"\n"
-                + "  },";
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).startsWith(bodyFragment);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(String.class);
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        then(entity.getResponseBody()).contains(
+            "\"type\" : \"person\"",
+            "\"string\" : \"I7\"",
+            "\"attributes\" : [ {",
+            "\"type\" : \"name\"",
+            "\"string\" : \"Arnold/Robinson/\"",
+            "\"attributes\" : [ ]",
+            "\"tail\" : \"\"");
     }
 
     /**
      * @throws RestClientException should be never
-     * @throws URISyntaxException should be never
      */
     @Test
-    public final void testGetPersonsMiniSchoellerI2() throws RestClientException, URISyntaxException {
+    public final void testGetPersonsMiniSchoellerI2() throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I2";
-        final ResponseEntity<String> entity =
-                testRestTemplate.exchange(url, HttpMethod.GET, helper.adminEntity(), String.class);
-        final String bodyFragment =
-                "{\n"
-                + "  \"type\" : \"person\",\n"
-                + "  \"string\" : \"I2\",\n"
-                + "  \"attributes\" : [ {\n"
-                + "    \"type\" : \"name\",\n"
-                + "    \"string\" : \"Richard John/Schoeller/\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"\"\n"
-                + "  }, {\n";
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).startsWith(bodyFragment);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .exchange()
+                .returnResult(String.class);
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        then(entity.getResponseBody()).contains(
+            "\"type\" : \"person\"",
+            "\"string\" : \"I2\"",
+            "\"attributes\" : [ {",
+            "\"type\" : \"name\"",
+            "\"string\" : \"Richard John/Schoeller/\"",
+            "\"attributes\" : [ ]",
+            "\"tail\" : \"\"");
     }
 
     /** */
@@ -193,30 +186,31 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller"
                 + "/persons/Xyzzy";
-        final ResponseEntity<String> entity =
-                testRestTemplate.getForEntity(url, String.class);
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(String.class);
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testCreatePersonsSimple()
-            throws RestClientException, URISyntaxException {
+            throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
-        final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        final ApiPerson.Builder builder = new ApiPerson.Builder().build();
-        final ApiPerson reqBody = new ApiPerson(builder);
-        final HttpEntity<ApiPerson> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiPerson> entity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiPerson.class);
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ApiPerson resBody = entity.getBody();
+        final ApiPerson reqBody = ApiPerson.builder().type("person").build();
+        final EntityExchangeResult<ApiPerson> entity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final ApiPerson resBody = entity.getResponseBody();
         then(resBody.getType()).isEqualTo(reqBody.getType());
         then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
         then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
@@ -224,22 +218,21 @@ public class PersonControllerTest {
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testCreatePersonsWithName()
-            throws RestClientException, URISyntaxException {
+            throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
-        final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createRJS();
-        final HttpEntity<ApiPerson> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiPerson> entity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiPerson.class);
-        final ApiPerson resBody = entity.getBody();
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final EntityExchangeResult<ApiPerson> entity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        final ApiPerson resBody = entity.getResponseBody();
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(resBody.getType()).isEqualTo(reqBody.getType());
         then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
         then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
@@ -249,53 +242,74 @@ public class PersonControllerTest {
      * @return the newly created person
      */
     private ApiPerson createRJS() {
-        final ApiPerson.Builder builder = new ApiPerson.Builder()
-                .id("")
-                .add(new ApiAttribute("name", "Richard/Schoeller/", ""))
-                .add(new ApiAttribute("attribute", "Sex", "M"))
-                .surname("Schoeller")
-                .indexName("Schoeller, Richard")
-                .build();
-        return new ApiPerson(builder);
+        return ApiPerson.builder()
+            .string("")
+            .type("person")
+            .attribute(ApiAttribute.builder()
+                .type("name")
+                .string("Richard/Schoeller/")
+                .tail("")
+                .build())
+            .attribute(ApiAttribute.builder()
+                .type("attribute")
+                .string("Sex")
+                .tail("M")
+                .build())
+            .surname("Schoeller")
+            .indexName("Schoeller, Richard")
+            .build();
     }
 
     /**
      * @return the newly created person
      */
     private ApiPerson createAlexander() {
-        final ApiPerson.Builder builder = new ApiPerson.Builder()
-                .id("")
-                .add(new ApiAttribute("name", "Alexander/Romanov/", ""))
-                .add(new ApiAttribute("attribute", "Sex", "M"))
+        return ApiPerson.builder()
+                .string("")
+                .type("person")
+                .attribute(ApiAttribute.builder()
+                        .type("name")
+                        .string("Alexander/Romanov/")
+                        .tail("")
+                        .build())
+                .attribute(ApiAttribute.builder()
+                        .type("attribute")
+                        .string("Sex")
+                        .tail("M")
+                        .build())
                 .surname("Romanov")
                 .indexName("Romanov, Alexander")
                 .build();
-        return new ApiPerson(builder);
     }
 
     /**
      * @return the newly created person
      */
     private ApiPerson createAlexandra() {
-        final ApiPerson.Builder builder = new ApiPerson.Builder()
-                .id("")
-                .add(new ApiAttribute("name", "Alexandra/Romanov/", ""))
-                .add(new ApiAttribute("attribute", "Sex", "F"))
+        return ApiPerson.builder()
+                .string("")
+                .type("person")
+                .attribute(ApiAttribute.builder()
+                        .type("name")
+                        .string("Alexandra/Romanov/")
+                        .tail("")
+                        .build())
+                .attribute(ApiAttribute.builder()
+                        .type("attribute")
+                        .string("Sex")
+                        .tail("F")
+                        .build())
                 .surname("Romanov")
                 .indexName("Romanov, Alexandra")
                 .build();
-        return new ApiPerson(builder);
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testDeletePerson()
-            throws RestClientException, URISyntaxException {
-        final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+            throws RestClientException {
 
         // Create a person.
         // We want to be sure we know the structure of the person
@@ -303,36 +317,44 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
         final ApiPerson reqBody = createRJS();
-        final HttpEntity<ApiPerson> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiPerson> personEntity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiPerson.class);
-        then(personEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final EntityExchangeResult<ApiPerson> personEntity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(personEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         // Capture information about new person.
-        final ApiPerson resBody = personEntity.getBody();
+        final ApiPerson resBody = personEntity.getResponseBody();
         final String id = resBody.getString();
 
         final String deleteUrl = url + "/" + id;
-        final ResponseEntity<ApiPerson> preDeleteEntity = testRestTemplate
-                .getForEntity(deleteUrl, ApiPerson.class);
-        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(deleteUrl, HttpMethod.DELETE, helper.adminEntity(), String.class);
-        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ResponseEntity<ApiPerson> postDeleteEntity = testRestTemplate
-                .getForEntity(deleteUrl, ApiPerson.class);
-        then(postDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final EntityExchangeResult<ApiPerson> preDeleteEntity = restTestClient.get()
+                .uri(URI.create(deleteUrl))
+                .headers(h -> h.addAll(headers))
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
+                .uri(URI.create(deleteUrl))
+                .headers(h -> h.addAll(headers))
+                .exchange()
+                .returnResult(String.class);
+        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final EntityExchangeResult<ApiPerson> postDeleteEntity = restTestClient.get()
+                .uri(URI.create(deleteUrl))
+                .headers(h -> h.addAll(headers))
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(postDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testDeletePersonNotAdmin()
-            throws RestClientException, URISyntaxException {
-        final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+            throws RestClientException {
 
         // Create a person.
         // We want to be sure we know the structure of the person
@@ -340,33 +362,38 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
         final ApiPerson reqBody = createRJS();
-        final HttpEntity<ApiPerson> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiPerson> personEntity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiPerson.class);
-        then(personEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final EntityExchangeResult<ApiPerson> personEntity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(personEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         // Capture information about new person.
-        final ApiPerson resBody = personEntity.getBody();
+        final ApiPerson resBody = personEntity.getResponseBody();
         final String id = resBody.getString();
 
         final String deleteUrl = url + "/" + id;
-        final ResponseEntity<ApiPerson> preDeleteEntity = testRestTemplate
-                .getForEntity(deleteUrl, ApiPerson.class);
-        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(deleteUrl, HttpMethod.DELETE, helper.userEntity(), String.class);
-        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+        final EntityExchangeResult<ApiPerson> preDeleteEntity = restTestClient.get()
+                .uri(URI.create(deleteUrl))
+                .headers(h -> h.addAll(headers))
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
+                .uri(URI.create(deleteUrl))
+                .headers(h -> h.addAll(helper.userLogin(port, restTestClient)))
+                .exchange()
+                .returnResult(String.class);
+        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.UNAUTHORIZED.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testDeleteSpouseLinkedPerson()
-            throws RestClientException, URISyntaxException {
-        final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+            throws RestClientException {
 
         // Create a person.
         // We want to be sure we know the structure of the person
@@ -374,26 +401,32 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
         final ApiPerson reqBody = createRJS();
-        final HttpEntity<ApiPerson> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiPerson> personEntity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiPerson.class);
-        then(personEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final EntityExchangeResult<ApiPerson> personEntity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(personEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         // Capture information about new person.
-        final ApiPerson resBody = personEntity.getBody();
+        final ApiPerson resBody = personEntity.getResponseBody();
         final String id = resBody.getString();
 
         final String childUrl = url + "/"
                 + resBody.getString() + "/children";
         final ApiPerson childReqBody = createAlexander();
-        final HttpEntity<ApiPerson> childReq =
-                new HttpEntity<>(childReqBody, headers);
-        final ResponseEntity<ApiPerson> childEntity = testRestTemplate
-                .postForEntity(new URI(childUrl), childReq, ApiPerson.class);
-        then(childEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ApiPerson child = childEntity.getBody();
+        final EntityExchangeResult<ApiPerson> childEntity = restTestClient.post()
+                .uri(URI.create(childUrl))
+                .headers(h -> h.addAll(headers))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(childReqBody)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(childEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final ApiPerson child = childEntity.getResponseBody();
 
-        final String fam = child.getFamc().get(0).getString();
+        final String fam = child.getFamcs().get(0).getString();
         log.info("The new child, {}, in family {}", child.getString(), fam);
 
         final ApiPerson p2 = createAlexandra();
@@ -403,34 +436,46 @@ public class PersonControllerTest {
                 + "/gedbrowserng/v1/dbs/gl120368/families/";
         final String fspUrl = familiesUrl + fam + "/spouses";
         log.info("fspUrl: {}", fspUrl);
-        final ResponseEntity<ApiPerson> pe = testRestTemplate.exchange(
-                new URI(fspUrl), HttpMethod.POST,
-                personReq, ApiPerson.class);
-        then(pe.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ApiPerson gotP2 = pe.getBody();
-        then(fam).isEqualTo(gotP2.getFams().get(0).getString());
+        final EntityExchangeResult<ApiPerson> pe = restTestClient.post()
+                .uri(URI.create(fspUrl))
+                .headers(h -> h.addAll(headers))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(personReq.getBody())
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(pe.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final ApiPerson gotP2 = pe.getResponseBody();
+        then(fam).isEqualTo(gotP2.getFamss().get(0).getString());
 
         final String deleteUrl = url + "/" + id;
-        final ResponseEntity<ApiPerson> preDeleteEntity = testRestTemplate
-                .getForEntity(deleteUrl, ApiPerson.class);
-        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(deleteUrl, HttpMethod.DELETE, helper.adminEntity(), String.class);
-        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ResponseEntity<ApiPerson> postDeleteEntity = testRestTemplate
-                .getForEntity(deleteUrl, ApiPerson.class);
-        then(postDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final EntityExchangeResult<ApiPerson> preDeleteEntity = restTestClient.get()
+                .uri(URI.create(deleteUrl))
+                .headers(h -> h.addAll(headers))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
+                .uri(URI.create(deleteUrl))
+                .headers(h -> h.addAll(headers))
+                .exchange()
+                .returnResult(String.class);
+        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final EntityExchangeResult<ApiPerson> postDeleteEntity = restTestClient.get()
+                .uri(URI.create(deleteUrl))
+                .headers(h -> h.addAll(headers))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(postDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testDeleteChildLinkedPerson()
-            throws RestClientException, URISyntaxException {
-        final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+            throws RestClientException {
 
         // Create a person.
         // We want to be sure we know the structure of the person
@@ -438,25 +483,30 @@ public class PersonControllerTest {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
         final ApiPerson reqBody = createRJS();
-        final HttpEntity<ApiPerson> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiPerson> personEntity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiPerson.class);
-        then(personEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final EntityExchangeResult<ApiPerson> personEntity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(personEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         // Capture information about new person.
-        final ApiPerson resBody = personEntity.getBody();
+        final ApiPerson resBody = personEntity.getResponseBody();
 
         final String childUrl = url + "/"
                 + resBody.getString() + "/children";
         final ApiPerson childReqBody = createAlexander();
-        final HttpEntity<ApiPerson> childReq =
-                new HttpEntity<>(childReqBody, headers);
-        final ResponseEntity<ApiPerson> childEntity = testRestTemplate
-                .postForEntity(new URI(childUrl), childReq, ApiPerson.class);
-        then(childEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ApiPerson child = childEntity.getBody();
+        final EntityExchangeResult<ApiPerson> childEntity = restTestClient.post()
+                .uri(URI.create(childUrl))
+                .headers(h -> h.addAll(headers))
+                .body(childReqBody)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(childEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final ApiPerson child = childEntity.getResponseBody();
 
-        final String fam = child.getFamc().get(0).getString();
+        final String fam = child.getFamcs().get(0).getString();
         final String childId = child.getString();
         log.info("The new child, {}, in family {}", childId, fam);
 
@@ -467,211 +517,246 @@ public class PersonControllerTest {
                 + "/gedbrowserng/v1/dbs/gl120368/families/";
         final String fspUrl = familiesUrl + fam + "/spouses";
         log.info("fspUrl: {}", fspUrl);
-        final ResponseEntity<ApiPerson> pe = testRestTemplate.exchange(
-                new URI(fspUrl), HttpMethod.POST,
-                personReq, ApiPerson.class);
-        then(pe.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ApiPerson gotP2 = pe.getBody();
-        then(fam).isEqualTo(gotP2.getFams().get(0).getString());
+        final EntityExchangeResult<ApiPerson> pe = restTestClient.post()
+                .uri(URI.create(fspUrl))
+                .headers(h -> h.addAll(headers))
+                .body(personReq.getBody())
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(pe.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final ApiPerson gotP2 = pe.getResponseBody();
+        then(fam).isEqualTo(gotP2.getFamss().get(0).getString());
 
         final String deleteUrl = url + "/" + childId;
-        final ResponseEntity<ApiPerson> preDeleteEntity = testRestTemplate
-                .getForEntity(deleteUrl, ApiPerson.class);
-        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(deleteUrl, HttpMethod.DELETE, helper.adminEntity(), String.class);
-        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        final ResponseEntity<ApiPerson> entityAfterDelete = testRestTemplate
-                .getForEntity(deleteUrl, ApiPerson.class);
-        then(entityAfterDelete.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final EntityExchangeResult<ApiPerson> preDeleteEntity = restTestClient.get()
+                .uri(URI.create(deleteUrl))
+                .headers(h -> h.addAll(headers))
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
+                .uri(URI.create(deleteUrl))
+                .headers(h -> h.addAll(headers))
+                .exchange()
+                .returnResult(String.class);
+        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        final EntityExchangeResult<ApiPerson> entityAfterDelete = restTestClient.get()
+                .uri(URI.create(deleteUrl))
+                .headers(h -> h.addAll(headers))
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(entityAfterDelete.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testDeletePersonNotFound()
-            throws RestClientException, URISyntaxException {
+            throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons/XXXXXXX";
-        final ResponseEntity<ApiPerson> preDeleteEntity = testRestTemplate
-                .getForEntity(url, ApiPerson.class);
-        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(url, HttpMethod.DELETE, helper.adminEntity(), String.class);
-        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final EntityExchangeResult<ApiPerson> preDeleteEntity = restTestClient.get()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .exchange()
+                .returnResult(String.class);
+        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testDeleteSubmitterDatabaseNotFound()
-            throws RestClientException, URISyntaxException {
+            throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/XYZZY/persons/SUBM1";
-        final ResponseEntity<ApiPerson> preDeleteEntity = testRestTemplate
-                .getForEntity(url, ApiPerson.class);
-        then(preDeleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        final ResponseEntity<String> deleteEntity = testRestTemplate
-                .exchange(url, HttpMethod.DELETE, helper.adminEntity(), String.class);
-        then(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        final EntityExchangeResult<ApiPerson> preDeleteEntity = restTestClient.get()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .exchange()
+                .returnResult(String.class);
+        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
-     * @throws URISyntaxException if there is a problem with the URL
      */
     @Test
     public final void testUpdatePersonWithNote()
-            throws RestClientException, URISyntaxException {
+            throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/gl120368/persons";
-        final HttpHeaders headers = helper.adminLogin();
-        headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createRJS();
-        final HttpEntity<ApiPerson> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiPerson> entity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiPerson.class);
-        final ApiPerson resBody = entity.getBody();
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final EntityExchangeResult<ApiPerson> entity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiPerson.class);
+        final ApiPerson resBody = entity.getResponseBody();
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(resBody.getType()).isEqualTo(reqBody.getType());
 
         final ApiAttribute aNote =
-                new ApiAttribute("attribute", "Note", "this is a note");
-        resBody.getAttributes().add(
-                aNote);
-        final HttpEntity<ApiPerson> putRequestEntity =
-                new HttpEntity<ApiPerson>(resBody, helper.adminLogin());
-        final ResponseEntity<ApiPerson> putResponseEntity =
-                testRestTemplate.exchange(
-                url + "/" + resBody.getString(),
-                HttpMethod.PUT, putRequestEntity, ApiPerson.class);
+                ApiAttribute.builder()
+                    .type("attribute")
+                    .string("Note")
+                    .tail("this is a note")
+                    .build();
+        final ApiPerson putRequestBody = resBody.toBuilder()
+        		.attribute(aNote)
+        		.build();
+        final EntityExchangeResult<ApiPerson> putResponseEntity =
+                restTestClient.put()
+                .uri(URI.create(url + "/" + putRequestBody.getString()))
+                .headers(h -> h.addAll(headers))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(putRequestBody)
+                .exchange()
+                .returnResult(ApiPerson.class);
         assertEquals(aNote,
-                java.util.Optional.ofNullable(putResponseEntity.getBody())
+                java.util.Optional.ofNullable(putResponseEntity.getResponseBody())
                         .map(b -> b.getAttributes().get(2)).orElse(null),
                 "attribute should be present");
     }
 
     /**
-     * @throws URISyntaxException if the URL syntax is hosed
      * @throws RestClientException if there is a problem with rest
      */
     @Test
-    public final void testGetPersonsMiniSchoellerI2AddSpouse()
-            throws RestClientException, URISyntaxException {
+    public final void testGetPersonsMiniSchoellerI2AddSpouse() throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I1/spouses";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexander();
-        final HttpEntity<ApiPerson> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiPerson> entity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiPerson.class);
+        final EntityExchangeResult<ApiPerson> entity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiPerson.class);
 
-        final ApiPerson resBody = entity.getBody();
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ApiPerson resBody = entity.getResponseBody();
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(resBody.getType()).isEqualTo(reqBody.getType());
         then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
         then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
     }
 
     /**
-     * @throws URISyntaxException if the URL syntax is hosed
      * @throws RestClientException if there is a problem with rest
      */
     @Test
-    public final void testGetPersonsMiniSchoellerI2AddParent()
-            throws RestClientException, URISyntaxException {
+    public final void testGetPersonsMiniSchoellerI2AddParent() throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I1/parents";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexander();
-        final HttpEntity<ApiPerson> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiPerson> entity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiPerson.class);
+        final EntityExchangeResult<ApiPerson> entity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiPerson.class);
 
-        final ApiPerson resBody = entity.getBody();
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ApiPerson resBody = entity.getResponseBody();
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(resBody.getType()).isEqualTo(reqBody.getType());
         then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
         then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
     }
 
     /**
-     * @throws URISyntaxException if the URL syntax is hosed
      * @throws RestClientException if there is a problem with rest
      */
     @Test
-    public final void testGetPersonsMiniSchoellerI2AddParent2()
-            throws RestClientException, URISyntaxException {
+    public final void testGetPersonsMiniSchoellerI2AddParent2() throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I2/parents";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexandra();
-        final HttpEntity<ApiPerson> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiPerson> entity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiPerson.class);
+        final EntityExchangeResult<ApiPerson> entity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiPerson.class);
 
-        final ApiPerson resBody = entity.getBody();
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ApiPerson resBody = entity.getResponseBody();
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(resBody.getType()).isEqualTo(reqBody.getType());
         then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
         then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
     }
 
     /**
-     * @throws URISyntaxException if the URL syntax is hosed
      * @throws RestClientException if there is a problem with rest
      */
     @Test
-    public final void testGetPersonsMiniSchoellerI2AddChild()
-            throws RestClientException, URISyntaxException {
+    public final void testGetPersonsMiniSchoellerI2AddChild() throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I9/children";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexander();
-        final HttpEntity<ApiPerson> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiPerson> entity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiPerson.class);
+        final EntityExchangeResult<ApiPerson> entity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiPerson.class);
 
-        final ApiPerson resBody = entity.getBody();
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ApiPerson resBody = entity.getResponseBody();
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(resBody.getType()).isEqualTo(reqBody.getType());
         then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
         then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
     }
 
     /**
-     * @throws URISyntaxException if the URL syntax is hosed
      * @throws RestClientException if there is a problem with rest
      */
     @Test
-    public final void testGetPersonsMiniSchoellerI2AddChild2()
-            throws RestClientException, URISyntaxException {
+    public final void testGetPersonsMiniSchoellerI2AddChild2() throws RestClientException {
         final String url = "http://localhost:" + port
                 + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I10/children";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson reqBody = createAlexandra();
-        final HttpEntity<ApiPerson> req =
-                new HttpEntity<>(reqBody, headers);
-        final ResponseEntity<ApiPerson> entity = testRestTemplate
-                .postForEntity(new URI(url), req, ApiPerson.class);
+        final EntityExchangeResult<ApiPerson> entity = restTestClient.post()
+                .uri(URI.create(url))
+                .headers(h -> h.addAll(headers))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(reqBody)
+                .exchange()
+                .returnResult(ApiPerson.class);
 
-        final ApiPerson resBody = entity.getBody();
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        final ApiPerson resBody = entity.getResponseBody();
+        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(resBody.getType()).isEqualTo(reqBody.getType());
         then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
         then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());

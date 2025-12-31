@@ -1,8 +1,9 @@
 package org.schoellerfamily.gedbrowser.api.crud;
 
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily.ApiFamilyBuilder;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson.ApiPersonBuilder;
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
@@ -35,12 +36,12 @@ public class ParentCrud extends RelationsCrud {
     public ApiPerson createParent(final String db, final String id,
             final ApiPerson person) {
         log.info("Entering create parent in db: {} for person {}", db, id);
-        final ApiPerson oldPerson = readPerson(db, id);
-        final ApiPerson newPerson = createPerson(db, person);
-        final ApiFamily family = createFamily(db);
+        final ApiPersonBuilder<?, ?> oldPerson = readPerson(db, id).toBuilder();
+        final ApiPersonBuilder<?, ?> newPerson = createPerson(db, person).toBuilder();
+        final ApiFamilyBuilder<?, ?> family = createFamily(db).toBuilder();
         addChildToFamily(family, oldPerson);
         addSpouseToFamily(family, newPerson);
-        return crudUpdate(db, family, oldPerson, newPerson);
+        return crudUpdate(db, family.build(), oldPerson.build(), newPerson.build());
     }
 
     /**
@@ -52,12 +53,12 @@ public class ParentCrud extends RelationsCrud {
     public ApiPerson linkParent(final String db, final String id,
             final ApiPerson person) {
         log.info("Entering link person: {} in db: {} as parent of person {}", person.getString(), db, id);
-        final ApiPerson oldPerson = readPerson(db, id);
-        final ApiPerson newPerson = readPerson(db, person.getString());
-        final ApiFamily family = createFamily(db);
+        final ApiPersonBuilder<?, ?> oldPerson = readPerson(db, id).toBuilder();
+        final ApiPersonBuilder<?, ?> newPerson = readPerson(db, person.getString()).toBuilder();
+        final ApiFamilyBuilder<?, ?> family = createFamily(db).toBuilder();
         addChildToFamily(family, oldPerson);
         addSpouseToFamily(family, newPerson);
-        return crudUpdate(db, family, oldPerson, newPerson);
+        return crudUpdate(db, family.build(), oldPerson.build(), newPerson.build());
     }
 
     /**

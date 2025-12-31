@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
+ * Exception thrown when a requested data set cannot be found.
+ *
  * @author Dick Schoeller
  */
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Data set not found")

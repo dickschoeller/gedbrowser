@@ -1,12 +1,14 @@
 package org.schoellerfamily.gedbrowser.api.datamodel.test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
+
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 /**
  * @author Dick Schoeller
@@ -15,72 +17,94 @@ public class ApiFamilyTest {
     /** */
     @Test
     public void testDefaultConstructorType() {
-        final ApiFamily o = new ApiFamily();
+        final ApiFamily o = ApiFamily.builder()
+            .type("")
+            .string("")
+            .build();
         assertEquals("", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorString() {
-        final ApiFamily o = new ApiFamily();
+        final ApiFamily o = ApiFamily.builder()
+            .type("")
+            .string("")
+            .build();
         assertEquals("", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorAttributes() {
-        final ApiFamily o = new ApiFamily();
+        final ApiFamily o = ApiFamily.builder()
+            .type("")
+            .string("")
+            .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
     /** */
     @Test
     public void testConstructorType() {
-        final ApiFamily o = new ApiFamily("type", "string");
+        final ApiFamily o = ApiFamily.builder()
+            .type("type")
+            .string("string").build();
         assertEquals("type", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
     public void testConstructorString() {
-        final ApiFamily o = new ApiFamily("type", "string");
+        final ApiFamily o = ApiFamily.builder()
+            .type("type")
+            .string("string")
+            .build();
         assertEquals("string", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
     public void testConstructorNoAttributes() {
-        final ApiFamily o = new ApiFamily("type", "string");
-        assertTrue(o.getAttributes().isEmpty(), "attributes empty mismatch");
-    }
-
-    /** */
-    @Test
-    public void testConstructorNullAttributes() {
-        final ApiFamily o = new ApiFamily("type", "string", null);
+        final ApiFamily o = ApiFamily.builder()
+            .type("type")
+            .string("string")
+            .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes empty mismatch");
     }
 
     /** */
     @Test
     public void testConstructorWithAttributes() {
-        final List<ApiAttribute> attributes = List.of(
-            new ApiAttribute("a string", "attribute", ""));
-        final ApiFamily o = new ApiFamily("type", "string", attributes);
+        final ApiFamily o = ApiFamily.builder()
+            .type("type")
+            .string("string")
+            .attribute(ApiAttribute.builder()
+                .type("attribute")
+                .string("a string")
+                .tail("")
+                .build())
+            .build();
         assertEquals(1, o.getAttributes().size(), "attributes size mismatch");
     }
 
     /** */
     @Test
     public void testIsType() {
-        final ApiFamily o = new ApiFamily("type", "string");
+        final ApiFamily o = ApiFamily.builder()
+            .type("type")
+            .string("string")
+            .build();
         assertTrue(o.isType("type"), "isType mismatch");
     }
 
     /** */
     @Test
     public void testAccept() {
-        final ApiFamily o = new ApiFamily("type", "string");
+        final ApiFamily o = ApiFamily.builder()
+            .type("type")
+            .string("string")
+            .build();
         final ApiTestVisitor visitor = new ApiTestVisitor();
         o.accept(visitor);
         assertEquals("family", visitor.getMethodCalled(), "Method mismatch");
@@ -89,13 +113,21 @@ public class ApiFamilyTest {
     /** */
     @Test
     public void testImage() {
-        final ApiFamily o = new ApiFamily("type", "string");
-        final ApiAttribute multimedia = new ApiAttribute(
-                "multimedia", "Multimedia");
-        final ApiAttribute file = new ApiAttribute(
-                "attribute", "File", "foo.jpg");
-        multimedia.getAttributes().add(file);
-        o.addAttribute(multimedia);
+        final ApiAttribute file = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("foo.jpg")
+            .build();
+        final ApiAttribute multimedia = ApiAttribute.builder()
+            .type("multimedia")
+            .string("Multimedia")
+            .attribute(file)
+            .build();
+        final ApiFamily o = ApiFamily.builder()
+            .type("type")
+            .string("string")
+            .attribute(multimedia)
+            .build();
         assertTrue(o.getImages().contains(multimedia), "Should contain multimedia");
     }
 
@@ -109,31 +141,40 @@ public class ApiFamilyTest {
     /** */
     @Test
     public void testNoImages() {
-        final ApiFamily o = new ApiFamily("type", "string");
+        final ApiFamily o = ApiFamily.builder()
+            .type("type")
+            .string("string")
+            .build();
         assertEquals(0, o.getImages().size(), "Should contain 0 images");
     }
 
     /** */
     @Test public void testHusband() {
-        final ApiFamily o = familyWithMultimedia();
-        final ApiAttribute husband = new ApiAttribute("husband", "I2");
-        o.addAttribute(husband);
+        final ApiAttribute husband = ApiAttribute.builder()
+            .type("husband")
+            .string("I2")
+            .build();
+        final ApiFamily o = familyWithMultimedia(husband);
         assertEquals(1, o.getSpouses().size(), "Should contain 1 spouses");
     }
 
     /** */
     @Test public void testWife() {
-        final ApiFamily o = familyWithMultimedia();
-        final ApiAttribute wife = new ApiAttribute("wife", "I2");
-        o.addAttribute(wife);
+        final ApiAttribute wife = ApiAttribute.builder()
+            .type("wife")
+            .string("I2")
+            .build();
+        final ApiFamily o = familyWithMultimedia(wife);
         assertEquals(1, o.getSpouses().size(), "Should contain 1 spouses");
     }
 
     /** */
     @Test public void testSpouse() {
-        final ApiFamily o = familyWithMultimedia();
-        final ApiAttribute spouse = new ApiAttribute("spouse", "I2");
-        o.addAttribute(spouse);
+        final ApiAttribute spouse = ApiAttribute.builder()
+            .type("spouse")
+            .string("I2")
+            .build();
+        final ApiFamily o = familyWithMultimedia(spouse);
         assertTrue(o.getSpouses().contains(spouse), "Should contain spouse");
     }
 
@@ -146,11 +187,13 @@ public class ApiFamilyTest {
 
     /** */
     @Test public void testChild() {
-        final ApiFamily o = familyWithMultimedia();
-        final ApiAttribute spouse = new ApiAttribute("child", "I2");
-        o.addAttribute(spouse);
-        assertTrue(o.getChildren().contains(spouse)
-                && o.getChildren().size() == 1, "Should contain chould");
+        final ApiAttribute child = ApiAttribute.builder()
+            .type("child")
+            .string("I2")
+            .build();
+        final ApiFamily o = familyWithMultimedia(child);
+        assertTrue(o.getChildren().contains(child)
+                && o.getChildren().size() == 1, "Should contain child");
     }
 
     /** */
@@ -162,59 +205,49 @@ public class ApiFamilyTest {
 
     /** */
     @Test
-    public void testHash() {
-        final ApiFamily o = familyWithMultimedia();
-        final int expected = -933468865;
-        assertEquals(expected, o.hashCode(), "Hash should be");
-    }
-
-    /** */
-    @Test
-    public void testEquals() {
-        final ApiFamily o1 = familyWithMultimedia();
-        final ApiFamily o2 = familyWithMultimedia();
-        assertEquals(o1, o2, "Objects should be equal");
-    }
-
-    /** */
-    @Test
-    public void testSame() {
-        final ApiFamily o1 = familyWithMultimedia();
-        assertEquals(o1, o1, "Objects should be equal");
-    }
-
-    /** */
-    @Test
-    public void testNotEquals() {
-        final ApiFamily o1 = familyWithMultimedia();
-        final ApiFamily o2 = familyWithMultimedia();
-        final ApiAttribute a = new ApiAttribute(
-                "attribute", "Occupation", "farmer");
-        o2.addAttribute(a);
-        assertNotEquals(o1, o2, "Objects should be unequal");
-    }
-
-    /** */
-    @Test
-    public void testNotEqualsChildren() {
-        final ApiFamily o1 = familyWithMultimedia();
-        final ApiFamily o2 = familyWithMultimedia();
-        final ApiAttribute a = new ApiAttribute("child", "I1");
-        o2.addAttribute(a);
-        assertNotEquals(o1, o2, "Objects should be unequal");
+    public void testHashAndEquals() {
+        EqualsVerifier
+            .forClass(ApiFamily.class)
+            .suppress(Warning.STRICT_INHERITANCE)
+            .verify();
     }
 
     /**
      * @return a new family
      */
     private ApiFamily familyWithMultimedia() {
-        final ApiFamily o = new ApiFamily("type", "string");
-        final ApiAttribute multimedia = new ApiAttribute(
-                "multimedia", "Multimedia");
-        final ApiAttribute file = new ApiAttribute(
-                "attribute", "File", "foo.jpg");
-        multimedia.getAttributes().add(file);
-        o.addAttribute(multimedia);
-        return o;
+        return ApiFamily.builder()
+            .type("type")
+            .string("string")
+            .attribute(ApiAttribute.builder()
+			    .type("multimedia")
+			    .string("Multimedia")
+			    .attribute(ApiAttribute.builder()
+			        .type("attribute")
+			        .string("File")
+			        .tail("foo.jpg")
+			        .build())
+			    .build())
+            .build();
+    }
+
+    /**
+     * @return a new family
+     */
+    private ApiFamily familyWithMultimedia(final ApiAttribute additional) {
+        return ApiFamily.builder()
+            .type("type")
+            .string("string")
+            .attribute(additional)
+            .attribute(ApiAttribute.builder()
+			    .type("multimedia")
+			    .string("Multimedia")
+			    .attribute(ApiAttribute.builder()
+			        .type("attribute")
+			        .string("File")
+			        .tail("foo.jpg")
+			        .build())
+			    .build())
+            .build();
     }
 }

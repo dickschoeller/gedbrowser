@@ -58,8 +58,8 @@ public class NoteCrud
     public ApiNote createOne(final String db,
             final ApiNote note) {
         log.info("Entering create note in db: {}", db);
-        return create(readRoot(getRepositoryManager(), db), note, (i, id) ->
-            new ApiNote(i.getType(), id, i.getAttributes(), i.getTail()));
+        return create(readRoot(getRepositoryManager(), db), note,
+            (i, id) -> i.toBuilder().string(id).build());
     }
 
     /**

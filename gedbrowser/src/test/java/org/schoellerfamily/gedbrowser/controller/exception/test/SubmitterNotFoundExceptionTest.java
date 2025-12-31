@@ -21,7 +21,7 @@ public class SubmitterNotFoundExceptionTest {
     /** */
     @BeforeEach
     public void setUp() {
-        final ApplicationInfo appInfo = new ApplicationInfoImpl();
+        final ApplicationInfo appInfo = new ApplicationInfoImpl(null, null, null, null);
         exception = new SubmitterNotFoundException("Submitter not found", "ID1",
                 "xyzzy", RenderingContext.user(appInfo));
     }

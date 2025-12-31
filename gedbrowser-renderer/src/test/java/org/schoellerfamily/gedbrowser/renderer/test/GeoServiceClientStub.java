@@ -12,10 +12,14 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
 /**
  * @author Dick Schoeller
  */
-public final class GeoServiceClientStub implements GeoServiceClient {
+public final class GeoServiceClientStub extends GeoServiceClient {
     /**
-     * {@inheritDoc}
+     * Constructor.
      */
+    public GeoServiceClientStub() {
+        super(null, null, 0, null);
+    }
+
     @Override
     public GeoServiceItem get(final String placeName) {
         if ("Needham, Massachusetts, USA".equals(placeName)) {

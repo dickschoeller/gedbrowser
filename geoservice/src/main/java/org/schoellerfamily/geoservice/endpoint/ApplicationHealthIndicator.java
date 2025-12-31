@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.schoellerfamily.geoservice.controller.ApplicationInfo;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
-import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.Health.Builder;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.health.contributor.Health;
+import org.springframework.boot.health.contributor.Health.Builder;
+import org.springframework.boot.health.contributor.HealthIndicator;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;

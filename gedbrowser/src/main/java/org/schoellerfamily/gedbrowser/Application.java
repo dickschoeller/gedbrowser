@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
+ * Main program for running gedbrowser as a standalone application.
+ *
  * @author Dick Schoeller
  */
 @SpringBootApplication
@@ -26,6 +28,8 @@ public class Application {
     }
 
     /**
+     * Get the application name.
+     *
      * @return the application name.
      */
     public final String getApplicationName() {

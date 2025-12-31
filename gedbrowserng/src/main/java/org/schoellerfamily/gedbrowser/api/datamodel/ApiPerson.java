@@ -1,21 +1,43 @@
 package org.schoellerfamily.gedbrowser.api.datamodel;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.experimental.SuperBuilder;
+import lombok.extern.jackson.Jacksonized;
+import tools.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonPOJOBuilder;
+
 /**
+ * A person in the API data model.
+ *
  * @author Dick Schoeller
  */
-public final class ApiPerson extends ApiExtraLists {
-    /** */
-    private static final long serialVersionUID = 4L;
-
+@SuperBuilder(toBuilder = true)
+@Getter
+@EqualsAndHashCode(callSuper = true)
+@Jacksonized
+@JsonDeserialize(builder = ApiPerson.ApiPersonBuilderImpl.class)
+@JsonPropertyOrder({ "indexName", "surname", "lifeSpan" })
+public class ApiPerson extends ApiExtraLists {
     /**
      * The name in a form that is usable for indexing.
      */
-    private final String indexName;
+    @Builder.Default
+    @NonNull
+    private final String indexName = "?, ?";
 
     /**
      * The surname.
      */
-    private final String surname;
+    @Builder.Default
+    @NonNull
+    private final String surname = "?";
 
     /**
      * The lifespan of this person.
@@ -23,69 +45,60 @@ public final class ApiPerson extends ApiExtraLists {
     private final ApiLifespan lifespan;
 
     /**
-     * Constructor.
-     */
-    public ApiPerson() {
-        super();
-        indexName = "";
-        surname = "";
-        lifespan = new ApiLifespan();
-    }
-
-    /**
-     * Constructor.
+     * The Builder for ApiPerson.
      *
-     * @param in a person to copy (except for the ID)
-     * @param string the ID of this object
+     * @param <C> the class to be built
+     * @param <B> the type of the builder
      */
-    public ApiPerson(final ApiPerson in, final String string) {
-        super(in, string);
-        this.indexName = in.indexName;
-        this.surname = in.surname;
-        this.lifespan = in.lifespan;
+    @JsonPOJOBuilder(withPrefix="")
+    public static abstract class ApiPersonBuilder<C extends ApiPerson, B extends ApiPersonBuilder<C, B>> extends ApiExtraListsBuilder<C, B> {
+        @Override
+        public B string(final String string) {
+            if (StringUtils.isNotBlank(string) && getAttributes() != null) {
+                getAttributes().removeIf(attr -> attr.isType("attribute")
+                    && attr.getString().equals("Reference Number"));
+                attribute(refn(string));
+            }
+            return super.string(string);
+        }
+
+        /**
+         * Returns the reference number attribute extracted from the person string.
+         *
+         * @param string the person string
+         * @return the reference number extracted from that
+         */
+        private ApiAttribute refn(final String string) {
+            return ApiAttribute.builder()
+                .type("attribute")
+                .string("Reference Number")
+                .tail(string.replaceAll("[A-Za-z]", ""))
+                .build();
+        }
     }
 
     /**
-     * Constructor.
+     * Get the surname. Will return "?" if surname is blank.
      *
-     * @param builder a builder
-     */
-    public ApiPerson(final Builder builder) {
-        super(builder);
-        this.indexName = builder.getIndexName();
-        this.surname = builder.getSurname();
-        this.lifespan = builder.getLifespan();
-        addAttribute(refn(getString()));
-    }
-
-    /**
-     * @param string the person string
-     * @return the refn number extracted from that
-     */
-    private ApiAttribute refn(final String string) {
-        return new ApiAttribute("attribute", "Reference Number",
-                string.replaceAll("[A-Za-z]", ""));
-    }
-
-    /**
-     * @return the name in a form that is usable for indexing
-     */
-    public String getIndexName() {
-        return indexName;
-    }
-
-    /**
      * @return the surname
      */
     public String getSurname() {
+        if (surname.isBlank()) {
+            return "?";
+        }
         return surname;
     }
 
     /**
-     * @return the lifespan of this person
+     * Get the index name. Will return "?, ?" if index name is blank.
+     *
+     * @return the index name
      */
-    public ApiLifespan getLifespan() {
-        return lifespan;
+    public String getIndexName() {
+        if (indexName.isBlank()) {
+            return "?, ?";
+        }
+        return indexName;
     }
 
     /**
@@ -95,133 +108,8 @@ public final class ApiPerson extends ApiExtraLists {
         visitor.visit(this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + indexNameHash();
-        result = prime * result + surnameHash();
-        return result;
-    }
-
-    /**
-     * @return the hash code for the index name string
-     */
-    private int indexNameHash() {
-        if (indexName == null) {
-            return 0;
-        }
-        return indexName.hashCode();
-    }
-
-    /**
-     * @return the hash code for the surname string
-     */
-    private int surnameHash() {
-        if (surname == null) {
-            return 0;
-        }
-        return surname.hashCode();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        final ApiPerson other = (ApiPerson) obj;
-        if (!stringCompare(indexName, other.indexName)) {
-            return false;
-        }
-        return stringCompare(surname, other.surname);
-    }
-
-    /**
-     * @author Dick Schoeller
-     */
-    public static final class Builder extends ApiExtraLists.Builder<Builder> {
-        /** */
-        private String s;
-        /** */
-        private String i;
-        /** */
-        private ApiLifespan l;
-
-        /**
-         * @param surname the surname
-         * @return this
-         */
-        public Builder surname(final String surname) {
-            this.s = surname;
-            return this;
-        }
-
-        /**
-         * @param indexName the index name
-         * @return this
-         */
-        public Builder indexName(final String indexName) {
-            this.i = indexName;
-            return this;
-        }
-
-        /**
-         * @param lifespan the lifespan
-         * @return this
-         */
-        public Builder lifespan(final ApiLifespan lifespan) {
-            this.l = lifespan;
-            return this;
-        }
-
-        /**
-         * @return the surname
-         */
-        /* default */ String getSurname() {
-            return s;
-        }
-
-        /**
-         * @return the index name
-         */
-        /* default */ String getIndexName() {
-            return i;
-        }
-
-        /**
-         * @return the lifespan
-         */
-        /* default */ ApiLifespan getLifespan() {
-            return l;
-        }
-
-        /**
-         * @return this
-         */
-        public Builder build() {
-            if (getType() == null) {
-                type("person");
-            }
-            super.build();
-            if (s == null) {
-                s = "?";
-            }
-            if (i == null) {
-                i = "?, ?";
-            }
-            if (l == null) {
-                l = new ApiLifespan();
-            }
-            return this;
-        }
+    public boolean canEqual(final Object other) {
+        return other.getClass() == ApiPerson.class;
     }
 }

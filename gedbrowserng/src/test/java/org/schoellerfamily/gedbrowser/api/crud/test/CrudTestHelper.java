@@ -11,7 +11,7 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
  */
 public class CrudTestHelper {
     /** */
-    private final ApiPerson.Builder builder;
+    private final ApiPerson.ApiPersonBuilder<?, ?> builder;
 
     /** */
     private final PersonCrud personCrud;
@@ -26,7 +26,7 @@ public class CrudTestHelper {
     CrudTestHelper(final PersonCrud personCrud, final FamilyCrud familyCrud) {
         this.personCrud = personCrud;
         this.familyCrud = familyCrud;
-        builder = new ApiPerson.Builder().build();
+        builder = ApiPerson.builder();
     }
 
     /**
@@ -39,7 +39,7 @@ public class CrudTestHelper {
     /**
      * @return the person builder
      */
-    public ApiPerson.Builder getPersonBuilder() {
+    public ApiPerson.ApiPersonBuilder<?, ?> getPersonBuilder() {
         return builder;
     }
 
@@ -54,7 +54,7 @@ public class CrudTestHelper {
      * @return a new person object
      */
     public ApiPerson buildPerson() {
-        return new ApiPerson(builder);
+        return builder.build();
     }
 
     /**
@@ -78,28 +78,43 @@ public class CrudTestHelper {
      * @return the newly created person
      */
     public ApiPerson createAlexander() {
-        final ApiPerson.Builder builder1 = new ApiPerson.Builder()
-                .id("")
-                .add(new ApiAttribute("name", "Alexander/Romanov/", ""))
-                .add(new ApiAttribute("attribute", "Sex", "M"))
-                .surname("Romanov")
-                .indexName("Romanov, Alexander")
-                .build();
-        return new ApiPerson(builder1);
+        return ApiPerson.builder()
+            .type("person")
+            .string("")
+            .attribute(ApiAttribute.builder()
+                .type("name")
+                .string("Alexander/Romanov/")
+                .tail("")
+                .build())
+            .attribute(ApiAttribute.builder()
+                .type("attribute")
+                .string("Sex")
+                .tail("M")
+                .build())
+            .surname("Romanov")
+            .indexName("Romanov, Alexander")
+            .build();
     }
 
     /**
      * @return the newly created person
      */
     public ApiPerson createAlexandra() {
-        final ApiPerson.Builder builder1 = new ApiPerson.Builder()
-                .id("")
-                .add(new ApiAttribute("name", "Alexandra/Romanov/", ""))
-                .add(new ApiAttribute("attribute", "Sex", "F"))
-                .surname("Romanov")
-                .indexName("Romanov, Alexandra")
-                .build();
-        return new ApiPerson(builder1);
+        return ApiPerson.builder()
+            .type("person")
+            .string("")
+            .attribute(ApiAttribute.builder()
+                .type("name")
+                .string("Alexandra/Romanov/")
+                .tail("")
+                .build())
+            .attribute(ApiAttribute.builder()
+                .type("attribute")
+                .string("Sex")
+                .tail("F")
+                .build())
+            .surname("Romanov")
+            .indexName("Romanov, Alexandra")
+            .build();
     }
-
 }

@@ -21,7 +21,12 @@ public interface LifespanBuilder {
         final String birthYear = year(document, "Birth");
         final String deathYear = year(document, "Death");
 
-        return new ApiLifespan(birthDate, deathDate, birthYear, deathYear);
+        return ApiLifespan.builder()
+            .birthDate(birthDate)
+            .deathDate(deathDate)
+            .birthYear(birthYear)
+            .deathYear(deathYear)
+            .build();
     }
 
     /**
@@ -50,6 +55,4 @@ public interface LifespanBuilder {
         document.getGedObject().accept(dateVisitor);
         return dateVisitor.getYear();
     }
-
-
 }
