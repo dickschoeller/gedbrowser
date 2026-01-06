@@ -40,7 +40,7 @@ public final class ApplicationInfoTest {
 
     /** */
     @Test
-    public void testApplicationInfoURL() {
+    void testApplicationInfoURL() {
         assertEquals(
                 "https://github.com/dickschoeller/gedbrowser",
                 appInfo.getApplicationURL(),
@@ -49,7 +49,7 @@ public final class ApplicationInfoTest {
 
     /** */
     @Test
-    public void testApplicationInfoMaintainerEmail() {
+    void testApplicationInfoMaintainerEmail() {
         assertEquals(
                 "schoeller@comcast.net",
                 appInfo.getMaintainerEmail(),
@@ -58,7 +58,7 @@ public final class ApplicationInfoTest {
 
     /** */
     @Test
-    public void testApplicationInfoMaintainerName() {
+    void testApplicationInfoMaintainerName() {
         assertEquals(
                 "Richard Schoeller",
                 appInfo.getMaintainerName(),
@@ -67,7 +67,7 @@ public final class ApplicationInfoTest {
 
     /** */
     @Test
-    public void testApplicationInfoName() {
+    void testApplicationInfoName() {
         assertEquals(
                 "gedbrowser-geoservice",
                 appInfo.getName(),
@@ -76,7 +76,7 @@ public final class ApplicationInfoTest {
 
     /** */
     @Test
-    public void testApplicationInfoVersion() {
+    void testApplicationInfoVersion() {
         assertEquals(
                 "1.3.0-RC3-SNAPSHOT",
                 appInfo.getVersion(),

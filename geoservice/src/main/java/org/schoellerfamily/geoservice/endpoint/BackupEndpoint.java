@@ -2,6 +2,7 @@ package org.schoellerfamily.geoservice.endpoint;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.schoellerfamily.geoservice.backup.GeoCodeBackup;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
@@ -22,6 +23,13 @@ public class BackupEndpoint extends BaseBackupEndpoint {
     /** */
     private final GeoCodeBackup backupManager;
 
+    /**
+     * Constructor.
+     *
+     * @param backupManager
+     * @param gcc
+     * @param backupFileName
+     */
     public BackupEndpoint(final GeoCodeBackup backupManager, final GeoCode gcc,
         @Value("${geoservice.backupfile:/var/lib/gedbrowser/geoservice-backup.json}")
         final String backupFileName
@@ -30,23 +38,21 @@ public class BackupEndpoint extends BaseBackupEndpoint {
         this.backupManager = backupManager;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public final String getId() {
         return "backup";
     }
 
+    /**
+     * @return the list of strings
+     */
     @ReadOperation
-    public java.util.List<String> invokeEndpoint() {
+    public List<String> invokeEndpoint() {
         return super.invoke();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void action(final File backupFile)
+    public final void action(final File backupFile)
             throws JsonParseException, JsonMappingException, IOException {
         backupManager.backup(backupFile);
     }
