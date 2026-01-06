@@ -39,7 +39,7 @@ public final class PlacePhraseRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
         attribute = new Attribute(person, "String", "");
@@ -51,7 +51,7 @@ public final class PlacePhraseRendererTest {
 
     /** */
     @Test
-    public void testGetRenderAsPhrase() {
+    void testGetRenderAsPhrase() {
         final PlaceRenderer dRenderer = new PlaceRenderer(place,
                 new GedRendererFactory(), anonymousContext);
         final PlacePhraseRenderer ppRenderer =
@@ -62,7 +62,7 @@ public final class PlacePhraseRendererTest {
 
     /** */
     @Test
-    public void testGetRenderAsListItemEmpty() {
+    void testGetRenderAsListItemEmpty() {
         final PlaceRenderer dRenderer = new PlaceRenderer(
                 new Place(attribute, ""), new GedRendererFactory(),
                 anonymousContext);
@@ -74,7 +74,7 @@ public final class PlacePhraseRendererTest {
 
     /** */
     @Test
-    public void testGetRenderAsListItemNull() {
+    void testGetRenderAsListItemNull() {
         final PlaceRenderer dRenderer = new PlaceRenderer(
                 new Place(attribute, null), new GedRendererFactory(),
                 anonymousContext);

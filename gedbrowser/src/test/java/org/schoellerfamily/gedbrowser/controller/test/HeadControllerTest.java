@@ -43,7 +43,7 @@ public class HeadControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testHeadController() {
+    void testHeadController() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser/head?db=gl120368";
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -67,7 +67,7 @@ public class HeadControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testHeadControllerSchoeller() {
+    void testHeadControllerSchoeller() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser/head?db=mini-schoeller";
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -91,7 +91,7 @@ public class HeadControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testHeadControllerBadDataSet() {
+    void testHeadControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri(URI.create("http://localhost:" + port + "/gedbrowser/head?db=XYZZY"))
                 .exchange()

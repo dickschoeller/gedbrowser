@@ -60,7 +60,7 @@ public class UploadControllerTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         is = controller.getClass().getClassLoader().getResourceAsStream("mini-schoeller.ged");
     }
@@ -69,7 +69,7 @@ public class UploadControllerTest {
      * @throws Exception if something goes wrong.
      */
     @Test
-    public void testUploadController() throws Exception {
+    void testUploadController() throws Exception {
         final MockMultipartFile mockMultipartFile = new MockMultipartFile("file",
             "mini-schoeller.ged", "multipart/form-data", is);
         doNothing().when(service).store(mockMultipartFile);

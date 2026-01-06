@@ -30,7 +30,7 @@ public class CharsetScannerTest {
 
     /** */
     @Test
-    public void testFileUTF8() {
+    void testFileUTF8() {
         final CharsetScanner scanner = new CharsetScanner();
         assertEquals("UTF-8", scanner.charset("mini-schoeller.ged"),
                 "Charset mismatch");
@@ -38,7 +38,7 @@ public class CharsetScannerTest {
 
     /** */
     @Test
-    public void testFileANSI() {
+    void testFileANSI() {
         final CharsetScanner scanner = new CharsetScanner();
         assertEquals("Cp1252", scanner.charset(gedbrowserHome + "/gl120368.ged"),
                 "Charset mismatch");
@@ -46,7 +46,7 @@ public class CharsetScannerTest {
 
     /** */
     @Test
-    public void testFileASCII() {
+    void testFileASCII() {
         final CharsetScanner scanner =
                 new CharsetScanner();
         assertEquals("ASCII", scanner.charset("simple.ged"),
@@ -55,7 +55,7 @@ public class CharsetScannerTest {
 
     /** */
     @Test
-    public void testFileANSEL() {
+    void testFileANSEL() {
         final CharsetScanner scanner =
                 new CharsetScanner();
         assertEquals("ANSEL", scanner.charset("TGC551LF.ged"),
@@ -64,7 +64,7 @@ public class CharsetScannerTest {
 
     /** */
     @Test
-    public void testFileANSEL2() {
+    void testFileANSEL2() {
         final CharsetScanner scanner =
                 new CharsetScanner();
         assertEquals("ANSEL", scanner.charset("ansel.ged"),
@@ -75,7 +75,7 @@ public class CharsetScannerTest {
      * @throws IOException if there is an error reading the file.
      */
     @Test
-    public void testRootUTF8() throws IOException {
+    void testRootUTF8() throws IOException {
         final Root root = reader.readFileTestSource("mini-schoeller.ged");
         final CharsetScanner scanner = new CharsetScanner();
         assertEquals("UTF-8", scanner.charset(root),
@@ -86,7 +86,7 @@ public class CharsetScannerTest {
      * @throws IOException if there is an error reading the file.
      */
     @Test
-    public void testRootANSEL2() throws IOException {
+    void testRootANSEL2() throws IOException {
         final Root root = reader.readFileTestSource("ansel.ged");
         final CharsetScanner scanner = new CharsetScanner();
         assertEquals("ANSEL", scanner.charset(root),

@@ -63,7 +63,7 @@ public class SpousesControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testLinkSpouse() throws RestClientException {
+    void testLinkSpouse() throws RestClientException {
         final ApiPerson p1 = helper.createPerson();
         final ApiPerson p2 = helper.createPerson();
         final EntityExchangeResult<ApiPerson> parentEntity = restTestClient.put()
@@ -85,7 +85,7 @@ public class SpousesControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testLinkSpouseInFamily() throws RestClientException {
+    void testLinkSpouseInFamily() throws RestClientException {
         final ApiPerson p1 = helper.createPerson();
         final ApiPerson child = createChildOfParent(p1);
         final String fam = child.getFamcs().get(0).getString();
@@ -110,7 +110,7 @@ public class SpousesControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testUnlinkSpouseInFamily() throws RestClientException {
+    void testUnlinkSpouseInFamily() throws RestClientException {
         final ApiPerson p1 = helper.createPerson();
         final ApiPerson child = createChildOfParent(p1);
         final String fam = child.getFamcs().get(0).getString();

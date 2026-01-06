@@ -67,7 +67,7 @@ public class NoteRepositoryTest {
 
     /** */
     @Test
-    public void testN1() {
+    void testN1() {
         final NoteDocument famdoc = noteDocumentRepository.findByFileAndString(root.getFilename(),
             "N1");
         final Note note = (Note) toObjConverter.createGedObject(root, famdoc);
@@ -76,7 +76,7 @@ public class NoteRepositoryTest {
 
     /** */
     @Test
-    public void testN1Root() {
+    void testN1Root() {
         final NoteDocument famdoc = noteDocumentRepository.findByRootAndString(rootDocument, "N1");
         final Note note = (Note) toObjConverter.createGedObject(root, famdoc);
         assertEquals("N1", note.getString(), "Id mismatch");
@@ -84,7 +84,7 @@ public class NoteRepositoryTest {
 
     /** */
     @Test
-    public void testBogus() {
+    void testBogus() {
         final NoteDocument famdoc = noteDocumentRepository.findByFileAndString(root.getFilename(),
             "N999999");
         assertNull(famdoc, "Bogus request should return null");
@@ -92,7 +92,7 @@ public class NoteRepositoryTest {
 
     /** */
     @Test
-    public void testBogusRoot() {
+    void testBogusRoot() {
         final NoteDocument famdoc = noteDocumentRepository.findByRootAndString(rootDocument,
             "N999999");
         assertNull(famdoc, "Bogus request should return null");
@@ -100,20 +100,20 @@ public class NoteRepositoryTest {
 
     /** */
     @Test
-    public void testCountRoot() {
+    void testCountRoot() {
         assertEquals(NOTE_COUNT, noteDocumentRepository.count(rootDocument), "Should be 3 notes");
     }
 
     /** */
     @Test
-    public void testCountFilename() {
+    void testCountFilename() {
         assertEquals(NOTE_COUNT, noteDocumentRepository.count(rootDocument.getFilename()),
             "Should be 3 notes");
     }
 
     /** */
     @Test
-    public void testFindAllRoot() {
+    void testFindAllRoot() {
         final Iterable<NoteDocument> list = noteDocumentRepository.findAll(rootDocument);
         int count = 0;
         for (final NoteDocument note : list) {
@@ -125,7 +125,7 @@ public class NoteRepositoryTest {
 
     /** */
     @Test
-    public void testFindAllFilename() {
+    void testFindAllFilename() {
         final Iterable<NoteDocument> list = noteDocumentRepository
             .findAll(rootDocument.getFilename());
         int count = 0;
@@ -138,7 +138,7 @@ public class NoteRepositoryTest {
 
     /** */
     @Test
-    public void testLastId() {
+    void testLastId() {
         final String string = noteDocumentRepository.lastId(rootDocument);
         assertEquals("N3", string, "");
     }

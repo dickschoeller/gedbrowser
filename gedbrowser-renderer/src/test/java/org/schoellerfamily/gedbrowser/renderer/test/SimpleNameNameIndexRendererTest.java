@@ -33,13 +33,13 @@ public final class SimpleNameNameIndexRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /** */
     @Test
-    public void testRenderSimple() {
+    void testRenderSimple() {
         final Name name = new Name(null, "Richard/Schoeller/");
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
             new GedRendererFactory(), anonymousContext);
@@ -51,7 +51,7 @@ public final class SimpleNameNameIndexRendererTest {
 
     /** */
     @Test
-    public void testRenderHarder() {
+    void testRenderHarder() {
         final Name name = new Name(null, "Karl Frederick/Schoeller/Jr.");
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
             new GedRendererFactory(), anonymousContext);
@@ -63,7 +63,7 @@ public final class SimpleNameNameIndexRendererTest {
 
     /** */
     @Test
-    public void testRenderNoPrefix() {
+    void testRenderNoPrefix() {
         final Name name = new Name(null, "/Schoeller/");
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
             new GedRendererFactory(), anonymousContext);
@@ -75,7 +75,7 @@ public final class SimpleNameNameIndexRendererTest {
 
     /** */
     @Test
-    public void testRenderEmpty() {
+    void testRenderEmpty() {
         final Name name = new Name(null, "");
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
             new GedRendererFactory(), anonymousContext);
@@ -86,7 +86,7 @@ public final class SimpleNameNameIndexRendererTest {
 
     /** */
     @Test
-    public void testRenderNull() {
+    void testRenderNull() {
         final Name name = new Name(null);
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
             new GedRendererFactory(), anonymousContext);
@@ -97,7 +97,7 @@ public final class SimpleNameNameIndexRendererTest {
 
     /** */
     @Test
-    public void testRenderUnset() {
+    void testRenderUnset() {
         final Name name = new Name();
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
             new GedRendererFactory(), anonymousContext);
@@ -108,7 +108,7 @@ public final class SimpleNameNameIndexRendererTest {
 
     /** */
     @Test
-    public void testRenderPrefixSuffix() {
+    void testRenderPrefixSuffix() {
         final Name name = new Name(null, "Foo//Bar");
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
             new GedRendererFactory(), anonymousContext);
@@ -119,7 +119,7 @@ public final class SimpleNameNameIndexRendererTest {
 
     /** */
     @Test
-    public void testRenderSimpleString() {
+    void testRenderSimpleString() {
         final Name name = new Name(null, "Foo Bar");
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
             new GedRendererFactory(), anonymousContext);

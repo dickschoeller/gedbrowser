@@ -93,42 +93,42 @@ public final class PersonNavigatorTest {
 
     /** */
     @Test
-    public void testPerson() {
+    void testPerson() {
         final PersonNavigator navigator = new PersonNavigator(person1);
         assertSame(person1, navigator.getPerson(), "Expected same person");
     }
 
     /** */
     @Test
-    public void testGetFather() {
+    void testGetFather() {
         final PersonNavigator navigator = new PersonNavigator(person3);
         assertEquals(person6, navigator.getFather(), "Expected to find father");
     }
 
     /** */
     @Test
-    public void testGetMother() {
+    void testGetMother() {
         final PersonNavigator navigator = new PersonNavigator(person3);
         assertEquals(person7, navigator.getMother(), "Expected to find mother");
     }
 
     /** */
     @Test
-    public void testGetFatherUnset() {
+    void testGetFatherUnset() {
         final PersonNavigator navigator = new PersonNavigator(person6);
         assertFalse(navigator.getFather().isSet(), "Expected not to find father");
     }
 
     /** */
     @Test
-    public void testGetMotherUnset() {
+    void testGetMotherUnset() {
         final PersonNavigator navigator = new PersonNavigator(person6);
         assertFalse(navigator.getMother().isSet(), "Expected not to find mother");
     }
 
     /** */
     @Test
-    public void testGetHusbandsFamily() {
+    void testGetHusbandsFamily() {
         final PersonNavigator navigator = new PersonNavigator(person6);
         final List<Family> list6 = navigator.getFamilies();
         assertTrue(list6.contains(family6), "Should have found husband's family");
@@ -136,7 +136,7 @@ public final class PersonNavigatorTest {
 
     /** */
     @Test
-    public void testGetWifesFamily() {
+    void testGetWifesFamily() {
         final PersonNavigator navigator = new PersonNavigator(person7);
         final List<Family> list7 = navigator.getFamilies();
         assertTrue(list7.contains(family6), "Should have found wife's family");

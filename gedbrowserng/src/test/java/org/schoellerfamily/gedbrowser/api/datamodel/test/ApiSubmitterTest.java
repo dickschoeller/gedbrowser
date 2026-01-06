@@ -16,49 +16,49 @@ import nl.jqno.equalsverifier.Warning;
 public class ApiSubmitterTest {
     /** */
     @Test
-    public void testDefaultConstructorType() {
+    void testDefaultConstructorType() {
         final ApiSubmitter o = ApiSubmitter.builder().type("").string("").name("").build();
         assertEquals("", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
-    public void testDefaultConstructorString() {
+    void testDefaultConstructorString() {
         final ApiSubmitter o = ApiSubmitter.builder().type("").string("").name("").build();
         assertEquals("", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
-    public void testDefaultConstructorAttributes() {
+    void testDefaultConstructorAttributes() {
         final ApiSubmitter o = ApiSubmitter.builder().type("").string("").name("").build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
     /** */
     @Test
-    public void testConstructorType() {
+    void testConstructorType() {
         final ApiSubmitter o = basicSubmitter();
         assertEquals("type", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
-    public void testConstructorString() {
+    void testConstructorString() {
         final ApiSubmitter o = basicSubmitter();
         assertEquals("string", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
-    public void testConstructorNoAttributes() {
+    void testConstructorNoAttributes() {
         final ApiSubmitter o = basicSubmitter();
         assertTrue(o.getAttributes().isEmpty(), "attributes empty mismatch");
     }
 
     /** */
     @Test
-    public void testConstructorNullAttributes() {
+    void testConstructorNullAttributes() {
         final ApiSubmitter o = ApiSubmitter.builder()
             .type("type")
             .string("string")
@@ -69,7 +69,7 @@ public class ApiSubmitterTest {
 
     /** */
     @Test
-    public void testConstructorWithAttributes() {
+    void testConstructorWithAttributes() {
         final ApiSubmitter o = ApiSubmitter.builder()
             .type("type")
             .string("string")
@@ -81,14 +81,14 @@ public class ApiSubmitterTest {
 
     /** */
     @Test
-    public void testIsType() {
+    void testIsType() {
         final ApiSubmitter o = basicSubmitter();
         assertTrue(o.isType("type"), "isType mismatch");
     }
 
     /** */
     @Test
-    public void testAccept() {
+    void testAccept() {
         final ApiSubmitter o = basicSubmitter();
         final ApiTestVisitor visitor = new ApiTestVisitor();
         o.accept(visitor);
@@ -97,7 +97,7 @@ public class ApiSubmitterTest {
 
     /** */
     @Test
-    public void testEqualsAndHash() {
+    void testEqualsAndHash() {
         EqualsVerifier.forClass(ApiSubmitter.class)
             .withNonnullFields("type", "string", "attributes", "name")
             .suppress(Warning.STRICT_INHERITANCE)

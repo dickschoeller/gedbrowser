@@ -41,7 +41,7 @@ public final class AttributePhraseRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
         attribute1 = new Attribute(person, "String", "");
@@ -58,7 +58,7 @@ public final class AttributePhraseRendererTest {
 
     /** */
     @Test
-    public void testRenderAsPhraseEmpty() {
+    void testRenderAsPhraseEmpty() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute1,
                 new GedRendererFactory(), anonymousContext);
         final AttributePhraseRenderer apRenderer =
@@ -69,7 +69,7 @@ public final class AttributePhraseRendererTest {
 
     /** */
     @Test
-    public void testRenderAsPhraseString() {
+    void testRenderAsPhraseString() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute2,
                 new GedRendererFactory(), anonymousContext);
         final AttributePhraseRenderer apRenderer =
@@ -80,7 +80,7 @@ public final class AttributePhraseRendererTest {
 
     /** */
     @Test
-    public void testRenderAsPhrase() {
+    void testRenderAsPhrase() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute3,
                 new GedRendererFactory(), anonymousContext);
         final AttributePhraseRenderer apRenderer =

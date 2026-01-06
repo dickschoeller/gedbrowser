@@ -11,14 +11,14 @@ import org.schoellerfamily.gedbrowser.security.exception.ResourceConflictExcepti
 public class ResourceConfliectExceptionTest {
     /** */
     @Test
-    public void testMessage() {
+    void testMessage() {
         final Exception e = new ResourceConflictException(1L, "message");
         assertEquals("message", e.getMessage(), "Messages don't match");
     }
 
     /** */
     @Test
-    public void testId() {
+    void testId() {
         final ResourceConflictException e =
                 new ResourceConflictException(1L, "message");
         assertEquals(Long.valueOf(1L), e.getResourceId(), "Ids don't match");

@@ -14,7 +14,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 public class GedObjectBuilderSubmissionTest {
     /** */
     @Test
-    public void testCreateSubmissionSimple() {
+    void testCreateSubmissionSimple() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submission submission = builder.createSubmission("SUB1");
         assertEquals("SUB1", submission.getString(), "Mismatched tag");
@@ -22,7 +22,7 @@ public class GedObjectBuilderSubmissionTest {
 
     /** */
     @Test
-    public void testCreateSubmissionSimpleNoId() {
+    void testCreateSubmissionSimpleNoId() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submission submission = builder.createSubmission(null);
         assertEquals("", submission.getString(), "Expected empty string");
@@ -30,7 +30,7 @@ public class GedObjectBuilderSubmissionTest {
 
     /** */
     @Test
-    public void testCreateSubmissionLinkSimple() {
+    void testCreateSubmissionLinkSimple() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submission submission = builder.createSubmission("SUB1");
         final SubmissionLink submissionLink = builder.createSubmissionLink(submission);
@@ -39,7 +39,7 @@ public class GedObjectBuilderSubmissionTest {
 
     /** */
     @Test
-    public void testCreateSubmissionLinkSimpleNoId() {
+    void testCreateSubmissionLinkSimpleNoId() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submission submission = builder.createSubmission(null);
         final SubmissionLink submissionLink = builder.createSubmissionLink(submission);
@@ -48,7 +48,7 @@ public class GedObjectBuilderSubmissionTest {
 
     /** */
     @Test
-    public void testCreateSubmissionLinkSimpleParent() {
+    void testCreateSubmissionLinkSimpleParent() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submission submission = builder.createSubmission("SUB1");
         final SubmissionLink submissionLink = builder.createSubmissionLink(submission);
@@ -57,7 +57,7 @@ public class GedObjectBuilderSubmissionTest {
 
     /** */
     @Test
-    public void testCreateSubmissionLinkSimpleNoIdParent() {
+    void testCreateSubmissionLinkSimpleNoIdParent() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submission submission = builder.createSubmission(null);
         final SubmissionLink submissionLink = builder.createSubmissionLink(submission);

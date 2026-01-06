@@ -33,14 +33,14 @@ public final class AttributeTest {
 
     /** */
     @Test
-    public void testString() {
+    void testString() {
         final Attribute job = new Attribute(person1, "Job", "Worked at SAP");
         assertEquals("Worked at SAP", job.getTail(), "In should match out");
     }
 
     /** */
     @Test
-    public void testAppendString() {
+    void testAppendString() {
         final Attribute job = new Attribute(person1, "Job", "Worked at SAP");
         job.appendString(" for 5 years");
         assertEquals("Worked at SAP for 5 years", job.getTail(),
@@ -49,7 +49,7 @@ public final class AttributeTest {
 
     /** */
     @Test
-    public void testNoBirthNoDate() {
+    void testNoBirthNoDate() {
         final Attribute dummy = new Attribute(person1, DUMMY);
         final Date dummyDate = new Date(dummy, POTTER_DAY);
         dummy.insert(dummyDate);
@@ -60,7 +60,7 @@ public final class AttributeTest {
 
     /** */
     @Test
-    public void testGetBirthDateNotInserted() {
+    void testGetBirthDateNotInserted() {
         final Attribute dummy = new Attribute(person1, DUMMY);
         final Date dummyDate = new Date(dummy, POTTER_DAY);
         dummy.insert(dummyDate);
@@ -73,7 +73,7 @@ public final class AttributeTest {
 
     /** */
     @Test
-    public void testGetBirthDate() {
+    void testGetBirthDate() {
         final Attribute dummy = new Attribute(person1, DUMMY);
         final Date dummyDate = new Date(dummy, POTTER_DAY);
         dummy.insert(dummyDate);
@@ -87,7 +87,7 @@ public final class AttributeTest {
 
     /** */
     @Test
-    public void testNoDeathNoDate() {
+    void testNoDeathNoDate() {
         final Attribute dummy = new Attribute(person1, DUMMY);
         final Date dummyDate = new Date(dummy, POTTER_DAY);
         dummy.insert(dummyDate);
@@ -98,7 +98,7 @@ public final class AttributeTest {
 
     /** */
     @Test
-    public void testGetDeathDateNotInserted() {
+    void testGetDeathDateNotInserted() {
         final Attribute dummy = new Attribute(person1, DUMMY);
         final Date dummyDate = new Date(dummy, POTTER_DAY);
         dummy.insert(dummyDate);
@@ -110,7 +110,7 @@ public final class AttributeTest {
 
     /** */
     @Test
-    public void testGetDeathDate() {
+    void testGetDeathDate() {
         final Attribute dummy = new Attribute(person1, DUMMY);
         final Date dummyDate = new Date(dummy, POTTER_DAY);
         dummy.insert(dummyDate);
@@ -124,7 +124,7 @@ public final class AttributeTest {
 
     /** */
     @Test
-    public void testGetDate() {
+    void testGetDate() {
         final Attribute dummy = new Attribute(person1, DUMMY);
         final Date dummyDate = new Date(dummy, POTTER_DAY);
         // TODO this should become unnecessary if I can further restrict the
@@ -138,7 +138,7 @@ public final class AttributeTest {
 
     /** */
     @Test
-    public void testGetDateNullDateString() {
+    void testGetDateNullDateString() {
         final Attribute dummy1 = new Attribute(person1, DUMMY);
         final Date dummyDate1 = new Date(dummy1, null);
         dummy1.insert(dummyDate1);
@@ -149,7 +149,7 @@ public final class AttributeTest {
 
     /** */
     @Test
-    public void testGetDeathDateNoDateString() {
+    void testGetDeathDateNoDateString() {
         final Attribute death = new Attribute(person1, "Death");
         final GetDateVisitor visitor = new GetDateVisitor();
         death.accept(visitor);
@@ -158,7 +158,7 @@ public final class AttributeTest {
 
     /** */
     @Test
-    public void testSetGetTail() {
+    void testSetGetTail() {
         Attribute attribute;
         attribute = new Attribute(null, null, null);
         attribute.setTail("test 1");
@@ -167,7 +167,7 @@ public final class AttributeTest {
 
     /** */
     @Test
-    public void testResetGetTail() {
+    void testResetGetTail() {
         Attribute attribute;
         attribute = new Attribute(null, null, null);
         attribute.setTail("test 1");
@@ -177,7 +177,7 @@ public final class AttributeTest {
 
     /** */
     @Test
-    public void testResetToNullGetTail() {
+    void testResetToNullGetTail() {
         Attribute attribute;
         attribute = new Attribute(null, null, null);
         attribute.setTail("test 1");
@@ -187,7 +187,7 @@ public final class AttributeTest {
 
     /** */
     @Test
-    public void testResetToEmptyGetTail() {
+    void testResetToEmptyGetTail() {
         Attribute attribute;
         attribute = new Attribute(null, null, null);
         attribute.setTail("test 1");

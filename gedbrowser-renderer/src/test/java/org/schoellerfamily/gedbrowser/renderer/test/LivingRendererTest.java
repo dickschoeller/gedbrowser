@@ -52,7 +52,7 @@ public final class LivingRendererTest {
      * @throws IOException if there is a problem reading the test data
      */
     @BeforeEach
-    public void init() throws IOException {
+    public void setUp() throws IOException {
         root = reader.readBigTestSource();
         final UserImpl admin = new UserImpl();
         admin.setUsername("admin");
@@ -69,7 +69,7 @@ public final class LivingRendererTest {
      *
      */
     @Test
-    public void testRenderUserIndexHref() {
+    void testRenderUserIndexHref() {
         final LivingRenderer renderer = new LivingRenderer(root, userContext);
         assertEquals("surnames?db=null&letter=A", renderer.getIndexHref(),
             "The index link should refer to the letter A");
@@ -77,7 +77,7 @@ public final class LivingRendererTest {
 
     /** */
     @Test
-    public void testRenderAdminIndexHref() {
+    void testRenderAdminIndexHref() {
         final LivingRenderer renderer = new LivingRenderer(root, adminContext);
         assertEquals("surnames?db=null&letter=A", renderer.getIndexHref(),
             "The index link should refer to the letter A");
@@ -87,7 +87,7 @@ public final class LivingRendererTest {
      *
      */
     @Test
-    public void testRenderUserBuckets() {
+    void testRenderUserBuckets() {
         final LivingRenderer renderer = new LivingRenderer(root, userContext);
         assertTrue(renderer.getBuckets().isEmpty(), "In user context, this is always empty");
     }
@@ -96,7 +96,7 @@ public final class LivingRendererTest {
      *
      */
     @Test
-    public void testRenderAdminBuckets() {
+    void testRenderAdminBuckets() {
         final LivingRenderer renderer = new LivingRenderer(root, adminContext);
         assertFalse(renderer.getBuckets().isEmpty(),
             "In admin context, there should be some buckets");
@@ -104,7 +104,7 @@ public final class LivingRendererTest {
 
     /** */
     @Test
-    public void testRenderAdminBucket() {
+    void testRenderAdminBucket() {
         final LivingRenderer renderer = new LivingRenderer(root, adminContext);
         final int twentyToTwentyNine = 2;
         final List<PersonRenderer> persons = renderer.getBuckets()
@@ -117,7 +117,7 @@ public final class LivingRendererTest {
      *
      */
     @Test
-    public void testRenderBucketSizes() {
+    void testRenderBucketSizes() {
         final LivingRenderer renderer = new LivingRenderer(root, adminContext);
         final List<Bucket> buckets = renderer.getBuckets();
         final int increment = 10;
@@ -157,7 +157,7 @@ public final class LivingRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testHeadMenuItem() throws IOException {
+    void testHeadMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1, userContext);
         assertEquals("head?db=gl120368", renderer.getHeaderHref(), "head href mismatch");
@@ -169,7 +169,7 @@ public final class LivingRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSaveMenuItem() throws IOException {
+    void testSaveMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1, userContext);
         assertEquals("save?db=gl120368", renderer.getSaveHref(), "save href mismatch");
@@ -181,7 +181,7 @@ public final class LivingRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSaveFilename() throws IOException {
+    void testSaveFilename() throws IOException {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1, userContext);
         assertEquals("gl120368.ged", renderer.getSaveFilename(), "save href mismatch");
@@ -193,7 +193,7 @@ public final class LivingRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testIndexMenuItem() throws IOException {
+    void testIndexMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1, userContext);
         assertEquals("surnames?db=gl120368&letter=A", renderer.getIndexHref(),
@@ -206,7 +206,7 @@ public final class LivingRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testLivingMenuItem() throws IOException {
+    void testLivingMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1, userContext);
         assertEquals("living?db=gl120368", renderer.getLivingHref(), "living href mismatch");
@@ -218,7 +218,7 @@ public final class LivingRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSourcesMenuItem() throws IOException {
+    void testSourcesMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1, userContext);
         assertEquals("sources?db=gl120368", renderer.getSourcesHref(), "submitters href mismatch");
@@ -230,7 +230,7 @@ public final class LivingRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSubmittersMenuItem() throws IOException {
+    void testSubmittersMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1, userContext);
         assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(),
@@ -243,7 +243,7 @@ public final class LivingRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testPlacesMenuItem() throws IOException {
+    void testPlacesMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
         final LivingRenderer renderer = new LivingRenderer(root1, userContext);
         assertEquals("places?db=gl120368", renderer.getPlacesHref(), "places href mismatch");

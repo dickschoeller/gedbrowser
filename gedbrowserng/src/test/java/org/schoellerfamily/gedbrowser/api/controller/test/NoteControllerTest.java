@@ -51,7 +51,7 @@ public class NoteControllerTest {
 
     /** */
     @Test
-    public final void testReadNotesGl120368() {
+    void testReadNotesGl120368() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/notes";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
@@ -70,7 +70,7 @@ public class NoteControllerTest {
 
     /** */
     @Test
-    public final void testReadNotesGl120368N13() {
+    void testReadNotesGl120368N13() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/notes/N13";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
@@ -91,7 +91,7 @@ public class NoteControllerTest {
 
     /** */
     @Test
-    public final void testReadNotesGl120368N66() {
+    void testReadNotesGl120368N66() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/notes/N66";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
@@ -114,7 +114,7 @@ public class NoteControllerTest {
 
     /** */
     @Test
-    public final void testReadNotesGl120368N1932() {
+    void testReadNotesGl120368N1932() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/notes/N1932";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
@@ -161,7 +161,7 @@ public class NoteControllerTest {
 
     /** */
     @Test
-    public final void testReadNotesGl120368Xyzzy() {
+    void testReadNotesGl120368Xyzzy() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368"
             + "/notes/Xyzzy";
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -176,7 +176,7 @@ public class NoteControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testCreateNotesSimple() throws RestClientException {
+    void testCreateNotesSimple() throws RestClientException {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/notes";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -196,7 +196,7 @@ public class NoteControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testDeleteNote() throws RestClientException {
+    void testDeleteNote() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -244,7 +244,7 @@ public class NoteControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testDeleteNoteNotFound() throws RestClientException {
+    void testDeleteNoteNotFound() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -269,7 +269,7 @@ public class NoteControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testDeleteNoteDatabaseNotFound() throws RestClientException {
+    void testDeleteNoteDatabaseNotFound() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -293,7 +293,7 @@ public class NoteControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testUpdateNoteWithNote() throws RestClientException {
+    void testUpdateNoteWithNote() throws RestClientException {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/notes";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

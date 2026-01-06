@@ -58,7 +58,7 @@ public final class RootTest {
 
     /** */
     @Test
-    public void testOneArgInsertAndFind() {
+    void testOneArgInsertAndFind() {
         final Root rt = new Root("Root");
         final Person person = new Person(rt, new ObjectId("I2"));
         rt.insert(person);
@@ -71,31 +71,31 @@ public final class RootTest {
 
     /** */
     @Test
-    public void testFindI1() {
+    void testFindI1() {
         assertEquals(person1, root.find("I1"), "Person mismatch");
     }
 
     /** */
     @Test
-    public void testFindI2() {
+    void testFindI2() {
         assertEquals(person2, root.find("I2"), "Person mismatch");
     }
 
     /** */
     @Test
-    public void testFindI3() {
+    void testFindI3() {
         assertEquals(person3, root.find("I3"), "Person mismatch");
     }
 
     /** */
     @Test
-    public void testFindF1() {
+    void testFindF1() {
         assertEquals(family, root.find("F1"), "Family mismatch");
     }
 
     /** */
     @Test
-    public void testGetObjects() {
+    void testGetObjects() {
         final Person person4 = new Person(root, new ObjectId("I4"));
         root.insert(person4);
         final Person person5 = new Person(root, new ObjectId("SQUIRT"));
@@ -109,7 +109,7 @@ public final class RootTest {
 
     /** */
     @Test
-    public void testGetObjectsNull() {
+    void testGetObjectsNull() {
         final Root localRoot = new Root();
         localRoot.insert(null);
         final Map<String, GedObject> objects = root.getObjects();
@@ -118,40 +118,40 @@ public final class RootTest {
 
     /** */
     @Test
-    public void testGetFilenameInitiallyNull() {
+    void testGetFilenameInitiallyNull() {
         assertNull(root.getFilename(), "Filename should initially be null");
     }
 
     /** */
     @Test
-    public void testSetGetFilename() {
+    void testSetGetFilename() {
         root.setFilename("foo.ged");
         assertEquals("foo.ged", root.getFilename(), "Filename should be set");
     }
 
     /** */
     @Test
-    public void testGetDbNameInitiallyNull() {
+    void testGetDbNameInitiallyNull() {
         assertNull(root.getDbName(), "DB name should initially be null");
     }
 
     /** */
     @Test
-    public void testSetGetDbName() {
+    void testSetGetDbName() {
         root.setDbName("foo");
         assertEquals("foo", root.getDbName(), "DB name should be set");
     }
 
     /** */
     @Test
-    public void testIndexInitiallyEmpty() {
+    void testIndexInitiallyEmpty() {
         final Index index = root.getIndex();
         assertEquals(0, index.surnameCount(), "Index should be empty");
     }
 
     /** */
     @Test
-    public void testIndex() {
+    void testIndex() {
         final Index index = root.getIndex();
         root.initIndex();
         final Set<String> npsSchoeller = index.getNamesPerSurname("Schoeller");

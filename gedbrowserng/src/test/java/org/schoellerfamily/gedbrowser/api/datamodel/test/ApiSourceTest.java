@@ -18,28 +18,28 @@ import nl.jqno.equalsverifier.Warning;
 public class ApiSourceTest {
     /** */
     @Test
-    public void testDefaultConstructorType() {
+    void testDefaultConstructorType() {
         final ApiSource o = ApiSource.builder().type("").string("").title("").build();
         assertEquals("", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
-    public void testDefaultConstructorString() {
+    void testDefaultConstructorString() {
         final ApiSource o = ApiSource.builder().type("").string("").title("").build();
         assertEquals("", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
-    public void testDefaultConstructorAttributes() {
+    void testDefaultConstructorAttributes() {
         final ApiSource o = ApiSource.builder().type("").string("").title("").build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
     /** */
     @Test
-    public void testConstructorType() {
+    void testConstructorType() {
         final ApiSource o = ApiSource.builder()
             .type("type")
             .string("string")
@@ -50,7 +50,7 @@ public class ApiSourceTest {
 
     /** */
     @Test
-    public void testConstructorString() {
+    void testConstructorString() {
         final ApiSource o = ApiSource.builder()
             .type("type")
             .string("string")
@@ -61,7 +61,7 @@ public class ApiSourceTest {
 
     /** */
     @Test
-    public void testConstructorNoAttributes() {
+    void testConstructorNoAttributes() {
         final ApiSource o = ApiSource.builder()
             .type("type")
             .string("string")
@@ -72,14 +72,14 @@ public class ApiSourceTest {
 
     /** */
     @Test
-    public void testConstructorNullAttributes() {
+    void testConstructorNullAttributes() {
         final ApiSource o = ApiSource.builder().type("type").string("string").title("").build();
         assertTrue(o.getAttributes().isEmpty(), "attributes empty mismatch");
     }
 
     /** */
     @Test
-    public void testConstructorWithAttributes() {
+    void testConstructorWithAttributes() {
         final ApiSource o = ApiSource.builder()
             .type("type")
             .string("string")
@@ -92,7 +92,7 @@ public class ApiSourceTest {
 
     /** */
     @Test
-    public void testIsType() {
+    void testIsType() {
         final ApiSource o = ApiSource.builder()
             .type("type")
             .string("string")
@@ -103,7 +103,7 @@ public class ApiSourceTest {
 
     /** */
     @Test
-    public void testAccept() {
+    void testAccept() {
         final ApiSource o = ApiSource.builder()
             .type("type")
             .string("string")
@@ -116,7 +116,7 @@ public class ApiSourceTest {
 
     /** */
     @Test
-    public void testImage() {
+    void testImage() {
         final ApiAttribute file = ApiAttribute.builder()
             .type("attribute")
             .string("File")
@@ -141,14 +141,14 @@ public class ApiSourceTest {
 
     /** */
     @Test
-    public void testOneImage() {
+    void testOneImage() {
         final ApiSource o = sourceWithMultimedia();
         assertEquals(1, o.getImages().size(), "Should contain 1 image");
     }
 
     /** */
     @Test
-    public void testNoImages() {
+    void testNoImages() {
         final ApiSource o = ApiSource.builder()
             .type("type")
             .string("string")
@@ -160,7 +160,7 @@ public class ApiSourceTest {
 
     /** */
     @Test
-    public void testHashAndEquals() {
+    void testHashAndEquals() {
         EqualsVerifier.forClass(ApiSource.class).suppress(Warning.STRICT_INHERITANCE).verify();
     }
 

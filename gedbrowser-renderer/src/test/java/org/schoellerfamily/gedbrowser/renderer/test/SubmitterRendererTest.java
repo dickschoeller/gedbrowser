@@ -45,7 +45,7 @@ public final class SubmitterRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -54,7 +54,7 @@ public final class SubmitterRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testAttributeListOpenRenderer() {
+    void testAttributeListOpenRenderer() {
         final SubmitterRenderer renderer = createRenderer();
         assertTrue(
             renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
@@ -66,7 +66,7 @@ public final class SubmitterRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testListItemRenderer() {
+    void testListItemRenderer() {
         final SubmitterRenderer renderer = createRenderer();
         assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer,
             "Wrong renderer type");
@@ -77,7 +77,7 @@ public final class SubmitterRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         final SubmitterRenderer renderer = createRenderer();
         assertTrue(renderer.getNameHtmlRenderer() instanceof SubmitterNameHtmlRenderer,
             "Wrong renderer type");
@@ -88,7 +88,7 @@ public final class SubmitterRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameIndexRenderer() {
+    void testNameIndexRenderer() {
         final SubmitterRenderer renderer = createRenderer();
         assertTrue(renderer.getNameIndexRenderer() instanceof SubmitterNameIndexRenderer,
             "Wrong renderer type");
@@ -99,7 +99,7 @@ public final class SubmitterRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         final SubmitterRenderer renderer = createRenderer();
         assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer,
             "Wrong renderer type");
@@ -110,7 +110,7 @@ public final class SubmitterRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testIdString() {
+    void testIdString() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submitter submitter = builder.createSubmitter("S1", "Richard John/Schoeller/");
         final SubmitterRenderer renderer = createRenderer(submitter);
@@ -122,7 +122,7 @@ public final class SubmitterRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testTitleString() {
+    void testTitleString() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submitter submitter = builder.createSubmitter("S1", "Richard John/Schoeller/");
         final SubmitterRenderer renderer = createRenderer(submitter);
@@ -134,7 +134,7 @@ public final class SubmitterRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNullIdString() {
+    void testNullIdString() {
         final SubmitterRenderer renderer = createRenderer();
         assertEquals("", renderer.getIdString(), "Expected empty submitter ID");
     }
@@ -152,7 +152,7 @@ public final class SubmitterRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testHeadMenuItem() throws IOException {
+    void testHeadMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Submitter> submitters = root.find(Submitter.class);
         for (final Submitter submitter : submitters) {
@@ -167,7 +167,7 @@ public final class SubmitterRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSaveMenuItem() throws IOException {
+    void testSaveMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Submitter> submitters = root.find(Submitter.class);
         for (final Submitter submitter : submitters) {
@@ -182,7 +182,7 @@ public final class SubmitterRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSaveFilename() throws IOException {
+    void testSaveFilename() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Submitter> submitters = root.find(Submitter.class);
         for (final Submitter submitter : submitters) {
@@ -197,7 +197,7 @@ public final class SubmitterRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testIndexMenuItem() throws IOException {
+    void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Submitter> submitters = root.find(Submitter.class);
         for (final Submitter submitter : submitters) {
@@ -213,7 +213,7 @@ public final class SubmitterRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testLivingMenuItem() throws IOException {
+    void testLivingMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Submitter> submitters = root.find(Submitter.class);
         for (final Submitter submitter : submitters) {
@@ -228,7 +228,7 @@ public final class SubmitterRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSourcesMenuItem() throws IOException {
+    void testSourcesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Submitter> submitters = root.find(Submitter.class);
         for (final Submitter submitter : submitters) {
@@ -243,7 +243,7 @@ public final class SubmitterRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSubmittersMenuItem() throws IOException {
+    void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Submitter> submitters = root.find(Submitter.class);
         for (final Submitter submitter : submitters) {

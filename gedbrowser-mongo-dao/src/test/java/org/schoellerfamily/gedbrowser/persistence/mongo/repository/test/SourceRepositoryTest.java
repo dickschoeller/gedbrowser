@@ -67,7 +67,7 @@ public final class SourceRepositoryTest {
 
     /** */
     @Test
-    public void testSource() {
+    void testSource() {
         final SourceDocument document = sourceDocumentRepository
             .findByFileAndString(root.getFilename(), "S2");
         final Source source = (Source) toObjConverter.createGedObject(root, document);
@@ -76,7 +76,7 @@ public final class SourceRepositoryTest {
 
     /** */
     @Test
-    public void testSourceRoot() {
+    void testSourceRoot() {
         final SourceDocument document = sourceDocumentRepository.findByRootAndString(rootDocument,
             "S2");
         final Source source = (Source) toObjConverter.createGedObject(root, document);
@@ -85,7 +85,7 @@ public final class SourceRepositoryTest {
 
     /** */
     @Test
-    public void testBogus() {
+    void testBogus() {
         final SourceDocument perdoc = sourceDocumentRepository
             .findByFileAndString(root.getFilename(), "S999999");
         assertNull(perdoc, "Bogus request should return null");
@@ -93,7 +93,7 @@ public final class SourceRepositoryTest {
 
     /** */
     @Test
-    public void testBogusRoot() {
+    void testBogusRoot() {
         final SourceDocument perdoc = sourceDocumentRepository.findByRootAndString(rootDocument,
             "S999999");
         assertNull(perdoc, "Bogus request should return null");
@@ -101,21 +101,21 @@ public final class SourceRepositoryTest {
 
     /** */
     @Test
-    public void testCountRoot() {
+    void testCountRoot() {
         assertEquals(SOURCE_COUNT, sourceDocumentRepository.count(rootDocument),
             "Should be 9 sources");
     }
 
     /** */
     @Test
-    public void testCountFilename() {
+    void testCountFilename() {
         assertEquals(SOURCE_COUNT, sourceDocumentRepository.count(rootDocument.getFilename()),
             "Should be 9 sources");
     }
 
     /** */
     @Test
-    public void testFindAllRoot() {
+    void testFindAllRoot() {
         final Iterable<SourceDocument> list = sourceDocumentRepository.findAll(rootDocument);
         int count = 0;
         for (final SourceDocument source : list) {
@@ -127,7 +127,7 @@ public final class SourceRepositoryTest {
 
     /** */
     @Test
-    public void testFindAllFilename() {
+    void testFindAllFilename() {
         final Iterable<SourceDocument> list = sourceDocumentRepository
             .findAll(rootDocument.getFilename());
         int count = 0;
@@ -140,14 +140,14 @@ public final class SourceRepositoryTest {
 
     /** */
     @Test
-    public void testLastId() {
+    void testLastId() {
         final String string = sourceDocumentRepository.lastId(rootDocument);
         assertEquals("S229", string, "");
     }
 
     /** */
     @Test
-    public void testNewId() {
+    void testNewId() {
         final String string = sourceDocumentRepository.newId(rootDocument);
         assertEquals("S230", string, "");
     }

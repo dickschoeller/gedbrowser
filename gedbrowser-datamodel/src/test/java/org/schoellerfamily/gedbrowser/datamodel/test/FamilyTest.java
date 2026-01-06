@@ -66,7 +66,7 @@ public final class FamilyTest {
 
     /** */
     @Test
-    public void testGetSpouseFromHusband() {
+    void testGetSpouseFromHusband() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final Person spouse = navigator.getSpouse(person1);
         assertEquals(person2, spouse, "Spouse mismatch");
@@ -74,7 +74,7 @@ public final class FamilyTest {
 
     /** */
     @Test
-    public void testGetSpouseFromWife() {
+    void testGetSpouseFromWife() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final Person spouse = navigator.getSpouse(person2);
         assertEquals(person1, spouse, "Spouse mismatch");
@@ -82,7 +82,7 @@ public final class FamilyTest {
 
     /** */
     @Test
-    public void testGetSpouseFromNonSpouse() {
+    void testGetSpouseFromNonSpouse() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final Person spouse = navigator.getSpouse(person3);
         assertFalse(spouse.isSet(), "Expected spouse to be unset when search from child");
@@ -90,7 +90,7 @@ public final class FamilyTest {
 
     /** */
     @Test
-    public void testGetSpousesContainsHusband() {
+    void testGetSpousesContainsHusband() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final List<Person> spouses = navigator.getSpouses();
         assertTrue(spouses.contains(person1), "Expected to find husband");
@@ -98,7 +98,7 @@ public final class FamilyTest {
 
     /** */
     @Test
-    public void testGetSpousesContainsWife() {
+    void testGetSpousesContainsWife() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final List<Person> spouses = navigator.getSpouses();
         assertTrue(spouses.contains(person2), "Expected to find wife");
@@ -106,7 +106,7 @@ public final class FamilyTest {
 
     /** */
     @Test
-    public void testGetSpousesDoesNotContainNonSpouse() {
+    void testGetSpousesDoesNotContainNonSpouse() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final List<Person> spouses = navigator.getSpouses();
         assertFalse(spouses.contains(person3), "Did not expect to find child in spouses list");
@@ -114,7 +114,7 @@ public final class FamilyTest {
 
     /** */
     @Test
-    public void testFamilyUsualSetup() {
+    void testFamilyUsualSetup() {
         final Root localRoot = new Root(ROOT_NAME);
         final Family localFamily1 = new Family(localRoot, new ObjectId("F1"));
         localRoot.insert(localFamily1);
@@ -182,21 +182,21 @@ public final class FamilyTest {
 
     /** */
     @Test
-    public void testDefaultConstructor() {
+    void testDefaultConstructor() {
         final Family family = new Family();
         assertMatch(null, family, "", false, false, 0);
     }
 
     /** */
     @Test
-    public void testEmptyToString() {
+    void testEmptyToString() {
         final Family family = new Family();
         assertEquals("", family.toString(), "Expected empty string");
     }
 
     /** */
     @Test
-    public void testConstructorRootId() {
+    void testConstructorRootId() {
         final Root localRoot = new Root(ROOT_NAME);
         final Family family = new Family(localRoot, new ObjectId("F1"));
         localRoot.insert(family);

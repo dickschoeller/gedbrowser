@@ -67,7 +67,7 @@ public final class FamilyRepositoryTest {
 
     /** */
     @Test
-    public void testF1() {
+    void testF1() {
         final FamilyDocument famdoc = familyDocumentRepository
             .findByFileAndString(root.getFilename(), "F1");
         final Family family = (Family) toObjConverter.createGedObject(root, famdoc);
@@ -76,7 +76,7 @@ public final class FamilyRepositoryTest {
 
     /** */
     @Test
-    public void testF1Root() {
+    void testF1Root() {
         final FamilyDocument famdoc = familyDocumentRepository.findByRootAndString(rootDocument,
             "F1");
         final Family family = (Family) toObjConverter.createGedObject(root, famdoc);
@@ -85,7 +85,7 @@ public final class FamilyRepositoryTest {
 
     /** */
     @Test
-    public void testBogus() {
+    void testBogus() {
         final FamilyDocument famdoc = familyDocumentRepository
             .findByFileAndString(root.getFilename(), "F999999");
         assertNull(famdoc, "Bogus request should return null");
@@ -93,7 +93,7 @@ public final class FamilyRepositoryTest {
 
     /** */
     @Test
-    public void testBogusRoot() {
+    void testBogusRoot() {
         final FamilyDocument famdoc = familyDocumentRepository.findByRootAndString(rootDocument,
             "F999999");
         assertNull(famdoc, "Bogus request should return null");
@@ -101,21 +101,21 @@ public final class FamilyRepositoryTest {
 
     /** */
     @Test
-    public void testCountRoot() {
+    void testCountRoot() {
         assertEquals(FAMILY_COUNT, familyDocumentRepository.count(rootDocument),
             "Should be 6 families");
     }
 
     /** */
     @Test
-    public void testCountFilename() {
+    void testCountFilename() {
         assertEquals(FAMILY_COUNT, familyDocumentRepository.count(rootDocument.getFilename()),
             "Should be 6 families");
     }
 
     /** */
     @Test
-    public void testFindAllRoot() {
+    void testFindAllRoot() {
         final Iterable<FamilyDocument> list = familyDocumentRepository.findAll(rootDocument);
         int count = 0;
         for (final FamilyDocument family : list) {
@@ -127,7 +127,7 @@ public final class FamilyRepositoryTest {
 
     /** */
     @Test
-    public void testFindAllFilename() {
+    void testFindAllFilename() {
         final Iterable<FamilyDocument> list = familyDocumentRepository
             .findAll(rootDocument.getFilename());
         int count = 0;
@@ -140,14 +140,14 @@ public final class FamilyRepositoryTest {
 
     /** */
     @Test
-    public void testLastId() {
+    void testLastId() {
         final String string = familyDocumentRepository.lastId(rootDocument);
         assertEquals("F10", string, "");
     }
 
     /** */
     @Test
-    public void testNewId() {
+    void testNewId() {
         final String string = familyDocumentRepository.newId(rootDocument);
         assertEquals("F11", string, "");
     }

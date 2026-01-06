@@ -47,7 +47,7 @@ public class UploadServiceTest {
 
     /** */
     @Test
-    public final void testRealUpload() {
+    void testRealUpload() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/upload";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -71,7 +71,7 @@ public class UploadServiceTest {
 
     /** */
     @Test
-    public final void testDotDotUpload() {
+    void testDotDotUpload() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/upload";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -95,7 +95,7 @@ public class UploadServiceTest {
 
     /** */
     @Test
-    public final void testEmptyUpload() {
+    void testEmptyUpload() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/upload";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);

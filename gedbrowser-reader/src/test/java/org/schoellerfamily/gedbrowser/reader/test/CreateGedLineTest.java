@@ -40,7 +40,7 @@ public class CreateGedLineTest {
      */
     @ParameterizedTest
     @MethodSource("params")
-    public void testCreateGedLineNullString(final String line, final int level,
+    void testCreateGedLineNullString(final String line, final int level,
             final String tag, final String tail, final String xref) {
         final AbstractGedLine gedLine = GedLine.createGedLine(null, line);
         assertEquals(level, gedLine.getLevel(), "Level mismatch");

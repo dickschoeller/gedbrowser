@@ -26,7 +26,7 @@ public class NoteTest {
 
     /** */
     @Test
-    public void testNoteGedObjectCompare() {
+    void testNoteGedObjectCompare() {
         final Root root = builder.getRoot();
         final Note note = new Note(root, new ObjectId("N1"));
         root.insert(note);
@@ -36,21 +36,21 @@ public class NoteTest {
 
     /** */
     @Test
-    public void testNoteGedObjectGetString() {
+    void testNoteGedObjectGetString() {
         final Note note = new Note();
         assertTrue(note.getString().isEmpty(), "Note string should be empty");
     }
 
     /** */
     @Test
-    public void testNoteGedObjectGetTail() {
+    void testNoteGedObjectGetTail() {
         final Note note = new Note();
         assertTrue(note.getTail().isEmpty(), "Note string should be empty");
     }
 
     /** */
     @Test
-    public void testNoteGedObjectSetTailNull() {
+    void testNoteGedObjectSetTailNull() {
         final Note note = new Note();
         note.setTail(null);
         assertTrue(note.getTail().isEmpty(), "Note string should be empty");
@@ -58,7 +58,7 @@ public class NoteTest {
 
     /** */
     @Test
-    public void testNoteGedObjectSetTailEmpty() {
+    void testNoteGedObjectSetTailEmpty() {
         final Note note = new Note();
         note.setTail("");
         assertTrue(note.getTail().isEmpty(), "Note string should be empty");
@@ -66,7 +66,7 @@ public class NoteTest {
 
     /** */
     @Test
-    public void testNoteGedObjectStringGetString() {
+    void testNoteGedObjectStringGetString() {
         final Root root = builder.getRoot();
         final Note note = new Note(root, new ObjectId("N1"));
         root.insert(note);
@@ -75,7 +75,7 @@ public class NoteTest {
 
     /** */
     @Test
-    public void testNoteGetSubmitterText() {
+    void testNoteGetSubmitterText() {
         final Root root = builder.getRoot();
         final Note note = new Note(root, new ObjectId("N1"), "Some note text");
         root.insert(note);
@@ -84,7 +84,7 @@ public class NoteTest {
 
     /** */
     @Test
-    public void testNoteGetSubmitterTextAppend() {
+    void testNoteGetSubmitterTextAppend() {
         final Root root = builder.getRoot();
         final Note note = new Note(root, new ObjectId("N1"), "Some note te");
         root.insert(note);

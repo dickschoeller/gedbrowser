@@ -60,7 +60,7 @@ public class FamilyCrudTest {
 
     /** */
     @Test
-    public final void testGetFamiliesGl120368() {
+    void testGetFamiliesGl120368() {
         log.info("Beginning testGetFamiliesGl120368");
         final List<ApiFamily> list = crud.readAll("gl120368");
         final ApiFamily firstFamily = list.get(0);
@@ -71,7 +71,7 @@ public class FamilyCrudTest {
 
     /** */
     @Test
-    public final void testGetFamiliesMiniSchoeller() {
+    void testGetFamiliesMiniSchoeller() {
         log.info("Beginning testGetFamiliesMiniSchoeller");
         final List<ApiFamily> list = crud.readAll("mini-schoeller");
         final ApiFamily firstFamily = list.get(0);
@@ -84,7 +84,7 @@ public class FamilyCrudTest {
 
     /** */
     @Test
-    public final void testGetFamiliesGl120368F1593() {
+    void testGetFamiliesGl120368F1593() {
         log.info("Beginning testGetFamiliesGl120368F1593");
         final ApiFamily family = crud.readOne("gl120368", "F1593");
         then(family.getString()).isEqualTo("F1593");
@@ -95,7 +95,7 @@ public class FamilyCrudTest {
 
     /** */
     @Test
-    public final void testGetFamiliesMiniSchoellerF1() {
+    void testGetFamiliesMiniSchoellerF1() {
         log.info("Beginning testGetFamiliesMiniSchoellerF1");
         final ApiFamily family = crud.readOne("mini-schoeller", "F1");
         then(family.getString()).isEqualTo("F1");
@@ -114,7 +114,7 @@ public class FamilyCrudTest {
 
     /** */
     @Test
-    public final void testGetFamiliesMiniSchoellerXyzzy() {
+    void testGetFamiliesMiniSchoellerXyzzy() {
         log.info("Beginning testGetFamiliesMiniSchoellerXyzzy");
         try {
             final ApiFamily family = crud.readOne("mini-schoeller", "Xyzzy");
@@ -127,7 +127,7 @@ public class FamilyCrudTest {
 
     /** */
     @Test
-    public final void testCreateFamiliesSimple() {
+    void testCreateFamiliesSimple() {
         log.info("Beginning testCreateFamiliesSimple");
         final ApiFamily inFamily = ApiFamily.builder().type("family").string("").build();
         final ApiFamily outFamily = crud.createOne("gl120368", inFamily);
@@ -138,7 +138,7 @@ public class FamilyCrudTest {
 
     /** */
     @Test
-    public final void testCreateFamiliesWithMarriage() {
+    void testCreateFamiliesWithMarriage() {
         log.info("Beginning testCreateFamiliesWithMarriage");
         final ApiFamily inFamily = ApiFamily.builder()
             .type("family")
@@ -154,7 +154,7 @@ public class FamilyCrudTest {
 
     /** */
     @Test
-    public final void testDeleteFamily() {
+    void testDeleteFamily() {
         log.info("Beginning testDeleteFamily");
         final ApiFamily inFamily = ApiFamily.builder().type("family").string("").build();
         final ApiFamily outFamily = crud.createOne("gl120368", inFamily);
@@ -172,7 +172,7 @@ public class FamilyCrudTest {
 
     /** */
     @Test
-    public final void testDeleteFamilyNotFound() {
+    void testDeleteFamilyNotFound() {
         log.info("Beginning testDeleteFamilyNotFound");
         try {
             final ApiFamily family = crud.deleteOne("gl120368", "XXXXXXX");
@@ -185,7 +185,7 @@ public class FamilyCrudTest {
 
     /** */
     @Test
-    public final void testDeleteFamilyDatabaseNotFound() {
+    void testDeleteFamilyDatabaseNotFound() {
         log.info("Beginning testDeleteFamilyDatabaseNotFound");
         try {
             final ApiFamily family = crud.deleteOne("XYZZY", "SUBM1");
@@ -197,7 +197,7 @@ public class FamilyCrudTest {
 
     /** */
     @Test
-    public final void testUpdateFamilyWithNote() {
+    void testUpdateFamilyWithNote() {
         log.info("Beginning testUpdateFamilyWithNote");
         final List<ApiAttribute> attributes = List
             .of(ApiAttribute.builder().type("attribute").string("Marriage").tail("").build());

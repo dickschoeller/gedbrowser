@@ -21,13 +21,13 @@ public class DataSetNotFoundExceptionTest {
 
     /** */
     @Test
-    public void testMessage() {
+    void testMessage() {
         assertEquals("Data set not found", exception.getMessage(), "Message doesn't match");
     }
 
     /** */
     @Test
-    public void testDatasetName() {
+    void testDatasetName() {
         assertEquals("xyzzy", exception.getDatasetName(), "Dataset name doesn't match");
     }
 }

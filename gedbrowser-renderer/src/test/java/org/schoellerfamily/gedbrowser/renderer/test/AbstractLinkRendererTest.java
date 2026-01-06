@@ -44,7 +44,7 @@ public final class AbstractLinkRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testAttributeListOpenRenderer() {
+    void testAttributeListOpenRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
         assertTrue(
             renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
@@ -56,7 +56,7 @@ public final class AbstractLinkRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testListItemRenderer() {
+    void testListItemRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
         assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer,
             "renderer is not of the right type");
@@ -67,7 +67,7 @@ public final class AbstractLinkRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
         assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
             "renderer is not of the right type");
@@ -78,7 +78,7 @@ public final class AbstractLinkRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameIndexRenderer() {
+    void testNameIndexRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
         assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
             "renderer is not of the right type");
@@ -89,7 +89,7 @@ public final class AbstractLinkRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
         assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer,
             "renderer is not of the right type");

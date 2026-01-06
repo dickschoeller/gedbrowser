@@ -38,7 +38,7 @@ public final class NoteLinkPhraseRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final Root root = new Root("Root");
         final Head head = new Head(root, "Head");
         root.insert(head);
@@ -54,7 +54,7 @@ public final class NoteLinkPhraseRendererTest {
 
     /** */
     @Test
-    public void testRenderAsPhrase() {
+    void testRenderAsPhrase() {
         final NoteLinkRenderer slr = new NoteLinkRenderer(noteLink, new GedRendererFactory(),
             anonymousContext);
         final NoteLinkPhraseRenderer slpr = (NoteLinkPhraseRenderer) slr.getPhraseRenderer();

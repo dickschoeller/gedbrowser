@@ -34,14 +34,14 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.NameableVisitor;
 public final class NameableVisitorTest {
     /** */
     @Test
-    public void testUninit() {
+    void testUninit() {
         final NameableVisitor visitor = new NameableVisitor();
         assertEquals("?, ?", visitor.getIndexName(), "Found unexpected content");
     }
 
     /** */
     @Test
-    public void testNoImpactFromUnrelated() {
+    void testNoImpactFromUnrelated() {
         final NameableVisitor visitor = new NameableVisitor();
         new Attribute().accept(visitor);
         new Child().accept(visitor);

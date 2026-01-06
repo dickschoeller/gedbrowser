@@ -37,14 +37,14 @@ public final class GedObjectBuilderFamilyTest {
     // Check network in family members
     /** */
     @Test
-    public void testAddChildWithNulls() {
+    void testAddChildWithNulls() {
         final Child child = builder.addChildToFamily(null, null);
         assertFalse(child.isSet(), "Should create an empty child");
     }
 
     /** */
     @Test
-    public void testAddChildWithNullPerson() {
+    void testAddChildWithNullPerson() {
         final Family family = builder.createFamily("F1");
         final Child child = builder.addChildToFamily(family, null);
         assertFalse(child.isSet(), "Should create an empty child");
@@ -52,7 +52,7 @@ public final class GedObjectBuilderFamilyTest {
 
     /** */
     @Test
-    public void testAddChildWithNullFamily() {
+    void testAddChildWithNullFamily() {
         final Person person = createJRandom();
         final Child child = builder.addChildToFamily(null, person);
         assertFalse(child.isSet(), "Should create an empty child");
@@ -60,7 +60,7 @@ public final class GedObjectBuilderFamilyTest {
 
     /** */
     @Test
-    public void testAddChild() {
+    void testAddChild() {
         final Family family = builder.createFamily("F1");
         final Person person = createJRandom();
         final Child child = builder.addChildToFamily(family, person);
@@ -69,14 +69,14 @@ public final class GedObjectBuilderFamilyTest {
 
     /** */
     @Test
-    public void testAddHusbandWithNulls() {
+    void testAddHusbandWithNulls() {
         final Husband husband = builder.addHusbandToFamily(null, null);
         assertFalse(husband.isSet(), "Should create an empty husband");
     }
 
     /** */
     @Test
-    public void testAddHusbandWithNullPerson() {
+    void testAddHusbandWithNullPerson() {
         final Family family = builder.createFamily("F1");
         final Husband husband = builder.addHusbandToFamily(family, null);
         assertFalse(husband.isSet(), "Should create an empty husband");
@@ -84,7 +84,7 @@ public final class GedObjectBuilderFamilyTest {
 
     /** */
     @Test
-    public void testAddHusbandWithNullFamily() {
+    void testAddHusbandWithNullFamily() {
         final Person person = createJRandom();
         final Husband husband = builder.addHusbandToFamily(null, person);
         assertFalse(husband.isSet(), "Should create an empty husband");
@@ -92,7 +92,7 @@ public final class GedObjectBuilderFamilyTest {
 
     /** */
     @Test
-    public void testAddHusband() {
+    void testAddHusband() {
         final Family family = builder.createFamily("F1");
         final Person person = createJRandom();
         final Husband wife = builder.addHusbandToFamily(family, person);
@@ -101,14 +101,14 @@ public final class GedObjectBuilderFamilyTest {
 
     /** */
     @Test
-    public void testAddWifeWithNulls() {
+    void testAddWifeWithNulls() {
         final Wife wife = builder.addWifeToFamily(null, null);
         assertFalse(wife.isSet(), "Should create an empty wife");
     }
 
     /** */
     @Test
-    public void testAddWifeWithNullPerson() {
+    void testAddWifeWithNullPerson() {
         final Family family = builder.createFamily("F1");
         final Wife wife = builder.addWifeToFamily(family, null);
         assertFalse(wife.isSet(), "Should create an empty wife");
@@ -116,7 +116,7 @@ public final class GedObjectBuilderFamilyTest {
 
     /** */
     @Test
-    public void testAddWifeWithNullFamily() {
+    void testAddWifeWithNullFamily() {
         final Person person = createJRandom();
         final Wife wife = builder.addWifeToFamily(null, person);
         assertFalse(wife.isSet(), "Should create an empty wife");
@@ -124,7 +124,7 @@ public final class GedObjectBuilderFamilyTest {
 
     /** */
     @Test
-    public void testAddWife() {
+    void testAddWife() {
         final Family family = builder.createFamily("F1");
         final Person person = createJRandom();
         final Wife wife = builder.addWifeToFamily(family, person);
@@ -133,56 +133,56 @@ public final class GedObjectBuilderFamilyTest {
 
     /** */
     @Test
-    public void testCreateFamilyWithNull() {
+    void testCreateFamilyWithNull() {
         final Family family = builder.createFamily(null);
         assertFalse(family.isSet(), "Should create empty family");
     }
 
     /** */
     @Test
-    public void testCreateFamily() {
+    void testCreateFamily() {
         final Family family = builder.createFamily("STRING");
         assertEquals("STRING", family.getString(), "Should have the ID provided");
     }
 
     /** */
     @Test
-    public void testCreateFamily1() {
+    void testCreateFamily1() {
         final Family family = builder.createFamily("F1");
         assertEquals("F1", family.getString(), "Should have the ID provided");
     }
 
     /** */
     @Test
-    public void testCreateFamily2() {
+    void testCreateFamily2() {
         final Family family = builder.createFamily("F2");
         assertEquals("F2", family.getString(), "Should have the ID provided");
     }
 
     /** */
     @Test
-    public void testCreateFamily3() {
+    void testCreateFamily3() {
         final Family family = builder.createFamily("F3");
         assertEquals("F3", family.getString(), "Should have the ID provided");
     }
 
     /** */
     @Test
-    public void testFamilyEventWithNulls() {
+    void testFamilyEventWithNulls() {
         final Attribute event = builder.createFamilyEvent(null, null);
         assertFalse(event.isSet(), "Should create empty event");
     }
 
     /** */
     @Test
-    public void testFamilyEventWithNullFamily() {
+    void testFamilyEventWithNullFamily() {
         final Attribute event = builder.createFamilyEvent(null, "Marriage", "21 NOV 2002");
         assertFalse(event.isSet(), "Should create empty event");
     }
 
     /** */
     @Test
-    public void testFamilyEventWithNullType() {
+    void testFamilyEventWithNullType() {
         final Family family = builder.createFamily("F1");
         final Attribute event = builder.createFamilyEvent(family, null, "21 NOV 2002");
         assertFalse(event.isSet(), "Should create empty event");
@@ -190,7 +190,7 @@ public final class GedObjectBuilderFamilyTest {
 
     /** */
     @Test
-    public void testFamilyEventWithNullDate() {
+    void testFamilyEventWithNullDate() {
         final Family family = builder.createFamily("F1");
         final Attribute event = builder.createFamilyEvent(family, "Marriage");
         final GetDateVisitor visitor = new GetDateVisitor();
@@ -200,7 +200,7 @@ public final class GedObjectBuilderFamilyTest {
 
     /** */
     @Test
-    public void testFamilyEventWithBogusDate() {
+    void testFamilyEventWithBogusDate() {
         final Family family = builder.createFamily("F1");
         final Attribute event = builder.createFamilyEvent(family, "Marriage", "HUH?");
         final GetDateVisitor visitor = new GetDateVisitor();
@@ -210,7 +210,7 @@ public final class GedObjectBuilderFamilyTest {
 
     /** */
     @Test
-    public void testFamilyEvent() {
+    void testFamilyEvent() {
         final Family family = builder.createFamily("F1");
         final Attribute event = builder.createFamilyEvent(family, "Marriage", "21 NOV 2002");
         assertTrue(event.isSet(), "Should create real event");

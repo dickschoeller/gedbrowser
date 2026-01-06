@@ -52,7 +52,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadAttributeLoad() {
+    void testBadAttributeLoad() {
         final AttributeDocumentMongo ad = new AttributeDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -64,7 +64,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadChildLoad() {
+    void testBadChildLoad() {
         final ChildDocumentMongo ad = new ChildDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -76,7 +76,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadDateLoad() {
+    void testBadDateLoad() {
         final DateDocumentMongo ad = new DateDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -88,7 +88,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadFamCLoad() {
+    void testBadFamCLoad() {
         final FamCDocumentMongo ad = new FamCDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -100,7 +100,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadFamilyLoad() {
+    void testBadFamilyLoad() {
         final FamilyDocumentMongo ad = new FamilyDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -112,7 +112,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadFamSLoad() {
+    void testBadFamSLoad() {
         final FamSDocumentMongo ad = new FamSDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -124,7 +124,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadHeadLoad() {
+    void testBadHeadLoad() {
         final HeadDocumentMongo ad = new HeadDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -136,7 +136,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadHusbandLoad() {
+    void testBadHusbandLoad() {
         final HusbandDocumentMongo ad = new HusbandDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -148,7 +148,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadMultimediaLoad() {
+    void testBadMultimediaLoad() {
         final MultimediaDocumentMongo ad = new MultimediaDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -160,7 +160,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadNameLoad() {
+    void testBadNameLoad() {
         final NameDocumentMongo ad = new NameDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -172,7 +172,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadPersonLoad() {
+    void testBadPersonLoad() {
         final PersonDocumentMongo ad = new PersonDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -184,7 +184,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadPlaceLoad() {
+    void testBadPlaceLoad() {
         final PlaceDocumentMongo ad = new PlaceDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -196,7 +196,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadRootLoad() {
+    void testBadRootLoad() {
         final RootDocumentMongo ad = new RootDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, attr);
@@ -208,7 +208,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadSourceLoad() {
+    void testBadSourceLoad() {
         final SourceDocumentMongo ad = new SourceDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -220,7 +220,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadSourceLinkLoad() {
+    void testBadSourceLinkLoad() {
         final SourceLinkDocumentMongo ad = new SourceLinkDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -232,7 +232,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadSubmitterLoad() {
+    void testBadSubmitterLoad() {
         final SubmitterDocumentMongo ad = new SubmitterDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -244,7 +244,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadSubmitterLinkLoad() {
+    void testBadSubmitterLinkLoad() {
         final SubmitterLinkDocumentMongo ad = new SubmitterLinkDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -256,7 +256,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadTrailerLoad() {
+    void testBadTrailerLoad() {
         final TrailerDocumentMongo ad = new TrailerDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);
@@ -268,7 +268,7 @@ public final class BadLoadTest {
 
     /** */
     @Test
-    public void testBadWifeLoad() {
+    void testBadWifeLoad() {
         final WifeDocumentMongo ad = new WifeDocumentMongo();
         try {
             ad.loadGedObject(toDocConverter, root);

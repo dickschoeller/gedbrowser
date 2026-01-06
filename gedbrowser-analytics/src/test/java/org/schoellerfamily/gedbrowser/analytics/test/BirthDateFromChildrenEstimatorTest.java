@@ -45,7 +45,7 @@ public class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromChildBirth() {
+    void testFromChildBirth() {
         final Person person1 = createJRandom();
         final Person person3 = createAnonymousJones();
 
@@ -69,7 +69,7 @@ public class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromChildAdultEvent() {
+    void testFromChildAdultEvent() {
         final Person person1 = createJRandom();
         final Person person3 = createAnonymousJones();
 
@@ -93,7 +93,7 @@ public class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromSecondChildBirth() {
+    void testFromSecondChildBirth() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
@@ -119,7 +119,7 @@ public class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromSpouseParent() {
+    void testFromSpouseParent() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
@@ -158,7 +158,7 @@ public class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromNada() {
+    void testFromNada() {
         final Person person1 = createJRandom();
         final BirthDateFromChildrenEstimator estimator =
                 new BirthDateFromChildrenEstimator(person1);
@@ -168,7 +168,7 @@ public class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromNadaWithDate() {
+    void testFromNadaWithDate() {
         final Person person1 = createJRandom();
         final BirthDateFromChildrenEstimator estimator =
                 new BirthDateFromChildrenEstimator(person1);

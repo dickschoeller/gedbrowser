@@ -33,7 +33,7 @@ public final class MultimediaRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -42,7 +42,7 @@ public final class MultimediaRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testMultimediaListItemRenderer() {
+    void testMultimediaListItemRenderer() {
         final MultimediaRenderer renderer = createRenderer();
         assertTrue(renderer.getListItemRenderer() instanceof MultimediaListItemRenderer,
             "Wrong renderer type");
@@ -53,7 +53,7 @@ public final class MultimediaRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         final MultimediaRenderer renderer = createRenderer();
         assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
             "Wrong renderer type");
@@ -64,7 +64,7 @@ public final class MultimediaRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameIndexRenderer() {
+    void testNameIndexRenderer() {
         final MultimediaRenderer renderer = createRenderer();
         assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
             "Wrong renderer type");
@@ -75,7 +75,7 @@ public final class MultimediaRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         final MultimediaRenderer renderer = createRenderer();
         assertTrue(renderer.getPhraseRenderer() instanceof MultimediaPhraseRenderer,
             "Wrong renderer type");

@@ -21,7 +21,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMo
 public class DocumentToApiModelTest {
     /** */
     @Test
-    public void basicTrailerTest() {
+    void basicTrailerTest() {
         final TrailerDocument document = new TrailerDocumentMongo();
         final DocumentToApiModelVisitor visitor = new DocumentToApiModelVisitor();
 
@@ -32,7 +32,7 @@ public class DocumentToApiModelTest {
 
     /** */
     @Test
-    public void basicObjectTest() {
+    void basicObjectTest() {
         final GedDocument<GedObject> document = new GedDocumentStub();
         final DocumentToApiModelVisitor visitor = new DocumentToApiModelVisitor();
 

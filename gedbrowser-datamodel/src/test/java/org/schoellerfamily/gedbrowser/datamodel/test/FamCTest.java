@@ -60,28 +60,28 @@ public final class FamCTest {
 
     /** */
     @Test
-    public void testGetFatherNotSet() {
+    void testGetFatherNotSet() {
         final FamilyNavigator navigator = new FamilyNavigator(new FamC());
         assertFalse(navigator.getFather().isSet(), "Father should be unset");
     }
 
     /** */
     @Test
-    public void testGetFather() {
+    void testGetFather() {
         final FamilyNavigator navigator = new FamilyNavigator(famC);
         assertEquals(person2, navigator.getFather(), "Person mismatch");
     }
 
     /** */
     @Test
-    public void testGetMotherNotSet() {
+    void testGetMotherNotSet() {
         final FamilyNavigator navigator = new FamilyNavigator(new FamC());
         assertFalse(navigator.getMother().isSet(), "Mother should be unset");
     }
 
     /** */
     @Test
-    public void testGetMother() {
+    void testGetMother() {
         final FamilyNavigator navigator = new FamilyNavigator(famC);
         assertEquals(person3, navigator.getMother(), "Person mismatch");
     }

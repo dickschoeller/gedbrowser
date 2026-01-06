@@ -15,7 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Source;
 public final class SourceTest {
     /** */
     @Test
-    public void testSourceGedObjectCompare() {
+    void testSourceGedObjectCompare() {
         final Root root = new Root("Root");
         final Source source = new Source(root, new ObjectId("S1"));
         root.insert(source);
@@ -25,14 +25,14 @@ public final class SourceTest {
 
     /** */
     @Test
-    public void testSourceGedObjectGetString() {
+    void testSourceGedObjectGetString() {
         final Source source = new Source();
         assertTrue(source.getString().isEmpty(), "Source string should be empty");
     }
 
     /** */
     @Test
-    public void testSourceGedObjectStringGetString() {
+    void testSourceGedObjectStringGetString() {
         final Root root = new Root("Root");
         final Source source = new Source(root, new ObjectId("S1"));
         root.insert(source);

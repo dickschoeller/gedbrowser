@@ -36,7 +36,7 @@ public final class SourceLinkRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 

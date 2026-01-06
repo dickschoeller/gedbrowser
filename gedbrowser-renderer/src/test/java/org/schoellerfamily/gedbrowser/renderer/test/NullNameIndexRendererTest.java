@@ -11,7 +11,7 @@ import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 public final class NullNameIndexRendererTest {
     /** */
     @Test
-    public void testGetNameIndex() {
+    void testGetNameIndex() {
         final NullNameIndexRenderer renderer = new NullNameIndexRenderer();
         assertEquals("", renderer.getIndexName(), "Expected empty string");
     }

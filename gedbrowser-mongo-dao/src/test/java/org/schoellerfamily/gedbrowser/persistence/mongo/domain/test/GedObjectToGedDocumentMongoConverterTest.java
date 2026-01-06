@@ -76,7 +76,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateAttributeDocument() {
+    void testCreateAttributeDocument() {
         final GedObject ged = new Attribute(null);
         final String typeString = "attribute";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -86,7 +86,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateChildDocument() {
+    void testCreateChildDocument() {
         final GedObject ged = new Child();
         final String typeString = "child";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -96,7 +96,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateDateDocument() {
+    void testCreateDateDocument() {
         final GedObject ged = new Date(null);
         final String typeString = "date";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -106,7 +106,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateMultimediaDocument() {
+    void testCreateMultimediaDocument() {
         final GedObject ged = new Multimedia();
         final String typeString = "multimedia";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -116,7 +116,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateNameDocument() {
+    void testCreateNameDocument() {
         final GedObject ged = new Name(null);
         final String typeString = "name";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -126,7 +126,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateNoteDocument() {
+    void testCreateNoteDocument() {
         final GedObject ged = new Note();
         final String typeString = "note";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -136,7 +136,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateNoteLinkDocument() {
+    void testCreateNoteLinkDocument() {
         final GedObject ged = new NoteLink();
         final String typeString = "notelink";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -146,7 +146,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateFamilyDocument() {
+    void testCreateFamilyDocument() {
         final GedObject ged = new Family();
         final String typeString = "family";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -156,7 +156,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateFamCDocument() {
+    void testCreateFamCDocument() {
         final GedObject ged = new FamC();
         final String typeString = "famc";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -166,7 +166,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateFamSDocument() {
+    void testCreateFamSDocument() {
         final GedObject ged = new FamS();
         final String typeString = "fams";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -176,7 +176,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateHeadDocument() {
+    void testCreateHeadDocument() {
         final GedObject ged = new Head();
         final String typeString = "head";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -186,7 +186,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateHusbandDocument() {
+    void testCreateHusbandDocument() {
         final GedObject ged = new Husband();
         final String typeString = "husband";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -196,7 +196,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreatePersonDocument() {
+    void testCreatePersonDocument() {
         final GedObject ged = new Person(null, new ObjectId("I1"));
         final String typeString = "person";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -206,7 +206,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreatePlaceDocument() {
+    void testCreatePlaceDocument() {
         final GedObject ged = new Place();
         final String typeString = "place";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -216,7 +216,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateSourceDocument() {
+    void testCreateSourceDocument() {
         final GedObject ged = new Source(null, new ObjectId("S1"));
         final String typeString = "source";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -226,7 +226,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateSourceLinkDocument() {
+    void testCreateSourceLinkDocument() {
         final GedObject ged = new SourceLink();
         final String typeString = "sourcelink";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -236,7 +236,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateSubmissionDocument() {
+    void testCreateSubmissionDocument() {
         final GedObject ged = new Submission();
         final String typeString = "submission";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -246,7 +246,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateSubmissionLinkDocument() {
+    void testCreateSubmissionLinkDocument() {
         final GedObject ged = new SubmissionLink();
         final String typeString = "submissionlink";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -256,7 +256,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateSubmitterDocument() {
+    void testCreateSubmitterDocument() {
         final GedObject ged = new Submitter();
         final String typeString = "submitter";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -266,7 +266,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateSubmitterLinkDocument() {
+    void testCreateSubmitterLinkDocument() {
         final GedObject ged = new SubmitterLink();
         final String typeString = "submitterlink";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -276,7 +276,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateTrailerDocument() {
+    void testCreateTrailerDocument() {
         final GedObject ged = new Trailer();
         final String typeString = "trailer";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -286,7 +286,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testCreateWifeDocument() {
+    void testCreateWifeDocument() {
         final GedObject ged = new Wife();
         final String typeString = "wife";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
@@ -296,7 +296,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testNullCreateDocument() {
+    void testNullCreateDocument() {
         GedDocument<?> gmd = null;
         try {
             gmd = toDocConverter.createGedDocument(null);
@@ -308,7 +308,7 @@ public class GedObjectToGedDocumentMongoConverterTest {
 
     /** */
     @Test
-    public void testUnexpectedCreateDocument() {
+    void testUnexpectedCreateDocument() {
         final GedObject ged = createGedObject();
         GedDocument<?> gmd = null;
         try {

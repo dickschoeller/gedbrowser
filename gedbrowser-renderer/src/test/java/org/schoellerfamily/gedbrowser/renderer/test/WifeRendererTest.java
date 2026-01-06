@@ -34,7 +34,7 @@ public final class WifeRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -43,7 +43,7 @@ public final class WifeRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testAttributeListOpenRenderer() {
+    void testAttributeListOpenRenderer() {
         final WifeRenderer renderer = createRenderer();
         assertTrue(
             renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
@@ -55,7 +55,7 @@ public final class WifeRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testListItemRenderer() {
+    void testListItemRenderer() {
         final WifeRenderer renderer = createRenderer();
         assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer,
             "Wrong renderer type");
@@ -66,7 +66,7 @@ public final class WifeRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         final WifeRenderer renderer = createRenderer();
         assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
             "Wrong renderer type");
@@ -77,7 +77,7 @@ public final class WifeRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameIndexRenderer() {
+    void testNameIndexRenderer() {
         final WifeRenderer renderer = createRenderer();
         assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
             "Wrong renderer type");
@@ -88,7 +88,7 @@ public final class WifeRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         final WifeRenderer renderer = createRenderer();
         assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer,
             "Wrong renderer type");

@@ -125,7 +125,7 @@ public final class GedBrowserBasicIT {
      * because the UI currently doesn't use IDs.
      */
     @Test
-    public void testChildLinkNavigation() {
+    void testChildLinkNavigation() {
         println("child link navigation test");
         assertTrue(childNavigationExercise(), "Navigation failed");
         println();
@@ -136,7 +136,7 @@ public final class GedBrowserBasicIT {
      * because the UI currently doesn't use IDs.
      */
     @Test
-    public void testFatherLinkNavigation() {
+    void testFatherLinkNavigation() {
         println("father link navigation test");
         assertTrue(fathersNavigationExercise(), "Navigation failed");
         println();
@@ -147,7 +147,7 @@ public final class GedBrowserBasicIT {
      * because the UI currently doesn't use IDs.
      */
     @Test
-    public void testMotherLinkNavigation() {
+    void testMotherLinkNavigation() {
         println("mother link navigation test");
         assertTrue(mothersNavigationExercise(), "Navigation failed");
         println();

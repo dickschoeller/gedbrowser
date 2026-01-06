@@ -36,7 +36,7 @@ public final class NoteLinkRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -45,7 +45,7 @@ public final class NoteLinkRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testAttributeListOpenRenderer() {
+    void testAttributeListOpenRenderer() {
         final NoteLinkRenderer renderer = createRenderer();
         assertTrue(
             renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
@@ -57,7 +57,7 @@ public final class NoteLinkRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testListItemRenderer() {
+    void testListItemRenderer() {
         final NoteLinkRenderer renderer = createRenderer();
         assertTrue(renderer.getListItemRenderer() instanceof NoteLinkListItemRenderer,
             "Wrong renderer type");
@@ -68,7 +68,7 @@ public final class NoteLinkRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         final NoteLinkRenderer renderer = createRenderer();
         assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
             "Wrong renderer type");
@@ -79,7 +79,7 @@ public final class NoteLinkRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameIndexRenderer() {
+    void testNameIndexRenderer() {
         final NoteLinkRenderer renderer = createRenderer();
         assertTrue(renderer.getNameIndexRenderer() instanceof NoteLinkNameIndexRenderer,
             "Wrong renderer type");
@@ -90,7 +90,7 @@ public final class NoteLinkRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         final NoteLinkRenderer renderer = createRenderer();
         assertTrue(renderer.getPhraseRenderer() instanceof NoteLinkPhraseRenderer,
             "Wrong renderer type");
@@ -100,7 +100,7 @@ public final class NoteLinkRendererTest {
      * Test empty rendering.
      */
     @Test
-    public void testUnsetNoteLink() {
+    void testUnsetNoteLink() {
         final NoteLinkRenderer renderer = createRenderer();
         assertEquals("", renderer.getIndexName(), "Index name should be empty");
     }
@@ -109,7 +109,7 @@ public final class NoteLinkRendererTest {
      * Test empty rendering.
      */
     @Test
-    public void testNoteLinkCobweb() {
+    void testNoteLinkCobweb() {
         final NoteLinkRenderer renderer = new NoteLinkRenderer(
             new NoteLink(null, "notelink", new ObjectId("N1")), new GedRendererFactory(),
             anonymousContext);

@@ -54,7 +54,7 @@ public final class FamilyRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
         userContext = RenderingContext.user(appInfo);
     }
@@ -64,7 +64,7 @@ public final class FamilyRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testAttributeListOpenRenderer() {
+    void testAttributeListOpenRenderer() {
         final Family family = builder.createFamily();
         final FamilyRenderer renderer = new FamilyRenderer(family, new GedRendererFactory(),
             anonymousContext);
@@ -78,7 +78,7 @@ public final class FamilyRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testListItemRenderer() {
+    void testListItemRenderer() {
         final Family family = builder.createFamily();
         final FamilyRenderer renderer = new FamilyRenderer(family, new GedRendererFactory(),
             anonymousContext);
@@ -91,7 +91,7 @@ public final class FamilyRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         final Family family = builder.createFamily();
         final FamilyRenderer renderer = new FamilyRenderer(family, new GedRendererFactory(),
             anonymousContext);
@@ -104,7 +104,7 @@ public final class FamilyRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameIndexRenderer() {
+    void testNameIndexRenderer() {
         final Family family = builder.createFamily();
         final FamilyRenderer renderer = new FamilyRenderer(family, new GedRendererFactory(),
             anonymousContext);
@@ -117,7 +117,7 @@ public final class FamilyRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         final Family family = builder.createFamily();
         final FamilyRenderer renderer = new FamilyRenderer(family, new GedRendererFactory(),
             anonymousContext);
@@ -129,7 +129,7 @@ public final class FamilyRendererTest {
      * @throws IOException because reader can.
      */
     @Test
-    public void testSpouseConstructUsedInPersonTemplate() throws IOException {
+    void testSpouseConstructUsedInPersonTemplate() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person dick = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(dick, new GedRendererFactory(),
@@ -148,7 +148,7 @@ public final class FamilyRendererTest {
      * @throws IOException because reader can.
      */
     @Test
-    public void testSpouseConstructUsedInPersonTemplateAnonymous() throws IOException {
+    void testSpouseConstructUsedInPersonTemplateAnonymous() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person dick = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(dick, new GedRendererFactory(),
@@ -177,7 +177,7 @@ public final class FamilyRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderF1Attributes() throws IOException {
+    void testRenderF1Attributes() throws IOException {
         final Root root = reader.readBigTestSource();
         final Family fam = (Family) root.find("F1");
         final FamilyRenderer familyRenderer = new FamilyRenderer(fam, new GedRendererFactory(),
@@ -197,7 +197,7 @@ public final class FamilyRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderF1Children() throws IOException {
+    void testRenderF1Children() throws IOException {
         final Root root = reader.readBigTestSource();
         final Family fam = (Family) root.find("F1");
         final FamilyRenderer familyRenderer = new FamilyRenderer(fam, new GedRendererFactory(),
@@ -214,7 +214,7 @@ public final class FamilyRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderF1ChildrenAnonymous() throws IOException {
+    void testRenderF1ChildrenAnonymous() throws IOException {
         final Root root = reader.readBigTestSource();
         final Family fam = (Family) root.find("F1");
         final FamilyRenderer familyRenderer = new FamilyRenderer(fam, new GedRendererFactory(),

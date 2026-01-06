@@ -38,7 +38,7 @@ public final class SubmitterLinkPhraseRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final Root root = new Root("Root");
         final Head head = new Head(root, "Head");
         root.insert(head);
@@ -54,7 +54,7 @@ public final class SubmitterLinkPhraseRendererTest {
 
     /** */
     @Test
-    public void testRenderAsPhrase() {
+    void testRenderAsPhrase() {
         final SubmitterLinkRenderer slr = new SubmitterLinkRenderer(submitterLink,
             new GedRendererFactory(), anonymousContext);
         final SubmitterLinkPhraseRenderer slpr = (SubmitterLinkPhraseRenderer) slr

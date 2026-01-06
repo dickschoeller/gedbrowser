@@ -25,42 +25,42 @@ public final class ApplicationInfoTest {
 
     /** */
     @Test
-    public void testApplicationInfoURL() {
+    void testApplicationInfoURL() {
         assertEquals("https://github.com/dickschoeller/gedbrowser",
                 appInfo.getApplicationURL(), "Application URL mismatch");
     }
 
     /** */
     @Test
-    public void testApplicationInfoMaintainerEmail() {
+    void testApplicationInfoMaintainerEmail() {
         assertEquals("schoeller@comcast.net", appInfo.getMaintainerEmail(),
                 "Maintainer email mismatch");
     }
 
     /** */
     @Test
-    public void testApplicationInfoMaintainerName() {
+    void testApplicationInfoMaintainerName() {
         assertEquals("Richard Schoeller", appInfo.getMaintainerName(),
                 "Maintainer name mismatch");
     }
 
     /** */
     @Test
-    public void testApplicationInfoName() {
+    void testApplicationInfoName() {
         assertEquals("gedbrowser", appInfo.getApplicationName(),
                 "Application name mismatch");
     }
 
     /** */
     @Test
-    public void testApplicationInfoVersion() {
+    void testApplicationInfoVersion() {
         assertEquals("1.3.0-RC3-SNAPSHOT", appInfo.getVersion(),
                 "Version mismatch");
     }
 
     /** */
     @Test
-    public void testApplicationInfoHomeURL() {
+    void testApplicationInfoHomeURL() {
         assertEquals("http://www.schoellerfamily.org/", appInfo.getHomeURL(),
                 "Home URL mismatch");
     }

@@ -36,7 +36,7 @@ public final class ChildRendererTest {
      * Set up the renderer to test.
      */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         renderer = new ChildRenderer(new Child(), new GedRendererFactory(),
             RenderingContext.anonymous(appInfo));
     }
@@ -46,7 +46,7 @@ public final class ChildRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testAttributeListOpenRenderer() {
+    void testAttributeListOpenRenderer() {
         assertTrue(renderer
             .getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
             "Wrong renderer type");
@@ -57,7 +57,7 @@ public final class ChildRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testListItemRenderer() {
+    void testListItemRenderer() {
         assertTrue(renderer
             .getListItemRenderer() instanceof NullListItemRenderer,
             "Wrong renderer type");
@@ -68,7 +68,7 @@ public final class ChildRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         assertTrue(renderer
             .getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
             "Wrong renderer type");
@@ -79,7 +79,7 @@ public final class ChildRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameIndeRenderer() {
+    void testNameIndeRenderer() {
         assertTrue(renderer
             .getNameIndexRenderer() instanceof NullNameIndexRenderer,
             "Wrong renderer type");
@@ -90,7 +90,7 @@ public final class ChildRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         assertTrue(renderer
             .getPhraseRenderer() instanceof NullPhraseRenderer,
             "Wrong renderer type");

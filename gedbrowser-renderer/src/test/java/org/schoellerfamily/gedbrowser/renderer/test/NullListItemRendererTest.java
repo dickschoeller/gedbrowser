@@ -31,7 +31,7 @@ public final class NullListItemRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final RenderingContext anonymousContext = RenderingContext.anonymous(appInfo);
         final DefaultRenderer renderer = new DefaultRenderer(createGedObject(),
             new GedRendererFactory(), anonymousContext);
@@ -52,7 +52,7 @@ public final class NullListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItemFalse0() {
+    void testRenderAsListItemFalse0() {
         final StringBuilder builder = new StringBuilder();
         final String string = nsr.renderAsListItem(builder, false, 0).toString();
         assertEquals("", string, "Expected empty string");
@@ -60,7 +60,7 @@ public final class NullListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItemFalse2() {
+    void testRenderAsListItemFalse2() {
         final StringBuilder builder = new StringBuilder();
         final String string = nsr.renderAsListItem(builder, false, 2).toString();
         assertEquals("", string, "Expected empty string");
@@ -68,7 +68,7 @@ public final class NullListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItemTrue0() {
+    void testRenderAsListItemTrue0() {
         final StringBuilder builder = new StringBuilder();
         final String string = nsr.renderAsListItem(builder, true, 0).toString();
         assertEquals("", string, "Expected empty string");
@@ -76,7 +76,7 @@ public final class NullListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItemTrue2() {
+    void testRenderAsListItemTrue2() {
         final StringBuilder builder = new StringBuilder();
         final String string = nsr.renderAsListItem(builder, true, 2).toString();
         assertEquals("", string, "Expected empty string");

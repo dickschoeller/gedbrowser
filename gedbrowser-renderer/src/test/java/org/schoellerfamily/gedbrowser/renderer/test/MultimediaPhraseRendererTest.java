@@ -42,7 +42,7 @@ public final class MultimediaPhraseRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
 
@@ -72,7 +72,7 @@ public final class MultimediaPhraseRendererTest {
 
     /** */
     @Test
-    public void testRenderAsPhraseEmpty() {
+    void testRenderAsPhraseEmpty() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia1,
             new GedRendererFactory(), anonymousContext);
         final MultimediaPhraseRenderer apRenderer = (MultimediaPhraseRenderer) aRenderer
@@ -83,7 +83,7 @@ public final class MultimediaPhraseRendererTest {
 
     /** */
     @Test
-    public void testRenderAsPhraseString() {
+    void testRenderAsPhraseString() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia2,
             new GedRendererFactory(), anonymousContext);
         final MultimediaPhraseRenderer apRenderer = (MultimediaPhraseRenderer) aRenderer
@@ -94,7 +94,7 @@ public final class MultimediaPhraseRendererTest {
 
     /** */
     @Test
-    public void testRenderAsPhrase() {
+    void testRenderAsPhrase() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia3,
             new GedRendererFactory(), anonymousContext);
         final MultimediaPhraseRenderer apRenderer = (MultimediaPhraseRenderer) aRenderer

@@ -41,7 +41,7 @@ public class SaveControllerTest {
 
     /** */
     @Test
-    public final void testSaveControllerOK() {
+    void testSaveControllerOK() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/save";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(url)
@@ -65,7 +65,7 @@ public class SaveControllerTest {
 
     /** */
     @Test
-    public final void testSaveControllerDatasetNotFound() {
+    void testSaveControllerDatasetNotFound() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/xyzzy/save";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(url)

@@ -75,7 +75,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromBirthWithOnlyMarriage() {
+    void testFromBirthWithOnlyMarriage() {
         final Family family = family1;
         builder.createFamilyEvent(family, "Marriage", "10 MAY 1960");
         assertNull(estimator.estimateFromBirth(null),
@@ -84,7 +84,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromBirthWithOnlyFatherBirth() {
+    void testFromBirthWithOnlyFatherBirth() {
         final Person person = person2;
         builder.createPersonEvent(person, "Birth", "1 JAN 1935");
         final LocalDate expected = new LocalDate(1962, 1, 1);
@@ -93,7 +93,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromBirthWithOnlyFather() {
+    void testFromBirthWithOnlyFather() {
         final Person child1 = createJRandom();
         final Person father = createAnonymousJones();
         final Family family = builder.createFamily("F1");
@@ -107,7 +107,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromBirthWithOnlyMotherBirth() {
+    void testFromBirthWithOnlyMotherBirth() {
         final Person person = person3;
         builder.createPersonEvent(person, "Birth", "1 JAN 1939");
         final LocalDate expected = new LocalDate(1966, 1, 1);
@@ -116,7 +116,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromBirthWithOnlyMother() {
+    void testFromBirthWithOnlyMother() {
         final Person child1 = createJRandom();
         final Person mother = createTooTall();
         final Family family = builder.createFamily("F1");
@@ -131,7 +131,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromBirthFamilyNoParents() {
+    void testFromBirthFamilyNoParents() {
         final Person child1 = createJRandom();
         final Family family = builder.createFamily("F1");
         builder.addChildToFamily(family, child1);
@@ -141,7 +141,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromBirthWithBothParentsBirth() {
+    void testFromBirthWithBothParentsBirth() {
         final Person person = person2;
         builder.createPersonEvent(person, "Birth", "1 JAN 1935");
         final Person person1 = person3;
@@ -152,7 +152,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromBirthWithPreviousDate() {
+    void testFromBirthWithPreviousDate() {
         final Person person = person2;
         builder.createPersonEvent(person, "Birth", "1 JAN 1935");
         final Person person1 = person3;
@@ -163,7 +163,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromMarriageWithOnlyMarriage() {
+    void testFromMarriageWithOnlyMarriage() {
         final Family family = family1;
         builder.createFamilyEvent(family, "Marriage", "10 MAY 1960");
         final LocalDate expected = new LocalDate(1962, 5, 1);
@@ -172,7 +172,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromMarriageWithOlderSibling() {
+    void testFromMarriageWithOlderSibling() {
         final Person child1 = createJRandom();
         final Person child2 = createAnonymousSchoeller();
         final Person father = createAnonymousJones();
@@ -190,7 +190,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromMarriageWithYoungerSibling() {
+    void testFromMarriageWithYoungerSibling() {
         final Person child1 = createJRandom();
         final Person child2 = createAnonymousSchoeller();
         final Person father = createAnonymousJones();
@@ -208,7 +208,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromMarriageWithPreviousDate() {
+    void testFromMarriageWithPreviousDate() {
         final Family family = family1;
         builder.createFamilyEvent(family, "Marriage", "10 MAY 1960");
         final LocalDate expected = new LocalDate(1965, 5, 1);
@@ -217,7 +217,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromMarriageWithOnlyFatherBirth() {
+    void testFromMarriageWithOnlyFatherBirth() {
         final Person person = person2;
         builder.createPersonEvent(person, "Birth", "1 JAN 1935");
         assertNull(estimator.estimateFromMarriage(null),
@@ -226,7 +226,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromMarriageWithOnlyMotherBirth() {
+    void testFromMarriageWithOnlyMotherBirth() {
         final Person person = person3;
         builder.createPersonEvent(person, "Birth", "1 JAN 1939");
         assertNull(estimator.estimateFromMarriage(null),
@@ -235,7 +235,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromMarriageWithBothParentsBirth() {
+    void testFromMarriageWithBothParentsBirth() {
         final Person person = person2;
         builder.createPersonEvent(person, "Birth", "1 JAN 1935");
         final Person person1 = person3;
@@ -246,7 +246,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromMarriageFamilyNoParents() {
+    void testFromMarriageFamilyNoParents() {
         final Person child1 = createJRandom();
         final Family family = builder.createFamily("F1");
         builder.addChildToFamily(family, child1);

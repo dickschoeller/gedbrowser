@@ -77,7 +77,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateAttribute() {
+    void testCreateAttribute() {
         final AttributeDocumentMongo gmd = new AttributeDocumentMongo();
         gmd.setString("Attribute");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -86,7 +86,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateChild() {
+    void testCreateChild() {
         final ChildDocumentMongo gmd = new ChildDocumentMongo();
         gmd.setString("Child");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -95,7 +95,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateDate() {
+    void testCreateDate() {
         final DateDocumentMongo gmd = new DateDocumentMongo();
         gmd.setString("Date");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -104,7 +104,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateFamily() {
+    void testCreateFamily() {
         final FamilyDocumentMongo gmd = new FamilyDocumentMongo();
         gmd.setString("Family");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -113,7 +113,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateFamC() {
+    void testCreateFamC() {
         final FamCDocumentMongo gmd = new FamCDocumentMongo();
         gmd.setString("FamC");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -122,7 +122,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateFamS() {
+    void testCreateFamS() {
         final FamSDocumentMongo gmd = new FamSDocumentMongo();
         gmd.setString("FamS");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -131,7 +131,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateHead() {
+    void testCreateHead() {
         final HeadDocumentMongo gmd = new HeadDocumentMongo();
         gmd.setString("Head");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -140,7 +140,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateHusband() {
+    void testCreateHusband() {
         final HusbandDocumentMongo gmd = new HusbandDocumentMongo();
         gmd.setString("Husband");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -149,7 +149,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateNote() {
+    void testCreateNote() {
         final NoteDocumentMongo gmd = new NoteDocumentMongo();
         gmd.setString("Note");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -158,7 +158,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateNoteLink() {
+    void testCreateNoteLink() {
         final NoteLinkDocumentMongo gmd = new NoteLinkDocumentMongo();
         gmd.setString("NoteLink");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -167,7 +167,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreatePerson() {
+    void testCreatePerson() {
         final PersonDocumentMongo gmd = new PersonDocumentMongo();
         gmd.setString("Person");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -176,7 +176,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreatePlace() {
+    void testCreatePlace() {
         final PlaceDocumentMongo gmd = new PlaceDocumentMongo();
         gmd.setString("Place");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -185,7 +185,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateSource() {
+    void testCreateSource() {
         final SourceDocumentMongo gmd = new SourceDocumentMongo();
         gmd.setString("Source");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -194,7 +194,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateSourceLink() {
+    void testCreateSourceLink() {
         final SourceLinkDocumentMongo gmd = new SourceLinkDocumentMongo();
         gmd.setString("SourceLink");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -203,7 +203,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateSubmission() {
+    void testCreateSubmission() {
         final SubmissionDocumentMongo gmd = new SubmissionDocumentMongo();
         gmd.setString("Submission");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -212,7 +212,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateSubmissionLink() {
+    void testCreateSubmissionLink() {
         final SubmissionLinkDocumentMongo gmd = new SubmissionLinkDocumentMongo();
         gmd.setString("SubmissionLink");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -221,7 +221,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateSubmitter() {
+    void testCreateSubmitter() {
         final SubmitterDocumentMongo gmd = new SubmitterDocumentMongo();
         gmd.setString("Submitter");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -230,7 +230,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateSubmitterLink() {
+    void testCreateSubmitterLink() {
         final SubmitterLinkDocumentMongo gmd = new SubmitterLinkDocumentMongo();
         gmd.setString("SubmitterLink");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -239,7 +239,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateTrailer() {
+    void testCreateTrailer() {
         final TrailerDocumentMongo gmd = new TrailerDocumentMongo();
         gmd.setString("Trailer");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -248,7 +248,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateWife() {
+    void testCreateWife() {
         final WifeDocumentMongo gmd = new WifeDocumentMongo();
         gmd.setString("Wife");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -257,7 +257,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateMultimedia() {
+    void testCreateMultimedia() {
         final MultimediaDocumentMongo gmd = new MultimediaDocumentMongo();
         gmd.setString("Multimedia");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -266,7 +266,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateName() {
+    void testCreateName() {
         final NameDocumentMongo gmd = new NameDocumentMongo();
         gmd.setString("Name");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
@@ -275,7 +275,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
 
     /** */
     @Test
-    public void testCreateGed() {
+    void testCreateGed() {
         @SuppressWarnings("PMD.NonStaticInitializer")
         final GedDocument<?> gmd = new GedDocumentMongo<GedObject>() {
             /**

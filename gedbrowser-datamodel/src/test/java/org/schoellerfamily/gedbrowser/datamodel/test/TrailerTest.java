@@ -14,7 +14,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 public final class TrailerTest {
     /** */
     @Test
-    public void testTrailerGedObject() {
+    void testTrailerGedObject() {
         final Root root = new Root("Root");
 
         final Trailer trailer = new Trailer(root, "Trailer");
@@ -26,7 +26,7 @@ public final class TrailerTest {
 
     /** */
     @Test
-    public void testTrailerGedFoundObjectString() {
+    void testTrailerGedFoundObjectString() {
         final Root root = new Root("Root");
         final GedObjectBuilder builder = new GedObjectBuilder(root);
         final Trailer trailer = builder.createTrailer();
@@ -36,7 +36,7 @@ public final class TrailerTest {
     }
     /** */
     @Test
-    public void testTrailerGedObjectString() {
+    void testTrailerGedObjectString() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Trailer trailer = builder.createTrailer();
         assertEquals("Trailer", trailer.getString(), "Mismatched tag");

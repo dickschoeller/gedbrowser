@@ -35,7 +35,7 @@ public final class AnonymousPersonNameIndexRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person = builder.createPerson("I1");
         anonymousContext = RenderingContext.anonymous(appInfo);
@@ -43,7 +43,7 @@ public final class AnonymousPersonNameIndexRendererTest {
 
     /** */
     @Test
-    public void testGetNameHtmlNull() {
+    void testGetNameHtmlNull() {
         final Name name = new Name(person);
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
@@ -55,7 +55,7 @@ public final class AnonymousPersonNameIndexRendererTest {
 
     /** */
     @Test
-    public void testGetNameHtmlEmpty() {
+    void testGetNameHtmlEmpty() {
         final Name name = new Name(person, "");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
@@ -67,7 +67,7 @@ public final class AnonymousPersonNameIndexRendererTest {
 
     /** */
     @Test
-    public void testGetNameHtmlSurnameOnly() {
+    void testGetNameHtmlSurnameOnly() {
         final Name name = new Name(person, "/Schoeller/");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
@@ -79,7 +79,7 @@ public final class AnonymousPersonNameIndexRendererTest {
 
     /** */
     @Test
-    public void testGetNameHtmlSurnameLast() {
+    void testGetNameHtmlSurnameLast() {
         final Name name = new Name(person, "Richard/Schoeller/");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
@@ -91,7 +91,7 @@ public final class AnonymousPersonNameIndexRendererTest {
 
     /** */
     @Test
-    public void testGetNameHtmlSurnameFirst() {
+    void testGetNameHtmlSurnameFirst() {
         final Name name = new Name(person, "/Deng/Shao Ping");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
@@ -103,7 +103,7 @@ public final class AnonymousPersonNameIndexRendererTest {
 
     /** */
     @Test
-    public void testGetNameHtmlSurnameMiddle() {
+    void testGetNameHtmlSurnameMiddle() {
         final Name name = new Name(person, "Karl Frederick/Schoeller/Sr.");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
@@ -115,7 +115,7 @@ public final class AnonymousPersonNameIndexRendererTest {
 
     /** */
     @Test
-    public void testGetNameHtmlPersonUnset() {
+    void testGetNameHtmlPersonUnset() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final PersonRenderer personRenderer = new PersonRenderer(
                 builder.createPerson(),

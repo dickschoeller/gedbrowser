@@ -16,13 +16,13 @@ public final class NullNameHtmlRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         nameHtmlRenderer = new NullNameHtmlRenderer();
     }
 
     /** */
     @Test
-    public void testGetNameHtml() {
+    void testGetNameHtml() {
         assertEquals("", nameHtmlRenderer.getNameHtml(), "expected empty string");
     }
 }

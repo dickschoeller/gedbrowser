@@ -49,7 +49,7 @@ public final class SimpleAttributeListOpenRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final DefaultRenderer renderer = new DefaultRenderer(gob,
                 new GedRendererFactory(),
                 RenderingContext.anonymous(appInfo));
@@ -59,7 +59,7 @@ public final class SimpleAttributeListOpenRendererTest {
 
     /** */
     @Test
-    public void testRenderAsPhrase() {
+    void testRenderAsPhrase() {
         final StringBuilder builder = new StringBuilder();
         npr.renderAttributeListOpen(builder, 0, gob);
         final String string = builder.toString();

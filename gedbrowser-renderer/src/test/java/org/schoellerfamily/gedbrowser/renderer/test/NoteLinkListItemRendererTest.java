@@ -38,7 +38,7 @@ public final class NoteLinkListItemRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person = builder.createPerson("I1");
         final Root root = builder.getRoot();
@@ -52,7 +52,7 @@ public final class NoteLinkListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItem() {
+    void testRenderAsListItem() {
         final NoteLink noteLink = new NoteLink(person, "NOTE", new ObjectId("N1"));
         person.addAttribute(noteLink);
         final NoteLinkRenderer slRenderer = new NoteLinkRenderer(noteLink, new GedRendererFactory(),
@@ -69,7 +69,7 @@ public final class NoteLinkListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItemWithTitle() {
+    void testRenderAsListItemWithTitle() {
         final NoteLink sourceLink = new NoteLink(person, "NOTE", new ObjectId("N2"));
         person.addAttribute(sourceLink);
         final NoteLinkRenderer slRenderer = new NoteLinkRenderer(sourceLink,

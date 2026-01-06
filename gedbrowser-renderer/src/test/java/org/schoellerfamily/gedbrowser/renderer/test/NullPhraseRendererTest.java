@@ -31,7 +31,7 @@ public final class NullPhraseRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final DefaultRenderer renderer = new DefaultRenderer(createGedObject(),
                 new GedRendererFactory(), RenderingContext.anonymous(appInfo));
         npr = (NullPhraseRenderer) renderer.getPhraseRenderer();
@@ -54,7 +54,7 @@ public final class NullPhraseRendererTest {
 
     /** */
     @Test
-    public void testRenderAsPhrase() {
+    void testRenderAsPhrase() {
         assertEquals("", npr.renderAsPhrase(), "Expected empty string");
     }
 }

@@ -59,7 +59,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testSimple() {
+    void testSimple() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "11 JUL 1960");
 
@@ -75,7 +75,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testEmpty() {
+    void testEmpty() {
         final Person person = createJRandom();
 
         final BirthDateEstimator estimator = createBirthEstimator(person);
@@ -85,7 +85,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromYoungerSibling() {
+    void testFromYoungerSibling() {
         final Person person1 =
                 createJRandom();
         builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
@@ -108,7 +108,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromYoungerSiblings() {
+    void testFromYoungerSiblings() {
         final Person person1 = createJRandom();
         builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
 
@@ -134,7 +134,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromEmptyYoungerSiblings() {
+    void testFromEmptyYoungerSiblings() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
@@ -151,7 +151,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromOlderSibling() {
+    void testFromOlderSibling() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
 
@@ -173,7 +173,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromOlderSiblings() {
+    void testFromOlderSiblings() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
@@ -197,7 +197,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromEmptyOlderSiblings() {
+    void testFromEmptyOlderSiblings() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
@@ -214,7 +214,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromOwnMarriage() {
+    void testFromOwnMarriage() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
 
@@ -236,7 +236,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromOwnMarriageWithNoDate() {
+    void testFromOwnMarriageWithNoDate() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
 
@@ -251,7 +251,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromOwnMarriages() {
+    void testFromOwnMarriages() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
@@ -279,7 +279,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromParentsMarriage() {
+    void testFromParentsMarriage() {
         final Person person1 = createJRandom();
         builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
 
@@ -308,7 +308,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromParentsMarriageWithOlderSiblings() {
+    void testFromParentsMarriageWithOlderSiblings() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSmith();
         final Person person3 = createAnonymousJones();
@@ -333,7 +333,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromChild() {
+    void testFromChild() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSmith();
         final Person person3 = createAnonymousJones();
@@ -356,7 +356,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromChildren() {
+    void testFromChildren() {
         final Person person1 = createJRandom();
         final Person person3 = createAnonymousJones();
         builder.createPersonEvent(person3, "Birth", "11 JUL 1960");
@@ -377,7 +377,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromHusband() {
+    void testFromHusband() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSmith();
         builder.createPersonEvent(person1, "Birth", "11 JUL 1960");
@@ -398,7 +398,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromWife() {
+    void testFromWife() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSmith();
         builder.createPersonEvent(person2, "Birth", "11 JUL 1960");
@@ -426,7 +426,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
      * @throws IOException if the file can't be read
      */
     @Test
-    public void testFactoryGedFile() throws IOException {
+    void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = readFileTestSource();
         final Root root = g2g.create(top);
         final List<Person> unhandled = root.findSurnameInitialLetters().stream()
@@ -453,7 +453,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFromBaptism() {
+    void testFromBaptism() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Baptism", "11 JUL 1960");
 
@@ -469,7 +469,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testChristening() {
+    void testChristening() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Christening", "11 JUL 1960");
 
@@ -485,7 +485,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testBarMitzah() {
+    void testBarMitzah() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Bar Mitzvah", "11 JUL 1960");
 
@@ -501,7 +501,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testBatMitzvah() {
+    void testBatMitzvah() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Bat Mitzvah", "11 JUL 1960");
 
@@ -517,7 +517,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testDeath() {
+    void testDeath() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Death", "11 JUL 1960");
 
@@ -533,7 +533,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testBurial() {
+    void testBurial() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Burial", "11 JUL 1960");
 
@@ -549,7 +549,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testChanged() {
+    void testChanged() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Changed", "11 JUL 1960");
 
@@ -560,7 +560,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testOtherEvent() {
+    void testOtherEvent() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Occupation", "11 JUL 1960");
 
@@ -576,7 +576,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testNoDate() {
+    void testNoDate() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Death");
 
@@ -587,7 +587,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testBadDate() {
+    void testBadDate() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Changed", "");
 
@@ -598,7 +598,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testEstimateBirthDate() {
+    void testEstimateBirthDate() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "11 JUL 1960");
 
@@ -614,7 +614,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testEstimateMarriageDate() {
+    void testEstimateMarriageDate() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Marriage", "11 JUL 1960");
 
@@ -630,7 +630,7 @@ public final class BirthDateEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testEstimateOtherDate() {
+    void testEstimateOtherDate() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Occupation", "11 JUL 1960");
 

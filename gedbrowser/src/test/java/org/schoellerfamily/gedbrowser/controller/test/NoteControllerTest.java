@@ -43,7 +43,7 @@ public class NoteControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testNoteControllerN1() {
+    void testNoteControllerN1() {
         final String url = "http://localhost:" + port + "/gedbrowser/note?db=gl120368&id=N1";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
@@ -58,7 +58,7 @@ public class NoteControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testNoteControllerBadDataSet() {
+    void testNoteControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create("http://localhost:" + port + "/gedbrowser/note?db=XYZZY&id=N1"))
             .exchange()
@@ -71,7 +71,7 @@ public class NoteControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testNoteControllerBadNote() {
+    void testNoteControllerBadNote() {
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create("http://localhost:" + port + "/gedbrowser/note?db=gl120368&id=XYZZY"))
             .exchange()

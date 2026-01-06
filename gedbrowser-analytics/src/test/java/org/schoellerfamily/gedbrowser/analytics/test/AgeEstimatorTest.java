@@ -48,7 +48,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test against Dick's data.
      */
     @Test
-    public void testDick() {
+    void testDick() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "14 DEC 1958");
 
@@ -62,7 +62,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test against Lisa's data.
      */
     @Test
-    public void testLisa() {
+    void testLisa() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "09 MAY 1960");
 
@@ -76,7 +76,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test against a January 1st birth.
      */
     @Test
-    public void testBeginYear() {
+    void testBeginYear() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "01 JAN 1960");
 
@@ -90,7 +90,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test against a December 31st birth.
      */
     @Test
-    public void testEndYear() {
+    void testEndYear() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "31 DEC 1960");
 
@@ -104,7 +104,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test a birth date that is just before some year.
      */
     @Test
-    public void testBeforeYear() {
+    void testBeforeYear() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "BEF 1960");
 
@@ -118,7 +118,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test a birth date that is before the same month as the reference.
      */
     @Test
-    public void testBeforeMonth() {
+    void testBeforeMonth() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "BEF DEC 1960");
 
@@ -132,7 +132,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test a date that is before the day before the reference.
      */
     @Test
-    public void testBeforeTheDayBeforeTheReference() {
+    void testBeforeTheDayBeforeTheReference() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "BEF 13 DEC 1960");
 
@@ -146,7 +146,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test a date that is before the reference date.
      */
     @Test
-    public void testBeforeTheReference() {
+    void testBeforeTheReference() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "BEF 14 DEC 1960");
 
@@ -160,7 +160,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test a birth date that is before the day after the reference.
      */
     @Test
-    public void testBeforeTheDayAfterTheReference() {
+    void testBeforeTheDayAfterTheReference() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "BEF 15 DEC 1960");
 
@@ -174,7 +174,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test a birth date that is before 2 days after the reference.
      */
     @Test
-    public void testBeforeTwoDaysAfterTheReference() {
+    void testBeforeTwoDaysAfterTheReference() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "BEF 16 DEC 1960");
 
@@ -188,7 +188,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test a birth date that is after a year.
      */
     @Test
-    public void testAfterYear() {
+    void testAfterYear() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "AFT 1960");
 
@@ -202,7 +202,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test a birth date that is after the same month as the reference.
      */
     @Test
-    public void testAfterReferenceMonth() {
+    void testAfterReferenceMonth() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "AFT DEC 1960");
 
@@ -216,7 +216,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test a date that is after the first month of the year.
      */
     @Test
-    public void testAfterJanuary() {
+    void testAfterJanuary() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "AFT JAN 1960");
 
@@ -230,7 +230,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test a birthday after 2 days before the reference date.
      */
     @Test
-    public void testAfterTwoDaysBeforeTheReference() {
+    void testAfterTwoDaysBeforeTheReference() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "AFT 12 DEC 1960");
 
@@ -244,7 +244,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test a birthday after the day before the reference date.
      */
     @Test
-    public void testAfterTheDayBeforeTheReference() {
+    void testAfterTheDayBeforeTheReference() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "AFT 13 DEC 1960");
 
@@ -258,7 +258,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      *  Test a birthday after the reference date.
      */
     @Test
-    public void testAfterTheReference() {
+    void testAfterTheReference() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "AFT 14 DEC 1960");
 
@@ -272,7 +272,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test a birthday after the day after the reference date.
      */
     @Test
-    public void testAfterTheDayAfterTheReference() {
+    void testAfterTheDayAfterTheReference() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "AFT 15 DEC 1960");
 
@@ -286,7 +286,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test a date whose string has years, no months and a single day.
      */
     @Test
-    public void testYearsDay() {
+    void testYearsDay() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "13 DEC 1960");
 
@@ -299,7 +299,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test a date whose string has years, months and a single day.
      */
     @Test
-    public void testYearsMonthsDay() {
+    void testYearsMonthsDay() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "13 JAN 1961");
 
@@ -312,7 +312,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test a date whose string has years, months and days.
      */
     @Test
-    public void testYearsMonthsDays() {
+    void testYearsMonthsDays() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "16 DEC 1960");
 
@@ -325,7 +325,7 @@ public final class AgeEstimatorTest implements AnalyzerTest {
      * Test a date whose string has years and months but no days.
      */
     @Test
-    public void testYearsMonths() {
+    void testYearsMonths() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "14 JAN 1961");
 

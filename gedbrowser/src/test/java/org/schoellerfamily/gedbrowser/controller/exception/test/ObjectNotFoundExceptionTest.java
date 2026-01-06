@@ -28,69 +28,69 @@ public class ObjectNotFoundExceptionTest {
 
     /** */
     @Test
-    public void testMessage() {
+    void testMessage() {
         assertEquals("Object not found", exception.getMessage(), "Message doesn't match");
     }
 
     /** */
     @Test
-    public void testDatasetName() {
+    void testDatasetName() {
         assertEquals("xyzzy", exception.getDatasetName(), "Dataset name doesn't match");
     }
 
     /** */
     @Test
-    public void testId() {
+    void testId() {
         assertEquals("ID1", exception.getId(), "Object ID doesn't match");
     }
 
     /** */
     @Test
-    public void testIndexHref() {
+    void testIndexHref() {
         assertEquals("surnames?db=xyzzy&letter=A", exception.getIndexHref(),
             "Index href doesn't match");
     }
 
     /** */
     @Test
-    public void testHeaderHref() {
+    void testHeaderHref() {
         assertEquals("head?db=xyzzy", exception.getHeaderHref(), "Header href doesn't match");
     }
 
     /** */
     @Test
-    public void testSourcesHref() {
+    void testSourcesHref() {
         assertEquals("sources?db=xyzzy", exception.getSourcesHref(), "Sources href doesn't match");
     }
 
     /** */
     @Test
-    public void testSubmittersHref() {
+    void testSubmittersHref() {
         assertEquals("submitters?db=xyzzy", exception.getSubmittersHref(),
             "Submitters href doesn't match");
     }
 
     /** */
     @Test
-    public void testIsUser() {
+    void testIsUser() {
         assertTrue(exception.hasRole("USER"), "Should be user");
     }
 
     /** */
     @Test
-    public void testIsNotAdmin() {
+    void testIsNotAdmin() {
         assertFalse(exception.hasRole("ADMIN"), "Should not be admin");
     }
 
     /** */
     @Test
-    public void testLivingHref() {
+    void testLivingHref() {
         assertEquals("living?db=xyzzy", exception.getLivingHref(), "Living href doesn't match");
     }
 
     /** */
     @Test
-    public void testPlacesHref() {
+    void testPlacesHref() {
         assertEquals("places?db=xyzzy", exception.getPlacesHref(), "Places href doesn't match");
     }
 }

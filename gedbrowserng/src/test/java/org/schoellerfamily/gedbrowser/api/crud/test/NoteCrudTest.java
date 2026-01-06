@@ -67,7 +67,7 @@ public class NoteCrudTest {
 
     /** */
     @Test
-    public final void testReadNotesGl120368() {
+    void testReadNotesGl120368() {
         log.info("Beginning testReadNotesGl120368");
         final List<ApiNote> list = crud.readAll(helper.getDb());
         then(list.get(0).getString()).isEqualTo("N1");
@@ -78,7 +78,7 @@ public class NoteCrudTest {
 
     /** */
     @Test
-    public final void testReadNotesGl120368N13() {
+    void testReadNotesGl120368N13() {
         log.info("Beginning testReadNotesGl120368N13");
         final ApiNote resNote = crud.readOne(helper.getDb(), "N13");
         then(resNote.getString()).isEqualTo("N13");
@@ -93,7 +93,7 @@ public class NoteCrudTest {
 
     /** */
     @Test
-    public final void testReadNotesGl120368N66() {
+    void testReadNotesGl120368N66() {
         log.info("Beginning testReadNotesGl120368N66");
         final ApiNote resNote = crud.readOne(helper.getDb(), "N66");
         then(resNote.getString()).isEqualTo("N66");
@@ -107,7 +107,7 @@ public class NoteCrudTest {
 
     /** */
     @Test
-    public final void testReadNotesGl120368N1932() {
+    void testReadNotesGl120368N1932() {
         log.info("Beginning testReadNotesGl120368N1932");
         final ApiNote resNote = crud.readOne(helper.getDb(), "N1932");
         then(resNote.getString()).isEqualTo("N1932");
@@ -147,7 +147,7 @@ public class NoteCrudTest {
 
     /** */
     @Test
-    public final void testReadNotesGl120368Xyzzy() {
+    void testReadNotesGl120368Xyzzy() {
         log.info("Beginning testReadNotesGl120368N1932");
         try {
             final ApiNote resNote = crud.readOne(helper.getDb(), "Xyzzy");
@@ -160,7 +160,7 @@ public class NoteCrudTest {
 
     /** */
     @Test
-    public final void testCreateNotesSimple() {
+    void testCreateNotesSimple() {
         log.info("Beginning testCreateNotesSimple");
         final ApiNote reqNote = ApiNote.builder()
             .type("note")
@@ -174,7 +174,7 @@ public class NoteCrudTest {
 
     /** */
     @Test
-    public final void testDeleteNote() {
+    void testDeleteNote() {
         log.info("Beginning testDeleteNote");
         final ApiNote reqNote = ApiNote.builder()
             .type("note")
@@ -196,7 +196,7 @@ public class NoteCrudTest {
 
     /** */
     @Test
-    public final void testDeleteNoteNotFound() {
+    void testDeleteNoteNotFound() {
         log.info("Beginning testDeleteNoteNotFound");
         try {
             final ApiNote foundNote = crud.readOne(helper.getDb(), "XXXXXXX");
@@ -209,7 +209,7 @@ public class NoteCrudTest {
 
     /** */
     @Test
-    public final void testDeleteNoteDatabaseNotFound() {
+    void testDeleteNoteDatabaseNotFound() {
         log.info("Beginning testDeleteNoteDatabaseNotFound");
         try {
             final ApiNote foundNote = crud.readOne("XYZZY", "N1");
@@ -221,7 +221,7 @@ public class NoteCrudTest {
 
     /** */
     @Test
-    public final void testUpdateNoteWithNote() {
+    void testUpdateNoteWithNote() {
         log.info("Beginning testUpdateNoteWithNote");
         final ApiNote reqNote = ApiNote.builder()
             .type("note")

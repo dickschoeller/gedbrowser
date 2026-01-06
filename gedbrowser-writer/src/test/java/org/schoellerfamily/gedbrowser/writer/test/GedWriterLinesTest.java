@@ -151,7 +151,7 @@ public class GedWriterLinesTest {
 
     /** */
     @Test
-    public void testLines() {
+    void testLines() {
         final List<String[]> parameters = data();
         for (final String[] param : parameters) {
             final String message = param[0];

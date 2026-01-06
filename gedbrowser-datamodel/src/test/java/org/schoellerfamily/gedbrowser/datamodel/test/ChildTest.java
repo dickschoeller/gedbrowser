@@ -54,7 +54,7 @@ public final class ChildTest {
 
     /** */
     @Test
-    public void testGetChildrenSize() {
+    void testGetChildrenSize() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final List<Person> list = navigator.getChildren();
         assertEquals(1, list.size(), "Expected only 1 person");
@@ -62,7 +62,7 @@ public final class ChildTest {
 
     /** */
     @Test
-    public void testGetChildrenContains() {
+    void testGetChildrenContains() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final List<Person> list = navigator.getChildren();
         assertTrue(list.contains(person3), "Contents mismatch");
@@ -70,33 +70,33 @@ public final class ChildTest {
 
     /** */
     @Test
-    public void testGetChildMatch() {
+    void testGetChildMatch() {
         assertSame(person3, child1.getChild(), "Mismatched person");
     }
 
     /** */
     @Test
-    public void testGetChildNullParentUnset() {
+    void testGetChildNullParentUnset() {
         assertFalse(new Child().getChild().isSet(), "Expected null object");
     }
 
     /** */
     @Test
-    public void testGetFatherUnspecifiedParentUnset() {
+    void testGetFatherUnspecifiedParentUnset() {
         final FamilyNavigator navigator = new FamilyNavigator(new Child());
         assertFalse(navigator.getFather().isSet(), "Expected null object");
     }
 
     /** */
     @Test
-    public void testGetMotherUnsetParentUnset() {
+    void testGetMotherUnsetParentUnset() {
         final FamilyNavigator navigator = new FamilyNavigator(new Child());
         assertFalse(navigator.getMother().isSet(), "Expected null object");
     }
 
     /** */
     @Test
-    public void testChildUnspecifiedFatherShouldBeUnset() {
+    void testChildUnspecifiedFatherShouldBeUnset() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily("F1");
         final Child child = new Child(family, "Child", new ObjectId("I3"));
@@ -106,7 +106,7 @@ public final class ChildTest {
 
     /** */
     @Test
-    public void testChildUnspecifiedMotherShouldBeUnset() {
+    void testChildUnspecifiedMotherShouldBeUnset() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily("F1");
         final Child child = new Child(family, "Child", new ObjectId("I3"));
@@ -116,7 +116,7 @@ public final class ChildTest {
 
     /** */
     @Test
-    public void testChildUnspecifiedPersonShouldBeUnset() {
+    void testChildUnspecifiedPersonShouldBeUnset() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily("F1");
         final Child child = new Child(family, "Child", new ObjectId("I3"));
@@ -125,14 +125,14 @@ public final class ChildTest {
 
     /** */
     @Test
-    public void testChildNullParentFind() {
+    void testChildNullParentFind() {
         final Child child = new Child();
         assertNull(child.find("I1"), "Expected to not find");
     }
 
     /** */
     @Test
-    public void testChildEmptyTail() {
+    void testChildEmptyTail() {
         final Root localRoot = new Root("Root");
         final Child child = new Child(localRoot, "I1", new ObjectId(""));
         assertPerson1(child, "I1");
@@ -140,7 +140,7 @@ public final class ChildTest {
 
     /** */
     @Test
-    public void testChildEmptyTailStrip() {
+    void testChildEmptyTailStrip() {
         final Root localRoot = new Root("Root");
         final Child child = new Child(localRoot, "I1", new ObjectId("@@"));
         assertPerson1(child, "I1");
@@ -160,7 +160,7 @@ public final class ChildTest {
 
     /** */
     @Test
-    public void testChildEmptyTailAfterInsert() {
+    void testChildEmptyTailAfterInsert() {
         final Root localRoot = new Root("Root");
         final Child child2 = new Child(localRoot, "I1", new ObjectId("I1"));
         localRoot.insert(child2);

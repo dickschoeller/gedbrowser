@@ -39,7 +39,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.RootVisitor;
 public final class RootVisitorTest {
     /** */
     @Test
-    public void testBasicGetPersons() {
+    void testBasicGetPersons() {
         final Root root = new Root();
         final GedObjectBuilder builder = new GedObjectBuilder(root);
         builder.createPerson("I1", "J. Random/Schoeller/");
@@ -51,7 +51,7 @@ public final class RootVisitorTest {
 
     /** */
     @Test
-    public void testNoPersonsFromUnrelated() {
+    void testNoPersonsFromUnrelated() {
         final RootVisitor visitor = new RootVisitor();
         new Attribute().accept(visitor);
         new Child().accept(visitor);

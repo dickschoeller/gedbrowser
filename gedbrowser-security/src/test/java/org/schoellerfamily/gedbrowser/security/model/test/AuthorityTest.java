@@ -13,21 +13,21 @@ import org.schoellerfamily.gedbrowser.security.model.Authority;
 public class AuthorityTest {
     /** */
     @Test
-    public void testDefault() {
+    void testDefault() {
         final Authority authority = Authority.builder().build();
         assertNull(authority.getAuthority(), "Should be null");
     }
 
     /** */
     @Test
-    public void testDefaultUserRoleName() {
+    void testDefaultUserRoleName() {
         final Authority authority = Authority.builder().build();
         assertNull(authority.getUserRoleName(), "Should be null");
     }
 
     /** */
     @Test
-    public void testSetGet() {
+    void testSetGet() {
         final Authority authority = Authority.builder()
                 .userRoleName(UserRoleName.USER)
                 .build();

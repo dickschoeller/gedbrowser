@@ -33,7 +33,7 @@ public class GedResourceNotFoundRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final RenderingContext context = RenderingContext.user(appInfo);
         throwable = new Exception("This is a test");
         renderer = new GedResourceNotFoundRenderer(throwable, context);
@@ -41,13 +41,13 @@ public class GedResourceNotFoundRendererTest {
 
     /** */
     @Test
-    public void testGetMessage() {
+    void testGetMessage() {
         assertEquals("This is a test", renderer.getMessage(), "Mismatched message");
     }
 
     /** */
     @Test
-    public void testGetException() {
+    void testGetException() {
         assertSame(throwable, renderer.getException(), "Mismatched exception");
     }
 }

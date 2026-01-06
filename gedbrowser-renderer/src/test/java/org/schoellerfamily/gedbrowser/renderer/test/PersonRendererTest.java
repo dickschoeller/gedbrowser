@@ -64,7 +64,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderSabinoTitleAdmin() throws IOException {
+    void testRenderSabinoTitleAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I4248");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -77,7 +77,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderMelissaTitleUser() throws IOException {
+    void testRenderMelissaTitleUser() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I4248");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -90,7 +90,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderGeorgeTitle() throws IOException {
+    void testRenderGeorgeTitle() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -103,7 +103,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderMelissaWholeName() throws IOException {
+    void testRenderMelissaWholeName() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -116,7 +116,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderSabinoWholeName() throws IOException {
+    void testRenderSabinoWholeName() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I4248");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -129,7 +129,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderSabinoWholeNameUser() throws IOException {
+    void testRenderSabinoWholeNameUser() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I4248");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -142,7 +142,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderGeorgeWholeNameUser() throws IOException {
+    void testRenderGeorgeWholeNameUser() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -155,7 +155,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderMelissaFatherNameHtml() throws IOException {
+    void testRenderMelissaFatherNameHtml() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -171,7 +171,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderCiciFatherNameHtmlAdmin() throws IOException {
+    void testRenderCiciFatherNameHtmlAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5266");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -187,7 +187,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderCiciFatherNameHtmlAnon() throws IOException {
+    void testRenderCiciFatherNameHtmlAnon() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5266");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -200,7 +200,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderVivianFatherNameHtmlAdmin() throws IOException {
+    void testRenderVivianFatherNameHtmlAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -216,7 +216,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderVivianFatherNameHtmlAnon() throws IOException {
+    void testRenderVivianFatherNameHtmlAnon() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -228,7 +228,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderGeorgeFatherNameHtml() throws IOException {
+    void testRenderGeorgeFatherNameHtml() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -240,7 +240,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderMelissaMotherNameHtml() throws IOException {
+    void testRenderMelissaMotherNameHtml() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -256,7 +256,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderCiciMotherNameHtmlAdmin() throws IOException {
+    void testRenderCiciMotherNameHtmlAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5266");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -272,7 +272,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderCiciMotherNameHtmlAnon() throws IOException {
+    void testRenderCiciMotherNameHtmlAnon() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5266");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -285,7 +285,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderVivianMotherNameHtmlAdmin() throws IOException {
+    void testRenderVivianMotherNameHtmlAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -301,7 +301,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderVivianMotherNameHtmlAnon() throws IOException {
+    void testRenderVivianMotherNameHtmlAnon() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -313,7 +313,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderGeorgeMotherNameHtml() throws IOException {
+    void testRenderGeorgeMotherNameHtml() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -325,7 +325,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderMelissaFatherRendition() throws IOException {
+    void testRenderMelissaFatherRendition() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -341,7 +341,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderGeorgeFatherRendition() throws IOException {
+    void testRenderGeorgeFatherRendition() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -356,7 +356,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderMelissaMotherRendition() throws IOException {
+    void testRenderMelissaMotherRendition() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -373,7 +373,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderGeorgeMotherRendition() throws IOException {
+    void testRenderGeorgeMotherRendition() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -388,7 +388,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderDickLifeSpan() throws IOException {
+    void testRenderDickLifeSpan() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -401,7 +401,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderMelissaLifeSpan() throws IOException {
+    void testRenderMelissaLifeSpan() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -414,7 +414,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderDickFamilies() throws IOException {
+    void testRenderDickFamilies() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -427,7 +427,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderMelissaFamilies() throws IOException {
+    void testRenderMelissaFamilies() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -439,7 +439,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderDickAttributes() throws IOException {
+    void testRenderDickAttributes() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -452,7 +452,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderMelissaAttributes() throws IOException {
+    void testRenderMelissaAttributes() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -465,7 +465,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderDickIdString() throws IOException {
+    void testRenderDickIdString() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -477,7 +477,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderMelissaIdString() throws IOException {
+    void testRenderMelissaIdString() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -489,7 +489,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testRenderMelissaIndexHref() throws IOException {
+    void testRenderMelissaIndexHref() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
@@ -502,7 +502,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testVivianSurnameLetterAnon() throws IOException {
+    void testVivianSurnameLetterAnon() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
@@ -514,7 +514,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testVivianSurnameLetterAdmin() throws IOException {
+    void testVivianSurnameLetterAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
@@ -526,7 +526,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testVivianSurnameAnon() throws IOException {
+    void testVivianSurnameAnon() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
@@ -538,7 +538,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testVivianSurnameAdmin() throws IOException {
+    void testVivianSurnameAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
@@ -550,7 +550,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testVivianLifespanAnon() throws IOException {
+    void testVivianLifespanAnon() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
@@ -562,7 +562,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testVivianLifespanAdmin() throws IOException {
+    void testVivianLifespanAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
@@ -575,7 +575,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testVivianFamiliesAnon() throws IOException {
+    void testVivianFamiliesAnon() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
@@ -587,7 +587,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testVivianFamiliesAdmin() throws IOException {
+    void testVivianFamiliesAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
@@ -599,7 +599,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testVivianAttributesAnon() throws IOException {
+    void testVivianAttributesAnon() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
@@ -611,7 +611,7 @@ public final class PersonRendererTest {
      * @throws IOException when there is a read error.
      */
     @Test
-    public void testVivianAttributesAdmin() throws IOException {
+    void testVivianAttributesAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find("I5");
         final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
@@ -627,7 +627,7 @@ public final class PersonRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testHeaderMenuItem() throws IOException {
+    void testHeaderMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Person> persons = root.find(Person.class);
         for (final Person person : persons) {
@@ -642,7 +642,7 @@ public final class PersonRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSaveMenuItem() throws IOException {
+    void testSaveMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Person> persons = root.find(Person.class);
         for (final Person person : persons) {
@@ -657,7 +657,7 @@ public final class PersonRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSaveFilename() throws IOException {
+    void testSaveFilename() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Person> persons = root.find(Person.class);
         for (final Person person : persons) {
@@ -672,7 +672,7 @@ public final class PersonRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testIndexMenuItem() throws IOException {
+    void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Person> persons = root.find(Person.class);
         for (final Person person : persons) {
@@ -690,7 +690,7 @@ public final class PersonRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testLivingMenuItem() throws IOException {
+    void testLivingMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Person> persons = root.find(Person.class);
         for (final Person person : persons) {
@@ -705,7 +705,7 @@ public final class PersonRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSourcesMenuItem() throws IOException {
+    void testSourcesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Person> persons = root.find(Person.class);
         for (final Person person : persons) {
@@ -720,7 +720,7 @@ public final class PersonRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSubmittersMenuItem() throws IOException {
+    void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Person> persons = root.find(Person.class);
         for (final Person person : persons) {
@@ -736,7 +736,7 @@ public final class PersonRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testPlacesMenuItem() throws IOException {
+    void testPlacesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Person> persons = root.find(Person.class);
         for (final Person person : persons) {

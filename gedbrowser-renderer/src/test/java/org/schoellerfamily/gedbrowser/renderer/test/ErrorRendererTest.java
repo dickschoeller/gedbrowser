@@ -36,14 +36,14 @@ public class ErrorRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         homeUrl = "http://www.schoellerfamily.org/";
         renderer = new ErrorRenderer(appInfo);
     }
 
     /** */
     @Test
-    public void testGetTrailerHtmlEmpty() {
+    void testGetTrailerHtmlEmpty() {
         assertEquals(
             "\n" + "    <hr class=\"final\"/>\n" + "    <hr class=\"final\"/>\n"
                 + "    <table class=\"buttonrow\">\n" + "    <tr class=\"buttonrow\">\n"
@@ -63,7 +63,7 @@ public class ErrorRendererTest {
 
     /** */
     @Test
-    public void testGetHeaderHtml() {
+    void testGetHeaderHtml() {
         final String keywords = "one two three";
         final String title = "title";
         final String testString = "Content-type: text/html\n\n"
@@ -83,7 +83,7 @@ public class ErrorRendererTest {
 
     /** */
     @Test
-    public void testGetTrailerHtml() {
+    void testGetTrailerHtml() {
         assertEquals(
             "\n" + "    <hr class=\"final\"/>\n" + "    <hr class=\"final\"/>\n"
                 + "    <table class=\"buttonrow\">\n" + "    <tr class=\"buttonrow\">\n"
@@ -103,7 +103,7 @@ public class ErrorRendererTest {
 
     /** */
     @Test
-    public void testGetTrailerHtmlIndex() {
+    void testGetTrailerHtmlIndex() {
         assertEquals(
             "\n" + "    <hr class=\"final\"/>\n" + "    <hr class=\"final\"/>\n"
                 + "    <table class=\"buttonrow\">\n" + "    <tr class=\"buttonrow\">\n"
@@ -123,41 +123,41 @@ public class ErrorRendererTest {
 
     /** */
     @Test
-    public void testGetHomeUrl() {
+    void testGetHomeUrl() {
         assertEquals(homeUrl, renderer.getHomeUrl(), "Home URL does not match expectation");
     }
 
     /** */
     @Test
-    public void testGetName() {
+    void testGetName() {
         assertEquals("gedbrowser", renderer.getApplicationName(),
             "Application name does not match expectation");
     }
 
     /** */
     @Test
-    public void testGetApplicationURL() {
+    void testGetApplicationURL() {
         assertEquals("https://github.com/dickschoeller/gedbrowser", renderer.getApplicationURL(),
             "Application URL does not match expectation");
     }
 
     /** */
     @Test
-    public void testGetMaintainerEmail() {
+    void testGetMaintainerEmail() {
         assertEquals("schoeller@comcast.net", renderer.getMaintainerEmail(),
             "Maintainer email does not match expectation");
     }
 
     /** */
     @Test
-    public void testGetMaintainerName() {
+    void testGetMaintainerName() {
         assertEquals("Richard Schoeller", renderer.getMaintainerName(),
             "Maintainer email does not match expectation");
     }
 
     /** */
     @Test
-    public void testGetVersion() {
+    void testGetVersion() {
         assertEquals(GedObject.VERSION, renderer.getVersion(),
             "Version does not match expectation");
     }

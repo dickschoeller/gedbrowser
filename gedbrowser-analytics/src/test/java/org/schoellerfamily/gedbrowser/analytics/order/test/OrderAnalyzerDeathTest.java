@@ -48,7 +48,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithOnlyDeathMatch() {
+    void testPersonWithOnlyDeathMatch() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Death");
         final OrderAnalyzerResult result = wrapper.analyze(person);
@@ -57,7 +57,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithDeathAfterNonDeathMatch() {
+    void testPersonWithDeathAfterNonDeathMatch() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Education");
         builder.createPersonEvent(person, "Death");
@@ -67,7 +67,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithNonDeathAfterDeathMismatch() {
+    void testPersonWithNonDeathAfterDeathMismatch() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Death");
         builder.createPersonEvent(person, "Education");
@@ -77,7 +77,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithWillAfterDeathMatch() {
+    void testPersonWithWillAfterDeathMatch() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Death");
         builder.createPersonEvent(person, "Will");
@@ -87,7 +87,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithWillBeforeDeathMatch() {
+    void testPersonWithWillBeforeDeathMatch() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Will");
         builder.createPersonEvent(person, "Death");
@@ -97,7 +97,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithWillEducDeathMatch() {
+    void testPersonWithWillEducDeathMatch() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Will");
         builder.createPersonEvent(person, "Education");
@@ -108,7 +108,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithDeathFuneralBurialMatch() {
+    void testPersonWithDeathFuneralBurialMatch() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Death");
         builder.createPersonEvent(person, "Funeral");
@@ -119,7 +119,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithDeathBurialMatch() {
+    void testPersonWithDeathBurialMatch() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Death");
         builder.createPersonEvent(person, "Burial");
@@ -129,7 +129,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithFuneralBurialDeathMismatch() {
+    void testPersonWithFuneralBurialDeathMismatch() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Funeral");
         builder.createPersonEvent(person, "Burial");
@@ -140,7 +140,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithDeathBurialDeathMismatch() {
+    void testPersonWithDeathBurialDeathMismatch() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Death");
         builder.createPersonEvent(person, "Burial");
@@ -151,7 +151,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithBurialBurialBurialMatch() {
+    void testPersonWithBurialBurialBurialMatch() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Burial");
         builder.createPersonEvent(person, "Burial");
@@ -162,7 +162,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithDeathDeathDeathMismatch() {
+    void testPersonWithDeathDeathDeathMismatch() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Death");
         builder.createPersonEvent(person, "Death");
@@ -173,7 +173,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithDeathWillDeathMismatch() {
+    void testPersonWithDeathWillDeathMismatch() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Death");
         builder.createPersonEvent(person, "Will");
@@ -185,7 +185,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testDeathIsDeath() {
+    void testDeathIsDeath() {
         final Person person1 = createJRandom();
         final Attribute event =
                 builder.createPersonEvent(person1, "Death");
@@ -195,7 +195,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testBurialIsNotDeath() {
+    void testBurialIsNotDeath() {
         final Person person1 = createJRandom();
         final Attribute event =
                 builder.createPersonEvent(person1, "Burial");
@@ -205,7 +205,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testDeathIsDeathRelated() {
+    void testDeathIsDeathRelated() {
         final Person person1 = createJRandom();
         final Attribute event =
                 builder.createPersonEvent(person1, "Death");
@@ -215,7 +215,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testBurialIsDeathRelated() {
+    void testBurialIsDeathRelated() {
         final Person person1 = createJRandom();
         final Attribute event =
                 builder.createPersonEvent(person1, "Burial");
@@ -225,7 +225,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testCremationIsDeathRelated() {
+    void testCremationIsDeathRelated() {
         final Person person1 = createJRandom();
         final Attribute event =
                 builder.createPersonEvent(person1, "Cremation");
@@ -235,7 +235,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testUnveilingIsDeathRelated() {
+    void testUnveilingIsDeathRelated() {
         final Person person1 = createJRandom();
         final Attribute event = builder.createPersonEvent(
                 person1, "Headstone unveiling");
@@ -245,7 +245,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testWillIsDeathRelated() {
+    void testWillIsDeathRelated() {
         final Person person1 = createJRandom();
         final Attribute event =
                 builder.createPersonEvent(person1, "Will");
@@ -255,7 +255,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testDeathIsNotPostDeath() {
+    void testDeathIsNotPostDeath() {
         final Person person1 = createJRandom();
         final Attribute event =
                 builder.createPersonEvent(person1, "Death");
@@ -265,7 +265,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testBurialIsPostDeath() {
+    void testBurialIsPostDeath() {
         final Person person1 = createJRandom();
         final Attribute event =
                 builder.createPersonEvent(person1, "Burial");
@@ -275,7 +275,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testCremationIsPostDeath() {
+    void testCremationIsPostDeath() {
         final Person person1 = createJRandom();
         final Attribute event =
                 builder.createPersonEvent(person1, "Cremation");
@@ -285,7 +285,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testUnveilingIsPostDeath() {
+    void testUnveilingIsPostDeath() {
         final Person person1 = createJRandom();
         final Attribute event = builder.createPersonEvent(
                 person1, "Headstone unveiling");
@@ -295,7 +295,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testFuneralIsPostDeath() {
+    void testFuneralIsPostDeath() {
         final Person person1 = createJRandom();
         final Attribute event =
                 builder.createPersonEvent(person1, "Funeral");
@@ -305,7 +305,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testWillIsNotPostDeath() {
+    void testWillIsNotPostDeath() {
         final Person person1 = createJRandom();
         final Attribute event = builder.createPersonEvent(
                 person1, "Will");
@@ -315,7 +315,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testDeathIsNotUnordered() {
+    void testDeathIsNotUnordered() {
         final Person person1 = createJRandom();
         final Attribute event = builder.createPersonEvent(
                 person1, "Death");
@@ -325,7 +325,7 @@ public final class OrderAnalyzerDeathTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testWillIsUnordered() {
+    void testWillIsUnordered() {
         final Person person1 = createJRandom();
         final Attribute event = builder.createPersonEvent(
                 person1, "Will");

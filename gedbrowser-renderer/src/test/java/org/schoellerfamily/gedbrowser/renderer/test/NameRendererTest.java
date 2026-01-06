@@ -34,7 +34,7 @@ public final class NameRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -43,7 +43,7 @@ public final class NameRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testAttributeListOpenRenderer() {
+    void testAttributeListOpenRenderer() {
         final NameRenderer renderer = new NameRenderer(new Name(null), new GedRendererFactory(),
             anonymousContext);
         assertTrue(
@@ -56,7 +56,7 @@ public final class NameRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testListItemRenderer() {
+    void testListItemRenderer() {
         final NameRenderer renderer = new NameRenderer(new Name(null), new GedRendererFactory(),
             anonymousContext);
         assertTrue(renderer.getListItemRenderer() instanceof NameListItemRenderer,
@@ -68,7 +68,7 @@ public final class NameRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         final NameRenderer renderer = new NameRenderer(new Name(null), new GedRendererFactory(),
             anonymousContext);
         assertTrue(renderer.getNameHtmlRenderer() instanceof NameNameHtmlRenderer,
@@ -80,7 +80,7 @@ public final class NameRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameIndexRenderer() {
+    void testNameIndexRenderer() {
         final NameRenderer renderer = new NameRenderer(new Name(null), new GedRendererFactory(),
             anonymousContext);
         assertTrue(renderer.getNameIndexRenderer() instanceof NameNameIndexRenderer,
@@ -92,7 +92,7 @@ public final class NameRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         final NameRenderer renderer = new NameRenderer(new Name(null), new GedRendererFactory(),
             anonymousContext);
         assertTrue(renderer.getPhraseRenderer() instanceof NamePhraseRenderer,

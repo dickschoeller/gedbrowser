@@ -23,7 +23,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterName() {
+    void testSubmitterName() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submitter submitter = builder.createSubmitter("S1",
                 "Richard John/Schoeller/");
@@ -33,7 +33,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterSurname() {
+    void testSubmitterSurname() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submitter submitter = builder.createSubmitter("S1",
                 "Richard John/Schoeller/");
@@ -42,7 +42,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterIndexName() {
+    void testSubmitterIndexName() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submitter submitter = builder.createSubmitter("S1",
                 "Richard John/Schoeller/");
@@ -52,7 +52,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullName() {
+    void testSubmitterNullName() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submitter submitter2 = builder.createSubmitter("S2");
         assertEquals("", submitter2.getName().toString(), "Expected null name");
@@ -60,7 +60,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullSurname() {
+    void testSubmitterNullSurname() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submitter submitter2 = builder.createSubmitter("S2");
         assertEquals("?", submitter2.getSurname(), "Expected ? surname");
@@ -68,7 +68,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullIndexName() {
+    void testSubmitterNullIndexName() {
         final GedObjectBuilder builder = new GedObjectBuilder(root);
         final Submitter submitter2 = builder.createSubmitter("S2");
         assertEquals("?, ?", submitter2.getIndexName(), "Expected ?s index name");
@@ -76,28 +76,28 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullParent() {
+    void testSubmitterNullParent() {
         final Submitter submitter = new Submitter();
         assertNull(submitter.getParent(), "Expected null parent");
     }
 
     /** */
     @Test
-    public void testSubmitterNullString() {
+    void testSubmitterNullString() {
         final Submitter submitter = new Submitter();
         assertEquals("", submitter.getString(), "Expected empty string");
     }
 
     /** */
     @Test
-    public void testSubmitterRootParent() {
+    void testSubmitterRootParent() {
         final Submitter submitter = new Submitter(root, new ObjectId("SUB1"));
         assertEquals(root, submitter.getParent(), "Mismatched parent");
     }
 
     /** */
     @Test
-    public void testSubmitterNullNullParent() {
+    void testSubmitterNullNullParent() {
         Submitter submitter;
         submitter = new Submitter(null, null);
         assertEquals("", submitter.getString(), "Expected empty string");
@@ -105,7 +105,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullNullString() {
+    void testSubmitterNullNullString() {
         Submitter submitter;
         submitter = new Submitter(null, null);
         assertEquals("", submitter.getString(), "Expected empty string");
@@ -113,7 +113,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterRootNullParent() {
+    void testSubmitterRootNullParent() {
         Submitter submitter;
         submitter = new Submitter(root, null);
         assertEquals(root, submitter.getParent(), "Mismatched parent");
@@ -121,7 +121,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterRootNullString() {
+    void testSubmitterRootNullString() {
         Submitter submitter;
         submitter = new Submitter(root, null);
         assertEquals("", submitter.getString(), "Expected empty string");
@@ -130,7 +130,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullEmptyParent() {
+    void testSubmitterNullEmptyParent() {
         Submitter submitter;
         submitter = new Submitter(null, new ObjectId(""));
         assertNull(submitter.getParent(), "Expected null parent");
@@ -138,7 +138,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullEmptyString() {
+    void testSubmitterNullEmptyString() {
         Submitter submitter;
         submitter = new Submitter(null, new ObjectId(""));
         assertEquals("", submitter.getString(), "Expected empty string");
@@ -146,7 +146,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterRootEmptyParent() {
+    void testSubmitterRootEmptyParent() {
         Submitter submitter;
         submitter = new Submitter(root, new ObjectId(""));
         assertEquals(root, submitter.getParent(), "Mismatched parent");
@@ -154,7 +154,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterRootEmptyString() {
+    void testSubmitterRootEmptyString() {
         Submitter submitter;
         submitter = new Submitter(root, new ObjectId(""));
         assertEquals("", submitter.getString(), "Expected empty string");
@@ -162,7 +162,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullStringParent() {
+    void testSubmitterNullStringParent() {
         Submitter submitter;
         submitter = new Submitter(null, new ObjectId(TEST_STRING));
         assertNull(submitter.getParent(), "Expected null parent");
@@ -170,7 +170,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullStringString() {
+    void testSubmitterNullStringString() {
         Submitter submitter;
         submitter = new Submitter(null, new ObjectId(TEST_STRING));
         assertEquals(TEST_STRING, submitter.getString(), "Mismatched string");
@@ -178,7 +178,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterRootStringParent() {
+    void testSubmitterRootStringParent() {
         Submitter submitter;
         submitter = new Submitter(root, new ObjectId(TEST_STRING));
         assertEquals(root, submitter.getParent(), "Mismatched parent");
@@ -186,7 +186,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterRootStringString() {
+    void testSubmitterRootStringString() {
         Submitter submitter;
         submitter = new Submitter(root, new ObjectId(TEST_STRING));
         assertEquals(TEST_STRING, submitter.getString(), "Mismatched ID");
@@ -194,63 +194,63 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullNullNullParent() {
+    void testSubmitterNullNullNullParent() {
         final Submitter submitter = new Submitter(null, null);
         assertNull(submitter.getParent(), "Expected null parent");
     }
 
     /** */
     @Test
-    public void testSubmitterNullNullNullString() {
+    void testSubmitterNullNullNullString() {
         final Submitter submitter = new Submitter(null, null);
         assertEquals("", submitter.getString(), "Expected empty string");
     }
 
     /** */
     @Test
-    public void testSubmitterRootNullNullParent() {
+    void testSubmitterRootNullNullParent() {
         final Submitter submitter = new Submitter(root, null);
         assertEquals(root, submitter.getParent(), "Mismatched parent");
     }
 
     /** */
     @Test
-    public void testSubmitterRootNullNullString() {
+    void testSubmitterRootNullNullString() {
         final Submitter submitter = new Submitter(root, null);
         assertEquals("", submitter.getString(), "Expected empty string");
     }
 
     /** */
     @Test
-    public void testSubmitterNullEmptyNullParent() {
+    void testSubmitterNullEmptyNullParent() {
         final Submitter submitter = new Submitter(null, new ObjectId(""));
         assertNull(submitter.getParent(), "Expected null parent");
     }
 
     /** */
     @Test
-    public void testSubmitterNullEmptyNullString() {
+    void testSubmitterNullEmptyNullString() {
         final Submitter submitter = new Submitter(null, new ObjectId(""));
         assertEquals("", submitter.getString(), "Expected empty string");
     }
 
     /** */
     @Test
-    public void testSubmitterRootEmptyNullParent() {
+    void testSubmitterRootEmptyNullParent() {
         final Submitter submitter = new Submitter(root, new ObjectId(""));
         assertEquals(root, submitter.getParent(), "Mismatched parent");
     }
 
     /** */
     @Test
-    public void testSubmitterRootEmptyNullString() {
+    void testSubmitterRootEmptyNullString() {
         final Submitter submitter = new Submitter(root, new ObjectId(""));
         assertEquals("", submitter.getString(), "Expected empty string");
     }
 
     /** */
     @Test
-    public void testSubmitterNullStringNullParent() {
+    void testSubmitterNullStringNullParent() {
         final Submitter submitter = new Submitter(null,
                 new ObjectId(TEST_STRING));
         assertNull(submitter.getParent(), "Expected null parent");
@@ -258,95 +258,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullStringNullString() {
-        final Submitter submitter = new Submitter(null,
-                new ObjectId(TEST_STRING));
-        assertEquals(TEST_STRING, submitter.getString(), "Mismatched string");
-    }
-
-    /** */
-    @Test
-    public void testSubmitterRootStringNullParent() {
-        final Submitter submitter = new Submitter(root,
-                new ObjectId(TEST_STRING));
-        assertEquals(root, submitter.getParent(), "Mismatched parent");
-    }
-
-    /** */
-    @Test
-    public void testSubmitterRootStringNullString() {
-        final Submitter submitter = new Submitter(root,
-                new ObjectId(TEST_STRING));
-        assertEquals(TEST_STRING, submitter.getString(), "Mismatched string");
-    }
-
-    /** */
-    @Test
-    public void testSubmitterNullNullEmptyParent() {
-        final Submitter submitter = new Submitter(null, null);
-        assertNull(submitter.getParent(), "Expected null parent");
-    }
-
-    /** */
-    @Test
-    public void testSubmitterNullNullEmptyString() {
-        final Submitter submitter = new Submitter(null, null);
-        assertEquals("", submitter.getString(), "Expected empty string");
-    }
-
-    /** */
-    @Test
-    public void testSubmitterRootNullEmptyParent() {
-        final Submitter submitter = new Submitter(root, null);
-        assertEquals(root, submitter.getParent(), "Mismatched parent");
-    }
-
-    /** */
-    @Test
-    public void testSubmitterRootNullEmptyString() {
-        final Submitter submitter = new Submitter(root, null);
-        assertEquals("", submitter.getString(), "Expected empty string");
-    }
-
-    /** */
-    @Test
-    public void testSubmitterNullEmptyEmptyParent() {
-        final Submitter submitter = new Submitter(null, new ObjectId(""));
-        assertNull(submitter.getParent(), "Expected null parent");
-    }
-
-    /** */
-    @Test
-    public void testSubmitterNullEmptyEmptyString() {
-        final Submitter submitter = new Submitter(null, new ObjectId(""));
-        assertEquals("", submitter.getString(), "Expected empty string");
-    }
-
-    /** */
-    @Test
-    public void testSubmitterRootEmptyEmptyParent() {
-        final Submitter submitter = new Submitter(root, new ObjectId(""));
-        assertEquals(root, submitter.getParent(), "Mismatched parent");
-    }
-
-    /** */
-    @Test
-    public void testSubmitterRootEmptyEmptyString() {
-        final Submitter submitter = new Submitter(root, new ObjectId(""));
-        assertEquals("", submitter.getString(), "Expected empty string");
-    }
-
-    /** */
-    @Test
-    public void testSubmitterNullStringEmptyParent() {
-        final Submitter submitter = new Submitter(null,
-                new ObjectId(TEST_STRING));
-        assertNull(submitter.getParent(), "Expected null parent");
-    }
-
-    /** */
-    @Test
-    public void testSubmitterNullStringEmptyString() {
+    void testSubmitterNullStringNullString() {
         final Submitter submitter = new Submitter(null,
                 new ObjectId(TEST_STRING));
         assertEquals(TEST_STRING, submitter.getString(), "Mismatched string");
@@ -354,7 +266,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterRootStringEmptyParent() {
+    void testSubmitterRootStringNullParent() {
         final Submitter submitter = new Submitter(root,
                 new ObjectId(TEST_STRING));
         assertEquals(root, submitter.getParent(), "Mismatched parent");
@@ -362,7 +274,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterRootStringEmptyString() {
+    void testSubmitterRootStringNullString() {
         final Submitter submitter = new Submitter(root,
                 new ObjectId(TEST_STRING));
         assertEquals(TEST_STRING, submitter.getString(), "Mismatched string");
@@ -370,7 +282,95 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullNullStringParent() {
+    void testSubmitterNullNullEmptyParent() {
+        final Submitter submitter = new Submitter(null, null);
+        assertNull(submitter.getParent(), "Expected null parent");
+    }
+
+    /** */
+    @Test
+    void testSubmitterNullNullEmptyString() {
+        final Submitter submitter = new Submitter(null, null);
+        assertEquals("", submitter.getString(), "Expected empty string");
+    }
+
+    /** */
+    @Test
+    void testSubmitterRootNullEmptyParent() {
+        final Submitter submitter = new Submitter(root, null);
+        assertEquals(root, submitter.getParent(), "Mismatched parent");
+    }
+
+    /** */
+    @Test
+    void testSubmitterRootNullEmptyString() {
+        final Submitter submitter = new Submitter(root, null);
+        assertEquals("", submitter.getString(), "Expected empty string");
+    }
+
+    /** */
+    @Test
+    void testSubmitterNullEmptyEmptyParent() {
+        final Submitter submitter = new Submitter(null, new ObjectId(""));
+        assertNull(submitter.getParent(), "Expected null parent");
+    }
+
+    /** */
+    @Test
+    void testSubmitterNullEmptyEmptyString() {
+        final Submitter submitter = new Submitter(null, new ObjectId(""));
+        assertEquals("", submitter.getString(), "Expected empty string");
+    }
+
+    /** */
+    @Test
+    void testSubmitterRootEmptyEmptyParent() {
+        final Submitter submitter = new Submitter(root, new ObjectId(""));
+        assertEquals(root, submitter.getParent(), "Mismatched parent");
+    }
+
+    /** */
+    @Test
+    void testSubmitterRootEmptyEmptyString() {
+        final Submitter submitter = new Submitter(root, new ObjectId(""));
+        assertEquals("", submitter.getString(), "Expected empty string");
+    }
+
+    /** */
+    @Test
+    void testSubmitterNullStringEmptyParent() {
+        final Submitter submitter = new Submitter(null,
+                new ObjectId(TEST_STRING));
+        assertNull(submitter.getParent(), "Expected null parent");
+    }
+
+    /** */
+    @Test
+    void testSubmitterNullStringEmptyString() {
+        final Submitter submitter = new Submitter(null,
+                new ObjectId(TEST_STRING));
+        assertEquals(TEST_STRING, submitter.getString(), "Mismatched string");
+    }
+
+    /** */
+    @Test
+    void testSubmitterRootStringEmptyParent() {
+        final Submitter submitter = new Submitter(root,
+                new ObjectId(TEST_STRING));
+        assertEquals(root, submitter.getParent(), "Mismatched parent");
+    }
+
+    /** */
+    @Test
+    void testSubmitterRootStringEmptyString() {
+        final Submitter submitter = new Submitter(root,
+                new ObjectId(TEST_STRING));
+        assertEquals(TEST_STRING, submitter.getString(), "Mismatched string");
+    }
+
+    /** */
+    @Test
+    void testSubmitterNullNullStringParent() {
         final Submitter submitter = new Submitter(null, null);
         submitter.appendString(TEST_STRUNG);
         assertNull(submitter.getParent(), "Expected null parent");
@@ -378,7 +378,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullNullStringString() {
+    void testSubmitterNullNullStringString() {
         final Submitter submitter = new Submitter(null, null);
         submitter.appendString(TEST_STRUNG);
         assertEquals(TEST_STRUNG, submitter.getString(), "Mismatched string");
@@ -386,7 +386,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterRootNullStringParent() {
+    void testSubmitterRootNullStringParent() {
         final Submitter submitter = new Submitter(root, null);
         submitter.appendString(TEST_STRUNG);
         assertEquals(root, submitter.getParent(), "Mismatched parent");
@@ -394,7 +394,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterRootNullStringString() {
+    void testSubmitterRootNullStringString() {
         final Submitter submitter = new Submitter(root, null);
         submitter.appendString(TEST_STRUNG);
         assertEquals(TEST_STRUNG, submitter.getString(), "Mismatched string");
@@ -402,7 +402,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullEmptyStringParent() {
+    void testSubmitterNullEmptyStringParent() {
         final Submitter submitter = new Submitter(null, new ObjectId(""));
         submitter.appendString(TEST_STRUNG);
         assertNull(submitter.getParent(), "Expected null parent");
@@ -410,7 +410,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullEmptyStringString() {
+    void testSubmitterNullEmptyStringString() {
         final Submitter submitter = new Submitter(null, new ObjectId(""));
         submitter.appendString(TEST_STRUNG);
         assertEquals(TEST_STRUNG, submitter.getString(), "Mismatched string");
@@ -418,7 +418,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterRootEmptyStringParent() {
+    void testSubmitterRootEmptyStringParent() {
         final Submitter submitter = new Submitter(root, new ObjectId(""));
         submitter.appendString(TEST_STRUNG);
         assertEquals(root, submitter.getParent(), "Mismatched parent");
@@ -426,7 +426,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterRootEmptyStringString() {
+    void testSubmitterRootEmptyStringString() {
         final Submitter submitter = new Submitter(root, new ObjectId(""));
         submitter.appendString(TEST_STRUNG);
         assertEquals(TEST_STRUNG, submitter.getString(), "Mismatched string");
@@ -434,7 +434,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullStringStringParent() {
+    void testSubmitterNullStringStringParent() {
         final Submitter submitter = new Submitter(null,
                 new ObjectId(TEST_STRING));
         submitter.appendString(TEST_STRUNG);
@@ -443,7 +443,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterNullStringStringString() {
+    void testSubmitterNullStringStringString() {
         final Submitter submitter = new Submitter(null,
                 new ObjectId(TEST_STRING));
         submitter.appendString(" " + TEST_STRUNG);
@@ -452,7 +452,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterRootStringStringParent() {
+    void testSubmitterRootStringStringParent() {
         final Submitter submitter = new Submitter(root,
                 new ObjectId(TEST_STRING));
         submitter.appendString(" " + TEST_STRUNG);
@@ -461,7 +461,7 @@ public final class SubmitterTest {
 
     /** */
     @Test
-    public void testSubmitterRootStringStringString() {
+    void testSubmitterRootStringStringString() {
         final Submitter submitter = new Submitter(root,
                 new ObjectId(TEST_STRING));
         submitter.appendString(" " + TEST_STRUNG);

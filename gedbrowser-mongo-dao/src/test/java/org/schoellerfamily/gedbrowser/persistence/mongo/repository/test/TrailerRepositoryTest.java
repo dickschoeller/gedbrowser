@@ -65,7 +65,7 @@ public final class TrailerRepositoryTest {
 
     /** */
     @Test
-    public void testTrailer() {
+    void testTrailer() {
         final TrailerDocument document = trailerDocumentRepository
             .findByFileAndString(root.getFilename(), TRAILER_STRING);
         final Trailer trailer = (Trailer) toObjConverter.createGedObject(root, document);
@@ -74,7 +74,7 @@ public final class TrailerRepositoryTest {
 
     /** */
     @Test
-    public void testTrailerRoot() {
+    void testTrailerRoot() {
         final TrailerDocument document = trailerDocumentRepository.findByRootAndString(rootDocument,
             TRAILER_STRING);
         final Trailer trailer = (Trailer) toObjConverter.createGedObject(root, document);
@@ -83,7 +83,7 @@ public final class TrailerRepositoryTest {
 
     /** */
     @Test
-    public void testBogus() {
+    void testBogus() {
         final TrailerDocument perdoc = trailerDocumentRepository
             .findByFileAndString(root.getFilename(), "Mumble");
         assertNull(perdoc, "Bogus request should return null");
@@ -91,7 +91,7 @@ public final class TrailerRepositoryTest {
 
     /** */
     @Test
-    public void testBogusRoot() {
+    void testBogusRoot() {
         final TrailerDocument perdoc = trailerDocumentRepository.findByRootAndString(rootDocument,
             "Mumble");
         assertNull(perdoc, "Bogus request should return null");
@@ -99,21 +99,21 @@ public final class TrailerRepositoryTest {
 
     /** */
     @Test
-    public void testCountRoot() {
+    void testCountRoot() {
         assertEquals(1, trailerDocumentRepository.count(rootDocument),
             "Should only be one trailer");
     }
 
     /** */
     @Test
-    public void testCountFilename() {
+    void testCountFilename() {
         assertEquals(1, trailerDocumentRepository.count(rootDocument.getFilename()),
             "Should only be one trailer");
     }
 
     /** */
     @Test
-    public void testFindAllRoot() {
+    void testFindAllRoot() {
         final Iterable<TrailerDocument> list = trailerDocumentRepository.findAll(rootDocument);
         int count = 0;
         for (final TrailerDocument trailer : list) {
@@ -125,7 +125,7 @@ public final class TrailerRepositoryTest {
 
     /** */
     @Test
-    public void testFindAllFilename() {
+    void testFindAllFilename() {
         final Iterable<TrailerDocument> list = trailerDocumentRepository
             .findAll(rootDocument.getFilename());
         int count = 0;

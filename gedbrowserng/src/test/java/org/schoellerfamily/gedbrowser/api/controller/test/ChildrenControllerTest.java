@@ -66,7 +66,7 @@ public class ChildrenControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testCreateChild() throws RestClientException {
+    void testCreateChild() throws RestClientException {
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = createChildOfParent(parent);
         log.info("famc: {}", child.getFamcs().get(0).getString());
@@ -80,7 +80,7 @@ public class ChildrenControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testLinkChildInFamily() throws RestClientException {
+    void testLinkChildInFamily() throws RestClientException {
         final ApiPerson parent = helper.createPerson();
 
         final ApiPerson child = createChildOfParent(parent);
@@ -113,7 +113,7 @@ public class ChildrenControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testLinkChild() throws RestClientException {
+    void testLinkChild() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         final ApiPerson parent = helper.createPerson();
@@ -137,7 +137,7 @@ public class ChildrenControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testUnlinkChild() throws RestClientException {
+    void testUnlinkChild() throws RestClientException {
         final String familiesUrl = helper.getFamiliesUrl();
         final ApiPerson parent = helper.createPerson();
 

@@ -49,7 +49,7 @@ public class IndexControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testIndexControllerC() {
+    void testIndexControllerC() {
         final String url = URL_TEMPLATE.formatted(port, "gl120368", "C");
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
@@ -67,7 +67,7 @@ public class IndexControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testIndexControllerB() {
+    void testIndexControllerB() {
         final String url = URL_TEMPLATE.formatted(port, "gl120368", "B");
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
@@ -85,7 +85,7 @@ public class IndexControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testIndexControllerBadDataSet() {
+    void testIndexControllerBadDataSet() {
         String url = URL_TEMPLATE.formatted(port, "XYZZY", "A");
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
@@ -99,7 +99,7 @@ public class IndexControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testIndexControllerLetter() {
+    void testIndexControllerLetter() {
         String url = URL_TEMPLATE.formatted(port, "gl120368", "q");
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))

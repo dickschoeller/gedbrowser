@@ -41,7 +41,7 @@ public class HeadControllerTest {
 
     /** */
     @Test
-    public final void testGetHeadGl120368() {
+    void testGetHeadGl120368() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(url)
@@ -56,7 +56,7 @@ public class HeadControllerTest {
 
     /** */
     @Test
-    public final void testGetHeadMiniSchoeller() {
+    void testGetHeadMiniSchoeller() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/mini-schoeller";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(url)
@@ -70,7 +70,7 @@ public class HeadControllerTest {
 
     /** */
     @Test
-    public final void testGetHeadBadDataSet() {
+    void testGetHeadBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri("http://localhost:" + port + "/gedbrowserng/v1/dbs/XYZZY")
             .exchange()

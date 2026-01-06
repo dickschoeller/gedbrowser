@@ -46,7 +46,7 @@ public final class LivingEstimatorTest {
      * @throws IOException if there is a file IO problem
      */
     @Test
-    public void testFactoryGedFile() throws IOException {
+    void testFactoryGedFile() throws IOException {
         final AbstractGedLine top =
                 TestResourceReader.readFileTestSource(this, "gl120368.ged");
         final Root root = g2g.create(top);

@@ -42,7 +42,7 @@ public final class MultimediaListItemRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
 
@@ -72,7 +72,7 @@ public final class MultimediaListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItemEmpty() {
+    void testRenderAsListItemEmpty() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia1,
             new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr = (MultimediaListItemRenderer) aRenderer
@@ -87,7 +87,7 @@ public final class MultimediaListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItemString() {
+    void testRenderAsListItemString() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia2,
             new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr = (MultimediaListItemRenderer) aRenderer
@@ -102,7 +102,7 @@ public final class MultimediaListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItem() {
+    void testRenderAsListItem() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia3,
             new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr = (MultimediaListItemRenderer) aRenderer
@@ -117,7 +117,7 @@ public final class MultimediaListItemRendererTest {
 
     /** */
     @Test
-    public void testGetListItemContentsEmpty() {
+    void testGetListItemContentsEmpty() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia1,
             new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr = (MultimediaListItemRenderer) aRenderer
@@ -131,7 +131,7 @@ public final class MultimediaListItemRendererTest {
 
     /** */
     @Test
-    public void testGetListItemContentsString() {
+    void testGetListItemContentsString() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia2,
             new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr = (MultimediaListItemRenderer) aRenderer
@@ -144,7 +144,7 @@ public final class MultimediaListItemRendererTest {
 
     /** */
     @Test
-    public void testGetListItemContents() {
+    void testGetListItemContents() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia3,
             new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr = (MultimediaListItemRenderer) aRenderer

@@ -33,7 +33,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.MultimediaVisitor;
 public final class MultimediaVisitorTest {
     /** */
     @Test
-    public void testNoFilePathFromUnrelated() {
+    void testNoFilePathFromUnrelated() {
         final MultimediaVisitor visitor = new MultimediaVisitor();
         new Child().accept(visitor);
         new Date(null).accept(visitor);
@@ -69,7 +69,7 @@ public final class MultimediaVisitorTest {
 
     /** */
     @Test
-    public void testNoFormatFromUnrelated() {
+    void testNoFormatFromUnrelated() {
         final MultimediaVisitor visitor = new MultimediaVisitor();
         new Child().accept(visitor);
         new Date(null).accept(visitor);
@@ -103,7 +103,7 @@ public final class MultimediaVisitorTest {
 
     /** */
     @Test
-    public void testNoTitleFromUnrelated() {
+    void testNoTitleFromUnrelated() {
         final MultimediaVisitor visitor = new MultimediaVisitor();
         new Child().accept(visitor);
         new Date(null).accept(visitor);

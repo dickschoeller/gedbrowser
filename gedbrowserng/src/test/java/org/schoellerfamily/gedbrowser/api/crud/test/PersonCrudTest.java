@@ -73,7 +73,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
-    public final void testGetPersonsGl120368() {
+    void testGetPersonsGl120368() {
         log.info("Beginning testReadSourcesGl120368");
         final List<ApiPerson> list = crud.readAll(helper.getDb());
         final ApiPerson firstPerson = list.get(0);
@@ -86,7 +86,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
-    public final void testGetPersonsMiniSchoeller() {
+    void testGetPersonsMiniSchoeller() {
         log.info("Beginning testGetPersonsMiniSchoeller");
         final List<ApiPerson> list = crud.readAll("mini-schoeller");
         final ApiPerson firstPerson = list.get(0);
@@ -99,7 +99,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
-    public final void testGetPersonsMiniSchoellerI2() {
+    void testGetPersonsMiniSchoellerI2() {
         log.info("Beginning testGetPersonsMiniSchoellerI2");
         final ApiPerson firstPerson = crud.readOne("mini-schoeller", "I2");
         then(firstPerson.getString()).isEqualTo("I2");
@@ -111,7 +111,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
-    public final void testGetPersonsMiniSchoellerXyzzy() {
+    void testGetPersonsMiniSchoellerXyzzy() {
         log.info("Beginning testGetPersonsMiniSchoellerXyzzy");
         try {
             crud.readOne("mini-schoeller", "Xyzzy");
@@ -124,7 +124,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
-    public final void testCreatePersonsSimple() {
+    void testCreatePersonsSimple() {
         log.info("Beginning testCreatePersonsSimple");
         final ApiPerson reqPerson = ApiPerson.builder()
             .type("person")
@@ -141,7 +141,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
-    public final void testCreatePersonsWithName() {
+    void testCreatePersonsWithName() {
         log.info("Beginning testCreatePersonsWithName");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson = crud.createOne(helper.getDb(), reqPerson);
@@ -178,7 +178,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
-    public final void testDeletePerson() {
+    void testDeletePerson() {
         log.info("Beginning testDeletePerson");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson = crud.createOne(helper.getDb(), reqPerson);
@@ -197,7 +197,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
-    public final void testDeleteSpouseLinkedPerson() {
+    void testDeleteSpouseLinkedPerson() {
         log.info("Beginning testDeleteSpouseLinkedPerson");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson = crud.createOne(helper.getDb(), reqPerson);
@@ -229,7 +229,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
-    public final void testDeleteChildLinkedPerson() {
+    void testDeleteChildLinkedPerson() {
         log.info("Beginning testDeleteChildLinkedPerson");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson = crud.createOne(helper.getDb(), reqPerson);
@@ -258,7 +258,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
-    public final void testDeletePersonNotFound() {
+    void testDeletePersonNotFound() {
         log.info("Beginning testDeletePersonNotFound");
         try {
             crud.deleteOne(helper.getDb(), "XXXXXXX");
@@ -271,7 +271,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
-    public final void testDeletePersonDatabaseNotFound() {
+    void testDeletePersonDatabaseNotFound() {
         log.info("Beginning testDeletePersonDatabaseNotFound");
         log.info("Beginning testDeletePersonNotFound");
         try {
@@ -284,7 +284,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
-    public final void testUpdatePersonWithNote() {
+    void testUpdatePersonWithNote() {
         log.info("Beginning testUpdatePersonWithNote");
         final ApiPerson reqPerson = createRJS();
         final ApiPersonBuilder<?, ?> resPerson = crud.createOne(helper.getDb(), reqPerson)

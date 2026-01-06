@@ -68,7 +68,7 @@ public class SourceCrudTest {
 
     /** */
     @Test
-    public final void testReadSourcesGl120368() {
+    void testReadSourcesGl120368() {
         log.info("Beginning testReadSourcesGl120368");
         final List<ApiSource> list = crud.readAll(helper.getDb());
         final ApiSource firstSource = list.get(0);
@@ -90,7 +90,7 @@ public class SourceCrudTest {
 
     /** */
     @Test
-    public final void testReadSourcesMiniSchoeller() {
+    void testReadSourcesMiniSchoeller() {
         log.info("Beginning testReadSourcesMiniSchoeller");
         final List<ApiSource> list = crud.readAll("mini-schoeller");
         final ApiSource firstSource = list.get(0);
@@ -112,7 +112,7 @@ public class SourceCrudTest {
 
     /** */
     @Test
-    public final void testReadSourcesMiniSchoellerS2() {
+    void testReadSourcesMiniSchoellerS2() {
         log.info("Beginning testReadSourcesMiniSchoellerS2");
         final ApiSource firstSource = crud.readOne("mini-schoeller", "S2");
         then(firstSource.getString()).isEqualTo("S2");
@@ -133,7 +133,7 @@ public class SourceCrudTest {
 
     /** */
     @Test
-    public final void testReadSourcesMiniSchoellerXyzzy() {
+    void testReadSourcesMiniSchoellerXyzzy() {
         log.info("Beginning testReadSourcesMiniSchoellerXyzzy");
         try {
             final ApiSource source = crud.readOne("mini-schoeller", "Xyzzy");
@@ -146,7 +146,7 @@ public class SourceCrudTest {
 
     /** */
     @Test
-    public final void testCreateSourcesSimple() {
+    void testCreateSourcesSimple() {
         log.info("Beginning testCreateSourcesSimple");
         final ApiSource inSource = ApiSource.builder()
             .type("source")
@@ -160,7 +160,7 @@ public class SourceCrudTest {
 
     /** */
     @Test
-    public final void testDeleteSource() {
+    void testDeleteSource() {
         log.info("Beginning testDeleteSource");
         final ApiSource reqSource = ApiSource.builder()
             .type("source")
@@ -183,7 +183,7 @@ public class SourceCrudTest {
 
     /** */
     @Test
-    public final void testDeleteSourceNotFound() {
+    void testDeleteSourceNotFound() {
         log.info("Beginning testDeleteSourceNotFound");
         try {
             final ApiSource deletedSource = crud.deleteOne(helper.getDb(), "XXXXXXX");
@@ -196,7 +196,7 @@ public class SourceCrudTest {
 
     /** */
     @Test
-    public final void testDeleteSubmitterDatabaseNotFound() {
+    void testDeleteSubmitterDatabaseNotFound() {
         log.info("Beginning testDeleteSubmitterDatabaseNotFound");
         try {
             final ApiSource deletedSource = crud.deleteOne("XYZZY", "S1");
@@ -209,7 +209,7 @@ public class SourceCrudTest {
 
     /** */
     @Test
-    public final void testUpdateSourceWithNote() {
+    void testUpdateSourceWithNote() {
         log.info("Beginning testUpdateSourceWithNote");
         final List<ApiAttribute> attributes = List.of(ApiAttribute.builder()
             .type("attribute")

@@ -50,7 +50,7 @@ public class SubmitterControllerTest {
 
     /** */
     @Test
-    public final void testGetSubmittersGl120368() {
+    void testGetSubmittersGl120368() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/submitters";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
@@ -65,7 +65,7 @@ public class SubmitterControllerTest {
 
     /** */
     @Test
-    public final void testGetSubmittersGl120368U1() {
+    void testGetSubmittersGl120368U1() {
         final String url = "http://localhost:" + port
             + "/gedbrowserng/v1/dbs/gl120368/submitters/U1";
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -85,7 +85,7 @@ public class SubmitterControllerTest {
 
     /** */
     @Test
-    public final void testGetSubmittersGl120368Xyzzy() {
+    void testGetSubmittersGl120368Xyzzy() {
         final String url = "http://localhost:" + port
             + "/gedbrowserng/v1/dbs/gl120368/submitters/Xyzzy";
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -102,7 +102,7 @@ public class SubmitterControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testCreateSubmittersSimple() throws RestClientException {
+    void testCreateSubmittersSimple() throws RestClientException {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/submitters";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -124,7 +124,7 @@ public class SubmitterControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testDeleteSubmitter() throws RestClientException {
+    void testDeleteSubmitter() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -175,7 +175,7 @@ public class SubmitterControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testDeleteSubmitterNotFound() throws RestClientException {
+    void testDeleteSubmitterNotFound() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -200,7 +200,7 @@ public class SubmitterControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testDeleteSubmitterDatabaseNotFound() throws RestClientException {
+    void testDeleteSubmitterDatabaseNotFound() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -225,7 +225,7 @@ public class SubmitterControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testUpdateSubmitterWithNote() throws RestClientException {
+    void testUpdateSubmitterWithNote() throws RestClientException {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/submitters";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

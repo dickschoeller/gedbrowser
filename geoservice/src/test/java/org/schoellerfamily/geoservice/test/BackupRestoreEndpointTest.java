@@ -42,7 +42,7 @@ public class BackupRestoreEndpointTest {
 
     /** */
     @Test
-    public final void shouldReturn200WhenSendingRequestToBackupEndpoint() {
+    void shouldReturn200WhenSendingRequestToBackupEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri("http://localhost:" + mgt + "/actuator/backup")
                 .exchange()
@@ -55,7 +55,7 @@ public class BackupRestoreEndpointTest {
 
     /** */
     @Test
-    public final void shouldReturn200WhenSendingRequestToRestoreEndpoint() {
+    void shouldReturn200WhenSendingRequestToRestoreEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri("http://localhost:" + this.mgt + "/actuator/restore")
                 .exchange()

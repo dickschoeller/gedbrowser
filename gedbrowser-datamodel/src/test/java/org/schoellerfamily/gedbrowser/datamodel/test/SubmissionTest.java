@@ -26,7 +26,7 @@ public class SubmissionTest {
 
     /** */
     @Test
-    public void testSubmissionGedObjectCompare() {
+    void testSubmissionGedObjectCompare() {
         final Root root = builder.getRoot();
         final Submission submission =
                 new Submission(root, new ObjectId("SUBN1"));
@@ -37,14 +37,14 @@ public class SubmissionTest {
 
     /** */
     @Test
-    public void testSubmissionGedObjectGetString() {
+    void testSubmissionGedObjectGetString() {
         final Submission submission = new Submission();
         assertTrue(submission.getString().isEmpty(), "Expected empty string");
     }
 
     /** */
     @Test
-    public void testSubmissionGedObjectStringGetString() {
+    void testSubmissionGedObjectStringGetString() {
         final Root root = builder.getRoot();
         final Submission submission =
                 new Submission(root, new ObjectId("SUBN1"));

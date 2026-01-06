@@ -34,7 +34,7 @@ public final class PlaceRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -43,7 +43,7 @@ public final class PlaceRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testAttributeListOpenRenderer() {
+    void testAttributeListOpenRenderer() {
         final PlaceRenderer renderer = new PlaceRenderer(new Place(), new GedRendererFactory(),
             anonymousContext);
         assertTrue(
@@ -56,7 +56,7 @@ public final class PlaceRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testListItemRenderer() {
+    void testListItemRenderer() {
         final PlaceRenderer renderer = new PlaceRenderer(new Place(), new GedRendererFactory(),
             anonymousContext);
         assertTrue(renderer.getListItemRenderer() instanceof PlaceListItemRenderer,
@@ -68,7 +68,7 @@ public final class PlaceRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         final PlaceRenderer renderer = new PlaceRenderer(new Place(), new GedRendererFactory(),
             anonymousContext);
         assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
@@ -80,7 +80,7 @@ public final class PlaceRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameIndexRenderer() {
+    void testNameIndexRenderer() {
         final PlaceRenderer renderer = new PlaceRenderer(new Place(), new GedRendererFactory(),
             anonymousContext);
         assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
@@ -92,7 +92,7 @@ public final class PlaceRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         final PlaceRenderer renderer = new PlaceRenderer(new Place(), new GedRendererFactory(),
             anonymousContext);
         assertTrue(renderer.getPhraseRenderer() instanceof PlacePhraseRenderer,

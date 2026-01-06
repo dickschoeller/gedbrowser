@@ -23,7 +23,7 @@ public final class UsersConfigurationTest {
 
     /** */
     @Test
-    public void testUserFile() {
+    void testUserFile() {
         final String userFile = gedbrowserHome + "/testUserFile.csv";
         final UsersConfiguration uc = new UsersConfiguration();
         final Users<? extends User> users = uc.readUserFile(userFile);
@@ -34,7 +34,7 @@ public final class UsersConfigurationTest {
 
     /** */
     @Test
-    public void testUserFileNotFound() {
+    void testUserFileNotFound() {
         final String userFile = gedbrowserHome + "/XYX";
         final UsersConfiguration uc = new UsersConfiguration();
         final Users<? extends User> users = uc.readUserFile(userFile);
@@ -45,7 +45,7 @@ public final class UsersConfigurationTest {
 
     /** */
     @Test
-    public void testUserFileNotFoundContainsGues() {
+    void testUserFileNotFoundContainsGues() {
         final String userFile = gedbrowserHome + "/XYX";
         final UsersConfiguration uc = new UsersConfiguration();
         final Users<? extends User> users = uc.readUserFile(userFile);

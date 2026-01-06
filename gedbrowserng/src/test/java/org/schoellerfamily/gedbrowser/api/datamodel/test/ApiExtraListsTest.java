@@ -11,7 +11,7 @@ import nl.jqno.equalsverifier.Warning;
 public class ApiExtraListsTest {
     /** */
     @Test
-    public void testHashAndEquals() {
+    void testHashAndEquals() {
         EqualsVerifier.forClass(ApiExtraListsTest.class)
             .suppress(Warning.STRICT_INHERITANCE, Warning.INHERITED_DIRECTLY_FROM_OBJECT)
             .verify();

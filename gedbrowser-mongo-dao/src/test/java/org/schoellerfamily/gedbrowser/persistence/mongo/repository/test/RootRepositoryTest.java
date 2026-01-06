@@ -110,14 +110,14 @@ public final class RootRepositoryTest {
 
     /** */
     @Test
-    public void testPersons() {
+    void testPersons() {
         final long expectedPersonCount = 16L;
         assertEquals(expectedPersonCount, personDocumentRepository.count(), "Count mismatch");
     }
 
     /** */
     @Test
-    public void testPerson() {
+    void testPerson() {
         final PersonDocument perdoc = personDocumentRepository
             .findByFileAndString(root.getFilename(), "I1");
         final Person person = (Person) toObjConverter.createGedObject(root, perdoc);
@@ -126,14 +126,14 @@ public final class RootRepositoryTest {
 
     /** */
     @Test
-    public void testFamilies() {
+    void testFamilies() {
         final long expectedFamilyCount = 6L;
         assertEquals(expectedFamilyCount, familyDocumentRepository.count(), "Should be 6 families");
     }
 
     /** */
     @Test
-    public void testFamilyHusband() {
+    void testFamilyHusband() {
         final String filename = root.getFilename();
         final FamilyDocument famdoc = familyDocumentRepository.findByFileAndString(filename, "F1");
         final Family family = (Family) toObjConverter.createGedObject(root, famdoc);
@@ -144,7 +144,7 @@ public final class RootRepositoryTest {
 
     /** */
     @Test
-    public void testFamilyWife() {
+    void testFamilyWife() {
         final String filename = root.getFilename();
         final FamilyDocument famdoc = familyDocumentRepository.findByFileAndString(filename, "F1");
         final Family family = (Family) toObjConverter.createGedObject(root, famdoc);
@@ -155,14 +155,14 @@ public final class RootRepositoryTest {
 
     /** */
     @Test
-    public void testSources() {
+    void testSources() {
         final long expectedSourceCount = 9L;
         assertEquals(expectedSourceCount, sourceDocumentRepository.count(), "Count mismatch");
     }
 
     /** */
     @Test
-    public void testSource() {
+    void testSource() {
         final SourceDocument soudoc = sourceDocumentRepository
             .findByFileAndString(root.getFilename(), "S2");
         final Source source = (Source) toObjConverter.createGedObject(root, soudoc);
@@ -171,7 +171,7 @@ public final class RootRepositoryTest {
 
     /** */
     @Test
-    public void testRoot() {
+    void testRoot() {
         final RootDocument rootdoc = rootDocumentRepository.findByFileAndString(root.getFilename(),
             root.getString());
         final Root newRoot = (Root) toObjConverter.createGedObject(null, rootdoc);
@@ -180,7 +180,7 @@ public final class RootRepositoryTest {
 
     /** */
     @Test
-    public void testWhole() {
+    void testWhole() {
         final Map<String, GedObject> map = root.getObjects();
         for (final Map.Entry<String, GedObject> entry : map.entrySet()) {
             final GedObject ged = entry.getValue();
@@ -281,7 +281,7 @@ public final class RootRepositoryTest {
 
     /** */
     @Test
-    public void testBogusNameRoot() {
+    void testBogusNameRoot() {
         final RootDocument rootdoc = rootDocumentRepository.findByFileAndString(root.getFilename(),
             "Mumbles");
         assertNull(rootdoc, "Bogus request should return null");
@@ -289,7 +289,7 @@ public final class RootRepositoryTest {
 
     /** */
     @Test
-    public void testBogusFileRoot() {
+    void testBogusFileRoot() {
         final RootDocument rootdoc = rootDocumentRepository.findByFileAndString("Mumbles",
             root.getString());
         assertNull(rootdoc, "Bogus request should return null");
@@ -297,27 +297,27 @@ public final class RootRepositoryTest {
 
     /** */
     @Test
-    public void testFindByRoot() {
+    void testFindByRoot() {
         assertThrows(IllegalArgumentException.class,
             () -> rootDocumentRepository.findByRootAndString(rootDocument, root.getString()));
     }
 
     /** */
     @Test
-    public void testCountRoot() {
+    void testCountRoot() {
         assertEquals(1, rootDocumentRepository.count(rootDocument), "Should only be one root");
     }
 
     /** */
     @Test
-    public void testCountFilename() {
+    void testCountFilename() {
         assertEquals(1, rootDocumentRepository.count(rootDocument.getFilename()),
             "Should only be one root");
     }
 
     /** */
     @Test
-    public void testFindAllRoot() {
+    void testFindAllRoot() {
         final Iterable<RootDocument> list = rootDocumentRepository.findAll(rootDocument);
         int count = 0;
         for (final RootDocument root1 : list) {
@@ -329,7 +329,7 @@ public final class RootRepositoryTest {
 
     /** */
     @Test
-    public void testFindAllFilename() {
+    void testFindAllFilename() {
         final Iterable<RootDocument> list = rootDocumentRepository
             .findAll(rootDocument.getFilename());
         int count = 0;
@@ -342,7 +342,7 @@ public final class RootRepositoryTest {
 
     /** */
     @Test
-    public void testLastId() {
+    void testLastId() {
         final String string = rootDocumentRepository.lastId(rootDocument);
         assertEquals("", string, "");
     }

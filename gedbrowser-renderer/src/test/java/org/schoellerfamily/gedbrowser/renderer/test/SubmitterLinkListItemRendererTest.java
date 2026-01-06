@@ -38,7 +38,7 @@ public final class SubmitterLinkListItemRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final Root root = new Root("Root");
         final Head head = new Head(root, "Head");
         root.insert(head);
@@ -54,7 +54,7 @@ public final class SubmitterLinkListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItem() {
+    void testRenderAsListItem() {
         final SubmitterLinkRenderer slr = new SubmitterLinkRenderer(submitterLink,
             new GedRendererFactory(), anonymousContext);
         final SubmitterLinkListItemRenderer lir = (SubmitterLinkListItemRenderer) slr
@@ -69,7 +69,7 @@ public final class SubmitterLinkListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItemNewLine() {
+    void testRenderAsListItemNewLine() {
         final SubmitterLinkRenderer slr = new SubmitterLinkRenderer(submitterLink,
             new GedRendererFactory(), anonymousContext);
         final SubmitterLinkListItemRenderer lir = (SubmitterLinkListItemRenderer) slr
@@ -84,7 +84,7 @@ public final class SubmitterLinkListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItemPad() {
+    void testRenderAsListItemPad() {
         final SubmitterLinkRenderer slr = new SubmitterLinkRenderer(submitterLink,
             new GedRendererFactory(), anonymousContext);
         final SubmitterLinkListItemRenderer lir = (SubmitterLinkListItemRenderer) slr

@@ -44,7 +44,7 @@ public class LivingControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testLivingControllerOK() {
+    void testLivingControllerOK() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser/living?db=gl120368";
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -60,7 +60,7 @@ public class LivingControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testLivingControllerBadDataSet() {
+    void testLivingControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri(URI.create("http://localhost:" + port + "/gedbrowser/living?db=XYZZY"))
                 .exchange()

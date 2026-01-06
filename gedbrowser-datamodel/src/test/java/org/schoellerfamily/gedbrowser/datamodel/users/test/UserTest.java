@@ -17,49 +17,49 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 public final class UserTest {
     /** */
     @Test
-    public void testDefaultUsername() {
+    void testDefaultUsername() {
         final UserImpl user = new UserImpl();
         assertNull(user.getUsername(), "Expected null user name");
     }
 
     /** */
     @Test
-    public void testDefaultFirstname() {
+    void testDefaultFirstname() {
         final UserImpl user = new UserImpl();
         assertNull(user.getFirstname(), "Expected null user first name");
     }
 
     /** */
     @Test
-    public void testDefaultLastname() {
+    void testDefaultLastname() {
         final UserImpl user = new UserImpl();
         assertNull(user.getLastname(), "Expected null last name");
     }
 
     /** */
     @Test
-    public void testDefaultEmail() {
+    void testDefaultEmail() {
         final UserImpl user = new UserImpl();
         assertNull(user.getEmail(), "Expected null email address");
     }
 
     /** */
     @Test
-    public void testDefaultPassword() {
+    void testDefaultPassword() {
         final UserImpl user = new UserImpl();
         assertNull(user.getPassword(), "Expected null password");
     }
 
     /** */
     @Test
-    public void testDefaultRoles() {
+    void testDefaultRoles() {
         final UserImpl user = new UserImpl();
         assertEquals(0, user.getRoles().length, "Expected empty roles list");
     }
 
     /** */
     @Test
-    public void testUsername() {
+    void testUsername() {
         final UserImpl user = new UserImpl();
         user.setUsername("test");
         assertEquals("test", user.getUsername(), "Username mismatch");
@@ -67,7 +67,7 @@ public final class UserTest {
 
     /** */
     @Test
-    public void testFirstname() {
+    void testFirstname() {
         final UserImpl user = new UserImpl();
         user.setFirstname("first");
         assertEquals("first", user.getFirstname(), "First name mismatch");
@@ -75,7 +75,7 @@ public final class UserTest {
 
     /** */
     @Test
-    public void testLastname() {
+    void testLastname() {
         final UserImpl user = new UserImpl();
         user.setLastname("last");
         assertEquals("last", user.getLastname(), "Last name mismatch");
@@ -83,7 +83,7 @@ public final class UserTest {
 
     /** */
     @Test
-    public void testEmail() {
+    void testEmail() {
         final UserImpl user = new UserImpl();
         user.setEmail("test@test.com");
         assertEquals("test@test.com", user.getEmail(), "Email mismatch");
@@ -91,7 +91,7 @@ public final class UserTest {
 
     /** */
     @Test
-    public void testPassword() {
+    void testPassword() {
         final UserImpl user = new UserImpl();
         user.setPassword("password");
         assertEquals("password", user.getPassword(), "Password mismatch");
@@ -99,7 +99,7 @@ public final class UserTest {
 
     /** */
     @Test
-    public void testOneRole() {
+    void testOneRole() {
         final UserImpl user = new UserImpl();
         user.addRole("USER");
         assertEquals(1, user.getRoles().length, "Expected 1 role");
@@ -107,7 +107,7 @@ public final class UserTest {
 
     /** */
     @Test
-    public void testTwoRoles() {
+    void testTwoRoles() {
         final UserImpl user = new UserImpl();
         user.addRole("USER");
         user.addRole("ADMIN");
@@ -116,7 +116,7 @@ public final class UserTest {
 
     /** */
     @Test
-    public void testRoleSet() {
+    void testRoleSet() {
         final UserImpl user = new UserImpl();
         user.addRole("USER");
         user.addRole("USER");
@@ -125,7 +125,7 @@ public final class UserTest {
 
     /** */
     @Test
-    public void testOneRoleContent() {
+    void testOneRoleContent() {
         final UserImpl user = new UserImpl();
         user.addRole("USER");
         assertEquals(UserRoleName.USER, user.getRoles()[0], "Mismatched role");
@@ -133,7 +133,7 @@ public final class UserTest {
 
     /** */
     @Test
-    public void testHasRole() {
+    void testHasRole() {
         final UserImpl user = new UserImpl();
         user.addRole("USER");
         user.addRole("ADMIN");
@@ -143,7 +143,7 @@ public final class UserTest {
 
     /** */
     @Test
-    public void testHasRoleNegative() {
+    void testHasRoleNegative() {
         final UserImpl user = new UserImpl();
         user.addRole("USER");
         user.addRole("IDIOT");
@@ -152,7 +152,7 @@ public final class UserTest {
 
     /** */
     @Test
-    public void testClearRoles() {
+    void testClearRoles() {
         final UserImpl user = new UserImpl();
         user.addRole("USER");
         user.addRole("IDIOT");

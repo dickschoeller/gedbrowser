@@ -17,14 +17,14 @@ public final class DateTest {
 
     /** */
     @Test
-    public void testDateNullParentGedObject() {
+    void testDateNullParentGedObject() {
         final Date date1 = new Date(null);
         assertNullParent(date1);
     }
 
     /** */
     @Test
-    public void testDateRootParentGedObject() {
+    void testDateRootParentGedObject() {
         final Date date2 = new Date(root);
         assertRootParent(date2);
     }
@@ -53,497 +53,497 @@ public final class DateTest {
 
     /** */
     @Test
-    public void test1NullDateNullParent() {
+    void test1NullDateNullParent() {
         final Date date1 = new Date(null, null);
         assertNullParent(date1);
     }
 
     /** */
     @Test
-    public void testNullDateRootParent() {
+    void testNullDateRootParent() {
         final Date date2 = new Date(root, null);
         assertRootParent(date2);
     }
 
     /** */
     @Test
-    public void testEmptyStringNullParent() {
+    void testEmptyStringNullParent() {
         final Date date3 = new Date(null, "");
         assertNullParent(date3);
     }
 
     /** */
     @Test
-    public void testEmptyStringRootParent() {
+    void testEmptyStringRootParent() {
         final Date date4 = new Date(root, "");
         assertRootParent(date4);
     }
 
     /** */
     @Test
-    public void testDateGedObjectString() {
+    void testDateGedObjectString() {
         final Date date6 = new Date(root, "2 JAN 2013");
         assertEquals("2 JAN 2013", date6.getString(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGedObjectStringNullParent() {
+    void testDateGedObjectStringNullParent() {
         final Date date5 = new Date(null, "1 JAN 2013");
         assertNull(date5.getParent(), "Expected null parent");
     }
 
     /** */
     @Test
-    public void testDateGedObjectStringRootParent() {
+    void testDateGedObjectStringRootParent() {
         final Date date6 = new Date(root, "2 JAN 2013");
         assertEquals(root, date6.getParent(), "Expected root as parent");
     }
 
     /** */
     @Test
-    public void testDateGedObjectDate() {
+    void testDateGedObjectDate() {
         final Date date6 = new Date(root, "2 JAN 2013");
         assertEquals("2 JAN 2013", date6.getDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGedObjectDateNullParent() {
+    void testDateGedObjectDateNullParent() {
         final Date date5 = new Date(null, "1 JAN 2013");
         assertNull(date5.getParent(), "Expected null parent");
     }
 
     /** */
     @Test
-    public void testDateGedObjectDateRootParent() {
+    void testDateGedObjectDateRootParent() {
         final Date date6 = new Date(root, "2 JAN 2013");
         assertEquals(root, date6.getParent(), "Expected root as parent");
     }
 
     /** */
     @Test
-    public void testDateGedObjectSortDate() {
+    void testDateGedObjectSortDate() {
         final Date date6 = new Date(root, "02 JAN 2013");
         assertEquals("20130102", date6.getSortDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGedObjectSortDateNullParent() {
+    void testDateGedObjectSortDateNullParent() {
         final Date date5 = new Date(null, "01 JAN 2013");
         assertNull(date5.getParent(), "Expceted null parent");
     }
 
     /** */
     @Test
-    public void testDateGedObjectSortDateRootParent() {
+    void testDateGedObjectSortDateRootParent() {
         final Date date6 = new Date(root, "02 JAN 2013");
         assertEquals(root, date6.getParent(), "Expected root as parent");
     }
 
     /** */
     @Test
-    public void testDateGedObjectSortDateNoDay() {
+    void testDateGedObjectSortDateNoDay() {
         final Date date6 = new Date(root, "MAR 2013");
         assertEquals("20130301", date6.getSortDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGedObjectSortDateNoDayNullParent() {
+    void testDateGedObjectSortDateNoDayNullParent() {
         final Date date5 = new Date(null, "FEB 2013");
         assertNull(date5.getParent(), "Expected null parent");
     }
 
     /** */
     @Test
-    public void testDateGedObjectSortDateNoDayRootParent() {
+    void testDateGedObjectSortDateNoDayRootParent() {
         final Date date6 = new Date(root, "MAR 2013");
         assertEquals(root, date6.getParent(), "Expected root as parent");
     }
 
     /** */
     @Test
-    public void testDateGedObjectSortDateNoMonth() {
+    void testDateGedObjectSortDateNoMonth() {
         final Date date5 = new Date(null, "2013");
         assertEquals("20130101", date5.getSortDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGedObjectSortDateNoMonthNullParent() {
+    void testDateGedObjectSortDateNoMonthNullParent() {
         final Date date5 = new Date(null, "2013");
         assertNull(date5.getParent(), "Expected null parent");
     }
 
     /** */
     @Test
-    public void testDateGedObjectSortDateNoMonthRootParent() {
+    void testDateGedObjectSortDateNoMonthRootParent() {
         final Date date6 = new Date(root, "2013");
         assertEquals(root, date6.getParent(), "Expected root as parent");
     }
 
     /** */
     @Test
-    public void testDateGedObjectYearNoDay() {
+    void testDateGedObjectYearNoDay() {
         final Date date5 = new Date(null, "FEB 2013");
         assertEquals("2013", date5.getYear(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGedObjectYearNoDayNullParent() {
+    void testDateGedObjectYearNoDayNullParent() {
         final Date date5 = new Date(null, "FEB 2013");
         assertNull(date5.getParent(), "Parent should be null");
     }
 
     /** */
     @Test
-    public void testDateGetYearNoDay() {
+    void testDateGetYearNoDay() {
         final Date date6 = new Date(root, "FEB 2014");
         assertEquals("2014", date6.getYear(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetYearAboutMonth() {
+    void testDateGetYearAboutMonth() {
         final Date date6 = new Date(root, "ABT MAR 2014");
         assertEquals("2014", date6.getYear(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetYearAfterMonth() {
+    void testDateGetYearAfterMonth() {
         final Date date6 = new Date(root, "AFT MAR 2014");
         assertEquals("2014", date6.getYear(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetYearBeforeMonth() {
+    void testDateGetYearBeforeMonth() {
         final Date date6 = new Date(root, "BEF MAR 2014");
         assertEquals("2014", date6.getYear(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetYearBetweenMonth() {
+    void testDateGetYearBetweenMonth() {
         final Date date6 = new Date(root, "BETWEEN FEB 2014 AND MAR 2015");
         assertEquals("2014", date6.getYear(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetYearNoMonth() {
+    void testDateGetYearNoMonth() {
         final Date date5 = new Date(root, "2013");
         assertEquals("2013", date5.getYear(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetYearAbout() {
+    void testDateGetYearAbout() {
         final Date date6 = new Date(root, "ABT 2014");
         assertEquals("2014", date6.getYear(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetYearAfter() {
+    void testDateGetYearAfter() {
         final Date date6 = new Date(root, "AFT 2014");
         assertEquals("2014", date6.getYear(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetYearBefore() {
+    void testDateGetYearBefore() {
         final Date date6 = new Date(root, "BEF 2014");
         assertEquals("2014", date6.getYear(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetYearBetween() {
+    void testDateGetYearBetween() {
         final Date date6 = new Date(root, "BETWEEN 2013 AND 2014");
         assertEquals("2013", date6.getYear(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetYearBrokenBetween() {
+    void testDateGetYearBrokenBetween() {
         final Date date6 = new Date(root, "BETWEEN 2013 2014");
         assertEquals("2013", date6.getYear(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetYearUnknown() {
+    void testDateGetYearUnknown() {
         final Date date6 = new Date(root, "Unknown");
         assertEquals("Unknown", date6.getYear(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetYearJunk() {
+    void testDateGetYearJunk() {
         final Date date6 = new Date(root, "XYZZY PLUGH");
         assertEquals("Unknown", date6.getYear(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetSortDateNoDay() {
+    void testDateGetSortDateNoDay() {
         final Date date6 = new Date(root, "FEB 2014");
         assertEquals("20140201", date6.getSortDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetSortDateAboutMonth() {
+    void testDateGetSortDateAboutMonth() {
         final Date date6 = new Date(root, "ABT MAR 2014");
         assertEquals("20140301", date6.getSortDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetSortDateAfterMonth() {
+    void testDateGetSortDateAfterMonth() {
         final Date date6 = new Date(root, "AFT MAR 2014");
         assertEquals("20140301", date6.getSortDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetSortDateBeforeMonth() {
+    void testDateGetSortDateBeforeMonth() {
         final Date date6 = new Date(root, "BEF MAR 2014");
         assertEquals("20140301", date6.getSortDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetSortDateBetweenMonth() {
+    void testDateGetSortDateBetweenMonth() {
         final Date date6 = new Date(root, "BETWEEN FEB 2014 AND MAR 2015");
         assertEquals("20140201", date6.getSortDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetSortDateNoMonth() {
+    void testDateGetSortDateNoMonth() {
         final Date date5 = new Date(root, "2013");
         assertEquals("20130101", date5.getSortDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetSortDateAbout() {
+    void testDateGetSortDateAbout() {
         final Date date6 = new Date(root, "ABT 2014");
         assertEquals("20140101", date6.getSortDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetSortDateAfter() {
+    void testDateGetSortDateAfter() {
         final Date date6 = new Date(root, "AFT 2014");
         assertEquals("20140101", date6.getSortDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetSortDateBefore() {
+    void testDateGetSortDateBefore() {
         final Date date6 = new Date(root, "BEF 2014");
         assertEquals("20140101", date6.getSortDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetSortDateBetween() {
+    void testDateGetSortDateBetween() {
         final Date date6 = new Date(root, "BETWEEN 2013 AND 2014");
         assertEquals("20130101", date6.getSortDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetSortDateBrokenBetween() {
+    void testDateGetSortDateBrokenBetween() {
         final Date date6 = new Date(root, "BETWEEN 2013 2014");
         assertEquals("20130101", date6.getSortDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetSortDateUnknown() {
+    void testDateGetSortDateUnknown() {
         final Date date6 = new Date(root, "Unknown");
         assertEquals("Unknown", date6.getSortDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetSortDateJunk() {
+    void testDateGetSortDateJunk() {
         final Date date6 = new Date(root, "XYZZY PLUGH");
         assertEquals("Unknown", date6.getSortDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetEstimateDateNoDay() {
+    void testDateGetEstimateDateNoDay() {
         final Date date6 = new Date(root, "FEB 2014");
         assertEquals("20140201", date6.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetEstimateDateAboutMonth() {
+    void testDateGetEstimateDateAboutMonth() {
         final Date date6 = new Date(root, "ABT MAR 2014");
         assertEquals("20140301", date6.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetEstimateDateAfterMonth() {
+    void testDateGetEstimateDateAfterMonth() {
         final Date date6 = new Date(root, "AFT MAR 2014");
         assertEquals("20140401", date6.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetEstimateDateBeforeMonth() {
+    void testDateGetEstimateDateBeforeMonth() {
         final Date date6 = new Date(root, "BEF MAR 2014");
         assertEquals("20140228", date6.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetEstimateDateBeforeMonthLeap() {
+    void testDateGetEstimateDateBeforeMonthLeap() {
         final Date date6 = new Date(root, "BEF MAR 2016");
         assertEquals("20160229", date6.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetEstimateDateBetweenMonth() {
+    void testDateGetEstimateDateBetweenMonth() {
         final Date date6 = new Date(root, "BETWEEN FEB 2014 AND MAR 2015");
         assertEquals("20140201", date6.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetEstimateDateNoMonth() {
+    void testDateGetEstimateDateNoMonth() {
         final Date date5 = new Date(root, "2013");
         assertEquals("20130101", date5.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetEstimateDateAbout() {
+    void testDateGetEstimateDateAbout() {
         final Date date6 = new Date(root, "ABT 2014");
         assertEquals("20140101", date6.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetEstimateDateAfter() {
+    void testDateGetEstimateDateAfter() {
         final Date date6 = new Date(root, "AFT 2014");
         assertEquals("20150101", date6.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetEstimateDateBefore() {
+    void testDateGetEstimateDateBefore() {
         final Date date6 = new Date(root, "BEF 2014");
         assertEquals("20131231", date6.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetEstimateDateBetween() {
+    void testDateGetEstimateDateBetween() {
         final Date date6 = new Date(root, "BETWEEN 2013 AND 2014");
         assertEquals("20130101", date6.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetEstimateDateBrokenBetween() {
+    void testDateGetEstimateDateBrokenBetween() {
         final Date date6 = new Date(root, "BETWEEN 2013 2014");
         assertEquals("20130101", date6.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetEstimateDateUnknown() {
+    void testDateGetEstimateDateUnknown() {
         final Date date6 = new Date(root, "Unknown");
         assertEquals("Unknown", date6.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetEstimateDateJunk() {
+    void testDateGetEstimateDateJunk() {
         final Date date6 = new Date(root, "XYZZY PLUGH");
         assertEquals("Unknown", date6.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetEstimateDateAfterSpecific() {
+    void testDateGetEstimateDateAfterSpecific() {
         final Date date6 = new Date(root, "AFT 31 MAR 2014");
         assertEquals("20140401", date6.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateGetEstimateDateBeforeSpecific() {
+    void testDateGetEstimateDateBeforeSpecific() {
         final Date date6 = new Date(root, "BEF 01 MAR 2014");
         assertEquals("20140228", date6.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateFTM1() {
+    void testDateFTM1() {
         final Date date = new Date(root, "(1-2 MAR 2014)");
         assertEquals("20140302", date.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateFTM2() {
+    void testDateFTM2() {
         final Date date = new Date(root, "(Abt 1-2 MAR 2014)");
         assertEquals("20140302", date.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateFTM3() {
+    void testDateFTM3() {
         final Date date = new Date(root, "(Bef 1-2 MAR 2014)");
         assertEquals("20140301", date.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateFTM4() {
+    void testDateFTM4() {
         final Date date = new Date(root, "(Aft 1-2 MAR 2014)");
         assertEquals("20140303", date.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateFTM5() {
+    void testDateFTM5() {
         final Date date = new Date(root, "Est 2 MAR 2014");
         assertEquals("20140302", date.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateFTM6() {
+    void testDateFTM6() {
         final Date date = new Date(root, "FROM 1 MAR 2014 TO 10 MAR 2014");
         assertEquals("20140301", date.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateFTM7() {
+    void testDateFTM7() {
         final Date date = new Date(root, "(FROM 1 MAR 2014 TO 10 MAR 2014)");
         assertEquals("20140301", date.getEstimateDate(), "Date mismatch");
     }
 
     /** */
     @Test
-    public void testDateFTM8() {
+    void testDateFTM8() {
         final Date date = new Date(root, "(1 MAR 2014-10 MAR 2014)");
         assertEquals("20140301", date.getEstimateDate(), "Date mismatch");
     }

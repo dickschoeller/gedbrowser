@@ -42,7 +42,7 @@ public class LoadEndpointTest {
 
     /** */
     @Test
-    public final void testAReturn200WhenSendingRequestToClearEndpoint() {
+    void testAReturn200WhenSendingRequestToClearEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri("http://localhost:" + this.mgt + "/actuator/clear")
                 .exchange()
@@ -55,7 +55,7 @@ public class LoadEndpointTest {
 
     /** */
     @Test
-    public final void testBReturn200WhenSendingRequestToLoadEndpoint() {
+    void testBReturn200WhenSendingRequestToLoadEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri("http://localhost:" + this.mgt + "/actuator/load")
                 .exchange()
@@ -68,7 +68,7 @@ public class LoadEndpointTest {
 
     /** */
     @Test
-    public final void testCReturn200WhenSendingRequestToClearEndpoint() {
+    void testCReturn200WhenSendingRequestToClearEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri("http://localhost:" + this.mgt + "/actuator/clear")
                 .exchange()
@@ -81,7 +81,7 @@ public class LoadEndpointTest {
 
     /** */
     @Test
-    public final void testDReturn200WhenSendingRequestToLoadAndFindEndpoint() {
+    void testDReturn200WhenSendingRequestToLoadAndFindEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri("http://localhost:" + this.mgt + "/actuator/loadAndFind")
                 .exchange()

@@ -50,68 +50,68 @@ public final class WifeTest {
 
     /** */
     @Test
-    public void testEmptyGetMother() {
+    void testEmptyGetMother() {
         final Wife wife = new Wife();
         assertFalse(wife.getMother().isSet(), "Should not be set");
     }
 
     /** */
     @Test
-    public void testGetMother1() {
+    void testGetMother1() {
         assertEquals(person2, wife1.getMother(), "Person's mother doesn't match");
     }
 
     /** */
     @Test
-    public void testGetMother2a() {
+    void testGetMother2a() {
         assertEquals(person2, wife2a.getMother(), "Person's mother doesn't match");
     }
 
     /** */
     @Test
-    public void testGetMother2b() {
+    void testGetMother2b() {
         assertEquals(person3, wife2b.getMother(), "Person's mother doesn't match");
     }
 
     /** */
     @Test
-    public void testGetSpouse1Set() {
+    void testGetSpouse1Set() {
         assertTrue(wife1.getSpouse().isSet(), "Person's spouse isn't set");
     }
 
     /** */
     @Test
-    public void testGetSpouse2aSet() {
+    void testGetSpouse2aSet() {
         assertTrue(wife2a.getSpouse().isSet(), "Person's spouse isn't set");
     }
 
     /** */
     @Test
-    public void testGetSpouse2bSet() {
+    void testGetSpouse2bSet() {
         assertTrue(wife2b.getSpouse().isSet(), "Person's spouse isn't set");
     }
 
     /** */
     @Test
-    public void testGetSpouse1() {
+    void testGetSpouse1() {
         assertEquals(person2, wife1.getSpouse(), "Person's spouse doesn't match");
     }
 
     /** */
     @Test
-    public void testGetSpouse2a() {
+    void testGetSpouse2a() {
         assertEquals(person2, wife2a.getSpouse(), "Person's spouse doesn't match");
     }
 
     /** */
     @Test
-    public void testGetSpouse2b() {
+    void testGetSpouse2b() {
         assertEquals(person3, wife2b.getSpouse(), "Person's spouse doesn't match");
     }
 
     /** */
     @Test
-    public void testWifeGedObjectMotherNotSet() {
+    void testWifeGedObjectMotherNotSet() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily("F1");
         final Wife wife = new Wife(family, "Wife", null);
@@ -120,7 +120,7 @@ public final class WifeTest {
 
     /** */
     @Test
-    public void testWifeGedObjectStringMotherNotSet() {
+    void testWifeGedObjectStringMotherNotSet() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily("F1");
         final Wife wife = new Wife(family, WIFE_TAG, null);
@@ -129,7 +129,7 @@ public final class WifeTest {
 
     /** */
     @Test
-    public void testWifeGedObjectStringStringMother() {
+    void testWifeGedObjectStringStringMother() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily("F1");
         final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));

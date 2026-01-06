@@ -15,28 +15,28 @@ import nl.jqno.equalsverifier.Warning;
 public class ApiAttributeTest {
     /** */
     @Test
-    public void testDefaultConstructorType() {
+    void testDefaultConstructorType() {
         final ApiAttribute o = ApiAttribute.builder().type("").string("").build();
         assertEquals("", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
-    public void testDefaultConstructorString() {
+    void testDefaultConstructorString() {
         final ApiAttribute o = ApiAttribute.builder().type("").string("").build();
         assertEquals("", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
-    public void testDefaultConstructorTail() {
+    void testDefaultConstructorTail() {
         final ApiAttribute o = ApiAttribute.builder().type("").string("").build();
         assertEquals("", o.getTail(), "tail mismatch");
     }
 
     /** */
     @Test
-    public void testConstructorType() {
+    void testConstructorType() {
         final ApiAttribute o = ApiAttribute.builder()
             .type("type")
             .string("string")
@@ -47,7 +47,7 @@ public class ApiAttributeTest {
 
     /** */
     @Test
-    public void testConstructorString() {
+    void testConstructorString() {
         final ApiAttribute o = ApiAttribute.builder()
             .type("type")
             .string("string")
@@ -58,7 +58,7 @@ public class ApiAttributeTest {
 
     /** */
     @Test
-    public void testConstructorTail() {
+    void testConstructorTail() {
         final ApiAttribute o = ApiAttribute.builder()
             .type("type")
             .string("string")
@@ -69,7 +69,7 @@ public class ApiAttributeTest {
 
     /** */
     @Test
-    public void testConstructorNullAttributes() {
+    void testConstructorNullAttributes() {
         final ApiAttribute o = ApiAttribute.builder()
             .type("type")
             .string("string")
@@ -80,7 +80,7 @@ public class ApiAttributeTest {
 
     /** */
     @Test
-    public void testIsType() {
+    void testIsType() {
         final ApiAttribute o = ApiAttribute.builder()
             .type("type")
             .string("string")
@@ -91,7 +91,7 @@ public class ApiAttributeTest {
 
     /** */
     @Test
-    public void testAccept() {
+    void testAccept() {
         final ApiAttribute o = ApiAttribute.builder()
             .type("type")
             .string("string")
@@ -104,7 +104,7 @@ public class ApiAttributeTest {
 
     /** */
     @Test
-    public void testHashAndEquals() {
+    void testHashAndEquals() {
         EqualsVerifier.forClass(ApiAttribute.class).suppress(Warning.STRICT_INHERITANCE).verify();
     }
 }

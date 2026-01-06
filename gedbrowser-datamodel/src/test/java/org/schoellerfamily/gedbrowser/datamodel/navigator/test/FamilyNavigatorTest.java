@@ -48,35 +48,35 @@ public final class FamilyNavigatorTest {
 
     /** */
     @Test
-    public void testGetFather() {
+    void testGetFather() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         assertEquals(person1, navigator.getFather(), "Father mismatch");
     }
 
     /** */
     @Test
-    public void testGetHusband() {
+    void testGetHusband() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         assertEquals(person1.getString(), navigator.getHusband().getToString(), "Husband mismatch");
     }
 
     /** */
     @Test
-    public void testGetMother() {
+    void testGetMother() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         assertEquals(person2, navigator.getMother(), "Mother mismatch");
     }
 
     /** */
     @Test
-    public void testGetWife() {
+    void testGetWife() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         assertEquals(person2.getString(), navigator.getWife().getToString(), "Wife mismatch");
     }
 
     /** */
     @Test
-    public void testGetChildren() {
+    void testGetChildren() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final List<Person> children = navigator.getChildren();
         assertTrue(children.contains(person3) && children.size() == 1,
@@ -85,7 +85,7 @@ public final class FamilyNavigatorTest {
 
     /** */
     @Test
-    public void testNullFamily() {
+    void testNullFamily() {
         final FamC famc = new FamC(null, "F8888", null);
         final FamilyNavigator navigator = new FamilyNavigator(famc);
         assertFalse(navigator.getFamily().isSet(), "Expected null");

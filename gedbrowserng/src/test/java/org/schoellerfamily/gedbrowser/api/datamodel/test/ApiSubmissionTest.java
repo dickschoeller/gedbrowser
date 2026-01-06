@@ -18,7 +18,7 @@ import nl.jqno.equalsverifier.Warning;
 public class ApiSubmissionTest {
     /** */
     @Test
-    public void testDefaultConstructorType() {
+    void testDefaultConstructorType() {
         final ApiSubmission o = ApiSubmission.builder()
             .type("")
             .string("")
@@ -29,7 +29,7 @@ public class ApiSubmissionTest {
 
     /** */
     @Test
-    public void testDefaultConstructorString() {
+    void testDefaultConstructorString() {
         final ApiSubmission o = ApiSubmission.builder()
             .type("")
             .string("")
@@ -40,7 +40,7 @@ public class ApiSubmissionTest {
 
     /** */
     @Test
-    public void testDefaultConstructorAttributes() {
+    void testDefaultConstructorAttributes() {
         final ApiSubmission o = ApiSubmission.builder()
             .type("")
             .string("")
@@ -51,7 +51,7 @@ public class ApiSubmissionTest {
 
     /** */
     @Test
-    public void testConstructorType() {
+    void testConstructorType() {
         final ApiSubmission o = ApiSubmission.builder()
             .type("type")
             .string("string")
@@ -62,7 +62,7 @@ public class ApiSubmissionTest {
 
     /** */
     @Test
-    public void testConstructorString() {
+    void testConstructorString() {
         final ApiSubmission o = ApiSubmission.builder()
             .type("type")
             .string("string")
@@ -73,7 +73,7 @@ public class ApiSubmissionTest {
 
     /** */
     @Test
-    public void testConstructorNoAttributes() {
+    void testConstructorNoAttributes() {
         final ApiSubmission o = ApiSubmission.builder()
             .type("type")
             .string("string")
@@ -84,7 +84,7 @@ public class ApiSubmissionTest {
 
     /** */
     @Test
-    public void testConstructorNullAttributes() {
+    void testConstructorNullAttributes() {
         final ApiSubmission o = ApiSubmission.builder()
             .type("type")
             .string("string")
@@ -95,7 +95,7 @@ public class ApiSubmissionTest {
 
     /** */
     @Test
-    public void testConstructorWithAttributes() {
+    void testConstructorWithAttributes() {
         final List<ApiAttribute> attributes = List.of(ApiAttribute.builder()
             .type("attribute")
             .string("a string")
@@ -112,7 +112,7 @@ public class ApiSubmissionTest {
 
     /** */
     @Test
-    public void testIsType() {
+    void testIsType() {
         final ApiSubmission o = ApiSubmission.builder()
             .type("type")
             .string("string")
@@ -123,7 +123,7 @@ public class ApiSubmissionTest {
 
     /** */
     @Test
-    public void testAccept() {
+    void testAccept() {
         final ApiSubmission o = ApiSubmission.builder()
             .type("type")
             .string("string")
@@ -136,7 +136,7 @@ public class ApiSubmissionTest {
 
     /** */
     @Test
-    public void testHashAndEquals() {
+    void testHashAndEquals() {
         EqualsVerifier.forClass(ApiSubmission.class).suppress(Warning.STRICT_INHERITANCE).verify();
     }
 }

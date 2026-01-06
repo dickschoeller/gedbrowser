@@ -70,7 +70,7 @@ public class SubmissionCrudTest {
 
     /** */
     @Test
-    public final void testGetSubmissionsGl120368() {
+    void testGetSubmissionsGl120368() {
         log.info("Beginning testGetSubmissionsGl120368");
         final List<ApiSubmission> list = crud.readAll(helper.getDb());
         final ApiSubmission firstSubmission = list.get(0);
@@ -83,7 +83,7 @@ public class SubmissionCrudTest {
 
     /** */
     @Test
-    public final void testGetSubmissionsMiniSchoeller() {
+    void testGetSubmissionsMiniSchoeller() {
         log.info("Beginning testGetSubmissionsMiniSchoeller");
         final List<ApiSubmission> list = crud.readAll("mini-schoeller");
         assertTrue(list.isEmpty(), "should be no submissions");
@@ -91,7 +91,7 @@ public class SubmissionCrudTest {
 
     /** */
     @Test
-    public final void testGetSubmissionsGl120368B1() {
+    void testGetSubmissionsGl120368B1() {
         log.info("Beginning testGetSubmissionsGl120368B1");
         final ApiSubmission submission = crud.readOne(helper.getDb(), "B1");
         final ApiAttribute firstAttribute = submission.getAttributes().get(0);
@@ -102,7 +102,7 @@ public class SubmissionCrudTest {
 
     /** */
     @Test
-    public final void testGetSubmissionsGl120368Xyzzy() {
+    void testGetSubmissionsGl120368Xyzzy() {
         log.info("Beginning testGetSubmissionsGl120368Xyzzy");
         try {
             final ApiSubmission submission = crud.readOne(helper.getDb(), "Xyzzy");
@@ -115,7 +115,7 @@ public class SubmissionCrudTest {
 
     /** */
     @Test
-    public final void testCreateSubmissionsSimple() {
+    void testCreateSubmissionsSimple() {
         log.info("Beginning testCreateSubmissionsSimple");
         final ApiSubmission inSubmission = ApiSubmission.builder()
             .type("submission")
@@ -128,7 +128,7 @@ public class SubmissionCrudTest {
 
     /** */
     @Test
-    public final void testDeleteSubmission() {
+    void testDeleteSubmission() {
         log.info("Beginning testDeleteSubmission");
         final ApiSubmission inSubmission = ApiSubmission.builder()
             .type("submission")
@@ -144,7 +144,7 @@ public class SubmissionCrudTest {
 
     /** */
     @Test
-    public final void testDeleteSubmissionNotFound() {
+    void testDeleteSubmissionNotFound() {
         log.info("Beginning testDeleteSubmissionNotFound");
         try {
             final ApiSubmission submission = crud.deleteOne(helper.getDb(), "XXXXXXX");
@@ -157,7 +157,7 @@ public class SubmissionCrudTest {
 
     /** */
     @Test
-    public final void testDeleteSubmissionDatabaseNotFound() {
+    void testDeleteSubmissionDatabaseNotFound() {
         log.info("Beginning testDeleteSubmissionDatabaseNotFound");
         try {
             crud.deleteOne("XYZZY", "SUBM1");
@@ -169,7 +169,7 @@ public class SubmissionCrudTest {
 
     /** */
     @Test
-    public final void testUpdateSubmissionWithNote() {
+    void testUpdateSubmissionWithNote() {
         log.info("Beginning testUpdateSubmissionWithNote");
         final ApiSubmission inSubmission = ApiSubmission.builder()
             .type("submission")

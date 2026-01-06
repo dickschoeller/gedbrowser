@@ -47,7 +47,7 @@ public final class OrderAnalyzerChildrenTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithFamilyOneUndatedChildMatch() {
+    void testPersonWithFamilyOneUndatedChildMatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Family family = familyBuilder().createFamily("F1");
@@ -61,7 +61,7 @@ public final class OrderAnalyzerChildrenTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithFamilyTwoUndatedChildrenMatch() {
+    void testPersonWithFamilyTwoUndatedChildrenMatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Family family = familyBuilder().createFamily("F1");
@@ -77,7 +77,7 @@ public final class OrderAnalyzerChildrenTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithFamilyTwoChildren1stUndatedMatch() {
+    void testPersonWithFamilyTwoChildren1stUndatedMatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Family family = familyBuilder().createFamily("F1");
@@ -95,7 +95,7 @@ public final class OrderAnalyzerChildrenTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithFamilyTwoChildren1stUndatedBirthMatch() {
+    void testPersonWithFamilyTwoChildren1stUndatedBirthMatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Family family = familyBuilder().createFamily("F1");
@@ -114,7 +114,7 @@ public final class OrderAnalyzerChildrenTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithFamilyTwoChildren2ndUndatedMatch() {
+    void testPersonWithFamilyTwoChildren2ndUndatedMatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Family family = familyBuilder().createFamily("F1");
@@ -132,7 +132,7 @@ public final class OrderAnalyzerChildrenTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithFamilyTwoChildren2ndUndatedBirthMatch() {
+    void testPersonWithFamilyTwoChildren2ndUndatedBirthMatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Family family = familyBuilder().createFamily("F1");
@@ -151,7 +151,7 @@ public final class OrderAnalyzerChildrenTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithFamilyTwoChildrenDatedInOrderMatch() {
+    void testPersonWithFamilyTwoChildrenDatedInOrderMatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Family family = familyBuilder().createFamily("F1");
@@ -169,7 +169,7 @@ public final class OrderAnalyzerChildrenTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithFamilyTwoChildrenDatedOutOfOrderMisMatch() {
+    void testPersonWithFamilyTwoChildrenDatedOutOfOrderMisMatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Family family = familyBuilder().createFamily("F1");
@@ -187,7 +187,7 @@ public final class OrderAnalyzerChildrenTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithFamilyTwoChildrenDatedNearBirthInOrderMatch() {
+    void testPersonWithFamilyTwoChildrenDatedNearBirthInOrderMatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Family family = familyBuilder().createFamily("F1");
@@ -206,7 +206,7 @@ public final class OrderAnalyzerChildrenTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithFamilyTwoChildrenDateBaptismOutOrderMisatch() {
+    void testPersonWithFamilyTwoChildrenDateBaptismOutOrderMisatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Family family = familyBuilder().createFamily("F1");
@@ -225,7 +225,7 @@ public final class OrderAnalyzerChildrenTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithFamilyTwoChildrenNamingBirthOutOrderMisatch() {
+    void testPersonWithFamilyTwoChildrenNamingBirthOutOrderMisatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Family family = familyBuilder().createFamily("F1");
@@ -244,7 +244,7 @@ public final class OrderAnalyzerChildrenTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithFamily3ChildrenChristeningBirthOutOrderMisatch() {
+    void testPersonWithFamily3ChildrenChristeningBirthOutOrderMisatch() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Family family = familyBuilder().createFamily("F1");

@@ -46,7 +46,7 @@ public final class PersonAttributeListOpenRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person = builder.createPerson("I1");
         anonymousContext = RenderingContext.anonymous(appInfo);
@@ -54,7 +54,7 @@ public final class PersonAttributeListOpenRendererTest {
 
     /** */
     @Test
-    public void testGetAttributeListOpenNull() {
+    void testGetAttributeListOpenNull() {
         final Name name = new Name(person);
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
@@ -70,7 +70,7 @@ public final class PersonAttributeListOpenRendererTest {
 
     /** */
     @Test
-    public void testGetAttributeListOpenEmpty() {
+    void testGetAttributeListOpenEmpty() {
         final Name name = new Name(person, "");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
@@ -86,7 +86,7 @@ public final class PersonAttributeListOpenRendererTest {
 
     /** */
     @Test
-    public void testGetAttributeListOpenSurnameOnly() {
+    void testGetAttributeListOpenSurnameOnly() {
         final Name name = new Name(person, "/Schoeller/");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
@@ -102,7 +102,7 @@ public final class PersonAttributeListOpenRendererTest {
 
     /** */
     @Test
-    public void testGetAttributeListOpenSurnameLast() {
+    void testGetAttributeListOpenSurnameLast() {
         final Name name = new Name(person, "Richard/Schoeller/");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
@@ -118,7 +118,7 @@ public final class PersonAttributeListOpenRendererTest {
 
     /** */
     @Test
-    public void testGetAttributeListOpenSurnameFirst() {
+    void testGetAttributeListOpenSurnameFirst() {
         final Name name = new Name(person, "/Deng/Shao Ping");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
@@ -134,7 +134,7 @@ public final class PersonAttributeListOpenRendererTest {
 
     /** */
     @Test
-    public void testGetAttributeListOpenSurnameMiddle() {
+    void testGetAttributeListOpenSurnameMiddle() {
         final Name name = new Name(person, "Karl Frederick/Schoeller/Sr.");
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
@@ -150,7 +150,7 @@ public final class PersonAttributeListOpenRendererTest {
 
     /** */
     @Test
-    public void testGetAttributeListOpenPersonUnset() {
+    void testGetAttributeListOpenPersonUnset() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final PersonRenderer personRenderer = new PersonRenderer(
                 builder.createPerson(),

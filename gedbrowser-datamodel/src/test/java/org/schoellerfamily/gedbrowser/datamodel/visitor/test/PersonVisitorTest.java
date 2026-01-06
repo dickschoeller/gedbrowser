@@ -43,7 +43,7 @@ public final class PersonVisitorTest {
 
     /** */
     @Test
-    public void testEmptyGetFamily() {
+    void testEmptyGetFamily() {
         final Person person =
                 builder.createPerson("I1", "J. Random/Schoeller/");
         final PersonVisitor visitor = new PersonVisitor();
@@ -53,7 +53,7 @@ public final class PersonVisitorTest {
 
     /** */
     @Test
-    public void testGetFamily() {
+    void testGetFamily() {
         final Person person =
                 builder.createPerson("I1", "J. Random/Schoeller/");
         final Family family = builder.createFamily("F1");
@@ -65,7 +65,7 @@ public final class PersonVisitorTest {
 
     /** */
     @Test
-    public void testGetFirstFamily() {
+    void testGetFirstFamily() {
         final Person person =
                 builder.createPerson("I1", "J. Random/Schoeller/");
         final Family family = builder.createFamily("F1");
@@ -79,7 +79,7 @@ public final class PersonVisitorTest {
 
     /** */
     @Test
-    public void testGetFirstFamiliesC() {
+    void testGetFirstFamiliesC() {
         final Person person =
                 builder.createPerson("I1", "J. Random/Schoeller/");
         final Family family = builder.createFamily("F1");
@@ -95,7 +95,7 @@ public final class PersonVisitorTest {
 
     /** */
     @Test
-    public void testNoFamilyFromUnrelated() {
+    void testNoFamilyFromUnrelated() {
         final PersonVisitor visitor = new PersonVisitor();
         new Child().accept(visitor);
         new Date(null).accept(visitor);

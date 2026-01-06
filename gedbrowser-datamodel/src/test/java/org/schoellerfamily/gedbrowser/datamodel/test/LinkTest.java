@@ -39,7 +39,7 @@ public final class LinkTest {
 
     /** */
     @Test
-    public void testInitLink() {
+    void testInitLink() {
         final Link link = new Link(null);
         link.initLink(new ObjectId("F2"));
         assertMatch(link, "", "F2");
@@ -47,7 +47,7 @@ public final class LinkTest {
 
     /** */
     @Test
-    public void testSetParentReinitLink() {
+    void testSetParentReinitLink() {
         final Link link = new Link(null);
         link.initLink(new ObjectId("F2"));
         link.setParent(person1);
@@ -57,7 +57,7 @@ public final class LinkTest {
 
     /** */
     @Test
-    public void testNullifyParentReinitLink() {
+    void testNullifyParentReinitLink() {
         final Link link = new Link(null);
         link.initLink(new ObjectId("F2"));
         link.setParent(person1);
@@ -69,7 +69,7 @@ public final class LinkTest {
 
     /** */
     @Test
-    public void testInitLinkWithObjectId() {
+    void testInitLinkWithObjectId() {
         final Link link = new Link(null);
         link.initLink(new ObjectId("@F2@"));
         assertMatch(link, "", "F2");
@@ -77,7 +77,7 @@ public final class LinkTest {
 
     /** */
     @Test
-    public void testInitLinkWithObjectIdSetParent() {
+    void testInitLinkWithObjectIdSetParent() {
         final Link link = new Link(null);
         link.initLink(new ObjectId("@F2@"));
         link.setParent(person1);
@@ -87,7 +87,7 @@ public final class LinkTest {
 
     /** */
     @Test
-    public void testSetGetFromStringEmpty() {
+    void testSetGetFromStringEmpty() {
         final Link link = new Link(person1, LINK_TEST, new ObjectId("F1"));
         link.setFromString("");
         assertMatch(link, "", "F1");
@@ -95,7 +95,7 @@ public final class LinkTest {
 
     /** */
     @Test
-    public void testSetGetFromString() {
+    void testSetGetFromString() {
         final Link link = new Link(person1, LINK_TEST, new ObjectId("F1"));
         link.setFromString("I2");
         assertMatch(link, "I2", "F1");
@@ -103,7 +103,7 @@ public final class LinkTest {
 
     /** */
     @Test
-    public void testSetGetFromStringToNull() {
+    void testSetGetFromStringToNull() {
         final Link link = new Link(person1, LINK_TEST, new ObjectId("F1"));
         link.setFromString(null);
         assertMatch(link, "", "F1");
@@ -111,7 +111,7 @@ public final class LinkTest {
 
     /** */
     @Test
-    public void testSetGetToStringEmpty() {
+    void testSetGetToStringEmpty() {
         final Link link = new Link(person1, LINK_TEST, new ObjectId("F1"));
         link.setToString("");
         assertMatch(link, "I1", "");
@@ -119,7 +119,7 @@ public final class LinkTest {
 
     /** */
     @Test
-    public void testSetGetToString() {
+    void testSetGetToString() {
         final Link link = new Link(person1, LINK_TEST, new ObjectId("F1"));
         link.setToString("F2");
         assertMatch(link, "I1", "F2");
@@ -127,7 +127,7 @@ public final class LinkTest {
 
     /** */
     @Test
-    public void testSetGetToStringToNull() {
+    void testSetGetToStringToNull() {
         final Link link = new Link(person1, LINK_TEST, new ObjectId("F1"));
         link.setToString(null);
         assertMatch(link, "I1", "");

@@ -62,7 +62,7 @@ public final class SubmitterRepositoryTest {
 
     /** */
     @Test
-    public void testSubmitter() {
+    void testSubmitter() {
         final SubmitterDocument document = submitterDocumentRepository
             .findByFileAndString(root.getFilename(), "SUB1");
         final Submitter submitter = (Submitter) toObjConverter.createGedObject(root, document);
@@ -71,7 +71,7 @@ public final class SubmitterRepositoryTest {
 
     /** */
     @Test
-    public void testSubmitterRoot() {
+    void testSubmitterRoot() {
         final SubmitterDocument document = submitterDocumentRepository
             .findByRootAndString(rootDocument, "SUB1");
         final Submitter submitter = (Submitter) toObjConverter.createGedObject(root, document);
@@ -80,7 +80,7 @@ public final class SubmitterRepositoryTest {
 
     /** */
     @Test
-    public void testBogus() {
+    void testBogus() {
         final SubmitterDocument perdoc = submitterDocumentRepository
             .findByFileAndString(root.getFilename(), "Mumble");
         assertNull(perdoc, "Bogus request should return null");
@@ -88,7 +88,7 @@ public final class SubmitterRepositoryTest {
 
     /** */
     @Test
-    public void testBogusRoot() {
+    void testBogusRoot() {
         final SubmitterDocument perdoc = submitterDocumentRepository
             .findByRootAndString(rootDocument, "Mumble");
         assertNull(perdoc, "Bogus request should return null");
@@ -96,7 +96,7 @@ public final class SubmitterRepositoryTest {
 
     /** */
     @Test
-    public void testCountRoot() {
+    void testCountRoot() {
         final long expected = 1;
         final long count = submitterDocumentRepository.count(rootDocument);
         assertEquals(expected, count, "Should be 1 submitter");
@@ -104,7 +104,7 @@ public final class SubmitterRepositoryTest {
 
     /** */
     @Test
-    public void testCountFilename() {
+    void testCountFilename() {
         final long expected = 1;
         final long count = submitterDocumentRepository.count(rootDocument.getFilename());
         assertEquals(expected, count, "Should be 1 submitter");
@@ -112,7 +112,7 @@ public final class SubmitterRepositoryTest {
 
     /** */
     @Test
-    public void testFindAllRoot() {
+    void testFindAllRoot() {
         final Iterable<SubmitterDocument> list = submitterDocumentRepository.findAll(rootDocument);
         int count = 0;
         for (final SubmitterDocument submitter : list) {
@@ -125,7 +125,7 @@ public final class SubmitterRepositoryTest {
 
     /** */
     @Test
-    public void testFindAllFilename() {
+    void testFindAllFilename() {
         final Iterable<SubmitterDocument> list = submitterDocumentRepository
             .findAll(rootDocument.getFilename());
         int count = 0;
@@ -139,7 +139,7 @@ public final class SubmitterRepositoryTest {
 
     /** */
     @Test
-    public void testLastId() {
+    void testLastId() {
         final String string = submitterDocumentRepository.lastId(rootDocument);
         assertEquals("SUB1", string, "");
     }

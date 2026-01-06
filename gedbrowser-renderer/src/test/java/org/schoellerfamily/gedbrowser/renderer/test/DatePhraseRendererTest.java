@@ -42,7 +42,7 @@ public final class DatePhraseRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
         attribute = builder.createPersonEvent(person, "String");

@@ -17,7 +17,7 @@ public class PersonConfidentialVisitorTest {
 
     /** */
     @Test
-    public void testNotConfidential() {
+    void testNotConfidential() {
         final Person person =
                 builder.createPerson("I1", "J. Random/Schoeller/");
         final PersonConfidentialVisitor visitor =
@@ -28,7 +28,7 @@ public class PersonConfidentialVisitorTest {
 
     /** */
     @Test
-    public void testIsConfidential() {
+    void testIsConfidential() {
         final Person person =
                 builder.createPerson("I1", "J. Random/Schoeller/");
         builder.createAttribute(person, "Restriction", "confidential");

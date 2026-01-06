@@ -62,7 +62,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testNullArgsUser() {
+    void testNullArgsUser() {
         final PlaceListRenderer plr = new PlaceListRenderer(null, null,
             RenderingContext.user(appInfo));
         final List<PlaceInfo> list = plr.render();
@@ -71,7 +71,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testNullArgsAdmin() {
+    void testNullArgsAdmin() {
         final PlaceListRenderer plr = new PlaceListRenderer(null, null, createAdminContext());
         final List<PlaceInfo> list = plr.render();
         assertTrue(list.isEmpty(), "Should cleanly provide an empty list");
@@ -79,7 +79,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testNullClient() {
+    void testNullClient() {
         final Person person = createJRandom();
         final PlaceListRenderer plr = new PlaceListRenderer(person, null,
             RenderingContext.user(appInfo));
@@ -89,7 +89,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testNullClientAdmin() {
+    void testNullClientAdmin() {
         final Person person = createJRandom();
         final PlaceListRenderer plr = new PlaceListRenderer(person, null, createAdminContext());
         final List<PlaceInfo> list = plr.render();
@@ -98,7 +98,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testNullPerson() {
+    void testNullPerson() {
         final PlaceListRenderer plr = createAdminRenderer(null);
         final List<PlaceInfo> list = plr.render();
         assertTrue(list.isEmpty(), "Should cleanly provide an empty list");
@@ -106,7 +106,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testNoAttributes() {
+    void testNoAttributes() {
         final Person person = createJRandom();
         final PlaceListRenderer plr = createAdminRenderer(person);
         final List<PlaceInfo> list = plr.render();
@@ -115,7 +115,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testNoPlaces() {
+    void testNoPlaces() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Birth", "20 JAN 2017");
         final PlaceListRenderer plr = createAdminRenderer(person);
@@ -125,7 +125,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testOnePlace() {
+    void testOnePlace() {
         final Person person = createJRandom();
         createBirth(person, "Needham, Massachusetts, USA");
         final PlaceListRenderer plr = createAdminRenderer(person);
@@ -135,7 +135,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testOnePlaceIsNeedham() {
+    void testOnePlaceIsNeedham() {
         final Person person = createJRandom();
         createBirth(person, "Needham, Massachusetts, USA");
         final PlaceListRenderer plr = createAdminRenderer(person);
@@ -146,7 +146,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testOnePlaceLatitudeIsNeedham() {
+    void testOnePlaceLatitudeIsNeedham() {
         final Person person = createJRandom();
         createBirth(person, "Needham, Massachusetts, USA");
         final PlaceListRenderer plr = createAdminRenderer(person);
@@ -158,7 +158,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testOnePlaceLongitudeIsNeedham() {
+    void testOnePlaceLongitudeIsNeedham() {
         final Person person = createJRandom();
         createBirth(person, "Needham, Massachusetts, USA");
         final PlaceListRenderer plr = createAdminRenderer(person);
@@ -170,7 +170,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testOnePlaceIsNotFound() {
+    void testOnePlaceIsNotFound() {
         final Person person = createJRandom();
         createBirth(person, "PLUGH");
         final PlaceListRenderer plr = createAdminRenderer(person);
@@ -180,7 +180,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testOnePlaceIsNotFoundAnotherIs() {
+    void testOnePlaceIsNotFoundAnotherIs() {
         final Person person = createJRandom();
         createBirth(person, "PLUGH");
         createDeath(person, "Needham, Massachusetts, USA");
@@ -192,7 +192,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testAdminCanSeeConfidential() {
+    void testAdminCanSeeConfidential() {
         final Person person = createJRandom();
         createBirth(person, "PLUGH");
         createDeath(person, "Needham, Massachusetts, USA");
@@ -206,7 +206,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testUserCanNotSeeConfidential() {
+    void testUserCanNotSeeConfidential() {
         final Person person = createJRandom();
         createBirth(person, "PLUGH");
         createDeath(person, "Needham, Massachusetts, USA");
@@ -221,7 +221,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testAnonCanNotSeeConfidential() {
+    void testAnonCanNotSeeConfidential() {
         final Person person = createJRandom();
         createBirth(person, "PLUGH");
         createDeath(person, "Needham, Massachusetts, USA");
@@ -236,7 +236,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testAnonCanNotSeeLiving() {
+    void testAnonCanNotSeeLiving() {
         final Person person = createJRandom();
         createBirth(person, "Needham, Massachusetts, USA");
 
@@ -248,7 +248,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testAnonCanSeeDead() {
+    void testAnonCanSeeDead() {
         final Person person = createJRandom();
         createBirth(person, "Needham, Massachusetts, USA");
         createDeath(person, "Needham, Massachusetts, USA");
@@ -261,7 +261,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testAnonCanSeeDeadAltConstruction() {
+    void testAnonCanSeeDeadAltConstruction() {
         final Person person = createJRandom();
         createBirth(person, "Needham, Massachusetts, USA");
         createDeath(person, "Needham, MA, USA");
@@ -311,7 +311,7 @@ public final class PlaceListRendererTest {
 
     /** */
     @Test
-    public void testAnonCanSeeDeadMarriage() {
+    void testAnonCanSeeDeadMarriage() {
         final Person person = createJRandom();
         builder.createPersonEvent(person, "Death", "20 JAN 2017");
         final Person person2 = builder.createPerson("I2", "Anonymous/Schoeller/");

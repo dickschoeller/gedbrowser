@@ -45,7 +45,7 @@ public class PublicControllerTest {
 
     /** */
     @Test
-    public final void testFooController() throws URISyntaxException {
+    void testFooController() throws URISyntaxException {
         final String url = "http://localhost:" + port + "/v1/foo";
         final EntityExchangeResult<String> result = restTestClient.get()
                 .uri(new URI(url))

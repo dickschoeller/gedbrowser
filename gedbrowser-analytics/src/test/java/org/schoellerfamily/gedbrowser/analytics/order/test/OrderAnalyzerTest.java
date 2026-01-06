@@ -63,7 +63,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testEmptyPersonIsOK() {
+    void testEmptyPersonIsOK() {
         final Person person = personBuilder().createPerson();
         final OrderAnalyzerResult result = wrapper.analyze(person);
         assertTrue(result.isCorrect(), "Expected good order when there are no events");
@@ -71,7 +71,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithOnlyUndatedEventIsOK() {
+    void testPersonWithOnlyUndatedEventIsOK() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Occupation");
         final OrderAnalyzerResult result = wrapper.analyze(person);
@@ -80,7 +80,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithOnlyOneEventIsOK() {
+    void testPersonWithOnlyOneEventIsOK() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Occupation", "8 JAN 2017");
         final OrderAnalyzerResult result = wrapper.analyze(person);
@@ -89,7 +89,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithOnlyTwoEventsSameDayIsOK() {
+    void testPersonWithOnlyTwoEventsSameDayIsOK() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Occupation", "8 JAN 2017");
         personBuilder().createPersonEvent(person, "Education", "8 JAN 2017");
@@ -99,7 +99,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithOnlyTwoEventsOutOfOrderIsNotOK() {
+    void testPersonWithOnlyTwoEventsOutOfOrderIsNotOK() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Education", "8 JAN 2017");
         personBuilder().createPersonEvent(person, "Occupation", "7 JAN 2017");
@@ -109,7 +109,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithOnlyTwoEventsInOrderIsOK() {
+    void testPersonWithOnlyTwoEventsInOrderIsOK() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Occupation", "7 JAN 2017");
         personBuilder().createPersonEvent(person, "Education", "8 JAN 2017");
@@ -119,7 +119,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithOnlyTwoEventsOutOfOrderHasMismatchEntry() {
+    void testPersonWithOnlyTwoEventsOutOfOrderHasMismatchEntry() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Education", "8 JAN 2017");
         personBuilder().createPersonEvent(person, "Occupation", "7 JAN 2017");
@@ -130,7 +130,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithTwoEventsOutOfOrderHasExpectedTextInMismatch() {
+    void testPersonWithTwoEventsOutOfOrderHasExpectedTextInMismatch() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Education", "8 JAN 2017");
         personBuilder().createPersonEvent(person, "Occupation", "7 JAN 2017");
@@ -143,7 +143,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithBirthBeforeNonBirthMatch() {
+    void testPersonWithBirthBeforeNonBirthMatch() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Birth");
         personBuilder().createPersonEvent(person, "Education");
@@ -153,7 +153,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithBaptismAfterNonBirthMismatch() {
+    void testPersonWithBaptismAfterNonBirthMismatch() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Education");
         personBuilder().createPersonEvent(person, "Baptism");
@@ -163,7 +163,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithChristeningAfterNonBirthMismatch() {
+    void testPersonWithChristeningAfterNonBirthMismatch() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Education");
         personBuilder().createPersonEvent(person, "Christening");
@@ -173,7 +173,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithNamingAfterNonBirthMismatch() {
+    void testPersonWithNamingAfterNonBirthMismatch() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Education");
         personBuilder().createPersonEvent(person, "Naming");
@@ -183,7 +183,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithBirthAfterNonBirthMismatch() {
+    void testPersonWithBirthAfterNonBirthMismatch() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Education");
         personBuilder().createPersonEvent(person, "Birth");
@@ -193,7 +193,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithBirthAfterNonBirthMismatchString() {
+    void testPersonWithBirthAfterNonBirthMismatchString() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Education");
         personBuilder().createPersonEvent(person, "Birth");
@@ -206,7 +206,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithBirthAfterBaptismMismatch() {
+    void testPersonWithBirthAfterBaptismMismatch() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Baptism");
         personBuilder().createPersonEvent(person, "Birth");
@@ -216,7 +216,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithBirthBaptismNamingMatch() {
+    void testPersonWithBirthBaptismNamingMatch() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Birth");
         personBuilder().createPersonEvent(person, "Baptism");
@@ -227,7 +227,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithBirthBirthNamingMatch() {
+    void testPersonWithBirthBirthNamingMatch() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Birth");
         personBuilder().createPersonEvent(person, "Birth");
@@ -238,7 +238,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testPersonWithNullNonnullNullDateMatch() {
+    void testPersonWithNullNonnullNullDateMatch() {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Birth");
         personBuilder().createPersonEvent(person, "Birth", "8 JAN 2017");
@@ -249,7 +249,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     // /** */
     // @Test
-    // public void testPersonWithNonDeathAfterDeathMismatchString() {
+    // void testPersonWithNonDeathAfterDeathMismatchString() {
     // final Person person = builder.createPerson1();
     // builder.createPersonEvent(person, "Education");
     // builder.createPersonEvent(person, "Birth");
@@ -261,7 +261,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
     // }
     /** */
     @Test
-    public void testMinDateFirstNull() {
+    void testMinDateFirstNull() {
         final int year = 2017;
         final LocalDate date2 = new LocalDate(year, 1, 2);
         final LocalDate minDate = OrderAnalyzer.minDate(null, date2);
@@ -270,7 +270,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testMinDateSecondNull() {
+    void testMinDateSecondNull() {
         final int year = 2017;
         final LocalDate date1 = new LocalDate(year, 1, 1);
         final LocalDate minDate = OrderAnalyzer.minDate(date1, null);
@@ -279,14 +279,14 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testMinDateBothNull() {
+    void testMinDateBothNull() {
         final LocalDate minDate = OrderAnalyzer.minDate(null, null);
         assertNull(minDate, "Date should be null");
     }
 
     /** */
     @Test
-    public void testMinDateFirstIsMin() {
+    void testMinDateFirstIsMin() {
         final int year = 2017;
         final LocalDate date1 = new LocalDate(year, 1, 1);
         final LocalDate date2 = new LocalDate(year, 1, 2);
@@ -296,7 +296,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Test
-    public void testMinDateSecondIsMin() {
+    void testMinDateSecondIsMin() {
         final int year = 2017;
         final LocalDate date1 = new LocalDate(year, 1, 2);
         final LocalDate date2 = new LocalDate(year, 1, 1);
@@ -316,7 +316,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
      * @throws IOException if failed to read file
      */
     @Test
-    public void testFactoryGedFile() throws IOException {
+    void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = TestResourceReader.readFileTestSource(this, "gl120368.ged");
         final Root root = g2g.create(top);
         for (final String letter : root.findSurnameInitialLetters()) {

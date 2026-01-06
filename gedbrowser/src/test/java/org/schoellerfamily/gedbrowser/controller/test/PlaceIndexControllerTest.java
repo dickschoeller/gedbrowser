@@ -43,7 +43,7 @@ public class PlaceIndexControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public void testControllerGL120368() {
+    void testControllerGL120368() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser/places?db=gl120368";
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -58,7 +58,7 @@ public class PlaceIndexControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testControllerBadDataSet() {
+    void testControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri(URI.create("http://localhost:" + port + "/gedbrowser/places?db=XYZZY"))
                 .exchange()

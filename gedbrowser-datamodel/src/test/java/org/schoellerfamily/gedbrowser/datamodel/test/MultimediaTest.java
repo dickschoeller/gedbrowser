@@ -46,14 +46,14 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testBasicConstruct() {
+    void testBasicConstruct() {
         final Multimedia mm = new Multimedia(person1, "Multimedia", homeUrl);
         assertEquals(homeUrl, mm.getTail(), "Mismatched tail");
     }
 
     /** */
     @Test
-    public void testAppendString() {
+    void testAppendString() {
         final Multimedia mm = builder.addMultimediaToPerson(person1, homeUrl);
         mm.appendString("genealogy");
         assertEquals(homeUrl + "genealogy", mm.getTail(), "Mismatched tail");
@@ -74,7 +74,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testSetGetTail() {
+    void testSetGetTail() {
         Multimedia multimedia;
         multimedia = new Multimedia(null, null, null);
         multimedia.setTail("test 1");
@@ -83,7 +83,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testResetToNullGetTail() {
+    void testResetToNullGetTail() {
         Multimedia multimedia;
         multimedia = new Multimedia(null, null, null);
         multimedia.setTail("test 1");
@@ -93,7 +93,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testResetToNullAndToNewValueGetTail() {
+    void testResetToNullAndToNewValueGetTail() {
         Multimedia multimedia;
         multimedia = new Multimedia(null, null, null);
         multimedia.setTail("test 1");
@@ -104,7 +104,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testResetToEmptyGetTail() {
+    void testResetToEmptyGetTail() {
         Multimedia multimedia;
         multimedia = new Multimedia(null, null, null);
         multimedia.setTail("test 1");
@@ -116,7 +116,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testGetFilePathEmpty() {
+    void testGetFilePathEmpty() {
         final Multimedia multimedia = new Multimedia();
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
@@ -125,7 +125,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testGetFilePathGood() {
+    void testGetFilePathGood() {
         final Multimedia multimedia = new Multimedia();
         final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -144,7 +144,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testGetFileFormatGood() {
+    void testGetFileFormatGood() {
         final Multimedia multimedia = new Multimedia();
         final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -163,7 +163,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testGetFileFormatEmpty() {
+    void testGetFileFormatEmpty() {
         final Multimedia multimedia = new Multimedia();
         final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -176,7 +176,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testGetFileFormatPartiallyBuilt() {
+    void testGetFileFormatPartiallyBuilt() {
         final Multimedia multimedia = new Multimedia();
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
@@ -185,7 +185,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testGetFileTitleGood1() {
+    void testGetFileTitleGood1() {
         final Multimedia multimedia = new Multimedia();
         final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -204,7 +204,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testGetFileTitleGood2() {
+    void testGetFileTitleGood2() {
         final Multimedia multimedia = new Multimedia();
         final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -223,7 +223,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testGetFileTitleEmpty() {
+    void testGetFileTitleEmpty() {
         final Multimedia multimedia = new Multimedia();
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
@@ -232,7 +232,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testIsImageTrueJpg() {
+    void testIsImageTrueJpg() {
         final Multimedia multimedia = new Multimedia();
         final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -251,7 +251,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testIsImageTrueGif() {
+    void testIsImageTrueGif() {
         final Multimedia multimedia = new Multimedia();
         final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -270,7 +270,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testIsImageTruePng() {
+    void testIsImageTruePng() {
         final Multimedia multimedia = new Multimedia();
         final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -289,7 +289,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testIsImageTrueTif() {
+    void testIsImageTrueTif() {
         final Multimedia multimedia = new Multimedia();
         final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -308,7 +308,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testIsImageFalse() {
+    void testIsImageFalse() {
         final Multimedia multimedia = new Multimedia();
         final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
@@ -327,7 +327,7 @@ public final class MultimediaTest {
 
     /** */
     @Test
-    public void testIsImageEmpty() {
+    void testIsImageEmpty() {
         final Multimedia multimedia = new Multimedia();
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);

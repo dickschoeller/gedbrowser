@@ -50,7 +50,7 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testReadSourcesGl120368() {
+    void testReadSourcesGl120368() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/sources";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
@@ -82,7 +82,7 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testReadSourcesMiniSchoeller() {
+    void testReadSourcesMiniSchoeller() {
         final String url = "http://localhost:" + port
             + "/gedbrowserng/v1/dbs/mini-schoeller/sources";
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -108,7 +108,7 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testReadSourcesMiniSchoellerS2() {
+    void testReadSourcesMiniSchoellerS2() {
         final String url = "http://localhost:" + port
             + "/gedbrowserng/v1/dbs/mini-schoeller/sources/S2";
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -134,7 +134,7 @@ public class SourceControllerTest {
 
     /** */
     @Test
-    public final void testReadSourcesMiniSchoellerXyzzy() {
+    void testReadSourcesMiniSchoellerXyzzy() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/mini-schoeller"
             + "/sources/Xyzzy";
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -149,7 +149,7 @@ public class SourceControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testCreateSourcesSimple() throws RestClientException {
+    void testCreateSourcesSimple() throws RestClientException {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/sources";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -173,7 +173,7 @@ public class SourceControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testDeleteSource() throws RestClientException {
+    void testDeleteSource() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -222,7 +222,7 @@ public class SourceControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testDeleteSourceNotFound() throws RestClientException {
+    void testDeleteSourceNotFound() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -247,7 +247,7 @@ public class SourceControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testDeleteSubmitterDatabaseNotFound() throws RestClientException {
+    void testDeleteSubmitterDatabaseNotFound() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -271,7 +271,7 @@ public class SourceControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testUpdateSourceWithNote() throws RestClientException {
+    void testUpdateSourceWithNote() throws RestClientException {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/sources";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

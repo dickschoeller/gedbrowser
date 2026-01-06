@@ -41,7 +41,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testDefaultUsername() {
+    void testDefaultUsername() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         assertNull(user.getUsername(), "Expected null user name");
@@ -49,7 +49,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testDefaultFirstname() {
+    void testDefaultFirstname() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         assertNull(user.getFirstname(), "Expected null user first name");
@@ -57,7 +57,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testDefaultLastname() {
+    void testDefaultLastname() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         assertNull(user.getLastname(), "Expected null last name");
@@ -65,7 +65,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testDefaultEmail() {
+    void testDefaultEmail() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         assertNull(user.getEmail(), "Expected null email address");
@@ -73,7 +73,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testDefaultPassword() {
+    void testDefaultPassword() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         assertNull(user.getPassword(), "Expected null password");
@@ -81,7 +81,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testDefaultRoles() {
+    void testDefaultRoles() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         assertEquals(0, user.getRoles().length, "Expected empty roles list");
@@ -89,7 +89,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testUsername() {
+    void testUsername() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         userImpl.setUsername("test");
@@ -98,7 +98,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testFirstname() {
+    void testFirstname() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         userImpl.setFirstname("first");
@@ -107,7 +107,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testLastname() {
+    void testLastname() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         userImpl.setLastname("last");
@@ -116,7 +116,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testEmail() {
+    void testEmail() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         userImpl.setEmail("test@test.com");
@@ -125,7 +125,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testPassword() {
+    void testPassword() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         userImpl.setPassword("password");
@@ -134,7 +134,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testSetUsername() {
+    void testSetUsername() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         user.setUsername("test");
@@ -143,7 +143,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testSetFirstname() {
+    void testSetFirstname() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         user.setFirstname("first");
@@ -152,7 +152,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testSetLastname() {
+    void testSetLastname() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         user.setLastname("last");
@@ -161,7 +161,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testSetEmail() {
+    void testSetEmail() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         user.setEmail("test@test.com");
@@ -170,7 +170,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testSetPassword() {
+    void testSetPassword() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         user.setPassword("password");
@@ -179,7 +179,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testNullUserUsername() {
+    void testNullUserUsername() {
         final UserFacadeImpl user = new UserFacadeImpl(null);
         user.setUsername("test");
         assertNull(user.getUsername(), "Username should be null");
@@ -187,7 +187,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testNullUserFirstname() {
+    void testNullUserFirstname() {
         final UserFacadeImpl user = new UserFacadeImpl(null);
         user.setFirstname("first");
         assertNull(user.getFirstname(), "First name should be null");
@@ -195,7 +195,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testNullUserLastname() {
+    void testNullUserLastname() {
         final UserFacadeImpl user = new UserFacadeImpl(null);
         user.setLastname("last");
         assertNull(user.getLastname(), "Last name should be null");
@@ -203,7 +203,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testNullUserEmail() {
+    void testNullUserEmail() {
         final UserFacadeImpl user = new UserFacadeImpl(null);
         user.setEmail("test@test.com");
         assertNull(user.getEmail(), "Email should be null");
@@ -211,7 +211,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testNullUserPassword() {
+    void testNullUserPassword() {
         final UserFacadeImpl user = new UserFacadeImpl(null);
         user.setPassword("password");
         assertNull(user.getPassword(), "Password should be null");
@@ -219,7 +219,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testOneRole() {
+    void testOneRole() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         userImpl.addRole("USER");
@@ -228,7 +228,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testTwoRoles() {
+    void testTwoRoles() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         userImpl.addRole("USER");
@@ -238,7 +238,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testRoleSet() {
+    void testRoleSet() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         userImpl.addRole("USER");
@@ -248,7 +248,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testOneRoleContent() {
+    void testOneRoleContent() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         userImpl.addRole("USER");
@@ -257,7 +257,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testHasRole() {
+    void testHasRole() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         userImpl.addRole("USER");
@@ -268,7 +268,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testWithUserRoleNames() {
+    void testWithUserRoleNames() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         userImpl.addRole(UserRoleName.ADMIN);
@@ -278,7 +278,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testHasRoleNegative() {
+    void testHasRoleNegative() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         userImpl.addRole("USER");
@@ -288,7 +288,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testClearRoles() {
+    void testClearRoles() {
         final UserImpl userImpl = new UserImpl();
         final User user = new UserFacadeImpl(userImpl);
         userImpl.addRole("USER");
@@ -299,7 +299,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testNullUserOneRole() {
+    void testNullUserOneRole() {
         final User user = new UserFacadeImpl(null);
         user.addRole("USER");
         assertEquals(0, user.getRoles().length, "Expected 0 roles");
@@ -307,7 +307,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testNullTwoRoles() {
+    void testNullTwoRoles() {
         final User user = new UserFacadeImpl(null);
         user.addRole("USER");
         user.addRole("ADMIN");
@@ -316,7 +316,7 @@ public class UserFacadeTest {
 
     /** */
     @Test
-    public void testNullHasRole() {
+    void testNullHasRole() {
         final User user = new UserFacadeImpl(null);
         user.addRole("USER");
         user.addRole("ADMIN");

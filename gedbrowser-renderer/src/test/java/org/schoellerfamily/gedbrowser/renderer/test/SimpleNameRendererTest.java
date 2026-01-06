@@ -34,7 +34,7 @@ public final class SimpleNameRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -43,7 +43,7 @@ public final class SimpleNameRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testAttributeListOpenRenderer() {
+    void testAttributeListOpenRenderer() {
         final SimpleNameRenderer renderer = new SimpleNameRenderer(new Name(null),
             new GedRendererFactory(), anonymousContext);
         assertTrue(
@@ -56,7 +56,7 @@ public final class SimpleNameRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testListItemRenderer() {
+    void testListItemRenderer() {
         final SimpleNameRenderer renderer = new SimpleNameRenderer(new Name(null),
             new GedRendererFactory(), anonymousContext);
         assertTrue(renderer.getListItemRenderer() instanceof SimpleNameListItemRenderer,
@@ -68,7 +68,7 @@ public final class SimpleNameRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         final SimpleNameRenderer renderer = new SimpleNameRenderer(new Name(null),
             new GedRendererFactory(), anonymousContext);
         assertTrue(renderer.getNameHtmlRenderer() instanceof SimpleNameNameHtmlRenderer,
@@ -80,7 +80,7 @@ public final class SimpleNameRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameIndexRenderer() {
+    void testNameIndexRenderer() {
         final SimpleNameRenderer renderer = new SimpleNameRenderer(new Name(null),
             new GedRendererFactory(), anonymousContext);
         assertTrue(renderer.getNameIndexRenderer() instanceof SimpleNameNameIndexRenderer,
@@ -92,7 +92,7 @@ public final class SimpleNameRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         final SimpleNameRenderer renderer = new SimpleNameRenderer(new Name(null),
             new GedRendererFactory(), anonymousContext);
         assertTrue(renderer.getPhraseRenderer() instanceof SimpleNamePhraseRenderer,

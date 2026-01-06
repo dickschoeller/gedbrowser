@@ -67,7 +67,7 @@ public final class GeoCodeMongoTest {
      * Force debug logging during tests.
      */
     @BeforeAll
-    public static void setUp() {
+    public static void init() {
         System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug");
     }
 
@@ -75,7 +75,7 @@ public final class GeoCodeMongoTest {
      * @throws IOException if there is a problem loading data
      */
     @BeforeEach
-    public void init() throws IOException {
+    public void setUp() throws IOException {
         testFixture.loadRepository();
     }
 
@@ -88,7 +88,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testStupidNotFound() {
+    void testStupidNotFound() {
         log.info("Entering testStupidNotFound");
         final GeoCodeItem entry = gcc.find("XYZZY");
         assertNull(entry.getGeocodingResult(), "Should not have found XYZZY");
@@ -97,7 +97,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testModernStupidNotFound() {
+    void testModernStupidNotFound() {
         log.info("Entering testModernStupidNotFound");
         final GeoCodeItem entry = gcc.find("PLUGH", "XYZZY");
         assertNull(entry.getGeocodingResult(), "Should not have found modern XYZZY");
@@ -106,7 +106,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testOldHomeFound() {
+    void testOldHomeFound() {
         log.info("Entering testOldHomeFound");
         final GeoCodeItem entry = gcc
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -117,7 +117,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCacheStupid() {
+    void testCacheStupid() {
         log.info("Entering testCacheStupid");
         final GeoCodeItem entry1 = gcc.find("XYZZY");
         final GeoCodeItem entry2 = gcc.find("XYZZY");
@@ -127,7 +127,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testModernEmpty() {
+    void testModernEmpty() {
         log.info("Entering testModernEmpty");
         final GeoCodeItem entry1 = gcc.find("XYZZY");
         final GeoCodeItem entry2 = gcc.find("XYZZY", "");
@@ -137,7 +137,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testModernNull() {
+    void testModernNull() {
         log.info("Entering testModernNull");
         final GeoCodeItem entry1 = gcc.find("XYZZY");
         final GeoCodeItem entry2 = gcc.find("XYZZY", null);
@@ -147,7 +147,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCacheFound() {
+    void testCacheFound() {
         log.info("Entering testCacheFound");
         final GeoCodeItem entry1 = gcc
                 .find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
@@ -159,7 +159,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCacheRefind() {
+    void testCacheRefind() {
         log.info("Entering testCacheReplace");
         gcc.find("XYZZY");
         final GeoCodeItem entry2 = gcc.find("XYZZY",
@@ -171,7 +171,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCacheOldHome() {
+    void testCacheOldHome() {
         log.info("Entering testCacheOldHome");
         final GeoCodeItem entry1 = gcc
                 .find("3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -183,7 +183,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCacheOldHomeModern() {
+    void testCacheOldHomeModern() {
         log.info("Entering testCacheOldHomeModern");
         final GeoCodeItem entry1 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -194,7 +194,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCacheOldHomeModernBoth() {
+    void testCacheOldHomeModernBoth() {
         log.info("Entering testCacheOldHomeModernBoth");
         final GeoCodeItem entry1 = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -206,7 +206,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCacheOldHomeModernChange() {
+    void testCacheOldHomeModernChange() {
         log.info("Entering testCacheOldHomeModernChange");
         final GeoCodeItem entry1 = gcc.find("Old Home");
         final GeoCodeItem entry2 = gcc.find("Old Home",
@@ -217,7 +217,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCacheReplaceCheckEquals() {
+    void testCacheReplaceCheckEquals() {
         log.info("Entering testCacheReplace");
         gcc.find("XYZZY");
         final GeoCodeItem entry2 = gcc.find("XYZZY", "XYZZY");
@@ -228,7 +228,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCacheReplaceCheckNullGeocodingResult() {
+    void testCacheReplaceCheckNullGeocodingResult() {
         log.info("Entering testCacheReplace");
         gcc.find("XYZZY");
         gcc.find("XYZZY", "XYZZY");
@@ -239,7 +239,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCacheOldHomeModernSet() {
+    void testCacheOldHomeModernSet() {
         log.info("Entering testCacheOldHomeModernSet");
         gcc.find("Old Home");
         final GeoCodeItem entry2 = gcc.find("Old Home",
@@ -251,7 +251,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCacheOldHomeLocationResultNotNull() {
+    void testCacheOldHomeLocationResultNotNull() {
         log.info("Entering testCacheOldHomeLocation");
         final GeoCodeItem entry = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -262,7 +262,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCacheOldHomeLocationLatLngMatch() {
+    void testCacheOldHomeLocationLatLngMatch() {
         log.info("Entering testCacheOldHomeLocation");
         final GeoCodeItem entry = gcc.find("Old Home",
                 "3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -276,7 +276,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testNotFounds() {
+    void testNotFounds() {
         log.info("Entering testNotFounds");
         testFixture.loadTestAddresses();
         final List<String> expectList = Arrays
@@ -289,7 +289,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testNotFoundsFromFile() {
+    void testNotFoundsFromFile() {
         log.info("Entering testNotFounds");
         final InputStream fis = getTestFileAsStream();
         loader.load(fis);
@@ -303,7 +303,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCountNotFoundsLowBound() {
+    void testCountNotFoundsLowBound() {
         log.info("Entering testCountNotFounds");
         testFixture.loadTestAddresses();
         final int count = gcc.countNotFound();
@@ -314,7 +314,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCountNotFoundsHighBound() {
+    void testCountNotFoundsHighBound() {
         log.info("Entering testCountNotFounds");
         testFixture.loadTestAddresses();
         final int count = gcc.countNotFound();
@@ -325,7 +325,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCountNotFoundsFromFileLowBound() {
+    void testCountNotFoundsFromFileLowBound() {
         log.info("Entering testCountNotFounds");
         final InputStream fis = getTestFileAsStream();
         loader.load(fis);
@@ -337,7 +337,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testCountNotFoundsFromFileHighBound() {
+    void testCountNotFoundsFromFileHighBound() {
         log.info("Entering testCountNotFounds");
         final InputStream fis = getTestFileAsStream();
         loader.load(fis);
@@ -370,7 +370,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testSize() {
+    void testSize() {
         log.info("Entering testSize");
         testFixture.loadTestAddresses();
         final int expected = 19;
@@ -380,7 +380,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testSizeFromResource() {
+    void testSizeFromResource() {
         log.info("Entering testSizeFromFile");
         final InputStream fis = getTestFileAsStream();
         loader.load(fis);
@@ -391,7 +391,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testSizeLoadFileError() {
+    void testSizeLoadFileError() {
         log.info("Entering testSizeFromFile");
         loader.load(dummyFileName);
         final int expected = 0;
@@ -402,7 +402,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testDump() {
+    void testDump() {
         log.info("Entering testDump");
         testFixture.loadTestAddresses();
         gcc.dump();
@@ -413,7 +413,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testDumpFromFile() {
+    void testDumpFromFile() {
         log.info("Entering testDumpFile");
         final InputStream fis = getTestFileAsStream();
         loader.load(fis);
@@ -425,7 +425,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testAllKeysSize() {
+    void testAllKeysSize() {
         log.info("Entering testAllKeysSize");
         testFixture.loadTestAddresses();
         final int expected = 19;
@@ -435,7 +435,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testAllKeys() {
+    void testAllKeys() {
         log.info("Entering testAllKeys");
         testFixture.loadTestAddresses();
         assertTrue(gcc.allKeys().contains("America"), "Should contain search string");
@@ -444,7 +444,7 @@ public final class GeoCodeMongoTest {
     /**
      */
     @Test
-    public void testDelete() {
+    void testDelete() {
         log.info("Entering testDelete");
         testFixture.loadTestAddresses();
         final GeoCodeItem gci = gcc.find("America");
@@ -454,7 +454,7 @@ public final class GeoCodeMongoTest {
 
     /** */
     @Test
-    public void testAddGet() {
+    void testAddGet() {
         final GeoCodeItem input = new GeoCodeItem("America");
         gcc.add(input);
         final GeoCodeItem output = gcc.get("America");
@@ -463,7 +463,7 @@ public final class GeoCodeMongoTest {
 
     /** */
     @Test
-    public void testAddFind() {
+    void testAddFind() {
         final GeoCodeItem input = new GeoCodeItem("America");
         gcc.add(input);
         final GeoCodeItem output = gcc.find("America");
@@ -472,7 +472,7 @@ public final class GeoCodeMongoTest {
 
     /** */
     @Test
-    public void testAddFindWithModern() {
+    void testAddFindWithModern() {
         final GeoCodeItem input = new GeoCodeItem("America", "America");
         gcc.add(input);
         final GeoCodeItem output = gcc.find("America", "America");
@@ -481,7 +481,7 @@ public final class GeoCodeMongoTest {
 
     /** */
     @Test
-    public void testAddFindChangeModernResultsPresent() {
+    void testAddFindChangeModernResultsPresent() {
         final GeoCodeItem input = new GeoCodeItem("XYZZY", "XYZZY");
         gcc.add(input);
         final GeoCodeItem output = gcc.find("XYZZY", "America");
@@ -492,7 +492,7 @@ public final class GeoCodeMongoTest {
 
     /** */
     @Test
-    public void testAddFindChangeModernNamesMatch() {
+    void testAddFindChangeModernNamesMatch() {
         final GeoCodeItem input = new GeoCodeItem("XYZZY", "XYZZY");
         gcc.add(input);
         final GeoCodeItem output = gcc.find("XYZZY", "America");
@@ -502,7 +502,7 @@ public final class GeoCodeMongoTest {
 
     /** */
     @Test
-    public void testAddFindChangeModernToBogusResultsPresent() {
+    void testAddFindChangeModernToBogusResultsPresent() {
         final GeoCodeItem input = new GeoCodeItem("XYZZY", "XYZZY");
         gcc.add(input);
         final GeoCodeItem output = gcc.find("XYZZY", "PLUGH");
@@ -513,7 +513,7 @@ public final class GeoCodeMongoTest {
 
     /** */
     @Test
-    public void testAddFindChangeModernToBogusNamesMatch() {
+    void testAddFindChangeModernToBogusNamesMatch() {
         final GeoCodeItem input = new GeoCodeItem("XYZZY", "XYZZY");
         gcc.add(input);
         final GeoCodeItem output = gcc.find("XYZZY", "PLUGH");

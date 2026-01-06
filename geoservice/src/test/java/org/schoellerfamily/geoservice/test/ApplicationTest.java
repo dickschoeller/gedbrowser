@@ -53,7 +53,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void testReturnStatus200WhenSendingRequestToController() {
+    void testReturnStatus200WhenSendingRequestToController() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = restTestClient.get()
                 .uri(URI.create("http://localhost:" + port + "/geocode?name=Bethlehem,%20PA"))
@@ -65,7 +65,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void testReturnStatus200WhenSendingRequestWithModern() {
+    void testReturnStatus200WhenSendingRequestWithModern() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = restTestClient.get()
                 .uri(URI.create("http://localhost:" + port
@@ -78,7 +78,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void testReturnPlaceNameSendingRequestToController() {
+    void testReturnPlaceNameSendingRequestToController() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = restTestClient.get()
                 .uri(URI.create("http://localhost:" + port + "/geocode?name=Bethlehem,%20PA"))
@@ -91,7 +91,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void testReturnPlaceNameSendingRequestWithModern() {
+    void testReturnPlaceNameSendingRequestWithModern() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = restTestClient.get()
                 .uri(URI.create("http://localhost:" + port
@@ -106,7 +106,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void testReturnModernPlaceNameSendingRequestToController() {
+    void testReturnModernPlaceNameSendingRequestToController() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = restTestClient.get()
                 .uri(URI.create("http://localhost:" + port + "/geocode?name=Allentown,%20PA"))
@@ -119,7 +119,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void testReturnModernNameSendingRequestWithModernName() {
+    void testReturnModernNameSendingRequestWithModernName() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = restTestClient.get()
                 .uri(URI.create("http://localhost:" + port
@@ -134,7 +134,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void testReturnGeocodeWhenSendingRequestToController() {
+    void testReturnGeocodeWhenSendingRequestToController() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = restTestClient.get()
                 .uri(URI.create("http://localhost:" + port + "/geocode?name=Bethlehem,%20PA"))
@@ -147,7 +147,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void testReturnNullGeocodeWhenSendingRequestToController() {
+    void testReturnNullGeocodeWhenSendingRequestToController() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = this.restTestClient.get()
                 .uri(URI.create("http://localhost:" + this.port + "/geocode?name=XYZZY"))
@@ -160,7 +160,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void testReturn200WhenSendingRequestToInfoEndpoint() {
+    void testReturn200WhenSendingRequestToInfoEndpoint() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = restTestClient.get()
                 .uri(URI.create("http://localhost:" + mgt + "/actuator/info"))
@@ -172,7 +172,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void testReturn200WhenSendingRequestToHealthEndpoint() {
+    void testReturn200WhenSendingRequestToHealthEndpoint() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = restTestClient.get()
                 .uri(URI.create("http://localhost:" + mgt + "/actuator/health"))

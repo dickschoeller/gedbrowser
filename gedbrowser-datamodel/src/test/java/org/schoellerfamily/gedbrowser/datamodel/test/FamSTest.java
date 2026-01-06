@@ -61,21 +61,21 @@ public final class FamSTest {
 
     /** */
     @Test
-    public void testGetSpouseFromSpouse() {
+    void testGetSpouseFromSpouse() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
         assertEquals(person3, navigator.getSpouse(person2), "Person mismatch");
     }
 
     /** */
     @Test
-    public void testGetSpouseFromParent() {
+    void testGetSpouseFromParent() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
         assertEquals(person2, navigator.getSpouse(person3), "Person mismatch");
     }
 
     /** */
     @Test
-    public void testGetSpouseNotSetFromUnrelated() {
+    void testGetSpouseNotSetFromUnrelated() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
         assertFalse(navigator.getSpouse(person1).isSet(),
             "Should be unset person when not from one of the spouses");
@@ -83,14 +83,14 @@ public final class FamSTest {
 
     /** */
     @Test
-    public void testGetSpouseIsParentFromNull() {
+    void testGetSpouseIsParentFromNull() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
         assertEquals(person2, navigator.getSpouse(null), "Person mismatch");
     }
 
     /** */
     @Test
-    public void testGetFamilies() {
+    void testGetFamilies() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
         final Family gottenFamily = navigator.getFamily();
         assertSame(family, gottenFamily, "Mismatched family");
@@ -98,7 +98,7 @@ public final class FamSTest {
 
     /** */
     @Test
-    public void testGetFamiliesUnsetWhenUnattached() {
+    void testGetFamiliesUnsetWhenUnattached() {
         final FamS fams = new FamS(null, "F73", null);
         final FamilyNavigator navigator = new FamilyNavigator(fams);
         assertFalse(navigator.getFamily().isSet(), "Family should not be set");
@@ -106,7 +106,7 @@ public final class FamSTest {
 
     /** */
     @Test
-    public void testGetChildrenFromHusband() {
+    void testGetChildrenFromHusband() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
         final List<Person> newList = navigator.getChildren();
         assertTrue(newList.contains(person1), "List should contain person1");
@@ -114,7 +114,7 @@ public final class FamSTest {
 
     /** */
     @Test
-    public void testGetChildrenFromWife() {
+    void testGetChildrenFromWife() {
         final FamilyNavigator navigator = new FamilyNavigator(famS3);
         final List<Person> newList = navigator.getChildren();
         assertTrue(newList.contains(person1), "List should contain person1");

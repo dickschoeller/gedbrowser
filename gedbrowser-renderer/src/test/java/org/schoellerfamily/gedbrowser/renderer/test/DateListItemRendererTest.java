@@ -42,7 +42,7 @@ public final class DateListItemRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
         attribute = builder.createPersonEvent(person, "String");
@@ -55,7 +55,7 @@ public final class DateListItemRendererTest {
 
     /** */
     @Test
-    public void testGetRenderAsListItem() {
+    void testGetRenderAsListItem() {
         final DateRenderer dRenderer = new DateRenderer(date, new GedRendererFactory(),
             anonymousContext);
         final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer.getListItemRenderer();
@@ -68,7 +68,7 @@ public final class DateListItemRendererTest {
 
     /** */
     @Test
-    public void testGetRenderAsListItem2() {
+    void testGetRenderAsListItem2() {
         final DateRenderer dRenderer = new DateRenderer(date2, new GedRendererFactory(),
             anonymousContext);
         final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer.getListItemRenderer();
@@ -81,7 +81,7 @@ public final class DateListItemRendererTest {
 
     /** */
     @Test
-    public void testGetRenderAsListItemEmpty() {
+    void testGetRenderAsListItemEmpty() {
         final DateRenderer dRenderer = new DateRenderer(new Date(attribute, ""),
             new GedRendererFactory(), anonymousContext);
         final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer.getListItemRenderer();
@@ -93,7 +93,7 @@ public final class DateListItemRendererTest {
 
     /** */
     @Test
-    public void testGetRenderAsListItemNull() {
+    void testGetRenderAsListItemNull() {
         final DateRenderer dRenderer = new DateRenderer(new Date(attribute, null),
             new GedRendererFactory(), anonymousContext);
         final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer.getListItemRenderer();

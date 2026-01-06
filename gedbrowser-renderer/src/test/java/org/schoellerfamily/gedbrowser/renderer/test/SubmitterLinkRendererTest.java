@@ -34,7 +34,7 @@ public final class SubmitterLinkRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -43,7 +43,7 @@ public final class SubmitterLinkRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testAttributeListOpenRenderer() {
+    void testAttributeListOpenRenderer() {
         final SubmitterLinkRenderer renderer = new SubmitterLinkRenderer(new SubmitterLink(),
             new GedRendererFactory(), anonymousContext);
         assertTrue(
@@ -56,7 +56,7 @@ public final class SubmitterLinkRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testListItemRenderer() {
+    void testListItemRenderer() {
         final SubmitterLinkRenderer renderer = new SubmitterLinkRenderer(new SubmitterLink(),
             new GedRendererFactory(), anonymousContext);
         assertTrue(renderer.getListItemRenderer() instanceof SubmitterLinkListItemRenderer,
@@ -68,7 +68,7 @@ public final class SubmitterLinkRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         final SubmitterLinkRenderer renderer = new SubmitterLinkRenderer(new SubmitterLink(),
             new GedRendererFactory(), anonymousContext);
         assertTrue(renderer.getNameHtmlRenderer() instanceof SubmitterLinkNameHtmlRenderer,
@@ -80,7 +80,7 @@ public final class SubmitterLinkRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameIndeRenderer() {
+    void testNameIndeRenderer() {
         final SubmitterLinkRenderer renderer = new SubmitterLinkRenderer(new SubmitterLink(),
             new GedRendererFactory(), anonymousContext);
         assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
@@ -92,7 +92,7 @@ public final class SubmitterLinkRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         final SubmitterLinkRenderer renderer = new SubmitterLinkRenderer(new SubmitterLink(),
             new GedRendererFactory(), anonymousContext);
         assertTrue(renderer.getPhraseRenderer() instanceof SubmitterLinkPhraseRenderer,

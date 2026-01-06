@@ -34,7 +34,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 public final class GetDateVisitorTest {
     /** */
     @Test
-    public void testNoPersonsFromUnrelated() {
+    void testNoPersonsFromUnrelated() {
         final GetDateVisitor visitor = new GetDateVisitor();
         new Child().accept(visitor);
         new FamC().accept(visitor);

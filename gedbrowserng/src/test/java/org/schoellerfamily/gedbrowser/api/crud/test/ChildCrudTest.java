@@ -63,7 +63,7 @@ public class ChildCrudTest {
 
     /** */
     @Test
-    public final void testCreateChild() {
+    void testCreateChild() {
         log.info("Beginning testCreateChildInFamily2");
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = createChildOfParent(parent);
@@ -75,7 +75,7 @@ public class ChildCrudTest {
 
     /** */
     @Test
-    public final void testLinkChildInFamily() {
+    void testLinkChildInFamily() {
         log.info("Beginning testLinkChildInFamily");
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = createChildOfParent(parent);
@@ -91,7 +91,7 @@ public class ChildCrudTest {
 
     /** */
     @Test
-    public final void testLinkChild() {
+    void testLinkChild() {
         log.info("Beginning testLinkChild");
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = helper.createPerson();
@@ -107,7 +107,7 @@ public class ChildCrudTest {
 
     /** */
     @Test
-    public final void testUnlinkChild() {
+    void testUnlinkChild() {
         final ApiPerson parent = helper.createPerson();
 
         final ApiPerson child = createChildOfParent(parent);
@@ -129,7 +129,7 @@ public class ChildCrudTest {
 
     /** */
     @Test
-    public final void testCreateChildInFamily() {
+    void testCreateChildInFamily() {
         log.info("Beginning testCreateChildInFamily");
         final ApiPerson reqPerson = helper.createAlexandra();
         final ApiPerson resPerson =
@@ -143,7 +143,7 @@ public class ChildCrudTest {
 
     /** */
     @Test
-    public final void testCreateChildInFamily2() {
+    void testCreateChildInFamily2() {
         log.info("Beginning testCreateChildInFamily2");
         final ApiPerson reqPerson = helper.createAlexander();
         final ApiPerson resPerson =
@@ -156,7 +156,7 @@ public class ChildCrudTest {
 
     /** */
     @Test
-    public final void testGetPersonsMiniSchoellerI2AddChild() {
+    void testGetPersonsMiniSchoellerI2AddChild() {
         log.info("Beginning testGetPersonsMiniSchoellerI2AddChild");
         final ApiPerson reqChild = helper.createAlexander();
         final ApiPerson resChild = crud.createChild("mini-schoeller", "I9",
@@ -168,7 +168,7 @@ public class ChildCrudTest {
 
     /** */
     @Test
-    public final void testGetPersonsMiniSchoellerI2AddChild2() {
+    void testGetPersonsMiniSchoellerI2AddChild2() {
         log.info("Beginning testGetPersonsMiniSchoellerI2AddChild2");
         final ApiPerson reqChild = helper.createAlexandra();
         final ApiPerson resChild = crud.createChild("mini-schoeller", "I10",

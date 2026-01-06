@@ -64,7 +64,7 @@ public class ParentsControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testCreateParent() throws RestClientException {
+    void testCreateParent() throws RestClientException {
         final ApiPerson child = helper.createPerson();
         final ApiPerson parent = createParentOfChild(child);
         log.info("fams: {}", parent.getFamss().get(0).getString());
@@ -96,7 +96,7 @@ public class ParentsControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testLinkParent() throws RestClientException {
+    void testLinkParent() throws RestClientException {
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = helper.createPerson();
         final ApiPerson gotParent = linkParentOfChild(parent, child);

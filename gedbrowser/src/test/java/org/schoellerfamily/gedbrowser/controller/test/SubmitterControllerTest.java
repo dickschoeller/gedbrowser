@@ -43,7 +43,7 @@ public class SubmitterControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testSubmitterControllerU1() {
+    void testSubmitterControllerU1() {
         final String url = "http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U1";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
@@ -59,7 +59,7 @@ public class SubmitterControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testSubmitterControllerU2() {
+    void testSubmitterControllerU2() {
         final String url = "http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U2";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
@@ -76,7 +76,7 @@ public class SubmitterControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testSubmitterControllerU4() {
+    void testSubmitterControllerU4() {
         final String url = "http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U4";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
@@ -96,7 +96,7 @@ public class SubmitterControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testSubmitterControllerBadDataSet() {
+    void testSubmitterControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create("http://localhost:" + port + "/gedbrowser/submitter?db=XYZZY&id=U4"))
             .exchange()
@@ -109,7 +109,7 @@ public class SubmitterControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testSubmitterControllerBadSubmitter() {
+    void testSubmitterControllerBadSubmitter() {
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI
                 .create("http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U99999"))

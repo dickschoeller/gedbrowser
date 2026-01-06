@@ -367,7 +367,7 @@ public final class GedLineTest {
      * @throws IOException never.
      */
     @Test
-    public void testFactoryGedLineArray() throws IOException {
+    void testFactoryGedLineArray() throws IOException {
         final AbstractGedLine top = readArrayTestSource();
         log.info(top.toString());
         final Root root = g2g.create(top);
@@ -389,7 +389,7 @@ public final class GedLineTest {
      * @throws IOException never.
      */
     @Test
-    public void testFactoryGedLineArrayNote() throws IOException {
+    void testFactoryGedLineArrayNote() throws IOException {
         final AbstractGedLine top = readArrayTestSource();
         final Root root = g2g.create(top);
         final Person melissa = (Person) root.find("I1");
@@ -412,7 +412,7 @@ public final class GedLineTest {
      * @throws IOException never.
      */
     @Test
-    public void testFactoryGedLineArraySubmission() throws IOException {
+    void testFactoryGedLineArraySubmission() throws IOException {
         final AbstractGedLine top = readArrayTestSource();
         final Root root = g2g.create(top);
         final Collection<Head> heads = root.find(Head.class);

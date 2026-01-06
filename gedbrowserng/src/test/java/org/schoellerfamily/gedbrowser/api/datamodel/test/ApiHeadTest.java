@@ -18,7 +18,7 @@ import nl.jqno.equalsverifier.Warning;
 public class ApiHeadTest {
     /** */
     @Test
-    public void testDefaultConstructorType() {
+    void testDefaultConstructorType() {
         final ApiHead o = ApiHead.builder()
             .type("")
             .string("")
@@ -29,7 +29,7 @@ public class ApiHeadTest {
 
     /** */
     @Test
-    public void testDefaultConstructorString() {
+    void testDefaultConstructorString() {
         final ApiHead o = ApiHead.builder()
             .type("")
             .string("")
@@ -40,7 +40,7 @@ public class ApiHeadTest {
 
     /** */
     @Test
-    public void testDefaultConstructorAttributes() {
+    void testDefaultConstructorAttributes() {
         final ApiHead o = ApiHead.builder()
             .type("")
             .string("")
@@ -51,28 +51,28 @@ public class ApiHeadTest {
 
     /** */
     @Test
-    public void testConstructorType() {
+    void testConstructorType() {
         final ApiHead o = ApiHead.builder().type("type").string("string").build();
         assertEquals("type", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
-    public void testConstructorString() {
+    void testConstructorString() {
         final ApiHead o = ApiHead.builder().type("type").string("string").build();
         assertEquals("string", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
-    public void testConstructorNoAttributes() {
+    void testConstructorNoAttributes() {
         final ApiHead o = ApiHead.builder().type("type").string("string").build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
     /** */
     @Test
-    public void testConstructorNullAttributes() {
+    void testConstructorNullAttributes() {
         final ApiHead o = ApiHead.builder()
             .type("type")
             .string("string")
@@ -83,7 +83,7 @@ public class ApiHeadTest {
 
     /** */
     @Test
-    public void testConstructorWithAttributes() {
+    void testConstructorWithAttributes() {
         final List<ApiAttribute> attributes = List.of(ApiAttribute.builder()
             .type("attribute")
             .string("a string")
@@ -100,14 +100,14 @@ public class ApiHeadTest {
 
     /** */
     @Test
-    public void testIsType() {
+    void testIsType() {
         final ApiHead o = ApiHead.builder().type("type").string("string").build();
         assertTrue(o.isType("type"), "isType mismatch");
     }
 
     /** */
     @Test
-    public void testAccept() {
+    void testAccept() {
         final ApiHead o = ApiHead.builder().type("type").string("string").build();
         final ApiTestVisitor visitor = new ApiTestVisitor();
         o.accept(visitor);
@@ -116,7 +116,7 @@ public class ApiHeadTest {
 
     /** */
     @Test
-    public void testHashAndEquals() {
+    void testHashAndEquals() {
         EqualsVerifier.forClass(ApiHead.class).suppress(Warning.STRICT_INHERITANCE).verify();
     }
 }

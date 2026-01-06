@@ -11,14 +11,14 @@ import org.schoellerfamily.gedbrowser.security.exception.ExceptionResponse;
 public class ExceptionResponseTest {
     /** */
     @Test
-    public void testMessage() {
+    void testMessage() {
         final ExceptionResponse er = new ExceptionResponse("code", "message");
         assertEquals("message", er.getErrorMessage(), "Messages don't match");
     }
 
     /** */
     @Test
-    public void testId() {
+    void testId() {
         final ExceptionResponse er = new ExceptionResponse("code", "message");
         assertEquals("code", er.getErrorCode(), "Codes don't match");
     }

@@ -13,7 +13,7 @@ public final class GedObjectBuilderTrailerTest {
 
     /** */
     @Test
-    public void testCreateTrailer() {
+    void testCreateTrailer() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Trailer trailer = builder.createTrailer();
         assertEquals("Trailer", trailer.getString(), "Mismatched tag");

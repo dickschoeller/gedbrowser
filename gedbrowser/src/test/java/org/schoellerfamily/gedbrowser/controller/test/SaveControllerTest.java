@@ -51,7 +51,7 @@ public class SaveControllerTest {
 
     /** */
     @Test
-    public final void testSaveControllerOK() {
+    void testSaveControllerOK() {
         // This makes it so anonymous access has admin. That allows testing
         // stuff that only works for admin.
         final UserImpl user = new UserImpl();
@@ -87,7 +87,7 @@ public class SaveControllerTest {
 
     /** */
     @Test
-    public final void testSaveControllerDatasetNotFound() {
+    void testSaveControllerDatasetNotFound() {
         // This makes it so anonymous access has admin. That allows testing
         // stuff that only works for admin.
         final UserImpl user = new UserImpl();
@@ -113,7 +113,7 @@ public class SaveControllerTest {
 
     /** */
     @Test
-    public final void testSaveControllerNotAdmin() {
+    void testSaveControllerNotAdmin() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser/save?db=gl120368";
         final EntityExchangeResult<String> entity = restTestClient.get()

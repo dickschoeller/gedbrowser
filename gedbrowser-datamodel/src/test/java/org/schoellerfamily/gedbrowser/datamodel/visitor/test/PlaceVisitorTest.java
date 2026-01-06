@@ -52,7 +52,7 @@ public final class PlaceVisitorTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         root = new Root();
         final GedObjectBuilder builder = new GedObjectBuilder(root);
         final Person person1 = builder.createPerson("I1",
@@ -105,7 +105,7 @@ public final class PlaceVisitorTest {
 
     /** */
     @Test
-    public void testRootPlaces() {
+    void testRootPlaces() {
         final PlaceVisitor visitor = new PlaceVisitor();
         root.accept(visitor);
         final Collection<Place> placeStrings = visitor.getPlaces();
@@ -115,7 +115,7 @@ public final class PlaceVisitorTest {
 
     /** */
     @Test
-    public void testPersonPlaces() {
+    void testPersonPlaces() {
         final PlaceVisitor visitor = new PlaceVisitor();
         person4.accept(visitor);
         final Collection<String> placeStrings = visitor.getPlaceStrings();
@@ -124,7 +124,7 @@ public final class PlaceVisitorTest {
 
     /** */
     @Test
-    public void testPersonPlaces6() {
+    void testPersonPlaces6() {
         final PlaceVisitor visitor = new PlaceVisitor();
         person6.accept(visitor);
         final Collection<String> placeStrings = visitor.getPlaceStrings();
@@ -133,7 +133,7 @@ public final class PlaceVisitorTest {
 
     /** */
     @Test
-    public void testFamilyPlaces6() {
+    void testFamilyPlaces6() {
         final PlaceVisitor visitor = new PlaceVisitor();
         family6.accept(visitor);
         final Collection<String> placeStrings = visitor.getPlaceStrings();
@@ -142,7 +142,7 @@ public final class PlaceVisitorTest {
 
     /** */
     @Test
-    public void testNoImpactFromUnrelated() {
+    void testNoImpactFromUnrelated() {
         final PlaceVisitor visitor = new PlaceVisitor();
         new Child().accept(visitor);
         new Date(null).accept(visitor);

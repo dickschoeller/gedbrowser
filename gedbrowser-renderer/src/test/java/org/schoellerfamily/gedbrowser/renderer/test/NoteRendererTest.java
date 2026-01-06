@@ -46,7 +46,7 @@ public final class NoteRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -55,7 +55,7 @@ public final class NoteRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testAttributeListOpenRenderer() {
+    void testAttributeListOpenRenderer() {
         final NoteRenderer renderer = createRenderer();
         assertTrue(
             renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
@@ -67,7 +67,7 @@ public final class NoteRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testListItemRenderer() {
+    void testListItemRenderer() {
         final NoteRenderer renderer = createRenderer();
         assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer,
             "Wrong renderer type");
@@ -78,7 +78,7 @@ public final class NoteRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         final NoteRenderer renderer = createRenderer();
         assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
             "Wrong renderer type");
@@ -89,7 +89,7 @@ public final class NoteRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameIndexRenderer() {
+    void testNameIndexRenderer() {
         final NoteRenderer renderer = createRenderer();
         assertTrue(renderer.getNameIndexRenderer() instanceof NoteNameIndexRenderer,
             "Wrong renderer type");
@@ -100,7 +100,7 @@ public final class NoteRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         final NoteRenderer renderer = createRenderer();
         assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer,
             "Wrong renderer type");
@@ -118,7 +118,7 @@ public final class NoteRendererTest {
      * @throws IOException because the reader can
      */
     @Test
-    public void testTitleString() throws IOException {
+    void testTitleString() throws IOException {
         final Root root = reader.readBigTestSource();
         final Note note = (Note) root.find("N1");
         final NoteRenderer renderer = new NoteRenderer(note, new GedRendererFactory(),
@@ -130,7 +130,7 @@ public final class NoteRendererTest {
      * @throws IOException because the reader can
      */
     @Test
-    public void testTitleStringLong() throws IOException {
+    void testTitleStringLong() throws IOException {
         final Root root = reader.readBigTestSource();
         final Note note = (Note) root.find("N2");
         final NoteRenderer renderer = new NoteRenderer(note, new GedRendererFactory(),
@@ -143,7 +143,7 @@ public final class NoteRendererTest {
      * @throws IOException because the reader can
      */
     @Test
-    public void testTitleStringWithAttributesCount() throws IOException {
+    void testTitleStringWithAttributesCount() throws IOException {
         final Root root = reader.readBigTestSource();
         final Note note = (Note) root.find("N3");
         final NoteRenderer renderer = new NoteRenderer(note, new GedRendererFactory(),
@@ -155,7 +155,7 @@ public final class NoteRendererTest {
      * @throws IOException because the reader can
      */
     @Test
-    public void testTitleStringWithAttributesContent() throws IOException {
+    void testTitleStringWithAttributesContent() throws IOException {
         final Root root = reader.readBigTestSource();
         final Note note = (Note) root.find("N3");
         final NoteRenderer renderer = new NoteRenderer(note, new GedRendererFactory(),
@@ -169,7 +169,7 @@ public final class NoteRendererTest {
      * @throws IOException because the reader can
      */
     @Test
-    public void testIdString() throws IOException {
+    void testIdString() throws IOException {
         final Root root = reader.readBigTestSource();
         final Note note = (Note) root.find("N1");
         final NoteRenderer renderer = new NoteRenderer(note, new GedRendererFactory(),
@@ -181,7 +181,7 @@ public final class NoteRendererTest {
      * @throws IOException because the reader can
      */
     @Test
-    public void testIdAttributes() throws IOException {
+    void testIdAttributes() throws IOException {
         final String[] expects = {
             "<span class=\"label\">Abbreviation:</span>" + " SchoellerRichardBirthCert",
             "<span class=\"label\">Note:</span>" + " I have a certified copy of this document" };
@@ -202,7 +202,7 @@ public final class NoteRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testIndexName() throws IOException {
+    void testIndexName() throws IOException {
         final Root root = reader.readBigTestSource();
         final Note note = (Note) root.find("N1");
         final NoteRenderer renderer = new NoteRenderer(note, new GedRendererFactory(),
@@ -219,7 +219,7 @@ public final class NoteRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testHeadMenuItem() throws IOException {
+    void testHeadMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
@@ -234,7 +234,7 @@ public final class NoteRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSaveMenuItem() throws IOException {
+    void testSaveMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
@@ -249,7 +249,7 @@ public final class NoteRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSaveFilename() throws IOException {
+    void testSaveFilename() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
@@ -265,7 +265,7 @@ public final class NoteRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testIndexMenuItem() throws IOException {
+    void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
@@ -281,7 +281,7 @@ public final class NoteRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testLivingMenuItem() throws IOException {
+    void testLivingMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
@@ -296,7 +296,7 @@ public final class NoteRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testNotesMenuItem() throws IOException {
+    void testNotesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
@@ -311,7 +311,7 @@ public final class NoteRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSubmittersMenuItem() throws IOException {
+    void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {
@@ -327,7 +327,7 @@ public final class NoteRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testPlacesMenuItem() throws IOException {
+    void testPlacesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Note> notes = root.find(Note.class);
         for (final Note note : notes) {

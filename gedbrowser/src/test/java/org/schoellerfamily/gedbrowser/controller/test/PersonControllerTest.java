@@ -44,7 +44,7 @@ public class PersonControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testPersonControllerI4() {
+    void testPersonControllerI4() {
         final String url = "http://localhost:" + port + "/gedbrowser/person?db=gl120368&id=I4";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
@@ -59,7 +59,7 @@ public class PersonControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testPersonControllerI9() {
+    void testPersonControllerI9() {
         String url = "http://localhost:" + port + "/gedbrowser/person?db=gl120368&id=I9";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
@@ -76,7 +76,7 @@ public class PersonControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testPersonControllerBadDataSet() {
+    void testPersonControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create("http://localhost:" + port + "/gedbrowser/person?db=XYZZY&id=I99"))
             .exchange()
@@ -89,7 +89,7 @@ public class PersonControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testPersonControllerBadPerson() {
+    void testPersonControllerBadPerson() {
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create("http://localhost:" + port + "/gedbrowser/person?db=gl120368&id=XYZZY"))
             .exchange()

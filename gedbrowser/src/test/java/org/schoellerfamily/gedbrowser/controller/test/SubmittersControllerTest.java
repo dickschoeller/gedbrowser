@@ -43,7 +43,7 @@ public class SubmittersControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testSubmittersControllerOK() {
+    void testSubmittersControllerOK() {
         final String url = "http://localhost:" + port
                 + "/gedbrowser/submitters?db=gl120368";
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -75,7 +75,7 @@ public class SubmittersControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    public final void testSubmittersControllerBadDataSet() {
+    void testSubmittersControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri(URI.create("http://localhost:" + port + "/gedbrowser/submitters?db=XYZZY"))
                 .exchange()

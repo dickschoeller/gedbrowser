@@ -29,7 +29,7 @@ public class CharsetTest {
      * @throws IOException if there is an error reading the file.
      */
     @Test
-    public void testANSEL() throws IOException {
+    void testANSEL() throws IOException {
         final Root root = reader.readFileTestSource("ansel.ged");
         final Person person = root.find("CHILD0", Person.class);
         final GedObject attr = person.getAttributes().get(2);
@@ -45,7 +45,7 @@ public class CharsetTest {
      * @throws IOException if there is an error reading the file.
      */
     @Test
-    public void testANSI() throws IOException {
+    void testANSI() throws IOException {
         final Root root = reader.readFileTestSource("ansi.ged");
         final Person person = root.find("I380", Person.class);
         final GedObject attr = person.getAttributes().get(3);

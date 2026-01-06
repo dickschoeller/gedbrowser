@@ -50,7 +50,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void shouldReturn200WhenSendingRequestToInfoEndpoint() {
+    void shouldReturn200WhenSendingRequestToInfoEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri(URI.create("http://localhost:" + mgt + "/actuator/info"))
                 .exchange()
@@ -61,7 +61,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void shouldReturn200WhenSendingRequestToHealthEndpoint() {
+    void shouldReturn200WhenSendingRequestToHealthEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri(URI.create("http://localhost:" + mgt + "/actuator/health"))
                 .exchange()
@@ -73,7 +73,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void shouldReturn200WhenSendingRequestToLoadEndpoint() {
+    void shouldReturn200WhenSendingRequestToLoadEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri(URI.create("http://localhost:" + mgt + "/actuator/restore"))
                 .exchange()
@@ -86,7 +86,7 @@ public class ApplicationTest {
 
     /** */
     @Test
-    public final void testApplicationName() {
+    void testApplicationName() {
         final Application a = new Application();
         assertEquals("gedbrowser", a.getApplicationName(), "Application name mismatch");
     }

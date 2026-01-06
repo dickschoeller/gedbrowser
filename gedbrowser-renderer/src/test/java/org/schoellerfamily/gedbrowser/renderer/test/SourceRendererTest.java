@@ -45,7 +45,7 @@ public final class SourceRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -54,7 +54,7 @@ public final class SourceRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testAttributeListOpenRenderer() {
+    void testAttributeListOpenRenderer() {
         final SourceRenderer renderer = createRenderer();
         assertTrue(
             renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
@@ -66,7 +66,7 @@ public final class SourceRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testListItemRenderer() {
+    void testListItemRenderer() {
         final SourceRenderer renderer = createRenderer();
         assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer,
             "Wrong renderer type");
@@ -77,7 +77,7 @@ public final class SourceRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         final SourceRenderer renderer = createRenderer();
         assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
             "Wrong renderer type");
@@ -88,7 +88,7 @@ public final class SourceRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameIndexRenderer() {
+    void testNameIndexRenderer() {
         final SourceRenderer renderer = createRenderer();
         assertTrue(renderer.getNameIndexRenderer() instanceof SourceNameIndexRenderer,
             "Wrong renderer type");
@@ -99,7 +99,7 @@ public final class SourceRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         final SourceRenderer renderer = createRenderer();
         assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer,
             "Wrong renderer type");
@@ -117,7 +117,7 @@ public final class SourceRendererTest {
      * @throws IOException because the reader can
      */
     @Test
-    public void testTitleString() throws IOException {
+    void testTitleString() throws IOException {
         final Root root = reader.readBigTestSource();
         final Source source = (Source) root.find("S3");
         final SourceRenderer renderer = new SourceRenderer(source, new GedRendererFactory(),
@@ -130,7 +130,7 @@ public final class SourceRendererTest {
      * @throws IOException because the reader can
      */
     @Test
-    public void testIdString() throws IOException {
+    void testIdString() throws IOException {
         final Root root = reader.readBigTestSource();
         final Source source = (Source) root.find("S3");
         final SourceRenderer renderer = new SourceRenderer(source, new GedRendererFactory(),
@@ -142,7 +142,7 @@ public final class SourceRendererTest {
      * @throws IOException because the reader can
      */
     @Test
-    public void testIdAttributes() throws IOException {
+    void testIdAttributes() throws IOException {
         final String[] expects = {
             "<span class=\"label\">Abbreviation:</span>" + " SchoellerRichardBirthCert",
             "<span class=\"label\">Note:</span>" + " I have a certified copy of this document" };
@@ -163,7 +163,7 @@ public final class SourceRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testIndexName() throws IOException {
+    void testIndexName() throws IOException {
         final Root root = reader.readBigTestSource();
         final Source source = (Source) root.find("S3");
         final SourceRenderer renderer = new SourceRenderer(source, new GedRendererFactory(),
@@ -180,7 +180,7 @@ public final class SourceRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testHeadMenuItem() throws IOException {
+    void testHeadMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Source> sources = root.find(Source.class);
         for (final Source source : sources) {
@@ -195,7 +195,7 @@ public final class SourceRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSaveMenuItem() throws IOException {
+    void testSaveMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Source> sources = root.find(Source.class);
         for (final Source source : sources) {
@@ -210,7 +210,7 @@ public final class SourceRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSaveFilename() throws IOException {
+    void testSaveFilename() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Source> sources = root.find(Source.class);
         for (final Source source : sources) {
@@ -225,7 +225,7 @@ public final class SourceRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testIndexMenuItem() throws IOException {
+    void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Source> sources = root.find(Source.class);
         for (final Source source : sources) {
@@ -241,7 +241,7 @@ public final class SourceRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testLivingMenuItem() throws IOException {
+    void testLivingMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Source> sources = root.find(Source.class);
         for (final Source source : sources) {
@@ -256,7 +256,7 @@ public final class SourceRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSourcesMenuItem() throws IOException {
+    void testSourcesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Source> sources = root.find(Source.class);
         for (final Source source : sources) {
@@ -271,7 +271,7 @@ public final class SourceRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSubmittersMenuItem() throws IOException {
+    void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Source> sources = root.find(Source.class);
         for (final Source source : sources) {
@@ -287,7 +287,7 @@ public final class SourceRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testPlacesMenuItem() throws IOException {
+    void testPlacesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Source> sources = root.find(Source.class);
         for (final Source source : sources) {

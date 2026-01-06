@@ -50,7 +50,7 @@ public final class GedRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         homeUrl = "http://www.schoellerfamily.org/";
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
@@ -60,7 +60,7 @@ public final class GedRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testAttributeListOpenRenderer() {
+    void testAttributeListOpenRenderer() {
         final GedRenderer<GedObject> renderer = createRenderer();
         assertTrue(
             renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
@@ -72,7 +72,7 @@ public final class GedRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testListItemRenderer() {
+    void testListItemRenderer() {
         final GedRenderer<GedObject> renderer = createRenderer();
         assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer,
             "Wrong renderer type");
@@ -83,7 +83,7 @@ public final class GedRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         final GedRenderer<GedObject> renderer = createRenderer();
         assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
             "Wrong renderer type");
@@ -94,7 +94,7 @@ public final class GedRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameIndexRenderer() {
+    void testNameIndexRenderer() {
         final GedRenderer<GedObject> renderer = createRenderer();
         assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
             "Wrong renderer type");
@@ -105,7 +105,7 @@ public final class GedRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         final GedRenderer<GedObject> renderer = createRenderer();
         assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer,
             "Wrong renderer type");
@@ -122,7 +122,7 @@ public final class GedRendererTest {
 
     /** */
     @Test
-    public void testGetTrailerHtmlEmpty() {
+    void testGetTrailerHtmlEmpty() {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new GedRenderer<GedObject>(root,
             new GedRendererFactory(), anonymousContext) {
@@ -147,7 +147,7 @@ public final class GedRendererTest {
 
     /** */
     @Test
-    public void testGetHeaderHtml() {
+    void testGetHeaderHtml() {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root, new GedRendererFactory(),
             anonymousContext);
@@ -171,7 +171,7 @@ public final class GedRendererTest {
 
     /** */
     @Test
-    public void testGetTrailerHtml() {
+    void testGetTrailerHtml() {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root, new GedRendererFactory(),
             anonymousContext);
@@ -195,7 +195,7 @@ public final class GedRendererTest {
 
     /** */
     @Test
-    public void testHasRoleAdminFalse() {
+    void testHasRoleAdminFalse() {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root, new GedRendererFactory(),
             anonymousContext);
@@ -204,7 +204,7 @@ public final class GedRendererTest {
 
     /** */
     @Test
-    public void testHasRoleUserTrue() {
+    void testHasRoleUserTrue() {
         final Root root = new Root();
         final ApplicationInfo appInfo1 = appInfo;
         final UserImpl user2 = new UserImpl();
@@ -221,7 +221,7 @@ public final class GedRendererTest {
 
     /** */
     @Test
-    public void testHasRoleUserFalse() {
+    void testHasRoleUserFalse() {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root, new GedRendererFactory(),
             anonymousContext);
@@ -230,7 +230,7 @@ public final class GedRendererTest {
 
     /** */
     @Test
-    public void testUserGetFirstname() {
+    void testUserGetFirstname() {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root, new GedRendererFactory(),
             RenderingContext.user(appInfo));
@@ -239,7 +239,7 @@ public final class GedRendererTest {
 
     /** */
     @Test
-    public void testGetTrailerHtmlHeader() {
+    void testGetTrailerHtmlHeader() {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root, new GedRendererFactory(),
             anonymousContext);
@@ -264,7 +264,7 @@ public final class GedRendererTest {
 
     /** */
     @Test
-    public void testGetTrailerHtmlSurnames() {
+    void testGetTrailerHtmlSurnames() {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root, new GedRendererFactory(),
             anonymousContext);
@@ -289,7 +289,7 @@ public final class GedRendererTest {
 
     /** */
     @Test
-    public void testGetTrailerHtmlIndex() {
+    void testGetTrailerHtmlIndex() {
         final Root root = new Root();
         final GedRenderer<GedObject> renderer = new DefaultRenderer(root, new GedRendererFactory(),
             anonymousContext);
@@ -316,7 +316,7 @@ public final class GedRendererTest {
      * Test the home URL. Always www.schoellerfamily.org at this point.
      */
     @Test
-    public void testGetHomeUrl() {
+    void testGetHomeUrl() {
         final GedRenderer<GedObject> renderer = createRenderer();
         assertEquals(homeUrl, renderer.getHomeUrl(), "Home URL does not match expectation");
     }
@@ -325,7 +325,7 @@ public final class GedRendererTest {
      * Test the living reference.
      */
     @Test
-    public void testGetLivingHref() {
+    void testGetLivingHref() {
         final GedRenderer<GedObject> renderer = createRenderer();
         assertEquals("living?db=null", renderer.getLivingHref(),
             "Living href does not match expectation");
@@ -335,7 +335,7 @@ public final class GedRendererTest {
      * Test the calendar provider.
      */
     @Test
-    public void testGetCalendarProvider() {
+    void testGetCalendarProvider() {
         final GedRenderer<GedObject> renderer = createRenderer();
         final CalendarProvider cp = renderer.getRenderingContext();
         final String nowString = cp.nowDate().toString("YYYYMMdd");

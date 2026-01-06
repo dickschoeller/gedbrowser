@@ -63,7 +63,7 @@ public class ParentCrudTest {
 
     /** */
     @Test
-    public final void testCreateParent() {
+    void testCreateParent() {
         final ApiPerson child = helper.createPerson();
         final ApiPerson parent = crud.createParent(helper.getDb(), child.getString(),
             helper.buildPerson());
@@ -77,7 +77,7 @@ public class ParentCrudTest {
 
     /** */
     @Test
-    public final void testLinkParent() {
+    void testLinkParent() {
         final ApiPerson inParent = helper.createPerson();
         final ApiPerson child = helper.createPerson();
         final ApiPerson outParent = crud.linkParent(helper.getDb(), child.getString(), inParent);
@@ -91,7 +91,7 @@ public class ParentCrudTest {
 
     /** */
     @Test
-    public final void testGetPersonsMiniSchoellerI2AddParent() {
+    void testGetPersonsMiniSchoellerI2AddParent() {
         log.info("Beginning testGetPersonsMiniSchoellerI2AddParent");
         final ApiPerson reqParent = helper.createAlexander();
         final ApiPerson resParent = crud.createParent("mini-schoeller", "I1", reqParent);
@@ -102,7 +102,7 @@ public class ParentCrudTest {
 
     /** */
     @Test
-    public final void testGetPersonsMiniSchoellerI2AddParent2() {
+    void testGetPersonsMiniSchoellerI2AddParent2() {
         log.info("Beginning testGetPersonsMiniSchoellerI2AddParent2");
         final ApiPerson reqParent = helper.createAlexandra();
         final ApiPerson resParent = crud.createParent("mini-schoeller", "I2", reqParent);

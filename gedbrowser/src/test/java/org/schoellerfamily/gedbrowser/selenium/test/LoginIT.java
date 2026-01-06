@@ -139,7 +139,7 @@ public class LoginIT {
      */
     @Disabled("Selenium tests currently failing in setup phase")
     @Test
-    public void testBasicAdminLogin() {
+    void testBasicAdminLogin() {
         final PersonPage currentPerson =
                 factory.createPersonPage(null, baseUrl(), "I15");
         currentPerson.open();
@@ -163,7 +163,7 @@ public class LoginIT {
      */
     @Disabled("Selenium tests currently failing in setup phase")
     @Test
-    public void testBasicUserLogin() {
+    void testBasicUserLogin() {
         final PersonPage currentPerson =
                 factory.createPersonPage(null, baseUrl(), "I15");
         currentPerson.open();
@@ -188,7 +188,7 @@ public class LoginIT {
      */
     @Disabled("Selenium tests currently failing in setup phase")
     @Test
-    public void testBasicUserLivingPerson() {
+    void testBasicUserLivingPerson() {
         final PersonPage currentPerson =
                 factory.createPersonPage(null, baseUrl(), "I1");
         currentPerson.open();

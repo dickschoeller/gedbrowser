@@ -23,7 +23,7 @@ public class TokenHelperTest {
      * Setup token helper for testing.
      */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         tokenHelper = new TokenHelper();
         final long twentyMillis = 20L;
         DateTimeUtils.setCurrentMillisFixed(twentyMillis);
@@ -37,7 +37,7 @@ public class TokenHelperTest {
      * @throws InterruptedException won't happen
      */
     @Test
-    public void testGenerateTokenExpired() throws InterruptedException {
+    void testGenerateTokenExpired() throws InterruptedException {
         final String token = tokenHelper.generateToken("fanjin");
         final int twoSecondsInMillis = 2000;
         Thread.sleep(twoSecondsInMillis);

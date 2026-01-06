@@ -57,7 +57,7 @@ public class HeadCrudTest {
 
     /** */
     @Test
-    public final void testGetHeadGl120368() {
+    void testGetHeadGl120368() {
         log.info("beginning testGetHeadGl120368");
         final ApiHead head = crud.readOne("gl120368");
         then(head.getType()).isEqualTo("head");
@@ -66,7 +66,7 @@ public class HeadCrudTest {
 
     /** */
     @Test
-    public final void testGetHeadMiniSchoeller() {
+    void testGetHeadMiniSchoeller() {
         log.info("beginning testGetHeadMiniSchoeller");
         final ApiHead head = crud.readOne("mini-schoeller");
         then(head.getType()).isEqualTo("head");
@@ -75,7 +75,7 @@ public class HeadCrudTest {
 
     /** */
     @Test
-    public final void testGetHeadBadDataSet() {
+    void testGetHeadBadDataSet() {
         log.info("beginning testGetHeadBadDataSet");
         final DataSetNotFoundException e = assertThrows(
                 DataSetNotFoundException.class,

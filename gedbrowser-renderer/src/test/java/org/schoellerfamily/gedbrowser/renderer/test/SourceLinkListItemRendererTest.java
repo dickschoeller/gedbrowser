@@ -38,7 +38,7 @@ public final class SourceLinkListItemRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person = builder.createPerson("I1");
         final Root root = builder.getRoot();
@@ -53,7 +53,7 @@ public final class SourceLinkListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItem() {
+    void testRenderAsListItem() {
         final SourceLink sourceLink =
                 new SourceLink(person, "SOUR", new ObjectId("S1"));
         person.addAttribute(sourceLink);
@@ -72,7 +72,7 @@ public final class SourceLinkListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItemWithTitle() {
+    void testRenderAsListItemWithTitle() {
         final SourceLink sourceLink =
                 new SourceLink(person, "SOUR", new ObjectId("S2"));
         person.addAttribute(sourceLink);

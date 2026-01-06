@@ -46,7 +46,7 @@ public final class HeadRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
@@ -55,7 +55,7 @@ public final class HeadRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testAttributeListOpenRenderer() {
+    void testAttributeListOpenRenderer() {
         final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
             new GedRendererFactory(), anonymousContext);
         assertTrue(
@@ -68,7 +68,7 @@ public final class HeadRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testListItemRenderer() {
+    void testListItemRenderer() {
         final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
             new GedRendererFactory(), anonymousContext);
         assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer,
@@ -80,7 +80,7 @@ public final class HeadRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
             new GedRendererFactory(), anonymousContext);
         assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
@@ -92,7 +92,7 @@ public final class HeadRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameIndeRenderer() {
+    void testNameIndeRenderer() {
         final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
             new GedRendererFactory(), anonymousContext);
         assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
@@ -104,7 +104,7 @@ public final class HeadRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
             new GedRendererFactory(), anonymousContext);
         assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer,
@@ -117,7 +117,7 @@ public final class HeadRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testHeadRenderer() throws IOException {
+    void testHeadRenderer() throws IOException {
         final Root root = reader.readBigTestSource();
         final Head head = root.find("Header", Head.class);
         final HeadRenderer renderer = new HeadRenderer(head, new GedRendererFactory(),
@@ -133,7 +133,7 @@ public final class HeadRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testHeaderMenuItem() throws IOException {
+    void testHeaderMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         for (final Head head : root.find(Head.class)) {
             final HeadRenderer renderer = createRenderer(head);
@@ -147,7 +147,7 @@ public final class HeadRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSaveMenuItem() throws IOException {
+    void testSaveMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Head> heads = root.find(Head.class);
         for (final Head head : heads) {
@@ -162,7 +162,7 @@ public final class HeadRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSaveFilename() throws IOException {
+    void testSaveFilename() throws IOException {
         final Root root = reader.readFileTestSource();
         final Collection<Head> heads = root.find(Head.class);
         for (final Head head : heads) {
@@ -177,7 +177,7 @@ public final class HeadRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testIndexMenuItem() throws IOException {
+    void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         for (final Head head : root.find(Head.class)) {
             final HeadRenderer renderer = createRenderer(head);
@@ -192,7 +192,7 @@ public final class HeadRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testLivingMenuItem() throws IOException {
+    void testLivingMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         for (final Head head : root.find(Head.class)) {
             final HeadRenderer renderer = createRenderer(head);
@@ -206,7 +206,7 @@ public final class HeadRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSourcesMenuItem() throws IOException {
+    void testSourcesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         for (final Head head : root.find(Head.class)) {
             final HeadRenderer renderer = createRenderer(head);
@@ -220,7 +220,7 @@ public final class HeadRendererTest {
      * @throws IOException if can't read data file
      */
     @Test
-    public void testSubmittersMenuItem() throws IOException {
+    void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
         for (final Head head : root.find(Head.class)) {
             final HeadRenderer renderer = createRenderer(head);

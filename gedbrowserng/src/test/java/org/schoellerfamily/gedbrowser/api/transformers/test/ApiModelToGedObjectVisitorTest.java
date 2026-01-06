@@ -39,7 +39,7 @@ public class ApiModelToGedObjectVisitorTest {
 
     /** */
     @Test
-    public void testHead() {
+    void testHead() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
         final ApiHead apiHead = ApiHead.builder().build();
         apiHead.accept(visitor);
@@ -49,7 +49,7 @@ public class ApiModelToGedObjectVisitorTest {
 
     /** */
     @Test
-    public void testPerson() {
+    void testPerson() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
         final ApiPerson apiPerson = ApiPerson.builder()
             .string("I1")
@@ -63,7 +63,7 @@ public class ApiModelToGedObjectVisitorTest {
 
     /** */
     @Test
-    public void testPersonWithAttributes() {
+    void testPersonWithAttributes() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
         final ApiPerson apiPerson = ApiPerson.builder()
             .string("I1")
@@ -80,7 +80,7 @@ public class ApiModelToGedObjectVisitorTest {
 
     /** */
     @Test
-    public void testFamily() {
+    void testFamily() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
         final ApiFamily apiFamily = ApiFamily.builder().type("family").string("F1").build();
         apiFamily.accept(visitor);
@@ -90,7 +90,7 @@ public class ApiModelToGedObjectVisitorTest {
 
     /** */
     @Test
-    public void testSource() {
+    void testSource() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
         final ApiSource apiSource = ApiSource.builder()
             .type("source")
@@ -104,7 +104,7 @@ public class ApiModelToGedObjectVisitorTest {
 
     /** */
     @Test
-    public void testSourceLink() {
+    void testSourceLink() {
         final Person p = builder.createPerson("I1", "Richard/Schoeller/");
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder, p);
         final ApiAttribute apiSource = ApiAttribute.builder()
@@ -118,7 +118,7 @@ public class ApiModelToGedObjectVisitorTest {
 
     /** */
     @Test
-    public void testSubmission() {
+    void testSubmission() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
         final ApiSubmission apiSubmission = ApiSubmission.builder()
             .type("submission")
@@ -131,7 +131,7 @@ public class ApiModelToGedObjectVisitorTest {
 
     /** */
     @Test
-    public void testSubmitter() {
+    void testSubmitter() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
         final ApiSubmitter apiSubmitter = ApiSubmitter.builder()
             .type("submitter")
@@ -145,7 +145,7 @@ public class ApiModelToGedObjectVisitorTest {
 
     /** */
     @Test
-    public void testBasicObject() {
+    void testBasicObject() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
         final ApiObject apiSubmitter = ApiObject.builder().type("object").string("OBJECT1").build();
         apiSubmitter.accept(visitor);
@@ -155,7 +155,7 @@ public class ApiModelToGedObjectVisitorTest {
 
     /** */
     @Test
-    public void testBasicObjectType() {
+    void testBasicObjectType() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
         final ApiObject apiSubmitter = ApiObject.builder().type("object").string("OBJECT1").build();
         apiSubmitter.accept(visitor);

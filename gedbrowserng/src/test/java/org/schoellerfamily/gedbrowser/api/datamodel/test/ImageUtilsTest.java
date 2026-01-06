@@ -23,7 +23,7 @@ public class ImageUtilsTest {
 
     /** */
     @Test
-    public void testWrapperIsWrapper() {
+    void testWrapperIsWrapper() {
         final ApiAttribute file = ApiAttribute.builder()
             .type("attribute")
             .string("File")
@@ -39,7 +39,7 @@ public class ImageUtilsTest {
 
     /** */
     @Test
-    public void testWrapperWrapperIsWrapper() {
+    void testWrapperWrapperIsWrapper() {
         final ApiAttribute file = ApiAttribute.builder()
             .type("attribute")
             .string("File")
@@ -60,7 +60,7 @@ public class ImageUtilsTest {
 
     /** */
     @Test
-    public void testBMPIsImage() {
+    void testBMPIsImage() {
         final ApiAttribute file = ApiAttribute.builder()
             .type("attribute")
             .string("File")
@@ -72,7 +72,7 @@ public class ImageUtilsTest {
 
     /** */
     @Test
-    public void testGIFIsImage() {
+    void testGIFIsImage() {
         final ApiAttribute file = ApiAttribute.builder()
             .type("attribute")
             .string("File")
@@ -84,7 +84,7 @@ public class ImageUtilsTest {
 
     /** */
     @Test
-    public void testICOIsImage() {
+    void testICOIsImage() {
         final ApiAttribute file = ApiAttribute.builder()
             .type("attribute")
             .string("File")
@@ -96,7 +96,7 @@ public class ImageUtilsTest {
 
     /** */
     @Test
-    public void testJPGIsImage() {
+    void testJPGIsImage() {
         final ApiAttribute file = ApiAttribute.builder()
             .type("attribute")
             .string("File")
@@ -108,7 +108,7 @@ public class ImageUtilsTest {
 
     /** */
     @Test
-    public void testJPEGIsImage() {
+    void testJPEGIsImage() {
         final ApiAttribute file = ApiAttribute.builder()
             .type("attribute")
             .string("File")
@@ -120,7 +120,7 @@ public class ImageUtilsTest {
 
     /** */
     @Test
-    public void testPNGIsImage() {
+    void testPNGIsImage() {
         final ApiAttribute file = ApiAttribute.builder()
             .type("attribute")
             .string("File")
@@ -132,7 +132,7 @@ public class ImageUtilsTest {
 
     /** */
     @Test
-    public void testTIFFIsImage() {
+    void testTIFFIsImage() {
         final ApiAttribute file = ApiAttribute.builder()
             .type("attribute")
             .string("File")
@@ -144,7 +144,7 @@ public class ImageUtilsTest {
 
     /** */
     @Test
-    public void testTIFIsImage() {
+    void testTIFIsImage() {
         final ApiAttribute file = ApiAttribute.builder()
             .type("attribute")
             .string("File")
@@ -156,7 +156,7 @@ public class ImageUtilsTest {
 
     /** */
     @Test
-    public void testSVGIsImage() {
+    void testSVGIsImage() {
         final ApiAttribute file = ApiAttribute.builder()
             .type("attribute")
             .string("File")
@@ -168,7 +168,7 @@ public class ImageUtilsTest {
 
     /** */
     @Test
-    public void testIsNotImage() {
+    void testIsNotImage() {
         final ApiAttribute multimedia = ApiAttribute.builder()
             .type("multimedia")
             .string("Multimedia")
@@ -179,7 +179,7 @@ public class ImageUtilsTest {
 
     /** */
     @Test
-    public void testIsNotWrapper() {
+    void testIsNotWrapper() {
         final ApiAttribute multimedia = ApiAttribute.builder()
             .type("multimedia")
             .string("Multimedia")

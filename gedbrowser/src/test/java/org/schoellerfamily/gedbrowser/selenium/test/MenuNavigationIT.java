@@ -115,7 +115,7 @@ public class MenuNavigationIT {
      * Test navigation through index from one person to another.
      */
     @Test
-    public void testIndexLinkNavigation() {
+    void testIndexLinkNavigation() {
         final PersonPage currentPerson =
                 factory.createPersonPage(null, baseUrl(), "I15");
         currentPerson.open();
@@ -137,7 +137,7 @@ public class MenuNavigationIT {
      * Test navigation through index from one person to another.
      */
     @Test
-    public void testMenuWandering() {
+    void testMenuWandering() {
         final PersonPage currentPerson =
                 factory.createPersonPage(null, baseUrl(), "I15");
         currentPerson.open();

@@ -39,7 +39,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.SourceVisitor;
 public final class SourceVisitorTest {
     /** */
     @Test
-    public void testGetTitleString() {
+    void testGetTitleString() {
         final Root root = new Root("Root");
         final Source source = new Source(root, new ObjectId("S1"));
         root.insert(source);
@@ -52,7 +52,7 @@ public final class SourceVisitorTest {
 
     /** */
     @Test
-    public void testGetNonTitleAttribute() {
+    void testGetNonTitleAttribute() {
         final Root root = new Root("Root");
         final Source source = new Source(root, new ObjectId("S1"));
         root.insert(source);
@@ -65,7 +65,7 @@ public final class SourceVisitorTest {
 
     /** */
     @Test
-    public void testNoTitleString() {
+    void testNoTitleString() {
         final Root root = new Root("Root");
         final Source source = new Source(root, new ObjectId("S1"));
         root.insert(source);
@@ -76,14 +76,14 @@ public final class SourceVisitorTest {
 
     /** */
     @Test
-    public void testNoSource() {
+    void testNoSource() {
         final SourceVisitor visitor = new SourceVisitor();
         assertEquals("", visitor.getTitleString(), "Found wrong title");
     }
 
     /** */
     @Test
-    public void testNoImpactFromUnrelated() {
+    void testNoImpactFromUnrelated() {
         final SourceVisitor visitor = new SourceVisitor();
         new Child().accept(visitor);
         new Date(null).accept(visitor);

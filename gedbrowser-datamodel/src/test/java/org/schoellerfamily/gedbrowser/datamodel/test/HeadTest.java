@@ -27,7 +27,7 @@ public final class HeadTest {
 
     /** */
     @Test
-    public void testUsualHead() {
+    void testUsualHead() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Head head = builder.createHead();
         final Source source = builder.createSource("TMG");
@@ -75,7 +75,7 @@ public final class HeadTest {
 
     /** */
     @Test
-    public void testHeadGedObjectString() {
+    void testHeadGedObjectString() {
         final Root root = new Root("Root");
 
         final Head head = new Head(root, "Head");
@@ -88,7 +88,7 @@ public final class HeadTest {
 
     /** */
     @Test
-    public void testHeadGedObjectStringEmptyString() {
+    void testHeadGedObjectStringEmptyString() {
         final Root root = new Root("Root");
 
         final Head head = new Head(root, "Head", "");
@@ -101,7 +101,7 @@ public final class HeadTest {
 
     /** */
     @Test
-    public void testHeadGedObjectStringString() {
+    void testHeadGedObjectStringString() {
         final Root root = new Root("Root");
         final Head head2 = new Head(root, "Head", "foo");
         assertEquals("Head" + " foo", head2.getString(), "Combined string mismatch");

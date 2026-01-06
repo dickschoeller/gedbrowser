@@ -30,7 +30,7 @@ public class PersonComparatorTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person1 = builder.createPerson("I1",
                 "J. Random/Schoeller/");
@@ -59,13 +59,13 @@ public class PersonComparatorTest {
 
     /** */
     @Test
-    public void testSamePerson() {
+    void testSamePerson() {
         assertEquals(0, comparator.compare(person1, person1), "Same person should match");
     }
 
     /** */
     @Test
-    public void testDifferentNamePositive() {
+    void testDifferentNamePositive() {
         final String person1IndexName = reportString(person1);
         final String person2IndexName = reportString(person2);
         assertTrue(comparator.compare(person1, person2) > 0,
@@ -74,7 +74,7 @@ public class PersonComparatorTest {
 
     /** */
     @Test
-    public void testDifferentNameNegative() {
+    void testDifferentNameNegative() {
         final String person1IndexName = reportString(person1);
         final String person2IndexName = reportString(person2);
         assertTrue(comparator.compare(person2, person1) < 0,
@@ -83,7 +83,7 @@ public class PersonComparatorTest {
 
     /** */
     @Test
-    public void testSameNameDifferentDatePositive() {
+    void testSameNameDifferentDatePositive() {
         final String person4IndexName = reportString(person4);
         final String person5IndexName = reportString(person5);
         assertTrue(comparator.compare(person5, person4) > 0,
@@ -92,7 +92,7 @@ public class PersonComparatorTest {
 
     /** */
     @Test
-    public void testSameNameDifferentDateNegative() {
+    void testSameNameDifferentDateNegative() {
         final String person4IndexName = reportString(person4);
         final String person5IndexName = reportString(person5);
         assertTrue(comparator.compare(person4, person5) < 0,
@@ -101,7 +101,7 @@ public class PersonComparatorTest {
 
     /** */
     @Test
-    public void testSameNameSameDatePositive() {
+    void testSameNameSameDatePositive() {
         final String person3IndexName = reportString(person3);
         final String person4IndexName = reportString(person4);
         assertTrue(comparator.compare(person4, person3) > 0,
@@ -110,7 +110,7 @@ public class PersonComparatorTest {
 
     /** */
     @Test
-    public void testSameNameSameDateNegative() {
+    void testSameNameSameDateNegative() {
         final String person3IndexName = reportString(person3);
         final String person4IndexName = reportString(person4);
         assertTrue(comparator.compare(person3, person4) < 0,

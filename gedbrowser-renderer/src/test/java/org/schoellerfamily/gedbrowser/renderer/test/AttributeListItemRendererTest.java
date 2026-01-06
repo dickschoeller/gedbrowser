@@ -41,7 +41,7 @@ public final class AttributeListItemRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
         attribute1 = new Attribute(person, "String", "");
@@ -57,7 +57,7 @@ public final class AttributeListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItemEmpty() {
+    void testRenderAsListItemEmpty() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute1,
             new GedRendererFactory(), anonymousContext);
         final AttributeListItemRenderer apr = (AttributeListItemRenderer) aRenderer
@@ -70,7 +70,7 @@ public final class AttributeListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItemString() {
+    void testRenderAsListItemString() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute2,
             new GedRendererFactory(), anonymousContext);
         final AttributeListItemRenderer apr = (AttributeListItemRenderer) aRenderer
@@ -83,7 +83,7 @@ public final class AttributeListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderAsListItem() {
+    void testRenderAsListItem() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute3,
             new GedRendererFactory(), anonymousContext);
         final AttributeListItemRenderer apr = (AttributeListItemRenderer) aRenderer

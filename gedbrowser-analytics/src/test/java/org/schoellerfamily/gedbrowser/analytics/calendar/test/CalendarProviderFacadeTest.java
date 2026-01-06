@@ -89,7 +89,7 @@ public class CalendarProviderFacadeTest {
      * Simply test the pass through of the facade.
      */
     @Test
-    public void testFacadeNow() {
+    void testFacadeNow() {
         assertSame(calendar, mockProvider.now(), "Should have passed through to the provider mock");
     }
 
@@ -97,7 +97,7 @@ public class CalendarProviderFacadeTest {
      * Simply test the pass through of the facade.
      */
     @Test
-    public void testFacadeNowDate() {
+    void testFacadeNowDate() {
         assertSame(localDate, mockProvider.nowDate(),
             "Should have passed through to the provider mock");
     }
@@ -108,7 +108,7 @@ public class CalendarProviderFacadeTest {
      * @throws InterruptedException if thread interrupted
      */
     @Test
-    public void testImplNow() throws InterruptedException {
+    void testImplNow() throws InterruptedException {
         final Calendar actual = implProvider.now();
         final long difference = actual.getTimeInMillis() - calendar.getTimeInMillis();
         final long expected = 10;
@@ -121,7 +121,7 @@ public class CalendarProviderFacadeTest {
      * Simply test the pass through of the facade.
      */
     @Test
-    public void testImplNowDate() {
+    void testImplNowDate() {
         final LocalDate actual = implProvider.nowDate();
         assertTrue(actual.equals(localDate) || actual.equals(localDate.plusDays(1)),
             "actual should be same as localDate, or is 1 day higher if test at midnight");

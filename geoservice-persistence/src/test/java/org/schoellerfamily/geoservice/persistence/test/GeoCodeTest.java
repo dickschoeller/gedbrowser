@@ -117,7 +117,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testStupidNotFound() {
+    void testStupidNotFound() {
         log.info("Entering testStupidNotFound");
         gcc.clear();
         final GeoCodeItem entry = gcc.find("XYZZY");
@@ -126,7 +126,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testModernStupidNotFound() {
+    void testModernStupidNotFound() {
         log.info("Entering testModernStupidNotFound");
         gcc.clear();
         final GeoCodeItem entry = gcc.find("PLUGH", "XYZZY");
@@ -135,7 +135,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testOldHomeFound() {
+    void testOldHomeFound() {
         log.info("Entering testOldHomeFound");
         gcc.clear();
         final GeoCodeItem entry = gcc.find("3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -144,7 +144,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheStupid() {
+    void testCacheStupid() {
         log.info("Entering testCacheStupid");
         gcc.clear();
         final GeoCodeItem entry1 = gcc.find("XYZZY");
@@ -154,7 +154,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testModernEmpty() {
+    void testModernEmpty() {
         log.info("Entering testModernEmpty");
         gcc.clear();
         final GeoCodeItem entry1 = gcc.find("XYZZY");
@@ -164,7 +164,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testModernNull() {
+    void testModernNull() {
         log.info("Entering testModernNull");
         gcc.clear();
         final GeoCodeItem entry1 = gcc.find("XYZZY");
@@ -174,7 +174,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheFound() {
+    void testCacheFound() {
         log.info("Entering testCacheFound");
         gcc.clear();
         final GeoCodeItem entry1 = gcc.find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
@@ -184,7 +184,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheRefind() {
+    void testCacheRefind() {
         log.info("Entering testCacheReplace");
         gcc.clear();
         gcc.find("XYZZY");
@@ -196,7 +196,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheOldHome() {
+    void testCacheOldHome() {
         log.info("Entering testCacheOldHome");
         gcc.clear();
         final GeoCodeItem entry1 = gcc.find("3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -206,7 +206,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheOldHomeModern() {
+    void testCacheOldHomeModern() {
         log.info("Entering testCacheOldHomeModern");
         gcc.clear();
         final GeoCodeItem entry1 = gcc.find("Old Home", "3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -216,7 +216,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheOldHomeModernBoth() {
+    void testCacheOldHomeModernBoth() {
         log.info("Entering testCacheOldHomeModernBoth");
         gcc.clear();
         final GeoCodeItem entry1 = gcc.find("Old Home", "3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -226,7 +226,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheOldHomeModernChange() {
+    void testCacheOldHomeModernChange() {
         log.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
         final GeoCodeItem entry1 = gcc.find("Old Home");
@@ -236,7 +236,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheOldHomeModernToBroken() {
+    void testCacheOldHomeModernToBroken() {
         log.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
         final GeoCodeItem entry1 = gcc.find("Old Home");
@@ -246,7 +246,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheOldHomeBroken() {
+    void testCacheOldHomeBroken() {
         log.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
         final GeoCodeItem entry1 = gcc.add(new GeoCodeItem("Old Home", "Blah Blah"));
@@ -256,7 +256,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheOldHomeAddThenFind() {
+    void testCacheOldHomeAddThenFind() {
         log.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
         final GeoCodeItem entry1 = gcc
@@ -267,7 +267,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheAddThenFind() {
+    void testCacheAddThenFind() {
         log.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
         final GeoCodeItem entry1 = gcc.add(new GeoCodeItem("3341 Chaucer Lane, Bethlehem, PA"));
@@ -277,7 +277,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheAllKeysSize() {
+    void testCacheAllKeysSize() {
         log.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
         gcc.add(new GeoCodeItem("Old Home"));
@@ -287,7 +287,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheAllKeysContains() {
+    void testCacheAllKeysContains() {
         log.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
         gcc.add(new GeoCodeItem("Old Home"));
@@ -299,7 +299,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheReplaceEquals() {
+    void testCacheReplaceEquals() {
         log.info("Entering testCacheReplace");
         gcc.clear();
         gcc.find("XYZZY");
@@ -310,7 +310,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheReplaceEmptyResult() {
+    void testCacheReplaceEmptyResult() {
         log.info("Entering testCacheReplace");
         gcc.clear();
         gcc.find("XYZZY");
@@ -321,7 +321,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheOldHomeModernSet() {
+    void testCacheOldHomeModernSet() {
         log.info("Entering testCacheOldHomeModernSet");
         gcc.clear();
         gcc.find("Old Home");
@@ -332,7 +332,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheOldHomeLocationResultNotNull() {
+    void testCacheOldHomeLocationResultNotNull() {
         log.info("Entering testCacheOldHomeLocation");
         gcc.clear();
         final GeoCodeItem entry = gcc.find("Old Home", "3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -342,7 +342,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCacheOldHomeLocationResultMatch() {
+    void testCacheOldHomeLocationResultMatch() {
         log.info("Entering testCacheOldHomeLocation");
         gcc.clear();
         final GeoCodeItem entry = gcc.find("Old Home", "3341 Chaucer Lane, Bethlehem, PA, USA");
@@ -355,7 +355,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testNotFounds() {
+    void testNotFounds() {
         log.info("Entering testNotFounds");
         gcc.clear();
         testFixture.loadTestAddresses();
@@ -367,7 +367,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testNotFoundsFromStream() {
+    void testNotFoundsFromStream() {
         log.info("Entering testNotFounds");
         gcc.clear();
         loader.load(getTestFileAsStream());
@@ -379,7 +379,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testNotFoundsFromFile() {
+    void testNotFoundsFromFile() {
         log.info("Entering testNotFounds");
         gcc.clear();
         loader.load(getTestFileName());
@@ -391,7 +391,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testNotParsingFromStream() {
+    void testNotParsingFromStream() {
         log.info("Entering testNotFounds");
         gcc.clear();
         loader.load(getTestFileAsStream());
@@ -402,7 +402,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testNotParsingFromFile() {
+    void testNotParsingFromFile() {
         log.info("Entering testNotFounds");
         gcc.clear();
         loader.load(getTestFileName());
@@ -413,7 +413,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCountNotFoundsLowBound() {
+    void testCountNotFoundsLowBound() {
         log.info("Entering testCountNotFounds");
         gcc.clear();
         testFixture.loadTestAddresses();
@@ -424,7 +424,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCountNotFoundsHighBound() {
+    void testCountNotFoundsHighBound() {
         log.info("Entering testCountNotFounds");
         gcc.clear();
         testFixture.loadTestAddresses();
@@ -435,7 +435,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCountNotFoundsFromStreamLowBound() {
+    void testCountNotFoundsFromStreamLowBound() {
         log.info("Entering testCountNotFounds");
         gcc.clear();
         loader.load(getTestFileAsStream());
@@ -446,7 +446,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCountNotFoundsFromFileLowBound() {
+    void testCountNotFoundsFromFileLowBound() {
         log.info("Entering testCountNotFounds");
         gcc.clear();
         loader.load(getTestFileName());
@@ -457,7 +457,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCountNotFoundsFromStreamHighBound() {
+    void testCountNotFoundsFromStreamHighBound() {
         log.info("Entering testCountNotFounds");
         gcc.clear();
         loader.load(getTestFileAsStream());
@@ -468,7 +468,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testCountNotFoundsFromFileHighBound() {
+    void testCountNotFoundsFromFileHighBound() {
         log.info("Entering testCountNotFounds");
         gcc.clear();
         loader.load(getTestFileName());
@@ -479,7 +479,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testSize() {
+    void testSize() {
         log.info("Entering testSize");
         gcc.clear();
         testFixture.loadTestAddresses();
@@ -489,7 +489,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testSizeFromStream() {
+    void testSizeFromStream() {
         log.info("Entering testSizeFromFile");
         gcc.clear();
         loader.load(getTestFileAsStream());
@@ -499,7 +499,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testSizeFromFile() {
+    void testSizeFromFile() {
         log.info("Entering testSizeFromFile");
         gcc.clear();
         loader.load(getTestFileName());
@@ -509,7 +509,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testSizeLoadFileError() {
+    void testSizeLoadFileError() {
         log.info("Entering testSizeFromFile");
         gcc.clear();
         loader.load(dummyFileName);
@@ -520,7 +520,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testSizeLoadAndFindFileError() {
+    void testSizeLoadAndFindFileError() {
         log.info("Entering testSizeFromFile");
         gcc.clear();
         loader.loadAndFind(dummyFileName);
@@ -531,7 +531,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testDump() {
+    void testDump() {
         log.info("Entering testDump");
         gcc.clear();
         testFixture.loadTestAddresses();
@@ -542,7 +542,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testDumpFromStream() {
+    void testDumpFromStream() {
         log.info("Entering testDumpFile");
         gcc.clear();
         loader.load(getTestFileAsStream());
@@ -553,7 +553,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testDumpFromFile() {
+    void testDumpFromFile() {
         log.info("Entering testDumpFile");
         gcc.clear();
         loader.load(getTestFileName());
@@ -564,7 +564,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testDumpFromStreamAfterFind() {
+    void testDumpFromStreamAfterFind() {
         log.info("Entering testDumpFile");
         gcc.clear();
         loader.loadAndFind(getTestFileAsStream());
@@ -575,7 +575,7 @@ public final class GeoCodeTest {
 
     /** */
     @Test
-    public void testDumpFromFileAfterFind() {
+    void testDumpFromFileAfterFind() {
         log.info("Entering testDumpFile");
         gcc.clear();
         loader.loadAndFind(getTestFileName());

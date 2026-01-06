@@ -44,7 +44,7 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromParentsMarriageWithDate() {
+    void testFromParentsMarriageWithDate() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
@@ -70,7 +70,7 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromParentsMarriageWithoutDate() {
+    void testFromParentsMarriageWithoutDate() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
@@ -96,7 +96,7 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromGrandparentsMarriageWithoutDate() {
+    void testFromGrandparentsMarriageWithoutDate() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
@@ -125,7 +125,7 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromParentBirthWithDate() {
+    void testFromParentBirthWithDate() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
@@ -150,7 +150,7 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromParentBirthWithoutDate() {
+    void testFromParentBirthWithoutDate() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
@@ -175,7 +175,7 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromMotherBirthWithDateNoFather() {
+    void testFromMotherBirthWithDateNoFather() {
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
 
@@ -198,7 +198,7 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromMotherBirthWithoutDateNoFather() {
+    void testFromMotherBirthWithoutDateNoFather() {
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
 
@@ -221,7 +221,7 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromFatherBirthWithDateNoMother() {
+    void testFromFatherBirthWithDateNoMother() {
         final Person person1 = createJRandom();
         final Person person3 = createAnonymousJones();
 
@@ -244,7 +244,7 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromFatherBirthWithoutDateNoMother() {
+    void testFromFatherBirthWithoutDateNoMother() {
         final Person person1 = createJRandom();
         final Person person3 = createAnonymousJones();
 
@@ -267,7 +267,7 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromParentOtherWithDate() {
+    void testFromParentOtherWithDate() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();
@@ -292,7 +292,7 @@ public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
 
     /** */
     @Test
-    public final void testFromParentOtherWithoutDate() {
+    void testFromParentOtherWithoutDate() {
         final Person person1 = createJRandom();
         final Person person2 = createAnonymousSchoeller();
         final Person person3 = createAnonymousJones();

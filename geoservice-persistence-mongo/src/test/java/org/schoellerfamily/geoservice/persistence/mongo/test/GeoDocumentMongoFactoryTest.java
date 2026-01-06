@@ -18,7 +18,7 @@ import org.schoellerfamily.geoservice.persistence.mongo.domain.GeoDocumentMongoF
 public final class GeoDocumentMongoFactoryTest {
     /** */
     @Test
-    public void testToGeoCodeItem() {
+    void testToGeoCodeItem() {
         final GeoDocument document = new GeoDocumentMongo();
         final GeoCodeItem actual = new GeoCodeItem("XYZZY", "PLUGH");
         document.loadGeoCodeItem(actual);
@@ -29,7 +29,7 @@ public final class GeoDocumentMongoFactoryTest {
 
     /** */
     @Test
-    public void testToGeoCodeItemNullName() {
+    void testToGeoCodeItemNullName() {
         final GeoDocument document = new GeoDocumentMongo();
         final GeoCodeItem actual = new GeoCodeItem(null, "PLUGH");
         document.loadGeoCodeItem(actual);
@@ -40,7 +40,7 @@ public final class GeoDocumentMongoFactoryTest {
 
     /** */
     @Test
-    public void testToGeoCodeItemNullModern() {
+    void testToGeoCodeItemNullModern() {
         final GeoDocument document = new GeoDocumentMongo();
         final GeoCodeItem actual = new GeoCodeItem("XYZZY", (String) null);
         document.loadGeoCodeItem(actual);
@@ -51,7 +51,7 @@ public final class GeoDocumentMongoFactoryTest {
 
     /** */
     @Test
-    public void testToGeoCodeItemNull() {
+    void testToGeoCodeItemNull() {
         final GeoCodeItem expected = new GeoCodeItem();
         final GeoCodeItem actual = GeoDocumentMongoFactory.getInstance()
                 .createGeoCodeItem(null);
@@ -60,7 +60,7 @@ public final class GeoDocumentMongoFactoryTest {
 
     /** */
     @Test
-    public void testToGeoDocument() {
+    void testToGeoDocument() {
         final GeoCodeItem item = new GeoCodeItem("XYZZY", "PLUGH");
         final GeoDocument actual = GeoDocumentMongoFactory.getInstance()
                 .createGeoDocument(item);
@@ -69,7 +69,7 @@ public final class GeoDocumentMongoFactoryTest {
 
     /** */
     @Test
-    public void testToGeoDocumentNull() {
+    void testToGeoDocumentNull() {
         final GeoCodeItem item = new GeoCodeItem();
         final GeoDocument actual = GeoDocumentMongoFactory.getInstance()
                 .createGeoDocument(null);

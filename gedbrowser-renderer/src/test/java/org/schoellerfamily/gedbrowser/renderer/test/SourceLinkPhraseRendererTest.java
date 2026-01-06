@@ -38,7 +38,7 @@ public final class SourceLinkPhraseRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         final Root root = new Root("Root");
         final Head head = new Head(root, "Head");
         root.insert(head);
@@ -54,7 +54,7 @@ public final class SourceLinkPhraseRendererTest {
 
     /** */
     @Test
-    public void testRenderAsPhrase() {
+    void testRenderAsPhrase() {
         final SourceLinkRenderer slr = new SourceLinkRenderer(sourceLink, new GedRendererFactory(),
             anonymousContext);
         final SourceLinkPhraseRenderer slpr = (SourceLinkPhraseRenderer) slr.getPhraseRenderer();

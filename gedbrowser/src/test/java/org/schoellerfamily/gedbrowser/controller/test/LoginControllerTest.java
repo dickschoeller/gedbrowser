@@ -47,7 +47,7 @@ public class LoginControllerTest {
 
     /** */
     @Test
-    public final void testLoginEndpointOK() {
+    void testLoginEndpointOK() {
         final String referer = "/gedbrowser/living?db=gl120368";
         final String refererUrl = "http://localhost:" + port + referer;
         final String url = "http://localhost:" + port + "/gedbrowser/login";
@@ -64,7 +64,7 @@ public class LoginControllerTest {
 
     /** */
     @Test
-    public final void testLogoutEndpointOK() {
+    void testLogoutEndpointOK() {
         final String referer = "/gedbrowser/living?db=gl120368";
         final String refererUrl = "http://localhost:" + port + referer;
         final String url = "http://localhost:" + port + "/gedbrowser/logout";
@@ -81,7 +81,7 @@ public class LoginControllerTest {
 
     /** */
     @Test
-    public final void testLoginEndpointNoReferrer() {
+    void testLoginEndpointNoReferrer() {
         final String refererUrl = "/gedbrowser/person?db=schoeller&amp;id=I1";
         final String url = "http://localhost:" + port + "/gedbrowser/login";
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -98,7 +98,7 @@ public class LoginControllerTest {
 
     /** */
     @Test
-    public final void testLogoutEndpointNoReferrer() {
+    void testLogoutEndpointNoReferrer() {
         final String refererUrl = "/gedbrowser/person?db=schoeller&amp;id=I1";
         final String url = "http://localhost:" + port + "/gedbrowser/logout";
         final EntityExchangeResult<String> entity = restTestClient.get()

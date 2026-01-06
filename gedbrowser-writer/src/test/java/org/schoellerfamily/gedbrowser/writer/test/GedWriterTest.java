@@ -70,7 +70,7 @@ public class GedWriterTest {
      * @throws IOException if file IO fails
      */
     @Test
-    public void test() throws IOException {
+    void test() throws IOException {
         final GedWriter writer = new GedWriter(root);
         writer.write();
         final GedWriter writer1 = new GedWriter(root);
@@ -84,7 +84,7 @@ public class GedWriterTest {
      * @throws IOException if file IO fails
      */
     @Test
-    public void testString() throws IOException {
+    void testString() throws IOException {
         final GedWriter writer = new GedWriter(root);
         final String writeString = writer.writeString();
         final String readString = FileUtils.readFileToString(new File(inputFilename),
@@ -109,7 +109,7 @@ public class GedWriterTest {
 
     /** */
     @AfterEach
-    public void cleanUp() {
+    public void tearDown() {
         cleanTemp(filename);
     }
 

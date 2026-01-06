@@ -46,7 +46,7 @@ public final class NullRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
         homeUrl = "http://www.schoellerfamily.org/";
     }
@@ -56,7 +56,7 @@ public final class NullRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testAttributeListOpenRenderer() {
+    void testAttributeListOpenRenderer() {
         final NullRenderer renderer = createRenderer();
         assertTrue(
             renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
@@ -68,7 +68,7 @@ public final class NullRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testListItemRenderer() {
+    void testListItemRenderer() {
         final NullRenderer renderer = createRenderer();
         assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer,
             "Wrong renderer type");
@@ -79,7 +79,7 @@ public final class NullRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         final NullRenderer renderer = createRenderer();
         assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
             "Wrong renderer type");
@@ -90,7 +90,7 @@ public final class NullRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testNameIndexRenderer() {
+    void testNameIndexRenderer() {
         final NullRenderer renderer = createRenderer();
         assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
             "Wrong renderer type");
@@ -101,7 +101,7 @@ public final class NullRendererTest {
      * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         final NullRenderer renderer = createRenderer();
         assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer,
             "Wrong renderer type");
@@ -109,7 +109,7 @@ public final class NullRendererTest {
 
     /** */
     @Test
-    public void testGetTrailerHtmlEmpty() {
+    void testGetTrailerHtmlEmpty() {
         final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root, new GedRendererFactory(),
             anonymousContext);
@@ -133,7 +133,7 @@ public final class NullRendererTest {
 
     /** */
     @Test
-    public void testGetHeaderHtml() {
+    void testGetHeaderHtml() {
         final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root, new GedRendererFactory(),
             anonymousContext);
@@ -157,7 +157,7 @@ public final class NullRendererTest {
 
     /** */
     @Test
-    public void testGetTrailerHtml() {
+    void testGetTrailerHtml() {
         final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root, new GedRendererFactory(),
             anonymousContext);
@@ -181,7 +181,7 @@ public final class NullRendererTest {
 
     /** */
     @Test
-    public void testGetTrailerHtmlHeader() {
+    void testGetTrailerHtmlHeader() {
         final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root, new GedRendererFactory(),
             anonymousContext);
@@ -206,7 +206,7 @@ public final class NullRendererTest {
 
     /** */
     @Test
-    public void testGetTrailerHtmlSurnames() {
+    void testGetTrailerHtmlSurnames() {
         final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root, new GedRendererFactory(),
             anonymousContext);
@@ -231,7 +231,7 @@ public final class NullRendererTest {
 
     /** */
     @Test
-    public void testGetTrailerHtmlIndex() {
+    void testGetTrailerHtmlIndex() {
         final Root root = new Root();
         final NullRenderer renderer = new NullRenderer(root, new GedRendererFactory(),
             anonymousContext);
@@ -258,7 +258,7 @@ public final class NullRendererTest {
      * Test the home URL. Always www.schoellerfamily.org at this point.
      */
     @Test
-    public void testGetHomeUrl() {
+    void testGetHomeUrl() {
         final NullRenderer renderer = createRenderer();
         assertEquals(homeUrl, renderer.getHomeUrl(), "Home URL does not match expectation");
     }

@@ -35,13 +35,13 @@ public final class NameListItemRendererTest {
 
     /** */
     @BeforeEach
-    public void init() {
+    public void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
     /** */
     @Test
-    public void testRenderSimple() {
+    void testRenderSimple() {
         final Name name = new Name(null, "Richard /Schoeller/");
         final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
             anonymousContext);
@@ -53,7 +53,7 @@ public final class NameListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderHarder() {
+    void testRenderHarder() {
         final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
         final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
             anonymousContext);
@@ -65,7 +65,7 @@ public final class NameListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderNonZeroPad() {
+    void testRenderNonZeroPad() {
         final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
         final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
             anonymousContext);
@@ -77,7 +77,7 @@ public final class NameListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderNewLine() {
+    void testRenderNewLine() {
         final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
         final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
             anonymousContext);
@@ -89,7 +89,7 @@ public final class NameListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderNoPrefix() {
+    void testRenderNoPrefix() {
         final Name name = new Name(null, "/Schoeller/");
         final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
             anonymousContext);
@@ -101,7 +101,7 @@ public final class NameListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderEmpty() {
+    void testRenderEmpty() {
         final Name name = new Name(null, "");
         final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
             anonymousContext);
@@ -113,7 +113,7 @@ public final class NameListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderNull() {
+    void testRenderNull() {
         final Name name = new Name(null);
         final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
             anonymousContext);
@@ -125,7 +125,7 @@ public final class NameListItemRendererTest {
 
     /** */
     @Test
-    public void testRenderPrefixSuffix() {
+    void testRenderPrefixSuffix() {
         final Name name = new Name(null, "Foo//Bar");
         final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
             anonymousContext);

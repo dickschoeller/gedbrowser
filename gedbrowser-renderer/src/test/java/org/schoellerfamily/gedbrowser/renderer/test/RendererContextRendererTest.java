@@ -16,7 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public class RendererContextRendererTest {
     /** */
     @Test
-    public final void testEscapeStringAmpersand() {
+    void testEscapeStringAmpersand() {
         final String expected = "foo&amp;foo";
         final String actual = RenderingContextRenderer.escapeString("foo&foo");
         assertEquals(expected, actual, "Escaping html didn't work");
@@ -24,7 +24,7 @@ public class RendererContextRendererTest {
 
     /** */
     @Test
-    public final void testEscapeStringLessThan() {
+    void testEscapeStringLessThan() {
         final String expected = "foo&lt;foo";
         final String actual = RenderingContextRenderer.escapeString("foo<foo");
         assertEquals(expected, actual, "Escaping html didn't work");
@@ -32,7 +32,7 @@ public class RendererContextRendererTest {
 
     /** */
     @Test
-    public final void testEscapeStringGreaterThan() {
+    void testEscapeStringGreaterThan() {
         final String expected = "foo&gt;foo";
         final String actual = RenderingContextRenderer.escapeString("foo>foo");
         assertEquals(expected, actual, "Escaping html didn't work");
@@ -40,7 +40,7 @@ public class RendererContextRendererTest {
 
     /** */
     @Test
-    public final void testEscapeStringMultiple() {
+    void testEscapeStringMultiple() {
         final String expected = "foo&gt;bar&lt;bat&amp;xyzzy";
         final String actual =
                 RenderingContextRenderer.escapeString("foo>bar<bat&xyzzy");
@@ -48,7 +48,7 @@ public class RendererContextRendererTest {
     }
     /** */
     @Test
-    public final void testEscapeStringAmpersandDelimit() {
+    void testEscapeStringAmpersandDelimit() {
         final String actual = RenderingContextRenderer.escapeString(" ",
                 "foo&foo");
         final String expected = " foo&amp;foo";
@@ -57,7 +57,7 @@ public class RendererContextRendererTest {
 
     /** */
     @Test
-    public final void testEscapeStringLessThanDelimit() {
+    void testEscapeStringLessThanDelimit() {
         final String actual = RenderingContextRenderer.escapeString("X",
                 "foo<foo");
         final String expected = "Xfoo&lt;foo";
@@ -66,7 +66,7 @@ public class RendererContextRendererTest {
 
     /** */
     @Test
-    public final void testEscapeStringGreaterThanDelimit() {
+    void testEscapeStringGreaterThanDelimit() {
         final String expected = "Yfoo&gt;foo";
         final String actual = RenderingContextRenderer.escapeString("Y",
                 "foo>foo");
@@ -75,7 +75,7 @@ public class RendererContextRendererTest {
 
     /** */
     @Test
-    public final void testEscapeStringMultipleDelimit() {
+    void testEscapeStringMultipleDelimit() {
         final String expected = "plughfoo&gt;bar&lt;bat&amp;xyzzy";
         final String actual = RenderingContextRenderer.escapeString("plugh",
                 "foo>bar<bat&xyzzy");
