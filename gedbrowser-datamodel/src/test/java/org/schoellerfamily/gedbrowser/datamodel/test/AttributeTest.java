@@ -28,8 +28,7 @@ public final class AttributeTest {
     @BeforeEach
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        person1 = builder.createPerson(
-                "I1", "J. Random/Schoeller/");
+        person1 = builder.createPerson("I1", "J. Random/Schoeller/");
     }
 
     /** */
@@ -44,7 +43,8 @@ public final class AttributeTest {
     public void testAppendString() {
         final Attribute job = new Attribute(person1, "Job", "Worked at SAP");
         job.appendString(" for 5 years");
-        assertEquals("Worked at SAP for 5 years", job.getTail(), "Should have concatenated the segments");
+        assertEquals("Worked at SAP for 5 years", job.getTail(),
+            "Should have concatenated the segments");
     }
 
     /** */
@@ -201,11 +201,10 @@ public final class AttributeTest {
      * @param attribute the attribute to test
      * @param expParent expected parent value
      * @param expString expected string value
-     * @param expTail expected tail value
+     * @param expTail   expected tail value
      */
-    private void assertMatch(final Attribute attribute,
-            final GedObject expParent, final String expString,
-            final String expTail) {
+    private void assertMatch(final Attribute attribute, final GedObject expParent,
+        final String expString, final String expTail) {
         assertEquals(expParent, attribute.getParent(), "Parent mismatch");
         assertEquals(expString, attribute.getString(), "String mismatch");
         assertEquals(expTail, attribute.getTail(), "Tail mismatch");

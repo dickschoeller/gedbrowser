@@ -87,7 +87,8 @@ public class GedWriterTest {
     public void testString() throws IOException {
         final GedWriter writer = new GedWriter(root);
         final String writeString = writer.writeString();
-        final String readString = FileUtils.readFileToString(new File(inputFilename), StandardCharsets.UTF_8);
+        final String readString = FileUtils.readFileToString(new File(inputFilename),
+            StandardCharsets.UTF_8);
         assertEquals(readString, writeString, "Input and output should match");
     }
 

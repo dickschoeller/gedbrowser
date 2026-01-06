@@ -2,6 +2,7 @@ package org.schoellerfamily.geoservice.endpoint;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.schoellerfamily.geoservice.backup.GeoCodeBackup;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
@@ -22,6 +23,13 @@ public class RestoreEndpoint extends BaseBackupEndpoint {
     /** */
     private GeoCodeBackup backupManager;
 
+    /**
+     * Constructor.
+     *
+     * @param backupManager the backup manager
+     * @param gcc a geocode
+     * @param backupFileName the file name to backup to
+     */
     public RestoreEndpoint(final GeoCodeBackup backupManager, final GeoCode gcc,
         @Value("${geoservice.backupfile:/var/lib/gedbrowser/geoservice-backup.json}")
         final String backupFileName
@@ -30,15 +38,16 @@ public class RestoreEndpoint extends BaseBackupEndpoint {
         this.backupManager = backupManager;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public final String getId() {
         return "restore";
     }
 
+    /**
+     * @return the list of strings
+     */
     @ReadOperation
-    public java.util.List<String> invokeEndpoint() {
+    public List<String> invokeEndpoint() {
         return super.invoke();
     }
 

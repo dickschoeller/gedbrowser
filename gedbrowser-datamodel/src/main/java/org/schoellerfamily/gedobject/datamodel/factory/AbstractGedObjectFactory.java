@@ -38,103 +38,72 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 @SuppressWarnings({ "PMD.CommentSize" })
 public abstract class AbstractGedObjectFactory {
     /** */
-    /* default */ static final AttributeFactory ATTR_FACTORY =
-            new AttributeFactory();
+    /* default */ static final AttributeFactory ATTR_FACTORY = new AttributeFactory();
     /** */
-    /* default */ static final ChildFactory CHILD_FACTORY =
-            new ChildFactory();
+    /* default */ static final ChildFactory CHILD_FACTORY = new ChildFactory();
     /** */
-    /* default */ static final ConcatenationFactory CONCAT_FACTORY =
-            new ConcatenationFactory();
+    /* default */ static final ConcatenationFactory CONCAT_FACTORY = new ConcatenationFactory();
     /** */
-    /* default */ static final ContinuationFactory CONTIN_FACTORY =
-            new ContinuationFactory();
+    /* default */ static final ContinuationFactory CONTIN_FACTORY = new ContinuationFactory();
     /** */
-    /* default */ static final DateFactory DATE_FACTORY =
-            new DateFactory();
+    /* default */ static final DateFactory DATE_FACTORY = new DateFactory();
     /** */
-    /* default */ static final FamCFactory FAMC_FACTORY =
-            new FamCFactory();
+    /* default */ static final FamCFactory FAMC_FACTORY = new FamCFactory();
     /** */
-    /* default */ static final FamilyFactory FAMILY_FACTORY =
-            new FamilyFactory();
+    /* default */ static final FamilyFactory FAMILY_FACTORY = new FamilyFactory();
     /** */
-    /* default */ static final FamSFactory FAMS_FACTORY =
-            new FamSFactory();
+    /* default */ static final FamSFactory FAMS_FACTORY = new FamSFactory();
     /** */
-    /* default */ static final HeadFactory HEAD_FACTORY =
-            new HeadFactory();
+    /* default */ static final HeadFactory HEAD_FACTORY = new HeadFactory();
     /** */
-    /* default */ static final HusbandFactory HUSBAND_FACTORY =
-            new HusbandFactory();
+    /* default */ static final HusbandFactory HUSBAND_FACTORY = new HusbandFactory();
     /** */
-    /* default */ static final LinkFactory LINK_FACTORY =
-            new LinkFactory();
+    /* default */ static final LinkFactory LINK_FACTORY = new LinkFactory();
     /** */
-    /* default */ static final MultimediaFactory MULTIMEDIA_FACTORY =
-            new MultimediaFactory();
+    /* default */ static final MultimediaFactory MULTIMEDIA_FACTORY = new MultimediaFactory();
     /** */
-    /* default */ static final NameFactory NAME_FACTORY =
-            new NameFactory();
+    /* default */ static final NameFactory NAME_FACTORY = new NameFactory();
     /** */
-    /* default */ static final NoteFactory NOTE_FACTORY =
-            new NoteFactory();
+    /* default */ static final NoteFactory NOTE_FACTORY = new NoteFactory();
     /** */
-    /* default */ static final NoteLinkFactory NOTELINK_FACTORY =
-            new NoteLinkFactory();
+    /* default */ static final NoteLinkFactory NOTELINK_FACTORY = new NoteLinkFactory();
     /** */
-    /* default */ static final PersonFactory PERSON_FACTORY =
-            new PersonFactory();
+    /* default */ static final PersonFactory PERSON_FACTORY = new PersonFactory();
     /** */
-    /* default */ static final PlaceFactory PLACE_FACTORY =
-            new PlaceFactory();
+    /* default */ static final PlaceFactory PLACE_FACTORY = new PlaceFactory();
     /** */
-    /* default */ static final RootFactory ROOT_FACTORY =
-            new RootFactory();
+    /* default */ static final RootFactory ROOT_FACTORY = new RootFactory();
     /** */
-    /* default */ static final SourceFactory SOURCE_FACTORY =
-            new SourceFactory();
+    /* default */ static final SourceFactory SOURCE_FACTORY = new SourceFactory();
     /** */
-    /* default */ static final SourceLinkFactory SOURLINK_FACTORY =
-            new SourceLinkFactory();
+    /* default */ static final SourceLinkFactory SOURLINK_FACTORY = new SourceLinkFactory();
     /** */
-    /* default */ static final SubmissionFactory SUBMISSION_FACTORY =
-            new SubmissionFactory();
+    /* default */ static final SubmissionFactory SUBMISSION_FACTORY = new SubmissionFactory();
     /** */
-    /* default */ static final SubmissionLinkFactory SUBNLINK_FACTORY =
-            new SubmissionLinkFactory();
+    /* default */ static final SubmissionLinkFactory SUBNLINK_FACTORY = new SubmissionLinkFactory();
     /** */
-    /* default */ static final SubmitterFactory SUBMITTER_FACTORY =
-            new SubmitterFactory();
+    /* default */ static final SubmitterFactory SUBMITTER_FACTORY = new SubmitterFactory();
     /** */
-    /* default */ static final SubmitterLinkFactory SUBMLINK_FACTORY =
-            new SubmitterLinkFactory();
+    /* default */ static final SubmitterLinkFactory SUBMLINK_FACTORY = new SubmitterLinkFactory();
     /** */
-    /* default */ static final TrailerFactory TRAILER_FACTORY =
-            new TrailerFactory();
+    /* default */ static final TrailerFactory TRAILER_FACTORY = new TrailerFactory();
     /** */
-    /* default */ static final WifeFactory WIFE_FACTORY =
-            new WifeFactory();
-
+    /* default */ static final WifeFactory WIFE_FACTORY = new WifeFactory();
 
     /**
      * The set of known GEDCOM tokens.
      */
-    private static Map<String, GedToken> tokens =
-            new TokenTableInitializer().getTokens();
+    private static Map<String, GedToken> tokens = new TokenTableInitializer().getTokens();
 
     /**
      * Factory for creating Attribute.
      *
      * @author Dick Schoeller
      */
-    private static class AttributeFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class AttributeFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new Attribute(parent, tag, tail);
         }
     }
@@ -144,13 +113,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class ChildFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class ChildFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new Child(parent, tag, new ObjectId(tail));
         }
     }
@@ -160,13 +126,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class DateFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class DateFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new Date(parent, tail);
         }
     }
@@ -176,13 +139,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class FamCFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class FamCFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new FamC(parent, tag, new ObjectId(tail));
         }
     }
@@ -192,13 +152,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class FamilyFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class FamilyFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new Family(parent, xref);
         }
     }
@@ -208,13 +165,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class FamSFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class FamSFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new FamS(parent, tag, new ObjectId(tail));
         }
     }
@@ -224,13 +178,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class HeadFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class HeadFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new Head(parent, tag, tail);
         }
     }
@@ -240,13 +191,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class HusbandFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class HusbandFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new Husband(parent, tag, new ObjectId(tail));
         }
     }
@@ -256,13 +204,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class LinkFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class LinkFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new Link(parent, tag, new ObjectId(tail));
         }
     }
@@ -272,13 +217,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class MultimediaFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class MultimediaFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new Multimedia(parent, tag, tail);
         }
     }
@@ -288,13 +230,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class NameFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class NameFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new Name(parent, tail);
         }
     }
@@ -304,13 +243,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class NoteFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class NoteFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             if (parent.getParent() == null) {
                 return new Note(parent, xref, tail);
             } else {
@@ -328,13 +264,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class NoteLinkFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class NoteLinkFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new NoteLink(parent, tag, new ObjectId(tail));
         }
     }
@@ -344,13 +277,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class PersonFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class PersonFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new Person(parent, xref);
         }
     }
@@ -360,13 +290,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class PlaceFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class PlaceFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new Place(parent, tail);
         }
     }
@@ -376,13 +303,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class RootFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class RootFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             // Root is a special case. Always has null parent.
             return new Root(tag);
         }
@@ -393,13 +317,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class SourceFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class SourceFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             if (parent.getParent() == null) {
                 return new Source(parent, xref);
             } else {
@@ -417,13 +338,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class SourceLinkFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class SourceLinkFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new SourceLink(parent, tag, new ObjectId(tail));
         }
     }
@@ -433,13 +351,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class SubmissionFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class SubmissionFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             if (parent.getParent() == null) {
                 return new Submission(parent, xref);
             } else {
@@ -453,14 +368,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class SubmissionLinkFactory
-            extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class SubmissionLinkFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new SubmissionLink(parent, tag, new ObjectId(tail));
         }
     }
@@ -470,13 +381,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class SubmitterFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class SubmitterFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             if (parent.getParent() == null) {
                 return new Submitter(parent, xref);
             } else {
@@ -490,13 +398,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class SubmitterLinkFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class SubmitterLinkFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new SubmitterLink(parent, tag, new ObjectId(tail));
         }
     }
@@ -506,13 +411,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class TrailerFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class TrailerFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new Trailer(parent, tag);
         }
     }
@@ -522,13 +424,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class WifeFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class WifeFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return new Wife(parent, tag, new ObjectId(tail));
         }
     }
@@ -538,13 +437,10 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class ConcatenationFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class ConcatenationFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             parent.appendString(tail);
             return null;
         }
@@ -555,46 +451,39 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    private static class ContinuationFactory extends AbstractGedObjectFactory {
-        /**
-         * {@inheritDoc}
-         */
+    private static final class ContinuationFactory extends AbstractGedObjectFactory {
         @Override
-        public final GedObject create(final GedObject parent,
-                final ObjectId xref, final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             parent.appendString("\n" + tail);
             return null;
         }
     }
 
     /**
-     * Factory method creates the appropriate GedObject from the provided
-     * strings.
+     * Factory method creates the appropriate GedObject from the provided strings.
      *
      * @param parent the parent GedObject
-     * @param xref an optional ID string
-     * @param tag the GEDCOM tag
-     * @param tail the rest of the line
+     * @param xref   an optional ID string
+     * @param tag    the GEDCOM tag
+     * @param tail   the rest of the line
      * @return the GedObject
      */
-    public final GedObject create(final GedObject parent, final String xref,
-            final String tag, final String tail) {
-        return getFactory(tag).create(parent, new ObjectId(xref),
-                fullstring(tag), tail);
+    public final GedObject create(final GedObject parent, final String xref, final String tag,
+        final String tail) {
+        return getFactory(tag).create(parent, new ObjectId(xref), fullstring(tag), tail);
     }
 
     /**
-     * Factory method creates the appropriate GedObject from the provided
-     * strings.
+     * Factory method creates the appropriate GedObject from the provided strings.
      *
-     * @param parent the parent GedObject
+     * @param parent   the parent GedObject
      * @param objectId an objectId
-     * @param tag the GEDCOM tag
-     * @param tail the rest of the line
+     * @param tag      the GEDCOM tag
+     * @param tail     the rest of the line
      * @return the GedObject
      */
-    public abstract GedObject create(GedObject parent, ObjectId objectId,
-            String tag, String tail);
+    public abstract GedObject create(GedObject parent, ObjectId objectId, String tag, String tail);
 
     /**
      * Get the factory for this GEDCOM tag.
@@ -624,8 +513,7 @@ public abstract class AbstractGedObjectFactory {
     /**
      * Get the full string for this tag. If not found, return the tag.
      *
-     * @param tag
-     *            the tag.
+     * @param tag the tag.
      * @return the full string.
      */
     public final String fullstring(final String tag) {
@@ -641,14 +529,13 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Dick Schoeller
      */
-    public static final class GedObjectFactory extends
-    AbstractGedObjectFactory {
+    public static final class GedObjectFactory extends AbstractGedObjectFactory {
         /**
          * {@inheritDoc}
          */
         @Override
-        public GedObject create(final GedObject parent, final ObjectId xref,
-                final String tag, final String tail) {
+        public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
             return null;
         }
     }

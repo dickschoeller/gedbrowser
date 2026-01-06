@@ -21,9 +21,9 @@ import org.springframework.test.web.servlet.client.RestTestClient;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { Application.class, TestConfiguration.class },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@SpringBootTest(classes = { Application.class,
+    TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 @AutoConfigureRestTestClient
 public class SaveControllerTest {
@@ -42,17 +42,15 @@ public class SaveControllerTest {
     /** */
     @Test
     public final void testSaveControllerOK() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowserng/v1/dbs/gl120368/save";
+        final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/save";
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(url)
-                .exchange()
-                .returnResult(String.class);
+            .uri(url)
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody())
-            .contains("0 HEAD")
+        then(entity.getResponseBody()).contains("0 HEAD")
             .contains("1 SOUR FAMILY_HISTORIAN")
             .contains("2 VERS 3.1")
             .contains("2 NAME Family Historian")
@@ -68,12 +66,11 @@ public class SaveControllerTest {
     /** */
     @Test
     public final void testSaveControllerDatasetNotFound() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowserng/v1/dbs/xyzzy/save";
+        final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/xyzzy/save";
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(url)
-                .exchange()
-                .returnResult(String.class);
+            .uri(url)
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));

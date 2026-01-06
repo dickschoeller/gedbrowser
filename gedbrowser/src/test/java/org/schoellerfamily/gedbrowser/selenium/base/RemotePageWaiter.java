@@ -44,34 +44,32 @@ public class RemotePageWaiter implements PageWaiter {
      * {@inheritDoc}
      */
     @Override
-    public void waitForPageLoaded(final WebDriver driver,
-            final int multiplier) {
+    public void waitForPageLoaded(final WebDriver driver, final int multiplier) {
         log.debug("Waiting for readyState");
-        final ExpectedCondition<Boolean> expectation =
-                new ExpectedCondition<Boolean>() {
+        final ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>() {
             /**
              * @see com.google.common.base.Function#apply(java.lang.Object)
              */
             @Override
             public Boolean apply(final WebDriver d) {
-                final boolean done = ((JavascriptExecutor) d).executeScript(
-                        "return document.readyState").equals("complete");
+                final boolean done = ((JavascriptExecutor) d)
+                    .executeScript("return document.readyState")
+                    .equals("complete");
                 return done;
             }
         };
-        final Wait<WebDriver> wait =
-                new WebDriverWait(driver, Duration.ofSeconds(timeout * multiplier));
+        final Wait<WebDriver> wait = new WebDriverWait(driver,
+            Duration.ofSeconds(timeout * multiplier));
         try {
             wait.until(expectation);
         } catch (Throwable error) {
             fail("Timeout waiting for Page Load Request to complete.");
         }
         log.debug("Waiting for maintainerMail");
-        final Wait<WebDriver> wait2 =
-                new WebDriverWait(driver, Duration.ofSeconds(timeout * multiplier));
+        final Wait<WebDriver> wait2 = new WebDriverWait(driver,
+            Duration.ofSeconds(timeout * multiplier));
         try {
-            wait2.until(ExpectedConditions
-                    .presenceOfElementLocated(By.id("maintainerMail")));
+            wait2.until(ExpectedConditions.presenceOfElementLocated(By.id("maintainerMail")));
         } catch (Throwable error) {
             fail("Timeout waiting for maintainerMail.");
         }
@@ -90,10 +88,10 @@ public class RemotePageWaiter implements PageWaiter {
      */
     @Override
     public void waitForPageLoaded(final WebDriver driver, final String newUrl,
-            final int multiplier) {
+        final int multiplier) {
         log.debug("Waiting for new URL");
         final Wait<WebDriver> wait3 = new WebDriverWait(driver,
-        		Duration.ofSeconds(timeout * multiplier));
+            Duration.ofSeconds(timeout * multiplier));
         try {
             wait3.until(ExpectedConditions.urlToBe(newUrl));
         } catch (Throwable error) {

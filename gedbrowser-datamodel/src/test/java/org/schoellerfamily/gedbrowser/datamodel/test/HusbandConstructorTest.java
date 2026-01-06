@@ -13,66 +13,65 @@ import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
-public class HusbandConstructorTest {
-    /** */
+public final class HusbandConstructorTest {
+    /**
+     * @return parameters for parameterized test
+     */
+    @SuppressWarnings("checkstyle:nowhitespaceafter")
     public static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily("F1");
 
-        return Arrays.stream(new Object[][] {
-            {null, null, new ObjectId("I2"), "", "I2", ""},
-            {family, null, new ObjectId("I3"), "", "I3", "F1"},
-            {null, "", new ObjectId("F1"), "", "F1", ""},
-            {family, "", new ObjectId("I2"), "", "I2", "F1"},
-            {null, "Link", new ObjectId("I3"), "Link", "I3", ""},
-            {family, "Lunk", new ObjectId("F1"), "Lunk", "F1", "F1"},
-            {null, null, new ObjectId(""), "", "", ""},
-            {family, null, new ObjectId(""), "", "", "F1"},
-            {null, "", new ObjectId(""), "", "", ""},
-            {family, "", new ObjectId(""), "", "", "F1"},
-            {null, "Link", new ObjectId(""), "Link", "", ""},
-            {family, "Lunk", new ObjectId(""), "Lunk", "", "F1"},
-            {null, null, null, "", "", ""},
-            {family, null, null, "", "", "F1"},
-            {null, "", null, "", "", ""},
-            {family, "", null, "", "", "F1"},
-            {null, "Link", null, "Link", "", ""},
-            {family, "Lunk", null, "Lunk", "", "F1"},
-        }).map(Arguments::of);
+        return Arrays.stream(new Object[][] { { null, null, new ObjectId("I2"), "", "I2", "" },
+            { family, null, new ObjectId("I3"), "", "I3", "F1" },
+            { null, "", new ObjectId("F1"), "", "F1", "" },
+            { family, "", new ObjectId("I2"), "", "I2", "F1" },
+            { null, "Link", new ObjectId("I3"), "Link", "I3", "" },
+            { family, "Lunk", new ObjectId("F1"), "Lunk", "F1", "F1" },
+            { null, null, new ObjectId(""), "", "", "" },
+            { family, null, new ObjectId(""), "", "", "F1" },
+            { null, "", new ObjectId(""), "", "", "" },
+            { family, "", new ObjectId(""), "", "", "F1" },
+            { null, "Link", new ObjectId(""), "Link", "", "" },
+            { family, "Lunk", new ObjectId(""), "Lunk", "", "F1" },
+            { null, null, null, "", "", "" }, { family, null, null, "", "", "F1" },
+            { null, "", null, "", "", "" }, { family, "", null, "", "", "F1" },
+            { null, "Link", null, "Link", "", "" }, { family, "Lunk", null, "Lunk", "", "F1" }, })
+            .map(Arguments::of);
     }
 
     @ParameterizedTest
     @MethodSource("params")
-    public void testConstructHusbandToString(final Family parent, final String string,
-            final ObjectId xref, final String expectedString,
-            final String expectedToString, final String expectedFromString) {
+    void testConstructHusbandToString(final Family parent, final String string,
+        final ObjectId xref, final String expectedString, final String expectedToString,
+        final String expectedFromString) {
         final Husband husband = new Husband(parent, string, xref);
         assertEquals(expectedToString, husband.getToString(), "To string mismatch");
     }
 
     @ParameterizedTest
     @MethodSource("params")
-    public void testConstructHusbandFromString(final Family parent, final String string,
-            final ObjectId xref, final String expectedString,
-            final String expectedToString, final String expectedFromString) {
+    void testConstructHusbandFromString(final Family parent, final String string,
+        final ObjectId xref, final String expectedString, final String expectedToString,
+        final String expectedFromString) {
         final Husband husband = new Husband(parent, string, xref);
         assertEquals(expectedFromString, husband.getFromString(), "From string mismatch");
     }
 
     @ParameterizedTest
     @MethodSource("params")
-    public void testConstructHusbandParent(final Family parent, final String string,
-            final ObjectId xref, final String expectedString,
-            final String expectedToString, final String expectedFromString) {
+    void testConstructHusbandParent(final Family parent, final String string,
+        final ObjectId xref, final String expectedString, final String expectedToString,
+        final String expectedFromString) {
         final Husband husband = new Husband(parent, string, xref);
         assertEquals(parent, husband.getParent(), "Parent mismatch");
     }
 
     @ParameterizedTest
     @MethodSource("params")
-    public void testConstructHusbandString(final Family parent, final String string,
-            final ObjectId xref, final String expectedString,
-            final String expectedToString, final String expectedFromString) {
+    void testConstructHusbandString(final Family parent, final String string,
+        final ObjectId xref, final String expectedString, final String expectedToString,
+        final String expectedFromString) {
         final Husband husband = new Husband(parent, string, xref);
         assertEquals(expectedString, husband.getString(), "String mismatch");
     }

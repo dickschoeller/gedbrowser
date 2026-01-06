@@ -19,8 +19,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class RestoreEndpoint {
+    /** */
     private final GedObjectFileLoader loader;
 
+    /** */
     private final RepositoryManagerMongo repositoryManager;
 
     /**

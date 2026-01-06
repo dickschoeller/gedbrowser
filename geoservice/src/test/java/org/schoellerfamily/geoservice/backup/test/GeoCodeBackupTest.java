@@ -30,7 +30,6 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class,
     classes = { GeoCodeBackupTest.ContextConfiguration.class, GeoCodeBackup.class })
-@SuppressWarnings("null")
 public final class GeoCodeBackupTest {
     /** */
     @Autowired
@@ -69,7 +68,7 @@ public final class GeoCodeBackupTest {
      * @throws IOException if backup file can't be written or read
      */
     @Test
-    public final void testBackupRestoreBasic() throws IOException {
+    void testBackupRestoreBasic() throws IOException {
         gcd.clear();
         gcd.find("3341 Chaucer Lane, Bethlehem, PA");
         backupManager.backup(new File("test.json"));
@@ -87,7 +86,7 @@ public final class GeoCodeBackupTest {
      * @throws IOException if backup file can't be written or read
      */
     @Test
-    public final void testBackupRestore() throws IOException {
+    void testBackupRestore() throws IOException {
         gcd.clear();
         final GeoCodeItem gci = gcd.find("3341 Chaucer Lane, Bethlehem, PA");
         backupManager.backup(new File("test.json"));

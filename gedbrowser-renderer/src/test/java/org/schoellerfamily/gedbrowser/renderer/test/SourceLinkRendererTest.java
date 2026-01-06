@@ -41,60 +41,66 @@ public final class SourceLinkRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
-    public void testAttributeListOpenRenderer() {
+    void testAttributeListOpenRenderer() {
         final SourceLinkRenderer renderer = createRenderer();
-        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
+        assertTrue(
+            renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
-    public void testListItemRenderer() {
+    void testListItemRenderer() {
         final SourceLinkRenderer renderer = createRenderer();
-        assertTrue(renderer.getListItemRenderer() instanceof SourceLinkListItemRenderer, "Wrong renderer type");
+        assertTrue(renderer.getListItemRenderer() instanceof SourceLinkListItemRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
-    public void testNameHtmlRenderer() {
+    void testNameHtmlRenderer() {
         final SourceLinkRenderer renderer = createRenderer();
-        assertTrue(renderer.getNameHtmlRenderer() instanceof SourceLinkNameHtmlRenderer, "Wrong renderer type");
+        assertTrue(renderer.getNameHtmlRenderer() instanceof SourceLinkNameHtmlRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
-    public void testNameIndexRenderer() {
+    void testNameIndexRenderer() {
         final SourceLinkRenderer renderer = createRenderer();
-        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
-    public void testPhraseRenderer() {
+    void testPhraseRenderer() {
         final SourceLinkRenderer renderer = createRenderer();
-        assertTrue(renderer.getPhraseRenderer() instanceof SourceLinkPhraseRenderer, "Wrong renderer type");
+        assertTrue(renderer.getPhraseRenderer() instanceof SourceLinkPhraseRenderer,
+            "Wrong renderer type");
     }
 
     /**
      * Test empty rendering.
      */
     @Test
-    public void testUnsetSourceLink() {
+    void testUnsetSourceLink() {
         final SourceLinkRenderer renderer = createRenderer();
         assertEquals("", renderer.getIndexName(), "Index name should be empty");
     }
@@ -103,7 +109,7 @@ public final class SourceLinkRendererTest {
      * Test empty rendering.
      */
     @Test
-    public void testUnsetSourceHtmlLink() {
+    void testUnsetSourceHtmlLink() {
         final SourceLinkRenderer renderer = createRenderer();
         assertEquals("", renderer.getNameHtml(), "Index name should be empty");
     }
@@ -112,10 +118,10 @@ public final class SourceLinkRendererTest {
      * Test empty rendering.
      */
     @Test
-    public void testSourceLinkCobweb() {
+    void testSourceLinkCobweb() {
         final SourceLinkRenderer renderer = new SourceLinkRenderer(
-                new SourceLink(null, "sourceLink", new ObjectId("S1")),
-                new GedRendererFactory(), anonymousContext);
+            new SourceLink(null, "sourceLink", new ObjectId("S1")), new GedRendererFactory(),
+            anonymousContext);
         assertEquals("S1", renderer.getNameHtml(), "Index name mismatch");
     }
 
@@ -123,7 +129,6 @@ public final class SourceLinkRendererTest {
      * @return the renderer
      */
     private SourceLinkRenderer createRenderer() {
-        return new SourceLinkRenderer(new SourceLink(),
-                new GedRendererFactory(), anonymousContext);
+        return new SourceLinkRenderer(new SourceLink(), new GedRendererFactory(), anonymousContext);
     }
 }

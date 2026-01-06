@@ -13,16 +13,18 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Component
 @Slf4j
-public class LogBeanInstantiationProcessor implements BeanPostProcessor {
+public final class LogBeanInstantiationProcessor implements BeanPostProcessor {
 
     @Override
-    public Object postProcessBeforeInitialization(final Object bean, final String beanName) throws BeansException {
+    public Object postProcessBeforeInitialization(final Object bean, final String beanName)
+        throws BeansException {
         // No action needed before initialization for this purpose
         return bean;
     }
 
     @Override
-    public Object postProcessAfterInitialization(final Object bean, final String beanName) throws BeansException {
+    public Object postProcessAfterInitialization(final Object bean, final String beanName)
+        throws BeansException {
         log.debug("Bean instantiated: Name='{}', Class='{}'", beanName, bean.getClass().getName());
         return bean;
     }

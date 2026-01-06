@@ -36,6 +36,6 @@ public abstract class DatedDataController extends AbstractController {
      * @return the provider
      */
     protected final CalendarProvider calendarProvider() {
-        return provider;
+        return getProvider();
     }
 }

@@ -38,8 +38,8 @@ public class ApiObject implements GetString {
     private final String type = "";
 
     /**
-     * A string containing the primary value of this object. In Attributes
-     * this will be the sub-type and tail will contain the data value.
+     * A string containing the primary value of this object. In Attributes this will
+     * be the sub-type and tail will contain the data value.
      */
     @Builder.Default
     private final String string = "";
@@ -68,8 +68,7 @@ public class ApiObject implements GetString {
         if (dt.equals(getType())) {
             return true;
         }
-        return "attribute".equals(getType())
-                && dt.equalsIgnoreCase(getString());
+        return "attribute".equals(getType()) && dt.equalsIgnoreCase(getString());
     }
 
     /**
@@ -99,8 +98,16 @@ public class ApiObject implements GetString {
      * @param <C> the class to be built
      * @param <B> the type of the builder
      */
-    @JsonPOJOBuilder(withPrefix="")
-    public static abstract class ApiObjectBuilder<C extends ApiObject, B extends ApiObjectBuilder<C, B>> {
+    @JsonPOJOBuilder(withPrefix = "")
+    public abstract static class ApiObjectBuilder<
+        C extends ApiObject,
+        B extends ApiObjectBuilder<C, B>> {
+
+        /**
+         * Get the type value.
+         *
+         * @return the type value
+         */
         public String getType() {
             return this.type$value;
         }
@@ -116,7 +123,7 @@ public class ApiObject implements GetString {
 
         /**
          * Get the attributes.
-         * 
+         *
          * @return the attributes
          */
         public List<ApiAttribute> getAttributes() {

@@ -40,7 +40,7 @@ public interface CreateOperations<X extends GedObject,
      *
      * @param <T> the data type that we are copying
      */
-    public interface ApiCopier<T extends ApiObject> {
+    interface ApiCopier<T extends ApiObject> {
         /**
          * @param original the original object
          * @param id the different id
@@ -76,7 +76,7 @@ public interface CreateOperations<X extends GedObject,
      * @return the new document
      */
     @SuppressWarnings("unchecked")
-    default Y save(X gob) {
+    default Y save(final X gob) {
         Y document = (Y) getConverter().createGedDocument(gob);
         try {
             final FindableDocument<X, Y> repo = getRepository();

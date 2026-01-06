@@ -36,9 +36,8 @@ public final class IndexRendererTest {
     /** */
     private RenderingContext userContext;
 
-    /** */
     @BeforeEach
-    public void init() {
+    void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
         userContext = RenderingContext.user(appInfo);
     }
@@ -50,27 +49,18 @@ public final class IndexRendererTest {
      * @return the formatted string.
      */
     private String letterExpectString(final String letter) {
-        return "<a id=\"letter-" + letter
-                + "\" href=\"surnames?db=null&amp;letter=" + letter
-                + "\" class=\"name\">[" + letter + "]</a>";
+        return "<a id=\"letter-" + letter + "\" href=\"surnames?db=null&amp;letter=" + letter
+            + "\" class=\"name\">[" + letter + "]</a>";
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
-    public void testLetters() throws IOException {
-        final String[] expects = {
-                letterExpectString("F"),
-                letterExpectString("H"),
-                letterExpectString("K"),
-                letterExpectString("L"),
-                letterExpectString("R"),
-                letterExpectString("S"),
-        };
+    void testLetters() throws IOException {
+        @SuppressWarnings("checkstyle:nowhitespaceafter")
+        final String[] expects = { letterExpectString("F"), letterExpectString("H"),
+            letterExpectString("K"), letterExpectString("L"), letterExpectString("R"),
+            letterExpectString("S"), };
         final Root root = reader.readBigTestSource();
-        final IndexRenderer ir = new IndexRenderer(root, "S",
-                anonymousContext);
+        final IndexRenderer ir = new IndexRenderer(root, "S", anonymousContext);
         final Collection<String> letters = ir.getLetters();
         int i = 0;
         for (final String letter : letters) {
@@ -78,18 +68,12 @@ public final class IndexRendererTest {
         }
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
-    public void testSurnames() throws IOException {
-        final String[] expects = {
-                "Sacerdote",
-                "Schoeller",
-        };
+    void testSurnames() throws IOException {
+        @SuppressWarnings("checkstyle:nowhitespaceafter")
+        final String[] expects = { "Sacerdote", "Schoeller", };
         final Root root = reader.readBigTestSource();
-        final IndexRenderer ir = new IndexRenderer(root, "S",
-                anonymousContext);
+        final IndexRenderer ir = new IndexRenderer(root, "S", anonymousContext);
         final Collection<String> surnames = ir.getSurnames();
         int i = 0;
         for (final String surname : surnames) {
@@ -97,42 +81,22 @@ public final class IndexRendererTest {
         }
     }
 
-    /**
-     * Prepare the expect string for index html test.
-     * @param id person's ID
-     * @param surname person's surname
-     * @param prefix person's given name
-     * @param dateRange date range string
-     * @return formatted string
-     */
-    private String indexExpectString(final String id, final String surname,
-            final String prefix, final String dateRange) {
-        return "<li id=\""
-                + id + "\"><a href=\"person?db=null&amp;id="
-                + id + "\" class=\"name\"> <span class=\"surname\">"
-                + surname + "</span>, "
-                + prefix + dateRange + " ("
-                + id + ")</a></li>";
+    private String indexExpectString(final String id, final String surname, final String prefix,
+        final String dateRange) {
+        return "<li id=\"" + id + "\"><a href=\"person?db=null&amp;id=" + id
+            + "\" class=\"name\"> <span class=\"surname\">" + surname + "</span>, " + prefix
+            + dateRange + " (" + id + ")</a></li>";
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
-    public void testIndexNameHtmlSchoeller() throws IOException {
-        final String[] expects = {
-                indexExpectString(
-                        "I4", "Schoeller", "John Vincent", " (1934-)"),
-                indexExpectString(
-                        "I1", "Schoeller", "Melissa Robinson", ""),
-                indexExpectString(
-                        "I2", "Schoeller", "Richard John", " (1958-)"),
-                indexExpectString(
-                        "I5", "Schoeller", "Vivian Grace", " (1960-)"),
-        };
+    void testIndexNameHtmlSchoeller() throws IOException {
+        @SuppressWarnings("checkstyle:nowhitespaceafter")
+        final String[] expects = { indexExpectString("I4", "Schoeller", "John Vincent", " (1934-)"),
+            indexExpectString("I1", "Schoeller", "Melissa Robinson", ""),
+            indexExpectString("I2", "Schoeller", "Richard John", " (1958-)"),
+            indexExpectString("I5", "Schoeller", "Vivian Grace", " (1960-)"), };
         final Root root = reader.readBigTestSource();
-        final IndexRenderer ir = new IndexRenderer(root, "S",
-                userContext);
+        final IndexRenderer ir = new IndexRenderer(root, "S", userContext);
         final Collection<String> indexNames = ir.getIndexNameHtmls("Schoeller");
         int i = 0;
         for (final String indexName : indexNames) {
@@ -140,134 +104,76 @@ public final class IndexRendererTest {
         }
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
-    public void testIndexNameHtmlSchoellerAnonymous() throws IOException {
+    void testIndexNameHtmlSchoellerAnonymous() throws IOException {
         final Root root = reader.readBigTestSource();
-        final IndexRenderer ir = new IndexRenderer(root, "S",
-                anonymousContext);
+        final IndexRenderer ir = new IndexRenderer(root, "S", anonymousContext);
         final Collection<String> indexNames = ir.getIndexNameHtmls("Schoeller");
         assertEquals(0, indexNames.size(), "Expect empty");
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
-    public void testIndexBase() throws IOException {
+    void testIndexBase() throws IOException {
         final Root root = reader.readBigTestSource();
-        final IndexRenderer ir = new IndexRenderer(root, "S",
-                anonymousContext);
+        final IndexRenderer ir = new IndexRenderer(root, "S", anonymousContext);
         assertEquals("S", ir.getBase(), "Mismatch index letter");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
-    public void testHeadMenuItem() throws IOException {
+    void testHeadMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final IndexRenderer renderer = new IndexRenderer(root, "A",
-                anonymousContext);
-        assertEquals("head?db=gl120368", renderer.getHeaderHref(),
-                "head href mismatch");
+        final IndexRenderer renderer = new IndexRenderer(root, "A", anonymousContext);
+        assertEquals("head?db=gl120368", renderer.getHeaderHref(), "head href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
-    public void testSaveFilename() throws IOException {
+    void testSaveFilename() throws IOException {
         final Root root = reader.readFileTestSource();
-        final IndexRenderer renderer = new IndexRenderer(root, "A",
-                anonymousContext);
-        assertEquals("gl120368.ged", renderer.getSaveFilename(),
-                "save href mismatch");
+        final IndexRenderer renderer = new IndexRenderer(root, "A", anonymousContext);
+        assertEquals("gl120368.ged", renderer.getSaveFilename(), "save href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
-    public void testSaveMenuItem() throws IOException {
+    void testSaveMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final IndexRenderer renderer = new IndexRenderer(root, "A",
-                anonymousContext);
-        assertEquals("save?db=gl120368", renderer.getSaveHref(),
-                "save href mismatch");
+        final IndexRenderer renderer = new IndexRenderer(root, "A", anonymousContext);
+        assertEquals("save?db=gl120368", renderer.getSaveHref(), "save href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
-    public void testIndexMenuItem() throws IOException {
+    void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final IndexRenderer renderer = new IndexRenderer(root, "A",
-                anonymousContext);
+        final IndexRenderer renderer = new IndexRenderer(root, "A", anonymousContext);
         assertEquals("surnames?db=gl120368&letter=A", renderer.getIndexHref(),
-                "index href mismatch");
+            "index href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
-    public void testLivingMenuItem() throws IOException {
+    void testLivingMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final IndexRenderer renderer = new IndexRenderer(root, "A",
-                anonymousContext);
+        final IndexRenderer renderer = new IndexRenderer(root, "A", anonymousContext);
         assertEquals("living?db=gl120368", renderer.getLivingHref());
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
-    public void testSourcesMenuItem() throws IOException {
+    void testSourcesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final IndexRenderer renderer = new IndexRenderer(root, "A",
-                anonymousContext);
+        final IndexRenderer renderer = new IndexRenderer(root, "A", anonymousContext);
         assertEquals("sources?db=gl120368", renderer.getSourcesHref(), "submitters href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
-    public void testSubmittersMenuItem() throws IOException {
+    void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final IndexRenderer renderer = new IndexRenderer(root, "A",
-                anonymousContext);
-        assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(), "sources href mismatch");
+        final IndexRenderer renderer = new IndexRenderer(root, "A", anonymousContext);
+        assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(),
+            "sources href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
-    public void testPlacesMenuItem() throws IOException {
+    void testPlacesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final IndexRenderer renderer = new IndexRenderer(root, "A",
-                anonymousContext);
+        final IndexRenderer renderer = new IndexRenderer(root, "A", anonymousContext);
         assertEquals("places?db=gl120368", renderer.getPlacesHref(), "places href mismatch");
     }
 }

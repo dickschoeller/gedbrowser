@@ -22,5 +22,4 @@ public class ExceptionResponseTest {
         final ExceptionResponse er = new ExceptionResponse("code", "message");
         assertEquals("code", er.getErrorCode(), "Codes don't match");
     }
-
 }

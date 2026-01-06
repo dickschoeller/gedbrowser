@@ -24,10 +24,9 @@ public class UserTestHelper {
 
     /**
      * @param client lets us make rest calls
-     * @param port the port to connect to
+     * @param port   the port to connect to
      */
-    public UserTestHelper(final RestTestClient client,
-            final int port) {
+    public UserTestHelper(final RestTestClient client, final int port) {
         this.client = client;
         this.port = port;
     }
@@ -37,8 +36,7 @@ public class UserTestHelper {
      * @return the user
      * @throws URISyntaxException if there is a URL problem
      */
-    public SecurityUser whoami(final HttpHeaders headers)
-            throws URISyntaxException {
+    public SecurityUser whoami(final HttpHeaders headers) throws URISyntaxException {
         final EntityExchangeResult<UserImpl> res = whoamiResponse(headers);
         return res.getResponseBody();
     }
@@ -48,15 +46,15 @@ public class UserTestHelper {
      * @return the response
      * @throws URISyntaxException if there is a URL problem
      */
-    public EntityExchangeResult<UserImpl> whoamiResponse(
-        final HttpHeaders headers) throws URISyntaxException {
+    public EntityExchangeResult<UserImpl> whoamiResponse(final HttpHeaders headers)
+        throws URISyntaxException {
         final String url = baseUrl() + "whoami";
         return client.get()
-                .uri(new URI(url))
-                .headers(h -> h.addAll(headers))
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .returnResult(UserImpl.class);
+            .uri(new URI(url))
+            .headers(h -> h.addAll(headers))
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .returnResult(UserImpl.class);
     }
 
     /**
@@ -64,34 +62,31 @@ public class UserTestHelper {
      * @return the JSON string of users
      * @throws URISyntaxException if there is a problem with the URL
      */
-    public String getUsersString(final HttpHeaders headers)
-            throws URISyntaxException {
+    public String getUsersString(final HttpHeaders headers) throws URISyntaxException {
         final String url = baseUrl() + "users";
         return getString(url, headers);
     }
 
     /**
-     * @param headers the necessary headers
+     * @param headers     the necessary headers
      * @param requestName the name of the user to get
      * @return the User
      * @throws URISyntaxException if the URI is bogus
      */
-    public SecurityUser getUser(final HttpHeaders headers,
-            final String requestName) throws URISyntaxException {
+    public SecurityUser getUser(final HttpHeaders headers, final String requestName)
+        throws URISyntaxException {
         final EntityExchangeResult<UserImpl> res = getUserResponse(headers, requestName);
         return res.getResponseBody();
     }
 
     /**
-     * @param headers the necessary headers
+     * @param headers     the necessary headers
      * @param requestName the name of the user to get
      * @return the response
      * @throws URISyntaxException if the URI is bogus
      */
-    public EntityExchangeResult<UserImpl> getUserResponse(
-            final HttpHeaders headers,
-            final String requestName)
-            throws URISyntaxException {
+    public EntityExchangeResult<UserImpl> getUserResponse(final HttpHeaders headers,
+        final String requestName) throws URISyntaxException {
         final String url = baseUrl() + "users/" + requestName;
         return client.get()
             .uri(new URI(url))
@@ -106,16 +101,15 @@ public class UserTestHelper {
      * @return the User list
      * @throws URISyntaxException if the URI is bogus
      */
-    public List<UserImpl> getUsers(final HttpHeaders headers)
-            throws URISyntaxException {
+    public List<UserImpl> getUsers(final HttpHeaders headers) throws URISyntaxException {
         final String url = baseUrl() + "users";
         final EntityExchangeResult<List<UserImpl>> res = client.get()
-                .uri(new URI(url))
-                .headers(h -> h.addAll(headers))
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .returnResult(new ParameterizedTypeReference<List<UserImpl>>() {
-				});
+            .uri(new URI(url))
+            .headers(h -> h.addAll(headers))
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .returnResult(new ParameterizedTypeReference<List<UserImpl>>() {
+            });
         return res.getResponseBody();
     }
 
@@ -127,15 +121,13 @@ public class UserTestHelper {
     }
 
     /**
-     * @param url the usl to access
+     * @param url     the usl to access
      * @param headers the necessary headers
      * @return the string format of the response body
      * @throws URISyntaxException if the URI is bogus
      */
-    private String getString(
-        final String url,
-        final HttpHeaders headers)
-            throws URISyntaxException {
+    private String getString(final String url, final HttpHeaders headers)
+        throws URISyntaxException {
         final EntityExchangeResult<String> res = client.get()
             .uri(new URI(url))
             .headers(h -> h.addAll(headers))

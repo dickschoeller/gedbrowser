@@ -36,6 +36,7 @@ public class GedDocumentFileLoaderTest {
     @Autowired
     private transient RepositoryManagerMongo repositoryManager;
 
+    /** */
     @Autowired
     private transient RootDocumentRepositoryMongo rootDocumentRepository;
 
@@ -45,7 +46,7 @@ public class GedDocumentFileLoaderTest {
 
     /** */
     @Test
-    public void testReset() {
+    void testReset() {
         loader.loadDocument(repositoryManager, "mini-schoeller");
         loader.reset(repositoryManager);
         assertRepositoryEmpty();
@@ -53,21 +54,21 @@ public class GedDocumentFileLoaderTest {
 
     /** */
     @Test
-    public void testLoad() {
+    void testLoad() {
         loader.reset(repositoryManager);
         assertJustThisOne(loader.loadDocument(repositoryManager, "mini-schoeller"));
     }
 
     /** */
     @Test
-    public void testBadLoad() {
+    void testBadLoad() {
         loader.reset(repositoryManager);
         assertNull(loader.loadDocument(repositoryManager, "foofy"), "Should be not found");
     }
 
     /** */
     @Test
-    public void testReloadAll() {
+    void testReloadAll() {
         loader.reset(repositoryManager);
         loader.loadDocument(repositoryManager, "mini-schoeller");
         loader.reloadAll(repositoryManager);
@@ -76,7 +77,7 @@ public class GedDocumentFileLoaderTest {
 
     /** */
     @Test
-    public void testDetails() {
+    void testDetails() {
         loader.reset(repositoryManager);
         loader.loadDocument(repositoryManager, "mini-schoeller");
         final Map<String, Object> details = loader.details(repositoryManager, "mini-schoeller");
@@ -85,7 +86,7 @@ public class GedDocumentFileLoaderTest {
 
     /** */
     @Test
-    public void testAllDetails() {
+    void testAllDetails() {
         loader.reset(repositoryManager);
         loader.loadDocument(repositoryManager, "mini-schoeller");
         for (final Map<String, Object> details : loader.details(repositoryManager)) {
@@ -98,7 +99,8 @@ public class GedDocumentFileLoaderTest {
      */
     private void assertDetails(final Map<String, Object> details) {
         assertEquals("mini-schoeller", details.get("dbname"), "dbname mismatch");
-        assertEquals(gedbrowserHome + "/mini-schoeller.ged", details.get("filename"), "filename mismatch");
+        assertEquals(gedbrowserHome + "/mini-schoeller.ged", details.get("filename"),
+            "filename mismatch");
         final long expectedPersonsCount = 20;
         final long expectedFamiliesCount = 7;
         final long expectedSourceCount = 11;
@@ -109,19 +111,17 @@ public class GedDocumentFileLoaderTest {
 
     /** */
     @Test
-    public void testReload() {
+    void testReload() {
         loader.reset(repositoryManager);
-        final RootDocument rootDocument1 =
-                loader.loadDocument(repositoryManager, "mini-schoeller");
-        final RootDocument resultDoc =
-                loader.loadDocument(repositoryManager, "mini-schoeller");
+        final RootDocument rootDocument1 = loader.loadDocument(repositoryManager, "mini-schoeller");
+        final RootDocument resultDoc = loader.loadDocument(repositoryManager, "mini-schoeller");
         checkSame(rootDocument1, resultDoc);
         assertJustThisOne(resultDoc);
     }
 
     /**
-     * Assert that we should have only the newly loaded document
-     * this because we first cleared everything.
+     * Assert that we should have only the newly loaded document this because we
+     * first cleared everything.
      *
      * @param resultDoc the newly loaded document
      */

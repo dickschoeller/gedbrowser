@@ -1,10 +1,13 @@
 package org.schoellerfamily.gedbrowser.analytics;
 
+import lombok.NoArgsConstructor;
+
 /**
  * Encapsulates typical values used in age calculations.
  *
  * @author Dick Schoeller
  */
+@NoArgsConstructor
 public final class StandardTypicals implements Typicals {
     /** Typical age at death. */
     private static final int TYPICAL_AGE_AT_DEATH = 75;

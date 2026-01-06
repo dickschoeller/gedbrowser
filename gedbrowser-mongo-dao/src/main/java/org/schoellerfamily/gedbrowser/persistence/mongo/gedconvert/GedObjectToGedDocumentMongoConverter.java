@@ -61,14 +61,13 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports" })
-public class GedObjectToGedDocumentMongoConverter
-        implements GedDocumentLoader {
+public class GedObjectToGedDocumentMongoConverter implements GedDocumentLoader {
     /**
      * Holds the mapping between GedObject and GedDocument.
      */
-    private static final Map<Class<? extends GedObject>,
-        Class<? extends GedDocumentMongo<? extends GedObject>>> CLASS_MAP =
-            new HashMap<>();
+    private static final
+        Map<Class<? extends GedObject>, Class<? extends GedDocumentMongo<? extends GedObject>>>
+            CLASS_MAP = new HashMap<>();
     static {
         CLASS_MAP.put(Attribute.class, AttributeDocumentMongo.class);
         CLASS_MAP.put(Child.class, ChildDocumentMongo.class);
@@ -118,21 +117,20 @@ public class GedObjectToGedDocumentMongoConverter
             final GedDocumentMongo<?> retval = mongoClass.getDeclaredConstructor().newInstance();
             retval.loadGedObject(this, ged);
             return retval;
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException
+            | NoSuchMethodException e) {
             throw new PersistenceException("Could not instantiate class", e);
         }
     }
 
     /**
-     * @param document the document
+     * @param document      the document
      * @param gedAttributes the attributes to add
      */
-    public void loadAttributes(final GedDocument<?> document,
-            final List<GedObject> gedAttributes) {
+    public void loadAttributes(final GedDocument<?> document, final List<GedObject> gedAttributes) {
         document.clearAttributes();
         for (final GedObject ged : gedAttributes) {
-            final GedDocument<?> documentAttribute =
-                    createGedDocument(ged);
+            final GedDocument<?> documentAttribute = createGedDocument(ged);
             document.addAttribute(documentAttribute);
         }
     }
@@ -142,8 +140,7 @@ public class GedObjectToGedDocumentMongoConverter
      * @param ged the GedObject that is being transformed
      * @return the mongo document produced
      */
-    public <G extends GedObject> GedDocumentMongo<G> createGedDocument(
-            final G ged) {
+    public <G extends GedObject> GedDocumentMongo<G> createGedDocument(final G ged) {
         @SuppressWarnings("unchecked")
         final GedDocumentMongo<G> retval = (GedDocumentMongo<G>) create(ged);
         retval.setGedObject(ged);

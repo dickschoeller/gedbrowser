@@ -54,6 +54,8 @@ public final class BirthDateEstimator extends BasicBirthDateEstimator {
     }
 
     /**
+     * Estimate the birth date.
+     *
      * @return the estimated birth date as a LocalDate
      */
     public LocalDate estimateBirthDate() {
@@ -74,6 +76,8 @@ public final class BirthDateEstimator extends BasicBirthDateEstimator {
     }
 
     /**
+     * Estimate from spouses' ancestors.
+     *
      * @param localDate the input date estimate
      * @return the new estimate
      */
@@ -82,6 +86,8 @@ public final class BirthDateEstimator extends BasicBirthDateEstimator {
     }
 
     /**
+     * Try recursing through the ancestors to find any date.
+     *
      * @return the estimate based on the ancestors' dates.
      */
     public LocalDate ancestorsEstimate() {
@@ -89,6 +95,8 @@ public final class BirthDateEstimator extends BasicBirthDateEstimator {
     }
 
     /**
+     * Estimate the birth date using just close relatives.
+     *
      * @return the estimated birth date as a LocalDate
      */
     public LocalDate shortEstimate() {
@@ -100,6 +108,8 @@ public final class BirthDateEstimator extends BasicBirthDateEstimator {
     }
 
     /**
+     * Estimate from ancestors' other events.
+     *
      * @param localDate if not null we already have a better estimate
      * @return estimate from own ancestors' other events
      */
@@ -119,6 +129,8 @@ public final class BirthDateEstimator extends BasicBirthDateEstimator {
     }
 
     /**
+     * Try recursing through the ancestors to find a birth date.
+     *
      * @param localDate if not null we already have a better estimate
      * @return estimate from some ancestor's birth date
      */
@@ -127,6 +139,8 @@ public final class BirthDateEstimator extends BasicBirthDateEstimator {
     }
 
     /**
+     * Estimate from own marriages.
+     *
      * @param localDate if not null we already have a better estimate
      * @param shortEstimate whether to do a short estimate or a deep estimate
      * @return the estimate from own marriages
@@ -137,6 +151,8 @@ public final class BirthDateEstimator extends BasicBirthDateEstimator {
     }
 
     /**
+     * Estimate from some children's dates.
+     *
      * @param localDate if not null we already have a better estimate
      * @return estimate from some children
      */

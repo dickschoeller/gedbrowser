@@ -23,13 +23,17 @@ import org.springframework.test.web.servlet.client.RestTestClient;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { Application.class, TestConfiguration.class },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@SpringBootTest(classes = { Application.class,
+    TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class IndexControllerTest implements MenuTestHelper {
-    private static final String URL_TEMPLATE = "http://localhost:%d/gedbrowser/surnames?db=%s&letter=%s";
+    /**
+     * Template for building surname index URLs.
+     */
+    private static final String URL_TEMPLATE =
+        "http://localhost:%d/gedbrowser/surnames?db=%s&letter=%s";
 
     /**
      * Not sure what this is good for.
@@ -48,16 +52,15 @@ public class IndexControllerTest implements MenuTestHelper {
     public final void testIndexControllerC() {
         final String url = URL_TEMPLATE.formatted(port, "gl120368", "C");
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(entity.getResponseBody()).contains("<title>Index - C - gl120368</title>")
-            .contains("<span><a id=\"letter-?\""
-                    + " href=\"surnames?db=gl120368&amp;letter=?\""
-                    + " class=\"name\">[?]</a>   </span>")
+            .contains("<span><a id=\"letter-?\"" + " href=\"surnames?db=gl120368&amp;letter=?\""
+                + " class=\"name\">[?]</a>   </span>")
             .contains("<li id=\"I2508\"><a href=\"person?db=gl120368&amp;id=")
             .contains(getMenu("C"));
     }
@@ -67,16 +70,15 @@ public class IndexControllerTest implements MenuTestHelper {
     public final void testIndexControllerB() {
         final String url = URL_TEMPLATE.formatted(port, "gl120368", "B");
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(entity.getResponseBody()).contains("<title>Index - B - gl120368</title>")
-            .contains("<span><a id=\"letter-?\""
-                    + " href=\"surnames?db=gl120368&amp;letter=?\""
-                    + " class=\"name\">[?]</a>   </span>")
+            .contains("<span><a id=\"letter-?\"" + " href=\"surnames?db=gl120368&amp;letter=?\""
+                + " class=\"name\">[?]</a>   </span>")
             .contains("<li id=\"I2561\"><a href=\"person?db=gl120368&amp;id=")
             .contains(getMenu("B"));
     }
@@ -86,9 +88,9 @@ public class IndexControllerTest implements MenuTestHelper {
     public final void testIndexControllerBadDataSet() {
         String url = URL_TEMPLATE.formatted(port, "XYZZY", "A");
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
@@ -100,17 +102,15 @@ public class IndexControllerTest implements MenuTestHelper {
     public final void testIndexControllerLetter() {
         String url = URL_TEMPLATE.formatted(port, "gl120368", "q");
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody())
-            .contains("<title>Index - q - gl120368</title>")
-            .contains("<span><a id=\"letter-?\""
-                    + " href=\"surnames?db=gl120368&amp;letter=?\""
-                    + " class=\"name\">[?]</a>   </span>")
+        then(entity.getResponseBody()).contains("<title>Index - q - gl120368</title>")
+            .contains("<span><a id=\"letter-?\"" + " href=\"surnames?db=gl120368&amp;letter=?\""
+                + " class=\"name\">[?]</a>   </span>")
             .doesNotContain("<li><a href=\"person?db=gl120368&amp;id=")
             .contains(getMenu("q"));
     }

@@ -25,14 +25,13 @@ public class UsersConfiguration {
      */
     @Bean
     public SecurityUsers users() {
-        return readUserFile(userFile);
+        return readUserFile();
     }
 
     /**
-     * @param userFile the user file to read
      * @return the set of users from the user file
      */
-    private SecurityUsers readUserFile(final String userFile) {
+    private SecurityUsers readUserFile() {
         final UsersReader<SecurityUser, SecurityUsers> usersReader =
                 new UsersReader<>();
         return (SecurityUsers) usersReader.readUserFile(userFile,

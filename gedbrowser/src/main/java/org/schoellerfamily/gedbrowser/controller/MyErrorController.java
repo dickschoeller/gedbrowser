@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class MyErrorController implements ErrorController {
+    /** Provides configured information about the application. */
     private final ApplicationInfo appInfo;
 
     /**

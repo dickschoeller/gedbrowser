@@ -23,6 +23,7 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
 
     /**
      * Constructor.
+     *
      * @param person the person whose dates we are estimating
      */
     public BirthDateFromAncestorsEstimator(final Person person) {
@@ -31,6 +32,8 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
     }
 
     /**
+     * Estimate the birth date from all available data.
+     *
      * @param localDate if not null we already have a better estimate
      * @return estimate from own ancestors
      */
@@ -46,6 +49,8 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
     }
 
     /**
+     * Estimate from events other than birth or marriage.
+     *
      * @param localDate if not null we already have a better estimate
      * @return estimate based on other ancestor events
      */
@@ -73,6 +78,8 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
     }
 
     /**
+     * Estimate from ancestors' other events.
+     *
      * @param date estimated birth date before calling this method
      * @param bde the birth date estimate to invoke
      * @return a new estimated birth date
@@ -83,6 +90,8 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
     }
 
     /**
+     * Estimate from other events.
+     *
      * @param date estimated birth date before calling this method
      * @param bde the birth date estimate to invoke
      * @return a new estimated birth date
@@ -93,6 +102,8 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
     }
 
     /**
+     * Estimate from ancestors' birth dates.
+     *
      * @param localDate if not null we already have a better estimate
      * @return estimate from some ancestor's birth date
      */
@@ -118,6 +129,8 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
     }
 
     /**
+     * Estimate from ancestor's birth date.
+     *
      * @param date the date before trying this estimate
      * @param parent the person whose birth date we're going to try to apply
      * @return the new estimate
@@ -129,6 +142,8 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
     }
 
     /**
+     * Estimate from ancestor's birth date.
+     *
      * @param date the date before trying this estimate
      * @param parent the person whose birth date we're going to try to apply
      * @return the new estimate
@@ -143,6 +158,8 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
     }
 
     /**
+     * Estimate from ancestor's birth date.
+     *
      * @param localDate if not null we already have a better estimate
      * @param bde birth date estimator for some related person
      * @return the date estimate
@@ -178,6 +195,8 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
     }
 
     /**
+     * Estimate from father's marriage.
+     *
      * @param localDate if not null we already have a better estimate
      * @param family the family from which father will be checked
      * @return the estimated birth date
@@ -193,6 +212,8 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
     }
 
     /**
+     * Estimate from mother's marriage.
+     *
      * @param localDate if not null we already have a better estimate
      * @param family the family from which mother will be checked
      * @return the estimated birth date

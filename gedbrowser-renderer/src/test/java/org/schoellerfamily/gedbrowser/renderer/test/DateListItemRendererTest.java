@@ -56,40 +56,35 @@ public final class DateListItemRendererTest {
     /** */
     @Test
     public void testGetRenderAsListItem() {
-        final DateRenderer dRenderer = new DateRenderer(date,
-                new GedRendererFactory(), anonymousContext);
-        final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer
-                .getListItemRenderer();
+        final DateRenderer dRenderer = new DateRenderer(date, new GedRendererFactory(),
+            anonymousContext);
+        final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         dlir.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
-        assertEquals("<li><span class=\"label\">Date:</span>"
-                + " 14 December 1958 12:00</li>\n", string,
-                "Rendered string doesn't match expectation");
+        assertEquals("<li><span class=\"label\">Date:</span>" + " 14 December 1958 12:00</li>\n",
+            string, "Rendered string doesn't match expectation");
     }
 
     /** */
     @Test
     public void testGetRenderAsListItem2() {
-        final DateRenderer dRenderer = new DateRenderer(date2,
-                new GedRendererFactory(), anonymousContext);
-        final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer
-                .getListItemRenderer();
+        final DateRenderer dRenderer = new DateRenderer(date2, new GedRendererFactory(),
+            anonymousContext);
+        final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         dlir.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
-        assertEquals("<li><span class=\"label\">Date:</span>"
-                + " 14 December 1958</li>\n", string,
-                "Rendered string doesn't match expectation");
+        assertEquals("<li><span class=\"label\">Date:</span>" + " 14 December 1958</li>\n", string,
+            "Rendered string doesn't match expectation");
     }
 
     /** */
     @Test
     public void testGetRenderAsListItemEmpty() {
         final DateRenderer dRenderer = new DateRenderer(new Date(attribute, ""),
-                new GedRendererFactory(), anonymousContext);
-        final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer
-                .getListItemRenderer();
+            new GedRendererFactory(), anonymousContext);
+        final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         dlir.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
@@ -99,11 +94,9 @@ public final class DateListItemRendererTest {
     /** */
     @Test
     public void testGetRenderAsListItemNull() {
-        final DateRenderer dRenderer = new DateRenderer(
-                new Date(attribute, null), new GedRendererFactory(),
-                anonymousContext);
-        final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer
-                .getListItemRenderer();
+        final DateRenderer dRenderer = new DateRenderer(new Date(attribute, null),
+            new GedRendererFactory(), anonymousContext);
+        final DateListItemRenderer dlir = (DateListItemRenderer) dRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         dlir.renderAsListItem(builder, false, 0);
         final String string = builder.toString();

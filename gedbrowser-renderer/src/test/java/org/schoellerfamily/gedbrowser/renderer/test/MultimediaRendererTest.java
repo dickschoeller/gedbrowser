@@ -38,51 +38,54 @@ public final class MultimediaRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testMultimediaListItemRenderer() {
         final MultimediaRenderer renderer = createRenderer();
-        assertTrue(renderer.getListItemRenderer() instanceof MultimediaListItemRenderer, "Wrong renderer type");
+        assertTrue(renderer.getListItemRenderer() instanceof MultimediaListItemRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameHtmlRenderer() {
         final MultimediaRenderer renderer = createRenderer();
-        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameIndexRenderer() {
         final MultimediaRenderer renderer = createRenderer();
-        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testPhraseRenderer() {
         final MultimediaRenderer renderer = createRenderer();
-        assertTrue(renderer.getPhraseRenderer() instanceof MultimediaPhraseRenderer, "Wrong renderer type");
+        assertTrue(renderer.getPhraseRenderer() instanceof MultimediaPhraseRenderer,
+            "Wrong renderer type");
     }
 
     /**
      * @return the renderer
      */
     private MultimediaRenderer createRenderer() {
-        return new MultimediaRenderer(new Multimedia(),
-                new GedRendererFactory(), anonymousContext);
+        return new MultimediaRenderer(new Multimedia(), new GedRendererFactory(), anonymousContext);
     }
 
     // TODO test render as page and renderAsListItem

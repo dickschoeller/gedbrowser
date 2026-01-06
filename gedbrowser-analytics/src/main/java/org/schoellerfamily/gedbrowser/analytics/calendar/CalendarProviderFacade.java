@@ -18,21 +18,17 @@ import org.joda.time.LocalDate;
 @SuppressWarnings("PMD.CommentSize")
 public interface CalendarProviderFacade extends CalendarProvider {
     /**
+     * Get the wrapped provider.
+     *
      * @return the calendar provider implementation
      */
     CalendarProvider getCalendarProvider();
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default Calendar now() {
         return getCalendarProvider().now();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default LocalDate nowDate() {
         return getCalendarProvider().nowDate();

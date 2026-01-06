@@ -213,8 +213,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
     /** */
     @Test
     public void testCreateSubmissionLink() {
-        final SubmissionLinkDocumentMongo gmd =
-                new SubmissionLinkDocumentMongo();
+        final SubmissionLinkDocumentMongo gmd = new SubmissionLinkDocumentMongo();
         gmd.setString("SubmissionLink");
         final GedObject ged = toObjConverter.createGedObject(new Root(), gmd);
         assertEquals(SubmissionLink.class, ged.getClass(), "Wrong class");
@@ -291,8 +290,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
              * {@inheritDoc}
              */
             @Override
-            public void loadGedObject(final GedDocumentLoader loader,
-                    final GedObject ged) {
+            public void loadGedObject(final GedDocumentLoader loader, final GedObject ged) {
                 // Intentionally empty
             }
 

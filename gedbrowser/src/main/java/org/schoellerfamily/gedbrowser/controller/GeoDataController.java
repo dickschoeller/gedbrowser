@@ -25,8 +25,10 @@ import lombok.extern.slf4j.Slf4j;
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
 @Slf4j
 public abstract class GeoDataController extends DatedDataController {
+    /** Client to connect to geoservice, geographical data server. */
     private final GeoServiceClient client;
 
+    /** Manages key for connection to Google geographical data. */
     private final KeyManager keyManager;
 
     /**

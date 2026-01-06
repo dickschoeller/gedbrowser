@@ -31,6 +31,9 @@ public class UserServiceImpl implements UserService {
     /** */
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Reset credentials.
+     */
     @Override
     public void resetCredentials() {
         for (final SecurityUser user : users) {
@@ -39,6 +42,12 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Find user by user name.
+     *
+     * @param username the name of the user.
+     * @return the suer
+     */
     @Override
     public SecurityUser findByUsername(final String username)
             throws UsernameNotFoundException {
@@ -55,6 +64,12 @@ public class UserServiceImpl implements UserService {
     // return u;
     // }
 
+    /**
+     * Final all users.
+     *
+     * @return the list of users
+     * @throws AccessDeniedException if access is denied
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @Override
     public List<SecurityUser> findAll() throws AccessDeniedException {
@@ -65,6 +80,12 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    /**
+     * Save a user.
+     *
+     * @param userRequest the user request
+     * @return the saved user
+     */
     @Override
     public SecurityUser save(final UserRequest userRequest) {
         log.info("save user{}", userRequest.getUsername());

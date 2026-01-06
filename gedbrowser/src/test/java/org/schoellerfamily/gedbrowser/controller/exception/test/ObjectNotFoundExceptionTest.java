@@ -22,8 +22,8 @@ public class ObjectNotFoundExceptionTest {
     @BeforeEach
     public void setUp() {
         final ApplicationInfo appInfo = new ApplicationInfoImpl(null, null, null, null);
-        exception = new ObjectNotFoundException("Object not found", "ID1",
-                "xyzzy", RenderingContext.user(appInfo));
+        exception = new ObjectNotFoundException("Object not found", "ID1", "xyzzy",
+            RenderingContext.user(appInfo));
     }
 
     /** */
@@ -47,7 +47,8 @@ public class ObjectNotFoundExceptionTest {
     /** */
     @Test
     public void testIndexHref() {
-        assertEquals("surnames?db=xyzzy&letter=A", exception.getIndexHref(), "Index href doesn't match");
+        assertEquals("surnames?db=xyzzy&letter=A", exception.getIndexHref(),
+            "Index href doesn't match");
     }
 
     /** */
@@ -65,7 +66,8 @@ public class ObjectNotFoundExceptionTest {
     /** */
     @Test
     public void testSubmittersHref() {
-        assertEquals("submitters?db=xyzzy", exception.getSubmittersHref(), "Submitters href doesn't match");
+        assertEquals("submitters?db=xyzzy", exception.getSubmittersHref(),
+            "Submitters href doesn't match");
     }
 
     /** */

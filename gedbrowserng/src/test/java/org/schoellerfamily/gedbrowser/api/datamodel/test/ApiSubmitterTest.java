@@ -17,33 +17,21 @@ public class ApiSubmitterTest {
     /** */
     @Test
     public void testDefaultConstructorType() {
-        final ApiSubmitter o = ApiSubmitter.builder()
-            .type("")
-            .string("")
-            .name("")
-            .build();
+        final ApiSubmitter o = ApiSubmitter.builder().type("").string("").name("").build();
         assertEquals("", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorString() {
-        final ApiSubmitter o = ApiSubmitter.builder()
-            .type("")
-            .string("")
-            .name("")
-            .build();
+        final ApiSubmitter o = ApiSubmitter.builder().type("").string("").name("").build();
         assertEquals("", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorAttributes() {
-        final ApiSubmitter o = ApiSubmitter.builder()
-            .type("")
-            .string("")
-            .name("")
-            .build();
+        final ApiSubmitter o = ApiSubmitter.builder().type("").string("").name("").build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
@@ -85,11 +73,7 @@ public class ApiSubmitterTest {
         final ApiSubmitter o = ApiSubmitter.builder()
             .type("type")
             .string("string")
-            .attribute(ApiAttribute.builder()
-                .type("attribute")
-                .string("a string")
-                .tail("")
-                .build())
+            .attribute(ApiAttribute.builder().type("attribute").string("a string").tail("").build())
             .name("? ?")
             .build();
         assertEquals(1, o.getAttributes().size(), "attributes size mismatch");
@@ -114,16 +98,21 @@ public class ApiSubmitterTest {
     /** */
     @Test
     public void testEqualsAndHash() {
-    	EqualsVerifier.forClass(ApiSubmitter.class)
-			.withNonnullFields("type", "string", "attributes", "name")
-			.suppress(Warning.STRICT_INHERITANCE)
-			.verify();
+        EqualsVerifier.forClass(ApiSubmitter.class)
+            .withNonnullFields("type", "string", "attributes", "name")
+            .suppress(Warning.STRICT_INHERITANCE)
+            .verify();
     }
 
     /**
      * @return a submitter
      */
     private ApiSubmitter basicSubmitter() {
-        return ApiSubmitter.builder().type("type").string("string").name("? ?").attributes(java.util.List.of()).build();
+        return ApiSubmitter.builder()
+            .type("type")
+            .string("string")
+            .name("? ?")
+            .attributes(java.util.List.of())
+            .build();
     }
 }

@@ -32,11 +32,10 @@ public final class ControllerTestHelper {
     /**
      * RestTestClient-based constructor.
      *
-     * @param port the port for this test
+     * @param port           the port for this test
      * @param restTestClient the RestTestClient injected by Spring
      */
-    public ControllerTestHelper(final int port,
-            final RestTestClient restTestClient) {
+    public ControllerTestHelper(final int port, final RestTestClient restTestClient) {
         this.restTestClient = restTestClient;
         baseUrl = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/";
         personsUrl = baseUrl + "persons";
@@ -50,46 +49,51 @@ public final class ControllerTestHelper {
         builder = ApiPerson.builder().attribute(attribute);
     }
 
-    private HttpHeaders adminLogin(final int port,
-            final RestTestClient client) {
-            final String url = "http://localhost:" + port + "/gedbrowserng/v1/login";
-            final String loginString = "username=schoeller@comcast.net&password=HAHANOWAY";
-            final EntityExchangeResult<UserTokenStateImpl> response = client.post()
-                    .uri(URI.create(url))
-                    .body(loginString)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                    .exchange()
-                    .returnResult(UserTokenStateImpl.class);
-            final UserTokenState body = response.getResponseBody();
-            final HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            if (body != null && body.getAccessToken() != null) {
-                headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + body.getAccessToken());
-            }
-            headers.setAccept(List.of(MediaType.APPLICATION_JSON));
-            return headers;
+    private HttpHeaders adminLogin(final int port, final RestTestClient client) {
+        final String url = "http://localhost:" + port + "/gedbrowserng/v1/login";
+        final String loginString = "username=schoeller@comcast.net&password=HAHANOWAY";
+        final EntityExchangeResult<UserTokenStateImpl> response = client.post()
+            .uri(URI.create(url))
+            .body(loginString)
+            .accept(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+            .exchange()
+            .returnResult(UserTokenStateImpl.class);
+        final UserTokenState body = response.getResponseBody();
+        final HttpHeaders customHeaders = new HttpHeaders();
+        customHeaders.setContentType(MediaType.APPLICATION_JSON);
+        if (body != null && body.getAccessToken() != null) {
+            customHeaders.set(HttpHeaders.AUTHORIZATION, "Bearer " + body.getAccessToken());
+        }
+        customHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+        return customHeaders;
     }
 
-    public HttpHeaders userLogin(final int port,
-            final RestTestClient client) {
-            final String url = "http://localhost:" + port + "/gedbrowserng/v1/login";
-            final String loginString = "username=guest&password=guest";
-            final EntityExchangeResult<UserTokenStateImpl> response = client.post()
-                    .uri(URI.create(url))
-                    .body(loginString)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                    .exchange()
-                    .returnResult(UserTokenStateImpl.class);
-            final UserTokenState body = response.getResponseBody();
-            final HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            if (body != null && body.getAccessToken() != null) {
-                headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + body.getAccessToken());
-            }
-            headers.setAccept(List.of(MediaType.APPLICATION_JSON));
-            return headers;
+    /**
+     * Login the default user.
+     *
+     * @param port the port
+     * @param client the rest test client
+     * @return the http headers with the authorization token
+     */
+    public HttpHeaders userLogin(final int port, final RestTestClient client) {
+        final String url = "http://localhost:" + port + "/gedbrowserng/v1/login";
+        final String loginString = "username=guest&password=guest";
+        final EntityExchangeResult<UserTokenStateImpl> response = client.post()
+            .uri(URI.create(url))
+            .body(loginString)
+            .accept(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+            .exchange()
+            .returnResult(UserTokenStateImpl.class);
+        final UserTokenState body = response.getResponseBody();
+        final HttpHeaders customHeaders = new HttpHeaders();
+        customHeaders.setContentType(MediaType.APPLICATION_JSON);
+        if (body != null && body.getAccessToken() != null) {
+            customHeaders.set(HttpHeaders.AUTHORIZATION, "Bearer " + body.getAccessToken());
+        }
+        customHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+        return customHeaders;
     }
 
     /**
@@ -126,11 +130,11 @@ public final class ControllerTestHelper {
     public ApiPerson createPerson() {
         final ApiPerson person = buildPerson();
         final EntityExchangeResult<ApiPerson> personEntity = restTestClient.post()
-                .uri(URI.create(personsUrl))
-                .headers(h -> h.addAll(headers))
-                .body(person)
-                .exchange()
-                .returnResult(ApiPerson.class);
+            .uri(URI.create(personsUrl))
+            .headers(h -> h.addAll(headers))
+            .body(person)
+            .exchange()
+            .returnResult(ApiPerson.class);
         return personEntity.getResponseBody();
     }
 
@@ -147,10 +151,10 @@ public final class ControllerTestHelper {
      */
     public ApiPerson getPerson(final ApiPerson person) {
         final EntityExchangeResult<ApiPerson> entity = restTestClient.get()
-                .uri(URI.create(personsUrl + "/" + person.getString()))
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .returnResult(ApiPerson.class);
+            .uri(URI.create(personsUrl + "/" + person.getString()))
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .returnResult(ApiPerson.class);
         return entity.getResponseBody();
     }
 }

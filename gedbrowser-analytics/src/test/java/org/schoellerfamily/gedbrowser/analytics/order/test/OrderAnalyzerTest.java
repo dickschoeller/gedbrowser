@@ -86,6 +86,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         final OrderAnalyzerResult result = wrapper.analyze(person);
         assertTrue(result.isCorrect(), "Expected good order when there is only 1 event");
     }
+
     /** */
     @Test
     public void testPersonWithOnlyTwoEventsSameDayIsOK() {
@@ -123,7 +124,8 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Education", "8 JAN 2017");
         personBuilder().createPersonEvent(person, "Occupation", "7 JAN 2017");
         final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertFalse(result.getMismatches().isEmpty(), "Expected mismatch strings when events are out of order");
+        assertFalse(result.getMismatches().isEmpty(),
+            "Expected mismatch strings when events are out of order");
     }
 
     /** */
@@ -134,7 +136,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Occupation", "7 JAN 2017");
         final OrderAnalyzerResult result = wrapper.analyze(person);
         final String expected = "Date order: Occupation dated  on 2017-01-07 "
-                + "occurs after Education dated  on 2017-01-08";
+            + "occurs after Education dated  on 2017-01-08";
         final String actual = result.getMismatches().get(0);
         assertEquals(expected, actual, "Expected mismatch strings when events are out of order");
     }
@@ -197,7 +199,7 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         personBuilder().createPersonEvent(person, "Birth");
         final OrderAnalyzerResult result = wrapper.analyze(person);
         final String expected = "Logical order: Birth (undated) after non "
-                + "birth event, Education";
+            + "birth event, Education";
         final String actual = result.getMismatches().get(0);
         assertEquals(expected, actual, "Expected mismatch string with birth events after others");
     }
@@ -245,18 +247,18 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected correct with birth, birth date, naming");
     }
 
-    //    /** */
-    //    @Test
-    //    public void testPersonWithNonDeathAfterDeathMismatchString() {
-    //        final Person person = builder.createPerson1();
-    //        builder.createPersonEvent(person, "Education");
-    //        builder.createPersonEvent(person, "Birth");
-    //        final OrderAnalyzer orderAnalyzer = new OrderAnalyzer(person);
-    //        final OrderAnalyzerResult result = orderAnalyzer.analyze();
-    //        final String actual = result.getMismatches().get(0);
-    //        assertTrue("Expected mismatch string with birth events after others",
-    //                actual.contains("after non birth events"));
-    //    }
+    // /** */
+    // @Test
+    // public void testPersonWithNonDeathAfterDeathMismatchString() {
+    // final Person person = builder.createPerson1();
+    // builder.createPersonEvent(person, "Education");
+    // builder.createPersonEvent(person, "Birth");
+    // final OrderAnalyzer orderAnalyzer = new OrderAnalyzer(person);
+    // final OrderAnalyzerResult result = orderAnalyzer.analyze();
+    // final String actual = result.getMismatches().get(0);
+    // assertTrue("Expected mismatch string with birth events after others",
+    // actual.contains("after non birth events"));
+    // }
     /** */
     @Test
     public void testMinDateFirstNull() {
@@ -308,15 +310,14 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
 
     /**
      * This test hits a big data set. The main thing that it detects is poorly
-     * parsed dates. Since the data set in question has weird date formats.
-     * Some of that is inevitable.
+     * parsed dates. Since the data set in question has weird date formats. Some of
+     * that is inevitable.
      *
      * @throws IOException if failed to read file
      */
     @Test
     public void testFactoryGedFile() throws IOException {
-        final AbstractGedLine top =
-                TestResourceReader.readFileTestSource(this, "gl120368.ged");
+        final AbstractGedLine top = TestResourceReader.readFileTestSource(this, "gl120368.ged");
         final Root root = g2g.create(top);
         for (final String letter : root.findSurnameInitialLetters()) {
             for (final String surname : root.findBySurnamesBeginWith(letter)) {
@@ -335,16 +336,14 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
     private void assertAnalysisSane(final Person person) {
         final LocalDate today = new LocalDate();
         final String indexName = person.getIndexName();
-        final OrderAnalyzer orderAnalyzer = createAnalyzer(
-                person);
+        final OrderAnalyzer orderAnalyzer = createAnalyzer(person);
         final OrderAnalyzerResult result = orderAnalyzer.analyze();
         if (!result.isCorrect()) {
             log.info(indexName);
             for (final String message : result.getMismatches()) {
                 log.info("   {}", message);
-                assertFalse(
-                        message.contains(today.toString()),
-                        "If has today (" + today.toString() + ") something is wrong");
+                assertFalse(message.contains(today.toString()),
+                    "If has today (" + today.toString() + ") something is wrong");
             }
         }
     }

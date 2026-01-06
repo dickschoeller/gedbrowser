@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.*;
+import static org.assertj.core.api.BDDAssertions.then;
 
 import java.net.URI;
 
@@ -23,9 +23,9 @@ import org.springframework.test.web.servlet.client.RestTestClient;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { Application.class, TestConfiguration.class },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@SpringBootTest(classes = { Application.class,
+    TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class SubmitterControllerTest implements MenuTestHelper {
@@ -44,17 +44,15 @@ public class SubmitterControllerTest implements MenuTestHelper {
     /** */
     @Test
     public final void testSubmitterControllerU1() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser/submitter?db=gl120368&id=U1";
+        final String url = "http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U1";
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody())
-            .contains("<title>Phil Williams - U1 - gl120368</title>")
+        then(entity.getResponseBody()).contains("<title>Phil Williams - U1 - gl120368</title>")
             .contains("Name:</span> Phil Williams")
             .contains(getMenu("A"));
     }
@@ -62,17 +60,15 @@ public class SubmitterControllerTest implements MenuTestHelper {
     /** */
     @Test
     public final void testSubmitterControllerU2() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser/submitter?db=gl120368&id=U2";
+        final String url = "http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U2";
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody())
-            .contains("<title>Arthur PUNCHARD - U2 - gl120368</title>")
+        then(entity.getResponseBody()).contains("<title>Arthur PUNCHARD - U2 - gl120368</title>")
             .contains("Name:</span> Arthur PUNCHARD")
             .contains("Changed:</span> 24 MAR 2007")
             .contains(getMenu("A"));
@@ -81,18 +77,17 @@ public class SubmitterControllerTest implements MenuTestHelper {
     /** */
     @Test
     public final void testSubmitterControllerU4() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser/submitter?db=gl120368&id=U4";
+        final String url = "http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U4";
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(entity.getResponseBody())
             .contains("<title>Created by FamilySearch (TM) Internet"
-                    + " Genealogy Service - U4 - gl120368</title>")
+                + " Genealogy Service - U4 - gl120368</title>")
             .contains("Name:</span> Created by FamilySearch")
             .contains("Address:</span> 50 East North Temple Street<br/>")
             .contains("Salt Lake City, Utah 84150")
@@ -103,9 +98,9 @@ public class SubmitterControllerTest implements MenuTestHelper {
     @Test
     public final void testSubmitterControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/gedbrowser/submitter?db=XYZZY&id=U4"))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create("http://localhost:" + port + "/gedbrowser/submitter?db=XYZZY&id=U4"))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
@@ -116,13 +111,13 @@ public class SubmitterControllerTest implements MenuTestHelper {
     @Test
     public final void testSubmitterControllerBadSubmitter() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U99999"))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI
+                .create("http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U99999"))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        then(entity.getResponseBody()).contains("Submitter not found")
-        .contains(getMenu("A"));
+        then(entity.getResponseBody()).contains("Submitter not found").contains(getMenu("A"));
     }
 }

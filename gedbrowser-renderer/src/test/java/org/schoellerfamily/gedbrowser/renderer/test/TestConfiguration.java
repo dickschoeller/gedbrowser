@@ -23,6 +23,7 @@ public class TestConfiguration {
     }
 
     /**
+     * @param g2g the transformer
      * @return the data reader
      */
     @Bean

@@ -9,6 +9,8 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
+ * Analyze the order of children for display for this person.
+ *
  * @author Dick Schoeller
  */
 public final class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
@@ -23,6 +25,8 @@ public final class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
     private final Person person;
 
     /**
+     * Constructor.
+     *
      * @param person the person being analyzed
      * @param result the result accumulator
      */
@@ -33,9 +37,6 @@ public final class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
         this.result = result;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public OrderAnalyzerResult analyze() {
         final PersonNavigator navigator = new PersonNavigator(person);

@@ -20,7 +20,7 @@ public interface AttributeDocument extends GedDocument<Attribute> {
      * {@inheritDoc}
      */
     @Override
-    default void accept(GedDocumentVisitor visitor) {
+    default void accept(final GedDocumentVisitor visitor) {
         visitor.visit(this);
     }
 }

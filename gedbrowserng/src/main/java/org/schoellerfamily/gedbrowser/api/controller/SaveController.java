@@ -27,8 +27,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author Dick Schoeller
  */
-@CrossOrigin(origins = {
-        "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
+@CrossOrigin(origins = { "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -37,21 +36,21 @@ public class SaveController {
     /** */
     private final GedObjectFileLoader loader;
 
+    /** */
     private final RepositoryManagerMongo repositoryManager;
 
     /**
      * Connects HTML template file with data for saving the GEDCOM file.
      *
-     * @param db name of database for the lookup
+     * @param db       name of database for the lookup
      * @param response the servlet response object, needed for tweaking headers
      * @return a string identifying which HTML template to use.
      */
-	@GetMapping(value = "/v1/dbs/{db}/save",
-            produces = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping(value = "/v1/dbs/{db}/save", produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
     @SuppressWarnings("null")
     public final ResponseEntity<String> save(@PathVariable final String db,
-            final HttpServletResponse response) {
+        final HttpServletResponse response) {
         log.info("Starting save");
         // check here whether authorized.
         try {

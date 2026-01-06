@@ -39,9 +39,7 @@ public final class SubmitterLinkPhraseRendererTest {
     /** */
     @BeforeEach
     public void init() {
-        /** */
         final Root root = new Root("Root");
-        /** */
         final Head head = new Head(root, "Head");
         root.insert(head);
 
@@ -57,12 +55,13 @@ public final class SubmitterLinkPhraseRendererTest {
     /** */
     @Test
     public void testRenderAsPhrase() {
-        final SubmitterLinkRenderer slr = new SubmitterLinkRenderer(
-                submitterLink, new GedRendererFactory(), anonymousContext);
-        final SubmitterLinkPhraseRenderer slpr =
-                (SubmitterLinkPhraseRenderer) slr.getPhraseRenderer();
-        assertEquals("<a class=\"name\" "
-                + "href=\"submitter?db=null&amp;id=SUBM1\">"
-                + "Richard Schoeller [SUBM1]</a>", slpr.renderAsPhrase(), "Rendered html doesn't match expectation");
+        final SubmitterLinkRenderer slr = new SubmitterLinkRenderer(submitterLink,
+            new GedRendererFactory(), anonymousContext);
+        final SubmitterLinkPhraseRenderer slpr = (SubmitterLinkPhraseRenderer) slr
+            .getPhraseRenderer();
+        assertEquals(
+            "<a class=\"name\" " + "href=\"submitter?db=null&amp;id=SUBM1\">"
+                + "Richard Schoeller [SUBM1]</a>",
+            slpr.renderAsPhrase(), "Rendered html doesn't match expectation");
     }
 }

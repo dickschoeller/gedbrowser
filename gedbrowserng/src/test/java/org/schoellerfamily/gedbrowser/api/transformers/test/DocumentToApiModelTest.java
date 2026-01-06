@@ -22,10 +22,8 @@ public class DocumentToApiModelTest {
     /** */
     @Test
     public void basicTrailerTest() {
-        final TrailerDocument document =
-                new TrailerDocumentMongo();
-        final DocumentToApiModelVisitor visitor =
-                new DocumentToApiModelVisitor();
+        final TrailerDocument document = new TrailerDocumentMongo();
+        final DocumentToApiModelVisitor visitor = new DocumentToApiModelVisitor();
 
         document.accept(visitor);
         final ApiObject baseObject = visitor.getBaseObject();
@@ -36,8 +34,7 @@ public class DocumentToApiModelTest {
     @Test
     public void basicObjectTest() {
         final GedDocument<GedObject> document = new GedDocumentStub();
-        final DocumentToApiModelVisitor visitor =
-                new DocumentToApiModelVisitor();
+        final DocumentToApiModelVisitor visitor = new DocumentToApiModelVisitor();
 
         document.accept(visitor);
         final ApiObject baseObject = visitor.getBaseObject();
@@ -148,8 +145,7 @@ public class DocumentToApiModelTest {
          * {@inheritDoc}
          */
         @Override
-        public void setAttributes(
-                final List<GedDocument<? extends GedObject>> attributes) {
+        public void setAttributes(final List<GedDocument<? extends GedObject>> attributes) {
             // Empty
         }
 
@@ -157,8 +153,7 @@ public class DocumentToApiModelTest {
          * {@inheritDoc}
          */
         @Override
-        public void addAttribute(
-                final GedDocument<?> attribute) {
+        public void addAttribute(final GedDocument<?> attribute) {
             // Empty
         }
 
@@ -174,8 +169,7 @@ public class DocumentToApiModelTest {
          * {@inheritDoc}
          */
         @Override
-        public void loadGedObject(final GedDocumentLoader loader,
-                final GedObject ged) {
+        public void loadGedObject(final GedDocumentLoader loader, final GedObject ged) {
             // Empty
         }
 

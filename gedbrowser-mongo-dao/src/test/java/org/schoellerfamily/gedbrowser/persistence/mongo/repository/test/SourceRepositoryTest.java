@@ -68,56 +68,55 @@ public final class SourceRepositoryTest {
     /** */
     @Test
     public void testSource() {
-        final SourceDocument document = sourceDocumentRepository.
-                findByFileAndString(root.getFilename(), "S2");
-        final Source source =
-                (Source) toObjConverter.createGedObject(root, document);
+        final SourceDocument document = sourceDocumentRepository
+            .findByFileAndString(root.getFilename(), "S2");
+        final Source source = (Source) toObjConverter.createGedObject(root, document);
         assertEquals("S2", source.getString(), "Id mismatch");
     }
 
     /** */
     @Test
     public void testSourceRoot() {
-        final SourceDocument document = sourceDocumentRepository.
-                findByRootAndString(rootDocument, "S2");
-        final Source source =
-                (Source) toObjConverter.createGedObject(root, document);
+        final SourceDocument document = sourceDocumentRepository.findByRootAndString(rootDocument,
+            "S2");
+        final Source source = (Source) toObjConverter.createGedObject(root, document);
         assertEquals("S2", source.getString(), "Id mismatch");
     }
 
     /** */
     @Test
     public void testBogus() {
-        final SourceDocument perdoc = sourceDocumentRepository.
-                findByFileAndString(root.getFilename(), "S999999");
+        final SourceDocument perdoc = sourceDocumentRepository
+            .findByFileAndString(root.getFilename(), "S999999");
         assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     public void testBogusRoot() {
-        final SourceDocument perdoc = sourceDocumentRepository.
-                findByRootAndString(rootDocument, "S999999");
+        final SourceDocument perdoc = sourceDocumentRepository.findByRootAndString(rootDocument,
+            "S999999");
         assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     public void testCountRoot() {
-        assertEquals(SOURCE_COUNT, sourceDocumentRepository.count(rootDocument), "Should be 9 sources");
+        assertEquals(SOURCE_COUNT, sourceDocumentRepository.count(rootDocument),
+            "Should be 9 sources");
     }
 
     /** */
     @Test
     public void testCountFilename() {
-        assertEquals(SOURCE_COUNT, sourceDocumentRepository.count(rootDocument.getFilename()), "Should be 9 sources");
+        assertEquals(SOURCE_COUNT, sourceDocumentRepository.count(rootDocument.getFilename()),
+            "Should be 9 sources");
     }
 
     /** */
     @Test
     public void testFindAllRoot() {
-        final Iterable<SourceDocument> list =
-                sourceDocumentRepository.findAll(rootDocument);
+        final Iterable<SourceDocument> list = sourceDocumentRepository.findAll(rootDocument);
         int count = 0;
         for (final SourceDocument source : list) {
             checkEquals("Type string mismatch", "source", source.getType());
@@ -129,8 +128,8 @@ public final class SourceRepositoryTest {
     /** */
     @Test
     public void testFindAllFilename() {
-        final Iterable<SourceDocument> list =
-                sourceDocumentRepository.findAll(rootDocument.getFilename());
+        final Iterable<SourceDocument> list = sourceDocumentRepository
+            .findAll(rootDocument.getFilename());
         int count = 0;
         for (final SourceDocument source : list) {
             checkEquals("Type string mismatch", "source", source.getType());
@@ -156,12 +155,11 @@ public final class SourceRepositoryTest {
     /**
      * Wrapper for assertion to bypass PMD check.
      *
-     * @param message the identifying message for the AssertionError (null okay)
+     * @param message  the identifying message for the AssertionError (null okay)
      * @param expected expected value
-     * @param actual actual value
+     * @param actual   actual value
      */
-    private void checkEquals(final String message, final Object expected,
-            final Object actual) {
+    private void checkEquals(final String message, final Object expected, final Object actual) {
         assertEquals(expected, actual, message);
     }
 }

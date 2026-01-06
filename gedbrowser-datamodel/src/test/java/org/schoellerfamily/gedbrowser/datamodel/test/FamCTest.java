@@ -28,10 +28,8 @@ public final class FamCTest {
     @BeforeEach
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person1 = builder.createPerson(
-                "I1", "J. Random/Schoeller/");
-        person2 = builder.createPerson(
-                "I2", "Anonymous/Schoeller/");
+        final Person person1 = builder.createPerson("I1", "J. Random/Schoeller/");
+        person2 = builder.createPerson("I2", "Anonymous/Schoeller/");
         person3 = builder.createPerson("I3", "Anonymous/Jones/");
         final Family family = builder.createFamily("F1");
         buildChild(family, person1);
@@ -42,7 +40,7 @@ public final class FamCTest {
     }
 
     /**
-     * @param family the family to put the child in
+     * @param family  the family to put the child in
      * @param person1 the person to be the child
      * @return the child object
      */
@@ -53,10 +51,8 @@ public final class FamCTest {
         // In-lined because we want to capture and look at the FamC object.
         // That prevents us from using the builder, which only expposes the
         // Child and not the FamC.
-        famC = new FamC(person1, "FAMC",
-                new ObjectId(family.getString()));
-        final Child child = new Child(family, "Child",
-                new ObjectId(person1.getString()));
+        famC = new FamC(person1, "FAMC", new ObjectId(family.getString()));
+        final Child child = new Child(family, "Child", new ObjectId(person1.getString()));
         family.insert(child);
         person1.insert(famC);
         return child;

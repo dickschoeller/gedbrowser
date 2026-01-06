@@ -60,113 +60,116 @@ public final class FamilyRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testAttributeListOpenRenderer() {
         final Family family = builder.createFamily();
-        final FamilyRenderer renderer = new FamilyRenderer(family,
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
+        final FamilyRenderer renderer = new FamilyRenderer(family, new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(
+            renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testListItemRenderer() {
         final Family family = builder.createFamily();
-        final FamilyRenderer renderer = new FamilyRenderer(family,
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer, "Wrong renderer type");
+        final FamilyRenderer renderer = new FamilyRenderer(family, new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameHtmlRenderer() {
         final Family family = builder.createFamily();
-        final FamilyRenderer renderer = new FamilyRenderer(family,
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
+        final FamilyRenderer renderer = new FamilyRenderer(family, new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameIndexRenderer() {
         final Family family = builder.createFamily();
-        final FamilyRenderer renderer = new FamilyRenderer(family,
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
+        final FamilyRenderer renderer = new FamilyRenderer(family, new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testPhraseRenderer() {
         final Family family = builder.createFamily();
-        final FamilyRenderer renderer = new FamilyRenderer(family,
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer, "Wrong renderer type");
+        final FamilyRenderer renderer = new FamilyRenderer(family, new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer,
+            "Wrong renderer type");
     }
 
     /**
      * @throws IOException because reader can.
      */
     @Test
-    public void testSpouseConstructUsedInPersonTemplate()
-            throws IOException {
+    public void testSpouseConstructUsedInPersonTemplate() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person dick = (Person) root.find("I2");
-        final PersonRenderer personRenderer = new PersonRenderer(dick,
-                new GedRendererFactory(), userContext);
+        final PersonRenderer personRenderer = new PersonRenderer(dick, new GedRendererFactory(),
+            userContext);
         final PersonNavigator navigator = new PersonNavigator(dick);
         final Family family = navigator.getFamilies().get(0);
-        final FamilyRenderer familyRenderer = createFamilyRenderer(family,
-                userContext);
-        assertEquals("<a href=\"person?db=null&amp;id=I3\" class=\"name\">"
-                + "Lisa Hope <span class=\"surname\">Robinson</span>"
-                + " (1960-) [I3]</a>",
-                familyRenderer.getSpouse(personRenderer).getNameHtml(),
-                "Rendered html doesn't match expectation");
+        final FamilyRenderer familyRenderer = createFamilyRenderer(family, userContext);
+        assertEquals(
+            "<a href=\"person?db=null&amp;id=I3\" class=\"name\">"
+                + "Lisa Hope <span class=\"surname\">Robinson</span>" + " (1960-) [I3]</a>",
+            familyRenderer.getSpouse(personRenderer).getNameHtml(),
+            "Rendered html doesn't match expectation");
     }
 
     /**
      * @throws IOException because reader can.
      */
     @Test
-    public void testSpouseConstructUsedInPersonTemplateAnonymous()
-            throws IOException {
+    public void testSpouseConstructUsedInPersonTemplateAnonymous() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person dick = (Person) root.find("I2");
-        final PersonRenderer personRenderer = new PersonRenderer(dick,
-                new GedRendererFactory(), anonymousContext);
+        final PersonRenderer personRenderer = new PersonRenderer(dick, new GedRendererFactory(),
+            anonymousContext);
         final PersonNavigator navigator = new PersonNavigator(dick);
         final Family family = navigator.getFamilies().get(0);
-        final FamilyRenderer familyRenderer = createFamilyRenderer(family,
-                anonymousContext);
-        assertEquals("Living", familyRenderer.getSpouse(personRenderer).getNameHtml(), "Rendered text doesn't match expectation");
+        final FamilyRenderer familyRenderer = createFamilyRenderer(family, anonymousContext);
+        assertEquals("Living", familyRenderer.getSpouse(personRenderer).getNameHtml(),
+            "Rendered text doesn't match expectation");
     }
 
     /**
      * Create a renderer for the provided family, with a non-default rendering
      * context.
      *
-     * @param family the family
+     * @param family  the family
      * @param context the renderingContext
      * @return the renderer
      */
     private FamilyRenderer createFamilyRenderer(final Family family,
-            final RenderingContext context) {
+        final RenderingContext context) {
         return new FamilyRenderer(family, new GedRendererFactory(), context);
     }
 
@@ -177,19 +180,17 @@ public final class FamilyRendererTest {
     public void testRenderF1Attributes() throws IOException {
         final Root root = reader.readBigTestSource();
         final Family fam = (Family) root.find("F1");
-        final FamilyRenderer familyRenderer = new FamilyRenderer(fam,
-                new GedRendererFactory(),
-                anonymousContext);
+        final FamilyRenderer familyRenderer = new FamilyRenderer(fam, new GedRendererFactory(),
+            anonymousContext);
         final List<GedRenderer<?>> attributes = familyRenderer.getAttributes();
         final String expected = "<span class=\"label\">Marriage:</span>"
-                + " 27 MAY 1984, Temple Emanu-el, Providence, Providence"
-                + " County, Rhode Island, USA, The ceremony performed by"
-                + " Rabbi Wayne Franklin and Cantor Ivan<br/>\n"
-                + "Perlman.  The best man and matron of honor were Dale"
-                + " Matcovitch<br/>\n"
-                + "and Carol Robinson Sacerdote.,"
-                + "  [<a href=\"source?db=null&amp;id=S4\">S4</a>]";
-        assertEquals(expected, attributes.get(0).getListItemContents(), "Rendered html doesn't match expectation");
+            + " 27 MAY 1984, Temple Emanu-el, Providence, Providence"
+            + " County, Rhode Island, USA, The ceremony performed by"
+            + " Rabbi Wayne Franklin and Cantor Ivan<br/>\n"
+            + "Perlman.  The best man and matron of honor were Dale" + " Matcovitch<br/>\n"
+            + "and Carol Robinson Sacerdote.," + "  [<a href=\"source?db=null&amp;id=S4\">S4</a>]";
+        assertEquals(expected, attributes.get(0).getListItemContents(),
+            "Rendered html doesn't match expectation");
     }
 
     /**
@@ -199,13 +200,14 @@ public final class FamilyRendererTest {
     public void testRenderF1Children() throws IOException {
         final Root root = reader.readBigTestSource();
         final Family fam = (Family) root.find("F1");
-        final FamilyRenderer familyRenderer = new FamilyRenderer(fam,
-                new GedRendererFactory(), userContext);
+        final FamilyRenderer familyRenderer = new FamilyRenderer(fam, new GedRendererFactory(),
+            userContext);
         final List<PersonRenderer> children = familyRenderer.getChildren();
         final String expected = "<a href=\"person?db=null&amp;id=I1\""
-                + " class=\"name\">Melissa Robinson <span class=\"surname\">"
-                + "Schoeller</span> [I1]</a>";
-        assertEquals(expected, children.get(0).getNameHtml(), "Rendered html doesn't match expectation");
+            + " class=\"name\">Melissa Robinson <span class=\"surname\">"
+            + "Schoeller</span> [I1]</a>";
+        assertEquals(expected, children.get(0).getNameHtml(),
+            "Rendered html doesn't match expectation");
     }
 
     /**
@@ -215,11 +217,12 @@ public final class FamilyRendererTest {
     public void testRenderF1ChildrenAnonymous() throws IOException {
         final Root root = reader.readBigTestSource();
         final Family fam = (Family) root.find("F1");
-        final FamilyRenderer familyRenderer = new FamilyRenderer(fam,
-                new GedRendererFactory(), anonymousContext);
+        final FamilyRenderer familyRenderer = new FamilyRenderer(fam, new GedRendererFactory(),
+            anonymousContext);
         final List<PersonRenderer> children = familyRenderer.getChildren();
         final String expected = "Living";
-        assertEquals(expected, children.get(0).getNameHtml(), "Rendered html doesn't match expectation");
+        assertEquals(expected, children.get(0).getNameHtml(),
+            "Rendered html doesn't match expectation");
     }
 
     // TODO could include some tests with empty spouses?

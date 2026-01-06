@@ -32,12 +32,10 @@ public final class NullListItemRendererTest {
     /** */
     @BeforeEach
     public void init() {
-        final RenderingContext anonymousContext =
-                RenderingContext.anonymous(appInfo);
+        final RenderingContext anonymousContext = RenderingContext.anonymous(appInfo);
         final DefaultRenderer renderer = new DefaultRenderer(createGedObject(),
-                new GedRendererFactory(), anonymousContext);
-        nsr = (NullListItemRenderer) renderer
-                .getListItemRenderer();
+            new GedRendererFactory(), anonymousContext);
+        nsr = (NullListItemRenderer) renderer.getListItemRenderer();
     }
 
     /**
@@ -56,8 +54,7 @@ public final class NullListItemRendererTest {
     @Test
     public void testRenderAsListItemFalse0() {
         final StringBuilder builder = new StringBuilder();
-        final String string =
-                nsr.renderAsListItem(builder, false, 0).toString();
+        final String string = nsr.renderAsListItem(builder, false, 0).toString();
         assertEquals("", string, "Expected empty string");
     }
 
@@ -65,8 +62,7 @@ public final class NullListItemRendererTest {
     @Test
     public void testRenderAsListItemFalse2() {
         final StringBuilder builder = new StringBuilder();
-        final String string =
-                nsr.renderAsListItem(builder, false, 2).toString();
+        final String string = nsr.renderAsListItem(builder, false, 2).toString();
         assertEquals("", string, "Expected empty string");
     }
 
@@ -74,8 +70,7 @@ public final class NullListItemRendererTest {
     @Test
     public void testRenderAsListItemTrue0() {
         final StringBuilder builder = new StringBuilder();
-        final String string =
-                nsr.renderAsListItem(builder, true, 0).toString();
+        final String string = nsr.renderAsListItem(builder, true, 0).toString();
         assertEquals("", string, "Expected empty string");
     }
 
@@ -83,8 +78,7 @@ public final class NullListItemRendererTest {
     @Test
     public void testRenderAsListItemTrue2() {
         final StringBuilder builder = new StringBuilder();
-        final String string =
-                nsr.renderAsListItem(builder, true, 2).toString();
+        final String string = nsr.renderAsListItem(builder, true, 2).toString();
         assertEquals("", string, "Expected empty string");
     }
 }

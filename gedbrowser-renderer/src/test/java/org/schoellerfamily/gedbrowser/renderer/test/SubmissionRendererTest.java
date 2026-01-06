@@ -50,58 +50,64 @@ public final class SubmissionRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testAttributeListOpenRenderer() {
         final SubmissionRenderer renderer = createRenderer();
-        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
+        assertTrue(
+            renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testListItemRenderer() {
         final SubmissionRenderer renderer = createRenderer();
-        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer, "Wrong renderer type");
+        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameHtmlRenderer() {
         final SubmissionRenderer renderer = createRenderer();
-        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameIndexRenderer() {
         final SubmissionRenderer renderer = createRenderer();
-        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testPhraseRenderer() {
         final SubmissionRenderer renderer = createRenderer();
-        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer, "Wrong renderer type");
+        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testIdString() {
@@ -112,8 +118,8 @@ public final class SubmissionRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testTitleString() {
@@ -124,8 +130,8 @@ public final class SubmissionRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNullIdString() {
@@ -137,8 +143,7 @@ public final class SubmissionRendererTest {
      * @return the renderer
      */
     private SubmissionRenderer createRenderer() {
-        return new SubmissionRenderer(new Submission(),
-                new GedRendererFactory(), anonymousContext);
+        return new SubmissionRenderer(new Submission(), new GedRendererFactory(), anonymousContext);
     }
 
     /**
@@ -197,7 +202,8 @@ public final class SubmissionRendererTest {
         final Collection<Submission> submissions = root.find(Submission.class);
         for (final Submission submission : submissions) {
             final SubmissionRenderer renderer = createRenderer(submission);
-            assertEquals("surnames?db=gl120368&letter=A", renderer.getIndexHref(), "index href mismatch");
+            assertEquals("surnames?db=gl120368&letter=A", renderer.getIndexHref(),
+                "index href mismatch");
         }
     }
 
@@ -242,7 +248,8 @@ public final class SubmissionRendererTest {
         final Collection<Submission> submissions = root.find(Submission.class);
         for (final Submission submission : submissions) {
             final SubmissionRenderer renderer = createRenderer(submission);
-            assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(), "submitters href mismatch");
+            assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(),
+                "submitters href mismatch");
         }
     }
 
@@ -251,7 +258,6 @@ public final class SubmissionRendererTest {
      * @return the renderer
      */
     private SubmissionRenderer createRenderer(final Submission submission) {
-        return new SubmissionRenderer(submission,
-                new GedRendererFactory(), anonymousContext);
+        return new SubmissionRenderer(submission, new GedRendererFactory(), anonymousContext);
     }
 }

@@ -39,9 +39,7 @@ public final class SourceLinkPhraseRendererTest {
     /** */
     @BeforeEach
     public void init() {
-        /** */
         final Root root = new Root("Root");
-        /** */
         final Head head = new Head(root, "Head");
         root.insert(head);
 
@@ -57,10 +55,10 @@ public final class SourceLinkPhraseRendererTest {
     /** */
     @Test
     public void testRenderAsPhrase() {
-        final SourceLinkRenderer slr = new SourceLinkRenderer(
-                sourceLink, new GedRendererFactory(), anonymousContext);
-        final SourceLinkPhraseRenderer slpr =
-                (SourceLinkPhraseRenderer) slr.getPhraseRenderer();
-        assertEquals(" [<a href=\"source?db=null&amp;id=S1\">S1</a>]", slpr.renderAsPhrase(), "Rendered html doesn't match expectation");
+        final SourceLinkRenderer slr = new SourceLinkRenderer(sourceLink, new GedRendererFactory(),
+            anonymousContext);
+        final SourceLinkPhraseRenderer slpr = (SourceLinkPhraseRenderer) slr.getPhraseRenderer();
+        assertEquals(" [<a href=\"source?db=null&amp;id=S1\">S1</a>]", slpr.renderAsPhrase(),
+            "Rendered html doesn't match expectation");
     }
 }

@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.net.MalformedURLException;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -28,6 +27,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.saucelabs.saucebindings.junit5.SauceBindingsExtension;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Dick Schoeller
  */
@@ -40,7 +41,7 @@ public final class GedBrowserBasicIT {
 
     /** */
     private static final boolean PRINT_NAVIGATION = "true"
-            .equals(System.getProperty("printNavigation", "false"));
+        .equals(System.getProperty("printNavigation", "false"));
 
     /** */
     @Value("${server.host:localhost}")
@@ -70,30 +71,32 @@ public final class GedBrowserBasicIT {
     /** */
     private PageFactory factory;
 
+    /** */
     @RegisterExtension
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     public final SauceBindingsExtension sauceExtension = new SauceBindingsExtension();
 
     /**
-     * Return the current session id as a string. Kept as a plain method so
-     * external utilities can still call it if needed.
+     * Return the current session id as a string. Kept as a plain method so external
+     * utilities can still call it if needed.
+     *
+     * @return the session id string
      */
     public String getSessionId() {
         if (sessionId == null) {
-            log.warn("********************** "
-                    + "SESSION ID IS NULL"
-                    + " *********************");
+            log.warn("********************** " + "SESSION ID IS NULL" + " *********************");
             return "";
         }
         return sessionId.toString();
     }
 
     /**
+     * @param testInfo information about the currently running test
      * @throws MalformedURLException if something goes awry
      */
     @BeforeEach
     public void setUp(final TestInfo testInfo) throws MalformedURLException {
-        final String methodName = testInfo.getTestMethod()
-                .map(m -> m.getName()).orElse("unknown");
+        final String methodName = testInfo.getTestMethod().map(m -> m.getName()).orElse("unknown");
         if (driver == null) {
             if (sauceExtension != null && sauceExtension.getDriver() != null) {
                 driver = (RemoteWebDriver) sauceExtension.getDriver();
@@ -103,21 +106,18 @@ public final class GedBrowserBasicIT {
                 driverManagedByExtension = false;
             }
         } else {
-            log.warn("********************** "
-                    + "DRIVER ALREADY SET UP"
-                    + " *********************");
+            log.warn(
+                "********************** " + "DRIVER ALREADY SET UP" + " *********************");
         }
         if (sessionId == null && driver != null) {
             sessionId = driver.getSessionId();
         }
         if (sessionId == null) {
-            log.warn("********************** "
-                    + "SESSION ID IS NULL IN SETUP"
-                    + " *********************");
+            log.warn("********************** " + "SESSION ID IS NULL IN SETUP"
+                + " *********************");
         }
         final DefaultExpectations expectationsUtil = new DefaultExpectations();
-        factory = new PageFactory(driver, waiter,
-                expectationsUtil.create());
+        factory = new PageFactory(driver, waiter, expectationsUtil.create());
     }
 
     /**
@@ -158,8 +158,7 @@ public final class GedBrowserBasicIT {
      */
     private boolean childNavigationExercise() {
         try {
-            PersonPage currentPerson =
-                    factory.createPersonPage(null, baseUrl(), "I22");
+            PersonPage currentPerson = factory.createPersonPage(null, baseUrl(), "I22");
             currentPerson.open();
             println("    Person is: I22");
             check("Person ID mismatch", "I22", currentPerson.getId());
@@ -179,8 +178,7 @@ public final class GedBrowserBasicIT {
             println("    Navigating to child: I9");
             final int maryAmassFamilyIndex = 3;
             final int edwinChildIndex = 2;
-            currentPerson = currentPerson.navigateChild(maryAmassFamilyIndex,
-                    edwinChildIndex);
+            currentPerson = currentPerson.navigateChild(maryAmassFamilyIndex, edwinChildIndex);
             check("Person ID mismatch", "I9", currentPerson.getId());
             check("Person failed check", "", currentPerson.check());
             assertEquals("", currentPerson.check(), "Person failed check");
@@ -196,15 +194,14 @@ public final class GedBrowserBasicIT {
      */
     private boolean fathersNavigationExercise() {
         try {
-            PersonPage currentPerson =
-                    factory.createPersonPage(null, baseUrl(), "I9");
+            PersonPage currentPerson = factory.createPersonPage(null, baseUrl(), "I9");
             currentPerson.open();
             println("    Person is: I9");
             check("Person ID mismatch", "I9", currentPerson.getId());
             check("Person failed check", "", currentPerson.check());
 
-            final SourcePage currentSource = factory
-                    .createSourcePage(currentPerson, baseUrl(), "S33651");
+            final SourcePage currentSource = factory.createSourcePage(currentPerson, baseUrl(),
+                "S33651");
             check("Title mismatch", currentSource.titleCheck());
 
             currentPerson = (PersonPage) currentSource.back();
@@ -236,8 +233,7 @@ public final class GedBrowserBasicIT {
      */
     private boolean mothersNavigationExercise() {
         try {
-            PersonPage currentPerson =
-                    factory.createPersonPage(null, baseUrl(), "I15");
+            PersonPage currentPerson = factory.createPersonPage(null, baseUrl(), "I15");
             currentPerson.open();
             println("    Person is: I15");
             check("Person ID mismatch", "I15", currentPerson.getId());
@@ -294,12 +290,11 @@ public final class GedBrowserBasicIT {
     /**
      * Use this for mid-test checks.
      *
-     * @param message message to display on failure
+     * @param message  message to display on failure
      * @param expected expected value
-     * @param actual actual value
+     * @param actual   actual value
      */
-    private void check(final String message, final String expected,
-            final String actual) {
+    private void check(final String message, final String expected, final String actual) {
         assertEquals(expected, actual, message);
     }
 
@@ -307,10 +302,9 @@ public final class GedBrowserBasicIT {
      * Use this for mid-test checks.
      *
      * @param message message to display on failure
-     * @param actual actual value
+     * @param actual  actual value
      */
-    private void check(final String message,
-            final boolean actual) {
+    private void check(final String message, final boolean actual) {
         assertTrue(actual, message);
     }
 

@@ -68,56 +68,55 @@ public final class FamilyRepositoryTest {
     /** */
     @Test
     public void testF1() {
-        final FamilyDocument famdoc = familyDocumentRepository.
-                findByFileAndString(root.getFilename(), "F1");
-        final Family family =
-                (Family) toObjConverter.createGedObject(root, famdoc);
+        final FamilyDocument famdoc = familyDocumentRepository
+            .findByFileAndString(root.getFilename(), "F1");
+        final Family family = (Family) toObjConverter.createGedObject(root, famdoc);
         assertEquals("F1", family.getString(), "Id mismatch");
     }
 
     /** */
     @Test
     public void testF1Root() {
-        final FamilyDocument famdoc = familyDocumentRepository.
-                findByRootAndString(rootDocument, "F1");
-        final Family family =
-                (Family) toObjConverter.createGedObject(root, famdoc);
+        final FamilyDocument famdoc = familyDocumentRepository.findByRootAndString(rootDocument,
+            "F1");
+        final Family family = (Family) toObjConverter.createGedObject(root, famdoc);
         assertEquals("F1", family.getString(), "Id mismatch");
     }
 
     /** */
     @Test
     public void testBogus() {
-        final FamilyDocument famdoc = familyDocumentRepository.
-                findByFileAndString(root.getFilename(), "F999999");
+        final FamilyDocument famdoc = familyDocumentRepository
+            .findByFileAndString(root.getFilename(), "F999999");
         assertNull(famdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     public void testBogusRoot() {
-        final FamilyDocument famdoc = familyDocumentRepository.
-                findByRootAndString(rootDocument, "F999999");
+        final FamilyDocument famdoc = familyDocumentRepository.findByRootAndString(rootDocument,
+            "F999999");
         assertNull(famdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     public void testCountRoot() {
-        assertEquals(FAMILY_COUNT, familyDocumentRepository.count(rootDocument), "Should be 6 families");
+        assertEquals(FAMILY_COUNT, familyDocumentRepository.count(rootDocument),
+            "Should be 6 families");
     }
 
     /** */
     @Test
     public void testCountFilename() {
-        assertEquals(FAMILY_COUNT, familyDocumentRepository.count(rootDocument.getFilename()), "Should be 6 families");
+        assertEquals(FAMILY_COUNT, familyDocumentRepository.count(rootDocument.getFilename()),
+            "Should be 6 families");
     }
 
     /** */
     @Test
     public void testFindAllRoot() {
-        final Iterable<FamilyDocument> list =
-                familyDocumentRepository.findAll(rootDocument);
+        final Iterable<FamilyDocument> list = familyDocumentRepository.findAll(rootDocument);
         int count = 0;
         for (final FamilyDocument family : list) {
             checkEquals("Type string mismatch", "family", family.getType());
@@ -129,8 +128,8 @@ public final class FamilyRepositoryTest {
     /** */
     @Test
     public void testFindAllFilename() {
-        final Iterable<FamilyDocument> list =
-                familyDocumentRepository.findAll(rootDocument.getFilename());
+        final Iterable<FamilyDocument> list = familyDocumentRepository
+            .findAll(rootDocument.getFilename());
         int count = 0;
         for (final FamilyDocument family : list) {
             checkEquals("Type string mismatch", "family", family.getType());
@@ -156,12 +155,11 @@ public final class FamilyRepositoryTest {
     /**
      * Wrapper for assertion to bypass PMD check.
      *
-     * @param message the identifying message for the AssertionError (null okay)
+     * @param message  the identifying message for the AssertionError (null okay)
      * @param expected expected value
-     * @param actual actual value
+     * @param actual   actual value
      */
-    private void checkEquals(final String message, final Object expected,
-            final Object actual) {
+    private void checkEquals(final String message, final Object expected, final Object actual) {
         assertEquals(expected, actual, message);
     }
 }

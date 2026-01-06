@@ -20,91 +20,91 @@ import org.springframework.security.core.GrantedAuthority;
 
 public class RequestUserUtilTest {
     @Test
-    public void testGood() {
+    void testGood() {
         final StubPrincipal principal = new StubPrincipal("fred");
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
         assertEquals(principal.getName(), util.getUser().getUsername(), "username wrong");
     }
 
     @Test
-    public void testNullPrincipal() {
+    void testNullPrincipal() {
         final StubPrincipal principal = null;
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
         assertNull(util.getUser(), "username wrong");
     }
 
     @Test
-    public void testNullName() {
+    void testNullName() {
         final StubPrincipal principal = new StubPrincipal(null);
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
         assertNull(util.getUser(), "username wrong");
     }
 
     @Test
-    public void testEmptyName() {
+    void testEmptyName() {
         final StubPrincipal principal = new StubPrincipal("");
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
         assertNull(util.getUser(), "username wrong");
     }
 
     @Test
-    public void testGoodHasUser() {
+    void testGoodHasUser() {
         final StubPrincipal principal = new StubPrincipal("fred");
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
         assertTrue(util.hasUser(), "should have user");
     }
 
     @Test
-    public void testNullPrincipalHasUser() {
+    void testNullPrincipalHasUser() {
         final StubPrincipal principal = null;
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
         assertFalse(util.hasUser(), "should not have user");
     }
 
     @Test
-    public void testNullNameHasUser() {
+    void testNullNameHasUser() {
         final StubPrincipal principal = new StubPrincipal(null);
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
         assertFalse(util.hasUser(), "should not have user");
     }
 
     @Test
-    public void testEmptyNameHasUser() {
+    void testEmptyNameHasUser() {
         final StubPrincipal principal = new StubPrincipal("");
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
         assertFalse(util.hasUser(), "should not have user");
     }
 
     @Test
-    public void testGoodHasAdmin() {
+    void testGoodHasAdmin() {
         final StubPrincipal principal = new StubPrincipal("fred");
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
         assertTrue(util.hasAdmin(), "should have user");
     }
 
     @Test
-    public void testGoodHasFalseAdmin() {
+    void testGoodHasFalseAdmin() {
         final StubPrincipal principal = new StubPrincipal("bob");
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
         assertFalse(util.hasAdmin(), "should have user");
     }
 
     @Test
-    public void testNullPrincipalHasAdmin() {
+    void testNullPrincipalHasAdmin() {
         final StubPrincipal principal = null;
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
         assertFalse(util.hasAdmin(), "should not have user");
     }
 
     @Test
-    public void testNullNameHasAdmin() {
+    void testNullNameHasAdmin() {
         final StubPrincipal principal = new StubPrincipal(null);
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
         assertFalse(util.hasAdmin(), "should not have user");
     }
 
     @Test
-    public void testEmptyNameHasAdmin() {
+    void testEmptyNameHasAdmin() {
         final StubPrincipal principal = new StubPrincipal("");
         final RequestUserUtil util = new RequestUserUtil(principal, new StubUserService());
         assertFalse(util.hasAdmin(), "should not have user");
@@ -131,7 +131,7 @@ public class RequestUserUtilTest {
         }
     }
 
-    private class StubUserService implements UserService {
+    private final class StubUserService implements UserService {
         @Override
         public void resetCredentials() {
         }

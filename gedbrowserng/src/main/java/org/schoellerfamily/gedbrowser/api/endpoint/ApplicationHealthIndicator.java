@@ -23,15 +23,15 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class ApplicationHealthIndicator implements HealthIndicator {
+    /** */
     private final ApplicationInfo appInfo;
 
+    /** */
     private final GedObjectFileLoader loader;
 
+    /** */
     private final RepositoryManagerMongo repositoryManager;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final Health health() {
         log.debug("Health");

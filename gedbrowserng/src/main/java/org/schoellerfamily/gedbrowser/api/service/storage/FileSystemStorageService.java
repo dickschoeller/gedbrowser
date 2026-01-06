@@ -16,8 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Implementation of StorageService that keeps the files in a known location
- * on the file system.
+ * Implementation of StorageService that keeps the files in a known location on
+ * the file system.
  *
  * @author Dick Schoeller
  */
@@ -36,7 +36,7 @@ public class FileSystemStorageService implements StorageService {
         final Path rootLocation = Paths.get(gedbrowserProperties.gedbrowserHome());
         try (InputStream inputStream = file.getInputStream()) {
             Files.copy(inputStream, rootLocation.resolve(filename),
-                    StandardCopyOption.REPLACE_EXISTING);
+                StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             throw new StorageException("Failed to store file %s".formatted(filename), e);
         }
@@ -51,16 +51,18 @@ public class FileSystemStorageService implements StorageService {
     private String validateFile(final MultipartFile file) {
         final String originalFilename = file.getOriginalFilename();
         if (ObjectUtils.isEmpty(originalFilename)) {
-			throw new StorageException("Failed to store file with empty name");
-		}
+            throw new StorageException("Failed to store file with empty name");
+        }
         @SuppressWarnings("null")
-		final String filename = StringUtils.cleanPath(originalFilename);
+        final String filename = StringUtils.cleanPath(originalFilename);
         if (file.isEmpty()) {
             throw new StorageException("Failed to store empty file %s".formatted(filename));
         }
         if (filename.contains("..")) {
             // This is a security check
-            throw new StorageException("Cannot store file with relative path outside current directory %s".formatted(filename));
+            throw new StorageException(
+                "Cannot store file with relative path outside current directory %s"
+                    .formatted(filename));
         }
         return filename;
     }

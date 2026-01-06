@@ -6,6 +6,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
+ * Analyze the order of attributes for display for this person.
+ *
  * @author Dick Schoeller
  */
 public final class OrderAnalyzer extends AbstractOrderAnalyzer {

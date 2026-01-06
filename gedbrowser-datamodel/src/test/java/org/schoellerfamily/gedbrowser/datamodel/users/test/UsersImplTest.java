@@ -12,9 +12,9 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UsersImpl;
 /**
  * @author Dick Schoeller
  */
-public class UsersImplTest {
+public final class UsersImplTest {
     @Test
-    public void testAddGet() {
+    void testAddGet() {
         final Users<User> users = new UsersImpl<>();
         final UserImpl expected = new UserImpl();
         expected.setUsername("username");
@@ -24,9 +24,10 @@ public class UsersImplTest {
     }
 
     @Test
-    public void testAddIterate() {
+    void testAddIterate() {
         final Users<User> users = new UsersImpl<>();
-        final String[] userNames = {"user1", "user2"};
+        @SuppressWarnings("checkstyle:nowhitespaceafter")
+        final String[] userNames = { "user1", "user2" };
         for (final String userName : userNames) {
             final UserImpl impl = new UserImpl();
             impl.setUsername(userName);
@@ -39,9 +40,10 @@ public class UsersImplTest {
     }
 
     @Test
-    public void testAddSize() {
+    void testAddSize() {
         final Users<User> users = new UsersImpl<>();
-        final String[] userNames = {"user1", "user2"};
+        @SuppressWarnings("checkstyle:nowhitespaceafter")
+        final String[] userNames = { "user1", "user2" };
         for (final String userName : userNames) {
             final UserImpl impl = new UserImpl();
             impl.setUsername(userName);
@@ -51,9 +53,10 @@ public class UsersImplTest {
     }
 
     @Test
-    public void testAddClearSize() {
+    void testAddClearSize() {
         final Users<User> users = new UsersImpl<>();
-        final String[] userNames = {"user1", "user2"};
+        @SuppressWarnings("checkstyle:nowhitespaceafter")
+        final String[] userNames = { "user1", "user2" };
         for (final String userName : userNames) {
             final UserImpl impl = new UserImpl();
             impl.setUsername(userName);
@@ -64,7 +67,7 @@ public class UsersImplTest {
     }
 
     @Test
-    public void testAddRemoveSize() {
+    void testAddRemoveSize() {
         final Users<User> users = new UsersImpl<>();
         final UserImpl impl1 = new UserImpl();
         impl1.setUsername("user1");

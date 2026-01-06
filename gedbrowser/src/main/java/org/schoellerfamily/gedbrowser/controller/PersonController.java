@@ -39,24 +39,21 @@ public class PersonController extends GeoDataController {
     /**
      * Constructor.
      *
-     * @param appInfo the application info
-     * @param users info about the known application users
-     * @param loader enable loading gedcom files
-     * @param provider enable calendar processing
+     * @param appInfo           the application info
+     * @param users             info about the known application users
+     * @param loader            enable loading gedcom files
+     * @param provider          enable calendar processing
      * @param repositoryManager enable data storage
-     * @param client enable interaction with geoservice
-     * @param keyManager enable interacting with google
-     * @param gedbrowserHome location of data files for initialization
+     * @param client            enable interaction with geoservice
+     * @param keyManager        enable interacting with google
+     * @param gedbrowserHome    location of data files for initialization
      */
-    public PersonController(final ApplicationInfo appInfo,
-            final Users<? extends User> users,
-            final GedObjectFileLoader loader,
-            final CalendarProvider provider,
-            final RepositoryManagerMongo repositoryManager,
-            final GeoServiceClient client,
-            final KeyManager keyManager,
-            @Value("${gedbrowser.home:/var/lib/gedbrowser}")
-            final String gedbrowserHome) {
+    @SuppressWarnings("checkstyle:parameternumber")
+    public PersonController(final ApplicationInfo appInfo, final Users<? extends User> users,
+        final GedObjectFileLoader loader, final CalendarProvider provider,
+        final RepositoryManagerMongo repositoryManager, final GeoServiceClient client,
+        final KeyManager keyManager,
+        @Value("${gedbrowser.home:/var/lib/gedbrowser}") final String gedbrowserHome) {
         super(appInfo, users, loader, provider, repositoryManager, client, keyManager);
         this.gedbrowserHome = gedbrowserHome;
     }
@@ -65,19 +62,17 @@ public class PersonController extends GeoDataController {
      * Connects HTML template file with data for the person page.
      *
      * @param idString id URL argument.
-     * @param dbName name of database for the lookup.
-     * @param model Spring connection between the data model wrapper.
+     * @param dbName   name of database for the lookup.
+     * @param model    Spring connection between the data model wrapper.
      * @return a string identifying which HTML template to use.
      */
     @RequestMapping("/person")
     public final String person(
-            @RequestParam(value = "id",
-                required = false,
-                defaultValue = "I0") final String idString,
-            @RequestParam(value = "db",
-                required = false,
-                defaultValue = "schoeller") final String dbName,
-            final Model model) {
+        @RequestParam(value = "id", required = false, defaultValue = "I0")
+        final String idString,
+        @RequestParam(value = "db", required = false, defaultValue = "schoeller")
+        final String dbName,
+        final Model model) {
         log.debug("Entering person");
 
         final RenderingContext context = createRenderingContext();
@@ -94,59 +89,55 @@ public class PersonController extends GeoDataController {
         model.addAttribute("places", places);
         model.addAttribute("key", getMapsKey());
         model.addAttribute("showMap", showMap);
-        model.addAttribute("appInfo", appInfo);
+        model.addAttribute("appInfo", getAppInfo());
 
         log.debug("Exiting person");
         return "person";
     }
 
     /**
-     * @param dbName the name of the database
+     * @param dbName   the name of the database
      * @param idString the ID of the person
-     * @param context the rendering context
+     * @param context  the rendering context
      * @return the person
      */
     private Person fetchPerson(final String dbName, final String idString,
-            final RenderingContext context) {
+        final RenderingContext context) {
         final Root root = fetchRoot(dbName);
         final Person person = (Person) root.find(idString);
         if (person == null) {
-            throw new PersonNotFoundException("Person %s not found".formatted(idString), idString, root.getDbName(), context);
+            throw new PersonNotFoundException("Person %s not found".formatted(idString), idString,
+                root.getDbName(), context);
         }
         return person;
     }
 
     /**
      * @param context the rendering context
-     * @param person the person being rendered
+     * @param person  the person being rendered
      * @return the person renderer
      */
-    private GedRenderer<?> personRenderer(final RenderingContext context,
-            final Person person) {
-        return new GedRendererFactory().create(
-                person, context);
+    private GedRenderer<?> personRenderer(final RenderingContext context, final Person person) {
+        return new GedRendererFactory().create(person, context);
     }
 
     /**
      * Get the name string in an html fragment format.
      *
      * @param context the rendering context
-     * @param person the person being rendered
+     * @param person  the person being rendered
      * @return the name string
      */
-    private String nameHtml(final RenderingContext context,
-            final Person person) {
+    private String nameHtml(final RenderingContext context, final Person person) {
         return nameRenderer(context, person).getNameHtml();
     }
 
     /**
      * @param context the rendering context
-     * @param person the person being rendered
+     * @param person  the person being rendered
      * @return the name renderer
      */
-    private GedRenderer<?> nameRenderer(final RenderingContext context,
-            final Person person) {
-        return new GedRendererFactory().create(
-                person.getName(), context);
+    private GedRenderer<?> nameRenderer(final RenderingContext context, final Person person) {
+        return new GedRendererFactory().create(person.getName(), context);
     }
 }

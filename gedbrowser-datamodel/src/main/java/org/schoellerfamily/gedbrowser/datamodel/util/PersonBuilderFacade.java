@@ -26,7 +26,7 @@ public interface PersonBuilderFacade extends PersonBuilder {
      * {@inheritDoc}
      */
     @Override
-    default Person createPerson(String idString) {
+    default Person createPerson(final String idString) {
         return getPersonBuilder().createPerson(idString);
     }
 
@@ -34,7 +34,7 @@ public interface PersonBuilderFacade extends PersonBuilder {
      * {@inheritDoc}
      */
     @Override
-    default Person createPerson(String idString, String name) {
+    default Person createPerson(final String idString, final String name) {
         return getPersonBuilder().createPerson(idString, name);
     }
 
@@ -42,7 +42,7 @@ public interface PersonBuilderFacade extends PersonBuilder {
      * {@inheritDoc}
      */
     @Override
-    default Name addNameToPerson(Person person, String string) {
+    default Name addNameToPerson(final Person person, final String string) {
         return getPersonBuilder().addNameToPerson(person, string);
     }
 
@@ -50,8 +50,8 @@ public interface PersonBuilderFacade extends PersonBuilder {
      * {@inheritDoc}
      */
     @Override
-    default Attribute createPersonEvent(Person person, String type,
-            String dateString) {
+    default Attribute createPersonEvent(final Person person, final String type,
+            final String dateString) {
         return getPersonBuilder().createPersonEvent(person, type, dateString);
     }
 
@@ -59,7 +59,7 @@ public interface PersonBuilderFacade extends PersonBuilder {
      * {@inheritDoc}
      */
     @Override
-    default Attribute createPersonEvent(Person person, String type) {
+    default Attribute createPersonEvent(final Person person, final String type) {
         return getPersonBuilder().createPersonEvent(person, type);
     }
 
@@ -67,7 +67,7 @@ public interface PersonBuilderFacade extends PersonBuilder {
      * {@inheritDoc}
      */
     @Override
-    default Multimedia addMultimediaToPerson(Person person, String string) {
+    default Multimedia addMultimediaToPerson(final Person person, final String string) {
         return getPersonBuilder().addMultimediaToPerson(person, string);
     }
 }

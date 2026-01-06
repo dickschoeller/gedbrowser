@@ -47,7 +47,7 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
           <enableRulesSummary>false</enableRulesSummary>
-          <configLocation>${project.parent.basedir}/config/checkstyle.xml</configLocation>
+          <configLocation>${project.parent.basedir}/config/modified_sun_checks.xml</configLocation>
         </configuration>
       </plugin>
       <plugin>
@@ -75,7 +75,7 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
           <enableRulesSummary>false</enableRulesSummary>
-          <configLocation>${project.parent.basedir}/config/checkstyle.xml</configLocation>
+          <configLocation>${project.parent.basedir}/config/modified_sun_checks.xml</configLocation>
         </configuration>
       </plugin>
       <plugin>

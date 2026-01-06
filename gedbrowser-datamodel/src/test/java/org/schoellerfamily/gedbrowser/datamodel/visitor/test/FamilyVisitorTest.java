@@ -91,7 +91,8 @@ public final class FamilyVisitorTest {
             @Override
             public void accept(final GedObjectVisitor visitor) {
                 visitor.visit(this);
-            } };
+            }
+        };
         gob.accept(visitor);
         assertTrue(visitor.getChildren().isEmpty(), "Found unexpected content");
     }

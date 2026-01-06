@@ -12,8 +12,8 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * This interface contains default methods that implement the delete
- * operations for the classes that declare implementing the interface.
+ * This interface contains default methods that implement the delete operations
+ * for the classes that declare implementing the interface.
  *
  * @author Dick Schoeller
  *
@@ -22,10 +22,11 @@ import org.springframework.data.repository.CrudRepository;
  * @param <Z> the Api type associated with the type X
  */
 @SuppressWarnings("PMD.CommentSize")
-public interface DeleteOperations<X extends GedObject,
-            Y extends GedDocument<X>,
-            Z extends ApiObject>
-        extends Converter<Y, Z> {
+public interface DeleteOperations<
+        X extends GedObject,
+        Y extends GedDocument<X>,
+        Z extends ApiObject>
+    extends Converter<Y, Z> {
     /**
      * @return the DB repository for this type
      */
@@ -43,7 +44,7 @@ public interface DeleteOperations<X extends GedObject,
 
     /**
      * @param root the root of the db
-     * @param id the ID of the object to delete
+     * @param id   the ID of the object to delete
      * @return the deleted object
      */
     @SuppressWarnings("unchecked")
@@ -51,9 +52,9 @@ public interface DeleteOperations<X extends GedObject,
         final FindableDocument<X, Y> repo = getRepository();
         Y oldDoc = repo.findByRootAndString(root, id);
         if (oldDoc == null) {
-            final String type =
-                    getGedClass().getSimpleName().toLowerCase(Locale.ENGLISH);
-            throw new ObjectNotFoundException("Object %s of type %s not found".formatted(id, type), type, id, root.getDbName());
+            final String type = getGedClass().getSimpleName().toLowerCase(Locale.ENGLISH);
+            throw new ObjectNotFoundException("Object %s of type %s not found".formatted(id, type),
+                type, id, root.getDbName());
         }
         ((CrudRepository<Y, String>) repo).delete(oldDoc);
         return convert(oldDoc);

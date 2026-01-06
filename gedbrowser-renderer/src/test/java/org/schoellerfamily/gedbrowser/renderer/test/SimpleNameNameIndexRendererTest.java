@@ -26,8 +26,7 @@ public final class SimpleNameNameIndexRendererTest {
     private transient ApplicationInfo appInfo;
 
     /** */
-    private static final String UNEXPECTED_STRING =
-            "Unexpected string returned";
+    private static final String UNEXPECTED_STRING = "Unexpected string returned";
 
     /** */
     private RenderingContext anonymousContext;
@@ -43,12 +42,11 @@ public final class SimpleNameNameIndexRendererTest {
     public void testRenderSimple() {
         final Name name = new Name(null, "Richard/Schoeller/");
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameNameIndexRenderer nnir =
-                (SimpleNameNameIndexRenderer) nameRenderer
-                    .getNameIndexRenderer();
-        assertEquals(" <span class=\"surname\">Schoeller</span>, Richard",
-                nnir.getIndexName(), UNEXPECTED_STRING);
+            new GedRendererFactory(), anonymousContext);
+        final SimpleNameNameIndexRenderer nnir = (SimpleNameNameIndexRenderer) nameRenderer
+            .getNameIndexRenderer();
+        assertEquals(" <span class=\"surname\">Schoeller</span>, Richard", nnir.getIndexName(),
+            UNEXPECTED_STRING);
     }
 
     /** */
@@ -56,12 +54,11 @@ public final class SimpleNameNameIndexRendererTest {
     public void testRenderHarder() {
         final Name name = new Name(null, "Karl Frederick/Schoeller/Jr.");
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameNameIndexRenderer nnir =
-                (SimpleNameNameIndexRenderer) nameRenderer
-                    .getNameIndexRenderer();
-        assertEquals(" <span class=\"surname\">Schoeller</span>,"
-                + " Karl Frederick, Jr.", nnir.getIndexName(), UNEXPECTED_STRING);
+            new GedRendererFactory(), anonymousContext);
+        final SimpleNameNameIndexRenderer nnir = (SimpleNameNameIndexRenderer) nameRenderer
+            .getNameIndexRenderer();
+        assertEquals(" <span class=\"surname\">Schoeller</span>," + " Karl Frederick, Jr.",
+            nnir.getIndexName(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -69,12 +66,11 @@ public final class SimpleNameNameIndexRendererTest {
     public void testRenderNoPrefix() {
         final Name name = new Name(null, "/Schoeller/");
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameNameIndexRenderer nnir =
-                (SimpleNameNameIndexRenderer) nameRenderer
-                    .getNameIndexRenderer();
-        assertEquals(" <span class=\"surname\">Schoeller</span>",
-                nnir.getIndexName(), UNEXPECTED_STRING);
+            new GedRendererFactory(), anonymousContext);
+        final SimpleNameNameIndexRenderer nnir = (SimpleNameNameIndexRenderer) nameRenderer
+            .getNameIndexRenderer();
+        assertEquals(" <span class=\"surname\">Schoeller</span>", nnir.getIndexName(),
+            UNEXPECTED_STRING);
     }
 
     /** */
@@ -82,10 +78,9 @@ public final class SimpleNameNameIndexRendererTest {
     public void testRenderEmpty() {
         final Name name = new Name(null, "");
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameNameIndexRenderer nnir =
-                (SimpleNameNameIndexRenderer) nameRenderer
-                    .getNameIndexRenderer();
+            new GedRendererFactory(), anonymousContext);
+        final SimpleNameNameIndexRenderer nnir = (SimpleNameNameIndexRenderer) nameRenderer
+            .getNameIndexRenderer();
         assertEquals(" ", nnir.getIndexName(), UNEXPECTED_STRING);
     }
 
@@ -94,10 +89,9 @@ public final class SimpleNameNameIndexRendererTest {
     public void testRenderNull() {
         final Name name = new Name(null);
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameNameIndexRenderer nnir =
-                (SimpleNameNameIndexRenderer) nameRenderer
-                    .getNameIndexRenderer();
+            new GedRendererFactory(), anonymousContext);
+        final SimpleNameNameIndexRenderer nnir = (SimpleNameNameIndexRenderer) nameRenderer
+            .getNameIndexRenderer();
         assertEquals(" ", nnir.getIndexName(), UNEXPECTED_STRING);
     }
 
@@ -106,12 +100,10 @@ public final class SimpleNameNameIndexRendererTest {
     public void testRenderUnset() {
         final Name name = new Name();
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameNameIndexRenderer nnir =
-                (SimpleNameNameIndexRenderer) nameRenderer
-                    .getNameIndexRenderer();
-        assertEquals(" <span class=\"surname\">?</span>",
-                nnir.getIndexName(), UNEXPECTED_STRING);
+            new GedRendererFactory(), anonymousContext);
+        final SimpleNameNameIndexRenderer nnir = (SimpleNameNameIndexRenderer) nameRenderer
+            .getNameIndexRenderer();
+        assertEquals(" <span class=\"surname\">?</span>", nnir.getIndexName(), UNEXPECTED_STRING);
     }
 
     /** */
@@ -119,10 +111,9 @@ public final class SimpleNameNameIndexRendererTest {
     public void testRenderPrefixSuffix() {
         final Name name = new Name(null, "Foo//Bar");
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameNameIndexRenderer nnir =
-                (SimpleNameNameIndexRenderer) nameRenderer
-                    .getNameIndexRenderer();
+            new GedRendererFactory(), anonymousContext);
+        final SimpleNameNameIndexRenderer nnir = (SimpleNameNameIndexRenderer) nameRenderer
+            .getNameIndexRenderer();
         assertEquals(" Foo, Bar", nnir.getIndexName(), UNEXPECTED_STRING);
     }
 
@@ -131,10 +122,9 @@ public final class SimpleNameNameIndexRendererTest {
     public void testRenderSimpleString() {
         final Name name = new Name(null, "Foo Bar");
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameNameIndexRenderer nnir =
-                (SimpleNameNameIndexRenderer) nameRenderer
-                    .getNameIndexRenderer();
+            new GedRendererFactory(), anonymousContext);
+        final SimpleNameNameIndexRenderer nnir = (SimpleNameNameIndexRenderer) nameRenderer
+            .getNameIndexRenderer();
         assertEquals(" Foo Bar", nnir.getIndexName(), UNEXPECTED_STRING);
     }
 }

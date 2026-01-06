@@ -10,7 +10,7 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
  * @param <Y> the DB type associated with the type X
  * @author Dick Schoeller
  */
-public interface NewId <X extends GedObject, Y extends GedDocument<X>> {
+public interface NewId<X extends GedObject, Y extends GedDocument<X>> {
     /**
      * @return the DB repository for this type
      */

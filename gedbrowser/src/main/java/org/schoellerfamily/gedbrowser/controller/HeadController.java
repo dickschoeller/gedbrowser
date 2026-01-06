@@ -73,7 +73,7 @@ public class HeadController extends DatedDataController {
         final String filename = gedbrowserHome + "/" + dbName + ".ged";
         model.addAttribute("filename", filename);
         model.addAttribute("model", headRenderer(context, head));
-        model.addAttribute("appInfo", appInfo);
+        model.addAttribute("appInfo", getAppInfo());
 
         return "head";
     }

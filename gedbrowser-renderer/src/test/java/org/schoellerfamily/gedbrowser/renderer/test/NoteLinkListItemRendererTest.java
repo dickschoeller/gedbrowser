@@ -44,8 +44,7 @@ public final class NoteLinkListItemRendererTest {
         final Root root = builder.getRoot();
         final Note note1 = new Note(root, new ObjectId("N1"));
         root.insert(note1);
-        final Note note2 =
-                new Note(root, new ObjectId("N2"), "The title of N2");
+        final Note note2 = new Note(root, new ObjectId("N2"), "The title of N2");
 
         root.insert(note2);
         anonymousContext = RenderingContext.anonymous(appInfo);
@@ -54,37 +53,34 @@ public final class NoteLinkListItemRendererTest {
     /** */
     @Test
     public void testRenderAsListItem() {
-        final NoteLink noteLink =
-                new NoteLink(person, "NOTE", new ObjectId("N1"));
+        final NoteLink noteLink = new NoteLink(person, "NOTE", new ObjectId("N1"));
         person.addAttribute(noteLink);
-        final NoteLinkRenderer slRenderer = new NoteLinkRenderer(noteLink,
-                new GedRendererFactory(), anonymousContext);
-        final NoteLinkListItemRenderer lir =
-                (NoteLinkListItemRenderer) slRenderer
-                .getListItemRenderer();
+        final NoteLinkRenderer slRenderer = new NoteLinkRenderer(noteLink, new GedRendererFactory(),
+            anonymousContext);
+        final NoteLinkListItemRenderer lir = (NoteLinkListItemRenderer) slRenderer
+            .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, false, 0);
-        assertEquals("<span class=\"label\">Note:</span> <a href=\"note?db=null"
+        assertEquals(
+            "<span class=\"label\">Note:</span> <a href=\"note?db=null"
                 + "&amp;id=N1\" class=\"name\" id=\"note-N1\"> (N1)</a>",
-                builder.toString(), "Rendered html doesn't match expectation");
+            builder.toString(), "Rendered html doesn't match expectation");
     }
 
     /** */
     @Test
     public void testRenderAsListItemWithTitle() {
-        final NoteLink sourceLink =
-                new NoteLink(person, "NOTE", new ObjectId("N2"));
+        final NoteLink sourceLink = new NoteLink(person, "NOTE", new ObjectId("N2"));
         person.addAttribute(sourceLink);
         final NoteLinkRenderer slRenderer = new NoteLinkRenderer(sourceLink,
-                new GedRendererFactory(), anonymousContext);
-        final NoteLinkListItemRenderer lir =
-                (NoteLinkListItemRenderer) slRenderer
-                .getListItemRenderer();
+            new GedRendererFactory(), anonymousContext);
+        final NoteLinkListItemRenderer lir = (NoteLinkListItemRenderer) slRenderer
+            .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, false, 0);
-        assertEquals("<span class=\"label\">Note:</span>"
-                + " <a href=\"note?db=null&amp;id=N2\""
+        assertEquals(
+            "<span class=\"label\">Note:</span>" + " <a href=\"note?db=null&amp;id=N2\""
                 + " class=\"name\" id=\"note-N2\">The title of N2 (N2)</a>",
-                builder.toString(), "Rendered html doesn't match expectation");
+            builder.toString(), "Rendered html doesn't match expectation");
     }
 }

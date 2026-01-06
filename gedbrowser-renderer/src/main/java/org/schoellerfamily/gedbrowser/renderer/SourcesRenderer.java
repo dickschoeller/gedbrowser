@@ -29,7 +29,7 @@ public class SourcesRenderer extends GedRenderer<Root>
      *
      * @author Dick Schoeller
      */
-    private static class SourceRendererComparator
+    private static final class SourceRendererComparator
             implements Comparator<SourceRenderer>, Serializable {
         /** */
         private static final long serialVersionUID = 1L;

@@ -24,6 +24,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 public final class HeadTest {
     /** */
     private static final int ATTRIBUTE_COUNT = 7;
+
     /** */
     @Test
     public void testUsualHead() {
@@ -35,8 +36,7 @@ public final class HeadTest {
         final Attribute vers = builder.createAttribute(head, "VERS", "4.0");
 
         final Submitter submitter = builder.createSubmitter("SUB1");
-        final SubmitterLink suLink = builder.createSubmitterLink(head,
-                submitter);
+        final SubmitterLink suLink = builder.createSubmitterLink(head, submitter);
 
         final Attribute gedc = builder.createAttribute(head, "GEDC");
         builder.createAttribute(gedc, "VERS", "5.5");
@@ -48,31 +48,27 @@ public final class HeadTest {
         builder.createAttribute(date, "TIME", "22:04");
         final Attribute chars = builder.createAttribute(head, "CHAR", "ANSI");
 
-        final Map<String, Attribute> attributeChecks = Map.of(
-            "Should contain version", vers,
-            "Should contain gedc item", gedc,
-            "Should contain dest", dest,
-            "Should contain charset", chars);
+        final Map<String, Attribute> attributeChecks = Map.of("Should contain version", vers,
+            "Should contain gedc item", gedc, "Should contain dest", dest, "Should contain charset",
+            chars);
         assertHeadValid(head, soLink, suLink, date, attributeChecks);
     }
 
     /**
-     * @param head the head we're checking
-     * @param sourceLink the expected source link
-     * @param submitterLink the expected submitter link
-     * @param date the expected date
+     * @param head            the head we're checking
+     * @param sourceLink      the expected source link
+     * @param submitterLink   the expected submitter link
+     * @param date            the expected date
      * @param attributeChecks maps of messages to attributes to check
      */
     private void assertHeadValid(final Head head, final SourceLink sourceLink,
-            final SubmitterLink submitterLink,
-            final Date date,
-            final Map<String, Attribute> attributeChecks) {
+        final SubmitterLink submitterLink, final Date date,
+        final Map<String, Attribute> attributeChecks) {
         assertEquals(ATTRIBUTE_COUNT, head.getAttributes().size(), "Mismatch attribute count");
         assertTrue(head.getAttributes().contains(sourceLink), "Should contain sourceLink");
         assertTrue(head.getAttributes().contains(submitterLink), "Should contain submitterLink");
         assertTrue(head.getAttributes().contains(date), "Should contain date");
-        for (final Map.Entry<String, Attribute> entry : attributeChecks
-                .entrySet()) {
+        for (final Map.Entry<String, Attribute> entry : attributeChecks.entrySet()) {
             assertTrue(head.getAttributes().contains(entry.getValue()), entry.getKey());
         }
     }
@@ -86,7 +82,8 @@ public final class HeadTest {
         root.insert(head);
 
         final GedObject gob = root.find("Head");
-        assertTrue(head.equals(gob) && "Head".equals(head.getString()), "Should have found head with head tag string");
+        assertTrue(head.equals(gob) && "Head".equals(head.getString()),
+            "Should have found head with head tag string");
     }
 
     /** */
@@ -98,7 +95,8 @@ public final class HeadTest {
         root.insert(head);
 
         final GedObject gob = root.find("Head");
-        assertTrue(head.equals(gob) && "Head".equals(head.getString()), "Should have found the head with head tag string");
+        assertTrue(head.equals(gob) && "Head".equals(head.getString()),
+            "Should have found the head with head tag string");
     }
 
     /** */

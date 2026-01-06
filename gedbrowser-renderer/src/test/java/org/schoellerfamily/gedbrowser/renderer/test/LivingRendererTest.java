@@ -71,14 +71,16 @@ public final class LivingRendererTest {
     @Test
     public void testRenderUserIndexHref() {
         final LivingRenderer renderer = new LivingRenderer(root, userContext);
-        assertEquals("surnames?db=null&letter=A", renderer.getIndexHref(), "The index link should refer to the letter A");
+        assertEquals("surnames?db=null&letter=A", renderer.getIndexHref(),
+            "The index link should refer to the letter A");
     }
 
     /** */
     @Test
     public void testRenderAdminIndexHref() {
         final LivingRenderer renderer = new LivingRenderer(root, adminContext);
-        assertEquals("surnames?db=null&letter=A", renderer.getIndexHref(), "The index link should refer to the letter A");
+        assertEquals("surnames?db=null&letter=A", renderer.getIndexHref(),
+            "The index link should refer to the letter A");
     }
 
     /**
@@ -96,7 +98,8 @@ public final class LivingRendererTest {
     @Test
     public void testRenderAdminBuckets() {
         final LivingRenderer renderer = new LivingRenderer(root, adminContext);
-        assertFalse(renderer.getBuckets().isEmpty(), "In admin context, there should be some buckets");
+        assertFalse(renderer.getBuckets().isEmpty(),
+            "In admin context, there should be some buckets");
     }
 
     /** */
@@ -105,7 +108,8 @@ public final class LivingRendererTest {
         final LivingRenderer renderer = new LivingRenderer(root, adminContext);
         final int twentyToTwentyNine = 2;
         final List<PersonRenderer> persons = renderer.getBuckets()
-                .get(twentyToTwentyNine).getPersons();
+            .get(twentyToTwentyNine)
+            .getPersons();
         assertFalse(persons.isEmpty(), "In admin context, there should be someone in the bucket");
     }
 
@@ -122,21 +126,22 @@ public final class LivingRendererTest {
         int expUpper = increment - 1;
         int i = 0;
         for (final Bucket bucket : buckets) {
-            assertTrue(checkBucketRanges(limit, expLower, expUpper, bucket), "Bucket " + i++ + " is screwed up");
+            assertTrue(checkBucketRanges(limit, expLower, expUpper, bucket),
+                "Bucket " + i++ + " is screwed up");
             expLower += increment;
             expUpper += increment;
         }
     }
 
     /**
-     * @param limit the upper limit of "living"
+     * @param limit         the upper limit of "living"
      * @param expectedLower expected bucket lower bound
      * @param expectedUpper expected bucket upper bound
-     * @param bucket the bucket being checked
+     * @param bucket        the bucket being checked
      * @return true if the bucket ranges are OK
      */
     private boolean checkBucketRanges(final int limit, final int expectedLower,
-            final int expectedUpper, final Bucket bucket) {
+        final int expectedUpper, final Bucket bucket) {
         if (expectedLower != bucket.getLower().intValue()) {
             return false;
         }
@@ -146,7 +151,6 @@ public final class LivingRendererTest {
         return (expectedLower < limit);
     }
 
-
     /**
      * Test whether the menu items are as expected.
      *
@@ -155,8 +159,7 @@ public final class LivingRendererTest {
     @Test
     public void testHeadMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
-        final LivingRenderer renderer = new LivingRenderer(root1,
-                userContext);
+        final LivingRenderer renderer = new LivingRenderer(root1, userContext);
         assertEquals("head?db=gl120368", renderer.getHeaderHref(), "head href mismatch");
     }
 
@@ -168,8 +171,7 @@ public final class LivingRendererTest {
     @Test
     public void testSaveMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
-        final LivingRenderer renderer = new LivingRenderer(root1,
-                userContext);
+        final LivingRenderer renderer = new LivingRenderer(root1, userContext);
         assertEquals("save?db=gl120368", renderer.getSaveHref(), "save href mismatch");
     }
 
@@ -181,8 +183,7 @@ public final class LivingRendererTest {
     @Test
     public void testSaveFilename() throws IOException {
         final Root root1 = reader.readFileTestSource();
-        final LivingRenderer renderer = new LivingRenderer(root1,
-                userContext);
+        final LivingRenderer renderer = new LivingRenderer(root1, userContext);
         assertEquals("gl120368.ged", renderer.getSaveFilename(), "save href mismatch");
     }
 
@@ -194,9 +195,9 @@ public final class LivingRendererTest {
     @Test
     public void testIndexMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
-        final LivingRenderer renderer = new LivingRenderer(root1,
-                userContext);
-        assertEquals("surnames?db=gl120368&letter=A", renderer.getIndexHref(), "index href mismatch");
+        final LivingRenderer renderer = new LivingRenderer(root1, userContext);
+        assertEquals("surnames?db=gl120368&letter=A", renderer.getIndexHref(),
+            "index href mismatch");
     }
 
     /**
@@ -207,8 +208,7 @@ public final class LivingRendererTest {
     @Test
     public void testLivingMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
-        final LivingRenderer renderer = new LivingRenderer(root1,
-                userContext);
+        final LivingRenderer renderer = new LivingRenderer(root1, userContext);
         assertEquals("living?db=gl120368", renderer.getLivingHref(), "living href mismatch");
     }
 
@@ -220,8 +220,7 @@ public final class LivingRendererTest {
     @Test
     public void testSourcesMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
-        final LivingRenderer renderer = new LivingRenderer(root1,
-                userContext);
+        final LivingRenderer renderer = new LivingRenderer(root1, userContext);
         assertEquals("sources?db=gl120368", renderer.getSourcesHref(), "submitters href mismatch");
     }
 
@@ -233,9 +232,9 @@ public final class LivingRendererTest {
     @Test
     public void testSubmittersMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
-        final LivingRenderer renderer = new LivingRenderer(root1,
-                userContext);
-        assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(), "sources href mismatch");
+        final LivingRenderer renderer = new LivingRenderer(root1, userContext);
+        assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(),
+            "sources href mismatch");
     }
 
     /**

@@ -23,9 +23,9 @@ import org.springframework.test.web.servlet.client.RestTestClient;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { Application.class, TestConfiguration.class },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@SpringBootTest(classes = { Application.class,
+    TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class SourceControllerTest implements MenuTestHelper {
@@ -44,19 +44,16 @@ public class SourceControllerTest implements MenuTestHelper {
     /** */
     @Test
     public final void testSourceControllerS33750() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser/source?db=gl120368&id=S33750";
+        final String url = "http://localhost:" + port + "/gedbrowser/source?db=gl120368&id=S33750";
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody())
-            .contains("<title>File (merged):"
-                    + " C:\\Users\\Phil\\Downloads\\butcher\\butcher.GED"
-                    + " - S33750 - gl120368")
+        then(entity.getResponseBody()).contains("<title>File (merged):"
+            + " C:\\Users\\Phil\\Downloads\\butcher\\butcher.GED" + " - S33750 - gl120368")
             .contains(getMenu("A"));
     }
 
@@ -64,9 +61,9 @@ public class SourceControllerTest implements MenuTestHelper {
     @Test
     public final void testSourceControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/gedbrowser/source?db=XYZZY&id=S33750"))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create("http://localhost:" + port + "/gedbrowser/source?db=XYZZY&id=S33750"))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
@@ -77,14 +74,13 @@ public class SourceControllerTest implements MenuTestHelper {
     @Test
     public final void testSourceControllerBadSource() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/gedbrowser/source?db=gl120368&id=XYZZY"))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create("http://localhost:" + port + "/gedbrowser/source?db=gl120368&id=XYZZY"))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
         final String responseBody = entity.getResponseBody();
-        then(responseBody).contains("Source not found")
-            .contains(getMenu("A"));
+        then(responseBody).contains("Source not found").contains(getMenu("A"));
     }
 }

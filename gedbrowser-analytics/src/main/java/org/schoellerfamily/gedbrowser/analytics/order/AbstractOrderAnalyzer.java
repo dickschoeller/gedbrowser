@@ -25,6 +25,8 @@ public abstract class AbstractOrderAnalyzer {
     private Attribute seenEvent;
 
     /**
+     * Constructor.
+     *
      * @param result the result
      */
     protected AbstractOrderAnalyzer(final OrderAnalyzerResult result) {
@@ -39,6 +41,8 @@ public abstract class AbstractOrderAnalyzer {
     public abstract OrderAnalyzerResult analyze();
 
     /**
+     * Get the current date.
+     *
      * @return the date of the most recent attribute
      */
     public final LocalDate getCurrentDate() {
@@ -46,6 +50,8 @@ public abstract class AbstractOrderAnalyzer {
     }
 
     /**
+     * Set the current date.
+     *
      * @param currentDate the date of the most recent attribute
      */
     public final void setCurrentDate(final LocalDate currentDate) {
@@ -53,6 +59,8 @@ public abstract class AbstractOrderAnalyzer {
     }
 
     /**
+     * Get the most recently seen event.
+     *
      * @return the most recently seen event
      */
     public final Attribute getSeenEvent() {
@@ -60,6 +68,8 @@ public abstract class AbstractOrderAnalyzer {
     }
 
     /**
+     * Set the most recently seen event.
+     *
      * @param seenEvent the most recently seen event
      */
     public final void setSeenEvent(final Attribute seenEvent) {
@@ -67,6 +77,8 @@ public abstract class AbstractOrderAnalyzer {
     }
 
     /**
+     * Perform a basic order check on the given attribute.
+     *
      * @param attribute the attribute to check
      */
     protected final void basicOrderCheck(final Attribute attribute) {
@@ -149,6 +161,8 @@ public abstract class AbstractOrderAnalyzer {
     }
 
     /**
+     * Get the result.
+     *
      * @return the result
      */
     public final OrderAnalyzerResult getResult() {
@@ -179,7 +193,9 @@ public abstract class AbstractOrderAnalyzer {
 
 
     /**
-     * @param attribute the attribute to check if it's a birth event
+     * Is the given attribute a birth related event?
+     *
+     * @param attribute the attribute to check if it's a birth related event
      * @return true if this is a birth related event
      */
     protected final boolean isBirthRelatedEvent(final Attribute attribute) {
@@ -187,7 +203,9 @@ public abstract class AbstractOrderAnalyzer {
     }
 
     /**
-     * @param attribute the attribute to check if it's a birth event
+     * Is the given attribute a naming related event?
+     *
+     * @param attribute the attribute to check if it's a naming event
      * @return true if this is a naming related event
      */
     protected final boolean isNamingEvent(final Attribute attribute) {
@@ -202,6 +220,8 @@ public abstract class AbstractOrderAnalyzer {
     }
 
     /**
+     * Is the given attribute a birth event?
+     *
      * @param attribute the attribute to check if it's a birth event
      * @return true if this is a birth event
      */
@@ -210,6 +230,8 @@ public abstract class AbstractOrderAnalyzer {
     }
 
     /**
+     * Estimate the best birth date from near birth events, like christenings.
+     *
      * @param person0 the person whose events we are looking at
      * @return the best birth date from near birth events
      */

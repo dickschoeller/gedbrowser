@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.net.MalformedURLException;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -30,6 +29,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.saucelabs.saucebindings.junit5.SauceBindingsExtension;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
@@ -69,10 +70,13 @@ public class MenuNavigationIT {
     /** */
     private PageFactory factory;
 
+    /** */
     @RegisterExtension
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     public final SauceBindingsExtension sauceExtension = new SauceBindingsExtension();
 
     /**
+     * @param testInfo information about the currently running test
      * @throws MalformedURLException if something goes awry
      */
     @BeforeEach
@@ -163,7 +167,8 @@ public class MenuNavigationIT {
 
         final SubmitterPage submitterPage = submittersPage.clickSubmitter("U1");
         final String submitterUrl = submitterPage.getCurrentUrl();
-        assertEquals(baseUrl() + "submitter?db=gl120368&id=U1", submitterUrl, "Submitter URL mismatch");
+        assertEquals(baseUrl() + "submitter?db=gl120368&id=U1", submitterUrl,
+            "Submitter URL mismatch");
     }
 
     /**

@@ -66,56 +66,55 @@ public final class TrailerRepositoryTest {
     /** */
     @Test
     public void testTrailer() {
-        final TrailerDocument document = trailerDocumentRepository.
-                findByFileAndString(root.getFilename(), TRAILER_STRING);
-        final Trailer trailer =
-                (Trailer) toObjConverter.createGedObject(root, document);
+        final TrailerDocument document = trailerDocumentRepository
+            .findByFileAndString(root.getFilename(), TRAILER_STRING);
+        final Trailer trailer = (Trailer) toObjConverter.createGedObject(root, document);
         assertEquals(TRAILER_STRING, trailer.getString(), "Expected trailer string");
     }
 
     /** */
     @Test
     public void testTrailerRoot() {
-        final TrailerDocument document = trailerDocumentRepository.
-                findByRootAndString(rootDocument, TRAILER_STRING);
-        final Trailer trailer =
-                (Trailer) toObjConverter.createGedObject(root, document);
+        final TrailerDocument document = trailerDocumentRepository.findByRootAndString(rootDocument,
+            TRAILER_STRING);
+        final Trailer trailer = (Trailer) toObjConverter.createGedObject(root, document);
         assertEquals(TRAILER_STRING, trailer.getString(), "Expected trailer string");
     }
 
     /** */
     @Test
     public void testBogus() {
-        final TrailerDocument perdoc = trailerDocumentRepository.
-                findByFileAndString(root.getFilename(), "Mumble");
+        final TrailerDocument perdoc = trailerDocumentRepository
+            .findByFileAndString(root.getFilename(), "Mumble");
         assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     public void testBogusRoot() {
-        final TrailerDocument perdoc = trailerDocumentRepository.
-                findByRootAndString(rootDocument, "Mumble");
+        final TrailerDocument perdoc = trailerDocumentRepository.findByRootAndString(rootDocument,
+            "Mumble");
         assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     public void testCountRoot() {
-        assertEquals(1, trailerDocumentRepository.count(rootDocument), "Should only be one trailer");
+        assertEquals(1, trailerDocumentRepository.count(rootDocument),
+            "Should only be one trailer");
     }
 
     /** */
     @Test
     public void testCountFilename() {
-        assertEquals(1, trailerDocumentRepository.count(rootDocument.getFilename()), "Should only be one trailer");
+        assertEquals(1, trailerDocumentRepository.count(rootDocument.getFilename()),
+            "Should only be one trailer");
     }
 
     /** */
     @Test
     public void testFindAllRoot() {
-        final Iterable<TrailerDocument> list =
-                trailerDocumentRepository.findAll(rootDocument);
+        final Iterable<TrailerDocument> list = trailerDocumentRepository.findAll(rootDocument);
         int count = 0;
         for (final TrailerDocument trailer : list) {
             checkEquals("Type string mismatch", "trailer", trailer.getType());
@@ -127,8 +126,8 @@ public final class TrailerRepositoryTest {
     /** */
     @Test
     public void testFindAllFilename() {
-        final Iterable<TrailerDocument> list =
-                trailerDocumentRepository.findAll(rootDocument.getFilename());
+        final Iterable<TrailerDocument> list = trailerDocumentRepository
+            .findAll(rootDocument.getFilename());
         int count = 0;
         for (final TrailerDocument trailer : list) {
             checkEquals("Type string mismatch", "trailer", trailer.getType());
@@ -140,12 +139,11 @@ public final class TrailerRepositoryTest {
     /**
      * Wrapper for assertion to bypass PMD check.
      *
-     * @param message the identifying message for the AssertionError (null okay)
+     * @param message  the identifying message for the AssertionError (null okay)
      * @param expected expected value
-     * @param actual actual value
+     * @param actual   actual value
      */
-    private void checkEquals(final String message, final Object expected,
-            final Object actual) {
+    private void checkEquals(final String message, final Object expected, final Object actual) {
         assertEquals(expected, actual, message);
     }
 }

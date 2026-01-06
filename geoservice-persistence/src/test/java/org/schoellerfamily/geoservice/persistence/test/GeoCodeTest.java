@@ -40,8 +40,8 @@ import lombok.extern.slf4j.Slf4j;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.ExcessivePublicCount",
-        "PMD.GodClass", "PMD.TooManyStaticImports" })
+@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.ExcessivePublicCount", "PMD.GodClass",
+    "PMD.TooManyStaticImports" })
 @Slf4j
 public final class GeoCodeTest {
 
@@ -138,8 +138,7 @@ public final class GeoCodeTest {
     public void testOldHomeFound() {
         log.info("Entering testOldHomeFound");
         gcc.clear();
-        final GeoCodeItem entry = gcc
-                .find("3341 Chaucer Lane, Bethlehem, PA, USA");
+        final GeoCodeItem entry = gcc.find("3341 Chaucer Lane, Bethlehem, PA, USA");
         assertNotNull(entry.getGeocodingResult(), "Should have found 3341 Chaucer Lane");
     }
 
@@ -178,10 +177,8 @@ public final class GeoCodeTest {
     public void testCacheFound() {
         log.info("Entering testCacheFound");
         gcc.clear();
-        final GeoCodeItem entry1 = gcc
-                .find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
-        final GeoCodeItem entry2 = gcc
-                .find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
+        final GeoCodeItem entry1 = gcc.find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
+        final GeoCodeItem entry2 = gcc.find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
         assertEquals(entry1, entry2, "Should be equal");
     }
 
@@ -192,7 +189,7 @@ public final class GeoCodeTest {
         gcc.clear();
         gcc.find("XYZZY");
         final GeoCodeItem entry2 = gcc.find("XYZZY",
-                "3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
+            "3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
         final GeoCodeItem entry3 = gcc.find("XYZZY");
         assertEquals(entry2, entry3, "Should be equal");
     }
@@ -202,10 +199,8 @@ public final class GeoCodeTest {
     public void testCacheOldHome() {
         log.info("Entering testCacheOldHome");
         gcc.clear();
-        final GeoCodeItem entry1 = gcc
-                .find("3341 Chaucer Lane, Bethlehem, PA, USA");
-        final GeoCodeItem entry2 = gcc
-                .find("3341 Chaucer Lane, Bethlehem, PA, USA");
+        final GeoCodeItem entry1 = gcc.find("3341 Chaucer Lane, Bethlehem, PA, USA");
+        final GeoCodeItem entry2 = gcc.find("3341 Chaucer Lane, Bethlehem, PA, USA");
         assertEquals(entry1, entry2, "Should be equal");
     }
 
@@ -214,8 +209,7 @@ public final class GeoCodeTest {
     public void testCacheOldHomeModern() {
         log.info("Entering testCacheOldHomeModern");
         gcc.clear();
-        final GeoCodeItem entry1 = gcc.find("Old Home",
-                "3341 Chaucer Lane, Bethlehem, PA, USA");
+        final GeoCodeItem entry1 = gcc.find("Old Home", "3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeoCodeItem entry2 = gcc.find("Old Home");
         assertEquals(entry1, entry2, "Should be equal");
     }
@@ -225,10 +219,8 @@ public final class GeoCodeTest {
     public void testCacheOldHomeModernBoth() {
         log.info("Entering testCacheOldHomeModernBoth");
         gcc.clear();
-        final GeoCodeItem entry1 = gcc.find("Old Home",
-                "3341 Chaucer Lane, Bethlehem, PA, USA");
-        final GeoCodeItem entry2 = gcc.find("Old Home",
-                "3341 Chaucer Lane, Bethlehem, PA, USA");
+        final GeoCodeItem entry1 = gcc.find("Old Home", "3341 Chaucer Lane, Bethlehem, PA, USA");
+        final GeoCodeItem entry2 = gcc.find("Old Home", "3341 Chaucer Lane, Bethlehem, PA, USA");
         assertEquals(entry1, entry2, "Should be equal");
     }
 
@@ -238,8 +230,7 @@ public final class GeoCodeTest {
         log.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
         final GeoCodeItem entry1 = gcc.find("Old Home");
-        final GeoCodeItem entry2 = gcc.find("Old Home",
-                "3341 Chaucer Lane, Bethlehem, PA, USA");
+        final GeoCodeItem entry2 = gcc.find("Old Home", "3341 Chaucer Lane, Bethlehem, PA, USA");
         assertNotEquals(entry1, entry2, "Should NOT be equal");
     }
 
@@ -258,8 +249,7 @@ public final class GeoCodeTest {
     public void testCacheOldHomeBroken() {
         log.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
-        final GeoCodeItem entry1 = gcc
-                .add(new GeoCodeItem("Old Home", "Blah Blah"));
+        final GeoCodeItem entry1 = gcc.add(new GeoCodeItem("Old Home", "Blah Blah"));
         final GeoCodeItem entry2 = gcc.find("Old Home", "Blah Blah");
         assertEquals(entry1, entry2, "Should be equal");
     }
@@ -269,10 +259,9 @@ public final class GeoCodeTest {
     public void testCacheOldHomeAddThenFind() {
         log.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
-        final GeoCodeItem entry1 = gcc.add(new GeoCodeItem("Old Home",
-                "3341 Chaucer Lane, Bethlehem, PA"));
-        final GeoCodeItem entry2 = gcc.find("Old Home",
-                "3341 Chaucer Lane, Bethlehem, PA");
+        final GeoCodeItem entry1 = gcc
+            .add(new GeoCodeItem("Old Home", "3341 Chaucer Lane, Bethlehem, PA"));
+        final GeoCodeItem entry2 = gcc.find("Old Home", "3341 Chaucer Lane, Bethlehem, PA");
         assertNotEquals(entry1, entry2, "Should NOT be equal");
     }
 
@@ -281,8 +270,7 @@ public final class GeoCodeTest {
     public void testCacheAddThenFind() {
         log.info("Entering testCacheOldHomeModernChange");
         gcc.clear();
-        final GeoCodeItem entry1 = gcc
-                .add(new GeoCodeItem("3341 Chaucer Lane, Bethlehem, PA"));
+        final GeoCodeItem entry1 = gcc.add(new GeoCodeItem("3341 Chaucer Lane, Bethlehem, PA"));
         final GeoCodeItem entry2 = gcc.find("3341 Chaucer Lane, Bethlehem, PA");
         assertNotEquals(entry1, entry2, "Should NOT be equal");
     }
@@ -306,7 +294,7 @@ public final class GeoCodeTest {
         gcc.add(new GeoCodeItem("At Sea"));
         final Collection<String> keys = gcc.allKeys();
         assertTrue(keys.contains("Old Home") && keys.contains("At Sea"),
-                "Should contain both items");
+            "Should contain both items");
     }
 
     /** */
@@ -337,8 +325,7 @@ public final class GeoCodeTest {
         log.info("Entering testCacheOldHomeModernSet");
         gcc.clear();
         gcc.find("Old Home");
-        final GeoCodeItem entry2 = gcc.find("Old Home",
-                "3341 Chaucer Lane, Bethlehem, PA, USA");
+        final GeoCodeItem entry2 = gcc.find("Old Home", "3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeoCodeItem entry3 = gcc.find("Old Home");
         assertEquals(entry2, entry3, "Should be equal");
     }
@@ -348,8 +335,7 @@ public final class GeoCodeTest {
     public void testCacheOldHomeLocationResultNotNull() {
         log.info("Entering testCacheOldHomeLocation");
         gcc.clear();
-        final GeoCodeItem entry = gcc.find("Old Home",
-                "3341 Chaucer Lane, Bethlehem, PA, USA");
+        final GeoCodeItem entry = gcc.find("Old Home", "3341 Chaucer Lane, Bethlehem, PA, USA");
         final GeocodingResult geocodingResult = entry.getGeocodingResult();
         assertNotNull(geocodingResult, "geocoding result should not be null");
     }
@@ -359,12 +345,12 @@ public final class GeoCodeTest {
     public void testCacheOldHomeLocationResultMatch() {
         log.info("Entering testCacheOldHomeLocation");
         gcc.clear();
-        final GeoCodeItem entry = gcc.find("Old Home",
-                "3341 Chaucer Lane, Bethlehem, PA, USA");
+        final GeoCodeItem entry = gcc.find("Old Home", "3341 Chaucer Lane, Bethlehem, PA, USA");
         final LatLng expected = new LatLng(40.65800200, -75.40644300);
         final GeocodingResult geocodingResult = entry.getGeocodingResult();
         final LatLng actual = geocodingResult.geometry.location;
-        assertEquals(expected.toString(), actual.toString(), "there was a result, but the lat/long was wrong");
+        assertEquals(expected.toString(), actual.toString(),
+            "there was a result, but the lat/long was wrong");
     }
 
     /** */
@@ -373,8 +359,7 @@ public final class GeoCodeTest {
         log.info("Entering testNotFounds");
         gcc.clear();
         testFixture.loadTestAddresses();
-        final List<String> expectList = Arrays
-                .asList(testFixture.expectedNotFound());
+        final List<String> expectList = Arrays.asList(testFixture.expectedNotFound());
         final Collection<String> expected = new HashSet<>(expectList);
         final Collection<String> actual = gcc.notFoundKeys();
         assertTrue(compareNotFound(expected, actual), "Some differences in not found sets");
@@ -386,8 +371,7 @@ public final class GeoCodeTest {
         log.info("Entering testNotFounds");
         gcc.clear();
         loader.load(getTestFileAsStream());
-        final List<String> expectList = Arrays
-                .asList(testFixture.expectedNotFound());
+        final List<String> expectList = Arrays.asList(testFixture.expectedNotFound());
         final Collection<String> expected = new HashSet<>(expectList);
         final Collection<String> actual = gcc.notFoundKeys();
         assertTrue(compareNotFound(expected, actual), "Some differences in not found sets");
@@ -399,8 +383,7 @@ public final class GeoCodeTest {
         log.info("Entering testNotFounds");
         gcc.clear();
         loader.load(getTestFileName());
-        final List<String> expectList = Arrays
-                .asList(testFixture.expectedNotFound());
+        final List<String> expectList = Arrays.asList(testFixture.expectedNotFound());
         final Collection<String> expected = new HashSet<>(expectList);
         final Collection<String> actual = gcc.notFoundKeys();
         assertTrue(compareNotFound(expected, actual), "Some differences in not found sets");
@@ -413,7 +396,8 @@ public final class GeoCodeTest {
         gcc.clear();
         loader.load(getTestFileAsStream());
         final GeoCodeItem item = gcc.get("At Sea");
-        assertEquals("Atlantic Ocean", item.getModernPlaceName(), "Failure indicates a parsing problem");
+        assertEquals("Atlantic Ocean", item.getModernPlaceName(),
+            "Failure indicates a parsing problem");
     }
 
     /** */
@@ -423,7 +407,8 @@ public final class GeoCodeTest {
         gcc.clear();
         loader.load(getTestFileName());
         final GeoCodeItem item = gcc.get("At Sea");
-        assertEquals("Atlantic Ocean", item.getModernPlaceName(), "Failure indicates a parsing problem");
+        assertEquals("Atlantic Ocean", item.getModernPlaceName(),
+            "Failure indicates a parsing problem");
     }
 
     /** */
@@ -530,7 +515,7 @@ public final class GeoCodeTest {
         loader.load(dummyFileName);
         final int expected = 0;
         assertEquals(expected, gcc.size(),
-                "Should be 0 because of file not found, was: " + gcc.size());
+            "Should be 0 because of file not found, was: " + gcc.size());
     }
 
     /** */
@@ -541,7 +526,7 @@ public final class GeoCodeTest {
         loader.loadAndFind(dummyFileName);
         final int expected = 0;
         assertEquals(expected, gcc.size(),
-                "Should be 0 because of file not found, was: " + gcc.size());
+            "Should be 0 because of file not found, was: " + gcc.size());
     }
 
     /** */
@@ -600,15 +585,15 @@ public final class GeoCodeTest {
     }
 
     /**
-     * Check that all entries in expected are also in actual. There may be more
-     * in actual than expected because Google is inconsistent.
+     * Check that all entries in expected are also in actual. There may be more in
+     * actual than expected because Google is inconsistent.
      *
      * @param expected set of keys we expect Google to not find
-     * @param actual keys that Google didn't find
+     * @param actual   keys that Google didn't find
      * @return true if all keys in expected are present in actual
      */
     private boolean compareNotFound(final Collection<String> expected,
-            final Collection<String> actual) {
+        final Collection<String> actual) {
         boolean retval = true;
         for (final String check : expected) {
             if (!actual.contains(check)) {

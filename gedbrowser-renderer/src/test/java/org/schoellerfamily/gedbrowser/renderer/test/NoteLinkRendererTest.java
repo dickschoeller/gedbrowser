@@ -41,53 +41,59 @@ public final class NoteLinkRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testAttributeListOpenRenderer() {
         final NoteLinkRenderer renderer = createRenderer();
-        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
+        assertTrue(
+            renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testListItemRenderer() {
         final NoteLinkRenderer renderer = createRenderer();
-        assertTrue(renderer.getListItemRenderer() instanceof NoteLinkListItemRenderer, "Wrong renderer type");
+        assertTrue(renderer.getListItemRenderer() instanceof NoteLinkListItemRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameHtmlRenderer() {
         final NoteLinkRenderer renderer = createRenderer();
-        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameIndexRenderer() {
         final NoteLinkRenderer renderer = createRenderer();
-        assertTrue(renderer.getNameIndexRenderer() instanceof NoteLinkNameIndexRenderer, "Wrong renderer type");
+        assertTrue(renderer.getNameIndexRenderer() instanceof NoteLinkNameIndexRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testPhraseRenderer() {
         final NoteLinkRenderer renderer = createRenderer();
-        assertTrue(renderer.getPhraseRenderer() instanceof NoteLinkPhraseRenderer, "Wrong renderer type");
+        assertTrue(renderer.getPhraseRenderer() instanceof NoteLinkPhraseRenderer,
+            "Wrong renderer type");
     }
 
     /**
@@ -105,8 +111,8 @@ public final class NoteLinkRendererTest {
     @Test
     public void testNoteLinkCobweb() {
         final NoteLinkRenderer renderer = new NoteLinkRenderer(
-                new NoteLink(null, "notelink", new ObjectId("N1")),
-                new GedRendererFactory(), anonymousContext);
+            new NoteLink(null, "notelink", new ObjectId("N1")), new GedRendererFactory(),
+            anonymousContext);
         assertEquals("N1", renderer.getIndexName(), "Index name mismatch");
     }
 
@@ -114,7 +120,6 @@ public final class NoteLinkRendererTest {
      * @return the renderer
      */
     private NoteLinkRenderer createRenderer() {
-        return new NoteLinkRenderer(new NoteLink(),
-                new GedRendererFactory(), anonymousContext);
+        return new NoteLinkRenderer(new NoteLink(), new GedRendererFactory(), anonymousContext);
     }
 }

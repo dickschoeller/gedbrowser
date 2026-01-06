@@ -18,8 +18,8 @@ public final class Backup {
     }
 
     /**
-     * Save the existing version of the file by renaming it to something ending
-     * with .&lt;number&gt;.
+     * Save the existing version of the file by renaming it to something ending with
+     * .&lt;number&gt;.
      *
      * @param filename the full path to create
      * @throws IOException if the rename fails
@@ -30,7 +30,8 @@ public final class Backup {
             final File backupFile = generateBackupFilename(filename);
             log.debug("backing up file from {} to {}", filename, backupFile.getName());
             if (!dest.renameTo(backupFile)) {
-                throw new IOException("Could not rename file from %s to %s".formatted(dest.getName(), backupFile.getName()));
+                throw new IOException("Could not rename file from %s to %s"
+                    .formatted(dest.getName(), backupFile.getName()));
             }
         }
     }

@@ -20,7 +20,7 @@ public class UsersReaderTest {
         System.getProperty("user.dir") + "/src/test/resources") + "/testUserFile.csv";
 
     @Test
-    public void test() {
+    void test() {
         final Users<User> users = readUserFile(TEST_USER_FILE_CSV);
         final int expected = 2;
         final int actual = users.size();
@@ -28,7 +28,7 @@ public class UsersReaderTest {
     }
 
     @Test
-    public void testBadFile() {
+    void testBadFile() {
         final Users<User> users = readUserFile("foo.bar");
         final int expected = 1;
         final int actual = users.size();

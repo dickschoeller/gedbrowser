@@ -68,36 +68,33 @@ public class NoteRepositoryTest {
     /** */
     @Test
     public void testN1() {
-        final NoteDocument famdoc = noteDocumentRepository.
-                findByFileAndString(root.getFilename(), "N1");
-        final Note note =
-                (Note) toObjConverter.createGedObject(root, famdoc);
+        final NoteDocument famdoc = noteDocumentRepository.findByFileAndString(root.getFilename(),
+            "N1");
+        final Note note = (Note) toObjConverter.createGedObject(root, famdoc);
         assertEquals("N1", note.getString(), "Id mismatch");
     }
 
     /** */
     @Test
     public void testN1Root() {
-        final NoteDocument famdoc = noteDocumentRepository.
-                findByRootAndString(rootDocument, "N1");
-        final Note note =
-                (Note) toObjConverter.createGedObject(root, famdoc);
+        final NoteDocument famdoc = noteDocumentRepository.findByRootAndString(rootDocument, "N1");
+        final Note note = (Note) toObjConverter.createGedObject(root, famdoc);
         assertEquals("N1", note.getString(), "Id mismatch");
     }
 
     /** */
     @Test
     public void testBogus() {
-        final NoteDocument famdoc = noteDocumentRepository.
-                findByFileAndString(root.getFilename(), "N999999");
+        final NoteDocument famdoc = noteDocumentRepository.findByFileAndString(root.getFilename(),
+            "N999999");
         assertNull(famdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     public void testBogusRoot() {
-        final NoteDocument famdoc = noteDocumentRepository.
-                findByRootAndString(rootDocument, "N999999");
+        final NoteDocument famdoc = noteDocumentRepository.findByRootAndString(rootDocument,
+            "N999999");
         assertNull(famdoc, "Bogus request should return null");
     }
 
@@ -110,14 +107,14 @@ public class NoteRepositoryTest {
     /** */
     @Test
     public void testCountFilename() {
-        assertEquals(NOTE_COUNT, noteDocumentRepository.count(rootDocument.getFilename()), "Should be 3 notes");
+        assertEquals(NOTE_COUNT, noteDocumentRepository.count(rootDocument.getFilename()),
+            "Should be 3 notes");
     }
 
     /** */
     @Test
     public void testFindAllRoot() {
-        final Iterable<NoteDocument> list =
-                noteDocumentRepository.findAll(rootDocument);
+        final Iterable<NoteDocument> list = noteDocumentRepository.findAll(rootDocument);
         int count = 0;
         for (final NoteDocument note : list) {
             checkEquals("Type string mismatch", "note", note.getType());
@@ -129,8 +126,8 @@ public class NoteRepositoryTest {
     /** */
     @Test
     public void testFindAllFilename() {
-        final Iterable<NoteDocument> list =
-                noteDocumentRepository.findAll(rootDocument.getFilename());
+        final Iterable<NoteDocument> list = noteDocumentRepository
+            .findAll(rootDocument.getFilename());
         int count = 0;
         for (final NoteDocument note : list) {
             checkEquals("Type string mismatch", "note", note.getType());
@@ -149,12 +146,11 @@ public class NoteRepositoryTest {
     /**
      * Wrapper for assertion to bypass PMD check.
      *
-     * @param message the identifying message for the AssertionError (null okay)
+     * @param message  the identifying message for the AssertionError (null okay)
      * @param expected expected value
-     * @param actual actual value
+     * @param actual   actual value
      */
-    private void checkEquals(final String message, final Object expected,
-            final Object actual) {
+    private void checkEquals(final String message, final Object expected, final Object actual) {
         assertEquals(expected, actual, message);
     }
 }

@@ -30,9 +30,9 @@ import org.springframework.web.client.RestClientException;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { Application.class, TestConfiguration.class },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@SpringBootTest(classes = { Application.class,
+    TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "null" })
 @AutoConfigureRestTestClient
 public class SourceControllerTest {
@@ -51,54 +51,31 @@ public class SourceControllerTest {
     /** */
     @Test
     public final void testReadSourcesGl120368() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowserng/v1/dbs/gl120368/sources";
+        final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/sources";
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .returnResult(String.class);
-        final String bodyFragment =
-                "[ {\n" + "  \"type\" : \"source\",\n"
-                + "  \"string\" : \"S1688\",\n"
-                + "  \"attributes\" : [ {\n"
-                + "    \"type\" : \"attribute\",\n"
-                + "    \"string\" : \"Author\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"Ancestry.com\"\n"
-                + "  }, {\n"
-                + "    \"type\" : \"attribute\",\n"
-                + "    \"string\" : \"Title\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"1841 England Census\"\n"
-                + "  }, {\n"
-                + "    \"type\" : \"attribute\",\n"
-                + "    \"string\" : \"Published\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"Provo, UT, USA: The Generations Network,"
-                + " Inc., 2006\"\n"
-                + "  }, {\n"
-                + "    \"type\" : \"notelink\",\n"
-                + "    \"string\" : \"N1350\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"\"\n"
-                + "  }, {\n"
-                + "    \"type\" : \"attribute\",\n"
-                + "    \"string\" : \"Changed\",\n"
-                + "    \"attributes\" : [ {\n"
-                + "      \"type\" : \"date\",\n"
-                + "      \"string\" : \"2 APR 2007\",\n"
-                + "      \"attributes\" : [ {\n"
-                + "        \"type\" : \"attribute\",\n"
-                + "        \"string\" : \"Time\",\n"
-                + "        \"attributes\" : [ ],\n"
-                + "        \"tail\" : \"21:26:46\"\n"
-                + "      } ],\n"
-                + "      \"tail\" : \"\"\n" + "    } ],\n"
-                + "    \"tail\" : \"\"\n" + "  } ],\n"
-                + "  \"images\" : [ ],\n"
-                + "  \"title\" : \"1841 England Census\"\n"
-                + "}, {";
+            .uri(URI.create(url))
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .returnResult(String.class);
+        final String bodyFragment = "[ {\n" + "  \"type\" : \"source\",\n"
+            + "  \"string\" : \"S1688\",\n" + "  \"attributes\" : [ {\n"
+            + "    \"type\" : \"attribute\",\n" + "    \"string\" : \"Author\",\n"
+            + "    \"attributes\" : [ ],\n" + "    \"tail\" : \"Ancestry.com\"\n" + "  }, {\n"
+            + "    \"type\" : \"attribute\",\n" + "    \"string\" : \"Title\",\n"
+            + "    \"attributes\" : [ ],\n" + "    \"tail\" : \"1841 England Census\"\n"
+            + "  }, {\n" + "    \"type\" : \"attribute\",\n" + "    \"string\" : \"Published\",\n"
+            + "    \"attributes\" : [ ],\n"
+            + "    \"tail\" : \"Provo, UT, USA: The Generations Network," + " Inc., 2006\"\n"
+            + "  }, {\n" + "    \"type\" : \"notelink\",\n" + "    \"string\" : \"N1350\",\n"
+            + "    \"attributes\" : [ ],\n" + "    \"tail\" : \"\"\n" + "  }, {\n"
+            + "    \"type\" : \"attribute\",\n" + "    \"string\" : \"Changed\",\n"
+            + "    \"attributes\" : [ {\n" + "      \"type\" : \"date\",\n"
+            + "      \"string\" : \"2 APR 2007\",\n" + "      \"attributes\" : [ {\n"
+            + "        \"type\" : \"attribute\",\n" + "        \"string\" : \"Time\",\n"
+            + "        \"attributes\" : [ ],\n" + "        \"tail\" : \"21:26:46\"\n"
+            + "      } ],\n" + "      \"tail\" : \"\"\n" + "    } ],\n" + "    \"tail\" : \"\"\n"
+            + "  } ],\n" + "  \"images\" : [ ],\n" + "  \"title\" : \"1841 England Census\"\n"
+            + "}, {";
         then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(entity.getResponseBody()).startsWith(bodyFragment);
     }
@@ -107,36 +84,24 @@ public class SourceControllerTest {
     @Test
     public final void testReadSourcesMiniSchoeller() {
         final String url = "http://localhost:" + port
-                + "/gedbrowserng/v1/dbs/mini-schoeller/sources";
+            + "/gedbrowserng/v1/dbs/mini-schoeller/sources";
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .returnResult(String.class);
-        final String bodyFragment =
-                "[ {\n" + "  \"type\" : \"source\",\n"
-                + "  \"string\" : \"S2\",\n"
-                + "  \"attributes\" : [ {\n"
-                + "    \"type\" : \"attribute\",\n"
-                + "    \"string\" : \"Title\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"Schoeller, Melissa Robinson, birth"
-                + " certificate\"\n"
-                + "  }, {\n"
-                + "    \"type\" : \"attribute\",\n"
-                + "    \"string\" : \"Abbreviation\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"SchoellerMelissaBirthCert\"\n"
-                + "  }, {\n"
-                + "    \"type\" : \"attribute\",\n"
-                + "    \"string\" : \"Note\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"We have the original of this document\"\n"
-                + "  } ],\n"
-                + "  \"images\" : [ ],\n"
-                + "  \"title\" : \"Schoeller, Melissa Robinson,"
-                + " birth certificate\"\n"
-                + "}, {";
+            .uri(URI.create(url))
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .returnResult(String.class);
+        final String bodyFragment = "[ {\n" + "  \"type\" : \"source\",\n"
+            + "  \"string\" : \"S2\",\n" + "  \"attributes\" : [ {\n"
+            + "    \"type\" : \"attribute\",\n" + "    \"string\" : \"Title\",\n"
+            + "    \"attributes\" : [ ],\n" + "    \"tail\" : \"Schoeller, Melissa Robinson, birth"
+            + " certificate\"\n" + "  }, {\n" + "    \"type\" : \"attribute\",\n"
+            + "    \"string\" : \"Abbreviation\",\n" + "    \"attributes\" : [ ],\n"
+            + "    \"tail\" : \"SchoellerMelissaBirthCert\"\n" + "  }, {\n"
+            + "    \"type\" : \"attribute\",\n" + "    \"string\" : \"Note\",\n"
+            + "    \"attributes\" : [ ],\n"
+            + "    \"tail\" : \"We have the original of this document\"\n" + "  } ],\n"
+            + "  \"images\" : [ ],\n" + "  \"title\" : \"Schoeller, Melissa Robinson,"
+            + " birth certificate\"\n" + "}, {";
         then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(entity.getResponseBody()).startsWith(bodyFragment);
     }
@@ -145,36 +110,24 @@ public class SourceControllerTest {
     @Test
     public final void testReadSourcesMiniSchoellerS2() {
         final String url = "http://localhost:" + port
-                + "/gedbrowserng/v1/dbs/mini-schoeller/sources/S2";
+            + "/gedbrowserng/v1/dbs/mini-schoeller/sources/S2";
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .returnResult(String.class);
-        final String bodyFragment =
-                "{\n"
-                + "  \"type\" : \"source\",\n"
-                + "  \"string\" : \"S2\",\n"
-                + "  \"attributes\" : [ {\n"
-                + "    \"type\" : \"attribute\",\n"
-                + "    \"string\" : \"Title\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"Schoeller, Melissa Robinson, birth"
-                + " certificate\"\n"
-                + "  }, {\n"
-                + "    \"type\" : \"attribute\",\n"
-                + "    \"string\" : \"Abbreviation\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"SchoellerMelissaBirthCert\"\n"
-                + "  }, {\n"
-                + "    \"type\" : \"attribute\",\n"
-                + "    \"string\" : \"Note\",\n"
-                + "    \"attributes\" : [ ],\n"
-                + "    \"tail\" : \"We have the original of this document\"\n"
-                + "  } ],\n" + "  \"images\" : [ ],\n"
-                + "  \"title\" : \"Schoeller, Melissa Robinson, birth"
-                + " certificate\"\n"
-                + "}";
+            .uri(URI.create(url))
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .returnResult(String.class);
+        final String bodyFragment = "{\n" + "  \"type\" : \"source\",\n"
+            + "  \"string\" : \"S2\",\n" + "  \"attributes\" : [ {\n"
+            + "    \"type\" : \"attribute\",\n" + "    \"string\" : \"Title\",\n"
+            + "    \"attributes\" : [ ],\n" + "    \"tail\" : \"Schoeller, Melissa Robinson, birth"
+            + " certificate\"\n" + "  }, {\n" + "    \"type\" : \"attribute\",\n"
+            + "    \"string\" : \"Abbreviation\",\n" + "    \"attributes\" : [ ],\n"
+            + "    \"tail\" : \"SchoellerMelissaBirthCert\"\n" + "  }, {\n"
+            + "    \"type\" : \"attribute\",\n" + "    \"string\" : \"Note\",\n"
+            + "    \"attributes\" : [ ],\n"
+            + "    \"tail\" : \"We have the original of this document\"\n" + "  } ],\n"
+            + "  \"images\" : [ ],\n" + "  \"title\" : \"Schoeller, Melissa Robinson, birth"
+            + " certificate\"\n" + "}";
         then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(entity.getResponseBody()).isEqualTo(bodyFragment);
     }
@@ -182,14 +135,13 @@ public class SourceControllerTest {
     /** */
     @Test
     public final void testReadSourcesMiniSchoellerXyzzy() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowserng/v1/dbs/mini-schoeller"
-                + "/sources/Xyzzy";
+        final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/mini-schoeller"
+            + "/sources/Xyzzy";
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create(url))
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .returnResult(String.class);
         then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
@@ -197,19 +149,21 @@ public class SourceControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testCreateSourcesSimple()
-            throws RestClientException {
-        final String url = "http://localhost:" + port
-                + "/gedbrowserng/v1/dbs/gl120368/sources";
+    public final void testCreateSourcesSimple() throws RestClientException {
+        final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/sources";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        final ApiSource reqBody = ApiSource.builder().type("source").string("").title("Unknown").build();
+        final ApiSource reqBody = ApiSource.builder()
+            .type("source")
+            .string("")
+            .title("Unknown")
+            .build();
         final EntityExchangeResult<ApiSource> entity = restTestClient.post()
-                .uri(URI.create(url))
-                .headers(h -> h.addAll(headers))
-                .body(reqBody)
-                .exchange()
-                .returnResult(ApiSource.class);
+            .uri(URI.create(url))
+            .headers(h -> h.addAll(headers))
+            .body(reqBody)
+            .exchange()
+            .returnResult(ApiSource.class);
         final ApiSource resBody = entity.getResponseBody();
         then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(resBody.getType()).isEqualTo(reqBody.getType());
@@ -219,23 +173,25 @@ public class SourceControllerTest {
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testDeleteSource()
-            throws RestClientException {
+    public final void testDeleteSource() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         // Create a family.
         // We want to be sure we know the structure of the family
         // we are modifying.
-        final String url = "http://localhost:" + port
-                + "/gedbrowserng/v1/dbs/gl120368/sources";
-        final ApiSource reqBody = ApiSource.builder().type("source").string("").title("Unknown").build();
+        final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/sources";
+        final ApiSource reqBody = ApiSource.builder()
+            .type("source")
+            .string("")
+            .title("Unknown")
+            .build();
         final EntityExchangeResult<ApiSource> sourceEntity = restTestClient.post()
-                .uri(URI.create(url))
-                .headers(h -> h.addAll(headers))
-                .body(reqBody)
-                .exchange()
-                .returnResult(ApiSource.class);
+            .uri(URI.create(url))
+            .headers(h -> h.addAll(headers))
+            .body(reqBody)
+            .exchange()
+            .returnResult(ApiSource.class);
         then(sourceEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         // Capture information about new source.
         final ApiSource resBody = sourceEntity.getResponseBody();
@@ -243,109 +199,115 @@ public class SourceControllerTest {
 
         final String deleteUrl = url + "/" + id;
         final EntityExchangeResult<ApiSource> preDeleteEntity = restTestClient.get()
-                .uri(URI.create(deleteUrl))
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .returnResult(ApiSource.class);
+            .uri(URI.create(deleteUrl))
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .returnResult(ApiSource.class);
         then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
-                .uri(URI.create(deleteUrl))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create(deleteUrl))
+            .exchange()
+            .returnResult(String.class);
         then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<ApiSource> postDeleteEntity = restTestClient.get()
-                .uri(URI.create(deleteUrl))
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .returnResult(ApiSource.class);
-        then(postDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+            .uri(URI.create(deleteUrl))
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .returnResult(ApiSource.class);
+        then(postDeleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testDeleteSourceNotFound()
-            throws RestClientException {
+    public final void testDeleteSourceNotFound() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         final String url = "http://localhost:" + port
-                + "/gedbrowserng/v1/dbs/gl120368/sources/XXXXXXX";
+            + "/gedbrowserng/v1/dbs/gl120368/sources/XXXXXXX";
         final EntityExchangeResult<ApiSource> preDeleteEntity = restTestClient.get()
-                .uri(URI.create(url))
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .returnResult(ApiSource.class);
-        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+            .uri(URI.create(url))
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .returnResult(ApiSource.class);
+        then(preDeleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
-        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
+        then(deleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testDeleteSubmitterDatabaseNotFound()
-            throws RestClientException {
+    public final void testDeleteSubmitterDatabaseNotFound() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        final String url = "http://localhost:" + port
-                + "/gedbrowserng/v1/dbs/XYZZY/sources/SUBM1";
-        final org.springframework.test.web.servlet.client.EntityExchangeResult<ApiSource> preDeleteEntity = restTestClient.get()
-                .uri(URI.create(url))
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .returnResult(ApiSource.class);
-        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        final org.springframework.test.web.servlet.client.EntityExchangeResult<String> deleteEntity = restTestClient.delete()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
-        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/XYZZY/sources/SUBM1";
+        final EntityExchangeResult<ApiSource> preDeleteEntity = restTestClient.get()
+            .uri(URI.create(url))
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .returnResult(ApiSource.class);
+        then(preDeleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
+        then(deleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
      * @throws RestClientException if we can't talk to rest server
      */
     @Test
-    public final void testUpdateSourceWithNote()
-            throws RestClientException {
-        final String url = "http://localhost:" + port
-                + "/gedbrowserng/v1/dbs/gl120368/sources";
+    public final void testUpdateSourceWithNote() throws RestClientException {
+        final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/sources";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        final List<ApiAttribute> attributes = List.of(
-                ApiAttribute.builder().type("attribute").string("Note").tail("first note").build());
-        final ApiSource reqBody = ApiSource.builder().type("source").string("").attributes(attributes)
-                .title("Unknown").build();
-        final org.springframework.test.web.servlet.client.EntityExchangeResult<ApiSource> entity = restTestClient.post()
-                .uri(URI.create(url))
-                .headers(h -> h.addAll(headers))
-                .body(reqBody)
-                .exchange()
-                .returnResult(ApiSource.class);
+        final List<ApiAttribute> attributes = List
+            .of(ApiAttribute.builder().type("attribute").string("Note").tail("first note").build());
+        final ApiSource reqBody = ApiSource.builder()
+            .type("source")
+            .string("")
+            .attributes(attributes)
+            .title("Unknown")
+            .build();
+        final EntityExchangeResult<ApiSource> entity = restTestClient.post()
+            .uri(URI.create(url))
+            .headers(h -> h.addAll(headers))
+            .body(reqBody)
+            .exchange()
+            .returnResult(ApiSource.class);
         final ApiSource resBody = entity.getResponseBody();
         then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(resBody.getType()).isEqualTo(reqBody.getType());
 
-        final ApiAttribute aNote =
-                ApiAttribute.builder().type("attribute").string("Note").tail("this is a note").build();
-        final ApiSource putBody = resBody.toBuilder()
-        		.attribute(aNote)
-				.build();
-        final org.springframework.test.web.servlet.client.EntityExchangeResult<ApiSource> putResponseEntity = restTestClient.put()
-                .uri(URI.create(url + "/" + putBody.getString()))
-                .body(putBody)
-                .exchange()
-                .returnResult(ApiSource.class);
+        final ApiAttribute aNote = ApiAttribute.builder()
+            .type("attribute")
+            .string("Note")
+            .tail("this is a note")
+            .build();
+        final ApiSource putBody = resBody.toBuilder().attribute(aNote).build();
+        final EntityExchangeResult<ApiSource> putResponseEntity = restTestClient.put()
+            .uri(URI.create(url + "/" + putBody.getString()))
+            .body(putBody)
+            .exchange()
+            .returnResult(ApiSource.class);
         assertEquals(aNote,
-                java.util.Optional.ofNullable(putResponseEntity.getResponseBody())
-                        .map(b -> b.getAttributes().get(1)).orElse(null),
-                "attribute should be present");
+            java.util.Optional.ofNullable(putResponseEntity.getResponseBody())
+                .map(b -> b.getAttributes().get(1))
+                .orElse(null),
+            "attribute should be present");
     }
 }

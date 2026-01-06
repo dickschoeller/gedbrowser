@@ -102,7 +102,7 @@ public class ReaderWriterTest {
      * @throws Exception on IO/read errors
      */
     @Test
-    public void testLines() throws Exception {
+    void testLines() throws Exception {
         final List<String[]> parameters = data();
         for (final String[] param : parameters) {
             final String expected = param[0];

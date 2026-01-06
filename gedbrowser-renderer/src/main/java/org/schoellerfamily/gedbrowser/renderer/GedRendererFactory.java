@@ -42,37 +42,58 @@ public final class GedRendererFactory {
      * Dispatcher for factory.
      */
     private static Map<Class<?>, RendererBuilder> builders = Map.ofEntries(
-        Map.entry((Class<?>)Husband.class, (RendererBuilder)(g, f, r) -> new HusbandRenderer((Husband) g, f, r)),
-        Map.entry((Class<?>)Wife.class, (RendererBuilder)(g, f, r) -> new WifeRenderer((Wife) g, f, r)),
-        Map.entry((Class<?>)Person.class, (RendererBuilder)(g, f, r) -> new PersonRenderer((Person) g, f, r)),
-        Map.entry((Class<?>)Place.class, (RendererBuilder)(g, f, r) -> new PlaceRenderer((Place) g, f, r)),
-        Map.entry((Class<?>)Note.class, (RendererBuilder)(g, f, r) -> new NoteRenderer((Note) g, f, r)),
-        Map.entry((Class<?>)NoteLink.class, (RendererBuilder)(g, f, r) -> new NoteLinkRenderer((NoteLink) g, f, r)),
-        Map.entry((Class<?>)Attribute.class, (RendererBuilder)(g, f, r) -> new AttributeRenderer((Attribute) g, f, r)),
-        Map.entry((Class<?>)Multimedia.class, (RendererBuilder)(g, f, r) -> new MultimediaRenderer((Multimedia) g, f, r)),
-        Map.entry((Class<?>)Child.class, (RendererBuilder)(g, f, r) -> new ChildRenderer((Child) g, f, r)),
-        Map.entry((Class<?>)Date.class, (RendererBuilder)(g, f, r) -> new DateRenderer((Date) g, f, r)),
-        Map.entry((Class<?>)FamC.class, (RendererBuilder)(g, f, r) -> new FamCRenderer((FamC) g, f, r)),
-        Map.entry((Class<?>)Family.class, (RendererBuilder)(g, f, r) -> new FamilyRenderer((Family) g, f, r)),
-        Map.entry((Class<?>)FamS.class, (RendererBuilder)(g, f, r) -> new FamSRenderer((FamS) g, f, r)),
-        Map.entry((Class<?>)Head.class, (RendererBuilder)(g, f, r) -> new HeadRenderer((Head) g, f, r)),
-        Map.entry((Class<?>)Root.class, (RendererBuilder)(g, f, r) -> new RootRenderer((Root) g, f, r)),
-        Map.entry((Class<?>)Source.class, (RendererBuilder)(g, f, r) -> new SourceRenderer((Source) g, f, r)),
-        Map.entry((Class<?>)SourceLink.class, (RendererBuilder)(g, f, r) -> new SourceLinkRenderer((SourceLink) g, f, r)),
-        Map.entry((Class<?>)Submission.class, (RendererBuilder)(g, f, r) -> new SubmissionRenderer((Submission) g, f, r)),
-        Map.entry((Class<?>)SubmissionLink.class, (RendererBuilder)(g, f, r) -> new SubmissionLinkRenderer((SubmissionLink) g, f, r)),
-        Map.entry((Class<?>)Submitter.class, (RendererBuilder)(g, f, r) -> new SubmitterRenderer((Submitter) g, f, r)),
-        Map.entry((Class<?>)SubmitterLink.class, (RendererBuilder)(g, f, r) -> new SubmitterLinkRenderer((SubmitterLink) g, f, r)),
-        Map.entry((Class<?>)Trailer.class, (RendererBuilder)(g, f, r) -> new TrailerRenderer((Trailer) g, f, r)),
-        Map.entry((Class<?>)Link.class, (RendererBuilder)(g, f, r) -> new LinkRenderer((Link) g, f, r)),
-        Map.entry((Class<?>)Name.class, (RendererBuilder)(g, f, r) -> {
-            if (g.getParent() != null
-                    && g.getParent().getClass().equals(Submitter.class)) {
+        Map.entry((Class<?>) Husband.class,
+            (RendererBuilder) (g, f, r) -> new HusbandRenderer((Husband) g, f, r)),
+        Map.entry((Class<?>) Wife.class,
+            (RendererBuilder) (g, f, r) -> new WifeRenderer((Wife) g, f, r)),
+        Map.entry((Class<?>) Person.class,
+            (RendererBuilder) (g, f, r) -> new PersonRenderer((Person) g, f, r)),
+        Map.entry((Class<?>) Place.class,
+            (RendererBuilder) (g, f, r) -> new PlaceRenderer((Place) g, f, r)),
+        Map.entry((Class<?>) Note.class,
+            (RendererBuilder) (g, f, r) -> new NoteRenderer((Note) g, f, r)),
+        Map.entry((Class<?>) NoteLink.class,
+            (RendererBuilder) (g, f, r) -> new NoteLinkRenderer((NoteLink) g, f, r)),
+        Map.entry((Class<?>) Attribute.class,
+            (RendererBuilder) (g, f, r) -> new AttributeRenderer((Attribute) g, f, r)),
+        Map.entry((Class<?>) Multimedia.class,
+            (RendererBuilder) (g, f, r) -> new MultimediaRenderer((Multimedia) g, f, r)),
+        Map.entry((Class<?>) Child.class,
+            (RendererBuilder) (g, f, r) -> new ChildRenderer((Child) g, f, r)),
+        Map.entry((Class<?>) Date.class,
+            (RendererBuilder) (g, f, r) -> new DateRenderer((Date) g, f, r)),
+        Map.entry((Class<?>) FamC.class,
+            (RendererBuilder) (g, f, r) -> new FamCRenderer((FamC) g, f, r)),
+        Map.entry((Class<?>) Family.class,
+            (RendererBuilder) (g, f, r) -> new FamilyRenderer((Family) g, f, r)),
+        Map.entry((Class<?>) FamS.class,
+            (RendererBuilder) (g, f, r) -> new FamSRenderer((FamS) g, f, r)),
+        Map.entry((Class<?>) Head.class,
+            (RendererBuilder) (g, f, r) -> new HeadRenderer((Head) g, f, r)),
+        Map.entry((Class<?>) Root.class,
+            (RendererBuilder) (g, f, r) -> new RootRenderer((Root) g, f, r)),
+        Map.entry((Class<?>) Source.class,
+            (RendererBuilder) (g, f, r) -> new SourceRenderer((Source) g, f, r)),
+        Map.entry((Class<?>) SourceLink.class,
+            (RendererBuilder) (g, f, r) -> new SourceLinkRenderer((SourceLink) g, f, r)),
+        Map.entry((Class<?>) Submission.class,
+            (RendererBuilder) (g, f, r) -> new SubmissionRenderer((Submission) g, f, r)),
+        Map.entry((Class<?>) SubmissionLink.class,
+            (RendererBuilder) (g, f, r) -> new SubmissionLinkRenderer((SubmissionLink) g, f, r)),
+        Map.entry((Class<?>) Submitter.class,
+            (RendererBuilder) (g, f, r) -> new SubmitterRenderer((Submitter) g, f, r)),
+        Map.entry((Class<?>) SubmitterLink.class,
+            (RendererBuilder) (g, f, r) -> new SubmitterLinkRenderer((SubmitterLink) g, f, r)),
+        Map.entry((Class<?>) Trailer.class,
+            (RendererBuilder) (g, f, r) -> new TrailerRenderer((Trailer) g, f, r)),
+        Map.entry((Class<?>) Link.class,
+            (RendererBuilder) (g, f, r) -> new LinkRenderer((Link) g, f, r)),
+        Map.entry((Class<?>) Name.class, (RendererBuilder) (g, f, r) -> {
+            if (g.getParent() != null && g.getParent().getClass().equals(Submitter.class)) {
                 return new SimpleNameRenderer((Name) g, f, r);
             }
             return new NameRenderer((Name) g, f, r);
         }));
-    
 
     /**
      * Interface for builders for the factory.
@@ -81,47 +102,43 @@ public final class GedRendererFactory {
      */
     private interface RendererBuilder {
         /**
-         * @param gedObject a gedobject to render
-         * @param factory the factory that we're working with
+         * @param gedObject        a gedobject to render
+         * @param factory          the factory that we're working with
          * @param renderingContext the current rendering context
          * @return the appropriate renderer
          */
-        GedRenderer<? extends GedObject> build(
-                GedObject gedObject,
-                GedRendererFactory factory,
-                RenderingContext renderingContext);
+        GedRenderer<? extends GedObject> build(GedObject gedObject, GedRendererFactory factory,
+            RenderingContext renderingContext);
     }
 
     /**
      * Creates the appropriate renderer for the GedObject provided.
      *
      * @param gedObject the GedObject to be rendered
-     * @param provider provides information about "today"
-     * @param appInfo provides the information about the application
+     * @param provider  provides information about "today"
+     * @param appInfo   provides the information about the application
      * @return the renderer
      */
     public GedRenderer<? extends GedObject> create(final GedObject gedObject,
-            final CalendarProvider provider, final ApplicationInfo appInfo) {
+        final CalendarProvider provider, final ApplicationInfo appInfo) {
         return create(gedObject, RenderingContext.anonymous(appInfo, provider));
     }
 
     /**
      * Creates the appropriate renderer for the GedObject provided.
      *
-     * @param gedObject the GedObject to be rendered
+     * @param gedObject        the GedObject to be rendered
      * @param renderingContext the user context we are rendering in
      * @return the renderer
      */
-    public GedRenderer<? extends GedObject> create(
-            final GedObject gedObject,
-            final RenderingContext renderingContext) {
+    public GedRenderer<? extends GedObject> create(final GedObject gedObject,
+        final RenderingContext renderingContext) {
         if (gedObject != null) {
             final RendererBuilder builder = builders.get(gedObject.getClass());
             if (builder != null) {
                 return builder.build(gedObject, this, renderingContext);
             }
         }
-        return new DefaultRenderer(
-                gedObject, this, renderingContext);
+        return new DefaultRenderer(gedObject, this, renderingContext);
     }
 }

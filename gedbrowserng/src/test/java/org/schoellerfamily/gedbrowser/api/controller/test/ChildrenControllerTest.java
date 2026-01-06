@@ -32,9 +32,9 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { Application.class, TestConfiguration.class },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@SpringBootTest(classes = { Application.class,
+    TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = { "management.port=0" })
 @Slf4j
 @AutoConfigureRestTestClient
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
@@ -72,8 +72,8 @@ public class ChildrenControllerTest {
         log.info("famc: {}", child.getFamcs().get(0).getString());
 
         final ApiPerson gotParent = helper.getPerson(parent);
-        assertEquals(child.getFamcs().get(0).getString(),
-                gotParent.getFamss().get(0).getString(), "Child should be in family");
+        assertEquals(child.getFamcs().get(0).getString(), gotParent.getFamss().get(0).getString(),
+            "Child should be in family");
     }
 
     /**
@@ -91,20 +91,21 @@ public class ChildrenControllerTest {
         final String familiesUrl = helper.getFamiliesUrl() + "/" + famID;
         // Use RestTestClient to put the child into the family
         restTestClient.put()
-                .uri(URI.create(familiesUrl + "/children"))
-                .headers(h -> h.addAll(helper.getHeaders()))
-                .body(secondChild)
-                .exchange()
-                .returnResult(ApiFamily.class);
+            .uri(URI.create(familiesUrl + "/children"))
+            .headers(h -> h.addAll(helper.getHeaders()))
+            .body(secondChild)
+            .exchange()
+            .returnResult(ApiFamily.class);
         final EntityExchangeResult<ApiFamily> familyEntity = restTestClient.get()
-                .uri(URI.create(familiesUrl))
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .returnResult(ApiFamily.class);
+            .uri(URI.create(familiesUrl))
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .returnResult(ApiFamily.class);
         assertEquals(secondChild.getString(),
-                java.util.Optional.ofNullable(familyEntity.getResponseBody())
-                        .map(b -> b.getChildren().get(1).getString()).orElse(null),
-                "check ID");
+            java.util.Optional.ofNullable(familyEntity.getResponseBody())
+                .map(b -> b.getChildren().get(1).getString())
+                .orElse(null),
+            "check ID");
 
     }
 
@@ -118,19 +119,18 @@ public class ChildrenControllerTest {
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = helper.createPerson();
         final EntityExchangeResult<ApiPerson> childEntity = restTestClient.put()
-                .uri(URI.create(helper.getPersonsUrl() + "/" + parent.getString()
-                        + "/children"))
-                .headers(h -> h.addAll(headers))
-                .body(child)
-                .exchange()
-                .returnResult(ApiPerson.class);
+            .uri(URI.create(helper.getPersonsUrl() + "/" + parent.getString() + "/children"))
+            .headers(h -> h.addAll(headers))
+            .body(child)
+            .exchange()
+            .returnResult(ApiPerson.class);
         final ApiPerson gotChild = childEntity.getResponseBody();
         then(gotChild.getString()).isEqualTo(child.getString());
         then(gotChild.getFamcs().size()).isEqualTo(1);
         final ApiPerson gotParent = helper.getPerson(parent);
         then(gotParent.getFamss().size()).isEqualTo(1);
         assertEquals(gotParent.getFamss().get(0).getString(),
-                gotChild.getFamcs().get(0).getString(), "check ids");
+            gotChild.getFamcs().get(0).getString(), "check ids");
     }
 
     /**
@@ -144,11 +144,10 @@ public class ChildrenControllerTest {
         final ApiPerson child = createChildOfParent(parent);
         log.info("famc: {}", child.getFamcs().get(0).getString());
 
-
         restTestClient.delete()
-                .uri(URI.create(familiesUrl + "/" + child.getFamcs().get(0).getString()
-                        + "/children/" + child.getString()))
-                .exchange();
+            .uri(URI.create(familiesUrl + "/" + child.getFamcs().get(0).getString() + "/children/"
+                + child.getString()))
+            .exchange();
         final ApiPerson gotChild = helper.getPerson(child);
         assertEquals(0, gotChild.getFamcs().size(), "not in family");
     }
@@ -158,17 +157,16 @@ public class ChildrenControllerTest {
      * @return the child
      */
     private ApiPerson createChildOfParent(final ApiPerson parent) {
-        final String childUrl = helper.getPersonsUrl() + "/"
-                + parent.getString() + "/children";
+        final String childUrl = helper.getPersonsUrl() + "/" + parent.getString() + "/children";
         log.info("childUrl: {}", childUrl);
         final ApiPerson childReqBody = helper.buildPerson();
         final EntityExchangeResult<ApiPerson> childEntity = restTestClient.post()
-                .uri(URI.create(childUrl))
-                .headers(h -> h.addAll(helper.getHeaders()))
-                .body(childReqBody)
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .returnResult(ApiPerson.class);
+            .uri(URI.create(childUrl))
+            .headers(h -> h.addAll(helper.getHeaders()))
+            .body(childReqBody)
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .returnResult(ApiPerson.class);
         then(childEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final ApiPerson child = childEntity.getResponseBody();
         return child;

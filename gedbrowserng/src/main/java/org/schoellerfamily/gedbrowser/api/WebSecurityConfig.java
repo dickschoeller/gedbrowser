@@ -53,10 +53,10 @@ public class WebSecurityConfig {
     private final TokenHelper tokenHelper;
 
     /** */
-	private final UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-	/** */
-	@Value("${server.servlet.context-path:/gedbrowserng}")
+    /** */
+    @Value("${server.servlet.context-path:/gedbrowserng}")
     private String contextPath;
 
     /** */
@@ -72,33 +72,41 @@ public class WebSecurityConfig {
      */
     @Bean
     public TokenAuthenticationFilter jwtAuthenticationTokenFilter() {
-      return new TokenAuthenticationFilter(tokenHelper, userDetailsService);
+        return new TokenAuthenticationFilter(tokenHelper, userDetailsService);
     }
 
     /**
-     * Register a DaoAuthenticationProvider so AuthenticationManager can use
-     * the provided UserDetailsService and PasswordEncoder.
+     * Register a DaoAuthenticationProvider so AuthenticationManager can use the
+     * provided UserDetailsService and PasswordEncoder.
+     *
+     * @param passwordEncoder the password encoder
+     * @return the authentication provider
      */
     @Bean
-    public DaoAuthenticationProvider authenticationProvider(
-            final PasswordEncoder passwordEncoder) {
-        final DaoAuthenticationProvider provider = new DaoAuthenticationProvider(jwtUserDetailsService);
+    public DaoAuthenticationProvider authenticationProvider(final PasswordEncoder passwordEncoder) {
+        final DaoAuthenticationProvider provider = new DaoAuthenticationProvider(
+            jwtUserDetailsService);
         provider.setPasswordEncoder(passwordEncoder);
         return provider;
     }
 
     /**
      * Expose the AuthenticationManager from AuthenticationConfiguration.
+     *
+     * @param authenticationConfiguration the authentication configuration
+     * @return the authentication manager
      */
     @Bean
     public AuthenticationManager authenticationManager(
-            final AuthenticationConfiguration authenticationConfiguration)
-            throws Exception {
+        final AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
     /**
      * Configure the security filter chain using the modern approach.
+     *
+     * @param http the http security object
+     * @return the security filter chain
      */
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
@@ -106,29 +114,31 @@ public class WebSecurityConfig {
         final HttpSecurity configured = configureCsrf(http);
 
         configured
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .sessionManagement(
+                session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .exceptionHandling(ex -> ex.authenticationEntryPoint(restAuthenticationEntryPoint))
             // Add the JWT filter before the basic authentication filter
             .addFilterBefore(jwtAuthenticationTokenFilter(), BasicAuthenticationFilter.class)
-            // Use the newer authorizeHttpRequests API instead of deprecated authorizeRequests
+            // Use the newer authorizeHttpRequests API instead of deprecated
+            // authorizeRequests
             .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
             // Configure form login with handlers
-            .formLogin(form -> form
-                    .loginProcessingUrl("/v1/login")
-                    .successHandler(authenticationSuccessHandler)
-                    .failureHandler(authenticationFailureHandler))
+            .formLogin(form -> form.loginProcessingUrl("/v1/login")
+                .successHandler(authenticationSuccessHandler)
+                .failureHandler(authenticationFailureHandler))
             // Configure logout
             .logout(logout -> logout
-                    .logoutRequestMatcher(PathPatternRequestMatcher.withDefaults().matcher("/v1/logout"))
-                    .logoutSuccessHandler(logoutSuccess)
-                    .deleteCookies(cookie));
+                .logoutRequestMatcher(
+                    PathPatternRequestMatcher.withDefaults().matcher("/v1/logout"))
+                .logoutSuccessHandler(logoutSuccess)
+                .deleteCookies(cookie));
 
         return configured.build();
     }
 
     /**
-     * Work from the http security object and enable or disable CSRF handling,
-     * as requested in the application properties.
+     * Work from the http security object and enable or disable CSRF handling, as
+     * requested in the application properties.
      *
      * @param http the http security object
      * @return the http security object
@@ -143,13 +153,12 @@ public class WebSecurityConfig {
             // for endpoints that should be ignored by CSRF protection and set a
             // CookieCsrfTokenRepository with HttpOnly disabled for client access.
             http.csrf(csrf -> csrf
-                    .ignoringRequestMatchers(
-                            PathPatternRequestMatcher.withDefaults().matcher("/v1/login"),
-                            PathPatternRequestMatcher.withDefaults().matcher("/v1/signup"),
-                            PathPatternRequestMatcher.withDefaults().matcher("/gedbrowserng/v1/login"),
-                            PathPatternRequestMatcher.withDefaults().matcher("/gedbrowserng/v1/signup"))
-                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-            );
+                .ignoringRequestMatchers(
+                    PathPatternRequestMatcher.withDefaults().matcher("/v1/login"),
+                    PathPatternRequestMatcher.withDefaults().matcher("/v1/signup"),
+                    PathPatternRequestMatcher.withDefaults().matcher("/gedbrowserng/v1/login"),
+                    PathPatternRequestMatcher.withDefaults().matcher("/gedbrowserng/v1/signup"))
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
         }
         return http;
     }

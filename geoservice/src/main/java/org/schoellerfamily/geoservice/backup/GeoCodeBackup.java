@@ -32,6 +32,8 @@ public class GeoCodeBackup {
 
     /**
      * Constructor.
+     *
+     * @param gcd a geocode
      */
     public GeoCodeBackup(final GeoCode gcd) {
         this.gcd = gcd;

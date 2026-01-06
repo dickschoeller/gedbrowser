@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class LogBeanInstantiationProcessor implements BeanPostProcessor {
+public final class LogBeanInstantiationProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessBeforeInitialization(

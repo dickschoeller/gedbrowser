@@ -114,7 +114,7 @@ public interface FinderObject
      * @param clazz the type we're looking for
      * @return the collection of objects of the type
      */
-    default <T extends GedObject> Collection<T> findInParent(Class<T> clazz) {
+    default <T extends GedObject> Collection<T> findInParent(final Class<T> clazz) {
         return getParent().find(clazz);
     }
 }

@@ -16,7 +16,8 @@ import org.schoellerfamily.gedbrowser.reader.GedLine;
 public class CreateGedLineTest {
 
     /**
-     * Parameter source for tests
+     * Parameter source for tests.
+     *
      * @return stream of arguments
      */
     public static Stream<Arguments> params() {

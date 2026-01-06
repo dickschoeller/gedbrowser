@@ -11,31 +11,30 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 public class ObjectNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 3L;
 
-    /** Object ID */
+    /** Object ID. */
     private final String id;
 
-    /** Dataset name */
+    /** Dataset name. */
     private final String datasetName;
 
-    /** Rendering context */
+    /** Rendering context. */
     private final RenderingContext context;
 
     /**
      * Constructor.
      *
-     * @param message the message to display
-     * @param id the ID of the object not found
+     * @param message     the message to display
+     * @param id          the ID of the object not found
      * @param datasetName the name of the dataset being searched
-     * @param context the rendering context
+     * @param context     the rendering context
      */
-    public ObjectNotFoundException(final String message, final String id,
-            final String datasetName, final RenderingContext context) {
+    public ObjectNotFoundException(final String message, final String id, final String datasetName,
+        final RenderingContext context) {
         super(message);
         this.id = id;
         this.datasetName = datasetName;
         this.context = context;
     }
-
 
     /**
      * Get the ID of the person that was not found.

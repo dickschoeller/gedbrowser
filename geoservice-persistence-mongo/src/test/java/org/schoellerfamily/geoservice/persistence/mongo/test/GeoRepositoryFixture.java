@@ -12,7 +12,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings("null")
 public final class GeoRepositoryFixture extends GeoCodeTestFixture {
     /** */
     @Autowired

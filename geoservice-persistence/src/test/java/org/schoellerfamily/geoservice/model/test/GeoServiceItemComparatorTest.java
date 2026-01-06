@@ -32,17 +32,15 @@ public class GeoServiceItemComparatorTest extends GeocodeChecker {
         final double swLat = 5.00;
         final double swLng = 25.00;
         final LngLatAlt southwest = new LngLatAlt(swLng, swLat);
-        final Feature viewport = GeoServiceBounds.createBounds("viewport",
-                southwest, northeast);
-        final FeatureCollection geometry = GeoServiceGeometry
-                .createFeatureCollection(null, null, null, viewport);
-        bgr = new GeoServiceGeocodingResult(
-                null, null, null, geometry, null, false, null);
+        final Feature viewport = GeoServiceBounds.createBounds("viewport", southwest, northeast);
+        final FeatureCollection geometry = GeoServiceGeometry.createFeatureCollection(null, null,
+            null, viewport);
+        bgr = new GeoServiceGeocodingResult(null, null, null, geometry, null, false, null);
     }
 
     /** */
     @Test
-    public void testCompareEqualExceptForName0() {
+    void testCompareEqualExceptForName0() {
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoServiceItem item1 = new GeoServiceItem("XYZZY", "ZZZZZ", bgr);
         final GeoServiceItemComparator c = new GeoServiceItemComparator();
@@ -51,7 +49,7 @@ public class GeoServiceItemComparatorTest extends GeocodeChecker {
 
     /** */
     @Test
-    public void testCompareEqualExceptForName2() {
+    void testCompareEqualExceptForName2() {
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoServiceItem item1 = new GeoServiceItem("ZZZZZ", "ZZZZZ", bgr);
         final GeoServiceItemComparator c = new GeoServiceItemComparator();
@@ -60,7 +58,7 @@ public class GeoServiceItemComparatorTest extends GeocodeChecker {
 
     /** */
     @Test
-    public void testCompareEqualExceptForName3() {
+    void testCompareEqualExceptForName3() {
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoServiceItem item1 = new GeoServiceItem("ZZZZZ", "ZZZZZ", bgr);
         final GeoServiceItemComparator c = new GeoServiceItemComparator();
@@ -69,7 +67,7 @@ public class GeoServiceItemComparatorTest extends GeocodeChecker {
 
     /** */
     @Test
-    public void testCompareEqualExceptForName1() {
+    void testCompareEqualExceptForName1() {
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoServiceItem item1 = new GeoServiceItem("XYZZY", "ZZZZZ", bgr);
         final GeoServiceItemComparator c = new GeoServiceItemComparator();
@@ -78,7 +76,7 @@ public class GeoServiceItemComparatorTest extends GeocodeChecker {
 
     /** */
     @Test
-    public void testCompareDifferentExceptForName() {
+    void testCompareDifferentExceptForName() {
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoServiceItem item1 = new GeoServiceItem("XYZZY", "PLUGH", null);
         final GeoServiceItemComparator c = new GeoServiceItemComparator();
@@ -87,7 +85,7 @@ public class GeoServiceItemComparatorTest extends GeocodeChecker {
 
     /** */
     @Test
-    public void testCompareDifferentExceptForModernName() {
+    void testCompareDifferentExceptForModernName() {
         // Really only tracks "modern" name for sorting
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
         final GeoServiceItem item1 = new GeoServiceItem("ZZZZZ", "PLUGH", null);

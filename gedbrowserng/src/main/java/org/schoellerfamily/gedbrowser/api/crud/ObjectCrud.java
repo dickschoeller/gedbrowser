@@ -8,7 +8,7 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
  * @author Dick Scholler
  * @param <Z> the type of object operated on
  */
-public interface ObjectCrud <Z extends ApiObject> {
+public interface ObjectCrud<Z extends ApiObject> {
     /**
      * @param db the name of the db to access
      * @param object the data for the object

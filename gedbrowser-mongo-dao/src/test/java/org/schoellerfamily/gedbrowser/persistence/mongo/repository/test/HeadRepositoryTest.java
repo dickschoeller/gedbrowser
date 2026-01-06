@@ -21,8 +21,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PersonDocumentMon
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SourceDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
-import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
@@ -31,7 +31,6 @@ import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 
 /**
  * @author Dick Schoeller
@@ -110,55 +109,55 @@ public final class HeadRepositoryTest {
 
     /** */
     @Test
-    public void test() {
-        final HeadDocument headdoc = headDocumentRepository.
-                findByFileAndString(root.getFilename(), HEADER_STRING);
+    void test() {
+        final HeadDocument headdoc = headDocumentRepository.findByFileAndString(root.getFilename(),
+            HEADER_STRING);
         final Head head = (Head) toObjConverter.createGedObject(root, headdoc);
         assertEquals(HEADER_STRING, head.getString(), "Expected header string");
     }
 
     /** */
     @Test
-    public void testRoot() {
-        final HeadDocument headdoc = headDocumentRepository.
-                findByRootAndString(rootDocument, HEADER_STRING);
+    void testRoot() {
+        final HeadDocument headdoc = headDocumentRepository.findByRootAndString(rootDocument,
+            HEADER_STRING);
         final Head head = (Head) toObjConverter.createGedObject(root, headdoc);
         assertEquals(HEADER_STRING, head.getString(), "Expected header string");
     }
 
     /** */
     @Test
-    public void testBogus() {
-        final HeadDocument headdoc = headDocumentRepository.
-                findByFileAndString(root.getFilename(), "BOGUS");
+    void testBogus() {
+        final HeadDocument headdoc = headDocumentRepository.findByFileAndString(root.getFilename(),
+            "BOGUS");
         assertNull(headdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
-    public void testBogusRoot() {
-        final HeadDocument headdoc = headDocumentRepository.
-                findByRootAndString(rootDocument, "BOGUS");
+    void testBogusRoot() {
+        final HeadDocument headdoc = headDocumentRepository.findByRootAndString(rootDocument,
+            "BOGUS");
         assertNull(headdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
-    public void testCountRoot() {
+    void testCountRoot() {
         assertEquals(1, headDocumentRepository.count(rootDocument), "Should only be one head");
     }
 
     /** */
     @Test
-    public void testCountFilename() {
-        assertEquals(1, headDocumentRepository.count(rootDocument.getFilename()), "Should only be one head");
+    void testCountFilename() {
+        assertEquals(1, headDocumentRepository.count(rootDocument.getFilename()),
+            "Should only be one head");
     }
 
     /** */
     @Test
-    public void testFindAllRoot() {
-        final Iterable<HeadDocument> list =
-                headDocumentRepository.findAll(rootDocument);
+    void testFindAllRoot() {
+        final Iterable<HeadDocument> list = headDocumentRepository.findAll(rootDocument);
         int count = 0;
         for (final HeadDocument trailer : list) {
             trailer.getType();
@@ -169,9 +168,9 @@ public final class HeadRepositoryTest {
 
     /** */
     @Test
-    public void testFindAllFilename() {
-        final Iterable<HeadDocument> list =
-                headDocumentRepository.findAll(rootDocument.getFilename());
+    void testFindAllFilename() {
+        final Iterable<HeadDocument> list = headDocumentRepository
+            .findAll(rootDocument.getFilename());
         int count = 0;
         for (final HeadDocument trailer : list) {
             trailer.getType();
@@ -182,7 +181,7 @@ public final class HeadRepositoryTest {
 
     /** */
     @Test
-    public void testLastId() {
+    void testLastId() {
         final String string = headDocumentRepository.lastId(rootDocument);
         assertEquals("", string, "");
     }

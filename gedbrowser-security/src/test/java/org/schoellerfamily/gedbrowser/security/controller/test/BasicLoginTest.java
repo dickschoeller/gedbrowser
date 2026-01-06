@@ -24,11 +24,13 @@ import org.springframework.web.client.RestClientException;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class,
+@SpringBootTest(
+    classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
-public class BasicLoginTest {
+public final class BasicLoginTest {
+    /** */
     @Autowired
     private RestTestClient restTestClient;
 
@@ -43,46 +45,27 @@ public class BasicLoginTest {
      */
     private LoginTestHelper helper;
 
-    /**
-     * Initialize the login helper.
-     */
     @BeforeEach
-    public void before() {
+    void setUp() {
         helper = new LoginTestHelper(restTestClient, port);
     }
 
-    /**
-     * @throws RestClientException the there is a restful exception
-     * @throws URISyntaxException if the URL is bad
-     */
     @Test
-    public final void testLoginController()
-            throws RestClientException, URISyntaxException {
-        final EntityExchangeResult<LoginResponse> response =
-                helper.login("guest", "guest");
+    void testLoginController() throws RestClientException, URISyntaxException {
+        final EntityExchangeResult<LoginResponse> response = helper.login("guest", "guest");
         assertEquals(HttpStatus.OK, response.getStatus(), "Mismatched login status");
         helper.logout(helper.buildHeaders(response));
     }
 
-    /**
-     * @throws RestClientException the there is a restful exception
-     * @throws URISyntaxException if the URL is bad
-     */
     @Test
-    public final void testLoginControllerBadUser()
-            throws RestClientException, URISyntaxException {
-        assertEquals(HttpStatus.UNAUTHORIZED,
-                helper.login("XYZZY", "guest").getStatus(), "Mismatched login status");
+    void testLoginControllerBadUser() throws RestClientException, URISyntaxException {
+        assertEquals(HttpStatus.UNAUTHORIZED, helper.login("XYZZY", "guest").getStatus(),
+            "Mismatched login status");
     }
 
-    /**
-     * @throws RestClientException the there is a restful exception
-     * @throws URISyntaxException if the URL is bad
-     */
     @Test
-    public final void testLoginControllerBadPassword()
-            throws RestClientException, URISyntaxException {
-        assertEquals(HttpStatus.UNAUTHORIZED,
-                helper.login("guest", "XYZZY").getStatus(), "Mismatched login status");
+    void testLoginControllerBadPassword() throws RestClientException, URISyntaxException {
+        assertEquals(HttpStatus.UNAUTHORIZED, helper.login("guest", "XYZZY").getStatus(),
+            "Mismatched login status");
     }
 }

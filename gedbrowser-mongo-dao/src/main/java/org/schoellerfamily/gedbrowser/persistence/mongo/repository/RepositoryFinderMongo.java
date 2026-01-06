@@ -46,17 +46,11 @@ public final class RepositoryFinderMongo implements FinderStrategy {
     private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /**
-     * Ordered list of classes to process. This order represents the
-     * most likely search order.
+     * Ordered list of classes to process. This order represents the most likely
+     * search order.
      */
-    private static final List<Class<? extends GedObject>> CLASSES = List.of(
-        Person.class,
-        Family.class,
-        Source.class,
-        Head.class,
-        Note.class,
-        Submission.class,
-        Submitter.class,
+    private static final List<Class<? extends GedObject>> CLASSES = List.of(Person.class,
+        Family.class, Source.class, Head.class, Note.class, Submission.class, Submitter.class,
         Trailer.class);
 
     /**
@@ -77,21 +71,20 @@ public final class RepositoryFinderMongo implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public <T extends GedObject> T find(final FinderObject owner,
-            final String str, final Class<T> clazz) {
+    public <T extends GedObject> T find(final FinderObject owner, final String str,
+        final Class<T> clazz) {
         if (!(owner instanceof Root)) {
             throw new IllegalArgumentException("Owner must be root");
         }
-        final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
-            repo = repositoryManager.get(clazz);
+        final FindableDocument<? extends GedObject, ? extends GedDocument<?>> repo =
+            repositoryManager.get(clazz);
         if (repo == null) {
             return null;
         }
         final Root root = (Root) owner;
-        final RootDocumentMongo rootDocument =
-                (RootDocumentMongo) toDocConverter.createGedDocument(root);
-        final GedDocument<?> document =
-                repo.findByRootAndString(rootDocument, str);
+        final RootDocumentMongo rootDocument = (RootDocumentMongo) toDocConverter
+            .createGedDocument(root);
+        final GedDocument<?> document = repo.findByRootAndString(rootDocument, str);
         if (document == null) {
             return null;
         }
@@ -141,22 +134,21 @@ public final class RepositoryFinderMongo implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public Collection<Person> findBySurname(final FinderObject owner,
-            final String surname) {
+    public Collection<Person> findBySurname(final FinderObject owner, final String surname) {
         log.info("Starting findBySurname");
         if (!(owner instanceof Root)) {
             log.info("Ending findBySurname");
             return List.of();
         }
         final Root root = (Root) owner;
-        final RootDocumentMongo rootDocument =
-                (RootDocumentMongo) toDocConverter.createGedDocument(root);
-        final Collection<PersonDocument> personDocuments =
-                repositoryManager.getPersonDocumentRepository()
-                .findByRootAndSurname(rootDocument, surname);
+        final RootDocumentMongo rootDocument = (RootDocumentMongo) toDocConverter
+            .createGedDocument(root);
+        final Collection<PersonDocument> personDocuments = repositoryManager
+            .getPersonDocumentRepository()
+            .findByRootAndSurname(rootDocument, surname);
         final List<Person> persons = personDocuments.stream()
-                .map(PersonDocument::getGedObject)
-                .toList();
+            .map(PersonDocument::getGedObject)
+            .toList();
         log.info("Ending findBySurname");
         return persons;
     }
@@ -166,16 +158,16 @@ public final class RepositoryFinderMongo implements FinderStrategy {
      */
     @Override
     public Collection<String> findBySurnamesBeginWith(final FinderObject owner,
-            final String beginsWith) {
+        final String beginsWith) {
         log.info("Starting findBySurnamesBeginWith");
         final Set<String> surnames = new TreeSet<>();
         if (owner instanceof Root) {
             final Root root = (Root) owner;
-            final RootDocumentMongo rootDocument =
-                    (RootDocumentMongo) toDocConverter.createGedDocument(root);
-            final Collection<PersonDocument> personDocuments =
-                    repositoryManager.getPersonDocumentRepository()
-                    .findByRootAndSurnameBeginsWith(rootDocument, beginsWith);
+            final RootDocumentMongo rootDocument = (RootDocumentMongo) toDocConverter
+                .createGedDocument(root);
+            final Collection<PersonDocument> personDocuments = repositoryManager
+                .getPersonDocumentRepository()
+                .findByRootAndSurnameBeginsWith(rootDocument, beginsWith);
             for (final PersonDocument personDocument : personDocuments) {
                 surnames.add(personDocument.getSurname());
             }
@@ -188,20 +180,18 @@ public final class RepositoryFinderMongo implements FinderStrategy {
      * {@inheritDoc}
      */
     @Override
-    public Collection<String> findSurnameInitialLetters(
-            final FinderObject owner) {
+    public Collection<String> findSurnameInitialLetters(final FinderObject owner) {
         log.info("Starting findSurnameInitialLetters");
         final Set<String> matches = new TreeSet<>();
         if (owner instanceof Root) {
             final Root root = (Root) owner;
-            final RootDocumentMongo rootDocument =
-                    (RootDocumentMongo) toDocConverter.createGedDocument(root);
-            final Iterable<PersonDocument> personDocuments =
-                    repositoryManager.getPersonDocumentRepository().
-                        findAll(rootDocument);
+            final RootDocumentMongo rootDocument = (RootDocumentMongo) toDocConverter
+                .createGedDocument(root);
+            final Iterable<PersonDocument> personDocuments = repositoryManager
+                .getPersonDocumentRepository()
+                .findAll(rootDocument);
             for (final PersonDocument personDocument : personDocuments) {
-                final String firstLetter = personDocument.getSurname()
-                        .substring(0, 1);
+                final String firstLetter = personDocument.getSurname().substring(0, 1);
                 matches.add(firstLetter);
             }
         }
@@ -215,19 +205,20 @@ public final class RepositoryFinderMongo implements FinderStrategy {
     @SuppressWarnings("unchecked")
     @Override
     public <T extends GedObject> Collection<T> find(final FinderObject owner,
-            final Class<T> clazz) {
+        final Class<T> clazz) {
         log.info("Starting find all of type");
         if (!(owner instanceof Root)) {
             throw new IllegalArgumentException("Owner must be root");
         }
-        final FindableDocument<? extends GedObject, ? extends GedDocument<?>>
-            repo = repositoryManager.get(clazz);
+        final FindableDocument<? extends GedObject, ? extends GedDocument<?>> repo =
+            repositoryManager.get(clazz);
         if (repo == null) {
             return null;
         }
-        final RootDocumentMongo rootDocument = (RootDocumentMongo)
-                toDocConverter.createGedDocument((Root) owner);
-        final Collection<T> matches = StreamSupport.stream(repo.findAll(rootDocument).spliterator(), false)
+        final RootDocumentMongo rootDocument = (RootDocumentMongo) toDocConverter
+            .createGedDocument((Root) owner);
+        final Collection<T> matches = StreamSupport
+            .stream(repo.findAll(rootDocument).spliterator(), false)
             .map(document -> (T) document.getGedObject())
             .toList();
         log.info("Ending find all of type");

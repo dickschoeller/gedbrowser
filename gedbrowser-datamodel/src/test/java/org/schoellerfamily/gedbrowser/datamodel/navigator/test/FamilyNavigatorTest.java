@@ -32,12 +32,9 @@ public final class FamilyNavigatorTest {
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         family1 = builder.createFamily("F1");
-        person1 = builder.createPerson(
-                "I1", "J. Random/Schoeller/");
-        person2 = builder.createPerson(
-                "I2", "Anonymous/Schoeller/");
-        person3 = builder.createPerson(
-                "I3", "Anonymous/Jones/");
+        person1 = builder.createPerson("I1", "J. Random/Schoeller/");
+        person2 = builder.createPerson("I2", "Anonymous/Schoeller/");
+        person3 = builder.createPerson("I3", "Anonymous/Jones/");
         final Family family = family1;
         final Person person = person1;
         builder.addHusbandToFamily(family, person);
@@ -82,7 +79,8 @@ public final class FamilyNavigatorTest {
     public void testGetChildren() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         final List<Person> children = navigator.getChildren();
-        assertTrue(children.contains(person3) && children.size() == 1, "Expected child to be in children");
+        assertTrue(children.contains(person3) && children.size() == 1,
+            "Expected child to be in children");
     }
 
     /** */

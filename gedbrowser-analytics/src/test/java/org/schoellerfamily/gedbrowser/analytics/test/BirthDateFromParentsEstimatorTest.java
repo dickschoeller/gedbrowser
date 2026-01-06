@@ -78,7 +78,8 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
     public void testFromBirthWithOnlyMarriage() {
         final Family family = family1;
         builder.createFamilyEvent(family, "Marriage", "10 MAY 1960");
-        assertNull(estimator.estimateFromBirth(null), "Should be null because no dates available to use");
+        assertNull(estimator.estimateFromBirth(null),
+            "Should be null because no dates available to use");
     }
 
     /** */
@@ -99,8 +100,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         builder.addChildToFamily(family, child1);
         builder.addHusbandToFamily(family, father);
         builder.createPersonEvent(father, "Birth", "1 JAN 1935");
-        final BirthDateFromParentsEstimator e =
-                new BirthDateFromParentsEstimator(child1);
+        final BirthDateFromParentsEstimator e = new BirthDateFromParentsEstimator(child1);
         final LocalDate expected = new LocalDate(1962, 1, 1);
         assertMatch(expected, e.estimateFromBirth(null));
     }
@@ -124,8 +124,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         builder.addChildToFamily(family, child1);
         builder.addWifeToFamily(family, mother);
         builder.createPersonEvent(mother, "Birth", "1 JAN 1939");
-        final BirthDateFromParentsEstimator e =
-                new BirthDateFromParentsEstimator(child1);
+        final BirthDateFromParentsEstimator e = new BirthDateFromParentsEstimator(child1);
         final LocalDate expected = new LocalDate(1966, 1, 1);
         assertMatch(expected, e.estimateFromBirth(null));
     }
@@ -136,8 +135,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         final Person child1 = createJRandom();
         final Family family = builder.createFamily("F1");
         builder.addChildToFamily(family, child1);
-        final BirthDateFromParentsEstimator e =
-                new BirthDateFromParentsEstimator(child1);
+        final BirthDateFromParentsEstimator e = new BirthDateFromParentsEstimator(child1);
         assertNull(e.estimateFromBirth(null), "Should not get a date without parents");
     }
 
@@ -185,8 +183,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         builder.addChildToFamily(family, child2);
         builder.addHusbandToFamily(family, father);
         builder.addWifeToFamily(family, mother);
-        final BirthDateFromParentsEstimator e =
-                new BirthDateFromParentsEstimator(child2);
+        final BirthDateFromParentsEstimator e = new BirthDateFromParentsEstimator(child2);
         final LocalDate expected = new LocalDate(1964, 5, 1);
         assertMatch(expected, e.estimateFromMarriage(null));
     }
@@ -204,8 +201,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         builder.addChildToFamily(family, child2);
         builder.addHusbandToFamily(family, father);
         builder.addWifeToFamily(family, mother);
-        final BirthDateFromParentsEstimator e =
-                new BirthDateFromParentsEstimator(child1);
+        final BirthDateFromParentsEstimator e = new BirthDateFromParentsEstimator(child1);
         final LocalDate expected = new LocalDate(1962, 5, 1);
         assertMatch(expected, e.estimateFromMarriage(null));
     }
@@ -255,28 +251,25 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         final Family family = builder.createFamily("F1");
         builder.addChildToFamily(family, child1);
         builder.createFamilyEvent(family, "Marriage", "10 MAY 1960");
-        final BirthDateFromParentsEstimator e =
-                new BirthDateFromParentsEstimator(child1);
+        final BirthDateFromParentsEstimator e = new BirthDateFromParentsEstimator(child1);
         final LocalDate expected = new LocalDate(1962, 5, 1);
         assertMatch(expected, e.estimateFromMarriage(null));
     }
 
     /**
      * @param expected expected date
-     * @param actual actual date
+     * @param actual   actual date
      */
     private void assertMatch(final LocalDate expected, final LocalDate actual) {
-        assertTrue(expected.isEqual(actual),
-            mismatchString(expected, actual));
+        assertTrue(expected.isEqual(actual), mismatchString(expected, actual));
     }
 
     /**
      * @param expected expected date
-     * @param actual actual date
+     * @param actual   actual date
      * @return string describing the mismatch
      */
-    private String mismatchString(final LocalDate expected,
-            final LocalDate actual) {
+    private String mismatchString(final LocalDate expected, final LocalDate actual) {
         return "Don't match! expected: " + expected + ", actual: " + actual;
     }
 }

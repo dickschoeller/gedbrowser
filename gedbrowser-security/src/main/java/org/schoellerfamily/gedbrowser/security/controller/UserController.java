@@ -1,11 +1,10 @@
 package org.schoellerfamily.gedbrowser.security.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.List;
 import java.util.Map;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 import org.schoellerfamily.gedbrowser.security.exception.ResourceConflictException;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -35,7 +35,10 @@ public class UserController {
     private final UserService userService;
 
     /**
-     * @param username the username
+     * Load a user identified by the user name.
+     *
+     * @param request the http request
+     * @param username the user name
      * @return the user object
      */
     @RequestMapping(method = GET, value = "/users/{username:.+}")
@@ -46,6 +49,9 @@ public class UserController {
     }
 
     /**
+     * Load all of the users.
+     *
+     * @param request the http request
      * @return a list of all users
      */
     @RequestMapping(method = GET, value = "/users")
@@ -55,6 +61,8 @@ public class UserController {
     }
 
     /**
+     * Reset all user credentials.
+     *
      * @return a result map
      */
     @RequestMapping(method = GET, value = "/reset-credentials")
@@ -64,6 +72,8 @@ public class UserController {
     }
 
     /**
+     * Add a new user.
+     *
      * @param userRequest the description of the requested user
      * @param ucBuilder uri builder
      * @return the new user

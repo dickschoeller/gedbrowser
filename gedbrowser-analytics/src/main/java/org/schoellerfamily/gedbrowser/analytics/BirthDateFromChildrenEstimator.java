@@ -21,6 +21,7 @@ public final class BirthDateFromChildrenEstimator extends Estimator {
 
     /**
      * Constructor.
+     *
      * @param person the person whose dates we are estimating
      */
     public BirthDateFromChildrenEstimator(final Person person) {
@@ -29,6 +30,8 @@ public final class BirthDateFromChildrenEstimator extends Estimator {
     }
 
     /**
+     * Estimate from all children data.
+     *
      * @param localDate if not null we already have a better estimate
      * @return estimated date from children's births
      */
@@ -67,6 +70,8 @@ public final class BirthDateFromChildrenEstimator extends Estimator {
     }
 
     /**
+     * Estimate from ancestors of spouses of children.
+     *
      * @param localDate if not null we already have a better estimate
      * @return estimate from ancestors of spouses of children
      */
@@ -95,6 +100,8 @@ public final class BirthDateFromChildrenEstimator extends Estimator {
     }
 
     /**
+     * Estimate from spouses' ancestors.
+     *
      * @param bde the estimator for this person
      * @param localDate the input date estimate
      * @return the new estimate
@@ -105,6 +112,8 @@ public final class BirthDateFromChildrenEstimator extends Estimator {
     }
 
     /**
+     * Estimate from a child.
+     *
      * @param bde the estimator for this child
      * @return the new estimate
      */

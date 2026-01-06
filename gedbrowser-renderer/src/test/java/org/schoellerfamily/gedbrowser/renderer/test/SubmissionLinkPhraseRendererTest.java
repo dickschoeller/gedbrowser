@@ -38,9 +38,7 @@ public final class SubmissionLinkPhraseRendererTest {
     /** */
     @BeforeEach
     public void init() {
-        /** */
         final Root root = new Root("Root");
-        /** */
         final Head head = new Head(root, "Head");
         root.insert(head);
 

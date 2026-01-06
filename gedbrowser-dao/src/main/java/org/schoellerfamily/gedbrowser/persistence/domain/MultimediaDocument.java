@@ -20,7 +20,7 @@ public interface MultimediaDocument extends GedDocument<Multimedia> {
      * {@inheritDoc}
      */
     @Override
-    default void accept(GedDocumentVisitor visitor) {
+    default void accept(final GedDocumentVisitor visitor) {
         visitor.visit(this);
     }
 }

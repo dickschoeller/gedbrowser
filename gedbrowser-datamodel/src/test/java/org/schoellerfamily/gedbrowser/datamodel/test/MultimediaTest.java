@@ -32,49 +32,41 @@ public final class MultimediaTest {
     @BeforeEach
     public void setUp() {
         builder = new GedObjectBuilder();
-        person1 = builder.createPerson(
-                "I1", "J. Random/Schoeller/");
-        final Person person2 = builder.createPerson(
-                "I2", "Anonymous/Schoeller/");
-        final Person person3 = builder.createPerson(
-                "I3", "Anonymous/Jones/");
+        person1 = builder.createPerson("I1", "J. Random/Schoeller/");
+        final Person person2 = builder.createPerson("I2", "Anonymous/Schoeller/");
+        final Person person3 = builder.createPerson("I3", "Anonymous/Jones/");
         final Family family = builder.createFamily("F1");
         final Person person = person1;
         builder.addChildToFamily(family, person);
         builder.addHusbandToFamily(family, person2);
         builder.addWifeToFamily(family, person3);
         homeUrl = "http://www.schoellerfamily.org/";
-        filePathString = homeUrl + "images/genealogy/"
-                + "luckybag1924-john-a-hayes.jpg";
+        filePathString = homeUrl + "images/genealogy/" + "luckybag1924-john-a-hayes.jpg";
     }
 
     /** */
     @Test
     public void testBasicConstruct() {
-        final Multimedia mm = new Multimedia(
-                person1, "Multimedia", homeUrl);
+        final Multimedia mm = new Multimedia(person1, "Multimedia", homeUrl);
         assertEquals(homeUrl, mm.getTail(), "Mismatched tail");
     }
 
     /** */
     @Test
     public void testAppendString() {
-        final Multimedia mm =
-                builder.addMultimediaToPerson(
-                        person1, homeUrl);
+        final Multimedia mm = builder.addMultimediaToPerson(person1, homeUrl);
         mm.appendString("genealogy");
         assertEquals(homeUrl + "genealogy", mm.getTail(), "Mismatched tail");
     }
 
     /**
      * @param multimedia the multimedia object to test
-     * @param expParent the expected parent
-     * @param expString the expected string
-     * @param expTail the expected tail
+     * @param expParent  the expected parent
+     * @param expString  the expected string
+     * @param expTail    the expected tail
      */
-    private void assertMatch(final Multimedia multimedia,
-            final GedObject expParent, final String expString,
-            final String expTail) {
+    private void assertMatch(final Multimedia multimedia, final GedObject expParent,
+        final String expString, final String expTail) {
         assertEquals(expParent, multimedia.getParent(), "Parent mismatch");
         assertEquals(expString, multimedia.getString(), "String mismatch");
         assertEquals(expTail, multimedia.getTail(), "Tail mismatch");
@@ -135,11 +127,9 @@ public final class MultimediaTest {
     @Test
     public void testGetFilePathGood() {
         final Multimedia multimedia = new Multimedia();
-        final Attribute note =
-                new Attribute(multimedia, "Note", "A note");
+        final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
-        final Attribute filePath =
-                new Attribute(multimedia, "File", filePathString);
+        final Attribute filePath = new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "jpg");
         filePath.addAttribute(format);
@@ -156,11 +146,9 @@ public final class MultimediaTest {
     @Test
     public void testGetFileFormatGood() {
         final Multimedia multimedia = new Multimedia();
-        final Attribute note =
-                new Attribute(multimedia, "Note", "A note");
+        final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
-        final Attribute filePath =
-                new Attribute(multimedia, "File", filePathString);
+        final Attribute filePath = new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "jpg");
         filePath.addAttribute(format);
@@ -177,11 +165,9 @@ public final class MultimediaTest {
     @Test
     public void testGetFileFormatEmpty() {
         final Multimedia multimedia = new Multimedia();
-        final Attribute note =
-                new Attribute(multimedia, "Note", "A note");
+        final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
-        final Attribute filePath =
-                new Attribute(multimedia, "File", filePathString);
+        final Attribute filePath = new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final MultimediaVisitor visitor = new MultimediaVisitor();
         multimedia.accept(visitor);
@@ -201,11 +187,9 @@ public final class MultimediaTest {
     @Test
     public void testGetFileTitleGood1() {
         final Multimedia multimedia = new Multimedia();
-        final Attribute note =
-                new Attribute(multimedia, "Note", "A note");
+        final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
-        final Attribute filePath =
-                new Attribute(multimedia, "File", filePathString);
+        final Attribute filePath = new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "jpg");
         filePath.addAttribute(format);
@@ -222,11 +206,9 @@ public final class MultimediaTest {
     @Test
     public void testGetFileTitleGood2() {
         final Multimedia multimedia = new Multimedia();
-        final Attribute note =
-                new Attribute(multimedia, "Note", "A note");
+        final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
-        final Attribute filePath =
-                new Attribute(multimedia, "File", filePathString);
+        final Attribute filePath = new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "jpg");
         filePath.addAttribute(format);
@@ -252,11 +234,9 @@ public final class MultimediaTest {
     @Test
     public void testIsImageTrueJpg() {
         final Multimedia multimedia = new Multimedia();
-        final Attribute note =
-                new Attribute(multimedia, "Note", "A note");
+        final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
-        final Attribute filePath =
-                new Attribute(multimedia, "File", filePathString);
+        final Attribute filePath = new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "jpg");
         filePath.addAttribute(format);
@@ -273,11 +253,9 @@ public final class MultimediaTest {
     @Test
     public void testIsImageTrueGif() {
         final Multimedia multimedia = new Multimedia();
-        final Attribute note =
-                new Attribute(multimedia, "Note", "A note");
+        final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
-        final Attribute filePath =
-                new Attribute(multimedia, "File", filePathString);
+        final Attribute filePath = new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "gif");
         filePath.addAttribute(format);
@@ -294,11 +272,9 @@ public final class MultimediaTest {
     @Test
     public void testIsImageTruePng() {
         final Multimedia multimedia = new Multimedia();
-        final Attribute note =
-                new Attribute(multimedia, "Note", "A note");
+        final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
-        final Attribute filePath =
-                new Attribute(multimedia, "File", filePathString);
+        final Attribute filePath = new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "png");
         filePath.addAttribute(format);
@@ -315,11 +291,9 @@ public final class MultimediaTest {
     @Test
     public void testIsImageTrueTif() {
         final Multimedia multimedia = new Multimedia();
-        final Attribute note =
-                new Attribute(multimedia, "Note", "A note");
+        final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
-        final Attribute filePath =
-                new Attribute(multimedia, "File", filePathString);
+        final Attribute filePath = new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "tif");
         filePath.addAttribute(format);
@@ -336,11 +310,9 @@ public final class MultimediaTest {
     @Test
     public void testIsImageFalse() {
         final Multimedia multimedia = new Multimedia();
-        final Attribute note =
-                new Attribute(multimedia, "Note", "A note");
+        final Attribute note = new Attribute(multimedia, "Note", "A note");
         multimedia.addAttribute(note);
-        final Attribute filePath =
-                new Attribute(multimedia, "File", filePathString);
+        final Attribute filePath = new Attribute(multimedia, "File", filePathString);
         multimedia.addAttribute(filePath);
         final Attribute format = new Attribute(filePath, "Format", "html");
         filePath.addAttribute(format);

@@ -39,12 +39,9 @@ public final class FamSTest {
     @BeforeEach
     public void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        person1 = builder.createPerson(
-                "I1", "J. Random/Schoeller/");
-        person2 = builder.createPerson(
-                "I2", "Anonymous/Schoeller/");
-        person3 = builder.createPerson(
-                "I3", "Anonymous/Jones/");
+        person1 = builder.createPerson("I1", "J. Random/Schoeller/");
+        person2 = builder.createPerson("I2", "Anonymous/Schoeller/");
+        person3 = builder.createPerson("I3", "Anonymous/Jones/");
         family = builder.createFamily("F1");
         final Family family1 = family;
         final Person person = person1;
@@ -53,8 +50,7 @@ public final class FamSTest {
         // Because we are working directly with FamS can't use builder.
         famS2 = new FamS(person2, "FAMS", new ObjectId("F1"));
         person2.insert(famS2);
-        final Husband husband = new Husband(family, "Husband",
-                new ObjectId("I2"));
+        final Husband husband = new Husband(family, "Husband", new ObjectId("I2"));
         family.insert(husband);
 
         famS3 = new FamS(person3, "FAMS", new ObjectId("F1"));
@@ -81,7 +77,8 @@ public final class FamSTest {
     @Test
     public void testGetSpouseNotSetFromUnrelated() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
-        assertFalse(navigator.getSpouse(person1).isSet(), "Should be unset person when not from one of the spouses");
+        assertFalse(navigator.getSpouse(person1).isSet(),
+            "Should be unset person when not from one of the spouses");
     }
 
     /** */

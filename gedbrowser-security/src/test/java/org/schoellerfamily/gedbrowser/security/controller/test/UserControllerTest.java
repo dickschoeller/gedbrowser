@@ -39,11 +39,15 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+    classes = Application.class,
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @Slf4j
 @AutoConfigureRestTestClient
-public class UserControllerTest {
+public final class UserControllerTest {
+    /** */
+    private static final int MILLIS_PER_SECOND = 1000;
 
     /**
      * RestTestClient injected by Spring's test support.
@@ -80,31 +84,21 @@ public class UserControllerTest {
      */
     private UserTestHelper userHelper;
 
-    /**
-     * Initialize the helpers. Reset user file before.
-     */
     @BeforeEach
-    public void before() {
+    void setUp() {
         loginHelper = new LoginTestHelper(restTestClient, port);
         passwordHelper = new PasswordTestHelper(restTestClient, port);
         userHelper = new UserTestHelper(restTestClient, port);
         SecurityTestHelper.resetUserFile(gedbrowserHome + "/testUserFile.csv");
     }
 
-    /**
-     * Reset user file after.
-     */
     @AfterEach
-    public void after() {
+    void tearDown() {
         SecurityTestHelper.resetUserFile(gedbrowserHome + "/testUserFile.csv");
     }
 
-    /**
-     * @throws RestClientException the there is a restful exception
-     * @throws URISyntaxException  if the URL is bad
-     */
     @Test
-    public final void testWhoami() throws RestClientException, URISyntaxException {
+    void testWhoami() throws RestClientException, URISyntaxException {
         log.info("Test whomai");
         final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final SecurityUser user = userHelper.whoami(headers);
@@ -113,38 +107,28 @@ public class UserControllerTest {
         assertEquals("guest", username, "Mismatched user");
     }
 
-    /**
-     * @throws RestClientException the there is a restful exception
-     * @throws URISyntaxException  if the URL is bad
-     */
     @Test
-    public final void testWhoami2() throws RestClientException, URISyntaxException {
+    void testWhoami2() throws RestClientException, URISyntaxException {
         log.info("Test whomai 2");
-        final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
+        final HttpHeaders headers = loginHelper
+            .buildHeaders(loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
         final SecurityUser user = userHelper.whoami(headers);
         final String username = user.getUsername();
         log.info("I am {}", username);
         assertEquals("schoeller@comcast.net", username, "Mismatched user");
     }
 
-    /**
-     * @throws RestClientException the there is a restful exception
-     * @throws URISyntaxException  if the URL is bad
-     */
     @Test
-    public final void testWhoamiNotLoggedIn() throws RestClientException, URISyntaxException {
+    void testWhoamiNotLoggedIn() throws RestClientException, URISyntaxException {
         log.info("Test whomai not logged in");
-        final EntityExchangeResult<UserImpl> response = userHelper.whoamiResponse(new HttpHeaders());
+        final EntityExchangeResult<UserImpl> response = userHelper
+            .whoamiResponse(new HttpHeaders());
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatus(), "Should have failed");
     }
 
-    /**
-     * @throws RestClientException the there is a restful exception
-     * @throws URISyntaxException  if the URL is bad
-     */
     @Test
     @Disabled("Authentication problem right now")
-    public final void testGetUserGuest() throws RestClientException, URISyntaxException {
+    void testGetUserGuest() throws RestClientException, URISyntaxException {
         log.info("Test get user guest");
         final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final SecurityUser user = userHelper.getUser(headers, "guest");
@@ -153,15 +137,12 @@ public class UserControllerTest {
         assertEquals("guest", username, "Mismatched user");
     }
 
-    /**
-     * @throws RestClientException the there is a restful exception
-     * @throws URISyntaxException  if the URL is bad
-     */
     @Test
-    public final void testGetUserGuestNotLoggedIn() throws RestClientException, URISyntaxException {
+    void testGetUserGuestNotLoggedIn() throws RestClientException, URISyntaxException {
         log.info("Test get user guest, not logged in");
         final HttpHeaders headers = new HttpHeaders();
-        final EntityExchangeResult<UserImpl> response = userHelper.getUserResponse(headers, "guest");
+        final EntityExchangeResult<UserImpl> response = userHelper.getUserResponse(headers,
+            "guest");
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatus(), "");
     }
 
@@ -170,38 +151,29 @@ public class UserControllerTest {
      * @throws URISyntaxException  if the URL is bad
      */
     @Test
-    public final void testRefresh() throws RestClientException, URISyntaxException {
+    void testRefresh() throws RestClientException, URISyntaxException {
         log.info("Test refresh");
         final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final EntityExchangeResult<String> response = refresh(headers);
         assertEquals(HttpStatus.OK, response.getStatus(), "should be OK");
     }
 
-    /**
-     * @throws RestClientException  the there is a restful exception
-     * @throws URISyntaxException   if the URL is bad
-     * @throws InterruptedException if the sleep is interrupted
-     */
     @Test
-    public final void testExpiredRefresh() throws RestClientException, URISyntaxException, InterruptedException {
+    void testExpiredRefresh() throws RestClientException, URISyntaxException, InterruptedException {
         log.info("Test expired refresh");
         final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
-        Thread.sleep(expiresIn * 1000 + 1000);
+        Thread.sleep((expiresIn + 1) * MILLIS_PER_SECOND);
         final EntityExchangeResult<String> response = refresh(headers);
         assertEquals(HttpStatus.ACCEPTED, response.getStatus(), "should be ACCEPTED");
     }
 
-    /**
-     * @throws RestClientException          the there is a restful exception
-     * @throws URISyntaxException           if the URL is bad
-     * @throws UnsupportedEncodingException if it doesn't know the charset
-     */
     @Test
     @Disabled("Authentication problem right now")
-    public final void testGetUserSchoeller()
-            throws RestClientException, URISyntaxException, UnsupportedEncodingException {
+    void testGetUserSchoeller()
+        throws RestClientException, URISyntaxException, UnsupportedEncodingException {
         log.info("Test get user schoeller");
-        final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
+        final HttpHeaders headers = loginHelper
+            .buildHeaders(loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
         String requestName = URLEncoder.encode("schoeller@comcast.net", "UTF-8");
         final SecurityUser user = userHelper.getUser(headers, requestName);
         final String username = user.getUsername();
@@ -209,15 +181,12 @@ public class UserControllerTest {
         assertEquals("schoeller@comcast.net", username, "Mismatched user");
     }
 
-    /**
-     * @throws RestClientException          the there is a restful exception
-     * @throws URISyntaxException           if the URL is bad
-     * @throws UnsupportedEncodingException if it doesn't know the charset
-     */
     @Test
-    public final void testGetUsers() throws RestClientException, URISyntaxException, UnsupportedEncodingException {
+    void testGetUsers()
+        throws RestClientException, URISyntaxException, UnsupportedEncodingException {
         log.info("Test get users");
-        final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
+        final HttpHeaders headers = loginHelper
+            .buildHeaders(loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
         final List<UserImpl> users = userHelper.getUsers(headers);
         log.info("List contains:");
         for (SecurityUser user : users) {
@@ -226,27 +195,19 @@ public class UserControllerTest {
         assertEquals(2, users.size(), "Wrong count");
     }
 
-    /**
-     * @throws RestClientException          the there is a restful exception
-     * @throws URISyntaxException           if the URL is bad
-     * @throws UnsupportedEncodingException if it doesn't know the charset
-     */
     @Test
     @Disabled("Figure out later why this test fails")
-    public final void testGetUsersNotAdmin()
-            throws RestClientException, URISyntaxException, UnsupportedEncodingException {
+    void testGetUsersNotAdmin()
+        throws RestClientException, URISyntaxException, UnsupportedEncodingException {
         log.info("Test get users not admin");
         final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final String usersString = userHelper.getUsersString(headers);
-        assertTrue(usersString.contains("\"status\":403,\"error\":\"Forbidden\""), "Expected unauthorized response");
+        assertTrue(usersString.contains("\"status\":403,\"error\":\"Forbidden\""),
+            "Expected unauthorized response");
     }
 
-    /**
-     * @throws URISyntaxException  if the URL is bad
-     * @throws RestClientException if there is some REST problem
-     */
     @Test
-    public void testSignup() throws RestClientException, URISyntaxException {
+    void testSignup() throws RestClientException, URISyntaxException {
         log.info("Test signup");
         final String url = baseUrl() + "signup";
         final HttpHeaders headers = buildHeaders();
@@ -260,12 +221,8 @@ public class UserControllerTest {
         assertEquals("newuser", user.getUsername(), "Wrong user found");
     }
 
-    /**
-     * @throws URISyntaxException  if the URL is bad
-     * @throws RestClientException if there is some REST problem
-     */
     @Test
-    public void testSignupExistingUser() throws RestClientException, URISyntaxException {
+    void testSignupExistingUser() throws RestClientException, URISyntaxException {
         log.info("Test signup existing user");
         final String url = baseUrl() + "signup";
         final HttpHeaders headers = buildHeaders();
@@ -280,54 +237,48 @@ public class UserControllerTest {
         assertTrue(userString.contains("Username already exists"), "Expected error string");
     }
 
-    /**
-     * @throws RestClientException the there is a restful exception
-     * @throws URISyntaxException  if the URL is bad
-     */
     @Test
-    public final void testResetCredentials() throws RestClientException, URISyntaxException {
+    void testResetCredentials() throws RestClientException, URISyntaxException {
         log.info("Test reset-credentials");
         final HttpHeaders headers1 = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
-        assertEquals(HttpStatus.ACCEPTED, resetCredentials(headers1).getStatus(), "Should have accepted the reset");
-        assertEquals(HttpStatus.OK, loginHelper.logout(headers1).getStatus(), "Should have OKed the logout");
+        assertEquals(HttpStatus.ACCEPTED, resetCredentials(headers1).getStatus(),
+            "Should have accepted the reset");
+        assertEquals(HttpStatus.OK, loginHelper.logout(headers1).getStatus(),
+            "Should have OKed the logout");
 
-        final HttpHeaders headers2 = loginHelper.buildHeaders(loginHelper.login("schoeller@comcast.net", "123"));
-        assertEquals(HttpStatus.ACCEPTED, passwordHelper.changePassword(headers2, "123", "HAHANOWAY").getStatus(),
-                "Should have accepted the password change");
-        assertEquals(HttpStatus.OK, loginHelper.logout(headers2).getStatus(), "Should have OKed the logout");
+        final HttpHeaders headers2 = loginHelper
+            .buildHeaders(loginHelper.login("schoeller@comcast.net", "123"));
+        assertEquals(HttpStatus.ACCEPTED,
+            passwordHelper.changePassword(headers2, "123", "HAHANOWAY").getStatus(),
+            "Should have accepted the password change");
+        assertEquals(HttpStatus.OK, loginHelper.logout(headers2).getStatus(),
+            "Should have OKed the logout");
 
         final HttpHeaders headers3 = loginHelper.buildHeaders(loginHelper.login("guest", "123"));
-        assertEquals(HttpStatus.ACCEPTED, passwordHelper.changePassword(headers3, "123", "guest").getStatus(), "");
-        assertEquals(HttpStatus.OK, loginHelper.logout(headers3).getStatus(), "Should have OKed the logout");
+        assertEquals(HttpStatus.ACCEPTED,
+            passwordHelper.changePassword(headers3, "123", "guest").getStatus(), "");
+        assertEquals(HttpStatus.OK, loginHelper.logout(headers3).getStatus(),
+            "Should have OKed the logout");
     }
 
-    /**
-     * @throws RestClientException the there is a restful exception
-     * @throws URISyntaxException  if the URL is bad
-     */
     @Test
-    public final void testChangePasswordAndBack() throws RestClientException, URISyntaxException {
+    void testChangePasswordAndBack() throws RestClientException, URISyntaxException {
         log.info("Test reset-credentials");
         final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
-        final EntityExchangeResult<String> changeResponse = passwordHelper.changePassword(headers, "guest",
-                "newpassword");
-        assertEquals(HttpStatus.ACCEPTED, changeResponse.getStatus(), "Unexpected response from changing password");
-        final EntityExchangeResult<String> changeBackResponse = passwordHelper.changePassword(headers, "newpassword",
-                "guest");
+        final EntityExchangeResult<String> changeResponse = passwordHelper.changePassword(headers,
+            "guest", "newpassword");
+        assertEquals(HttpStatus.ACCEPTED, changeResponse.getStatus(),
+            "Unexpected response from changing password");
+        final EntityExchangeResult<String> changeBackResponse = passwordHelper
+            .changePassword(headers, "newpassword", "guest");
         assertEquals(HttpStatus.ACCEPTED, changeBackResponse.getStatus(),
-                "Unexpected response from changing password back");
+            "Unexpected response from changing password back");
     }
 
-    /**
-     * @return the base URL of the API
-     */
     private String baseUrl() {
         return "http://localhost:" + port + "/v1/";
     }
 
-    /**
-     * @return the header block
-     */
     private HttpHeaders buildHeaders() {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -335,68 +286,47 @@ public class UserControllerTest {
         return headers;
     }
 
-    /**
-     * @param url         the target URL
-     * @param headers     prepared headers
-     * @param userRequest the user request object
-     * @return the JSON string of the user (or error)
-     * @throws RestClientException if there is a problem with the REST call
-     * @throws URISyntaxException  there is a problem with the URL
-     */
-    private SecurityUser post(final String url, final HttpHeaders headers, final UserRequest userRequest)
-            throws RestClientException, URISyntaxException {
+    private SecurityUser post(final String url, final HttpHeaders headers,
+        final UserRequest userRequest) throws RestClientException, URISyntaxException {
         final EntityExchangeResult<UserImpl> res = restTestClient.post()
             .uri(new URI(url))
             .headers(h -> h.addAll(headers))
-	    .body(userRequest)
-	    .accept(MediaType.APPLICATION_JSON).exchange()
+            .body(userRequest)
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
             .returnResult(UserImpl.class);
         return res.getResponseBody();
     }
 
-    /**
-     * @param url         the target URL
-     * @param headers     prepared headers
-     * @param userRequest the user request object
-     * @return the JSON string of the user (or error)
-     * @throws RestClientException if there is a problem with the REST call
-     * @throws URISyntaxException  there is a problem with the URL
-     */
-    private String postString(final String url, final HttpHeaders headers, final UserRequest userRequest)
-            throws RestClientException, URISyntaxException {
+    private String postString(final String url, final HttpHeaders headers,
+        final UserRequest userRequest) throws RestClientException, URISyntaxException {
         final EntityExchangeResult<String> res = restTestClient.post()
             .uri(new URI(url))
-	    .headers(h -> h.addAll(headers))
-	    .body(userRequest).accept(MediaType.APPLICATION_JSON)
-	    .exchange()
+            .headers(h -> h.addAll(headers))
+            .body(userRequest)
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
             .returnResult(String.class);
         final String body = res.getResponseBody();
         return (body == null) ? "" : body;
     }
 
-    /**
-     * @throws RestClientException the there is a restful exception
-     * @throws URISyntaxException  if the URL is bad
-     */
     @Test
-    public final void testChangePasswordAndBack1() throws RestClientException, URISyntaxException {
+    void testChangePasswordAndBack1() throws RestClientException, URISyntaxException {
         log.info("Test reset-credentials");
         final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
-        final EntityExchangeResult<String> changeResponse = passwordHelper.changePassword(headers, "guest",
-                "newpassword");
-        assertEquals(HttpStatus.ACCEPTED, changeResponse.getStatus(), "Unexpected response from changing password");
-        final EntityExchangeResult<String> changeBackResponse = passwordHelper.changePassword(headers, "newpassword",
-                "guest");
+        final EntityExchangeResult<String> changeResponse = passwordHelper.changePassword(headers,
+            "guest", "newpassword");
+        assertEquals(HttpStatus.ACCEPTED, changeResponse.getStatus(),
+            "Unexpected response from changing password");
+        final EntityExchangeResult<String> changeBackResponse = passwordHelper
+            .changePassword(headers, "newpassword", "guest");
         assertEquals(HttpStatus.ACCEPTED, changeBackResponse.getStatus(),
-                "Unexpected response from changing password back");
+            "Unexpected response from changing password back");
     }
 
-    /**
-     * @param headers the necessary headers
-     * @return the string format of the response body
-     * @throws URISyntaxException if the URI is bogus
-     */
-    private EntityExchangeResult<String> resetCredentials(final HttpHeaders headers) throws URISyntaxException {
+    private EntityExchangeResult<String> resetCredentials(final HttpHeaders headers)
+        throws URISyntaxException {
         final String url = "http://localhost:" + port + "/v1/" + "reset-credentials";
         return restTestClient.get()
             .uri(new URI(url))
@@ -406,7 +336,8 @@ public class UserControllerTest {
             .returnResult(String.class);
     }
 
-    private EntityExchangeResult<String> refresh(final HttpHeaders headers) throws URISyntaxException {
+    private EntityExchangeResult<String> refresh(final HttpHeaders headers)
+        throws URISyntaxException {
         final String url = "http://localhost:" + port + "/v1/" + "refresh";
         return restTestClient.get()
             .uri(new URI(url))

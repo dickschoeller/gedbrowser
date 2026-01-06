@@ -27,14 +27,12 @@ public final class LoginTestHelper {
      * pass back different pars of the response
      *
      * @param username the username
-     * @param password the password
+     * @param password the password     * @return the entity
      * @return the entity
      */
-    public EntityExchangeResult<LoginResponse> login(final String username,
-            final String password) {
+    public EntityExchangeResult<LoginResponse> login(final String username, final String password) {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/login";
-        final String loginString = "username=" + username + "&password="
-                + password;
+        final String loginString = "username=" + username + "&password=" + password;
         return client.post()
             .uri(URI.create(url))
             .body(loginString)
@@ -86,11 +84,11 @@ public final class LoginTestHelper {
      * @param loginResponse the login response
      * @return the headers
      */
-    public HttpHeaders buildHeaders(
-            final EntityExchangeResult<LoginResponse> loginResponse) {
+    public HttpHeaders buildHeaders(final EntityExchangeResult<LoginResponse> loginResponse) {
         final LoginResponse lr = loginResponse.getResponseBody();
         final String accessToken = Optional.ofNullable(lr)
-            .map(LoginResponse::getAccessToken).orElse(null);
+            .map(LoginResponse::getAccessToken)
+            .orElse(null);
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -120,6 +118,7 @@ public final class LoginTestHelper {
     /**
      * Login and return a request entity.
      *
+     * @param <T> the entity type
      * @return the entity
      */
     public <T> org.springframework.http.HttpEntity<T> adminEntity() {
@@ -132,8 +131,8 @@ public final class LoginTestHelper {
      * @return the header
      */
     public org.springframework.http.HttpHeaders adminLogin() {
-        final org.springframework.http.HttpHeaders headers =
-                buildHeaders(login("schoeller@comcast.net", "HAHANOWAY"));
+        final org.springframework.http.HttpHeaders headers = buildHeaders(
+            login("schoeller@comcast.net", "HAHANOWAY"));
         headers.setContentType(MediaType.APPLICATION_JSON);
         return headers;
     }
@@ -141,6 +140,7 @@ public final class LoginTestHelper {
     /**
      * Login and return a request entity.
      *
+     * @param <T> the entity type
      * @return the entity
      */
     public <T> org.springframework.http.HttpEntity<T> userEntity() {
@@ -153,8 +153,7 @@ public final class LoginTestHelper {
      * @return the header
      */
     public org.springframework.http.HttpHeaders userLogin() {
-        final org.springframework.http.HttpHeaders headers =
-                buildHeaders(login("guest", "guest"));
+        final org.springframework.http.HttpHeaders headers = buildHeaders(login("guest", "guest"));
         headers.setContentType(MediaType.APPLICATION_JSON);
         return headers;
     }

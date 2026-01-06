@@ -28,24 +28,22 @@ public final class TestResourceReader {
     /**
      * Read data for tests available to prepare data for tests.
      *
-     * @param caller the object doing the calling allows us to get at resources
+     * @param caller   the object doing the calling allows us to get at resources
      * @param filename the name of the file
      * @return a populated GedLine parse tree.
      * @throws IOException because reader might throw.
      */
-    public static AbstractGedLine readFileTestSource(final Object caller,
-            final String filename) throws IOException {
+    public static AbstractGedLine readFileTestSource(final Object caller, final String filename)
+        throws IOException {
         String shortname;
         if (filename.charAt(0) == '/') {
             shortname = filename.substring(filename.lastIndexOf("/") + 1);
         } else {
             shortname = filename;
         }
-        final String shortername = shortname.substring(0,
-                shortname.indexOf("."));
+        final String shortername = shortname.substring(0, shortname.indexOf("."));
         final BufferedReader bufferedReader = openBufferedReader(filename);
-        final GedFile gedFile = new GedFile(shortname, shortername, null,
-                bufferedReader);
+        final GedFile gedFile = new GedFile(shortname, shortername, null, bufferedReader);
         gedFile.readToNext();
         return gedFile;
     }
@@ -53,13 +51,13 @@ public final class TestResourceReader {
     /**
      * Read data for tests available to prepare data for tests.
      *
-     * @param caller the object doing the calling allows us to get at resources
+     * @param caller   the object doing the calling allows us to get at resources
      * @param filename the name of the file
      * @return the strings of the file
      * @throws IOException because reader might throw.
      */
-    public static Stream<String> readFileTestSourceAsStrings(
-            final Object caller, final String filename) throws IOException {
+    public static Stream<String> readFileTestSourceAsStrings(final Object caller,
+        final String filename) throws IOException {
         return openBufferedReader(filename).lines();
     }
 
@@ -68,12 +66,10 @@ public final class TestResourceReader {
      * @return the buffered reader
      * @throws IOException if the file isn't found or bad charset
      */
-    private static BufferedReader openBufferedReader(final String filename)
-            throws IOException {
+    private static BufferedReader openBufferedReader(final String filename) throws IOException {
         final InputStream fis = new StreamManager(filename).getInputStream();
         final String charset = new CharsetScanner().charset(filename);
-        final Reader reader = new InputStreamReader(
-                fis, charset);
+        final Reader reader = new InputStreamReader(fis, charset);
         return new BufferedReader(reader);
     }
 }
