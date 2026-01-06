@@ -23,9 +23,9 @@ import org.springframework.test.web.servlet.client.RestTestClient;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { Application.class, TestConfiguration.class },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@SpringBootTest(classes = { Application.class,
+    TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class PersonControllerTest implements MenuTestHelper {
@@ -45,17 +45,15 @@ public class PersonControllerTest implements MenuTestHelper {
     /** */
     @Test
     public final void testPersonControllerI4() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser/person?db=gl120368&id=I4";
+        final String url = "http://localhost:" + port + "/gedbrowser/person?db=gl120368&id=I4";
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody())
-            .contains("<title>Living  - I4 - gl120368</title>")
+        then(entity.getResponseBody()).contains("<title>Living  - I4 - gl120368</title>")
             .contains(getMenu("?#?"));
     }
 
@@ -64,15 +62,15 @@ public class PersonControllerTest implements MenuTestHelper {
     public final void testPersonControllerI9() {
         String url = "http://localhost:" + port + "/gedbrowser/person?db=gl120368&id=I9";
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(entity.getResponseBody())
             .contains("<title>Edwin Elijah A  Williams (13 DEC 1883-ABT AUG "
-                    + "1951) - I9 - gl120368</title>")
+                + "1951) - I9 - gl120368</title>")
             .contains(getMenu("W#Williams"));
     }
 
@@ -80,9 +78,9 @@ public class PersonControllerTest implements MenuTestHelper {
     @Test
     public final void testPersonControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/gedbrowser/person?db=XYZZY&id=I99"))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create("http://localhost:" + port + "/gedbrowser/person?db=XYZZY&id=I99"))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
@@ -93,13 +91,12 @@ public class PersonControllerTest implements MenuTestHelper {
     @Test
     public final void testPersonControllerBadPerson() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/gedbrowser/person?db=gl120368&id=XYZZY"))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create("http://localhost:" + port + "/gedbrowser/person?db=gl120368&id=XYZZY"))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        then(entity.getResponseBody()).contains("Person not found")
-            .contains(getMenu("A"));
+        then(entity.getResponseBody()).contains("Person not found").contains(getMenu("A"));
     }
 }

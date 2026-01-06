@@ -26,8 +26,10 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class PlaceIndexController extends DatedDataController {
+    /** Client to connect to geoservice, geographical data server. */
     private final GeoServiceClient client;
 
+    /** Location of gedbrowser configuration files. */
     private final String gedbrowserHome;
 
     /**
@@ -79,7 +81,7 @@ public class PlaceIndexController extends DatedDataController {
 
         model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
         model.addAttribute("model", gedRenderer);
-        model.addAttribute("appInfo", appInfo);
+        model.addAttribute("appInfo", getAppInfo());
 
         return "places";
     }

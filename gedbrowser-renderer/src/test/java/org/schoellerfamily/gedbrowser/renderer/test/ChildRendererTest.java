@@ -8,7 +8,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.renderer.ChildRenderer;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
+import org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer;
+import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
+import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
+import org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
+import org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -37,53 +42,57 @@ public final class ChildRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        assertTrue(renderer.getAttributeListOpenRenderer()
-                instanceof org.schoellerfamily.gedbrowser.renderer.SimpleAttributeListOpenRenderer,
-                "Wrong renderer type");
+        assertTrue(renderer
+            .getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testListItemRenderer() {
-        assertTrue(renderer.getListItemRenderer() instanceof org.schoellerfamily.gedbrowser.renderer.NullListItemRenderer,
-                "Wrong renderer type");
+        assertTrue(renderer
+            .getListItemRenderer() instanceof NullListItemRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameHtmlRenderer() {
-        assertTrue(renderer.getNameHtmlRenderer() instanceof org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer,
-                "Wrong renderer type");
+        assertTrue(renderer
+            .getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameIndeRenderer() {
-        assertTrue(renderer.getNameIndexRenderer() instanceof org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer,
-                "Wrong renderer type");
+        assertTrue(renderer
+            .getNameIndexRenderer() instanceof NullNameIndexRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testPhraseRenderer() {
-        assertTrue(renderer.getPhraseRenderer() instanceof org.schoellerfamily.gedbrowser.renderer.NullPhraseRenderer,
-                "Wrong renderer type");
+        assertTrue(renderer
+            .getPhraseRenderer() instanceof NullPhraseRenderer,
+            "Wrong renderer type");
     }
 }

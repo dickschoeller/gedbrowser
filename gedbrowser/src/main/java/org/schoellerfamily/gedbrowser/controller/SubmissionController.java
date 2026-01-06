@@ -76,7 +76,8 @@ public class SubmissionController extends DatedDataController {
         final RenderingContext context = createRenderingContext();
         final Submission submission = (Submission) root.find(idString);
         if (submission == null) {
-            throw new SubmissionNotFoundException("Submission %s not found".formatted(idString), idString, dbName, context);
+            throw new SubmissionNotFoundException("Submission %s not found".formatted(idString),
+                idString, dbName, context);
         }
 
         final GedRenderer<?> submissionRenderer = new GedRendererFactory()
@@ -85,7 +86,7 @@ public class SubmissionController extends DatedDataController {
         model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
         model.addAttribute("submissionString", submission.getString());
         model.addAttribute("model", submissionRenderer);
-        model.addAttribute("appInfo", appInfo);
+        model.addAttribute("appInfo", getAppInfo());
         log.debug("Exiting submission");
         return "submission";
     }

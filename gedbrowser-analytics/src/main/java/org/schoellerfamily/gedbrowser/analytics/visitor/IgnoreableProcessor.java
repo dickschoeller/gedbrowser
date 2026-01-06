@@ -4,6 +4,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
+ * Determines whether an event can be ignored for time-based analytics.
+ *
  * @author Dick Schoeller
  */
 public class IgnoreableProcessor {

@@ -28,8 +28,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public final class SubmitterRepositoryTest {
     /** */
     @Autowired
-    private transient SubmitterDocumentRepositoryMongo
-        submitterDocumentRepository;
+    private transient SubmitterDocumentRepositoryMongo submitterDocumentRepository;
     /** */
     @Autowired
     private transient RepositoryFixture repositoryFixture;
@@ -64,36 +63,34 @@ public final class SubmitterRepositoryTest {
     /** */
     @Test
     public void testSubmitter() {
-        final SubmitterDocument document = submitterDocumentRepository.
-                findByFileAndString(root.getFilename(), "SUB1");
-        final Submitter submitter =
-                (Submitter) toObjConverter.createGedObject(root, document);
+        final SubmitterDocument document = submitterDocumentRepository
+            .findByFileAndString(root.getFilename(), "SUB1");
+        final Submitter submitter = (Submitter) toObjConverter.createGedObject(root, document);
         assertEquals("SUB1", submitter.getString(), "Expected submitter string");
     }
 
     /** */
     @Test
     public void testSubmitterRoot() {
-        final SubmitterDocument document = submitterDocumentRepository.
-                findByRootAndString(rootDocument, "SUB1");
-        final Submitter submitter =
-                (Submitter) toObjConverter.createGedObject(root, document);
+        final SubmitterDocument document = submitterDocumentRepository
+            .findByRootAndString(rootDocument, "SUB1");
+        final Submitter submitter = (Submitter) toObjConverter.createGedObject(root, document);
         assertEquals("SUB1", submitter.getString(), "Expected submitter string");
     }
 
     /** */
     @Test
     public void testBogus() {
-        final SubmitterDocument perdoc = submitterDocumentRepository.
-                findByFileAndString(root.getFilename(), "Mumble");
+        final SubmitterDocument perdoc = submitterDocumentRepository
+            .findByFileAndString(root.getFilename(), "Mumble");
         assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     public void testBogusRoot() {
-        final SubmitterDocument perdoc = submitterDocumentRepository.
-                findByRootAndString(rootDocument, "Mumble");
+        final SubmitterDocument perdoc = submitterDocumentRepository
+            .findByRootAndString(rootDocument, "Mumble");
         assertNull(perdoc, "Bogus request should return null");
     }
 
@@ -109,16 +106,14 @@ public final class SubmitterRepositoryTest {
     @Test
     public void testCountFilename() {
         final long expected = 1;
-        final long count =
-                submitterDocumentRepository.count(rootDocument.getFilename());
+        final long count = submitterDocumentRepository.count(rootDocument.getFilename());
         assertEquals(expected, count, "Should be 1 submitter");
     }
 
     /** */
     @Test
     public void testFindAllRoot() {
-        final Iterable<SubmitterDocument> list =
-                submitterDocumentRepository.findAll(rootDocument);
+        final Iterable<SubmitterDocument> list = submitterDocumentRepository.findAll(rootDocument);
         int count = 0;
         for (final SubmitterDocument submitter : list) {
             checkEquals("Type string mismatch", "submitter", submitter.getType());
@@ -131,8 +126,8 @@ public final class SubmitterRepositoryTest {
     /** */
     @Test
     public void testFindAllFilename() {
-        final Iterable<SubmitterDocument> list =
-                submitterDocumentRepository.findAll(rootDocument.getFilename());
+        final Iterable<SubmitterDocument> list = submitterDocumentRepository
+            .findAll(rootDocument.getFilename());
         int count = 0;
         for (final SubmitterDocument submitter : list) {
             checkEquals("Type string mismatch", "submitter", submitter.getType());
@@ -152,12 +147,11 @@ public final class SubmitterRepositoryTest {
     /**
      * Wrapper for assertion to bypass PMD check.
      *
-     * @param message the identifying message for the AssertionError (null okay)
+     * @param message  the identifying message for the AssertionError (null okay)
      * @param expected expected value
-     * @param actual actual value
+     * @param actual   actual value
      */
-    private void checkEquals(final String message, final Object expected,
-            final Object actual) {
+    private void checkEquals(final String message, final Object expected, final Object actual) {
         assertEquals(expected, actual, message);
     }
 }

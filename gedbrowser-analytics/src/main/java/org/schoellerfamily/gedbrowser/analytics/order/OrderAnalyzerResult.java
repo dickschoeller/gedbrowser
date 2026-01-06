@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Holds the result of an order analysis.
+ *
  * @author Dick Schoeller
  */
 public final class OrderAnalyzerResult {
@@ -20,6 +22,8 @@ public final class OrderAnalyzerResult {
     }
 
     /**
+     * Check for mismatches.
+     *
      * @return true if no mismatches are found
      */
     public boolean isCorrect() {
@@ -27,6 +31,8 @@ public final class OrderAnalyzerResult {
     }
 
     /**
+     * Add the description of some mismatch to the list.
+     *
      * @param string the description of the current mismatch
      */
     public void addMismatch(final String string) {
@@ -35,6 +41,8 @@ public final class OrderAnalyzerResult {
     }
 
     /**
+     * Get the list of mismatches.
+     *
      * @return the list of mismatches
      */
     public List<String> getMismatches() {

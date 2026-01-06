@@ -25,8 +25,10 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfiguration {
+    /** Collection of known users. */
     private final Users<? extends User> users;
 
+    /** URL context path. */
     @Value("${server.servlet.context-path:/gedbrowser}")
     private final String servletPath;
 
@@ -38,28 +40,23 @@ public class WebSecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) {
-        http
-            .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/**").permitAll()
-                .anyRequest().authenticated())
+        http.authorizeHttpRequests(
+            authorize -> authorize.requestMatchers("/**").permitAll().anyRequest().authenticated())
             // TODO haven't figured out how to retain referer after login error.
             .formLogin(form -> {
                 final SavedRequestAwareAuthenticationSuccessHandler handler =
-                        new SavedRequestAwareAuthenticationSuccessHandler();
+                    new SavedRequestAwareAuthenticationSuccessHandler();
                 handler.setDefaultTargetUrl(servletPath + "/person?db=schoeller&id=I1");
                 handler.setAlwaysUseDefaultTargetUrl(false);
                 handler.setTargetUrlParameter("targetUrl");
 
-                form.loginPage(servletPath + "/login")
-                        .successHandler(handler)
-                        .permitAll();
+                form.loginPage(servletPath + "/login").successHandler(handler).permitAll();
             })
-            .logout(logout -> logout
-                    .deleteCookies("JSESSIONID")
-                    .invalidateHttpSession(true)
-                    .logoutUrl(servletPath + "/logout")
-                    .logoutSuccessUrl(servletPath + "/login")
-                    .permitAll());
+            .logout(logout -> logout.deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
+                .logoutUrl(servletPath + "/logout")
+                .logoutSuccessUrl(servletPath + "/login")
+                .permitAll());
 
         return http.build();
     }
@@ -71,19 +68,16 @@ public class WebSecurityConfiguration {
      * @throws Exception if there is a problem
      */
     @Autowired
-    public final void configureGlobal(final AuthenticationManagerBuilder auth)
-            throws Exception {
-        final InMemoryUserDetailsManagerConfigurer<
-            AuthenticationManagerBuilder> configurer =
-            auth.inMemoryAuthentication();
+    public final void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
+        final InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> configurer = auth
+            .inMemoryAuthentication();
         for (final User user : users) {
             final UserRoleName[] roles = user.getRoles();
             final String[] roleStrings = createRoleStrings(roles);
             for (int i = 0; i < roles.length; i++) {
                 roleStrings[i] = roles[i].toString().replace("ROLES_", "");
             }
-            configurer.withUser(user.getUsername())
-                    .password(user.getPassword()).roles(roleStrings);
+            configurer.withUser(user.getUsername()).password(user.getPassword()).roles(roleStrings);
         }
     }
 

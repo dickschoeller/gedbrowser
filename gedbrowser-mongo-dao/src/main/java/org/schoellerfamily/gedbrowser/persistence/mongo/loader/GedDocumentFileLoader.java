@@ -48,6 +48,7 @@ public class GedDocumentFileLoader {
      */
     private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
+    /** */
     private final RootDocumentRepositoryMongo rootDocumentRepository;
 
     /** */
@@ -55,14 +56,16 @@ public class GedDocumentFileLoader {
     private final String gedbrowserHome;
 
     /**
+     * @param repositoryManager the repository manager
      * @param dbName the name of the database to load
      * @return the root object of the database
      */
-    public RootDocument loadDocument(final RepositoryManagerMongo repositoryManager, final String dbName) {
+    public RootDocument loadDocument(final RepositoryManagerMongo repositoryManager,
+        final String dbName) {
         log.info("entering loadDocument({})", dbName);
         final String filename = buildFileName(dbName);
-        final RootDocument rootDocument = rootDocumentRepository
-                .findByFileAndString(filename, "Root");
+        final RootDocument rootDocument = rootDocumentRepository.findByFileAndString(filename,
+            "Root");
         if (rootDocument == null) {
             return loadRepository(repositoryManager, dbName);
         }
@@ -79,20 +82,21 @@ public class GedDocumentFileLoader {
     }
 
     /**
+     * @param repositoryManager the repository manager
      * @param dbName the name of the DB to load
      * @return the root object loaded
      */
-    protected RootDocument loadRepository(final RepositoryManagerMongo repositoryManager, final String dbName) {
+    protected RootDocument loadRepository(final RepositoryManagerMongo repositoryManager,
+        final String dbName) {
         Root root;
 
         final String filename = buildFileName(dbName);
         final String charset = new CharsetScanner().charset(filename);
         final File file = new File(filename);
         try (FileInputStream fis = new FileInputStream(file);
-                Reader reader = new InputStreamReader(fis, charset);
-                BufferedReader bufferedReader = new BufferedReader(reader);) {
-            final GedFile gedFile = new GedFile(filename, dbName, finder,
-                    bufferedReader);
+            Reader reader = new InputStreamReader(fis, charset);
+            BufferedReader bufferedReader = new BufferedReader(reader);) {
+            final GedFile gedFile = new GedFile(filename, dbName, finder, bufferedReader);
             gedFile.readToNext();
             root = createRoot(dbName, filename, gedFile);
         } catch (IOException e) {
@@ -109,8 +113,7 @@ public class GedDocumentFileLoader {
      * @param gedFile  the file object
      * @return the root object
      */
-    private Root createRoot(final String dbName, final String filename,
-            final GedFile gedFile) {
+    private Root createRoot(final String dbName, final String filename, final GedFile gedFile) {
         final Root root = g2g.create(gedFile);
         root.setString("Root");
         root.setFilename(filename);
@@ -120,12 +123,13 @@ public class GedDocumentFileLoader {
 
     /**
      * Save the root to the database.
-     * 
+     *
      * @param root the root GED object
      * @return the root document
      */
     private RootDocument save(final Root root) {
-        final RootDocumentMongo rootdoc = (RootDocumentMongo) toDocConverter.createGedDocument(root);
+        final RootDocumentMongo rootdoc = (RootDocumentMongo) toDocConverter
+            .createGedDocument(root);
         try {
             rootDocumentRepository.save(rootdoc);
         } catch (DataAccessException e) {
@@ -137,6 +141,8 @@ public class GedDocumentFileLoader {
 
     /**
      * Reset the data.
+     *
+     * @param repositoryManager the repository manager
      */
     public final void reset(final RepositoryManagerMongo repositoryManager) {
         rootDocumentRepository.deleteAll();
@@ -145,6 +151,8 @@ public class GedDocumentFileLoader {
 
     /**
      * Reload all of the data sets.
+     *
+     * @param repositoryManager the repository manager
      */
     public final void reloadAll(final RepositoryManagerMongo repositoryManager) {
         final List<String> list = new ArrayList<>();
@@ -158,6 +166,7 @@ public class GedDocumentFileLoader {
     }
 
     /**
+     * @param repositoryManager the repository manager
      * @return list of name value pairs for the data sets currently loaded
      */
     public final List<Map<String, Object>> details(final RepositoryManagerMongo repositoryManager) {
@@ -167,19 +176,17 @@ public class GedDocumentFileLoader {
     }
 
     /**
+     * @param repositoryManager the repository manager
      * @param dbname name of a dataset
      * @return the name value pairs describing this dataset
      */
     public final Map<String, Object> details(final RepositoryManagerMongo repositoryManager,
         final String dbname) {
-        final RootDocument doc = rootDocumentRepository
-                .findByFileAndString(buildFileName(dbname), "Root");
-        return Map.of(
-            "dbname", doc.getDbName(),
-            "filename", doc.getFilename(),
-            "persons", repositoryManager.getPersonDocumentRepository().count(doc),
-            "families", repositoryManager.getFamilyDocumentRepository().count(doc),
-            "sources", repositoryManager.getSourceDocumentRepository().count(doc)
-        );
+        final RootDocument doc = rootDocumentRepository.findByFileAndString(buildFileName(dbname),
+            "Root");
+        return Map.of("dbname", doc.getDbName(), "filename", doc.getFilename(), "persons",
+            repositoryManager.getPersonDocumentRepository().count(doc), "families",
+            repositoryManager.getFamilyDocumentRepository().count(doc), "sources",
+            repositoryManager.getSourceDocumentRepository().count(doc));
     }
 }

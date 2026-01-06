@@ -39,63 +39,64 @@ public final class AttributeRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final AttributeRenderer renderer = new AttributeRenderer(
-                new Attribute(null), new GedRendererFactory(),
-                anonymousContext);
-        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
+        final AttributeRenderer renderer = new AttributeRenderer(new Attribute(null),
+            new GedRendererFactory(), anonymousContext);
+        assertTrue(
+            renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testAttributeListItemRenderer() {
-        final AttributeRenderer renderer = new AttributeRenderer(
-                new Attribute(null), new GedRendererFactory(),
-                anonymousContext);
-        assertTrue(renderer.getListItemRenderer() instanceof AttributeListItemRenderer, "Wrong renderer type");
+        final AttributeRenderer renderer = new AttributeRenderer(new Attribute(null),
+            new GedRendererFactory(), anonymousContext);
+        assertTrue(renderer.getListItemRenderer() instanceof AttributeListItemRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameHtmlRenderer() {
-        final AttributeRenderer renderer = new AttributeRenderer(
-                new Attribute(null), new GedRendererFactory(),
-                anonymousContext);
-        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
+        final AttributeRenderer renderer = new AttributeRenderer(new Attribute(null),
+            new GedRendererFactory(), anonymousContext);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameIndexRenderer() {
-        final AttributeRenderer renderer = new AttributeRenderer(
-                new Attribute(null), new GedRendererFactory(),
-                anonymousContext);
-        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
+        final AttributeRenderer renderer = new AttributeRenderer(new Attribute(null),
+            new GedRendererFactory(), anonymousContext);
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testPhraseRenderer() {
-        final AttributeRenderer renderer = new AttributeRenderer(
-                new Attribute(null), new GedRendererFactory(),
-                anonymousContext);
-        assertTrue(renderer.getPhraseRenderer() instanceof AttributePhraseRenderer, "Wrong renderer type");
+        final AttributeRenderer renderer = new AttributeRenderer(new Attribute(null),
+            new GedRendererFactory(), anonymousContext);
+        assertTrue(renderer.getPhraseRenderer() instanceof AttributePhraseRenderer,
+            "Wrong renderer type");
     }
     // TODO test render as page and renderAsListItem
 }

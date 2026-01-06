@@ -39,57 +39,63 @@ public final class DateRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final DateRenderer renderer = new DateRenderer(new Date(null),
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
+        final DateRenderer renderer = new DateRenderer(new Date(null), new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(
+            renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testListItemRenderer() {
-        final DateRenderer renderer = new DateRenderer(new Date(null),
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getListItemRenderer() instanceof DateListItemRenderer, "Wrong renderer type");
+        final DateRenderer renderer = new DateRenderer(new Date(null), new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(renderer.getListItemRenderer() instanceof DateListItemRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameHtmlRenderer() {
-        final DateRenderer renderer = new DateRenderer(new Date(null),
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
+        final DateRenderer renderer = new DateRenderer(new Date(null), new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameIndexRenderer() {
-        final DateRenderer renderer = new DateRenderer(new Date(null),
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
+        final DateRenderer renderer = new DateRenderer(new Date(null), new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testPhraseRenderer() {
-        final DateRenderer renderer = new DateRenderer(new Date(null),
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getPhraseRenderer() instanceof DatePhraseRenderer, "Wrong renderer type");
+        final DateRenderer renderer = new DateRenderer(new Date(null), new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(renderer.getPhraseRenderer() instanceof DatePhraseRenderer,
+            "Wrong renderer type");
     }
 }

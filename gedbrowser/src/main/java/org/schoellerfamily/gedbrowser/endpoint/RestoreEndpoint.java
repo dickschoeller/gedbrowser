@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Component;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -19,14 +19,14 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Endpoint(id = "restore")
 @Slf4j
+@RequiredArgsConstructor
 public class RestoreEndpoint {
 
     /** */
-    @Autowired
-    private transient GedObjectFileLoader loader;
+    private final GedObjectFileLoader loader;
 
-    @Autowired
-    private transient RepositoryManagerMongo repositoryManager;
+    /** */
+    private final RepositoryManagerMongo repositoryManager;
 
     /**
      * Exposed actuator read operation for restore.

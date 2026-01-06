@@ -40,16 +40,16 @@ public class ImageUtilsTest {
     /** */
     @Test
     public void testWrapperWrapperIsWrapper() {
-    	final ApiAttribute file = ApiAttribute.builder()
-    	    .type("attribute")
-    	    .string("File")
-    	    .tail("foo.jpg")
-    	    .build();
+        final ApiAttribute file = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("foo.jpg")
+            .build();
         final ApiAttribute inter = ApiAttribute.builder()
-        	.type("attribute")
-        	.string("Something")
-        	.attribute(file)
-        	.build();
+            .type("attribute")
+            .string("Something")
+            .attribute(file)
+            .build();
         final ApiAttribute multimedia = ApiAttribute.builder()
             .type("multimedia")
             .string("Multimedia")
@@ -61,77 +61,130 @@ public class ImageUtilsTest {
     /** */
     @Test
     public void testBMPIsImage() {
-        final ApiAttribute file = ApiAttribute.builder().type("attribute").string("File").tail("foo.bmp").attributes(java.util.List.of()).build();
+        final ApiAttribute file = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("foo.bmp")
+            .attributes(java.util.List.of())
+            .build();
         assertTrue(imageUtils.isImage(file), "Should be an image");
     }
 
     /** */
     @Test
     public void testGIFIsImage() {
-        final ApiAttribute file = ApiAttribute.builder().type("attribute").string("File").tail("foo.gif").attributes(java.util.List.of()).build();
+        final ApiAttribute file = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("foo.gif")
+            .attributes(java.util.List.of())
+            .build();
         assertTrue(imageUtils.isImage(file), "Should be an image");
     }
 
     /** */
     @Test
     public void testICOIsImage() {
-        final ApiAttribute file = ApiAttribute.builder().type("attribute").string("File").tail("foo.ico").attributes(java.util.List.of()).build();
+        final ApiAttribute file = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("foo.ico")
+            .attributes(java.util.List.of())
+            .build();
         assertTrue(imageUtils.isImage(file), "Should be an image");
     }
 
     /** */
     @Test
     public void testJPGIsImage() {
-        final ApiAttribute file = ApiAttribute.builder().type("attribute").string("File").tail("foo.jpg").attributes(java.util.List.of()).build();
+        final ApiAttribute file = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("foo.jpg")
+            .attributes(java.util.List.of())
+            .build();
         assertTrue(imageUtils.isImage(file), "Should be an image");
     }
 
     /** */
     @Test
     public void testJPEGIsImage() {
-        final ApiAttribute file = ApiAttribute.builder().type("attribute").string("File").tail("foo.jpeg").attributes(java.util.List.of()).build();
+        final ApiAttribute file = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("foo.jpeg")
+            .attributes(java.util.List.of())
+            .build();
         assertTrue(imageUtils.isImage(file), "Should be an image");
     }
 
     /** */
     @Test
     public void testPNGIsImage() {
-        final ApiAttribute file = ApiAttribute.builder().type("attribute").string("File").tail("foo.png").attributes(java.util.List.of()).build();
+        final ApiAttribute file = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("foo.png")
+            .attributes(java.util.List.of())
+            .build();
         assertTrue(imageUtils.isImage(file), "Should be an image");
     }
 
     /** */
     @Test
     public void testTIFFIsImage() {
-        final ApiAttribute file = ApiAttribute.builder().type("attribute").string("File").tail("foo.tiff").attributes(java.util.List.of()).build();
+        final ApiAttribute file = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("foo.tiff")
+            .attributes(java.util.List.of())
+            .build();
         assertTrue(imageUtils.isImage(file), "Should be an image");
     }
 
     /** */
     @Test
     public void testTIFIsImage() {
-        final ApiAttribute file = ApiAttribute.builder().type("attribute").string("File").tail("foo.tif").attributes(java.util.List.of()).build();
+        final ApiAttribute file = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("foo.tif")
+            .attributes(java.util.List.of())
+            .build();
         assertTrue(imageUtils.isImage(file), "Should be an image");
     }
 
     /** */
     @Test
     public void testSVGIsImage() {
-        final ApiAttribute file = ApiAttribute.builder().type("attribute").string("File").tail("foo.svg").attributes(java.util.List.of()).build();
+        final ApiAttribute file = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("foo.svg")
+            .attributes(java.util.List.of())
+            .build();
         assertTrue(imageUtils.isImage(file), "Should be an image");
     }
 
     /** */
     @Test
     public void testIsNotImage() {
-        final ApiAttribute multimedia = ApiAttribute.builder().type("multimedia").string("Multimedia").attributes(java.util.List.of()).build();
+        final ApiAttribute multimedia = ApiAttribute.builder()
+            .type("multimedia")
+            .string("Multimedia")
+            .attributes(java.util.List.of())
+            .build();
         assertFalse(imageUtils.isImage(multimedia), "Should not be image");
     }
 
     /** */
     @Test
     public void testIsNotWrapper() {
-        final ApiAttribute multimedia = ApiAttribute.builder().type("multimedia").string("Multimedia").attributes(java.util.List.of()).build();
+        final ApiAttribute multimedia = ApiAttribute.builder()
+            .type("multimedia")
+            .string("Multimedia")
+            .attributes(java.util.List.of())
+            .build();
         assertFalse(imageUtils.isImageWrapper(multimedia), "Should not be image");
     }
 }

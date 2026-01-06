@@ -20,10 +20,10 @@ public class ApiSubmissionTest {
     @Test
     public void testDefaultConstructorType() {
         final ApiSubmission o = ApiSubmission.builder()
-                .type("")
-                .string("")
-                .attributes(java.util.List.of())
-                .build();
+            .type("")
+            .string("")
+            .attributes(java.util.List.of())
+            .build();
         assertEquals("", o.getType(), "type mismatch");
     }
 
@@ -31,10 +31,10 @@ public class ApiSubmissionTest {
     @Test
     public void testDefaultConstructorString() {
         final ApiSubmission o = ApiSubmission.builder()
-                .type("")
-                .string("")
-                .attributes(java.util.List.of())
-                .build();
+            .type("")
+            .string("")
+            .attributes(java.util.List.of())
+            .build();
         assertEquals("", o.getString(), "string mismatch");
     }
 
@@ -42,10 +42,10 @@ public class ApiSubmissionTest {
     @Test
     public void testDefaultConstructorAttributes() {
         final ApiSubmission o = ApiSubmission.builder()
-                .type("")
-                .string("")
-                .attributes(java.util.List.of())
-                .build();
+            .type("")
+            .string("")
+            .attributes(java.util.List.of())
+            .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
@@ -53,10 +53,10 @@ public class ApiSubmissionTest {
     @Test
     public void testConstructorType() {
         final ApiSubmission o = ApiSubmission.builder()
-                .type("type")
-                .string("string")
-                .attributes(java.util.List.of())
-                .build();
+            .type("type")
+            .string("string")
+            .attributes(java.util.List.of())
+            .build();
         assertEquals("type", o.getType(), "type mismatch");
     }
 
@@ -64,10 +64,10 @@ public class ApiSubmissionTest {
     @Test
     public void testConstructorString() {
         final ApiSubmission o = ApiSubmission.builder()
-                .type("type")
-                .string("string")
-                .attributes(java.util.List.of())
-                .build();
+            .type("type")
+            .string("string")
+            .attributes(java.util.List.of())
+            .build();
         assertEquals("string", o.getString(), "string mismatch");
     }
 
@@ -75,10 +75,10 @@ public class ApiSubmissionTest {
     @Test
     public void testConstructorNoAttributes() {
         final ApiSubmission o = ApiSubmission.builder()
-                .type("type")
-                .string("string")
-                .attributes(java.util.List.of())
-                .build();
+            .type("type")
+            .string("string")
+            .attributes(java.util.List.of())
+            .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes empty mismatch");
     }
 
@@ -86,10 +86,10 @@ public class ApiSubmissionTest {
     @Test
     public void testConstructorNullAttributes() {
         final ApiSubmission o = ApiSubmission.builder()
-                .type("type")
-                .string("string")
-                .attributes(java.util.List.of())
-                .build();
+            .type("type")
+            .string("string")
+            .attributes(java.util.List.of())
+            .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes empty mismatch");
     }
 
@@ -97,16 +97,16 @@ public class ApiSubmissionTest {
     @Test
     public void testConstructorWithAttributes() {
         final List<ApiAttribute> attributes = List.of(ApiAttribute.builder()
-                .type("attribute")
-                .string("a string")
-                .tail("")
-                .attributes(java.util.List.of())
-                .build());
+            .type("attribute")
+            .string("a string")
+            .tail("")
+            .attributes(java.util.List.of())
+            .build());
         final ApiSubmission o = ApiSubmission.builder()
-                .type("type")
-                .string("string")
-                .attributes(attributes)
-                .build();
+            .type("type")
+            .string("string")
+            .attributes(attributes)
+            .build();
         assertEquals(1, o.getAttributes().size(), "attributes size mismatch");
     }
 
@@ -114,10 +114,10 @@ public class ApiSubmissionTest {
     @Test
     public void testIsType() {
         final ApiSubmission o = ApiSubmission.builder()
-                .type("type")
-                .string("string")
-                .attributes(java.util.List.of())
-                .build();
+            .type("type")
+            .string("string")
+            .attributes(java.util.List.of())
+            .build();
         assertTrue(o.isType("type"), "isType mismatch");
     }
 
@@ -125,10 +125,10 @@ public class ApiSubmissionTest {
     @Test
     public void testAccept() {
         final ApiSubmission o = ApiSubmission.builder()
-                .type("type")
-                .string("string")
-                .attributes(java.util.List.of())
-                .build();
+            .type("type")
+            .string("string")
+            .attributes(java.util.List.of())
+            .build();
         final ApiTestVisitor visitor = new ApiTestVisitor();
         o.accept(visitor);
         assertEquals("submission", visitor.getMethodCalled(), "Method mismatch");
@@ -137,10 +137,6 @@ public class ApiSubmissionTest {
     /** */
     @Test
     public void testHashAndEquals() {
-    	EqualsVerifier
-    	    .forClass(ApiSubmission.class)
-			.suppress(Warning.STRICT_INHERITANCE)
-    	    .verify();
+        EqualsVerifier.forClass(ApiSubmission.class).suppress(Warning.STRICT_INHERITANCE).verify();
     }
-
 }

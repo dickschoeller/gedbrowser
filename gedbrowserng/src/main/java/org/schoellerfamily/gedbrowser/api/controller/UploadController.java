@@ -21,8 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author Dick Schoeller
  */
-@CrossOrigin(origins = {
-        "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
+@CrossOrigin(origins = { "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -46,8 +45,7 @@ public class UploadController {
      * @return the head
      */
     public ApiHead readOne(final String name) {
-        return new HeadCrud(loader, toDocConverter, repositoryManager)
-                .readOne(name, "");
+        return new HeadCrud(loader, toDocConverter, repositoryManager).readOne(name, "");
     }
 
     /**
@@ -57,19 +55,18 @@ public class UploadController {
      * @return the head object for that file
      */
     @RequestMapping(value = "/v1/upload",
-            method = RequestMethod.POST,
-            consumes = "multipart/form-data")
+        method = RequestMethod.POST,
+        consumes = "multipart/form-data")
     @ResponseBody
-    public final ApiHead upload(
-            @RequestParam("file") final MultipartFile file) {
+    public final ApiHead upload(@RequestParam("file") final MultipartFile file) {
         final String originalFilename = file.getOriginalFilename();
         if (ObjectUtils.isEmpty(originalFilename)) {
-			throw new IllegalArgumentException("File name is empty");
-		}
-		log.info("in file upload: {}", originalFilename);
+            throw new IllegalArgumentException("File name is empty");
+        }
+        log.info("in file upload: {}", originalFilename);
         storageService.store(file);
         @SuppressWarnings("null")
-		final String name = originalFilename.replaceAll("\\.ged", "");
+        final String name = originalFilename.replaceAll("\\.ged", "");
         return readOne(name);
     }
 }

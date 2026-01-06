@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.analytics.test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 import java.util.ArrayList;

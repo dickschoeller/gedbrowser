@@ -55,46 +55,41 @@ public final class DatePhraseRendererTest {
 
     /** */
     @Test
-    public void testGetRenderAsPhrase() {
-        final DateRenderer dRenderer = new DateRenderer(date,
-                new GedRendererFactory(), anonymousContext);
-        final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer
-                .getPhraseRenderer();
+    void testGetRenderAsPhrase() {
+        final DateRenderer dRenderer = new DateRenderer(date, new GedRendererFactory(),
+            anonymousContext);
+        final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer.getPhraseRenderer();
         final String string = dpRenderer.renderAsPhrase();
-        assertEquals("14 December 1958 12:00", string, "Rendered date string doesn't match expectation");
+        assertEquals("14 December 1958 12:00", string,
+            "Rendered date string doesn't match expectation");
     }
 
     /** */
     @Test
-    public void testGetRenderAsPhrase2() {
-        final DateRenderer dRenderer = new DateRenderer(date2,
-                new GedRendererFactory(), anonymousContext);
-        final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer
-                .getPhraseRenderer();
+    void testGetRenderAsPhrase2() {
+        final DateRenderer dRenderer = new DateRenderer(date2, new GedRendererFactory(),
+            anonymousContext);
+        final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer.getPhraseRenderer();
         final String string = dpRenderer.renderAsPhrase();
         assertEquals("14 December 1958", string, "Rendered date string doesn't match expectation");
     }
 
     /** */
     @Test
-    public void testGetRenderAsPhraseEmpty() {
-        final DateRenderer dRenderer = new DateRenderer(
-                new Date(attribute, ""), new GedRendererFactory(),
-                anonymousContext);
-        final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer
-                .getPhraseRenderer();
+    void testGetRenderAsPhraseEmpty() {
+        final DateRenderer dRenderer = new DateRenderer(new Date(attribute, ""),
+            new GedRendererFactory(), anonymousContext);
+        final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer.getPhraseRenderer();
         final String string = dpRenderer.renderAsPhrase();
         assertEquals("", string, "Expected empty string");
     }
 
     /** */
     @Test
-    public void testGetRenderAsPhraseNull() {
-        final DateRenderer dRenderer = new DateRenderer(
-                new Date(attribute, null), new GedRendererFactory(),
-                anonymousContext);
-        final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer
-                .getPhraseRenderer();
+    void testGetRenderAsPhraseNull() {
+        final DateRenderer dRenderer = new DateRenderer(new Date(attribute, null),
+            new GedRendererFactory(), anonymousContext);
+        final DatePhraseRenderer dpRenderer = (DatePhraseRenderer) dRenderer.getPhraseRenderer();
         final String string = dpRenderer.renderAsPhrase();
         assertEquals("", string, "Expected empty string");
     }

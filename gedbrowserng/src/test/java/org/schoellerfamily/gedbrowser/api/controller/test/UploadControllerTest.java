@@ -48,20 +48,21 @@ public class UploadControllerTest {
     private GedObjectFileLoader loader = mock(GedObjectFileLoader.class);
 
     /** */
-    private GedObjectToGedDocumentMongoConverter toDocConverter = mock(GedObjectToGedDocumentMongoConverter.class);
+    private GedObjectToGedDocumentMongoConverter toDocConverter = mock(
+        GedObjectToGedDocumentMongoConverter.class);
 
     /** */
     private RepositoryManagerMongo repositoryManager = mock(RepositoryManagerMongo.class);
 
     /** */
-    private UploadController controller = spy(new UploadController(loader, toDocConverter, repositoryManager, service));
+    private UploadController controller = spy(
+        new UploadController(loader, toDocConverter, repositoryManager, service));
 
     /** */
     @BeforeEach
     public void init() {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-        is = controller.getClass().getClassLoader()
-                .getResourceAsStream("mini-schoeller.ged");
+        is = controller.getClass().getClassLoader().getResourceAsStream("mini-schoeller.ged");
     }
 
     /**
@@ -69,28 +70,22 @@ public class UploadControllerTest {
      */
     @Test
     public void testUploadController() throws Exception {
-        final MockMultipartFile mockMultipartFile = new MockMultipartFile(
-                "file", "mini-schoeller.ged", "multipart/form-data", is);
-        doNothing()
-            .when(service).store(mockMultipartFile);
-        final ApiHead o =
-                ApiHead.builder()
-                    .type("type")
-                    .string("string that you would never get")
-                    .build();
-        doReturn(o)
-            .when(controller).readOne(anyString());
-        final MvcResult result = mockMvc.perform(
-                MockMvcRequestBuilders.multipart("/v1/upload")
-                    .file(mockMultipartFile)
-                    .contentType(MediaType.MULTIPART_FORM_DATA))
-                .andExpect(MockMvcResultMatchers
-                        .status()
-                        .is(HttpURLConnection.HTTP_OK))
-                .andReturn();
+        final MockMultipartFile mockMultipartFile = new MockMultipartFile("file",
+            "mini-schoeller.ged", "multipart/form-data", is);
+        doNothing().when(service).store(mockMultipartFile);
+        final ApiHead o = ApiHead.builder()
+            .type("type")
+            .string("string that you would never get")
+            .build();
+        doReturn(o).when(controller).readOne(anyString());
+        final MvcResult result = mockMvc
+            .perform(MockMvcRequestBuilders.multipart("/v1/upload")
+                .file(mockMultipartFile)
+                .contentType(MediaType.MULTIPART_FORM_DATA))
+            .andExpect(MockMvcResultMatchers.status().is(HttpURLConnection.HTTP_OK))
+            .andReturn();
         final ObjectMapper mapper = new ObjectMapper();
         final String json = mapper.writeValueAsString(o);
-        assertEquals(json, result.getResponse().getContentAsString(),
-            "head object doesn't match");
+        assertEquals(json, result.getResponse().getContentAsString(), "head object doesn't match");
     }
 }

@@ -29,6 +29,10 @@ public class ApiTail extends ApiObject {
     @NonNull
     private final String tail = "";
 
+    /**
+     * Is the other object of exactly the same type as this one? All overrides
+     * should use the same approach.
+     */
     @Override
     public boolean canEqual(final Object other) {
         return other.getClass() == ApiTail.class;

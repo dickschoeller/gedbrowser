@@ -47,8 +47,7 @@ public final class GedObjectBuilderSubmitterTest {
     @Test
     public void testCreateSubmitterNamed() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Submitter submitter =
-                builder.createSubmitter("SUB1", "John/Doe/");
+        final Submitter submitter = builder.createSubmitter("SUB1", "John/Doe/");
         assertEquals("SUB1", submitter.getString(), "Mismatched tag");
     }
 
@@ -56,8 +55,7 @@ public final class GedObjectBuilderSubmitterTest {
     @Test
     public void testCreateSubmitterNamedIsNamed() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Submitter submitter =
-                builder.createSubmitter("SUB1", "John/Doe/");
+        final Submitter submitter = builder.createSubmitter("SUB1", "John/Doe/");
         assertEquals("John/Doe/", submitter.getName().getString(), "Mismatched string");
     }
 

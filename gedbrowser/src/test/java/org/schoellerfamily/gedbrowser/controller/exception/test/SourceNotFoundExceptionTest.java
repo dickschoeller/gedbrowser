@@ -14,7 +14,6 @@ import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("null")
 public class SourceNotFoundExceptionTest {
     /** */
     private SourceNotFoundException exception;
@@ -23,8 +22,8 @@ public class SourceNotFoundExceptionTest {
     @BeforeEach
     public void setUp() {
         final ApplicationInfo appInfo = new ApplicationInfoImpl(null, null, null, null);
-        exception = new SourceNotFoundException("Source not found", "ID1",
-                "xyzzy", RenderingContext.user(appInfo));
+        exception = new SourceNotFoundException("Source not found", "ID1", "xyzzy",
+            RenderingContext.user(appInfo));
     }
 
     /** */
@@ -54,7 +53,8 @@ public class SourceNotFoundExceptionTest {
     /** */
     @Test
     public void testIndexHref() {
-        assertEquals("surnames?db=xyzzy&letter=A", exception.getIndexHref(), "Index href doesn't match");
+        assertEquals("surnames?db=xyzzy&letter=A", exception.getIndexHref(),
+            "Index href doesn't match");
     }
 
     /** */
@@ -72,7 +72,8 @@ public class SourceNotFoundExceptionTest {
     /** */
     @Test
     public void testSubmittersHref() {
-        assertEquals("submitters?db=xyzzy", exception.getSubmittersHref(), "Submitters href doesn't match");
+        assertEquals("submitters?db=xyzzy", exception.getSubmittersHref(),
+            "Submitters href doesn't match");
     }
 
     /** */

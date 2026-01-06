@@ -60,7 +60,7 @@ public interface UpdateOperations<X extends GedObject,
      * @return the updated document
      */
     @SuppressWarnings("unchecked")
-    default Y update(X gob) {
+    default Y update(final X gob) {
         Y document = (Y) getConverter().createGedDocument(gob);
         try {
             final FindableDocument<X, Y> repo = getRepository();

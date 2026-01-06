@@ -13,101 +13,120 @@ import nl.jqno.equalsverifier.Warning;
 /**
  * @author Dick Schoeller
  */
-public class ApiPersonTest {
+public final class ApiPersonTest {
     /** */
     @Test
-    public void testDefaultConstructorType() {
-        final ApiPerson o = ApiPerson.builder().type("").string("").attributes(java.util.List.of()).surname("").indexName("").build();
+    void testDefaultConstructorType() {
+        final ApiPerson o = ApiPerson.builder()
+            .type("")
+            .string("")
+            .attributes(java.util.List.of())
+            .surname("")
+            .indexName("")
+            .build();
         assertEquals("", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
-    public void testDefaultConstructorString() {
-        final ApiPerson o = ApiPerson.builder().type("").string("").attributes(java.util.List.of()).surname("").indexName("").build();
+    void testDefaultConstructorString() {
+        final ApiPerson o = ApiPerson.builder()
+            .type("")
+            .string("")
+            .attributes(java.util.List.of())
+            .surname("")
+            .indexName("")
+            .build();
         assertEquals("", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
-    public void testDefaultConstructorAttributes() {
-        final ApiPerson o = ApiPerson.builder().type("").string("").attributes(java.util.List.of()).surname("").indexName("").build();
+    void testDefaultConstructorAttributes() {
+        final ApiPerson o = ApiPerson.builder()
+            .type("")
+            .string("")
+            .attributes(java.util.List.of())
+            .surname("")
+            .indexName("")
+            .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
     /** */
     @Test
-    public void testConstructorType() {
+    void testConstructorType() {
         final ApiPerson o = ApiPerson.builder()
-                .type("type")
-                .string("string")
-                .indexName("index name")
-                .surname("surname")
-                .attributes(java.util.List.of())
-                .build();
+            .type("type")
+            .string("string")
+            .indexName("index name")
+            .surname("surname")
+            .attributes(java.util.List.of())
+            .build();
         assertEquals("type", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
-    public void testConstructorString() {
+    void testConstructorString() {
         final ApiPerson o = createPerson();
         assertEquals("string", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
-    public void testConstructorIndexName() {
+    void testConstructorIndexName() {
         final ApiPerson o = createPerson();
         assertEquals("index name", o.getIndexName(), "indexname mismatch");
     }
 
     /** */
     @Test
-    public void testConstructorSurname() {
+    void testConstructorSurname() {
         final ApiPerson o = createPerson();
         assertEquals("surname", o.getSurname(), "surname mismatch");
     }
 
     /** */
     @Test
-    public void testConstructorNoAttributes() {
+    void testConstructorNoAttributes() {
         final ApiPerson o = createPerson();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
     /** */
     @Test
-    public void testConstructorWithAttributes() {
+    void testConstructorWithAttributes() {
         final ApiPerson o = ApiPerson.builder()
-                .string("string")
-                .attribute(ApiAttribute.builder().type("attribute").string("a string").tail("").attributes(java.util.List.of()).build())
-                .surname("")
-                .indexName("")
-                .build();
+            .string("string")
+            .attribute(ApiAttribute.builder()
+                .type("attribute")
+                .string("a string")
+                .tail("")
+                .attributes(java.util.List.of())
+                .build())
+            .surname("")
+            .indexName("")
+            .build();
         assertEquals(1, o.getAttributes().size(), "attributes mismatch");
     }
 
     /** */
     @Test
-    public void testIsType() {
+    void testIsType() {
         final ApiPerson o = ApiPerson.builder()
-        		.type("person")
-                .string("string")
-                .attribute(ApiAttribute.builder()
-                    .type("attribute")
-                    .string("a string")
-                    .tail("")
-                    .build())
-                .surname("")
-                .indexName("")
-                .build();
+            .type("person")
+            .string("string")
+            .attribute(ApiAttribute.builder().type("attribute").string("a string").tail("").build())
+            .surname("")
+            .indexName("")
+            .build();
         assertTrue(o.isType("person"), "type mismatch");
     }
 
     /** */
     @Test
-    public void testAccept() {
+    void testAccept() {
         final ApiPerson o = createPerson();
         final ApiTestVisitor visitor = new ApiTestVisitor();
         o.accept(visitor);
@@ -116,7 +135,7 @@ public class ApiPersonTest {
 
     /** */
     @Test
-    public void testImage() {
+    void testImage() {
         final ApiAttribute multimedia = ApiAttribute.builder()
             .type("multimedia")
             .string("Multimedia")
@@ -132,58 +151,48 @@ public class ApiPersonTest {
 
     /** */
     @Test
-    public void testOneImage() {
+    void testOneImage() {
         final ApiAttribute multimedia = ApiAttribute.builder()
-                .type("multimedia")
-                .string("Multimedia")
-                .attribute((ApiAttribute) ApiAttribute.builder()
-                    .type("attribute")
-                    .string("File")
-                    .tail("foo.jpg")
-                    .build())
-                .build();
-            final ApiPerson o = createPerson(multimedia);
+            .type("multimedia")
+            .string("Multimedia")
+            .attribute((ApiAttribute) ApiAttribute.builder()
+                .type("attribute")
+                .string("File")
+                .tail("foo.jpg")
+                .build())
+            .build();
+        final ApiPerson o = createPerson(multimedia);
         assertEquals(1, o.getImages().size(), "Should contain 1 image");
     }
 
     /** */
     @Test
-    public void testNoImages() {
+    void testNoImages() {
         final ApiPerson o = createPerson();
         assertEquals(0, o.getImages().size(), "Should contain 0 images");
     }
 
-    /** */
     @Test
-    public void testHashAndEquals() {
-    	EqualsVerifier
-    	    .forClass(ApiPerson.class)
-			.suppress(Warning.STRICT_INHERITANCE)
-    	    .verify();
+    void testHashAndEquals() {
+        EqualsVerifier.forClass(ApiPerson.class).suppress(Warning.STRICT_INHERITANCE).verify();
     }
 
-    /**
-     * @return the new person
-     */
     private ApiPerson createPerson() {
         return ApiPerson.builder()
-                .type("type")
-                .string("string")
-                .indexName("index name")
-                .surname("surname")
-                .build();
+            .type("type")
+            .string("string")
+            .indexName("index name")
+            .surname("surname")
+            .build();
     }
 
-    /**
-     * @return the new person
-     */
     private ApiPerson createPerson(final ApiAttribute additional) {
         return ApiPerson.builder()
-                .type("type")
-                .string("string")
-                .indexName("index name")
-                .surname("surname")
-                .attribute(additional)
-                .build();
+            .type("type")
+            .string("string")
+            .indexName("index name")
+            .surname("surname")
+            .attribute(additional)
+            .build();
     }
 }

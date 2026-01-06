@@ -39,57 +39,63 @@ public final class LinkRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final LinkRenderer renderer = new LinkRenderer(new Link(null),
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
+        final LinkRenderer renderer = new LinkRenderer(new Link(null), new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(
+            renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testListItemRenderer() {
-        final LinkRenderer renderer = new LinkRenderer(new Link(null),
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer, "Wrong renderer type");
+        final LinkRenderer renderer = new LinkRenderer(new Link(null), new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameHtmlRenderer() {
-        final LinkRenderer renderer = new LinkRenderer(new Link(null),
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
+        final LinkRenderer renderer = new LinkRenderer(new Link(null), new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameIndeRenderer() {
-        final LinkRenderer renderer = new LinkRenderer(new Link(null),
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
+        final LinkRenderer renderer = new LinkRenderer(new Link(null), new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testPhraseRenderer() {
-        final LinkRenderer renderer = new LinkRenderer(new Link(null),
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer, "Wrong renderer type");
+        final LinkRenderer renderer = new LinkRenderer(new Link(null), new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer,
+            "Wrong renderer type");
     }
 }

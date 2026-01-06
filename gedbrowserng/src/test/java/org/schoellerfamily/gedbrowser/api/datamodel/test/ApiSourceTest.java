@@ -19,33 +19,21 @@ public class ApiSourceTest {
     /** */
     @Test
     public void testDefaultConstructorType() {
-        final ApiSource o = ApiSource.builder()
-            .type("")
-            .string("")
-            .title("")
-            .build();
+        final ApiSource o = ApiSource.builder().type("").string("").title("").build();
         assertEquals("", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorString() {
-        final ApiSource o = ApiSource.builder()
-            .type("")
-            .string("")
-            .title("")
-            .build();
+        final ApiSource o = ApiSource.builder().type("").string("").title("").build();
         assertEquals("", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorAttributes() {
-        final ApiSource o = ApiSource.builder()
-            .type("")
-            .string("")
-            .title("")
-            .build();
+        final ApiSource o = ApiSource.builder().type("").string("").title("").build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
@@ -85,11 +73,7 @@ public class ApiSourceTest {
     /** */
     @Test
     public void testConstructorNullAttributes() {
-        final ApiSource o = ApiSource.builder()
-            .type("type")
-            .string("string")
-            .title("")
-            .build();
+        final ApiSource o = ApiSource.builder().type("type").string("string").title("").build();
         assertTrue(o.getAttributes().isEmpty(), "attributes empty mismatch");
     }
 
@@ -99,12 +83,8 @@ public class ApiSourceTest {
         final ApiSource o = ApiSource.builder()
             .type("type")
             .string("string")
-            .attributes(List.of(
-			    ApiAttribute.builder()
-			        .type("attribute")
-			        .string("a string")
-			        .tail("")
-			        .build()))
+            .attributes(List
+                .of(ApiAttribute.builder().type("attribute").string("a string").tail("").build()))
             .title("Unknown")
             .build();
         assertEquals(1, o.getAttributes().size(), "attributes size mismatch");
@@ -169,17 +149,19 @@ public class ApiSourceTest {
     /** */
     @Test
     public void testNoImages() {
-        final ApiSource o = ApiSource.builder().type("type").string("string").title("title").attributes(List.of()).build();
+        final ApiSource o = ApiSource.builder()
+            .type("type")
+            .string("string")
+            .title("title")
+            .attributes(List.of())
+            .build();
         assertEquals(0, o.getImages().size(), "Should contain 0 images");
     }
 
     /** */
     @Test
     public void testHashAndEquals() {
-    	EqualsVerifier
-    	    .forClass(ApiSource.class)
-			.suppress(Warning.STRICT_INHERITANCE)
-    	    .verify();
+        EqualsVerifier.forClass(ApiSource.class).suppress(Warning.STRICT_INHERITANCE).verify();
     }
 
     /**
@@ -187,15 +169,12 @@ public class ApiSourceTest {
      */
     private ApiSource sourceWithMultimedia() {
         final ApiAttribute multimedia = ApiAttribute.builder()
-		    .type("multimedia")
-		    .string("Multimedia")
-		    .attribute(ApiAttribute.builder()
-			    .type("attribute")
-			    .string("File")
-			    .tail("foo.jpg")
-			    .build())
-		    .build();
-		return ApiSource.builder()
+            .type("multimedia")
+            .string("Multimedia")
+            .attribute(
+                ApiAttribute.builder().type("attribute").string("File").tail("foo.jpg").build())
+            .build();
+        return ApiSource.builder()
             .type("type")
             .string("string")
             .title("title")

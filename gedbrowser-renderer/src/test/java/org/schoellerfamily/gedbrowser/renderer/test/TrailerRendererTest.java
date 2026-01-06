@@ -39,61 +39,66 @@ public final class TrailerRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testAttributeListOpenRenderer() {
         final TrailerRenderer renderer = createRenderer();
-        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
+        assertTrue(
+            renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testListItemRenderer() {
         final TrailerRenderer renderer = createRenderer();
-        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer, "Wrong renderer type");
+        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameHtmlRenderer() {
         final TrailerRenderer renderer = createRenderer();
-        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameIndexRenderer() {
         final TrailerRenderer renderer = createRenderer();
-        assertTrue(renderer
-                .getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testPhraseRenderer() {
         final TrailerRenderer renderer = createRenderer();
-        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer, "Wrong renderer type");
+        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer,
+            "Wrong renderer type");
     }
 
     /**
      * @return the renderer
      */
     private TrailerRenderer createRenderer() {
-        return new TrailerRenderer(new Trailer(null, "Trailer"),
-                new GedRendererFactory(), anonymousContext);
+        return new TrailerRenderer(new Trailer(null, "Trailer"), new GedRendererFactory(),
+            anonymousContext);
     }
 }

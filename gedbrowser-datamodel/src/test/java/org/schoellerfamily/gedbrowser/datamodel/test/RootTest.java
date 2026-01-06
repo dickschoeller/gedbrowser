@@ -101,13 +101,10 @@ public final class RootTest {
         final Person person5 = new Person(root, new ObjectId("SQUIRT"));
         root.insert(person5);
         final Map<String, GedObject> objects = root.getObjects();
-        assertTrue(OBJECT_COUNT == objects.size()
-                        && objects.keySet().contains("I1")
-                        && objects.keySet().contains("I2")
-                        && objects.keySet().contains("I3")
-                        && objects.keySet().contains("I4")
-                        && objects.keySet().contains("SQUIRT")
-                        && objects.keySet().contains("F1"), "Content mismatch");
+        assertTrue(OBJECT_COUNT == objects.size() && objects.keySet().contains("I1")
+            && objects.keySet().contains("I2") && objects.keySet().contains("I3")
+            && objects.keySet().contains("I4") && objects.keySet().contains("SQUIRT")
+            && objects.keySet().contains("F1"), "Content mismatch");
     }
 
     /** */
@@ -160,7 +157,7 @@ public final class RootTest {
         final Set<String> npsSchoeller = index.getNamesPerSurname("Schoeller");
         final Set<String> npsHayes = index.getNamesPerSurname("Hayes");
         final Set<String> nullish = index.getNamesPerSurname("Mumble");
-        assertTrue(2 == index.surnameCount() && 2 == npsSchoeller.size()
-                        && 1 == npsHayes.size() && nullish.isEmpty(), "Counts don't match");
+        assertTrue(2 == index.surnameCount() && 2 == npsSchoeller.size() && 1 == npsHayes.size()
+            && nullish.isEmpty(), "Counts don't match");
     }
 }

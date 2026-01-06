@@ -46,18 +46,15 @@ public final class GedObjectTest {
     /** */
     private static class GedObjectWrapper extends GedObject {
         /**
-         * @param parent
-         *            parent object of this object
+         * @param parent parent object of this object
          */
         GedObjectWrapper(final GedObject parent) {
             super(parent);
         }
 
         /**
-         * @param parent
-         *            parent object of this object
-         * @param string
-         *            long version of type string
+         * @param parent parent object of this object
+         * @param string long version of type string
          */
         GedObjectWrapper(final GedObject parent, final String string) {
             super(parent, string);
@@ -168,7 +165,8 @@ public final class GedObjectTest {
     public void testInsertFamily() {
         final Family family = new Family(root, new ObjectId("F777"));
         root.insert(family);
-        assertEquals(family, finder.find(family, "F777", Family.class), "Should have found same family");
+        assertEquals(family, finder.find(family, "F777", Family.class),
+            "Should have found same family");
     }
 
     /**
@@ -214,7 +212,8 @@ public final class GedObjectTest {
         final Attribute attribute = new Attribute(gob, ATTR_TAG, ATTR_NAME);
         gob.insert(attribute);
         final List<GedObject> attributes = gob.getAttributes();
-        assertTrue(attributes.contains(attribute) && attributes.size() == 1, "Attribute list should only contain new attribute");
+        assertTrue(attributes.contains(attribute) && attributes.size() == 1,
+            "Attribute list should only contain new attribute");
     }
 
     /** */
@@ -373,8 +372,7 @@ public final class GedObjectTest {
     @Test
     public void testNotEquals() {
         gob = new GedObjectWrapper(new GedObjectWrapper(null, "bar"), GOB_TAG);
-        final GedObject gob1 = new GedObjectWrapper(
-                new GedObjectWrapper(null, "foo"), GOB_TAG);
+        final GedObject gob1 = new GedObjectWrapper(new GedObjectWrapper(null, "foo"), GOB_TAG);
         assertNotEquals(gob, gob1, "Expected not equals");
     }
 
@@ -382,8 +380,7 @@ public final class GedObjectTest {
     @Test
     public void testNotEqualsOrder1() {
         gob = new GedObjectWrapper(new GedObjectWrapper(null, "bar"), null);
-        final GedObject gob1 = new GedObjectWrapper(
-                new GedObjectWrapper(null, "foo"), GOB_TAG);
+        final GedObject gob1 = new GedObjectWrapper(new GedObjectWrapper(null, "foo"), GOB_TAG);
         assertNotEquals(gob, gob1);
     }
 
@@ -391,8 +388,7 @@ public final class GedObjectTest {
     @Test
     public void testNotEqualsOrder2() {
         gob = new GedObjectWrapper(new GedObjectWrapper(null, "bar"), null);
-        final GedObject gob1 = new GedObjectWrapper(
-                new GedObjectWrapper(null, "foo"), GOB_TAG);
+        final GedObject gob1 = new GedObjectWrapper(new GedObjectWrapper(null, "foo"), GOB_TAG);
         assertNotEquals(gob1, gob);
     }
 
@@ -474,6 +470,7 @@ public final class GedObjectTest {
         final Attribute attribute = new Attribute(gob, ATTR_TAG, ATTR_NAME);
         gob.insert(attribute);
         final List<GedObject> attributes = gob.getAttributes();
-        assertTrue(attributes.contains(attribute) && attributes.size() == 1, "Expected only the one attribute");
+        assertTrue(attributes.contains(attribute) && attributes.size() == 1,
+            "Expected only the one attribute");
     }
 }

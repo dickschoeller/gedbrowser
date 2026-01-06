@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,19 +36,22 @@ import lombok.extern.slf4j.Slf4j;
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
 @Slf4j
 @RequiredArgsConstructor
+@Getter
 public abstract class AbstractController {
-	/** Contains application information, for display on every page. */
-    protected final ApplicationInfo appInfo;
+    /** Contains application information, for display on every page. */
+    private final ApplicationInfo appInfo;
 
+    /** Collection of known users. */
     private final Users<? extends User> users;
 
+    /** Loads GEDCOM files. */
     private final GedObjectFileLoader loader;
 
     /** Processes calendar information for display. */
-    protected final CalendarProvider provider;
+    private final CalendarProvider provider;
 
     /** Handles data storage. */
-    protected final RepositoryManagerMongo repositoryManager;
+    private final RepositoryManagerMongo repositoryManager;
 
     /**
      * Get the rendering context for the current request.
@@ -56,8 +60,8 @@ public abstract class AbstractController {
      */
     protected final RenderingContext createRenderingContext() {
         log.debug("Creating RenderingContext");
-        final Authentication authentication =
-                SecurityContextHolder.getContext().getAuthentication();
+        final Authentication authentication = SecurityContextHolder.getContext()
+            .getAuthentication();
         final User user = users.get(authentication.getName());
         return new RenderingContext(user, appInfo, provider);
     }
@@ -79,128 +83,119 @@ public abstract class AbstractController {
     /**
      * Handle person not found exceptions.
      *
-     * @param request the request we're processing
+     * @param request   the request we're processing
      * @param exception the exception caught
      * @return the model and view
      */
     @ExceptionHandler({ PersonNotFoundException.class })
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public final ModelAndView personNotFoundError(
-            final HttpServletRequest request,
-            final PersonNotFoundException exception) {
+    public final ModelAndView personNotFoundError(final HttpServletRequest request,
+        final PersonNotFoundException exception) {
         log.info("Handling exception: {}", exception.getMessage());
-        return createModelAndViewForException(request, exception,
-                "personNotFound", HttpStatus.NOT_FOUND);
+        return createModelAndViewForException(request, exception, "personNotFound",
+            HttpStatus.NOT_FOUND);
     }
 
     /**
      * Handle note not found exceptions.
      *
-     * @param request the request we're processing
+     * @param request   the request we're processing
      * @param exception the exception caught
      * @return the model and view
      */
     @ExceptionHandler({ NoteNotFoundException.class })
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public final ModelAndView noteNotFoundError(
-            final HttpServletRequest request,
-            final NoteNotFoundException exception) {
+    public final ModelAndView noteNotFoundError(final HttpServletRequest request,
+        final NoteNotFoundException exception) {
         log.info("Handling exception: {}", exception.getMessage());
-        return createModelAndViewForException(request, exception,
-                "noteNotFound", HttpStatus.NOT_FOUND);
+        return createModelAndViewForException(request, exception, "noteNotFound",
+            HttpStatus.NOT_FOUND);
     }
 
     /**
      * Handle source not found exceptions.
      *
-     * @param request the request we're processing
+     * @param request   the request we're processing
      * @param exception the exception caught
      * @return the model and view
      */
     @ExceptionHandler({ SourceNotFoundException.class })
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public final ModelAndView sourceNotFoundError(
-            final HttpServletRequest request,
-            final SourceNotFoundException exception) {
+    public final ModelAndView sourceNotFoundError(final HttpServletRequest request,
+        final SourceNotFoundException exception) {
         log.info("Handling exception: {}", exception.getMessage());
-        return createModelAndViewForException(request, exception,
-                "sourceNotFound", HttpStatus.NOT_FOUND);
+        return createModelAndViewForException(request, exception, "sourceNotFound",
+            HttpStatus.NOT_FOUND);
     }
 
     /**
      * Handle submission not found exceptions.
      *
-     * @param request the request we're processing
+     * @param request   the request we're processing
      * @param exception the exception caught
      * @return the model and view
      */
     @ExceptionHandler({ SubmissionNotFoundException.class })
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public final ModelAndView submissionNotFoundError(
-            final HttpServletRequest request,
-            final SubmissionNotFoundException exception) {
+    public final ModelAndView submissionNotFoundError(final HttpServletRequest request,
+        final SubmissionNotFoundException exception) {
         log.info("Handling exception: {}", exception.getMessage());
-        return createModelAndViewForException(request, exception,
-                "submissionNotFound", HttpStatus.NOT_FOUND);
+        return createModelAndViewForException(request, exception, "submissionNotFound",
+            HttpStatus.NOT_FOUND);
     }
 
     /**
      * Handle submitter not found exceptions.
      *
-     * @param request the request we're processing
+     * @param request   the request we're processing
      * @param exception the exception caught
      * @return the model and view
      */
     @ExceptionHandler({ SubmitterNotFoundException.class })
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public final ModelAndView submitterNotFoundError(
-            final HttpServletRequest request,
-            final SubmitterNotFoundException exception) {
+    public final ModelAndView submitterNotFoundError(final HttpServletRequest request,
+        final SubmitterNotFoundException exception) {
         log.info("Handling exception: {}", exception.getMessage());
-        return createModelAndViewForException(request, exception,
-                "submitterNotFound", HttpStatus.NOT_FOUND);
+        return createModelAndViewForException(request, exception, "submitterNotFound",
+            HttpStatus.NOT_FOUND);
     }
 
     /**
      * Handle data set not found exceptions.
      *
-     * @param request the request we're processing
+     * @param request   the request we're processing
      * @param exception the exception caught
      * @return the model and view
      */
     @ExceptionHandler({ DataSetNotFoundException.class })
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public final ModelAndView dataSetNotFoundError(
-            final HttpServletRequest request,
-            final DataSetNotFoundException exception) {
+    public final ModelAndView dataSetNotFoundError(final HttpServletRequest request,
+        final DataSetNotFoundException exception) {
         log.info("Handling exception: {}", exception.getMessage());
-        return createModelAndViewForException(request, exception,
-                "dataSetNotFound", HttpStatus.NOT_FOUND);
+        return createModelAndViewForException(request, exception, "dataSetNotFound",
+            HttpStatus.NOT_FOUND);
     }
 
     /**
      * Handle all other exceptions.
      *
-     * @param request the request we're processing
+     * @param request   the request we're processing
      * @param exception the exception caught
      * @return the model and view
      */
     @ExceptionHandler({ Throwable.class })
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public final ModelAndView error(final HttpServletRequest request,
-            final Exception exception) {
+    public final ModelAndView error(final HttpServletRequest request, final Exception exception) {
         log.error("Handling exception", exception);
         return createModelAndViewForException(request, exception, "exception",
-                HttpStatus.INTERNAL_SERVER_ERROR);
+            HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    private ModelAndView createModelAndViewForException(
-            final HttpServletRequest request, final Exception exception,
-            final String viewName, final HttpStatus status) {
+    private ModelAndView createModelAndViewForException(final HttpServletRequest request,
+        final Exception exception, final String viewName, final HttpStatus status) {
         final ModelAndView mav = new ModelAndView();
         final RenderingContext context = createRenderingContext();
-        final Renderer renderer = new GedResourceNotFoundRenderer(
-                exception, context);
+        final Renderer renderer = new GedResourceNotFoundRenderer(exception, context);
         mav.addObject("error", renderer);
         mav.addObject("url", request.getRequestURL());
         mav.setViewName(viewName);

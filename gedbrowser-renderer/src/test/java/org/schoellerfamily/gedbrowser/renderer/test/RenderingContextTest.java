@@ -1,6 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer.test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,13 +38,15 @@ public class RenderingContextTest {
     /** */
     @Test
     public final void testGetApplicationName() {
-        assertEquals("gedbrowser", anonymousContext.getApplicationName(), "Application name mistmatch");
+        assertEquals("gedbrowser", anonymousContext.getApplicationName(),
+            "Application name mistmatch");
     }
 
     /** */
     @Test
     public final void testGetApplicationURL() {
-        assertEquals("https://github.com/dickschoeller/gedbrowser", anonymousContext.getApplicationURL(), "Application URL mismatch");
+        assertEquals("https://github.com/dickschoeller/gedbrowser",
+            anonymousContext.getApplicationURL(), "Application URL mismatch");
     }
 
     /** */
@@ -59,7 +64,8 @@ public class RenderingContextTest {
     /** */
     @Test
     public final void testGetHomeURL() {
-        assertEquals("http://www.schoellerfamily.org/", anonymousContext.getHomeURL(), "Home URL misamtch");
+        assertEquals("http://www.schoellerfamily.org/", anonymousContext.getHomeURL(),
+            "Home URL misamtch");
     }
 
     /** */
@@ -71,13 +77,15 @@ public class RenderingContextTest {
     /** */
     @Test
     public final void testGetMaintainerEmail() {
-        assertEquals("schoeller@comcast.net", anonymousContext.getMaintainerEmail(), "Maintainer email mismatch");
+        assertEquals("schoeller@comcast.net", anonymousContext.getMaintainerEmail(),
+            "Maintainer email mismatch");
     }
 
     /** */
     @Test
     public final void testGetMaintainerName() {
-        assertEquals("Richard Schoeller", anonymousContext.getMaintainerName(), "Maintainer name mismatch");
+        assertEquals("Richard Schoeller", anonymousContext.getMaintainerName(),
+            "Maintainer name mismatch");
     }
 
     /** */

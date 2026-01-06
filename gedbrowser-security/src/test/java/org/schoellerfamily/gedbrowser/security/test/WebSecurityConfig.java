@@ -57,29 +57,39 @@ public class WebSecurityConfig {
     private final TokenAuthenticationFilter tokenAuthenticationFilter;
 
     /**
-     * Register a DaoAuthenticationProvider so AuthenticationManager can use
-     * the provided UserDetailsService and PasswordEncoder.
+     * Register a DaoAuthenticationProvider so AuthenticationManager can use the
+     * provided UserDetailsService and PasswordEncoder.
+     *
+     * @param passwordEncoder the password encoder
+     * @return the authentication provider
      */
     @Bean
-    public DaoAuthenticationProvider authenticationProvider(
-            final PasswordEncoder passwordEncoder) {
-        final DaoAuthenticationProvider provider = new DaoAuthenticationProvider(customUserDetailsService);
+    public DaoAuthenticationProvider authenticationProvider(final PasswordEncoder passwordEncoder) {
+        final DaoAuthenticationProvider provider = new DaoAuthenticationProvider(
+            customUserDetailsService);
         provider.setPasswordEncoder(passwordEncoder);
         return provider;
     }
 
     /**
      * Expose the AuthenticationManager from AuthenticationConfiguration.
+     *
+     * @param authenticationConfiguration the authentication configuration
+     * @return the authentication manager
+     * @throws Exception if there is a problem
      */
     @Bean
     public AuthenticationManager authenticationManager(
-            final AuthenticationConfiguration authenticationConfiguration)
-            throws Exception {
+        final AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
     /**
      * Configure the security filter chain using the modern approach.
+     *
+     * @param http the http security object
+     * @return the security filter chain
+     * @throws Exception if there is a problem
      */
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
@@ -87,36 +97,36 @@ public class WebSecurityConfig {
         final HttpSecurity configured = handleCsrf(http);
 
         configured
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .sessionManagement(
+                session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .exceptionHandling(ex -> ex.authenticationEntryPoint(restAuthenticationEntryPoint))
             // Add the token filter before the basic authentication filter
             .addFilterBefore(tokenAuthenticationFilter, BasicAuthenticationFilter.class)
             // Use the newer authorizeHttpRequests API
             .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
             // Configure form login
-            .formLogin(form -> form
-                    .loginPage("/v1/login")
-                    .successHandler(authenticationSuccessHandler)
-                    .failureHandler(authenticationFailureHandler))
+            .formLogin(form -> form.loginPage("/v1/login")
+                .successHandler(authenticationSuccessHandler)
+                .failureHandler(authenticationFailureHandler))
             // Configure logout using the PathPatternRequestMatcher builder
             .logout(logout -> logout
-                    .logoutRequestMatcher(PathPatternRequestMatcher.withDefaults().matcher("/v1/logout"))
-                    .logoutSuccessHandler(logoutSuccess)
-                    .deleteCookies(cookie));
+                .logoutRequestMatcher(
+                    PathPatternRequestMatcher.withDefaults().matcher("/v1/logout"))
+                .logoutSuccessHandler(logoutSuccess)
+                .deleteCookies(cookie));
 
         return configured.build();
     }
 
     /**
-     * Work from the http security object and enable or disable CSRF handling,
-     * as requested in the application properties.
+     * Work from the http security object and enable or disable CSRF handling, as
+     * requested in the application properties.
      *
      * @param http the http security objec
      * @return the http security object
      * @throws Exception if there is a problem
      */
-    private HttpSecurity handleCsrf(final HttpSecurity http)
-            throws Exception {
+    private HttpSecurity handleCsrf(final HttpSecurity http) throws Exception {
         if ("test".equals(activeProfile)) {
             // Use the lambda-based CsrfConfigurer to disable CSRF in test profile
             http.csrf(csrf -> csrf.disable());
@@ -125,11 +135,10 @@ public class WebSecurityConfig {
             // for endpoints that should be ignored by CSRF protection and set a
             // CookieCsrfTokenRepository with HttpOnly disabled for client access.
             http.csrf(csrf -> csrf
-                    .ignoringRequestMatchers(
-                            PathPatternRequestMatcher.withDefaults().matcher("/v1/login"),
-                            PathPatternRequestMatcher.withDefaults().matcher("/v1/signup"))
-                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-            );
+                .ignoringRequestMatchers(
+                    PathPatternRequestMatcher.withDefaults().matcher("/v1/login"),
+                    PathPatternRequestMatcher.withDefaults().matcher("/v1/signup"))
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
         }
         return http;
     }

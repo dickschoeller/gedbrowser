@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CustomUserDetailsService implements UserDetailsService {
+public final class CustomUserDetailsService implements UserDetailsService {
     /** */
     private final SecurityUsers users;
 

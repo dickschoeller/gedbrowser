@@ -5,10 +5,10 @@ import java.net.URI;
 import java.net.URL;
 import java.util.logging.Level;
 
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,15 +43,13 @@ public class WebDriverFactory {
      * @return the webdriver
      * @throws MalformedURLException if there is a bogus URL
      */
-    public RemoteWebDriver webDriver(final String testName)
-            throws MalformedURLException {
-        final RemoteWebDriver remoteWebDriver = new RemoteWebDriver(
-                getRemoteUrl(), getCapabilities(testName));
+    public RemoteWebDriver webDriver(final String testName) throws MalformedURLException {
+        final RemoteWebDriver remoteWebDriver = new RemoteWebDriver(getRemoteUrl(),
+            getCapabilities(testName));
         // RemoteWebDriver does not expose setLogLevel; logging preferences
         // are applied via capabilities above.
         return remoteWebDriver;
     }
-
 
     /**
      * @return the selenium server URL
@@ -74,7 +72,8 @@ public class WebDriverFactory {
      * @return the capabilities structure
      */
     private MutableCapabilities getCapabilities(final String testName) {
-        log.info("Capabilities name: {}, version: {}, platform: {}", browserName, browserVersion, platform);
+        log.info("Capabilities name: {}, version: {}, platform: {}", browserName, browserVersion,
+            platform);
         final MutableCapabilities capabilities = new MutableCapabilities();
 
         // Standard W3C capability keys
@@ -108,14 +107,16 @@ public class WebDriverFactory {
             final String travisBuildNumber = env.getProperty("TRAVIS_BUILD_NUMBER");
             if (travisBuildNumber != null) {
                 sauceOptions.setCapability("build", travisBuildNumber);
-                sauceOptions.setCapability("name", travisBuildNumber + "-" + browserName + "-" + platform + "-" + testName);
+                sauceOptions.setCapability("name",
+                    travisBuildNumber + "-" + browserName + "-" + platform + "-" + testName);
             }
             capabilities.setCapability("sauce:options", sauceOptions);
         }
 
         final LoggingPreferences prefs = new LoggingPreferences();
         prefs.enable(LogType.CLIENT, Level.OFF);
-        // Use the W3C-compatible key for Chrome logging prefs. CapabilityType.LOGGING_PREFS
+        // Use the W3C-compatible key for Chrome logging prefs.
+        // CapabilityType.LOGGING_PREFS
         // may not be present in all Selenium 4 distributions, so set the string key.
         capabilities.setCapability("goog:loggingPrefs", prefs);
         return capabilities;

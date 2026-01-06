@@ -85,12 +85,16 @@ public class LoginIT {
     /** */
     private PageFactory factory;
 
+    /** */
     @RegisterExtension
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     public final SauceBindingsExtension sauceExtension = new SauceBindingsExtension();
 
     /**
      * Return the current session id as a string. Kept as a plain method so
      * external utilities can still call it if needed.
+     *
+     * @return the session id string
      */
     public String getSessionId() {
         if (sessionId == null) {

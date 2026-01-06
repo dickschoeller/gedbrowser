@@ -12,6 +12,8 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.util.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
+import lombok.NoArgsConstructor;
+
 /**
  * Base class for estimators. Primarily contains useful methods to avoid
  * Demeter. Note we have stopped checking Demeter in PMD, but it is still
@@ -20,6 +22,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
+@NoArgsConstructor
 public abstract class Estimator {
     /**
      * Get the list of children from a family.
@@ -99,6 +102,8 @@ public abstract class Estimator {
     }
 
     /**
+     * Determine if one date is before another.
+     *
      * @param date primary date
      * @param compareDate date to compare to
      * @return true if date is before compareDate
@@ -208,6 +213,9 @@ public abstract class Estimator {
     }
 
     /**
+     * Process the marriage date for a family, returning the earliest
+     * marriage date found.
+     *
      * @param date the current best date
      * @param family the family being processed
      * @return the date we got out of this family

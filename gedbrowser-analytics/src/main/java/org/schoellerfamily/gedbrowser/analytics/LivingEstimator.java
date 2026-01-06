@@ -17,6 +17,8 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * Class carries out estimation of whether a person is living or dead.
+ *
  * @author Dick Schoeller
  */
 @Slf4j
@@ -155,7 +157,7 @@ public final class LivingEstimator {
     /**
      * @author Dick Schoeller
      */
-    private static class BucketComparator implements Comparator<Person>,
+    private static final class BucketComparator implements Comparator<Person>,
             Serializable {
         /** */
         private static final long serialVersionUID = 1L;

@@ -26,8 +26,7 @@ public final class NameListItemRendererTest {
     private transient ApplicationInfo appInfo;
 
     /** */
-    private static final String UNEXPECTED_STRING =
-            "Unexpected string returned";
+    private static final String UNEXPECTED_STRING = "Unexpected string returned";
     /** */
     private static final String EXPECT_EMPTY = "Expected empty string";
 
@@ -44,10 +43,9 @@ public final class NameListItemRendererTest {
     @Test
     public void testRenderSimple() {
         final Name name = new Name(null, "Richard /Schoeller/");
-        final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer
-                .getListItemRenderer();
+        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
+            anonymousContext);
+        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, false, 0);
         assertEquals("Richard Schoeller", builder.toString(), UNEXPECTED_STRING);
@@ -57,10 +55,9 @@ public final class NameListItemRendererTest {
     @Test
     public void testRenderHarder() {
         final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
-        final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer
-                .getListItemRenderer();
+        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
+            anonymousContext);
+        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, false, 0);
         assertEquals("Karl Frederick Schoeller Jr.", builder.toString(), UNEXPECTED_STRING);
@@ -70,10 +67,9 @@ public final class NameListItemRendererTest {
     @Test
     public void testRenderNonZeroPad() {
         final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
-        final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer
-                .getListItemRenderer();
+        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
+            anonymousContext);
+        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, false, 1);
         assertEquals("", builder.toString(), EXPECT_EMPTY);
@@ -83,10 +79,9 @@ public final class NameListItemRendererTest {
     @Test
     public void testRenderNewLine() {
         final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
-        final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer
-                .getListItemRenderer();
+        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
+            anonymousContext);
+        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, true, 0);
         assertEquals("\nKarl Frederick Schoeller Jr.", builder.toString(), UNEXPECTED_STRING);
@@ -96,10 +91,9 @@ public final class NameListItemRendererTest {
     @Test
     public void testRenderNoPrefix() {
         final Name name = new Name(null, "/Schoeller/");
-        final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer
-                .getListItemRenderer();
+        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
+            anonymousContext);
+        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, false, 0);
         assertEquals("Schoeller", builder.toString(), UNEXPECTED_STRING);
@@ -109,10 +103,9 @@ public final class NameListItemRendererTest {
     @Test
     public void testRenderEmpty() {
         final Name name = new Name(null, "");
-        final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer
-                .getListItemRenderer();
+        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
+            anonymousContext);
+        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, false, 0);
         assertEquals("?", builder.toString(), UNEXPECTED_STRING);
@@ -122,10 +115,9 @@ public final class NameListItemRendererTest {
     @Test
     public void testRenderNull() {
         final Name name = new Name(null);
-        final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer
-                .getListItemRenderer();
+        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
+            anonymousContext);
+        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, false, 0);
         assertEquals("?", builder.toString(), UNEXPECTED_STRING);
@@ -135,10 +127,9 @@ public final class NameListItemRendererTest {
     @Test
     public void testRenderPrefixSuffix() {
         final Name name = new Name(null, "Foo//Bar");
-        final NameRenderer nameRenderer = new NameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer
-                .getListItemRenderer();
+        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
+            anonymousContext);
+        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         nlir.renderAsListItem(builder, false, 0);
         assertEquals("Foo ? Bar", builder.toString(), UNEXPECTED_STRING);

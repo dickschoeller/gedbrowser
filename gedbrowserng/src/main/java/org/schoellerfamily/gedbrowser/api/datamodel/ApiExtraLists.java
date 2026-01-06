@@ -56,8 +56,12 @@ public class ApiExtraLists extends ApiHasImages {
      * @param <C> the class to be built
      * @param <B> the type of the builder
      */
-    @JsonPOJOBuilder(withPrefix="")
-    public static abstract class ApiExtraListsBuilder<C extends ApiExtraLists, B extends ApiExtraLists.ApiExtraListsBuilder<C, B>> extends ApiExtraLists.ApiHasImagesBuilder<C, B> {
+    @JsonPOJOBuilder(withPrefix = "")
+    public abstract static class
+        ApiExtraListsBuilder<
+            C extends ApiExtraLists,
+            B extends ApiExtraLists.ApiExtraListsBuilder<C, B>>
+        extends ApiExtraLists.ApiHasImagesBuilder<C, B> {
 
         /**
          * Add a list of attributes.
@@ -115,6 +119,8 @@ public class ApiExtraLists extends ApiHasImages {
 
         /**
          * Mark the person as changed today.
+         *
+         * @return this
          */
         public final B changed() {
             final ApiAttribute chanAttr = ApiAttribute.builder()
@@ -128,6 +134,10 @@ public class ApiExtraLists extends ApiHasImages {
         }
     }
 
+    /**
+     * Is the other object of exactly the same type as this one? All overrides
+     * should use the same approach.
+     */
     @Override
     public boolean canEqual(final Object other) {
         return other.getClass() == ApiExtraLists.class;

@@ -46,21 +46,15 @@ import lombok.RequiredArgsConstructor;
  */
 @Configuration
 @EnableMongoRepositories(
-        basePackages =
-            "org.schoellerfamily.gedbrowser.persistence.mongo.repository",
-        includeFilters = @ComponentScan.Filter(
-                value = {
-                        FamilyDocumentRepositoryMongo.class,
-                        HeadDocumentRepositoryMongo.class,
-                        NoteDocumentRepositoryMongo.class,
-                        PersonDocumentRepositoryMongo.class,
-                        RootDocumentRepositoryMongo.class,
-                        SourceDocumentRepositoryMongo.class,
-                        SubmissionDocumentRepositoryMongo.class,
-                        SubmitterDocumentRepositoryMongo.class,
-                        TrailerDocumentRepositoryMongo.class
-                },
-                type = FilterType.ASSIGNABLE_TYPE))
+    basePackages = "org.schoellerfamily.gedbrowser.persistence.mongo.repository",
+    includeFilters = @ComponentScan.Filter(
+        value = {
+            FamilyDocumentRepositoryMongo.class, HeadDocumentRepositoryMongo.class,
+            NoteDocumentRepositoryMongo.class, PersonDocumentRepositoryMongo.class,
+            RootDocumentRepositoryMongo.class, SourceDocumentRepositoryMongo.class,
+            SubmissionDocumentRepositoryMongo.class, SubmitterDocumentRepositoryMongo.class,
+            TrailerDocumentRepositoryMongo.class },
+        type = FilterType.ASSIGNABLE_TYPE))
 @SuppressWarnings("PMD.ExcessiveImports")
 @RequiredArgsConstructor
 public class MongoConfiguration {
@@ -76,6 +70,7 @@ public class MongoConfiguration {
     @Value("${geoservice.keyfile:/var/lib/gedbrowser/google-geocoding-key}")
     private final String keyfile;
 
+    /** */
     @Value("${gedbrowser.home:/var/lib/gedbrowser}")
     private final String gedbrowserHome;
 
@@ -91,9 +86,8 @@ public class MongoConfiguration {
         final String connectionString = "mongodb://" + host + ":" + port;
         final MongoClient client = MongoClients.create(connectionString);
         if (client == null) {
-			throw new UnknownHostException(
-					"Could not connect to MongoDB at " + connectionString);
-		}
+            throw new UnknownHostException("Could not connect to MongoDB at " + connectionString);
+        }
         return new SimpleMongoClientDatabaseFactory(client, databaseName);
     }
 
@@ -111,18 +105,19 @@ public class MongoConfiguration {
     /**
      * Create the GedObject file loader bean.
      *
-     * @param finder the finder strategy
-     * @param g2g the line to object transformer
-     * @param toDocConverter the object to document converter
+     * @param finder                 the finder strategy
+     * @param g2g                    the line to object transformer
+     * @param toDocConverter         the object to document converter
      * @param rootDocumentRepository the root document repository
      * @return the loader
      */
     @Bean
     public GedObjectFileLoader loader(final FinderStrategy finder,
-            final GedLineToGedObjectTransformer g2g,
-            final GedObjectToGedDocumentMongoConverter toDocConverter,
-            final RootDocumentRepositoryMongo rootDocumentRepository) {
-        return new GedObjectFileLoader(finder, g2g, toDocConverter, rootDocumentRepository, gedbrowserHome);
+        final GedLineToGedObjectTransformer g2g,
+        final GedObjectToGedDocumentMongoConverter toDocConverter,
+        final RootDocumentRepositoryMongo rootDocumentRepository) {
+        return new GedObjectFileLoader(finder, g2g, toDocConverter, rootDocumentRepository,
+            gedbrowserHome);
     }
 
     /**

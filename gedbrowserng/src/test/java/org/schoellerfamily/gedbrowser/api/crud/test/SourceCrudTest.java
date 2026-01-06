@@ -33,9 +33,9 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { Application.class, TestConfiguration.class },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@SpringBootTest(classes = { Application.class,
+    TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 @Slf4j
 public class SourceCrudTest {
@@ -61,9 +61,8 @@ public class SourceCrudTest {
     /** */
     @BeforeEach
     public void setUp() {
-        helper = new CrudTestHelper(
-                new PersonCrud(loader, toDocConverter, repositoryManager),
-                new FamilyCrud(loader, toDocConverter, repositoryManager));
+        helper = new CrudTestHelper(new PersonCrud(loader, toDocConverter, repositoryManager),
+            new FamilyCrud(loader, toDocConverter, repositoryManager));
         crud = new SourceCrud(loader, toDocConverter, repositoryManager);
     }
 
@@ -85,8 +84,8 @@ public class SourceCrudTest {
         then(attributes.get(1).getTail()).isEqualTo("1841 England Census");
         then(attributes.get(2).getType()).isEqualTo("attribute");
         then(attributes.get(2).getString()).isEqualTo("Published");
-        then(attributes.get(2).getTail()).isEqualTo(
-                "Provo, UT, USA: The Generations Network, Inc., 2006");
+        then(attributes.get(2).getTail())
+            .isEqualTo("Provo, UT, USA: The Generations Network, Inc., 2006");
     }
 
     /** */
@@ -97,21 +96,18 @@ public class SourceCrudTest {
         final ApiSource firstSource = list.get(0);
         then(firstSource.getString()).isEqualTo("S2");
         then(firstSource.getImages()).isEmpty();
-        then(firstSource.getTitle()).isEqualTo(
-                "Schoeller, Melissa Robinson, birth certificate");
+        then(firstSource.getTitle()).isEqualTo("Schoeller, Melissa Robinson, birth certificate");
         final List<ApiAttribute> attributes = firstSource.getAttributes();
         then(attributes.get(0).getType()).isEqualTo("attribute");
         then(attributes.get(0).getString()).isEqualTo("Title");
-        then(attributes.get(0).getTail()).isEqualTo(
-                "Schoeller, Melissa Robinson, birth certificate");
+        then(attributes.get(0).getTail())
+            .isEqualTo("Schoeller, Melissa Robinson, birth certificate");
         then(attributes.get(1).getType()).isEqualTo("attribute");
         then(attributes.get(1).getString()).isEqualTo("Abbreviation");
-        then(attributes.get(1).getTail()).isEqualTo(
-                "SchoellerMelissaBirthCert");
+        then(attributes.get(1).getTail()).isEqualTo("SchoellerMelissaBirthCert");
         then(attributes.get(2).getType()).isEqualTo("attribute");
         then(attributes.get(2).getString()).isEqualTo("Note");
-        then(attributes.get(2).getTail()).isEqualTo(
-                "We have the original of this document");
+        then(attributes.get(2).getTail()).isEqualTo("We have the original of this document");
     }
 
     /** */
@@ -121,21 +117,18 @@ public class SourceCrudTest {
         final ApiSource firstSource = crud.readOne("mini-schoeller", "S2");
         then(firstSource.getString()).isEqualTo("S2");
         then(firstSource.getImages()).isEmpty();
-        then(firstSource.getTitle()).isEqualTo(
-                "Schoeller, Melissa Robinson, birth certificate");
+        then(firstSource.getTitle()).isEqualTo("Schoeller, Melissa Robinson, birth certificate");
         final List<ApiAttribute> attributes = firstSource.getAttributes();
         then(attributes.get(0).getType()).isEqualTo("attribute");
         then(attributes.get(0).getString()).isEqualTo("Title");
-        then(attributes.get(0).getTail()).isEqualTo(
-                "Schoeller, Melissa Robinson, birth certificate");
+        then(attributes.get(0).getTail())
+            .isEqualTo("Schoeller, Melissa Robinson, birth certificate");
         then(attributes.get(1).getType()).isEqualTo("attribute");
         then(attributes.get(1).getString()).isEqualTo("Abbreviation");
-        then(attributes.get(1).getTail()).isEqualTo(
-                "SchoellerMelissaBirthCert");
+        then(attributes.get(1).getTail()).isEqualTo("SchoellerMelissaBirthCert");
         then(attributes.get(2).getType()).isEqualTo("attribute");
         then(attributes.get(2).getString()).isEqualTo("Note");
-        then(attributes.get(2).getTail()).isEqualTo(
-                "We have the original of this document");
+        then(attributes.get(2).getTail()).isEqualTo("We have the original of this document");
     }
 
     /** */
@@ -146,7 +139,8 @@ public class SourceCrudTest {
             final ApiSource source = crud.readOne("mini-schoeller", "Xyzzy");
             fail("The source should not be found: " + source.getString());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Object Xyzzy of type source not found", e.getMessage(), "Mismatched message");
+            assertEquals("Object Xyzzy of type source not found", e.getMessage(),
+                "Mismatched message");
         }
     }
 
@@ -154,7 +148,12 @@ public class SourceCrudTest {
     @Test
     public final void testCreateSourcesSimple() {
         log.info("Beginning testCreateSourcesSimple");
-        final ApiSource inSource = ApiSource.builder().type("source").string("").title("Unknown").attributes(java.util.List.of()).build();
+        final ApiSource inSource = ApiSource.builder()
+            .type("source")
+            .string("")
+            .title("Unknown")
+            .attributes(java.util.List.of())
+            .build();
         final ApiSource newSource = crud.createOne(helper.getDb(), inSource);
         then(newSource.getType()).isEqualTo(inSource.getType());
     }
@@ -163,18 +162,22 @@ public class SourceCrudTest {
     @Test
     public final void testDeleteSource() {
         log.info("Beginning testDeleteSource");
-        final ApiSource reqSource = ApiSource.builder().type("source").string("").title("Unknown").attributes(java.util.List.of()).build();
+        final ApiSource reqSource = ApiSource.builder()
+            .type("source")
+            .string("")
+            .title("Unknown")
+            .attributes(java.util.List.of())
+            .build();
         final ApiSource resSource = crud.createOne(helper.getDb(), reqSource);
         final String id = resSource.getString();
         final ApiSource deletedSource = crud.deleteOne(helper.getDb(), id);
 
         try {
-            final ApiSource foundSource = crud.readOne("mini-schoeller",
-                    deletedSource.getString());
+            final ApiSource foundSource = crud.readOne("mini-schoeller", deletedSource.getString());
             fail("The source should not be found: " + foundSource.getString());
         } catch (ObjectNotFoundException e) {
             assertEquals("Object " + deletedSource.getString() + " of type source not found",
-                    e.getMessage(), "Mismatched message");
+                e.getMessage(), "Mismatched message");
         }
     }
 
@@ -183,12 +186,11 @@ public class SourceCrudTest {
     public final void testDeleteSourceNotFound() {
         log.info("Beginning testDeleteSourceNotFound");
         try {
-            final ApiSource deletedSource =
-                    crud.deleteOne(helper.getDb(), "XXXXXXX");
-            fail("The source should not be found: "
-                    + deletedSource.getString());
+            final ApiSource deletedSource = crud.deleteOne(helper.getDb(), "XXXXXXX");
+            fail("The source should not be found: " + deletedSource.getString());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Object XXXXXXX of type source not found", e.getMessage(), "Mismatched message");
+            assertEquals("Object XXXXXXX of type source not found", e.getMessage(),
+                "Mismatched message");
         }
     }
 
@@ -197,11 +199,9 @@ public class SourceCrudTest {
     public final void testDeleteSubmitterDatabaseNotFound() {
         log.info("Beginning testDeleteSubmitterDatabaseNotFound");
         try {
-            final ApiSource deletedSource =
-                    crud.deleteOne("XYZZY", "S1");
-            fail("The dataset XYZZY should not be found,"
-                    + " while looking for source "
-                    + deletedSource.getString());
+            final ApiSource deletedSource = crud.deleteOne("XYZZY", "S1");
+            fail("The dataset XYZZY should not be found," + " while looking for source "
+                + deletedSource.getString());
         } catch (DataSetNotFoundException e) {
             assertEquals("Data set XYZZY not found", e.getMessage(), "Mismatched message");
         }
@@ -211,10 +211,20 @@ public class SourceCrudTest {
     @Test
     public final void testUpdateSourceWithNote() {
         log.info("Beginning testUpdateSourceWithNote");
-        final List<ApiAttribute> attributes = List.of(
-                ApiAttribute.builder().type("attribute").string("Note").tail("first note").attributes(java.util.List.of()).build());
-        final ApiSource inSource = ApiSource.builder().type("source").string("").attributes(attributes).title("Unknown").build();
-        final ApiSourceBuilder<?, ?> newSource = crud.createOne(helper.getDb(), inSource).toBuilder();
+        final List<ApiAttribute> attributes = List.of(ApiAttribute.builder()
+            .type("attribute")
+            .string("Note")
+            .tail("first note")
+            .attributes(java.util.List.of())
+            .build());
+        final ApiSource inSource = ApiSource.builder()
+            .type("source")
+            .string("")
+            .attributes(attributes)
+            .title("Unknown")
+            .build();
+        final ApiSourceBuilder<?, ?> newSource = crud.createOne(helper.getDb(), inSource)
+            .toBuilder();
 
         final ApiAttribute aNote = ApiAttribute.builder()
             .type("attribute")
@@ -222,8 +232,8 @@ public class SourceCrudTest {
             .tail("this is a note")
             .build();
         newSource.attribute(aNote);
-        final ApiSource updatedSource = crud.updateOne(helper.getDb(),
-                newSource.getString(), newSource.build());
+        final ApiSource updatedSource = crud.updateOne(helper.getDb(), newSource.getString(),
+            newSource.build());
         assertEquals(aNote, updatedSource.getAttributes().get(1), "attribute should be present");
     }
- }
+}

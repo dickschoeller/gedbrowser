@@ -42,7 +42,7 @@ public interface GedObjectVisitor {
      *
      * @param attribute the attribute to visit
      */
-    default void visit(Attribute attribute) {
+    default void visit(final Attribute attribute) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -52,7 +52,7 @@ public interface GedObjectVisitor {
      *
      * @param child the child to visit
      */
-    default void visit(Child child) {
+    default void visit(final Child child) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -62,7 +62,7 @@ public interface GedObjectVisitor {
      *
      * @param date the date to visit
      */
-    default void visit(Date date) {
+    default void visit(final Date date) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -72,7 +72,7 @@ public interface GedObjectVisitor {
      *
      * @param famc the link to visit
      */
-    default void visit(FamC famc) {
+    default void visit(final FamC famc) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -82,7 +82,7 @@ public interface GedObjectVisitor {
      *
      * @param family the family to visit
      */
-    default void visit(Family family) {
+    default void visit(final Family family) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -92,7 +92,7 @@ public interface GedObjectVisitor {
      *
      * @param fams the link to visit
      */
-    default void visit(FamS fams) {
+    default void visit(final FamS fams) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -102,7 +102,7 @@ public interface GedObjectVisitor {
      *
      * @param head the header to visit
      */
-    default void visit(Head head) {
+    default void visit(final Head head) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -112,7 +112,7 @@ public interface GedObjectVisitor {
      *
      * @param husband the link to visit
      */
-    default void visit(Husband husband) {
+    default void visit(final Husband husband) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -122,7 +122,7 @@ public interface GedObjectVisitor {
      *
      * @param link the link to visit
      */
-    default void visit(Link link) {
+    default void visit(final Link link) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -132,7 +132,7 @@ public interface GedObjectVisitor {
      *
      * @param multimedia the multimedia object to visit
      */
-    default void visit(Multimedia multimedia) {
+    default void visit(final Multimedia multimedia) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -142,7 +142,7 @@ public interface GedObjectVisitor {
      *
      * @param name the name to visit
      */
-    default void visit(Name name) {
+    default void visit(final Name name) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -152,7 +152,7 @@ public interface GedObjectVisitor {
      *
      * @param note the note to visit
      */
-    default void visit(Note note) {
+    default void visit(final Note note) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -162,7 +162,7 @@ public interface GedObjectVisitor {
      *
      * @param noteLink the noteLink to visit
      */
-    default void visit(NoteLink noteLink) {
+    default void visit(final NoteLink noteLink) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -172,7 +172,7 @@ public interface GedObjectVisitor {
      *
      * @param person the person to visit
      */
-    default void visit(Person person) {
+    default void visit(final Person person) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -182,7 +182,7 @@ public interface GedObjectVisitor {
      *
      * @param place the place to visit
      */
-    default void visit(Place place) {
+    default void visit(final Place place) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -192,7 +192,7 @@ public interface GedObjectVisitor {
      *
      * @param root the root to visit
      */
-    default void visit(Root root) {
+    default void visit(final Root root) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -202,7 +202,7 @@ public interface GedObjectVisitor {
      *
      * @param source the source to visit
      */
-    default void visit(Source source) {
+    default void visit(final Source source) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -212,7 +212,7 @@ public interface GedObjectVisitor {
      *
      * @param sourceLink the link to visit
      */
-    default void visit(SourceLink sourceLink) {
+    default void visit(final SourceLink sourceLink) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -222,7 +222,7 @@ public interface GedObjectVisitor {
      *
      * @param submission the submission to visit
      */
-    default void visit(Submission submission) {
+    default void visit(final Submission submission) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -232,7 +232,7 @@ public interface GedObjectVisitor {
      *
      * @param submissionLink the submission to visit
      */
-    default void visit(SubmissionLink submissionLink) {
+    default void visit(final SubmissionLink submissionLink) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -242,7 +242,7 @@ public interface GedObjectVisitor {
      *
      * @param submitter the submitter to visit
      */
-    default void visit(Submitter submitter) {
+    default void visit(final Submitter submitter) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -252,7 +252,7 @@ public interface GedObjectVisitor {
      *
      * @param submitterLink the link to visit
      */
-    default void visit(SubmitterLink submitterLink) {
+    default void visit(final SubmitterLink submitterLink) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -262,7 +262,7 @@ public interface GedObjectVisitor {
      *
      * @param trailer the trailer to visit
      */
-    default void visit(Trailer trailer) {
+    default void visit(final Trailer trailer) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -272,7 +272,7 @@ public interface GedObjectVisitor {
      *
      * @param wife the link to visit
      */
-    default void visit(Wife wife) {
+    default void visit(final Wife wife) {
         // If not overridden, does not contribute to algorithm.
     }
 
@@ -282,7 +282,7 @@ public interface GedObjectVisitor {
      *
      * @param gedObject the object to visit
      */
-    default void visit(GedObject gedObject) {
+    default void visit(final GedObject gedObject) {
         // If not overridden, does not contribute to algorithm.
     }
 }

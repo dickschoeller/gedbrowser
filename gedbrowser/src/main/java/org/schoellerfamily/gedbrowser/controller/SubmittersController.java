@@ -72,7 +72,7 @@ public class SubmittersController extends DatedDataController {
 
         model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
         model.addAttribute("model", gedRenderer);
-        model.addAttribute("appInfo", appInfo);
+        model.addAttribute("appInfo", getAppInfo());
 
         log.debug("Exiting submitters");
         return "submitters";

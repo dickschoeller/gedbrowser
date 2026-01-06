@@ -2,8 +2,8 @@ package org.schoellerfamily.gedbrowser.selenium.test;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.schoellerfamily.gedbrowser.selenium.base.WebDriverFactory;
 import org.schoellerfamily.gedbrowser.selenium.config.SeleniumConfig;
@@ -25,15 +25,17 @@ import lombok.extern.slf4j.Slf4j;
 @Disabled("Example; enable when SAUCE_USERNAME/SAUCE_ACCESS_KEY are configured")
 @Slf4j
 public class SauceBindingsExampleIT {
-
+    /** Factory to create WebDriver instances. */
     @Autowired
     private WebDriverFactory driverFactory;
 
+    /** Sauce Labs extension to manage WebDriver lifecycle. */
     @RegisterExtension
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     public final SauceBindingsExtension sauceExtension = new SauceBindingsExtension();
 
     @Test
-    public void exampleSauceTest() throws Exception {
+    void exampleSauceTest() throws Exception {
         // Prefer the extension-managed driver when available; otherwise create
         // a driver via the factory (factory will include sauce:options when
         // SAUCE env vars are set).

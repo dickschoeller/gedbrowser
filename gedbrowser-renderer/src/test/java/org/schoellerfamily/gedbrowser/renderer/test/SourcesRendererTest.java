@@ -23,22 +23,19 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public class SourcesRendererTest {
+public final class SourcesRendererTest {
     /**
      * Collection of expected values.
      */
-    private static final String[] INDEX_NAMES = {
-            "birth certificate",
-            "Figliuolo Sabino, interview",
-            "Figliuolo, Cecilia Katerina, birth announcement",
-            "Figliuolo, Vivian (Schoeller), telephone interviews",
-            "Interviews with Estelle (Liberman Robinson) Klemer",
-            "Robinson, Lisa Hope and Schoeller, Richard John, certificate of\n"
-                    + "marriage",
-            "Schoeller, Melissa Robinson, birth certificate",
-            "Schoeller, Richard John, birth certificate",
-            "Schoeller, Richard, first hand information",
-    };
+    @SuppressWarnings("checkstyle:nowhitespaceafter")
+    private static final String[] INDEX_NAMES = { "birth certificate",
+        "Figliuolo Sabino, interview", "Figliuolo, Cecilia Katerina, birth announcement",
+        "Figliuolo, Vivian (Schoeller), telephone interviews",
+        "Interviews with Estelle (Liberman Robinson) Klemer",
+        "Robinson, Lisa Hope and Schoeller, Richard John, certificate of\n" + "marriage",
+        "Schoeller, Melissa Robinson, birth certificate",
+        "Schoeller, Richard John, birth certificate",
+        "Schoeller, Richard, first hand information", };
 
     /** */
     @Autowired
@@ -51,30 +48,19 @@ public class SourcesRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
-    public void init() {
+    void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /**
-     * @throws IOException if can't read the data file
-     */
     @Test
-    public void testSources() throws IOException {
+    void testSources() throws IOException {
         final Root root = reader.readBigTestSource();
-        final SourcesRenderer renderer = new SourcesRenderer(root,
-                anonymousContext);
+        final SourcesRenderer renderer = new SourcesRenderer(root, anonymousContext);
         assertSourcesMatch(renderer.getSources());
     }
 
-    /**
-     * Check that the sources matches the expectation.
-     *
-     * @param renderers the collection of source renderers
-     */
-    private void assertSourcesMatch(
-            final Collection<SourceRenderer> renderers) {
+    private void assertSourcesMatch(final Collection<SourceRenderer> renderers) {
         assertEquals(INDEX_NAMES.length, renderers.size(), "should have only one entry");
         int i = 0;
         for (final SourceRenderer renderer : renderers) {
@@ -84,107 +70,61 @@ public class SourcesRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
-    public void testHeadMenuItem() throws IOException {
+    void testHeadMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final SourcesRenderer renderer = new SourcesRenderer(root,
-                anonymousContext);
+        final SourcesRenderer renderer = new SourcesRenderer(root, anonymousContext);
         assertEquals("head?db=gl120368", renderer.getHeaderHref(), "head href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
-    public void testSaveMenuItem() throws IOException {
+    void testSaveMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final SourcesRenderer renderer = new SourcesRenderer(root,
-                anonymousContext);
+        final SourcesRenderer renderer = new SourcesRenderer(root, anonymousContext);
         assertEquals("save?db=gl120368", renderer.getSaveHref(), "save href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
-    public void testSaveFilename() throws IOException {
+    void testSaveFilename() throws IOException {
         final Root root1 = reader.readFileTestSource();
-        final SourcesRenderer renderer = new SourcesRenderer(root1,
-                anonymousContext);
+        final SourcesRenderer renderer = new SourcesRenderer(root1, anonymousContext);
         assertEquals("gl120368.ged", renderer.getSaveFilename(), "save href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
-    public void testIndexMenuItem() throws IOException {
+    void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final SourcesRenderer renderer = new SourcesRenderer(root,
-                anonymousContext);
-        assertEquals("surnames?db=gl120368&letter=A", renderer.getIndexHref(), "index href mismatch");
+        final SourcesRenderer renderer = new SourcesRenderer(root, anonymousContext);
+        assertEquals("surnames?db=gl120368&letter=A", renderer.getIndexHref(),
+            "index href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
-    public void testLivingMenuItem() throws IOException {
+    void testLivingMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final SourcesRenderer renderer = new SourcesRenderer(root,
-                anonymousContext);
+        final SourcesRenderer renderer = new SourcesRenderer(root, anonymousContext);
         assertEquals("living?db=gl120368", renderer.getLivingHref(), "living href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
-    public void testSourcesMenuItem() throws IOException {
+    void testSourcesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final SourcesRenderer renderer = new SourcesRenderer(root,
-                anonymousContext);
+        final SourcesRenderer renderer = new SourcesRenderer(root, anonymousContext);
         assertEquals("sources?db=gl120368", renderer.getSourcesHref(), "submitters href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
-    public void testSubmittersMenuItem() throws IOException {
+    void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final SourcesRenderer renderer = new SourcesRenderer(root,
-                anonymousContext);
-        assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(), "sources href mismatch");
+        final SourcesRenderer renderer = new SourcesRenderer(root, anonymousContext);
+        assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(),
+            "sources href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
-    public void testPlacesMenuItem() throws IOException {
+    void testPlacesMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
-        final SourcesRenderer renderer = new SourcesRenderer(root1,
-                anonymousContext);
+        final SourcesRenderer renderer = new SourcesRenderer(root1, anonymousContext);
         assertEquals("places?db=gl120368", renderer.getPlacesHref(), "places href mismatch");
     }
 }

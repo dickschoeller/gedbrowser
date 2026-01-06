@@ -33,8 +33,7 @@ public class GedObjectBuilderSubmissionTest {
     public void testCreateSubmissionLinkSimple() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submission submission = builder.createSubmission("SUB1");
-        final SubmissionLink submissionLink = builder
-                .createSubmissionLink(submission);
+        final SubmissionLink submissionLink = builder.createSubmissionLink(submission);
         assertEquals("SUB1", submissionLink.getToString(), "Mismatched tag");
     }
 
@@ -43,8 +42,7 @@ public class GedObjectBuilderSubmissionTest {
     public void testCreateSubmissionLinkSimpleNoId() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submission submission = builder.createSubmission(null);
-        final SubmissionLink submissionLink = builder
-                .createSubmissionLink(submission);
+        final SubmissionLink submissionLink = builder.createSubmissionLink(submission);
         assertEquals("", submissionLink.getToString(), "Expected empty string");
     }
 
@@ -53,10 +51,8 @@ public class GedObjectBuilderSubmissionTest {
     public void testCreateSubmissionLinkSimpleParent() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submission submission = builder.createSubmission("SUB1");
-        final SubmissionLink submissionLink = builder
-                .createSubmissionLink(submission);
-        assertEquals(Head.class, submissionLink.getParent().getClass(),
-                "Mismatched parent");
+        final SubmissionLink submissionLink = builder.createSubmissionLink(submission);
+        assertEquals(Head.class, submissionLink.getParent().getClass(), "Mismatched parent");
     }
 
     /** */
@@ -64,9 +60,7 @@ public class GedObjectBuilderSubmissionTest {
     public void testCreateSubmissionLinkSimpleNoIdParent() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Submission submission = builder.createSubmission(null);
-        final SubmissionLink submissionLink = builder
-                .createSubmissionLink(submission);
-        assertEquals(Head.class, submissionLink.getParent().getClass(),
-                "Mismatched parent");
+        final SubmissionLink submissionLink = builder.createSubmissionLink(submission);
+        assertEquals(Head.class, submissionLink.getParent().getClass(), "Mismatched parent");
     }
 }

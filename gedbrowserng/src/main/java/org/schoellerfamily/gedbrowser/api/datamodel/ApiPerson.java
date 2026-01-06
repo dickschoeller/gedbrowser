@@ -50,8 +50,18 @@ public class ApiPerson extends ApiExtraLists {
      * @param <C> the class to be built
      * @param <B> the type of the builder
      */
-    @JsonPOJOBuilder(withPrefix="")
-    public static abstract class ApiPersonBuilder<C extends ApiPerson, B extends ApiPersonBuilder<C, B>> extends ApiExtraListsBuilder<C, B> {
+    @JsonPOJOBuilder(withPrefix = "")
+    public abstract static class ApiPersonBuilder<
+            C extends ApiPerson,
+            B extends ApiPersonBuilder<C, B>>
+        extends ApiExtraListsBuilder<C, B> {
+        /**
+         * Sets the string field and also extracts the reference number
+         * attribute from it.
+         *
+         * @param string the string
+         * @return this
+         */
         @Override
         public B string(final String string) {
             if (StringUtils.isNotBlank(string) && getAttributes() != null) {
@@ -108,6 +118,10 @@ public class ApiPerson extends ApiExtraLists {
         visitor.visit(this);
     }
 
+    /**
+     * Is the other object of exactly the same type as this one? All overrides
+     * should use the same approach.
+     */
     @Override
     public boolean canEqual(final Object other) {
         return other.getClass() == ApiPerson.class;

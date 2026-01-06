@@ -31,12 +31,12 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { Application.class, TestConfiguration.class },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@SpringBootTest(classes = { Application.class,
+    TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 @Slf4j
-public class SpouseCrudTest {
+public final class SpouseCrudTest {
 
     /** */
     @Autowired
@@ -56,20 +56,15 @@ public class SpouseCrudTest {
     /** */
     private CrudTestHelper helper;
 
-    /**
-     * Set up some base objects.
-     */
     @BeforeEach
-    public void setUp() {
-        helper = new CrudTestHelper(
-                new PersonCrud(loader, toDocConverter, repositoryManager),
-                new FamilyCrud(loader, toDocConverter, repositoryManager));
+    void setUp() {
+        helper = new CrudTestHelper(new PersonCrud(loader, toDocConverter, repositoryManager),
+            new FamilyCrud(loader, toDocConverter, repositoryManager));
         crud = new SpouseCrud(loader, toDocConverter, repositoryManager);
     }
 
-    /** */
     @Test
-    public final void testLinkSpouse() {
+    void testLinkSpouse() {
         log.info("Beginning testLinkSpouse");
         final ApiPerson p1 = helper.createPerson();
         final ApiPerson p2 = helper.createPerson();
@@ -78,38 +73,36 @@ public class SpouseCrudTest {
         then(gotP1.getFamss().size()).isEqualTo(1);
         final ApiPerson gotP2 = helper.getPerson(p2);
         then(gotP2.getFamss().size()).isEqualTo(1);
-        assertEquals(gotP1.getFamss().get(0).getString(), gotP2.getFamss().get(0).getString(), "check ids");
+        assertEquals(gotP1.getFamss().get(0).getString(), gotP2.getFamss().get(0).getString(),
+            "check ids");
     }
 
-    /** */
     @Test
-    public final void testLinkSpouseInFamily() {
+    void testLinkSpouseInFamily() {
         log.info("Beginning testLinkSpouseInFamily");
         final ApiPerson p1 = helper.createPerson();
         final ApiPerson child = createChildOfParent(p1);
         final String fam = child.getFamcs().get(0).getString();
 
         final ApiPerson p2 = helper.createPerson();
-        final ApiPerson gotP2 =
-                crud.linkSpouseInFamily(helper.getDb(), fam, p2);
+        final ApiPerson gotP2 = crud.linkSpouseInFamily(helper.getDb(), fam, p2);
         then(gotP2.getString()).isEqualTo(p2.getString());
         then(gotP2.getFamss().size()).isEqualTo(1);
         final ApiPerson gotP1 = helper.getPerson(p1);
         then(gotP1.getFamss().size()).isEqualTo(1);
-        assertEquals(gotP1.getFamss().get(0).getString(), gotP2.getFamss().get(0).getString(), "check ids");
+        assertEquals(gotP1.getFamss().get(0).getString(), gotP2.getFamss().get(0).getString(),
+            "check ids");
     }
 
-    /** */
     @Test
-    public final void testUnlinkSpouseInFamily() {
+    void testUnlinkSpouseInFamily() {
         log.info("Beginning testUnlinkSpouseInFamily");
         final ApiPerson p1 = helper.createPerson();
         final ApiPerson child = createChildOfParent(p1);
         final String fam = child.getFamcs().get(0).getString();
 
         final ApiPerson p2 = helper.createPerson();
-        final ApiPerson gotP2 =
-                crud.linkSpouseInFamily(helper.getDb(), fam, p2);
+        final ApiPerson gotP2 = crud.linkSpouseInFamily(helper.getDb(), fam, p2);
         then(gotP2.getString()).isEqualTo(p2.getString());
         then(gotP2.getFamss().size()).isEqualTo(1);
         final ApiPerson gotP1 = helper.getPerson(p1);
@@ -123,22 +116,21 @@ public class SpouseCrudTest {
     }
 
     @Test
-    public final void testUnlinkSpouseInFamilyAndFamilyNotFound() {
+    void testUnlinkSpouseInFamilyAndFamilyNotFound() {
         log.info("Beginning testUnlinkSpouseInFamily");
         final ApiPerson p1 = helper.createPerson();
         final ApiPerson child = createChildOfParent(p1);
         final String fam = child.getFamcs().get(0).getString();
 
         final ApiPerson p2 = helper.createPerson();
-        final ApiPerson gotP2 =
-                crud.linkSpouseInFamily(helper.getDb(), fam, p2);
+        final ApiPerson gotP2 = crud.linkSpouseInFamily(helper.getDb(), fam, p2);
         then(gotP2.getString()).isEqualTo(p2.getString());
         then(gotP2.getFamss().size()).isEqualTo(1);
         final ApiPerson gotP1 = helper.getPerson(p1);
         then(gotP1.getFamss().size()).isEqualTo(1);
 
-        final ApiPerson p1back =
-                crud.unlinkSpouseInFamily(helper.getDb(), "XXXXX", gotP1.getString());
+        final ApiPerson p1back = crud.unlinkSpouseInFamily(helper.getDb(), "XXXXX",
+            gotP1.getString());
         boolean found = false;
         for (final ApiAttribute famsBack : p1back.getFamss()) {
             final String fid = famsBack.getString();
@@ -151,15 +143,14 @@ public class SpouseCrudTest {
     }
 
     @Test
-    public final void testUnlinkSpouseInFamilyAndSpouseNotFound() {
+    void testUnlinkSpouseInFamilyAndSpouseNotFound() {
         log.info("Beginning testUnlinkSpouseInFamily");
         final ApiPerson p1 = helper.createPerson();
         final ApiPerson child = createChildOfParent(p1);
         final String fam = child.getFamcs().get(0).getString();
 
         final ApiPerson p2 = helper.createPerson();
-        final ApiPerson gotP2 =
-                crud.linkSpouseInFamily(helper.getDb(), fam, p2);
+        final ApiPerson gotP2 = crud.linkSpouseInFamily(helper.getDb(), fam, p2);
         then(gotP2.getString()).isEqualTo(p2.getString());
         then(gotP2.getFamss().size()).isEqualTo(1);
         final ApiPerson gotP1 = helper.getPerson(p1);
@@ -169,7 +160,8 @@ public class SpouseCrudTest {
             crud.unlinkSpouseInFamily(helper.getDb(), fam, "XXXXX");
             fail("Should have thrown");
         } catch (ObjectNotFoundException e) {
-            assertEquals("Object XXXXX of type person not found", e.getMessage(), "exception message mismatch");
+            assertEquals("Object XXXXX of type person not found", e.getMessage(),
+                "exception message mismatch");
         }
     }
 
@@ -179,45 +171,37 @@ public class SpouseCrudTest {
      */
     private ApiPerson createChildOfParent(final ApiPerson parent) {
         final ApiPerson childReqPerson = helper.buildPerson();
-        final ChildCrud childCrud =
-                new ChildCrud(loader, toDocConverter, repositoryManager);
-        return childCrud.createChild(helper.getDb(),
-                parent.getString(), childReqPerson);
+        final ChildCrud childCrud = new ChildCrud(loader, toDocConverter, repositoryManager);
+        return childCrud.createChild(helper.getDb(), parent.getString(), childReqPerson);
     }
 
-    /** */
     @Test
-    public final void testCreateSpouseInFamily() {
+    void testCreateSpouseInFamily() {
         log.info("Beginning testCreateSpouseInFamily");
         final ApiPerson reqSpouse = helper.createAlexandra();
-        final ApiPerson resSpouse = crud.createSpouseInFamily(helper.getDb(),
-                "F1", reqSpouse);
+        final ApiPerson resSpouse = crud.createSpouseInFamily(helper.getDb(), "F1", reqSpouse);
         then(resSpouse.getType()).isEqualTo(reqSpouse.getType());
         then(resSpouse.getSurname()).isEqualTo(reqSpouse.getSurname());
         then(resSpouse.getIndexName()).isEqualTo(reqSpouse.getIndexName());
         then(resSpouse.getFamss().get(0).getString()).isEqualTo("F1");
     }
 
-    /** */
     @Test
-    public final void testCreateSpouseInFamily2() {
+    void testCreateSpouseInFamily2() {
         log.info("Beginning testCreateSpouseInFamily2");
         final ApiPerson reqSpouse = helper.createAlexander();
-        final ApiPerson resSpouse = crud.createSpouseInFamily(helper.getDb(),
-                "F2", reqSpouse);
+        final ApiPerson resSpouse = crud.createSpouseInFamily(helper.getDb(), "F2", reqSpouse);
         then(resSpouse.getType()).isEqualTo(reqSpouse.getType());
         then(resSpouse.getSurname()).isEqualTo(reqSpouse.getSurname());
         then(resSpouse.getIndexName()).isEqualTo(reqSpouse.getIndexName());
         then(resSpouse.getFamss().get(0).getString()).isEqualTo("F2");
     }
 
-    /** */
     @Test
-    public final void testGetPersonsMiniSchoellerI2AddSpouse() {
+    void testGetPersonsMiniSchoellerI2AddSpouse() {
         log.info("Beginning testGetPersonsMiniSchoellerI2AddSpouse");
         final ApiPerson reqSpouse = helper.createAlexander();
-        final ApiPerson resSpouse = crud.createSpouse("mini-schoeller", "I1",
-                reqSpouse);
+        final ApiPerson resSpouse = crud.createSpouse("mini-schoeller", "I1", reqSpouse);
         then(resSpouse.getType()).isEqualTo(reqSpouse.getType());
         then(resSpouse.getSurname()).isEqualTo(reqSpouse.getSurname());
         then(resSpouse.getIndexName()).isEqualTo(reqSpouse.getIndexName());

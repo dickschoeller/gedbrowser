@@ -47,8 +47,7 @@ public final class SubmittersRendererTest {
     @Test
     public void testSubmitters() throws IOException {
         final Root root = reader.readBigTestSource();
-        final SubmittersRenderer renderer = new SubmittersRenderer(root,
-                anonymousContext);
+        final SubmittersRenderer renderer = new SubmittersRenderer(root, anonymousContext);
         assertSubmittersMatch(renderer.getSubmitters());
     }
 
@@ -57,16 +56,13 @@ public final class SubmittersRendererTest {
      *
      * @param renderers the collection of submitter renderers
      */
-    private void assertSubmittersMatch(
-            final Collection<SubmitterRenderer> renderers) {
+    private void assertSubmittersMatch(final Collection<SubmitterRenderer> renderers) {
         assertEquals(1, renderers.size(), "should have only one entry");
         for (final SubmitterRenderer subRenderer : renderers) {
             assertEquals("<a class=\"name\" href=\"submitter?db=null&amp;id=SUB1\">"
-                    + "Richard Schoeller"
-                    + " [SUB1]</a>",
-                    subRenderer.getIndexName(), "Index name mismatch");
-            assertEquals("Richard Schoeller",
-                    subRenderer.getNameHtml(), "HTML name mismatch");
+                + "Richard Schoeller" + " [SUB1]</a>", subRenderer.getIndexName(),
+                "Index name mismatch");
+            assertEquals("Richard Schoeller", subRenderer.getNameHtml(), "HTML name mismatch");
         }
     }
 
@@ -78,10 +74,8 @@ public final class SubmittersRendererTest {
     @Test
     public void testHeadMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final SubmittersRenderer renderer = new SubmittersRenderer(root,
-                anonymousContext);
-        assertEquals("head?db=gl120368", renderer.getHeaderHref(),
-                "head href mismatch");
+        final SubmittersRenderer renderer = new SubmittersRenderer(root, anonymousContext);
+        assertEquals("head?db=gl120368", renderer.getHeaderHref(), "head href mismatch");
     }
 
     /**
@@ -92,10 +86,8 @@ public final class SubmittersRendererTest {
     @Test
     public void testSaveMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final SubmittersRenderer renderer = new SubmittersRenderer(root,
-                anonymousContext);
-        assertEquals("save?db=gl120368", renderer.getSaveHref(),
-                "save href mismatch");
+        final SubmittersRenderer renderer = new SubmittersRenderer(root, anonymousContext);
+        assertEquals("save?db=gl120368", renderer.getSaveHref(), "save href mismatch");
     }
 
     /**
@@ -106,10 +98,8 @@ public final class SubmittersRendererTest {
     @Test
     public void testSaveFilename() throws IOException {
         final Root root1 = reader.readFileTestSource();
-        final SubmittersRenderer renderer = new SubmittersRenderer(root1,
-                anonymousContext);
-        assertEquals("gl120368.ged", renderer.getSaveFilename(),
-                "save href mismatch");
+        final SubmittersRenderer renderer = new SubmittersRenderer(root1, anonymousContext);
+        assertEquals("gl120368.ged", renderer.getSaveFilename(), "save href mismatch");
     }
 
     /**
@@ -120,10 +110,9 @@ public final class SubmittersRendererTest {
     @Test
     public void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final SubmittersRenderer renderer = new SubmittersRenderer(root,
-                anonymousContext);
+        final SubmittersRenderer renderer = new SubmittersRenderer(root, anonymousContext);
         assertEquals("surnames?db=gl120368&letter=A", renderer.getIndexHref(),
-                "index href mismatch");
+            "index href mismatch");
     }
 
     /**
@@ -134,10 +123,8 @@ public final class SubmittersRendererTest {
     @Test
     public void testLivingMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final SubmittersRenderer renderer = new SubmittersRenderer(root,
-                anonymousContext);
-        assertEquals("living?db=gl120368", renderer.getLivingHref(),
-                "living href mismatch");
+        final SubmittersRenderer renderer = new SubmittersRenderer(root, anonymousContext);
+        assertEquals("living?db=gl120368", renderer.getLivingHref(), "living href mismatch");
     }
 
     /**
@@ -148,10 +135,8 @@ public final class SubmittersRendererTest {
     @Test
     public void testSourcesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final SubmittersRenderer renderer = new SubmittersRenderer(root,
-                anonymousContext);
-        assertEquals("sources?db=gl120368", renderer.getSourcesHref(),
-                "submitters href mismatch");
+        final SubmittersRenderer renderer = new SubmittersRenderer(root, anonymousContext);
+        assertEquals("sources?db=gl120368", renderer.getSourcesHref(), "submitters href mismatch");
     }
 
     /**
@@ -162,9 +147,8 @@ public final class SubmittersRendererTest {
     @Test
     public void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
-        final SubmittersRenderer renderer = new SubmittersRenderer(root,
-                anonymousContext);
+        final SubmittersRenderer renderer = new SubmittersRenderer(root, anonymousContext);
         assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(),
-                "sources href mismatch");
+            "sources href mismatch");
     }
 }

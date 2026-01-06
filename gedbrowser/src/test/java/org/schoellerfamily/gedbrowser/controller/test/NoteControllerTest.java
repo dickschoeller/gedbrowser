@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.*;
+import static org.assertj.core.api.BDDAssertions.then;
 
 import java.net.URI;
 
@@ -23,9 +23,9 @@ import org.springframework.test.web.servlet.client.RestTestClient;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { Application.class, TestConfiguration.class },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@SpringBootTest(classes = { Application.class,
+    TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class NoteControllerTest implements MenuTestHelper {
@@ -44,17 +44,15 @@ public class NoteControllerTest implements MenuTestHelper {
     /** */
     @Test
     public final void testNoteControllerN1() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser/note?db=gl120368&id=N1";
+        final String url = "http://localhost:" + port + "/gedbrowser/note?db=gl120368&id=N1";
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody())
-            .contains("<title>_P_CCINFO 1-1319 - N1 - gl120368")
+        then(entity.getResponseBody()).contains("<title>_P_CCINFO 1-1319 - N1 - gl120368")
             .contains(getMenu("A"));
     }
 
@@ -62,9 +60,9 @@ public class NoteControllerTest implements MenuTestHelper {
     @Test
     public final void testNoteControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/gedbrowser/note?db=XYZZY&id=N1"))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create("http://localhost:" + port + "/gedbrowser/note?db=XYZZY&id=N1"))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
@@ -75,13 +73,12 @@ public class NoteControllerTest implements MenuTestHelper {
     @Test
     public final void testNoteControllerBadNote() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/gedbrowser/note?db=gl120368&id=XYZZY"))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create("http://localhost:" + port + "/gedbrowser/note?db=gl120368&id=XYZZY"))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        then(entity.getResponseBody()).contains("Note XYZZY not found")
-        .contains(getMenu("A"));
+        then(entity.getResponseBody()).contains("Note XYZZY not found").contains(getMenu("A"));
     }
 }

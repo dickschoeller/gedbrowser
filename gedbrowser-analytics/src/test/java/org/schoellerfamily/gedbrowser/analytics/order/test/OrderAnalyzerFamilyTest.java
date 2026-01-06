@@ -142,7 +142,8 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         builder.addWifeToFamily(family2, person3);
         builder.createFamilyEvent(family2, "Marriage", "7 JAN 2016");
         final OrderAnalyzerResult result = wrapper.analyze(person1);
-        assertFalse(result.isCorrect(), "Expected incorrect with 2 families dates are out of order");
+        assertFalse(result.isCorrect(),
+            "Expected incorrect with 2 families dates are out of order");
     }
 
     /** */
@@ -190,7 +191,8 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         builder.addWifeToFamily(family2, person3);
         builder.createFamilyEvent(family2, "Marriage", "7 JAN 2016");
         final OrderAnalyzerResult result = wrapper.analyze(person1);
-        assertFalse(result.isCorrect(), "Expected incorrect with 2 families dates are out of order");
+        assertFalse(result.isCorrect(),
+            "Expected incorrect with 2 families dates are out of order");
     }
 
     /** */
@@ -239,7 +241,8 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         builder.createFamilyEvent(family2, "Marriage", "9 JAN 2016");
 
         final OrderAnalyzerResult result = wrapper.analyze(person1);
-        assertEquals(1, result.getMismatches().size(), "Expected incorrect with 2 events out of order");
+        assertEquals(1, result.getMismatches().size(),
+            "Expected incorrect with 2 events out of order");
     }
 
     /** */
@@ -260,7 +263,8 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         builder.createFamilyEvent(family2, "Marriage", "6 JAN 2016");
 
         final OrderAnalyzerResult result = wrapper.analyze(person1);
-        assertEquals(2, result.getMismatches().size(), "Expected incorrect with 2 events out of order");
+        assertEquals(2, result.getMismatches().size(),
+            "Expected incorrect with 2 events out of order");
     }
 
     /** */
@@ -283,6 +287,7 @@ public final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         builder.addChildToFamily(family2, person4);
 
         final OrderAnalyzerResult result = wrapper.analyze(person1);
-        assertEquals(2, result.getMismatches().size(), "Expected incorrect with 2 events out of order");
+        assertEquals(2, result.getMismatches().size(),
+            "Expected incorrect with 2 events out of order");
     }
 }

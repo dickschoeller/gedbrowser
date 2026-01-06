@@ -39,57 +39,63 @@ public final class PlaceRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final PlaceRenderer renderer = new PlaceRenderer(new Place(),
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
+        final PlaceRenderer renderer = new PlaceRenderer(new Place(), new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(
+            renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testListItemRenderer() {
-        final PlaceRenderer renderer = new PlaceRenderer(new Place(),
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getListItemRenderer() instanceof PlaceListItemRenderer, "Wrong renderer type");
+        final PlaceRenderer renderer = new PlaceRenderer(new Place(), new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(renderer.getListItemRenderer() instanceof PlaceListItemRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameHtmlRenderer() {
-        final PlaceRenderer renderer = new PlaceRenderer(new Place(),
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
+        final PlaceRenderer renderer = new PlaceRenderer(new Place(), new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameIndexRenderer() {
-        final PlaceRenderer renderer = new PlaceRenderer(new Place(),
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
+        final PlaceRenderer renderer = new PlaceRenderer(new Place(), new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testPhraseRenderer() {
-        final PlaceRenderer renderer = new PlaceRenderer(new Place(),
-                new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getPhraseRenderer() instanceof PlacePhraseRenderer, "Wrong renderer type");
+        final PlaceRenderer renderer = new PlaceRenderer(new Place(), new GedRendererFactory(),
+            anonymousContext);
+        assertTrue(renderer.getPhraseRenderer() instanceof PlacePhraseRenderer,
+            "Wrong renderer type");
     }
 }

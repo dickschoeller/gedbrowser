@@ -58,7 +58,9 @@ public final class NullRendererTest {
     @Test
     public void testAttributeListOpenRenderer() {
         final NullRenderer renderer = createRenderer();
-        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
+        assertTrue(
+            renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
+            "Wrong renderer type");
     }
 
     /**
@@ -68,7 +70,8 @@ public final class NullRendererTest {
     @Test
     public void testListItemRenderer() {
         final NullRenderer renderer = createRenderer();
-        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer, "Wrong renderer type");
+        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer,
+            "Wrong renderer type");
     }
 
     /**
@@ -78,7 +81,8 @@ public final class NullRendererTest {
     @Test
     public void testNameHtmlRenderer() {
         final NullRenderer renderer = createRenderer();
-        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
+            "Wrong renderer type");
     }
 
     /**
@@ -88,8 +92,8 @@ public final class NullRendererTest {
     @Test
     public void testNameIndexRenderer() {
         final NullRenderer renderer = createRenderer();
-        assertTrue(renderer
-                .getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
+            "Wrong renderer type");
     }
 
     /**
@@ -99,183 +103,155 @@ public final class NullRendererTest {
     @Test
     public void testPhraseRenderer() {
         final NullRenderer renderer = createRenderer();
-        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer, "Wrong renderer type");
+        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer,
+            "Wrong renderer type");
     }
 
     /** */
     @Test
     public void testGetTrailerHtmlEmpty() {
         final Root root = new Root();
-        final NullRenderer renderer = new NullRenderer(root,
-                new GedRendererFactory(), anonymousContext);
-        assertEquals("\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
-                + "    </p>\n" + "    <hr class=\"final\"/>\n"
-                + "    <table class=\"buttonrow\">\n"
-                + "    <tr class=\"buttonrow\">\n"
-                + "    <td class=\"brleft\">\n"
+        final NullRenderer renderer = new NullRenderer(root, new GedRendererFactory(),
+            anonymousContext);
+        assertEquals(
+            "\n" + "    <hr class=\"final\"/>\n" + "    <p>\n" + "    </p>\n"
+                + "    <hr class=\"final\"/>\n" + "    <table class=\"buttonrow\">\n"
+                + "    <tr class=\"buttonrow\">\n" + "    <td class=\"brleft\">\n"
                 + "    <p class=\"maintainer\">\n"
                 + "    Maintained by <a href=\"mailto:schoeller@comcast.net\">"
-                + "Richard Schoeller</a>.<br>\n"
-                + "    Created with <a href=\"" + homeUrl
-                + "software/gedbrowser.html\">GEDbrowser</a>, version "
-                + GedObject.VERSION + " on " + getDateString() + "\n"
-                + "    </p>\n" + "    </td>\n"
-                + "    <td class=\"brright\">\n"
-                + "    <p class=\"maintainer\">\n"
+                + "Richard Schoeller</a>.<br>\n" + "    Created with <a href=\"" + homeUrl
+                + "software/gedbrowser.html\">GEDbrowser</a>, version " + GedObject.VERSION + " on "
+                + getDateString() + "\n" + "    </p>\n" + "    </td>\n"
+                + "    <td class=\"brright\">\n" + "    <p class=\"maintainer\">\n"
                 + "<a href=\"http://validator.w3.org/check/referer\">"
                 + "<img src=\"/gedbrowser/valid-html401.gif\" "
                 + "class=\"button\" alt=\"[ Valid HTML 4.01! ]\" "
-                + "height=\"31\" width=\"88\"></a>\n" + "    </p>\n"
-                + "    </td>\n" + "    </tr>\n" + "    </table>\n"
-                + "    <p>\n" + "  </body>\n" + "</html>\n",
-                renderer.getTrailerHtml(""), "Rendered string does not match expectation");
+                + "height=\"31\" width=\"88\"></a>\n" + "    </p>\n" + "    </td>\n" + "    </tr>\n"
+                + "    </table>\n" + "    <p>\n" + "  </body>\n" + "</html>\n",
+            renderer.getTrailerHtml(""), "Rendered string does not match expectation");
     }
 
     /** */
     @Test
     public void testGetHeaderHtml() {
         final Root root = new Root();
-        final NullRenderer renderer = new NullRenderer(root,
-                new GedRendererFactory(), anonymousContext);
+        final NullRenderer renderer = new NullRenderer(root, new GedRendererFactory(),
+            anonymousContext);
 
         final String keywords = "one two three";
         final String title = "title";
         final String testString = "Content-type: text/html\n\n"
-                + "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n"
-                + "  \"http://www.w3.org/TR/html4/strict.dtd\">\n" + "<html>\n"
-                + "  <head>\n" + "    <meta http-equiv=\"Content-Type\" "
-                + "content=\"text/html; charset=utf-8\">\n"
-                + "    <meta name=\"Author\" " + "content=\"gedbrowser\">\n"
-                + "    <meta name=\"Description\" " + "content=\"genealogy\">\n"
-                + "    <meta name=\"Keywords\" "
-                + "content=\"genealogy gedbrowser " + keywords + "\">\n"
-                + "    <meta http-equiv=\"Content-Style-Type\" "
-                + "content=\"text/css\">\n"
-                + "    <link href=\"/gedbrowser/gedbrowser.css\" "
-                + "rel=\"stylesheet\" type=\"text/css\">\n" + "    <title>"
-                + title + "</title>\n" + "  </head>\n" + "  <body>\n";
-        assertEquals(testString, renderer.getHeaderHtml(title, keywords), "Rendered string does not match expectation");
+            + "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n"
+            + "  \"http://www.w3.org/TR/html4/strict.dtd\">\n" + "<html>\n" + "  <head>\n"
+            + "    <meta http-equiv=\"Content-Type\" " + "content=\"text/html; charset=utf-8\">\n"
+            + "    <meta name=\"Author\" " + "content=\"gedbrowser\">\n"
+            + "    <meta name=\"Description\" " + "content=\"genealogy\">\n"
+            + "    <meta name=\"Keywords\" " + "content=\"genealogy gedbrowser " + keywords
+            + "\">\n" + "    <meta http-equiv=\"Content-Style-Type\" " + "content=\"text/css\">\n"
+            + "    <link href=\"/gedbrowser/gedbrowser.css\" "
+            + "rel=\"stylesheet\" type=\"text/css\">\n" + "    <title>" + title + "</title>\n"
+            + "  </head>\n" + "  <body>\n";
+        assertEquals(testString, renderer.getHeaderHtml(title, keywords),
+            "Rendered string does not match expectation");
     }
 
     /** */
     @Test
     public void testGetTrailerHtml() {
         final Root root = new Root();
-        final NullRenderer renderer = new NullRenderer(root,
-                new GedRendererFactory(), anonymousContext);
-        assertEquals("\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
-                + "    </p>\n" + "    <hr class=\"final\"/>\n"
-                + "    <table class=\"buttonrow\">\n"
-                + "    <tr class=\"buttonrow\">\n"
-                + "    <td class=\"brleft\">\n"
+        final NullRenderer renderer = new NullRenderer(root, new GedRendererFactory(),
+            anonymousContext);
+        assertEquals(
+            "\n" + "    <hr class=\"final\"/>\n" + "    <p>\n" + "    </p>\n"
+                + "    <hr class=\"final\"/>\n" + "    <table class=\"buttonrow\">\n"
+                + "    <tr class=\"buttonrow\">\n" + "    <td class=\"brleft\">\n"
                 + "    <p class=\"maintainer\">\n"
                 + "    Maintained by <a href=\"mailto:schoeller@comcast.net\">"
-                + "Richard Schoeller</a>.<br>\n"
-                + "    Created with <a href=\"" + homeUrl
-                + "software/gedbrowser.html\">GEDbrowser</a>, version "
-                + GedObject.VERSION + " on " + getDateString() + "\n"
-                + "    </p>\n" + "    </td>\n"
-                + "    <td class=\"brright\">\n"
-                + "    <p class=\"maintainer\">\n"
+                + "Richard Schoeller</a>.<br>\n" + "    Created with <a href=\"" + homeUrl
+                + "software/gedbrowser.html\">GEDbrowser</a>, version " + GedObject.VERSION + " on "
+                + getDateString() + "\n" + "    </p>\n" + "    </td>\n"
+                + "    <td class=\"brright\">\n" + "    <p class=\"maintainer\">\n"
                 + "<a href=\"http://validator.w3.org/check/referer\">"
                 + "<img src=\"/gedbrowser/valid-html401.gif\" "
                 + "class=\"button\" alt=\"[ Valid HTML 4.01! ]\" "
-                + "height=\"31\" width=\"88\"></a>\n" + "    </p>\n"
-                + "    </td>\n" + "    </tr>\n" + "    </table>\n"
-                + "    <p>\n" + "  </body>\n" + "</html>\n",
-                renderer.getTrailerHtml(), "Rendered string does not match expectation");
+                + "height=\"31\" width=\"88\"></a>\n" + "    </p>\n" + "    </td>\n" + "    </tr>\n"
+                + "    </table>\n" + "    <p>\n" + "  </body>\n" + "</html>\n",
+            renderer.getTrailerHtml(), "Rendered string does not match expectation");
     }
 
     /** */
     @Test
     public void testGetTrailerHtmlHeader() {
         final Root root = new Root();
-        final NullRenderer renderer = new NullRenderer(root,
-                new GedRendererFactory(), anonymousContext);
-        assertEquals("\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
-                + "    <a href=\"?null+Header\">Header</a><br>\n"
-                + "    </p>\n" + "    <hr class=\"final\"/>\n"
-                + "    <table class=\"buttonrow\">\n"
-                + "    <tr class=\"buttonrow\">\n"
-                + "    <td class=\"brleft\">\n"
+        final NullRenderer renderer = new NullRenderer(root, new GedRendererFactory(),
+            anonymousContext);
+        assertEquals(
+            "\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
+                + "    <a href=\"?null+Header\">Header</a><br>\n" + "    </p>\n"
+                + "    <hr class=\"final\"/>\n" + "    <table class=\"buttonrow\">\n"
+                + "    <tr class=\"buttonrow\">\n" + "    <td class=\"brleft\">\n"
                 + "    <p class=\"maintainer\">\n"
                 + "    Maintained by <a href=\"mailto:schoeller@comcast.net\">"
-                + "Richard Schoeller</a>.<br>\n"
-                + "    Created with <a href=\"" + homeUrl
-                + "software/gedbrowser.html\">GEDbrowser</a>, version "
-                + GedObject.VERSION + " on " + getDateString() + "\n"
-                + "    </p>\n" + "    </td>\n"
-                + "    <td class=\"brright\">\n"
-                + "    <p class=\"maintainer\">\n"
+                + "Richard Schoeller</a>.<br>\n" + "    Created with <a href=\"" + homeUrl
+                + "software/gedbrowser.html\">GEDbrowser</a>, version " + GedObject.VERSION + " on "
+                + getDateString() + "\n" + "    </p>\n" + "    </td>\n"
+                + "    <td class=\"brright\">\n" + "    <p class=\"maintainer\">\n"
                 + "<a href=\"http://validator.w3.org/check/referer\">"
                 + "<img src=\"/gedbrowser/valid-html401.gif\" "
                 + "class=\"button\" alt=\"[ Valid HTML 4.01! ]\" "
-                + "height=\"31\" width=\"88\"></a>\n" + "    </p>\n"
-                + "    </td>\n" + "    </tr>\n" + "    </table>\n"
-                + "    <p>\n" + "  </body>\n" + "</html>\n",
-                renderer.getTrailerHtml("Header"), "Rendered string does not match expectation");
+                + "height=\"31\" width=\"88\"></a>\n" + "    </p>\n" + "    </td>\n" + "    </tr>\n"
+                + "    </table>\n" + "    <p>\n" + "  </body>\n" + "</html>\n",
+            renderer.getTrailerHtml("Header"), "Rendered string does not match expectation");
     }
 
     /** */
     @Test
     public void testGetTrailerHtmlSurnames() {
         final Root root = new Root();
-        final NullRenderer renderer = new NullRenderer(root,
-                new GedRendererFactory(), anonymousContext);
-        assertEquals("\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
-                + "    <a href=\"?" + root.getFilename()
-                + "+Surnames\">Surnames</a><br>\n" + "    </p>\n"
-                + "    <hr class=\"final\"/>\n"
-                + "    <table class=\"buttonrow\">\n"
-                + "    <tr class=\"buttonrow\">\n"
-                + "    <td class=\"brleft\">\n"
+        final NullRenderer renderer = new NullRenderer(root, new GedRendererFactory(),
+            anonymousContext);
+        assertEquals(
+            "\n" + "    <hr class=\"final\"/>\n" + "    <p>\n" + "    <a href=\"?"
+                + root.getFilename() + "+Surnames\">Surnames</a><br>\n" + "    </p>\n"
+                + "    <hr class=\"final\"/>\n" + "    <table class=\"buttonrow\">\n"
+                + "    <tr class=\"buttonrow\">\n" + "    <td class=\"brleft\">\n"
                 + "    <p class=\"maintainer\">\n"
                 + "    Maintained by <a href=\"mailto:schoeller@comcast.net\">"
-                + "Richard Schoeller</a>.<br>\n"
-                + "    Created with <a href=\"" + homeUrl
-                + "software/gedbrowser.html\">GEDbrowser</a>, version "
-                + GedObject.VERSION + " on " + getDateString() + "\n"
-                + "    </p>\n" + "    </td>\n"
-                + "    <td class=\"brright\">\n"
-                + "    <p class=\"maintainer\">\n"
+                + "Richard Schoeller</a>.<br>\n" + "    Created with <a href=\"" + homeUrl
+                + "software/gedbrowser.html\">GEDbrowser</a>, version " + GedObject.VERSION + " on "
+                + getDateString() + "\n" + "    </p>\n" + "    </td>\n"
+                + "    <td class=\"brright\">\n" + "    <p class=\"maintainer\">\n"
                 + "<a href=\"http://validator.w3.org/check/referer\">"
                 + "<img src=\"/gedbrowser/valid-html401.gif\" "
                 + "class=\"button\" alt=\"[ Valid HTML 4.01! ]\" "
-                + "height=\"31\" width=\"88\"></a>\n" + "    </p>\n"
-                + "    </td>\n" + "    </tr>\n" + "    </table>\n"
-                + "    <p>\n" + "  </body>\n" + "</html>\n",
-                renderer.getTrailerHtml("Surnames"), "Rendered string does not match expectation");
+                + "height=\"31\" width=\"88\"></a>\n" + "    </p>\n" + "    </td>\n" + "    </tr>\n"
+                + "    </table>\n" + "    <p>\n" + "  </body>\n" + "</html>\n",
+            renderer.getTrailerHtml("Surnames"), "Rendered string does not match expectation");
     }
 
     /** */
     @Test
     public void testGetTrailerHtmlIndex() {
         final Root root = new Root();
-        final NullRenderer renderer = new NullRenderer(root,
-                new GedRendererFactory(), anonymousContext);
-        assertEquals("\n" + "    <hr class=\"final\"/>\n" + "    <p>\n"
-                + "    <a href=\"?" + root.getFilename()
-                + "+Index\">Index</a><br>\n" + "    </p>\n"
-                + "    <hr class=\"final\"/>\n"
-                + "    <table class=\"buttonrow\">\n"
-                + "    <tr class=\"buttonrow\">\n"
-                + "    <td class=\"brleft\">\n"
+        final NullRenderer renderer = new NullRenderer(root, new GedRendererFactory(),
+            anonymousContext);
+        assertEquals(
+            "\n" + "    <hr class=\"final\"/>\n" + "    <p>\n" + "    <a href=\"?"
+                + root.getFilename() + "+Index\">Index</a><br>\n" + "    </p>\n"
+                + "    <hr class=\"final\"/>\n" + "    <table class=\"buttonrow\">\n"
+                + "    <tr class=\"buttonrow\">\n" + "    <td class=\"brleft\">\n"
                 + "    <p class=\"maintainer\">\n"
                 + "    Maintained by <a href=\"mailto:schoeller@comcast.net\">"
-                + "Richard Schoeller</a>.<br>\n"
-                + "    Created with <a href=\"" + homeUrl
-                + "software/gedbrowser.html\">GEDbrowser</a>, version "
-                + GedObject.VERSION + " on " + getDateString() + "\n"
-                + "    </p>\n" + "    </td>\n"
-                + "    <td class=\"brright\">\n"
-                + "    <p class=\"maintainer\">\n"
+                + "Richard Schoeller</a>.<br>\n" + "    Created with <a href=\"" + homeUrl
+                + "software/gedbrowser.html\">GEDbrowser</a>, version " + GedObject.VERSION + " on "
+                + getDateString() + "\n" + "    </p>\n" + "    </td>\n"
+                + "    <td class=\"brright\">\n" + "    <p class=\"maintainer\">\n"
                 + "<a href=\"http://validator.w3.org/check/referer\">"
                 + "<img src=\"/gedbrowser/valid-html401.gif\" "
                 + "class=\"button\" alt=\"[ Valid HTML 4.01! ]\" "
-                + "height=\"31\" width=\"88\"></a>\n" + "    </p>\n"
-                + "    </td>\n" + "    </tr>\n" + "    </table>\n"
-                + "    <p>\n" + "  </body>\n" + "</html>\n",
-                renderer.getTrailerHtml("Index"), "Rendered string does not match expectation");
+                + "height=\"31\" width=\"88\"></a>\n" + "    </p>\n" + "    </td>\n" + "    </tr>\n"
+                + "    </table>\n" + "    <p>\n" + "  </body>\n" + "</html>\n",
+            renderer.getTrailerHtml("Index"), "Rendered string does not match expectation");
     }
 
     /**
@@ -291,8 +267,7 @@ public final class NullRendererTest {
      * @return the renderer for testing
      */
     private NullRenderer createRenderer() {
-        return new NullRenderer(createGedObject(), new GedRendererFactory(),
-                anonymousContext);
+        return new NullRenderer(createGedObject(), new GedRendererFactory(), anonymousContext);
     }
 
     /**
@@ -317,7 +292,6 @@ public final class NullRendererTest {
      */
     private static String getDateString() {
         final java.util.Date javaDate = new java.util.Date();
-        return DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault())
-                .format(javaDate);
+        return DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault()).format(javaDate);
     }
 }

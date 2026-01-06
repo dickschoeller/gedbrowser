@@ -5,9 +5,14 @@ import java.util.Locale;
 
 import org.joda.time.LocalDate;
 
+import lombok.NoArgsConstructor;
+
 /**
+ * A version of CalendarProvider that always returns the same values for testing.
+ *
  * @author Dick Schoeller
  */
+@NoArgsConstructor
 public final class CalendarProviderStub implements CalendarProvider {
     /**
      * {@inheritDoc}

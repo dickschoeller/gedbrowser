@@ -13,6 +13,8 @@ import org.schoellerfamily.gedbrowser.datamodel.util.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
+ * Class carries out estimation of the age of a person based on birth date and some provided date.
+ *
  * @author Dick Schoeller
  */
 public final class AgeEstimator {
@@ -35,6 +37,8 @@ public final class AgeEstimator {
     }
 
     /**
+     * Estimate in years.
+     *
      * @return the estimated difference in years
      */
     public int estimateInYears() {
@@ -50,6 +54,8 @@ public final class AgeEstimator {
 
 
     /**
+     * Estimate in years, months, and days.
+     *
      * @return the estimated difference in years
      */
     public String estimateInYearsMonthsDays() {

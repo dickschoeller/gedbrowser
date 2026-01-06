@@ -13,9 +13,9 @@ import io.jsonwebtoken.ExpiredJwtException;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("null")
 public class TokenHelperTest {
-	private static String KEY = "mySecret";
+    /** */
+    private static final String KEY = "mySecret";
     /** */
     private TokenHelper tokenHelper;
 
@@ -33,12 +33,15 @@ public class TokenHelperTest {
 
     /**
      * Test expired token.
+     *
      * @throws InterruptedException won't happen
      */
     @Test
     public void testGenerateTokenExpired() throws InterruptedException {
         final String token = tokenHelper.generateToken("fanjin");
-        Thread.sleep(2000);
-        assertThatExceptionOfType(ExpiredJwtException.class).isThrownBy(() -> tokenHelper.parseClaimsOrThrow(token));
+        final int twoSecondsInMillis = 2000;
+        Thread.sleep(twoSecondsInMillis);
+        assertThatExceptionOfType(ExpiredJwtException.class)
+            .isThrownBy(() -> tokenHelper.parseClaimsOrThrow(token));
     }
 }

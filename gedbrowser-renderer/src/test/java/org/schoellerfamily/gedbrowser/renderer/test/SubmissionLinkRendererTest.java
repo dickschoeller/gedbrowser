@@ -39,62 +39,63 @@ public final class SubmissionLinkRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final SubmissionLinkRenderer renderer = new SubmissionLinkRenderer(
-                new SubmissionLink(), new GedRendererFactory(),
-                anonymousContext);
-        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
+        final SubmissionLinkRenderer renderer = new SubmissionLinkRenderer(new SubmissionLink(),
+            new GedRendererFactory(), anonymousContext);
+        assertTrue(
+            renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testListItemRenderer() {
-        final SubmissionLinkRenderer renderer = new SubmissionLinkRenderer(
-                new SubmissionLink(), new GedRendererFactory(),
-                anonymousContext);
-        assertTrue(renderer.getListItemRenderer() instanceof SubmissionLinkListItemRenderer, "Wrong renderer type");
+        final SubmissionLinkRenderer renderer = new SubmissionLinkRenderer(new SubmissionLink(),
+            new GedRendererFactory(), anonymousContext);
+        assertTrue(renderer.getListItemRenderer() instanceof SubmissionLinkListItemRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameHtmlRenderer() {
-        final SubmissionLinkRenderer renderer = new SubmissionLinkRenderer(
-                new SubmissionLink(), new GedRendererFactory(),
-                anonymousContext);
-        assertTrue(renderer.getNameHtmlRenderer() instanceof SubmissionLinkNameHtmlRenderer, "Wrong renderer type");
+        final SubmissionLinkRenderer renderer = new SubmissionLinkRenderer(new SubmissionLink(),
+            new GedRendererFactory(), anonymousContext);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof SubmissionLinkNameHtmlRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameIndeRenderer() {
-        final SubmissionLinkRenderer renderer = new SubmissionLinkRenderer(
-                new SubmissionLink(), new GedRendererFactory(),
-                anonymousContext);
-        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer, "Wrong renderer type");
+        final SubmissionLinkRenderer renderer = new SubmissionLinkRenderer(new SubmissionLink(),
+            new GedRendererFactory(), anonymousContext);
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testPhraseRenderer() {
-        final SubmissionLinkRenderer renderer = new SubmissionLinkRenderer(
-                new SubmissionLink(), new GedRendererFactory(),
-                anonymousContext);
-        assertTrue(renderer.getPhraseRenderer() instanceof SubmissionLinkPhraseRenderer, "Wrong renderer type");
+        final SubmissionLinkRenderer renderer = new SubmissionLinkRenderer(new SubmissionLink(),
+            new GedRendererFactory(), anonymousContext);
+        assertTrue(renderer.getPhraseRenderer() instanceof SubmissionLinkPhraseRenderer,
+            "Wrong renderer type");
     }
 }

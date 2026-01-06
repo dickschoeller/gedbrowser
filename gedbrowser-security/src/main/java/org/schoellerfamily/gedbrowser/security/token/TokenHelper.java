@@ -46,11 +46,11 @@ public final class TokenHelper {
     private String authCookieName;
 
     /**
-     * Create a signing Key from the configured secret.
-     * Use io.jsonwebtoken.security.Keys.hmacShaKeyFor to produce an appropriate
-     * HMAC key for HS512. If the configured secret is too short, derive
-     * a 64-byte key by hashing the secret with SHA-512 so we always meet
-     * the HS512 key length requirement.
+     * Create a signing Key from the configured secret. Use
+     * io.jsonwebtoken.security.Keys.hmacShaKeyFor to produce an appropriate HMAC
+     * key for HS512. If the configured secret is too short, derive a 64-byte key by
+     * hashing the secret with SHA-512 so we always meet the HS512 key length
+     * requirement.
      *
      * @return the signing key
      */
@@ -91,28 +91,29 @@ public final class TokenHelper {
      */
     public String generateToken(final String username) {
         final String token = Jwts.builder()
-                .issuer(appName)
-                .subject(username)
-                .issuedAt(generateCurrentDate())
-                .expiration(generateExpirationDate())
-                .signWith(getSigningKey())
-                .compact();
-		return token;
+            .issuer(appName)
+            .subject(username)
+            .issuedAt(generateCurrentDate())
+            .expiration(generateExpirationDate())
+            .signWith(getSigningKey())
+            .compact();
+        return token;
     }
 
     /**
      * Parse the token and return its claims, letting parsing exceptions propagate
-     * to the caller (for tests or callers that need to react to ExpiredJwtException).
+     * to the caller (for tests or callers that need to react to
+     * ExpiredJwtException).
      *
      * @param token the token
      * @return the claims
      */
     public Claims parseClaimsOrThrow(final String token) {
         return Jwts.parser()
-                .verifyWith(getSigningKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+            .verifyWith(getSigningKey())
+            .build()
+            .parseSignedClaims(token)
+            .getPayload();
     }
 
     /**
@@ -122,16 +123,16 @@ public final class TokenHelper {
     private Claims getClaimsFromToken(final String token) {
         try {
             return Jwts.parser()
-                    .verifyWith(getSigningKey())
-                    .build()
-                    .parseSignedClaims(token)
-                    .getPayload();
-         } catch (io.jsonwebtoken.ExpiredJwtException eje) {
-             // Let callers who care about expiration handle it explicitly
-             throw eje;
-         } catch (Exception e) {
-             return null;
-         }
+                .verifyWith(getSigningKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+        } catch (io.jsonwebtoken.ExpiredJwtException eje) {
+            // Let callers who care about expiration handle it explicitly
+            throw eje;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -155,11 +156,11 @@ public final class TokenHelper {
         try {
             final Claims claims = getClaimsFromToken(token);
             return Jwts.builder()
-                    .claims(claims)
-                    .issuedAt(generateCurrentDate())
-                    .expiration(generateExpirationDate())
-                    .signWith(getSigningKey())
-                    .compact();
+                .claims(claims)
+                .issuedAt(generateCurrentDate())
+                .expiration(generateExpirationDate())
+                .signWith(getSigningKey())
+                .compact();
         } catch (Exception e) {
             return null;
         }
@@ -184,8 +185,7 @@ public final class TokenHelper {
      */
     private Date generateExpirationDate() {
         final int millisPerSecond = 1000;
-        return new Date(
-                getCurrentTimeMillis() + this.expiresIn * millisPerSecond);
+        return new Date(getCurrentTimeMillis() + this.expiresIn * millisPerSecond);
     }
 
     /**
@@ -193,17 +193,10 @@ public final class TokenHelper {
      * @return the token
      */
     public String getToken(final HttpServletRequest request) {
-        /**
-         *  Getting the token from Cookie store
-         */
         final Cookie authCookie = getCookieValueByName(request, authCookieName);
         if (authCookie != null) {
             return authCookie.getValue();
         }
-        /**
-         *  Getting the token from Authentication header
-         *  e.g Bearer your_token
-         */
         final String authHeader = request.getHeader(authHeaderName);
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             final int len = "Bearer ".length();
@@ -217,11 +210,10 @@ public final class TokenHelper {
      * Find a specific HTTP cookie in a request.
      *
      * @param request The HTTP request object.
-     * @param name The cookie name to look for.
+     * @param name    The cookie name to look for.
      * @return The cookie, or <code>null</code> if not found.
      */
-    public Cookie getCookieValueByName(final HttpServletRequest request,
-            final String name) {
+    public Cookie getCookieValueByName(final HttpServletRequest request, final String name) {
         if (request.getCookies() == null) {
             return null;
         }
@@ -232,5 +224,4 @@ public final class TokenHelper {
         }
         return null;
     }
-
 }

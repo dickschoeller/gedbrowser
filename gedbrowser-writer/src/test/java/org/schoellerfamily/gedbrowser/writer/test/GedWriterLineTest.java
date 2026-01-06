@@ -43,15 +43,13 @@ public class GedWriterLineTest {
         root.setFilename("huh.ged");
         root.setDbName("huh");
         final Head head = builder.createHead();
-        final Submitter submitter = builder.createSubmitter("SUB1",
-                "Richard/Schoeller/");
+        final Submitter submitter = builder.createSubmitter("SUB1", "Richard/Schoeller/");
         builder.createSubmitterLink(head, submitter);
         final Submission submission = builder.createSubmission("SUBN");
         builder.createSubmissionLink(submission);
         final Family f1 = builder.createFamily("F1");
         final Person p1 = builder.createPerson("I1", "John/Doe/");
-        final Attribute birth = builder.createPersonEvent(p1, "Birth",
-                "25 DEC 1990");
+        final Attribute birth = builder.createPersonEvent(p1, "Birth", "25 DEC 1990");
         final Place birthPlace = new Place(birth, "Springfield, USA");
         birth.addAttribute(birthPlace);
         final Source source = builder.createSource("S1");
@@ -73,14 +71,13 @@ public class GedWriterLineTest {
         final Trailer trailer = new Trailer(root, "Trailer");
         root.insert(trailer);
         final Multimedia multimedia = builder.addMultimediaToPerson(p4, "");
-        builder.createAttribute(multimedia, "FILE",
-                "https://archive.org/details/luckybag1924unse");
+        builder.createAttribute(multimedia, "FILE", "https://archive.org/details/luckybag1924unse");
         root.accept(gedLineCreator);
     }
 
     /** */
     @Test
-    public void testLineCount() {
+    void testLineCount() {
         final Collection<GedWriterLine> lines = gedLineCreator.getLines();
         final int expected = 33;
         assertEquals(expected, lines.size(), "Output size mismatch");
@@ -88,7 +85,7 @@ public class GedWriterLineTest {
 
     /** */
     @Test
-    public void testRootFilename() {
+    void testRootFilename() {
         final List<GedWriterLine> lines = gedLineCreator.getLines();
         final GedWriterFile file = (GedWriterFile) lines.get(0);
         assertEquals("huh.ged", file.getFilename(), "Should be the filename set above");
@@ -96,7 +93,7 @@ public class GedWriterLineTest {
 
     /** */
     @Test
-    public void testRootDbName() {
+    void testRootDbName() {
         final List<GedWriterLine> lines = gedLineCreator.getLines();
         final GedWriterFile file = (GedWriterFile) lines.get(0);
         assertEquals("huh", file.getDbName(), "Should be the DB name set above");

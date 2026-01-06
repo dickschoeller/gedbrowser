@@ -46,12 +46,14 @@ public final class UserModePersonNameHtmlRendererTest {
     public void testGetNameHtmlNull() {
         final Name name = new Name(person);
         person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), renderingContext);
-        final PersonNameHtmlRenderer pnhr =
-                (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();
-        assertEquals("<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
-                + " <span class=\"surname\">?</span> [I1]</a>", pnhr.getNameHtml(), "Rendered string mismatch");
+        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
+            renderingContext);
+        final PersonNameHtmlRenderer pnhr = (PersonNameHtmlRenderer) personRenderer
+            .getNameHtmlRenderer();
+        assertEquals(
+            "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+                + " <span class=\"surname\">?</span> [I1]</a>",
+            pnhr.getNameHtml(), "Rendered string mismatch");
     }
 
     /** */
@@ -59,12 +61,14 @@ public final class UserModePersonNameHtmlRendererTest {
     public void testGetNameHtmlEmpty() {
         final Name name = new Name(person, "");
         person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), renderingContext);
-        final PersonNameHtmlRenderer pnhr =
-                (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();
-        assertEquals("<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
-                + " <span class=\"surname\">?</span> [I1]</a>", pnhr.getNameHtml(), "Rendered string mismatch");
+        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
+            renderingContext);
+        final PersonNameHtmlRenderer pnhr = (PersonNameHtmlRenderer) personRenderer
+            .getNameHtmlRenderer();
+        assertEquals(
+            "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+                + " <span class=\"surname\">?</span> [I1]</a>",
+            pnhr.getNameHtml(), "Rendered string mismatch");
     }
 
     /** */
@@ -72,12 +76,14 @@ public final class UserModePersonNameHtmlRendererTest {
     public void testGetNameHtmlSurnameOnly() {
         final Name name = new Name(person, "/Schoeller/");
         person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), renderingContext);
-        final PersonNameHtmlRenderer pnhr =
-                (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();
-        assertEquals("<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
-                + " <span class=\"surname\">Schoeller</span> [I1]</a>", pnhr.getNameHtml(), "Rendered string mismatch");
+        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
+            renderingContext);
+        final PersonNameHtmlRenderer pnhr = (PersonNameHtmlRenderer) personRenderer
+            .getNameHtmlRenderer();
+        assertEquals(
+            "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+                + " <span class=\"surname\">Schoeller</span> [I1]</a>",
+            pnhr.getNameHtml(), "Rendered string mismatch");
     }
 
     /** */
@@ -85,13 +91,14 @@ public final class UserModePersonNameHtmlRendererTest {
     public void testGetNameHtmlSurnameLast() {
         final Name name = new Name(person, "Richard/Schoeller/");
         person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), renderingContext);
-        final PersonNameHtmlRenderer pnhr =
-                (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();
-        assertEquals("<a href=\"person?db=null&amp;id=I1\" "
-                + "class=\"name\">Richard"
-                + " <span class=\"surname\">Schoeller</span> [I1]</a>", pnhr.getNameHtml(), "Rendered string mismatch");
+        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
+            renderingContext);
+        final PersonNameHtmlRenderer pnhr = (PersonNameHtmlRenderer) personRenderer
+            .getNameHtmlRenderer();
+        assertEquals(
+            "<a href=\"person?db=null&amp;id=I1\" " + "class=\"name\">Richard"
+                + " <span class=\"surname\">Schoeller</span> [I1]</a>",
+            pnhr.getNameHtml(), "Rendered string mismatch");
     }
 
     /** */
@@ -99,12 +106,14 @@ public final class UserModePersonNameHtmlRendererTest {
     public void testGetNameHtmlSurnameFirst() {
         final Name name = new Name(person, "/Deng/Shao Ping");
         person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), renderingContext);
-        final PersonNameHtmlRenderer pnhr =
-                (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();
-        assertEquals("<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
-                + " <span class=\"surname\">Deng</span> Shao Ping [I1]</a>", pnhr.getNameHtml(), "Rendered string mismatch");
+        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
+            renderingContext);
+        final PersonNameHtmlRenderer pnhr = (PersonNameHtmlRenderer) personRenderer
+            .getNameHtmlRenderer();
+        assertEquals(
+            "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+                + " <span class=\"surname\">Deng</span> Shao Ping [I1]</a>",
+            pnhr.getNameHtml(), "Rendered string mismatch");
     }
 
     /** */
@@ -112,24 +121,24 @@ public final class UserModePersonNameHtmlRendererTest {
     public void testGetNameHtmlSurnameMiddle() {
         final Name name = new Name(person, "Karl Frederick/Schoeller/Sr.");
         person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), renderingContext);
-        final PersonNameHtmlRenderer pnhr =
-                (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();
-        assertEquals("<a href=\"person?db=null&amp;id=I1\" "
-                + "class=\"name\">Karl Frederick"
-                + " <span class=\"surname\">Schoeller</span> Sr. [I1]</a>", pnhr.getNameHtml(), "Rendered string mismatch");
+        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
+            renderingContext);
+        final PersonNameHtmlRenderer pnhr = (PersonNameHtmlRenderer) personRenderer
+            .getNameHtmlRenderer();
+        assertEquals(
+            "<a href=\"person?db=null&amp;id=I1\" " + "class=\"name\">Karl Frederick"
+                + " <span class=\"surname\">Schoeller</span> Sr. [I1]</a>",
+            pnhr.getNameHtml(), "Rendered string mismatch");
     }
 
     /** */
     @Test
     public void testGetNameHtmlPersonUnset() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final PersonRenderer personRenderer = new PersonRenderer(
-                builder.createPerson(),
-                new GedRendererFactory(), renderingContext);
-        final PersonNameHtmlRenderer pnhr =
-                (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();
+        final PersonRenderer personRenderer = new PersonRenderer(builder.createPerson(),
+            new GedRendererFactory(), renderingContext);
+        final PersonNameHtmlRenderer pnhr = (PersonNameHtmlRenderer) personRenderer
+            .getNameHtmlRenderer();
         assertEquals("", pnhr.getNameHtml(), "Rendered string mismatch (expected empty)");
     }
 }

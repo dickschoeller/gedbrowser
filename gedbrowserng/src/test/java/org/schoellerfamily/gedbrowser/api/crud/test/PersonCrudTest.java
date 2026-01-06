@@ -35,9 +35,9 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { Application.class, TestConfiguration.class },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@SpringBootTest(classes = { Application.class,
+    TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 @Slf4j
 public class PersonCrudTest {
@@ -93,8 +93,7 @@ public class PersonCrudTest {
         then(firstPerson.getString()).isEqualTo("I1");
         final ApiAttribute firstAttribute = firstPerson.getAttributes().get(0);
         then(firstAttribute.getType()).isEqualTo("name");
-        then(firstAttribute.getString()).isEqualTo(
-                "Melissa Robinson/Schoeller/");
+        then(firstAttribute.getString()).isEqualTo("Melissa Robinson/Schoeller/");
         then(firstAttribute.getTail()).isEmpty();
     }
 
@@ -116,11 +115,10 @@ public class PersonCrudTest {
         log.info("Beginning testGetPersonsMiniSchoellerXyzzy");
         try {
             crud.readOne("mini-schoeller", "Xyzzy");
-            fail("should not have found person "
-                    + "Xyzzy in data set mini-schoeller");
+            fail("should not have found person " + "Xyzzy in data set mini-schoeller");
         } catch (ObjectNotFoundException e) {
-            assertEquals("Object Xyzzy of type person not found",
-                    e.getMessage(), "Mismatched message");
+            assertEquals("Object Xyzzy of type person not found", e.getMessage(),
+                "Mismatched message");
         }
     }
 
@@ -146,8 +144,7 @@ public class PersonCrudTest {
     public final void testCreatePersonsWithName() {
         log.info("Beginning testCreatePersonsWithName");
         final ApiPerson reqPerson = createRJS();
-        final ApiPerson resPerson =
-                crud.createOne(helper.getDb(), reqPerson);
+        final ApiPerson resPerson = crud.createOne(helper.getDb(), reqPerson);
         then(resPerson.getType()).isEqualTo(reqPerson.getType());
         then(resPerson.getSurname()).isEqualTo(reqPerson.getSurname());
         then(resPerson.getIndexName()).isEqualTo(reqPerson.getIndexName());
@@ -159,14 +156,24 @@ public class PersonCrudTest {
      */
     private ApiPerson createRJS() {
         return ApiPerson.builder()
-                .type("person")
-                .string("")
-                .attribute(ApiAttribute.builder().type("name").string("Richard/Schoeller/").tail("").attributes(java.util.List.of()).build())
-                .attribute(ApiAttribute.builder().type("attribute").string("Sex").tail("M").attributes(java.util.List.of()).build())
-                .surname("Schoeller")
-                .indexName("Schoeller, Richard")
+            .type("person")
+            .string("")
+            .attribute(ApiAttribute.builder()
+                .type("name")
+                .string("Richard/Schoeller/")
+                .tail("")
                 .attributes(java.util.List.of())
-                .build();
+                .build())
+            .attribute(ApiAttribute.builder()
+                .type("attribute")
+                .string("Sex")
+                .tail("M")
+                .attributes(java.util.List.of())
+                .build())
+            .surname("Schoeller")
+            .indexName("Schoeller, Richard")
+            .attributes(java.util.List.of())
+            .build();
     }
 
     /** */
@@ -174,19 +181,17 @@ public class PersonCrudTest {
     public final void testDeletePerson() {
         log.info("Beginning testDeletePerson");
         final ApiPerson reqPerson = createRJS();
-        final ApiPerson resPerson =
-                crud.createOne(helper.getDb(), reqPerson);
+        final ApiPerson resPerson = crud.createOne(helper.getDb(), reqPerson);
         final String id = resPerson.getString();
         crud.readOne(helper.getDb(), id);
         final ApiPerson deletedPerson = crud.deleteOne(helper.getDb(), id);
         then(deletedPerson.getString()).isEqualTo(id);
         try {
             crud.readOne(helper.getDb(), id);
-            fail("should not have found person " + id + " in data set "
-                    + helper.getDb());
+            fail("should not have found person " + id + " in data set " + helper.getDb());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Object " + id + " of type person not found",
-                    e.getMessage(), "Mismatched message");
+            assertEquals("Object " + id + " of type person not found", e.getMessage(),
+                "Mismatched message");
         }
     }
 
@@ -195,20 +200,15 @@ public class PersonCrudTest {
     public final void testDeleteSpouseLinkedPerson() {
         log.info("Beginning testDeleteSpouseLinkedPerson");
         final ApiPerson reqPerson = createRJS();
-        final ApiPerson resPerson =
-                crud.createOne(helper.getDb(), reqPerson);
+        final ApiPerson resPerson = crud.createOne(helper.getDb(), reqPerson);
         final String id = resPerson.getString();
         final ApiPerson childReqPerson = helper.createAlexander();
-        final ChildCrud childCrud = new ChildCrud(loader, toDocConverter,
-                repositoryManager);
-        final ApiPerson child = childCrud.createChild(helper.getDb(), id,
-                childReqPerson);
+        final ChildCrud childCrud = new ChildCrud(loader, toDocConverter, repositoryManager);
+        final ApiPerson child = childCrud.createChild(helper.getDb(), id, childReqPerson);
         final String fam = child.getFamcs().get(0).getString();
         final ApiPerson p2 = helper.createAlexandra();
-        final SpouseCrud spouseCrud = new SpouseCrud(loader, toDocConverter,
-                repositoryManager);
-        final ApiPerson gotP2 = spouseCrud.createSpouseInFamily(helper.getDb(),
-                fam, p2);
+        final SpouseCrud spouseCrud = new SpouseCrud(loader, toDocConverter, repositoryManager);
+        final ApiPerson gotP2 = spouseCrud.createSpouseInFamily(helper.getDb(), fam, p2);
         then(fam).isEqualTo(gotP2.getFamss().get(0).getString());
 
         ApiPerson readPerson = crud.readOne(helper.getDb(), id);
@@ -217,16 +217,14 @@ public class PersonCrudTest {
         then(deletedPerson.getString()).isEqualTo(id);
         try {
             crud.readOne(helper.getDb(), id);
-            fail("should not have found person " + id + " in data set "
-                    + helper.getDb());
+            fail("should not have found person " + id + " in data set " + helper.getDb());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Object " + id + " of type person not found",
-                    e.getMessage(), "Mismatched message");
+            assertEquals("Object " + id + " of type person not found", e.getMessage(),
+                "Mismatched message");
         }
         final ApiFamily readFamily = familyCrud.readOne(helper.getDb(), fam);
         then(readFamily.getSpouses().size()).isEqualTo(1);
-        then(readFamily.getSpouses().get(0).getString())
-                .isEqualTo(gotP2.getString());
+        then(readFamily.getSpouses().get(0).getString()).isEqualTo(gotP2.getString());
     }
 
     /** */
@@ -234,32 +232,25 @@ public class PersonCrudTest {
     public final void testDeleteChildLinkedPerson() {
         log.info("Beginning testDeleteChildLinkedPerson");
         final ApiPerson reqPerson = createRJS();
-        final ApiPerson resPerson =
-                crud.createOne(helper.getDb(), reqPerson);
+        final ApiPerson resPerson = crud.createOne(helper.getDb(), reqPerson);
         final String id = resPerson.getString();
         final ApiPerson childReqPerson = helper.createAlexander();
-        final ChildCrud childCrud = new ChildCrud(loader, toDocConverter,
-                repositoryManager);
-        final ApiPerson child = childCrud.createChild(helper.getDb(), id,
-                childReqPerson);
+        final ChildCrud childCrud = new ChildCrud(loader, toDocConverter, repositoryManager);
+        final ApiPerson child = childCrud.createChild(helper.getDb(), id, childReqPerson);
         final String fam = child.getFamcs().get(0).getString();
         final String childId = child.getString();
         final ApiPerson p2 = helper.createAlexandra();
-        final SpouseCrud spouseCrud =
-                new SpouseCrud(loader, toDocConverter, repositoryManager);
-        final ApiPerson gotP2 =
-                spouseCrud.createSpouseInFamily(helper.getDb(), fam, p2);
+        final SpouseCrud spouseCrud = new SpouseCrud(loader, toDocConverter, repositoryManager);
+        final ApiPerson gotP2 = spouseCrud.createSpouseInFamily(helper.getDb(), fam, p2);
         then(gotP2.getFamss().get(0).getString()).isEqualTo(fam);
-        final ApiPerson deletedPerson =
-                crud.deleteOne(helper.getDb(), childId);
+        final ApiPerson deletedPerson = crud.deleteOne(helper.getDb(), childId);
         then(deletedPerson.getString()).isEqualTo(childId);
         try {
             crud.readOne(helper.getDb(), childId);
-            fail("should not have found person " + childId + " in data set "
-                    + helper.getDb());
+            fail("should not have found person " + childId + " in data set " + helper.getDb());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Object " + childId + " of type person not found",
-                    e.getMessage(), "Mismatched message");
+            assertEquals("Object " + childId + " of type person not found", e.getMessage(),
+                "Mismatched message");
         }
         final ApiFamily readFamily = familyCrud.readOne(helper.getDb(), fam);
         then(readFamily.getChildren().size()).isEqualTo(0);
@@ -271,11 +262,10 @@ public class PersonCrudTest {
         log.info("Beginning testDeletePersonNotFound");
         try {
             crud.deleteOne(helper.getDb(), "XXXXXXX");
-            fail("should not have found person XXXXXXX in data set "
-                    + helper.getDb());
+            fail("should not have found person XXXXXXX in data set " + helper.getDb());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Object XXXXXXX of type person not found",
-                    e.getMessage(), "Mismatched message");
+            assertEquals("Object XXXXXXX of type person not found", e.getMessage(),
+                "Mismatched message");
         }
     }
 
@@ -286,11 +276,9 @@ public class PersonCrudTest {
         log.info("Beginning testDeletePersonNotFound");
         try {
             crud.deleteOne("XYZZY", "XXXXXXX");
-            fail("should not have found data set "
-                    + "XYZZY while looking for person XXXXXXX");
+            fail("should not have found data set " + "XYZZY while looking for person XXXXXXX");
         } catch (DataSetNotFoundException e) {
-            assertEquals("Data set XYZZY not found",
-                    e.getMessage(), "Mismatched message");
+            assertEquals("Data set XYZZY not found", e.getMessage(), "Mismatched message");
         }
     }
 
@@ -299,8 +287,8 @@ public class PersonCrudTest {
     public final void testUpdatePersonWithNote() {
         log.info("Beginning testUpdatePersonWithNote");
         final ApiPerson reqPerson = createRJS();
-        final ApiPersonBuilder<?, ?> resPerson =
-                crud.createOne(helper.getDb(), reqPerson).toBuilder();
+        final ApiPersonBuilder<?, ?> resPerson = crud.createOne(helper.getDb(), reqPerson)
+            .toBuilder();
         then(resPerson.getType()).isEqualTo(reqPerson.getType());
 
         final ApiAttribute aNote = ApiAttribute.builder()
@@ -309,9 +297,8 @@ public class PersonCrudTest {
             .tail("this is a note")
             .build();
         resPerson.attribute(aNote);
-        final ApiPerson updatedPerson = crud.updateOne(helper.getDb(),
-                resPerson.getString(), resPerson.build());
-        assertEquals(aNote, updatedPerson.getAttributes().get(2),
-                "attribute should be present");
+        final ApiPerson updatedPerson = crud.updateOne(helper.getDb(), resPerson.getString(),
+            resPerson.build());
+        assertEquals(aNote, updatedPerson.getAttributes().get(2), "attribute should be present");
     }
 }

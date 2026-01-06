@@ -35,6 +35,8 @@ public class BasicBirthDateEstimator extends Estimator {
     }
 
     /**
+     * Estimate the birth date.
+     *
      * @return the estimated birth date as a LocalDate
      */
     public final LocalDate estimate() {
@@ -45,6 +47,8 @@ public class BasicBirthDateEstimator extends Estimator {
     }
 
     /**
+     * Get the estimate when a birth date is provided.
+     *
      * @return a local date from the actual birth date value
      */
     protected final LocalDate estimateFromBirthDate() {
@@ -55,6 +59,8 @@ public class BasicBirthDateEstimator extends Estimator {
     }
 
     /**
+     * Try to estimate from own marriages.
+     *
      * @param localDate if not null we already have a better estimate
      * @return the estimate from own marriages
      */
@@ -99,6 +105,8 @@ public class BasicBirthDateEstimator extends Estimator {
     }
 
     /**
+     * Estimate from a single event.
+     *
      * @param gob the event
      * @param dateString the date string from the event
      * @return the adjust date estimate. Can return null.

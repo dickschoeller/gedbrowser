@@ -39,57 +39,63 @@ public final class SimpleNameRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testAttributeListOpenRenderer() {
-        final SimpleNameRenderer renderer = new SimpleNameRenderer(
-                new Name(null), new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
+        final SimpleNameRenderer renderer = new SimpleNameRenderer(new Name(null),
+            new GedRendererFactory(), anonymousContext);
+        assertTrue(
+            renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testListItemRenderer() {
-        final SimpleNameRenderer renderer = new SimpleNameRenderer(
-                new Name(null), new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getListItemRenderer() instanceof SimpleNameListItemRenderer, "Wrong renderer type");
+        final SimpleNameRenderer renderer = new SimpleNameRenderer(new Name(null),
+            new GedRendererFactory(), anonymousContext);
+        assertTrue(renderer.getListItemRenderer() instanceof SimpleNameListItemRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameHtmlRenderer() {
-        final SimpleNameRenderer renderer = new SimpleNameRenderer(
-                new Name(null), new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getNameHtmlRenderer() instanceof SimpleNameNameHtmlRenderer, "Wrong renderer type");
+        final SimpleNameRenderer renderer = new SimpleNameRenderer(new Name(null),
+            new GedRendererFactory(), anonymousContext);
+        assertTrue(renderer.getNameHtmlRenderer() instanceof SimpleNameNameHtmlRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameIndexRenderer() {
-        final SimpleNameRenderer renderer = new SimpleNameRenderer(
-                new Name(null), new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getNameIndexRenderer() instanceof SimpleNameNameIndexRenderer, "Wrong renderer type");
+        final SimpleNameRenderer renderer = new SimpleNameRenderer(new Name(null),
+            new GedRendererFactory(), anonymousContext);
+        assertTrue(renderer.getNameIndexRenderer() instanceof SimpleNameNameIndexRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testPhraseRenderer() {
-        final SimpleNameRenderer renderer = new SimpleNameRenderer(
-                new Name(null), new GedRendererFactory(), anonymousContext);
-        assertTrue(renderer.getPhraseRenderer() instanceof SimpleNamePhraseRenderer, "Wrong renderer type");
+        final SimpleNameRenderer renderer = new SimpleNameRenderer(new Name(null),
+            new GedRendererFactory(), anonymousContext);
+        assertTrue(renderer.getPhraseRenderer() instanceof SimpleNamePhraseRenderer,
+            "Wrong renderer type");
     }
 }

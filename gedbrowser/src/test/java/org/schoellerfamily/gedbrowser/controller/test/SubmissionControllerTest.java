@@ -23,9 +23,9 @@ import org.springframework.test.web.servlet.client.RestTestClient;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { Application.class, TestConfiguration.class },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@SpringBootTest(classes = { Application.class,
+    TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class SubmissionControllerTest implements MenuTestHelper {
@@ -44,27 +44,25 @@ public class SubmissionControllerTest implements MenuTestHelper {
     /** */
     @Test
     public final void testSubmissionControllerS33750() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser/submission?db=gl120368&id=B1";
+        final String url = "http://localhost:" + port + "/gedbrowser/submission?db=gl120368&id=B1";
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody())
-            .contains("<title>B1 - gl120368")
-            .contains(getMenu("A"));
+        then(entity.getResponseBody()).contains("<title>B1 - gl120368").contains(getMenu("A"));
     }
 
     /** */
     @Test
     public final void testSubmissionControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/gedbrowser/submission?db=XYZZY&id=S33750"))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI
+                .create("http://localhost:" + port + "/gedbrowser/submission?db=XYZZY&id=S33750"))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
@@ -75,13 +73,13 @@ public class SubmissionControllerTest implements MenuTestHelper {
     @Test
     public final void testSubmissionControllerBadSubmission() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/gedbrowser/submission?db=gl120368&id=XYZZY"))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI
+                .create("http://localhost:" + port + "/gedbrowser/submission?db=gl120368&id=XYZZY"))
+            .exchange()
+            .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        then(entity.getResponseBody()).contains("Submission not found")
-        .contains(getMenu("A"));
+        then(entity.getResponseBody()).contains("Submission not found").contains(getMenu("A"));
     }
 }

@@ -19,6 +19,7 @@ public class TestConfiguration {
     }
 
     /**
+     * @param g2g the transformer
      * @return convert for AbstractGedLine hierarchy to GedObject hierarchy
      */
     @Bean

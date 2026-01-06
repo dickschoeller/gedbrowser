@@ -50,61 +50,67 @@ public final class SourceRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testAttributeListOpenRenderer() {
         final SourceRenderer renderer = createRenderer();
-        assertTrue(renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer, "Wrong renderer type");
+        assertTrue(
+            renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testListItemRenderer() {
         final SourceRenderer renderer = createRenderer();
-        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer, "Wrong renderer type");
+        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameHtmlRenderer() {
         final SourceRenderer renderer = createRenderer();
-        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer, "Wrong renderer type");
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameIndexRenderer() {
         final SourceRenderer renderer = createRenderer();
-        assertTrue(renderer.getNameIndexRenderer() instanceof SourceNameIndexRenderer, "Wrong renderer type");
+        assertTrue(renderer.getNameIndexRenderer() instanceof SourceNameIndexRenderer,
+            "Wrong renderer type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testPhraseRenderer() {
         final SourceRenderer renderer = createRenderer();
-        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer, "Wrong renderer type");
+        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer,
+            "Wrong renderer type");
     }
 
     /**
      * @return the renderer
      */
     private SourceRenderer createRenderer() {
-        return new SourceRenderer(new Source(null, new ObjectId("S1")),
-                new GedRendererFactory(), anonymousContext);
+        return new SourceRenderer(new Source(null, new ObjectId("S1")), new GedRendererFactory(),
+            anonymousContext);
     }
 
     /**
@@ -114,11 +120,10 @@ public final class SourceRendererTest {
     public void testTitleString() throws IOException {
         final Root root = reader.readBigTestSource();
         final Source source = (Source) root.find("S3");
-        final SourceRenderer renderer = new SourceRenderer(source,
-                new GedRendererFactory(),
-                anonymousContext);
-        assertEquals("Schoeller, Richard John, birth certificate",
-                renderer.getTitleString(), "Mismatched title string");
+        final SourceRenderer renderer = new SourceRenderer(source, new GedRendererFactory(),
+            anonymousContext);
+        assertEquals("Schoeller, Richard John, birth certificate", renderer.getTitleString(),
+            "Mismatched title string");
     }
 
     /**
@@ -128,9 +133,8 @@ public final class SourceRendererTest {
     public void testIdString() throws IOException {
         final Root root = reader.readBigTestSource();
         final Source source = (Source) root.find("S3");
-        final SourceRenderer renderer = new SourceRenderer(source,
-                new GedRendererFactory(),
-                anonymousContext);
+        final SourceRenderer renderer = new SourceRenderer(source, new GedRendererFactory(),
+            anonymousContext);
         assertEquals("S3", renderer.getIdString(), "Mismatched source ID");
     }
 
@@ -140,19 +144,16 @@ public final class SourceRendererTest {
     @Test
     public void testIdAttributes() throws IOException {
         final String[] expects = {
-                "<span class=\"label\">Abbreviation:</span>"
-                + " SchoellerRichardBirthCert",
-                "<span class=\"label\">Note:</span>"
-                + " I have a certified copy of this document"
-        };
+            "<span class=\"label\">Abbreviation:</span>" + " SchoellerRichardBirthCert",
+            "<span class=\"label\">Note:</span>" + " I have a certified copy of this document" };
         final Root root = reader.readBigTestSource();
         final Source source = (Source) root.find("S3");
-        final SourceRenderer renderer = new SourceRenderer(source,
-                new GedRendererFactory(),
-                anonymousContext);
+        final SourceRenderer renderer = new SourceRenderer(source, new GedRendererFactory(),
+            anonymousContext);
         int i = 0;
         for (final GedRenderer<?> attribute : renderer.getAttributes()) {
-            assertEquals(expects[i++], attribute.getListItemContents(), "Rendered html doesn't match expectation");
+            assertEquals(expects[i++], attribute.getListItemContents(),
+                "Rendered html doesn't match expectation");
         }
     }
 
@@ -165,13 +166,12 @@ public final class SourceRendererTest {
     public void testIndexName() throws IOException {
         final Root root = reader.readBigTestSource();
         final Source source = (Source) root.find("S3");
-        final SourceRenderer renderer = new SourceRenderer(source,
-                new GedRendererFactory(),
-                anonymousContext);
-        assertEquals("<a href=\"source?db=null&amp;id=S3\" class=\"name\""
-                + " id=\"source-S3\">Schoeller, Richard John, birth"
-                + " certificate (S3)</a>",
-                renderer.getIndexNameHtml(), "Mismatched index html string");
+        final SourceRenderer renderer = new SourceRenderer(source, new GedRendererFactory(),
+            anonymousContext);
+        assertEquals(
+            "<a href=\"source?db=null&amp;id=S3\" class=\"name\""
+                + " id=\"source-S3\">Schoeller, Richard John, birth" + " certificate (S3)</a>",
+            renderer.getIndexNameHtml(), "Mismatched index html string");
     }
 
     /**
@@ -230,7 +230,8 @@ public final class SourceRendererTest {
         final Collection<Source> sources = root.find(Source.class);
         for (final Source source : sources) {
             final SourceRenderer renderer = createRenderer(source);
-            assertEquals("surnames?db=gl120368&letter=A", renderer.getIndexHref(), "index href mismatch");
+            assertEquals("surnames?db=gl120368&letter=A", renderer.getIndexHref(),
+                "index href mismatch");
         }
     }
 
@@ -275,7 +276,8 @@ public final class SourceRendererTest {
         final Collection<Source> sources = root.find(Source.class);
         for (final Source source : sources) {
             final SourceRenderer renderer = createRenderer(source);
-            assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(), "submitters href mismatch");
+            assertEquals("submitters?db=gl120368", renderer.getSubmittersHref(),
+                "submitters href mismatch");
         }
     }
 
@@ -299,7 +301,6 @@ public final class SourceRendererTest {
      * @return the renderer
      */
     private SourceRenderer createRenderer(final Source source) {
-        return new SourceRenderer(source,
-                new GedRendererFactory(), anonymousContext);
+        return new SourceRenderer(source, new GedRendererFactory(), anonymousContext);
     }
 }

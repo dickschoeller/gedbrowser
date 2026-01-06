@@ -49,8 +49,17 @@ public class ApiFamily extends ApiHasImages {
      * @param <C> the class to be built
      * @param <B> the type of the builder
      */
-    @JsonPOJOBuilder(withPrefix="")
-    public static abstract class ApiFamilyBuilder<C extends ApiFamily, B extends ApiFamilyBuilder<C, B>> extends ApiHasImagesBuilder<C, B> {
+    @JsonPOJOBuilder(withPrefix = "")
+    public abstract static class ApiFamilyBuilder<
+            C extends ApiFamily,
+            B extends ApiFamilyBuilder<C, B>>
+        extends ApiHasImagesBuilder<C, B> {
+        /**
+         * Add an attribute to the correct list based on its type.
+         *
+         * @param attribute the attribute to add
+         * @return this
+         */
         public B attribute(final ApiAttribute attribute) {
             if (attribute.isType("husband") || attribute.isType("wife")
                     || attribute.isType("spouse")) {
@@ -65,6 +74,12 @@ public class ApiFamily extends ApiHasImages {
             return super.attribute(attribute);
         }
 
+        /**
+         * Add a list of attributes to the correct lists based on their types.
+         *
+         * @param attributes the attributes to add
+         * @return this
+         */
         public B attributes(final List<ApiAttribute> attributes) {
             for (final ApiAttribute attribute : attributes) {
                 attribute(attribute);
@@ -72,20 +87,41 @@ public class ApiFamily extends ApiHasImages {
             return self();
         }
 
+        /**
+         * Add a spouse attribute at the specific index in the list of spouses.
+         *
+         * @param index the index
+         * @param spouse the spouse attribute
+         * @return this
+         */
         public B addSpouse(final int index, final ApiAttribute spouse) {
             this.spouses.add(index, spouse);
             return self();
         }
 
+        /**
+         * Get the list of spouses.
+         *
+         * @return the list of spouses
+         */
         public List<ApiAttribute> getSpouses() {
             return this.spouses;
         }
 
+        /**
+         * Get the list of children.
+         *
+         * @return the list of children
+         */
         public List<ApiAttribute> getChildren() {
             return this.children;
         }
     }
 
+    /**
+     * Is the other object of exactly the same type as this one? All overrides
+     * should use the same approach.
+     */
     @Override
     public boolean canEqual(final Object other) {
         return other.getClass() == ApiFamily.class;

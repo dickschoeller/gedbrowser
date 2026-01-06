@@ -29,6 +29,8 @@ public abstract class AbstractAnalysisVisitor extends IgnoreableProcessor
     }
 
     /**
+     * Get the list of attributes that are not children.
+     *
      * @return the list of all attributes
      */
     public final List<Attribute> getAttributes() {
@@ -36,6 +38,8 @@ public abstract class AbstractAnalysisVisitor extends IgnoreableProcessor
     }
 
     /**
+     * Get a list of attributes that are not children and are not ignored.
+     *
      * @return the list of attributes that are interesting
      */
     public final List<Attribute> getTrimmedAttributes() {
@@ -43,6 +47,8 @@ public abstract class AbstractAnalysisVisitor extends IgnoreableProcessor
     }
 
     /**
+     * Get the list of attributes that refer to children.
+     *
      * @return the list of attributes that are interesting
      */
     public final List<Child> getChildren() {

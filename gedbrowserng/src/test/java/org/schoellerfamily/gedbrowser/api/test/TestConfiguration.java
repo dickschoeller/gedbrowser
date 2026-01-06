@@ -14,16 +14,26 @@ import org.springframework.web.client.RestClient;
 @Configuration
 @ComponentScan(basePackageClasses = { GeoServiceClient.class, ApplicationInfoImpl.class })
 public class TestConfiguration {
+    /** */
+    private static final int MINUTE_IN_MILLIS = 60000;
+
+    /**
+     * @return the RestClient builder
+     */
     @Bean
     public RestClient.Builder restClientBuilder() {
         return RestClient.builder();
     }
 
+    /**
+     * @param builder the RestClient builder
+     * @return the RestClient
+     */
     @Bean
     public RestClient restClient(final RestClient.Builder builder) {
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        factory.setConnectTimeout(60000);
-        factory.setReadTimeout(60000);
+        factory.setConnectTimeout(MINUTE_IN_MILLIS);
+        factory.setReadTimeout(MINUTE_IN_MILLIS);
         return builder
             .requestFactory(factory)
             .build();

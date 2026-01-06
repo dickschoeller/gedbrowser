@@ -19,21 +19,33 @@ public class ApiHeadTest {
     /** */
     @Test
     public void testDefaultConstructorType() {
-        final ApiHead o = ApiHead.builder().type("").string("").attributes(java.util.List.of()).build();
+        final ApiHead o = ApiHead.builder()
+            .type("")
+            .string("")
+            .attributes(java.util.List.of())
+            .build();
         assertEquals("", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorString() {
-        final ApiHead o = ApiHead.builder().type("").string("").attributes(java.util.List.of()).build();
+        final ApiHead o = ApiHead.builder()
+            .type("")
+            .string("")
+            .attributes(java.util.List.of())
+            .build();
         assertEquals("", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorAttributes() {
-        final ApiHead o = ApiHead.builder().type("").string("").attributes(java.util.List.of()).build();
+        final ApiHead o = ApiHead.builder()
+            .type("")
+            .string("")
+            .attributes(java.util.List.of())
+            .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
@@ -61,16 +73,28 @@ public class ApiHeadTest {
     /** */
     @Test
     public void testConstructorNullAttributes() {
-        final ApiHead o = ApiHead.builder().type("type").string("string").attributes(java.util.List.of()).build();
+        final ApiHead o = ApiHead.builder()
+            .type("type")
+            .string("string")
+            .attributes(java.util.List.of())
+            .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
     /** */
     @Test
     public void testConstructorWithAttributes() {
-        final List<ApiAttribute> attributes = List.of(
-            ApiAttribute.builder().type("attribute").string("a string").tail("").attributes(java.util.List.of()).build());
-        final ApiHead o = ApiHead.builder().type("type").string("string").attributes(attributes).build();
+        final List<ApiAttribute> attributes = List.of(ApiAttribute.builder()
+            .type("attribute")
+            .string("a string")
+            .tail("")
+            .attributes(java.util.List.of())
+            .build());
+        final ApiHead o = ApiHead.builder()
+            .type("type")
+            .string("string")
+            .attributes(attributes)
+            .build();
         assertEquals(1, o.getAttributes().size(), "attributes mismatch");
     }
 
@@ -93,9 +117,6 @@ public class ApiHeadTest {
     /** */
     @Test
     public void testHashAndEquals() {
-    	EqualsVerifier
-    	    .forClass(ApiHead.class)
-			.suppress(Warning.STRICT_INHERITANCE)
-    	    .verify();
+        EqualsVerifier.forClass(ApiHead.class).suppress(Warning.STRICT_INHERITANCE).verify();
     }
 }

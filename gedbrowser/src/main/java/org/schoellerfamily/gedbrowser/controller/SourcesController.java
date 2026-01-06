@@ -25,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class SourcesController extends DatedDataController {
+    /** Location of gedbrowser configuration files. */
     private final String gedbrowserHome;
 
     /**
@@ -70,7 +71,7 @@ public class SourcesController extends DatedDataController {
 
         model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
         model.addAttribute("model", gedRenderer);
-        model.addAttribute("appInfo", appInfo);
+        model.addAttribute("appInfo", getAppInfo());
 
         log.debug("Exiting sources");
         return "sources";

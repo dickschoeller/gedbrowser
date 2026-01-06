@@ -10,7 +10,7 @@ public interface SubmitterDocument extends GedDocument<Submitter> {
      * {@inheritDoc}
      */
     @Override
-    default void accept(GedDocumentVisitor visitor) {
+    default void accept(final GedDocumentVisitor visitor) {
         visitor.visit(this);
     }
 }

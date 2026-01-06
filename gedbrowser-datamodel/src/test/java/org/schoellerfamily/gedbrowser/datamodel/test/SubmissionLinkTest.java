@@ -16,55 +16,53 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 public final class SubmissionLinkTest {
 
+    /**
+     * @return parameters for the parameterized tests
+     */
+    @SuppressWarnings("checkstyle:nowhitespaceafter")
     public static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();
-        final Person person = builder.createPerson(
-                "I1", "J. Random/Schoeller/");
-        return Arrays.stream(new Object[][] {
-            {null, null, null, "", "", ""},
-            {person, null, null, "", "I1", ""},
-            {null, "", null, "", "", ""},
-            {person, "", null, "", "I1", ""},
-            {null, "Source", null, "Source", "", ""},
-            {person, "Source", null, "Source", "I1", ""},
-            {null, null, new ObjectId(""), "", "", ""},
-            {person, null, new ObjectId(""), "", "I1", ""},
-            {null, "", new ObjectId(""), "", "", ""},
-            {person, "", new ObjectId(""), "", "I1", ""},
-            {null, "Source", new ObjectId(""), "Source", "", ""},
-            {person, "Source", new ObjectId(""), "Source", "I1", ""},
-            {null, null, new ObjectId("S1"), "", "", "S1"},
-            {person, null, new ObjectId("S1"), "", "I1", "S1"},
-            {null, "", new ObjectId("S1"), "", "", "S1"},
-            {person, "", new ObjectId("S1"), "", "I1", "S1"},
-            {null, "Source", new ObjectId("S1"), "Source", "", "S1"},
-            {person, "Source", new ObjectId("S1"), "Source", "I1", "S1"},
-        }).map(Arguments::of);
+        final Person person = builder.createPerson("I1", "J. Random/Schoeller/");
+        return Arrays
+            .stream(new Object[][] { { null, null, null, "", "", "" },
+                { person, null, null, "", "I1", "" }, { null, "", null, "", "", "" },
+                { person, "", null, "", "I1", "" }, { null, "Source", null, "Source", "", "" },
+                { person, "Source", null, "Source", "I1", "" },
+                { null, null, new ObjectId(""), "", "", "" },
+                { person, null, new ObjectId(""), "", "I1", "" },
+                { null, "", new ObjectId(""), "", "", "" },
+                { person, "", new ObjectId(""), "", "I1", "" },
+                { null, "Source", new ObjectId(""), "Source", "", "" },
+                { person, "Source", new ObjectId(""), "Source", "I1", "" },
+                { null, null, new ObjectId("S1"), "", "", "S1" },
+                { person, null, new ObjectId("S1"), "", "I1", "S1" },
+                { null, "", new ObjectId("S1"), "", "", "S1" },
+                { person, "", new ObjectId("S1"), "", "I1", "S1" },
+                { null, "Source", new ObjectId("S1"), "Source", "", "S1" },
+                { person, "Source", new ObjectId("S1"), "Source", "I1", "S1" }, })
+            .map(Arguments::of);
     }
 
     @ParameterizedTest
     @MethodSource("params")
-    public void testOneArgumentConstructor(final GedObject parent, final String string,
-            final ObjectId xref, final String expectedString,
-            final String expectedFromString, final String expectedToString) {
+    void testOneArgumentConstructor(final GedObject parent, final String string,
+        final ObjectId xref, final String expectedString, final String expectedFromString,
+        final String expectedToString) {
         final SubmissionLink sourceLink = new SubmissionLink();
         assertMatch(sourceLink, null, "", "", "");
     }
 
     @ParameterizedTest
     @MethodSource("params")
-    public void testThreeArgumentConstructor(final GedObject parent, final String string,
-            final ObjectId xref, final String expectedString,
-            final String expectedFromString, final String expectedToString) {
-        final SubmissionLink sourceLink = new SubmissionLink(parent, string,
-                xref);
-        assertMatch(sourceLink, parent, expectedString, expectedFromString,
-                expectedToString);
+    void testThreeArgumentConstructor(final GedObject parent, final String string,
+        final ObjectId xref, final String expectedString, final String expectedFromString,
+        final String expectedToString) {
+        final SubmissionLink sourceLink = new SubmissionLink(parent, string, xref);
+        assertMatch(sourceLink, parent, expectedString, expectedFromString, expectedToString);
     }
 
-    private void assertMatch(final SubmissionLink sourceLink,
-            final GedObject expParent, final String expString,
-            final String expFromString, final String expToString) {
+    private void assertMatch(final SubmissionLink sourceLink, final GedObject expParent,
+        final String expString, final String expFromString, final String expToString) {
         assertEquals(expParent, sourceLink.getParent(), "Parent mismatch");
         assertEquals(expString, sourceLink.getString(), "String mismatch");
         assertEquals(expToString, sourceLink.getToString(), "To string mismatch");

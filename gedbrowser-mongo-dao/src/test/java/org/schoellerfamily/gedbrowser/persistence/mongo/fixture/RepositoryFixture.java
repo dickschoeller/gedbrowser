@@ -37,6 +37,7 @@ public final class RepositoryFixture {
     /** */
     private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
+    /** */
     private final RootDocumentRepositoryMongo rootDocumentRepository;
 
     /**
@@ -52,17 +53,15 @@ public final class RepositoryFixture {
         root.setFilename("bigtest.ged");
         root.setDbName("bigtest");
 
-        final RootDocumentMongo rootdoc =
-                (RootDocumentMongo) toDocConverter.createGedDocument(root);
+        final RootDocumentMongo rootdoc = (RootDocumentMongo) toDocConverter
+            .createGedDocument(root);
         rootDocumentRepository.save(rootdoc);
 
         final Map<String, GedObject> map = root.getObjects();
-        final TopLevelGedDocumentMongoVisitor visitor =
-                new SaveVisitor(repositoryManager);
+        final TopLevelGedDocumentMongoVisitor visitor = new SaveVisitor(repositoryManager);
 
         for (final GedObject ged : map.values()) {
-            final GedDocumentMongo<GedObject> gedDoc =
-                    toDocConverter.createGedDocument(ged);
+            final GedDocumentMongo<GedObject> gedDoc = toDocConverter.createGedDocument(ged);
             gedDoc.accept(visitor);
         }
         return root;

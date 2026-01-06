@@ -15,8 +15,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
 /**
- * This interface contains default methods that implement the read
- * operations for the classes that declare implementing the interface.
+ * This interface contains default methods that implement the read operations
+ * for the classes that declare implementing the interface.
  *
  * @author Dick Schoeller
  *
@@ -25,8 +25,10 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
  * @param <Z> the Api type associated with the type X
  */
 @SuppressWarnings("PMD.CommentSize")
-public interface ReadOperations <X extends GedObject,
-    Y extends GedDocument<X>, Z extends ApiObject> {
+public interface ReadOperations<
+        X extends GedObject,
+        Y extends GedDocument<X>,
+        Z extends ApiObject> {
     /**
      * @return the DB repository for this type
      */
@@ -43,10 +45,12 @@ public interface ReadOperations <X extends GedObject,
     Class<X> getGedClass();
 
     /**
+     * @param repositoryManager the repository manager
      * @param dbName the name of the database
      * @return the root object
      */
-    default RootDocument readRoot(final RepositoryManagerMongo repositoryManager, final String dbName) {
+    default RootDocument readRoot(final RepositoryManagerMongo repositoryManager,
+        final String dbName) {
         final RootDocument root = getLoader().loadDocument(repositoryManager, dbName);
         if (root == null) {
             throw new DataSetNotFoundException("Data set %s not found".formatted(dbName), dbName);
@@ -57,21 +61,24 @@ public interface ReadOperations <X extends GedObject,
     /**
      * Generic single item fetcher.
      *
-     * @param dbName the name of the database
+     * @param repositoryManager the repository manager
+     * @param dbName   the name of the database
      * @param idString the ID of the item to fetch
      * @return the found object
      */
-    default Y read(final RepositoryManagerMongo repositoryManager, final String dbName, final String idString) {
+    default Y read(final RepositoryManagerMongo repositoryManager, final String dbName,
+        final String idString) {
         final Y document = read(readRoot(repositoryManager, dbName), idString);
         if (document == null) {
-            final String type =
-                    getGedClass().getSimpleName().toLowerCase(Locale.ENGLISH);
-            throw new ObjectNotFoundException("Object %s of type %s not found".formatted(idString, type), type, idString, dbName);
+            final String type = getGedClass().getSimpleName().toLowerCase(Locale.ENGLISH);
+            throw new ObjectNotFoundException(
+                "Object %s of type %s not found".formatted(idString, type), type, idString, dbName);
         }
         return document;
     }
 
     /**
+     * @param repositoryManager the repository manager
      * @param dbName the name of the database
      * @return the list of persons
      */
@@ -80,7 +87,7 @@ public interface ReadOperations <X extends GedObject,
     }
 
     /**
-     * @param root the root document of the data set to search
+     * @param root     the root document of the data set to search
      * @param idString the ID of the object
      * @return the family document
      */
@@ -96,8 +103,8 @@ public interface ReadOperations <X extends GedObject,
         try {
             final Iterable<Y> a = getRepository().findAll(root);
             return java.util.stream.StreamSupport.stream(a.spliterator(), false)
-                    .sorted(new GetStringComparator())
-                    .toList();
+                .sorted(new GetStringComparator())
+                .toList();
         } catch (RuntimeException e) {
             throw e;
         }

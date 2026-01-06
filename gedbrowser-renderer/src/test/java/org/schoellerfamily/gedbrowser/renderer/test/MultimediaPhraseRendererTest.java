@@ -47,26 +47,20 @@ public final class MultimediaPhraseRendererTest {
         final Person person = builder.createPerson();
 
         multimedia1 = new Multimedia(person, "Multimedia", "");
-        multimedia1.addAttribute(
-                new Attribute(multimedia1, "Title", "Title 1"));
-        final Attribute file1 =
-                new Attribute(multimedia1, "File", "file1.jpg");
+        multimedia1.addAttribute(new Attribute(multimedia1, "Title", "Title 1"));
+        final Attribute file1 = new Attribute(multimedia1, "File", "file1.jpg");
         multimedia1.addAttribute(file1);
         file1.addAttribute(new Attribute(file1, "Format", "jpg"));
 
         multimedia2 = new Multimedia(person, "Multimedia", "");
-        multimedia2.addAttribute(
-                new Attribute(multimedia2, "Title", "Title 2"));
-        final Attribute file2 =
-                new Attribute(multimedia2, "File", "file2.html");
+        multimedia2.addAttribute(new Attribute(multimedia2, "Title", "Title 2"));
+        final Attribute file2 = new Attribute(multimedia2, "File", "file2.html");
         multimedia2.addAttribute(file2);
         file2.addAttribute(new Attribute(file2, "Format", "html"));
 
         multimedia3 = new Multimedia(person, "Multimedia", "");
-        multimedia3.addAttribute(
-                new Attribute(multimedia3, "Title", "Title 3"));
-        final Attribute file3 =
-                new Attribute(multimedia3, "File", "file3.html");
+        multimedia3.addAttribute(new Attribute(multimedia3, "Title", "Title 3"));
+        final Attribute file3 = new Attribute(multimedia3, "File", "file3.html");
         multimedia3.addAttribute(file3);
 
         person.insert(multimedia1);
@@ -80,9 +74,9 @@ public final class MultimediaPhraseRendererTest {
     @Test
     public void testRenderAsPhraseEmpty() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia1,
-                new GedRendererFactory(), anonymousContext);
-        final MultimediaPhraseRenderer apRenderer =
-                (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
+            new GedRendererFactory(), anonymousContext);
+        final MultimediaPhraseRenderer apRenderer = (MultimediaPhraseRenderer) aRenderer
+            .getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
         assertEquals("<a href=\"file1.jpg\">Title 1</a>", string, "Rendered string mismatch");
     }
@@ -91,9 +85,9 @@ public final class MultimediaPhraseRendererTest {
     @Test
     public void testRenderAsPhraseString() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia2,
-                new GedRendererFactory(), anonymousContext);
-        final MultimediaPhraseRenderer apRenderer =
-                (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
+            new GedRendererFactory(), anonymousContext);
+        final MultimediaPhraseRenderer apRenderer = (MultimediaPhraseRenderer) aRenderer
+            .getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
         assertEquals("<a href=\"file2.html\">Title 2</a>", string, "Rendered string mismatch");
     }
@@ -102,9 +96,9 @@ public final class MultimediaPhraseRendererTest {
     @Test
     public void testRenderAsPhrase() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia3,
-                new GedRendererFactory(), anonymousContext);
-        final MultimediaPhraseRenderer apRenderer =
-                (MultimediaPhraseRenderer) aRenderer.getPhraseRenderer();
+            new GedRendererFactory(), anonymousContext);
+        final MultimediaPhraseRenderer apRenderer = (MultimediaPhraseRenderer) aRenderer
+            .getPhraseRenderer();
         final String string = apRenderer.renderAsPhrase();
         assertEquals("<a href=\"file3.html\">Title 3</a>", string, "Rendered string mismatch");
     }

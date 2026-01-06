@@ -16,12 +16,12 @@ import org.schoellerfamily.gedbrowser.writer.users.UsersWriter;
  * @author Dick Schoeller
  */
 public class UsersWriterTest {
-
+    /** */
     private static final String TEST_USER_FILE_CSV = System.getProperty("gedbrowser.home",
         System.getProperty("user.dir") + "/src/test/resources") + "/temp.tmp";
 
     @Test
-    public void test() {
+    void test() {
         writeUserFile(TEST_USER_FILE_CSV);
         final Users<User> users = readUserFile(TEST_USER_FILE_CSV);
         final int expected = 3;
@@ -30,7 +30,7 @@ public class UsersWriterTest {
     }
 
     @Test
-    public void testNull() {
+    void testNull() {
         try {
             writeUserFile(null);
             fail("Should throw null pointer exception");
@@ -40,7 +40,7 @@ public class UsersWriterTest {
     }
 
     @Test
-    public void testBad() {
+    void testBad() {
         writeUserFile("/etc");
         final Users<User> users = readUserFile("/etc");
         assertEquals(1, users.size(), "should be the one dummy because of failure");
@@ -55,7 +55,7 @@ public class UsersWriterTest {
         return usersReader.readUserFile(userFile, () -> new UsersImpl<>(), () -> new UserImpl());
     }
 
-    private void writeUserFile (final String userFile) {
+    private void writeUserFile(final String userFile) {
         final UsersImpl<User> users = new UsersImpl<>();
         users.add(createUser("username1"));
         users.add(createUser("username2"));

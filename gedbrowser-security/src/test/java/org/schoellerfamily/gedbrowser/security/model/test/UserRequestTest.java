@@ -12,49 +12,49 @@ import org.schoellerfamily.gedbrowser.security.model.UserRequest;
 public class UserRequestTest {
     /** */
     @Test
-    public void testDefaultUsername() {
+    void testDefaultUsername() {
         final UserRequest request = new UserRequest();
         assertNull(request.getUsername(), "should default to null");
     }
 
     /** */
     @Test
-    public void testDefaultFirstname() {
+    void testDefaultFirstname() {
         final UserRequest request = new UserRequest();
         assertNull(request.getFirstname(), "should default to null");
     }
 
     /** */
     @Test
-    public void testDefaultLastname() {
+    void testDefaultLastname() {
         final UserRequest request = new UserRequest();
         assertNull(request.getLastname(), "should default to null");
     }
 
     /** */
     @Test
-    public void testDefaultPassword() {
+    void testDefaultPassword() {
         final UserRequest request = new UserRequest();
         assertNull(request.getPassword(), "should default to null");
     }
 
     /** */
     @Test
-    public void testDefaultEmail() {
+    void testDefaultEmail() {
         final UserRequest request = new UserRequest();
         assertNull(request.getEmail(), "should default to null");
     }
 
     /** */
     @Test
-    public void testDefaultId() {
+    void testDefaultId() {
         final UserRequest request = new UserRequest();
         assertNull(request.getId(), "should default to null");
     }
 
     /** */
     @Test
-    public void testSetUsername() {
+    void testSetUsername() {
         final UserRequest request = new UserRequest();
         request.setUsername("user");
         assertEquals("user", request.getUsername(), "should match set value");
@@ -62,7 +62,7 @@ public class UserRequestTest {
 
     /** */
     @Test
-    public void testSetFirstname() {
+    void testSetFirstname() {
         final UserRequest request = new UserRequest();
         request.setFirstname("first");
         assertEquals("first", request.getFirstname(), "should match set value");
@@ -70,7 +70,7 @@ public class UserRequestTest {
 
     /** */
     @Test
-    public void testSetLastname() {
+    void testSetLastname() {
         final UserRequest request = new UserRequest();
         request.setLastname("last");
         assertEquals("last", request.getLastname(), "should match set value");
@@ -78,7 +78,7 @@ public class UserRequestTest {
 
     /** */
     @Test
-    public void testSetPassword() {
+    void testSetPassword() {
         final UserRequest request = new UserRequest();
         request.setPassword("pass");
         assertEquals("pass", request.getPassword(), "should match set value");
@@ -86,19 +86,17 @@ public class UserRequestTest {
 
     /** */
     @Test
-    public void testSetEmail() {
+    void testSetEmail() {
         final UserRequest request = new UserRequest();
         request.setEmail("email@email.com");
-        assertEquals("email@email.com", request.getEmail(),
-                "should match set value");
+        assertEquals("email@email.com", request.getEmail(), "should match set value");
     }
 
     /** */
     @Test
-    public void testSetId() {
+    void testSetId() {
         final UserRequest request = new UserRequest();
         request.setId(Long.MAX_VALUE);
-        assertEquals(Long.valueOf(Long.MAX_VALUE), request.getId(),
-                "should match set value");
+        assertEquals(Long.valueOf(Long.MAX_VALUE), request.getId(), "should match set value");
     }
 }

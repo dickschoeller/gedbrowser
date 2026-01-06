@@ -40,7 +40,6 @@ public final class SubmitterLinkListItemRendererTest {
     @BeforeEach
     public void init() {
         final Root root = new Root("Root");
-        /** */
         final Head head = new Head(root, "Head");
         root.insert(head);
 
@@ -56,45 +55,45 @@ public final class SubmitterLinkListItemRendererTest {
     /** */
     @Test
     public void testRenderAsListItem() {
-        final SubmitterLinkRenderer slr = new SubmitterLinkRenderer(
-                submitterLink, new GedRendererFactory(),
-                anonymousContext);
-        final SubmitterLinkListItemRenderer lir =
-                (SubmitterLinkListItemRenderer) slr.getListItemRenderer();
+        final SubmitterLinkRenderer slr = new SubmitterLinkRenderer(submitterLink,
+            new GedRendererFactory(), anonymousContext);
+        final SubmitterLinkListItemRenderer lir = (SubmitterLinkListItemRenderer) slr
+            .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, false, 0);
-        assertEquals("<span class=\"label\">Submitter:</span> <a class=\"name\""
-                + " href=\"submitter?db=null&amp;id=S1\">"
-                + "Richard Schoeller [S1]</a>", builder.toString(), "Rendered html doesn't match expectation");
+        assertEquals(
+            "<span class=\"label\">Submitter:</span> <a class=\"name\""
+                + " href=\"submitter?db=null&amp;id=S1\">" + "Richard Schoeller [S1]</a>",
+            builder.toString(), "Rendered html doesn't match expectation");
     }
 
     /** */
     @Test
     public void testRenderAsListItemNewLine() {
-        final SubmitterLinkRenderer slr = new SubmitterLinkRenderer(
-                submitterLink, new GedRendererFactory(),
-                anonymousContext);
-        final SubmitterLinkListItemRenderer lir =
-                (SubmitterLinkListItemRenderer) slr.getListItemRenderer();
+        final SubmitterLinkRenderer slr = new SubmitterLinkRenderer(submitterLink,
+            new GedRendererFactory(), anonymousContext);
+        final SubmitterLinkListItemRenderer lir = (SubmitterLinkListItemRenderer) slr
+            .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, true, 0);
-        assertEquals("<span class=\"label\">Submitter:</span> <a class=\"name\""
-                + " href=\"submitter?db=null&amp;id=S1\">"
-                + "Richard Schoeller [S1]</a>", builder.toString(), "Rendered html doesn't match expectation");
+        assertEquals(
+            "<span class=\"label\">Submitter:</span> <a class=\"name\""
+                + " href=\"submitter?db=null&amp;id=S1\">" + "Richard Schoeller [S1]</a>",
+            builder.toString(), "Rendered html doesn't match expectation");
     }
 
     /** */
     @Test
     public void testRenderAsListItemPad() {
-        final SubmitterLinkRenderer slr = new SubmitterLinkRenderer(
-                submitterLink, new GedRendererFactory(),
-                anonymousContext);
-        final SubmitterLinkListItemRenderer lir =
-                (SubmitterLinkListItemRenderer) slr.getListItemRenderer();
+        final SubmitterLinkRenderer slr = new SubmitterLinkRenderer(submitterLink,
+            new GedRendererFactory(), anonymousContext);
+        final SubmitterLinkListItemRenderer lir = (SubmitterLinkListItemRenderer) slr
+            .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         lir.renderAsListItem(builder, false, 2);
-        assertEquals("<span class=\"label\">Submitter:</span> <a class=\"name\""
-                + " href=\"submitter?db=null&amp;id=S1\">"
-                + "Richard Schoeller [S1]</a>", builder.toString(), "Rendered html doesn't match expectation");
+        assertEquals(
+            "<span class=\"label\">Submitter:</span> <a class=\"name\""
+                + " href=\"submitter?db=null&amp;id=S1\">" + "Richard Schoeller [S1]</a>",
+            builder.toString(), "Rendered html doesn't match expectation");
     }
 }

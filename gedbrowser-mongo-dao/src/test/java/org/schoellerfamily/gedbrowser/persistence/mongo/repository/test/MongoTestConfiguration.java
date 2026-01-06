@@ -39,21 +39,14 @@ import com.mongodb.client.MongoClients;
  */
 @Configuration
 @EnableMongoRepositories(
-        basePackages =
-            "org.schoellerfamily.gedbrowser.persistence.mongo.repository",
-        includeFilters = @ComponentScan.Filter(
-                value = {
-                        FamilyDocumentRepositoryMongo.class,
-                        HeadDocumentRepositoryMongo.class,
-                        NoteDocumentRepositoryMongo.class,
-                        PersonDocumentRepositoryMongo.class,
-                        RootDocumentRepositoryMongo.class,
-                        SourceDocumentRepositoryMongo.class,
-                        SubmissionDocumentRepositoryMongo.class,
-                        SubmitterDocumentRepositoryMongo.class,
-                        TrailerDocumentRepositoryMongo.class
-                },
-                type = FilterType.ASSIGNABLE_TYPE))
+    basePackages = "org.schoellerfamily.gedbrowser.persistence.mongo.repository",
+    includeFilters = @ComponentScan.Filter(value = {
+        FamilyDocumentRepositoryMongo.class, HeadDocumentRepositoryMongo.class,
+        NoteDocumentRepositoryMongo.class, PersonDocumentRepositoryMongo.class,
+        RootDocumentRepositoryMongo.class, SourceDocumentRepositoryMongo.class,
+        SubmissionDocumentRepositoryMongo.class, SubmitterDocumentRepositoryMongo.class,
+        TrailerDocumentRepositoryMongo.class },
+    type = FilterType.ASSIGNABLE_TYPE))
 @SuppressWarnings("PMD.ExcessiveImports")
 public class MongoTestConfiguration {
     /** */
@@ -80,7 +73,8 @@ public class MongoTestConfiguration {
         final String connectionString = "mongodb://" + host + ":" + port;
         final MongoClient client = MongoClients.create(connectionString);
         if (client == null) {
-            throw new IllegalStateException("Could not connect to MongoDB at: {}".formatted(connectionString));
+            throw new IllegalStateException(
+                "Could not connect to MongoDB at: {}".formatted(connectionString));
         }
         return new SimpleMongoClientDatabaseFactory(client, databaseName);
     }
@@ -97,32 +91,40 @@ public class MongoTestConfiguration {
     }
 
     /**
-     * Provide access to a test fixture that loads up database fresh for
-     * testing.
+     * Provide access to a test fixture that loads up database fresh for testing.
      *
+     * @param repositoryManager the repository manager
+     * @param mongoTemplate the mongo template
+     * @param reader the data reader
+     * @param toDocConverter the converter
+     * @param rootDocumentRepository the root document repository
      * @return the fixture
      */
     @Bean
-    public RepositoryFixture repositoryFixture(
-            final RepositoryManagerMongo repositoryManager,
-            final MongoTemplate mongoTemplate,
-            final TestDataReader reader,
-            final GedObjectToGedDocumentMongoConverter toDocConverter,
-            final RootDocumentRepositoryMongo rootDocumentRepository) {
-        return new RepositoryFixture(repositoryManager, mongoTemplate, reader, toDocConverter, rootDocumentRepository);
+    public RepositoryFixture repositoryFixture(final RepositoryManagerMongo repositoryManager,
+        final MongoTemplate mongoTemplate, final TestDataReader reader,
+        final GedObjectToGedDocumentMongoConverter toDocConverter,
+        final RootDocumentRepositoryMongo rootDocumentRepository) {
+        return new RepositoryFixture(repositoryManager, mongoTemplate, reader, toDocConverter,
+            rootDocumentRepository);
     }
 
     /**
+     * Create the finder.
+     *
+     * @param repositoryManager the repository manager
+     * @param toDocConverter the converter
      * @return the finder
      */
     @Bean
-    public FinderStrategy finder(
-    		final RepositoryManagerMongo repositoryManager,
-            final GedObjectToGedDocumentMongoConverter toDocConverter) {
+    public FinderStrategy finder(final RepositoryManagerMongo repositoryManager,
+        final GedObjectToGedDocumentMongoConverter toDocConverter) {
         return new RepositoryFinderMongo(repositoryManager, toDocConverter);
     }
 
     /**
+     * Create the repository manager.
+     *
      * @return the repository manager
      */
     @Bean
@@ -131,6 +133,8 @@ public class MongoTestConfiguration {
     }
 
     /**
+     * Create the transformer from AbstractGedLine to GedObject.
+     *
      * @return convert for AbstractGedLine hierarchy to GedObject hierarchy
      */
     @Bean
@@ -139,6 +143,9 @@ public class MongoTestConfiguration {
     }
 
     /**
+     * Create the data reader.
+     *
+     * @param g2g the transformer
      * @return the data reader
      */
     @Bean
@@ -147,6 +154,8 @@ public class MongoTestConfiguration {
     }
 
     /**
+     * Create the converter from GedDocument to GedObject.
+     *
      * @return the converter
      */
     @Bean
@@ -155,6 +164,8 @@ public class MongoTestConfiguration {
     }
 
     /**
+     * Create the converter from GedObject to GedDocument.
+     *
      * @return the converter
      */
     @Bean
@@ -163,16 +174,20 @@ public class MongoTestConfiguration {
     }
 
     /**
+     * Create the loader.
+     *
+     * @param finder the finder
+     * @param g2g the transformer
+     * @param toDocConverter the converter
+     * @param rootDocumentRepository the root document repository
      * @return the loader
      */
     @Bean
-    public GedDocumentFileLoader gedDocumentFileLoader(
-        final FinderStrategy finder,
+    public GedDocumentFileLoader gedDocumentFileLoader(final FinderStrategy finder,
         final GedLineToGedObjectTransformer g2g,
         final GedObjectToGedDocumentMongoConverter toDocConverter,
-        final RootDocumentRepositoryMongo rootDocumentRepository
-) {
-        return new GedDocumentFileLoader(
-            finder, g2g, toDocConverter, rootDocumentRepository, gedbrowserHome);
+        final RootDocumentRepositoryMongo rootDocumentRepository) {
+        return new GedDocumentFileLoader(finder, g2g, toDocConverter, rootDocumentRepository,
+            gedbrowserHome);
     }
 }

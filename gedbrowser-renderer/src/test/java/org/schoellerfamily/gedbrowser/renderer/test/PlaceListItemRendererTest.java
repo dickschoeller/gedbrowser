@@ -52,11 +52,11 @@ public final class PlaceListItemRendererTest {
     /** */
     @Test
     public void testGetRenderAsListItem() {
-        final PlaceRenderer dRenderer = new PlaceRenderer(place,
-                new GedRendererFactory(), anonymousContext);
+        final PlaceRenderer dRenderer = new PlaceRenderer(place, new GedRendererFactory(),
+            anonymousContext);
         final StringBuilder builder = new StringBuilder();
-        final PlaceListItemRenderer liRenderer =
-                (PlaceListItemRenderer) dRenderer.getListItemRenderer();
+        final PlaceListItemRenderer liRenderer = (PlaceListItemRenderer) dRenderer
+            .getListItemRenderer();
         liRenderer.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
         assertEquals("Fayetteville, NC", string, "Rendered string doesn't match expectation");
@@ -65,12 +65,11 @@ public final class PlaceListItemRendererTest {
     /** */
     @Test
     public void testGetRenderAsListItemEmpty() {
-        final PlaceRenderer dRenderer = new PlaceRenderer(
-                new Place(attribute, ""), new GedRendererFactory(),
-                anonymousContext);
+        final PlaceRenderer dRenderer = new PlaceRenderer(new Place(attribute, ""),
+            new GedRendererFactory(), anonymousContext);
         final StringBuilder builder = new StringBuilder();
-        final PlaceListItemRenderer liRenderer =
-                (PlaceListItemRenderer) dRenderer.getListItemRenderer();
+        final PlaceListItemRenderer liRenderer = (PlaceListItemRenderer) dRenderer
+            .getListItemRenderer();
         liRenderer.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
         assertEquals("", string, "Expected empty string");
@@ -79,12 +78,11 @@ public final class PlaceListItemRendererTest {
     /** */
     @Test
     public void testGetRenderAsListItemNull() {
-        final PlaceRenderer dRenderer = new PlaceRenderer(
-                new Place(attribute, null), new GedRendererFactory(),
-                anonymousContext);
+        final PlaceRenderer dRenderer = new PlaceRenderer(new Place(attribute, null),
+            new GedRendererFactory(), anonymousContext);
         final StringBuilder builder = new StringBuilder();
-        final PlaceListItemRenderer liRenderer =
-                (PlaceListItemRenderer) dRenderer.getListItemRenderer();
+        final PlaceListItemRenderer liRenderer = (PlaceListItemRenderer) dRenderer
+            .getListItemRenderer();
         liRenderer.renderAsListItem(builder, false, 0);
         final String string = builder.toString();
         assertEquals("", string, "Expected empty string");

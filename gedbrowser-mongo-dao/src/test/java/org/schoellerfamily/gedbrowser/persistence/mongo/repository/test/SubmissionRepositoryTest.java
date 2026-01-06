@@ -28,8 +28,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public final class SubmissionRepositoryTest {
     /** */
     @Autowired
-    private transient SubmissionDocumentRepositoryMongo
-        submissionDocumentRepository;
+    private transient SubmissionDocumentRepositoryMongo submissionDocumentRepository;
     /** */
     @Autowired
     private transient RepositoryFixture repositoryFixture;
@@ -64,36 +63,34 @@ public final class SubmissionRepositoryTest {
     /** */
     @Test
     public void testSubmission() {
-        final SubmissionDocument document = submissionDocumentRepository.
-                findByFileAndString(root.getFilename(), "SUBMISSION");
-        final Submission submission =
-                (Submission) toObjConverter.createGedObject(root, document);
+        final SubmissionDocument document = submissionDocumentRepository
+            .findByFileAndString(root.getFilename(), "SUBMISSION");
+        final Submission submission = (Submission) toObjConverter.createGedObject(root, document);
         assertEquals("SUBMISSION", submission.getString(), "Expected submission string");
     }
 
     /** */
     @Test
     public void testSubmissionRoot() {
-        final SubmissionDocument document = submissionDocumentRepository.
-                findByRootAndString(rootDocument, "SUBMISSION");
-        final Submission submission =
-                (Submission) toObjConverter.createGedObject(root, document);
+        final SubmissionDocument document = submissionDocumentRepository
+            .findByRootAndString(rootDocument, "SUBMISSION");
+        final Submission submission = (Submission) toObjConverter.createGedObject(root, document);
         assertEquals("SUBMISSION", submission.getString(), "Expected submission string");
     }
 
     /** */
     @Test
     public void testBogus() {
-        final SubmissionDocument perdoc = submissionDocumentRepository.
-                findByFileAndString(root.getFilename(), "Mumble");
+        final SubmissionDocument perdoc = submissionDocumentRepository
+            .findByFileAndString(root.getFilename(), "Mumble");
         assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     public void testBogusRoot() {
-        final SubmissionDocument perdoc = submissionDocumentRepository.
-                findByRootAndString(rootDocument, "Mumble");
+        final SubmissionDocument perdoc = submissionDocumentRepository
+            .findByRootAndString(rootDocument, "Mumble");
         assertNull(perdoc, "Bogus request should return null");
     }
 
@@ -109,16 +106,15 @@ public final class SubmissionRepositoryTest {
     @Test
     public void testCountFilename() {
         final long expected = 1;
-        final long count =
-                submissionDocumentRepository.count(rootDocument.getFilename());
+        final long count = submissionDocumentRepository.count(rootDocument.getFilename());
         assertEquals(expected, count, "Should be 1 submission");
     }
 
     /** */
     @Test
     public void testFindAllRoot() {
-        final Iterable<SubmissionDocument> list =
-                submissionDocumentRepository.findAll(rootDocument);
+        final Iterable<SubmissionDocument> list = submissionDocumentRepository
+            .findAll(rootDocument);
         int count = 0;
         for (final SubmissionDocument submission : list) {
             checkEquals("Type string mismatch", "submission", submission.getType());
@@ -131,9 +127,8 @@ public final class SubmissionRepositoryTest {
     /** */
     @Test
     public void testFindAllFilename() {
-        final Iterable<SubmissionDocument> list =
-                submissionDocumentRepository.findAll(
-                        rootDocument.getFilename());
+        final Iterable<SubmissionDocument> list = submissionDocumentRepository
+            .findAll(rootDocument.getFilename());
         int count = 0;
         for (final SubmissionDocument submission : list) {
             checkEquals("Type string mismatch", "submission", submission.getType());
@@ -153,12 +148,11 @@ public final class SubmissionRepositoryTest {
     /**
      * Wrapper for assertion to bypass PMD check.
      *
-     * @param message the identifying message for the AssertionError (null okay)
+     * @param message  the identifying message for the AssertionError (null okay)
      * @param expected expected value
-     * @param actual actual value
+     * @param actual   actual value
      */
-    private void checkEquals(final String message, final Object expected,
-            final Object actual) {
+    private void checkEquals(final String message, final Object expected, final Object actual) {
         assertEquals(expected, actual, message);
     }
 }

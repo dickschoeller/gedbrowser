@@ -32,23 +32,20 @@ public final class UsersConfigurationTest {
     @Value("${gedbrowser.home:#{ systemProperties['user.dir'] }/src/test/resources}")
     private transient String gedbrowserHome;
 
-    /** */
     @BeforeEach
-    public void before() {
-        SecurityTestHelper.resetUserFile(
-                gedbrowserHome + "/" + TEST_USER_FILE_CSV);
+    void setUp() {
+        SecurityTestHelper.resetUserFile(gedbrowserHome + "/" + TEST_USER_FILE_CSV);
     }
 
     /** */
     @AfterEach
-    public void after() {
-        SecurityTestHelper.resetUserFile(
-                gedbrowserHome + "/" + TEST_USER_FILE_CSV);
+    void tearDown() {
+        SecurityTestHelper.resetUserFile(gedbrowserHome + "/" + TEST_USER_FILE_CSV);
     }
 
     /** */
     @Test
-    public void testUserFile() {
+    void testUserFile() {
         final String userFile = gedbrowserHome + "/" + TEST_USER_FILE_CSV;
         final SecurityUsers users = readUserFile(userFile);
         final int expected = 2;
@@ -58,7 +55,7 @@ public final class UsersConfigurationTest {
 
     /** */
     @Test
-    public void testUserFileNotFound() {
+    void testUserFileNotFound() {
         final String userFile = gedbrowserHome + "/XYX";
         final SecurityUsers users = readUserFile(userFile);
         final int expected = 1;
@@ -68,7 +65,7 @@ public final class UsersConfigurationTest {
 
     /** */
     @Test
-    public void testUserFileNotFoundContainsGues() {
+    void testUserFileNotFoundContainsGues() {
         final String userFile = gedbrowserHome + "/XYX";
         final SecurityUsers users = readUserFile(userFile);
         final SecurityUser guest = users.get("guest");
@@ -77,7 +74,7 @@ public final class UsersConfigurationTest {
 
     /** */
     @Test
-    public void testUsersClear() {
+    void testUsersClear() {
         final String userFile = gedbrowserHome + "/" + TEST_USER_FILE_CSV;
         final SecurityUsers users = readUserFile(userFile);
         final int expected = 0;
@@ -88,7 +85,7 @@ public final class UsersConfigurationTest {
 
     /** */
     @Test
-    public void testUsersAdd() {
+    void testUsersAdd() {
         final String userFile = gedbrowserHome + "/" + TEST_USER_FILE_CSV;
         final SecurityUsers users = readUserFile(userFile);
         final int expected = 3;
@@ -102,19 +99,20 @@ public final class UsersConfigurationTest {
 
     /** */
     @Test
-    public void testUsersGet() {
+    void testUsersGet() {
         final String userFile = gedbrowserHome + "/" + TEST_USER_FILE_CSV;
         final SecurityUsers users = readUserFile(userFile);
         final UserImpl user = new UserImpl();
         user.setUsername("add-username");
         user.setPassword("password");
         users.add(user);
-        assertEquals(user, users.get("add-username"), "Found file should have user, because we did add");
+        assertEquals(user, users.get("add-username"),
+            "Found file should have user, because we did add");
     }
 
     /** */
     @Test
-    public void testUsersAddRemoveGet() {
+    void testUsersAddRemoveGet() {
         final String userFile = gedbrowserHome + "/" + TEST_USER_FILE_CSV;
         final SecurityUsers users = readUserFile(userFile);
         final UserImpl user = new UserImpl();
@@ -122,17 +120,18 @@ public final class UsersConfigurationTest {
         user.setPassword("password");
         users.add(user);
         users.remove(user);
-        assertNull(users.get("add-username"), "Found file should not have user, because we did removed");
+        assertNull(users.get("add-username"),
+            "Found file should not have user, because we did removed");
     }
 
     /** */
     @Test
-    public void testUsersIterator() {
+    void testUsersIterator() {
         final String userFile = gedbrowserHome + "/" + TEST_USER_FILE_CSV;
         final SecurityUsers users = readUserFile(userFile);
-        for (SecurityUser user: users) {
+        for (SecurityUser user : users) {
             assertTrue(user.getUsername() != null,
-                    "Found file should not have user, because we did removed");
+                "Found file should not have user, because we did removed");
         }
     }
 
@@ -141,11 +140,8 @@ public final class UsersConfigurationTest {
      * @return the set of users from the user file
      */
     private SecurityUsers readUserFile(final String userFile) {
-        final UsersReader<SecurityUser, SecurityUsers> usersReader =
-                new UsersReader<>();
-        return (SecurityUsers) usersReader.readUserFile(userFile,
-                () -> new SecurityUsers(userFile),
-                () -> new UserImpl()
-        );
+        final UsersReader<SecurityUser, SecurityUsers> usersReader = new UsersReader<>();
+        return (SecurityUsers) usersReader.readUserFile(userFile, () -> new SecurityUsers(userFile),
+            () -> new UserImpl());
     }
 }

@@ -10,7 +10,7 @@ public interface ChildDocument extends GedDocument<Child> {
      * {@inheritDoc}
      */
     @Override
-    default void accept(GedDocumentVisitor visitor) {
+    default void accept(final GedDocumentVisitor visitor) {
         visitor.visit(this);
     }
 }

@@ -21,7 +21,7 @@ import org.springframework.security.access.AccessDeniedException;
 /**
  * @author Dick Schoeller
  */
-public class UserServiceTest extends AbstractTest {
+public final class UserServiceTest extends AbstractTest {
 
     /** */
     @Autowired
@@ -31,44 +31,31 @@ public class UserServiceTest extends AbstractTest {
     @Value("${gedbrowser.home:#{ systemProperties['user.dir'] }/src/test/resources}")
     private String gedbrowserHome;
 
-    /**
-     * Reset test file before.
-     */
     @BeforeEach
-    public void before() {
+    void setUp() {
         SecurityTestHelper.resetUserFile(gedbrowserHome + "/testUserFile.csv");
     }
 
-    /**
-     * Reset test file after.
-     */
     @AfterEach
-    public void after() {
+    void tearDown() {
         SecurityTestHelper.resetUserFile(gedbrowserHome + "/testUserFile.csv");
     }
 
-    /**
-     * @throws AccessDeniedException if we can't get it
-     */
     @Test
-    public void testFindAllWithoutUser() throws AccessDeniedException {
-        assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(() -> userService.findAll());
+    void testFindAllWithoutUser() throws AccessDeniedException {
+        assertThatExceptionOfType(AccessDeniedException.class)
+            .isThrownBy(() -> userService.findAll());
     }
 
-    /**
-     * @throws AccessDeniedException if we can't get it
-     */
     @Test
-    public void testFindAllWithUser() throws AccessDeniedException {
+    void testFindAllWithUser() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestUser());
-        assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(() -> userService.findAll());
+        assertThatExceptionOfType(AccessDeniedException.class)
+            .isThrownBy(() -> userService.findAll());
     }
 
-    /**
-     * @throws AccessDeniedException if we can't get it
-     */
     @Test
-    public void testFindAllWithAdmin() throws AccessDeniedException {
+    void testFindAllWithAdmin() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestAdmin());
         UserRequest request = new UserRequest();
         request.setUsername("dummy");
@@ -86,56 +73,44 @@ public class UserServiceTest extends AbstractTest {
     }
 
 //    @Test(expected = AccessDeniedException.class)
-//    public void testFindByIdWithoutUser() throws AccessDeniedException {
+//    void testFindByIdWithoutUser() throws AccessDeniedException {
 //      userService.findById(1L);
 //    }
 //
 //    @Test(expected = AccessDeniedException.class)
-//    public void testFindByIdWithUser() throws AccessDeniedException {
+//    void testFindByIdWithUser() throws AccessDeniedException {
 //      mockAuthenticatedUser(buildTestUser());
 //      userService.findById(1L);
 //    }
 //
 //    @Test
-//    public void testFindByIdWithAdmin() throws AccessDeniedException {
+//    void testFindByIdWithAdmin() throws AccessDeniedException {
 //      mockAuthenticatedUser(buildTestAdmin());
 //      userService.findById(1L);
 //    }
 
-    /**
-     * @throws AccessDeniedException if we can't get it
-     */
     @Test
-    public void testFindByUsernameWithoutUser() throws AccessDeniedException {
+    void testFindByUsernameWithoutUser() throws AccessDeniedException {
         final SecurityUser user = userService.findByUsername("guest");
         assertEquals("guest", user.getUsername(), "Username doesn't match");
     }
 
-    /**
-     * @throws AccessDeniedException if we can't get it
-     */
     @Test
-    public void testFindByUsernameWithUser() throws AccessDeniedException {
+    void testFindByUsernameWithUser() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestUser());
         final SecurityUser user = userService.findByUsername("guest");
         assertEquals("guest", user.getUsername(), "Username doesn't match");
     }
 
-    /**
-     * @throws AccessDeniedException if we can't get it
-     */
     @Test
-    public void testFindByUsernameWithAdmin() throws AccessDeniedException {
+    void testFindByUsernameWithAdmin() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestAdmin());
         final SecurityUser user = userService.findByUsername("guest");
         assertEquals("guest", user.getUsername(), "Username doesn't match");
     }
 
-    /**
-     * @throws AccessDeniedException if we can't get it
-     */
     @Test
-    public void testCreateWithAdmin() throws AccessDeniedException {
+    void testCreateWithAdmin() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestAdmin());
         UserRequest request = new UserRequest();
         request.setUsername("user");

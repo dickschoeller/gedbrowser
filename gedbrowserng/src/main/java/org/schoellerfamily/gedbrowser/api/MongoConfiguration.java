@@ -7,25 +7,17 @@ import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    FamilyDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    HeadDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.FamilyDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.HeadDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.NoteDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    PersonDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    RepositoryFinderMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.PersonDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryFinderMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    RootDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    SourceDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmissionDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    SubmitterDocumentRepositoryMongo;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.
-    TrailerDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmitterDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -48,21 +40,15 @@ import lombok.RequiredArgsConstructor;
  */
 @Configuration
 @EnableMongoRepositories(
-        basePackages =
-            "org.schoellerfamily.gedbrowser.persistence.mongo.repository",
-        includeFilters = @ComponentScan.Filter(
-                value = {
-                        FamilyDocumentRepositoryMongo.class,
-                        HeadDocumentRepositoryMongo.class,
-                        NoteDocumentRepositoryMongo.class,
-                        PersonDocumentRepositoryMongo.class,
-                        RootDocumentRepositoryMongo.class,
-                        SourceDocumentRepositoryMongo.class,
-                        SubmissionDocumentRepositoryMongo.class,
-                        SubmitterDocumentRepositoryMongo.class,
-                        TrailerDocumentRepositoryMongo.class
-                },
-                type = FilterType.ASSIGNABLE_TYPE))
+    basePackages = "org.schoellerfamily.gedbrowser.persistence.mongo.repository",
+    includeFilters = @ComponentScan.Filter(
+        value = {
+            FamilyDocumentRepositoryMongo.class, HeadDocumentRepositoryMongo.class,
+            NoteDocumentRepositoryMongo.class, PersonDocumentRepositoryMongo.class,
+            RootDocumentRepositoryMongo.class, SourceDocumentRepositoryMongo.class,
+            SubmissionDocumentRepositoryMongo.class, SubmitterDocumentRepositoryMongo.class,
+            TrailerDocumentRepositoryMongo.class },
+        type = FilterType.ASSIGNABLE_TYPE))
 @SuppressWarnings("PMD.ExcessiveImports")
 @RequiredArgsConstructor
 public class MongoConfiguration {
@@ -74,6 +60,7 @@ public class MongoConfiguration {
     @Value("${spring.data.mongodb.port:27017}")
     private final int port;
 
+    /** */
     @Value("${gedbrowser.home:/var/lib/gedbrowser}")
     private final String gedbrowserHome;
 
@@ -89,8 +76,8 @@ public class MongoConfiguration {
         final String connectionString = "mongodb://" + host + ":" + port;
         final MongoClient client = MongoClients.create(connectionString);
         if (client == null) {
-			throw new UnknownHostException("Could not connect to MongoDB at " + host + ":" + port);
-		}
+            throw new UnknownHostException("Could not connect to MongoDB at " + host + ":" + port);
+        }
         return new SimpleMongoClientDatabaseFactory(client, databaseName);
     }
 
@@ -139,12 +126,13 @@ public class MongoConfiguration {
     }
 
     /**
+     * @param repositoryManager the repository manager
+     * @param toDocConverter    the converter to ged document
      * @return the finder
      */
     @Bean
-    public FinderStrategy finder(
-    		final RepositoryManagerMongo repositoryManager,
-            final GedObjectToGedDocumentMongoConverter toDocConverter) {
+    public FinderStrategy finder(final RepositoryManagerMongo repositoryManager,
+        final GedObjectToGedDocumentMongoConverter toDocConverter) {
         return new RepositoryFinderMongo(repositoryManager, toDocConverter);
     }
 

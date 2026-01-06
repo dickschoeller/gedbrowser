@@ -34,20 +34,17 @@ public class SourceController extends DatedDataController {
     /**
      * Constructor.
      *
-     * @param appInfo the application info
-     * @param users info about the known application users
-     * @param loader enable loading gedcom files
-     * @param provider enable calendar processing
+     * @param appInfo           the application info
+     * @param users             info about the known application users
+     * @param loader            enable loading gedcom files
+     * @param provider          enable calendar processing
      * @param repositoryManager enable data storage
-     * @param gedbrowserHome location of data files for initialization
+     * @param gedbrowserHome    location of data files for initialization
      */
-    public SourceController(final ApplicationInfo appInfo,
-            final Users<? extends User> users,
-            final GedObjectFileLoader loader,
-            final CalendarProvider provider,
-            final RepositoryManagerMongo repositoryManager,
-            @Value("${gedbrowser.home:/var/lib/gedbrowser}")
-            final String gedbrowserHome) {
+    public SourceController(final ApplicationInfo appInfo, final Users<? extends User> users,
+        final GedObjectFileLoader loader, final CalendarProvider provider,
+        final RepositoryManagerMongo repositoryManager,
+        @Value("${gedbrowser.home:/var/lib/gedbrowser}") final String gedbrowserHome) {
         super(appInfo, users, loader, provider, repositoryManager);
         this.gedbrowserHome = gedbrowserHome;
     }
@@ -56,19 +53,16 @@ public class SourceController extends DatedDataController {
      * Connects HTML template file with data for the source page.
      *
      * @param idString id URL argument.
-     * @param dbName name of database for the lookup.
-     * @param model Spring connection between the data model wrapper.
+     * @param dbName   name of database for the lookup.
+     * @param model    Spring connection between the data model wrapper.
      * @return a string identifying which HTML template to use.
      */
     @RequestMapping("/source")
     public final String source(
-            @RequestParam(value = "id",
-                required = false,
-                defaultValue = "S0") final String idString,
-            @RequestParam(value = "db",
-                required = false,
-                defaultValue = "schoeller") final String dbName,
-            final Model model) {
+        @RequestParam(value = "id", required = false, defaultValue = "S0") final String idString,
+        @RequestParam(value = "db", required = false, defaultValue = "schoeller")
+        final String dbName,
+        final Model model) {
         log.debug("Entering source");
 
         final Root root = fetchRoot(dbName);
@@ -76,16 +70,16 @@ public class SourceController extends DatedDataController {
         final RenderingContext context = createRenderingContext();
         final Source source = (Source) root.find(idString);
         if (source == null) {
-            throw new SourceNotFoundException("Source %s not found".formatted(idString), idString, dbName, context);
+            throw new SourceNotFoundException("Source %s not found".formatted(idString), idString,
+                dbName, context);
         }
 
-        final GedRenderer<?> sourceRenderer = new GedRendererFactory()
-                .create(source, context);
+        final GedRenderer<?> sourceRenderer = new GedRendererFactory().create(source, context);
 
         model.addAttribute("filename", gedbrowserHome + "/" + dbName + ".ged");
         model.addAttribute("sourceString", source.getString());
         model.addAttribute("model", sourceRenderer);
-        model.addAttribute("appInfo", appInfo);
+        model.addAttribute("appInfo", getAppInfo());
         log.debug("Exiting source");
         return "source";
     }

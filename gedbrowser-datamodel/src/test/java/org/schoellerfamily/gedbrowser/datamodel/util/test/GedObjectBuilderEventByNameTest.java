@@ -37,9 +37,8 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports",
-        "PMD.CommentSize" })
-public class GedObjectBuilderEventByNameTest {
+@SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports", "PMD.CommentSize" })
+public final class GedObjectBuilderEventByNameTest {
     /** */
     private static GedObjectBuilder builder = new GedObjectBuilder();
     /** */
@@ -48,51 +47,47 @@ public class GedObjectBuilderEventByNameTest {
     private static Person person = builder.createPerson("I99999", "Name/Me/");
 
     /** */
+    @SuppressWarnings("checkstyle:nowhitespaceafter")
     private static final Object[][] PARAMETERS = {
-            {person, null, null, null, Attribute.class, "", null},
-            {person, "", null, null, Attribute.class, "", null},
-            {person, "", "", null, Attribute.class, "", null},
-            {person, "", "", "", Attribute.class, "", null},
-            {person, "attribute", "Birth", "", Attribute.class, "Birth", null},
-            {person, "child", "", "", Child.class, "Child", ""},
-            {person, "famc", "", "", FamC.class, "Child of Family", ""},
-            {person, "fams", "", "", FamS.class, "Spouse of Family", ""},
-            {person, "husband", "", "", Husband.class, "Husband", ""},
-            {person, "wife", "", "", Wife.class, "Wife", ""},
-            {person, "child", "I1", "", Child.class, "Child", "I1"},
-            {person, "famc", "F1", "", FamC.class, "Child of Family", "F1"},
-            {person, "fams", "F1", "", FamS.class, "Spouse of Family", "F1"},
-            {person, "husband", "I1", "", Husband.class, "Husband", "I1"},
-            {person, "wife", "I1", "", Wife.class, "Wife", "I1"},
-            {person, "date", "12 DEC 1958", "",
-                Date.class, "12 DEC 1958", null},
-            {person, "date", "", "", Date.class, "", null},
-            {person, "place", "Home", "", Place.class, "Home", null},
-            {person, "place", "", "", Place.class, "", null},
-            {person, "name", "Richard/Schoeller/", "",
-                Name.class, "Richard/Schoeller/", null},
-            {person, "name", "", "", Name.class, "", null},
-            {root, "family", "F1", "", Family.class, "F1", null},
-            {root, "person", "I1", "", Person.class, "I1", null},
-            {root, "source", "S1", "", Source.class, "S1", null},
-            {root, "submitter", "SUB1", "", Submitter.class, "SUB1", null},
-            {root, "submission", "SUBN", "", Submission.class, "SUBN", null},
-            {root, "head", "", "", Head.class, "Header", null},
-            {root, "header", "", "", Head.class, "Header", null},
-            {root, "trailer", "", "", Trailer.class, "Trailer", null},
-            {person, "sourcelink", "S1", "", SourceLink.class, "Source", "S1"},
-            {person, "submitterlink", "SUB1", "",
-                SubmitterLink.class, "Submitter", "SUB1"},
-            {person, "submissionlink", "SUBN", "",
-                SubmissionLink.class, "Submission", "SUBN"},
-    };
+        { person, null, null, null, Attribute.class, "", null },
+        { person, "", null, null, Attribute.class, "", null },
+        { person, "", "", null, Attribute.class, "", null },
+        { person, "", "", "", Attribute.class, "", null },
+        { person, "attribute", "Birth", "", Attribute.class, "Birth", null },
+        { person, "child", "", "", Child.class, "Child", "" },
+        { person, "famc", "", "", FamC.class, "Child of Family", "" },
+        { person, "fams", "", "", FamS.class, "Spouse of Family", "" },
+        { person, "husband", "", "", Husband.class, "Husband", "" },
+        { person, "wife", "", "", Wife.class, "Wife", "" },
+        { person, "child", "I1", "", Child.class, "Child", "I1" },
+        { person, "famc", "F1", "", FamC.class, "Child of Family", "F1" },
+        { person, "fams", "F1", "", FamS.class, "Spouse of Family", "F1" },
+        { person, "husband", "I1", "", Husband.class, "Husband", "I1" },
+        { person, "wife", "I1", "", Wife.class, "Wife", "I1" },
+        { person, "date", "12 DEC 1958", "", Date.class, "12 DEC 1958", null },
+        { person, "date", "", "", Date.class, "", null },
+        { person, "place", "Home", "", Place.class, "Home", null },
+        { person, "place", "", "", Place.class, "", null },
+        { person, "name", "Richard/Schoeller/", "", Name.class, "Richard/Schoeller/", null },
+        { person, "name", "", "", Name.class, "", null },
+        { root, "family", "F1", "", Family.class, "F1", null },
+        { root, "person", "I1", "", Person.class, "I1", null },
+        { root, "source", "S1", "", Source.class, "S1", null },
+        { root, "submitter", "SUB1", "", Submitter.class, "SUB1", null },
+        { root, "submission", "SUBN", "", Submission.class, "SUBN", null },
+        { root, "head", "", "", Head.class, "Header", null },
+        { root, "header", "", "", Head.class, "Header", null },
+        { root, "trailer", "", "", Trailer.class, "Trailer", null },
+        { person, "sourcelink", "S1", "", SourceLink.class, "Source", "S1" },
+        { person, "submitterlink", "SUB1", "", SubmitterLink.class, "Submitter", "SUB1" },
+        { person, "submissionlink", "SUBN", "", SubmissionLink.class, "Submission", "SUBN" }, };
 
 //        CONSTRUCTION_MAP.put("link", Construction.reference);
 //        CONSTRUCTION_MAP.put("multimedia", Construction.value);
 //        CONSTRUCTION_MAP.put("note", Construction.note);
 
     /**
-     * Provide parameter combinations: (visited, type)
+     * Provide parameter combinations: (visited, type).
      *
      * @return stream of arguments
      */
@@ -103,50 +98,39 @@ public class GedObjectBuilderEventByNameTest {
 
     /** */
     @BeforeAll
-    public static void init() {
+    static void init() {
         builder = new GedObjectBuilder();
         root = builder.getRoot();
         person = builder.createPerson(null, "Name/Me/");
     }
 
-    /** */
     @ParameterizedTest
     @MethodSource("params")
-    public void testClass(final GedObject parent, final String type,
-            final String string, final String tail,
-            final Class<? extends GedObject> clazz,
-            final String expectedString, final String expectedToString) {
+    void testClass(final GedObject parent, final String type, final String string,
+        final String tail, final Class<? extends GedObject> clazz, final String expectedString,
+        final String expectedToString) {
         final GedObject gob = builder.createEvent(parent, type, string, tail);
         assertEquals(clazz, gob.getClass(), "wrong class");
     }
 
-    /** */
     @ParameterizedTest
     @MethodSource("params")
-    public void testGetString(final GedObject parent, final String type,
-            final String string, final String tail,
-            final Class<? extends GedObject> clazz,
-            final String expectedString, final String expectedToString) {
+    void testGetString(final GedObject parent, final String type, final String string,
+        final String tail, final Class<? extends GedObject> clazz, final String expectedString,
+        final String expectedToString) {
         final GedObject gob = builder.createEvent(parent, type, string, tail);
         assertEquals(expectedString, gob.getString(), "getString mismatch");
     }
 
-    /** */
     @ParameterizedTest
     @MethodSource("params")
-    public void testGetToString(final GedObject parent, final String type,
-            final String string, final String tail,
-            final Class<? extends GedObject> clazz,
-            final String expectedString, final String expectedToString) {
+    void testGetToString(final GedObject parent, final String type, final String string,
+        final String tail, final Class<? extends GedObject> clazz, final String expectedString,
+        final String expectedToString) {
         final GedObject gob = builder.createEvent(parent, type, string, tail);
         assertToString(gob, expectedToString);
     }
 
-    /**
-     * Assert that the value of toString matches expectations.
-     *
-     * @param gob the input object
-     */
     private void assertToString(final GedObject gob, final String expectedToString) {
         if (gob instanceof AbstractLink) {
             assertEquals(expectedToString, ((AbstractLink) gob).getToString(), "toString mismatch");

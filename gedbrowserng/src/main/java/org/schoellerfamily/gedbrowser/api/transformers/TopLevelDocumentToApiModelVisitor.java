@@ -172,6 +172,7 @@ public class TopLevelDocumentToApiModelVisitor
      * split lists.
      *
      * @param document the current document
+     * @return the list of converted attributes
      */
     protected List<ApiAttribute> processAttributes(final GedDocument<?> document) {
         return document.getAttributes().stream()

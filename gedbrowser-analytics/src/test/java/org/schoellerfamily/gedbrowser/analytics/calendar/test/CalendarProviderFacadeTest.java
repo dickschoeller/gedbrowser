@@ -15,7 +15,6 @@ import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("null")
 public class CalendarProviderFacadeTest {
     /** */
     private final Calendar calendar = Calendar.getInstance();
@@ -27,9 +26,9 @@ public class CalendarProviderFacadeTest {
     private CalendarProvider implProvider;
 
     /**
-     * This mock of CalendarProvider allows us to see that the facade is a
-     * real pass-through. Because we will assertSame on the results against
-     * the fields of the test class.
+     * This mock of CalendarProvider allows us to see that the facade is a real
+     * pass-through. Because we will assertSame on the results against the fields of
+     * the test class.
      *
      * @author Dick Schoeller
      */
@@ -57,8 +56,7 @@ public class CalendarProviderFacadeTest {
      *
      * @author Dick Schoeller
      */
-    private final class CalendarProviderFacadeImpl
-            implements CalendarProviderFacade {
+    private final class CalendarProviderFacadeImpl implements CalendarProviderFacade {
         /** */
         private final CalendarProvider provider;
 
@@ -83,10 +81,8 @@ public class CalendarProviderFacadeTest {
      */
     @BeforeEach
     public void setUp() {
-        mockProvider =
-                new CalendarProviderFacadeImpl(new CalendarProviderMock());
-        implProvider =
-                new CalendarProviderFacadeImpl(new CalendarProviderImpl());
+        mockProvider = new CalendarProviderFacadeImpl(new CalendarProviderMock());
+        implProvider = new CalendarProviderFacadeImpl(new CalendarProviderImpl());
     }
 
     /**
@@ -102,23 +98,23 @@ public class CalendarProviderFacadeTest {
      */
     @Test
     public void testFacadeNowDate() {
-        assertSame(localDate, mockProvider.nowDate(), "Should have passed through to the provider mock");
+        assertSame(localDate, mockProvider.nowDate(),
+            "Should have passed through to the provider mock");
     }
 
     /**
      * Simply test the pass through of the facade.
+     *
      * @throws InterruptedException if thread interrupted
      */
     @Test
     public void testImplNow() throws InterruptedException {
         final Calendar actual = implProvider.now();
-        final long difference =
-                actual.getTimeInMillis() - calendar.getTimeInMillis();
+        final long difference = actual.getTimeInMillis() - calendar.getTimeInMillis();
         final long expected = 10;
         assertLessThan(
-                "Difference should be less than " + expected
-                        + " milliseconds, is: " + difference,
-                expected, difference);
+            "Difference should be less than " + expected + " milliseconds, is: " + difference,
+            expected, difference);
     }
 
     /**
@@ -127,19 +123,16 @@ public class CalendarProviderFacadeTest {
     @Test
     public void testImplNowDate() {
         final LocalDate actual = implProvider.nowDate();
-        assertTrue(
-                actual.equals(localDate)
-                        || actual.equals(localDate.plusDays(1)),
-                "actual and localDate should be the same, or actual is 1 day higher if test right at midnight");
+        assertTrue(actual.equals(localDate) || actual.equals(localDate.plusDays(1)),
+            "actual should be same as localDate, or is 1 day higher if test at midnight");
     }
 
     /**
-     * @param message message to display on failure
+     * @param message  message to display on failure
      * @param expected expected limit
-     * @param actual actual value
+     * @param actual   actual value
      */
-    private void assertLessThan(final String message, final long expected,
-            final long actual) {
+    private void assertLessThan(final String message, final long expected, final long actual) {
         assertTrue(actual < expected, message);
     }
 }

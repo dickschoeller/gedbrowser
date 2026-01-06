@@ -30,8 +30,8 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { Application.class, TestConfiguration.class },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = { Application.class,
+    TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 @Slf4j
@@ -79,8 +79,7 @@ public class FamilyCrudTest {
         final ApiAttribute firstAttribute = firstFamily.getAttributes().get(0);
         then(firstAttribute.getString()).isEqualTo("Marriage");
         then(firstAttribute.getAttributes().get(0).getType()).isEqualTo("date");
-        then(firstAttribute.getAttributes().get(0).getString())
-                .isEqualTo("27 MAY 1984");
+        then(firstAttribute.getAttributes().get(0).getString()).isEqualTo("27 MAY 1984");
     }
 
     /** */
@@ -104,19 +103,13 @@ public class FamilyCrudTest {
         then(firstAttribute.getType()).isEqualTo("attribute");
         then(firstAttribute.getString()).isEqualTo("Marriage");
         then(firstAttribute.getAttributes().get(0).getType()).isEqualTo("date");
-        then(firstAttribute.getAttributes().get(0).getString())
-                .isEqualTo("27 MAY 1984");
-        then(firstAttribute.getAttributes().get(1).getType())
-                .isEqualTo("place");
-        then(firstAttribute.getAttributes().get(1).getString())
-                .startsWith("Temple Emanu-el");
-        then(firstAttribute.getAttributes().get(2).getType())
-                .isEqualTo("attribute");
-        then(firstAttribute.getAttributes().get(2).getString())
-                .isEqualTo("Note");
-        then(firstAttribute.getAttributes().get(2).getTail()).contains(
-                "Wayne Franklin", "Dale Matcovitch",
-                "Carol Robinson Sacerdote");
+        then(firstAttribute.getAttributes().get(0).getString()).isEqualTo("27 MAY 1984");
+        then(firstAttribute.getAttributes().get(1).getType()).isEqualTo("place");
+        then(firstAttribute.getAttributes().get(1).getString()).startsWith("Temple Emanu-el");
+        then(firstAttribute.getAttributes().get(2).getType()).isEqualTo("attribute");
+        then(firstAttribute.getAttributes().get(2).getString()).isEqualTo("Note");
+        then(firstAttribute.getAttributes().get(2).getTail()).contains("Wayne Franklin",
+            "Dale Matcovitch", "Carol Robinson Sacerdote");
     }
 
     /** */
@@ -127,7 +120,8 @@ public class FamilyCrudTest {
             final ApiFamily family = crud.readOne("mini-schoeller", "Xyzzy");
             fail("The family should not be found: " + family.getString());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Object Xyzzy of type family not found", e.getMessage(), "Mismatched message");
+            assertEquals("Object Xyzzy of type family not found", e.getMessage(),
+                "Mismatched message");
         }
     }
 
@@ -135,10 +129,7 @@ public class FamilyCrudTest {
     @Test
     public final void testCreateFamiliesSimple() {
         log.info("Beginning testCreateFamiliesSimple");
-        final ApiFamily inFamily = ApiFamily.builder()
-            .type("family")
-            .string("")
-            .build();
+        final ApiFamily inFamily = ApiFamily.builder().type("family").string("").build();
         final ApiFamily outFamily = crud.createOne("gl120368", inFamily);
         then(outFamily.getType()).isEqualTo("family");
         then(outFamily.getAttributes()).isEmpty();
@@ -152,28 +143,20 @@ public class FamilyCrudTest {
         final ApiFamily inFamily = ApiFamily.builder()
             .type("family")
             .string("")
-            .attributes(List.of(
-                ApiAttribute.builder()
-                    .type("attribute")
-                    .string("Marriage")
-                    .tail("")
-                    .build()))
+            .attributes(List
+                .of(ApiAttribute.builder().type("attribute").string("Marriage").tail("").build()))
             .build();
         final ApiFamily outFamily = crud.createOne("gl120368", inFamily);
         then(outFamily.getType()).isEqualTo("family");
         then(outFamily.getString()).startsWith("F");
-        then(outFamily.getAttributes().get(0).getString())
-                .isEqualTo("Marriage");
+        then(outFamily.getAttributes().get(0).getString()).isEqualTo("Marriage");
     }
 
     /** */
     @Test
     public final void testDeleteFamily() {
         log.info("Beginning testDeleteFamily");
-        final ApiFamily inFamily = ApiFamily.builder()
-            .type("family")
-            .string("")
-            .build();
+        final ApiFamily inFamily = ApiFamily.builder().type("family").string("").build();
         final ApiFamily outFamily = crud.createOne("gl120368", inFamily);
         final String id = outFamily.getString();
         final ApiFamily deletedFamily = crud.deleteOne("gl120368", id);
@@ -182,7 +165,8 @@ public class FamilyCrudTest {
             final ApiFamily family = crud.readOne("gl120368", id);
             fail("The family should not be found: " + family.getString());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Object " + id + " of type family not found", e.getMessage(), "Mismatched message");
+            assertEquals("Object " + id + " of type family not found", e.getMessage(),
+                "Mismatched message");
         }
     }
 
@@ -194,7 +178,8 @@ public class FamilyCrudTest {
             final ApiFamily family = crud.deleteOne("gl120368", "XXXXXXX");
             fail("The family should not be found: " + family.getString());
         } catch (ObjectNotFoundException e) {
-            assertEquals("Object XXXXXXX of type family not found", e.getMessage(), "Mismatched message");
+            assertEquals("Object XXXXXXX of type family not found", e.getMessage(),
+                "Mismatched message");
         }
     }
 
@@ -214,21 +199,13 @@ public class FamilyCrudTest {
     @Test
     public final void testUpdateFamilyWithNote() {
         log.info("Beginning testUpdateFamilyWithNote");
-        final List<ApiAttribute> attributes = List.of(
-            ApiAttribute.builder()
-                .type("attribute")
-                .string("Marriage")
-                .tail("")
-                .build());
+        final List<ApiAttribute> attributes = List
+            .of(ApiAttribute.builder().type("attribute").string("Marriage").tail("").build());
         final ApiFamily inFamily = ApiFamily.builder()
             .type("family")
             .string("")
             .attributes(attributes)
-            .children(List.of(
-                ApiAttribute.builder()
-                    .type("child")
-                    .string("I1")
-                    .build()))
+            .children(List.of(ApiAttribute.builder().type("child").string("I1").build()))
             .build();
         final ApiFamily familyPostResponse = crud.createOne("gl120368", inFamily);
         then(familyPostResponse.getType()).isEqualTo(inFamily.getType());
@@ -239,12 +216,9 @@ public class FamilyCrudTest {
             .string("Note")
             .tail("this is a note")
             .build();
-        final ApiFamily forPut = familyPostResponse.toBuilder()
-        	.attribute(aNote)
-            .build();
+        final ApiFamily forPut = familyPostResponse.toBuilder().attribute(aNote).build();
         then(forPut.getAttributes().size()).isEqualTo(2);
-        final ApiFamily familyPutResponse =
-            crud.updateOne("gl120368", forPut.getString(), forPut);
+        final ApiFamily familyPutResponse = crud.updateOne("gl120368", forPut.getString(), forPut);
         final List<ApiAttribute> attributesPutResponse = familyPutResponse.getAttributes();
         log.info("Attribute list size: {}", attributesPutResponse.size());
         then(attributesPutResponse.size()).isEqualTo(2);

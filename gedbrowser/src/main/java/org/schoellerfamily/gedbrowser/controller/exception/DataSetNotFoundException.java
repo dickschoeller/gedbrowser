@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public final class DataSetNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 2L;
 
-    /** Dataset name */
+    /** Dataset name. */
     private final String datasetName;
 
     /**
      * Constructor.
      *
-     * @param message the message to display
+     * @param message     the message to display
      * @param datasetName the dataset that was requested
      */
     public DataSetNotFoundException(final String message, final String datasetName) {

@@ -147,7 +147,7 @@ public interface UserFacade extends User {
      * {@inheritDoc}
      */
     @Override
-    default boolean hasRole(UserRoleName role) {
+    default boolean hasRole(final UserRoleName role) {
         if (getUser() == null) {
             return false;
         }

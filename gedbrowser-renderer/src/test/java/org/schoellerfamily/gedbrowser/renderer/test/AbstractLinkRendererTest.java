@@ -40,63 +40,59 @@ public final class AbstractLinkRendererTest {
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testAttributeListOpenRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
-        assertTrue(renderer.getAttributeListOpenRenderer()
-                instanceof SimpleAttributeListOpenRenderer,
-                "renderer is not of the right type");
+        assertTrue(
+            renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
+            "renderer is not of the right type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testListItemRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
-        assertTrue(renderer.getListItemRenderer()
-                instanceof NullListItemRenderer,
-                "renderer is not of the right type");
+        assertTrue(renderer.getListItemRenderer() instanceof NullListItemRenderer,
+            "renderer is not of the right type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameHtmlRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
-        assertTrue(renderer.getNameHtmlRenderer()
-                instanceof NullNameHtmlRenderer,
-                "renderer is not of the right type");
+        assertTrue(renderer.getNameHtmlRenderer() instanceof NullNameHtmlRenderer,
+            "renderer is not of the right type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testNameIndexRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
-        assertTrue(renderer.getNameIndexRenderer()
-                instanceof NullNameIndexRenderer,
-                "renderer is not of the right type");
+        assertTrue(renderer.getNameIndexRenderer() instanceof NullNameIndexRenderer,
+            "renderer is not of the right type");
     }
 
     /**
-     * Test that we are using the appropriate sub-renderers.
-     * We will test the sub-renderers directly.
+     * Test that we are using the appropriate sub-renderers. We will test the
+     * sub-renderers directly.
      */
     @Test
     public void testPhraseRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
-        assertTrue(renderer.getPhraseRenderer()
-                instanceof NullPhraseRenderer,
-                "renderer is not of the right type");
+        assertTrue(renderer.getPhraseRenderer() instanceof NullPhraseRenderer,
+            "renderer is not of the right type");
     }
 
     /**
@@ -104,7 +100,7 @@ public final class AbstractLinkRendererTest {
      */
     private AbstractLinkRenderer<?> createRenderer() {
         return new AbstractLinkRenderer<AbstractLink>(createAbstractLink(),
-                new GedRendererFactory(), anonymousContext) {
+            new GedRendererFactory(), anonymousContext) {
         };
     }
 

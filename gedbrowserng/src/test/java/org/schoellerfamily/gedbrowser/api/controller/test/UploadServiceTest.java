@@ -27,9 +27,9 @@ import org.springframework.util.MultiValueMap;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { Application.class, TestConfiguration.class },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@SpringBootTest(classes = { Application.class,
+    TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "null" })
 @AutoConfigureRestTestClient
 public class UploadServiceTest {
@@ -48,70 +48,73 @@ public class UploadServiceTest {
     /** */
     @Test
     public final void testRealUpload() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowserng/v1/upload";
+        final String url = "http://localhost:" + port + "/gedbrowserng/v1/upload";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         final MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("name", "mini-schoeller.ged");
         body.add("file", getFile("mini-schoeller.ged"));
         final EntityExchangeResult<ApiHead> response = restTestClient.post()
-                .uri(url)
-                .headers(h -> h.addAll(headers))
-                .body(body)
-                .exchange()
-                .returnResult(ApiHead.class);
-        assertEquals(HttpStatusCode.valueOf(HttpStatus.OK.value()), response.getStatus(), "Status mismatch");
+            .uri(url)
+            .headers(h -> h.addAll(headers))
+            .body(body)
+            .exchange()
+            .returnResult(ApiHead.class);
+        assertEquals(HttpStatusCode.valueOf(HttpStatus.OK.value()), response.getStatus(),
+            "Status mismatch");
         assertEquals("Header",
-                java.util.Optional.ofNullable(response.getResponseBody())
-                        .map(b -> b.getString()).orElse(null),
-                "Type mismatch");
+            java.util.Optional.ofNullable(response.getResponseBody())
+                .map(b -> b.getString())
+                .orElse(null),
+            "Type mismatch");
     }
 
     /** */
     @Test
     public final void testDotDotUpload() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowserng/v1/upload";
+        final String url = "http://localhost:" + port + "/gedbrowserng/v1/upload";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         final MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("name", "mini..schoeller.ged");
         body.add("file", getFile("mini..schoeller.ged"));
         final EntityExchangeResult<ApiHead> response = restTestClient.post()
-                .uri(url)
-                .headers(h -> h.addAll(headers))
-                .body(body)
-                .exchange()
-                .returnResult(ApiHead.class);
-        assertEquals(HttpStatusCode.valueOf(HttpStatus.BAD_REQUEST.value()), response.getStatus(), "Status mismatch");
+            .uri(url)
+            .headers(h -> h.addAll(headers))
+            .body(body)
+            .exchange()
+            .returnResult(ApiHead.class);
+        assertEquals(HttpStatusCode.valueOf(HttpStatus.BAD_REQUEST.value()), response.getStatus(),
+            "Status mismatch");
         assertEquals("",
-                java.util.Optional.ofNullable(response.getResponseBody())
-                        .map(b -> b.getString()).orElse(null),
-                "Type mismatch");
+            java.util.Optional.ofNullable(response.getResponseBody())
+                .map(b -> b.getString())
+                .orElse(null),
+            "Type mismatch");
     }
 
     /** */
     @Test
     public final void testEmptyUpload() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowserng/v1/upload";
+        final String url = "http://localhost:" + port + "/gedbrowserng/v1/upload";
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         final MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("name", "empty.ged");
         body.add("file", getFile("empty.ged"));
         final EntityExchangeResult<ApiHead> response = restTestClient.post()
-                .uri(url)
-                .headers(h -> h.addAll(headers))
-                .body(body)
-                .exchange()
-                .returnResult(ApiHead.class);
-        assertEquals(HttpStatusCode.valueOf(HttpStatus.BAD_REQUEST.value()), response.getStatus(), "Status mismatch");
+            .uri(url)
+            .headers(h -> h.addAll(headers))
+            .body(body)
+            .exchange()
+            .returnResult(ApiHead.class);
+        assertEquals(HttpStatusCode.valueOf(HttpStatus.BAD_REQUEST.value()), response.getStatus(),
+            "Status mismatch");
         assertEquals("",
-                java.util.Optional.ofNullable(response.getResponseBody())
-                        .map(b -> b.getString()).orElse(null),
-                "Type mismatch");
+            java.util.Optional.ofNullable(response.getResponseBody())
+                .map(b -> b.getString())
+                .orElse(null),
+            "Type mismatch");
     }
 
     /**

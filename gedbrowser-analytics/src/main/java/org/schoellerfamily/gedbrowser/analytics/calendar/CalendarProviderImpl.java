@@ -4,21 +4,20 @@ import java.util.Calendar;
 
 import org.joda.time.LocalDate;
 
+import lombok.NoArgsConstructor;
+
 /**
+ * The default implementation of CalendarProvider.
+ *
  * @author Dick Schoeller
  */
+@NoArgsConstructor
 public final class CalendarProviderImpl implements CalendarProvider {
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Calendar now() {
         return Calendar.getInstance();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public LocalDate nowDate() {
         return new LocalDate();

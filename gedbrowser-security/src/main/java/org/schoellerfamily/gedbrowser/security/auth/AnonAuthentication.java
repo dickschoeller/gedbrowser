@@ -19,7 +19,7 @@ public final class AnonAuthentication extends AbstractAuthenticationToken {
      * Constructor.
      */
     public AnonAuthentication() {
-        super((Collection<? extends GrantedAuthority>)null);
+        super((Collection<? extends GrantedAuthority>) null);
     }
 
     /**

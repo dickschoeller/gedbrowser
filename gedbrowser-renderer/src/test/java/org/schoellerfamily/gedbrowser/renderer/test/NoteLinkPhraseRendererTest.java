@@ -39,14 +39,11 @@ public final class NoteLinkPhraseRendererTest {
     /** */
     @BeforeEach
     public void init() {
-        /** */
         final Root root = new Root("Root");
-        /** */
         final Head head = new Head(root, "Head");
         root.insert(head);
 
-        final Note note =
-                new Note(root, new ObjectId("N1"), "The text of the note");
+        final Note note = new Note(root, new ObjectId("N1"), "The text of the note");
         final Name name = new Name(note, "Richard/Schoeller/");
         root.insert(note);
         note.insert(name);
@@ -58,10 +55,10 @@ public final class NoteLinkPhraseRendererTest {
     /** */
     @Test
     public void testRenderAsPhrase() {
-        final NoteLinkRenderer slr = new NoteLinkRenderer(
-                noteLink, new GedRendererFactory(), anonymousContext);
-        final NoteLinkPhraseRenderer slpr =
-                (NoteLinkPhraseRenderer) slr.getPhraseRenderer();
-        assertEquals(" [<a href=\"note?db=null&amp;id=N1\">N1</a>]", slpr.renderAsPhrase(), "Rendered html doesn't match expectation");
+        final NoteLinkRenderer slr = new NoteLinkRenderer(noteLink, new GedRendererFactory(),
+            anonymousContext);
+        final NoteLinkPhraseRenderer slpr = (NoteLinkPhraseRenderer) slr.getPhraseRenderer();
+        assertEquals(" [<a href=\"note?db=null&amp;id=N1\">N1</a>]", slpr.renderAsPhrase(),
+            "Rendered html doesn't match expectation");
     }
 }

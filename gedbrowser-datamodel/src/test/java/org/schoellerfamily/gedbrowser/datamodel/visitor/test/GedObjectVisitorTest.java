@@ -7,8 +7,8 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -40,7 +40,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
-public class GedObjectVisitorTest {
+public final class GedObjectVisitorTest {
     /** */
     private final GedObjectVisitorStub visitor = new GedObjectVisitorStub();
 
@@ -48,7 +48,7 @@ public class GedObjectVisitorTest {
      * @author Dick Schoeller
      */
     @SuppressWarnings("PMD.TooManyMethods")
-    private static class GedObjectVisitorStub implements GedObjectVisitor {
+    private static final class GedObjectVisitorStub implements GedObjectVisitor {
         /** */
         private GedObject gob;
         /** */
@@ -68,98 +68,84 @@ public class GedObjectVisitorTest {
             return type;
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Attribute attribute) {
             gob = attribute;
             type = "attribute";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Child child) {
             gob = child;
             type = "child";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Date date) {
             gob = date;
             type = "date";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final FamC famc) {
             gob = famc;
             type = "famc";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Family family) {
             gob = family;
             type = "family";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final FamS fams) {
             gob = fams;
             type = "fams";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Head head) {
             gob = head;
             type = "head";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Husband husband) {
             gob = husband;
             type = "husband";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Link link) {
             gob = link;
             type = "link";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Multimedia multimedia) {
             gob = multimedia;
             type = "multimedia";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Name name) {
             gob = name;
             type = "name";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Note note) {
             gob = note;
             type = "note";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final NoteLink noteLink) {
             gob = noteLink;
             type = "noteLink";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Person person) {
             gob = person;
@@ -167,76 +153,65 @@ public class GedObjectVisitorTest {
         }
 
         @Override
-        /** {@inheritDoc} */
         public void visit(final Place place) {
             gob = place;
             type = "place";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Root root) {
             gob = root;
             type = "root";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Source source) {
             gob = source;
             type = "source";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final SourceLink sourceLink) {
             gob = sourceLink;
             type = "sourceLink";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Submission submission) {
             gob = submission;
             type = "submission";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final SubmissionLink submissionLink) {
             gob = submissionLink;
             type = "submissionLink";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Submitter submitter) {
             gob = submitter;
             type = "submitter";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final SubmitterLink submitterLink) {
             gob = submitterLink;
             type = "submitterLink";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Trailer trailer) {
             gob = trailer;
             type = "trailer";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final Wife wife) {
             gob = wife;
             type = "wife";
         }
 
-        /** {@inheritDoc} */
         @Override
         public void visit(final GedObject gedObject) {
             gob = gedObject;
@@ -245,10 +220,11 @@ public class GedObjectVisitorTest {
     };
 
     /**
-     * Provide parameter combinations: (visited, type)
+     * Provide parameter combinations: (visited, type).
      *
      * @return stream of arguments
      */
+    @SuppressWarnings("checkstyle:nowhitespaceafter")
     public static Stream<Arguments> params() {
         final GedObject generic = new GedObject() {
             @Override
@@ -256,49 +232,28 @@ public class GedObjectVisitorTest {
                 v.visit(this);
             }
         };
-        return Arrays.stream(new Object[][] {
-            {new Attribute(), "attribute"},
-            {new Child(), "child"},
-            {new Date(null), "date"},
-            {new FamC(), "famc"},
-            {new Family(), "family"},
-            {new FamS(), "fams"},
-            {new Head(), "head"},
-            {new Husband(), "husband"},
-            {new Link(null), "link"},
-            {new Multimedia(), "multimedia"},
-            {new Name(), "name"},
-            {new Note(), "note"},
-            {new NoteLink(), "noteLink"},
-            {new Person(), "person"},
-            {new Place(), "place"},
-            {new Root(), "root"},
-            {new Source(), "source"},
-            {new SourceLink(), "sourceLink"},
-            {new Submission(), "submission"},
-            {new SubmissionLink(), "submissionLink"},
-            {new Submitter(), "submitter"},
-            {new SubmitterLink(), "submitterLink"},
-            {new Trailer(), "trailer"},
-            {new Wife(), "wife"},
-            {generic, "unknown"},
-        }).map(Arguments::of);
+        return Arrays
+            .stream(new Object[][] { { new Attribute(), "attribute" }, { new Child(), "child" },
+                { new Date(null), "date" }, { new FamC(), "famc" }, { new Family(), "family" },
+                { new FamS(), "fams" }, { new Head(), "head" }, { new Husband(), "husband" },
+                { new Link(null), "link" }, { new Multimedia(), "multimedia" },
+                { new Name(), "name" }, { new Note(), "note" }, { new NoteLink(), "noteLink" },
+                { new Person(), "person" }, { new Place(), "place" }, { new Root(), "root" },
+                { new Source(), "source" }, { new SourceLink(), "sourceLink" },
+                { new Submission(), "submission" }, { new SubmissionLink(), "submissionLink" },
+                { new Submitter(), "submitter" }, { new SubmitterLink(), "submitterLink" },
+                { new Trailer(), "trailer" }, { new Wife(), "wife" }, { generic, "unknown" }, })
+            .map(Arguments::of);
     }
 
-    /**
-     * Basic test.
-     */
     @ParameterizedTest
     @MethodSource("params")
-    public void testVisit(final GedObject visited, final String type) {
+    void testVisit(final GedObject visited, final String type) {
         visited.accept(visitor);
         checkSame(visited);
         assertEquals(type, visitor.getType(), "Should match type");
     }
 
-    /**
-     * Check that the visitor saw what we thought it saw.
-     */
     private void checkSame(final GedObject visited) {
         assertSame(visited, visitor.getGedObject(), "Should be same object");
     }

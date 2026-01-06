@@ -27,8 +27,12 @@ public class ApiHasImages extends ApiObject {
      * The list of image attributes of this object.
      */
     @Singular
-    protected final List<ApiAttribute> images;
+    private final List<ApiAttribute> images;
 
+    /**
+     * Is the other object of exactly the same type as this one? All overrides
+     * should use the same approach.
+     */
     @Override
     public boolean canEqual(final Object other) {
         return other.getClass() == ApiHasImages.class;

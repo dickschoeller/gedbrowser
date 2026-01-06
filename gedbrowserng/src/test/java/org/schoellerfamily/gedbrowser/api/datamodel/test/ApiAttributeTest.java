@@ -16,30 +16,21 @@ public class ApiAttributeTest {
     /** */
     @Test
     public void testDefaultConstructorType() {
-        final ApiAttribute o = ApiAttribute.builder()
-                .type("")
-                .string("")
-                .build();
+        final ApiAttribute o = ApiAttribute.builder().type("").string("").build();
         assertEquals("", o.getType(), "type mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorString() {
-        final ApiAttribute o = ApiAttribute.builder()
-                .type("")
-                .string("")
-                .build();
+        final ApiAttribute o = ApiAttribute.builder().type("").string("").build();
         assertEquals("", o.getString(), "string mismatch");
     }
 
     /** */
     @Test
     public void testDefaultConstructorTail() {
-        final ApiAttribute o = ApiAttribute.builder()
-                .type("")
-                .string("")
-                .build();
+        final ApiAttribute o = ApiAttribute.builder().type("").string("").build();
         assertEquals("", o.getTail(), "tail mismatch");
     }
 
@@ -47,10 +38,10 @@ public class ApiAttributeTest {
     @Test
     public void testConstructorType() {
         final ApiAttribute o = ApiAttribute.builder()
-                .type("type")
-                .string("string")
-                .tail("tail")
-                .build();
+            .type("type")
+            .string("string")
+            .tail("tail")
+            .build();
         assertEquals("type", o.getType(), "type mismatch");
     }
 
@@ -58,10 +49,10 @@ public class ApiAttributeTest {
     @Test
     public void testConstructorString() {
         final ApiAttribute o = ApiAttribute.builder()
-                .type("type")
-                .string("string")
-                .tail("tail")
-                .build();
+            .type("type")
+            .string("string")
+            .tail("tail")
+            .build();
         assertEquals("string", o.getString(), "string mismatch");
     }
 
@@ -69,10 +60,10 @@ public class ApiAttributeTest {
     @Test
     public void testConstructorTail() {
         final ApiAttribute o = ApiAttribute.builder()
-                .type("type")
-                .string("string")
-                .tail("tail")
-                .build();
+            .type("type")
+            .string("string")
+            .tail("tail")
+            .build();
         assertEquals("tail", o.getTail(), "tail mismatch");
     }
 
@@ -80,10 +71,10 @@ public class ApiAttributeTest {
     @Test
     public void testConstructorNullAttributes() {
         final ApiAttribute o = ApiAttribute.builder()
-                .type("type")
-                .string("string")
-                .tail("tail")
-                .build();
+            .type("type")
+            .string("string")
+            .tail("tail")
+            .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
@@ -91,10 +82,10 @@ public class ApiAttributeTest {
     @Test
     public void testIsType() {
         final ApiAttribute o = ApiAttribute.builder()
-                .type("type")
-                .string("string")
-                .tail("tail")
-                .build();
+            .type("type")
+            .string("string")
+            .tail("tail")
+            .build();
         assertTrue(o.isType("type"), "isType mismatch");
     }
 
@@ -102,10 +93,10 @@ public class ApiAttributeTest {
     @Test
     public void testAccept() {
         final ApiAttribute o = ApiAttribute.builder()
-                .type("type")
-                .string("string")
-                .tail("tail")
-                .build();
+            .type("type")
+            .string("string")
+            .tail("tail")
+            .build();
         final ApiTestVisitor visitor = new ApiTestVisitor();
         o.accept(visitor);
         assertEquals("attribute", visitor.getMethodCalled(), "Method mismatch");
@@ -114,9 +105,6 @@ public class ApiAttributeTest {
     /** */
     @Test
     public void testHashAndEquals() {
-    	EqualsVerifier
-    	    .forClass(ApiAttribute.class)
-			.suppress(Warning.STRICT_INHERITANCE)
-    	    .verify();
+        EqualsVerifier.forClass(ApiAttribute.class).suppress(Warning.STRICT_INHERITANCE).verify();
     }
 }
