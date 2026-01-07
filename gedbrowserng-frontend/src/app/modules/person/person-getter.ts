@@ -4,7 +4,7 @@ import {PersonService } from '../../services';
 import {UrlBuilder, LifespanUtil} from '../../utils';
 
 export abstract class PersonGetter implements RefreshPerson {
-  dataset: string;
+  hiddenDataset: string;
   person: ApiPerson;
   famMemberType: string;
 
@@ -14,7 +14,7 @@ export abstract class PersonGetter implements RefreshPerson {
   abstract familyString(): string;
 
   init(dataset: string, attrString: string): void {
-    this.dataset = dataset;
+    this.hiddenDataset = dataset;
     this.get(dataset, attrString, (person: ApiPerson) => {
       this.person = person;
     });
@@ -26,7 +26,7 @@ export abstract class PersonGetter implements RefreshPerson {
   }
 
   unlink(): void {
-    const ub: UrlBuilder = new UrlBuilder(this.dataset, 'families', this.famMemberType);
+    const ub: UrlBuilder = new UrlBuilder(this.hiddenDataset, 'families', this.famMemberType);
     this.personService.deleteLink(ub, this.familyString(), this.person)
       .subscribe((data: ApiPerson) => { this.refreshPerson(); });
   }

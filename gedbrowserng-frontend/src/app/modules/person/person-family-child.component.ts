@@ -28,7 +28,6 @@ export class PersonFamilyChildComponent extends PersonGetter
     @Input() parent: HasFamily & RefreshPerson;
     @Input() child: ApiAttribute;
     @Input() index: number;
-    person: ApiPerson;
 
     constructor(personService: PersonService,
         private userService: UserService) {

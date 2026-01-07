@@ -20,10 +20,13 @@ export class LinkPersonComponent {
   @Input() color = '';
   @Output() emitOK = new EventEmitter<LinkPersonDialogData>();
 
-  constructor(private personService: PersonService,
-    public dialog: MatDialog) { }
+  lph: LinkPersonHelper;
 
-  lph = new LinkPersonHelper(this.personService);
+  constructor(private personService: PersonService,
+    public dialog: MatDialog) {
+        this.lph = new LinkPersonHelper(this.personService);
+    }
+
 
   openDialog(): void {
     const dialogRef = this.dialog.open(
