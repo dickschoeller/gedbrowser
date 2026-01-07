@@ -20,41 +20,26 @@ public final class StandardTypicals implements Typicals {
     /** Typical gap between husband and wife. */
     private static final int TYPICAL_GAP_BETWEEN_SPOUSES = 5;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int ageAtDeath() {
         return TYPICAL_AGE_AT_DEATH;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int ageAtBarMitzvah() {
         return AGE_AT_BAR_MITZVAH;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int ageAtMarriage() {
         return TYPICAL_AGE_AT_MARRIAGE;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int gapBetweenChildren() {
         return TYPICAL_GAP_BETWEEN_CHILDREN;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int gapBetweenSpouses() {
         return TYPICAL_GAP_BETWEEN_SPOUSES;

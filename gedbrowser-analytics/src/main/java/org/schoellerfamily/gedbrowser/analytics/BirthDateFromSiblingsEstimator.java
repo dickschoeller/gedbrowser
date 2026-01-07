@@ -82,9 +82,8 @@ public final class BirthDateFromSiblingsEstimator extends Estimator {
             final int increment) {
         if (beforePerson) {
             return typicals.gapBetweenChildren();
-        } else {
-            return increment - typicals.gapBetweenChildren();
         }
+        return increment - typicals.gapBetweenChildren();
     }
 
     /**
@@ -96,9 +95,8 @@ public final class BirthDateFromSiblingsEstimator extends Estimator {
             final int increment) {
         if (beforePerson) {
             return increment + typicals.gapBetweenChildren();
-        } else {
-            return increment - typicals.gapBetweenChildren();
         }
+        return increment - typicals.gapBetweenChildren();
     }
 
     /**
