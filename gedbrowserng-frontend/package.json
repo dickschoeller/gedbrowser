@@ -11,7 +11,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "snyk-protect": "snyk-protect",
-    "prepare": "npm run snyk-protect"
+    "prepare": "npm run snyk-protect",
+    "headless-test": "node tools/headless-test.js"
   },
   "private": true,
   "dependencies": {
@@ -78,7 +79,8 @@
     "karma-jasmine-html-reporter": "^2.0.0",
     "ts-node": "~10.9.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.3"
+    "typescript-eslint": "^8.46.3",
+    "puppeteer": "^21.7.3"
   },
   "snyk": true
 }
