@@ -33,8 +33,11 @@ export class PersonListPageComponent implements OnInit, OnChanges {
     });
     this.route.data.subscribe(
       (data: {dataset: string, persons: ApiPerson[]}) => {
-        this.persons = data.persons;
-        this.persons.sort(ApiComparators.comparePersons);
+        // Guard against undefined resolver data
+        this.persons = data && data.persons ? data.persons : [];
+        if (this.persons && this.persons.length > 0) {
+          this.persons.sort(ApiComparators.comparePersons);
+        }
       }
     );
   }
@@ -48,7 +51,7 @@ export class PersonListPageComponent implements OnInit, OnChanges {
 
     this.personService.getAll(this.dataset).subscribe(
       (persons: Array<ApiPerson>) => {
-        this.persons = persons.sort(ApiComparators.comparePersons);
+        this.persons = persons && persons.sort ? persons.sort(ApiComparators.comparePersons) : [];
       }
     );
   }

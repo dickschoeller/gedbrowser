@@ -27,7 +27,8 @@ export class PersonListComponent extends PersonCreator implements AfterViewInit,
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns = ['indexName', 'birthdate', 'deathdate', 'string', 'delete'];
-  datasource: MatTableDataSource<ApiPerson>;
+  // Initialize datasource early so constructor can safely configure it
+  datasource: MatTableDataSource<ApiPerson> = new MatTableDataSource<ApiPerson>([]);
 
   constructor(
     private router: Router,
@@ -35,12 +36,13 @@ export class PersonListComponent extends PersonCreator implements AfterViewInit,
     public dialog: MatDialog
   ) {
     super(personService);
+    // Make accessor null-safe in case lifespan or indexName are missing
     this.datasource.sortingDataAccessor = (item, property) => {
       switch (property) {
-        case 'birthdate': return this.dateCleanup(item.lifespan.birthDate);
-        case 'deathdate': return this.dateCleanup(item.lifespan.deathDate);
-        case 'indexName': return item.indexName.replace('?', 'AAAAAAAAAAAAAAAAAAA').toLocaleUpperCase();
-        default: return item[property];
+        case 'birthdate': return this.dateCleanup(item && item.lifespan ? item.lifespan.birthDate : '');
+        case 'deathdate': return this.dateCleanup(item && item.lifespan ? item.lifespan.deathDate : '');
+        case 'indexName': return (item && item.indexName) ? item.indexName.replace('?', 'AAAAAAAAAAAAAAAAAAA').toLocaleUpperCase() : '';
+        default: return (item && item[property]) ? item[property] : '';
       }
     };
   }
@@ -72,6 +74,7 @@ export class PersonListComponent extends PersonCreator implements AfterViewInit,
   }
 
   ngOnInit() { 
+    // Ensure datasource contains the persons provided by the resolver
     this.datasource = new MatTableDataSource<ApiPerson>(this.persons);
     ListPageHelper.init(this, this.persons);
   }

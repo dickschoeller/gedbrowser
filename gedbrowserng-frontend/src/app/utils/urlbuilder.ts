@@ -11,6 +11,7 @@ export class UrlBuilder {
   }
 
   baseUrl(): string {
+    // Backend APIs are served under /gedbrowserng/v1
     if (this.db === '') {
       return '/gedbrowserng/v1/dbs';
     } else if (this.db === undefined) {
