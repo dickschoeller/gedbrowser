@@ -101,6 +101,18 @@
               <failOnError>true</failOnError>
             </configuration>
           </execution>
+          <execution>
+            <id>yarn headless-e2e</id>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+            <phase>integration-test</phase>
+            <configuration>
+              <skip>${skip.angular.tests}</skip>
+              <arguments>headless-test</arguments>
+              <failOnError>true</failOnError>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
       <plugin>

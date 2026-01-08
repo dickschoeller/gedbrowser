@@ -340,9 +340,9 @@
     lmdb "3.4.3"
 
 "@angular/cdk@^21.0.0":
-  version "21.0.5"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-21.0.5.tgz#b4eaa09c2804d2614cccbab9f816c469245839b1"
-  integrity sha512-yO/IRYEZ5wJkpwg3GT3b6RST4pqNFTAhuyPdEdLcE81cs283K3aKOsCYh2xUR3bR4WxBh2kBPSJ31AFZyJXbSA==
+  version "21.0.6"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-21.0.6.tgz#62dde1f086a651343df02d3f2981d9327a16a339"
+  integrity sha512-5Gw8mXtKXvcvDMWEciPLRYB6Ja5vsikLAidZsdCEIF6Bc51GmoqT5Tk/Ke+ciCd5Hq9Aco/IcHxT1RC3470lZg==
   dependencies:
     parse5 "^8.0.0"
     tslib "^2.3.0"
@@ -408,9 +408,9 @@
     tslib "^2.3.0"
 
 "@angular/forms@^21.0.0":
-  version "21.0.7"
-  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-21.0.7.tgz#166e8c53f859ebc602d13b5483539f19ab1a8028"
-  integrity sha512-HUfUaO6+cxam9wug3Upc83ueBIDSgJwxzYIuPCP4AjL5DhT6Fbqv/Zq+nLbLF7rklbKdqzYsMjse97pxmxJGLQ==
+  version "21.0.8"
+  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-21.0.8.tgz#f4f35c8102c3ac6c2b61758223cf037a1e8e7aa1"
+  integrity sha512-H03A50elawXO53xkz0Aytar5kYT14GLeaj6dLKc1kcR5NqvX9Y/R7z3bY52tvypAdIR8CmPT7ad07TlT4O9lkg==
   dependencies:
     "@standard-schema/spec" "^1.0.0"
     tslib "^2.3.0"
@@ -421,30 +421,30 @@
   integrity sha512-8ectqaaAn1h8eg+FktYv0sKwNB4g9+ULmozJ1fMdAUNLrzFw2dKRn2xqEv7KpYhaShOvqwPvHr0un3ez1IZgwA==
 
 "@angular/material@^21.0.0":
-  version "21.0.5"
-  resolved "https://registry.yarnpkg.com/@angular/material/-/material-21.0.5.tgz#9bb6754cc8a56e6ad009282a42701b64143ef0a6"
-  integrity sha512-LcDotwwTl2GFtFK1BqcKjj0eRAkOjTSj1C6ux0rOlpU2hJaECxue/ZqEyB/KMHngFAqMJpecxF4zGy/ISCp2xA==
+  version "21.0.6"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-21.0.6.tgz#497b1c1dc398c56e23a8a35db58f1c211a8110df"
+  integrity sha512-BSbqFkVIjpXS+UGD7R1jDnuKArMCtLSKHL/1f/9mvHM4AntRFC88MQJMjS0k+pHCofN+MBMEpzBVrDOOqL+46A==
   dependencies:
     tslib "^2.3.0"
 
 "@angular/platform-browser-dynamic@^21.0.6":
-  version "21.0.7"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-21.0.7.tgz#f2415cf271c1a289f21db07110ee9c41ac6b2140"
-  integrity sha512-PnARi0eleIEZ/sqU286zDRLwiNI9hz16M9NRzC1kBZ+/LAj8iNWz1ZERyb4gGDOBDM/9NjdL7PU7UJvqgvvlzA==
+  version "21.0.8"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-21.0.8.tgz#c0d2a3d88b50a802fd503d0620dbdef0d5371864"
+  integrity sha512-i1pW2tSl9zG8hkqPYPifP7WGNDUuqIn8YVCLizNahINin5OIcb/KfuoYBC2zfDlaJaTY9no6PHbsbTD0cP5hrg==
   dependencies:
     tslib "^2.3.0"
 
 "@angular/platform-browser@^21.0.6":
-  version "21.0.7"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-21.0.7.tgz#55bf32d55941422e85e2bf8731023cc3684848b1"
-  integrity sha512-mhsN2hn5qG0Oelqpko3uLmYdqadruzG2rY3CJ7duRdOrzs5g5F8QhzphoI/ljgLyxrrgZT6Nykyyf6RNhowf2A==
+  version "21.0.8"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-21.0.8.tgz#2affdb4b1ee9f81cb8d285a82036e4185595c834"
+  integrity sha512-5rPyrP6n6ClO0ZEUXndS2/Xb7nZrbjjYWOxgfCb+ZTCiU7eyN6zhSmicKk2dLQxE1M15wbTa87dN6/Ytuq2uvg==
   dependencies:
     tslib "^2.3.0"
 
 "@angular/router@^21.0.6":
-  version "21.0.7"
-  resolved "https://registry.yarnpkg.com/@angular/router/-/router-21.0.7.tgz#1ce26292ed24ee9ea7fce4b23189c07f5e36a2ca"
-  integrity sha512-MBmryTBCkyc4EjfI0NWfNNTS6Dcx/yQ77hOdDrqLMdbtOtbbD9BnUXd1qRcs73s0D5Stjk1IH49D66JMKn9Xew==
+  version "21.0.8"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-21.0.8.tgz#f39ea31a77fd0dae65521b18d5e76c4bc1769881"
+  integrity sha512-LPR65wyWBSyR46fGeQtD92+TM635o0lh+N5k9qPZdMacogwViTrtBHWPfKYBtBUXLWEWXXKJfSbXvhh3w3uLxw==
   dependencies:
     tslib "^2.3.0"
 
@@ -5056,7 +5056,7 @@ express-rate-limit@^7.5.0:
   resolved "https://registry.yarnpkg.com/express-rate-limit/-/express-rate-limit-7.5.1.tgz#8c3a42f69209a3a1c969890070ece9e20a879dec"
   integrity sha512-7iN8iPMDzOMHPUYllBEsQdWVB6fPDMPqwjBaFrgr4Jgr/+okjvzAy+UHlYYL/Vs0OsOrMkwS6PJDkFlJwoxUnw==
 
-express@^4.21.2:
+express@^4.18.2, express@^4.21.2:
   version "4.22.1"
   resolved "https://registry.yarnpkg.com/express/-/express-4.22.1.tgz#1de23a09745a4fffdb39247b344bb5eaff382069"
   integrity sha512-F2X8g9P1X7uCPZMA3MVf9wcTqlyNp7IhH5qPCI0izhaOIYXaW9L535tGA3qmjRzpH+bZczqq7hVKxTR4NWnu+g==
