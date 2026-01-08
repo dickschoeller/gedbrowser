@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.analytics;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;
 import org.schoellerfamily.gedbrowser.analytics.visitor.FamilyAnalysisVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -16,8 +17,8 @@ import lombok.NoArgsConstructor;
 
 /**
  * Base class for estimators. Primarily contains useful methods to avoid
- * Demeter. Note we have stopped checking Demeter in PMD, but it is still
- * a good rule.
+ * Demeter. Note we have stopped checking Demeter in PMD, but it is still a good
+ * rule.
  *
  * @author Dick Schoeller
  */
@@ -104,25 +105,22 @@ public abstract class Estimator {
     /**
      * Determine if one date is before another.
      *
-     * @param date primary date
+     * @param date        primary date
      * @param compareDate date to compare to
      * @return true if date is before compareDate
      */
-    protected final boolean isBefore(final LocalDate date,
-            final LocalDate compareDate) {
+    protected final boolean isBefore(final LocalDate date, final LocalDate compareDate) {
         return date.isBefore(compareDate);
     }
 
     /**
-     * Add years to the date and then adjust to the beginning of the resultant
-     * year.
+     * Add years to the date and then adjust to the beginning of the resultant year.
      *
-     * @param date input date
+     * @param date  input date
      * @param years years to add
      * @return new date
      */
-    protected final LocalDate plusYearsAdjustToBegin(final LocalDate date,
-            final int years) {
+    protected final LocalDate plusYearsAdjustToBegin(final LocalDate date, final int years) {
         final LocalDate adjustedYears = plusYears(date, years);
         final LocalDate firstMonth = firstMonth(adjustedYears);
         return firstDayOfMonth(firstMonth);
@@ -132,12 +130,11 @@ public abstract class Estimator {
      * Subtract years from the date and then adjust to the beginning of the
      * resultant year.
      *
-     * @param date input date
+     * @param date  input date
      * @param years years to add
      * @return new date
      */
-    protected final LocalDate minusYearsAdjustToBegin(final LocalDate date,
-            final int years) {
+    protected final LocalDate minusYearsAdjustToBegin(final LocalDate date, final int years) {
         final LocalDate adjustedYears = minusYears(date, years);
         final LocalDate firstMonth = firstMonth(adjustedYears);
         return firstDayOfMonth(firstMonth);
@@ -166,7 +163,7 @@ public abstract class Estimator {
     /**
      * Increment the date by a number of years.
      *
-     * @param date the input date
+     * @param date  the input date
      * @param years the number of years
      * @return new date
      */
@@ -177,25 +174,23 @@ public abstract class Estimator {
     /**
      * Decrement the date by a number of years.
      *
-     * @param date the input date
+     * @param date  the input date
      * @param years the number of years
      * @return new date
      */
-    protected final LocalDate minusYears(final LocalDate date,
-            final int years) {
+    protected final LocalDate minusYears(final LocalDate date, final int years) {
         return date.minusYears(years);
     }
 
-
     /**
-     * Create a LocalDate from the given date string. Returns null
-     * for an empty or null date string.
+     * Create a LocalDate from the given date string. Returns null for an empty or
+     * null date string.
      *
      * @param dateString the date string
      * @return the new LocalDate
      */
     protected final LocalDate createLocalDate(final String dateString) {
-        if (dateString == null || dateString.isEmpty()) {
+        if (StringUtils.isEmpty(dateString)) {
             return null;
         }
         final DateParser parser = new DateParser(dateString);
@@ -213,15 +208,14 @@ public abstract class Estimator {
     }
 
     /**
-     * Process the marriage date for a family, returning the earliest
-     * marriage date found.
+     * Process the marriage date for a family, returning the earliest marriage date
+     * found.
      *
-     * @param date the current best date
+     * @param date   the current best date
      * @param family the family being processed
      * @return the date we got out of this family
      */
-    protected final LocalDate processMarriageDate(final LocalDate date,
-            final Family family) {
+    protected final LocalDate processMarriageDate(final LocalDate date, final Family family) {
         LocalDate returnDate = date;
         final FamilyAnalysisVisitor visitor = new FamilyAnalysisVisitor();
         family.accept(visitor);

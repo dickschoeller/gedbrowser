@@ -7,6 +7,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CdkTableModule } from '@angular/cdk/table';
 
 import { AppComponent } from './app.component';
+import { WelcomeComponent } from './welcome.component';
+
+const rootRouting: ModuleWithProviders<RouterModule> = RouterModule.forRoot([
+  { path: '', component: WelcomeComponent },
+], { useHash: true });
+
 import {
     LinkDialogComponent,
     LinkPersonDialogComponent,
@@ -51,8 +57,6 @@ import {
 
 import { LoginGuard, GuestGuard, AdminGuard } from './guards';
 
-const rootRouting: ModuleWithProviders<RouterModule> = RouterModule.forRoot([], { useHash: true });
-
 export function initUserFactory(userService: UserService) {
     return () => userService.initUser();
 }
@@ -60,6 +64,9 @@ export function initUserFactory(userService: UserService) {
 @NgModule({
     imports: [
         rootRouting,
+
+        // standalone welcome component
+        WelcomeComponent,
 
         BrowserModule,
         BrowserAnimationsModule,

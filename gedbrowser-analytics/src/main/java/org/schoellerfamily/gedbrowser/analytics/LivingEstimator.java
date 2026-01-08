@@ -56,17 +56,16 @@ public final class LivingEstimator {
         if (hasDeathAttribute()) {
             // Death attribute found, we're out of here.
             return false;
-        } else {
-            final BirthDateEstimator bde = new BirthDateEstimator(person);
-            final LocalDate date = bde.estimateBirthDate();
-            if (date == null) {
-                // No death date and no birth date estimate, assume living.
-                return true;
-            }
-            final LocalDate today = provider.nowDate();
-            final Period p = new Period(date, today);
-            return p.getYears() < VERY_OLD_AGE;
         }
+        final BirthDateEstimator bde = new BirthDateEstimator(person);
+        final LocalDate date = bde.estimateBirthDate();
+        if (date == null) {
+            // No death date and no birth date estimate, assume living.
+            return true;
+        }
+        final LocalDate today = provider.nowDate();
+        final Period p = new Period(date, today);
+        return p.getYears() < VERY_OLD_AGE;
     }
 
     /**

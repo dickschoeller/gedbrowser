@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
@@ -56,7 +55,6 @@ import { AccountMenuComponent } from './account-menu/account-menu.component';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
-    BrowserModule,
 
     DragDropModule,
 
