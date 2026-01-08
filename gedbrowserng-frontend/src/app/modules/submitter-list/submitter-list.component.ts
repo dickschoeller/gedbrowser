@@ -28,7 +28,8 @@ export class SubmitterListComponent extends SubmitterCreator implements AfterVie
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns = ['name', 'string', 'delete'];
-  datasource: MatTableDataSource<ApiSubmitter>;
+  // Initialize datasource early so lifecycle hooks can safely configure it
+  datasource: MatTableDataSource<ApiSubmitter> = new MatTableDataSource<ApiSubmitter>([]);
 
   constructor(
     private router: Router,

@@ -28,7 +28,8 @@ export class NoteListComponent extends NoteCreator implements AfterViewInit, OnC
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns = ['tail', 'string', 'delete'];
-  datasource: MatTableDataSource<ApiNote>;
+  // Initialize datasource early so lifecycle hooks can safely configure it
+  datasource: MatTableDataSource<ApiNote> = new MatTableDataSource<ApiNote>([]);
 
   constructor(
     private router: Router,

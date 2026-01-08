@@ -5,12 +5,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { SourceCreator } from '../../bases';
+import { SourceCreator } from '../../bases/source-creator';
+import { NewSourceHelper, UrlBuilder, ListPage, ListPageHelper } from '../../utils';
 import { NewSourceDialogComponent } from '../../components';
-import { NewSourceDialogData } from '../../models';
 import { ApiSource } from '../../models';
 import { SourceService } from '../../services';
-import { NewSourceHelper, UrlBuilder, ListPage, ListPageHelper } from '../../utils';
 import { SourceListPageComponent } from './source-list-page.component';
 
 @Component({
@@ -22,21 +21,20 @@ import { SourceListPageComponent } from './source-list-page.component';
 export class SourceListComponent extends SourceCreator implements AfterViewInit, OnChanges, OnInit, ListPage<ApiSource> {
   @Input() parent: SourceListPageComponent;
   @Input() dataset: string;
-  @Input() sources: Array<ApiSource>;
+  @Input() sources: ApiSource[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns = ['title', 'string', 'delete'];
-  datasource: MatTableDataSource<ApiSource>;
+  // Initialize datasource early so lifecycle hooks can safely configure it
+  datasource: MatTableDataSource<ApiSource> = new MatTableDataSource<ApiSource>([]);
 
   constructor(
     private router: Router,
     public sourceService: SourceService,
     public dialog: MatDialog,
-  ) {
-    super(sourceService, dialog);
-  }
+  ) { super(sourceService, dialog); }
 
   ngAfterViewInit() {
     ListPageHelper.init(this, this.sources);
