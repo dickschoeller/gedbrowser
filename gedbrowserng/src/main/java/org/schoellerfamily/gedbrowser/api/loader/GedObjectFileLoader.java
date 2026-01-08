@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.loader;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
@@ -29,14 +30,17 @@ public final class GedObjectFileLoader extends GedDocumentFileLoader {
      * @param toDocConverter convert a GedObject to a GedDocumentMongo
      * @param rootDocumentRepository access root objects in the database
      * @param gedbrowserHome location of files for initialization
+     * @param repositoryManagerMongo the repository manager
      */
     public GedObjectFileLoader(final FinderStrategy finder,
             final GedLineToGedObjectTransformer g2g,
             final GedObjectToGedDocumentMongoConverter toDocConverter,
             final RootDocumentRepositoryMongo rootDocumentRepository,
             @Value("${gedbrowser.home:/var/lib/gedbrowser}")
-            final String gedbrowserHome) {
+            final String gedbrowserHome,
+            final RepositoryManagerMongo repositoryManagerMongo) {
         super(finder, g2g, toDocConverter, rootDocumentRepository, gedbrowserHome);
+        repositoryManagerMongo.getMap().put(Root.class, rootDocumentRepository);
     }
 
     /**
